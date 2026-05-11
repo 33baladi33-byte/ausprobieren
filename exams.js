@@ -12,8 +12,10 @@ const teile = [
   { id: 7, name: "Sprachbausteine Teil 1", container: "sprach1", skill: "sprach1" },
   { id: 8, name: "Sprachbausteine Teil 2", container: "sprach2", skill: "sprach2" },
   { id: 9, name: "Schreiben", container: "schreiben", skill: "schreiben" },
-  { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" },
-  { id: 11, name: "Tips", container: "tips", skill: "tips" }
+  { id: 10, name: "Mündlich Teil 1 📖", container: "mündlich_teil1", skill: "mündlich_teil1" },
+  { id: 11, name: "Mündlich Teil 2 🗣️", container: "mündlich_teil2", skill: "mündlich_teil2" },
+  { id: 12, name: "Mündlich Teil 3 🎯", container: "mündlich_teil3", skill: "mündlich_teil3" },
+  { id: 13, name: "Tips", container: "tips", skill: "tips" }
 ];
 
 // ========== دالة حفظ آخر نتيجة ==========
@@ -247,8 +249,8 @@ const schreibenExams = [
   { id: 35, title: "In Offenbach zu Hause", enabled: true, hasFile: true }
 ];
 
-// ========== قائمة امتحانات Mündlich ==========
-const mündlichExams = [
+// ========== قائمة امتحانات Mündlich Teil 2 (الامتحانات الفعلية) ==========
+const mündlichTeil2Exams = [
   { id: 1, title: "Antibiotika – Gibt es Alternativen?", enabled: true, hasFile: true },
   { id: 2, title: "Selbst gekocht", enabled: true, hasFile: true },
   { id: 3, title: "Arbeiten bis 75", enabled: true, hasFile: true },
@@ -291,6 +293,16 @@ const mündlichExams = [
   { id: 40, title: "Trinkgeld geben", enabled: true, hasFile: true },
   { id: 41, title: "Teilzeitarbeit für Männer", enabled: true, hasFile: true },
   { id: 42, title: "Nahrungsergänzungsmittel", enabled: true, hasFile: true }
+];
+
+// ========== قائمة Mündlich Teil 1 (صفحة معلومات) ==========
+const mündlichTeil1Exams = [
+  { id: 1, title: "📖 دليل Mündlich Teil 1 - التعارف والموضوع القصير", enabled: true, hasFile: false, isInfo: true, page: "mündlich_teil1_info.html" }
+];
+
+// ========== قائمة Mündlich Teil 3 (صفحة معلومات) ==========
+const mündlichTeil3Exams = [
+  { id: 1, title: "🎯 دليل Mündlich Teil 3 - Problemlösung", enabled: true, hasFile: false, isInfo: true, page: "mündlich_teil3_info.html" }
 ];
 
 // أسماء الملفات الحقيقية
@@ -447,7 +459,7 @@ const examsDatabase = {
     { id: 39, title: "Sehr geehrte Frau Melchior", enabled: true, hasFile: true },
     { id: 40, title: "Liebe Sandra", enabled: true, hasFile: true }
   ],
-   sprach2: [
+  sprach2: [
     { id: 1, title: "Das Fahrrad", enabled: true, hasFile: true },
     { id: 2, title: "Das Fahrrad (معدل)", enabled: true, hasFile: true },
     { id: 3, title: "Man(n) kocht selbst", enabled: true, hasFile: true },
@@ -523,7 +535,6 @@ const examsDatabase = {
     { id: 25, title: "Die Bundesländer", enabled: true, hasFile: true },
     { id: 26, title: "Bio-Siegels", enabled: true, hasFile: true },
     { id: 27, title: "Berufen (bonbon)", enabled: true, hasFile: true },
-    // Hören Teil 1 - مواضيع تركيا (28-45)
     { id: 28, title: "Die Zahl der Arbeitslosen (مواضيع تركيا)", enabled: true, hasFile: true },
     { id: 29, title: "BILD AM SONNTAG (مواضيع تركيا)", enabled: true, hasFile: true },
     { id: 30, title: "Studentenparty in Frankreich (مواضيع تركيا)", enabled: true, hasFile: true },
@@ -575,7 +586,6 @@ const examsDatabase = {
     { id: 29, title: "Meron Makeba", enabled: true, hasFile: true },
     { id: 30, title: "Frau Kedar Malta", enabled: true, hasFile: true },
     { id: 31, title: "Frau Keder aus Malta", enabled: true, hasFile: true },
-    // Hören Teil 2 - مواضيع تركيا (32-49)
     { id: 32, title: "Nadine Wagner (مواضيع تركيا)", enabled: true, hasFile: true },
     { id: 33, title: "Mirjam Pressier (مواضيع تركيا)", enabled: true, hasFile: true },
     { id: 34, title: "Mirjam Pressier - ليدعت (مواضيع تركيا)", enabled: true, hasFile: true },
@@ -623,7 +633,6 @@ const examsDatabase = {
     { id: 25, title: "Das Fest (ohne Frankfurt)", enabled: true, hasFile: true },
     { id: 26, title: "Das Fest (mit Frankfurt)", enabled: true, hasFile: true },
     { id: 27, title: "Radio Konzert", enabled: true, hasFile: true },
-    // Hören Teil 3 - مواضيع تركيا (28-47)
     { id: 28, title: "Wanderung (مواضيع تركيا)", enabled: true, hasFile: true },
     { id: 29, title: "Bayern Radio (مواضيع تركيا)", enabled: true, hasFile: true },
     { id: 30, title: "Die Gruppe Die Prinzen (مواضيع تركيا)", enabled: true, hasFile: true },
@@ -646,7 +655,9 @@ const examsDatabase = {
     { id: 47, title: "Beim Klassik-Radio (مواضيع تركيا)", enabled: true, hasFile: true }
   ],
   schreiben: schreibenExams,
-  mündlich: mündlichExams,
+  mündlich_teil1: mündlichTeil1Exams,
+  mündlich_teil2: mündlichTeil2Exams,
+  mündlich_teil3: mündlichTeil3Exams,
   tips: tipsExams
 };
 
@@ -731,7 +742,7 @@ async function renderExamListForSkill(skill, teilName) {
     
     displaySavedResult(skill, exam.id, titleSpan, div);
     
-    if (!isPremium && !isFirstExam) {
+    if (!isPremium && !isFirstExam && exam.hasFile !== false) {
       div.style.backgroundColor = "rgba(255,255,255,0.75)";
       div.style.border = "1px solid #e2e8f0";
       div.style.opacity = "1";
@@ -784,6 +795,11 @@ async function renderExamListForSkill(skill, teilName) {
           showLockedMessage(title + " (" + id + ")");
         };
       })(exam.title, exam.id);
+    } else if (exam.hasFile === false && exam.isInfo === true) {
+      div.style.cursor = "pointer";
+      div.onclick = function() {
+        window.location.href = exam.page;
+      };
     } else if (exam.hasFile) {
       div.onclick = (function(id, title, skill) {
         return function() { openExam(id, title, skill); };
@@ -852,7 +868,7 @@ function getActualFileName(examId) {
 }
 
 function shouldHideHelpButton(skill) {
-  const hiddenSkills = ["schreiben", "tips"];
+  const hiddenSkills = ["schreiben", "tips", "mündlich_teil1", "mündlich_teil3"];
   return hiddenSkills.includes(skill);
 }
 
@@ -986,7 +1002,13 @@ function renderTipsExam(examData) {
 }
 
 function renderMündlichExam(examData) {
-  const container = document.getElementById("mündlich");
+  const container = document.getElementById("mündlich_teil2");
+  if (!container) {
+    const fallback = document.getElementById("mündlich");
+    if (fallback) {
+      container = fallback;
+    }
+  }
   if (!container) return;
   container.innerHTML = "";
   
@@ -1259,5 +1281,7 @@ console.log("🎧 Hören Teil 1:", examsDatabase.hoeren1.length, "امتحان")
 console.log("🎧 Hören Teil 2:", examsDatabase.hoeren2.length, "امتحان");
 console.log("🎧 Hören Teil 3:", examsDatabase.hoeren3.length, "امتحان");
 console.log("✏️ Schreiben:", examsDatabase.schreiben.length, "امتحان");
-console.log("🗣️ Mündlich:", examsDatabase.mündlich.length, "امتحان");
+console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich_teil1.length, "قسم");
+console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich_teil2.length, "امتحان");
+console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich_teil3.length, "قسم");
 console.log("💡 Tips:", examsDatabase.tips.length, "قسم");
