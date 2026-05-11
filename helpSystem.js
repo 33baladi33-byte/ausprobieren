@@ -1600,8 +1600,8 @@ HELP_DATA["hoeren2_exam33_q10"] = {
     meaning: "أمها بالحضانة لم تكن تريدها أن تكتب مذكرات",
     keywords: ["Pflegemutter = أم بالحضانة", "Tagebuch = مذكرات", "wollte nicht = لم تكن تريد"],
     simplified: "منعتها أمها بالتبني من كتابة اليوميات",
-    imagine: "📓👩‍👧 دفتر مذكرات تحاول الأم ابتلاعه قبل أن تكتب فيه";
-
+    imagine: "🎯🪑 سهم يصيب كرسي مكتب ويجلس عليه فوراً"
+};
 // ========== Exam 34: Mirjam Pressier - ليدعت (صحيح: 1,2,3,5,7,10) ==========
 HELP_DATA["hoeren2_exam34_q1"] = {
     text: "Mirjam Pressler freut sich, in Kürze die Doktorwürde der Universität Groningen zu erhalten.",
