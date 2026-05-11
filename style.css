@@ -1796,3 +1796,30 @@ body:has(#exam.active) .top-bar {
         min-width: 140px;
     }
 }
+/* ========================================
+   ترتيب الأزرار في الجهة اليسرى
+   ======================================== */
+
+.left-side {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    direction: rtl;
+}
+
+/* ترتيب الأزرار: إعدادات ثم بروفايل ثم اشتراك ثم دخول */
+.left-side .settings-icon-btn {
+    order: 1;
+}
+
+.left-side .profile-icon {
+    order: 2;
+}
+
+.left-side .subscribe-text-btn {
+    order: 3;
+}
+
+.left-side .btn-login-top {
+    order: 4;
+}
