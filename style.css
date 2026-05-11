@@ -338,7 +338,7 @@ body {
 }
 
 /* ========================================
-   Top Bar
+   TOP BAR - النسخة النهائية
    ======================================== */
 
 .top-bar {
@@ -348,23 +348,27 @@ body {
     padding: 12px 30px;
     background: #0a0e1a;
     border-bottom: 1px solid rgba(56, 189, 248, 0.15);
-    direction: rtl;
     position: sticky;
     top: 0;
     z-index: 100;
     transition: all 0.3s ease;
 }
 
-/* عندما تكون صفحة القائمة أو الامتحانات نشطة */
-body:has(#list.active) .top-bar,
-body:has(#exam.active) .top-bar {
-    background: rgba(45, 58, 82, 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
-    transition: all 0.3s ease;
+/* الجهة اليسرى: بروفايل + اشتراك + دخول */
+.left-side {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
+/* الجهة اليمنى: إشعارات + شعار */
+.right-side {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* الشعار */
 .logo-icon {
     width: 45px;
     height: 45px;
@@ -391,35 +395,219 @@ body:has(#exam.active) .top-bar {
     box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
 }
 
-.right-buttons {
-    display: flex;
-    gap: 12px;
-    align-items: center;
+/* ===== زر الإشعارات ===== */
+.notification-container {
+    position: relative;
 }
 
-/* ✅ زر الإعدادات الجديد */
-.settings-icon-btn {
+.notification-bell {
     background: rgba(56, 189, 248, 0.1);
     border: 1px solid rgba(56, 189, 248, 0.3);
     font-size: 18px;
-    padding: 6px 12px;
+    padding: 8px 12px;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
     color: #38bdf8;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    position: relative;
 }
 
-.settings-icon-btn:hover {
+.notification-bell:hover {
     background: rgba(56, 189, 248, 0.2);
     transform: scale(1.05);
     border-color: #38bdf8;
 }
 
+.notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: #dc3545;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* القائمة المنسدلة للإشعارات */
+.notification-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 340px;
+    max-height: 400px;
+    background: #0f172a;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    display: none;
+    overflow: hidden;
+    flex-direction: column;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.notification-dropdown.active {
+    display: flex;
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    background: #0a0e1a;
+}
+
+.notification-header span {
+    color: #38bdf8;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.mark-all-read {
+    background: rgba(56, 189, 248, 0.15);
+    border: none;
+    color: #38bdf8;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+}
+
+.mark-all-read:hover {
+    background: #38bdf8;
+    color: #0a0e1a;
+}
+
+.notification-list {
+    flex: 1;
+    overflow-y: auto;
+    max-height: 350px;
+}
+
+.notification-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.notification-list::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+    background: #38bdf8;
+    border-radius: 5px;
+}
+
+.notification-item {
+    display: flex;
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s ease;
+    cursor: pointer;
+}
+
+.notification-item:hover {
+    background: rgba(56, 189, 248, 0.08);
+}
+
+.notification-item.unread {
+    background: rgba(56, 189, 248, 0.05);
+    border-right: 3px solid #38bdf8;
+}
+
+.notification-icon {
+    font-size: 18px;
+    margin-left: 12px;
+    min-width: 30px;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: bold;
+    font-size: 14px;
+    color: #f1f5f9;
+    margin-bottom: 4px;
+}
+
+.notification-message {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.notification-time {
+    font-size: 10px;
+    color: #64748b;
+}
+
+.notification-empty {
+    text-align: center;
+    padding: 30px 20px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.notification-show-all,
+.notification-show-less {
+    padding: 10px 15px;
+    text-align: center;
+    border-top: 1px solid rgba(56, 189, 248, 0.2);
+    background: #0a0e1a;
+}
+
+.show-all-btn,
+.show-less-btn {
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
+    font-size: 12px;
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.show-all-btn:hover,
+.show-less-btn:hover {
+    background: #38bdf8;
+    color: #0a0e1a;
+}
+
+/* ===== أزرار الاشتراك والدخول ===== */
+.subscribe-text-btn {
+    padding: 8px 20px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);
+}
+
+.subscribe-text-btn:hover {
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: scale(1.02);
+}
+
 .btn-login-top {
-    padding: 6px 16px;
+    padding: 8px 18px;
     border: 1px solid #6c757d;
     background: rgba(108, 117, 125, 0.1);
     border-radius: 25px;
@@ -433,9 +621,9 @@ body:has(#exam.active) .top-bar {
 .btn-login-top:hover {
     background: rgba(108, 117, 125, 0.25);
     color: #f8f9fa;
-    border-color: #adb5bd;
 }
 
+/* ملف التعريف */
 .profile-icon {
     width: 40px;
     height: 40px;
@@ -455,7 +643,38 @@ body:has(#exam.active) .top-bar {
     transform: scale(1.05);
 }
 
-/* ✅ نافذة إعدادات الحجم */
+/* إخفاء الأزرار في صفحات القائمة والامتحانات */
+body:has(#list.active) .btn-login-top,
+body:has(#list.active) .subscribe-text-btn,
+body:has(#exam.active) .btn-login-top,
+body:has(#exam.active) .subscribe-text-btn {
+    display: none !important;
+}
+
+body:has(#list.active) .profile-icon,
+body:has(#exam.active) .profile-icon {
+    display: flex !important;
+}
+
+/* زر الإعدادات مخفي حالياً */
+.settings-icon-btn {
+    display: none;
+}
+
+/* عندما تكون صفحة القائمة أو الامتحانات نشطة */
+body:has(#list.active) .top-bar,
+body:has(#exam.active) .top-bar {
+    background: rgba(45, 58, 82, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+    transition: all 0.3s ease;
+}
+
+/* ========================================
+   نافذة إعدادات الحجم
+   ======================================== */
+
 .settings-modal {
     position: fixed;
     top: 0;
@@ -1308,50 +1527,45 @@ body:has(#exam.active) .top-bar {
 }
 
 /* ========================================
-   زر الاشتراك
+   تنسيق مربع النتيجة الجديد (بطاقة حمراء في وسط الشاشة)
    ======================================== */
 
-.subscribe-text-btn {
-    padding: 6px 18px;
-    background: linear-gradient(135deg, #10b981, #059669);
-    border: none;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #FFFFFF;
-    box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);
+.result-box {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff6b6b;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 40px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    width: auto;
+    min-width: 180px;
+    animation: fadeInUp 0.3s ease;
+    margin: 0 !important;
 }
 
-.subscribe-text-btn:hover {
-    background: linear-gradient(135deg, #059669, #047857);
-    transform: scale(1.02);
-    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 /* ========================================
-   إخفاء الأزرار في صفحة القائمة والامتحانات
-   ======================================== */
-
-body:has(#list.active) .btn-login-top,
-body:has(#list.active) .subscribe-text-btn,
-body:has(#exam.active) .btn-login-top,
-body:has(#exam.active) .subscribe-text-btn {
-    display: none !important;
-}
-
-body:has(#list.active) .profile-icon,
-body:has(#exam.active) .profile-icon {
-    display: flex !important;
-}
-
-/* ========================================
-   إصلاح مشكلة الهاتف - Reviews Widget
+   إصلاح مشكلة الهاتف
    ======================================== */
 
 @media (max-width: 768px) {
-    /* إصلاح الـ Hero Section على الهاتف */
     body {
         overflow-x: hidden;
     }
@@ -1409,7 +1623,44 @@ body:has(#exam.active) .profile-icon {
         text-align: center;
     }
     
-    /* إصلاح الـ Reviews Widget على الهاتف - منع التمدد والoverflow */
+    .top-bar {
+        padding: 8px 15px;
+    }
+    
+    .left-side {
+        gap: 8px;
+    }
+    
+    .right-side {
+        gap: 8px;
+    }
+    
+    .logo-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .notification-bell {
+        font-size: 16px;
+        padding: 5px 10px;
+    }
+    
+    .subscribe-text-btn, .btn-login-top {
+        padding: 5px 12px;
+        font-size: 11px;
+    }
+    
+    .profile-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+    
+    .notification-dropdown {
+        width: 300px;
+        right: -50px;
+    }
+    
     .reviews-widget {
         margin-top: 20px;
         width: 100%;
@@ -1468,7 +1719,6 @@ body:has(#exam.active) .profile-icon {
         flex-shrink: 0;
     }
     
-    /* إصلاح الـ Features Section على الهاتف */
     .features-section {
         padding: 40px 5%;
     }
@@ -1507,11 +1757,6 @@ body:has(#exam.active) .profile-icon {
         min-height: 350px;
         margin: 0 auto;
     }
-    
-    /* إخفاء زر الإعدادات في صفحات الامتحانات (اختياري) */
-    body:has(#exam.active) .settings-icon-btn {
-        display: none;
-    }
 }
 
 @media (max-width: 480px) {
@@ -1543,378 +1788,7 @@ body:has(#exam.active) .profile-icon {
     .certificate-img {
         max-width: 240px;
     }
-}
-
-/* ========================================
-   تنسيق مربع النتيجة الجديد (بطاقة حمراء في وسط الشاشة)
-   ======================================== */
-
-.result-box {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #ff6b6b;
-    color: white;
-    padding: 12px 25px;
-    border-radius: 40px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 16px;
-    z-index: 1000;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: auto;
-    min-width: 180px;
-    animation: fadeInUp 0.3s ease;
-    margin: 0 !important;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
-}
-
-/* ========================================
-   نظام الإشعارات - Notification System
-   ======================================== */
-
-/* حاوية زر الإشعارات */
-.notification-container {
-    position: relative;
-    margin-left: 15px;
-}
-
-/* زر الجرس */
-.notification-bell {
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    font-size: 20px;
-    padding: 6px 12px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #38bdf8;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    position: relative;
-}
-
-.notification-bell:hover {
-    background: rgba(56, 189, 248, 0.2);
-    transform: scale(1.05);
-    border-color: #38bdf8;
-}
-
-/* البادج الحمراء (عدد الإشعارات) */
-.notification-badge {
-    position: absolute;
-    top: -5px;
-    right: -8px;
-    background: #dc3545;
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    min-width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-/* القائمة المنسدلة */
-.notification-dropdown {
-    position: absolute;
-    top: 45px;
-    right: 0;
-    width: 340px;
-    max-height: 400px;
-    background: #0f172a;
-    border-radius: 16px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    z-index: 1001;
-    display: none;
-    overflow: hidden;
-    flex-direction: column;
-    border: 1px solid rgba(56, 189, 248, 0.2);
-    animation: notificationSlideDown 0.2s ease;
-}
-
-.notification-dropdown.active {
-    display: flex;
-}
-
-@keyframes notificationSlideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* رأس القائمة */
-.notification-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 15px;
-    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-    background: #0a0e1a;
-}
-
-.notification-header span {
-    color: #38bdf8;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-/* زر تحديد الكل كمقروء */
-.mark-all-read {
-    background: rgba(56, 189, 248, 0.15);
-    border: none;
-    color: #38bdf8;
-    font-size: 11px;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 20px;
-    transition: all 0.2s ease;
-}
-
-.mark-all-read:hover {
-    background: #38bdf8;
-    color: #0a0e1a;
-}
-
-/* قائمة الإشعارات */
-.notification-list {
-    flex: 1;
-    overflow-y: auto;
-    max-height: 350px;
-}
-
-.notification-list::-webkit-scrollbar {
-    width: 5px;
-}
-
-.notification-list::-webkit-scrollbar-track {
-    background: #1e293b;
-}
-
-.notification-list::-webkit-scrollbar-thumb {
-    background: #38bdf8;
-    border-radius: 5px;
-}
-
-/* عنصر الإشعار الواحد */
-.notification-item {
-    display: flex;
-    padding: 12px 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: background 0.2s ease;
-    cursor: pointer;
-}
-
-.notification-item:hover {
-    background: rgba(56, 189, 248, 0.08);
-}
-
-/* الإشعار غير المقروء */
-.notification-item.unread {
-    background: rgba(56, 189, 248, 0.05);
-    border-right: 3px solid #38bdf8;
-}
-
-/* أيقونة الإشعار */
-.notification-icon {
-    font-size: 18px;
-    margin-left: 12px;
-    min-width: 30px;
-}
-
-/* محتوى الإشعار */
-.notification-content {
-    flex: 1;
-}
-
-.notification-title {
-    font-weight: bold;
-    font-size: 14px;
-    color: #f1f5f9;
-    margin-bottom: 4px;
-}
-
-.notification-message {
-    font-size: 12px;
-    color: #94a3b8;
-    margin-bottom: 4px;
-    line-height: 1.4;
-}
-
-.notification-time {
-    font-size: 10px;
-    color: #64748b;
-}
-
-/* حالة عدم وجود إشعارات */
-.notification-empty {
-    text-align: center;
-    padding: 30px 20px;
-    color: #64748b;
-    font-size: 13px;
-}
-
-/* للهواتف */
-@media (max-width: 768px) {
-    .notification-container {
-        margin-left: 8px;
-    }
     
-    .notification-bell {
-        font-size: 18px;
-        padding: 4px 10px;
-    }
-    
-    .notification-dropdown {
-        width: 300px;
-        right: -50px;
-    }
-    
-    .notification-header span {
-        font-size: 12px;
-    }
-    
-    .notification-title {
-        font-size: 12px;
-    }
-    
-    .notification-message {
-        font-size: 11px;
-    }
-    
-    .notification-time {
-        font-size: 9px;
-    }
-}
-
-/* لضمان عدم تداخل الإشعارات مع الوضع المظلم في صفحات الامتحانات */
-body:has(#exam.active) .notification-dropdown,
-body:has(#list.active) .notification-dropdown {
-    background: #0f172a;
-    border-color: rgba(56, 189, 248, 0.2);
-}
-
-body:has(#exam.active) .notification-header,
-body:has(#list.active) .notification-header {
-    background: #0a0e1a;
-}
-/* ========================================
-   أزرار عرض الكل / عرض أقل
-   ======================================== */
-
-.notification-show-all,
-.notification-show-less {
-    padding: 10px 15px;
-    text-align: center;
-    border-top: 1px solid rgba(56, 189, 248, 0.2);
-    background: #0a0e1a;
-}
-
-.show-all-btn,
-.show-less-btn {
-    background: rgba(56, 189, 248, 0.15);
-    border: 1px solid #38bdf8;
-    color: #38bdf8;
-    font-size: 12px;
-    padding: 8px 15px;
-    border-radius: 25px;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.2s ease;
-}
-
-.show-all-btn:hover,
-.show-less-btn:hover {
-    background: #38bdf8;
-    color: #0a0e1a;
-}
-/* ========================================
-   تنسيق زر الإشعارات - ضمان الظهور في الجهة اليمنى
-   ======================================== */
-
-.right-buttons {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    direction: ltr;
-}
-
-.notification-container {
-    position: relative;
-}
-
-.notification-bell {
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    font-size: 18px;
-    padding: 6px 12px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #38bdf8;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    position: relative;
-}
-
-.notification-bell:hover {
-    background: rgba(56, 189, 248, 0.2);
-    transform: scale(1.05);
-    border-color: #38bdf8;
-}
-
-.notification-badge {
-    position: absolute;
-    top: -5px;
-    right: -8px;
-    background: #dc3545;
-    color: white;
-    font-size: 10px;
-    font-weight: bold;
-    min-width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-/* زر الإعدادات */
-.settings-icon-btn {
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    font-size: 18px;
-    padding: 6px 12px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #38bdf8;
-}
-@media (max-width: 600px) {
     .result-box {
         bottom: 15px;
         padding: 8px 16px;
