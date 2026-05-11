@@ -656,9 +656,25 @@ body:has(#exam.active) .profile-icon {
     display: flex !important;
 }
 
-/* زر الإعدادات مخفي حالياً */
+/* زر الإعدادات */
 .settings-icon-btn {
-    display: none;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    font-size: 18px;
+    padding: 6px 12px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #38bdf8;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.settings-icon-btn:hover {
+    background: rgba(56, 189, 248, 0.2);
+    transform: scale(1.05);
+    border-color: #38bdf8;
 }
 
 /* عندما تكون صفحة القائمة أو الامتحانات نشطة */
@@ -1623,6 +1639,7 @@ body:has(#exam.active) .top-bar {
         text-align: center;
     }
     
+   @media (max-width: 768px) {
     .top-bar {
         padding: 8px 15px;
     }
@@ -1796,6 +1813,7 @@ body:has(#exam.active) .top-bar {
         min-width: 140px;
     }
 }
+
 /* ========================================
    ترتيب الأزرار في الجهة اليسرى
    ======================================== */
@@ -1804,22 +1822,22 @@ body:has(#exam.active) .top-bar {
     display: flex;
     align-items: center;
     gap: 12px;
-    direction: rtl;
+    direction: ltr;
 }
 
-/* ترتيب الأزرار: إعدادات ثم بروفايل ثم اشتراك ثم دخول */
-.left-side .settings-icon-btn {
+/* ترتيب الأزرار من اليسار إلى اليمين: بروفايل ثم اشتراك ثم دخول ثم إعدادات */
+.left-side .profile-icon {
     order: 1;
 }
 
-.left-side .profile-icon {
+.left-side .subscribe-text-btn {
     order: 2;
 }
 
-.left-side .subscribe-text-btn {
+.left-side .btn-login-top {
     order: 3;
 }
 
-.left-side .btn-login-top {
+.left-side .settings-icon-btn {
     order: 4;
 }
