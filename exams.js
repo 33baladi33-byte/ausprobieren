@@ -441,7 +441,7 @@ const examsDatabase = {
     { id: 39, title: "Sehr geehrte Frau Melchior", enabled: true, hasFile: true },
     { id: 40, title: "Liebe Sandra", enabled: true, hasFile: true }
   ],
-  sprach2: [
+   sprach2: [
     { id: 1, title: "Das Fahrrad", enabled: true, hasFile: true },
     { id: 2, title: "Das Fahrrad (معدل)", enabled: true, hasFile: true },
     { id: 3, title: "Man(n) kocht selbst", enabled: true, hasFile: true },
@@ -486,7 +486,7 @@ const examsDatabase = {
     { id: 42, title: "Städte vor dem Infarkt", enabled: true, hasFile: true },
     { id: 43, title: "Es ist erst 6 Uhr morgens", enabled: true, hasFile: true },
     { id: 44, title: "Die Katzen", enabled: true, hasFile: true },
-    { id: 45, title: "Teleshopping – nicht immer gut und günstig", enabled: true, hasFile: true }
+    { id: 45, title: "Teleshopping – nicht immer gut und günstig", enabled: true, hasFile: true },
     { id: 46, title: "Die Rückkehr des Nachtzugs", enabled: true, hasFile: true }
   ],
   hoeren1: [
