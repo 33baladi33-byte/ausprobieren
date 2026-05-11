@@ -15,32 +15,29 @@
         <img src="images/logo.webp" loading="lazy" alt="Zertiva" class="logo-img">
     </div>
     
-    <!-- 🔔 زر الإشعارات الجديد -->
-    <div class="notification-container">
-        <button id="notificationBell" class="notification-bell">
-            🔔
-            <span id="notificationBadge" class="notification-badge" style="display: none;">0</span>
-        </button>
-        <div id="notificationDropdown" class="notification-dropdown">
-            <div class="notification-header">
-                <span>📬 الإشعارات</span>
-                <button id="markAllReadBtn" class="mark-all-read">تحديد الكل كمقروء</button>
-            </div>
-            <div id="notificationsList" class="notification-list">
-                <div class="notification-empty">
-                    <span>📭 لا توجد إشعارات جديدة</span>
+    <div class="right-buttons">
+        <!-- 🔔 زر الإشعارات -->
+        <div class="notification-container">
+            <button id="notificationBell" class="notification-bell">
+                🔔
+                <span id="notificationBadge" class="notification-badge" style="display: none;">0</span>
+            </button>
+            <div id="notificationDropdown" class="notification-dropdown">
+                <div class="notification-header">
+                    <span>📬 الإشعارات</span>
+                    <button id="markAllReadBtn" class="mark-all-read">تحديد الكل كمقروء</button>
+                </div>
+                <div id="notificationsList" class="notification-list">
+                    <div class="notification-empty">
+                        <span>📭 لا توجد إشعارات جديدة</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="right-buttons">
-        ...
-    </div>
-</div>
-    <div class="right-buttons">
-        <!-- ✅ زر الإعدادات الجديد -->
+        
+        <!-- ✅ زر الإعدادات -->
         <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
+        
         <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
         <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
         <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
@@ -247,6 +244,7 @@
 <script src="engine.js"></script>
 <script src="exams.js"></script>
 <script src="auth.js"></script>
+<script src="notifications.js"></script>
 
 <script>
     // ✅ نظام تكبير وتصغير الموقع
@@ -282,7 +280,6 @@
             updateFontSize(currentScale);
         }
         
-        // استرجاع الإعدادات المحفوظة
         const savedScale = localStorage.getItem('siteFontScale');
         if (savedScale) {
             currentScale = parseInt(savedScale);
@@ -294,7 +291,6 @@
             }
         }
         
-        // إعدادات النافذة المنبثقة
         const settingsBtn = document.getElementById('settingsBtn');
         const settingsModal = document.getElementById('settingsModal');
         const closeSettingsModal = document.getElementById('closeSettingsModal');
@@ -403,7 +399,6 @@
 
     const widget = document.getElementById('reviewsWidget');
     if (widget) {
-        // ✅ إصلاح مشكلة الهاتف: منع التمدد التلقائي
         const isMobile = window.innerWidth <= 768;
         
         if (!isMobile) {
@@ -594,13 +589,11 @@
         if (e.key === 'ArrowLeft') prevImageModal();
     });
 
-    // تعديل: عند الضغط على زر "اكتشف الامتحانات" يظهر Hören Teil 1 مباشرة
     const startBtn = document.getElementById('startBtn');
     if(startBtn) {
         startBtn.addEventListener('click', function() {
             goList();
             setTimeout(() => {
-                // محاكاة الضغط على Hören Teil 1
                 const hoerenTeil1 = document.querySelector('.teile-row .item:first-child');
                 if(hoerenTeil1 && hoerenTeil1.click) {
                     hoerenTeil1.click();
@@ -610,32 +603,27 @@
     }
 </script>
 <script>
-    // ✅ حل مشكلة الـ Widget على الهاتف (منع overflow وتمدد)
     function fixMobileWidget() {
         const widget = document.getElementById('reviewsWidget');
         if (!widget) return;
         
         if (window.innerWidth <= 768) {
-            // منع التمدد التلقائي على الهاتف
             clearTimeout(window.widgetTimeout);
             widget.classList.remove('expanded', 'collapsed-keep');
             widget.classList.add('collapsed');
             
-            // إزالة الرسوم المتحركة على الهاتف
             const slider = document.getElementById('widgetSlider');
             if (slider) {
                 slider.style.animation = 'none';
                 slider.style.transform = 'none';
             }
             
-            // إضافة overflow-x مخفي للحاوية
             const sliderContainer = document.querySelector('.widget-slider-container');
             if (sliderContainer) {
                 sliderContainer.style.overflowX = 'auto';
                 sliderContainer.style.webkitOverflowScrolling = 'touch';
             }
         } else {
-            // على الحاسوب، إعادة التنسيق الطبيعي
             const slider = document.getElementById('widgetSlider');
             if (slider && !slider.style.animation) {
                 slider.style.animation = '';
@@ -643,10 +631,8 @@
         }
     }
     
-    // تنفيذ عند التحميل وعند تغيير حجم الشاشة
     fixMobileWidget();
     window.addEventListener('resize', fixMobileWidget);
 </script>
-    <script src="notifications.js"></script>
 </body>
 </html>
