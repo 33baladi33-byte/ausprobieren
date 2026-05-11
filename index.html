@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zertiva B2 - أدكى منصة للتحضير لامتحان Telc B2</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/webp" href="images/favicon.webp">
+<link rel="shortcut icon" type="image/webp" href="images/favicon.webp">
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="logo-icon" id="logoHomeBtn">
+        <img src="images/logo.webp" loading="lazy" alt="Zertiva" class="logo-img">
+    </div>
+    <div class="right-buttons">
+        <!-- ✅ زر الإعدادات الجديد -->
+        <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
+        <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
+        <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
+        <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
+    </div>
+</div>
+
+<!-- ✅ نافذة إعدادات الحجم -->
+<div id="settingsModal" class="settings-modal">
+    <div class="settings-modal-content">
+        <div class="settings-modal-header">
+            <h3>⚙️ إعدادات العرض</h3>
+            <button id="closeSettingsModal" class="close-settings-btn">✕</button>
+        </div>
+        <div class="settings-modal-body">
+            <p class="settings-desc">تحكم في حجم الموقع ليناسب راحتك</p>
+            <div class="font-size-controls">
+                <button id="decreaseFontBtn" class="font-size-btn" title="تصغير">A-</button>
+                <span id="fontSizeValue" class="font-size-value">100%</span>
+                <button id="increaseFontBtn" class="font-size-btn" title="تكبير">A+</button>
+            </div>
+            <button id="resetFontBtn" class="reset-font-btn" title="إعادة الحجم الطبيعي">↺ إعادة الضبط</button>
+        </div>
+    </div>
+</div>
+
+<div id="profileDropdown" class="profile-dropdown">
+    <div id="profileEmail" class="profile-email">غير مسجل</div>
+    <div id="profileExpiry" class="profile-expiry"></div>
+    <div id="profileStatus" class="profile-status"></div>
+    <button id="profileLogoutBtn" class="profile-logout">🚪 تسجيل خروج</button>
+</div>
+
+<div id="loginPopup" class="login-popup">
+    <div class="login-popup-content">
+        <h3>🔐 تسجيل الدخول / إنشاء حساب</h3>
+        <p>أدخل بريدك الإلكتروني وكلمة السر</p>
+        <input type="email" id="popupEmail" placeholder="البريد الإلكتروني">
+        <input type="password" id="popupPassword" placeholder="كلمة السر">
+        <button id="popupLoginBtn" class="btn-popup-login">دخول / إنشاء حساب</button>
+        <br>
+        <button id="closePopupBtn" class="btn-popup-close">إغلاق</button>
+    </div>
+</div>
+
+<!-- الصفحة الرئيسية -->
+<div id="home" class="page active home">
+    <div class="hero-wrapper">
+        <div class="hero-container">
+            <div class="hero-image-side">
+                <div class="image-glow"></div>
+                <div class="image-card">
+                    <img src="images/certificate-sample.webp" loading="lazy" alt="telc Deutsch B2 Zertifikat" class="certificate-img">
+                </div>
+            </div>
+            <div class="hero-content-side">
+                <h1 class="hero-title">
+                    <span class="blue-text">B2</span> إن شاء الله في الجيب
+                </h1>
+                <div class="hero-description-wrapper">
+                    <p class="hero-desc">
+                        مرحبا بيك <span class="blue-text">صاحبي</span>  ما تحتاجش تبقى تغرق راسك مع PDF والحفظ العشوائي… دوز الامتحانات، تدرّب بطريقة ذكية، وغادي تلقى راسك كتفهم وكتعقل بسهولة بفضل المساعدة الذكية اللي كنقدموها في الموقع واللي جرّبتها شخصيًا وفعلًا كننصحك بيها
+                    </p>
+                    <p class="hero-desc second-desc">
+                      الاجوبة صحيحة. <span class="blue-text">100%</span>
+                    </p>
+                </div>
+                <div class="info-glass-card">
+                    <div class="info-icon">💡</div>
+                    <div class="info-text">الأغلبية كيسقطو حيت عندهم مشكل فالحفظ وما كايعرفوش يخدموا بطريقة صحيحة.</div>
+                </div>  
+                <button id="startBtn" class="hero-btn-primary">
+                    اكتشف الامتحانات
+                    <span class="btn-arrow-icon">→</span>
+                </button>
+                
+                <div id="reviewsWidget" class="reviews-widget collapsed">
+                    <div class="widget-bubble">
+                        <span class="widget-icon">💬</span>
+                        <span class="widget-text">تجارب المشتركين</span>
+                        <span class="widget-badge">+6</span>
+                    </div>
+                    <div class="widget-expanded-content">
+                        <div class="widget-header">
+                            <span class="widget-header-icon">🤔</span>
+                            <span class="widget-header-title">مازال كتفكر واش تشترك؟</span>
+                        </div>
+                        <p class="widget-subtitle">شوف ناس سبقوك واستافدو من المنصة.</p>
+                        <div class="widget-slider-container">
+                            <div class="widget-slider" id="widgetSlider">
+                                <div class="widget-slide"><img src="images/review1.webp" loading="lazy" alt="Review 1"></div>
+                                <div class="widget-slide"><img src="images/review2.webp" loading="lazy" alt="Review 2"></div>
+                                <div class="widget-slide"><img src="images/review3.webp" loading="lazy" alt="Review 3"></div>
+                                <div class="widget-slide"><img src="images/review4.webp" loading="lazy" alt="Review 4"></div>
+                                <div class="widget-slide"><img src="images/review5.webp" loading="lazy" alt="Review 5"></div>
+                                <div class="widget-slide"><img src="images/review6.webp" loading="lazy" alt="Review 6"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-pattern"></div>
+
+    <section class="features-section">
+        <div class="features-container">
+            <div class="features-content">
+                <h2 class="features-title">
+                    علاش خاصك <span class="blue-text">تشترك</span> معانا ؟
+                </h2>
+                <p class="features-description">
+                    كتتهنى من الاجوبة الخاطئة و التقلاب على التيمات،
+                    وزيد عليها كنقدمو مساعدة ذكية لمجربها أنا شخصياً واللي تخليك تعقل على الأجوبة بسهولة وهادشي فكل الأجزاء.
+                </p>
+                <p class="features-description second">
+                    بالإضافة لمنهجية تهنيك من الامتحان الكتابي كامل، ونصائح مغاديش تسمعهم من عند حتى واحد آخر.
+                </p>
+                <button id="featuresSubscribeBtn" class="features-btn">
+                    اشترك الآن
+                    <span class="btn-arrow">→</span>
+                </button>
+            </div>
+            <div class="features-images">
+                <div class="image-stack">
+                    <div class="image-card-feature image-top">
+                        <img src="images/f1.webp" loading="lazy" alt="Feature 1" class="feature-img">
+                    </div>
+                    <div class="image-card-feature image-bottom">
+                        <img src="images/f2.webp" loading="lazy" alt="Feature 2" class="feature-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div id="list" class="page">
+  <div class="teile-header-section">
+    <h3 id="teilHeaderTitle" style="display: none;">اختر القسم (Teil)</h3>
+  </div>
+  <div id="teileList" class="teile-row"></div>
+  <div id="examsList" class="exams-container">
+    <div class="welcome-message">
+    </div>
+  </div>
+  <button id="backHomeBtn" class="back-home-btn">الرئيسية</button>
+</div>
+
+<div id="exam" class="page">
+<div class="exam-box">
+  
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <button id="backArrowFromExam" class="arrow-back-btn">↰</button>
+    <h2 id="examTitle" style="margin: 0; flex: 1; text-align: center;"></h2>
+    <div style="width: 40px;"></div>
+  </div>
+
+  <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+    <button id="prevExamBtn" class="nav-exam-btn">◀ السابق</button>
+    <button id="nextExamBtn" class="nav-exam-btn">التالي ▶</button>
+  </div>
+
+  <div id="teil1" style="display:none;"></div>
+  <div id="teil2" style="display:none;"></div>
+  <div id="teil3" style="display:none;"></div>
+  <div id="sprach1" style="display:none;"></div>
+  <div id="sprach2" style="display:none;"></div>
+  <div id="hoeren1" style="display:none;"></div>
+  <div id="hoeren2" style="display:none;"></div>
+  <div id="hoeren3" style="display:none;"></div>
+  <div id="schreiben" style="display:none;"></div>
+  <div id="mündlich" style="display:none;"></div>
+  <div id="tips" style="display:none;"></div>
+
+  <div style="display: flex; justify-content: center; margin-top: 25px;">
+    <button id="backToListBtn" class="back-list-btn">عودة إلى القائمة</button>
+  </div>
+</div>
+</div>
+
+<a href="https://wa.me/212687561491" target="_blank" id="whatsappFloat" class="whatsapp-float">
+    <img src="images/whatsapp.png" loading="lazy" alt="WhatsApp" class="whatsapp-img">
+</a>
+
+<div id="reviewsModal" class="reviews-modal">
+    <div class="reviews-modal-content">
+        <div class="reviews-modal-header">
+            <h3>🤔 مازال كتفكر واش تشترك؟</h3>
+            <p>شوف ناس سبقوك واستافدو من المنصة.</p>
+            <button id="closeReviewsModal" class="close-reviews-modal">✕</button>
+        </div>
+        <div class="reviews-modal-slider-container">
+            <div class="reviews-modal-slider" id="reviewsModalSlider"></div>
+        </div>
+        <div class="reviews-modal-controls">
+            <button id="modalPrevBtn" class="modal-control-btn">❮</button>
+            <span id="modalCounter" class="modal-counter-text">1 / 6</span>
+            <button id="modalNextBtn" class="modal-control-btn">❯</button>
+        </div>
+    </div>
+</div>
+
+<script src="helpSystem.js"></script>
+<script src="engine.js"></script>
+<script src="exams.js"></script>
+<script src="auth.js"></script>
+
+<script>
+    // ✅ نظام تكبير وتصغير الموقع
+    (function() {
+        let currentScale = 100;
+        const MIN_SCALE = 80;
+        const MAX_SCALE = 150;
+        const STEP = 5;
+        
+        function updateFontSize(scale) {
+            document.documentElement.style.fontSize = (scale / 100) + 'rem';
+            const fontSizeValue = document.getElementById('fontSizeValue');
+            if (fontSizeValue) fontSizeValue.textContent = scale + '%';
+            localStorage.setItem('siteFontScale', scale);
+        }
+        
+        function increaseFont() {
+            if (currentScale < MAX_SCALE) {
+                currentScale += STEP;
+                updateFontSize(currentScale);
+            }
+        }
+        
+        function decreaseFont() {
+            if (currentScale > MIN_SCALE) {
+                currentScale -= STEP;
+                updateFontSize(currentScale);
+            }
+        }
+        
+        function resetFont() {
+            currentScale = 100;
+            updateFontSize(currentScale);
+        }
+        
+        // استرجاع الإعدادات المحفوظة
+        const savedScale = localStorage.getItem('siteFontScale');
+        if (savedScale) {
+            currentScale = parseInt(savedScale);
+            if (currentScale >= MIN_SCALE && currentScale <= MAX_SCALE) {
+                updateFontSize(currentScale);
+            } else {
+                currentScale = 100;
+                updateFontSize(100);
+            }
+        }
+        
+        // إعدادات النافذة المنبثقة
+        const settingsBtn = document.getElementById('settingsBtn');
+        const settingsModal = document.getElementById('settingsModal');
+        const closeSettingsModal = document.getElementById('closeSettingsModal');
+        const increaseBtn = document.getElementById('increaseFontBtn');
+        const decreaseBtn = document.getElementById('decreaseFontBtn');
+        const resetBtn = document.getElementById('resetFontBtn');
+        
+        if (settingsBtn && settingsModal) {
+            settingsBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                settingsModal.classList.add('active');
+            });
+            
+            closeSettingsModal.addEventListener('click', function() {
+                settingsModal.classList.remove('active');
+            });
+            
+            settingsModal.addEventListener('click', function(e) {
+                if (e.target === settingsModal) {
+                    settingsModal.classList.remove('active');
+                }
+            });
+        }
+        
+        if (increaseBtn) increaseBtn.addEventListener('click', increaseFont);
+        if (decreaseBtn) decreaseBtn.addEventListener('click', decreaseFont);
+        if (resetBtn) resetBtn.addEventListener('click', resetFont);
+    })();
+
+    const subscribeBtn = document.getElementById('featuresSubscribeBtn');
+    if(subscribeBtn) {
+        subscribeBtn.addEventListener('click', function() {
+            const email = localStorage.getItem('zertiva_email');
+            if(email) {
+                window.location.href = 'subscribe.html';
+            } else {
+                document.getElementById('loginPopup').style.display = 'flex';
+            }
+        });
+    }
+    
+    const logoBtn = document.getElementById('logoHomeBtn');
+    if(logoBtn) {
+        logoBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    const widgetSliderElem = document.getElementById('widgetSlider');
+    if (widgetSliderElem) {
+        const items = widgetSliderElem.innerHTML;
+        widgetSliderElem.innerHTML = items + items + items;
+    }
+    
+    let moveTimeout = null;
+    let pauseTimeout = null;
+    let isHovering = false;
+
+    function startMoveCycle() {
+        if (isHovering) return;
+        if (widgetSliderElem) {
+            widgetSliderElem.style.animationPlayState = 'running';
+            if (moveTimeout) clearTimeout(moveTimeout);
+            moveTimeout = setTimeout(() => {
+                if (!isHovering && widgetSliderElem) {
+                    widgetSliderElem.style.animationPlayState = 'paused';
+                    if (pauseTimeout) clearTimeout(pauseTimeout);
+                    pauseTimeout = setTimeout(() => {
+                        if (!isHovering && widgetSliderElem) {
+                            startMoveCycle();
+                        }
+                    }, 5000);
+                }
+            }, 10000);
+        }
+    }
+
+    function stopMoveCycle() {
+        if (moveTimeout) clearTimeout(moveTimeout);
+        if (pauseTimeout) clearTimeout(pauseTimeout);
+        if (widgetSliderElem) {
+            widgetSliderElem.style.animationPlayState = 'paused';
+        }
+    }
+
+    if (widgetSliderElem) {
+        widgetSliderElem.addEventListener('mouseenter', () => {
+            isHovering = true;
+            stopMoveCycle();
+            widgetSliderElem.style.animationPlayState = 'paused';
+        });
+        widgetSliderElem.addEventListener('mouseleave', () => {
+            isHovering = false;
+            startMoveCycle();
+        });
+    }
+
+    function initSliderAnimation() {
+        stopMoveCycle();
+        isHovering = false;
+        setTimeout(() => {
+            startMoveCycle();
+        }, 500);
+    }
+
+    const widget = document.getElementById('reviewsWidget');
+    if (widget) {
+        // ✅ إصلاح مشكلة الهاتف: منع التمدد التلقائي
+        const isMobile = window.innerWidth <= 768;
+        
+        if (!isMobile) {
+            setTimeout(() => {
+                if (widget.classList.contains('collapsed')) {
+                    widget.classList.remove('collapsed');
+                    widget.classList.add('expanded');
+                    initSliderAnimation();
+                }
+            }, 2000);
+            
+            setTimeout(() => {
+                if (widget.classList.contains('expanded')) {
+                    widget.classList.remove('expanded');
+                    widget.classList.add('collapsed-keep');
+                    stopMoveCycle();
+                }
+            }, 10000);
+        }
+        
+        widget.addEventListener('click', function(e) {
+            if (e.target.tagName === 'IMG') return;
+            openReviewsModal();
+        });
+    }
+    
+    const reviewImages = [
+        "images/review1.webp",
+        "images/review2.webp",
+        "images/review3.webp",
+        "images/review4.webp",
+        "images/review5.webp",
+        "images/review6.webp"
+    ];
+    
+    let currentModalIndex = 0;
+    
+    const reviewsModal = document.getElementById('reviewsModal');
+    const modalSlider = document.getElementById('reviewsModalSlider');
+    const closeReviewsModal = document.getElementById('closeReviewsModal');
+    const modalPrevBtn = document.getElementById('modalPrevBtn');
+    const modalNextBtn = document.getElementById('modalNextBtn');
+    const modalCounterSpan = document.getElementById('modalCounter');
+    
+    function buildModalSlider() {
+        modalSlider.innerHTML = '';
+        reviewImages.forEach((img, index) => {
+            const item = document.createElement('div');
+            item.className = 'reviews-modal-item';
+            item.innerHTML = `<img src="${img}" loading="lazy" alt="Review ${index + 1}">`;
+            item.addEventListener('click', () => {
+                window.open(img, '_blank');
+            });
+            modalSlider.appendChild(item);
+        });
+    }
+    
+    function updateModalCounter() {
+        const container = document.querySelector('.reviews-modal-slider-container');
+        if (!container) return;
+        const scrollLeft = container.scrollLeft;
+        const itemWidth = 300;
+        const current = Math.round(scrollLeft / itemWidth);
+        currentModalIndex = Math.min(current, reviewImages.length - 1);
+        modalCounterSpan.textContent = `${currentModalIndex + 1} / ${reviewImages.length}`;
+    }
+    
+    function scrollToImage(index) {
+        const container = document.querySelector('.reviews-modal-slider-container');
+        const itemWidth = 300;
+        container.scrollTo({ left: index * itemWidth, behavior: 'smooth' });
+        currentModalIndex = index;
+        modalCounterSpan.textContent = `${currentModalIndex + 1} / ${reviewImages.length}`;
+    }
+    
+    function openReviewsModal() {
+        reviewsModal.classList.add('active');
+        buildModalSlider();
+        setTimeout(() => {
+            scrollToImage(0);
+        }, 100);
+    }
+    
+    function closeReviewsModalFunc() {
+        reviewsModal.classList.remove('active');
+    }
+    
+    closeReviewsModal.addEventListener('click', closeReviewsModalFunc);
+    modalPrevBtn.addEventListener('click', () => {
+        if (currentModalIndex > 0) {
+            scrollToImage(currentModalIndex - 1);
+        }
+    });
+    modalNextBtn.addEventListener('click', () => {
+        if (currentModalIndex < reviewImages.length - 1) {
+            scrollToImage(currentModalIndex + 1);
+        }
+    });
+    
+    const modalContainerElem = document.querySelector('.reviews-modal-slider-container');
+    if (modalContainerElem) {
+        modalContainerElem.addEventListener('scroll', updateModalCounter);
+    }
+    
+    reviewsModal.addEventListener('click', (e) => {
+        if (e.target === reviewsModal) closeReviewsModalFunc();
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && reviewsModal.classList.contains('active')) {
+            closeReviewsModalFunc();
+        }
+    });
+    
+    const reviews = reviewImages;
+    let currentIndex = 0;
+    
+    const modal = document.createElement('div');
+    modal.className = 'review-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <button class="modal-close">✕</button>
+            <button class="modal-prev">❮</button>
+            <button class="modal-next">❯</button>
+            <img src="" alt="Review">
+            <div class="modal-counter"></div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    
+    const modalImg = modal.querySelector('img');
+    const modalClose = modal.querySelector('.modal-close');
+    const modalPrev = modal.querySelector('.modal-prev');
+    const modalNext = modal.querySelector('.modal-next');
+    const modalCounter = modal.querySelector('.modal-counter');
+    
+    function openImageModal(index) {
+        currentIndex = index;
+        modalImg.src = reviews[currentIndex];
+        modalCounter.textContent = `${currentIndex + 1} / ${reviews.length}`;
+        modal.classList.add('active');
+    }
+    
+    function closeImageModal() {
+        modal.classList.remove('active');
+    }
+    
+    function nextImageModal() {
+        currentIndex = (currentIndex + 1) % reviews.length;
+        modalImg.src = reviews[currentIndex];
+        modalCounter.textContent = `${currentIndex + 1} / ${reviews.length}`;
+    }
+    
+    function prevImageModal() {
+        currentIndex = (currentIndex - 1 + reviews.length) % reviews.length;
+        modalImg.src = reviews[currentIndex];
+        modalCounter.textContent = `${currentIndex + 1} / ${reviews.length}`;
+    }
+    
+    function bindSlideClickEvents() {
+        document.querySelectorAll('.widget-slide').forEach((item, idx) => {
+            item.removeEventListener('click', () => {});
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openImageModal(idx % reviewImages.length);
+            });
+        });
+    }
+    
+    const observer = new MutationObserver(() => {
+        bindSlideClickEvents();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    bindSlideClickEvents();
+    
+    modalClose.addEventListener('click', closeImageModal);
+    modalNext.addEventListener('click', nextImageModal);
+    modalPrev.addEventListener('click', prevImageModal);
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeImageModal();
+    });
+    
+    document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeImageModal();
+        if (e.key === 'ArrowRight') nextImageModal();
+        if (e.key === 'ArrowLeft') prevImageModal();
+    });
+
+    // تعديل: عند الضغط على زر "اكتشف الامتحانات" يظهر Hören Teil 1 مباشرة
+    const startBtn = document.getElementById('startBtn');
+    if(startBtn) {
+        startBtn.addEventListener('click', function() {
+            goList();
+            setTimeout(() => {
+                // محاكاة الضغط على Hören Teil 1
+                const hoerenTeil1 = document.querySelector('.teile-row .item:first-child');
+                if(hoerenTeil1 && hoerenTeil1.click) {
+                    hoerenTeil1.click();
+                }
+            }, 100);
+        });
+    }
+</script>
+<script>
+    // ✅ حل مشكلة الـ Widget على الهاتف (منع overflow وتمدد)
+    function fixMobileWidget() {
+        const widget = document.getElementById('reviewsWidget');
+        if (!widget) return;
+        
+        if (window.innerWidth <= 768) {
+            // منع التمدد التلقائي على الهاتف
+            clearTimeout(window.widgetTimeout);
+            widget.classList.remove('expanded', 'collapsed-keep');
+            widget.classList.add('collapsed');
+            
+            // إزالة الرسوم المتحركة على الهاتف
+            const slider = document.getElementById('widgetSlider');
+            if (slider) {
+                slider.style.animation = 'none';
+                slider.style.transform = 'none';
+            }
+            
+            // إضافة overflow-x مخفي للحاوية
+            const sliderContainer = document.querySelector('.widget-slider-container');
+            if (sliderContainer) {
+                sliderContainer.style.overflowX = 'auto';
+                sliderContainer.style.webkitOverflowScrolling = 'touch';
+            }
+        } else {
+            // على الحاسوب، إعادة التنسيق الطبيعي
+            const slider = document.getElementById('widgetSlider');
+            if (slider && !slider.style.animation) {
+                slider.style.animation = '';
+            }
+        }
+    }
+    
+    // تنفيذ عند التحميل وعند تغيير حجم الشاشة
+    fixMobileWidget();
+    window.addEventListener('resize', fixMobileWidget);
+</script>
+</body>
+</html>

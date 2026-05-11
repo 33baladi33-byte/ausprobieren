@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختر باقة الاشتراك - Zertiva B2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+            background: #0a0e1a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+        }
+        .container {
+            max-width: 1100px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #38bdf8;
+            margin-bottom: 50px;
+            font-size: 32px;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: -0.5px;
+        }
+        .plans {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            align-items: center;
+        }
+        .plan-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 40px 30px;
+            width: 330px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #e8e8e8;
+        }
+        .plan-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+        }
+        /* الباقة المميزة (شهرين) */
+        .plan-card.vip {
+            transform: translateY(-5px);
+            border: 2px solid #38bdf8;
+            box-shadow: 0 15px 35px rgba(56,189,248,0.12);
+            position: relative;
+        }
+        .plan-card.vip:hover {
+            transform: translateY(-10px);
+        }
+        /* Badge الباقة المميزة */
+        .vip-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #38bdf8;
+            color: #0a0e1a;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 16px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+        .plan-name {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+        }
+        .price {
+            font-size: 52px;
+            font-weight: 700;
+            color: #0a0e1a;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        .price small {
+            font-size: 18px;
+            font-weight: 400;
+            color: #666;
+        }
+        .duration {
+            color: #888;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .saving-badge {
+            background: #a855f7;
+            color: white;
+            padding: 5px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .divider {
+            height: 1px;
+            background: #e8e8e8;
+            margin: 25px 0 20px 0;
+        }
+        .features {
+            text-align: right;
+            margin-bottom: 30px;
+        }
+        .features li {
+            list-style: none;
+            padding: 6px 0;
+            font-size: 14px;
+            color: #444;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .features li span {
+            color: #10b981;
+            font-weight: bold;
+            font-size: 15px;
+            min-width: 22px;
+        }
+        .btn-select {
+            background: #38bdf8;
+            color: #0a0e1a;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .btn-select:hover {
+            transform: scale(1.02);
+            background: #0ea5e9;
+            box-shadow: 0 4px 12px rgba(56,189,248,0.3);
+        }
+        .back-link {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .back-link a {
+            color: #38bdf8;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(56,189,248,0.4);
+            padding: 5px;
+            transition: 0.3s;
+        }
+        .back-link a:hover {
+            color: #0ea5e9;
+            border-bottom-color: #0ea5e9;
+        }
+        @media (max-width: 750px) {
+            .plans {
+                gap: 30px;
+            }
+            .plan-card {
+                width: 100%;
+                max-width: 320px;
+                padding: 30px 20px;
+            }
+            .price {
+                font-size: 44px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>💰 اختر الباقة المناسبة لك</h1>
+    <div class="plans">
+
+        <!-- الباقة الشهرية -->
+        <div class="plan-card" data-plan="1month" data-price="149" data-duration="1 Monat">
+            <div class="plan-name">🌙 شهر واحد</div>
+            <div class="price">149 <small>درهم</small></div>
+            <div class="duration">لمدة شهر واحد</div>
+            <div class="divider"></div>
+            <ul class="features">
+                <li><span>✅</span> الوصول الكامل إلى جميع الامتحانات</li>
+                <li><span>✅</span> أكثر من 150 امتحان تدريبي</li>
+                <li><span>✅</span> بطاقات المساعدة الذكية لجميع الأجزاء</li>
+                <li><span>✅</span> نصائح وإرشادات حصرية للنجاح</li>
+                <li><span>✅</span> تصحيح فوري للامتحانات</li>
+                <li><span>✅</span> إمكانية تتبع تقدمك</li>
+                <li><span>✅</span> بدون إعلانات مزعجة</li>
+                <li><span>✅</span> دعم فني عبر واتساب</li>
+                <li><span>✅</span> محاكاة حقيقية لامتحان Telc B2</li>
+                <li><span>✅</span> تحديثات مستمرة للمحتوى</li>
+            </ul>
+            <button class="btn-select">اشترك الآن</button>
+        </div>
+
+        <!-- الباقة المميزة (شهرين) -->
+        <div class="plan-card vip" data-plan="2months" data-price="249" data-duration="2 Monate">
+            <div class="vip-badge">الأكثر اختياراً</div>
+            <div class="plan-name">✨ شهرين</div>
+            <div class="price">249 <small>درهم</small></div>
+            <div class="duration">لمدة شهرين (توفير 49 درهم)</div>
+            <div class="saving-badge">عرض مميز</div>
+            <div class="divider"></div>
+            <ul class="features">
+                <li><span>✅</span> الوصول الكامل إلى جميع الامتحانات</li>
+                <li><span>✅</span> أكثر من 150 امتحان تدريبي</li>
+                <li><span>✅</span> بطاقات المساعدة الذكية لجميع الأجزاء</li>
+                <li><span>✅</span> نصائح وإرشادات حصرية للنجاح</li>
+                <li><span>✅</span> تصحيح فوري للامتحانات</li>
+                <li><span>✅</span> إمكانية تتبع تقدمك</li>
+                <li><span>✅</span> بدون إعلانات مزعجة</li>
+                <li><span>✅</span> دعم فني عبر واتساب</li>
+                <li><span>✅</span> محاكاة حقيقية لامتحان Telc B2</li>
+                <li><span>✅</span> تحديثات مستمرة للمحتوى</li>
+                <li><span>🧠</span> استعداد أفضل للامتحان مع وقت كافي للمراجعة</li>
+            </ul>
+            <button class="btn-select">اشترك الآن</button>
+        </div>
+    </div>
+    <div class="back-link">
+        <a href="index.html">← العودة إلى الرئيسية</a>
+    </div>
+</div>
+
+<script>
+    const WA_NUMBER = "212687561491";
+    
+    function getLoggedInEmail() {
+        return localStorage.getItem('zertiva_email');
+    }
+    
+    function sendWhatsApp(plan, duration, price) {
+        let email = getLoggedInEmail();
+        
+        if(!email) {
+            alert("⚠️ يجب تسجيل الدخول أولاً!\nسيتم توجيهك إلى صفحة تسجيل الدخول.");
+            window.location.href = "index.html";
+            return;
+        }
+        
+        let message = `[NEW] Neue Abonnementanfrage – Zertiva B2%0A%0A`;
+        message += `[USR] E-Mail: ${encodeURIComponent(email)}%0A`;
+        message += `[PLN] Paket: VIP%0A`;
+        message += `[PRC] Preis: ${price} DH%0A`;
+        message += `[TM] Dauer: ${duration}%0A%0A`;
+        message += `[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang.`;
+        
+        window.open(`https://wa.me/${WA_NUMBER}?text=${message}`, '_blank');
+        
+        alert(`✅ تم إرسال طلب الاشتراك إلى الواتساب\n📧 بريدك: ${email}\n📆 المدة: ${duration}\n💰 المبلغ: ${price} درهم\n\nسأتصل بك لإتمام الدفع.`);
+    }
+    
+    document.querySelectorAll('.plan-card').forEach(card => {
+        let btn = card.querySelector('.btn-select');
+        let plan = card.getAttribute('data-plan');
+        let price = card.getAttribute('data-price');
+        let duration = card.getAttribute('data-duration');
+        
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sendWhatsApp(plan, duration, price);
+        });
+        
+        card.addEventListener('click', function(e) {
+            if(e.target !== btn) {
+                sendWhatsApp(plan, duration, price);
+            }
+        });
+    });
+</script>
+</body>
+</html>
