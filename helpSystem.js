@@ -1738,8 +1738,8 @@ HELP_DATA["hoeren2_exam37_q8"] = {
     meaning: "من يريد تجربة العطلة بالعربة المنزلية لأول مرة، يجب أن يشتري سيارة مستعملة",
     keywords: ["ausprobieren = تجربة", "gebrauchtes Fahrzeug = سيارة مستعملة", "kaufen = يشتري"],
     simplified: "اشتري عربة منزلية مستعملة للتجربة",
-    imagine: "🚐🦷 عربة منزلية مستعملة تبتسم بفم بلا أسنان";
-
+    imagine: "🚐🦷 عربة منزلية مستعملة تبتسم بفم بلا أسنان"
+};
 // ========== Exam 38: Straßenkinder - Die Kinder (Kids) (صحيح: 1,2,3,5,6,7,9) ==========
 HELP_DATA["hoeren2_exam38_q1"] = {
     text: "Frau Edler arbeitete früher für die Verkehrsbetriebe Leipzig.",
