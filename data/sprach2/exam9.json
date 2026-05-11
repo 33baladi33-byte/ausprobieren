@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 9: Online-Sprachkurse",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Online-Sprachkurse & Co. – Wie lernt man heute am besten eine Sprache?\n\nEs gibt inzwischen zahlreiche Online-Sprachkurse und .....(1)..... mit Smartphones kann man Sprachen lernen. Eine weitere Lernmöglichkeit ist zum Beispiel eine Tandem-Partnerschaft .....(2)..... einem Muttersprachler. Welche Vorteile und Nachteile haben die unterschiedlichen Methoden?\nEs gibt inzwischen zahlreiche Online-Lernportale, die leicht zu überblicken und zu bedienen sind. Der Vorteil: Man kann die Wörter nicht nur lesen, .....(3)..... gleichzeitig auch hören. Außerdem kann man Wörter nachsprechen, .....(4)..... dass ein ganzer Kurs zuhört. Auch Lerntipps bekommt man bei Online-Portalen, beispielsweise diesen: Vokabeln sollte man lieber mehrmals täglich in Fünf-Minuten-Blöcken wiederholen, .....(5)..... sie in einer Stunde alle auf einmal zu lernen.\nWer auch unterwegs lernen möchte, kann es mit einer Smartphone-App versuchen, einem kleinen Programm, das auf dem Handy läuft. Viele Programme gibt es kostenlos, andere kosten zwischen einem und mehreren Euro. Die kleinen Helfer sind .....(6)..... gut zum Vokabellernen geeignet – mehr aber meist nicht. Das spielerische Vokabeltraining macht zwar Spaß, .....(7)..... Satzbau oder andere Grammatikthemen werden allenfalls kurz angesprochen. Ein richtiges Gespräch kann man mit dieser Methode erst recht nicht üben. Dafür .....(8)..... man besser in einen Kurs gehen oder einen Tandem-Partner suchen.\nEin Tandem-Partner ist ein Muttersprachler, der die Grammatik erklärt, die Aussprache verbessert und seinerseits die Muttersprache des anderen lernen möchte.\nDer schnellste Weg, .....(9)..... einen passenden Tandem-Partner zu finden, ist die Online-Suche: Muttersprache, Zielsprache und Wohnort eingeben, .....(10)..... werden alle Treffer angezeigt. Man trifft sich beispielsweise in einem Restaurant, schickt sich Nachrichten oder E-Mails und erklärt sich gegenseitig die eigene Sprache.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
+      "correct": "sogar"
+    },
+    {
+      "id": 2,
+      "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
+      "correct": "mit"
+    },
+    {
+      "id": 3,
+      "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
+      "correct": "sondern"
+    },
+    {
+      "id": 4,
+      "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
+      "correct": "ohne"
+    },
+    {
+      "id": 5,
+      "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
+      "correct": "anstatt"
+    },
+    {
+      "id": 6,
+      "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
+      "correct": "besonders"
+    },
+    {
+      "id": 7,
+      "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
+      "correct": "aber"
+    },
+    {
+      "id": 8,
+      "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
+      "correct": "sollte"
+    },
+    {
+      "id": 9,
+      "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
+      "correct": "um"
+    },
+    {
+      "id": 10,
+      "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
+      "correct": "schon"
+    }
+  ],
+  "allOptions": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"]
+}

@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 6: Umgang mit Haustieren",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Ist der Umgang mit Haustieren gesund für Kleinkinder?\n\nKleine Kinder, die in der Gesellschaft von Haustieren wie Hund und Katze leben, sind einer Studie aus Finnland zufolge seltener krank .....(1)..... Kinder in Haushalten ohne Tiere.\nDie Studie wurde in der .....(2)..... Woche in einem amerikanischen Fachmagazin veröffentlicht. Es wurden .....(3)..... keine Erklärungen für diese Tatsache geliefert, aber die Vermutung wurde geäußert, dass der Kontakt zu Hunden das Immunsystem der Kleinkinder stärke. Hunde haben nämlich .....(4)..... die täglichen Spaziergänge draußen viel Kontakt zu möglichen Krankheitserregern und trainieren vielleicht so das Immunsystem der Kinder. Auch Katzen, die die Möglichkeit haben, nach draußen zu gehen, haben demnach .....(5)..... Wirkung auf die Gesundheit der Kinder, wenngleich in geringerem Maße.\nFür die Studie .....(6)..... in Finnland 397 Babys über den Zeitraum von der neunten Lebenswoche bis zu ihrem ersten Geburtstag beobachtet. Dabei hatten die mit Hund oder Katze aufwachsenden Kinder ein um 30 % .....(7)..... Risiko für Erkrankungen der Atemwege. Es fiel auf, dass bei diesen Kindern Ohrenentzündungen .....(8)..... auftraten.\nDie Studie kommt daher zu dem Schluss, dass die Gesundheit von Kindern in Gesellschaft von Tieren .....(9)..... besser sei. Frühere Untersuchungen aus den USA hatten das genaue .....(10)..... der jetzigen Ergebnisse ergeben. Ob diese Unterschiede mit den unterschiedlichen Lebens- und Umweltbedingungen der beiden Länder zusammenhängen, ist noch unklar.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "als"
+    },
+    {
+      "id": 2,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "vergangenen"
+    },
+    {
+      "id": 3,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "zwar"
+    },
+    {
+      "id": 4,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "durch"
+    },
+    {
+      "id": 5,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "dieselbe"
+    },
+    {
+      "id": 6,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "wurden"
+    },
+    {
+      "id": 7,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "geringeres"
+    },
+    {
+      "id": 8,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "weniger"
+    },
+    {
+      "id": 9,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "deutlich"
+    },
+    {
+      "id": 10,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "gegenteil"
+    }
+  ],
+  "allOptions": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"]
+}

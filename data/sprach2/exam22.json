@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 22: Schwarzarbeit kann teuer werden",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Schnäppchen machen, um Rabatte feilschen: Wer billig einkauft, gilt als clever. Vorsicht ist jedoch bei Aufträgen an Schwarzarbeiter geboten. Denn schnell zahlt der Kunde drauf, .....(1)..... – wie durch das illegale Arbeitsverhältnis erhofft – Geld zu sparen.\nRund ums Haus ist nicht .....(2)..... Gelegenheit so günstig, wie sie anfangs scheint: Schwarzarbeit etwa ist nicht nur verboten, sondern es gibt auch ein finanzielles Argument .....(3)..... illegale Arbeiter: Oftmals rechnet sich der Dienst gegen Barzahlung gar nicht. \"Abgesehen .....(4)....., dass es strafbar ist, Schwarzarbeiter zu beschäftigen, nimmt der Auftraggeber handfeste steuerliche Nachteile in Kauf\", warnt Dirk Witte, Steuerberater aus Wildeshausen in Niedersachsen. Wer eine Putzhilfe beschäftigt, kann die Steuerlast auch auf legalem Weg spürbar senken.\nAuch für die Modernisierung, Renovierung und Sanierung der Wohnung gibt es einen Steuernachlass, allerdings nur für legale Arbeiten. \"Das Finanzamt .....(5)..... eine ordentliche Rechnung und einen Überweisungsbeleg sehen\". Barzahler können daher nichts von der Steuer absetzen. Noch schwerer fällt ins Gewicht, dass ein Kunde seine Haftungsansprüche aufs Spiel setzt, wenn er vordergründig ein paar Euro sparen möchte. Denn mängelfreie Bauten .....(6)..... eher die Ausnahme.\nUnd ob ein Kunde die Beseitigung von Mängeln gerichtlich gegen einen Schwarzarbeiter durchsetzen kann, ist von Fall zu Fall zu prüfen. Im Prinzip muss man aber damit rechnen, die Ansprüche zu verlieren. Ebenso dürften Verbraucher leer .....(7)....., wenn beim Bauen etwas zu Bruch geht. Ein ordentlicher Handwerker hat für .....(8)..... Fälle eine Haftpflichtversicherung.\nRichtig teuer werden können auch Unfälle, bei denen sich der illegale Helfer verletzt. Dann zahlen weder Krankenversicherung noch Unfallkasse. Fällt etwa ein Arbeiter vom Gerüst und ist danach dauerhaft querschnittsgelähmt, dann wird der Kunde dafür sein Leben lang zahlen.\nDie Folgen von Schwarzarbeit lassen sich mit dem Dominoprinzip beschreiben: Fliegt die illegale Beschäftigung auf, dann .....(9)..... es gleich mehrere Behörden mit. Post gibt es dann vom Finanzamt, der Staatsanwaltschaft und den Sozialversicherungsträgern. Dann braucht der Auftraggeber .....(10)..... einen Anwalt. Und der kostet natürlich auch wieder Geld.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
+      "correct": "anstatt"
+    },
+    {
+      "id": 2,
+      "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
+      "correct": "jede"
+    },
+    {
+      "id": 3,
+      "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
+      "correct": "gegen"
+    },
+    {
+      "id": 4,
+      "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
+      "correct": "davon"
+    },
+    {
+      "id": 5,
+      "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
+      "correct": "will"
+    },
+    {
+      "id": 6,
+      "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
+      "correct": "bilden"
+    },
+    {
+      "id": 7,
+      "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
+      "correct": "ausgehen"
+    },
+    {
+      "id": 8,
+      "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
+      "correct": "solche"
+    },
+    {
+      "id": 9,
+      "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
+      "correct": "bekommen"
+    },
+    {
+      "id": 10,
+      "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
+      "correct": "höchstens"
+    }
+  ],
+  "allOptions": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"]
+}

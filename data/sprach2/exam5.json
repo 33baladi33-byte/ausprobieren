@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 5: Theater für Kinder und Jugendliche",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Theater fördert nicht nur die Kreativität, .....(1)..... auch die Körpererfahrung von Kindern. Der Verein \"Jugendhilfe Düsseldorf e. V.\" arbeitet .....(2)..... vielen Jahren in der Jugendförderung, und deshalb unterstützt er auch ein neues Theaterprojekt für Kinder. Üben und spielen werden die Teilnehmer im Jugendzentrum. Das Jugendzentrum ist eine Einrichtung des städtischen Jugendamtes und kümmert sich um Kinder, Jugendliche und junge Volljährige, die .....(3)..... familiärer und anderer Probleme Hilfe benötigen.\nBis zu zwanzig Mädchen und Jungen werden .....(4)..... dem kommenden Jahr die Welt des Theaters kennenlernen. .....(5)..... Ende des Projekts werden die Nachwuchsschauspieler bei einem Theaterfestival auftreten, was sicher ein Höhepunkt für alle Teilnehmer sein wird.\nGeleitet wird die Gruppe vom Schauspieler Wolfgang Neuhausen. Er arbeitet mit dem Jugendzentrum zusammen und wird von zwei Theaterpädagogen unterstützt. Allen Mitarbeitern ist .....(6)..... wichtig, dass die Kinder auf der Bühne Anerkennung für ihre Leistung bekommen. Ohne die finanzielle Unterstützung wäre das Vorhaben unmöglich, .....(7)..... bei der Stadt keine Gelder vorhanden waren.\nDieses Theaterprojekt ist nicht das erste, das gefördert wird. Im vergangenen Jahr erhielt das Theaterprojekt \"Schiller - das wilde, freie Leben\" finanzielle Unterstützung. Allerdings ist nicht nur Geld wichtig: Der Verein kümmert sich auch .....(8)....., die Projekte bekannt zu machen. In verschiedenen Theaterhäusern der Stadt werden Plakate aufgehängt, mit denen der Verein für das Jugendtheater wirbt. Man hofft, .....(9)..... diese Weise noch mehr Unterstützer zu finden.\nAuch unsere Leser können die Jugendlichen unterstützen: Aktuell sammelt das Jugendzentrum Spenden, .....(10)..... weitere Projekte finanzieren zu können. Außerdem werden für die Theaterproben und die Aufführungen noch ehrenamtliche Helfer gesucht.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "sondern"
+    },
+    {
+      "id": 2,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "seit"
+    },
+    {
+      "id": 3,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "wegen"
+    },
+    {
+      "id": 4,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "ab"
+    },
+    {
+      "id": 5,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "am"
+    },
+    {
+      "id": 6,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "es"
+    },
+    {
+      "id": 7,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "da"
+    },
+    {
+      "id": 8,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "darum"
+    },
+    {
+      "id": 9,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "auf"
+    },
+    {
+      "id": 10,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "um"
+    }
+  ],
+  "allOptions": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"]
+}

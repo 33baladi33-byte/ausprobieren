@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 10: Deutschland – ein Paradies für Kinder?",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "17 Millionen Kinder leben in Deutschland. Verglichen .....(1)..... der Bevölkerungszahl von ungefähr 80 Millionen ist das fast ein Viertel der Einwohner. Doch nur für jedes zehnte Kind unter drei Jahren steht ein Betreuungsplatz in einer Kindertagesstätte zur Verfügung. Die Folge: Nur etwas mehr als die Hälfte der Mütter dieser Kinder ist berufstätig – und nur ein Viertel kann ganztägig zur Arbeit gehen.\nUm dem entgegenzuwirken, gibt es in Deutschland die dreijährige Elternzeit, die es einem Elternteil ermöglichen soll, drei Jahre .....(2)..... dem Kind zu Hause zu bleiben, .....(3)..... hat den Vorteil, dass der zu Hause bleibende Elternteil seinen Arbeitsplatz nicht verliert. Dennoch wird die Elternzeit für viele Eltern in finanzieller Hinsicht zu einem gravierenden Problem. Außerdem gilt die Elternzeit nur für Angestellte. Mütter zum Beispiel, die vor der Geburt ihres Kindes selbständig waren und mit dem Baby zu Hause bleiben wollen, stehen weit schlechter da. Kind und Karriere zu vereinbaren ist daher in Deutschland für die meisten Mütter so gut wie unmöglich. Dies scheinen die Hauptgründe .....(4)..... zu sein, warum in Deutschland zurzeit weltweit die wenigsten Kinder geboren werden.\nDoch auch andere Dinge machen Familien mit Kindern in Deutschland das Leben schwer: In Restaurants zum Beispiel sind Kinder selten willkommen. Sie sitzen eben nicht still am Tisch, .....(5)..... stören mit ihrem Lachen und lauten Sprechen die anderen (kinderlosen) Gäste. Bei den kinderlosen Erwachsenen werden andere Maßstäbe angelegt. .....(6)..... diese selbst häufig lautstark telefonieren, stört das niemanden: Telefonate sind eben wichtiger als Kinder.\nIn zahlreichen deutschen Städten wie Mainz strengen Anwohner Prozesse gegen Kindergärten und Spielplätze an, .....(7)..... die Kinder die Ruhe der benachbarten (kinderlosen) Hausbewohner stören. Die Folge: Spielplätze werden von Gerichts wegen geschlossen. An Wiesen, auf denen früher Kinder tobten und Ball spielten, stehen nun Schilder: Betreten und spielen verboten. Bei Zuwiderhandlung drohen Geldstrafen.\nEltern, die mit der deutschen Bahn mit ihren Kindern verreisen möchten, haben schlechte Karten. In den meisten Zügen sind die Gänge so angeordnet, .....(8)..... mit einem Kinderwagen kein Durchkommen ist. Und in den Mutter-Kind-Abteilen haben sich schon andere Reisende breitgemacht, die nicht einsehen, warum sie Müttern mit Kind Platz machen sollten. Schließlich hätten sie ja eine Fahrkarte gekauft und damit Anspruch .....(9)..... einen Platz. In vielen Berichten in Zeitungen oder im Fernsehen, die sich mit Kindern, ihrer Erziehung oder mit dem Schulsystem befassen, spricht man in Deutschland gerne .....(10)..... \"Problemen\". Man meint damit die Kinder. Kann eine Gesellschaft, in der ein Kind als ein Problemfall angesehen wird, ein Paradies für Kinder sein?",
+  "options": [
+    {
+      "id": 1,
+      "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
+      "correct": "mit"
+    },
+    {
+      "id": 2,
+      "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
+      "correct": "bei"
+    },
+    {
+      "id": 3,
+      "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
+      "correct": "das"
+    },
+    {
+      "id": 4,
+      "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
+      "correct": "dafür"
+    },
+    {
+      "id": 5,
+      "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
+      "correct": "sondern"
+    },
+    {
+      "id": 6,
+      "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
+      "correct": "obwohl"
+    },
+    {
+      "id": 7,
+      "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
+      "correct": "weil"
+    },
+    {
+      "id": 8,
+      "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
+      "correct": "dass"
+    },
+    {
+      "id": 9,
+      "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
+      "correct": "auf"
+    },
+    {
+      "id": 10,
+      "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
+      "correct": "von"
+    }
+  ],
+  "allOptions": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"]
+}

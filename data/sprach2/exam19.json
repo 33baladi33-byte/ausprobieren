@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 19: Die wichtigsten Regeln auf der Skipiste",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Wer beim Skifahren fahrlässig einen anderen Sportler verletzt oder gefährdet, muss auch mit rechtlichen Folgen .....(1).... Das Strafgesetzbuch ist sowohl auf der Straße als auch auf der Piste .....(2)..... Laut Gesetz gibt es Freiheitsstrafen bis zu 3 Monaten oder eine entsprechende Geldstrafe. Bei schwerer Körperverletzung sieht das Gesetz Freiheitsstrafen bis zu 6 Monaten .....(3)..... Der deutsche Skiverband hat eine Pistenordnung erarbeitet, die bei gerichtlichen Entscheidungen angewandt wird. Jeder Wintersportler .....(4)..... diese Regeln kennen:\nJeder Skifahrer muss sich stets .....(5)..... verhalten, dass er keinen anderen gefährdet oder schädigt. Er muss die Zeichen und Hinweisschilder an der Piste kennen und beachten. Er muss die eigene Geschwindigkeit und Fahrweise seinem Können und dem Gelände sowie den herrschenden Wetterverhältnissen .....(6).....\nEin von hinten kommender Skifahrer muss seine Fahrspur so wählen, dass er vor ihm fahrende Skifahrer nicht gefährdet. Überholen darf man rechts oder links, .....(7)..... immer in einem Abstand, der dem überholten Skifahrer genug Raum für seine Bewegungen lässt. Aufsteigende Skifahrer dürfen nur den .....(8)..... der Abfahrtstrecke benutzen. Dasselbe gilt für einen Skifahrer, der zu Fuß absteigt. Bei schlechten Sichtverhältnissen ist die Benutzung des Pistenrands verboten und der Skifahrer muss diesen verlassen. Niemand sollte sich an unübersichtlichen oder engen Stellen aufhalten. Gestürzte Skifahrer müssen eine solche .....(9)..... so schnell wie möglich freimachen. Bei Unfällen ist jeder zur Hilfeleistung verpflichtet. Jeder Zeuge oder Verantwortliche muss bei einem Unfall außerdem seine Personalien .....(10).....\nDurch Beachtung dieser Regeln ist die Sicherheit auf den Pisten deutlich gestiegen.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
+      "correct": "rechnen"
+    },
+    {
+      "id": 2,
+      "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
+      "correct": "gültig"
+    },
+    {
+      "id": 3,
+      "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
+      "correct": "vor"
+    },
+    {
+      "id": 4,
+      "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
+      "correct": "sollte"
+    },
+    {
+      "id": 5,
+      "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
+      "correct": "so"
+    },
+    {
+      "id": 6,
+      "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
+      "correct": "anpassen"
+    },
+    {
+      "id": 7,
+      "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
+      "correct": "allerdings"
+    },
+    {
+      "id": 8,
+      "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
+      "correct": "rand"
+    },
+    {
+      "id": 9,
+      "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
+      "correct": "stelle"
+    },
+    {
+      "id": 10,
+      "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
+      "correct": "angeben"
+    }
+  ],
+  "allOptions": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"]
+}

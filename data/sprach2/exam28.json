@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 28: Wie Handschrift wieder cool wird",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Der sogenannte SMS-Daumen ist es, den Kinder heutzutage feinmotorisch zu Höchstleistungen bringen. Das Handgelenk hingegen schmerzt relativ schnell, ......(1)...... Handschrift ungewohnt ist. Vor allem ältere Kinder haben mit dem Schreiben in der Schule ......(2)...... mehr Probleme - auch weil viel am Computer getippt wird. Dennoch gibt es einen neuen Trend, der mit Handschrift zu ......(3)...... hat: Unter dem Hashtag \"Lettering\" finden sich auf Instagram über zwölf Millionen Beiträge, und auch Kalligrafie findet in Workshops guten Anklang.\nErfahrungen ......(4)...... hat die Wiener Designerin und Kalligrafin Claudia Dzengel gemacht, die Schrift- und Kalligrafie-Workshops für Kinder und Erwachsene veranstaltet. Auf ......(5)...... Weise vermittelt die Künstlerin das Thema Schrift aus unterschiedlichen Zeitepochen bis hin zum handgezeichneten modernen Alphabet. Der Künstlerin, die manchmal auch Kinder erlebt, die einen Stift nicht richtig halten können, ist wichtig, ......(6)...... Kinder die Freude am Schreiben wiederentdecken.\nGerade im Alter zwischen 13 und 15 biete die Auseinandersetzung mit Schrift eine Möglichkeit, die eigene Handschrift zu beurteilen und zu ......(7)......, zu entwickeln - als eine Übung, sich selbst auszudrücken, sich seiner bewusst zu werden.\nDer Rhythmus macht den individuellen Ausdruck beim Schreiben mit der Hand aus. Es nützt wenig, an einzelnen Buchstaben zu üben\", so Dzengel. Zu Beginn lässt sie ihre Schüler daher nur Elemente von Buchstaben schreiben, bis ihnen das flüssig von der Hand ......(8)...... So wird auch die Feinmotorik wieder gestärkt, die vielen Kindern abhandengekommen ist.\" Die Schülerinnen und Schüler lernen mit Kalligrafie und Lettering nebenbei auch, coole Einladungen und Logos zu gestalten. Die Verbindung ......(9)...... Schrift und Bild lässt sich also auch im Alltag anwenden. Lettering etwa ist das Zeichnen von Buchstaben, um sie danach zu dekorieren. Besonders beliebt sei derzeit das Schreiben mit Brush-Pens, so Dzengel. Mit klassischem Schönschreiben, wie es früher unterrichtet und von einigen auch gefürchtet ......(10)......, hat das alles nichts zu tun.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "weil"
+    },
+    {
+      "id": 2,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "immer"
+    },
+    {
+      "id": 3,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "tun"
+    },
+    {
+      "id": 4,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "damit"
+    },
+    {
+      "id": 5,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "spielerische"
+    },
+    {
+      "id": 6,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "dass"
+    },
+    {
+      "id": 7,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "gestalten"
+    },
+    {
+      "id": 8,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "geht"
+    },
+    {
+      "id": 9,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "von"
+    },
+    {
+      "id": 10,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "wurde"
+    }
+  ],
+  "allOptions": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"]
+}

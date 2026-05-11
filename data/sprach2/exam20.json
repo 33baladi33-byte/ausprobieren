@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 20: Kaffee und Kuchen – ein Stück Tradition",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "In England zelebriert man um 17 Uhr die Teatime, in Deutschland trifft man sich am Sonntagnachmittag .....(1)..... Kaffee und Kuchen. Schon unsere Großeltern haben diese Tradition zu schätzen gewusst. .....(2)..... lange es den Brauch in der uns bekannten Form gibt, ist jedoch nicht bekannt. .....(3)..... ist nur, dass sich dieses Getränk im 17. Jahrhundert in Europa als Genussmittel verbreitete. .....(4)..... entstanden zahlreiche Kaffeehäuser – erst in Italien, dann in anderen Ländern. Das erste Café in Deutschland wurde im Jahr 1673 in Bremen eröffnet.\nDie Kaffeehäuser begannen schnell, zu dem bitteren Kaffee süße Speisen zu servieren. Dort wurde jedoch nicht nur gespeist und getrunken, .....(5)..... man konnte in Gesellschaft sein, und es fanden sogar kleine Konzerte statt. So wurde 1732 die berühmte Kaffeekantate .....(6)..... Johann Sebastian Bach in dem Leipziger Kaffeehaus „Zimmermann“ uraufgeführt.\nDas schwarze Getränk war zu dieser Zeit aber noch ein Luxusgut, das sich nur Adelige und wohlhabende Bürger leisten .....(7)..... Erst mit der Industrialisierung wurde es für den Großteil der Bevölkerung erschwinglich. 1965 wurde Kaffee zum ersten Mal vor Bier zum Lieblingsgetränk der Deutschen gekürt – und ist es .....(8)..... heute geblieben.\nGegen Ende des 20. Jahrhunderts kam noch einmal Bewegung in die deutsche Kaffeewelt: Spezialitäten .....(9)..... alle Welt wie Café au Lait oder Latte Macchiato wurden beliebter, die Zubereitungsarten vielfältiger. Der klassischen Filterkaffeemaschine setzten seitdem Espressokocher oder Kaffeevollautomaten .....(10)..... häufiger Konkurrenz. Die Auswahl ist also größer geworden, doch die Liebe der Deutschen zu Kaffee und Kuchen bleibt nach wie vor unverändert.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
+      "correct": "zu"
+    },
+    {
+      "id": 2,
+      "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
+      "correct": "wie"
+    },
+    {
+      "id": 3,
+      "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
+      "correct": "sicher"
+    },
+    {
+      "id": 4,
+      "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
+      "correct": "damals"
+    },
+    {
+      "id": 5,
+      "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
+      "correct": "sondern"
+    },
+    {
+      "id": 6,
+      "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
+      "correct": "von"
+    },
+    {
+      "id": 7,
+      "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
+      "correct": "konnten"
+    },
+    {
+      "id": 8,
+      "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
+      "correct": "bis"
+    },
+    {
+      "id": 9,
+      "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
+      "correct": "aus"
+    },
+    {
+      "id": 10,
+      "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
+      "correct": "immer"
+    }
+  ],
+  "allOptions": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "auch", "in", "mit", "sehr"]
+}

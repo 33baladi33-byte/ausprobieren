@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 37: Im Restaurant",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Eine unterhaltsame, schöne und gesellige Zeit. Das stellt man sich unter einem guten Essen vor. Störend wirkt da der anschauliche Erlebnisbericht der letzten Operation im Krankenhaus oder das Klingeln des Handys. Sowohl Gastgeber als auch Gast sollen alles dafür tun, dass das gemeinsame Essen Freude macht. Das Handy stellt man selbstverständlich ab.\nDas Essen beginnt, wenn der Gastgeber zur Serviette greift oder zum Gruß sein Glas erhebt. Besonders bei Kindern ein unbeliebtes Thema: die richtige Körperhaltung beim Essen. Die Arme .....(1)...... nicht auf den Tisch und die Hände nicht unter den Tisch. Man sitzt gerade, ohne unruhig hin und her zu rücken. Die Beine werden nebeneinander gestellt, nicht übereinander gelegt. Die Schuhe .....(2)...... in jedem Fall an.\nNur keine Angst vor guten Restaurants mit ihrem Luxus! Denn je besser die Küche, umso aufmerksamer ist in der Regel das Personal. Doch schon bei der Anrede der Bedienung steht so .....(3)...... vor einem Problem. Die Bedienung .....(4)...... \"Fräulein\" an den Tisch zu rufen, ist in Zeiten der Gleichberechtigung veraltet. \"Herr Ober\" oder \"Bedienung\" ist .....(5)...... noch möglich, aber auch schon etwas ungewöhnlich. Am besten versucht man sich Blickkontakt zu verschaffen, um mit einem kleinen .....(6)...... mit der Hand den Kellner an den Tisch zu bitten.\nZudem gibt es zwischen Gast und Service eine Zeichensprache. Schließt der Gast die Speisekarte und legt sie auf den Tisch, ist dies für den Kellner das Signal, die Bestellung aufzunehmen. Ist man mit dem Essen .....(7)......, legt man das Besteck parallel nebeneinander auf den rechten Tellerrand. Der Kellner wird dann abräumen. Macht man hingegen nur eine Pause, wird es gekreuzt oder offen auf den Teller gelegt.\nBeim Bezahlen ist .....(8)...... gefragt. Übernimmt ein Gastgeber die Kosten, macht er dies dem Kellner .....(9)...... . Ein \"Bringen Sie mir bitte die Rechnung\" reicht da völlig aus. Möchte man hingegen getrennt bezahlen, .....(10)...... durchaus üblich ist, teilt man dies ebenfalls rechtzeitig der Bedienung mit. In Deutschland gibt man, je nach Zufriedenheit mit dem Service und der Höhe der Gesamtsumme zwischen drei und zehn Prozent Trinkgeld. Ist man mit dem Service unzufrieden gewesen, gibt man kein Trinkgeld.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
+      "correct": "gehören"
+    },
+    {
+      "id": 2,
+      "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
+      "correct": "behält"
+    },
+    {
+      "id": 3,
+      "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
+      "correct": "mancher"
+    },
+    {
+      "id": 4,
+      "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
+      "correct": "mit"
+    },
+    {
+      "id": 5,
+      "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
+      "correct": "dagegen"
+    },
+    {
+      "id": 6,
+      "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
+      "correct": "wink"
+    },
+    {
+      "id": 7,
+      "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
+      "correct": "fertig"
+    },
+    {
+      "id": 8,
+      "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
+      "correct": "takt"
+    },
+    {
+      "id": 9,
+      "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
+      "correct": "klar"
+    },
+    {
+      "id": 10,
+      "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
+      "correct": "was"
+    }
+  ],
+  "allOptions": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"]
+}

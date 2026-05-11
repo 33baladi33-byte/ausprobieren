@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 18: Der Hund als intelligentes Wesen",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Hunde sind beliebte Begleiter vieler Menschen. Gerade in den Großstädten Deutschlands und Österreichs gibt es eine große Anzahl an Hundebesitzern, die das Tier als Freund, manchmal sogar als Helfer schätzen. Bislang galt die Auffassung, Hunde seien zwar treu, aber .....(1)..... ihre Intelligenz betrifft, eher mit geringen Begabungen ausgestattet. Doch .....(2)..... haben wissenschaftliche Experimente .....(3)..... der Universität Wien und am Max-Planck-Institut in Leipzig die Hundeehre gerettet und bewiesen: Der Hund ist ein außerordentlich intelligentes Lebewesen und kommt in einer Vielzahl von Strategien, die er anwendet, an menschliche Denkmuster durchaus heran.\nFriederike Range von der Universität Wien setzte ihren Hund vor einen Computer. Der Hund sollte .....(4)..... verschiedenen Bildern, von denen jeweils zwei auf dem Monitor zu sehen waren, das richtige auswählen und .....(5)..... entweder einen Menschen oder eine Landschaft erkennen. Der Monitor war mit einem Touchscreen ausgestattet, .....(6)..... der Hund mit der Schnauze auf das jeweils richtige Bild tippen konnte. Lag er richtig, bekam er ein Stück Trockenfutter als Belohnung, lag er falsch, wurde der Bildschirm kurz rot und zeigte gleich im Anschluss das nächste Bilderpaar.\nDas Ergebnis war verblüffend. Der Hund hing .....(7)..... mit einer ähnlichen Begeisterung und Ausdauer am Bildschirm wie manch Jugendlicher an der Playstation, sondern er war auch bei seinen Entscheidungen äußerst treffsicher. Die Leipziger Forscherin Juliane Kaminski setzte ihren Hund vor zwei Gefäße, von .....(8)..... eins Futter enthielt, das andere nicht. Danach schaute sie in die Richtung des Behälters, in dem das Fleischstück lag. Der Hund beobachtete sie dabei und interpretierte die menschliche Mimik richtig.\nDasselbe Experiment mit dem gleichen Ergebnis wurde mit Hundebabys wiederholt. Daraus schließen die Forscher in Leipzig, .....(9)..... bestimmte Muster menschlicher Gestik und Mimik von den Hunden sehr treffsicher interpretiert werden können und diese Fähigkeiten bereits seit langem bei Hunden vorhanden sein müssen. Man kann also mit Recht annehmen, dass die Interpretationsfähigkeit menschlicher Mimik und Gestik bei den Hunden genetisch verankert ist.\nÄhnliche Experimente mit Wölfen, die als die Vorfahren des Haushundes gelten, brachten .....(10)..... vergleichbaren Resultate. Ein weiterer Beweis also dafür, dass der Hund diese Fähigkeiten gelernt und verinnerlicht haben muss.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
+      "correct": "was"
+    },
+    {
+      "id": 2,
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
+      "correct": "jetzt"
+    },
+    {
+      "id": 3,
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
+      "correct": "an"
+    },
+    {
+      "id": 4,
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
+      "correct": "aus"
+    },
+    {
+      "id": 5,
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
+      "correct": "darauf"
+    },
+    {
+      "id": 6,
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
+      "correct": "so dass"
+    },
+    {
+      "id": 7,
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
+      "correct": "nicht nur"
+    },
+    {
+      "id": 8,
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
+      "correct": "denen"
+    },
+    {
+      "id": 9,
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
+      "correct": "dass"
+    },
+    {
+      "id": 10,
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht только", "so dass", "später", "was", "zu"],
+      "correct": "kein"
+    }
+  ],
+  "allOptions": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"]
+}

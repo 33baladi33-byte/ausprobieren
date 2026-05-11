@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 3: Man(n) kocht selbst",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Selbst ist der Mann. Von der Wahrheit dieser alten deutschen Redewendung haben Frauen Generationen lang geträumt, wenn es um typische Hausarbeiten wie Waschen, Putzen oder Kochen ging. Zumindest bei Letzterem scheint sich jedoch in der letzten Jahren vieles zu ändern. .....(1)..... , immer mehr Männer in Deutschland greifen jetzt selbst zum Kochtopf. Ein Grund .....(2)..... diese Entwicklung mag sein, dass es immer mehr Ein-Personen-Haushalte in Deutschland gibt. Es ist einfach niemand anderes da, der die Kocharbeit übernehmen könnte. Und Hunger zwingt bekanntlich zum Handeln. Andererseits ist das Kochen inzwischen ein allgemein akzeptiertes Hobby geworden, besonders unter Männern. Doch welch ein Unterschied besteht .....(3)..... den Ansprüchen einer traditionellen Hausfrau und denen eines Hobbykochs, was die Ausstattung der Küche angeht! Nicht .....(4)..... Topf darf es für den selbsternannten Drei-Sterne-Küchenchef sein: Gebürsteter Edelstahl mit versiegelter Antihaftbeschichtung und integrierter digitaler Temperaturanzeige ist der Mindeststandard für einen echten kochenden Mann. Alles andere gilt als stillos.\nDie zweite Voraussetzung .....(5)..... , dass die Gerichte auch gelingen, ist das Wissen, wie man welche Speise am besten zubereitet. Zu diesem Zweck bieten die Buchhandlungen Berge von Kochbüchern an - mit Rezepten von Alaska bis Zimbabwe, mit oder ohne Fleisch, für zu Dicke und zu Dünne. Jetzt hängt es nur noch .....(6)..... ab, was der Hobbykoch aus den Kochideen der Buchautoren macht. Wird es ein exzellentes Mahl oder wäre unser \"Chefkoch\" nicht doch lieber zum Dönerstand um die Ecke gegangen? Überraschungen gehören zum Kochen dazu. Helfen die Bücher nicht .....(7)..... , bieten zum Beispiel die Volkshochschulen zahlreiche Kochkurse an, die in der Regel - zumeist von kochwilligen Männern - gut besucht sind. Das Kursangebot umfasst neben deutscher Hausmannskost wie Schnitzel, Krautwickel oder Rinderbraten zumeist auch die mediterrane und die asiatische Küche. Das führt .....(8)..... , dass man(n) zu Hause immer öfter international kocht.\nDas größte Problem der Hobbyköche ist aber, .....(9)..... es viel zu aufwändig ist, für sich alleine zu kochen. Daher sind zurzeit Internetseiten wie www.allein-kochen-ist-doof.de beliebt, wo sich Hobbyköche und -köchinnen Kochpartner für das gemeinsame Kochen und Essen suchen können. Das Interessante .....(10)..... ist, dass dabei unsere männlichen Chefköche feststellen müssen, dass es andere Menschen gibt, die mit vielleicht weniger Aufwand genauso gut ein Festmahl zubereiten können wie sie: nämlich die Frauen.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
+      "correct": "denn"
+    },
+    {
+      "id": 2,
+      "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
+      "correct": "für"
+    },
+    {
+      "id": 3,
+      "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
+      "correct": "zwischen"
+    },
+    {
+      "id": 4,
+      "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
+      "correct": "irgendein"
+    },
+    {
+      "id": 5,
+      "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
+      "correct": "dafür"
+    },
+    {
+      "id": 6,
+      "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
+      "correct": "davon"
+    },
+    {
+      "id": 7,
+      "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
+      "correct": "weiter"
+    },
+    {
+      "id": 8,
+      "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
+      "correct": "dazu"
+    },
+    {
+      "id": 9,
+      "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
+      "correct": "dass"
+    },
+    {
+      "id": 10,
+      "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
+      "correct": "daran"
+    }
+  ],
+  "allOptions": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"]
+}

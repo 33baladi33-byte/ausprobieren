@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 4: Jugend diskutiert - mach mit!",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Den Wettbewerb \"Jugend diskutiert\" gibt es bereits .....(1)..... Herbst 2002. Für das kommende Jahr werden nun wieder Schülerinnen und Schüler gesucht, die an dem Wettbewerb teilnehmen möchten. .....(2)..... immer bereiten sich die Teilnehmer dann im Unterricht auf \"Jugend diskutiert\" vor.\nDu fragst dich, .....(3)..... du teilnehmen solltest? Ganz einfach: \"Jugend diskutiert\" bringt dich weiter! Sich einmischen, mitreden, überzeugen - bei der Vorbereitung im Unterricht trainierst du viele Fähigkeiten, die dir in der Schule und im Alltag helfen. Im Austausch mit den anderen entwickelst du deine Persönlichkeit weiter und profitierst langfristig. .....(4)..... bietet dir \"Jugend diskutiert\" die Chance, im Wettstreit mit anderen weiterzukommen. Zuerst werden die besten einer Schule ermittelt, die dann .....(5)..... Regionalwettbewerben teilnehmen. Die Sieger der Regionalwettbewerbe treten im Bundesfinale an. .....(6)..... Preise kann man professionelle Trainings gewinnen.\n.....(7)..... \"Jugend diskutiert\" kannst du viel lernen. Du hast bessere Chancen im Unterricht und bei Referaten, denn du trainierst, frei zu sprechen und Dinge anschaulich und verständlich zu beschreiben. Du gewinnst mehr Selbstbewusstsein, .....(8)..... du lernst, wie man das Wort ergreift und auf sich aufmerksam macht. Du kannst überzeugen, da du eigene Argumente finden und die Argumente anderer genau prüfen kannst. Die Sichtweisen der anderen zeigen dir darüber hinaus, .....(9)..... du vielleicht selbst noch nicht gesehen hast. Du überzeugst bei Auftritten, Prüfungen und Bewerbungen, da du sicher auftrittst.\n.....(10)..... das alles im Unterricht gelernt hat, kann gemeinsam mit anderen viel bewegen! Schließlich ist der Wettbewerb \"Jugend diskutiert\" auch eine Chance, Jugendliche aus ganz Deutschland kennenzulernen und neue Freundschaften zu knüpfen.\nWeitere Informationen zu Anmeldung und Teilnahme gibt es im Internet.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "seit"
+    },
+    {
+      "id": 2,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "wie"
+    },
+    {
+      "id": 3,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "warum"
+    },
+    {
+      "id": 4,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "ausserdem"
+    },
+    {
+      "id": 5,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "an"
+    },
+    {
+      "id": 6,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "als"
+    },
+    {
+      "id": 7,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "bei"
+    },
+    {
+      "id": 8,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "weil"
+    },
+    {
+      "id": 9,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "was"
+    },
+    {
+      "id": 10,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "wer"
+    }
+  ],
+  "allOptions": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"]
+}
