@@ -1,59 +1,29 @@
 {
-  "title": "Sprachbausteine Teil 2 - Exam 34: Manipulierte Bilder",
-  "skill": "sprach2",
-  "type": "sprach2",
-  "text": "Im Internet, in sozialen Netzwerken und der Werbung werden wir mit einer ......(1)....... von Fotos konfrontiert. Klar ist: Viele von ihnen sind keine wirklichen Originale, Bildbearbeitungsprogramme machen es sogar für Laien ......(2)....... einfach, Fotos zu verändern. Meist sind die Manipulationen harmlos, ......(3)....... die Möglichkeiten der Bildbearbeitung lassen sich natürlich auch für Betrügereien oder Meinungsmache missbrauchen. In diesem Zusammenhang ......(4)....... sich die Frage, inwieweit Betrachtern solche Manipulationen auffallen. Können Sie erkennen, dass an einem Bild etwas merkwürdig ist, oder sogar die manipulierte Stelle finden? ......(5)....... Fragen sind nun Forscher der University of Warwick (UK) nachgegangen. Sie entwickelten dazu ein Online-Testsystem, bei dem die Teilnehmer den manipulierten Bereich auf Fotos erkennen sollten.\nDie Auswertungen ergaben: Die ......(6)....... Teilnehmer waren nur eher zufällig in der Lage, ein manipuliertes Bild zu identifizieren. Oft hatten sie das vage Gefühl, dass mit einem der Bilder etwas nicht stimmt. Nur in 45 Prozent der Fälle konnten sie tatsächlich ......(7)....... bestimmen, wo das Bild verändert worden war. Selbst ein falscher Schattenwurf oder andere ......(8)....... Abweichungen wurden nicht besser erkannt als nachvollziehbare Manipulationen wie beispielsweise künstliche Farbveränderungen.\nBilder haben einen starken Einfluss auf unsere Erinnerungen, so die Forscher. Können Menschen also nicht zwischen echten und gefälschten Details auf Fotos ......(9)......., so können manipulierte Bilder entscheidend beeinflussen, woran wir uns zu erinnern glauben. Die Ergebnisse dokumentierten ......(10)......., dass wir recht leicht auf Fake-Fotos und damit auch auf ihre manipulierten Botschaften reinfallen können. Aufbauend auf ihren Ergebnissen wollen die Forscher nun konkrete Ratschläge erarbeiten, die dem Betrachter helfen sollen, Fotomanipulationen besser zu erkennen.",
-  "options": [
-    {
-      "id": 1,
-      "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "flut"
-    },
-    {
-      "id": 2,
-      "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "recht"
-    },
-    {
-      "id": 3,
-      "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "aber"
-    },
-    {
-      "id": 4,
-      "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "stellt"
-    },
-    {
-      "id": 5,
-      "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "diesen"
-    },
-    {
-      "id": 6,
-      "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "meisten"
-    },
-    {
-      "id": 7,
-      "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "korrekt"
-    },
-    {
-      "id": 8,
-      "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "unlogische"
-    },
-    {
-      "id": 9,
-      "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "unterscheiden"
-    },
-    {
-      "id": 10,
-      "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "somit"
+  "title": "Schreiben - Exam 34: Hollandblumen-Onlineshop",
+  "skill": "schreiben",
+  "type": "schreiben",
+  "situation": {
+    "title": "HOLLANDBLUMEN-ONLINESHOP",
+    "level": "B2",
+    "text": "Die Vorteile liegen klar auf der Hand: Bei uns gibt es keine unnötigen Wege über Groß- und Einzelhandel. All unsere Blumen und Pflanzen stammen direkt vom Gärtner und durchlaufen vor dem Versand eine strenge Qualitätskontrolle.\n\nDoch wir liefern nicht nur Blumen oder Pflanzen für jeden Anlass und Geldbeutel, sondern auch individuelle, geschmackvolle Geschenksets für private und geschäftliche Anlässe.\n\nWir liefern deutschlandweit mit Frische-Garantie und Sie wählen, wann und wohin die Lieferung gehen soll. Natürlich können Sie Ihre Bestellung auch mit ansprechenden Grußkarten und verschiedensten Dekorationen ergänzen.\n\nAlle Preise verstehen sich inkl. Mehrwertsteuer und zzgl. Versandkosten.\nDie Bezahlung erfolgt mittels Kreditkarte, Paypal, Lastschrift oder per Rechnung.\n\nGern sind wir von Montag bis Samstag für Sie erreichbar.\n\nKontakt:\nServicetelefon +49 40 - 2577 6655\nservice@hollandblumen-onlineshop.de"
+  },
+  "aufgabe": {
+    "wordCount": "150–180 Wörter",
+    "description": "Sie haben durch den Hollandblumen-Onlineshop jemanden beliefern lassen. Sie sind nicht zufrieden. Schreiben Sie eine Beschwerde an den Hollandblumen-Onlineshop.",
+    "points": [
+      "Beschreiben Sie ausführlich, für welchen Anlass Sie welche Ware bestellten.",
+      "Erklären Sie den Grund Ihrer Unzufriedenheit.",
+      "Beschreiben Sie Ihre Erfahrungen mit der Service-Hotline.",
+      "Machen Sie Vorschläge, wie der Hollandblumen-Onlineshop seine Leistungen verbessern kann."
+    ]
+  },
+  "pointsNumbers": [1, 2, 3, 4],
+  "template": {
+    "title": "✦ يمكنك تطبيق هذه المنهجية باستمرار للوصول إلى ما بين 20–30 / 45 بأقل مجهود.",
+    "text": "Betreff: Beschwerde über…\n\nSehr geehrte Damen und Herren,\n\nVor einigen Tagen habe ich ... genutzt, weil ich ... möchte. Leider bin ich damit sehr unzufrieden, denn es gab mehrere Probleme, die ich nicht akzeptieren kann. Deshalb möchte ich mich beschweren und hoffe auf eine Lösung.\n\nEinige Punkte aus der Beschreibung wurden nicht erfüllt, nämlich ..., ... und ...\n\nAus diesem Grund bin ich sehr unzufrieden und erwarte eine angemessene Antwort auf meine Beschwerde. Wenn ich innerhalb von drei Werktagen keine Antwort erhalte, werde ich meine Erfahrung öffentlich teilen.\n\nFür eine bessere Kundenzufriedenheit empfehle ich, dass die Leistungen wie versprochen erbracht werden und die Kommunikation verständlicher gestaltet wird, da dies Probleme vermeidet.\n\nIch bitte Sie freundlich, mich unter der Nummer 06 99xxxxxxxx zu kontaktieren.\n\nMit freundlichen Grüßen\nName",
+    "colors": {
+      "blue": "#4A90E2",
+      "gray": "#333333"
     }
-  ],
-  "allOptions": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"]
+  }
 }

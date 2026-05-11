@@ -1,59 +1,29 @@
 {
-  "title": "Sprachbausteine Teil 2 - Exam 31: Joggen: Mehr als nur Laufen",
-  "skill": "sprach2",
-  "type": "sprach2",
-  "text": "Auto, Rolltreppe, Fahrstuhl - das moderne Leben ist ......(1)....... geworden. Ein Großteil der Bevölkerung verbringt den Tag sitzend. Zum Leidwesen unseres Körpers, denn das geht zu Lasten der Gesundheit. Herz-Kreislauf-Erkrankungen ......(2)....... in den westlichen Industrieländern mittlerweile die Todesursache Nummer Eins. Dennoch: Rund zehn Millionen Menschen in Deutschland joggen, etwa acht Millionen gehen Inline-Skaten oder Rad fahren, jeder Dritte schwimmt. Wer regelmäßig, richtig und vor allem in Maßen trainiert, fördert Gesundheit, Körper- und Selbstbewusstsein.\nZahlreiche Sportarten bieten einen einfachen und abwechslungsreichen Einstieg auch für Ungeübte. Vom Klassiker Jogging bis hin zu Walking, Radfahren, Schwimmen, Aerobic, Inline-Skating und Langlauf im Winter. Wichtig ist ......(3)....... richtig zu trainieren, den Körper nicht zu überfordern - vor allem nach einer längeren 'Sportpause'! Empfehlenswert ist aerobes Herz-Kreislauf-Training, das bedeutet Ausdauertraining ......(4)....... Verbrennung von Sauerstoff. Dreimal in der Woche 30 bis 40 Minuten genügen. Dabei ......(5)....... der Puls kontrolliert werden. Der Richtwert ist hier 180 minus Lebensalter. Dann wird auch Fett verbrannt, der Körper nicht überfordert.\n......(6)....... mehr Menschen den Schritt in ein aktiveres Leben wagen sollten, machen zahlreiche Studien deutlich: Rund 40 Prozent ......(7)....... Deutschen bringen zu viel auf die Waage, jeder zehnte ist sogar stark fettleibig - Tendenz steigend. Auch vor Kindern und Jugendlichen macht diese Entwicklung nicht halt. Oft fehlt die Zeit für regelmäßiges Essen, Sport und Entspannung. Der Körper quittiert dies meist mit Herz-Kreislauf-Erkrankungen, nicht selten mit ......(8)....... Herzinfarkt - auch, und immer häufiger ......(9)....... Frauen.\nAusdauersport hingegen wirkt auf Herz, Gefäße, Muskeln, Körpergewicht, Hormone und Stimmungen. Stress wird wegtrainiert, Krankheiten geheilt und vorgebeugt. Zusammen mit der richtigen Ernährung minimiert sich das Risiko, einen Herzinfarkt oder Schlaganfall zu erleiden, ......(10)....... Milch und Milchprodukte, pflanzliche Lebensmittel wie Vollkornprodukte, Obst, Gemüse, Salat, magere Wurst und Käsesorten unterstützen das richtige Training.",
-  "options": [
-    {
-      "id": 1,
-      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "bequem"
-    },
-    {
-      "id": 2,
-      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "sind"
-    },
-    {
-      "id": 3,
-      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "immer"
-    },
-    {
-      "id": 4,
-      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "unter"
-    },
-    {
-      "id": 5,
-      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "sollte"
-    },
-    {
-      "id": 6,
-      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "dass"
-    },
-    {
-      "id": 7,
-      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "aller"
-    },
-    {
-      "id": 8,
-      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "einem"
-    },
-    {
-      "id": 9,
-      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "bei"
-    },
-    {
-      "id": 10,
-      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "wie"
+  "title": "Schreiben - Exam 31: DIGIBIKE - Das smarte Hightech-Fahrrad",
+  "skill": "schreiben",
+  "type": "schreiben",
+  "situation": {
+    "title": "DIGIBIKE - Das smarte Hightech-Fahrrad",
+    "level": "B2",
+    "text": "Programmierbare Kühlschränke, Smartphones mit künstlicher Intelligenz – aber Fahrradfahren wie im letzten Jahrhundert? Nicht mit dem Digibike!\n\nDas Hightech-Fahrrad für den Alltagseinsatz hat einen Bordcomputer mit 2,4-Zoll-Display, der Sie mit nützlichen Informationen versorgt: Er zeigt Fahrdaten, Navigationshinweise, Wetterinformationen, Ihre Fitnessdaten und Smartphone-Nachrichten an.\n\nMit dem Digibike wird das Radfahren smarter, bequemer und sicherer!\n\nAb Oktober lieferbar! Mehr Informationen und Preisanfrage unter:\nE-Mail: info@digibike.de\nTelefon: 0800 769239002\n\nDigibike Deutschland GmbH\nSattelstraße 52\n70327 Stuttgart"
+  },
+  "aufgabe": {
+    "wordCount": "150–180 Wörter",
+    "description": "Sie interessieren sich für das Fahrrad. Schreiben Sie eine E-Mail und bitten Sie um mehr Informationen.",
+    "points": [
+      "Für welche Touren haben Sie dieses Fahrrad genutzt?",
+      "Beschreiben Sie Ihre Erfahrungen mit längeren Fahrradtouren.",
+      "Verbesserungsvorschläge",
+      "Ihre Erfahrungen mit dem Kundendienst"
+    ]
+  },
+  "pointsNumbers": [1, 2, 3, 4],
+  "template": {
+    "title": "✦ يمكنك تطبيق هذه المنهجية باستمرار للوصول إلى ما بين 20–30 / 45 بأقل مجهود.",
+    "text": "Betreff: Beschwerde über…\n\nSehr geehrte Damen und Herren,\n\nVor einigen Tagen habe ich ... genutzt, weil ich ... möchte. Leider bin ich damit sehr unzufrieden, denn es gab mehrere Probleme, die ich nicht akzeptieren kann. Deshalb möchte ich mich beschweren und hoffe auf eine Lösung.\n\nEinige Punkte aus der Beschreibung wurden nicht erfüllt, nämlich ..., ... und ...\n\nAus diesem Grund bin ich sehr unzufrieden und erwarte eine angemessene Antwort auf meine Beschwerde. Wenn ich innerhalb von drei Werktagen keine Antwort erhalte, werde ich meine Erfahrung öffentlich teilen.\n\nFür eine bessere Kundenzufriedenheit empfehle ich, dass die Leistungen wie versprochen erbracht werden und die Kommunikation verständlicher gestaltet wird, da dies Probleme vermeidet.\n\nIch bitte Sie freundlich, mich unter der Nummer 06 99xxxxxxxx zu kontaktieren.\n\nMit freundlichen Grüßen\nName",
+    "colors": {
+      "blue": "#4A90E2",
+      "gray": "#333333"
     }
-  ],
-  "allOptions": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"]
+  }
 }

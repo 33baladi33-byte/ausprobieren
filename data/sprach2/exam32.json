@@ -1,59 +1,29 @@
 {
-  "title": "Sprachbausteine Teil 2 - Exam 32: Der klügste Freund des Menschen",
-  "skill": "sprach2",
-  "type": "sprach2",
-  "text": "Seit jeher gilt der Hund ......(1)....... als treuer Begleiter des Menschen, besondere Leistungen auf dem Gebiet der Intelligenz wurden ihm jedoch sehr viel seltener zugesprochen. Jetzt beweisen aber Untersuchungen, die etwa zeitgleich an der Eötvös-Loránd-Universität in Budapest, an der Harvard Universität und am Max-Planck-Institut für evolutionäre Anthropologie in Leipzig durchgeführt ......(2)......., dass die beliebten Vierbeiner offenbar mehr verstehen und leisten können, als man bislang glaubte.\nIn speziell ausgearbeiteten Lerntests mit Hunden, Schimpansen und Gorillas wurde die Kommunikationsfähigkeit der Tiere getestet. In allen Tests schnitten die Hunde besser ab als die Affen. Hunde lesen kommunikative Informationen besonders an den Augen ......(3)......., aber sie reagieren auch ......(4)....... die Stimme und die Körpersprache eines Menschen.\nGanz besonders der Blickkontakt ......(5)....... für Hunde ein wichtiges Instrument, um Informationen über den \"Gesprächspartner\" zu erhalten. Diese Fähigkeit habe sich im Verlaufe der Domestizierung der Hunde durch den Menschen immer weiter ausgebildet und sei jetzt in den Genen der Hunde fest verankert, so die Aussage der Forscher.\nHunden wird jetzt auch bescheinigt, dass sie ein Verständnis für Objekte entwickelt haben. Die Forscher versteckten vor den Augen ihrer Probanden Spielzeuge entweder hinter einer Wand oder in einem Behälter. ......(6)....... der Behälter nach dem Öffnen leer, suchten die Hunde auch hinter der Wand nach dem Spielzeug.\nHundetrainer, die in anerkannten Hundeschulen arbeiten, wissen schon lange Erstaunliches über die Fähigkeiten ihrer Schüler zu berichten. Ein Beispiel für die erstaunlichen Leistungen, die ein Hund zustande zu bringen vermag, ist der Blindenhund. Er kann nach den entsprechenden Trainings blinden Menschen sicher den Weg zeigen, er achtet auf den Straßenverkehr, er leitet sie ......(7)....... Hindernisse herum.\nNach neuesten Erkenntnissen wurden die ersten Hunde vor etwa 15.000 Jahren in Ostasien domestiziert. Nach umfangreichen Erbgutuntersuchungen geht man ......(8)....... aus, dass alle heute bekannten Hunderassen von etwas fünf weiblichen Wölfen abstammen. Als Ursprungsland der heutigen Hunderassen nimmt man China an.\nHundebesitzer von heute können also stolz ......(9)....... sein, nicht nur einen anhänglichen, ......(10)....... auch einen intelligenten Begleiter bei sich zu haben.",
-  "options": [
-    {
-      "id": 1,
-      "options": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"],
-      "correct": "zwar"
-    },
-    {
-      "id": 2,
-      "options": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"],
-      "correct": "wurden"
-    },
-    {
-      "id": 3,
-      "options": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"],
-      "correct": "ab"
-    },
-    {
-      "id": 4,
-      "options": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"],
-      "correct": "auf"
-    },
-    {
-      "id": 5,
-      "options": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"],
-      "correct": "sei"
-    },
-    {
-      "id": 6,
-      "options": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"],
-      "correct": "war"
-    },
-    {
-      "id": 7,
-      "options": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"],
-      "correct": "um"
-    },
-    {
-      "id": 8,
-      "options": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"],
-      "correct": "davon"
-    },
-    {
-      "id": 9,
-      "options": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"],
-      "correct": "darauf"
-    },
-    {
-      "id": 10,
-      "options": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"],
-      "correct": "sondern"
+  "title": "Schreiben - Exam 32: SPORTHEINPARKPLATZ FÜR KINDER",
+  "skill": "schreiben",
+  "type": "schreiben",
+  "situation": {
+    "title": "SPORTHEINPARKPLATZ FÜR KINDER",
+    "level": "B2",
+    "text": "Bewegung, Spaß und Abenteuer im Freien!\n\nSuchen Sie einen sicheren und modernen Sportheinparkplatz, auf dem Kinder spielen, sich bewegen und ihre Fähigkeiten entwickeln können?\n\nUnser Sportheinparkplatz bietet Kindern die perfekte Möglichkeit, aktiv zu sein, neue Freunde zu finden und spielerisch fit zu bleiben – in einer sicheren und kindgerechten Umgebung!\n\nWir bieten Ihnen:\n- Verschiedene Spiel- und Sportgeräte für Kinder jeden Alters\n- Förderung von Bewegung, Koordination und Teamgeist\n- Sicherer und gepflegter Platz mit weichem Bodenbelag\n- Schattige Sitzbereiche für Eltern\n- Regelmäßige Veranstaltungen und Sportkurse\n- Saubere Toiletten und Trinkwasserstellen\n\nWeitere Informationen und Öffnungszeiten finden Sie auf unserer Website: www.sportheinparkplatz.de. Besuchen Sie uns und schenken Sie Ihren Kindern unvergessliche Momente!"
+  },
+  "aufgabe": {
+    "wordCount": "150–180 Wörter",
+    "description": "Sie haben kürzlich einen SPORTHEINPARKPLATZ FÜR KINDER besucht und sind unzufrieden – Schreiben Sie eine Beschwerde.",
+    "points": [
+      "Warum haben Sie diesen Sportheinparkplatz gewählt?",
+      "Warum sind Sie unzufrieden?",
+      "Was hat Ihnen nicht gefallen?",
+      "Ratschläge zur Verbesserung"
+    ]
+  },
+  "pointsNumbers": [1, 2, 3, 4],
+  "template": {
+    "title": "✦ يمكنك تطبيق هذه المنهجية باستمرار للوصول إلى ما بين 20–30 / 45 بأقل مجهود.",
+    "text": "Betreff: Beschwerde über…\n\nSehr geehrte Damen und Herren,\n\nVor einigen Tagen habe ich ... genutzt, weil ich ... möchte. Leider bin ich damit sehr unzufrieden, denn es gab mehrere Probleme, die ich nicht akzeptieren kann. Deshalb möchte ich mich beschweren und hoffe auf eine Lösung.\n\nEinige Punkte aus der Beschreibung wurden nicht erfüllt, nämlich ..., ... und ...\n\nAus diesem Grund bin ich sehr unzufrieden und erwarte eine angemessene Antwort auf meine Beschwerde. Wenn ich innerhalb von drei Werktagen keine Antwort erhalte, werde ich meine Erfahrung öffentlich teilen.\n\nFür eine bessere Kundenzufriedenheit empfehle ich, dass die Leistungen wie versprochen erbracht werden und die Kommunikation verständlicher gestaltet wird, da dies Probleme vermeidet.\n\nIch bitte Sie freundlich, mich unter der Nummer 06 99xxxxxxxx zu kontaktieren.\n\nMit freundlichen Grüßen\nName",
+    "colors": {
+      "blue": "#4A90E2",
+      "gray": "#333333"
     }
-  ],
-  "allOptions": ["ab", "aber", "an", "auf", "darauf", "darüber", "davon", "sei", "seien", "sondern", "über", "um", "war", "wurden", "zwar"]
+  }
 }
