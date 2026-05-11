@@ -1819,7 +1819,36 @@ body:has(#exam.active) .notification-header,
 body:has(#list.active) .notification-header {
     background: #0a0e1a;
 }
+/* ========================================
+   أزرار عرض الكل / عرض أقل
+   ======================================== */
 
+.notification-show-all,
+.notification-show-less {
+    padding: 10px 15px;
+    text-align: center;
+    border-top: 1px solid rgba(56, 189, 248, 0.2);
+    background: #0a0e1a;
+}
+
+.show-all-btn,
+.show-less-btn {
+    background: rgba(56, 189, 248, 0.15);
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
+    font-size: 12px;
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.show-all-btn:hover,
+.show-less-btn:hover {
+    background: #38bdf8;
+    color: #0a0e1a;
+}
 @media (max-width: 600px) {
     .result-box {
         bottom: 15px;
