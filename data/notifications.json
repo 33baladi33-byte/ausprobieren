@@ -1,0 +1,109 @@
+{
+  "notifications": [
+    {
+      "id": 15,
+      "title": "🆕 تحديث محتوى",
+      "message": "الخوت، راه تزادت تيما جديدة فـ Schreiben B2 سميتها 'In Offenbach zu Hause'، ودرنا حتى تعديل مهم على موضوع فـ Sprachbausteine Teil 2 B2 سميتو 'Liebes Julian (المعدل)'. ضروري تخدموهم بجوج حيت راه كيطيحو فالامتحانات هاد الأيام.",
+      "time": "11 ماي 2026",
+      "unread": true
+    },
+    {
+      "id": 14,
+      "title": "🆕 تحديث محتوى",
+      "message": "الخوت، راه تزادت تيما جديدة فـ Schreiben B2 سميتها 'HOLLANDBLUMEN-ONLINESHOP'. ضروري تخدموها وتركزو عليها مزيان حيت عاد تحطات لواحد الصديقة ديالنا فالامتحان. لي ما بانتش ليه فالموقع، يدير غير تحديث للصفحة.",
+      "time": "10 ماي 2026",
+      "unread": true
+    },
+    {
+      "id": 13,
+      "title": "📖 تحديث Lesen Teil 3",
+      "message": "الخوت، راه درنا واحد التعديل فالموضوع ديال 'einen Dokumentarfilm über die Einwanderung'. الجواب ديال Situation 9 مابقاش هو الإعلان (Anzeige h)، وإنما ولا هو (X). اضغط هنا باش تخدمها وتدرب عليها 🎯",
+      "time": "10 ماي 2026",
+      "unread": true
+    },
+    {
+      "id": 12,
+      "title": "✍️ تحديث Schreiben",
+      "message": "الخوت راه تزادت تيما جديدة سميتها 'Online-Training für guten Schlaf'، ضروري تخدموها حيت راه كتحط مؤخرا. لي ما بانتش ليه يدير غير تحديث للصفحة.",
+      "time": "9 ماي 2026",
+      "unread": true
+    },
+    {
+      "id": 11,
+      "title": "📝 تحديث Sprachbausteine Teil 2",
+      "message": "الخوت راه تزادت موضوع جديد سميتو 'Die Rückkehr des Nachtzugs'. ركزو عليه مزيان حيت عاد تحط لبارح لواحد الدري فـ Accademy مراكش. بالتوفيق للجميع 🚂",
+      "time": "8 ماي 2026",
+      "unread": true
+    },
+    {
+      "id": 10,
+      "title": "📚 المواضيع اللي تحطات",
+      "message": "السلام الخوت، هادي خلاصة ديال ڭاع المواضيع لي تحطو هاد السيمانة فامتحانات فـ الرباط أكدال IBC وأكادير. هاهوما كاملين بلا تكرار باش تراجعوهم وتركزو عليهم مزيان: Lesen (20+ موضوع)، Schreiben (25+ موضوع)، Mündlich (10 مواضيع). ركزو عليهم مزيان، وبالتوفيق للجميع إن شاء الله 🚀",
+      "time": "7 ماي 2026",
+      "unread": true
+    },
+    {
+      "id": 9,
+      "title": "✍️ تحديث Schreiben",
+      "message": "الخوت راه تزادت تيما جديدة سميتها 'SPORTHEINPARKPLATZ FÜR KINDER'، حاولو تخدموها. لي ما بانتش ليه يدير غير تحديث للصفحة.",
+      "time": "7 ماي 2026",
+      "unread": true
+    },
+    {
+      "id": 8,
+      "title": "📚 تحديث شامل للمنصة",
+      "message": "تقدروا تخدمو هاد 3 مواضيع: Frauen im Arbeitsmarkt, Baby Tv, و Bäder. Sprachbaustein 1: موضوع 'Herr Wenzel'. Sprachbaustein 2: موضوع 'Teleshopping' تصححو كاع الأخطاء. Schreiben: FITWATCH Smartwatch, Rundum sorglos unterwegs, DIGIBIKE.",
+      "time": "26 أبريل 2026",
+      "unread": true
+    },
+    {
+      "id": 7,
+      "title": "🐟 تحديث Lesen Teil 1",
+      "message": "الخوت راه تزادت Lesen Teil 1 جديدة ديال 'السمك - Fische'. ركزو عليها مزيان حيت عاد تحطات مؤخرا. بالتوفيق 🐟",
+      "time": "19 أبريل 2026",
+      "unread": true
+    },
+    {
+      "id": 6,
+      "title": "🐱 تحديث Sprachbausteine 2",
+      "message": "تمت إضافة sprachbaustein 2 قديم أصبح يظهر في الإمتحانات و إسمه Katzen - القطط",
+      "time": "18 أبريل 2026",
+      "unread": true
+    },
+    {
+      "id": 5,
+      "title": "⚠️ تنبيه مهم",
+      "message": "قم فقط بتحديث (Actualise) الموقع ليظهر لك كل جديد ✨",
+      "time": "17 أبريل 2026",
+      "unread": true
+    },
+    {
+      "id": 4,
+      "title": "🦁 تحديثات جديدة",
+      "message": "تمت اضافه تعديل موضوع 'Liebe Agnieszka' باسم 'Liebe Anna'، كما تمت إضافة 'Liebe Sandra'. كما تمت إضافة أحدث تسريب للجزء الأول (Teil 1) المتعلق بموضوع 'الأسود - Löwen'.",
+      "time": "17 أبريل 2026",
+      "unread": true
+    },
+    {
+      "id": 3,
+      "title": "🪑 تحديث Lesen Teil 3",
+      "message": "تمت إضافة Teil 3 جديدة بعنوان 'Möbel für ihre neue Wohnung' في قسم القراءة (Lesen). اضغط هنا للبدء في التمرين",
+      "time": "13 أبريل 2026",
+      "unread": true
+    },
+    {
+      "id": 2,
+      "title": "🚗 تحديث Lesen Teil 3",
+      "message": "تمت إضافة Teil 3 جديدة بعنوان 'السيارات - Autos' في قسم القراءة (Lesen). اضغط هنا للبدء في التمرين 🚗",
+      "time": "13 أبريل 2026",
+      "unread": true
+    },
+    {
+      "id": 1,
+      "title": "🦁 تحديث شامل للمنصة",
+      "message": "تمت إضافة موضوع 'الأُسود' (Löwen) في Lesen. تمت إضافة جميع المواضيع الجديدة في Höen (مواضيع تركيا). تمت إضافة مواضيع الكتابة الجديدة: Fotobuch, Kosmetik-Shop, Abenteuer TIKKI TAKKA, Informatik, Partyservice.",
+      "time": "12 أبريل 2026",
+      "unread": true
+    }
+  ]
+}
