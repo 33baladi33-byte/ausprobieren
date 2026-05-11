@@ -251,11 +251,11 @@
 
 <script>
     // ✅ نظام تكبير وتصغير الموقع
-    (function() {
-        let currentScale = 100;
-        const MIN_SCALE = 80;
-        const MAX_SCALE = 150;
-        const STEP = 5;
+(function() {
+    let currentScale = 90;
+    const MIN_SCALE = 60;   // ← الآن التصغير يصل إلى 60%
+    const MAX_SCALE = 150;
+    const STEP = 5;
         
         function updateFontSize(scale) {
             document.documentElement.style.fontSize = (scale / 100) + 'rem';
