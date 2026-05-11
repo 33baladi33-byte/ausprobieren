@@ -238,7 +238,13 @@ const schreibenExams = [
   { id: 26, title: "FREIZEITBAD MEERESRAUSCHEN", enabled: true, hasFile: true },
   { id: 27, title: "Reisebüro Sonnenschein", enabled: true, hasFile: true },
   { id: 28, title: "Kursbeschreibung (sich vorstellen)", enabled: true, hasFile: true },
-  { id: 29, title: "FITWATCH Smartwatch", enabled: true, hasFile: true }
+  { id: 29, title: "FITWATCH Smartwatch", enabled: true, hasFile: true },
+  { id: 30, title: "Securvia Reisegepäckversicherung", enabled: true, hasFile: true },
+  { id: 31, title: "DIGIBIKE - Das smarte Hightech-Fahrrad", enabled: true, hasFile: true },
+  { id: 32, title: "SPORTHEINPARKPLATZ FÜR KINDER", enabled: true, hasFile: true },
+  { id: 33, title: "Online-Training für guten Schlaf", enabled: true, hasFile: true },
+  { id: 34, title: "Hollandblumen-Onlineshop", enabled: true, hasFile: true },
+  { id: 35, title: "In Offenbach zu Hause", enabled: true, hasFile: true }
 ];
 
 // ========== قائمة امتحانات Mündlich ==========
