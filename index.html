@@ -14,6 +14,30 @@
     <div class="logo-icon" id="logoHomeBtn">
         <img src="images/logo.webp" loading="lazy" alt="Zertiva" class="logo-img">
     </div>
+    
+    <!-- 🔔 زر الإشعارات الجديد -->
+    <div class="notification-container">
+        <button id="notificationBell" class="notification-bell">
+            🔔
+            <span id="notificationBadge" class="notification-badge" style="display: none;">0</span>
+        </button>
+        <div id="notificationDropdown" class="notification-dropdown">
+            <div class="notification-header">
+                <span>📬 الإشعارات</span>
+                <button id="markAllReadBtn" class="mark-all-read">تحديد الكل كمقروء</button>
+            </div>
+            <div id="notificationsList" class="notification-list">
+                <div class="notification-empty">
+                    <span>📭 لا توجد إشعارات جديدة</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="right-buttons">
+        ...
+    </div>
+</div>
     <div class="right-buttons">
         <!-- ✅ زر الإعدادات الجديد -->
         <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
