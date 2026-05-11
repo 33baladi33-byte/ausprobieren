@@ -16253,6 +16253,89 @@ HELP_DATA["sprach2_exam45_q10"] = {
     imagine: "🏛️🤝 مبنى ومصافحة"
 };
 // ============================================
+// Exam 46 (exam46.json) - Die Rückkehr des Nachtzugs
+// ============================================
+
+HELP_DATA["sprach2_exam46_q1"] = {
+    text: "wieder in Mode bringt",
+    meaning: "يعيد إلى الواجهة / الموضة",
+    keywords: ["MODE = موضة / رائج (الكلمة الصحيحة)", "wieder = مرة أخرى", "bringt = يجلب"],
+    simplified: "نقاش المناخ أعاد عربات النوم للواجهة من جديد",
+    imagine: "🚂💃 قطار عجوز يرتدي باروكة ويرقص مينتو"
+};
+
+HELP_DATA["sprach2_exam46_q2"] = {
+    text: "aber ganz so schnell wie mit dem Flugzeug ist es nicht",
+    meaning: "لكنه ليس بنفس سرعة الطائرة تماماً",
+    keywords: ["GANZ = تماماً / كلياً (الكلمة الصحيحة)", "aber = لكن", "so schnell wie = بنفس سرعة"],
+    simplified: "قطار الليل أبطأ من الطائرة",
+    imagine: "🐌✈️ حلزون يصرخ 'لحقي بي' والطائرة تضحك"
+};
+
+HELP_DATA["sprach2_exam46_q3"] = {
+    text: "könnten wir das Angebot rasch deutlich ausweiten",
+    meaning: "يمكننا توسيع العرض بسرعة وبشكل كبير",
+    keywords: ["AUSWEITEN = يوسع / يكبر (الكلمة الصحيحة)", "rasch = بسرعة", "deutlich = بشكل كبير"],
+    simplified: "نقدر نوسع الخدمة بسرعة لو عندنا عربات نوم أكثر",
+    imagine: "🪄🚂 قطار سحري يضرب عصاه ويتضاعف"
+};
+
+HELP_DATA["sprach2_exam46_q4"] = {
+    text: "Insgesamt seien in der Regel acht Mitarbeiter in einem Nachtzug unterwegs",
+    meaning: "إجمالاً، يوجد عادةً ثمانية موظفين في قطار الليل",
+    keywords: ["INSGESAMT = إجمالاً / في المجموع (الكلمة الصحيحة)", "in der Regel = عادةً", "Mitarbeiter = موظفين"],
+    simplified: "عادةً 8 موظفين يشتغلون في قطار الليل",
+    imagine: "🐙🚂 أخطبوط يرتدي 8 قبعات ويوزع القهوة"
+};
+
+HELP_DATA["sprach2_exam46_q5"] = {
+    text: "eine neue Intercity-Nachtverbindung gestartet",
+    meaning: "تم إطلاق خط ليلي جديد بين المدن",
+    keywords: ["NEUE = جديدة (الكلمة الصحيحة)", "Intercity = بين المدن", "Nachtverbindung = خط ليلي", "gestartet = تم إطلاقه"],
+    simplified: "خط قطارات ليلية جديد انطلق رسمياً",
+    imagine: "🎉🚂 قطار بقبعة حفلة يطلق ألعاباً نارية زرقاء وصفراء"
+};
+
+HELP_DATA["sprach2_exam46_q6"] = {
+    text: "rund tausend zusätzliche Mitarbeiter eingestellt werden",
+    meaning: "سيتم توظيف حوالي ألف موظف إضافي",
+    keywords: ["EINGESTELLT = تم توظيفه / تعيينه (الكلمة الصحيحة)", "rund = حوالي", "zusätzliche = إضافية"],
+    simplified: "راح يوظفوا حوالي 1000 موظف زيادة",
+    imagine: "👥💯 ألف دمية خشبية تصطف بدقة عسكرية أمام القطار"
+};
+
+HELP_DATA["sprach2_exam46_q7"] = {
+    text: "warum nicht Konkurrenten dieses Angebot bei Nachtzügen übernehmen sollten",
+    meaning: "لماذا لا يقوم المنافسون بتولي هذا العرض في قطارات الليل",
+    keywords: ["KONKURRENTEN = منافسون (الكلمة الصحيحة)", "warum nicht = لماذا لا", "übernehmen = يتولى"],
+    simplified: "المنافسون ليش ما ياخدوا هادي الخدمة",
+    imagine: "🤼‍♂️🚂 متنافسان يتصارعان على عجلة قيادة القطار"
+};
+
+HELP_DATA["sprach2_exam46_q8"] = {
+    text: "durch ein klimafreundliches Mobilitätsangebot zu reduzieren",
+    meaning: "لتقليل الرحلات الجوية من خلال عرض تنقل صديق للبيئة",
+    keywords: ["DURCH = من خلال / بواسطة (الكلمة الصحيحة)", "klimafreundliches = صديق للمناخ", "reduzieren = يقلل"],
+    simplified: "نقل أخضر يقلل الحاجة للطيران",
+    imagine: "✈️💚 طائرة تتحول إلى شجرة خضراء وتطير بجذورها"
+};
+
+HELP_DATA["sprach2_exam46_q9"] = {
+    text: "in den blau-gelben Europafarben gestaltet wäre",
+    meaning: "لو كان مصمماً بألوان أوروبا الزرقاء والصفراء",
+    keywords: ["GESTALTET = مصمم / مزين (الكلمة الصحيحة)", "blau-gelben = أزرق-أصفر", "Europafarben = ألوان أوروبا"],
+    simplified: "يتمنون لو صار لون القطار أزرق وأصفر",
+    imagine: "🎨🚂 قطار يدهن نفسه باللون الأزرق والأصفر"
+};
+
+HELP_DATA["sprach2_exam46_q10"] = {
+    text: "wurde wegen damals hoher Verluste 2016 eingestellt",
+    meaning: "تم إيقافه في 2016 بسبب الخسائر الكبيرة آنذاك",
+    keywords: ["WEGEN = بسبب (الكلمة الصحيحة)", "wurde eingestellt = تم إيقافه", "damals = آنذاك"],
+    simplified: "قطار الليل الألماني توقف سنة 2016 بسبب الخسائر",
+    imagine: "😢🚂 قطار يبكي ونقوده تطير كالفراشات"
+};
+// ============================================
 // Mündlich (Teil 1-42) - السلسلة السحرية
 // ============================================
 
@@ -16669,7 +16752,7 @@ function getCorrectQuestions(skill, examId) {
         'sprach2_exam39': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam40': [1,2,3,4,5,6,7,8,9,10],
         'sprach2_exam41': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam42': [1,2,3,4,5,6,7,8,9,10],
         'sprach2_exam43': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam44': [1,2,3,4,5,6,7,8,9,10],
-        'sprach2_exam45': [1,2,3,4,5,6,7,8,9,10],
+        'sprach2_exam45': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam46': [1,2,3,4,5,6,7,8,9,10],
         
         // Mündlich Teil 1-42
         'mündlich_exam1': [1,2,3], 'mündlich_exam2': [1,2,3], 'mündlich_exam3': [1,2,3],
