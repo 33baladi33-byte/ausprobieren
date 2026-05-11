@@ -1630,8 +1630,8 @@ HELP_DATA["hoeren2_exam34_q10"] = {
     meaning: "أمها بالحضانة لم تكن تريدها أن تكتب مذكرات",
     keywords: ["Pflegemutter = أم بالحضانة", "Tagebuch = مذكرات", "wollte nicht = لم تكن تريد"],
     simplified: "منعتها أمها بالتبني من كتابة اليوميات",
-    imagine: "📓🚽 دفتر مذكرات يطفو في المرحاض لأن الأم أخفته هناك";
-
+    imagine: "📓🚽 دفتر مذكرات يطفو في المرحاض لأن الأم أخفته هناك"
+};
 // ========== Exam 35: Frau Pesina (صحيح: 1,2,3,7,10) ==========
 HELP_DATA["hoeren2_exam35_q1"] = {
     text: "Frau Pesina ist die Chefin des Kosmos Kinos.",
@@ -1666,8 +1666,8 @@ HELP_DATA["hoeren2_exam35_q10"] = {
     meaning: "أحياناً يكون هناك برنامج خاص للنساء في السينما",
     keywords: ["spezielles Programm = برنامج خاص", "Frauen = نساء", "manchmal = أحياناً"],
     simplified: "برامج سينمائية مخصصة للنساء أحياناً",
-    imagine: "👩🎬 فيلم كله عن أحذية وشنط يدوية لايراه الرجال";
-
+    imagine: "👩🎬 فيلم كله عن أحذية وشنط يدوية لايراه الرجال"
+};
 // ========== Exam 36: Herr Werner (صحيح: 1,4,5,7,9,10) ==========
 HELP_DATA["hoeren2_exam36_q1"] = {
     text: "Auf dem Gipfel der Zugspitze liegt ungefähr ein Meter Schnee.",
@@ -1709,8 +1709,8 @@ HELP_DATA["hoeren2_exam36_q10"] = {
     meaning: "السيد فيرنر راضٍ عن مكان عمله",
     keywords: ["Arbeitsplatz = مكان عمل", "zufrieden = راضٍ", "ist = هو"],
     simplified: "سعيد بعمله",
-    imagine: "😊🪑 كرسي مكتب يبتسم ويحتضن صاحبه";
-
+    imagine: "😊🪑 كرسي مكتب يبتسم ويحتضن صاحبه"
+};
 // ========== Exam 37: Wohnmobil (صحيح: 1,6,7,8) ==========
 HELP_DATA["hoeren2_exam37_q1"] = {
     text: "Der Hauptpreis des Gewinnspiels ist ein rund vierwöchiger Urlaub in Spanien.",
@@ -1845,8 +1845,8 @@ HELP_DATA["hoeren2_exam39_q10"] = {
     meaning: "السيد بلاشيتس يطلب من المستمعين الدعم",
     keywords: ["bittet = يطلب", "Hörer = مستمعين", "Unterstützung = دعم"],
     simplified: "يناشد المستمعين للمساعدة",
-    imagine: "📻🙏 رجل يبكي في الراديو ويطلب من المستمعين جمع التبرعات";
-
+    imagine: "📻🙏 رجل يبكي في الراديو ويطلب من المستمعين جمع التبرعات"
+};
 // ========== Exam 40: Revolution Day (صحيح: 1,2,5,6,8) ==========
 HELP_DATA["hoeren2_exam40_q1"] = {
     text: "Am 24. April ist der Fashion Revolution Day.",
@@ -2018,8 +2018,8 @@ HELP_DATA["hoeren2_exam44_q10"] = {
     meaning: "السيد كيمبر يسكن في منزل يُمنع فيه تربية الحيوانات",
     keywords: ["wohnt = يسكن", "Tierhaltung = تربية حيوانات", "verboten = ممنوع"],
     simplified: "لا يُسمح بتربية الحيوانات في منزله",
-    imagine: "🏠🚫🐶 لافتة'ممنوع الكلاب'وكلب ينظر من النافذة بحزن";
-
+    imagine: "🏠🚫🐶 لافتة'ممنوع الكلاب'وكلب ينظر من النافذة بحزن"
+};
 // ========== Exam 45: Frau Hahn (صحيح: 2,4,6,8,10) ==========
 HELP_DATA["hoeren2_exam45_q2"] = {
     text: "Frau Hahn hat ihren Beruf im Kaufhaus Brück gelernt.",
@@ -2054,8 +2054,8 @@ HELP_DATA["hoeren2_exam45_q10"] = {
     meaning: "السيدة هان لا تريد العمل في متجر كبير آخر",
     keywords: ["nicht = لا", "anderen Kaufhaus = متجر كبير آخر", "arbeiten = العمل"],
     simplified: "ترفض العمل في متجر آخر",
-    imagine: "🏬🚫 سيدة تحضن متجرها وتركل المتجر الآخر بقوة";
-
+    imagine: "🏬🚫 سيدة تحضن متجرها وتركل المتجر الآخر بقوة"
+};
 // ========== Exam 46: Wohnmobilen (صحيح: 3,6,8) ==========
 HELP_DATA["hoeren2_exam46_q3"] = {
     text: "Der Hauptpreis des Gewinnspiels ist ein vierwöchiger Urlaub in Spanien.",
@@ -2141,8 +2141,8 @@ HELP_DATA["hoeren2_exam48_q10"] = {
     meaning: "وفقاً إلياس فوندرليش، السباحة الجليدية يمكن أن تؤدي إلى الإدمان",
     keywords: ["Abhängigkeit = إدمان", "führen = تؤدي", "Eisschwimmen = سباحة جليدية"],
     simplified: "السباحة في الجليد قد تسبب إدماناً",
-    imagine: "🏊‍♂️🧠 سباح يسبح في الجليد ودماغه يقول'مرة أخرى... مرة أخرى'";
-
+    imagine: "🏊‍♂️🧠 سباح يسبح في الجليد ودماغه يقول'مرة أخرى... مرة أخرى'"
+};
 // ========== Exam 49: Die Ausbildung (صحيح: 1,2,4,6,8,10) ==========
 HELP_DATA["hoeren2_exam49_q1"] = {
     text: "Viele befürchten, dass es durch das neue Gesetz zu weiteren Mittelkürzungen kommt.",
