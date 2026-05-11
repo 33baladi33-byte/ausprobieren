@@ -16490,7 +16490,7 @@ let originalContentBackup = null;
 // الأسئلة الصحيحة لكل امتحان (جميع الأجزاء)
 function getCorrectQuestions(skill, examId) {
     const correctMap = {
-        // Hören Teil 1 (27 امتحان - 5 أسئلة)
+        // Hören Teil 1 (27 أساسي + 18 جديد = 45 امتحان - 5 أسئلة)
         'hoeren1_exam1': [2, 3], 'hoeren1_exam2': [3, 5], 'hoeren1_exam3': [2, 3, 5],
         'hoeren1_exam4': [1, 5], 'hoeren1_exam5': [2, 4], 'hoeren1_exam6': [2, 4],
         'hoeren1_exam7': [1, 2, 5], 'hoeren1_exam8': [3, 4, 5], 'hoeren1_exam9': [1, 2],
@@ -16500,8 +16500,15 @@ function getCorrectQuestions(skill, examId) {
         'hoeren1_exam19': [1, 3, 5], 'hoeren1_exam20': [1, 3, 4], 'hoeren1_exam21': [3],
         'hoeren1_exam22': [1, 2, 5], 'hoeren1_exam23': [3, 5], 'hoeren1_exam24': [1, 3, 5],
         'hoeren1_exam25': [1, 2, 5], 'hoeren1_exam26': [1, 5], 'hoeren1_exam27': [1, 2],
+        // Hören Teil 1 - مواضيع تركيا (جديد exam28-45)
+        'hoeren1_exam28': [1, 2, 4], 'hoeren1_exam29': [1, 2, 3], 'hoeren1_exam30': [3, 5],
+        'hoeren1_exam31': [2, 4], 'hoeren1_exam32': [1, 3, 5], 'hoeren1_exam33': [1, 4],
+        'hoeren1_exam34': [1, 3], 'hoeren1_exam35': [3, 4], 'hoeren1_exam36': [1, 2],
+        'hoeren1_exam37': [1, 4, 5], 'hoeren1_exam38': [1, 2, 3], 'hoeren1_exam39': [1, 2, 4, 5],
+        'hoeren1_exam40': [1, 3, 4], 'hoeren1_exam41': [2, 5], 'hoeren1_exam42': [2, 4],
+        'hoeren1_exam43': [2, 5], 'hoeren1_exam44': [2, 4], 'hoeren1_exam45': [2, 4],
         
-        // Hören Teil 2 (31 امتحان - 10 أسئلة)
+        // Hören Teil 2 (31 أساسي + 18 جديد = 49 امتحان - 10 أسئلة)
         'hoeren2_exam1': [3, 4, 8, 9, 10], 'hoeren2_exam2': [1, 3, 4, 8],
         'hoeren2_exam3': [1, 3, 4, 7, 8], 'hoeren2_exam4': [2, 6, 8, 9, 10],
         'hoeren2_exam5': [2, 9, 10], 'hoeren2_exam6': [3, 4, 7], 'hoeren2_exam7': [3, 4, 7],
@@ -16517,8 +16524,18 @@ function getCorrectQuestions(skill, examId) {
         'hoeren2_exam26': [3, 5, 7, 8, 10], 'hoeren2_exam27': [2, 3, 4, 6, 8],
         'hoeren2_exam28': [1, 2, 4, 6, 8, 10], 'hoeren2_exam29': [4, 5, 9, 10],
         'hoeren2_exam30': [2, 3, 6, 7, 10], 'hoeren2_exam31': [2, 4, 5, 8, 9],
+        // Hören Teil 2 - مواضيع تركيا (جديد exam32-49)
+        'hoeren2_exam32': [2, 3, 5, 6, 8, 10], 'hoeren2_exam33': [1, 2, 5, 7, 10],
+        'hoeren2_exam34': [1, 2, 3, 5, 7, 10], 'hoeren2_exam35': [1, 2, 3, 7, 10],
+        'hoeren2_exam36': [1, 4, 5, 7, 9, 10], 'hoeren2_exam37': [1, 6, 7, 8],
+        'hoeren2_exam38': [1, 2, 3, 5, 6, 7, 9], 'hoeren2_exam39': [1, 2, 3, 6, 7, 8, 9, 10],
+        'hoeren2_exam40': [1, 2, 5, 6, 8], 'hoeren2_exam41': [3, 6, 9],
+        'hoeren2_exam42': [2, 4, 5, 8, 9], 'hoeren2_exam43': [3, 4, 5, 7, 8],
+        'hoeren2_exam44': [1, 3, 6, 7, 9, 10], 'hoeren2_exam45': [2, 4, 6, 8, 10],
+        'hoeren2_exam46': [3, 6, 8], 'hoeren2_exam47': [2, 3, 5, 9],
+        'hoeren2_exam48': [3, 5, 6, 9, 10], 'hoeren2_exam49': [1, 2, 4, 6, 8, 10],
         
-        // Hören Teil 3 (27 امتحان - 5 أسئلة)
+        // Hören Teil 3 (27 أساسي + 20 جديد = 47 امتحان - 5 أسئلة)
         'hoeren3_exam1': [1], 'hoeren3_exam2': [1, 3], 'hoeren3_exam3': [1, 3],
         'hoeren3_exam4': [1, 4], 'hoeren3_exam5': [1, 4], 'hoeren3_exam6': [1, 5],
         'hoeren3_exam7': [1, 5], 'hoeren3_exam8': [1, 5], 'hoeren3_exam9': [1, 5],
@@ -16528,6 +16545,14 @@ function getCorrectQuestions(skill, examId) {
         'hoeren3_exam19': [2, 4], 'hoeren3_exam20': [1, 3], 'hoeren3_exam21': [2],
         'hoeren3_exam22': [2, 4], 'hoeren3_exam23': [1, 5], 'hoeren3_exam24': [2],
         'hoeren3_exam25': [1, 3], 'hoeren3_exam26': [1, 3, 5], 'hoeren3_exam27': [1, 3],
+        // Hören Teil 3 - مواضيع تركيا (جديد exam28-47)
+        'hoeren3_exam28': [2], 'hoeren3_exam29': [1, 4, 5], 'hoeren3_exam30': [1, 4],
+        'hoeren3_exam31': [1, 2, 3], 'hoeren3_exam32': [3, 5], 'hoeren3_exam33': [2, 3, 4],
+        'hoeren3_exam34': [1, 3], 'hoeren3_exam35': [1, 2, 4, 5], 'hoeren3_exam36': [1, 5],
+        'hoeren3_exam37': [2], 'hoeren3_exam38': [2, 5], 'hoeren3_exam39': [1, 5],
+        'hoeren3_exam40': [5], 'hoeren3_exam41': [1, 2], 'hoeren3_exam42': [1, 2, 5],
+        'hoeren3_exam43': [1, 5], 'hoeren3_exam44': [2, 3], 'hoeren3_exam45': [3, 4],
+        'hoeren3_exam46': [1, 4, 5], 'hoeren3_exam47': [1, 3],
         
         // Lesen Teil 1 (47 امتحان - 5 أسئلة)
         'lesen1_exam1': [1,2,3,4,5], 'lesen1_exam2': [1,2,3,4,5], 'lesen1_exam3': [1,2,3,4,5],
@@ -16797,7 +16822,6 @@ function hideExamContent() {
     for (let child of allChildren) {
         if (child.id !== 'helpLayerContainer') {
             if (child.style.display !== 'none') {
-                // حفظ النمط الأصلي قبل الإخفاء
                 child.dataset.originalDisplay = child.style.display || '';
                 child.style.display = 'none';
                 hidden.push(child);
@@ -16861,7 +16885,6 @@ function toggleHelp() {
     const section = getActiveSection();
     
     if (helpLayerActive) {
-        // إغلاق المساعدة
         if (existing) existing.remove();
         if (originalContentBackup) {
             showElements(originalContentBackup.questions);
@@ -16870,7 +16893,6 @@ function toggleHelp() {
         }
         helpLayerActive = false;
     } else {
-        // فتح المساعدة
         const hiddenQuestions = hideExamContent();
         const hiddenButtons = hideButtons();
         originalContentBackup = { questions: hiddenQuestions, buttons: hiddenButtons };
@@ -16924,3 +16946,4 @@ if (document.readyState === 'loading') {
 }
 
 console.log('✅ helpSystem.js تم التحميل بنجاح (يدعم hören1, hören2, hören3, lesen1, lesen2, lesen3, sprach1, sprach2, mündlich)');
+console.log('📊 شامل 45 امتحان Hören Teil 1, 49 امتحان Hören Teil 2, 47 امتحان Hören Teil 3');
