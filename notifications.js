@@ -1,6 +1,6 @@
 // ============================================
 // notifications.js - نظام الإشعارات المتكامل
-// يدعم: عرض آخر 3 إشعارات، زر عرض الكل، البادج فقط للجديدة
+// يدعم: إخفاء البادج فور رؤية الإشعارات
 // ============================================
 
 (function() {
@@ -8,7 +8,7 @@
     let notificationsData = [];
     let unreadCount = 0;
     let dropdownOpen = false;
-    let showAllMode = false;  // وضع عرض الكل
+    let showAllMode = false;
     
     // ========== عناصر DOM ==========
     let notificationBell = null;
@@ -16,7 +16,6 @@
     let notificationDropdown = null;
     let notificationsList = null;
     let markAllReadBtn = null;
-    let showAllBtn = null;
     
     // ========== دالة تحميل الإشعارات من ملف JSON ==========
     async function loadNotifications() {
@@ -97,7 +96,7 @@
         }
     }
     
-    // ========== عرض قائمة الإشعارات (آخر 3 أو الكل) ==========
+    // ========== عرض قائمة الإشعارات ==========
     function renderNotificationsList() {
         if (!notificationsList) return;
         
@@ -135,7 +134,7 @@
         
         notificationsList.innerHTML = html;
         
-        // إضافة زر "عرض الكل" إذا كان هناك أكثر من 3 إشعارات وفي وضع العرض المحدود
+        // إضافة زر "عرض الكل"
         if (!showAllMode && notificationsData.length > 3) {
             const showAllDiv = document.createElement('div');
             showAllDiv.className = 'notification-show-all';
@@ -152,7 +151,6 @@
             }
         }
         
-        // إذا كان في وضع عرض الكل ولدينا أكثر من 3 إشعارات، نضيف زر "عرض أقل"
         if (showAllMode && notificationsData.length > 3) {
             const showLessDiv = document.createElement('div');
             showLessDiv.className = 'notification-show-less';
@@ -184,7 +182,7 @@
         });
     }
     
-    // ========== استخراج أيقونة من عنوان الإشعار ==========
+    // ========== استخراج أيقونة ==========
     function getNotificationIcon(title) {
         if (title.includes('🎉')) return '🎉';
         if (title.includes('💡')) return '💡';
@@ -196,11 +194,6 @@
         if (title.includes('📖')) return '📖';
         if (title.includes('✍️')) return '✍️';
         if (title.includes('📝')) return '📝';
-        if (title.includes('🐟')) return '🐟';
-        if (title.includes('🐱')) return '🐱';
-        if (title.includes('🦁')) return '🦁';
-        if (title.includes('🪑')) return '🪑';
-        if (title.includes('🚗')) return '🚗';
         return '📢';
     }
     
@@ -247,20 +240,18 @@
             saveReadStatus();
         }
         
-        // إغلاق القائمة بعد تحديد الكل كمقروء
         setTimeout(() => {
             closeDropdown();
         }, 500);
     }
     
-    // ========== فتح/إغلاق القائمة ==========
+    // ========== فتح القائمة ==========
     function toggleDropdown() {
         if (!notificationDropdown) return;
         
         if (dropdownOpen) {
             notificationDropdown.classList.remove('active');
             dropdownOpen = false;
-            // عند الإغلاق، نعيد وضع العرض إلى الوضع العادي (آخر 3)
             if (showAllMode) {
                 showAllMode = false;
                 renderNotificationsList();
@@ -268,6 +259,9 @@
         } else {
             notificationDropdown.classList.add('active');
             dropdownOpen = true;
+            
+            // 🔥 المهم: عند فتح القائمة، نعتبر جميع الإشعارات مقروءة
+            markAllAsReadWhenOpened();
         }
     }
     
@@ -276,11 +270,28 @@
         if (notificationDropdown && dropdownOpen) {
             notificationDropdown.classList.remove('active');
             dropdownOpen = false;
-            // عند الإغلاق، نعيد وضع العرض إلى الوضع العادي
             if (showAllMode) {
                 showAllMode = false;
                 renderNotificationsList();
             }
+        }
+    }
+    
+    // ========== عند فتح القائمة، نعتبر جميع الإشعارات مقروءة ==========
+    function markAllAsReadWhenOpened() {
+        let changed = false;
+        for (let i = 0; i < notificationsData.length; i++) {
+            if (notificationsData[i].unread) {
+                notificationsData[i].unread = false;
+                changed = true;
+            }
+        }
+        
+        if (changed) {
+            updateUnreadCount();
+            renderNotificationsList();
+            updateBadge();
+            saveReadStatus();
         }
     }
     
@@ -338,18 +349,14 @@
         container.appendChild(bell);
         container.appendChild(dropdown);
         
-        const logoIcon = topBar.querySelector('.logo-icon');
-        if (logoIcon && logoIcon.nextSibling) {
-            topBar.insertBefore(container, logoIcon.nextSibling);
-        } else {
-            topBar.insertBefore(container, rightButtons);
-        }
+        // إضافة زر الإشعارات داخل right-buttons
+        rightButtons.insertBefore(container, rightButtons.firstChild);
         
         console.log('✅ تم إضافة زر الإشعارات بنجاح');
         initializeElements();
     }
     
-    // ========== تهيئة العناصر وإضافة الأحداث ==========
+    // ========== تهيئة العناصر ==========
     function initializeElements() {
         notificationBell = document.getElementById('notificationBell');
         notificationBadge = document.getElementById('notificationBadge');
@@ -380,7 +387,7 @@
         loadNotifications();
     }
     
-    // ========== دوال عامة للاستخدام الخارجي ==========
+    // ========== دوال عامة ==========
     window.addNotification = function(title, message, time) {
         const newId = notificationsData.length > 0 ? Math.max(...notificationsData.map(n => n.id)) + 1 : 1;
         const newNotification = {
@@ -392,11 +399,7 @@
         };
         notificationsData.unshift(newNotification);
         updateUnreadCount();
-        if (!showAllMode) {
-            renderNotificationsList();
-        } else {
-            renderNotificationsList();
-        }
+        renderNotificationsList();
         updateBadge();
         saveReadStatus();
         return newId;
@@ -421,6 +424,6 @@
         addNotificationButton();
     }
     
-    console.log('✅ notifications.js تم التحميل بنجاح (نسخة عرض آخر 3 إشعارات)');
+    console.log('✅ notifications.js تم التحميل بنجاح');
     
 })();
