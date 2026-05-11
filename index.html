@@ -11,11 +11,15 @@
 <body>
 
 <div class="top-bar">
-    <div class="logo-icon" id="logoHomeBtn">
-        <img src="images/logo.webp" loading="lazy" alt="Zertiva" class="logo-img">
+    <!-- الجهة اليسرى: بروفايل + اشتراك + دخول -->
+    <div class="left-side">
+        <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
+        <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
+        <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
     </div>
     
-    <div class="right-buttons">
+    <!-- الجهة اليمنى: إشعارات + شعار -->
+    <div class="right-side">
         <!-- 🔔 زر الإشعارات -->
         <div class="notification-container">
             <button id="notificationBell" class="notification-bell">
@@ -35,12 +39,10 @@
             </div>
         </div>
         
-        <!-- ✅ زر الإعدادات -->
-        <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
-        
-        <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
-        <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
-        <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
+        <!-- الشعار -->
+        <div class="logo-icon" id="logoHomeBtn">
+            <img src="images/logo.webp" loading="lazy" alt="Zertiva" class="logo-img">
+        </div>
     </div>
 </div>
 
@@ -55,7 +57,7 @@
             <p class="settings-desc">تحكم في حجم الموقع ليناسب راحتك</p>
             <div class="font-size-controls">
                 <button id="decreaseFontBtn" class="font-size-btn" title="تصغير">A-</button>
-                <span id="fontSizeValue" class="font-size-value">90%</span>
+                <span id="fontSizeValue" class="font-size-value">100%</span>
                 <button id="increaseFontBtn" class="font-size-btn" title="تكبير">A+</button>
             </div>
             <button id="resetFontBtn" class="reset-font-btn" title="إعادة الحجم الطبيعي">↺ إعادة الضبط</button>
