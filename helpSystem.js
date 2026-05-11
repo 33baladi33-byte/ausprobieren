@@ -1563,7 +1563,8 @@ HELP_DATA["hoeren2_exam32_q10"] = {
     meaning: "بعد عودتها، لم تضطر للبحث طويلاً عن عمل جديد",
     keywords: ["Rückkehr = عودة", "neue Arbeit = عمل جديد", "nicht lange suchen = لم تبحث طويلاً"],
     simplified: "وجدت عملاً بسرعة بعد العودة",
-    imagine: "🎯🪑 سهم يصيب كرسي مكتب ويجلس عليه فوراً";
+    imagine: "🎯🪑 سهم يصيب كرسي مكتب ويجلس عليه فوراً"
+};
 
 // ========== Exam 33: Mirjam Pressier (صحيح: 1,2,5,7,10) ==========
 HELP_DATA["hoeren2_exam33_q1"] = {
