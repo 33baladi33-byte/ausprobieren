@@ -83,36 +83,54 @@ HELP_DATA["hoeren1_exam4_q5"] = {
     imagine: "👨‍🔬 خبير يرتدي خوذة ويصرخ 'اهربوا أيها الحمقى'"
 };
 
-// ========== Exam 5: Bierkonsum (صحيح: 2,4) ==========
+// ============================================
+// Exam 5: Bierkonsum (صحيح فقط: 2,4)
+// ============================================
+
 HELP_DATA["hoeren1_exam5_q2"] = {
-    text: "Immer mehr Deutsche greifen zu alkoholfreiem Bier.",
-    meaning: "يتجه المزيد من الألمان نحو البيرة الخالية من الكحول",
-    keywords: ["greifen zu = يتجهون إلى", "alkoholfreiem Bier = بيرة خالية من الكحول"],
-    simplified: "البيرة بدون كحول أصبحت أكثر شعبية",
-    imagine: "🍺 رجل ألماني يشرب بيره ويقول 'كحول؟ لا شكراً'"
-};
-HELP_DATA["hoeren1_exam5_q4"] = {
-    text: "Brauereien stellen ihr Sortiment auf gesündere Getränke um.",
-    meaning: "مصانع الجعة تغير منتجاتها إلى مشروبات أكثر صحية",
-    keywords: ["Brauereien = مصانع جعة", "Sortiment = تشكيلة منتجات", "umstellen = تغيير"],
-    simplified: "الشركات تنتج مشروبات صحية أكثر",
-    imagine: "🏭 مصنع جعة يتحول فجأة إلى مصنع عصير جزر"
+    shortText: "Deutsche Einkommen im Mittelfeld",
+    fullText: "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+    meaning: "الدخل الألماني في منتصف الترتيب الأوروبي",
+    keywords: ["Einkommen = دخل", "europäischen Vergleich = مقارنة أوروبية", "Mittelfeld = منتصف الترتيب"],
+    simplified: "رواتب الألمان متوسطة",
+    hint: "💡 ألمانيا غنية ولكن رواتبها متوسطة",
+    imagine: "🚀 ألماني كيشد راتبو ويقارنو مع فرونساوي وإيطالي والكل فالنص! 🇩🇪💰"
 };
 
-// ========== Exam 6: Bierkonsum (Mittel) (صحيح: 2,4) ==========
-HELP_DATA["hoeren1_exam6_q2"] = {
-    text: "Die Deutschen trinken durchschnittlich 100 Liter Bier pro Jahr.",
-    meaning: "الألمان يشربون متوسط 100 لتر من البيرة سنوياً",
-    keywords: ["durchschnittlich = بمعدل / متوسط", "Liter = لتر", "pro Jahr = سنوياً"],
-    simplified: "كل ألماني يشرب حوالي 100 لتر بيرة في السنة",
-    imagine: "🍺 رجل يسبح في بحيرة من البيرة ويبتسم"
+HELP_DATA["hoeren1_exam5_q4"] = {
+    shortText: "Gewalt von Fußballfans",
+    fullText: "Es wird Gewalt von Fußballfans auch in Deutschland befürchtet.",
+    meaning: "يُخشى من عنف مشجعي كرة القدم في ألمانيا",
+    keywords: ["Gewalt = عنف", "Fußballfans = مشجعي كرة قدم", "befürchtet = يُخشى"],
+    simplified: "العنف الكروي في ألمانيا أيضاً",
+    hint: "💡 مشجعين مجانين كل مكان",
+    imagine: "🚀 مشجع فوت لباس قناع ومهرس الكراسي والبوليس كتجري وراه! ⚽👮‍♂️"
 };
+
+
+// ============================================
+// Exam 6: Bierkonsum (Mittel) (صحيح فقط: 2,4)
+// ============================================
+
+HELP_DATA["hoeren1_exam6_q2"] = {
+    shortText: "Deutsche Einkommen Mittelfeld",
+    fullText: "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+    meaning: "الدخل الألماني في منتصف الترتيب الأوروبي",
+    keywords: ["Einkommen = دخل", "europäischen Vergleich = مقارنة أوروبية", "Mittelfeld = منتصف الترتيب"],
+    simplified: "ألمانيا متوسطين فالرواتب",
+    hint: "💡 ألمانيا موش أغنى دولة",
+    imagine: "🚀 ألماني كيقارن راتبو مع هولندي وبلجيكي ويصرخ  🇩🇪💰"
+};
+
 HELP_DATA["hoeren1_exam6_q4"] = {
-    text: "Die Zahl der Biertrinker sinkt vor allem bei jungen Männern.",
-    meaning: "عدد شاربي البيرة يتناقص خاصة بين الشباب الذكور",
-    keywords: ["Zahl = عدد", "sinkt = يتناقص", "jungen Männern = الشباب الذكور"],
-    simplified: "الشباب الذكور يشربون بيراً أقل",
-    imagine: "👦 شاب يرمي علبة بيره ويحضن زجاجة ماء";
+    shortText: "Gewalt von Fußballfans in Deutschland",
+    fullText: "Man befürchtet auch in Deutschland Gewalt von Fußballfans.",
+    meaning: "يُخشى من عنف مشجعي الكرة في ألمانيا أيضاً",
+    keywords: ["befürchtet = يُخشى", "Gewalt = عنف", "Fußballfans = مشجعي كرة قدم"],
+    simplified: "العنف الكروي موجود فالمات",
+    hint: "💡 فوت وعنف = صحيح",
+    imagine: "🚀 مشجع يجري ورا الحكم والجمهور كيصرخ 'ما عندكمش حياء يا ولاد!' ⚽😡"
+};
 
 // ========== Exam 7: Deutsches Schiff (صحيح: 1,2,5) ==========
 HELP_DATA["hoeren1_exam7_q1"] = {
