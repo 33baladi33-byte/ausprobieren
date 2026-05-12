@@ -1889,3 +1889,7 @@ body:has(#exam.active) .top-bar {
 .left-side .settings-icon-btn {
     order: 4;
 }
+/* إخفاء رمز القفل (إذا أردت) */
+.lock-icon-mini {
+    display: none;
+}
