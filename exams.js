@@ -802,7 +802,7 @@ async function renderExamListForSkill(skill, teilName) {
   const exam = targetExams[i];
   const examNumber = exam.id;
   // 🔴 التعديل: أول 4 امتحانات فقط مفتوحة في الوضع المجاني
-  const isFreeExam = (examNumber <= 4);
+  const isFreeExam = (examNumber <= 6);
     
     const div = document.createElement("div");
     div.className = "item";
