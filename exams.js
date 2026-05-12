@@ -12,10 +12,8 @@ const teile = [
   { id: 7, name: "Sprachbausteine Teil 1", container: "sprach1", skill: "sprach1" },
   { id: 8, name: "Sprachbausteine Teil 2", container: "sprach2", skill: "sprach2" },
   { id: 9, name: "Schreiben", container: "schreiben", skill: "schreiben" },
-  { id: 10, name: "Mündlich Teil 1 📖", container: "mündlich_teil1", skill: "mündlich_teil1" },
-  { id: 11, name: "Mündlich Teil 2 🗣️", container: "mündlich_teil2", skill: "mündlich_teil2" },
-  { id: 12, name: "Mündlich Teil 3 🎯", container: "mündlich_teil3", skill: "mündlich_teil3" },
-  { id: 13, name: "Tips", container: "tips", skill: "tips" }
+  { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" },
+  { id: 11, name: "Tips", container: "tips", skill: "tips" }
 ];
 
 // ========== دالة حفظ آخر نتيجة ==========
@@ -121,6 +119,7 @@ let currentExamData = null;
 let currentSkill = "lesen1";
 let currentExamId = null;
 let currentExamsList = [];
+let currentMündlichPart = 1; // لتتبع الجزء الحالي من Mündlich (1,2,3)
 let userStatusCache = null;
 let lastStatusCheck = 0;
 
@@ -249,60 +248,60 @@ const schreibenExams = [
   { id: 35, title: "In Offenbach zu Hause", enabled: true, hasFile: true }
 ];
 
+// ========== قائمة امتحانات Mündlich Teil 1 (دليل تعريفي) ==========
+const mündlich1Exams = [
+  { id: 1, title: "📖 دليل Mündlich Teil 1 - التعارف والموضوع القصير", enabled: true, hasFile: true, skillPath: "mündlich1" }
+];
+
 // ========== قائمة امتحانات Mündlich Teil 2 (الامتحانات الفعلية) ==========
-const mündlichTeil2Exams = [
-  { id: 1, title: "Antibiotika – Gibt es Alternativen?", enabled: true, hasFile: true },
-  { id: 2, title: "Selbst gekocht", enabled: true, hasFile: true },
-  { id: 3, title: "Arbeiten bis 75", enabled: true, hasFile: true },
-  { id: 4, title: "Praktische Lerntipps", enabled: true, hasFile: true },
-  { id: 5, title: "Schuluniform – Pro und Kontra", enabled: true, hasFile: true },
-  { id: 6, title: "Ist 'bequemes Essen' gut für uns?", enabled: true, hasFile: true },
-  { id: 7, title: "Alternative Lebensform im Alter", enabled: true, hasFile: true },
-  { id: 8, title: "Glücklich ohne Geld und Karriere", enabled: true, hasFile: true },
-  { id: 9, title: "Schönheitsoperationen bei Minderjährigen", enabled: true, hasFile: true },
-  { id: 10, title: "Kinderuniversitäten", enabled: true, hasFile: true },
-  { id: 11, title: "Fast Food", enabled: true, hasFile: true },
-  { id: 12, title: "Zweisprachigkeit bei Kindern", enabled: true, hasFile: true },
-  { id: 13, title: "Blutspende", enabled: true, hasFile: true },
-  { id: 14, title: "Lachen und Gesundheit", enabled: true, hasFile: true },
-  { id: 15, title: "Gefundene Sachen – behalten oder abgeben?", enabled: true, hasFile: true },
-  { id: 16, title: "Tiere als Geschenk", enabled: true, hasFile: true },
-  { id: 17, title: "Hausaufgaben – notwendig oder nicht?", enabled: true, hasFile: true },
-  { id: 18, title: "Wie lange dürfen Jugendliche abends ausgehen?", enabled: true, hasFile: true },
-  { id: 19, title: "Rauchen", enabled: true, hasFile: true },
-  { id: 20, title: "Hochbegabte Kinder – Spezialschulen oder Integration", enabled: true, hasFile: true },
-  { id: 21, title: "Hochzeit nur zu zweit", enabled: true, hasFile: true },
-  { id: 22, title: "Stadtwohnung oder Haus im Grünen", enabled: true, hasFile: true },
-  { id: 23, title: "Leistungssport und Doping", enabled: true, hasFile: true },
-  { id: 24, title: "Fernsehen bildet", enabled: true, hasFile: true },
-  { id: 25, title: "Kinderkonten", enabled: true, hasFile: true },
-  { id: 26, title: "Haustausch im Urlaub", enabled: true, hasFile: true },
-  { id: 27, title: "Solarium im Winter – gut oder schlecht", enabled: true, hasFile: true },
-  { id: 28, title: "Ist Schulqualität messbar?", enabled: true, hasFile: true },
-  { id: 29, title: "Hausfrau auf Lebenszeit", enabled: true, hasFile: true },
-  { id: 30, title: "Fernsehen macht Kinder dumm", enabled: true, hasFile: true },
-  { id: 31, title: "Kinder unterschätzen Gefahren von Handy und Internet", enabled: true, hasFile: true },
-  { id: 32, title: "Sind Klassenfahrten sinnvoll?", enabled: true, hasFile: true },
-  { id: 33, title: "Wo wohnt man am besten im Alter", enabled: true, hasFile: true },
-  { id: 34, title: "Ganztagsschule – Pro und Contra", enabled: true, hasFile: true },
-  { id: 35, title: "Verbot von Gewaltspielen – Pro und Kontra", enabled: true, hasFile: true },
-  { id: 36, title: "Eine Woche ohne Internet", enabled: true, hasFile: true },
-  { id: 37, title: "Digitales Unterrichtsmaterial in Schulen", enabled: true, hasFile: true },
-  { id: 38, title: "Tierversuche – Pro und Contra", enabled: true, hasFile: true },
-  { id: 39, title: "Englisch als weltweite Unternehmenssprache", enabled: true, hasFile: true },
-  { id: 40, title: "Trinkgeld geben", enabled: true, hasFile: true },
-  { id: 41, title: "Teilzeitarbeit für Männer", enabled: true, hasFile: true },
-  { id: 42, title: "Nahrungsergänzungsmittel", enabled: true, hasFile: true }
+const mündlich2Exams = [
+  { id: 1, title: "Antibiotika – Gibt es Alternativen?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 2, title: "Selbst gekocht", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 3, title: "Arbeiten bis 75", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 4, title: "Praktische Lerntipps", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 5, title: "Schuluniform – Pro und Kontra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 6, title: "Ist 'bequemes Essen' gut für uns?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 7, title: "Alternative Lebensform im Alter", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 8, title: "Glücklich ohne Geld und Karriere", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 9, title: "Schönheitsoperationen bei Minderjährigen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 10, title: "Kinderuniversitäten", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 11, title: "Fast Food", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 12, title: "Zweisprachigkeit bei Kindern", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 13, title: "Blutspende", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 14, title: "Lachen und Gesundheit", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 15, title: "Gefundene Sachen – behalten oder abgeben?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 16, title: "Tiere als Geschenk", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 17, title: "Hausaufgaben – notwendig oder nicht?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 18, title: "Wie lange dürfen Jugendliche abends ausgehen?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 19, title: "Rauchen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 20, title: "Hochbegabte Kinder – Spezialschulen oder Integration", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 21, title: "Hochzeit nur zu zweit", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 22, title: "Stadtwohnung oder Haus im Grünen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 23, title: "Leistungssport und Doping", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 24, title: "Fernsehen bildet", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 25, title: "Kinderkonten", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 26, title: "Haustausch im Urlaub", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 27, title: "Solarium im Winter – gut oder schlecht", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 28, title: "Ist Schulqualität messbar?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 29, title: "Hausfrau auf Lebenszeit", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 30, title: "Fernsehen macht Kinder dumm", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 31, title: "Kinder unterschätzen Gefahren von Handy und Internet", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 32, title: "Sind Klassenfahrten sinnvoll?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 33, title: "Wo wohnt man am besten im Alter", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 34, title: "Ganztagsschule – Pro und Contra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 35, title: "Verbot von Gewaltspielen – Pro und Kontra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 36, title: "Eine Woche ohne Internet", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 37, title: "Digitales Unterrichtsmaterial in Schulen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 38, title: "Tierversuche – Pro und Contra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 39, title: "Englisch als weltweite Unternehmenssprache", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 40, title: "Trinkgeld geben", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 41, title: "Teilzeitarbeit für Männer", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 42, title: "Nahrungsergänzungsmittel", enabled: true, hasFile: true, skillPath: "mündlich2" }
 ];
 
-// ========== قائمة Mündlich Teil 1 (صفحة معلومات) ==========
-const mündlichTeil1Exams = [
-  { id: 1, title: "📖 دليل Mündlich Teil 1 - التعارف والموضوع القصير", enabled: true, hasFile: false, isInfo: true, page: "mündlich_teil1_info.html" }
-];
-
-// ========== قائمة Mündlich Teil 3 (صفحة معلومات) ==========
-const mündlichTeil3Exams = [
-  { id: 1, title: "🎯 دليل Mündlich Teil 3 - Problemlösung", enabled: true, hasFile: false, isInfo: true, page: "mündlich_teil3_info.html" }
+// ========== قائمة امتحانات Mündlich Teil 3 (دليل المشكلات) ==========
+const mündlich3Exams = [
+  { id: 1, title: "🎯 دليل Mündlich Teil 3 - Problemlösung", enabled: true, hasFile: true, skillPath: "mündlich3" }
 ];
 
 // أسماء الملفات الحقيقية
@@ -655,13 +654,17 @@ const examsDatabase = {
     { id: 47, title: "Beim Klassik-Radio (مواضيع تركيا)", enabled: true, hasFile: true }
   ],
   schreiben: schreibenExams,
-  mündlich_teil1: mündlichTeil1Exams,
-  mündlich_teil2: mündlichTeil2Exams,
-  mündlich_teil3: mündlichTeil3Exams,
+  mündlich: mündlich2Exams, // افتراضيًا يظهر Teil 2
+  mündlich1: mündlich1Exams,
+  mündlich2: mündlich2Exams,
+  mündlich3: mündlich3Exams,
   tips: tipsExams
 };
 
-// ========== دالة عرض النتيجة المحفوظة ==========
+// متغير لتتبع الجزء الحالي من Mündlich
+let currentMündlichPart = 2; // 1, 2, or 3
+
+// ========== دالة عرض نتيجة محفوظة ==========
 function displaySavedResult(skill, examId, titleSpan, containerDiv) {
   const savedScore = getExamResult(skill, examId);
   if (savedScore !== null) {
@@ -695,6 +698,66 @@ function renderTeileList() {
   }
 }
 
+// وظيفة عرض أزرار التنقل بين أجزاء Mündlich
+function renderMündlichPartTabs() {
+  const container = document.getElementById("examsList");
+  if (!container) return;
+  
+  // إزالة الأزرار القديمة إذا وجدت
+  const oldTabs = container.querySelector('.mündlich-tabs');
+  if (oldTabs) oldTabs.remove();
+  
+  const tabsDiv = document.createElement("div");
+  tabsDiv.className = "mündlich-tabs";
+  tabsDiv.style.cssText = `
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px 0;
+  `;
+  
+  const parts = [
+    { id: 1, name: "Teil 1 📖", skill: "mündlich1" },
+    { id: 2, name: "Teil 2 🗣️", skill: "mündlich2" },
+    { id: 3, name: "Teil 3 🎯", skill: "mündlich3" }
+  ];
+  
+  parts.forEach(part => {
+    const btn = document.createElement("button");
+    btn.textContent = part.name;
+    btn.style.cssText = `
+      background: ${currentMündlichPart === part.id ? "#4a6fa5" : "#eef2f7"};
+      color: ${currentMündlichPart === part.id ? "white" : "#2c3e66"};
+      border: none;
+      padding: 8px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    `;
+    btn.onmouseenter = () => {
+      if (currentMündlichPart !== part.id) {
+        btn.style.background = "#dee2e8";
+      }
+    };
+    btn.onmouseleave = () => {
+      if (currentMündlichPart !== part.id) {
+        btn.style.background = "#eef2f7";
+      }
+    };
+    btn.onclick = () => {
+      currentMündlichPart = part.id;
+      renderExamListForSkill(part.skill, `Mündlich - ${part.name}`);
+    };
+    tabsDiv.appendChild(btn);
+  });
+  
+  container.insertBefore(tabsDiv, container.firstChild);
+}
+
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
   
@@ -702,15 +765,31 @@ async function renderExamListForSkill(skill, teilName) {
   if (!container) return;
   container.innerHTML = "";
   
+  // إذا كان المهارة تبدأ بـ "mündlich" نعرض الأزرار
+  if (skill === "mündlich1" || skill === "mündlich2" || skill === "mündlich3" || skill === "mündlich") {
+    renderMündlichPartTabs();
+  }
+  
   const headerDiv = document.createElement("div");
   headerDiv.className = "teil-header";
   headerDiv.innerHTML = `<strong>📚 ${teilName || getTeilNameBySkill(skill)}</strong>`;
   container.appendChild(headerDiv);
   
-  const exams = examsDatabase[skill] || [];
-  currentExamsList = exams;
+  // تحديد أي جزء من Mündlich نعرض
+  let targetSkill = skill;
+  let targetExams = examsDatabase[skill] || [];
   
-  if (exams.length === 0) {
+  if (skill === "mündlich") {
+    // إذا دخل المستخدم من القائمة الرئيسية، نعرض Teil 2 افتراضيًا
+    targetSkill = "mündlich2";
+    targetExams = examsDatabase.mündlich2 || [];
+    currentMündlichPart = 2;
+    renderMündlichPartTabs();
+  }
+  
+  currentExamsList = targetExams;
+  
+  if (targetExams.length === 0) {
     container.innerHTML += '<div class="item" style="text-align:center; color:#999;">⚠️ لا توجد امتحانات متاحة حالياً في هذا الجزء</div>';
     return;
   }
@@ -718,8 +797,8 @@ async function renderExamListForSkill(skill, teilName) {
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
   
-  for (let i = 0; i < exams.length; i++) {
-    const exam = exams[i];
+  for (let i = 0; i < targetExams.length; i++) {
+    const exam = targetExams[i];
     const examNumber = exam.id;
     const isFirstExam = (examNumber === 1);
     
@@ -740,9 +819,9 @@ async function renderExamListForSkill(skill, teilName) {
     
     div.appendChild(titleSpan);
     
-    displaySavedResult(skill, exam.id, titleSpan, div);
+    displaySavedResult(targetSkill, exam.id, titleSpan, div);
     
-    if (!isPremium && !isFirstExam && exam.hasFile !== false) {
+    if (!isPremium && !isFirstExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
       div.style.backgroundColor = "rgba(255,255,255,0.75)";
       div.style.border = "1px solid #e2e8f0";
       div.style.opacity = "1";
@@ -795,15 +874,10 @@ async function renderExamListForSkill(skill, teilName) {
           showLockedMessage(title + " (" + id + ")");
         };
       })(exam.title, exam.id);
-    } else if (exam.hasFile === false && exam.isInfo === true) {
-      div.style.cursor = "pointer";
-      div.onclick = function() {
-        window.location.href = exam.page;
-      };
     } else if (exam.hasFile) {
-      div.onclick = (function(id, title, skill) {
-        return function() { openExam(id, title, skill); };
-      })(exam.id, exam.title, skill);
+      div.onclick = (function(id, title, skillPath) {
+        return function() { openExam(id, title, skillPath); };
+      })(exam.id, exam.title, exam.skillPath || targetSkill);
     } else {
       div.style.opacity = "0.6";
       div.style.backgroundColor = "#f8f9fa";
@@ -856,6 +930,9 @@ function setupLockedNextButton() {
 }
 
 function getTeilNameBySkill(skill) {
+  if (skill === "mündlich1") return "Mündlich - Teil 1 📖";
+  if (skill === "mündlich2") return "Mündlich - Teil 2 🗣️";
+  if (skill === "mündlich3") return "Mündlich - Teil 3 🎯";
   const teil = teile.find(t => t.skill === skill);
   return teil ? teil.name : skill;
 }
@@ -868,7 +945,7 @@ function getActualFileName(examId) {
 }
 
 function shouldHideHelpButton(skill) {
-  const hiddenSkills = ["schreiben", "tips", "mündlich_teil1", "mündlich_teil3"];
+  const hiddenSkills = ["schreiben", "tips", "mündlich1", "mündlich3"];
   return hiddenSkills.includes(skill);
 }
 
@@ -892,7 +969,7 @@ async function openExam(examId, examTitle, skill) {
   try {
     const response = await fetch(`data/${skill}/${fileName}`);
     if (!response.ok) {
-      alert(`⚠️ الامتحان "${examTitle}" سيتم إضافته قريباً.\nالملف المطلوب: ${fileName}`);
+      alert(`⚠️ الامتحان "${examTitle}" سيتم إضافته قريباً.\nالملف المطلوب: data/${skill}/${fileName}`);
       return;
     }
     currentExamData = await response.json();
@@ -949,6 +1026,8 @@ async function openExam(examId, examTitle, skill) {
       }
     } else if (currentExamData.type === "mündlich") {
       renderMündlichExam(currentExamData);
+    } else if (currentExamData.type === "info") {
+      renderInfoExam(currentExamData);
     } else if (currentExamData.type === "tips") {
       renderTipsExam(currentExamData);
     } else {
@@ -960,6 +1039,138 @@ async function openExam(examId, examTitle, skill) {
   } catch(e) {
     console.error("❌ خطأ:", e);
     alert("خطأ في تحميل الامتحان: " + e.message);
+  }
+}
+
+// وظيفة عرض الامتحانات من نوع info (Teil 1 و Teil 3)
+function renderInfoExam(examData) {
+  const container = document.getElementById(currentSkill);
+  if (!container) return;
+  container.innerHTML = "";
+  
+  // إنشاء صفحة HTML من محتوى JSON
+  const content = examData.content;
+  if (!content) {
+    container.innerHTML = "<div class='error'>⚠️ لا يوجد محتوى للعرض</div>";
+    return;
+  }
+  
+  // بناء الصفحة ديناميكيًا من الـ JSON
+  let html = `
+    <div style="max-width: 1300px; margin: 0 auto; padding: 20px;">
+      <div style="background: #ffffff; padding: 14px 20px; border-radius: 12px; border: 1px solid #e0e4e8; color: #5a6874; font-size: 0.85rem; margin-bottom: 20px;">
+        💡 هذه الأمثلة فقط لكي تفهموا طريقة سير الامتحان، وليس مطلوبًا منكم حفظ نفس الاقتراحات أو استعمالها حرفيًا.
+      </div>
+  `;
+  
+  // المرحلة الأولى (للـ Teil 1 فقط)
+  if (content.phase1) {
+    html += `<div style="margin-bottom: 35px;"><div style="font-size: 1.3rem; font-weight: 600; color: #2c3e66; border-right: 3px solid #4a6fa5; padding-right: 12px; margin-bottom: 20px;">📖 ${content.phase1.title}</div>`;
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">`;
+    content.phase1.questions.forEach(q => {
+      html += `
+        <div style="background: #ffffff; border-radius: 16px; padding: 18px; border: 1px solid #e8ecef;">
+          <div style="font-weight: 600; color: #2c3e66; margin-bottom: 8px;">${q.german}</div>
+          <div style="color: #6c7a89; font-size: 0.85rem; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #e8ecef;">${q.arabic}</div>
+          <div style="background: #f8fafc; padding: 12px; border-radius: 12px; font-size: 0.8rem; color: #2c3e66; line-height: 1.5;">
+            <div style="font-weight: 600; color: #4a6fa5; margin-bottom: 6px; font-size: 0.75rem;">📋 مثال:</div>
+            <div>${q.example.replace(/\n/g, '<br>')}</div>
+          </div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+  
+  // المرحلة الثانية (للـ Teil 1)
+  if (content.phase2) {
+    html += `<div style="margin-bottom: 35px;"><div style="font-size: 1.3rem; font-weight: 600; color: #2c3e66; border-right: 3px solid #4a6fa5; padding-right: 12px; margin-bottom: 20px;">🎯 ${content.phase2.title}</div>`;
+    if (content.phase2.note) {
+      html += `<div style="background: #ffffff; padding: 12px 18px; border-radius: 12px; border: 1px solid #e0e4e8; margin-bottom: 20px; font-size: 0.85rem; color: #4a6fa5; text-align: center;">📝 ${content.phase2.note}</div>`;
+    }
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">`;
+    content.phase2.topics.forEach(topic => {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 18px; border: 1px solid #e8ecef;">
+          <div style="font-size: 1.1rem; font-weight: 600; color: #2c3e66;">📚 ${topic.title}</div>
+          <ul style="list-style: none; padding: 0; margin: 16px 0;">
+            ${topic.points.map(p => `<li style="font-size: 0.8rem; color: #5a6874; margin-bottom: 6px; padding-right: 12px; position: relative;">• ${p}</li>`).join('')}
+          </ul>
+          <div style="background: #ffffff; padding: 12px; border-radius: 12px; margin-top: 12px; border-right: 2px solid #4a6fa5;">
+            <div style="font-size: 0.7rem; font-weight: 600; color: #4a6fa5; margin-bottom: 6px;">💬 أسئلة قد يطرحها الشريك عليك:</div>
+            ${topic.partnerQuestions.map(q => `<div style="font-size: 0.75rem; color: #2c3e66; margin-bottom: 6px;">📌 ${q.german}<br><small style="color: #8a9aa8;">${q.arabic}</small></div>`).join('')}
+          </div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+  
+  // المجموعات (للـ Teil 3)
+  if (content.groups) {
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 24px; margin-bottom: 40px;">`;
+    content.groups.forEach(group => {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef; display: flex; flex-direction: column;">
+          <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e66; margin-bottom: 12px;">${group.title}</div>
+          <div style="font-size: 0.85rem; color: #6c7a89; margin-bottom: 20px;">${group.topics}</div>
+          <button class="toggle-suggestions-btn" style="background: transparent; border: 1px solid #4a6fa5; padding: 8px 18px; border-radius: 30px; cursor: pointer; color: #4a6fa5; width: fit-content; margin-top: auto;" data-group="${group.id}">أمثلة →</button>
+          <div class="suggestions-content" data-group="${group.id}" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e8ecef;">
+            <ul style="list-style: none; padding: 0;">
+              ${group.suggestions.map((s, idx) => `<li style="background: #ffffff; padding: 10px 14px; margin-bottom: 8px; border-radius: 12px; border-right: 2px solid #cbd5e1;"><span style="font-weight: 600; color: #4a6fa5;">${idx+1}.</span> ${s}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+    
+    // المنهجية
+    if (content.methodology) {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef;">
+          <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e66;">📌 ${content.methodology.title}</div>
+          <div style="font-size: 0.85rem; color: #6c7a89; margin: 12px 0;">${content.methodology.description}</div>
+          <button id="toggleDialogBtn" style="background: transparent; border: 1px solid #4a6fa5; padding: 8px 18px; border-radius: 30px; cursor: pointer; color: #4a6fa5;">مثال →</button>
+          <div id="dialogContent" style="display: none; margin-top: 16px; background: #ffffff; padding: 16px; border-radius: 16px; border: 1px solid #e8ecef;">
+            ${content.methodology.dialog.map(line => `<div style="margin-bottom: 12px;"><span style="font-weight: 700; color: #4a6fa5;">${line.speaker}:</span> ${line.text}</div>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+  }
+  
+  // التذييل
+  if (content.footerMessage) {
+    html += `<div style="text-align: center; padding: 20px; margin-top: 20px; border-top: 1px solid #e0e4e8;"><div style="font-size: 0.9rem; color: #5a6874; background: #ffffff; display: inline-block; padding: 10px 25px; border-radius: 40px; border: 1px solid #e0e4e8;">${content.footerMessage}</div></div>`;
+  }
+  
+  html += `</div>`;
+  container.innerHTML = html;
+  
+  // إضافة المستمعين للأزرار
+  document.querySelectorAll('.toggle-suggestions-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const groupId = btn.getAttribute('data-group');
+      const contentDiv = document.querySelector(`.suggestions-content[data-group="${groupId}"]`);
+      if (contentDiv) {
+        const isOpen = contentDiv.style.display === 'block';
+        contentDiv.style.display = isOpen ? 'none' : 'block';
+        btn.textContent = isOpen ? 'أمثلة →' : 'إخفاء ←';
+      }
+    });
+  });
+  
+  const dialogBtn = document.getElementById('toggleDialogBtn');
+  if (dialogBtn) {
+    dialogBtn.addEventListener('click', () => {
+      const dialogDiv = document.getElementById('dialogContent');
+      if (dialogDiv) {
+        const isOpen = dialogDiv.style.display === 'block';
+        dialogDiv.style.display = isOpen ? 'none' : 'block';
+        dialogBtn.textContent = isOpen ? 'مثال →' : 'إخفاء ←';
+      }
+    });
   }
 }
 
@@ -1002,13 +1213,7 @@ function renderTipsExam(examData) {
 }
 
 function renderMündlichExam(examData) {
-  const container = document.getElementById("mündlich_teil2");
-  if (!container) {
-    const fallback = document.getElementById("mündlich");
-    if (fallback) {
-      container = fallback;
-    }
-  }
+  const container = document.getElementById("mündlich");
   if (!container) return;
   container.innerHTML = "";
   
@@ -1074,7 +1279,7 @@ function updateExamNavButtons() {
     prevBtn.style.display = "inline-block";
     prevBtn.onclick = () => {
       const prevExam = currentExamsList[currentIndex - 1];
-      openExam(prevExam.id, prevExam.title, currentSkill);
+      openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
     };
   } else {
     prevBtn.style.display = "none";
@@ -1084,7 +1289,7 @@ function updateExamNavButtons() {
     nextBtn.style.display = "inline-block";
     nextBtn.onclick = () => {
       const nextExam = currentExamsList[currentIndex + 1];
-      openExam(nextExam.id, nextExam.title, currentSkill);
+      openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
     };
   } else {
     nextBtn.style.display = "none";
@@ -1242,17 +1447,22 @@ document.addEventListener("DOMContentLoaded", function() {
   if (backArrowFromExam) {
     backArrowFromExam.onclick = function() { 
       if (currentSkill) {
-        const teil = teile.find(t => t.skill === currentSkill);
-        if (teil) {
-          document.getElementById("home").classList.remove("active");
-          document.getElementById("exam").classList.remove("active");
-          document.getElementById("list").classList.add("active");
-          renderExamListForSkill(teil.skill, teil.name);
+        // إذا كان skill يبدأ بـ mündlich، نعود إلى قائمة Mündlich الرئيسية
+        if (currentSkill.startsWith('mündlich')) {
+          renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
         } else {
-          document.getElementById("home").classList.remove("active");
-          document.getElementById("exam").classList.remove("active");
-          document.getElementById("list").classList.add("active");
-          renderTeileList();
+          const teil = teile.find(t => t.skill === currentSkill);
+          if (teil) {
+            document.getElementById("home").classList.remove("active");
+            document.getElementById("exam").classList.remove("active");
+            document.getElementById("list").classList.add("active");
+            renderExamListForSkill(teil.skill, teil.name);
+          } else {
+            document.getElementById("home").classList.remove("active");
+            document.getElementById("exam").classList.remove("active");
+            document.getElementById("list").classList.add("active");
+            renderTeileList();
+          }
         }
       } else {
         document.getElementById("home").classList.remove("active");
@@ -1281,7 +1491,7 @@ console.log("🎧 Hören Teil 1:", examsDatabase.hoeren1.length, "امتحان")
 console.log("🎧 Hören Teil 2:", examsDatabase.hoeren2.length, "امتحان");
 console.log("🎧 Hören Teil 3:", examsDatabase.hoeren3.length, "امتحان");
 console.log("✏️ Schreiben:", examsDatabase.schreiben.length, "امتحان");
-console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich_teil1.length, "قسم");
-console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich_teil2.length, "امتحان");
-console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich_teil3.length, "قسم");
+console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich1.length, "قسم");
+console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich2.length, "امتحان");
+console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich3.length, "قسم");
 console.log("💡 Tips:", examsDatabase.tips.length, "قسم");
