@@ -700,7 +700,6 @@ function renderMündlichPartTabs() {
   const container = document.getElementById("examsList");
   if (!container) return;
   
-  // إزالة الأزرار القديمة إذا وجدت
   const oldTabs = container.querySelector('.mündlich-tabs');
   if (oldTabs) oldTabs.remove();
   
@@ -764,7 +763,6 @@ async function renderExamListForSkill(skill, teilName) {
   if (!container) return;
   container.innerHTML = "";
   
-  // إذا كان المهارة تبدأ بـ "mündlich" نعرض الأزرار
   if (skill === "mündlich1" || skill === "mündlich2" || skill === "mündlich3" || skill === "mündlich") {
     renderMündlichPartTabs();
   }
@@ -774,11 +772,9 @@ async function renderExamListForSkill(skill, teilName) {
   headerDiv.innerHTML = `<strong>📚 ${teilName || getTeilNameBySkill(skill)}</strong>`;
   container.appendChild(headerDiv);
   
-  // تحديد أي جزء من Mündlich نعرض
   let targetSkill = skill;
   let targetExams = examsDatabase[skill] || [];
   
-  // معالجة خاصة لـ mündlich الرئيسي
   if (skill === "mündlich") {
     if (currentMündlichPart === 1) {
       targetSkill = "mündlich1";
@@ -1057,9 +1053,30 @@ async function openExam(examId, examTitle, skill) {
   }
 }
 
+// دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
+function goBackToExamsList() {
+  if (currentSkill) {
+    const teil = teile.find(t => t.skill === currentSkill);
+    
+    if (teil) {
+      if (currentSkill.startsWith('mündlich')) {
+        renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
+      } else {
+        document.getElementById("home").classList.remove("active");
+        document.getElementById("exam").classList.remove("active");
+        document.getElementById("list").classList.add("active");
+        renderExamListForSkill(teil.skill, teil.name);
+      }
+    } else {
+      goList();
+    }
+  } else {
+    goList();
+  }
+}
+
 // وظيفة عرض الامتحانات من نوع info (Teil 1 و Teil 3)
 function renderInfoExam(examData) {
-  // تحديد الحاوية المناسبة - إذا كان skill هو mündlich1 أو mündlich3، استخدم حاوية mündlich
   let containerId = currentSkill;
   if (currentSkill === "mündlich1" || currentSkill === "mündlich3") {
     containerId = "mündlich";
@@ -1073,14 +1090,12 @@ function renderInfoExam(examData) {
   
   container.innerHTML = "";
   
-  // إنشاء صفحة HTML من محتوى JSON
   const content = examData.content;
   if (!content) {
     container.innerHTML = "<div class='error'>⚠️ لا يوجد محتوى للعرض</div>";
     return;
   }
   
-  // بناء الصفحة ديناميكيًا من الـ JSON
   let html = `
     <div style="max-width: 1300px; margin: 0 auto; padding: 20px;">
       <div style="background: #ffffff; padding: 14px 20px; border-radius: 12px; border: 1px solid #e0e4e8; color: #5a6874; font-size: 0.85rem; margin-bottom: 20px;">
@@ -1088,7 +1103,6 @@ function renderInfoExam(examData) {
       </div>
   `;
   
-  // المرحلة الأولى (للـ Teil 1 فقط)
   if (content.phase1) {
     html += `<div style="margin-bottom: 35px;"><div style="font-size: 1.3rem; font-weight: 600; color: #2c3e66; border-right: 3px solid #4a6fa5; padding-right: 12px; margin-bottom: 20px;">📖 ${content.phase1.title}</div>`;
     html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">`;
@@ -1107,7 +1121,6 @@ function renderInfoExam(examData) {
     html += `</div></div>`;
   }
   
-  // المرحلة الثانية (للـ Teil 1)
   if (content.phase2) {
     html += `<div style="margin-bottom: 35px;"><div style="font-size: 1.3rem; font-weight: 600; color: #2c3e66; border-right: 3px solid #4a6fa5; padding-right: 12px; margin-bottom: 20px;">🎯 ${content.phase2.title}</div>`;
     if (content.phase2.note) {
@@ -1131,7 +1144,6 @@ function renderInfoExam(examData) {
     html += `</div></div>`;
   }
   
-  // المجموعات (للـ Teil 3)
   if (content.groups) {
     html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 24px; margin-bottom: 40px;">`;
     content.groups.forEach(group => {
@@ -1150,7 +1162,6 @@ function renderInfoExam(examData) {
     });
     html += `</div>`;
     
-    // المنهجية
     if (content.methodology) {
       html += `
         <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef;">
@@ -1165,7 +1176,6 @@ function renderInfoExam(examData) {
     }
   }
   
-  // التذييل
   if (content.footerMessage) {
     html += `<div style="text-align: center; padding: 20px; margin-top: 20px; border-top: 1px solid #e0e4e8;"><div style="font-size: 0.9rem; color: #5a6874; background: #ffffff; display: inline-block; padding: 10px 25px; border-radius: 40px; border: 1px solid #e0e4e8;">${content.footerMessage}</div></div>`;
   }
@@ -1173,7 +1183,6 @@ function renderInfoExam(examData) {
   html += `</div>`;
   container.innerHTML = html;
   
-  // إضافة المستمعين للأزرار
   document.querySelectorAll('.toggle-suggestions-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const groupId = btn.getAttribute('data-group');
@@ -1330,6 +1339,25 @@ function showTeil(teilNumber) {
   });
 }
 
+function goHome() {
+  document.getElementById("home").classList.add("active");
+  document.getElementById("list").classList.remove("active");
+  document.getElementById("exam").classList.remove("active");
+}
+
+function goList() {
+  document.getElementById("home").classList.remove("active");
+  document.getElementById("list").classList.add("active");
+  document.getElementById("exam").classList.remove("active");
+  
+  renderTeileList();
+  
+  const examsContainer = document.getElementById("examsList");
+  if (examsContainer) {
+    examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
+  }
+}
+
 function buildTeil1(questions) {
   const container = document.getElementById("teil1");
   if (!container) return;
@@ -1437,25 +1465,6 @@ window.saveExamResultGlobal = function(skill, examId, score) {
   }
 };
 
-function goHome() {
-  document.getElementById("home").classList.add("active");
-  document.getElementById("list").classList.remove("active");
-  document.getElementById("exam").classList.remove("active");
-}
-
-function goList() {
-  document.getElementById("home").classList.remove("active");
-  document.getElementById("list").classList.add("active");
-  document.getElementById("exam").classList.remove("active");
-  
-  renderTeileList();
-  
-  const examsContainer = document.getElementById("examsList");
-  if (examsContainer) {
-    examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
-  }
-}
-
 document.addEventListener("DOMContentLoaded", function() {
   const startBtn = document.getElementById("startBtn");
   const backHomeBtn = document.getElementById("backHomeBtn");
@@ -1471,29 +1480,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
   if (backArrowFromExam) {
     backArrowFromExam.onclick = function() { 
-      if (currentSkill) {
-        if (currentSkill.startsWith('mündlich')) {
-          renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
-        } else {
-          const teil = teile.find(t => t.skill === currentSkill);
-          if (teil) {
-            document.getElementById("home").classList.remove("active");
-            document.getElementById("exam").classList.remove("active");
-            document.getElementById("list").classList.add("active");
-            renderExamListForSkill(teil.skill, teil.name);
-          } else {
-            document.getElementById("home").classList.remove("active");
-            document.getElementById("exam").classList.remove("active");
-            document.getElementById("list").classList.add("active");
-            renderTeileList();
-          }
-        }
-      } else {
-        document.getElementById("home").classList.remove("active");
-        document.getElementById("exam").classList.remove("active");
-        document.getElementById("list").classList.add("active");
-        renderTeileList();
-      }
+      goBackToExamsList();
     };
   }
   
