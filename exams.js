@@ -870,22 +870,20 @@ rightSide.appendChild(premiumSpan);
       titleSpan.style.transition = "color 0.25s ease";
       
       div.onmouseenter = function() {
-        this.style.backgroundColor = "rgba(255,255,255,0.95)";
-        this.style.transform = "translateX(5px)";
-        this.style.borderColor = "#60a5fa";
-        titleSpan.style.color = "#4b5563";
-        if (lockSpan) lockSpan.style.transform = "scale(1.1)";
-        if (proSpan) proSpan.style.transform = "scale(1.05)";
-      };
-      
-      div.onmouseleave = function() {
-        this.style.backgroundColor = "rgba(255,255,255,0.75)";
-        this.style.transform = "translateX(0)";
-        this.style.borderColor = "#e2e8f0";
-        titleSpan.style.color = "#6b7280";
-        if (lockSpan) lockSpan.style.transform = "scale(1)";
-        if (proSpan) proSpan.style.transform = "scale(1)";
-      };
+  this.style.backgroundColor = "rgba(255,255,255,0.95)";
+  this.style.transform = "translateX(5px)";
+  this.style.borderColor = "#60a5fa";
+  titleSpan.style.color = "#4b5563";
+  if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+};
+
+div.onmouseleave = function() {
+  this.style.backgroundColor = "rgba(255,255,255,0.75)";
+  this.style.transform = "translateX(0)";
+  this.style.borderColor = "#e2e8f0";
+  titleSpan.style.color = "#6b7280";
+  if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+};
       
       div.onclick = (function(title, id) {
         return function() {
