@@ -661,9 +661,6 @@ const examsDatabase = {
   tips: tipsExams
 };
 
-// متغير لتتبع الجزء الحالي من Mündlich
-let currentMündlichPart = 2; // 1, 2, or 3
-
 // ========== دالة عرض نتيجة محفوظة ==========
 function displaySavedResult(skill, examId, titleSpan, containerDiv) {
   const savedScore = getExamResult(skill, examId);
