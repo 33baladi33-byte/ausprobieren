@@ -715,9 +715,9 @@ function renderMündlichPartTabs() {
   `;
   
   const parts = [
-    { id: 1, name: "Teil 1 📖", skill: "mündlich1" },
-    { id: 2, name: "Teil 2 🗣️", skill: "mündlich2" },
-    { id: 3, name: "Teil 3 🎯", skill: "mündlich3" }
+    { id: 1, name: "Teil 1 ", skill: "mündlich1" },
+    { id: 2, name: "Teil 2 ", skill: "mündlich2" },
+    { id: 3, name: "Teil 3 ", skill: "mündlich3" }
   ];
   
   parts.forEach(part => {
@@ -794,104 +794,102 @@ async function renderExamListForSkill(skill, teilName) {
     container.innerHTML += '<div class="item" style="text-align:center; color:#999;">⚠️ لا توجد امتحانات متاحة حالياً في هذا الجزء</div>';
     return;
   }
-
+  
   const userStatus = await getUserStatusForExam();
-const isPremium = (userStatus === 'premium');
-
-for (let i = 0; i < targetExams.length; i++) {
+  const isPremium = (userStatus === 'premium');
+  
+ for (let i = 0; i < targetExams.length; i++) {
   const exam = targetExams[i];
   const examNumber = exam.id;
-  // ✅ أول 4 امتحانات مجانية (رقم 1,2,3,4)
+  // 🔴 التعديل: أول 4 امتحانات فقط مفتوحة في الوضع المجاني
   const isFreeExam = (examNumber <= 4);
-  
-  const div = document.createElement("div");
-  div.className = "item";
-  
-  const titleSpan = document.createElement("span");
-  titleSpan.className = "exam-title";
-  
-  if (skill === "tips") {
-    titleSpan.textContent = `${exam.title}`;
-    titleSpan.style.textAlign = "center";
-    titleSpan.style.display = "block";
-    titleSpan.style.width = "100%";
-  } else {
-    titleSpan.textContent = `${exam.id}: ${exam.title}`;
-  }
-  
-  div.appendChild(titleSpan);
-  
-  displaySavedResult(targetSkill, exam.id, titleSpan, div);
-  
-  // ✅ الشرط الصحيح: إذا كان المستخدم ليس بريميوم والامتحان ليس من أول 4
-  if (!isPremium && !isFreeExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
-    // قفل الامتحان
-    div.style.backgroundColor = "rgba(255,255,255,0.75)";
-    div.style.border = "1px solid #e2e8f0";
-    div.style.opacity = "1";
-    div.style.transition = "all 0.25s ease";
-    div.style.cursor = "pointer";
     
-    const rightSide = document.createElement("span");
-    rightSide.className = "exam-right-icons";
-    rightSide.style.display = "flex";
-    rightSide.style.alignItems = "center";
-    rightSide.style.gap = "6px";
-    rightSide.style.transition = "all 0.25s ease";
+    const div = document.createElement("div");
+    div.className = "item";
     
-    const lockSpan = document.createElement("span");
-    lockSpan.className = "lock-icon";
-    lockSpan.innerHTML = "🔒";
-    lockSpan.style.cssText = "font-size:13px; color:#60a5fa; margin-right:5px; transition:all 0.25s ease;";
-    rightSide.appendChild(lockSpan);
+    const titleSpan = document.createElement("span");
+    titleSpan.className = "exam-title";
     
-    const proSpan = document.createElement("span");
-    proSpan.className = "pro-badge";
-    proSpan.innerHTML = "PRO";
-    proSpan.style.cssText = "color:#2563eb; font-size:9px; font-weight:bold; letter-spacing:1px; transition:all 0.25s ease;";
-    rightSide.appendChild(proSpan);
+    if (skill === "tips") {
+      titleSpan.textContent = `${exam.title}`;
+      titleSpan.style.textAlign = "center";
+      titleSpan.style.display = "block";
+      titleSpan.style.width = "100%";
+    } else {
+      titleSpan.textContent = `${exam.id}: ${exam.title}`;
+    }
     
-    div.appendChild(rightSide);
-    titleSpan.style.color = "#6b7280";
-    titleSpan.style.transition = "color 0.25s ease";
+    div.appendChild(titleSpan);
     
-    div.onmouseenter = function() {
-      this.style.backgroundColor = "rgba(255,255,255,0.95)";
-      this.style.transform = "translateX(5px)";
-      this.style.borderColor = "#60a5fa";
-      titleSpan.style.color = "#4b5563";
-      if (lockSpan) lockSpan.style.transform = "scale(1.1)";
-      if (proSpan) proSpan.style.transform = "scale(1.05)";
-    };
+    displaySavedResult(targetSkill, exam.id, titleSpan, div);
     
-    div.onmouseleave = function() {
-      this.style.backgroundColor = "rgba(255,255,255,0.75)";
-      this.style.transform = "translateX(0)";
-      this.style.borderColor = "#e2e8f0";
+    if (!isPremium && !isFreeExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
+      div.style.backgroundColor = "rgba(255,255,255,0.75)";
+      div.style.border = "1px solid #e2e8f0";
+      div.style.opacity = "1";
+      div.style.transition = "all 0.25s ease";
+      div.style.cursor = "pointer";
+      
+      const rightSide = document.createElement("span");
+      rightSide.className = "exam-right-icons";
+      rightSide.style.display = "flex";
+      rightSide.style.alignItems = "center";
+      rightSide.style.gap = "6px";
+      rightSide.style.transition = "all 0.25s ease";
+      
+      const lockSpan = document.createElement("span");
+      lockSpan.className = "lock-icon";
+      lockSpan.innerHTML = "🔒";
+      lockSpan.style.cssText = "font-size:13px; color:#60a5fa; margin-right:5px; transition:all 0.25s ease;";
+      rightSide.appendChild(lockSpan);
+      
+      const proSpan = document.createElement("span");
+      proSpan.className = "pro-badge";
+      proSpan.innerHTML = "PRO";
+      proSpan.style.cssText = "color:#2563eb; font-size:9px; font-weight:bold; letter-spacing:1px; transition:all 0.25s ease;";
+      rightSide.appendChild(proSpan);
+      
+      div.appendChild(rightSide);
       titleSpan.style.color = "#6b7280";
-      if (lockSpan) lockSpan.style.transform = "scale(1)";
-      if (proSpan) proSpan.style.transform = "scale(1)";
-    };
-    
-    div.onclick = (function(title, id) {
-      return function() {
-        showLockedMessage(title + " (" + id + ")");
+      titleSpan.style.transition = "color 0.25s ease";
+      
+      div.onmouseenter = function() {
+        this.style.backgroundColor = "rgba(255,255,255,0.95)";
+        this.style.transform = "translateX(5px)";
+        this.style.borderColor = "#60a5fa";
+        titleSpan.style.color = "#4b5563";
+        if (lockSpan) lockSpan.style.transform = "scale(1.1)";
+        if (proSpan) proSpan.style.transform = "scale(1.05)";
       };
-    })(exam.title, exam.id);
-  } else if (exam.hasFile) {
-    div.onclick = (function(id, title, skillPath) {
-      return function() { 
-        const actualSkill = skillPath || targetSkill;
-        openExam(id, title, actualSkill); 
+      
+      div.onmouseleave = function() {
+        this.style.backgroundColor = "rgba(255,255,255,0.75)";
+        this.style.transform = "translateX(0)";
+        this.style.borderColor = "#e2e8f0";
+        titleSpan.style.color = "#6b7280";
+        if (lockSpan) lockSpan.style.transform = "scale(1)";
+        if (proSpan) proSpan.style.transform = "scale(1)";
       };
-    })(exam.id, exam.title, exam.skillPath || targetSkill);
-  } else {
-    div.style.opacity = "0.6";
-    div.style.backgroundColor = "#f8f9fa";
-    div.onclick = () => alert(`⚠️ الامتحان رقم ${exam.id} سيتم إضافته قريباً.`);
+      
+      div.onclick = (function(title, id) {
+        return function() {
+          showLockedMessage(title + " (" + id + ")");
+        };
+      })(exam.title, exam.id);
+    } else if (exam.hasFile) {
+      div.onclick = (function(id, title, skillPath) {
+        return function() { 
+          const actualSkill = skillPath || targetSkill;
+          openExam(id, title, actualSkill); 
+        };
+      })(exam.id, exam.title, exam.skillPath || targetSkill);
+    } else {
+      div.style.opacity = "0.6";
+      div.style.backgroundColor = "#f8f9fa";
+      div.onclick = () => alert(`⚠️ الامتحان رقم ${exam.id} سيتم إضافته قريباً.`);
+    }
+    container.appendChild(div);
   }
-  container.appendChild(div);
-}
   
   setTimeout(setupLockedNextButton, 100);
 }
@@ -1059,19 +1057,42 @@ async function openExam(examId, examTitle, skill) {
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
   if (currentSkill) {
-    const teil = teile.find(t => t.skill === currentSkill);
-    
-    if (teil) {
-      if (currentSkill.startsWith('mündlich')) {
-        renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
-      } else {
+    // إذا كان skill هو mündlich1
+    if (currentSkill === "mündlich1") {
+      document.getElementById("home").classList.remove("active");
+      document.getElementById("exam").classList.remove("active");
+      document.getElementById("list").classList.add("active");
+      renderExamListForSkill("mündlich1", "Mündlich - Teil 1 📖");
+    } 
+    // إذا كان skill هو mündlich2
+    else if (currentSkill === "mündlich2") {
+      document.getElementById("home").classList.remove("active");
+      document.getElementById("exam").classList.remove("active");
+      document.getElementById("list").classList.add("active");
+      renderExamListForSkill("mündlich2", "Mündlich - Teil 2 🗣️");
+    }
+    // إذا كان skill هو mündlich3
+    else if (currentSkill === "mündlich3") {
+      document.getElementById("home").classList.remove("active");
+      document.getElementById("exam").classList.remove("active");
+      document.getElementById("list").classList.add("active");
+      renderExamListForSkill("mündlich3", "Mündlich - Teil 3 🎯");
+    }
+    // لأي مündlich آخر (احتياطي)
+    else if (currentSkill.startsWith('mündlich')) {
+      renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
+    }
+    // لبقية الأقسام (Hören, Lesen, Sprachbausteine, Schreiben, Tips)
+    else {
+      const teil = teile.find(t => t.skill === currentSkill);
+      if (teil) {
         document.getElementById("home").classList.remove("active");
         document.getElementById("exam").classList.remove("active");
         document.getElementById("list").classList.add("active");
         renderExamListForSkill(teil.skill, teil.name);
+      } else {
+        goList();
       }
-    } else {
-      goList();
     }
   } else {
     goList();
