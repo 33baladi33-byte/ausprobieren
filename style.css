@@ -1508,28 +1508,76 @@ body:has(#exam.active) .top-bar {
     box-shadow: 0 2px 8px rgba(47, 128, 237, 0.15);
 }
 
-.lock-icon {
-    font-size: 13px;
-    color: #60a5fa;
-    transition: transform 0.2s ease;
-}
-
-.item:hover .lock-icon {
-    transform: scale(1.1);
-}
-
-.pro-badge {
-    color: #2563eb;
-    font-size: 10px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+/* شارة Premium الجديدة - تصميم أنيق واحترافي */
+.premium-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.65);
+    color: #f5e6a0;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-right: 5px;
+    line-height: 1.2;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(2px);
+    border: 0.5px solid rgba(245, 230, 160, 0.3);
     transition: all 0.2s ease;
 }
 
-.item:hover .pro-badge {
-    color: #2F80ED;
-    transform: scale(1.05);
+/* أيقونة القفل المصغرة (اختيارية، يمكن حذفها) */
+.lock-icon-mini {
+    font-size: 8px;
+    margin-left: 3px;
+    opacity: 0.8;
+}
+
+/* حاوية الأيقونات على اليسار */
+.exam-right-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: 5px;
+}
+
+.item:hover .premium-badge {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.02);
+}
+
+/* للشاشات الصغيرة (الهواتف) */
+@media (max-width: 768px) {
+    .item {
+        padding: 10px 12px;
+    }
+    
+    .premium-badge {
+        font-size: 7px;
+        padding: 1px 5px;
+        margin-right: 3px;
+    }
+    
+    .lock-icon-mini {
+        font-size: 6px;
+    }
+    
+    .exam-right-icons {
+        gap: 3px;
+        margin-right: 3px;
+    }
+    
+    .exam-title {
+        font-size: 13px;
+    }
+}
+
+/* للشاشات الكبيرة (الحاسوب) */
+@media (min-width: 769px) {
+    .premium-badge {
+        font-size: 9px;
+        padding: 2px 8px;
+    }
 }
 
 .exam-title {
