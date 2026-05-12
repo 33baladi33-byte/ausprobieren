@@ -119,7 +119,7 @@ let currentExamData = null;
 let currentSkill = "lesen1";
 let currentExamId = null;
 let currentExamsList = [];
-let currentMündlichPart = 1; // لتتبع الجزء الحالي من Mündlich (1,2,3)
+let currentMündlichPart = 2; // تغيير: البدء بـ Teil 2 (الامتحانات الفعلية)
 let userStatusCache = null;
 let lastStatusCheck = 0;
 
@@ -654,7 +654,7 @@ const examsDatabase = {
     { id: 47, title: "Beim Klassik-Radio (مواضيع تركيا)", enabled: true, hasFile: true }
   ],
   schreiben: schreibenExams,
-  mündlich: mündlich2Exams, // افتراضيًا يظهر Teil 2
+  mündlich: mündlich2Exams,
   mündlich1: mündlich1Exams,
   mündlich2: mündlich2Exams,
   mündlich3: mündlich3Exams,
@@ -747,7 +747,10 @@ function renderMündlichPartTabs() {
     };
     btn.onclick = () => {
       currentMündlichPart = part.id;
-      renderExamListForSkill(part.skill, `Mündlich - ${part.name}`);
+      // استخدام skill الصحيح بناءً على الجزء
+      const skillToRender = part.skill;
+      const displayName = `Mündlich - ${part.name}`;
+      renderExamListForSkill(skillToRender, displayName);
     };
     tabsDiv.appendChild(btn);
   });
@@ -776,12 +779,19 @@ async function renderExamListForSkill(skill, teilName) {
   let targetSkill = skill;
   let targetExams = examsDatabase[skill] || [];
   
+  // معالجة خاصة لـ mündlich الرئيسي
   if (skill === "mündlich") {
-    // إذا دخل المستخدم من القائمة الرئيسية، نعرض Teil 2 افتراضيًا
-    targetSkill = "mündlich2";
-    targetExams = examsDatabase.mündlich2 || [];
-    currentMündlichPart = 2;
-    renderMündlichPartTabs();
+    // استخدام currentMündlichPart لتحديد الجزء
+    if (currentMündlichPart === 1) {
+      targetSkill = "mündlich1";
+      targetExams = examsDatabase.mündlich1 || [];
+    } else if (currentMündlichPart === 2) {
+      targetSkill = "mündlich2";
+      targetExams = examsDatabase.mündlich2 || [];
+    } else if (currentMündlichPart === 3) {
+      targetSkill = "mündlich3";
+      targetExams = examsDatabase.mündlich3 || [];
+    }
   }
   
   currentExamsList = targetExams;
@@ -873,7 +883,11 @@ async function renderExamListForSkill(skill, teilName) {
       })(exam.title, exam.id);
     } else if (exam.hasFile) {
       div.onclick = (function(id, title, skillPath) {
-        return function() { openExam(id, title, skillPath); };
+        return function() { 
+          // استخدام skillPath مباشرة لتحميل الامتحان من المجلد الصحيح
+          const actualSkill = skillPath || targetSkill;
+          openExam(id, title, actualSkill); 
+        };
       })(exam.id, exam.title, exam.skillPath || targetSkill);
     } else {
       div.style.opacity = "0.6";
@@ -947,6 +961,8 @@ function shouldHideHelpButton(skill) {
 }
 
 async function openExam(examId, examTitle, skill) {
+  console.log("🔍 openExam parameters:", { examId, examTitle, skill });
+  
   currentExamId = examId;
   currentSkill = skill;
   
@@ -962,6 +978,7 @@ async function openExam(examId, examTitle, skill) {
   
   console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
   console.log("📁 اسم الملف:", fileName);
+  console.log("📂 المسار الكامل:", `data/${skill}/${fileName}`);
   
   try {
     const response = await fetch(`data/${skill}/${fileName}`);
@@ -1032,7 +1049,12 @@ async function openExam(examId, examTitle, skill) {
     }
     
     const teilIndex = teile.findIndex(t => t.skill === skill);
-    showTeil(teilIndex + 1);
+    if (teilIndex !== -1) {
+      showTeil(teilIndex + 1);
+    } else {
+      // إذا لم يتم العثور على teil، إظهار حاوية mündlich
+      showTeil(10); // Mündlich هو العنصر رقم 10 في قائمة teile
+    }
   } catch(e) {
     console.error("❌ خطأ:", e);
     alert("خطأ في تحميل الامتحان: " + e.message);
