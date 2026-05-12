@@ -830,7 +830,7 @@ async function renderExamListForSkill(skill, teilName) {
       div.style.transition = "all 0.25s ease";
       div.style.cursor = "pointer";
       
-      const rightSide = document.createElement("span");
+     const rightSide = document.createElement("span");
 rightSide.className = "exam-right-icons";
 
 const premiumSpan = document.createElement("span");
