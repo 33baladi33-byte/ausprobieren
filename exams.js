@@ -838,11 +838,7 @@ premiumSpan.className = "premium-badge";
 premiumSpan.innerHTML = "Premium";
 rightSide.appendChild(premiumSpan);
       
-      const proSpan = document.createElement("span");
-      proSpan.className = "pro-badge";
-      proSpan.innerHTML = "PRO";
-      proSpan.style.cssText = "color:#2563eb; font-size:9px; font-weight:bold; letter-spacing:1px; transition:all 0.25s ease;";
-      rightSide.appendChild(proSpan);
+      // تم إزالة PRO نهائياً
       
       div.appendChild(rightSide);
       titleSpan.style.color = "#6b7280";
