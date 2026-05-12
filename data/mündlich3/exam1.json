@@ -97,7 +97,7 @@
       "dialog": [
         {
           "speaker": "Person A",
-          "text": "Hallo, wie du weiß, man hat uns gesagt, dass wir... sollen. also, Was meinst du, womit sollen wir anfangen?"
+          "text": "Hallo, wie du weiß, man hat uns gesagt, dass wir... sollen. also, Was meinst du, womit sollen wir anfangen?\n\n...\n...\n..."
         },
         {
           "speaker": "Person B",
