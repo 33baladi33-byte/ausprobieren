@@ -2,524 +2,558 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mündlich Teil 1 - دليل شامل للامتحان الشفوي B2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Mündlich Teil 1 – التعارف والموضوع القصير | Zertiva B2</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f4f8;
-            padding: 20px;
-            line-height: 1.6;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #f5f7fa;
+            padding: 0;
+            line-height: 1.5;
+            color: #1a2a3a;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #2c3e66, #1a2a4f);
-            color: white;
-            padding: 25px 30px;
-            border-radius: 20px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        .header h1 {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-        .header p {
-            opacity: 0.9;
-            font-size: 0.95rem;
-        }
-        /* Tabs */
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 25px;
-            justify-content: center;
-        }
-        .tab-btn {
-            background: #e9ecef;
-            border: none;
+
+        /* Top Bar مثل باقي الموقع */
+        .top-bar {
+            background: #ffffff;
             padding: 12px 24px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: all 0.3s;
-            color: #2c3e66;
-        }
-        .tab-btn.active {
-            background: linear-gradient(135deg, #2c3e66, #1a2a4f);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .tab-btn:hover {
-            transform: translateY(-2px);
-        }
-        /* Sections */
-        .section {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-        .section.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        /* Cards */
-        .card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #2c3e66;
-            border-right: 4px solid #007bff;
-            padding-right: 15px;
-            margin-bottom: 20px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            border-bottom: 1px solid #e0e4e8;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .card-title .icon {
-            font-size: 1.8rem;
-        }
-        .subtitle {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #0056b3;
-            margin: 15px 0 10px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .points-list {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin: 15px 0;
-            list-style-position: inside;
-        }
-        .points-list li {
-            margin: 8px 0;
-            color: #333;
-        }
-        .question-box {
-            background: #e7f3ff;
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin: 15px 0;
-            border-right: 3px solid #007bff;
-        }
-        .question-box p {
-            margin: 5px 0;
-        }
-        .german-text {
-            color: #2c3e66;
-            font-weight: 500;
-        }
-        .arabic-text {
-            color: #555;
-        }
-        .example-btn {
-            background: #28a745;
-            color: white;
+
+        .back-icon {
+            background: transparent;
             border: none;
-            padding: 8px 18px;
-            border-radius: 25px;
+            font-size: 1.5rem;
             cursor: pointer;
+            color: #4a6fa5;
+            transition: 0.2s;
+            padding: 5px 10px;
+            border-radius: 30px;
+        }
+
+        .back-icon:hover {
+            background: #eef2f7;
+        }
+
+        .logo-area {
+            font-weight: 600;
+            color: #2c3e66;
+        }
+
+        .right-placeholder {
+            width: 40px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2c3e66;
+            margin-bottom: 12px;
+        }
+
+        .info-note {
+            background: #ffffff;
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: 1px solid #e0e4e8;
+            color: #5a6874;
             font-size: 0.85rem;
-            margin: 10px 0;
-            transition: all 0.3s;
+            margin-bottom: 20px;
         }
-        .example-btn:hover {
-            background: #218838;
-            transform: scale(1.02);
+
+        /* Phase Section */
+        .phase-section {
+            margin-bottom: 35px;
         }
+
+        .phase-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e66;
+            border-right: 3px solid #4a6fa5;
+            padding-right: 12px;
+            margin-bottom: 20px;
+        }
+
+        /* Questions Grid للأسئلة الشخصية */
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .question-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 18px;
+            border: 1px solid #e8ecef;
+            transition: all 0.2s;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .question-german {
+            font-weight: 600;
+            color: #2c3e66;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .question-arabic {
+            color: #6c7a89;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e8ecef;
+        }
+
         .example-box {
-            background: #fff3cd;
-            border-right: 4px solid #ffc107;
-            padding: 15px;
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #5a6874;
+            line-height: 1.5;
+        }
+
+        .example-label {
+            font-weight: 600;
+            color: #4a6fa5;
+            margin-bottom: 6px;
+            font-size: 0.75rem;
+        }
+
+        .example-text {
+            color: #3a5a8c;
+        }
+
+        /* Topics Grid */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .topic-card {
+            background: #f8f9fb;
+            border-radius: 16px;
+            padding: 18px;
+            border: 1px solid #e8ecef;
+            transition: all 0.2s;
+        }
+
+        .topic-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .topic-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e66;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e0e4e8;
+        }
+
+        .points-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 16px;
+        }
+
+        .points-list li {
+            font-size: 0.8rem;
+            color: #5a6874;
+            margin-bottom: 6px;
+            padding-right: 12px;
+            position: relative;
+        }
+
+        .points-list li::before {
+            content: "•";
+            color: #4a6fa5;
+            position: absolute;
+            right: 0;
+        }
+
+        .partner-questions {
+            background: #ffffff;
+            padding: 12px;
             border-radius: 12px;
             margin-top: 12px;
-            display: none;
+            border-right: 2px solid #4a6fa5;
         }
-        .example-box.show {
-            display: block;
+
+        .partner-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #4a6fa5;
+            margin-bottom: 6px;
+            text-transform: uppercase;
         }
-        .tip-box {
-            background: #d1ecf1;
-            border-right: 4px solid #17a2b8;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 15px 0;
+
+        .partner-q {
+            font-size: 0.75rem;
+            color: #2c3e66;
+            margin-bottom: 6px;
         }
-        .warning-box {
-            background: #f8d7da;
-            border-right: 4px solid #dc3545;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 15px 0;
+
+        .partner-q small {
+            color: #8a9aa8;
+            font-weight: normal;
         }
-        .grid-2 {
+
+        /* Tips Section */
+        .tips-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 25px;
+            border: 1px solid #e8ecef;
+        }
+
+        .tips-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e66;
+            margin-bottom: 15px;
+        }
+
+        .tips-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
         }
+
+        .tip-item {
+            font-size: 0.85rem;
+            color: #5a6874;
+            padding: 8px 12px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
         /* Footer */
         .footer {
             text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 0.85rem;
+            padding: 25px;
+            margin-top: 20px;
+            border-top: 1px solid #e0e4e8;
         }
-        @media (max-width: 768px) {
-            body {
-                padding: 12px;
+
+        .footer-message {
+            font-size: 0.85rem;
+            color: #8a9aa8;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .questions-grid {
+                grid-template-columns: 1fr;
             }
-            .card-title {
-                font-size: 1.2rem;
+            .topics-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-            .tab-btn {
-                padding: 8px 16px;
-                font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 15px;
+            }
+            .page-header h1 {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="header">
-        <h1>🎤 Mündlich Teil 1</h1>
-        <p>دليل شامل للامتحان الشفوي B2 - مرحلة التعارف + الموضوع القصير (Kurzvortrag)</p>
-    </div>
 
-    <!-- Tabs -->
-    <div class="tabs">
-        <button class="tab-btn active" data-tab="phase1">📖 المرحلة الأولى</button>
-        <button class="tab-btn" data-tab="phase2">🎯 المرحلة الثانية</button>
-        <button class="tab-btn" data-tab="tips">💡 نصائح مهمة</button>
-        <button class="tab-btn" data-tab="mistakes">⚠️ أخطاء شائعة</button>
+<!-- Top Bar مثل باقي الموقع -->
+<div class="top-bar">
+    <button id="backArrowBtn" class="back-icon" title="رجوع">↰</button>
+    <div class="logo-area">Zertiva B2</div>
+    <div class="right-placeholder"></div>
+</div>
+
+<div class="container">
+    <!-- Header -->
+    <div class="page-header">
+        <h1>📌 Mündlich Teil 1 – التعارف والموضوع القصير</h1>
+        <div class="info-note">
+            💡 هذا الجزء يهدف إلى تهيئتك وتخفيف التوتر. تحدث بثقة وبساطة، ولا تخف من الأخطاء.
+        </div>
     </div>
 
     <!-- ========== المرحلة الأولى ========== -->
-    <div id="phase1" class="section active">
-        <div class="card">
-            <div class="card-title">
-                <span class="icon">👋</span>
-                مرحلة التعارف والأسئلة الشخصية
-            </div>
-            <p><strong>🎯 الهدف من هاد المرحلة:</strong> تقليل التوتر، الدخول في الكلام، تقييم النطق والطلاقة، معرفة واش كتقدر تقدم راسك بطريقة مرتبة.</p>
-            
-            <div class="subtitle">📌 أهم الأسئلة لي ممكن يطرحو عليك</div>
-            
+    <div class="phase-section">
+        <div class="phase-title">📖 المرحلة الأولى: التعارف والأسئلة الشخصية</div>
+        
+        <div class="questions-grid">
             <!-- Frage 1 -->
-            <div class="question-box">
-                <p class="german-text"><strong>1. Stellen Sie sich vor.</strong></p>
-                <p class="arabic-text">قدم نفسك</p>
-                <button class="example-btn" data-example="example1">📋 عرض المثال</button>
-                <div id="example1" class="example-box">
-                    <strong>Beispiel:</strong><br>
-                    Guten Tag, mein Name ist Ahmed.<br>
-                    Ich komme aus Marokko.<br>
-                    Im Moment arbeite ich als Ingenieur.<br>
-                    In meiner Freizeit interessiere ich mich für Fußball und Reisen.<br>
-                    Ich lerne Deutsch seit 8 Monaten.<br>
-                    Ich bin eine motivierte und neugierige Person.
+            <div class="question-card">
+                <div class="question-german">1. Stellen Sie sich vor.</div>
+                <div class="question-arabic">قدّم نفسك</div>
+                <div class="example-box">
+                    <div class="example-label">📋 مثال جاهز:</div>
+                    <div class="example-text">Guten Tag, mein Name ist ______.<br>
+                    Ich komme aus ______.<br>
+                    Im Moment studiere ich / arbeite ich als ______.<br>
+                    In meiner Freizeit interessiere ich mich für ______.<br>
+                    Ich lerne Deutsch seit ______.<br>
+                    Ich bin eine motivierte und neugierige Person.</div>
                 </div>
             </div>
 
             <!-- Frage 2 -->
-            <div class="question-box">
-                <p class="german-text"><strong>2. Warum möchten Sie die B2-Prüfung ablegen?</strong></p>
-                <p class="arabic-text">علاش بغيتي تدوز امتحان B2؟</p>
-                <button class="example-btn" data-example="example2">📋 عرض المثال</button>
-                <div id="example2" class="example-box">
-                    Ich möchte die B2-Prüfung ablegen, weil ich meine Deutschkenntnisse offiziell bestätigen möchte.<br>
-                    Außerdem möchte ich in Deutschland eine Ausbildung machen.<br>
-                    Das Zertifikat ist wichtig für meine Zukunft.
+            <div class="question-card">
+                <div class="question-german">2. Warum möchten Sie die B2-Prüfung ablegen?</div>
+                <div class="question-arabic">لماذا تريد اجتياز امتحان B2؟</div>
+                <div class="example-box">
+                    <div class="example-label">📋 مثال جاهز:</div>
+                    <div class="example-text">Ich möchte die B2-Prüfung ablegen, weil ich meine Deutschkenntnisse offiziell bestätigen möchte.<br>
+                    Das Zertifikat ist wichtig für meine Zukunft.</div>
                 </div>
             </div>
 
             <!-- Frage 3 -->
-            <div class="question-box">
-                <p class="german-text"><strong>3. Wie lange haben Sie sich auf die Prüfung vorbereitet?</strong></p>
-                <p class="arabic-text">شحال هادي وانت كتوجد للامتحان؟</p>
-                <button class="example-btn" data-example="example3">📋 عرض المثال</button>
-                <div id="example3" class="example-box">
-                    Ich habe mich seit 5 Monaten auf die Prüfung vorbereitet.<br>
-                    Ich habe regelmäßig Deutsch gelernt und jeden Tag geübt.<br>
-                    Besonders habe ich mein Sprechen verbessert.
+            <div class="question-card">
+                <div class="question-german">3. Wie lange haben Sie sich auf die Prüfung vorbereitet?</div>
+                <div class="question-arabic">كم من الوقت تحضر للامتحان؟</div>
+                <div class="example-box">
+                    <div class="example-label">📋 مثال جاهز:</div>
+                    <div class="example-text">Ich habe mich seit ______ Monaten auf die Prüfung vorbereitet.<br>
+                    Ich habe regelmäßig Deutsch gelernt und jeden Tag geübt.</div>
                 </div>
             </div>
 
             <!-- Frage 4 -->
-            <div class="question-box">
-                <p class="german-text"><strong>4. Wie lange lernen Sie Deutsch?</strong></p>
-                <p class="arabic-text">شحال هادي وانت كتعلم الألمانية؟</p>
-                <button class="example-btn" data-example="example4">📋 عرض المثال</button>
-                <div id="example4" class="example-box">
-                    Ich lerne Deutsch seit ungefähr 2 Jahren.<br>
+            <div class="question-card">
+                <div class="question-german">4. Wie lange lernen Sie Deutsch?</div>
+                <div class="question-arabic">منذ متى تتعلم الألمانية؟</div>
+                <div class="example-box">
+                    <div class="example-label">📋 مثال جاهز:</div>
+                    <div class="example-text">Ich lerne Deutsch seit ungefähr ______.<br>
                     Mit der Zeit habe ich große Fortschritte gemacht.<br>
-                    Jetzt kann ich mich besser ausdrücken.
+                    Jetzt kann ich mich besser ausdrücken.</div>
                 </div>
             </div>
 
             <!-- Frage 5 -->
-            <div class="question-box">
-                <p class="german-text"><strong>5. Warum möchten Sie nach Deutschland reisen?</strong></p>
-                <p class="arabic-text">علاش بغيتي تمشي لألمانيا؟</p>
-                <button class="example-btn" data-example="example5">📋 عرض المثال</button>
-                <div id="example5" class="example-box">
-                    Ich möchte nach Deutschland reisen, weil ich neue Erfahrungen sammeln möchte.<br>
-                    Außerdem interessiere ich mich für die deutsche Kultur und das Leben dort.<br>
-                    Dort kann ich auch meine Sprachkenntnisse verbessern.
+            <div class="question-card">
+                <div class="question-german">5. Warum möchten Sie nach Deutschland reisen?</div>
+                <div class="question-arabic">لماذا تريد السفر إلى ألمانيا؟</div>
+                <div class="example-box">
+                    <div class="example-label">📋 مثال جاهز:</div>
+                    <div class="example-text">Ich möchte nach Deutschland reisen, weil ich neue Erfahrungen sammeln möchte.<br>
+                    Außerdem interessiere ich mich für die deutsche Kultur und das Leben dort.</div>
                 </div>
             </div>
 
             <!-- Frage 6 -->
-            <div class="question-box">
-                <p class="german-text"><strong>6. Welche Spezialität möchten Sie in Deutschland machen?</strong></p>
-                <p class="arabic-text">شنو التخصص لي بغيتي تدير ف ألمانيا؟</p>
-                <button class="example-btn" data-example="example6">📋 عرض المثال</button>
-                <div id="example6" class="example-box">
-                    Ich möchte in Deutschland eine Ausbildung als Fachinformatiker machen.<br>
+            <div class="question-card">
+                <div class="question-german">6. Welche Spezialität möchten Sie in Deutschland machen?</div>
+                <div class="question-arabic">ما التخصص الذي تريد دراسته أو العمل به في ألمانيا؟</div>
+                <div class="example-box">
+                    <div class="example-label">📋 مثال جاهز:</div>
+                    <div class="example-text">Ich möchte in Deutschland eine Ausbildung als ______ machen.<br>
                     Dieser Beruf interessiert mich sehr.<br>
-                    Mein Ziel ist es, später in Europa zu arbeiten.
+                    Mein Ziel ist es, später in Europa zu arbeiten.</div>
                 </div>
-            </div>
-
-            <div class="tip-box">
-                <strong>💡 نصائح مهمة فالمرحلة الأولى:</strong><br>
-                • هضر بشوية وبوضوح<br>
-                • ما تحفظش النص بطريقة روبوطية<br>
-                • استعمل جمل قصيرة وواضحة<br>
-                • إلا نسيتي كلمة كمّل عادي<br>
-                • حاول تبان واثق فراسك حتى إلا غلطتي
             </div>
         </div>
     </div>
 
     <!-- ========== المرحلة الثانية ========== -->
-    <div id="phase2" class="section">
-        <div class="card">
-            <div class="card-title">
-                <span class="icon">🎯</span>
-                المرحلة الثانية: الموضوع القصير (Kurzvortrag)
-            </div>
-            <p><strong>شنو خاصك تدير هنا؟</strong> كتختار موضوع، كتكتب عليه نص قصير (165-175 كلمة)، كتهضر عليه قدام اللجنة بزمن <strong>Perfekt</strong>.</p>
-            
-            <div class="subtitle">📌 طريقة تنظيم الكلام</div>
-            <div class="points-list">
-                <li><strong>المقدمة:</strong> Heute möchte ich über ... sprechen.</li>
-                <li><strong>التفاصيل:</strong> Zuerst ... Danach ... Außerdem ... Besonders wichtig war ...</li>
-                <li><strong>الرأي النهائي:</strong> Insgesamt war das eine wichtige Erfahrung für mich. Ich werde das nie vergessen.</li>
-            </div>
+    <div class="phase-section">
+        <div class="phase-title">🎯 المرحلة الثانية: الموضوع القصير (Kurzvortrag)</div>
+        
+        <div class="info-note" style="margin-bottom: 20px;">
+            📝 يجب أن يكون النص بين 165 و 175 كلمة، ويكتب بصيغة <strong>Perfekt</strong>، ولا يتجاوز زمن الكلام 30 ثانية.
+        </div>
 
-            <div class="subtitle">📚 المواضيع الأساسية</div>
-            
-            <!-- Theme 1: Das Buch -->
-            <div class="question-box">
-                <p class="german-text"><strong>1. DAS BUCH</strong> - كتاب قريتيه</p>
-                <p class="arabic-text">النقاط المطلوبة:</p>
-                <ul style="margin-right: 25px;">
-                    <li>اسم الكتاب — Der Name des Buches</li>
-                    <li>اسم الكاتب — Der Autor</li>
-                    <li>علاش اخترتي هاد الكتاب — Warum haben Sie dieses Buch gewählt?</li>
-                    <li>شنو رأيك فيه — Ihre Meinung über das Buch</li>
-                    <li>واش تنصح الناس يقراوه — Würden Sie dieses Buch empfehlen?</li>
+        <div class="topics-grid">
+            <!-- Topic 1: Das Buch -->
+            <div class="topic-card">
+                <div class="topic-title">📚 DAS BUCH</div>
+                <ul class="points-list">
+                    <li>اسم الكتاب</li>
+                    <li>اسم الكاتب ومعلومات بسيطة عنه</li>
+                    <li>لماذا اخترت هذا الكتاب؟</li>
+                    <li>ما رأيك فيه؟</li>
+                    <li>هل تنصح الآخرين بقراءته؟</li>
                 </ul>
-                <button class="example-btn" data-example="buch">📋 عرض مثال</button>
-                <div id="buch" class="example-box">
-                    <strong>Beispiel:</strong><br>
-                    Heute möchte ich über das Buch "Der Vorleser" von Bernhard Schlink sprechen.<br>
-                    Zuerst muss ich sagen, dass ich dieses Buch wegen des interessanten Themas gewählt habe.<br>
-                    Die Geschichte handelt von einer Liebe zwischen einem jungen Mann und einer älteren Frau.<br>
-                    Ich finde das Buch sehr spannend und emotional.<br>
-                    Insgesamt empfehle ich dieses Buch allen, die gerne über menschliche Beziehungen lesen.
+                <div class="partner-questions">
+                    <div class="partner-label">💬 أسئلة قد يطرحها الشريك عليك:</div>
+                    <div class="partner-q">📌 Warum lesen Sie gern Bücher?</div>
+                    <div class="partner-q"><small>لماذا تحب قراءة الكتب؟</small></div>
+                    <div class="partner-q">📌 Welche Bücher interessieren Sie allgemein?</div>
+                    <div class="partner-q"><small>ما نوع الكتب التي تهمك عمومًا؟</small></div>
                 </div>
             </div>
 
-            <!-- Theme 2: Der Film -->
-            <div class="question-box">
-                <p class="german-text"><strong>2. DER FILM</strong> - فيلم شفتيه</p>
-                <ul style="margin-right: 25px;">
-                    <li>الشخصيات الرئيسية — Die Hauptfiguren</li>
-                    <li>قصة الفيلم — Die Geschichte des Films</li>
-                    <li>علاش كان مهم — Warum war der Film wichtig?</li>
-                    <li>المشهد لي عجبك — Ihre Lieblingsszene</li>
-                    <li>الرأي ديالك — Ihre Meinung</li>
+            <!-- Topic 2: Der Film -->
+            <div class="topic-card">
+                <div class="topic-title">🎬 DER FILM</div>
+                <ul class="points-list">
+                    <li>الشخصيات الرئيسية</li>
+                    <li>قصة الفيلم وموضوعه</li>
+                    <li>لماذا كان مهمًا بالنسبة لك؟</li>
+                    <li>أفضل مشهد أعجبك</li>
+                    <li>رأيك النهائي في الفيلم</li>
                 </ul>
-                <button class="example-btn" data-example="film">📋 عرض مثال</button>
-                <div id="film" class="example-box">
-                    <strong>Beispiel:</strong><br>
-                    Heute möchte ich über den Film "Good Bye Lenin!" sprechen.<br>
-                    Die Hauptfigur ist Alex, der seine Mutter vor einem Schock schützen will.<br>
-                    Besonders wichtig war die Szene, als die Mutter die Werbung sieht.<br>
-                    Der Film war wichtig für mich, weil er zeigt, wie Menschen mit Veränderungen umgehen.<br>
-                    Insgesamt fand ich den Film sehr berührend.
+                <div class="partner-questions">
+                    <div class="partner-label">💬 أسئلة قد يطرحها الشريك عليك:</div>
+                    <div class="partner-q">📌 Warum mögen Sie Filme allgemein?</div>
+                    <div class="partner-q"><small>لماذا تحب الأفلام عمومًا؟</small></div>
+                    <div class="partner-q">📌 Welche Art von Filmen bevorzugen Sie?</div>
+                    <div class="partner-q"><small>ما نوع الأفلام التي تفضلها؟</small></div>
                 </div>
             </div>
 
-            <!-- Theme 3: Musikveranstaltung -->
-            <div class="question-box">
-                <p class="german-text"><strong>3. MUSIKVERANSTALTUNG</strong> - حفلة موسيقية حضرتيه</p>
-                <ul style="margin-right: 25px;">
-                    <li>نوع الموسيقى — Die Musikrichtung</li>
-                    <li>المغنيين أو الفرقة — Die Musiker</li>
-                    <li>المكان والأجواء — Der Ort und die Atmosphäre</li>
-                    <li>علاش عجبك — Warum hat Ihnen die Veranstaltung gefallen?</li>
-                    <li>الانطباع ديالك — Ihr Eindruck</li>
+            <!-- Topic 3: Musikveranstaltung -->
+            <div class="topic-card">
+                <div class="topic-title">🎵 MUSIKVERANSTALTUNG</div>
+                <ul class="points-list">
+                    <li>نوع الموسيقى أو المهرجان</li>
+                    <li>الفرقة أو المغنون المشاركون</li>
+                    <li>المكان والأجواء</li>
+                    <li>لماذا أعجبك الحدث؟</li>
+                    <li>انطباعك النهائي</li>
                 </ul>
-                <button class="example-btn" data-example="musik">📋 عرض مثال</button>
-                <div id="musik" class="example-box">
-                    <strong>Beispiel:</strong><br>
-                    Heute möchte ich über ein Konzert sprechen, das ich letztes Jahr besucht habe.<br>
-                    Es war ein Pop-Konzert von "Die Ärzte" in Berlin.<br>
-                    Die Atmosphäre war fantastisch, alle Leute haben mitgesungen.<br>
-                    Besonders gefallen hat mir die Energie der Band.<br>
-                    Insgesamt war das ein unvergesslicher Abend.
+                <div class="partner-questions">
+                    <div class="partner-label">💬 أسئلة قد يطرحها الشريك عليك:</div>
+                    <div class="partner-q">📌 Welche Musik hören Sie normalerweise?</div>
+                    <div class="partner-q"><small>ما نوع الموسيقى التي تستمع إليها عادة؟</small></div>
+                    <div class="partner-q">📌 Warum sind Musikveranstaltungen interessant?</div>
+                    <div class="partner-q"><small>لماذا تعتبر الحفلات الموسيقية ممتعة؟</small></div>
                 </div>
             </div>
 
-            <!-- Theme 4: Sportereignis -->
-            <div class="question-box">
-                <p class="german-text"><strong>4. SPORTEREIGNIS</strong> - حدث رياضي حضرتيه</p>
-                <button class="example-btn" data-example="sport">📋 عرض مثال</button>
-                <div id="sport" class="example-box">
-                    <strong>Beispiel:</strong><br>
-                    Ich möchte über ein Fußballspiel sprechen, das ich letztes Jahr gesehen habe.<br>
-                    Die Mannschaften waren Bayern München gegen Dortmund.<br>
-                    Das Stadion war voll, die Stimmung war unglaublich.<br>
-                    Der wichtigste Moment war das Siegtor in der 89. Minute.<br>
-                    Insgesamt war das ein tolles Sporterlebnis.
+            <!-- Topic 4: Sportereignis -->
+            <div class="topic-card">
+                <div class="topic-title">⚽ SPORTEREIGNIS</div>
+                <ul class="points-list">
+                    <li>نوع الرياضة</li>
+                    <li>الفرق أو المشاركون والنتيجة</li>
+                    <li>الملعب أو المكان</li>
+                    <li>أجواء الجمهور</li>
+                    <li>أهم لحظة أثرت فيك</li>
+                    <li>رأيك النهائي</li>
+                </ul>
+                <div class="partner-questions">
+                    <div class="partner-label">💬 أسئلة قد يطرحها الشريك عليك:</div>
+                    <div class="partner-q">📌 Interessieren Sie sich für Sport?</div>
+                    <div class="partner-q"><small>هل تهتم بالرياضة؟</small></div>
+                    <div class="partner-q">📌 Welche Sportart mögen Sie am meisten?</div>
+                    <div class="partner-q"><small>ما الرياضة التي تحبها أكثر؟</small></div>
                 </div>
             </div>
 
-            <!-- Theme 5: Wichtige Person -->
-            <div class="question-box">
-                <p class="german-text"><strong>5. WICHTIGE PERSON</strong> - شخص مهم فحياتك</p>
-                <button class="example-btn" data-example="person">📋 عرض مثال</button>
-                <div id="person" class="example-box">
-                    <strong>Beispiel:</strong><br>
-                    Heute möchte ich über meine Mutter sprechen.<br>
-                    Sie ist für mich die wichtigste Person, weil sie mich immer unterstützt.<br>
-                    Besonders wichtig war, dass sie mir geholfen hat, Deutsch zu lernen.<br>
-                    Wir haben immer noch engen Kontakt und telefonieren jede Woche.<br>
-                    Insgesamt bin ich ihr sehr dankbar.
+            <!-- Topic 5: Wichtige Person -->
+            <div class="topic-card">
+                <div class="topic-title">👤 WICHTIGE PERSON</div>
+                <ul class="points-list">
+                    <li>من هو هذا الشخص؟</li>
+                    <li>متى تعرفت عليه؟</li>
+                    <li>لماذا هو مهم بالنسبة لك؟</li>
+                    <li>كيف أثر عليك؟</li>
+                    <li>موقف أو ذكرى مهمة معه</li>
+                    <li>هل ما زالت العلاقة مستمرة؟</li>
+                </ul>
+                <div class="partner-questions">
+                    <div class="partner-label">💬 أسئلة قد يطرحها الشريك عليك (لم تجب عنها في موضوعك):</div>
+                    <div class="partner-q">📌 Warum ist diese Person besonders für Sie?</div>
+                    <div class="partner-q"><small>لماذا هذه الشخصية مميزة بالنسبة لك؟</small></div>
+                    <div class="partner-q">📌 Wie würden Sie diese Person in drei Worten beschreiben?</div>
+                    <div class="partner-q"><small>كيف تصف هذه الشخصية في ثلاث كلمات؟</small></div>
                 </div>
             </div>
 
-            <!-- Theme 6: Wichtige Erfahrung -->
-            <div class="question-box">
-                <p class="german-text"><strong>6. WICHTIGE ERFAHRUNG</strong> - تجربة مهمة فعمرك</p>
-                <button class="example-btn" data-example="erfahrung">📋 عرض مثال</button>
-                <div id="erfahrung" class="example-box">
-                    <strong>Beispiel:</strong><br>
-                    Ich möchte über meinen ersten Sprachkurs in Deutschland sprechen.<br>
-                    Diese Erfahrung war vor zwei Jahren in Berlin.<br>
-                    Dort habe ich viele neue Leute kennengelernt.<br>
-                    Daraus habe ich gelernt, dass man sich einfach trauen muss.<br>
-                    Insgesamt war das ein wichtiger Schritt in meinem Leben.
+            <!-- Topic 6: Wichtige Erfahrung -->
+            <div class="topic-card">
+                <div class="topic-title">✨ WICHTIGE ERFAHRUNG</div>
+                <ul class="points-list">
+                    <li>ما هي هذه التجربة؟</li>
+                    <li>متى وأين حدثت؟</li>
+                    <li>مع من قمت بها؟</li>
+                    <li>لماذا كانت مهمة؟</li>
+                    <li>ماذا تعلمت منها؟</li>
+                    <li>ما رأيك فيها اليوم؟</li>
+                </ul>
+                <div class="partner-questions">
+                    <div class="partner-label">💬 أسئلة قد يطرحها الشريك عليك (لم تجب عنها في موضوعك):</div>
+                    <div class="partner-q">📌 Was hat Ihnen diese Erfahrung fürs Leben gegeben?</div>
+                    <div class="partner-q"><small>ماذا أعطتك هذه التجربة في الحياة؟</small></div>
+                    <div class="partner-q">📌 Würden Sie diese Erfahrung weiterempfehlen?</div>
+                    <div class="partner-q"><small>هل تنصح الآخرين بخوض هذه التجربة؟</small></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ========== النصائح ========== -->
-    <div id="tips" class="section">
-        <div class="card">
-            <div class="card-title">
-                <span class="icon">💡</span>
-                نصائح باش تجيب نقطة مزيانة
-            </div>
-            <div class="points-list">
-                <li>📢 استعمل كلمات الربط: <strong>außerdem, danach, deshalb, zum Beispiel, insgesamt</strong></li>
-                <li>🎤 حاول تبين رأيك الشخصي (Meiner Meinung nach, Ich finde, Ich glaube)</li>
-                <li>😊 بين المشاعر والانطباع ديالك (Es war schön, interessant, aufregend)</li>
-                <li>🚀 إلا غلطتي كمّل عادي — المهم هو التواصل ماشي الكمال اللغوي</li>
-                <li>⏱️ تدرب على الوقت: النص خاصو يكون تقريبًا دقيقة ونص</li>
-                <li>📖 اقرأ المواضيع بصوت عالي باش تتدرب على النطق</li>
-            </div>
+    <!-- نصائح مهمة -->
+    <div class="tips-section">
+        <div class="tips-title">💡 نصائح مهمة للنجاح في الجزء الشفوي</div>
+        <div class="tips-grid">
+            <div class="tip-item">🎤 تحدث ببطء ووضوح، لا داعي للسرعة</div>
+            <div class="tip-item">📖 استخدم كلمات الربط: außerdem, danach, deshalb, zum Beispiel</div>
+            <div class="tip-item">😊 أظهر ثقتك بنفسك حتى لو أخطأت، المهم هو التواصل</div>
+            <div class="tip-item">⏱️ تدرب على الوقت: النص لا يتجاوز 30 ثانية</div>
+            <div class="tip-item">📝 استخدم زمن Perfekt في سرد التجارب الماضية</div>
+            <div class="tip-item">🤝 تفاعل مع الشريك، واطرح عليه أسئلة أيضًا</div>
         </div>
     </div>
 
-    <!-- ========== الأخطاء الشائعة ========== -->
-    <div id="mistakes" class="section">
-        <div class="card">
-            <div class="card-title">
-                <span class="icon">⚠️</span>
-                أخطاء شائعة خاصك تبعد منها
-            </div>
-            <div class="warning-box">
-                <ul style="margin-right: 20px;">
-                    <li>❌ الهضرة بسرعة كبيرة — حاول تهدى شوية</li>
-                    <li>❌ حفظ النص بطريقة اصطناعية — الإمتحان كيبغي تكون طبيعي</li>
-                    <li>❌ نسيان <strong>Perfekt</strong> — معظم الكلام خاصو يكون في الماضي</li>
-                    <li>❌ السكوت بزاف وسط الكلام — حتى إلا غلطتي خلي الكلام ماشي</li>
-                    <li>❌ تكرار نفس الكلمات — تنويع المفردات كيوري إنك تعلمتي مزيان</li>
-                    <li>❌ الإجابة بجملة وحدة — حاول توسع جوابك بشوية عالأقل جوج لثلاثة جمل</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
+    <!-- Footer -->
     <div class="footer">
-        📚 Mündlich Teil 1 - دليل شامل للتحضير للامتحان الشفوي B2
+        <div class="footer-message">
+            🗣️ هدر بحال إلى كتهدر مع صحابك... متخفش، الكل كيغلط، المهم أنك كتحاول!
+        </div>
     </div>
 </div>
 
 <script>
-    // Tab switching
-    const tabs = document.querySelectorAll('.tab-btn');
-    const sections = document.querySelectorAll('.section');
-    
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const target = tab.getAttribute('data-tab');
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            sections.forEach(section => {
-                section.classList.remove('active');
-                if (section.id === target) {
-                    section.classList.add('active');
-                }
-            });
-        });
-    });
-    
-    // Example buttons toggle
-    const exampleBtns = document.querySelectorAll('.example-btn');
-    exampleBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const targetId = btn.getAttribute('data-example');
-            const exampleBox = document.getElementById(targetId);
-            if (exampleBox) {
-                exampleBox.classList.toggle('show');
-                btn.textContent = exampleBox.classList.contains('show') ? '📋 إخفاء المثال' : '📋 عرض المثال';
+    // Back arrow button
+    const backArrow = document.getElementById('backArrowBtn');
+    if (backArrow) {
+        backArrow.addEventListener('click', () => {
+            if (typeof goList === 'function') {
+                goList();
+            } else {
+                window.history.back();
             }
         });
-    });
+    }
 </script>
 </body>
 </html>
