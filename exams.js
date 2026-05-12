@@ -831,17 +831,12 @@ async function renderExamListForSkill(skill, teilName) {
       div.style.cursor = "pointer";
       
       const rightSide = document.createElement("span");
-      rightSide.className = "exam-right-icons";
-      rightSide.style.display = "flex";
-      rightSide.style.alignItems = "center";
-      rightSide.style.gap = "6px";
-      rightSide.style.transition = "all 0.25s ease";
-      
-      const lockSpan = document.createElement("span");
-      lockSpan.className = "lock-icon";
-      lockSpan.innerHTML = "🔒";
-      lockSpan.style.cssText = "font-size:13px; color:#60a5fa; margin-right:5px; transition:all 0.25s ease;";
-      rightSide.appendChild(lockSpan);
+rightSide.className = "exam-right-icons";
+
+const premiumSpan = document.createElement("span");
+premiumSpan.className = "premium-badge";
+premiumSpan.innerHTML = "Premium";
+rightSide.appendChild(premiumSpan);
       
       const proSpan = document.createElement("span");
       proSpan.className = "pro-badge";
