@@ -21,17 +21,22 @@
             padding: 60px 20px;
         }
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             width: 100%;
         }
         h1 {
             text-align: center;
             color: #38bdf8;
-            margin-bottom: 50px;
+            margin-bottom: 20px;
             font-size: 32px;
             font-weight: 600;
-            font-family: 'Poppins', sans-serif;
             letter-spacing: -0.5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 50px;
         }
         .plans {
             display: flex;
@@ -41,24 +46,24 @@
             align-items: center;
         }
         .plan-card {
-            background: #ffffff;
+            background: #0f172a;
             border-radius: 28px;
-            padding: 40px 30px;
-            width: 330px;
+            padding: 35px 28px;
+            width: 340px;
             text-align: center;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border: 1px solid #e8e8e8;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            border: 1px solid rgba(56, 189, 248, 0.15);
         }
         .plan-card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.3);
+            border-color: rgba(56, 189, 248, 0.3);
         }
         /* الباقة المميزة (شهرين) */
         .plan-card.vip {
+            border: 1px solid rgba(56, 189, 248, 0.4);
             transform: translateY(-5px);
-            border: 2px solid #38bdf8;
-            box-shadow: 0 15px 35px rgba(56,189,248,0.12);
             position: relative;
         }
         .plan-card.vip:hover {
@@ -71,48 +76,64 @@
             right: 20px;
             background: #38bdf8;
             color: #0a0e1a;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
-            padding: 5px 16px;
+            padding: 4px 14px;
             border-radius: 30px;
             letter-spacing: 0.5px;
         }
         .plan-name {
             font-size: 22px;
             font-weight: 600;
-            color: #1a1a2e;
-            margin-bottom: 20px;
+            color: #f1f5f9;
+            margin-bottom: 25px;
         }
-        .price {
-            font-size: 52px;
-            font-weight: 700;
-            color: #0a0e1a;
-            margin-bottom: 8px;
+        /* السعر القديم (مشطوب) */
+        .old-price {
+            font-size: 16px;
+            color: #94a3b8;
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+        /* السعر الجديد */
+        .new-price {
+            font-size: 44px;
+            font-weight: 800;
+            color: #ffffff;
             letter-spacing: -1px;
         }
-        .price small {
-            font-size: 18px;
+        .new-price small {
+            font-size: 16px;
             font-weight: 400;
-            color: #666;
+            color: #94a3b8;
         }
-        .duration {
-            color: #888;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .saving-badge {
-            background: #a855f7;
+        /* شارة العرض */
+        .offer-badge {
+            background: #ef4444;
             color: white;
-            padding: 5px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 500;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 999px;
             display: inline-block;
-            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+        /* وقت العرض */
+        .offer-time {
+            font-size: 10px;
+            color: #94a3b8;
+            margin-top: 6px;
+        }
+        /* توفير */
+        .saving-amount {
+            font-size: 12px;
+            color: #10b981;
+            font-weight: 500;
+            margin-top: 8px;
         }
         .divider {
             height: 1px;
-            background: #e8e8e8;
+            background: rgba(56, 189, 248, 0.15);
             margin: 25px 0 20px 0;
         }
         .features {
@@ -122,8 +143,8 @@
         .features li {
             list-style: none;
             padding: 6px 0;
-            font-size: 14px;
-            color: #444;
+            font-size: 13px;
+            color: #cbd5e1;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -131,7 +152,7 @@
         .features li span {
             color: #10b981;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
             min-width: 22px;
         }
         .btn-select {
@@ -140,7 +161,7 @@
             border: none;
             padding: 14px 20px;
             border-radius: 50px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -158,9 +179,10 @@
         .back-link a {
             color: #38bdf8;
             text-decoration: none;
-            border-bottom: 1px solid rgba(56,189,248,0.4);
+            border-bottom: 1px solid rgba(56,189,248,0.3);
             padding: 5px;
             transition: 0.3s;
+            font-size: 14px;
         }
         .back-link a:hover {
             color: #0ea5e9;
@@ -168,15 +190,15 @@
         }
         @media (max-width: 750px) {
             .plans {
-                gap: 30px;
+                gap: 25px;
             }
             .plan-card {
                 width: 100%;
-                max-width: 320px;
+                max-width: 330px;
                 padding: 30px 20px;
             }
-            .price {
-                font-size: 44px;
+            .new-price {
+                font-size: 38px;
             }
             h1 {
                 font-size: 26px;
@@ -186,14 +208,17 @@
 </head>
 <body>
 <div class="container">
-    <h1>💰 اختر الباقة المناسبة لك</h1>
+    <h1>💰 اختر باقة الاشتراك</h1>
+    <div class="subtitle">خطط بسيطة وشفافة</div>
     <div class="plans">
 
         <!-- الباقة الشهرية -->
-        <div class="plan-card" data-plan="1month" data-price="149" data-duration="1 Monat">
+        <div class="plan-card" data-plan="1month" data-price="89" data-duration="1 Monat">
             <div class="plan-name">🌙 شهر واحد</div>
-            <div class="price">149 <small>درهم</small></div>
-            <div class="duration">لمدة شهر واحد</div>
+            <div class="old-price">149 درهم</div>
+            <div class="new-price">89 <small>درهم</small></div>
+            <div class="offer-badge">عرض محدود</div>
+            <div class="offer-time">صالح لمدة 10 أيام</div>
             <div class="divider"></div>
             <ul class="features">
                 <li><span>✅</span> الوصول الكامل إلى جميع الامتحانات</li>
@@ -211,12 +236,12 @@
         </div>
 
         <!-- الباقة المميزة (شهرين) -->
-        <div class="plan-card vip" data-plan="2months" data-price="249" data-duration="2 Monate">
+        <div class="plan-card vip" data-plan="2months" data-price="149" data-duration="2 Monate">
             <div class="vip-badge">الأكثر اختياراً</div>
             <div class="plan-name">✨ شهرين</div>
-            <div class="price">249 <small>درهم</small></div>
-            <div class="duration">لمدة شهرين (توفير 49 درهم)</div>
-            <div class="saving-badge">عرض مميز</div>
+            <div class="old-price">249 درهم</div>
+            <div class="new-price">149 <small>درهم</small></div>
+            <div class="saving-amount">وفر 100 درهم</div>
             <div class="divider"></div>
             <ul class="features">
                 <li><span>✅</span> الوصول الكامل إلى جميع الامتحانات</li>
@@ -257,7 +282,7 @@
         
         let message = `[NEW] Neue Abonnementanfrage – Zertiva B2%0A%0A`;
         message += `[USR] E-Mail: ${encodeURIComponent(email)}%0A`;
-        message += `[PLN] Paket: VIP%0A`;
+        message += `[PLN] Paket: ${plan === '2months' ? '2 Monate (VIP)' : '1 Monat'}%0A`;
         message += `[PRC] Preis: ${price} DH%0A`;
         message += `[TM] Dauer: ${duration}%0A%0A`;
         message += `[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang.`;
