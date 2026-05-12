@@ -67,28 +67,33 @@ function createResultBadge(score) {
   `;
   return badge;
 }
-
 // ========== دالة عرض نافذة القفل ==========
 function showLockedMessage(examTitle) {
+    // إزالة الأرقام من اسم الامتحان (مثل " (10)" أو " (12)")
+    let cleanTitle = examTitle.replace(/\s*\(\d+\)\s*$/, '').trim();
+    
     let modal = document.createElement('div');
     modal.id = 'lockedModal';
     modal.style.cssText = `
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.85); z-index: 100000;
+        background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+        z-index: 100000;
         display: flex; justify-content: center; align-items: center;
         direction: rtl;
     `;
     
     modal.innerHTML = `
-        <div style="background:white; border-radius:28px; padding:35px; max-width:360px; width:85%; text-align:center; box-shadow:0 25px 50px rgba(0,0,0,0.3); direction:rtl;">
-            <div style="font-size:55px; margin-bottom:15px;">🔒</div>
-            <h2 style="color:#2b5876; margin-bottom:12px; font-size:24px;">محـتوى مقفل</h2>
-            <p style="color:#555; margin-bottom:20px;">المرجو ترقية الحساب للوصول لهذا المحتوى</p>
-            <div style="background:#e9d5ff; padding:12px; border-radius:18px; margin-bottom:20px; color:#6b21a5; font-weight:bold;">📚 ${examTitle}</div>
-            <p style="color:#888; margin-bottom:25px; font-size:14px;">يتطلب باقة: <strong style="color:#2b5876;">Pro</strong></p>
-            <div style="display:flex; flex-direction:column; gap:12px; justify-content:center; align-items:center; margin-top:10px;">
-                <button id="upgradeNowBtnModal" style="background:linear-gradient(135deg, #2b5876, #4e4376); color:white; border:none; padding:12px 28px; border-radius:50px; cursor:pointer; font-weight:bold; font-size:15px; width:80%;">🚀 ترقية الحساب الآن</button>
-                <button id="closeModalBtn" style="background:#e2e8f0; border:none; padding:12px 28px; border-radius:50px; cursor:pointer; font-weight:bold; font-size:15px; color:#4a5568; width:80%;">ليس الآن</button>
+        <div style="background: #f8fafc; border-radius: 32px; padding: 32px; max-width: 360px; width: 85%; text-align: center; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); direction: rtl; border: 1px solid #e2e8f0;">
+            <div style="margin-bottom: 20px;">
+                <div style="font-size: 48px; margin-bottom: 8px;">⭐</div>
+            </div>
+            <h2 style="color: #1e293b; margin-bottom: 8px; font-size: 22px; font-weight: 600;">هذا المحتوى مخصص للمشتركين</h2>
+            <div style="background: #f1f5f9; padding: 12px; border-radius: 20px; margin: 16px 0; color: #334155; font-weight: 500; font-size: 15px;">📚 ${cleanTitle}</div>
+            <p style="color: #475569; margin-bottom: 8px; font-size: 14px;">يتطلب باقة: <strong style="color: #3b82f6;">Premium</strong></p>
+            <p style="color: #64748b; margin-bottom: 28px; font-size: 13px;">للوصول إلى هذا الامتحان، قم بترقية حسابك</p>
+            <div style="display: flex; flex-direction: column; gap: 12px; justify-content: center; align-items: center; margin-top: 0;">
+                <button id="upgradeNowBtnModal" style="background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 14px; width: 100%; transition: all 0.2s ease;">🚀 ترقية الحساب</button>
+                <button id="closeModalBtn" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 12px 24px; border-radius: 50px; cursor: pointer; font-weight: 500; font-size: 14px; color: #64748b; width: 100%; transition: all 0.2s ease;">ليس الآن</button>
             </div>
         </div>
     `;
@@ -97,6 +102,26 @@ function showLockedMessage(examTitle) {
     
     let upgradeBtn = document.getElementById('upgradeNowBtnModal');
     let closeBtn = document.getElementById('closeModalBtn');
+    
+    // تأثير hover على زر الترقية
+    upgradeBtn.onmouseenter = function() {
+        this.style.background = '#2563eb';
+        this.style.transform = 'scale(1.02)';
+    };
+    upgradeBtn.onmouseleave = function() {
+        this.style.background = '#3b82f6';
+        this.style.transform = 'scale(1)';
+    };
+    
+    // تأثير hover على زر الإغلاق
+    closeBtn.onmouseenter = function() {
+        this.style.background = '#e2e8f0';
+        this.style.transform = 'scale(1.02)';
+    };
+    closeBtn.onmouseleave = function() {
+        this.style.background = '#f1f5f9';
+        this.style.transform = 'scale(1)';
+    };
     
     if(upgradeBtn) {
         upgradeBtn.onclick = function() {
