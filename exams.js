@@ -119,7 +119,7 @@ let currentExamData = null;
 let currentSkill = "lesen1";
 let currentExamId = null;
 let currentExamsList = [];
-let currentMündlichPart = 2; // تغيير: البدء بـ Teil 2 (الامتحانات الفعلية)
+let currentMündlichPart = 2;
 let userStatusCache = null;
 let lastStatusCheck = 0;
 
@@ -747,7 +747,6 @@ function renderMündlichPartTabs() {
     };
     btn.onclick = () => {
       currentMündlichPart = part.id;
-      // استخدام skill الصحيح بناءً على الجزء
       const skillToRender = part.skill;
       const displayName = `Mündlich - ${part.name}`;
       renderExamListForSkill(skillToRender, displayName);
@@ -781,7 +780,6 @@ async function renderExamListForSkill(skill, teilName) {
   
   // معالجة خاصة لـ mündlich الرئيسي
   if (skill === "mündlich") {
-    // استخدام currentMündlichPart لتحديد الجزء
     if (currentMündlichPart === 1) {
       targetSkill = "mündlich1";
       targetExams = examsDatabase.mündlich1 || [];
@@ -884,7 +882,6 @@ async function renderExamListForSkill(skill, teilName) {
     } else if (exam.hasFile) {
       div.onclick = (function(id, title, skillPath) {
         return function() { 
-          // استخدام skillPath مباشرة لتحميل الامتحان من المجلد الصحيح
           const actualSkill = skillPath || targetSkill;
           openExam(id, title, actualSkill); 
         };
@@ -1052,8 +1049,7 @@ async function openExam(examId, examTitle, skill) {
     if (teilIndex !== -1) {
       showTeil(teilIndex + 1);
     } else {
-      // إذا لم يتم العثور على teil، إظهار حاوية mündlich
-      showTeil(10); // Mündlich هو العنصر رقم 10 في قائمة teile
+      showTeil(10);
     }
   } catch(e) {
     console.error("❌ خطأ:", e);
@@ -1063,8 +1059,18 @@ async function openExam(examId, examTitle, skill) {
 
 // وظيفة عرض الامتحانات من نوع info (Teil 1 و Teil 3)
 function renderInfoExam(examData) {
-  const container = document.getElementById(currentSkill);
-  if (!container) return;
+  // تحديد الحاوية المناسبة - إذا كان skill هو mündlich1 أو mündlich3، استخدم حاوية mündlich
+  let containerId = currentSkill;
+  if (currentSkill === "mündlich1" || currentSkill === "mündlich3") {
+    containerId = "mündlich";
+  }
+  
+  const container = document.getElementById(containerId);
+  if (!container) {
+    console.error("❌ الحاوية غير موجودة:", containerId);
+    return;
+  }
+  
   container.innerHTML = "";
   
   // إنشاء صفحة HTML من محتوى JSON
@@ -1466,7 +1472,6 @@ document.addEventListener("DOMContentLoaded", function() {
   if (backArrowFromExam) {
     backArrowFromExam.onclick = function() { 
       if (currentSkill) {
-        // إذا كان skill يبدأ بـ mündlich، نعود إلى قائمة Mündlich الرئيسية
         if (currentSkill.startsWith('mündlich')) {
           renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
         } else {
