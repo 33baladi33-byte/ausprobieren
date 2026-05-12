@@ -12,16 +12,51 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Tajawal', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background: #f5f7fa;
-            padding: 20px;
+            padding: 0;
             line-height: 1.5;
             color: #1a2a3a;
+        }
+
+        /* Top Bar مثل باقي الموقع */
+        .top-bar {
+            background: #ffffff;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e4e8;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #ffffff;
+        }
+
+        .back-icon {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #4a6fa5;
+            transition: 0.2s;
+            padding: 5px 10px;
+            border-radius: 30px;
+        }
+
+        .back-icon:hover {
+            background: #eef2f7;
+        }
+
+        .logo-area {
+            font-weight: 600;
+            color: #2c3e66;
         }
 
         .container {
             max-width: 1300px;
             margin: 0 auto;
+            padding: 20px;
         }
 
         /* Header */
@@ -46,34 +81,6 @@
             margin-bottom: 20px;
         }
 
-        /* Action Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            background: #eef2f7;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #2c3e66;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .action-btn:hover {
-            background: #e2e8f0;
-            transform: translateY(-1px);
-        }
-
         /* Grid Cards */
         .cards-grid {
             display: grid;
@@ -83,10 +90,10 @@
         }
 
         .card {
-            background: #ffffff;
-            border-radius: 20px;
+            background: #f8f9fb;
+            border-radius: 16px;
             padding: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
             border: 1px solid #e8ecef;
             transition: all 0.2s;
             display: flex;
@@ -94,8 +101,7 @@
         }
 
         .card:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
         }
 
         .card-title {
@@ -103,9 +109,6 @@
             font-weight: 600;
             color: #2c3e66;
             margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .card-topics {
@@ -115,15 +118,24 @@
             line-height: 1.5;
         }
 
+        .card-topics .topics-text {
+            display: inline;
+        }
+
+        .card-topics .dots {
+            font-weight: 500;
+            color: #8a9aa8;
+        }
+
         .card-btn {
             background: transparent;
-            border: 1px solid #cbd5e1;
-            padding: 8px 16px;
+            border: 1px solid #4a6fa5;
+            padding: 8px 18px;
             border-radius: 30px;
             cursor: pointer;
             font-size: 0.85rem;
             font-weight: 500;
-            color: #2c3e66;
+            color: #4a6fa5;
             transition: all 0.2s;
             display: inline-flex;
             align-items: center;
@@ -134,7 +146,7 @@
 
         .card-btn:hover {
             background: #eef2f7;
-            border-color: #9aaebf;
+            border-color: #3a5a8c;
         }
 
         /* Content inside card when expanded */
@@ -155,48 +167,81 @@
         }
 
         .suggestions-list li {
-            background: #f8fafc;
+            background: #ffffff;
             padding: 10px 14px;
             margin-bottom: 8px;
             border-radius: 12px;
             font-size: 0.85rem;
             color: #2c3e66;
-            border-right: 3px solid #cbd5e1;
+            border-right: 2px solid #cbd5e1;
+            counter-increment: item;
         }
 
-        /* Methodologie Card (6th card) */
+        .suggestions-list li::before {
+            content: counter(item) ". ";
+            font-weight: 600;
+            color: #4a6fa5;
+            margin-left: 8px;
+        }
+
+        /* Methodologie Card */
         .methodologie-card .card-content {
             border-top: none;
             padding-top: 0;
         }
 
         .dialog-example {
-            background: #f8fafc;
+            background: #ffffff;
             padding: 16px;
             border-radius: 16px;
             margin-top: 12px;
             font-size: 0.85rem;
-            line-height: 1.6;
+            line-height: 1.8;
             color: #2c3e66;
+            border: 1px solid #e8ecef;
         }
 
         .dialog-line {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .dialog-line-start {
+            margin-bottom: 20px;
+        }
+
+        .dialog-line-end {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px dashed #e0e4e8;
         }
 
         .speaker {
-            font-weight: 600;
-            color: #2c3e66;
+            font-weight: 700;
+            color: #4a6fa5;
         }
 
-        /* Footer */
-        .footer {
+        /* Footer Button */
+        .footer-btn-container {
             text-align: center;
-            padding: 25px;
-            color: #8a9aa8;
-            font-size: 0.75rem;
-            border-top: 1px solid #e0e4e8;
             margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .back-to-list-btn {
+            background: #4a6fa5;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: white;
+            transition: all 0.2s;
+        }
+
+        .back-to-list-btn:hover {
+            background: #3a5a8c;
+            transform: translateY(-1px);
         }
 
         /* Responsive */
@@ -213,8 +258,8 @@
                 gap: 18px;
             }
 
-            body {
-                padding: 12px;
+            .container {
+                padding: 15px;
             }
 
             .page-header h1 {
@@ -224,6 +269,14 @@
     </style>
 </head>
 <body>
+
+<!-- Top Bar مثل باقي الموقع -->
+<div class="top-bar">
+    <button id="backArrowBtn" class="back-icon" title="رجوع">↰</button>
+    <div class="logo-area">Zertiva B2</div>
+    <div style="width: 40px;"></div>
+</div>
+
 <div class="container">
     <!-- Header -->
     <div class="page-header">
@@ -233,21 +286,18 @@
         </div>
     </div>
 
-    <!-- Action Buttons -->
-    <div class="action-buttons">
-        <button id="backToListBtn" class="action-btn">📋 عودة إلى القائمة</button>
-        <button id="closePageBtn" class="action-btn">↰ إغلاق</button>
-    </div>
-
     <!-- Cards Grid -->
     <div class="cards-grid">
         <!-- Card 1 - Party / Fest -->
-        <div class="card" data-group="1">
+        <div class="card">
             <div class="card-title">🟢 Party / Fest</div>
-            <div class="card-topics">Straßenfest • Sportfest • Geburtstag • Hochzeit • Flohmarkt • Spielemesse • Kochnachmittag • Buchmesse • Überraschungsfest</div>
+            <div class="card-topics">
+                <span class="topics-text">Straßenfest • Sportfest • Geburtstag • Hochzeit • Flohmarkt • Spielemesse • Kochnachmittag • Buchmesse • Überraschungsfest</span>
+                <span class="dots">…</span>
+            </div>
             <button class="card-btn" data-group="1">أمثلة →</button>
             <div class="card-content" id="content-1">
-                <ul class="suggestions-list">
+                <ul class="suggestions-list" style="counter-reset: item 0;">
                     <li>Ich denke, wir sollten zuerst ein Datum und einen Ort festlegen.</li>
                     <li>Wir könnten eine einfache Dekoration vorbereiten, damit alles schön aussieht.</li>
                     <li>Ich schlage vor, dass wir Essen und Getränke organisieren, zum Beispiel ein Buffet oder jeder bringt etwas mit.</li>
@@ -263,12 +313,15 @@
         </div>
 
         <!-- Card 2 - Veranstaltung -->
-        <div class="card" data-group="2">
+        <div class="card">
             <div class="card-title">🔵 Veranstaltung</div>
-            <div class="card-topics">Infotag Gesundheit • Blutspende • Neue Medien • Deutsch als Fremdsprache • Software-Seminar</div>
+            <div class="card-topics">
+                <span class="topics-text">Infotag Gesundheit • Blutspende • Neue Medien • Deutsch als Fremdsprache • Software-Seminar</span>
+                <span class="dots">…</span>
+            </div>
             <button class="card-btn" data-group="2">أمثلة →</button>
             <div class="card-content" id="content-2">
-                <ul class="suggestions-list">
+                <ul class="suggestions-list" style="counter-reset: item 0;">
                     <li>Wir sollten zuerst die Zielgruppe genau bestimmen. Für wen ist die Veranstaltung?</li>
                     <li>Ich schlage vor, dass wir Vorträge oder Workshops mit Experten organisieren.</li>
                     <li>Vielleicht bereiten wir Informationsmaterial vor, zum Beispiel Broschüren oder Poster.</li>
@@ -284,12 +337,15 @@
         </div>
 
         <!-- Card 3 - Präsentation -->
-        <div class="card" data-group="3">
+        <div class="card">
             <div class="card-title">🟡 Präsentation</div>
-            <div class="card-topics">Fremdsprachen lernen • Land vorstellen • Buch vorstellen</div>
+            <div class="card-topics">
+                <span class="topics-text">Fremdsprachen lernen • Land vorstellen • Buch vorstellen</span>
+                <span class="dots">…</span>
+            </div>
             <button class="card-btn" data-group="3">أمثلة →</button>
             <div class="card-content" id="content-3">
-                <ul class="suggestions-list">
+                <ul class="suggestions-list" style="counter-reset: item 0;">
                     <li>Ich denke, wir sollten die Präsentation kurz und klar halten, vielleicht 10 bis 15 Minuten.</li>
                     <li>Ich schlage eine klare Struktur vor: Einleitung, Hauptteil und Schluss.</li>
                     <li>Wir könnten Beispiele aus dem Alltag oder Bilder verwenden, damit es verständlicher wird.</li>
@@ -305,12 +361,15 @@
         </div>
 
         <!-- Card 4 - Reise -->
-        <div class="card" data-group="4">
+        <div class="card">
             <div class="card-title">🟣 Reise</div>
-            <div class="card-topics">Studenten besuchen Stadt • Austauschprogramm • Reise ins deutschsprachige Land • Freund aus USA • 3 Tage ans Meer</div>
+            <div class="card-topics">
+                <span class="topics-text">Studenten besuchen Stadt • Austauschprogramm • Reise ins deutschsprachige Land • Freund aus USA • 3 Tage ans Meer</span>
+                <span class="dots">…</span>
+            </div>
             <button class="card-btn" data-group="4">أمثلة →</button>
             <div class="card-content" id="content-4">
-                <ul class="suggestions-list">
+                <ul class="suggestions-list" style="counter-reset: item 0;">
                     <li>Wir sollten zuerst das Reiseziel, das Datum und die Dauer festlegen.</li>
                     <li>Ich schlage vor, dass wir ein tägliches Programm mit Aktivitäten machen.</li>
                     <li>Wir müssen uns um Unterkunft und Transport kümmern, zum Beispiel Zug oder Bus.</li>
@@ -326,12 +385,15 @@
         </div>
 
         <!-- Card 5 - Hilfe / Spenden / Rest -->
-        <div class="card" data-group="5">
+        <div class="card">
             <div class="card-title">🔴 Hilfe / Spenden / Rest</div>
-            <div class="card-topics">Museumsbesuch • Kinobesuch • Geld für Straßenkinder • Theaterstück • Bücher spenden • Kinderkrankenhaus • schlechte Noten • Kinder betreuen • Umzug • Kursraum gestalten</div>
+            <div class="card-topics">
+                <span class="topics-text">Museumsbesuch • Kinobesuch • Geld für Straßenkinder • Theaterstück • Bücher spenden • Kinderkrankenhaus • schlechte Noten • Kinder betreuen • Umzug • Kursraum gestalten</span>
+                <span class="dots">…</span>
+            </div>
             <button class="card-btn" data-group="5">أمثلة →</button>
             <div class="card-content" id="content-5">
-                <ul class="suggestions-list">
+                <ul class="suggestions-list" style="counter-reset: item 0;">
                     <li>Vielleicht könnten wir auch Freiwillige suchen, damit wir schneller helfen können.</li>
                     <li>Ich schlage vor, dass wir einen konkreten Plan machen, Schritt für Schritt.</li>
                     <li>Ist die Situation dringend? Dann müssen wir schnell handeln.</li>
@@ -349,55 +411,63 @@
         <!-- Card 6 - Methodologie -->
         <div class="card methodologie-card">
             <div class="card-title">📌 منهجية بسيطة يمكنك تتبعها</div>
-            <div class="card-topics">حوار جاهز يساعدك على تنظيم المناقشة</div>
+            <div class="card-topics">
+                <span class="topics-text">حوار جاهز يساعدك على تنظيم المناقشة</span>
+            </div>
             <button class="card-btn" data-group="6">مثال →</button>
             <div class="card-content" id="content-6">
                 <div class="dialog-example">
-                    <div class="dialog-line"><span class="speaker">Person A:</span> Hallo, wie du weiß, man hat uns gesagt, dass wir... sollen. also, Was meinst du, womit sollen wir anfangen?</div>
-                    <div class="dialog-line"><span class="speaker">Person B:</span> Glaubst du, wir haben alles Wichtige besprochen oder fehlt noch was?</div>
-                    <div class="dialog-line"><span class="speaker">Person A:</span> Ich denke, wir haben alles abgedeckt. Mir fällt gerade nichts mehr ein.</div>
-                    <div class="dialog-line"><span class="speaker">Person B:</span> Super! Ich freue mich echt darauf. Danke für das tolle Gespräch und deine Ideen!</div>
-                    <div class="dialog-line"><span class="speaker">Person A:</span> Freut mich, dass es dir gefallen hat! Ich bin auch gespannt, wie erfolgreich das sein wird</div>
+                    <div class="dialog-line dialog-line-start">
+                        <span class="speaker">Person A:</span> Hallo, wie du weiß, man hat uns gesagt, dass wir... sollen. also, Was meinst du, womit sollen wir anfangen?
+                    </div>
+                    <div class="dialog-line dialog-line-end">
+                        <div><span class="speaker">Person B:</span> Glaubst du, wir haben alles Wichtige besprochen oder fehlt noch was?</div>
+                        <div style="margin-top: 8px;"><span class="speaker">Person A:</span> Ich denke, wir haben alles abgedeckt. Mir fällt gerade nichts mehr ein.</div>
+                        <div style="margin-top: 8px;"><span class="speaker">Person B:</span> Super! Ich freue mich echt darauf. Danke für das tolle Gespräch und deine Ideen!</div>
+                        <div style="margin-top: 8px;"><span class="speaker">Person A:</span> Freut mich, dass es dir gefallen hat! Ich bin auch gespannt, wie erfolgreich das sein wird</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="footer">
-        📘 Mündlich Teil 3 – Problemlösung | اقتراحات جاهزة، منهجية بسيطة، وطريقة ذكية للتحضير
+    <!-- Footer Button -->
+    <div class="footer-btn-container">
+        <button id="backToListBtn" class="back-to-list-btn">📋 عودة إلى القائمة</button>
     </div>
 </div>
 
 <script>
-    // Toggle card content when clicking button
+    // Toggle card content
     document.querySelectorAll('.card-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const group = btn.getAttribute('data-group');
             const content = document.getElementById(`content-${group}`);
             if (content) {
+                const isOpen = content.classList.contains('show');
                 content.classList.toggle('show');
-                btn.textContent = content.classList.contains('show') ? 'إخفاء ←' : 'أمثلة →';
+                btn.textContent = isOpen ? 'أمثلة →' : 'إخفاء ←';
             }
         });
     });
 
-    // Back to list button
-    const backToListBtn = document.getElementById('backToListBtn');
-    if (backToListBtn) {
-        backToListBtn.addEventListener('click', () => {
+    // Back arrow button (go back in history)
+    const backArrow = document.getElementById('backArrowBtn');
+    if (backArrow) {
+        backArrow.addEventListener('click', () => {
             if (typeof goList === 'function') {
                 goList();
             } else {
-                window.location.href = 'index.html';
+                window.history.back();
             }
         });
     }
 
-    // Close page button
-    const closePageBtn = document.getElementById('closePageBtn');
-    if (closePageBtn) {
-        closePageBtn.addEventListener('click', () => {
+    // Back to list button
+    const backToList = document.getElementById('backToListBtn');
+    if (backToList) {
+        backToList.addEventListener('click', () => {
             if (typeof goList === 'function') {
                 goList();
             } else {
