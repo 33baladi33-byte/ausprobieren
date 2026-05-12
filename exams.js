@@ -794,15 +794,15 @@ async function renderExamListForSkill(skill, teilName) {
     container.innerHTML += '<div class="item" style="text-align:center; color:#999;">⚠️ لا توجد امتحانات متاحة حالياً في هذا الجزء</div>';
     return;
   }
-  // داخل دالة renderExamListForSkill
-const userStatus = await getUserStatusForExam();
+
+  const userStatus = await getUserStatusForExam();
 const isPremium = (userStatus === 'premium');
 
 for (let i = 0; i < targetExams.length; i++) {
   const exam = targetExams[i];
   const examNumber = exam.id;
-  // 🔴 التعديل هنا: بدلاً من الامتحان الأول فقط، افتح أول 4 امتحانات
-  const isLockedExam = (examNumber > 4); // القفل يبدأ من الامتحان رقم 5
+  // ✅ أول 4 امتحانات مجانية (رقم 1,2,3,4)
+  const isFreeExam = (examNumber <= 4);
   
   const div = document.createElement("div");
   div.className = "item";
@@ -823,9 +823,61 @@ for (let i = 0; i < targetExams.length; i++) {
   
   displaySavedResult(targetSkill, exam.id, titleSpan, div);
   
-  // 🔴 الشرط الجديد: إذا كان المستخدم ليس بريميوم والامتحان مقفول (رقمه > 4)
-  if (!isPremium && isLockedExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
-    // ... كود القفل (يبقى كما هو)
+  // ✅ الشرط الصحيح: إذا كان المستخدم ليس بريميوم والامتحان ليس من أول 4
+  if (!isPremium && !isFreeExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
+    // قفل الامتحان
+    div.style.backgroundColor = "rgba(255,255,255,0.75)";
+    div.style.border = "1px solid #e2e8f0";
+    div.style.opacity = "1";
+    div.style.transition = "all 0.25s ease";
+    div.style.cursor = "pointer";
+    
+    const rightSide = document.createElement("span");
+    rightSide.className = "exam-right-icons";
+    rightSide.style.display = "flex";
+    rightSide.style.alignItems = "center";
+    rightSide.style.gap = "6px";
+    rightSide.style.transition = "all 0.25s ease";
+    
+    const lockSpan = document.createElement("span");
+    lockSpan.className = "lock-icon";
+    lockSpan.innerHTML = "🔒";
+    lockSpan.style.cssText = "font-size:13px; color:#60a5fa; margin-right:5px; transition:all 0.25s ease;";
+    rightSide.appendChild(lockSpan);
+    
+    const proSpan = document.createElement("span");
+    proSpan.className = "pro-badge";
+    proSpan.innerHTML = "PRO";
+    proSpan.style.cssText = "color:#2563eb; font-size:9px; font-weight:bold; letter-spacing:1px; transition:all 0.25s ease;";
+    rightSide.appendChild(proSpan);
+    
+    div.appendChild(rightSide);
+    titleSpan.style.color = "#6b7280";
+    titleSpan.style.transition = "color 0.25s ease";
+    
+    div.onmouseenter = function() {
+      this.style.backgroundColor = "rgba(255,255,255,0.95)";
+      this.style.transform = "translateX(5px)";
+      this.style.borderColor = "#60a5fa";
+      titleSpan.style.color = "#4b5563";
+      if (lockSpan) lockSpan.style.transform = "scale(1.1)";
+      if (proSpan) proSpan.style.transform = "scale(1.05)";
+    };
+    
+    div.onmouseleave = function() {
+      this.style.backgroundColor = "rgba(255,255,255,0.75)";
+      this.style.transform = "translateX(0)";
+      this.style.borderColor = "#e2e8f0";
+      titleSpan.style.color = "#6b7280";
+      if (lockSpan) lockSpan.style.transform = "scale(1)";
+      if (proSpan) proSpan.style.transform = "scale(1)";
+    };
+    
+    div.onclick = (function(title, id) {
+      return function() {
+        showLockedMessage(title + " (" + id + ")");
+      };
+    })(exam.title, exam.id);
   } else if (exam.hasFile) {
     div.onclick = (function(id, title, skillPath) {
       return function() { 
