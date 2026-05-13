@@ -431,34 +431,28 @@
         document.getElementById('closeNotAvailableBtn').onclick = () => overlay.remove();
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
-    function loadGameData(skill, examId) {
-    currentSkill = skill;
-    currentExamId = examId;
     
-    // بناء المسار الصحيح - دعم كل من الصيغتين
-    let filePath;
-    if (skill === 'hoeren1') {
-        // Hören 1: data/games/hoeren1/exam1.json
-        filePath = `data/games/${skill}/exam${examId}.json`;
-    } else if (skill === 'lesen1') {
-        // Lesen 1: نحاول أولاً المسار الجديد، ثم القديم
-        const newPath = `data/games/${skill}/exam${examId}.json`;
-        const oldPath = `data/games/${skill}_exam${examId}.json`;
+    // ==================== دالة تحميل البيانات ====================
+    function loadGameData(skill, examId) {
+        currentSkill = skill;
+        currentExamId = examId;
         
-        // سنحاول المسار الجديد أولاً
-        return fetch(newPath)
+        let filePath;
+        if (skill === 'hoeren1') {
+            filePath = `data/games/${skill}/exam${examId}.json`;
+        } else {
+            filePath = `data/games/${skill}_exam${examId}.json`;
+        }
+        
+        console.log(`📂 جاري تحميل: ${filePath}`);
+        
+        return fetch(filePath)
             .then(response => {
-                if (response.ok) {
-                    filePath = newPath;
-                    return response.json();
-                } else {
-                    // إذا لم ينجح، نحاول المسار القديم
-                    return fetch(oldPath).then(res => {
-                        if (!res.ok) throw new Error('الملف غير موجود');
-                        filePath = oldPath;
-                        return res.json();
-                    });
+                if (!response.ok) {
+                    console.error(`❌ الملف غير موجود: ${filePath}`);
+                    throw new Error('الملف غير موجود');
                 }
+                return response.json();
             })
             .then(data => {
                 return processGameData(data, skill, filePath);
@@ -467,29 +461,10 @@
                 console.error(`❌ خطأ في تحميل الملف:`, error);
                 return false;
             });
-    } else {
-        // باقي المهارات: data/games/skill_examId.json
-        filePath = `data/games/${skill}_exam${examId}.json`;
     }
     
-    if (filePath) {
-        return fetch(filePath)
-            .then(response => {
-                if (!response.ok) throw new Error('الملف غير موجود');
-                return response.json();
-            })
-            .then(data => processGameData(data, skill, filePath))
-            .catch(error => {
-                console.error(`❌ خطأ في تحميل الملف:`, error);
-                return false;
-            });
-    }
-    
-    return Promise.resolve(false);
-}
-
-
-        function processGameData(data, skill, filePath) {
+    // ==================== دالة معالجة البيانات ====================
+    function processGameData(data, skill, filePath) {
         console.log(`✅ تم تحميل الملف بنجاح: ${filePath}`, data);
         currentGameData = data;
         
@@ -511,10 +486,7 @@
         // ==================== نظام Lesen Teil 1 ====================
         else if (skill === 'lesen1') {
             originalQuestions = data.questions.map((q, idx) => {
-                // استخراج أول 8 كلمات من النص
                 const firstWords = shortenText(q.fullText || q.text, SETTINGS.firstWordsLength);
-                
-                // اختيار عنوانين خاطئين عشوائيين من wrongTitles
                 const wrongTitlesList = q.wrongTitles || [];
                 const selectedWrongTitles = [...wrongTitlesList].slice(0, 2);
                 
@@ -530,7 +502,7 @@
             });
             console.log(`📝 تم تحميل ${originalQuestions.length} سؤال لـ Lesen 1`);
         }
-        // ==================== باقي الأنظمة ====================
+        // ==================== نظام Lesen Teil 3 ====================
         else if (skill === 'lesen3') {
             let allQuestions = data.questions;
             allQuestions = allQuestions.filter(q => q.correctTitle !== null && q.correctTitle !== undefined);
@@ -545,6 +517,7 @@
                 };
             });
         }
+        // ==================== Sprachbausteine و Hören 2/3 ====================
         else if (data.questions) {
             let allQuestions = data.questions;
             originalQuestions = allQuestions.map(q => {
@@ -595,6 +568,7 @@
         setSpeedMode('reflex');
         showModeSelectionScreen();
     }
+    
     function pauseGame() {
         if (!gameActive || gamePaused) return;
         gamePaused = true;
@@ -712,16 +686,6 @@
         }, 1000);
     }
     
-    // دالة مساعدة لاختيار عناصر عشوائية من مصفوفة
-    function getRandomItems(arr, count) {
-        const shuffled = [...arr];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled.slice(0, count);
-    }
-    
     function showQuestion() {
         if (currentIndex >= currentRound.length) {
             showResults();
@@ -739,7 +703,6 @@
         container.className = 'game-container-inner';
         container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:700px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative';
         
-        // المؤقت الدائري
         const timerContainer = document.createElement('div');
         timerContainer.className = 'circular-timer-container';
         timerContainer.style.cssText = 'position:absolute;top:8px;left:8px;width:40px;height:40px';
@@ -747,14 +710,12 @@
         timerContainer.appendChild(timerSvg.svg);
         container.appendChild(timerContainer);
         
-        // السؤال (نص السؤال حسب نوع السؤال)
         const questionDiv = document.createElement('div');
         questionDiv.style.cssText = 'font-size:20px;font-weight:500;padding:20px 30px;background:#f5f7fc;border-radius:20px;margin-bottom:25px;color:#1a1a2e;line-height:1.5';
         
         if (q.type === "sprach") {
             questionDiv.textContent = q.displayText;
         } else if (q.type === "hoeren1_reflex") {
-            // نص السؤال لـ Hören 1 النظام الجديد
             questionDiv.textContent = "اختر الجملة الصحيحة";
         } else if (q.type === "hoeren") {
             questionDiv.textContent = `من هي الإجابة الصحيحة؟`;
@@ -763,25 +724,18 @@
         }
         container.appendChild(questionDiv);
         
-        // الخيارات
         const optionsDiv = document.createElement('div');
         optionsDiv.className = 'game-options-div';
         optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:20px';
         
-        // ==================== نظام Hören Teil 1 الجديد (Reflex/Fast Recognition) ====================
         if (q.type === "hoeren1_reflex") {
-            // فصل الجمل الصحيحة عن الخاطئة
             const correctSentences = hoeren1Sentences.filter(s => s.correct === true);
             const incorrectSentences = hoeren1Sentences.filter(s => s.correct === false);
             
-            console.log(`📊 جمل صحيحة: ${correctSentences.length}, جمل خاطئة: ${incorrectSentences.length}`);
-            
-            // اختيار جملة صحيحة عشوائية
             const selectedCorrect = correctSentences.length > 0 
                 ? correctSentences[Math.floor(Math.random() * correctSentences.length)]
                 : null;
             
-            // اختيار جملتين خاطئتين عشوائيتين
             let selectedIncorrects = [];
             if (incorrectSentences.length >= 2) {
                 const shuffledIncorrects = [...incorrectSentences];
@@ -790,31 +744,24 @@
                     [shuffledIncorrects[i], shuffledIncorrects[j]] = [shuffledIncorrects[j], shuffledIncorrects[i]];
                 }
                 selectedIncorrects = shuffledIncorrects.slice(0, 2);
-            } else if (incorrectSentences.length === 1) {
-                selectedIncorrects = [...incorrectSentences];
-                // إضافة جملة وهمية إذا لم تكن هناك جملتان خاطئتان
-                selectedIncorrects.push({ text: "جملة إضافية", correct: false, id: -1 });
             } else {
-                selectedIncorrects = [
-                    { text: "جملة خاطئة 1", correct: false, id: -1 },
-                    { text: "جملة خاطئة 2", correct: false, id: -1 }
-                ];
+                selectedIncorrects = [...incorrectSentences];
+                while(selectedIncorrects.length < 2) {
+                    selectedIncorrects.push({ text: "جملة إضافية", correct: false, id: -1 });
+                }
             }
             
-            // تجميع جميع الخيارات (1 صحيحة + 2 خاطئة)
             const allOptions = [
                 { text: selectedCorrect.text, isCorrect: true, id: selectedCorrect.id },
                 { text: selectedIncorrects[0].text, isCorrect: false, id: selectedIncorrects[0].id },
                 { text: selectedIncorrects[1].text, isCorrect: false, id: selectedIncorrects[1].id }
             ];
             
-            // خلط الخيارات
             for (let i = allOptions.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
             }
             
-            // تخزين الخيارات الحالية في السؤال لاستخدامها في التحقق
             q.currentOptions = allOptions;
             
             allOptions.forEach((opt, idx) => {
@@ -836,7 +783,6 @@
                 optionsDiv.appendChild(optBtn);
             });
         }
-        // ==================== Sprachbausteine ====================
         else if (q.type === "sprach") {
             q.options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
@@ -857,7 +803,6 @@
                 optionsDiv.appendChild(optBtn);
             });
         } 
-        // ==================== Hören Teil 2/3 ====================
         else if (q.type === "hoeren") {
             q.options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
@@ -877,7 +822,6 @@
                 optionsDiv.appendChild(optBtn);
             });
         } 
-        // ==================== Lesen Teil 1/2/3 ====================
         else {
             const options = [];
             
@@ -926,7 +870,6 @@
         
         container.appendChild(optionsDiv);
         
-        // أزرار التحكم + أزرار السرعة
         const bottomBar = document.createElement('div');
         bottomBar.className = 'bottom-bar';
         bottomBar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:10px';
@@ -988,7 +931,6 @@
         }
     }
     
-    // دالة تطبيق الألوان (موحدة لجميع الأنظمة)
     function applyAnswerColors(isCorrect, selectedValue, selectedIndex, q) {
         const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
         
@@ -1005,14 +947,12 @@
                 isCorrectBtn = btn.getAttribute('data-correct') === 'true';
             }
             
-            // الإجابة الصحيحة دائمًا باللون الأخضر
             if (isCorrectBtn) {
                 btn.style.background = '#e6f4ea';
                 btn.style.borderColor = '#8bc34a';
                 btn.style.color = '#2e7d32';
             }
             
-            // إذا كانت الإجابة خاطئة، نلون اختيار المستخدم بالبرتقالي
             if (!isCorrect) {
                 if (q.type === "sprach" && btn.getAttribute('data-value') === selectedValue) {
                     btn.style.background = '#fef5e7';
@@ -1032,7 +972,6 @@
                     btn.style.color = '#b45f06';
                 }
             } else {
-                // إذا كانت الإجابة صحيحة، نلون اختيار المستخدم باللون الأخضر
                 if (q.type === "sprach" && btn.getAttribute('data-value') === selectedValue) {
                     btn.style.background = '#e6f4ea';
                     btn.style.borderColor = '#8bc34a';
@@ -1054,9 +993,6 @@
         });
     }
     
-    // ==================== دوال التحقق من الإجابات ====================
-    
-    // دالة جديدة لفحص إجابات Hören 1 Reflex Modus
     function checkHören1ReflexAnswer(isCorrect, selectedValue) {
         if (!gameActive || gamePaused) return;
         gameActive = false;
