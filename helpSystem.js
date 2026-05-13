@@ -4197,2036 +4197,2189 @@ HELP_DATA["hoeren3_exam47_q3"] = {
 // ============================================
 
 // ============================================
-// Exam 1: Jugend Forscht
-// ============================================
-
-HELP_DATA["lesen1_exam1_q1"] = {
-    text: "Wenn aus Erdbeeren Tomaten werden - Die Zahlen wirken auf dem ersten Blick dramatisch",
-    meaning: "عندما تصبح الفراولة طماطم - الأرقام تبدو درامية للوهلة الأولى",
-    keywords: ["Erdbeeren = فراولة", "Tomaten = طماطم", "Praxis = ممارسة", "Küche = مطبخ"],
-    simplified: "التعرف على الفراولة والطماطم - تنقصهم الممارسة في المطبخ",
-    imagine: "🧠👁️ تخيل طفل ينظر إلى فراولة (Erdbeeren) ويقول 'طماطم' (Tomaten) لأن الممارسة (Praxis) في المطبخ تنقصه 🍓→🍅"
-};
-
-HELP_DATA["lesen1_exam1_q2"] = {
-    text: "Von der Diät zur Krankheit / Mädchen abnehmen krankheiten - Immer mehr Mädchen leiden an schweren Essstörungen",
-    meaning: "من الحمية إلى المرض - المزيد من الفتيات يعانين من اضطرابات أكل حادة",
-    keywords: ["Diät = حمية", "Krankheit = مرض", "Schlankheitswahn = هوس النحافة"],
-    simplified: "فتيات حمية مرض - هوس النحافة نتائجه",
-    imagine: "🧠👁️ تخيل فتاة تتبع حمية (Diät) لكي تصبح نحيفة، ولكن هوس النحافة (Schlankheitswahn) جلب لها المرض (Krankheit) 👧→🤒"
-};
-
-HELP_DATA["lesen1_exam1_q3"] = {
-    text: "Jugend forscht - auch auf dem Meer - Energiesparlampen, umweltfreundliche Elektrogeräte, Bio-Nagellack",
-    meaning: "شباب يبحثون - حتى في البحر - لمبات موفرة، أجهزة كهربائية صديقة للبيئة، طلاء أظافر عضوي",
-    keywords: ["Jugend = شباب", "forsch = يبحث", "Wettbewerb = مسابقة", "Umwelt = بيئة"],
-    simplified: "شباب يبحثون بيئة تقنية - مسابقة مشاريع طلاب",
-    imagine: "🧠👁️ تخيل شباب (Jugend) يشاركون في مسابقة (Wettbewerb) علمية بعروضهم البحثية 🧑‍🔬🏆"
-};
-
-HELP_DATA["lesen1_exam1_q4"] = {
-    text: "Jugend forscht - auch auf dem Meer - 13,5 Meter lang und leuchtend gelb - die 'Aldebaran'",
-    meaning: "شباب يبحثون - حتى في البحر - طوله 13.5 متر ولونه أصفر لامع - 'ألديباران'",
-    keywords: ["Meer = بحر", "Plastik = بلاستيك", "Projekt = مشروع", "Nordsee = بحر الشمال", "Schüler = طلاب"],
-    simplified: "بحث بحر بلاستيك - طلاب بحر الشمال مشروع",
-    imagine: "🧠👁️ تخيل طلاب (Schüler) يجمعون البلاستيك (Plastik) من البحر (Meer) ضمن مشروع (Projekt) بحثي 🚤🫗🔬"
-};
-
-HELP_DATA["lesen1_exam1_q5"] = {
-    text: "Psychoterror an der Schule - Mobbing ist kein neues Phänomen",
-    meaning: "الإرهاب النفسي في المدرسة - التنمر ليس ظاهرة جديدة",
-    keywords: ["Mobbing = تنمر", "Schule = مدرسة", "Isolation = عزلة", "Angst = خوف"],
-    simplified: "تنمر مدرسة عنف - طلاب عزلة خوف",
-    imagine: "🧠👁️ تخيل طالب يتعرض للتنمر (Mobbing) في المدرسة (Schule) ويعيش في عزلة (Isolation) وحزن 😞😔"
-};
-
-// ============================================
-// Exam 2: Sport ist gesund
-// ============================================
-
-HELP_DATA["lesen1_exam2_q1"] = {
-    text: "Ein Leistungssport für jedes Alter - An der Ostküste Attikas in Griechenland lag in der Antike der Ort Marathon",
-    meaning: "رياضة تنافسية لكل عمر - على الساحل الشرقي لأتيكا في اليونان قديماً كان موقع ماراثون",
-    keywords: ["Marathon = ماراثون", "Leistungssport = رياضة تنافسية"],
-    simplified: "ماراثون - رياضة تنافسية",
-    imagine: "🧠👁️ تخيل جد كبير في السن (Großvater) يركض ماراثون (Marathon) ويصل إلى خط النهاية 🏃‍♂️👴🏁"
-};
-
-HELP_DATA["lesen1_exam2_q2"] = {
-    text: "Sportbegeisterte Eltern - und auch die Babys sind beim Joggen dabei - Warum soll sich der Mensch nun auf Straßen und Wegen fortbewegen?",
-    meaning: "آباء محبون للرياضة - والأطفال الرضع أيضاً يشاركون في الجري - لماذا يتحرك الإنسان على الطرق والمسالك؟",
-    keywords: ["Babys = أطفال", "Jogging = جري"],
-    simplified: "أطفال - جري",
-    imagine: "🧠👁️ تخيل أب وأم يركضان (Jogging) ويدفعان عربة أطفال (Babys) أمامهما 🏃‍♂️🏃‍♀️🚼"
-};
-
-HELP_DATA["lesen1_exam2_q3"] = {
-    text: "Fitness auch mit wenig Zeitaufwand erreichbar - Schweizer Forscher haben herausgefunden, dass nur 6 Minuten Hochleistungstraining pro Woche",
-    meaning: "اللياقة ممكنة حتى مع القليل من الوقت - باحثون سويسريون اكتشفوا أن 6 دقائق فقط من التدريب عالي الأداء أسبوعياً",
-    keywords: ["Fitness = لياقة", "Training = تدريب"],
-    simplified: "لياقة - تدريب",
-    imagine: "🧠👁️ تخيل شخصاً يتدرب (Training) 6 دقائق فقط ويصبح ذا لياقة (Fitness) عالية 💪⏱️"
-};
-
-HELP_DATA["lesen1_exam2_q4"] = {
-    text: "Sport ist gesund - wenn man einige wichtige Regeln beachtet - Mehr Bewegung als Ausgleich für zu langes Sitzen im Büro",
-    meaning: "الرياضة صحية - إذا اتبعت بعض القواعد المهمة - حركة أكثر كتعويض للجلوس الطويل في المكتب",
-    keywords: ["Sport = رياضة", "Regeln = قواعد"],
-    simplified: "رياضة - قواعد",
-    imagine: "🧠👁️ تخيل رياضياً يقيس نبضه (Puls) لكي يتبع القواعد (Regeln) بشكل صحيح ❤️✅"
-};
-
-HELP_DATA["lesen1_exam2_q5"] = {
-    text: "Geprüfte Qualität für Babys - Viele frischgebackene Eltern stehen einem riesigen Angebot an Kinderwagen gegenüber",
-    meaning: "جودة مفحوصة للأطفال الرضع - كثير من الآباء الجدد يواجهون عرضاً ضخماً من عربات الأطفال",
-    keywords: ["Babys = أطفال", "Sicherheit = أمان"],
-    simplified: "أطفال - أمان",
-    imagine: "🧠👁️ تخيل عربة أطفال (Kinderwagen) عليها ختم TÜV والطفل (Baby) سعيد 🚼✅😊"
-};
-
-// ============================================
-// Exam 3: Sport ist gesund (التعديل 1)
-// ============================================
-
-HELP_DATA["lesen1_exam3_q1"] = {
-    text: "Ein Leistungssport für jedes Alter - An der Ostküste Attikas in Griechenland lag in der Antike der Ort Marathon",
-    meaning: "رياضة تنافسية لكل عمر - على الساحل الشرقي لأتيكا في اليونان قديماً كان موقع ماراثون",
-    keywords: ["Marathon = ماراثون", "Leistungssport = رياضة تنافسية"],
-    simplified: "ماراثون - رياضة تنافسية",
-    imagine: "🧠👁️ تخيل جد كبير في السن (Großvater) يركض ماراثون (Marathon) ويصل إلى خط النهاية 🏃‍♂️👴🏁"
-};
-
-HELP_DATA["lesen1_exam3_q2"] = {
-    text: "Sportbegeisterte Eltern - und auch die Babys sind beim Joggen dabei - Warum soll sich der Mensch nun auf Straßen und Wegen fortbewegen?",
-    meaning: "آباء محبون للرياضة - والأطفال الرضع أيضاً يشاركون في الجري - لماذا يتحرك الإنسان على الطرق والمسالك؟",
-    keywords: ["Babys = أطفال", "Jogging = جري"],
-    simplified: "أطفال - جري",
-    imagine: "🧠👁️ تخيل أب وأم يركضان (Jogging) ويدفعان عربة أطفال (Babys) أمامهما 🏃‍♂️🏃‍♀️🚼"
-};
-
-HELP_DATA["lesen1_exam3_q3"] = {
-    text: "Fitness auch mit wenig Zeitaufwand erreichbar - Schweizer Forscher haben herausgefunden, dass nur 6 Minuten Hochleistungstraining pro Woche",
-    meaning: "اللياقة ممكنة حتى مع القليل من الوقت - باحثون سويسريون اكتشفوا أن 6 دقائق فقط من التدريب عالي الأداء أسبوعياً",
-    keywords: ["Fitness = لياقة", "Training = تدريب"],
-    simplified: "لياقة - تدريب",
-    imagine: "🧠👁️ تخيل شخصاً يتدرب (Training) 6 دقائق فقط ويصبح ذا لياقة (Fitness) عالية 💪⏱️"
-};
-
-HELP_DATA["lesen1_exam3_q4"] = {
-    text: "Sport ist gesund - wenn man einige wichtige Regeln beachtet - Mehr Bewegung als Ausgleich für zu langes Sitzen im Büro",
-    meaning: "الرياضة صحية - إذا اتبعت بعض القواعد المهمة - حركة أكثر كتعويض للجلوس الطويل في المكتب",
-    keywords: ["Sport = رياضة", "Regeln = قواعد"],
-    simplified: "رياضة - قواعد",
-    imagine: "🧠👁️ تخيل رياضياً يقيس نبضه (Puls) لكي يتبع القواعد (Regeln) بشكل صحيح ❤️✅"
-};
-
-HELP_DATA["lesen1_exam3_q5"] = {
-    text: "Geprüfte Qualität für Babys - Viele frischgebackene Eltern stehen einem riesigen Angebot an Kinderwagen gegenüber",
-    meaning: "جودة مفحوصة للأطفال الرضع - كثير من الآباء الجدد يواجهون عرضاً ضخماً من عربات الأطفال",
-    keywords: ["Babys = أطفال", "Sicherheit = أمان"],
-    simplified: "أطفال - أمان",
-    imagine: "🧠👁️ تخيل عربة أطفال (Kinderwagen) عليها ختم TÜV والطفل (Baby) سعيد 🚼✅😊"
-};
-
-// ============================================
-// Exam 4: Tanzkurs
-// ============================================
-
-HELP_DATA["lesen1_exam4_q1"] = {
-    text: "Höher, schneller, weiter: Suche nach dem Nervenkitzel - Der Begriff Extremsport wird oft subjektiv verwendet",
-    meaning: "أعلى، أسرع، أبعد: البحث عن الإثارة - مصطلح الرياضة الخطيرة يُستخدم غالباً بشكل شخصي",
-    keywords: ["Extremsport = رياضة خطيرة", "Adrenalin = أدرينالين"],
-    simplified: "رياضة خطيرة - أدرينالين",
-    imagine: "🧠👁️ تخيل شخصاً يقفز من جسر بالحبال (Bungee) وتدفق الأدرينالين (Adrenalin) في جسده 🪢💓"
-};
-
-HELP_DATA["lesen1_exam4_q2"] = {
-    text: "Verändertes Freizeitverhalten von Jugendlichen - Musik, Sport, ehrenamtliches Engagement - die Teilnahme von Jugendlichen",
-    meaning: "سلوك أوقات الفراغ المتغير عند الشباب - الموسيقى والرياضة والعمل التطوعي - مشاركة الشباب",
-    keywords: ["Jugendliche = شباب", "Aktivitäten = أنشطة"],
-    simplified: "شباب - أنشطة",
-    imagine: "🧠👁️ تخيل شباباً (Jugendliche) يمارسون أنشطة (Aktivitäten) مفيدة مثل الموسيقى والرياضة بدلاً من الجلوس على الهاتف 🎸🏀📱"
-};
-
-HELP_DATA["lesen1_exam4_q3"] = {
-    text: "Hilfen für überforderte Schüler - In Firmen gibt es sie schon, jetzt wollen auch Schulen Entspannungskurse anbieten",
-    meaning: "مساعدات للتلاميذ المثقلين - في الشركات توجد بالفعل، الآن المدارس تريد تقديم دورات استرخاء",
-    keywords: ["Schüler = طلاب", "Entspannung = استرخاء"],
-    simplified: "طلاب - استرخاء",
-    imagine: "🧠👁️ تخيل طالباً (Schüler) مرهقاً (gestresst) وبعد الاسترخاء (Entspannung) يستطيع التركيز بشكل أفضل 🧘‍♂️😌"
-};
-
-HELP_DATA["lesen1_exam4_q4"] = {
-    text: "Freie Plätze im Tanzkurs - Tanja Kleist ist von modernem Tanz absolut begeistert",
-    meaning: "أماكن شاغرة في دورة الرقص - تانيا كلايست متحمسة جداً للرقص الحديث",
-    keywords: ["Tanzkurs = درس رقص", "Teilnehmer = مشاركين"],
-    simplified: "درس رقص - مشاركين",
-    imagine: "🧠👁️ تخيل إعلاناً يقول درس رقص (Tanzkurs) مجاني وكل المشاركين (Teilnehmer) قادمون للرقص 💃🕺"
-};
-
-HELP_DATA["lesen1_exam4_q5"] = {
-    text: "Keine Zeit für Langeweile - Montags Tennis, dienstags Klavierunterricht, mittwochs Jazztanz in der Gruppe",
-    meaning: "لا وقت للملل - الاثنين تنس، الثلاثاء درس بيانو، الأربعاء رقص جاز جماعي",
-    keywords: ["Langeweile = ملل", "Termine = مواعيد"],
-    simplified: "ملل - مواعيد",
-    imagine: "🧠👁️ تخيل طفلاً لديه مواعيد (Termine) كثيرة كل يوم، لأن الآباء يخافون من أن يشعر الطفل بالملل (Langeweile) 📅😫😰"
-};
-
-// ============================================
-// Exam 5: Tanzkurs (التعديل 1)
-// ============================================
-
-HELP_DATA["lesen1_exam5_q1"] = {
-    text: "Höher, schneller, weiter: Suche nach dem Nervenkitzel - Der Begriff Extremsport wird oft subjektiv verwendet",
-    meaning: "أعلى، أسرع، أبعد: البحث عن الإثارة - مصطلح الرياضة الخطيرة يُستخدم غالباً بشكل شخصي",
-    keywords: ["Extremsport = رياضة خطيرة", "Adrenalin = أدرينالين"],
-    simplified: "رياضة خطيرة - أدرينالين",
-    imagine: "🧠👁️ تخيل شخصاً يقفز من جسر بالحبال (Bungee) وتدفق الأدرينالين (Adrenalin) في جسده 🪢💓"
-};
-
-HELP_DATA["lesen1_exam5_q2"] = {
-    text: "Wandel Freizeitverhalten von Jugendlichen - Musik, Sport, ehrenamtliches Engagement - die Teilnahme von Jugendlichen",
-    meaning: "تغير سلوك أوقات الفراغ عند الشباب - الموسيقى والرياضة والعمل التطوعي - مشاركة الشباب",
-    keywords: ["Jugendliche = شباب", "Aktivitäten = أنشطة"],
-    simplified: "شباب - أنشطة",
-    imagine: "🧠👁️ تخيل شباباً (Jugendliche) يمارسون أنشطة (Aktivitäten) مفيدة مثل الموسيقى والرياضة بدلاً من الجلوس على الهاتف 🎸🏀📱"
-};
-
-HELP_DATA["lesen1_exam5_q3"] = {
-    text: "Hilfen für überforderte Schüler - In Firmen gibt es sie schon, jetzt wollen auch Schulen Entspannungskurse anbieten",
-    meaning: "مساعدات للتلاميذ المثقلين - في الشركات توجد بالفعل، الآن المدارس تريد تقديم دورات استرخاء",
-    keywords: ["Schüler = طلاب", "Entspannung = استرخاء"],
-    simplified: "طلاب - استرخاء",
-    imagine: "🧠👁️ تخيل طالباً (Schüler) مرهقاً (gestresst) وبعد الاسترخاء (Entspannung) يستطيع التركيز بشكل أفضل 🧘‍♂️😌"
-};
-
-HELP_DATA["lesen1_exam5_q4"] = {
-    text: "Freie Plätze im Tanzkurs - Tanja Kleist ist von modernem Tanz absolut begeistert",
-    meaning: "أماكن شاغرة في دورة الرقص - تانيا كلايست متحمسة جداً للرقص الحديث",
-    keywords: ["Tanzkurs = درس رقص", "Teilnehmer = مشاركين"],
-    simplified: "درس رقص - مشاركين",
-    imagine: "🧠👁️ تخيل إعلاناً يقول درس رقص (Tanzkurs) مجاني وكل المشاركين (Teilnehmer) قادمون للرقص 💃🕺"
-};
-
-HELP_DATA["lesen1_exam5_q5"] = {
-    text: "Keine Zeit für Langeweile - Montags Tennis, dienstags Klavierunterricht, mittwochs Jazztanz in der Gruppe",
-    meaning: "لا وقت للملل - الاثنين تنس، الثلاثاء درس بيانو، الأربعاء رقص جاز جماعي",
-    keywords: ["Langeweile = ملل", "Termine = مواعيد"],
-    simplified: "ملل - مواعيد",
-    imagine: "🧠👁️ تخيل طفلاً لديه مواعيد (Termine) كثيرة كل يوم، لأن الآباء يخافون من أن يشعر الطفل بالملل (Langeweile) 📅😫😰"
-};
-
-// ============================================
-// Exam 6: Impfung
-// ============================================
-
-HELP_DATA["lesen1_exam6_q1"] = {
-    text: "Neue Erkenntnisse über artübergreifende Krankheitserreger - Immer wieder überspringen Krankheitserreger aus dem Tierreich die Artengrenze",
-    meaning: "معرفة جديدة عن مسببات الأمراض التي تعبر الأنواع - مراراً وتكراراً تقفز مسببات الأمراض من مملكة الحيوان الحدود بين الأنواع",
-    keywords: ["Impfung = تطعيم", "Viren = فيروسات", "Übertragung = انتقال"],
-    simplified: "تطعيم - انتقال فيروسات بين البشر والحيوانات",
-    imagine: "🧠👁️ تخيل طبيباً يأخذ تطعيماً (Impfung) بينما ينتقل فيروس (Virus) من حيوان إلى إنسان 🦠🐒→👨‍⚕️"
-};
-
-HELP_DATA["lesen1_exam6_q2"] = {
-    text: "Kontroverse um den Zugang zu Forschungsergebnissen - Virologen ist es gelungen, den Vogelgrippe-Erreger hochansteckend zu machen",
-    meaning: "جدل حول الوصول إلى نتائج الأبحاث - علماء الفيروسات نجحوا في جعل مسبب إنفلونزا الطيور شديد العدوى",
-    keywords: ["Forschungsergebnisse = نتائج أبحاث", "Veröffentlichung = نشر"],
-    simplified: "نتائج الأبحاث - قرار منع نشر معلومات خطيرة",
-    imagine: "🧠👁️ تخيل عالماً يحمل نتائج أبحاثه (Forschungsergebnisse) ولكن الحكومة تمنع النشر (Veröffentlichung) خوفاً من الإرهابيين 🔬🚫📰"
-};
-
-HELP_DATA["lesen1_exam6_q3"] = {
-    text: "Hoffnung auf einen allumfassenden Grippeschutz - Ein neuer Impfstoff gegen Grippe könnte in Zukunft sämtliche Varianten der Krankheit abdecken",
-    meaning: "أمل في حماية شاملة من الإنفلونزا - لقاح جديد ضد الإنفلونزا يمكنه في المستقبل تغطية جميع أنواع المرض",
-    keywords: ["Grippeschutz = حماية من إنفلونزا", "Impfstoff = لقاح"],
-    simplified: "الحماية من الأنفلونزا - لقاح جديد لجميع الفيروسات",
-    imagine: "🧠👁️ تخيل حقنة سحرية واحدة تحمي من كل أنواع الإنفلونزا (Grippeschutz) بدون حاجة لتطعيم (Impfstoff) سنوي 💉✨"
-};
-
-HELP_DATA["lesen1_exam6_q4"] = {
-    text: "Geschlechtsspezifische Übertragung von Grippeviren - Breitet sich die Grippe in einer Schule aus, sind es besonders geschlechtshomogene Gruppen",
-    meaning: "انتقال فيروسات الإنفلونزا حسب الجنس - عندما تنتشر الإنفلونزا في مدرسة، تكون المجموعات المتجانسة جنسياً",
-    keywords: ["Grippeviren = فيروسات إنفلونزا", "Gruppen = مجموعات"],
-    simplified: "فيروسات الأنفلونزا - تنتشر بين نفس الجنس",
-    imagine: "🧠👁️ تخيل فيروس الإنفلونزا (Grippeviren) ينتقل بين الأولاد فقط وبين البنات فقط 👦→👦 👧→👧"
-};
-
-HELP_DATA["lesen1_exam6_q5"] = {
-    text: "Hinweise auf eingeschränkten Erfolg von Influenza-Impfungen - Da sich Influenzaviren immer wieder verändern, unternimmt die Weltgesundheitsorganisation WHO jedes Jahr Anstrengungen",
-    meaning: "دلائل على نجاح محدود لتطعيمات الإنفلونزا - بما أن فيروسات الإنفلونزا تتغير باستمرار، تبذل منظمة الصحة العالمية WHO جهوداً كل عام",
-    keywords: ["Grippeimpfung = تطعيم إنفلونزا", "Wirksamkeit = فعالية"],
-    simplified: "تطعيم الأنفلونزا - فعاليته أقل مما كنا نظن",
-    imagine: "🧠👁️ تخيل شخصاً يأخذ تطعيم الأنفلونزا (Grippeimpfung) لكن المرض يصيبه رغم ذلك، لأن الفعالية (Wirksamkeit) أقل من 60% 😷❌"
-};
-
-// ============================================
-// Exam 7: Insel
-// ============================================
-
-HELP_DATA["lesen1_exam7_q1"] = {
-    text: "Grüne Geisterinsel in Asien - Die Shengsi-Inseln liegen im Ostchinesischen Meer",
-    meaning: "جزيرة الأشباح الخضراء في آسيا - جزر شينغشي تقع في بحر الصين الشرقي",
-    keywords: ["Insel = جزيرة", "Natur = طبيعة", "verlassen = مهجورة"],
-    simplified: "جزر مهجورة - الطبيعة تستعيد أراضيها",
-    imagine: "🧠👁️ تخيل جزيرة (Insel) مهجورة، والطبيعة (Natur) تغطي المنازل بالنباتات 🏝️🌿🏚️"
-};
-
-HELP_DATA["lesen1_exam7_q2"] = {
-    text: "Die beliebtesten Reiseziele unter den europäischen Inseln - Der Reiseveranstalter TOURIMARS hat kürzlich eine Befragung durchgeführt",
-    meaning: "أشهر وجهات السفر بين الجزر الأوروبية - منظم الرحلات TOURIMARS أجرى مؤخراً استبياناً",
-    keywords: ["Reiseziele = وجهات سفر", "Inseln = جزر", "beliebteste = الأكثر شعبية"],
-    simplified: "أشهر الجزر الأوروبية - قائمة بأفضل 10 جزر",
-    imagine: "🧠👁️ تخيل قائمة بأفضل الجزر الأوروبية (Top 10 Inseln) والسياح يصوتون 🏆📋"
-};
-
-HELP_DATA["lesen1_exam7_q3"] = {
-    text: "Tierparadies auf einer Nordseeinsel - Das ostfriesische Memmert ist für seltene Vögel reserviert",
-    meaning: "جنة حيوانات في جزيرة بحر الشمال - جزيرة ميميرت في فريزيا الشرقية محجوزة للطيور النادرة",
-    keywords: ["Vögel = طيور", "Naturschutz = حماية الطبيعة", "Insel = جزيرة"],
-    simplified: "جزيرة - ملجأ للطيور النادرة",
-    imagine: "🧠👁️ تخيل جزيرة (Insel) محمية، والطيور النادرة (seltene Vögel) تعشش بأمان 🏝️🕊️"
-};
-
-HELP_DATA["lesen1_exam7_q4"] = {
-    text: "Fernreisen in eine unberührte Tierwelt - Die südamerikanischen Galapagosinseln locken nicht mit weißen Sandstränden und Palmen",
-    meaning: "رحلات بعيدة إلى عالم حيواني بكر - جزر غالاباغوس في أمريكا الجنوبية لا تجذب بالرمال البيضاء والنخيل",
-    keywords: ["Tiere = حيوانات", "Paradies = جنة", "unberührt = بكر"],
-    simplified: "جزر غالاباغوس - جنة الحيوانات البرية",
-    imagine: "🧠👁️ تخيل جزراً (Inseln) حيث تقترب من الحيوانات (Tiere) دون خوف، وكأنك في جنة (Paradies) 🏝️🦎🐢"
-};
-
-HELP_DATA["lesen1_exam7_q5"] = {
-    text: "Umstrittener Umgang mit Tieren als Touristenmagnet - Dass Elefanten in Thailand teurer sein können als ein 3er-BMW in München",
-    meaning: "تعامل مثير للجدل مع الحيوانات كجذب سياحي - أن الأفيال في تايلاند يمكن أن تكون أغلى من BMW الفئة الثالثة في ميونيخ",
-    keywords: ["Elefanten = أفيال", "Tourismus = سياحة", "Tierschutz = حماية الحيوان"],
-    simplified: "الأفيال - جذب سياحي مثير للجدل",
-    imagine: "🧠👁️ تخيل سائحاً يركب فيلاً (Elefant) بينما ناشط حماية الحيوان (Tierschützer) يحتج 🐘🚫"
-};
-
-// ============================================
-// Exam 8: Bilder
-// ============================================
-
-HELP_DATA["lesen1_exam8_q1"] = {
-    text: "Das Ende der Dunkelheit - Der Buchtitel erinnert an eine Horrorgeschichte: 'Die Nacht'",
-    meaning: "نهاية الظلام - عنوان الكتاب يذكر بقصة رعب: 'الليل'",
-    keywords: ["Licht = ضوء", "Finsternis = ظلام", "kritisch = نقدي"],
-    simplified: "الضوء الاصطناعي - يفسد الظلام الطبيعي",
-    imagine: "🧠👁️ تخيل سماء ليلية مظلمة مليئة بالنجوم، وفجأة تضيء مدينة بأكملها 💡🌃"
-};
-
-HELP_DATA["lesen1_exam8_q2"] = {
-    text: "Gelungene Einführung in die moderne Fotografie - Fotos machen ist heute nicht schwer",
-    meaning: "مقدمة ناجحة في التصوير الحديث - التقاط الصور اليوم ليس صعباً",
-    keywords: ["Fotografie = تصوير", "Ratgeber = دليل", "Technik = تقنية"],
-    simplified: "دليل تصوير - للمبتدئين والمحترفين",
-    imagine: "🧠👁️ تخيل شخصاً يقرأ دليل تصوير (Fotografie-Ratgeber) ويتعلم كيف يلتقط صوراً رائعة 📸📖"
-};
-
-HELP_DATA["lesen1_exam8_q3"] = {
-    text: "Bilder einer bedeutenden Künstlerin - Bilder der Fotografin Annie Leibovitz sind ab kommendem Samstag im Kunsthaus Wien zu sehen",
-    meaning: "صور فنانة مهمة - صور المصورة آني ليبوفيتز ستعرض ابتداء من السبت القادم في بيت الفن في فيينا",
-    keywords: ["Fotografin = مصورة", "Ausstellung = معرض", "Portraits = صور شخصية"],
-    simplified: "معرض صور آني ليبوفيتز - صور شخصية للمشاهير",
-    imagine: "🧠👁️ تخيل معرضاً (Ausstellung) مليئاً بصور المشاهير (Prominente) والمصورين 🖼️📸"
-};
-
-HELP_DATA["lesen1_exam8_q4"] = {
-    text: "Erde, Mond und Sterne - wie man sie noch nie gesehen hat - Die Abkürzung TWAN klingt nach einem neuen Computerprogramm",
-    meaning: "الأرض والقمر والنجوم - كما لم ترها من قبل - الاختصار TWAN يبدو كبرنامج كمبيوتر جديد",
-    keywords: ["Sterne = نجوم", "Fotografie = تصوير", "Landschaft = منظر طبيعي"],
-    simplified: "تصوير النجوم - طريقة جديدة مذهلة",
-    imagine: "🧠👁️ تخيل صوراً مذهلة للنجوم (Sterne) والسماء ليلاً فوق مناظر طبيعية جميلة ✨📷🌌"
-};
-
-HELP_DATA["lesen1_exam8_q5"] = {
-    text: "Die bemerkenswerte Karriere eines Fotografen - Er gehörte zu den ganz Großen seines Fachs: Andreas Feininger",
-    meaning: "المسيرة المهنية الرائعة لمصور - كان من كبار مجاله: أندرياس فاينينغر",
-    keywords: ["Fotograf = مصور", "Karriere = مسيرة مهنية", "Architekt = مهندس معماري"],
-    simplified: "أندرياس فاينينغر - من مهندس إلى مصور مشهور",
-    imagine: "🧠👁️ تخيل مصوراً (Fotograf) شهيراً بدأ حياته كمهندس معماري (Architekt) 🏗️→📸"
-};
-
-// ============================================
-// Exam 9: Grundschule
-// ============================================
-
-HELP_DATA["lesen1_exam9_q1"] = {
-    text: "Gewerkschaft erwartet Lehrermangel in Berlin - Berlin wird in 10 Jahren rund 5.000 Lehrkräfte weniger brauchen als derzeit",
-    meaning: "نقابة تتوقع نقصاً في المعلمين في برلين - برلين ستحتاج إلى حوالي 5000 معلم أقل مما تحتاجه حالياً بعد 10 سنوات",
-    keywords: ["Lehrermangel = نقص معلمين", "GEW = نقابة", "Bildung = تعليم"],
-    simplified: "نقص المعلمين في برلين - أزمة قادمة",
-    imagine: "🧠👁️ تخيل مدرسة (Schule) بدون معلمين (Lehrer) كافيين، والفصول الدراسية مزدحمة 🏫😰📚"
-};
-
-HELP_DATA["lesen1_exam9_q2"] = {
-    text: "GEW befürchtet Abwanderung von gut ausgebildeten Lehrkräften aus Berlin - Wer sich in Berlin um eine Stelle als Lehrer bewirbt, muss hart im Nehmen sein",
-    meaning: "نقابة GEW تخشى هجرة المعلمين ذوي التدريب الجيد من برلين - من يتقدم لوظيفة معلم في برلين، يجب أن يكون قوياً",
-    keywords: ["Lehrer = معلم", "Berlin = برلين", "Abwanderung = هجرة"],
-    simplified: "المعلمون يغادرون برلين - ظروف العمل الصعبة",
-    imagine: "🧠👁️ تخيل معلماً (Lehrer) يحمل حقيبته ويترك برلين (Berlin) إلى مدينة أخرى 🚶‍♂️🎒"
-};
-
-HELP_DATA["lesen1_exam9_q3"] = {
-    text: "Experten befürchten zunehmenden Lehrermangel in Deutschland - Eltern klagen über Stundenausfall und Schulleiter über fehlende Bewerber",
-    meaning: "خبراء يخشون ازدياد نقص المعلمين في ألمانيا - الآباء يشكون من تساقط الساعات ومديرو المدارس من نقص المتقدمين",
-    keywords: ["Lehrermangel = نقص معلمين", "Deutschland = ألمانيا", "Prognose = توقع"],
-    simplified: "نقص معلمين في ألمانيا - أزمة وطنية",
-    imagine: "🧠👁️ تخيل خريطة ألمانيا (Deutschland) وعلامات تحذير على المدارس بسبب نقص المعلمين (Lehrermangel) 🗺️⚠️🏫"
-};
-
-HELP_DATA["lesen1_exam9_q4"] = {
-    text: "Bildungsforscher: Lehrermangel wird in Deutschland nicht eintreten - Bildungspolitiker und Lehrervertreter wollen Abiturienten scharenweise in den Lehrerberuf locken",
-    meaning: "باحثون تربويون: نقص المعلمين لن يحدث في ألمانيا - سياسيو التعليم وممثلو المعلمين يريدون جذب خريجي الثانوية العامة بأعداد كبيرة لمهنة التدريس",
-    keywords: ["Bildungsforscher = باحث تربوي", "Lehrermangel = نقص معلمين", "Studie = دراسة"],
-    simplified: "جدل حول نقص المعلمين - دراسات متضاربة",
-    imagine: "🧠👁️ تخيل باحثين (Forscher) يقدمون دراسات (Studien) مختلفة حول أزمة المعلمين 📊🔍"
-};
-
-HELP_DATA["lesen1_exam9_q5"] = {
-    text: "An deutschen Grundschulen sind männliche Lehrkräfte selten - Mädchen haben tendenziell bessere Noten und stellen 56 Prozent der Abiturienten",
-    meaning: "المعلمون الذكور نادرون في المدارس الابتدائية الألمانية - الفتيات تميل درجاتهن للارتفاع ويشكلن 56 في المئة من خريجي الثانوية العامة",
-    keywords: ["männliche Lehrkräfte = معلمون ذكور", "Grundschule = مدرسة ابتدائية", "selten = نادر"],
-    simplified: "قلة المعلمين الرجال في المدارس الابتدائية",
-    imagine: "🧠👁️ تخيل مدرسة ابتدائية (Grundschule) يغلب عليها المعلمات النساء، والرجال (Männer) قليلون جداً 👩‍🏫👨‍🏫"
-};
-
-// ============================================
-// Exam 10: Österreich - Naschmarkt
-// ============================================
-
-HELP_DATA["lesen1_exam10_q1"] = {
-    text: "Österreichs beliebteste Marktplätze - Das Lesemagazin MENU hat eine Umfrage zu den populärsten Märkten in Österreich durchgeführt",
-    meaning: "أشهر أسواق النمسا - مجلة القراءة MENU أجرت استبياناً حول أشهر الأسواق في النمسا",
-    keywords: ["Märkte = أسواق", "Österreich = النمسا", "beliebteste = الأكثر شعبية"],
-    simplified: "أشهر أسواق النمسا - استبيان ونتائج",
-    imagine: "🧠👁️ تخيل قائمة بأشهر الأسواق (Märkte) في النمسا (Österreich) والسياح يتسوقون 🛍️🇦🇹"
-};
-
-HELP_DATA["lesen1_exam10_q2"] = {
-    text: "Schulung zum Erfolg im Beruf - Sie sind der Meinung, dass Ihre Qualifikationen ausreichen, um Karriere zu machen?",
-    meaning: "تدريب للنجاح في العمل - هل ترى أن مؤهلاتك كافية لصنع مستقبل مهني؟",
-    keywords: ["Selbstmarketing = تسويق ذاتي", "Karriere = مهنة", "Bewerbung = تقديم"],
-    simplified: "التسويق الذاتي - مفتاح النجاح في العمل",
-    imagine: "🧠👁️ تخيل شخصاً يقدم نفسه (Selbstmarketing) في مقابلة عمل (Vorstellungsgespräch) بثقة 💼✨"
-};
-
-HELP_DATA["lesen1_exam10_q3"] = {
-    text: "Wissenswertes über Wiens größten innerstädtischen Markt - Der Wiener Naschmarkt gehört zu Österreichs beliebtesten Märkten",
-    meaning: "معلومات قيمة عن أكبر سوق داخل مدينة فيينا - سوق ناشماركت في فيينا هو من أشهر أسواق النمسا",
-    keywords: ["Naschmarkt = سوق ناشماركت", "Wien = فيينا", "Geschichte = تاريخ"],
-    simplified: "سوق ناشماركت في فيينا - تاريخ وصور قديمة",
-    imagine: "🧠👁️ تخيل سوقاً تاريخياً (historischer Markt) في فيينا (Wien) مليئاً بالزوار والتاريخ 🏪📜"
-};
-
-HELP_DATA["lesen1_exam10_q4"] = {
-    text: "Schreiben im Internet für die Karriere - Wer bloggt, zeigt neben Fachkompetenz auch Kreativität",
-    meaning: "الكتابة على الإنترنت من أجل المسيرة المهنية - من يدوّن، يظهر إلى جانب الكفاءة المهنية أيضاً إبداعاً",
-    keywords: ["Bloggen = تدوين", "Karriere = مهنة", "Bewerbung = تقديم"],
-    simplified: "التدوين لتعزيز المسيرة المهنية",
-    imagine: "🧠👁️ تخيل شاباً يكتب تدوينة (Blog) عن اهتماماته، وصاحب عمل ينظر إليها بعناية 💻📝👔"
-};
-
-HELP_DATA["lesen1_exam10_q5"] = {
-    text: "Erlebnisrundgang für einen alten Markt / Erneuerungskur für alten Markt - Bis Herbst soll ein neues Marktkonzept für den altehrwürdigen Salzburger Grünmarkt vorliegen",
-    meaning: "جولة تجريبية لسوق قديم / علاج تجديد لسوق قديم - بحلول الخريف يجب أن يكون هناك مفهوم جديد للسوق الخضراء العريقة في سالزبورغ",
-    keywords: ["Marktkonzept = مفهوم السوق", "Salzburg = سالزبورغ", "Erneuerung = تجديد"],
-    simplified: "تطوير سوق سالزبورغ القديم - خطة جديدة",
-    imagine: "🧠👁️ تخيل سوقاً قديماً (alter Markt) في سالزبورغ (Salzburg) يتم تجديده وتطويره 🏪🔨✨"
-};
-
-// ============================================
-// Exam 11: Insekten
-// ============================================
-
-HELP_DATA["lesen1_exam11_q1"] = {
-    text: "Landwirte wollen Gift gegen schädliche Insekten einsetzen - Die anhaltenden außergewöhnlich hohen Temperaturen haben im Süden Frankreichs eine Tierplage bisher unbekannten Ausmaßes ausgelöst",
-    meaning: "مزارعون يريدون استخدام السم ضد الحشرات الضارة - درجات الحرارة المرتفعة بشكل استثنائي المستمرة تسببت في جنوب فرنسا في انتشار آفة حيوانية بشكل غير مسبوق",
-    keywords: ["Heuschrecken = جراد", "Landwirte = مزارعون", "Gift = سم"],
-    simplified: "الجراد - كارثة على المحاصيل",
-    imagine: "🧠👁️ تخيل سحابة من الجراد (Heuschrecken) تأكل كل شيء أخضر 🌾🦗💨"
-};
-
-HELP_DATA["lesen1_exam11_q2"] = {
-    text: "Rückblick: Fischsterben im Rhein - Für immer wird eine der größten Umweltkatastrophen mit dem Namen des damals in Basel ansässigen Chemiekonzerns Sandoz verbunden bleiben",
-    meaning: "نظرة إلى الوراء: نفوق الأسماك في نهر الراين - إلى الأبد ستبقى واحدة من أكبر الكوارث البيئية مرتبطة باسم مجموعة ساندوز الكيميائية في بازل آنذاك",
-    keywords: ["Rhein = راين", "Fischsterben = نفوق أسماك", "Umweltkatastrophe = كارثة بيئية"],
-    simplified: "كارثة الراين - نفوق الأسماك عام 1986",
-    imagine: "🧠👁️ تخيل نهراً (Fluss) مليئاً بالأسماك الميتة بسبب حادث كيميائي ☠️🐟💀"
-};
-
-HELP_DATA["lesen1_exam11_q3"] = {
-    text: "Kleine Plagegeister können Krankheiten bringen - Der Klimawandel bringt es in Verbindung mit der Globalisierung mit sich, dass auch in Deutschland Tiere heimisch werden",
-    meaning: "مزعجون صغار يمكنهم جلب الأمراض - تغير المناخ مع العولمة يجلب حيوانات تصبح موطنية في ألمانيا",
-    keywords: ["Mücken = بعوض", "Krankheiten = أمراض", "Klimawandel = تغير مناخ"],
-    simplified: "البعوض الاستوائي - أمراض جديدة تصل إلى ألمانيا",
-    imagine: "🧠👁️ تخيل بعوضة (Mücke) غريبة تحمل أمراضاً جديدة إلى ألمانيا 🦟⚠️🇩🇪"
-};
-
-HELP_DATA["lesen1_exam11_q4"] = {
-    text: "Neue Studie: Nicht nur Affen und Delfine erkennen sich selbst - Forscher haben bei Versuchen im Bronx Zoo in New York eine neue Erkenntnis über Elefanten erlangt",
-    meaning: "دراسة جديدة: ليس فقط القردة والدلافين تعرف نفسها - باحثون توصلوا في تجارب في حديقة حيوانات برونكس في نيويورك إلى معرفة جديدة عن الأفيال",
-    keywords: ["Elefanten = أفيال", "Spiegel = مرآة", "Selbsterkennung = تمييز الذات"],
-    simplified: "الأفيال تعرف نفسها في المرآة - اكتشاف جديد",
-    imagine: "🧠👁️ تخيل فيلاً (Elefant) ينظر في المرآة ويلاحظ بقعة على رأسه 🐘🪞😮"
-};
-
-HELP_DATA["lesen1_exam11_q5"] = {
-    text: "Um die Zukunft der Nordsee ist es schlecht bestellt - Heute und morgen tagt in Göteborg die Internationale Nordseekonferenz (INK)",
-    meaning: "مستقبل بحر الشمال سيء - اليوم وغداً تنعقد في غوتنبرغ مؤتمر بحر الشمال الدولي",
-    keywords: ["Nordsee = بحر الشمال", "WWF = صندوق عالمي للطبيعة", "Umweltschutz = حماية بيئة"],
-    simplified: "مستقبل بحر الشمال - مخاوف بيئية",
-    imagine: "🧠👁️ تخيل بحر الشمال (Nordsee) وعلامات استفهام فوقه بسبب التلوث 🌊❓😟"
-};
-
-// ============================================
-// Exam 12: Insekten (التعديل 1)
-// ============================================
-
-HELP_DATA["lesen1_exam12_q1"] = {
-    text: "Um die Zukunft der Nordsee ist es schlecht bestellt - Heute und morgen tagt in Göteborg die Internationale Nordseekonferenz (INK)",
-    meaning: "مستقبل بحر الشمال سيء - اليوم وغداً تنعقد في غوتنبرغ مؤتمر بحر الشمال الدولي",
-    keywords: ["Nordsee = بحر الشمال", "WWF = صندوق عالمي للطبيعة", "Umweltschutz = حماية بيئة"],
-    simplified: "مستقبل بحر الشمال غير جيد",
-    imagine: "🧠👁️ تخيل بحر الشمال (Nordsee) وسمكة حزينة بسبب التلوث 🌊🐟😔"
-};
-
-HELP_DATA["lesen1_exam12_q2"] = {
-    text: "Rückblick: Fischsterben im Rhein - Für immer wird eine der größten Umweltkatastrophen mit dem Namen des damals in Basel ansässigen Chemiekonzerns Sandoz verbunden bleiben",
-    meaning: "نظرة إلى الوراء: نفوق الأسماك في نهر الراين - إلى الأبد ستبقى واحدة من أكبر الكوارث البيئية مرتبطة باسم مجموعة ساندوز الكيميائية",
-    keywords: ["Rhein = راين", "Fischsterben = نفوق أسماك", "1986 = 1986"],
-    simplified: "كارثة الراين 1986 - نفوق الأسماك",
-    imagine: "🧠👁️ تخيل نهر الراين (Rhein) وسنوات 1986 مكتوبة على لوحة تذكارية 🏞️📅💀"
-};
-
-HELP_DATA["lesen1_exam12_q3"] = {
-    text: "Kleine Insekten können Krankheiten bringen - Der Klimawandel bringt es in Verbindung mit der Globalisierung mit sich, dass auch in Deutschland Tiere heimisch werden",
-    meaning: "حشرات صغيرة يمكنها جلب الأمراض - تغير المناخ مع العولمة يجلب حيوانات تصبح موطنية في ألمانيا",
-    keywords: ["Mücken = بعوض", "Krankheiten = أمراض", "Klimawandel = تغير مناخ"],
-    simplified: "بعوض استوائي - أمراض جديدة",
-    imagine: "🧠👁️ تخيل بعوضة استوائية كبيرة (exotische Mücke) تحلق فوق ألمانيا 🇩🇪🦟"
-};
-
-HELP_DATA["lesen1_exam12_q4"] = {
-    text: "Neue Studie: Nicht nur Ameisen und Bienen erkennen sich selbst - Forscher haben bei Versuchen im Bronx Zoo in New York eine neue Erkenntnis über Elefanten erlangt",
-    meaning: "دراسة جديدة: ليس فقط النمل والنحل يعرف نفسه - باحثون توصلوا إلى معرفة جديدة عن الأفيال",
-    keywords: ["Elefanten = أفيال", "Spiegel = مرآة", "Selbsterkennung = تمييز الذات"],
-    simplified: "الأفيال تعرف نفسها في المرآة",
-    imagine: "🧠👁️ تخيل فيلاً (Elefant) واقفاً أمام مرآة (Spiegel) 🐘🪞"
-};
-
-HELP_DATA["lesen1_exam12_q5"] = {
-    text: "Bauern sind gezwungen Gift gegen schädliche Insekten einzusetzen - Die anhaltenden außergewöhnlich hohen Temperaturen haben in Südfrankreich eine Tierplage bisher unbekannten Ausmaßes ausgelöst",
-    meaning: "المزارعون مجبرون على استخدام السم ضد الحشرات الضارة - درجات الحرارة المرتفعة تسببت في جنوب فرنسا في انتشار آفة حيوانية غير مسبوقة",
-    keywords: ["Heuschrecken = جراد", "Landwirte = مزارعون", "Ernte = محصول"],
-    simplified: "الجراد يدمر المحاصيل في فرنسا",
-    imagine: "🧠👁️ تخيل حقلاً (Feld) يتحول إلى صحراء بسبب الجراد (Heuschrecken) 🌾→🏜️"
-};
-
-// ============================================
-// Exam 13: das Benzin
-// ============================================
-
-HELP_DATA["lesen1_exam13_q1"] = {
-    text: "Steigende Spritpreise: die Tricks der Autofahrer - Aussteigen, tanken, wegfahren: Wenn die Benzinpreise steigen, ist wieder Hochsaison bei den Benzindieben",
-    meaning: "أسعار الوقود المرتفعة: حيل سائقي السيارات - تنزل، تتزود بالبنزين، تنطلق - عندما ترتفع أسعار البنزين، يبدأ موسم سراق البنزين",
-    keywords: ["Benzinpreise = أسعار بنزين", "Diebe = لصوص", "Tankstelle = محطة وقود"],
-    simplified: "أسعار البنزين المرتفعة - حيل سائقي السيارات",
-    imagine: "🧠👁️ تخيل شخصاً يتزود بالبنزين (tanken) ويهرب دون دفع 🚗⛽💨"
-};
-
-HELP_DATA["lesen1_exam13_q2"] = {
-    text: "Die wichtigsten Erste-Hilfe-Ratschläge - Viele Autofahrer, die in einen Unfall verwickelt sind, sind so aufgeregt, dass sie vergessen, was zu tun ist",
-    meaning: "أهم نصائح الإسعافات الأولية - كثير من سائقي السيارات المتورطين في حادث يكونون متوترين جداً لدرجة أنهم ينسون ما يجب فعله",
-    keywords: ["Unfall = حادث", "Erste Hilfe = إسعاف أولي", "Tipps = نصائح"],
-    simplified: "نصائح الإسعافات الأولية - أهم إرشادات خبراء التأمين",
-    imagine: "🧠👁️ تخيل سيارة محطمة (Unfall) ورجل إسعاف يقدم المساعدة 🚗💥🚑"
-};
-
-HELP_DATA["lesen1_exam13_q3"] = {
-    text: "Frau im All - Hast du schon mal mit dem Gedanken gespielt, Pilotin zu werden?",
-    meaning: "امرأة في الفضاء - هل فكرتِ من قبل في أن تصبحي طيارة؟",
-    keywords: ["Pilotin = طيارة", "Frau = امرأة", "Traum = حلم"],
-    simplified: "امرأة في السماء - قصة طيارة",
-    imagine: "🧠👁️ تخيل امرأة (Frau) تقود طائرة (Flugzeug) في السماء ✈️👩‍✈️"
-};
-
-HELP_DATA["lesen1_exam13_q4"] = {
-    text: "Einmal um die Welt ohne einen Tropfen Benzin - Der Schweizer Louis Palmer hat eine Weltumrundung mit seinem 'Solartaxi' fast abgeschlossen",
-    meaning: "مرة حول العالم بدون قطرة بنزين - السويسري لويس بالمر أنهى تقريباً جولة حول العالم بسيارته الأجرة الشمسية",
-    keywords: ["Solartaxi = سيارة أجرة شمسية", "Weltumrundung = حول العالم", "Benzin = بنزين"],
-    simplified: "حول العالم بدون قطرة بنزين - سيارة شمسية",
-    imagine: "🧠👁️ تخيل سيارة شمسية (Solartaxi) تسافر حول العالم 🌍☀️🚗"
-};
-
-HELP_DATA["lesen1_exam13_q5"] = {
-    text: "Fliegen statt fahren - Die Bundesregierung und ihre Spitzenbeamten sind auf Dienstreisen gern mit dem Flugzeug unterwegs",
-    meaning: "الطيران بدلاً من القيادة - الحكومة الاتحادية وكبار موظفيها يفضلون السفر بالطائرة في رحلات العمل",
-    keywords: ["Fliegen = طيران", "fahren = قيادة", "Politiker = سياسيون"],
-    simplified: "الطيران بدلاً من القيادة - سياسيون يفضلون الطائرة",
-    imagine: "🧠👁️ تخيل سياسياً (Politiker) يركب طائرة (Flugzeug) بدلاً من القطار (Zug) ✈️🚂"
-};
-
-// ============================================
-// Exam 14: Kaffee
-// ============================================
-
-HELP_DATA["lesen1_exam14_q1"] = {
-    text: "Ohne Kaffee geht hier nichts - Das erste Kaffeehaus in Leipzig, 'Zum arabischen Coffee-Baum', öffnete 1685 seine Pforten",
-    meaning: "بدون قهوة لا شيء يمشي هنا - أول مقهى في لايبزيغ، 'شجرة القهوة العربية'، فتح أبوابه عام 1685",
-    keywords: ["Kaffee = قهوة", "Sachsen = ساكسونيا", "ohne Kaffee = بدون قهوة"],
-    simplified: "بدون قهوة لا شيء يمشي - ساكسونيا وعشق القهوة",
-    imagine: "🧠👁️ تخيل شخصاً ساكسونياً (Sachse) يقول 'لا حياة بدون قهوة' ☕"
-};
-
-HELP_DATA["lesen1_exam14_q2"] = {
-    text: "Attraktive Kleinstadt - touristischer Geheimtipp - Eppingen liegt etwa auf halbem Weg zwischen Karlsruhe und Heilbronn im Kraichgau",
-    meaning: "مدينة صغيرة جذابة - نصيحة سياحية سرية - إبينغن تقع في منتصف الطريق بين كارلسروه وهايلبرون في كرايشغاو",
-    keywords: ["Kleinstadt = مدينة صغيرة", "Geheimtipp = نصيحة سرية", "Fachwerkhäuser = منازل نصف خشبية"],
-    simplified: "مدينة صغيرة جذابة - نصيحة سياحية سرية",
-    imagine: "🧠👁️ تخيل مدينة صغيرة (Kleinstadt) جميلة ومنازلها خشبية قديمة 🏘️✨"
-};
-
-HELP_DATA["lesen1_exam14_q3"] = {
-    text: "Klösterliche Strenge für berühmte Schüler - Das Kloster Maulbronn wurde 1147 von Zisterziensermönchen gegründet",
-    meaning: "صرامة ديرية لطلاب مشهورين - دير مولبرون تأسس عام 1147 على يد رهبان السيسترسي",
-    keywords: ["Kloster = دير", "Schule = مدرسة", "berühmte Schüler = طلاب مشهورون"],
-    simplified: "صرامة ديرية لطلاب مشهورين - قصة كيبلر وهيسه",
-    imagine: "🧠👁️ تخيل ديراً (Kloster) صارماً وطلاباً (Schüler) يدرسون بجد 📚🏰"
-};
-
-HELP_DATA["lesen1_exam14_q4"] = {
-    text: "Ein altes Kloster als Feuerwache - Auf einer Anhöhe oberhalb des Bodensees liegt, ca. 10 km vom See entfernt",
-    meaning: "دير قديم كمحطة إطفاء - على تلة فوق بحيرة بودن، تبعد حوالي 10 كيلومترات عن البحيرة",
-    keywords: ["Kloster = دير", "Feuerwache = محطة إطفاء", "Feuerwehrwagen = عربة إطفاء"],
-    simplified: "دير قديم كمركز إطفاء - متاحف في دير سالم",
-    imagine: "🧠👁️ تخيل ديراً قديماً (Kloster) تحول إلى متحف إطفاء 🔥🚒🏰"
-};
-
-HELP_DATA["lesen1_exam14_q5"] = {
-    text: "Entdeckung und Verbreitung des Kaffees - Vermutlich vor fast 900 Jahren, irgendwann im dreizehnten Jahrhundert, sollen die Menschen herausgefunden haben",
-    meaning: "اكتشاف وانتشار القهوة - يفترض أنه قبل حوالي 900 سنة، في وقت ما في القرن الثالث عشر، اكتشف الناس ماهية القهوة",
-    keywords: ["Kaffee = قهوة", "Entdeckung = اكتشاف", "Legende = أسطورة"],
-    simplified: "اكتشاف وانتشار القهوة - أسطورة الراعي اليمني",
-    imagine: "🧠👁️ تخيل راعي ماعز يمني يكتشف حبوب البن (Kaffeebohnen) 🐐☕"
-};
-
-// ============================================
-// Exam 15: Programmierer
-// ============================================
-
-HELP_DATA["lesen1_exam15_q1"] = {
-    text: "Förderwochenende für junge Softwareentwickler - Martina Lux hat ein Hobby, mit dem sie im Kreis ihrer Freundinnen ziemlich allein steht",
-    meaning: "نهاية أسبوع دعم لمطوري البرامج الشباب - مارتينا لوكس لديها هواية تجعلها وحيدة بين صديقاتها",
-    keywords: ["Programmierer = مبرمج", "Jugendliche = شباب", "Workshop = ورشة عمل"],
-    simplified: "نهاية أسبوع تدريب لمطوري برامج صغار",
-    imagine: "🧠👁️ تخيل شاباً يبرمج (programmiert) على حاسوبه 💻👨‍💻"
-};
-
-HELP_DATA["lesen1_exam15_q2"] = {
-    text: "Spannende Gewinne für wissenschaftliche Nachwuchstalente - 'Jugend forscht' ist ein bundesweiter Nachwuchswettbewerb",
-    meaning: "جوائز مثيرة للمواهب العلمية الشابة - 'شباب يبحثون' هو مسابقة وطنية للمواهب الشابة",
-    keywords: ["Jugend forscht = شباب يبحثون", "Gewinne = جوائز", "Nobelpreis = نوبل"],
-    simplified: "جوائز مثيرة للمواهب العلمية الشابة - رحلة إلى نوبل",
-    imagine: "🧠👁️ تخيل شاباً يحصل على جائزة (Preis) في حفل نوبل 🏆🎓"
-};
-
-HELP_DATA["lesen1_exam15_q3"] = {
-    text: "Mehr Bemühungen um weiblichen Nachwuchs gefordert - Die Industriellenvereinigung beklagt in einer jüngsten Pressemitteilung den deutlichen Mangel an Fachkräften",
-    meaning: "مطالب ببذل المزيد من الجهود لجذب الكوادر النسائية - اتحاد الصناعيين يشتكي في بيان صحفي حديث من النقص الواضح في الكوادر المتخصصة",
-    keywords: ["Fachkräftemangel = نقص كوادر", "Frauen = نساء", "technische Berufe = مهن تقنية"],
-    simplified: "مطالب ببذل المزيد من الجهود لجذب الكوادر النسائية",
-    imagine: "🧠👁️ تخيل مهندسة (Ingenieurin) تعمل في مختبر تقني 👩‍🔬💡"
-};
-
-HELP_DATA["lesen1_exam15_q4"] = {
-    text: "Berufswahl: Jugendliche werden stark von ihrem gesellschaftlichen Umfeld geprägt - Im Kulturzentrum war gestern Abend Tobias Meyer zu Gast",
-    meaning: "اختيار المهنة: الشباب يتأثرون بشدة ببيئتهم الاجتماعية - في المركز الثقافي كان توبياس ماير ضيفاً مساء الأمس",
-    keywords: ["Berufswahl = اختيار مهنة", "Jugendliche = شباب", "Umfeld = محيط"],
-    simplified: "اختيار المهنة - الشباب يتأثرون بشدة ببيئتهم الاجتماعية",
-    imagine: "🧠👁️ تخيل شاباً (Jugendlicher) يحاول اختيار مهنة (Beruf) بين خيارات كثيرة 🤔💼"
-};
-
-HELP_DATA["lesen1_exam15_q5"] = {
-    text: "Studienabsolventen technischer Fächer sehen ihre Zukunft meist in der Automobilindustrie - Wie eine repräsentative Umfrage unter Studenten kürzlich zeigte, erfreut sich die Automobilindustrie nach wie vor großer Beliebtheit",
-    meaning: "خريجو التخصصات التقنية يرون مستقبلهم في صناعة السيارات - كما أظهر استبيان تمثيلي بين الطلاب مؤخراً، لا تزال صناعة السيارات تحظى بشعبية كبيرة",
-    keywords: ["Automobilindustrie = صناعة سيارات", "Studenten = طلاب", "Zukunft = مستقبل"],
-    simplified: "خريجو التخصصات التقنية يرون مستقبلهم في صناعة السيارات",
-    imagine: "🧠👁️ تخيل مهندس شاب (junger Ingenieur) يعمل في مصنع سيارات 🚗🔧"
-};
-
-// ============================================
-// Exam 16: Programmierer (التعديل 1)
-// ============================================
-
-HELP_DATA["lesen1_exam16_q1"] = {
-    text: "Förderwochenende für junge Softwareentwickler - Martina Lux hat ein Hobby, mit dem sie im Kreis ihrer Freundinnen ziemlich allein steht",
-    meaning: "نهاية أسبوع دعم لمطوري البرامج الشباب - مارتينا لوكس لديها هواية تجعلها وحيدة بين صديقاتها",
-    keywords: ["Förderwochenende = نهاية أسبوع دعم", "Softwareentwickler = مطورو برامج", "Workshop = ورشة عمل"],
-    simplified: "نهاية أسبوع تدريب لمطوري البرامج الشباب",
-    imagine: "🧠👁️ تخيل مجموعة من الشباب يتعلمون البرمجة (programmieren) معاً 👥💻"
-};
-
-HELP_DATA["lesen1_exam16_q2"] = {
-    text: "Spannende Gewinne für wissenschaftliche Nachwuchstalente - 'Jugend forscht' ist ein bundesweiter Nachwuchswettbewerb",
-    meaning: "جوائز مثيرة للمواهب العلمية الشابة - 'شباب يبحثون' هو مسابقة وطنية للمواهب الشابة",
-    keywords: ["Jugend forscht = شباب يبحثون", "Gewinne = جوائز", "Nobelpreis = نوبل"],
-    simplified: "جوائز مثيرة للمواهب العلمية الشابة",
-    imagine: "🧠👁️ تخيل شاباً واقفاً على منصة التتويج 🏆🥇"
-};
-
-HELP_DATA["lesen1_exam16_q3"] = {
-    text: "Mehr Bemühungen um weiblichen Nachwuchs gefordert - Die Industriellenvereinigung beklagt in einer jüngsten Pressemitteilung den deutlichen Mangel an Fachkräften",
-    meaning: "مطالب بجهود أكبر لجذب الكوادر النسائية - اتحاد الصناعيين يشتكي من النقص الواضح في الكوادر المتخصصة",
-    keywords: ["Fachkräftemangel = نقص كوادر", "Frauen = نساء", "Nachwuchs = كوادر شابة"],
-    simplified: "مطالب بجهود أكبر لجذب الكوادر النسائية",
-    imagine: "🧠👁️ تخيل فتاة (Mädchen) تدرس الهندسة في الجامعة 👩‍🎓🔬"
-};
-
-HELP_DATA["lesen1_exam16_q4"] = {
-    text: "Berufswahl: Jugendliche werden stark von ihrem gesellschaftlichen Umfeld geprägt - Im Kulturzentrum war gestern Abend Tobias Meyer zu Gast",
-    meaning: "اختيار المهنة: الشباب يتأثرون بشدة ببيئتهم الاجتماعية - في المركز الثقافي كان توبياس ماير ضيفاً",
-    keywords: ["Berufswahl = اختيار مهنة", "Umfeld = محيط", "Jugendliche = شباب"],
-    simplified: "اختيار المهنة يتأثر بالبيئة الاجتماعية",
-    imagine: "🧠👁️ تخيل شاباً يتحدث مع والده عن اختيار المهنة (Berufswahl) 👨‍👦💭"
-};
-
-HELP_DATA["lesen1_exam16_q5"] = {
-    text: "Studienabsolventen technischer Fächer sehen ihre Zukunft meist in der Fahrzeugbranche - Wie eine repräsentative Umfrage unter Studenten kürzlich zeigte, erfreut sich die Automobilindustrie nach wie vor großer Beliebtheit",
-    meaning: "خريجو التخصصات التقنية يرون مستقبلهم في قطاع المركبات - كما أظهر استبيان حديث، لا تزال صناعة السيارات تحظى بشعبية كبيرة",
-    keywords: ["Automobilindustrie = صناعة سيارات", "Studenten = طلاب", "Fahrzeugbranche = قطاع المركبات"],
-    simplified: "خريجو التقنية يرون مستقبلهم في قطاع السيارات",
-    imagine: "🧠👁️ تخيل طالباً (Student) يحلم بسيارة أحلامه 💭🚗"
-};
-
-// ============================================
-// Exam 17: Programmierer (التعديل 2)
-// ============================================
-
-HELP_DATA["lesen1_exam17_q1"] = {
-    text: "Förderwochenende für junge Softwareentwickler - Martina Lux hat ein Hobby, mit dem sie im Kreis ihrer Freundinnen ziemlich allein steht",
-    meaning: "نهاية أسبوع دعم لمطوري البرامج الشباب - مارتينا لوكس لديها هواية تجعلها وحيدة بين صديقاتها",
-    keywords: ["Förderwochenende = نهاية أسبوع دعم", "Softwareentwickler = مطورو برامج", "Programmierer = مبرمجون"],
-    simplified: "دعم لمطوري البرامج الشباب في نهاية الأسبوع",
-    imagine: "🧠👁️ تخيل شاباً يبرمج (programmiert) بحماس 💻🔥"
-};
-
-HELP_DATA["lesen1_exam17_q2"] = {
-    text: "Spannende Gewinne für wissenschaftliche Nachwuchstalente - 'Jugend forscht' ist ein bundesweiter Nachwuchswettbewerb",
-    meaning: "جوائز مثيرة للمواهب العلمية الشابة - 'شباب يبحثون' هو مسابقة وطنية للمواهب الشابة",
-    keywords: ["Jugend forscht = شباب يبحثون", "Nobelpreis = نوبل", "Stockholm = ستوكهولم"],
-    simplified: "رحلة إلى حفل نوبل للمواهب الشابة",
-    imagine: "🧠👁️ تخيل شاباً يسافر إلى ستوكهولم (Stockholm) لحفل نوبل ✈️🏆"
-};
-
-HELP_DATA["lesen1_exam17_q3"] = {
-    text: "Mehr Bemühungen um weiblichen Nachwuchs gefordert - Die Industriellenvereinigung beklagt in einer jüngsten Pressemitteilung den deutlichen Mangel an Fachkräften",
-    meaning: "جهود مطلوبة لجذب النساء للمهن التقنية - اتحاد الصناعيين يشتكي من النقص الواضح في الكوادر المتخصصة",
-    keywords: ["Fachkräftemangel = نقص كوادر", "Mädchen = فتيات", "Frauen = نساء"],
-    simplified: "جهود مطلوبة لجذب النساء للمهن التقنية",
-    imagine: "🧠👁️ تخيل فتاة (Mädchen) تعمل في مختبر كمبيوتر 🖥️👩‍💻"
-};
-
-HELP_DATA["lesen1_exam17_q4"] = {
-    text: "Diskussion über schulische Berufsorientierung - Im Kulturzentrum war gestern Abend Tobias Meyer zu Gast",
-    meaning: "مناقشة حول التوجيه المهني في المدارس - في المركز الثقافي كان توبياس ماير ضيفاً",
-    keywords: ["Berufsorientierung = توجيه مهني", "Jugendliche = شباب", "Diskussion = نقاش"],
-    simplified: "مناقشة حول التوجيه المهني في المدارس",
-    imagine: "🧠👁️ تخيل مجموعة من الشباب يتناقشون (diskutieren) حول المستقبل 🗣️👥"
-};
-
-HELP_DATA["lesen1_exam17_q5"] = {
-    text: "Studienabsolventen technischer Fächer sehen ihre Zukunft meist in der Fahrzeugbranche - Wie eine repräsentative Umfrage unter Studenten kürzlich zeigte, erfreut sich die Automobilindustrie nach wie vor großer Beliebtheit",
-    meaning: "خريجو التقنية يفضلون قطاع السيارات - كما أظهر استبيان حديث، لا تزال صناعة السيارات تحظى بشعبية كبيرة",
-    keywords: ["Automobilindustrie = صناعة سيارات", "Fahrzeugbranche = قطاع مركبات", "Studenten = طلاب"],
-    simplified: "خريجو التقنية يفضلون قطاع السيارات",
-    imagine: "🧠👁️ تخيل طالباً (Student) يتفقد سيارة جديدة في معرض 🚗🏭"
-};
-
-// ============================================
-// Exam 18: Trampolin
-// ============================================
-
-HELP_DATA["lesen1_exam18_q1"] = {
-    text: "Informationen leichter verstehen - Die meisten Menschen verbinden den Begriff 'Barrierefreiheit' mit dem Zugang zu Gebäuden oder Transportmitteln",
-    meaning: "فهم المعلومات بسهولة - معظم الناس يربطون مصطلح 'إمكانية الوصول' بالوصول إلى المباني أو وسائل النقل",
-    keywords: ["Informationen = معلومات", "verstehen = فهم", "Sprache = لغة"],
-    simplified: "المعلومات بسهولة - خدمة إخبارية بلغة مبسطة",
-    imagine: "🧠👁️ تخيل شخصاً يقرأ أخباراً (Nachrichten) بلغة سهلة 📰😊"
-};
-
-HELP_DATA["lesen1_exam18_q2"] = {
-    text: "Medienkonsum fördert ungesunde Lebensweise - Die WHO warnt vor den Folgen ungesunder Werbung im Internet",
-    meaning: "استهلاك الإعلام يعزز نمط حياة غير صحي - منظمة الصحة العالمية تحذر من عواقب الإعلانات غير الصحية على الإنترنت",
-    keywords: ["Medienkonsum = استهلاك إعلامي", "Jugendliche = مراهقون", "ungesund = غير صحي"],
-    simplified: "استهلاك الإعلام يعزز نمط حياة غير صحي",
-    imagine: "🧠👁️ تخيل طفلاً يأكل وجبات سريعة (Fast Food) أمام التلفاز 📺🍔😟"
-};
-
-HELP_DATA["lesen1_exam18_q3"] = {
-    text: "Mit Nachrichten im Unterricht arbeiten - Schülerinnen und Schüler sollen im Schulunterricht auch den Umgang mit Nachrichten lernen",
-    meaning: "العمل مع الأخبار في الفصل الدراسي - يجب على التلاميذ تعلم التعامل مع الأخبار أيضاً في الدروس المدرسية",
-    keywords: ["Nachrichten = أخبار", "Unterricht = درس", "Schüler = تلاميذ"],
-    simplified: "العمل مع الأخبار في الفصل الدراسي",
-    imagine: "🧠👁️ تخيل تلاميذ (Schüler) يناقشون الأخبار (Nachrichten) في الفصل 🏫📺"
-};
-
-HELP_DATA["lesen1_exam18_q4"] = {
-    text: "Fachleute warnen vor unsachgemäßer Nutzung von Sprunggeräten - Mit dem Trampolin den Körper in Schwung bringen - für viele Menschen ist das Sprunggerät eine gute Möglichkeit",
-    meaning: "خبراء يحذرون من الاستخدام الخاطئ لأجهزة القفز - تحريك الجسم بالترامبولين - بالنسبة لكثير من الناس، جهاز القفز هذا وسيلة جيدة",
-    keywords: ["Trampolin = ترامبولين", "Sicherheit = أمان", "Unfall = حادث"],
-    simplified: "خبراء يحذرون من الاستخدام الخاطئ لأجهزة القفز",
-    imagine: "🧠👁️ تخيل طفلاً يقفز على الترامبولين (Trampolin) بدون شبكة أمان ⚠️🤸"
-};
-
-HELP_DATA["lesen1_exam18_q5"] = {
-    text: "Traditionelle Nachrichtenmedien immer noch gefragt - Die Klage, dass Jugendliche und junge Erwachsene kein Interesse mehr an Nachrichten haben, ist unbegründet",
-    meaning: "وسائل الإعلام التقليدية لا تزال مطلوبة - الشكوى من أن الشباب ليس لديهم اهتمام بالأخبار لا أساس لها من الصحة",
-    keywords: ["Nachrichten = أخبار", "traditionelle Medien = وسائل تقليدية", "Jugendliche = شباب"],
-    simplified: "وسائل الإعلام التقليدية لا تزال مطلوبة",
-    imagine: "🧠👁️ تخيل شاباً يقرأ جريدة (Zeitung) بدلاً من هاتفه 📰👦"
-};
-
-// ============================================
-// Exam 19: Bonbons
-// ============================================
-
-HELP_DATA["lesen1_exam19_q1"] = {
-    text: "Süßwaren mit langer Tradition - Bonbons machen Kinder glücklich, und zwar nicht erst seit gestern",
-    meaning: "حلويات ذات تقاليد عريقة - الحلوى تسعد الأطفال، وليس فقط منذ أمس",
-    keywords: ["Bonbons = حلوى", "Tradition = تقليد", "Museum = متحف"],
-    simplified: "حلويات ذات تقاليد عريقة - متحف الحلوى في ألمانيا",
-    imagine: "🧠👁️ تخيل متحفاً (Museum) مليئاً بالحلوى القديمة 🍬🏛️"
-};
-
-HELP_DATA["lesen1_exam19_q2"] = {
-    text: "Naschen statt wegwerfen - Am Frankfurter Hauptbahnhof steht ein Retomat - ein Automat, in dem abgelaufene Schokoriegel verkauft werden",
-    meaning: "تناول الطعام بدلاً من الرمي - في محطة فرانكفورت الرئيسية يوجد ريتومات - آلة تبيع ألواح شوكولاتة منتهية الصلاحية",
-    keywords: ["Naschen = تناول وجبات خفيفة", "wegwerfen = رمي", "Retomat = آلة إعادة"],
-    simplified: "تناول الطعام بدلاً من الرمي - آلة لبيع الأطعمة منتهية الصلاحية",
-    imagine: "🧠👁️ تخيل آلة بيع (Automat) في محطة القطار تبيع أطعمة منتهية الصلاحية 🚂🥫"
-};
-
-HELP_DATA["lesen1_exam19_q3"] = {
-    text: "Wasser, Wärme, Wellness - antike Badefreuden - Mehrere Badebecken sowie Räume für Schwitz- und Dampfbäder machten sie zu ganz besonderen Prestigebauten",
-    meaning: "الماء، الدفء، العافية - متع الاستحمام القديمة - العديد من أحواض الاستحمام وغرف الساونا والبخار جعلتها مباني فخمة جداً",
-    keywords: ["Thermalbad = حمام ساخن", "Rom = روما", "Wellness = عافية"],
-    simplified: "الماء، الدفء، العافية - متع الاستحمام القديمة",
-    imagine: "🧠👁️ تخيل رومانياً قديماً يسترخي في حمام ساخن (Thermalbad) 🏛️🛁"
-};
-
-HELP_DATA["lesen1_exam19_q4"] = {
-    text: "Irrtum: Süßes macht doch nicht glücklich - Nicht nur in Hollywoodfilmen tröstet man sich bei Liebeskummer mit Pralinen",
-    meaning: "خطأ: الحلويات لا تجعلنا سعداء - ليس فقط في أفلام هوليوود يعزي المرء نفسه بالشوكولاتة في وجع القلب",
-    keywords: ["Zucker = سكر", "glücklich = سعيد", "Stimmung = مزاج"],
-    simplified: "خطأ: الحلويات لا تجعلنا سعداء - دراسة تكشف الحقيقة",
-    imagine: "🧠👁️ تخيل شخصاً يأكل حلواً (Bonbon) لكن وجهه حزين 😞🍬"
-};
-
-HELP_DATA["lesen1_exam19_q5"] = {
-    text: "In der Stadt der warmen Quellen - Wellness und der Besuch von Kurorten und Thermalbädern haben seit Jahrhunderten Tradition in Ungarn",
-    meaning: "في مدينة الينابيع الدافئة - العافية وزيارة المنتجعات والحمامات الساخنة لها تقاليد منذ قرون في المجر",
-    keywords: ["Thermalbad = حمام ساخن", "Budapest = بودابست", "Wellness = عافية"],
-    simplified: "في مدينة الينابيع الدافئة - بودابست والحمامات الساخنة",
-    imagine: "🧠👁️ تخيل مدينة بودابست (Budapest) و حماماً ساخناً تاريخياً 🇭🇺🛁"
-};
-
-// ============================================
-// Exam 20: Umwelt
-// ============================================
-
-HELP_DATA["lesen1_exam20_q1"] = {
-    text: "Neue Besitzer für nicht mehr gebrauchte Gegenstände - Mitglieder des 'Tauschrings Harmsdorf e.V.' leben vor, wie man nachhaltig mit Ressourcen umgehen kann",
-    meaning: "أصحاب جدد لأشياء لم تعد مستعملة - أعضاء 'حلقة مقايضة هارمسدورف' يعيشون نموذجاً في كيفية التعامل المستدام مع الموارد",
-    keywords: ["Tauschen = مقايضة", "Gegenstände = أشياء", "gebraucht = مستعمل"],
-    simplified: "أصحاب جدد لأشياء لم تعد مستعملة",
-    imagine: "🧠👁️ تخيل أشخاصاً يتبادلون (tauschen) الأشياء بدلاً من رميها 🔄🎁"
-};
-
-HELP_DATA["lesen1_exam20_q2"] = {
-    text: "Volle Einkaufstüten machen nur kurze Zeit Freude - 'Man gönnt sich ja sonst nichts.' Und schon ist die Einkaufstüte voll und das Konto leer",
-    meaning: "أكياس التسوق الممتلئة لا تسعد إلا لفترة قصيرة - 'المرء لا يدلل نفسه بأي شيء آخر' - وبسرعة تصبح حقيبة التسوق ممتلئة والحساب فارغاً",
-    keywords: ["Einkauf = تسوق", "Freude = فرحة", "kurze Zeit = وقت قصير"],
-    simplified: "أكياس التسوق الممتلئة لا تسعد إلا لفترة قصيرة",
-    imagine: "🧠👁️ تخيل شخصاً يحمل أكياس تسوق (Einkaufstüten) كثيرة لكن وجهه متعب 🛍️😩"
-};
-
-HELP_DATA["lesen1_exam20_q3"] = {
-    text: "Rücksendungen verderben Online-Händlern das Geschäft - Geklickt, gekauft, zurückgeschickt: Kunden nutzen im Online-Handel gerne die Möglichkeit, Waren kostenlos zurückzusenden",
-    meaning: "الإرجاع يفسد أعمال تجار الإنترنت - نقر، شراء، إرجاع - العملاء في التجارة الإلكترونية يستخدمون بسعادة إمكانية إرجاع البضائع مجاناً",
-    keywords: ["Rücksendungen = إرجاع", "Online-Handel = تجارة إلكترونية", "Händler = تجار"],
-    simplified: "الإرجاع يفسد أعمال تجار الإنترنت",
-    imagine: "🧠👁️ تخيل طروداً (Pakete) تعود أدراجها إلى المتجر 📦🔄😤"
-};
-
-HELP_DATA["lesen1_exam20_q4"] = {
-    text: "Gemeinsam kaputte Geräte retten - In sogenannten Repair-Cafés können defekte Gegenstände unter fachkundiger Anleitung wieder instandgesetzt werden",
-    meaning: "معاً ننقذ الأجهزة المعطلة - في ما يسمى بمقاهي الإصلاح، يمكن إصلاح الأشياء المعطلة بتوجيه من خبراء",
-    keywords: ["Reparatur = إصلاح", "Geräte = أجهزة", "kaputt = معطل"],
-    simplified: "معاً ننقذ الأجهزة المعطلة",
-    imagine: "🧠👁️ تخيل أشخاصاً يصلحون (reparieren) جهازاً قديماً معاً 🔧🤝"
-};
-
-HELP_DATA["lesen1_exam20_q5"] = {
-    text: "Wer Engagement zeigt, steigert sein Glücksgefühl - Eine Studie zeigt: Großzügigkeit macht glücklich",
-    meaning: "من يبدي تطوعاً يزيد شعوره بالسعادة - دراسة تظهر: الكرم يجعل سعيداً",
-    keywords: ["Engagement = تطوع", "Glück = سعادة", "Großzügigkeit = كرم"],
-    simplified: "من يبدي تطوعاً يزيد شعوره بالسعادة",
-    imagine: "🧠👁️ تخيل شخصاً سعيداً (glücklich) لأنه ساعد آخرين ❤️😊"
-};
-
-
-
-// ============================================
-// Exam 22: Licht (التعديل 1)
-// ============================================
-
-HELP_DATA["lesen1_exam22_q1"] = {
-    text: "Was tun, wenn es Nacht wird? Lichtquellen vergangener Zeiten - Das Museum für Dorfkultur zeigt, wie sich das Landleben früher nach Einbruch der Dunkelheit gestaltete",
-    meaning: "ماذا تفعل عندما يحل الليل؟ مصادر ضوء الأزمنة الغابرة - متحف الثقافة الريفية يعرض كيف كانت الحياة الريفية قديماً بعد حلول الظلام",
-    keywords: ["Lichtquellen = مصادر ضوء", "vergangene Zeiten = أوقات ماضية", "Nacht = ليل", "Feuer = نار"],
-    simplified: "ماذا تفعل عندما يحل الليل؟ - تحديات الإضاءة قديماً",
-    imagine: "🧠👁️ تخيل شخصاً يشعل ناراً (Feuer) ليرى في الظلام 🔥🌙"
-};
-
-HELP_DATA["lesen1_exam22_q2"] = {
-    text: "Stadtbewohner entdecken das Landleben - Jahrelang zog es vor allem junge Berufstätige in die großen Städte",
-    meaning: "سكان المدن يكتشفون الحياة الريفية - لسنوات كانت المدن الكبرى تجذب الشباب العاملين",
-    keywords: ["Stadtbewohner = سكان مدينة", "Landleben = حياة ريفية", "entdecken = يكتشفون", "Ruhe = هدوء"],
-    simplified: "سكان المدن يكتشفون سحر الريف",
-    imagine: "🧠👁️ تخيل عائلة تستمتع بالهدوء (Ruhe) في الريف 🌄😌"
-};
-
-HELP_DATA["lesen1_exam22_q3"] = {
-    text: "Die Auswirkungen künstlichen Lichts - Satellitenbilder der Erde bei Nacht zeigen ein strahlendes Lichtermeer",
-    meaning: "تأثيرات الضوء الاصطناعي - صور الأقمار الصناعية للأرض ليلاً تظهر بحراً من الضوء",
-    keywords: ["künstliches Licht = ضوء اصطناعي", "Auswirkungen = تأثيرات", "Lichtverschmutzung = تلوث ضوئي"],
-    simplified: "تأثيرات الضوء الاصطناعي - التلوث الضوئي",
-    imagine: "🧠👁️ تخيل سماء مضيئة جداً لدرجة أنه لا يمكن رؤية النجوم (Sterne) 🌃🚫✨"
-};
-
-HELP_DATA["lesen1_exam22_q4"] = {
-    text: "Der Wald als neues Zuhause - Vor zehn Jahren lebten Dirk und Antje Seebens noch in Mannheim",
-    meaning: "الغابة كمنزل جديد - قبل عشر سنوات كان ديرك وأنتي سيبنس يعيشان في مانهايم",
-    keywords: ["Wald = غابة", "neues Zuhause = منزل جديد", "Abenteuer = مغامرة"],
-    simplified: "الغابة كملاذ جديد من المدينة",
-    imagine: "🧠👁️ تخيل زوجين يبنيان كوخاً (Hütte) في الغابة 🏡🌲🪵"
-};
-
-HELP_DATA["lesen1_exam22_q5"] = {
-    text: "Stadtbewohner leben umweltfreundlicher - Forscher haben errechnet, dass wir bis zu 87 Prozent der Emissionen aus unserer Alltagsmobilität einsparen können",
-    meaning: "سكان المدن يعيشون بطريقة أكثر صداقة للبيئة - الباحثون حسبوا أنه يمكننا توفير ما يصل إلى 87% من انبعاثات تنقلاتنا اليومية",
-    keywords: ["Stadtbewohner = سكان مدينة", "umweltfreundlicher = صديق للبيئة", "Carsharing = مشاركة سيارات"],
-    simplified: "الحياة في المدينة أكثر صداقة للبيئة",
-    imagine: "🧠👁️ تخيل محطة مشاركة سيارات (Carsharing-Station) في المدينة 🚗🤝"
-};
-
-// ============================================
-// Exam 23: Kartoffel
-// ============================================
-
-HELP_DATA["lesen1_exam23_q1"] = {
-    text: "Gesundes Leben schützt vor Zivilisationskrankheiten - Über zehntausend wissenschaftliche Studien wurden im Auftrag der WHO durchgeführt",
-    meaning: "الحياة الصحية تحمي من أمراض الحضارة - تم إجراء أكثر من عشرة آلاف دراسة علمية بتكليف من منظمة الصحة العالمية",
-    keywords: ["gesundes Leben = حياة صحية", "Krankheiten = أمراض", "WHO = منظمة الصحة العالمية"],
-    simplified: "الحياة الصحية تحمي من أمراض الحضارة",
-    imagine: "🧠👁️ تخيل شخصاً يأكل تفاحة (Apfel) ويمارس الرياضة 🍎🚴"
-};
-
-HELP_DATA["lesen1_exam23_q2"] = {
-    text: "Pflanzliche Kosmetik für gesunde Haut - Am Mittelmeer und in Mexiko wächst die Aloe-Vera-Pflanze",
-    meaning: "مستحضرات تجميل نباتية لبشرة صحية - في البحر الأبيض المتوسط والمكسيك تنبت نبتة الألوة فيرا",
-    keywords: ["Aloe Vera = ألوة فيرا", "Haut = بشرة", "Kosmetik = تجميل"],
-    simplified: "مواد نباتية لصحة الجلد - الألوة فيرا للعناية بالبشرة",
-    imagine: "🧠👁️ تخيل نبتة ألوة فيرا (Aloe Vera) وكريم مرطب 🪴🧴"
-};
-
-HELP_DATA["lesen1_exam23_q3"] = {
-    text: "Ein schlankes Gemüse für schlanke Leute - Eine der ältesten bekannten Gemüsesorten ist der Spargel",
-    meaning: "خضار نحيف للنحيفين - أحد أقدم أنواع الخضروات المعروفة هو الهليون",
-    keywords: ["Spargel = هليون", "schlank = نحيف", "Gemüse = خضار"],
-    simplified: "خضار نحيف للنحيفين - الهليون لا يسمن",
-    imagine: "🧠👁️ تخيل طبق هليون (Spargel) لذيذاً ومناسباً للحمية 🥦✅"
-};
-
-HELP_DATA["lesen1_exam23_q4"] = {
-    text: "Tolle Figur durch ausgewogene Ernährung - Schlank sein ist 'in'",
-    meaning: "قوام رائع من خلال تغذية متوازنة - النحافة 'موضة'",
-    keywords: ["Ernährung = تغذية", "Figur = قوام", "Diät = حمية"],
-    simplified: "قوام رائع من خلال تغذية متوازنة",
-    imagine: "🧠👁️ تخيل شخصاً يأكل سلطة (Salat) ويحافظ على قوامه 🥗💪"
-};
-
-HELP_DATA["lesen1_exam23_q5"] = {
-    text: "Von der Wildpflanze zum international geschätzten Nahrungsmittel - Als typisch deutsch gilt sie, doch rund um den Globus ist sie eines der Basislebensmittel",
-    meaning: "من النبتة البرية إلى غذاء عالمي - تُعتبر بطيبة ألمانية، لكن حول العالم هي واحدة من الأغذية الأساسية",
-    keywords: ["Kartoffel = بطاطا", "Nahrungsmittel = غذاء", "Wildpflanze = نبتة برية"],
-    simplified: "من النبتة البرية إلى غذاء عالمي - قصة البطاطا",
-    imagine: "🧠👁️ تخيل حبة بطاطا (Kartoffel) تسافر من أمريكا إلى العالم 🥔✈️🌍"
-};
-
-// ============================================
-// Exam 24: Kartoffel (التعديل 1)
-// ============================================
-
-HELP_DATA["lesen1_exam24_q1"] = {
-    text: "Gesundes Leben schützt vor Zivilisationskrankheiten - Über zehntausend wissenschaftliche Studien wurden im Auftrag der WHO durchgeführt",
-    meaning: "الحياة الصحية تحمي من أمراض الحضارة - تم إجراء أكثر من عشرة آلاف دراسة بتكليف من منظمة الصحة العالمية",
-    keywords: ["WHO = منظمة الصحة العالمية", "Krebs = سرطان", "Herzinfarkt = نوبة قلبية"],
-    simplified: "منظمة الصحة العالمية تبحث علاقة السرطان والنوبات القلبية",
-    imagine: "🧠👁️ تخيل باحثين (Forscher) يدرسون أمراض القلب 📊"
-};
-
-HELP_DATA["lesen1_exam24_q2"] = {
-    text: "Pflanzliche Stoffe für die Gesundheit der Haut - Am Mittelmeer und in Mexiko wächst die Aloe-Vera-Pflanze",
-    meaning: "مواد نباتية لصحة البشرة - في البحر الأبيض المتوسط والمكسيك تنبت الألوة فيرا",
-    keywords: ["Aloe Vera = ألوة فيرا", "Haut = بشرة", "Cremes = كريمات"],
-    simplified: "المواد النباتية لصحة البشرة",
-    imagine: "🧠👁️ تخيل نبتة ألوة فيرا (Aloe Vera) على نافذة المنزل 🪴🏠"
-};
-
-HELP_DATA["lesen1_exam24_q3"] = {
-    text: "Ein schlankes Gemüse für schlanke Leute - Eine der ältesten bekannten Gemüsesorten ist der Spargel",
-    meaning: "خضار نحيف لأجسام نحيفة - أحد أقدم أنواع الخضروات المعروفة هو الهليون",
-    keywords: ["Spargel = هليون", "schlank = نحيف", "Energie = طاقة"],
-    simplified: "خضار نحيف لأجسام نحيفة - الهليون",
-    imagine: "🧠👁️ تخيل طبق هليون أخضر (grüner Spargel) 🥦💚"
-};
-
-HELP_DATA["lesen1_exam24_q4"] = {
-    text: "Tolle Figur durch ausgewogene Ernährung - Schlank sein ist 'in'",
-    meaning: "قوام رائع بتغذية متوازنة - النحافة 'موضة'",
-    keywords: ["Ernährung = تغذية", "Figur = قوام", "Fett = دهون"],
-    simplified: "قوام رائع بتغذية متوازنة",
-    imagine: "🧠👁️ تخيل شخصاً يختار طعاماً صحياً (gesundes Essen) 🥑✅"
-};
-
-HELP_DATA["lesen1_exam24_q5"] = {
-    text: "Von der Wildpflanze zum international geschätzten Nahrungsmittel - Als typisch deutsch gilt sie, doch rund um den Globus ist sie eines der Basislebensmittel",
-    meaning: "من النبتة البرية إلى طعام عالمي - تُعتبر بطيبة ألمانية، لكن حول العالم هي واحدة من الأغذية الأساسية",
-    keywords: ["Kartoffel = بطاطا", "Wildpflanze = نبتة برية", "Nahrungsmittel = غذاء"],
-    simplified: "من النبتة البرية إلى طعام عالمي",
-    imagine: "🧠👁️ تخيل حقلاً (Feld) من البطاطا 🥔🌾"
-};
-
-// ============================================
-// Exam 25: Bienen
-// ============================================
-
-HELP_DATA["lesen1_exam25_q1"] = {
-    text: "Genussmittel erhöht die Wahrnehmung bestimmter Wörter - Kaffee verleiht neuen Schwung",
-    meaning: "مادة منبهة تزيد من إدراك كلمات معينة - القهوة تمنح نشاطاً جديداً",
-    keywords: ["Kaffee = قهوة", "Koffein = كافيين", "Wahrnehmung = إدراك"],
-    simplified: "مادة منبهة تزيد من إدراك كلمات معينة",
-    imagine: "🧠👁️ تخيل فنجان قهوة (Kaffee) وعقلاً منبهاً ☕🧠✨"
-};
-
-HELP_DATA["lesen1_exam25_q2"] = {
-    text: "Pflanzen und Insekten - eine gemeinsame Entwicklung - Sie bestäuben nicht nur viele Pflanzen, sondern haben die Entwicklung dieser Pflanzen erst ermöglicht",
-    meaning: "النباتات والحشرات - تطور مشترك - لا يقومون بتلقيح النباتات فقط، بل جعلوا تطور هذه النباتات ممكناً",
-    keywords: ["Bienen = نحل", "Pflanzen = نباتات", "Entwicklung = تطور"],
-    simplified: "النباتات والحشرات - تطور مشترك",
-    imagine: "🧠👁️ تخيل نحلة (Biene) محفوظة في كهرمان (Bernstein) 🐝🧡"
-};
-
-HELP_DATA["lesen1_exam25_q3"] = {
-    text: "Koffein im Blütennektar verbessert die Gedächtnisleistung - Bienen, die Pollen von Kaffee oder anderen koffeinhaltigen Pflanzen sammeln, erinnern sich mit der richtigen Dosis Koffein bis zu dreimal länger an den Duft einer Futterpflanze",
-    meaning: "الكافيين في رحيق الأزهار يحسن أداء الذاكرة - النحل الذي يجمع حبوب اللقاح من القهوة أو النباتات الأخرى المحتوية على الكافيين، يتذكر مع الجرعة المناسبة رائحة نبات العلف لفترة أطول",
-    keywords: ["Koffein = كافيين", "Gedächtnis = ذاكرة", "Bienen = نحل"],
-    simplified: "الكافيين في رحيق الأزهار يحسن أداء الذاكرة",
-    imagine: "🧠👁️ تخيل نحلة (Biene) تتذكر رائحة زهرة بفضل الكافيين 🐝☕🧠"
-};
-
-HELP_DATA["lesen1_exam25_q4"] = {
-    text: "Insektensterben in der kalten Jahreszeit - Jahr für Jahr überstehen zwischen zehn und 15 Prozent aller Bienenvölker die Winterruhe zwischen November und Februar nicht",
-    meaning: "موت الحشرات في موسم البرد - عاماً بعد عام، ما بين 10 و15 في المئة من جميع مستعمرات النحل لا تنجو من سبات الشتاء",
-    keywords: ["Bienensterben = موت النحل", "Winter = شتاء", "Imker = مربي نحل"],
-    simplified: "معرفة جديدة عن موت النحل حول العالم",
-    imagine: "🧠👁️ تخيل نحلة (Biene) ميتة في الشتاء ❄️🐝💀"
-};
-
-HELP_DATA["lesen1_exam25_q5"] = {
-    text: "Methoden zum Überleben in der kalten Jahreszeit - Viele Insekten unserer Regionen sind 'gefriertolerant'",
-    meaning: "طرق للبقاء في موسم البرد - كثير من حشرات منطقتنا 'تتحمل التجميد'",
-    keywords: ["Insekten = حشرات", "Winter = شتاء", "Überleben = بقاء"],
-    simplified: "طرق للبقاء في موسم البرد - حيل الحشرات",
-    imagine: "🧠👁️ تخيل حشرة (Insekt) مجمدة لكنها حية ❄️🐜"
-};
-
-// ============================================
-// Exam 26: Spiele
-// ============================================
-
-HELP_DATA["lesen1_exam26_q1"] = {
-    text: "Naturgetreue Handarbeit für das Kinderzimmer - In der Kösener Puppenfabrik werden noch wie früher Plüschtiere einzeln angefertigt",
-    meaning: "عمل يدوي طبيعي لغرفة الأطفال - في مصنع كوسين للدمى لا تزال حيوانات البلوفر تُصنع يدوياً كما في الماضي",
-    keywords: ["Kuscheltiere = حيوانات قطنية", "Handarbeit = يدوي", "Kinderzimmer = غرفة أطفال"],
-    simplified: "عمل يدوي طبيعي لغرفة الأطفال",
-    imagine: "🧠👁️ تخيل شخصاً يخيط دباً قطنيًا (Teddybär) يدوياً 🧸🪡"
-};
-
-HELP_DATA["lesen1_exam26_q2"] = {
-    text: "Kleine Züge mit langer Geschichte - Die Modelleisenbahn hat auch im Computerzeitalter ihre Anziehungskraft nicht verloren",
-    meaning: "قطارات صغيرة ذات تاريخ طويل - قطار النموذج لم يفقد جاذبيته حتى في عصر الكمبيوتر",
-    keywords: ["Modelleisenbahn = قطار نموذج", "Geschichte = تاريخ", "Spielzeug = لعبة"],
-    simplified: "قطارات صغيرة ذات تاريخ طويل",
-    imagine: "🧠👁️ تخيل قطار نموذج (Modelleisenbahn) قديماً يعمل 🚂🕰️"
-};
-
-HELP_DATA["lesen1_exam26_q3"] = {
-    text: "Dinge zum Anfassen bleiben beliebt - Gedruckten Büchern wurde vor einigen Jahren von Experten ein schnelles Ende vorausgesagt",
-    meaning: "أشياء يمكن لمسها تبقى محبوبة - خبراء توقعوا نهاية سريعة للكتب المطبوعة قبل بضع سنوات",
-    keywords: ["Bücher = كتب", "anfassen = لمس", "digital = رقمي"],
-    simplified: "أشياء يمكن لمسها تبقى محبوبة",
-    imagine: "🧠👁️ تخيل شخصاً يقرأ كتاباً (Buch) ورقيًا 📖❤️"
-};
-
-HELP_DATA["lesen1_exam26_q4"] = {
-    text: "Alte Spiele stärken das Miteinander - Immer neue Spielekonsolen, Spielformate und Apps drängen auf den elektronischen Spielemarkt - und dennoch haben Brettspiele nie an Bedeutung verloren",
-    meaning: "الألعاب القديمة تقوي العلاقات - أجهزة ألعاب جديدة وتطبيقات تغزو سوق الألعاب الإلكترونية - ومع ذلك لم تفقد ألعاب الطاولة أهميتها أبداً",
-    keywords: ["Spiele = ألعاب", "Miteinander = معاً", "Familie = عائلة"],
-    simplified: "الألعاب القديمة تقوي العلاقات",
-    imagine: "🧠👁️ تخيل عائلة (Familie) تلعب لعبة طاولة معاً 🎲👨‍👩‍👧‍👦"
-};
-
-HELP_DATA["lesen1_exam26_q5"] = {
-    text: "Überfluss im Kinderzimmer - Die Schränke und Spielzeugkisten der lieben Kleinen sind voll mit Puppen, Kuscheltieren und Autos",
-    meaning: "وفرة في غرفة الأطفال - خزائن وصناديق ألعاب الصغار مليئة بالدمى والحيوانات القطنية والسيارات",
-    keywords: ["Spielsachen = ألعاب", "Überfluss = وفرة", "Kinderzimmer = غرفة أطفال"],
-    simplified: "وفرة في غرفة الأطفال - كثرة الألعاب تؤثر سلباً",
-    imagine: "🧠👁️ تخيل غرفة أطفال مليئة جداً بالألعاب (Spielsachen) 🧸🚗🎀😵"
-};
-
-// ============================================
-// Exam 27: Geld
-// ============================================
-
-HELP_DATA["lesen1_exam27_q1"] = {
-    text: "Sammelgefäße als Ausstellungsobjekte - Spardosen sind Sammelbehälter, Dekoration oder Kinderspielzeug - und zwar seit Jahrhunderten",
-    meaning: "أوعية جمع كأشياء عرض - حافظات الادخار هي أوعية تجميع، ديكور أو ألعاب أطفال - ولقرون",
-    keywords: ["Spardosen = حافظات ادخار", "Ausstellung = معرض", "Geld = مال"],
-    simplified: "أوعية جمع كأشياء عرض - حافظات الادخار في متحف",
-    imagine: "🧠👁️ تخيل متحفاً مليئاً بحافظات ادخار (Spardosen) قديمة 🏺💰"
-};
-
-HELP_DATA["lesen1_exam27_q2"] = {
-    text: "Lehrreicher Rundgang zu Finanzwissen - Im Museum machen die Besucher eine Tour durch eine fiktive Stadt",
-    meaning: "جولة تعليمية في عالم المال - في المتحف، يقوم الزوار بجولة في مدينة خيالية",
-    keywords: ["Rundgang = جولة", "Finanzwissen = معرفة مالية", "Geld = مال"],
-    simplified: "جولة تعليمية في عالم المال - متحف المال",
-    imagine: "🧠👁️ تخيل شخصاً يتجول (Rundgang) في متحف المال 🏛️💶"
-};
-
-HELP_DATA["lesen1_exam27_q3"] = {
-    text: "Finanz-ABC für Anfänger - Der englische Journalist John Lanchester nimmt neugierige Laien bei der Hand",
-    meaning: "أبجديات المال للمبتدئين - الصحفي الإنجليزي جون لانشستر يأخذ بيد الهواة الفضوليين",
-    keywords: ["Finanz-ABC = أبجديات المال", "Anfänger = مبتدئون", "Geld = مال"],
-    simplified: "أبجديات المال للمبتدئين",
-    imagine: "🧠👁️ تخيل كتاباً (Buch) عن أبجديات المال 📘💶"
-};
-
-HELP_DATA["lesen1_exam27_q4"] = {
-    text: "Interessante Tätigkeit wichtiger als hohes Gehalt - Eine neue Untersuchung bestätigt: Die Höhe des Einkommens allein macht nicht glücklich",
-    meaning: "النشاط المثير أهم من الراتب العالي - دراسة جديدة تؤكد: مقدار الدخل وحده لا يسعد",
-    keywords: ["Gehalt = راتب", "zufrieden = راضٍ", "Arbeit = عمل"],
-    simplified: "النشاط المثير أهم من الراتب العالي",
-    imagine: "🧠👁️ تخيل شخصاً سعيداً في عمله رغم الراتب البسيط 💼😊"
-};
-
-HELP_DATA["lesen1_exam27_q5"] = {
-    text: "Wie Kinder den Umgang mit Geld lernen - Über Geld sprechen viele Deutsche nicht gerne",
-    meaning: "كيف يتعلم الأطفال التعامل مع المال - كثير من الألمان لا يتحدثون عن المال بسرور",
-    keywords: ["Geld = مال", "Kinder = أطفال", "sparen = ادخار"],
-    simplified: "كيف يتعلم الأطفال التعامل مع المال",
-    imagine: "🧠👁️ تخيل طفلاً يحصل على مصروف جيب (Taschengeld) 🧒💰"
-};
-
-// ============================================
-// Exam 28: Kinder und Schulen
-// ============================================
-
-HELP_DATA["lesen1_exam28_q1"] = {
-    text: "Traditionen zum Schulanfang - In Großbritannien besucht die Klassenlehrerin die Familie zu Hause",
-    meaning: "تقاليد بداية المدرسة - في بريطانيا، تزور معلمة الفصل العائلة في المنزل",
-    keywords: ["Schulanfang = بداية المدرسة", "Traditionen = تقاليد", "Schultüte = مخروط المدرسة"],
-    simplified: "تقاليد بداية العام الدراسي حول العالم",
-    imagine: "🧠👁️ تخيل أطفالاً يحملون أكياس المدرسة (Schultüten) 🎒🎁"
-};
-
-HELP_DATA["lesen1_exam28_q2"] = {
-    text: "Neues Buch für kleine Leseanfänger - Antonija Tomic erzählt in 'Schulanfang in der Rabenschule' die Geschichte des kleinen Raben Raban",
-    meaning: "كتاب جديد لصغار مبتدئي القراءة - أنتونيا توميتش تحكي في 'بداية المدرسة في مدرسة الغربان' قصة الغراب الصغير رابان",
-    keywords: ["Buch = كتاب", "Leseanfänger = مبتدئو القراءة", "Schulanfang = بداية المدرسة"],
-    simplified: "كتاب جديد لصغار مبتدئي القراءة",
-    imagine: "🧠👁️ تخيل طفلاً يقرأ كتاباً (Buch) عن الغراب رابان 📖🐦‍⬛"
-};
-
-HELP_DATA["lesen1_exam28_q3"] = {
-    text: "Mit Schulanfängern richtiges Verhalten im Verkehr üben - Auf den Straßen sind ab Schulbeginn wieder viele Kinder unterwegs",
-    meaning: "تدريب سلوك المرور مع مبتدئي المدرسة - على الطرق، هناك الكثير من الأطفال مرة أخرى مع بداية المدرسة",
-    keywords: ["Schulanfänger = مبتدئو المدرسة", "Verkehr = مرور", "Haltestellen = محطات"],
-    simplified: "تدريب سلوك المرور مع مبتدئي المدرسة",
-    imagine: "🧠👁️ تخيل طفلاً يعبر الطريق (Straße) بحذر 🚸🚦"
-};
-
-HELP_DATA["lesen1_exam28_q4"] = {
-    text: "Das richtige Alter für die Einschulung - In Deutschland herrscht Schulpflicht",
-    meaning: "العمر المناسب لدخول المدرسة - في ألمانيا، التعليم إلزامي",
-    keywords: ["Einschulung = دخول المدرسة", "Alter = عمر", "Schule = مدرسة"],
-    simplified: "العمر المناسب لدخول المدرسة",
-    imagine: "🧠👁️ تخيل طفلاً في أول يوم دراسي (erster Schultag) 📚👧"
-};
-
-HELP_DATA["lesen1_exam28_q5"] = {
-    text: "Weniger Fahrten in den Schulferien - Ein Großteil des Busverkehrs dient dem Schulverkehr",
-    meaning: "عدد أقل من الرحلات في العطل المدرسية - جزء كبير من حركة الحافلات مخصص للنقل المدرسي",
-    keywords: ["Schulferien = عطل مدرسية", "Fahrten = رحلات", "Bus = حافلة"],
-    simplified: "عدد أقل من الرحلات في العطل المدرسية",
-    imagine: "🧠👁️ تخيل حافلة مدرسية (Schulbus) فارغة في العطلة 🚌❄️"
-};
-
-// ============================================
-// Exam 29: Kindertelefon
-// ============================================
-
-HELP_DATA["lesen1_exam29_q1"] = {
-    text: "Moderne schnurlose Geräte vermindern die Strahlenbelastung - Die meisten Schnurlos-Telefone strahlen auch dann, wenn man gar nicht telefoniert",
-    meaning: "أجهزة لاسلكية حديثة تقلل التلوث الإشعاعي - معظم الهواتف اللاسلكية تشع حتى عندما لا تتحدث",
-    keywords: ["schnurlose Geräte = أجهزة لاسلكية", "Strahlenbelastung = تلوث إشعاعي", "Telefonieren = التحدث"],
-    simplified: "أجهزة حديثة تقلل التلوث الإشعاعي",
-    imagine: "🧠👁️ تخيل هاتفاً لاسلكياً (schnurloses Telefon) وموجات أقل 📞📡✅"
-};
-
-HELP_DATA["lesen1_exam29_q2"] = {
-    text: "Kinder-Überwachung für Eltern per Handy wird geplant - Motorolas CEO Edward Zander will den Eltern Kontrolle über ihre Kinder geben",
-    meaning: "مراقبة الأطفال عبر الهاتف المحمول للآباء يتم التخطيط لها - رئيس موتورولا إدوارد زاندر يريد إعطاء الآباء سيطرة على أطفالهم",
-    keywords: ["Kinder = أطفال", "Überwachung = مراقبة", "Handy = هاتف محمول"],
-    simplified: "مراقبة الأطفال عبر الهاتف المحمول للآباء",
-    imagine: "🧠👁️ تخيل أباً يتتبع موقع ابنه عبر الهاتف 📱📍👨‍👦"
-};
-
-HELP_DATA["lesen1_exam29_q3"] = {
-    text: "Handy im Ausland: aufpassen und tricksen! - Wer unter Palmen liegt, greift gern zum Handy",
-    meaning: "الهاتف في الخارج: انتبه واحتال! - من يرغب في الاسترخاء تحت أشجار النخيل، يمسك بهاتفه المحمول بسرور",
-    keywords: ["Handy = هاتف محمول", "Ausland = خارج البلاد", "Tarif = تعريفة"],
-    simplified: "الهاتف في الخارج - انتبه واحتال!",
-    imagine: "🧠👁️ تخيل شخصاً يتصل من الشاطئ (Strand) ويتفاجأ بالفواتير 🏖️📱💸"
-};
-
-HELP_DATA["lesen1_exam29_q4"] = {
-    text: "Profi-Tipps für bessere Urlaubsbilder - Die meisten Urlauber fotografieren gerne Sehenswürdigkeiten mit ihren Liebsten",
-    meaning: "نصائح محترفة لصور عطل أفضل - معظم السياح يصورون المعالم السياحية مع أحبائهم",
-    keywords: ["Urlaubsbilder = صور العطل", "Fotografieren = تصوير", "Tipps = نصائح"],
-    simplified: "نصائح محترفة لصور عطل أفضل",
-    imagine: "🧠👁️ تخيل شخصاً يلتقط صورة (Foto) رائعة على الشاطئ 📸🏖️"
-};
-
-HELP_DATA["lesen1_exam29_q5"] = {
-    text: "Handy-TV zur Fußball-WM 2006 - Es gibt in Deutschland wohl kaum eine bessere Chance für die Einführung von Handy-TV als die Fußball-WM 2006",
-    meaning: "تلفزيون الهاتف المحمول في كأس العالم 2006 - لا توجد فرصة أفضل في ألمانيا لتقديم تلفزيون الهاتف المحمول من كأس العالم لكرة القدم 2006",
-    keywords: ["Handy-TV = تلفزيون محمول", "WM 2006 = كأس العالم 2006", "Alltag = حياة يومية"],
-    simplified: "التلفزيون المحمول في كأس العالم 2006",
-    imagine: "🧠👁️ تخيل شخصاً يشاهد مباراة (Fußballspiel) على هاتفه 📱⚽📺"
-};
-
-// ============================================
-// Exam 30: Alpen
-// ============================================
-
-HELP_DATA["lesen1_exam30_q1"] = {
-    text: "Uni-Campus: rauchfreie Zone eingerichtet - Für Raucher wird es an der Universität in Köln ab dem kommenden Wintersemester eng",
-    meaning: "حرم جامعي: منطقة خالية من التدخين - سيكون الوضع صعباً للمدخنين في جامعة كولن بدءاً من الفصل الشتوي القادم",
-    keywords: ["Rauchverbot = حظر تدخين", "Uni-Campus = حرم جامعي", "rauchfreie Zone = منطقة خالية من التدخين"],
-    simplified: "حرم جامعي بلا تدخين - منطقة خالية من الدخان",
-    imagine: "🧠👁️ تخيل لافتة 'ممنوع التدخين' (Rauchverbot) في الجامعة 🚭🏫"
-};
-
-HELP_DATA["lesen1_exam30_q2"] = {
-    text: "Höhenluft - gut fürs Herz - Urlaub in den Bergen ist sehr gesund",
-    meaning: "هواء المرتفعات - مفيد للقلب - العطلة في الجبال صحية جداً",
-    keywords: ["Höhenluft = هواء المرتفعات", "Herz = قلب", "gesund = صحي"],
-    simplified: "هواء المرتفعات - مفيد للقلب",
-    imagine: "🧠👁️ تخيل شخصاً يتنفس هواءً نقيًا (frische Luft) في الجبال ⛰️💨😊"
-};
-
-HELP_DATA["lesen1_exam30_q3"] = {
-    text: "Zigaretten gegen Alleinsein - Schlechte Haut, übler Atem, leere Brieftasche... junge Raucher begreifen oft zu spät, dass Rauchen nicht hält, was sie damit verbinden",
-    meaning: "السجائر ضد الوحدة - بشرة سيئة، رائحة نفس كريهة، محفظة فارغة... المدخنون الشباب يدركون متأخرين أن التدخين لا يفي بما يربطونه به",
-    keywords: ["Zigaretten = سجائر", "Alleinsein = وحدة", "Jugendliche = شباب"],
-    simplified: "السجائر ضد الوحدة - وهم الشباب",
-    imagine: "🧠👁️ تخيل شاباً وحيداً (allein) يدخن سيجارة 🚬😔"
-};
-
-HELP_DATA["lesen1_exam30_q4"] = {
-    text: "Freizeitsport in den Alpen - Sport im Hochgebirge? Da denkt man zuallererst an Wintersport",
-    meaning: "رياضة ترفيهية في الألب - رياضة في المرتفعات؟ في البداية نفكر في الرياضات الشتوية",
-    keywords: ["Freizeitsport = رياضة ترفيهية", "Alpen = الألب", "Sommer = صيف"],
-    simplified: "رياضة ترفيهية في الألب - ليس فقط في الشتاء",
-    imagine: "🧠👁️ تخيل شخصاً يتسلق (klettern) جبلاً في الصيف 🧗‍♂️⛰️☀️"
-};
-
-HELP_DATA["lesen1_exam30_q5"] = {
-    text: "Junge Sportler: weniger suchtanfällig - Sportvereine spielen eine immer wichtigere soziale Rolle für junge Leute",
-    meaning: "رياضيون شباب - أقل عرضة للإدمان - الأندية الرياضية تلعب دوراً اجتماعياً متزايد الأهمية للشباب",
-    keywords: ["Junge Sportler = رياضيون شباب", "suchtanfällig = عرضة للإدمان", "Verein = نادي"],
-    simplified: "رياضيون شباب - أقل عرضة للإدمان",
-    imagine: "🧠👁️ تخيل شاباً رياضياً (Sportler) يقف بجانب ملعب 🏃‍♂️⚽💪"
-};
-
-// ============================================
-// Exam 31: Alpen (التعديل 1)
-// ============================================
-
-HELP_DATA["lesen1_exam31_q1"] = {
-    text: "Studenten engagieren sich gegen das Rauchen - Das bundesweite Projekt 'Aufklärung gegen Tabak' wurde von einem Medizinstudenten ins Leben gerufen",
-    meaning: "طلاب يشاركون في مكافحة التدخين - المشروع الوطني 'التوعية ضد التبغ' أسسه طالب طب",
-    keywords: ["Studenten = طلاب", "engagieren sich = يشاركون", "Rauchen = تدخين"],
-    simplified: "طلاب يشاركون في مكافحة التدخين",
-    imagine: "🧠👁️ تخيل طلاباً (Studenten) يتحدثون عن أضرار التدخين 🎓🚭"
-};
-
-HELP_DATA["lesen1_exam31_q2"] = {
-    text: "Höhenluft - gut fürs Herz - Urlaub in den Bergen ist sehr gesund",
-    meaning: "هواء المرتفعات مفيد للقلب - العطلة في الجبال صحية جداً",
-    keywords: ["Höhenluft = هواء المرتفعات", "Herz = قلب", "gesund = صحي"],
-    simplified: "هواء المرتفعات مفيد للقلب",
-    imagine: "🧠👁️ تخيل شخصاً يستنشق الهواء في الجبل 🏔️💚"
-};
-
-HELP_DATA["lesen1_exam31_q3"] = {
-    text: "Mädchen geben mehr Geld für Zigaretten aus als Jungen - Schlechte Haut, übler Atem, leere Brieftasche... junge Raucher begreifen oft zu spät, dass Rauchen nicht hält, was sie damit verbinden",
-    meaning: "الفتيات تنفق مالاً أكثر على السجائر من الأولاد - بشرة سيئة، رائحة نفس كريهة، محفظة فارغة - المدخنون الشباب يدركون متأخرين أن التدخين لا يفي بما يربطونه به",
-    keywords: ["Zigaretten = سجائر", "Jugendliche = شباب", "Geld = مال"],
-    simplified: "الفتيات تنفق مالاً أكثر على السجائر من الأولاد",
-    imagine: "🧠👁️ تخيل فتاة (Mädchen) تشتري سجائر بدلاً من أشياء أخرى 👧🚬💸"
-};
-
-HELP_DATA["lesen1_exam31_q4"] = {
-    text: "Freizeitsport in den Alpen - Sport im Hochgebirge? Da denkt man an Wintersport",
-    meaning: "رياضة ترفيهية في الألب - رياضة في المرتفعات؟ نفكر في الرياضات الشتوية",
-    keywords: ["Freizeitsport = رياضة ترفيهية", "Alpen = الألب", "Sommer = صيف"],
-    simplified: "رياضة ترفيهية في الألب",
-    imagine: "🧠👁️ تخيل عائلة تمشي (wandern) في الجبال 🚶‍♀️🚶‍♂️🏔️"
-};
-
-HELP_DATA["lesen1_exam31_q5"] = {
-    text: "Vereine wirken positiv auf Jugendliche - Sportvereine spielen eine immer wichtigere soziale Rolle für junge Leute",
-    meaning: "الأندية تؤثر إيجابياً على الشباب - الأندية الرياضية تلعب دوراً اجتماعياً متزايد الأهمية للشباب",
-    keywords: ["Vereine = أندية", "Jugendliche = شباب", "positiv = إيجابي"],
-    simplified: "الأندية تؤثر إيجابياً على الشباب",
-    imagine: "🧠👁️ تخيل شباباً في نادٍ رياضي (Sportverein) يلعبون معاً 👥⚽🤝"
-};
-
-// ============================================
-// Exam 32: Alpen (التعديل 2)
-// ============================================
-
-HELP_DATA["lesen1_exam32_q1"] = {
-    text: "Studenten engagieren sich gegen das Rauchen - Das bundesweite Projekt 'Aufklärung gegen Tabak' wurde von einem Medizinstudenten ins Leben gerufen",
-    meaning: "طلاب متطوعون ضد التدخين - المشروع الوطني 'التوعية ضد التبغ' أسسه طالب طب",
-    keywords: ["Studenten = طلاب", "engagieren sich = يشاركون", "Rauchen = تدخين"],
-    simplified: "طلاب متطوعون ضد التدخين",
-    imagine: "🧠👁️ تخيل طالباً يشرح أضرار التدخين لطلاب المدارس 🎓📢"
-};
-
-HELP_DATA["lesen1_exam32_q2"] = {
-    text: "Höhenluft fördert die Gesundheit - Urlaub in den Bergen ist sehr gesund",
-    meaning: "هواء المرتفعات يعزز الصحة - العطلة في الجبال صحية جداً",
-    keywords: ["Höhenluft = هواء المرتفعات", "Gesundheit = صحة", "Alpen = الألب"],
-    simplified: "هواء المرتفعات يعزز الصحة",
-    imagine: "🧠👁️ تخيل شخصاً سعيداً في جبال الألب (Alpen) 🏔️😊"
-};
-
-HELP_DATA["lesen1_exam32_q3"] = {
-    text: "Mädchen geben mehr Geld für Zigaretten aus als Jungen - Schlechte Haut, übler Atem, leere Brieftasche... junge Raucher begreifen oft zu spät, dass Rauchen nicht hält, was sie damit verbinden",
-    meaning: "الفتيات ينفقن مالاً أكثر على السجائر من الأولاد - بشرة سيئة، رائحة نفس كريهة، محفظة فارغة - المدخنون الشباب يدركون متأخرين أن التدخين لا يفي بما يربطونه به",
-    keywords: ["Zigaretten = سجائر", "Mädchen = فتيات", "Geld = مال"],
-    simplified: "الفتيات ينفقن مالاً أكثر على السجائر من الأولاد",
-    imagine: "🧠👁️ تخيل فتاة ترمي نقوداً (Geld) في سلة 🗑️💸"
-};
-
-HELP_DATA["lesen1_exam32_q4"] = {
-    text: "Hochgebirge als Skiparadies - Sport im Hochgebirge? Da denkt man an Wintersport",
-    meaning: "المرتفعات العالية كجنة للتزلج - رياضة في المرتفعات؟ نفكر في الرياضات الشتوية",
-    keywords: ["Hochgebirge = مرتفعات", "Skiparadies = جنة تزلج", "Sport = رياضة"],
-    simplified: "المرتفعات العالية كجنة للتزلج",
-    imagine: "🧠👁️ تخيل متزلجاً (Skifahrer) على جبل ثلجي ⛷️❄️"
-};
-
-HELP_DATA["lesen1_exam32_q5"] = {
-    text: "Vereine wirken positiv auf Jugendliche - Jugendliche in Sportvereinen sind geselliger, weniger gewalttätig, leben gesundheitsbewusster, rauchen deutlich weniger",
-    meaning: "الأندية الرياضية لها تأثير إيجابي على الشباب - المراهقون في الأندية الرياضية أكثر اجتماعية، أقل عنفاً، يعيشون بوعي صحي أكبر، يدخنون أقل بكثير",
-    keywords: ["Vereine = أندية", "Jugendliche = شباب", "positiv = إيجابي"],
-    simplified: "الأندية الرياضية لها تأثير إيجابي على الشباب",
-    imagine: "🧠👁️ تخيل مجموعة من الشباب الرياضيين (Sportler) 🏃‍♂️🏃‍♀️👏"
-};
-
-// ============================================
-// Exam 33: Suchtmittel - Nase
-// ============================================
-
-HELP_DATA["lesen1_exam33_q1"] = {
-    text: "Schönheitsoperationen nicht um jeden Preis - Eine Frau mit schiefer Nase mag sich weder im Profil noch frontal zeigen",
-    meaning: "عمليات التجميل ليس بأي ثمن - امرأة ذات أنف معوج لا تحب أن تظهر من الجانب أو من الأمام",
-    keywords: ["Nasenkorrektur = تجميل أنف", "Schönheitsoperation = عملية تجميل", "Chirurg = جراح"],
-    simplified: "عمليات تجميل الأنف - ليس بأي ثمن",
-    imagine: "🧠👁️ تخيل طبيباً (Arzt) يتحدث مع مريضة عن تجميل الأنف 👨‍⚕️👃"
-};
-
-HELP_DATA["lesen1_exam33_q2"] = {
-    text: "Durch den Geruchssinn die Welt neu erfahren - Der Riechsinn ist unser ursprünglichster Sinn",
-    meaning: "تجربة العالم من جديد من خلال حاسة الشم - حاسة الشم هي أقدم حواسنا",
-    keywords: ["Geruchssinn = حاسة الشم", "Nase = أنف", "erfahren = تجربة"],
-    simplified: "تجربة العالم من جديد من خلال حاسة الشم",
-    imagine: "🧠👁️ تخيل شخصاً يشم زهرة (Blume) ويختبر عالماً جديداً 🌸👃✨"
-};
-
-HELP_DATA["lesen1_exam33_q3"] = {
-    text: "Mit vierbeinigen Spürnasen gegen den Drogenschmuggel - Der sechs Jahre alte Schäferhund Falko sucht für den Zoll nach Kokain, Haschisch und Heroin",
-    meaning: "بأنوف ذات أربع أرجل ضد تهريب المخدرات - الكلب الراعي فالكو البالغ ست سنوات يبحث عن الكوكايين والحشيش والهيروين للجمارك",
-    keywords: ["Drogenspürhunde = كلاب تتبع مخدرات", "Zoll = جمارك", "riechen = شم"],
-    simplified: "كلاب بأربع أرجل ضد تهريب المخدرات",
-    imagine: "🧠👁️ تخيل كلب بوليسي (Polizeihund) يشم حقيبة 🐕‍🦺👃💼"
-};
-
-HELP_DATA["lesen1_exam33_q4"] = {
-    text: "Tierische Riechorgane - unterschiedlich ausgeprägt - Beim Menschen ist das Sehen der Sinn Nummer eins, gefolgt vom Hören und an dritter Stelle dem Riechen",
-    meaning: "أعضاء شم حيوانية - متفاوتة في القدرات - عند الإنسان، البصر هو الحاسة رقم واحد، يليه السمع ثم الشم في المركز الثالث",
-    keywords: ["Elefanten = أفيال", "Riechorgane = أعضاء شم", "unterschiedlich = مختلفة"],
-    simplified: "أعضاء شم حيوانية - متفاوتة في القدرات",
-    imagine: "🧠👁️ تخيل فيلاً (Elefant) بأنف طويل جداً 🐘👃"
-};
-
-HELP_DATA["lesen1_exam33_q5"] = {
-    text: "Selbstreinigung für unser Riechorgan - Niesen ist eine Reaktion auf die Umwelt",
-    meaning: "تنظيف ذاتي لعضو الشم لدينا - العطس هو رد فعل على البيئة",
-    keywords: ["Niesen = عطس", "Nase = أنف", "Reinigung = تنظيف"],
-    simplified: "التنظيف الذاتي لعضو الشم لدينا",
-    imagine: "🧠👁️ تخيل شخصاً يعطس (niest) بشدة 🤧💨"
-};
-
-// ============================================
-// Exam 34: الانتخابات والمرأة الروسية
-// ============================================
-
-HELP_DATA["lesen1_exam34_q1"] = {
-    text: "Eine Pionierin der akademischen Frauenausbildung - Nadeschda Suslowa wurde 1843 als Tochter eines Bauern geboren",
-    meaning: "رائدة في تعليم المرأة الأكاديمية - ناديشدا سوسلوفا ولدت عام 1843 ابنة مزارع",
-    keywords: ["Pionierin = رائدة", "Frauenausbildung = تعليم النساء", "Ärztin = طبيبة"],
-    simplified: "رائدة في تعليم المرأة الأكاديمية",
-    imagine: "🧠👁️ تخيل امرأة (Frau) ترتدي قبعة التخرج 🎓👩‍🎓"
-};
-
-HELP_DATA["lesen1_exam34_q2"] = {
-    text: "Die Frauen in der Französischen Revolution - Dass Frauen wählen und gewählt werden dürfen, ist heute selbstverständlich",
-    meaning: "النساء في الثورة الفرنسية - أنه يُسمح للنساء بالانتخاب والترشح، أمر طبيعي اليوم",
-    keywords: ["Frauenstimmrecht = حق تصويت النساء", "Revolution = ثورة", "Frankreich = فرنسا"],
-    simplified: "تطور حق تصويت النساء - نساء في الثورة الفرنسية",
-    imagine: "🧠👁️ تخيل امرأة ترفع لافتة تطالب بالمساواة ✊👩"
-};
-
-HELP_DATA["lesen1_exam34_q3"] = {
-    text: "Geschlechtsspezifische Entscheidungen an der Wahlurne - Das Wahlverhalten von Frauen hat sich verändert",
-    meaning: "قرارات خاصة بالجنس عند صندوق الاقتراع - سلوك التصويت للنساء تغير",
-    keywords: ["Wahlurne = صندوق اقتراع", "Frauen = نساء", "geschlechtsspezifisch = حسب الجنس"],
-    simplified: "قرارات خاصة بالجنس عند صندوق الاقتراع",
-    imagine: "🧠👁️ تخيل امرأة ورجلاً يصوتان بشكل مختلف 🗳️👩‍🦰👨‍🦱"
-};
-
-HELP_DATA["lesen1_exam34_q4"] = {
-    text: "Studentinnen auf der Überholspur - In den vergangenen Jahrzehnten hat sich das Geschlechterverhältnis bei Studierenden stark verändert",
-    meaning: "طالبات في المسار السريع - في العقود الماضية، تغيرت نسبة الجنسين بين الطلاب بشكل كبير",
-    keywords: ["Studentinnen = طالبات", "Noten = درجات", "Studium = دراسة"],
-    simplified: "طالبات في المسار السريع - المرأة تحقق نتائج أفضل",
-    imagine: "🧠👁️ تخيل طالبة (Studentin) تذاكر بنجاح 📚👩‍🎓✨"
-};
-
-HELP_DATA["lesen1_exam34_q5"] = {
-    text: "Vorkämpferinnen für das Frauenwahlrecht - 'Suffragetten' nannte man die Frauen, die sich in Großbritannien für das allgemeine Frauenwahlrecht einsetzten",
-    meaning: "رائدات من أجل حق تصويت النساء - سافرجيت كان اسم النساء اللواتي ناضلن من أجل حق الاقتراع العام للنساء في بريطانيا",
-    keywords: ["Vorkämpferinnen = رائدات", "Frauenwahlrecht = حق تصويت النساء", "Großbritannien = بريطانيا"],
-    simplified: "رائدات من أجل حق تصويت النساء",
-    imagine: "🧠👁️ تخيل نساء يتظاهرن (demonstrieren) من أجل حقوقهن 👭✊"
-};
-
-// ============================================
-// Exam 35: kein Zeit
-// ============================================
-
-HELP_DATA["lesen1_exam35_q1"] = {
-    text: "Zeitprobleme in der Familie - Die Krüger sind eine ganz normale Familie",
-    meaning: "مشاكل الوقت في العائلة - عائلة كروغر عائلة طبيعية جداً",
-    keywords: ["Zeitprobleme = مشاكل وقت", "Familie = عائلة", "keine Zeit = لا وقت"],
-    simplified: "مشاكل الوقت في العائلة - لا وقت للأطفال أيضاً",
-    imagine: "🧠👁️ تخيل أماً مشغولة جداً (sehr beschäftigt) لا تجد وقتاً ⏰😫"
-};
-
-HELP_DATA["lesen1_exam35_q2"] = {
-    text: "Vorsicht vor zweifelhaften Kontaktagenturen! - Der Wunsch nach Zweisamkeit hat sich zu einem guten Geschäft entwickelt",
-    meaning: "احذر من وكالات التعارف المشبوهة! - الرغبة في العلاقة الحميمة تطورت إلى عمل جيد",
-    keywords: ["Kontaktagenturen = وكالات تعارف", "zweifelhaft = مشبوه", "Vorsicht = حذر"],
-    simplified: "احذر من وكالات التعارف المشبوهة!",
-    imagine: "🧠👁️ تخيل علامة تحذير (Warnung) على وكالة تعارف ⚠️💔"
-};
-
-HELP_DATA["lesen1_exam35_q3"] = {
-    text: "Liebe fürs Leben muss wachsen - Die Partnerschaft verläuft in Phasen",
-    meaning: "الحب مدى الحياة يحتاج إلى وقت لينمو - العلاقة تمر بمراحل",
-    keywords: ["Liebe = حب", "wachsen = ينمو", "Beziehung = علاقة"],
-    simplified: "الحب مدى الحياة يحتاج إلى وقت لينمو",
-    imagine: "🧠👁️ تخيل زوجين يكبران معاً في الحب 👫💕"
-};
-
-HELP_DATA["lesen1_exam35_q4"] = {
-    text: "Wer sucht, der findet - Knapp 13 Millionen Single-Haushalte gibt es in Deutschland, meist unfreiwillig",
-    meaning: "من يبحث يجد - ما يقرب من 13 مليون أسرة فردية تعيش في ألمانيا، معظمها غير طوعي",
-    keywords: ["Partnersuche = بحث عن شريك", "Single = أعزب", "finden = يجد"],
-    simplified: "من يبحث يجد - نصائح للبحث عن شريك",
-    imagine: "🧠👁️ تخيل شخصاً وحيداً (einsamer Mensch) يبحث عن الحب 🔍❤️"
-};
-
-HELP_DATA["lesen1_exam35_q5"] = {
-    text: "Wenn die Kinder aus dem Haus sind - Wenn die Kinder ausziehen, verändert sich viel",
-    meaning: "عندما يغادر الأطفال المنزل - عندما يغادر الأطفال المنزل، يتغير الكثير",
-    keywords: ["Kinder aus Haus = أطفال خارج المنزل", "Eltern = والدان", "Zeit = وقت"],
-    simplified: "عندما يغادر الأطفال المنزل - حياة جديدة للآباء",
-    imagine: "🧠👁️ تخيل أبوين ينظران إلى غرفة فارغة بعد خروج الأبناء 🏠😢"
-};
-
-// ============================================
-// Exam 36: kein Zeit (التعديل 1)
-// ============================================
-
-HELP_DATA["lesen1_exam36_q1"] = {
-    text: "Zeitprobleme in der Familie - Die Krüger sind eine ganz normale Familie",
-    meaning: "مشاكل الوقت في العائلة - عائلة كروغر عائلة طبيعية جداً",
-    keywords: ["Zeitprobleme = مشاكل وقت", "Familie = عائلة", "Termindruck = ضغط مواعيد"],
-    simplified: "ضغط المواعيد حتى عند الأطفال",
-    imagine: "🧠👁️ تخيل طفلاً (Kind) بجدول مليء بالمواعيد 📅😵"
-};
-
-HELP_DATA["lesen1_exam36_q2"] = {
-    text: "Vorsicht vor zweifelhaften Kontaktagenturen! - Neben seriösen Firmen finden sich auf dem Markt auch schwarze Schafe",
-    meaning: "احذر من وكالات التعارف المشبوهة! - إلى جانب الشركات الموثوقة، توجد أيضاً خروف سوداء في السوق",
-    keywords: ["Kontaktagenturen = وكالات تعارف", "Vorsicht = حذر", "Telefon = هاتف"],
-    simplified: "احذر من وكالات التعارف المشبوهة!",
-    imagine: "🧠👁️ تخيل شخصاً يتصل (anrufen) ويكتشف أنه وقع في فخ 📞😠"
-};
-
-HELP_DATA["lesen1_exam36_q3"] = {
-    text: "Liebe fürs Leben muss wachsen - Wie entsteht eine langfristige Beziehung?",
-    meaning: "الحب يحتاج وقتاً لينمو - كيف تنشأ علاقة طويلة الأمد؟",
-    keywords: ["Liebe = حب", "wachsen = ينمو", "Beziehung = علاقة"],
-    simplified: "الحب يحتاج وقتاً لينمو",
-    imagine: "🧠👁️ تخيل زهرة (Blume) تنمو مع الوقت 🌱❤️"
-};
-
-HELP_DATA["lesen1_exam36_q4"] = {
-    text: "Aktive Partnersuche gegen das Alleinsein - Knapp 13 Millionen Single-Haushalte gibt es in Deutschland",
-    meaning: "بحث نشط عن شريك للتغلب على الوحدة - ما يقرب من 13 مليون أسرة فردية في ألمانيا",
-    keywords: ["Singles = عزاب", "Partnersuche = بحث عن شريك", "Alleinsein = وحدة"],
-    simplified: "بحث نشط عن شريك للتغلب على الوحدة",
-    imagine: "🧠👁️ تخيل شخصاً وحيداً يبحث عن شريك على هاتفه 📱😔"
-};
-
-HELP_DATA["lesen1_exam36_q5"] = {
-    text: "Wenn die Kinder aus dem Haus sind - Wenn die Kinder ausziehen, verändert sich viel",
-    meaning: "عندما يغادر الأطفال - حياة جديدة مع حنين - عندما يغادر الأطفال المنزل، يتغير الكثير",
-    keywords: ["Kinder aus Haus = أطفال خارج المنزل", "Eltern = والدان", "traurig = حزين"],
-    simplified: "عندما يغادر الأطفال - حياة جديدة مع حنين",
-    imagine: "🧠👁️ تخيل أباً ينظر من النافذة (Fenster) بعد خروج الأبناء 👴😔"
-};
-
-// ============================================
-// Exam 37: Limonade
-// ============================================
-
-HELP_DATA["lesen1_exam37_q1"] = {
-    text: "Frische Luft macht stark - Möchten Sie Kraft, Jugend und Gesundheit aus der Flasche?",
-    meaning: "الهواء النقي يمنح القوة - هل تريد القوة والشباب والصحة من الزجاجة؟",
-    keywords: ["frische Luft = هواء نقي", "Kraft = قوة", "Sauerstoff = أكسجين"],
-    simplified: "الهواء النقي كمصدر حقيقي للطاقة",
-    imagine: "🧠👁️ تخيل شخصاً يتنفس هواءً نقيًا (frische Luft) بقوة 💪🌬️"
-};
-
-HELP_DATA["lesen1_exam37_q2"] = {
-    text: "Vom Regen zum Mineralwasser - Wenn es regnet, versickert das Regenwasser im Boden und wird gefiltert",
-    meaning: "من المطر إلى ماء معدني - عندما تمطر، يتسرب مطر الماء في الأرض ويتم ترشيحه",
-    keywords: ["Regenwasser = مطر", "Mineralwasser = ماء معدني", "Nitrat = نترات"],
-    simplified: "من المطر إلى ماء معدني - النترات تهدد الصحة",
-    imagine: "🧠👁️ تخيل قطرة مطر (Regentropfen) تتحول إلى ماء شرب 💧☁️"
-};
-
-HELP_DATA["lesen1_exam37_q3"] = {
-    text: "Sommer bedeutet in Zukunft nicht unbedingt Sonne - Nach den Unwettern der letzten Sommer sprechen Meteorologen von einer dramatischen Klimaveränderung",
-    meaning: "الصيف لا يعني بالضرورة شمساً في المستقبل - بعد العواصف في الصيف الماضي، خبراء الأرصاد يتحدثون عن تغير مناخي كبير",
-    keywords: ["Sommer = صيف", "Sonne = شمس", "Klimawandel = تغير مناخي"],
-    simplified: "في المستقبل، الصيف لا يعني بالضرورة شمساً",
-    imagine: "🧠👁️ تخيل شمساً (Sonne) وعاصفة (Unwetter) معاً ☀️🌩️"
-};
-
-HELP_DATA["lesen1_exam37_q4"] = {
-    text: "Sprudel hausgemacht – Zeit des Flaschen-Tragens ist vorbei - Wozu noch Kästen mit Mineralwasserflaschen schleppen?",
-    meaning: "مياه غازية منزلية - زمن حمل الزجاجات ولى - لماذا لا نزال نحمل صناديق زجاجات المياه المعدنية؟",
-    keywords: ["Sprudel = مياه غازية", "hausgemacht = منزلي", "Wasserhahn = صنبور ماء"],
-    simplified: "مياه غازية منزلية - زمن حمل الزجاجات ولى",
-    imagine: "🧠👁️ تخيل آلة صودا (Sodamaschine) على طاولة المطبخ 🥤🏠"
-};
-
-HELP_DATA["lesen1_exam37_q5"] = {
-    text: "Viel Wasser trinken - Gesundheit tanken - 'Wasser ist zum Waschen da' lautete ein Schlager der 1950er",
-    meaning: "اشرب الكثير من الماء - احصل على الصحة - 'الماء للغسيل' كان عنوان أغنية في الخمسينيات",
-    keywords: ["Wasser = ماء", "trinken = شرب", "Gesundheit = صحة"],
-    simplified: "اشرب الكثير من الماء - احصل على الصحة",
-    imagine: "🧠👁️ تخيل شخصاً يشرب كوب ماء (Wasserglas) 🥤💧"
-};
-
-// ============================================
-// Exam 38: Limonade (التعديل 1)
-// ============================================
-
-HELP_DATA["lesen1_exam38_q1"] = {
-    text: "Frische Luft als wahre Energiequelle - Sauerstoff-Mineralwasser - das Deutsche Institut für Ernährungsforschung hält es für Unsinn",
-    meaning: "الهواء النقي كمصدر حقيقي للطاقة - ماء معدني بالأكسجين - معهد التغذية الألماني يعتبره هراءً",
-    keywords: ["Sauerstoff = أكسجين", "Sprudel = مياه غازية", "fit = لياقة"],
-    simplified: "أكسجين أكثر في المياه الغازية يجعلك لائقاً؟ لا!",
-    imagine: "🧠👁️ تخيل زجاجة ماء (Wasserflasche) مكتوب عليها أكسجين O2 💧❌"
-};
-
-HELP_DATA["lesen1_exam38_q2"] = {
-    text: "Vom Regen zum Mineralwasser - Regenwasser versickert im Boden, wird gefiltert und gereinigt, wird zu Trinkwasser",
-    meaning: "من المطر إلى ماء معدني - ماء المطر يتسرب في الأرض، يتم ترشيحه وتنقيته، يصبح ماء شرب",
-    keywords: ["Regen = مطر", "Mineralwasser = ماء معدني", "Nitrat = نترات"],
-    simplified: "من المطر إلى ماء معدني - خطر النترات",
-    imagine: "🧠👁️ تخيل مصنع مياه (Wasserwerk) يحول المطر إلى ماء شرب 🏭💧"
-};
-
-HELP_DATA["lesen1_exam38_q3"] = {
-    text: "Sommer bedeutet in Zukunft nicht unbedingt Sonne - Meteorologen sprechen von dramatischer Klimaveränderung",
-    meaning: "لا شمس بالضرورة في الصيف بالمستقبل - خبراء الأرصاد يتحدثون عن تغير مناخي كبير",
-    keywords: ["Sommer = صيف", "Sonne = شمس", "Unwetter = عواصف"],
-    simplified: "لا شمس بالضرورة في الصيف بالمستقبل",
-    imagine: "🧠👁️ تخيل شاطئاً (Strand) تبدو عليه الشمس ثم فجأة عاصفة 🏖️☀️→⛈️"
-};
-
-HELP_DATA["lesen1_exam38_q4"] = {
-    text: "Sprudel hausgemacht – Zeit des Flaschen-Tragens ist vorbei - Leitungswasser in deutschen Wohnungen ist von guter bis sehr guter Qualität",
-    meaning: "ليمونادة من صنبور الماء - زمن حمل الزجاجات انتهى - ماء الصنبور في الشقق الألمانية ذو جودة جيدة إلى جيدة جداً",
-    keywords: ["Sprudel = مياه غازية", "hausgemacht = منزلي", "Limonade = ليمونادة"],
-    simplified: "ليمونادة من صنبور الماء - زمن حمل الزجاجات انتهى",
-    imagine: "🧠👁️ تخيل ليمونادة (Limonade) تُصنع من ماء الصنبور 🍋💧"
-};
-
-HELP_DATA["lesen1_exam38_q5"] = {
-    text: "Viel Wasser trinken - Gesundheit tanken - 'Wasser ist zum Waschen da' lautete ein Schlager der 1950er",
-    meaning: "اشرب الماء بكثرة - احصل على الصحة - 'الماء للغسيل' كان عنوان أغنية في الخمسينيات",
-    keywords: ["Wasser = ماء", "trinken = شرب", "Gesundheit = صحة"],
-    simplified: "اشرب الماء بكثرة - احصل على الصحة",
-    imagine: "🧠👁️ تخيل شخصاً يشرب الماء ويبتسم (lächelt) 😊💧"
-};
-
-// ============================================
-// Exam 39: Limonade (التعديل 2)
-// ============================================
-
-HELP_DATA["lesen1_exam39_q1"] = {
-    text: "Frische Luft als wahre Energiequelle - Sauerstoff-Mineralwasser - das Deutsche Institut für Ernährungsforschung hält es für Unsinn",
-    meaning: "الهواء النقي كمصدر حقيقي للطاقة - ماء معدني بالأكسجين - معهد التغذية الألماني يعتبره هراءً",
-    keywords: ["Sauerstoff = أكسجين", "Sprudel = مياه غازية", "fit = لياقة"],
-    simplified: "أكسجين أكثر في المشروبات الغازية - لا يجعلك لائقاً",
-    imagine: "🧠👁️ تخيل زجاجة ماء غازي (Sprudel) مكتوب عليها أكسجين 🥤❌💪"
-};
-
-HELP_DATA["lesen1_exam39_q2"] = {
-    text: "Vom Regen zum Mineralwasser - Regenwasser versickert im Boden, wird gefiltert, wird zu Trinkwasser",
-    meaning: "من المطر إلى ماء معدني - ماء المطر يتسرب في الأرض، يتم ترشيحه، يصبح ماء شرب",
-    keywords: ["Regen = مطر", "Mineralwasser = ماء معدني", "Nitrat = نترات"],
-    simplified: "من المطر إلى ماء معدني - النترات تهدد الصحة",
-    imagine: "🧠👁️ تخيل بئراً (Brunnen) في الأرض 💧⛲"
-};
-
-HELP_DATA["lesen1_exam39_q3"] = {
-    text: "Sommer bedeutet in Zukunft nicht unbedingt Sonne - Meteorologen sprechen von dramatischer Klimaveränderung",
-    meaning: "الفيضانات بدلاً من الشمس في الصيف - خبراء الأرصاد يتحدثون عن تغير مناخي كبير",
-    keywords: ["Sommer = صيف", "Sonne = شمس", "Überschwemmungen = فيضانات"],
-    simplified: "الفيضانات بدلاً من الشمس في الصيف",
-    imagine: "🧠👁️ تخيل شاطئاً (Strand) مغموراً بالمياه 🌊🏖️"
-};
-
-HELP_DATA["lesen1_exam39_q4"] = {
-    text: "Sprudel hausgemacht – Zeit des Flaschen-Tragens ist vorbei - Mit einer Sodamaschine lassen sich Sprudel und Limonaden selbst herstellen",
-    meaning: "مياه غازية منزلية بدلاً من حمل الزجاجات - بآلة صودا يمكن صنع المياه الغازية والليمونادة في المنزل",
-    keywords: ["Sprudel = مياه غازية", "hausgemacht = منزلي", "Limonade = ليمونادة"],
-    simplified: "مياه غازية منزلية بدلاً من حمل الزجاجات",
-    imagine: "🧠👁️ تخيل شخصاً يصنع مشروباً غازياً (Sprudel) في المنزل 🥤🏠"
-};
-
-HELP_DATA["lesen1_exam39_q5"] = {
-    text: "Viel Wasser trinken - Gesundheit tanken - In den 1950ern galten süße Limonaden als besser als Wasser",
-    meaning: "اشرب ماءً كثيراً - اشحن صحتك - في الخمسينيات، كانت الليمونادة الحلوة تعتبر أفضل من الماء",
-    keywords: ["Wasser = ماء", "trinken = شرب", "Gesundheit = صحة"],
-    simplified: "اشرب ماءً كثيراً - اشحن صحتك",
-    imagine: "🧠👁️ تخيل شخصاً سعيداً يشرب الماء (Wasser) 😊💧"
-};
-
-// ============================================
-// Exam 40: Auf dem Weg
-// ============================================
-
-HELP_DATA["lesen1_exam40_q1"] = {
-    text: "Ein tierischer Lernspaß für alle - Wir bieten Bewegungsförderung mit und auf Pferden zur Stärkung der körperlichen und geistigen Fitness",
-    meaning: "متعة تعلمية حيوانية للجميع - نقدم تعزيز الحركة مع وعلى الخيول لتقوية اللياقة البدنية والعقلية",
-    keywords: ["Pferde = خيول", "lernen = تعلم", "Spaß = متعة"],
-    simplified: "متعة تعلمية حيوانية للجميع",
-    imagine: "🧠👁️ تخيل طفلاً يلعب مع حصان (Pferd) 🐴👧"
-};
-
-HELP_DATA["lesen1_exam40_q2"] = {
-    text: "Auf dem Weg zu internationalen Wettkämpfen - Die Schwimm- und Sportfreunde 1905 e.V. stellten Schwimmer für die Nationalmannschaft",
-    meaning: "في الطريق إلى المسابقات الدولية - أصدقاء السباحة والرياضة 1905 قدموا سباحين للمنتخب الوطني",
-    keywords: ["Wettkämpfe = مسابقات", "international = دولي", "Schwimmer = سباحون"],
-    simplified: "في الطريق إلى المسابقات الدولية",
-    imagine: "🧠👁️ تخيل سباحاً (Schwimmer) يفوز بميدالية 🏊‍♂️🥇"
-};
-
-HELP_DATA["lesen1_exam40_q3"] = {
-    text: "Fit und gesund auch nach der Pensionierung - Wer selbst im Rentenalter noch einen durchtrainierten Körper haben möchte, sollte schon in jungen Jahren das Ausdauertraining nicht vernachlässigen",
-    meaning: "لائق وصحي حتى بعد التقاعد - من يريد الحفاظ على جسم ممشوق حتى سن التقاعد، يجب ألا يهمل تدريبات التحمل منذ الشباب",
-    keywords: ["Gesundheit = صحة", "Rente = تقاعد", "fit = لائق"],
-    simplified: "لائق وصحي حتى بعد التقاعد",
-    imagine: "🧠👁️ تخيل شخصاً كبيراً (alter Mensch) يمارس الرياضة 👴💪"
-};
-
-HELP_DATA["lesen1_exam40_q4"] = {
-    text: "Durch Wassergymnastik Verspannungen lösen - Das Trampolin bietet die Möglichkeit, auch bei körperlichen Einschränkungen ein Trainingsprogramm zu absolvieren",
-    meaning: "حل التوترات من خلال التمارين المائية - الترامبولين يوفر إمكانية إكمال برنامج تدريبي حتى مع القيود الجسدية",
-    keywords: ["Verspannungen = توترات", "lösen = حل", "Wassergymnastik = تمارين مائية"],
-    simplified: "حل التوترات من خلال التمارين المائية",
-    imagine: "🧠👁️ تخيل شخصاً يمارس تمارين في الماء 💧🤸"
-};
-
-HELP_DATA["lesen1_exam40_q5"] = {
-    text: "Sport treiben wie ein Fisch unter Wasser - Sporttauchen wird in den Vereinen und Tauchschulen des Verbandes Deutscher Sporttaucher angeboten",
-    meaning: "مارس الرياضة مثل سمكة تحت الماء - الغوص الرياضي يُقدم في أندية ومدارس الغوص لاتحاد الغواصين الرياضيين الألمان",
-    keywords: ["Tauchen = غوص", "Wasser = ماء", "Sport = رياضة"],
-    simplified: "مارس الرياضة مثل سمكة تحت الماء",
-    imagine: "🧠👁️ تخيل غواصاً (Taucher) تحت الماء 🤿🐟"
-};
-
-// ============================================
-// Exam 41: Schlafzug
-// ============================================
-
-HELP_DATA["lesen1_exam41_q1"] = {
-    text: "Energiesparverhalten bei Tieren - Der längste dokumentierte Winterschlaf einer Fledermausart in Nordamerika dauerte 344 Tage",
-    meaning: "سلوك توفير الطاقة عند الحيوانات - أطول سبات شتوي موثق لنوع من الخفافيش في أمريكا الشمالية استمر 344 يوماً",
-    keywords: ["Winterschlaf = سبات شتوي", "Tiere = حيوانات", "Energie = طاقة"],
-    simplified: "سلوك توفير الطاقة عند الحيوانات",
-    imagine: "🧠👁️ تخيل دباً (Bär) نائماً في الشتاء 🐻❄️💤"
-};
-
-HELP_DATA["lesen1_exam41_q2"] = {
-    text: "Gutes Licht fördert den Lernerfolg - Ein Schulprojekt in Dänemark untersuchte die Auswirkungen von Tageslicht auf Kinder",
-    meaning: "الضوء الجيد يعزز نجاح التعلم - مشروع مدرسي في الدنمارك درس تأثير ضوء النهار على الأطفال",
-    keywords: ["Licht = ضوء", "Lernerfolg = نجاح تعليمي", "Schule = مدرسة"],
-    simplified: "الضوء الجيد يعزز نجاح التعلم",
-    imagine: "🧠👁️ تخيل فصلاً دراسياً (Klassenzimmer) مليئاً بالضوء ☀️📚"
-};
-
-HELP_DATA["lesen1_exam41_q3"] = {
-    text: "Durch Schlaf wird man klüger - Schon die alten Römer wussten, dass ausreichend Schlaf entscheidend für die Leistungsfähigkeit ist",
-    meaning: "بالنوم تصبح أذكى - حتى الرومان القدماء عرفوا أن النوم الكافي حاسم للأداء",
-    keywords: ["Schlaf = نوم", "klug = ذكي", "Gesundheit = صحة"],
-    simplified: "بالنوم تصبح أذكى",
-    imagine: "🧠👁️ تخيل شخصاً نائماً (schlafend) وعقلاً منبهاً 🛌🧠✨"
-};
-
-HELP_DATA["lesen1_exam41_q4"] = {
-    text: "Im Dunkeln wandern – Tipps für nächtliche Touren - In den letzten Jahren hat sich das nächtliche Wandern zu einem Trend entwickelt",
-    meaning: "المشي في الظلام – نصائح لجولات ليلية - في السنوات الأخيرة، تطور المشي ليلاً إلى موضة",
-    keywords: ["wandern = مشي", "Dunkeln = ظلام", "Nacht = ليل"],
-    simplified: "المشي في الظلام – نصائح لجولات ليلية",
-    imagine: "🧠👁️ تخيل شخصاً يمشي (wandert) ليلاً في الطبيعة 🌙🥾"
-};
-
-HELP_DATA["lesen1_exam41_q5"] = {
-    text: "Warum Licht für unser Wohlbefinden wichtig ist - Die Weltgesundheitsorganisation (WHO) weist darauf hin, wie stark Tageslicht unsere innere Uhr beeinflusst",
-    meaning: "لماذا الضوء مهم لرفاهيتنا - منظمة الصحة العالمية تشير إلى مدى تأثير ضوء النهار على ساعتنا الداخلية",
-    keywords: ["Arbeitszeiten = ساعات عمل", "Licht = ضوء", "Wohlbefinden = رفاهية"],
-    simplified: "الضوء الطبيعي وتأثيره على رفاهيتنا",
-    imagine: "🧠👁️ تخيل شخصاً يعمل في ضوء الشمس (Sonnenlicht) ☀️💼"
-};
-
-// ============================================
-// Exam 42: Schlafzug (التعديل 1)
-// ============================================
-
-HELP_DATA["lesen1_exam42_q1"] = {
-    text: "Tiere im Energiesparmodus - Viele Tiere können im Winter auf Sparflamme schalten: Igel, Eichhörnchen gehen in den Winterschlaf",
-    meaning: "الحيوانات في وضع توفير الطاقة - العديد من الحيوانات يمكنها العمل على لهب منخفض في الشتاء: القنافذ والسناجب تدخل في سبات شتوي",
-    keywords: ["Tiere = حيوانات", "Energiesparmodus = وضع توفير طاقة", "Winter = شتاء"],
-    simplified: "الحيوانات في وضع توفير الطاقة",
-    imagine: "🧠👁️ تخيل قنفذاً (Igel) نائماً في أوراق الشجر 🦔🍂💤"
-};
-
-HELP_DATA["lesen1_exam42_q2"] = {
-    text: "Richtiges Licht fördert das Lernen - Eine Studie der Pariser Sorbonne zeigte, dass Tageslicht die Leistungsfähigkeit verbessern kann",
-    meaning: "الضوء الصحيح يعزز التعلم - دراسة من جامعة السوربون في باريس أظهرت أن ضوء النهار يمكن أن يحسن الأداء",
-    keywords: ["Licht = ضوء", "Lernen = تعلم", "Erfolg = نجاح"],
-    simplified: "الضوء الصحيح يعزز التعلم",
-    imagine: "🧠👁️ تخيل طالباً يدرس في ضوء الشمس (Sonne) ☀️📖"
-};
-
-HELP_DATA["lesen1_exam42_q3"] = {
-    text: "Was hinter unserer Wintermüdigkeit steckt - Müdigkeit und Schlafbedürfnis richten sich danach, wie viele Stunden es hell ist",
-    meaning: "ما الذي يسبب تعبنا الشتوي؟ - التعب والحاجة للنوم يعتمدان على عدد ساعات النهار",
-    keywords: ["Wintermüdigkeit = تعب شتوي", "Licht = ضوء", "Ursachen = أسباب"],
-    simplified: "ما الذي يسبب تعبنا الشتوي؟",
-    imagine: "🧠👁️ تخيل شخصاً متعباً (müde) في الشتاء ❄️😴"
-};
-
-HELP_DATA["lesen1_exam42_q4"] = {
-    text: "Klug durch Schlaf - Wer sich viel merken möchte, sollte auf regelmäßige Schlafzeiten achten",
-    meaning: "بالنوم تصبح أذكى - فائدة النوم للعقل - من يريد تذكر الكثير، يجب أن ينتبه لأوقات نوم منتظمة",
-    keywords: ["Schlaf = نوم", "klug = ذكي", "Gedächtnis = ذاكرة"],
-    simplified: "بالنوم تصبح أذكى - فائدة النوم للعقل",
-    imagine: "🧠👁️ تخيل شخصاً نائماً (schlafend) وحروفاً تتطاير إلى دماغه 🛌🔤"
-};
-
-HELP_DATA["lesen1_exam42_q5"] = {
-    text: "Bewegung macht gute Laune - Bewegung an der frischen Luft hilft gegen den 'Winterblues'",
-    meaning: "الحركة تخلق مزاجاً جيداً - الحركة في الهواء الطلق تساعد ضد 'كآبة الشتاء'",
-    keywords: ["Bewegung = حركة", "gute Laune = مزاج جيد", "Winter = شتاء"],
-    simplified: "الحركة تخلق مزاجاً جيداً",
-    imagine: "🧠👁️ تخيل شخصاً سعيداً يمشي (spazieren) في الثلج ❄️🚶‍♂️😊"
-};
-
-// ============================================
-// Exam 43: Löwen
-// ============================================
-
-HELP_DATA["lesen1_exam43_q1"] = {
-    text: "Die Löwen sind sehr beliebt unter den Besuchern - Der Berliner Zoo gehört zu den bekanntesten Tierparks in Deutschland",
-    meaning: "الأسود محبوبة جداً بين الزوار - حديقة حيوان برلين هي من أشهر حدائق الحيوان في ألمانيا",
-    keywords: ["Löwen = أسود", "Zoo = حديقة حيوان", "beliebt = محبوب"],
-    simplified: "الأسود محبوبة جداً بين الزوار - جولات وورش عمل",
-    imagine: "🧠👁️ تخيل عائلة تنظر إلى أسد (Löwe) في حديقة الحيوان 🦁🏞️"
-};
-
-HELP_DATA["lesen1_exam43_q2"] = {
-    text: "Zum Schutz bedrohter Arten werden neue Schutzgebiete geschaffen - In Südafrika gab es Konflikte zwischen Löwen und Menschen",
-    meaning: "جهود لحماية الأنواع المهددة - مناطق محمية جديدة - في جنوب أفريقيا كانت هناك صراعات بين الأسود والبشر",
-    keywords: ["Schutzgebiete = مناطق محمية", "Arten = أنواع", "bedroht = مهدد"],
-    simplified: "جهود لحماية الأنواع المهددة - مناطق محمية جديدة",
-    imagine: "🧠👁️ تخيل أسداً (Löwe) في منطقة محمية 🦁🛡️"
-};
-
-HELP_DATA["lesen1_exam43_q3"] = {
-    text: "Löwen bringen Touristen in amerikanische Safari-Parks - In den USA ist ein großer Safari-Park die Hauptattraktion",
-    meaning: "الأسود تجلب السياح إلى حدائق السفاري الأمريكية - في الولايات المتحدة، حديقة سفاري كبيرة هي الجذب الرئيسي",
-    keywords: ["Safari-Parks = حدائق سفاري", "Touristen = سياح", "Löwen = أسود"],
-    simplified: "الأسود تجلب السياح إلى حدائق السفاري الأمريكية",
-    imagine: "🧠👁️ تخيل أسداً (Löwe) في سفاري والسياح يصورونه 📸🦁"
-};
-
-HELP_DATA["lesen1_exam43_q4"] = {
-    text: "Reiche Familien züchten exotische Tiere in Asien - In einigen asiatischen Ländern investieren wohlhabende Familien viel Geld, um exotische Tiere wie Löwen und Leoparden zu halten",
-    meaning: "عائلات غنية تربي حيوانات غريبة في آسيا - في بعض الدول الآسيوية، تستثمر العائلات الثرية أموالاً كثيرة لاقتناء حيوانات غريبة مثل الأسود والفهود",
-    keywords: ["exotische Tiere = حيوانات غريبة", "Familien = عائلات", "Asien = آسيا"],
-    simplified: "عائلات غنية تربي حيوانات غريبة في آسيا",
-    imagine: "🧠👁️ تخيل عائلة غنية (reiche Familie) وبجوارها أسد 🦁💰"
-};
-
-HELP_DATA["lesen1_exam43_q5"] = {
-    text: "Mehr Bemühungen für den Tierschutz - Die internationale Tierschutzorganisation 'Save the Wildlife' hat eine Informationskampagne gestartet",
-    meaning: "جهود متزايدة لحماية الحيوان - منظمة حماية الحيوان الدولية 'أنقذوا الحياة البرية' بدأت حملة توعية",
-    keywords: ["Tierschutz = حماية الحيوان", "Planung = تخطيط", "Bemühungen = جهود"],
-    simplified: "خطط لحماية الحيوان - جهود متزايدة",
-    imagine: "🧠👁️ تخيل حارس منتزه (Ranger) يحمي حيواناً 🦸‍♂️🦁"
-};
-
-// ============================================
-// Exam 44: Fisch
-// ============================================
-
-HELP_DATA["lesen1_exam44_q1"] = {
-    text: "Extremer Lebensraum - Willkommen in der Wüste. Die Sonne brennt gnadenlos",
-    meaning: "موئل متطرف - مرحباً بكم في الصحراء - الشمس تحرق بلا رحمة",
-    keywords: ["Wüste = صحراء", "Leben = حياة", "extrem = شديد"],
-    simplified: "الموئل المتطرف - الحياة في الصحراء",
-    imagine: "🧠👁️ تخيل صحراء (Wüste) شاسعة تحت أشعة الشمس الحارقة 🏜️☀️"
-};
-
-HELP_DATA["lesen1_exam44_q2"] = {
-    text: "Wie wird Technik in der Natur eingesetzt - Bioniker entwickeln technische Anlagen nach dem Vorbild der Natur",
-    meaning: "كيف تُستخدم التقنية في الطبيعة - باحثو المحاكاة الحيوية يطورون أجهزة تقنية على غرار الطبيعة",
-    keywords: ["Bionik = محاكاة حيوية", "Technik = تقنية", "Natur = طبيعة"],
-    simplified: "كيف تُستخدم التقنية في الطبيعة",
-    imagine: "🧠👁️ تخيل مهندساً (Ingenieur) يدرس طائراً لصنع طائرة ✈️🐦"
-};
-
-HELP_DATA["lesen1_exam44_q3"] = {
-    text: "Ein Fisch in den Dünen - Der Sandfisch ist eigentlich keine Fisch, sondern eine kleine Echse",
-    meaning: "سمكة في الكثبان الرملية - سمكة الرمل ليست سمكة في الحقيقة، بل سحلية صغيرة",
-    keywords: ["Fisch = سمكة", "Sand = رمل", "schwimmen = سباحة"],
-    simplified: "سمكة في الكثبان الرملية",
-    imagine: "🧠👁️ تخيل سمكة (Fisch) تسبح في الرمال 🐟🏜️"
-};
-
-HELP_DATA["lesen1_exam44_q4"] = {
-    text: "Trinkwasser aus Nebel - Der Nebeltrinker-Käfer lebt in der Namib-Wüste",
-    meaning: "ماء شرب من الضباب - خنفساء شرب الضباب تعيش في صحراء ناميب",
-    keywords: ["Nebel = ضباب", "Wasser = ماء", "Trinkwasser = ماء شرب"],
-    simplified: "ماء شرب من الضباب – حلول من الطبيعة",
-    imagine: "🧠👁️ تخيل شبكة (Netz) تجمع قطرات الماء من الضباب 🌫️💧"
-};
-
-HELP_DATA["lesen1_exam44_q5"] = {
-    text: "Rasante Flucht - Die Rollerspinne lebt in der Namib-Wüste",
-    meaning: "هروب سريع – دروس من الطبيعة للمركبات - عنكبوت التدحرج يعيش في صحراء ناميب",
-    keywords: ["Flucht = هروب", "rasant = سريع", "Spinne = عنكبوت"],
-    simplified: "هروب سريع – دروس من الطبيعة للمركبات",
-    imagine: "🧠👁️ تخيل عنكبوتاً (Spinne) يتدحرج مثل العجلة 🕷️🌀"
-};
-
-// ============================================
-// Exam 45: Frauen im Arbeitsmarkt
-// ============================================
-
-HELP_DATA["lesen1_exam45_q1"] = {
-    text: "Schlechtere Chancen für Frauen am Arbeitsmarkt - Ein hochwertiger Schulabschluss gilt als Schlüssel zum Berufsein- und -aufstieg",
-    meaning: "فرص أقل للنساء في سوق العمل - شهادة مدرسية عالية الجودة تعتبر مفتاح الدخول والارتقاء المهني",
-    keywords: ["Frauen = نساء", "Arbeitsmarkt = سوق عمل", "Chancen = فرص"],
-    simplified: "فرص أقل للنساء في سوق العمل",
-    imagine: "🧠👁️ تخيل امرأة (Frau) تحمل شهادة ولكن باب العمل مغلق 🎓🚪😔"
-};
-
-HELP_DATA["lesen1_exam45_q2"] = {
-    text: "Schnell essen macht dick - Psychiater der Universität Florida haben das schnelle Essen als mögliche Ursache für Fettleibigkeit entdeckt",
-    meaning: "الأكل السريع يسبب السمنة - أطباء نفسيون من جامعة فلوريدا اكتشفوا أن الأكل السريع هو سبب محتمل للسمنة",
-    keywords: ["schnell essen = أكل سريع", "dick = سمين", "Studie = دراسة"],
-    simplified: "الأكل السريع يسبب السمنة",
-    imagine: "🧠👁️ تخيل شخصاً يأكل بسرعة (schnell essen) 🍔⚡"
+// Lesen Teil 1 - Exams 1-10 (فقط الأسئلة الصحيحة)
+// ============================================
+
+// ========== Exam 1: Jugend Forscher (صحيح: 9,7,1,0,4) ==========
+HELP_DATA["lesen1_exam1_text1"] = {
+    text: "Die Zahlen wirken auf dem ersten Blick dramatisch - Wenn aus Erdbeeren Tomaten werden",
+    meaning: "الأطفال لا يعرفون الطبخ ويخلطون بين الفراولة والطماطم",
+    keywords: ["kochen = طبخ", "Erdbeeren = فراولة", "Tomaten = طماطم"],
+    simplified: "أطفال يخلطون بين الفراولة والطماطم",
+    imagine: "طفل يأكل فراولة ويقول هذه طماطم",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam1_text2"] = {
+    text: "Immer mehr Mädchen leiden an schweren Essstörungen - Von der Diät zur Krankheit",
+    meaning: "الفتيات يصبن بأمراض أكل خطيرة تبدأ بحمية",
+    keywords: ["Mädchen = فتيات", "Diät = حمية", "Essstörungen = اضطرابات أكل"],
+    simplified: "حمية صغيرة تؤدي لمرض خطير عند الفتيات",
+    imagine: "فتاة ترمي الميزان بعد أن خسرت كثيرا",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam1_text3"] = {
+    text: "Energiesparlampen, umweltfreundliche Elektrogeräte - Jugend engagiert sich für den Umweltschutz",
+    meaning: "الشباب يشاركون في مسابقات علمية لحماية البيئة",
+    keywords: ["Jugend forscht = شباب يبحثون", "Umweltschutz = حماية بيئة", "Wettbewerb = مسابقة"],
+    simplified: "شباب يبحثون عن حلول بيئية في مسابقة",
+    imagine: "طالب يشرح بحثه عن البيئة أمام لجنة",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam1_text4"] = {
+    text: "13,5 Meter lang und leuchtend gelb - Jugend forscht - auch auf dem Meer",
+    meaning: "تلاميذ يركبون سفينة لدراسة تلوث البحر",
+    keywords: ["Meer = بحر", "Forschung = بحث", "Plastik = بلاستيك", "Nordsee = بحر الشمال"],
+    simplified: "تلاميذ يبحثون عن البلاستيك في البحر",
+    imagine: "طالبة تأخذ عينة ماء من البحر",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam1_text5"] = {
+    text: "Mobbing ist kein neues Phänomen - Psychoterror an der Schule",
+    meaning: "التنمر والإيذاء النفسي منتشر في المدارس",
+    keywords: ["Mobbing = تنمر", "Schule = مدرسة", "Psychoterror = إرهاب نفسي"],
+    simplified: "التنمر والإهانة في المدرسة تؤذي الطلاب",
+    imagine: "طفل يجلس وحيدا وأطفال آخرون يسخرون منه",
+    correct: "e"
+};
+
+// ========== Exam 2: sport ist gesund (صحيح: 7,5,2,0,3) ==========
+HELP_DATA["lesen1_exam2_text1"] = {
+    text: "An der Ostküste Attikas in Griechenland - Ein Leistungssport für jedes Alter",
+    meaning: "الماراثون رياضة يمكن ممارستها حتى سن متقدم",
+    keywords: ["Marathonlauf = ماراثون", "Leistungssport = رياضة تنافسية", "hohes Alter = سن متقدم"],
+    simplified: "الماراثون رياضة لكل الأعمار حتى كبار السن",
+    imagine: "رجل عجوز يركض ماراثونا ويبتسم",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam2_text2"] = {
+    text: "Warum soll sich der Mensch nun auf Straßen und Wegen fortbewegen - Sportbegeisterte Eltern",
+    meaning: "آباء محبو الرياضة يجرون وعربات أطفالهم معهم",
+    keywords: ["Jogging-Stroller = عربة جري", "Kinderwagen = عربة أطفال", "Babys = أطفال رضع"],
+    simplified: "أهل يمارسون الرياضة وأطفالهم معهم في العربة",
+    imagine: "أب يركض ويدفع عربة طفله أمامه",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam2_text3"] = {
+    text: "Schweizer Forscher haben herausgefunden - Fitness auch mit wenig Zeitaufwand erreichbar",
+    meaning: "6 دقائق تمرين أسبوعيا تكفي للياقة البدنية",
+    keywords: ["6 Minuten = 6 دقائق", "Hochleistungstraining = تدريب عالي الأداء", "fit = لائق"],
+    simplified: "لياقة بدنية بست دقائق فقط في الأسبوع",
+    imagine: "رجل يركض بسرعة لمدة دقيقة واحدة في اليوم",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam2_text4"] = {
+    text: "Mehr Bewegung als Ausgleich für zu langes Sitzen - Sport ist gesund",
+    meaning: "للرياضة قواعد يجب اتباعها لتجنب الضرر",
+    keywords: ["Grundregeln = قواعد أساسية", "Einsteiger = مبتدئين", "Puls = نبض"],
+    simplified: "اركب الرياضة ولكن اتبع القواعد الأساسية",
+    imagine: "عداء يتوقف ويقيس نبضه بساعته",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam2_text5"] = {
+    text: "Viele frischgebackene Eltern stehen einem riesigen Angebot - Geprüfte Qualität für Babys",
+    meaning: "نصائح لاختيار عربة أطفال آمنة وعالية الجودة",
+    keywords: ["Kinderwagen = عربة أطفال", "TÜV geprüfte = مختبرة", "Prüfzeichen = علامة فحص"],
+    simplified: "عربات أطفال مختبرة وآمنة للرضع",
+    imagine: "عربة أطفال عليها ختم دائري أخضري", 
+    correct: "d"
+};
+
+// ========== Exam 3: sport ist gesund (التعديل 1) (صحيح: 7,5,2,0,3) ==========
+HELP_DATA["lesen1_exam3_text1"] = {
+    text: "An der Ostküste Attikas in Griechenland - Ein Leistungssport für jedes Alter",
+    meaning: "الماراثون رياضة تنافسية تناسب جميع الأعمار",
+    keywords: ["Marathonlauf = ماراثون", "Leistungssport = رياضة تنافسية", "hohes Alter = سن متقدم"],
+    simplified: "الماراثون رياضة حتى لكبار السن",
+    imagine: "جد يركض ماراثونا بجوار حفيده",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam3_text2"] = {
+    text: "Warum soll sich der Mensch nun auf Straßen und Wegen - Sportbegeisterte Eltern",
+    meaning: "آباء رياضيون يجرون وعربات أطفالهم",
+    keywords: ["Jogging-Stroller = عربة جري", "Kinderwagen = عربة أطفال", "Babys = أطفال"],
+    simplified: "أهل يجرون وأطفالهم في عربات",
+    imagine: "أم تدفع عربة طفلها وهي تجري في الحديقة",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam3_text3"] = {
+    text: "Schweizer Forscher haben herausgefunden - Fitness auch mit wenig Zeitaufwand",
+    meaning: "6 دقائق تدريب أسبوعيا تكفي للياقة",
+    keywords: ["6 Minuten = 6 دقائق", "Hochleistungstraining = تدريب عال", "fit = لائق"],
+    simplified: "ست دقائق رياضة أسبوعيا تكفي",
+    imagine: "رجل يعرق بعد دقيقة واحدة من الركض السريع",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam3_text4"] = {
+    text: "Mehr Bewegung als Ausgleich für zu langes Sitzen - Sport ist gesund",
+    meaning: "للرياضة قواعد مهمة لسلامة المبتدئين",
+    keywords: ["Grundregeln = قواعد", "Einsteiger = مبتدئين", "Puls = نبض"],
+    simplified: "اتبع قواعد الرياضة لتحمي صحتك",
+    imagine: "شخص يقرأ كتيب إرشادات قبل الجري",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam3_text5"] = {
+    text: "Viele frischgebackene Eltern stehen einem riesigen Angebot - Geprüfte Qualität für Babys",
+    meaning: "نصائح مهمة لشراء عربة أطفال آمنة",
+    keywords: ["Kinderwagen = عربة أطفال", "TÜV = جهاز فحص", "Prüfzeichen = علامة جودة"],
+    simplified: "عربات أطفال مختبرة ومعتمدة للرضع",
+    imagine: "يد تتحسس علامة الجودة على عربة أطفال",
+    correct: "d"
+};
+
+// ========== Exam 4: Tanzkurs (صحيح: 4,3,5,0,6) ==========
+HELP_DATA["lesen1_exam4_text1"] = {
+    text: "Der Begriff Extremsport wird oft subjektiv verwendet - Suche nach dem Nervenkitzel",
+    meaning: "الرياضات الخطيرة يبحث فيها عن الإثارة والمغامرة",
+    keywords: ["Extremsport = رياضة خطيرة", "Risiko = خطر", "Adrenalinschub = دفعة أدرينالين"],
+    simplified: "الرياضيون يبحثون عن الإثارة في الرياضات الخطيرة",
+    imagine: "رجل يقفز بالحبال من فوق جسر عال",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam4_text2"] = {
+    text: "Musik, Sport, ehrenamtliches Engagement - Verändertes Freizeitverhalten von Jugendlichen",
+    meaning: "سلوك أوقات فراغ الشباب تغير نحو الأنشطة التعليمية",
+    keywords: ["Jugendliche = شباب", "Freizeitaktivitäten = أنشطة فراغ", "bildungsorientiert = تعليمي"],
+    simplified: "شباب يقضون وقت فراغهم في أنشطة مفيدة",
+    imagine: "مراهق يعزف على البيانو وآخر يلعب كرة",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam4_text3"] = {
+    text: "In Firmen gibt es sie schon - Hilfen für überforderte Schüler",
+    meaning: "دورات استرخاء في المدارس لمساعدة الطلاب المتوترين",
+    keywords: ["Entspannungskurse = دورات استرخاء", "Stress = توتر", "Schüler = طلاب"],
+    simplified: "دورات استرخاء تساعد الطلاب على التركيز",
+    imagine: "طالب جالس يتنفس بعمق ويغمض عينيه",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam4_text4"] = {
+    text: "Tanja Kleist ist von modernem Tanz absolut begeistert - Freie Plätze im Tanzkurs",
+    meaning: "أماكن شاغرة في دورة رقص الهيب هوب",
+    keywords: ["Tanzgruppe = فرقة رقص", "Hip-Hop = هيب هوب", "Teilnehmer = مشاركين"],
+    simplified: "دورة رقص الهيب هوب تبحث عن أعضاء جدد",
+    imagine: "فتاة ترقص ويديها مفتوحتان",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam4_text5"] = {
+    text: "Montags Tennis, dienstags Klavierunterricht - Keine Zeit für Langeweile",
+    meaning: "الأطفال مشغولون بأنشطة كثيرة ولا وقت للملل",
+    keywords: ["Freizeitstress = ضغط أوقات فراغ", "Eltern = أهل", "Kinder = أطفال"],
+    simplified: "أطفال مشغولون طوال الأسبوع بلا وقت للملل",
+    imagine: "طفل يجري من درس موسيقى إلى تدريب كرة",
+    correct: "g"
+};
+
+// ========== Exam 5: Tanzkurs (التعديل 1) (صحيح: 3,9,2,1,4) ==========
+HELP_DATA["lesen1_exam5_text1"] = {
+    text: "Der Begriff Extremsport wird oft subjektiv verwendet - Suche nach dem Nervenkitzel",
+    meaning: "الرياضات الخطيرة بحث عن الإثارة",
+    keywords: ["Extremsport = رياضة خطيرة", "Risiko = خطر", "Adrenalin = أدرينالين"],
+    simplified: "مغامرات خطيرة للبحث عن الإثارة",
+    imagine: "شاب يتسلق جبلا دون حبال أمان",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam5_text2"] = {
+    text: "Musik, Sport, ehrenamtliches Engagement - Wandel Freizeitverhalten von Jugendlichen",
+    meaning: "تغير سلوك أوقات فراغ الشباب نحو الأنشطة الهادفة",
+    keywords: ["Jugendliche = شباب", "Freizeitaktivitäten = أنشطة فراغ", "zugenommen = ازداد"],
+    simplified: "شباب nowadays يفضلون الأنشطة المفيدة",
+    imagine: "شاب يمارس رياضة وآخر يعزف موسيقى",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam5_text3"] = {
+    text: "In Firmen gibt es sie schon - Hilfen für überforderte Schüler",
+    meaning: "دورات استرخاء لطلاب يعانون من الضغط",
+    keywords: ["Entspannungskurse = دورات استرخاء", "Stress = ضغط", "Schüler = طلاب"],
+    simplified: "دورات استرخاء في المدارس للحد من التوتر",
+    imagine: "طالب نائم بهدوء بعد تمرين استرخاء",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam5_text4"] = {
+    text: "Tanja Kleist ist von modernem Tanz absolut begeistert - Freie Plätze im Tanzkurs",
+    meaning: "أماكن شاغرة في دورة رقص الهيب هوب",
+    keywords: ["Tanzgruppe = مجموعة رقص", "Teilnehmer = مشاركين", "Hip-Hop = هيب هوب"],
+    simplified: "دورة رقص تبحث عن راقصين جدد",
+    imagine: "لافتة مكتوب عليها مطلوب راقصين",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam5_text5"] = {
+    text: "Montags Tennis, dienstags Klavierunterricht - Keine Zeit für Langeweile",
+    meaning: "الأطفال مشغولون طوال الأسبوع",
+    keywords: ["Freizeitstress = ضغط وقت فراغ", "Eltern = أهل", "Kinder = أطفال"],
+    simplified: "أطفال بلا وقت للملل بسبب كثرة الأنشطة",
+    imagine: "تقويم مملوء بأنشطة كل يوم",
+    correct: "e"
+};
+
+// ========== Exam 6: Impfung (صحيح: 1,2,3,6,4) ==========
+HELP_DATA["lesen1_exam6_text1"] = {
+    text: "Immer wieder überspringen Krankheitserreger aus dem Tierreich - Neue Erkenntnisse über artübergreifende Krankheitserreger",
+    meaning: "فيروسات تنتقل من الحيوانات إلى الإنسان",
+    keywords: ["Krankheitserreger = مسببات مرض", "Tierreich = مملكة حيوانات", "Infektion = عدوى"],
+    simplified: "أمراض تنتقل من الحيوانات للإنسان",
+    imagine: "فيروس يقفز من قرد إلى إنسان",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam6_text2"] = {
+    text: "Virologen ist es gelungen - Kontroverse um den Zugang zu Forschungsergebnissen",
+    meaning: "جدل حول نشر نتائج أبحاث خطيرة",
+    keywords: ["Forschungsergebnisse = نتائج أبحاث", "veröffentlichen = نشر", "Terroristen = إرهابيين"],
+    simplified: "جدل عالمي حول نشر أبحاث فيروسات خطيرة",
+    imagine: "باحث يخفي أوراقه خوفا من الوقوع في الأيدي الخطأ",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam6_text3"] = {
+    text: "Ein neuer Impfstoff gegen Grippe - Hoffnung auf einen allumfassenden Grippeschutz",
+    meaning: "أمل في لقاح شامل يحمي من جميع أنواع الإنفلونزا",
+    keywords: ["Impfstoff = لقاح", "Grippe = إنفلونزا", "universelle = شامل"],
+    simplified: "لقاح واحد يحمي من كل أنواع الإنفلونزا",
+    imagine: "حقنة واحدة تحمي من فيروسات كثيرة",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam6_text4"] = {
+    text: "Breitet sich die Grippe in einer Schule aus - Geschlechtsspezifische Übertragung von Grippeviren",
+    meaning: "انتقال الإنفلونزا بين الأطفال يكون بين الذكور والإناث كل على حدة",
+    keywords: ["Grippe = إنفلونزا", "Buben = أولاد", "Mädchen = بنات", "Infektion = عدوى"],
+    simplified: "الإنفلونزا تنتقل بين البنات وبين الأولاد بشكل منفصل",
+    imagine: "ولد ينقل الإنفلونزا لولد آخر وبنت تنقلها لبنت أخرى",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam6_text5"] = {
+    text: "Da sich Influenzaviren immer wieder verändern - Hinweise auf eingeschränkten Erfolg von Influenza-Impfungen",
+    meaning: "لقاحات الإنفلونزا فعاليتها محدودة",
+    keywords: ["Impfstoffe = لقاحات", "Wirksamkeit = فعالية", "geringer = أقل"],
+    simplified: "فعالية لقاح الإنفلونزا أقل مما كان يعتقد",
+    imagine: "حقنة تحمي 59 شخصا فقط من كل 100",
+    correct: "e"
+};
+
+// ========== Exam 7: Insel (صحيح: 4,1,8,2,9) ==========
+HELP_DATA["lesen1_exam7_text1"] = {
+    text: "Die Shengsi-Inseln liegen im Ostchinesischen Meer - Grüne Geisterinsel in Asien",
+    meaning: "جزيرة أشباح خضراء في آسيا غطتها الطبيعة",
+    keywords: ["Shengsi-Inseln = جزر شينغسي", "unbewohnt = غير مأهولة", "Natur = طبيعة"],
+    simplified: "جزيرة مهجورة غطتها الطبيعة بالخضرة",
+    imagine: "بيوت قديمة مغطاة بالعشب والنباتات المتسلقة",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam7_text2"] = {
+    text: "Der Reiseveranstalter TOURIMARS hat kürzlich eine Befragung - Die beliebtesten Reiseziele unter den europäischen Inseln",
+    meaning: "أكثر الجزر الأوروبية شعبية لدى السياح",
+    keywords: ["Inseln = جزر", "populär = شعبي", "Europa = أوروبا", "Touristen = سياح"],
+    simplified: "أشهر الجزر الأوروبية لقضاء العطلات",
+    imagine: "خريطة أوروبا وعليها علامات نجوم على جزر محددة",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam7_text3"] = {
+    text: "Das ostfriesische Memmert ist für seltene Vögel reserviert - Tierparadies auf einer Nordseeinsel",
+    meaning: "جزيرة في بحر الشمال جنة للطيور النادرة",
+    keywords: ["Memmert = ميمرت", "Vögel = طيور", "Nordsee = بحر الشمال", "Tierparadies = جنة حيوانات"],
+    simplified: "جزيرة للطيور النادرة في بحر الشمال",
+    imagine: "آلاف الطيور تحلق فوق جزيرة صغيرة",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam7_text4"] = {
+    text: "Die südamerikanischen Galapagosinseln locken - Fernreisen in eine unberührte Tierwelt",
+    meaning: "رحلات إلى جزر غالاباغوس لمشاهدة حيوانات لا تخاف البشر",
+    keywords: ["Galapagosinseln = جزر غالاباغوس", "Tiere = حيوانات", "unberührt = غير متأثرة", "Paradies = جنة"],
+    simplified: "رحلات إلى جزر غالاباغوس لمشاهدة الحيوانات عن قرب",
+    imagine: "سائح يقف بجانب سلحفاة عملاقة لا تهرب منه",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam7_text5"] = {
+    text: "Dass Elefanten in Thailand teurer sein können - Umstrittener Umgang mit Tieren als Touristenmagnet",
+    meaning: "جدل حول استخدام الأفيال كوسيلة جذب سياحي",
+    keywords: ["Elefanten = أفيال", "Tierschützer = حماة حيوانات", "Touristen = سياح", "Kritik = نقد"],
+    simplified: "إثارة حول استخدام الأفيال في السياحة التايلندية",
+    imagine: "سائح يمتطي فيلا وناشط يحمل لافتة احتجاج خلفه",
+    correct: "j"
+};
+
+// ========== Exam 8: Bilder (صحيح: 1,8,0,6,2) ==========
+HELP_DATA["lesen1_exam8_text1"] = {
+    text: "Der Buchtitel erinnert an eine Horrorgeschichte 'Die Nacht' - Das Ende der Dunkelheit",
+    meaning: "كتاب يتحدث عن اختفاء الظلام الطبيعي بسبب الإضاءة الصناعية",
+    keywords: ["Nacht = ليل", "Dunkelheit = ظلام", "künstliches Licht = إضاءة صناعية"],
+    simplified: "اختفاء الظلام الحقيقي بسبب الأضواء",
+    imagine: "سماء مدينة مليئة بالأضواء ولا نجوم مرئية",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam8_text2"] = {
+    text: "Fotos machen ist heute nicht schwer - Gelungene Einführung in die moderne Fotografie",
+    meaning: "كتاب ممتاز لتعلم أساسيات التصوير الحديث",
+    keywords: ["Fotografie = تصوير", "Ratgeber = دليل", "Basiswissen = معرفة أساسية"],
+    simplified: "دليل ممتاز لتعلم التصوير من الصفر",
+    imagine: "يد تمسك كاميرا وكتاب مفتوح بجانبها",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam8_text3"] = {
+    text: "Bilder der Fotografin Annie Leibovitz sind - Bilder einer bedeutenden Künstlerin",
+    meaning: "معرض لصور فنانة عالمية تصوير المشاهير وعائلتها",
+    keywords: ["Annie Leibovitz = آني ليبوفيتز", "Ausstellung = معرض", "Portraits = صور شخصية"],
+    simplified: "معرض صور لمشاهير وأسرة المصورة الشهيرة",
+    imagine: "وجوه مشاهير كثيرة على جدران معرض فني",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam8_text4"] = {
+    text: "Die Abkürzung TWAN klingt nach einem neuen Computerprogramm - Erde, Mond und Sterne",
+    meaning: "صور مذهلة للنجوم والأرض لم يرها أحد من قبل",
+    keywords: ["Sterne = نجوم", "Erde = أرض", "Mond = قمر", "Landschaften = مناظر طبيعية"],
+    simplified: "صور رائعة للنجوم فوق مناظر الأرض",
+    imagine: "سماء مليئة بالنجوم فوق جبل مغطى بالثلج",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam8_text5"] = {
+    text: "Er gehörte zu den ganz Großen seines Fachs: Andreas Feininger - Die bemerkenswerte Karriere eines Fotografen",
+    meaning: "قصة حياة مصور عالمي شهير بدأ كمهندس معماري",
+    keywords: ["Andreas Feininger = أندرياس فاينينغر", "Fotograf = مصور", "Biografie = سيرة ذاتية"],
+    simplified: "قصة نجاح مصور عالمي بدأ كمهندس",
+    imagine: "مصور يحمل كاميرا وخلفه رسومات معمارية",
+    correct: "c"
+};
+
+// ========== Exam 9: Grundschule (صحيح: 5,6,4,2,0) ==========
+HELP_DATA["lesen1_exam9_text1"] = {
+    text: "Berlin wird in 10 Jahren rund 5.000 Lehrkräfte weniger brauchen - Gewerkschaft erwartet Lehrermangel in Berlin",
+    meaning: "نقابة المعلمين تتوقع نقصا حادا في المعلمين ببرلين",
+    keywords: ["GEW = نقابة", "Lehrermangel = نقص معلمين", "Berlin = برلين", "Ruhestand = تقاعد"],
+    simplified: "برلين تعاني نقصا كبيرا في المعلمين خلال 10 سنوات",
+    imagine: "فصل دراسي مكتظ ومعلم واحد يقف أمامه",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam9_text2"] = {
+    text: "Wer sich in Berlin um eine Stelle als Lehrer bewirbt - GEW befürchtet Abwanderung von gut ausgebildeten Lehrkräften",
+    meaning: "نقابة المعلمين تخاف هجرة المعلمين الجيدين من برلين",
+    keywords: ["Abwanderung = هجرة", "Lehrkräfte = معلمين", "Berlin = برلين", "Hamburg = هامبورغ"],
+    simplified: "معلمون جيدون يغادرون برلين إلى مدن أخرى",
+    imagine: "معلم يحمل حقيبته ويصعد قطارا خارجا من برلين",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam9_text3"] = {
+    text: "Eltern klagen über Stundenausfall - Experten befürchten zunehmenden Lehrermangel in Deutschland",
+    meaning: "خبراء يخافون من نقص كبير في المعلمين بألمانيا",
+    keywords: ["Lehrermangel = نقص معلمين", "Deutschland = ألمانيا", "Pensionierung = تقاعد"],
+    simplified: "نقص في المعلمين بألمانيا يصل 400 ألف خلال 15 سنة",
+    imagine: "فصل دراسي بدون معلم والطلاب يلعبون",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam9_text4"] = {
+    text: "Bildungspolitiker und Lehrervertreter wollen - Bildungsforscher: Lehrermangel wird in Deutschland nicht eintreten",
+    meaning: "باحثون يقولون لن يكون هناك نقص في المعلمين",
+    keywords: ["Bildungsforscher = باحثون تعليم", "ausgeglichene Bilanz = ميزان متوازن", "Lehrermangel = نقص معلمين"],
+    simplified: "باحثون يتوقعون توازنا بين المعلمين والحاجة",
+    imagine: "ميزان متساو بين معلمين وطلاب",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam9_text5"] = {
+    text: "Mädchen haben tendenziell bessere Noten - An deutschen Grundschulen sind männliche Lehrkräfte selten",
+    meaning: "المعلمون الرجال نادرون في المدارس الابتدائية الألمانية",
+    keywords: ["Grundschulen = مدارس ابتدائية", "männliche Lehrkräfte = معلمين رجال", "Frauenanteil = نسبة نساء"],
+    simplified: "قلة الرجال في تدريس المرحلة الابتدائية",
+    imagine: "معلمة واحدة بين طلابها ولا يوجد معلم رجال بالمدرسة",
+    correct: "a"
+};
+
+// ========== Exam 10: Österreich - Naschmarkt (صحيح: 3,5,9,4,0) ==========
+HELP_DATA["lesen1_exam10_text1"] = {
+    text: "Das Lesemagazin MENU hat eine Umfrage - Österreichs beliebteste Marktplätze",
+    meaning: "أكثر أسواق النمسا شعبية حسب استطلاع",
+    keywords: ["Märkte = أسواق", "Österreich = نمسا", "Umfrage = استطلاع", "populär = شعبي"],
+    simplified: "أشهر أسواق النمسا بناء على تصويت القراء",
+    imagine: "لافتات كبيرة لأسماء أسواق ونجوم بجانبها",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam10_text2"] = {
+    text: "Sie sind der Meinung, dass Ihre Qualifikationen ausreichen - Schulung zum Erfolg im Beruf",
+    meaning: "دورات لتطوير مهارات التسويق الذاتي للنجاح المهني",
+    keywords: ["Selbstmarketing = تسويق ذاتي", "Karriere = مهنة", "Bewerbung = طلب وظيفة"],
+    simplified: "دورات لتعلم كيف تسوق نفسك في العمل",
+    imagine: "شخص يرفع لافتة عليها صورته وعبارة وظفوني",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam10_text3"] = {
+    text: "Der Wiener Naschmarkt gehört zu Österreichs beliebtesten Märkten - Wissenswertes über Wiens größten innerstädtischen Markt",
+    meaning: "معلومات مهمة عن أكبر سوق داخلي في فيينا",
+    keywords: ["Naschmarkt = سوق ناش", "Wien = فيينا", "größter Markt = أكبر سوق", "Sehenswürdigkeit = معلم سياحي"],
+    simplified: "كل ما تريد معرفته عن سوق ناش في فيينا",
+    imagine: "سوق كبير مليء بأكشاك الفواكه والخضروات",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam10_text4"] = {
+    text: "Wer bloggt, zeigt neben Fachkompetenz auch Kreativität - Schreiben im Internet für die Karriere",
+    meaning: "كتابة المدونات على الإنترنت تساعد في الحصول على وظيفة",
+    keywords: ["bloggt = يدون", "Kreativität = إبداع", "Bewerbung = تقديم وظيفة", "Karriere = مهنة"],
+    simplified: "كتابة المدونات تعزز فرصك في العمل",
+    imagine: "شاب يكتب على حاسوبه وحوله عروض عمل تطير",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam10_text5"] = {
+    text: "Bis Herbst soll ein neues Marktkonzept für den altehrwürdigen Salzburger Grünmarkt - Erlebnisrundgang für einen alten Markt",
+    meaning: "جولة ترفيهية في سوق سالزبورغ القديم بعد تجديده",
+    keywords: ["Salzburger Grünmarkt = سوق سالزبورغ", "Marktkonzept = مفهوم سوق", "nachhaltig = مستدام"],
+    simplified: "جولة سياحية في سوق سالزبورغ القديم المتجدد",
+    imagine: "سائح يتجول في سوق ينظف ويضاحك الباعة",
+    correct: "a"
+};
+
+// ============================================
+// Lesen Teil 1 - Exams 11-20 (فقط الأسئلة الصحيحة)
+// ============================================
+
+// ========== Exam 11: Insekten (صحيح: 2,7,1,4,8) ==========
+HELP_DATA["lesen1_exam11_text1"] = {
+    text: "Die anhaltenden Temperaturen haben in Südfrankreich - Landwirte wollen Gift gegen schädliche Insekten",
+    meaning: "مزارعون يريدون استخدام السموم لمكافحة الجراد الضار",
+    keywords: ["Heuschrecken = جراد", "Landwirte = مزارعون", "Gift = سم", "Ernte = محصول"],
+    simplified: "مزارعون يريدون رش السم لقتل الجراد",
+    imagine: "مزارع يرش مبيدا وحشرات تموت حوله",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam11_text2"] = {
+    text: "Für immer wird eine der größten Umweltkatastrophen - Rückblick: Fischsterben im Rhein",
+    meaning: "كارثة بيئية كبرى عام 1986 تسببت بنفوق الأسماك في نهر الراين",
+    keywords: ["Rhein = راين", "Fischsterben = نفوق أسماك", "Sandoz = ساندوز", "Pestizide = مبيدات"],
+    simplified: "تلوث نهر الراين عام 1986 قتل الأسماك",
+    imagine: "أسماك ميتة تطفو على سطح نهر كبير",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam11_text3"] = {
+    text: "Der Klimawandel bringt es mit sich - Kleine Plagegeister können Krankheiten bringen",
+    meaning: "حشرات صغيرة تحمل أمراضا جديدة إلى ألمانيا بسبب تغير المناخ",
+    keywords: ["Stechmücken = بعوض", "Krankheiten = أمراض", "Klimawandel = تغير مناخ", "Infektionserreger = مسببات عدوى"],
+    simplified: "البعوض الاستوائي ينقل أمراضا جديدة لألمانيا",
+    imagine: "بعوضة تحمل علامة خطر على جناحيها",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam11_text4"] = {
+    text: "Forscher haben bei Versuchen im Bronx Zoo - Neue Studie: Nicht nur Affen ودelfine erkennen sich selbst",
+    meaning: "الفيلة تستطيع التعرف على نفسها في المرآة مثل القرود والدلافين",
+    keywords: ["Elefanten = فيلة", "Spiegel = مرآة", "erkennen = يتعرف", "Selbst = نفس"],
+    simplified: "الفيلة تتعرف على صورتها في المرآة",
+    imagine: "فيل ينظر إلى مرآة ويلمس علامة على رأسه",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam11_text5"] = {
+    text: "Heute und morgen tagt in Göteborg - Um die Zukunft der Nordsee ist es schlecht bestellt",
+    meaning: "مستقبل بحر الشمال مهدد حسب منظمة WWF",
+    keywords: ["Nordsee = بحر الشمال", "WWF = صندوق العالمي للطبيعة", "ökologische Belange = شؤون بيئية", "vernachlässigt = مهملة"],
+    simplified: "منظمة البيئة تحذر من إهمال بحر الشمال",
+    imagine: "سمكة تبكي وخلفها أبنية صناعية",
+    correct: "i"
+};
+
+// ========== Exam 12: Insekten (التعديل 1) (صحيح: 8,7,1,4,2) ==========
+HELP_DATA["lesen1_exam12_text1"] = {
+    text: "Heute und morgen tagt in Göteborg - Um die Zukunft der Nordsee ist es schlecht bestellt",
+    meaning: "منظمة WWF تخاف على مستقبل بحر الشمال",
+    keywords: ["Nordsee = بحر الشمال", "WWF = صندوق الطبيعة", "ökologische Belange = قضايا بيئية", "vernachlässigt = مهملة"],
+    simplified: "المنظمة البيئية قلقة على بحر الشمال",
+    imagine: "خريطة بحر الشمال وعليها علامات حمراء",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam12_text2"] = {
+    text: "Für immer wird eine der größten Umweltkatastrophen - Rückblick: Fischsterben im Rhein",
+    meaning: "كارثة ساندوز عام 1986 قتلت أسماك الراين",
+    keywords: ["Rhein = راين", "Fischsterben = نفوق أسماك", "Sandoz = ساندوز", "Gift = سم"],
+    simplified: "تلوث الراين عام 1986 قتل كميات هائلة من الأسماك",
+    imagine: "نهر مظلم وأسماك ميتة على ضفافه",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam12_text3"] = {
+    text: "Der Klimawandel bringt es mit sich - Kleine Insekten können Krankheiten bringen",
+    meaning: "حشرات صغيرة تحمل أمراضا خطيرة إلى ألمانيا",
+    keywords: ["Stechmücken = بعوض", "Krankheiten = أمراض", "Klimawandel = تغير مناخ", "exotisch = استوائي"],
+    simplified: "البعوض الاستوائي ينقل أمراضا جديدة",
+    imagine: "يد تحاول طرد بعوضة صغيرة ولكنها تهرب",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam12_text4"] = {
+    text: "Forscher haben bei Versuchen im Bronx Zoo - Neue Studie: Nicht nur Ameisen und Bienen erkennen sich selbst",
+    meaning: "الفيلة تتعرف على نفسها في المرآة مثل القرود",
+    keywords: ["Elefanten = فيلة", "Spiegel = مرآة", "erkennen = يتعرف", "Experte = خبير"],
+    simplified: "الفيلة تكتشف صورتها في المرآة",
+    imagine: "فيل صغير يلمس أنفه أمام مرآة كبيرة",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam12_text5"] = {
+    text: "Die anhaltenden Temperaturen in Südfrankreich - Bauern sind gezwungen Gift gegen schädliche Insekten",
+    meaning: "المزارعون مضطرون لاستخدام السموم ضد الجراد",
+    keywords: ["Heuschrecken = جراد", "Landwirte = مزارعون", "Gift = سم", "Ernte = محصول"],
+    simplified: "المزارعون يضطرون لاستخدام المبيدات بسبب الجراد",
+    imagine: "جرار يرش السم وحشرات تموت سريعا",
+    correct: "c"
+};
+
+// ========== Exam 13: das Benzin (صحيح: 8,1,2,3,4) ==========
+HELP_DATA["lesen1_exam13_text1"] = {
+    text: "Aussteigen, tanken, wegfahren - Steigende Spritpreise: die Tricks der Autofahrer",
+    meaning: "السائقون يلجؤون لطرق ملتوية لتوفير البنزين",
+    keywords: ["Benzinpreise = أسعار بنزين", "Tankstelle = محطة وقود", "Diebstahl = سرقة", "Sparen = توفير"],
+    simplified: "أساليب السائقين في توفير البنزين الغالي",
+    imagine: "سيارة تتوقف عند محطة وسائق يسرق الوقود",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam13_text2"] = {
+    text: "Viele Autofahrer sind so aufgeregt - Die wichtigsten Erste-Hilfe-Ratschläge",
+    meaning: "أهم نصائح الإسعافات الأولية بعد حادث سيارة",
+    keywords: ["Unfall = حادث", "Erste-Hilfe = إسعافات أولية", "Ratschläge = نصائح", "Polizei = شرطة"],
+    simplified: "إرشادات أساسية للإسعاف الأولي على الطريق",
+    imagine: "رجل يضع مثلث التحذير خلف سيارته",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam13_text3"] = {
+    text: "Hast du schon mal mit dem Gedanken gespielt - Einmal die Welt als Ganzes sehen",
+    meaning: "طيارتان تتحدث عن حلمها برؤية العالم من الأعلى",
+    keywords: ["Pilotin = طيارة", "Fliegerei = طيران", "Welt = عالم", "Perspektive = منظور"],
+    simplified: "حلم رؤية العالم من منظور الطيور",
+    imagine: "امرأة تقود طائرة وتنظر من النافذة إلى السحاب",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam13_text4"] = {
+    text: "Der Schweizer Louis Palmer - Einmal um die Welt ohne einen Tropfen Benzin",
+    meaning: "رحلة حول العالم بسيارة شمسية بدون قطرة بنزين",
+    keywords: ["Solartaxi = سيارة أجرة شمسية", "Weltumrundung = حول العالم", "Benzin = بنزين", "Solarzellen = خلايا شمسية"],
+    simplified: "سيارة تعمل بالطاقة الشمسية تدور حول العالم",
+    imagine: "سيارة غريبة عليها ألواح شمسية تسير تحت الشمس",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam13_text5"] = {
+    text: "Die Bundesregierung und ihre Spitzenbeamten - Fliegen statt fahren",
+    meaning: "المسؤولون يفضلون الطيران على القطار حتى للرحلات الداخلية",
+    keywords: ["Flugreisen = رحلات طيران", "Inlandsreisen = رحلات داخلية", "Bahn = قطار", "Kanzleramt = مستشارية"],
+    simplified: "المسؤولون يختارون الطائرة بدل القطار داخل ألمانيا",
+    imagine: "سياسي يصعد طائرة وقطار يمر أسفل منه حزينا",
+    correct: "e"
+};
+
+// ========== Exam 14: Kaffee (صحيح: 9,1,7,0,5) ==========
+HELP_DATA["lesen1_exam14_text1"] = {
+    text: "Das erste Kaffeehaus in Leipzig - Ohne Kaffee geht hier nichts",
+    meaning: "الساكسونيون لا يستغنون عن القهوة في حياتهم اليومية",
+    keywords: ["Kaffee = قهوة", "Sachsen = ساكسونيا", "Getränk = مشروب", "Aroma = نكهة"],
+    simplified: "شعب ساكسونيا لا يستغني عن القهوة الساخنة الحلوة",
+    imagine: "قدح قهوة ساخن وكعكة تغمس فيه",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam14_text2"] = {
+    text: "Eppingen liegt etwa auf halbem Weg - Attraktive Kleinstadt – touristischer Geheimtipp",
+    meaning: "مدينة صغيرة جميلة وجهة سياحية غير معروفة كثيرا",
+    keywords: ["Eppingen = إبينغن", "Altstadt = مدينة قديمة", "Museum = متحف", "Touristen = سياح"],
+    simplified: "بلدة صغيرة جميلة ينصح بها السياحة",
+    imagine: "بيوت خشبية قديمة وأزقة ضيقة بلا سياح",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam14_text3"] = {
+    text: "Das Kloster Maulbronn wurde 1147 - Klösterliche Strenge für berühmte Schüler",
+    meaning: "مدرسة داخلية قاسية تخرج منها مشاهير مثل هيرمان هيسه",
+    keywords: ["Kloster Maulbronn = دير مولبرون", "Internat = مدرسة داخلية", "Hermann Hesse = هيرمان هيسه", "Disziplin = انضباط"],
+    simplified: "مدرسة داخلية صارمة تخريج مشاهير الأدب",
+    imagine: "طالب يجلس على مكتب بخشونة والراهب يراقبه",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam14_text4"] = {
+    text: "Auf einer Anhöhe oberhalb des Bodensees - Altes Handwerk und alte Technik anschaulich präsentiert",
+    meaning: "متحف يعرض الحرف والآلات القديمة بوضوح",
+    keywords: ["Museum = متحف", "Feuerwehrmuseum = متحف إطفاء", "Weinbaumuseum = متحف خمر", "alte Geräte = آلات قديمة"],
+    simplified: "متحف يشرح الحرف والتقنيات القديمة",
+    imagine: "عربة إطفاء تجرها الخيول في قاعة متحف",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam14_text5"] = {
+    text: "Vermutlich vor fast 900 Jahren - Entdeckung und Verbreitung des Kaffees",
+    meaning: "قصة اكتشاف البن وانتشاره في العالم",
+    keywords: ["Kaffee = قهوة", "Ziegenhirt = راعي ماعز", "Entdeckung = اكتشاف", "Legende = أسطورة"],
+    simplified: "قصة اكتشاف البن وتجفيفه وغليه",
+    imagine: "راعي ماعز يراقب ماعزه وهي تأكل حبوبا حمراء",
+    correct: "f"
+};
+
+// ========== Exam 15: Programmierer (صحيح: 3,5,6,8,9) ==========
+HELP_DATA["lesen1_exam15_text1"] = {
+    text: "Martina Lux hat ein Hobby - Förderwochenende für junge Softwareentwickler",
+    meaning: "نهاية أسبوع تدريبية لمطوري برمجيات صغار",
+    keywords: ["programmiert = تبرمج", "Workshop = ورشة", "Jugend programmiert = شباب يبرمجون", "Informatiker = علماء حاسوب"],
+    simplified: "ورشة تدريبية لصغار مبرمجي البرمجيات",
+    imagine: "شاب يكتب كودا على حاسوبه ورفاقه بجانبه",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam15_text2"] = {
+    text: "Jugend forscht ist ein bundesweiter Nachwuchswettbewerb - Spannende Gewinne für wissenschaftliche Nachwuchstalente",
+    meaning: "جوائز مثيرة لمواهب علمية شابة من بينها رحلة لحفل نوبل",
+    keywords: ["Jugend forscht = شباب يبحثون", "Preise = جوائز", "Studienreisen = رحلات دراسية", "Nobelpreis = جائزة نوبل"],
+    simplified: "جوائز مشوقة للعباقرة الصغار في مسابقة علمية",
+    imagine: "فتاة تقف على منصة وتستلم كأسا ذهبيا",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam15_text3"] = {
+    text: "Die Industriellenvereinigung beklagt - Mehr Bemühungen um weiblichen Nachwuchs gefordert",
+    meaning: "دعوات لتشجيع الفتيات على دراسة التخصصات التقنية",
+    keywords: ["Fachkräftemangel = نقص كفاءات", "Mädchen = بنات", "technische Berufe = مهن تقنية", "Vorbilder = قدوات"],
+    simplified: "مطالبات بجذب المزيد من الفتيات للهندسة",
+    imagine: "مهندسة تشرح لفتاة كيفية عمل آلة",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam15_text4"] = {
+    text: "Im Kulturzentrum war gestern Abend Tobias Meyer - Berufswahl: Jugendliche werden stark von ihrem Umfeld geprägt",
+    meaning: "اختيار المهنة يتأثر بشدة بالبيئة الاجتماعية المحيطة بالشاب",
+    keywords: ["Berufsorientierung = توجيه مهني", "soziale Umgebung = بيئة اجتماعية", "Vorbilder = قدوات", "Persönlichkeitsentwicklung = تطوير شخصية"],
+    simplified: "البيئة المحيطة تؤثر بشدة على اختيار الشاب لمهنته",
+    imagine: "شاب ينظر لوالده الطبيب ويحلم أن يصبح مثله",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam15_text5"] = {
+    text: "Wie eine repräsentative Umfrage unter Studenten - Studienabsolventen technischer Fächer sehen ihre Zukunft meist in der Autoindustrie",
+    meaning: "خريجو التقنية يرون مستقبلهم في صناعة السيارات",
+    keywords: ["Automobilindustrie = صناعة سيارات", "Studenten = طلاب", "Ingenieure = مهندسين", "Arbeitgeber = أرباب عمل"],
+    simplified: "خريجو الهندسة يفضلون العمل بشركات السيارات",
+    imagine: "مهندس يقف بجانب سيارة حديثة ويبتسم",
+    correct: "j"
+};
+
+// ========== Exam 16: Programmierer (التعديل 1) (صحيح: 3,7,6,1,8) ==========
+HELP_DATA["lesen1_exam16_text1"] = {
+    text: "Martina Lux hat ein Hobby - Förderwochenende für junge Softwareentwickler",
+    meaning: "ورشة برمجة نهاية أسبوع للشباب",
+    keywords: ["programmiert = تبرمج", "Workshop = ورشة", "Jugend programmiert = شباب يبرمجون"],
+    simplified: "نهاية أسبوع لتعليم البرمجة للصغار",
+    imagine: "صبي يشير إلى شاشة ويعرض كوده لصديقه",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam16_text2"] = {
+    text: "Jugend forscht ist ein bundesweiter Nachwuchswettbewerb - Spannende Gewinne für wissenschaftliche Nachwuchstalente",
+    meaning: "جوائز مذهلة للعباقرة الصغار",
+    keywords: ["Jugend forscht = شباب يبحثون", "Preise = جوائز", "Nobelpreis = جائزة نوبل", "Sonderpreise = جوائز خاصة"],
+    simplified: "رحلات وجوائز لأذكى الشباب في العلوم",
+    imagine: "شاب يحمل تذكرة سفر إلى ستوكهولم",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam16_text3"] = {
+    text: "Die Industriellenvereinigung beklagt - Mehr Bemühungen um weiblichen Nachwuchs gefordert",
+    meaning: "دعوات لزيادة جهود جذب الفتيات للتقنية",
+    keywords: ["Fachkräftemangel = نقص كفاءات", "Mädchen = بنات", "technische Berufe = مهن تقنية"],
+    simplified: "حملات لتشجيع الفتيات على دراسة الهندسة",
+    imagine: "مدرسة تشرح للطالبات آلية محرك سيارة",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam16_text4"] = {
+    text: "Im Kulturzentrum war gestern Abend Tobias Meyer - Berufswahl: Jugendliche werden stark von ihrem gesellschaftlichen Umfeld geprägt",
+    meaning: "البيئة الاجتماعية تؤثر بقوة على اختيار المهنة",
+    keywords: ["Berufsorientierung = توجيه مهني", "soziale Umgebung = بيئة اجتماعية", "Persönlichkeitsentwicklung = تطوير شخصية"],
+    simplified: "مجتمع الشاب يحدد مساره المهني",
+    imagine: "شاب ينظر لأصدقائه وهم يعملون بمهنة واحدة",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam16_text5"] = {
+    text: "Wie eine repräsentative Umfrage unter Studenten - Studienabsolventen technischer Fächer sehen ihre Zukunft meist in der Fahrzeugbranche",
+    meaning: "خريجو التقنية يفضلون العمل بصناعة السيارات",
+    keywords: ["Automobilindustrie = صناعة سيارات", "Studenten = طلاب", "Arbeitgeber = أرباب عمل"],
+    simplified: "مهندسو المستقبل يريدون العمل بصناعة السيارات",
+    imagine: "شاب يقف أمام معرض سيارات ويحلم بالعمل هناك",
+    correct: "i"
+};
+
+// ========== Exam 17: Programmierer (التعديل 2) (صحيح: 6,2,3,8,1) ==========
+HELP_DATA["lesen1_exam17_text1"] = {
+    text: "Martina Lux hat ein Hobby - Förderwochenende für junge Softwareentwickler",
+    meaning: "ورشة لصغار مبرمجي البرمجيات",
+    keywords: ["Workshop = ورشة", "Programmierer = مبرمجين", "Berlin = برلين"],
+    simplified: "دورة تدريبية في البرمجة للشباب",
+    imagine: "طالبة تكتب كودا على حاسوبها المحمول",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam17_text2"] = {
+    text: "Jugend forscht ist ein bundesweiter Nachwuchswettbewerb - Spannende Gewinne für wissenschaftliche Nachwuchstalente",
+    meaning: "جوائز قيمة للشباب العبقري",
+    keywords: ["Preise = جوائز", "Studienreisen = رحلات", "Nobelpreis = نوبل"],
+    simplified: "رحلات علمية للمتميزين في مسابقة البحث العلمي",
+    imagine: "تلميذ يقف على منصة التتويج",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam17_text3"] = {
+    text: "Die Industriellenvereinigung beklagt - Mehr Bemühungen um weiblichen Nachwuchs gefordert",
+    meaning: "جهود مطلوبة لجذب الفتيات للتخصصات التقنية",
+    keywords: ["Fachkräftemangel = نقص كفاءات", "Mädchen = بنات", "technische Berufe = مهن تقنية"],
+    simplified: "حملات لجذب النساء للهندسة والعلوم",
+    imagine: "مهندسة تشرح لطالبات كيفية استخدام جهاز",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam17_text4"] = {
+    text: "Im Kulturzentrum war gestern Abend Tobias Meyer - Berufswahl: Jugendliche werden stark von ihrem gesellschaftlichen Umfeld geprägt",
+    meaning: "المهنة التي يختارها الشاب تتأثر بمحيطه",
+    keywords: ["Berufsorientierung = توجيه مهني", "soziale Umgebung = بيئة اجتماعية", "Vorbilder = قدوات"],
+    simplified: "صورة المجتمع تحدد مهنة الشاب",
+    imagine: "شاب يقلد أباه في نفس المهنة",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam17_text5"] = {
+    text: "Wie eine repräsentative Umfrage unter Studenten - Studienabsolventen technischer Fächer sehen ihre Zukunft meist in der Fahrzeugbranche",
+    meaning: "خريجو الهندسة يفضلون العمل بشركات السيارات",
+    keywords: ["Automobilindustrie = صناعة سيارات", "Studenten = طلاب", "Arbeitgeber = أرباب عمل"],
+    simplified: "مهندسو المستقبل يفضلون العمل بالسيارات",
+    imagine: "خريج يقف أمام شعار شركة سيارات",
+    correct: "b"
+};
+
+// ========== Exam 18: Trampolin (صحيح: 8,5,4,9,1) ==========
+HELP_DATA["lesen1_exam18_text1"] = {
+    text: "Die meisten Menschen verbinden Barrierefreiheit - Informationen leichter verstehen",
+    meaning: "خدمة إخبارية بلغة بسيطة وسهلة الفهم",
+    keywords: ["leichter Sprache = لغة سهلة", "Nachrichtendienst = خدمة إخبارية", "A2 وB1 = مستويان لغويان"],
+    simplified: "أخبار بلغة مبسطة وسهلة الفهم للجميع",
+    imagine: "صحيفة مكتوب عليها عناوين كبيرة بسيطة ليفهمها الكل",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam18_text2"] = {
+    text: "Die WHO warnt vor ungesunder Werbung im Internet - Medienkonsum fördert ungesunde Lebensweise",
+    meaning: "استخدام وسائل الإعلام يعزز أنماط الحياة غير الصحية",
+    keywords: ["WHO = منظمة صحة عالمية", "ungesunde Lebensmittel = أطعمة غير صحية", "Übergewicht = سمنة", "Bewegungsmangel = قلة حركة"],
+    simplified: "الإعلانات في الإنترنت تشجع على العادات السيئة",
+    imagine: "طفل يأكل حلوى وينظر إلى شاشة هاتفه وهو جالس",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam18_text3"] = {
+    text: "Schüler sollen im Schulunterricht den Umgang mit Nachrichten lernen - Mit Nachrichten im Unterricht arbeiten",
+    meaning: "استخدام الأخبار في التعليم المدرسي",
+    keywords: ["Schüler = تلاميذ", "Nachrichten = أخبار", "Unterricht = درس", "kritischen Umgang = تعامل نقدي"],
+    simplified: "تدريس الطلاب كيفية تحليل الأخبار بالمدرسة",
+    imagine: "معلم وطلاب أمام شاشة تلفاز يناقشون نشرة أخبار",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam18_text4"] = {
+    text: "Mit dem Trampolin den Körper in Schwung bringen - Fachleute warnen vor unsachgemäßer Nutzung von Trampolinen",
+    meaning: "خبراء يحذرون من الاستخدام الخاطئ للترامبولين",
+    keywords: ["Trampolin = ترامبولين", "Unfallgefahr = خطر حوادث", "Sicherheitsregeln = قواعد أمان", "Orthopäden = أطباء عظام"],
+    simplified: "تحذيرات من إصابات الترامبولين بسبب الاستخدام السيئ",
+    imagine: "طفل يسقط من على الترامبولين ويده تؤلمه",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam18_text5"] = {
+    text: "Die Klage, dass Jugendliche kein Interesse mehr an Nachrichten haben - Traditionelle Nachrichtenmedien immer noch gefragt",
+    meaning: "وسائل الإعلام التقليدية لا تزال مطلوبة عند الشباب",
+    keywords: ["Nachrichten = أخبار", "Jugendliche = شباب", "klassischen Medien = وسائل تقليدية", "glaubwürdig = موثوقة"],
+    simplified: "الشباب يفضلون الأخبار التقليدية وتثق بها",
+    imagine: "شاب يقرأ جريدة ورقية ويبتسم",
+    correct: "b"
+};
+
+// ========== Exam 19: Bonbons (صحيح: 7,4,8,2,1) ==========
+HELP_DATA["lesen1_exam19_text1"] = {
+    text: "Bonbons machen Kinder glücklich - Süßwaren mit langer Tradition",
+    meaning: "حلويات السكاكر لها تاريخ طويل يمتد لأكثر من 1000 عام",
+    keywords: ["Bonbons = سكاكر", "Museum = متحف", "Tradition = تقليد", "Zuckerwarenfabrik = مصنع سكاكر"],
+    simplified: "تاريخ طويل لصناعة الحلويات والسكاكر الألمانية",
+    imagine: "قطعة حلوى قديمة داخل علبة زجاجية في متحف",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam19_text2"] = {
+    text: "Am Frankfurter Hauptbahnhof können Reisende - Naschen statt wegwerfen",
+    meaning: "أكل الحلويات بدلا من رميها في القمامة",
+    keywords: ["Retomat = آلة بيع عكسية", "abgelaufene Produkte = منتجات منتهية الصلاحية", "kürzer vor Ablauf = قريبة من الانتهاء"],
+    simplified: "آلة لبيع الحلويات قريبة من صلاحيتها بدل إتلافها",
+    imagine: "آلة بيع صفراء كبيرة تحوي شوكولاتة وسناكس بأسعار منخفضة",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam19_text3"] = {
+    text: "Mehrere Badebecken sowie Räume - Wasser, Wärme, Wellness – antike Badefreuden",
+    meaning: "متعة الاستحمام بالماء الدافئ والعناية بالجسم عند الرومان القدماء",
+    keywords: ["Therme = حمامات حارة", "römische Badekultur = ثقافة الاستحمام الرومانية", "Wellness = عناية بالجسم", "antik = قديم"],
+    simplified: "الرومان القدماء عرفوا متعة الحمام الدافئ والاسترخاء",
+    imagine: "روماني يجلس في حوض ماء ساخن ويأكل العنب",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam19_text4"] = {
+    text: "Nicht nur in Hollywoodfilmen tröstet man sich - Irrtum: Süßes macht doch nicht glücklich",
+    meaning: "الاعتقاد بأن السكر يحسن المزاج هو خطأ",
+    keywords: ["Zucker = سكر", "Stimmung = مزاج", "Wissenschaftler = علماء", "Müdigkeit = تعب"],
+    simplified: "دراسة علمية تثبت أن السكر لا يجعلك سعيدا",
+    imagine: "شخص يأكل قطعة حلوى ثم ينام متعبا بدل النشاط",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam19_text5"] = {
+    text: "Wellness und der Besuch von Kurorten - In der Stadt der warmen Quellen",
+    meaning: "في مدينة بودابست مدينة الينابيع الساخنة",
+    keywords: ["Thermalquellen = ينابيع حارة", "Budapest = بودابست", "Kurort = منتجع صحي", "Bäder = حمامات"],
+    simplified: "بودابست مدينة الينابيع الساخنة والحمامات التاريخية",
+    imagine: "شخص يسترخي في حمام بخار في حوض كبير قديم",
+    correct: "b"
+};
+
+// ========== Exam 20: Umwelt (صحيح: 2,8,5,0,9) ==========
+HELP_DATA["lesen1_exam20_text1"] = {
+    text: "Sie sind eine gut funktionierende Gemeinschaft - Neue Besitzer für nicht mehr gebrauchte Gegenstände",
+    meaning: "مبادرة تبادل الأشياء التي لا تستخدم بدلا من رميها",
+    keywords: ["Tauschring = حلقة تبادل", "Gegenstände = أشياء", "tauschen = تبادل", "wegwerfen = رمي"],
+    simplified: "نادي لتبادل الأشياء المستعملة وإعطائها حياة جديدة",
+    imagine: "طاولة كبيرة عليها كتب وملابس وأجهزة صغيرة للتبادل",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam20_text2"] = {
+    text: "Man gönnt sich ja sonst nichts - Volle Einkaufstüten machen nur kurze Zeit Freude",
+    meaning: "فرحة الشراء تدوم لفترة قصيرة فقط سرعان ما تزول",
+    keywords: ["Einkauf = شراء", "Glückshormone = هرمونات السعادة", "Kaufrausch = جنون الشراء", "Stresshormone = هرمونات التوتر"],
+    simplified: "أكياس التسوق الممتلئة تسبب سعادة لحظية ثم ندامة",
+    imagine: "امرأة تحمل أكياس تسوق كثيرة ثم تجلس متعبة حزينة",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam20_text3"] = {
+    text: "Geklickt, gekauft, zurückgeschickt - Rücksendungen verringern: Händler hoffen على Lösungen",
+    meaning: "التجار يبحثون عن حلول لتقليل عمليات إعادة البضائع المرتجعة",
+    keywords: ["Rücksendungen = إرجاع", "Online-Handel = تجارة إلكترونية", "Retouren = مرتجعات", "Kosten = تكاليف"],
+    simplified: "تجار الإنترنت يبحثون عن طرق لتقليل عدد المرتجعات",
+    imagine: "طرد بريدي كبير بمقبض سهم يدور في حلقة",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam20_text4"] = {
+    text: "Keine Lust mehr auf die Konsum-Gesellschaft - Gemeinsam kaputte Geräte retten",
+    meaning: "مقاهي إصلاح حيث يتعلم الناس إصلاح أجهزتهم المعطلة",
+    keywords: ["Repair-Cafés = مقاهي إصلاح", "defekte Gegenstände = أشياء معطلة", "instandsetzen = إصلاح", "Wegwerfmentalität = ثقافة الرمي"],
+    simplified: "مجموعات تتعلم كيفية إصلاح الأجهزة بدل رميها",
+    imagine: "ثلاثة أشخاص يجلسون حول مكنسة كهربائية قديمة يصلحونها",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam20_text5"] = {
+    text: "Viele Menschen sind erstaunlich großzügig - Wer Engagement zeigt, steigert sein Glücksgefühl",
+    meaning: "العطاء والكرم يزيدان شعور الإنسان بالسعادة",
+    keywords: ["Großzügigkeit = كرم", "Glücksgefühl = شعور بالسعادة", "ehrenamtlich = تطوعي", "Belohnungszentrum = مركز المكافأة في المخ"],
+    simplified: "الكرم والتطوع يجعلان الإنسان أكثر سعادة",
+    imagine: "يد تضع نقودا في صندوق تبرعات وصاحبها يبتسم",
+    correct: "j"
+};
+
+// ============================================
+// Lesen Teil 1 - Exams 21-30 (فقط الأسئلة الصحيحة)
+// ============================================
+
+// ========== Exam 21: Licht (صحيح: 8,4,1,0,5) ==========
+HELP_DATA["lesen1_exam21_text1"] = {
+    text: "Heute machen die elektrische Beleuchtung - Was tun, wenn es Nacht wird? Lichtquellen vergangener Zeiten",
+    meaning: "معرض عن كيفية إضاءة المنازل قديما قبل الكهرباء",
+    keywords: ["Beleuchtung = إضاءة", "Museum = متحف", "Feuer = نار", "Kerzen = شموع"],
+    simplified: "معرض يشرح طرق الإضاءة القديمة قبل الكهرباء",
+    imagine: "شخص يوقد مصباح زيت في غرفة مظلمة",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam21_text2"] = {
+    text: "Jahrelang zog es vor allem junge Berufstätige - Stadtbewohner entdecken das Landleben",
+    meaning: "سكان المدن يكتشفون جمال الحياة الريفية",
+    keywords: ["Landleben = حياة ريفية", "Stadtflucht = هروب من المدينة", "Mieten = إيجارات", "Ruhe = هدوء"],
+    simplified: "سكان المدن يهاجرون إلى الريف بحثا عن الهدوء",
+    imagine: "عائلة تحمل صناديق وتدخل منزلا ريفيا جميلا",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam21_text3"] = {
+    text: "Satellitenbilder der Erde bei Nacht - Die Auswirkungen künstlichen Lichts",
+    meaning: "آثار الإضاءة الصناعية السلبية على الإنسان والحيوان",
+    keywords: ["Lichtverschmutzung = تلوث ضوئي", "Insekten = حشرات", "Schlaf = نوم", "Vögel = طيور"],
+    simplified: "الأضواء الصناعية تؤذي الحشرات والطيور والإنسان",
+    imagine: "سماء مدينة مضيئة جدا ولا نجوم مرئية",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam21_text4"] = {
+    text: "Vor zehn Jahren lebten Dirk und Antje Sebens - Der Wald als neues Zuhause",
+    meaning: "الغابة تصبح منزلا جديدا لعائلة تركت المدينة",
+    keywords: ["Forsthaus = منزل حراجي", "Wald = غابة", "autark = مكتفي ذاتيا", "Solaranlage = طاقة شمسية"],
+    simplified: "عائلة تعيش في الغابة وتعتمد على نفسها بالكهرباء",
+    imagine: "منزل خشبي صغير بين الأشجار وألواح شمسية على سطحه",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam21_text5"] = {
+    text: "Wer verbringt nicht gerne sein Wochenende fernab der Stadt - Stadtbewohner leben umweltfreundlicher",
+    meaning: "سكان المدن يعيشون بطريقة أكثر صداقة للبيئة",
+    keywords: ["Emissionen = انبعاثات", "Carsharing = مشاركة سيارة", "öffentlicher Nahverkehr = مواصلات عامة", "umweltfreundlich = صديق للبيئة"],
+    simplified: "سكان المدن يلوثون البيئة أقل من سكان الريف",
+    imagine: "سيارة واحدة تقل عدة أشخاص بدل سيارات كثيرة",
+    correct: "f"
+};
+
+// ========== Exam 22: Licht (التعديل 1) (صحيح: 8,4,1,0,5) ==========
+HELP_DATA["lesen1_exam22_text1"] = {
+    text: "Heute machen die elektrische Beleuchtung - Was tun, wenn es Nacht wird? Lichtquellen vergangener Zeiten",
+    meaning: "معرض عن وسائل الإضاءة في الماضي قبل اختراع الكهرباء",
+    keywords: ["Ausstellung = معرض", "Lichtquellen = مصادر ضوء", "Feuer = نار", "Kerzen = شموع"],
+    simplified: "معرض عن الإضاءة في الزمن القديم",
+    imagine: "جد يشرح لحفيده كيف كانت تضاء البيوت قديما",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam22_text2"] = {
+    text: "Jahrelang zog es vor allem junge Berufstätige - Stadtbewohner entdecken das Landleben",
+    meaning: "سكان المدن ينتقلون للعيش في الريف",
+    keywords: ["ländliche Regionen = مناطق ريفية", "Metropolen = مدن كبيرة", "Mieten = إيجارات", "Ruhe = هدوء"],
+    simplified: "الناس يتركون المدن ويعودون إلى الريف",
+    imagine: "زوجان يشربان القهوة في شرفة منزلهما الريفي",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam22_text3"] = {
+    text: "Satellitenbilder der Erde bei Nacht - Die Auswirkungen künstlichen Lichts",
+    meaning: "الآثار السلبية للإضاءة الصناعية على الكائنات الحية",
+    keywords: ["Lichtverschmutzung = تلوث ضوئي", "Insekten = حشرات", "Vögel = طيور", "Schlaf = نوم"],
+    simplified: "الإضاءة الليلية تؤذي الحشرات والطيور",
+    imagine: "فراشة تطير نحو الضوء وتحترق",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam22_text4"] = {
+    text: "Vor zehn Jahren lebten Dirk und Antje Seebens - Der Wald als neues Zuhause",
+    meaning: "عائلة تشتري منزلا في الغابة وتعيش بعيدا عن المدينة",
+    keywords: ["Wochenendhaus = منزل عطلة نهاية أسبوع", "Solaranlage = طاقة شمسية", "Brunnen = بئر"],
+    simplified: "عائلة تعيش في الغابة وتعتمد على الشمس والماء",
+    imagine: "امرأة تسقي حديقتها من ماء بئر قرب منزلها الخشبي",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam22_text5"] = {
+    text: "Wer verbringt nicht gerne sein Wochenende fernab der Stadt - Stadtbewohner leben umweltfreundlicher",
+    meaning: "سكان المدن أكثر صداقة للبيئة بسبب وسائل النقل المتاحة",
+    keywords: ["Emissionen = انبعاثات", "Carsharing = مشاركة سيارة", "Home-Office = عمل منزل", "Pendler = متنقل"],
+    simplified: "العيش في المدينة أفضل للبيئة من الريف",
+    imagine: "شخص يركب دراجة في المدينة وآخر يقود سيارة وحده",
+    correct: "f"
+};
+
+// ========== Exam 23: Kartoffel (صحيح: 3,6,1,7,8) ==========
+HELP_DATA["lesen1_exam23_text1"] = {
+    text: "Über zehntausend wissenschaftliche Studien - Gesundes Leben schützt vor Zivilisationskrankheiten",
+    meaning: "الحياة الصحية تحمي من أمراض العصر مثل السرطان والجلطات",
+    keywords: ["WHO = منظمة صحة عالمية", "Herzinfarkt = جلطة قلبية", "Krebs = سرطان", "gesünder leben = حياة أصح"],
+    simplified: "عيش بصحة تحمي نفسك من الأمراض الخطيرة",
+    imagine: "شخص يأكل تفاحة ويركب دراجة بجانب رجل مدخن مريض",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam23_text2"] = {
+    text: "Am Mittelmeer und in Mexiko wächst die Aloe-Vera-Pflanze - Pflanzliche Kosmetik für gesunde Haut",
+    meaning: "مستحضرات تجميل نباتية لعلاج البشرة والحروق",
+    keywords: ["Aloe Vera = صبار", "Kosmetik = تجميل", "Haut = بشرة", "Sonnenbrand = حروق شمس"],
+    simplified: "نبات الصبار يستخدم في الكريمات لعلاج البشرة",
+    imagine: "امرأة تضع جل الصبار على ذراعها المحترقة من الشمس",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam23_text3"] = {
+    text: "Eine der ältesten bekannten Gemüsesorten ist der Spargel - Ein schlankes Gemüse für schlanke Leute",
+    meaning: "الهليون لا يزيد الوزن لأنه فقير بالسعرات الحرارية",
+    keywords: ["Spargel = هليون", "dick macht = يزيد الوزن", "Energie = طاقة", "schlank = نحيف"],
+    simplified: "الهليون خضار لا يسبب السمنة ويناسب الرشيقين",
+    imagine: "شخص نحيف يأكل هليون ويزن نفسه بسعادة",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam23_text4"] = {
+    text: "Schlank sein ist 'in' - Tolle Figur durch ausgewogene Ernährung",
+    meaning: "الرشاقة والجسم المثالي يأتيان بتغذية متوازنة",
+    keywords: ["Diät = حمية", "Fettburner = محرق دهون", "Nährstoffe = مغذيات", "ausgewogene Ernährung = تغذية متوازنة"],
+    simplified: "تغذية متوازنة تعطيك جسما رائعا بدون حرمان",
+    imagine: "طبق ملون يحتوي خضارا وفاكهة وسمكة",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam23_text5"] = {
+    text: "Als typisch deutsch gilt sie - Von der Wildpflanze zum international geschätzten Nahrungsmittel",
+    meaning: "البطاطس انتقلت من نبات بري إلى غذاء عالمي",
+    keywords: ["Kartoffel = بطاطس", "Südamerika = أمريكا الجنوبية", "Europa = أوروبا", "Basislebensmittel = غذاء أساسي"],
+    simplified: "قصة البطاطس من أمريكا الجنوبية إلى العالم كله",
+    imagine: "بطاطس تسافر على متن سفينة شراعية",
+    correct: "i"
+};
+
+// ========== Exam 24: Kartoffel (التعديل 1) (صحيح: 2,5,1,6,8) ==========
+HELP_DATA["lesen1_exam24_text1"] = {
+    text: "Über zehntausend wissenschaftliche Studien - Gesundes Leben schützt vor Zivilisationskrankheiten",
+    meaning: "الحياة الصحية تقي من أمراض العصر الخطيرة",
+    keywords: ["WHO = منظمة صحة عالمية", "Herzinfarkt = جلطة قلبية", "Krebs = سرطان", "Apfel = تفاحة"],
+    simplified: "صحتك في يدك بتغييرات بسيطة يوميا",
+    imagine: "تفاحة وركوب دراجة يقفان أمام باب المستشفى",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam24_text2"] = {
+    text: "Am Mittelmeer und in Mexiko wächst die Aloe-Vera-Pflanze - Pflanzliche Stoffe für die Gesundheit der Haut",
+    meaning: "مواد نباتية تعالج البشرة وتحافظ على صحتها",
+    keywords: ["Aloe Vera = صبار", "Haut = بشرة", "Cremes = كريمات", "Sonnenbrand = حروق شمس"],
+    simplified: "الصبار مفيد لعلاج البشرة والحروق",
+    imagine: "يد تضع كريما أخضر على يد محترقة",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam24_text3"] = {
+    text: "Eine der ältesten bekannten Gemüsesorten ist der Spargel - Ein schlankes Gemüse für schlanke Leute",
+    meaning: "الهليون خضار مناسب للرشاقة لفقره بالسعرات",
+    keywords: ["Spargel = هليون", "schlank = نحيف", "Energie = طاقة", "dick macht = يزيد الوزن"],
+    simplified: "من يأكل الهليون لا يزيد وزنه",
+    imagine: "شخص نحيل يأكل الهليون أمام شخص بدين يأكل برغر",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam24_text4"] = {
+    text: "Schlank sein ist 'in' - Tolle Figur durch ausgewogene Ernährung",
+    meaning: "الجسم الرشيق بالتغذية المتوازنة لا بالحرمان",
+    keywords: ["abnehmen = تخسيس", "Diät = حمية", "Fettburner = محرق دهون", "Nahrungsmittel = أطعمة"],
+    simplified: "الوصول لوزن مثالي بأكل صحي وليس بتجويع النفس",
+    imagine: "ميزان وطبق فواكه خضراوات يرفع ذراعه",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam24_text5"] = {
+    text: "Als typisch deutsch gilt sie - Von der Wildpflanze zum international geschätzten Nahrungsmittel",
+    meaning: "البطاطس من نبات بري في أمريكا إلى طعام عالمي",
+    keywords: ["Kartoffel = بطاطس", "Südamerika = أمريكا الجنوبية", "Europa = أوروبا", "Sir Francis Drake = مستكشف"],
+    simplified: "رحلة البطاطس من جبال الأنديز إلى مطابخ العالم",
+    imagine: "خريطة وسهم من أمريكا الجنوبية إلى أوروبا وفوقه بطاطس",
+    correct: "i"
+};
+
+// ========== Exam 25: Bienen (صحيح: 1,3,5,2,8) ==========
+HELP_DATA["lesen1_exam25_text1"] = {
+    text: "Kaffee verleiht neuen Schwung - Genussmittel erhöht die Wahrnehmung bestimmter Wörter",
+    meaning: "الكافيين يحسن القدرة على إدراك الكلمات الإيجابية",
+    keywords: ["Koffein = كافيين", "Wahrnehmung = إدراك", "positive Begriffe = كلمات إيجابية", "Kaffeetrinker = شارب قهوة"],
+    simplified: "القهوة تجعلك تركز على الكلمات الجميلة أكثر",
+    imagine: "شخص يشرب قهوة ثم يقرأ فقط الكلمات الجميلة في الجريدة",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam25_text2"] = {
+    text: "Ihr Gehirn ist gerade ein Millionstel Mal so groß - Pflanzen und Insekten - eine gemeinsame Entwicklung",
+    meaning: "النباتات والحشرات تطورت معا عبر ملايين السنين",
+    keywords: ["Bienen = نحل", "Pflanzen = نباتات", "Evolution = تطور", "Bernstein = كهرمان"],
+    simplified: "النحل والنباتات تطورا سويا منذ 100 مليون سنة",
+    imagine: "نحلة على زهرة داخل قطعة كهرمان شفافة",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam25_text3"] = {
+    text: "Bienen, die Pollen von Kaffee sammeln - Koffein im Blütennektar verbessert Gedächtnisleistung",
+    meaning: "الكافيين في رحيق الأزهار يقوي ذاكرة النحل",
+    keywords: ["Koffein = كافيين", "Bienen = نحل", "Gedächtnis = ذاكرة", "Pollen = حبوب لقاح"],
+    simplified: "الكافيين يساعد النحل على تذكر روائح الأزهار",
+    imagine: "نحلة تشرب رحيقا والكافيين يخرج من رأسها",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam25_text4"] = {
+    text: "Es ist ein schwerer Gang im Leben jedes Imkers - Insektensterben in der kalten Jahreszeit",
+    meaning: "نفوق أعداد كبيرة من النحل في فصل الشتاء",
+    keywords: ["Imker = مربي نحل", "Bienenvölker = طوائف نحل", "Winter = شتاء", "tot = ميت"],
+    simplified: "نحل يموت في الشتاء ويحزن مربيه",
+    imagine: "رجل ينظر إلى خلية نحل ميتة ويداه على رأسه",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam25_text5"] = {
+    text: "Viele Insekten überwintern als Puppe - Methoden zum Überleben in der kalten Jahreszeit",
+    meaning: "طرق الحشرات المختلفة للبقاء على قيد الحياة في الشتاء",
+    keywords: ["überwintern = يبيت شتاء", "gefriertolerant = يتحمل التجمد", "Frostschutzmittel = مواد مضادة للتجمد", "Engerlinge = يرقات"],
+    simplified: "استراتيجيات الحشرات للنجاة من برد الشتاء",
+    imagine: "نحلة ترتدي معطفا صغيرا وهي ترتجف من البرد",
+    correct: "i"
+};
+
+// ========== Exam 26: Spiele (صحيح: 5,3,1,0,7) ==========
+HELP_DATA["lesen1_exam26_text1"] = {
+    text: "Die erste Kösener Puppenfabrik wurde 1912 - Naturgetreue Handarbeit für das Kinderzimmer",
+    meaning: "صناعة دمى وألعاب قطيفة يدوية تبدو كالحيوانات الحقيقية",
+    keywords: ["Plüschtiere = ألعاب قطيفة", "Handarbeit = يدوية", "authentisch = أصلي", "Käthe Kruse = كيتا كروزه"],
+    simplified: "ألعاب قطيفة مصنوعة يدويا تشبه الحيوانات الحقيقية",
+    imagine: "يدان تخيطان دبا قطيفا يشبه دبا حقيقيا",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam26_text2"] = {
+    text: "Die Modelleisenbahn hat auch heute ihre Anziehungskraft - Kleine Züge mit langer Geschichte",
+    meaning: "قطارات صغيرة لها تاريخ طويل من القرن التاسع عشر",
+    keywords: ["Modelleisenbahn = قطار نموذجي", "Märklin = ماركلين", "Uhrwerkeisenbahn = قطار ساعة", "dampfbetrieben = يعمل بالبخار"],
+    simplified: "قطارات الألعاب الصغيرة لها تاريخ يزيد عن 130 سنة",
+    imagine: "قطار لعبة صغير يدور على قضبان في غرفة طفل",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam26_text3"] = {
+    text: "Gedruckten Büchern wurde ein schnelles Ende vorausgesagt - Dinge zum Anfassen bleiben beliebt",
+    meaning: "الأشياء المادية الملموسة لا تزال محبوبة رغم الرقمنة",
+    keywords: ["Bücher = كتب", "Digitalisierung = رقمنة", "Schallplatte = أسطوانة", "Trend = اتجاه"],
+    simplified: "الناس لا يزالون يحبون الكتب الورقية والأسطوانات",
+    imagine: "يد تمسك كتابا ورقي وبجانبها هاتف به تطبيق قراءة",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam26_text4"] = {
+    text: "Immer neue Spielekonsolen und Apps - Alte Spiele stärken das Miteinander",
+    meaning: "الألعاب التقليدية تقوي العلاقات الاجتماعية بين الناس",
+    keywords: ["Brettspiele = ألعاب لوحية", "Zusammengehörigkeit = انتماء", "Familie = عائلة", "Freunde = أصدقاء"],
+    simplified: "ألعاب الطاولة تجمع العائلة والأصدقاء حول طاولة واحدة",
+    imagine: "عائلة جالسة حول طاولة ترمي الزهر وتضحك",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam26_text5"] = {
+    text: "Jahr für Jahr steigt der Umsatz der Spielzeughersteller - Überfluss im Kinderzimmer",
+    meaning: "وفرة الألعاب في غرفة الطفل تقلل تركيزه",
+    keywords: ["Spielzeug = ألعاب", "Konzentration = تركيز", "Kindergarten = روضة", "Kinderzimmer = غرفة طفل"],
+    simplified: "كثرة الألعاب تشتت ذهن الطفل",
+    imagine: "طفل يجلس وسط كومة ألعاب ولا يعرف بأي يلعب",
+    correct: "h"
+};
+
+// ========== Exam 27: Geld (صحيح: 5,4,2,7,8) ==========
+HELP_DATA["lesen1_exam27_text1"] = {
+    text: "Spardosen sind Sammelbehälter - Sammelgefäße als Ausstellungsobjekte",
+    meaning: "حاويات تجميع النقود (حصالات) معروضة في متحف",
+    keywords: ["Spardosen = حصالات", "Museum = متحف", "Exemplare = قطع معروضة", "Münzen = عملات"],
+    simplified: "حصالات قديمة معروضة في متحف",
+    imagine: "حصالة أصفر على شكل خنزير في علبة زجاجية",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam27_text2"] = {
+    text: "Wer beim leisen Klirren von Geldstücken - Lehrreicher Rundgang zu Finanzwissen",
+    meaning: "جولة تعليمية في متحف لتعلم أساسيات المال والاقتصاد",
+    keywords: ["Ausstellung = معرض", "Marktplatz = سوق", "Bank = بنك", "Börse = بورصة"],
+    simplified: "جولة في متحف المال تعلمك كيف يعمل الاقتصاد",
+    imagine: "شخص يمشي في ممرات متحف وخلفه رسوم أوراق نقدية",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam27_text3"] = {
+    text: "Darum geht es, zu begreifen, wie Wirtschaft funktioniert - Finanz-ABC für Anfänger",
+    meaning: "كتاب يشرح أساسيات المال بلغة بسيطة للمبتدئين",
+    keywords: ["Buch = كتاب", "Finanzsektor = قطاع مالي", "Glossar = مسرد", "Fachwörter = مصطلحات"],
+    simplified: "كتاب يعلمك اللغة المالية للمبتدئين",
+    imagine: "كتاب مفتوح وعليه علامات الدولار واليورو",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam27_text4"] = {
+    text: "Eine neue Untersuchung des Instituts - Interessante Tätigkeit wichtiger als hohes Gehalt",
+    meaning: "الوظيفة الشيقة أهم من الراتب العالي للسعادة",
+    keywords: ["Einkommen = دخل", "zufrieden = سعيد", "Arbeitnehmer = موظف", "emotional stabil = مستقر عاطفيا"],
+    simplified: "الراتب العالي لا يسعد بقدر العمل الممتع",
+    imagine: "رجل يضحك وهو يعمل على حاسوبه وآخر غني لكنه حزين",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam27_text5"] = {
+    text: "Über Geld sprechen viele Deutsche nicht gerne - Wie Kinder den Umgang mit Geld lernen",
+    meaning: "كيف يتعلم الأطفال التعامل مع المال من خلال التربية",
+    keywords: ["Taschengeld = مصروف جيب", "Erziehung = تربية", "Kinder = أطفال", "Finanzverhalten = سلوك مالي"],
+    simplified: "تعليم الأطفال التعامل مع المال يبدأ من المنزل",
+    imagine: "أب يعطي ابنه نقودا ويشرح له كيفية ادخارها",
+    correct: "i"
+};
+
+// ========== Exam 28: Kinder und Schulen (صحيح: 5,4,6,1,7) ==========
+HELP_DATA["lesen1_exam28_text1"] = {
+    text: "Nach der englischen Bezeichnung für 'Schultüte' - Traditionen zum Schulanfang",
+    meaning: "تقاليد مختلفة حول العالم لبدء العام الدراسي",
+    keywords: ["Schultüte = كيس مدرسي", "traditionen = تقاليد", "Schulanfang = بداية مدرسة", "Geschenke = هدايا"],
+    simplified: "تقاليد متنوعة لاستقبال اليوم الأول في المدرسة",
+    imagine: "طفل يحمل كيسا من الورق المقوى مليئا بالحلويات",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam28_text4"] = {
+    text: "Raban Rabovic ist ein kleiner Rabe - Neues Buch für kleine Leseanfänger",
+    meaning: "كتاب جديد لمساعدة الأطفال الصغار على القراءة",
+    keywords: ["Erstlesebuch = كتاب قراءة أول", "Bilder = صور", "Rabe = غراب", "Schulanfang = بداية مدرسة"],
+    simplified: "كتاب مصور للأطفال في أول سنة دراسية",
+    imagine: "طفل يقرأ كتابا وعليها رسم غراب صغير يرتدي قبعة",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam28_text3"] = {
+    text: "Auf den Straßen sind ab Schulbeginn - Vorsicht an Haltestellen!",
+    meaning: "الحذر في مواقف الحافلات مع بداية العام الدراسي",
+    keywords: ["Haltestellen = مواقف", "Autofahrer = سائقين", "Schulbus = باص مدرسة", "Überholen = تجاوز"],
+    simplified: "احذر وأنت تقود بجانب مواقف الحافلات المدرسية",
+    imagine: "حافلة مدرسية وأطفال ينزلون وسيارة تتوقف بجانبهم",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam28_text4"] = {
+    text: "In Deutschland herrscht Schulpflicht - Das richtige Alter für die Einschulung",
+    meaning: "العمر المناسب لدخول المدرسة يختلف حسب الرأي والولاية",
+    keywords: ["Schuleintritt = دخول مدرسة", "Alter = سن", "Bundesländer = ولايات", "überfordern = إرهاق"],
+    simplified: "العمر المناسب لدخول المدرسة يختلف بين الخبراء",
+    imagine: "طفل يحمل حقيبة ظهر كبيرة ودمعة في عينه",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam28_text5"] = {
+    text: "Ein Großteil des Busverkehrs dient dem Schulverkehr - Weniger Fahrten in den Schulferien",
+    meaning: "عدد رحلات الحافلات يقل في العطل المدرسية",
+    keywords: ["Schulverkehr = نقل مدرسي", "Ferien = عطلات", "Fahrpläne = جداول مواعيد", "Schultagen = أيام دراسة"],
+    simplified: "باصات كثيرة تعمل أيام الدراسة فقط وتتوقف في العطل",
+    imagine: "جدول مواعيد باص وعليه علامة تعليمية وحرف S",
+    correct: "h"
+};
+
+// ========== Exam 29: Kindertelefon (صحيح: 2,5,4,1,9) ==========
+HELP_DATA["lesen1_exam29_text1"] = {
+    text: "Vielen Menschen verursachen sie ein mulmiges Gefühl - Moderne schnurlose Geräte vermindern die Strahlenbelastung",
+    meaning: "الأجهزة اللاسلكية الحديثة تقلل الإشعاعات الضارة",
+    keywords: ["Schnurlos-Telefone = هواتف لاسلكية", "Strahlenschutz = حماية من إشعاع", "strahlungsarm = قليل الإشعاع", "BfS = مكتب إشعاع"],
+    simplified: "هواتف لاسلكية جديدة أقل إشعاعا من القديمة",
+    imagine: "هاتف لاسلكي وعليه علامة لا للإشعاع",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam29_text2"] = {
+    text: "Wenn Kinder ein Handy haben - Kinder-Überwachung für Eltern per Handy wird geplant",
+    meaning: "تخطيط لتصنيع هاتف للأطفال يمكن الأهل من مراقبتهم",
+    keywords: ["Handy = هاتف محمول", "Kontrolle = مراقبة", "Eltern = أهل", "Motorola = موتورولا"],
+    simplified: "هاتف ذكي يسمح للآباء بمراقبة أطفالهم",
+    imagine: "أم تشاهد مكان ابنها على خريطة في هاتفها",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam29_text3"] = {
+    text: "Wer unter Palmen liegt, greift gern zum Handy - Handy im Ausland: aufpassen und tricksen!",
+    meaning: "نصائح لتجنب فواتير الهاتف الباهظة عند السفر للخارج",
+    keywords: ["Eurotarif = تعرفة أوروبية", "Ausland = خارج البلاد", "Verbraucherzentrale = مركز المستهلك", "Preislimits = حدود سعرية"],
+    simplified: "انتبه لفواتير هاتفك وأنت مسافر في أوروبا",
+    imagine: "شخص على الشاطئ يتصل ومعه فاتورة طويلة جدا",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam29_text4"] = {
+    text: "Manche Momente muss man einfach festhalten - Profi-Tipps für bessere Urlaubsbilder",
+    meaning: "نصائح احترافية لتحسين صور العطلات بكاميرات عادية",
+    keywords: ["Fotos = صور", "Tricks = حيل", "Perspektive = زاوية", "Digitalkameras = كاميرات رقمية"],
+    simplified: "نصائح بسيطة لتصوير أفضل في إجازتك",
+    imagine: "شخص يصور غروب الشمس بزاوية جميلة وجالس على الأرض",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam29_text5"] = {
+    text: "Es gibt wohl kaum eine bessere Chance für Handy-TV - Mobiler Fernsehgenuss wird zum Alltag",
+    meaning: "مشاهدة التلفاز على الهاتف المحمول أصبح شيء عادي",
+    keywords: ["Handy-TV = تلفاز محمول", "Fußball-WM = كأس العالم", "UMTS = نظام اتصالات", "Alltag = يومي"],
+    simplified: "مشاهدة التلفاز على الموبايل أصبح متعة يومية",
+    imagine: "شخص يشاهد مباراة كرة قدم على هاتفه في الحافلة",
+    correct: "j"
+};
+
+// ========== Exam 30: Alpen (صحيح: 5,3,1,0,4) ==========
+HELP_DATA["lesen1_exam30_text1"] = {
+    text: "Für Raucher wird es an der Universität in Köln eng - Rauchverbot in Sportvereinen",
+    meaning: "منع التدخين في المباني الجامعية وحتى المراحيض",
+    keywords: ["Rauchverbot = منع تدخين", "Universität = جامعة", "Gebäude = مبانٍ", "Toiletten = حمامات"],
+    simplified: "منع التدخين في كل مباني الجامعة بدون استثناء",
+    imagine: "لافتة ممنوع التدخين على باب الحمام الجامعي",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam30_text2"] = {
+    text: "Urlaub in den Bergen ist sehr gesund - Höhenluft - gut fürs Herz",
+    meaning: "هواء المرتفعات مفيد للقلب والدورة الدموية",
+    keywords: ["Höhenlagen = مرتفعات", "Blutdruck = ضغط دم", "Herz = قلب", "Kreislauf = دورة دموية"],
+    simplified: "هواء الجبال العالية يقوي القلب ويخفض الضغط",
+    imagine: "رجل يقف على قمة جبل ويضع يده على قلبه وهو يبتسم",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam30_text3"] = {
+    text: "Schlechte Haut, übler Atem, leere Brieftasche - Mädchen geben mehr Geld für Zigaretten aus als Jungen",
+    meaning: "الفتيات ينفقن مالا على السجائر أكثر من الأولاد",
+    keywords: ["Rauchen = تدخين", "Mädchen = بنات", "Jungen = أولاد", "Sucht = إدمان"],
+    simplified: "البنات يدخن أكثر من الشباب رغم أضرار التدخين الواضحة",
+    imagine: "بنت تشعل سيجارة ومحفظتها فارغة بجانبها", 
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam30_text4"] = {
+    text: "Sport im Hochgebirge? Da denkt man zuallererst an Wintersport - Freizeitsport in den Alpen",
+    meaning: "الرياضات الترفيهية في جبال الألب صيفا وشتاء",
+    keywords: ["Hochgebirge = مرتفعات عالية", "Wintersport = رياضة شتوية", "Wandern = مشي", "Klettern = تسلق"],
+    simplified: "رياضات متنوعة في جبال الألب لكل الفصول",
+    imagine: "شخص يتزلج على ثلج وآخر يتسلق صخرة في الصيف",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam30_text5"] = {
+    text: "Sportvereine spielen eine immer wichtigere Rolle - Junge Sportler: weniger suchtanfällig",
+    meaning: "الشباب الرياضيون أقل عرضة للإدمان والمشاكل السلوكية",
+    keywords: ["Sportvereine = أندية رياضية", "suchtanfällig = عرضة للإدمان", "rauchen = تدخين", "geselliger = أكثر اجتماعية"],
+    simplified: "الرياضيون الشباب يدخنون أقل ويتمتعون بصحة نفسية أفضل",
+    imagine: "شاب رياضي يشرب ماء وآخر غير رياضي يدخن وحيدا",
+    correct: "e"
+};
+
+// ============================================
+// Lesen Teil 1 - Exams 31-40 (فقط الأسئلة الصحيحة)
+// ============================================
+
+// ========== Exam 31: Alpen (التعديل 1) (صحيح: 7,3,1,0,4) ==========
+HELP_DATA["lesen1_exam31_text1"] = {
+    text: "Seit einigen Jahren schon gibt es das Projekt 'Aufklärung gegen Tabak' - Rauchverbot in Sportvereinen",
+    meaning: "طلاب طب يوعون تلاميذ المدارس بمخاطر التدخين",
+    keywords: ["Tabak = تبغ", "Studenten = طلاب", "Schüler = تلاميذ", "Rauchen = تدخين"],
+    simplified: "طلاب الطب يحذرون تلاميذ المدارس من التدخين",
+    imagine: "طالب طب يشرح لمجموعة من التلاميذ رئة مدخن سوداء",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam31_text2"] = {
+    text: "Urlaub in den Bergen ist sehr gesund - Höhenluft - gut fürs Herz",
+    meaning: "هواء الجبال العالي مفيد للقلب والدورة الدموية",
+    keywords: ["Höhenlagen = مرتفعات", "Blutdruck = ضغط دم", "Herz = قلب", "Kreislauf = دورة دموية"],
+    simplified: "هواء المرتفعات يقوي القلب ويخفض الضغط",
+    imagine: "رجل على قمة جبل يضع يده على قلبه ويبتسم",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam31_text3"] = {
+    text: "Schlechte Haut, übler Atem, leere Brieftasche - Mädchen geben mehr Geld für Zigaretten aus als Jungen",
+    meaning: "الفتيات ينفقن مالا على السجائر أكثر من الأولاد",
+    keywords: ["Rauchen = تدخين", "Mädchen = بنات", "Jungen = أولاد", "teuer = مكلف"],
+    simplified: "البنات يصرفن على السجائر أكثر من الشباب",
+    imagine: "بنت تشعل سيجارة ومحفظتها فارغة بجانب ولد يحفظ نقوده",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam31_text4"] = {
+    text: "Sport im Hochgebirge? Da denkt man zuallererst an Wintersport - Freizeitsport in den Alpen",
+    meaning: "رياضات ترفيهية متنوعة في جبال الألب صيفا وشتاء",
+    keywords: ["Hochgebirge = مرتفعات عالية", "Wintersport = رياضة شتوية", "Wandern = مشي", "Klettern = تسلق"],
+    simplified: "الرياضات الترفيهية في الألب صيفا في الجبال والبحيرات",
+    imagine: "رجل يتزلج في الشتاء وآخر يتسلق صخرة في الصيف",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam31_text5"] = {
+    text: "Sportvereine spielen eine immer wichtigere Rolle - Vereine wirken positiv auf Jugendliche",
+    meaning: "الأندية الرياضية تحمي الشباب من العزلة والتدخين والعنف",
+    keywords: ["Sportvereine = أندية رياضية", "Jugendliche = شباب", "rauchen = تدخين", "geselliger = أكثر اجتماعية"],
+    simplified: "الشباب الرياضيون أكثر صحة وسعادة وأقل تدخينا",
+    imagine: "شابان يلعبان كرة أحدهما رياضي والآخر جالس وحيدا",
+    correct: "e"
+};
+
+// ========== Exam 32: Alpen (التعديل 2) (صحيح: 3,6,4,8,2) ==========
+HELP_DATA["lesen1_exam32_text1"] = {
+    text: "Seit einigen Jahren schon gibt es das Projekt 'Aufklärung gegen Tabak' - Studenten engagieren sich gegen das Rauchen",
+    meaning: "طلاب الطب يتطوعون لتوعية التلاميذ بأضرار التدخين",
+    keywords: ["Studenten = طلاب", "Tabak = تبغ", "Schüler = تلاميذ", "präventiv = وقائي"],
+    simplified: "طلاب الطب يعلمون الصغار مخاطر السجائر",
+    imagine: "طالب شاب يشرح لطلاب صغار رسمة لرئة مريضة",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam32_text2"] = {
+    text: "Urlaub in den Bergen ist sehr gesund - Höhenluft fördert die Gesundheit",
+    meaning: "هواء الجبال العالية يقوي صحة القلب ويتحكم بالضغط",
+    keywords: ["Höhenlagen = مرتفعات", "Blutdruck = ضغط دم", "Herz = قلب", "Kreislauf = دورة دموية"],
+    simplified: "هواء الجبال مفيد جدا لصحة القلب والتنفس",
+    imagine: "امرأة تتنفس بعمق بين قمم الجبال المغطاة بالثلوج",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam32_text3"] = {
+    text: "Schlechte Haut, übler Atem, leere Brieftasche - Mädchen geben mehr Geld für Zigaretten aus als Jungen",
+    meaning: "الفتيات ينفقن على التدخين أكثر من الأولاد",
+    keywords: ["Rauchen = تدخين", "Mädchen = بنات", "Jungen = أولاد", "Geld = مال"],
+    simplified: "البنت تصرف على الدخان أكثر من الولد",
+    imagine: "بنت تشتري سجائر وولد يشاهدها وهو يمسك محفظته السميكة",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam32_text4"] = {
+    text: "Sport im Hochgebirge? Da denkt man zuallererst an Wintersport - Freizeitsport in den Alpen",
+    meaning: "رياضات متعددة في جبال الألب تشمل الشتاء والصيف",
+    keywords: ["Wintersport = رياضة شتوية", "Sommer = صيف", "Wandern = مشي", "Klettern = تسلق"],
+    simplified: "رياضات كثيرة في الألب صيفا شتاء وجبال وبحيرات",
+    imagine: "عائلة تتنزه في جبال الألب صيفا بين الزهور الجميلة",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam32_text5"] = {
+    text: "Sportvereine spielen eine immer wichtigere Rolle - Vereine wirken positiv auf Jugendliche",
+    meaning: "الأندية الرياضية تحمي الشباب من المخاطر الاجتماعية",
+    keywords: ["Sportvereine = أندية رياضية", "Jugendliche = شباب", "Einsamkeit = وحدة", "rauchen = تدخين"],
+    simplified: "النادي الرياضي يعطي الشباب بديلا صحيا عن العزلة",
+    imagine: "شباب في نادي رياضي يضحكون ويلعبون معا",
+    correct: "c"
+};
+
+// ========== Exam 33: Suchtmittel - Nase (صحيح: 7,1,4,9,8) ==========
+HELP_DATA["lesen1_exam33_text1"] = {
+    text: "Wie wollen wir von anderen gesehen werden? - Schönheitsoperationen nicht um jeden Preis",
+    meaning: "عمليات تجميل الأنف ليست مناسبة للجميع وخاصة المراهقين",
+    keywords: ["Nase = أنف", "Operation = عملية", "Chirurg = جراح", "ästhetisch = تجميلي"],
+    simplified: "عمليات تجميل الأنف محدودة لبعض الحالات فقط",
+    imagine: "جراح يشرح لامرأة شكل أنفها الجديد لكنه يرفض عمليات المراهقين",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam33_text2"] = {
+    text: "Der Riechsinn ist unser ursprünglichster Sinn - Durch den Geruchssinn die Welt neu erfahren",
+    meaning: "مكان تفاعلي لتدريب حاسة الشم واكتشاف العالم من خلال الروائح",
+    keywords: ["Riechsinn = حاسة شم", "Geruch = رائحة", "Erfahrungsfeld = مجال تجريبي", "Sinne = حواس"],
+    simplified: "استكشف العالم من خلال روائحه في مكان تفاعلي ممتع",
+    imagine: "شخص يشم رائحة زهور ويغمض عينيه بتركيز في معرض تفاعلي",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam33_text3"] = {
+    text: "Mit Drogen kennt sich Falko aus - Mit vierbeinigen Spürnasen gegen den Drogenschmuggel",
+    meaning: "كلاب مدربة خصيصا لكشف المخدرات في الجمارك",
+    keywords: ["Spürhunde = كلاب بوليسية", "Drogen = مخدرات", "Zoll = جمارك", "riechen = شم"],
+    simplified: "كلاب بوليسية بمطار كشف المخدرات أبطال حقيقيون",
+    imagine: "كلب يجلس بجانب حقيبة سفر ويضع علامة بقدمه",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam33_text4"] = {
+    text: "Beim Menschen ist das Sehen der Sinn Nummer eins - Tierische Riechorgane - unterschiedlich ausgeprägt",
+    meaning: "أجهزة شم الحيوانات تختلف قوتها بين أنواعها من كلب إلى فيل",
+    keywords: ["Riechorgane = أعضاء شم", "Hund = كلب", "Elefant = فيل", "riechen = شم"],
+    simplified: "قدرة حاسة الشم عند الحيوانات تختلف قوة من نوع لآخر",
+    imagine: "كلب وكلب يتنافسان في الشم وفيل يشير بخرطومه",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam33_text5"] = {
+    text: "Niesen ist eine Reaktion auf die Umwelt - Selbstreinigung für unser Riechorgan",
+    meaning: "آلية العطاس تعمل على تنظيف الأنف من المهيجات تلقائيا",
+    keywords: ["Niesen = عطاس", "Reflex = رد فعل", "Allergiker = حساسية", "Reiz = مهيج"],
+    simplified: "العطاس طريقة الأنف في تنظيف نفسه من الأتربة",
+    imagine: "شخص يعطس عدة مرات ويخرج منديلا وهو يضحك",
+    correct: "i"
+};
+
+// ========== Exam 34: الانتخابات والمرأة الروسية (صحيح: 2,3,5,6,8) ==========
+HELP_DATA["lesen1_exam34_text1"] = {
+    text: "In Russland 1843 als Tochter eines Bauern - Eine Pionierin der akademischen Frauenausbildung",
+    meaning: "أول امرأة تحصل على دكتوراه في الطب من روسيا",
+    keywords: ["Ärztin = طبيبة", "Universität = جامعة", "promoviert = دكتوراه", "Nadeschda Suslowa = ناديجدا سوسلوفا"],
+    simplified: "قصة الطبيبة الروسية أول دكتورة في بلدها",
+    imagine: "امرأة ترتدي عباءة الدكتوراه في عام 1867",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam34_text2"] = {
+    text: "Dass Frauen wählen und gewählt werden dürfen - Entwicklung des Frauenstimmrechts",
+    meaning: "تاريخ تطور حق المرأة في التصويت والانتخاب في العالم",
+    keywords: ["Frauenwahlrecht = حق تصويت النساء", "Revolution = ثورة", "Olympe de Gouges = أوليمب دو غوج", "Pitcairn = بيتكيرن"],
+    simplified: "قصة كفاح المرأة للحصول على حق التصويت منذ 1838",
+    imagine: "امرأة تضع ورقة اقتراع في صندوق وسط حشد من النساء",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam34_text3"] = {
+    text: "Das Wahlverhalten von Frauen hat sich verändert - Geschlechtsspezifische Entscheidungen an der Wahlurne",
+    meaning: "النساء والرجال يختلفون في توجهاتهم الانتخابية",
+    keywords: ["Wahlverhalten = سلوك انتخابي", "Frauen = نساء", "Männer = رجال", "konservativ = محافظ"],
+    simplified: "المرأة تصوت لصالح البيئة والمساواة أكثر من الرجل",
+    imagine: "امرأة ورجل يضعان ورقتين مختلفتين في صندوق الاقتراع",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam34_text4"] = {
+    text: "In den vergangenen Jahrzehnten hat sich das Geschlechterverhältnis - Studentinnen auf der Überholspur",
+    meaning: "الطالبات الجامعيات يتفوقن على الطلاب في السرعة والإكمال",
+    keywords: ["Studentinnen = طالبات", "Studium = دراسة", "Erfolg = نجاح", "Abschluss = تخرج"],
+    simplified: "الطالبات ينهين دراستهن أسرع ويحققن نجاحا أكبر من الطلاب",
+    imagine: "امرأة تقف على منصة التتويج ووراءها شاب يتعثر",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam34_text5"] = {
+    text: "'Suffragetten' - so nannte man Anfang des 19. Jahrhunderts - Vorkämpferinnen für das Frauenwahlrecht",
+    meaning: "مناضلات بريطانيا المطالبات بحق المرأة في التصويت",
+    keywords: ["Suffragetten = ناشطات", "Wahlrecht = حق تصويت", "Emmeline Pankhurst = إيميلين بانكهورست", "Widerstand = مقاومة"],
+    simplified: "ناشطات بريطانيا استخدمت كل الطرق لنيل حق المرأة في التصويت",
+    imagine: "امرأة ترفع لافتة اقتراع ووراءها سيدة تشعل فتيل متفجر",
+    correct: "i"
+};
+
+// ========== Exam 35: kein Zeit (صحيح: 9,1,2,5,8) ==========
+HELP_DATA["lesen1_exam35_text1"] = {
+    text: "Die Krüger sind eine ganz normale Familie - Keine Zeit für die Kinder",
+    meaning: "الأهل مشغولون جدا لدرجة أنهم لا يجدون وقتا لأطفالهم",
+    keywords: ["keine Zeit = لا وقت", "Kinder = أطفال", "Arbeit = عمل", "Familie = عائلة"],
+    simplified: "أب وأم يعملان كثيرا ولا وقت لهما لقراءة كتاب أو رياضة",
+    imagine: "أم تركض لتوصل أطفالها وبعدها تجري للعمل وأب يراجع الواجبات ليلا",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam35_text2"] = {
+    text: "Der Wunsch nach Zweisamkeit hat sich zu einem Geschäft entwickelt - Vorsicht vor zweifelhaften Kontaktagenturen!",
+    meaning: "احذر من وكالات التعارف الوهمية التي تضع صورا مزيفة",
+    keywords: ["Kontaktagenturen = وكالات تعارف", "schwarze Schafe = سوداء", "Fotos = صور", "Telefonnummer = رقم هاتف"],
+    simplified: "احذر من دعايات زواج وهمية تستدرجك لهاتف مدفوع",
+    imagine: "شخص يلتقط السماعة ووجها مفاجأة سيدة خلف الستارة تبتسم",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam35_text3"] = {
+    text: "Die Partnerschaft verläuft in Phasen - Liebe fürs Leben muss wachsen",
+    meaning: "العلاقة الزوجية تمر بأطوار مختلفة يجب تجاوزها للوصول للحب الدائم",
+    keywords: ["Partnerschaft = شراكة", "Liebe = حب", "Phasen = أطوار", "Alltag = روتين"],
+    simplified: "طرق أبواب الحب الدائم تمر بمراحل الافتتان والنضج والتعايش",
+    imagine: "زوجان يواجهان كومة من الأطباق المتسخة ويضحكان",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam35_text4"] = {
+    text: "Knapp 13 Millionen Single-Haushalte in Deutschland - Wer sucht, der findet",
+    meaning: "البحث النشط أفضل من انتظار شريك الحياة أن يأتي بالصدفة",
+    keywords: ["Single = أعزب", "Partner = شريك", "finden = إيجاد", "Hoffnung = أمل"],
+    simplified: "لا تنتظر الحظ بل ابحث عن شريك حياتك بنفسك",
+    imagine: "شخص ينظر من نافذته وأمير الأحلام يطرق باب جاره",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam35_text5"] = {
+    text: "Nach dem Abitur, zum Studium - Wenn die Kinder aus dem Haus sind",
+    meaning: "شعور الأهل بالفراغ عندما يغادر الأطفال المنزل",
+    keywords: ["Kinder = أطفال", "ausziehen = مغادرة", "Eltern = أهل", "Leere = فراغ"],
+    simplified: "الأهل يمتلئون بالفرح والحزن معا عند خروج أولادهم للزواج",
+    imagine: "أم تلتقط صورة لغرفة ابنها الفارغة وعيناها تدمعان",
+    correct: "i"
+};
+
+// ========== Exam 36: kein Zeit (التعديل 1) (صحيح: 9,1,2,5,8) ==========
+HELP_DATA["lesen1_exam36_text1"] = {
+    text: "Die Krüger sind eine ganz normale Familie - Zeitprobleme in der Familie",
+    meaning: "ضيق الوقت عند الأهل يؤثر سلبا على تربية الأبناء",
+    keywords: ["Zeitprobleme = مشاكل وقت", "Familie = عائلة", "Arbeit = عمل", "Kinder = أطفال"],
+    simplified: "الأهل لا يجدون وقتا للأبناء بسبب ضغوط العمل اليومية",
+    imagine: "ساعة توقيت تدق وكل فرد في المنزل يجري في اتجاه مختلف",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam36_text2"] = {
+    text: "Der Wunsch nach Zweisamkeit hat sich zu einem Geschäft entwickelt - Vorsicht vor zweifelhaften Kontaktagenturen!",
+    meaning: "تحذير من وكالات التعارف النصابة التي تستخدم صورا مزيفة",
+    keywords: ["Kontaktagenturen = وكالات تعارف", "schwarze Schafe = سوداء", "Fotos = صور", "echte Beziehung = علاقة حقيقية"],
+    simplified: "لا تصدق الإعلانات الجميلة فقد تكون وجهة لشركة وهمية",
+    imagine: "هاتف يرن ومكتب مليء بصور ممثلين مبتسمين",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam36_text3"] = {
+    text: "Wie entsteht eine langfristige Beziehung? - Liebe fürs Leben muss wachsen",
+    meaning: "الحب الدائم يحتاج للنضج عبر مراحل الزواج المختلفة",
+    keywords: ["Beziehung = علاقة", "Liebe = حب", "Phasen = أطوار", "Alltag = روتين"],
+    simplified: "علاقة الحب عمرها ما تبقى في مرحلة الشغف الأولى",
+    imagine: "زوجان عجوزان يشاهدان فيلما لزفافهما ويضحكان",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam36_text4"] = {
+    text: "Knapp 13 Millionen Single-Haushalte in Deutschland - Aktive Partnersuche gegen das Alleinsein",
+    meaning: "البحث النشط عن شريك أفضل من انتظاره بالصدفة",
+    keywords: ["Single = أعزب", "Partner = شريك", "Alleinsein = وحدة", "finden = إيجاد"],
+    simplified: "لا تنتظر أن تطرق سندريلا بابك بل ابحث عنها بنفسك",
+    imagine: "رجل في غرفة مليئة بالنوافذ لكن لا أحد يطرق بابها",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam36_text5"] = {
+    text: "Nach dem Abitur, zum Studium - Wenn die Kinder aus dem Haus sind",
+    meaning: "آثار مغادرة الأبناء للمنزل على حياة الأهل",
+    keywords: ["Kinder = أطفال", "ausziehen = مغادرة", "Eltern = أهل", "Freude = فرح", "Leere = فراغ"],
+    simplified: "خروج الأبناء من البيت يخلط الفرح بالحزن عند الأهل",
+    imagine: "أب وأم يشربان القهوة في غرفة الجلوس الهادئة جدا",
+    correct: "i"
+};
+
+// ========== Exam 37: Limonade (صحيح: 5,9,2,7,4) ==========
+HELP_DATA["lesen1_exam37_text1"] = {
+    text: "Möchten Sie Kraft, Jugend und Gesundheit aus der Flasche? - Frische Luft macht stark",
+    meaning: "هواء نقي ونظيف يمنحك الطاقة والصحة مجانا دون حاجة لمشروبات مدفوعة",
+    keywords: ["Sauerstoff = أكسجين", "frische Luft = هواء نقي", "kostenlos = مجاني", "Energie = طاقة"],
+    simplified: "تنفس هواء نقي فهو صحي ومجاني ويغنيك عن مكملات الأكسجين",
+    imagine: "رجل يتنفس بعمق في غابة وأمامه زجاجات ماء فوارة باهظة",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam37_text2"] = {
+    text: "Wenn es regnet, dann fließt das Regenwasser - Vom Regen zum Mineralwasser",
+    meaning: "رحلة قطرة المطر من السماء إلى أعماق الأرض لتصير ماء معدنيا",
+    keywords: ["Regenwasser = ماء مطر", "Mineralwasser = ماء معدني", "Grundwasser = ماء جوفي", "Nitrat = نترات"],
+    simplified: "قصة تكون الماء المعدني من ماء المطر بعد سنين طويلة",
+    imagine: "قطرة مطر تسقط على الأرض وتخترق طبقات الصخر ببطء شديد",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam37_text3"] = {
+    text: "Nach den Unwettern der letzten Sommer - Sommer bedeutet in Zukunft nicht unbedingt Sonne",
+    meaning: "تغير المناخ يجعل الصيف عبارة عن فيضانات وعواصف وليس شمسا فقط",
+    keywords: ["Sommer = صيف", "Klima = مناخ", "Unwetter = عواصف", "Überschwemmungen = فيضانات"],
+    simplified: "صيف الغد قد يكون مطرا وعواصف بدل شمس وشواطئ",
+    imagine: "شخص يجلس على شاطئ تحت مظلة شمس والمطر ينهمر بشدة",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam37_text4"] = {
+    text: "Wozu noch Kästen mit Mineralwasserflaschen nach Hause schleppen - Sprudel hausgemacht – Zeit des Flaschen-Tragens ist vorbei",
+    meaning: "اصنع مشروباتك الغازية في المنزل بآلة صغيرة",
+    keywords: ["Sodamaschine = ماكينة صودا", "Sprudel = فوار", "Leitungswasser = ماء حنفية", "selbst herstellen = تصنيع منزلي"],
+    simplified: "آلة منزلية تحول ماء الصنبور إلى مشروبات غازية حسب رغبتك",
+    imagine: "رجل يضغط زر ماكينة وماء الصنبور يخرج فوارا",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam37_text5"] = {
+    text: "'Wasser ist zum Waschen da' lautete ein deutscher Schlager - Viel Wasser trinken - Gesundheit tanken",
+    meaning: "اشرب 2.5 لتر ماء يوميا لتعويض الأملاح وتجنب السكر",
+    keywords: ["Wasser trinken = شرب ماء", "Mineralstoffe = معادن", "gesund = صحي", "Kalorien = سعرات"],
+    simplified: "شرب الماء ضروري يوميا لتعويض الفاقد دون سعرات حرارية",
+    imagine: "زجاجة ماء بجانبها زجاجة عصير ملون لكن يدي تمد للماء",
+    correct: "e"
+};
+
+// ========== Exam 38: Limonade (التعديل 1) (صحيح: 2,9,6,7,8) ==========
+HELP_DATA["lesen1_exam38_text1"] = {
+    text: "Möchten Sie Kraft, Jugend und Gesundheit aus der Flasche? - Frische Luft als wahre Energiequelle",
+    meaning: "طاقة وصحة حقيقية تنبع من الهواء النقي وليس من ماء مكلف",
+    keywords: ["frische Luft = هواء نقي", "Energie = طاقة", "Sauerstoff = أكسجين", "kostenlos = مجاني"],
+    simplified: "اصعد للهواء الطلق تجد الطاقة والحيوية دون دفع فلس واحد",
+    imagine: "جبل أخضر ورجل يتنفس بعمق ويمد يديه للنافذة",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam38_text2"] = {
+    text: "Wenn es regnet, dann fließt das Regenwasser - Vom Regen zum Mineralwasser",
+    meaning: "رحلة الماء المعدني الطبيعي من سقوط المطر إلى تنقيته تحت الأرض",
+    keywords: ["Regen = مطر", "Mineralwasser = ماء معدني", "Erdschichten = طبقات أرضية", "Nitrat = نترات"],
+    simplified: "طبيعة تصنع مياه معدنية من مطر يخترق التربة لقرون",
+    imagine: "قطرة ماء تسافر عبر حصى وصخور لسنوات طويلة جدا",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam38_text3"] = {
+    text: "Nach den Unwettern der letzten Sommer - Sommer bedeutet in Zukunft nicht unbedingt Sonne",
+    meaning: "الصيف في المستقبل قد يحمل عواصف وفيضانات أكثر من الشمس",
+    keywords: ["Sommer = صيف", "Klimawandel = تغير مناخ", "Unwetter = عواصف", "Überschwemmungen = فيضانات"],
+    simplified: "الصيف صار فوضى من مطر وبرد فيضانات وحر", 
+    imagine: "شاطئ عاصف وأمواج ضخمة تجرف الكراسي",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam38_text4"] = {
+    text: "Wozu noch Kästen mit Mineralwasserflaschen nach Hause schleppen - Sprudel hausgemacht – Zeit des Flaschen-Tragens ist vorbei",
+    meaning: "آلة منزلية تحول ماء الصنبور العادي إلى مشروبات غازية",
+    keywords: ["Sodamaschine = ماكينة صودا", "Leitungswasser = ماء حنفية", "Sprudel = فوار", "selbst machen = صناعة منزلية"],
+    simplified: "اصنع سبرايتك الخاص في البيت بضغطة زر",
+    imagine: "طفل يضغط على زر ماكينة والماء المثلج يخرج غازيا",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam38_text5"] = {
+    text: "'Wasser ist zum Waschen da' lautete ein deutscher Schlager - Viel Wasser trinken - Gesundheit tanken",
+    meaning: "شرب الماء يوميا 2.5 لتر عادة صحية أساسية بفوائد متعددة",
+    keywords: ["Wasser = ماء", "trinken = شرب", "gesund = صحي", "Mineralstoffe = معادن"],
+    simplified: "الماء ينظف جسمك ويعوض سوائلك وأملاحك دون سعرات",
+    imagine: "ساعة تذكير تشرب ماء وكل ربع ساعة يرن المنبه",
+    correct: "i"
+};
+
+// ========== Exam 39: Limonade (التعديل 2) (صحيح: 7,0,3,2,1) ==========
+HELP_DATA["lesen1_exam39_text1"] = {
+    text: "Möchten Sie Kraft, Jugend und Gesundheit aus der Flasche? - Frische Luft als wahre Energiequelle",
+    meaning: "الهواء النقي مجان ويعطيك صحة أفضل من مشروبات الطاقة",
+    keywords: ["frische Luft = هواء نقي", "Energie = طاقة", "Sauerstoff = أكسجين", "kostenlos = مجاني"],
+    simplified: "أفضل صحة تجدها في هواء نقي مجاني وليس بزجاجات مدفوعة",
+    imagine: "رجل يركض في حديقة وأسعار زجاجات المياه الباهظة خلفه",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam39_text2"] = {
+    text: "Wenn es regnet, dann fließt das Regenwasser - Vom Regen zum Mineralwasser",
+    meaning: "التربة تحول مطرا عاديا إلى مياه معدنية بعد تنقيته طبيعيا",
+    keywords: ["Regen = مطر", "Mineralwasser = ماء معدني", "Erde = تربة", "Sandstein = حجر رملي"],
+    simplified: "مسيرة قطرة من سقف السماء لبيع الزجاجات باهظة بعد قرون",
+    imagine: "قطرة ماء تزحف بين حجارة وقد بدأت رحلتها البراقة",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam39_text3"] = {
+    text: "Nach den Unwettern der letzten Sommer - Sommer bedeutet in Zukunft nicht unbedingt Sonne",
+    meaning: "تغير الطقس ينذر بصيف مليء بالعواصف لا شمس فقط",
+    keywords: ["Sommer = صيف", "Klima = مناخ", "Unwetter = عواصف", "Überschwemmungen = فيضانات"],
+    simplified: "صيف شمس مشرق أصبح تراثا قديما بسبب الاحتباس الحراري",
+    imagine: "طفل يبكي لأنه لا يستطيع السباحة بفعل الثلوج في شهر يوليو",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam39_text4"] = {
+    text: "Wozu noch Kästen mit Mineralwasserflaschen nach Hause schleppen - Sprudel hausgemacht – Zeit des Flaschen-Tragens ist vorbei",
+    meaning: "آلة منزلية صغيرة توفر عليك حمل قوارير المياه الغازية الثقيلة",
+    keywords: ["Sodamaschine = ماكينة صودا", "Leitungswasser = ماء حنفية", "Sprudel = فوار", "individuell = حسب رغبة"],
+    simplified: "آلة بسيطة تمنح ماء الصنبور الفوران والطعم الذي تريده",
+    imagine: "رجل يمسك زجاجة فوارة بيد وصنبور ماء باليد الأخرى",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam39_text5"] = {
+    text: "'Wasser ist zum Waschen da' lautete ein deutscher Schlager - Viel Wasser trinken - Gesundheit tanken",
+    meaning: "شرب 2.5 لتر ماء يوميا عادة يوصي بها الأطباء",
+    keywords: ["Wasser = ماء", "trinken = شرب", "Ärzte = أطباء", "Mineralstoffe = معادن"],
+    simplified: "الماء أفضل مشروب صحي بلا سعرات وبفوائد لتوازن الجسم",
+    imagine: "زجاجة ماء كبيرة إلى جانب طعام وطبيب يبتسم",
+    correct: "b"
+};
+
+// ========== Exam 40: Auf dem Weg (صحيح: 2,0,3,8,9) ==========
+HELP_DATA["lesen1_exam40_text1"] = {
+    text: "Wir bieten Bewegungsförderung mit und auf Pferden - Ein tierischer Lernspaß für alle",
+    meaning: "برنامج ترفيهي ورياضي على ظهور الخيل لتنشيط الأطفال",
+    keywords: ["Pferde = خيول", "Bewegungsförderung = تشجيع حركي", "Teenies = مراهقين", "Reitlehrer = مدرب ركوب"],
+    simplified: "مركز خيول يوفر تعليما حركيا ممتعا للشباب",
+    imagine: "طفل يربت على رأس حصان بينما يصعد فوق السرج بمساعدة مدرب",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam40_text2"] = {
+    text: "Die Schwimm- und Sportfreunde 1905 e.V. - Auf dem Weg zu internationalen Wettkämpfen",
+    meaning: "ناد سباحة يعود بقوة ليتأهل أبطاله للمسابقات العالمية",
+    keywords: ["Schwimmsport = سباحة", "Wettkämpfe = مسابقات", "Nationalmannschaft = منتخب وطني", "Teilzeitinternat = داخلية جزئية"],
+    simplified: "نادي السباحة الألماني يعود لسابق أمجاده العالمية",
+    imagine: "سباحة ناشئة تلمس حافة المسبح والجمهور يهتف باسمها",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam40_text3"] = {
+    text: "In unserem modernen Studio bieten wir - Fit und gesund auch nach der Pensionierung",
+    meaning: "الرياضة والتغذية السليمة مهمة لحيوية الإنسان بعد التقاعد",
+    keywords: ["Rentenalter = سن تقاعد", "Ausdauertraining = تدريب تحمل", "Rückenschmerzen = آلام ظهر", "Fitnessstudio = نادي لياقة"],
+    simplified: "ممارسة الرياضة تحافظ على نشاطك حتى سن الشيخوخة وتمنع آلام الظهر",
+    imagine: "جد بجسم رياضي وابتسامة يعمل على آلة جري في نادي مجاور",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam40_text4"] = {
+    text: "Das Trampolin ist ein einzigartiges Trainingsgerät - Schlank, fit und glücklich im Flug",
+    meaning: "الترامبولين يحرق سعرات كالجري ويقوي العضلات ويطيل القامة",
+    keywords: ["Trampolin = ترامبولين", "Gewichtsabnahme = تخسيس", "Muskeln = عضلات", "Kalorienverbrauch = حرق سعرات"],
+    simplified: "القفز على الترامبولين رياضة ممتعة تخسيس وتنشيط ليمفاوي",
+    imagine: "شخص يقفز عاليا على الترامبولين ويداه في الهواء بابتسام",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam40_text5"] = {
+    text: "Sporttauchen ist eine fantastische Natursportart - Sport treiben wie ein Fisch unter Wasser",
+    meaning: "رياضة الغطس تحت الماء تحتاج لياقة وتدريبا خاصا",
+    keywords: ["Sporttauchen = غطس رياضي", "unter Wasser = تحت الماء", "tauchfit = لياقة تحت الماء", "Trainer = مدرب"],
+    simplified: "الغوص رياضة تحت الماء تعتمد على التنفس الصحيح واللياقة البدنية",
+    imagine: "غواص يرتدي سكوبا وأسماك ملونة تسبح حوله ومدرب يرشده",
+    correct: "j"
+};
+
+// ============================================
+// Lesen Teil 1 - Exams 41-47 (فقط الأسئلة الصحيحة)
+// ============================================
+
+// ========== Exam 41: Schlafzug (صحيح: 6,4,1,7,9) ==========
+HELP_DATA["lesen1_exam41_text1"] = {
+    text: "Wussten Sie, dass der längste dokumentierte Winterschlaf - Energiesparverhalten bei Tieren",
+    meaning: "الحيوانات تدخل سباتا شتويا لتوفير الطاقة في فترات نقص الغذاء",
+    keywords: ["Winterschlaf = سبات شتوي", "Energieverbrauch = استهلاك طاقة", "Körpertemperatur = حرارة جسم", "Nahrung = غذاء"],
+    simplified: "الحيوانات تنام شتاء لتوفر طاقتها وتنقص حرارة جسمها",
+    imagine: "قنفذ نائم ملفوف في كهف صغير والثلج يتساقط خارجه",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam41_text2"] = {
+    text: "In Dänemark wurde ein umfangreiches Schulprojekt durchgeführt - Gutes Licht fördert den Lernerfolg",
+    meaning: "الضوء الطبيعي الكبير يحسن تركيز وتحصيل الطلاب في الفصول الدراسية",
+    keywords: ["Tageslicht = ضوء طبيعي", "Konzentrationsfähigkeit = قدرة تركيز", "bessere Testergebnisse = نتائج اختبار أفضل", "Wohlbefinden = راحة"],
+    simplified: "الفصول المضيئة بالشمس تساعد الطلاب على التركيز والتفوق",
+    imagine: "طلاب يجلسون في فصل كبير مليء بالنوافذ والشمس تدخل منهم",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam41_text3"] = {
+    text: "Schon die alten Römer wussten, dass ausreichend Schlaf - Durch Schlaf wird man klüger",
+    meaning: "النوم الكافي يحسن الذاكرة والتركيز ويساعد في تثبيت المعلومات",
+    keywords: ["Schlaf = نوم", "Leistungsfähigkeit = قدرة أداء", "Melatonin = ميلاتونين", "Immunsystem = جهاز مناعي"],
+    simplified: "النوم الجيد يقوي ذاكرتك ومناعتك ويحمي قلبك",
+    imagine: "طفل نائم بجانب كتابه المدرسي وأحلام اليقظة تطير حوله",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam41_text4"] = {
+    text: "Schon im Mittelalter unternahmen Menschen nächtliche Pilgerwege - Im Dunkeln wandern – Tipps für nächtliche Touren",
+    meaning: "نصائح وإرشادات للمشي ليلا في الطبيعة بأمان وفوائد صحية",
+    keywords: ["nächtliches Wandern = مشي ليلي", "Stresshormone = هرمونات توتر", "Melatonin = ميلاتونين", "Sicherheit = أمان"],
+    simplified: "المشي ليلا في الطبيعة يخفف التوتر وينظم نومك",
+    imagine: "شخص يمشي في غابة ليلا ويحمل مصباحا يدويا ويمسك خريطة باليد الأخرى",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam41_text5"] = {
+    text: "Schon die Weltgesundheitsorganisation (WHO) weist seit Jahren - Was unsere Wintermüdigkeit verursacht",
+    meaning: "أسباب الكسل والتعب في الشتاء مرتبطة بقلة ضوء الشمس وتأثيرها على الهرمونات",
+    keywords: ["Wintermüdigkeit = تعب شتوي", "Melatonin = ميلاتونين", "Serotonin = سيروتونين", "Lichttherapie = علاج ضوئي"],
+    simplified: "قلة ضوء الشمس شتاء تسبب الخمول والتعب بسبب هرمون النوم",
+    imagine: "رجل نائم على مكتبه والنافذة مظلمة والثلج يتساقط خارجها",
+    correct: "j"
+};
+
+// ========== Exam 42: Schlafzug (التعديل 1) (صحيح: 6,4,9,1,0) ==========
+HELP_DATA["lesen1_exam42_text1"] = {
+    text: "Viele Tiere können im Winter auf Sparflamme schalten - Tiere im Energiesparmodus",
+    meaning: "الحيوانات تدخل سباتا شتويا لتقليل استهلاك الطاقة في أوقات الجوع",
+    keywords: ["Winterschlaf = سبات شتوي", "Energiesparprogramm = برنامج توفير طاقة", "Nahrungsknappheit = نقص غذاء", "Lichtverhältnisse = ظروف ضوئية"],
+    simplified: "الحيوانات تنام شتاء لتتغلب على البرد وقلة الأكل",
+    imagine: "دب نائم في عرينه تحت الأرض والرياح تعوي فوقه",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam42_text2"] = {
+    text: "Licht kann sich positiv auf die Gesundheit auswirken - Richtiges Licht fördert das Lernen",
+    meaning: "الضوء الطبيعي يحسن الصحة والتركيز والأداء الدراسي",
+    keywords: ["Tageslicht = ضوء طبيعي", "Leistungsfähigkeit = قدرة إنتاجية", "Klassenräume = فصول", "Konzentration = تركيز"],
+    simplified: "النوافذ الكبيرة في الفصول تزيد من تركيز الطلاب وتحصيلهم",
+    imagine: "طالب يقرأ كتابا بجانب نافذة كبيرة والشمس تضيء صفحته",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam42_text3"] = {
+    text: "Im Winter würden wir morgens am liebsten lange im Bett bleiben - Was hinter unserer Wintermüdigkeit steckt",
+    meaning: "السبب الحقيقي وراء الكسل والخمول في الشتاء هو قلة الضوء وتأثيره على هرمون النوم",
+    keywords: ["Wintermüdigkeit = تعب شتوي", "Melatonin = ميلاتونين", "Tageslicht = ضوء طبيعي", "Schlafrhythmus = إيقاع نوم"],
+    simplified: "كسل الشتاء مرتبط بهرمون النوم الذي يزداد في الظلام",
+    imagine: "امرأة تتثاءب والنافذة مغلقة والسماء رمادية بالخارج",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam42_text4"] = {
+    text: "Verfestigen sich gelernte Vokabeln, während wir schlafen? - Klug durch Schlaf",
+    meaning: "النوم الجيد يساعد الدماغ على تثبيت المعلومات المستفادة خلال اليوم",
+    keywords: ["Schlaf = نوم", "geistige Leistungsfähigkeit = قدرة عقلية", "merken = تذكر", "regelmäßige Schlafzeiten = أوقات نوم منتظمة"],
+    simplified: "النوم العميق يقوي الذاكرة ويساعدك على حفظ الدروس",
+    imagine: "طالب نائم وكتابه مفتوح على سريره وأحرف تخرج من رأسه",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam42_text5"] = {
+    text: "Kürzere Tage, dunkle Wolken, Nieselregen - Bewegung macht gute Laune",
+    meaning: "الحركة والرياضة في الهواء الطلق تحسن المزاج وتزيل كآبة الشتاء",
+    keywords: ["Bewegung = حركة", "Winterblues = كآبة شتوية", "Glückshormone = هرمونات سعادة", "Stimmungsaufheller = محسن مزاج"],
+    simplified: "رياضة المشي في الشتاء تفرز هرمونات السعادة وتزيل الكآبة",
+    imagine: "شخص يمشي بسرعة في الحديقة والثلج يتساقط وهو يبتسم",
+    correct: "a"
+};
+
+// ========== Exam 43: Löwen (صحيح: 1,6,4,7,8) ==========
+HELP_DATA["lesen1_exam43_text1"] = {
+    text: "Der Berliner Zoo gehört zu den bekanntesten Tierparks - Die Löwen sind sehr beliebt unter den Besuchern",
+    meaning: "الأسود من أكثر الحيوانات جذبا للزوار في حديقة حيوان برلين",
+    keywords: ["Löwen = أسود", "beliebt = محبوب", "Besucher = زوار", "Führungen = جولات إرشادية"],
+    simplified: "الأسود هي الحيوان المفضل عند زوار حديقة برلين",
+    imagine: "طفل يشير بإصبعه إلى أسد نائم والكل يصورونه بالهواتف",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam43_text2"] = {
+    text: "In Südafrika gab es in den letzten Jahren immer wieder Konflikte - Mehr Bemühungen für den Tierschutz",
+    meaning: "جهود أكبر لحماية الأسود من الانقراض وإنشاء محميات طبيعية",
+    keywords: ["Konflikte = صراعات", "Schutzgebiete = مناطق محمية", "Artenschutz = حماية أنواع", "Ranger = حراس"],
+    simplified: "حكومات تنشئ محميات لحماية الأسود من الصراع مع البشر",
+    imagine: "رجل يرتدي زيا أخضر ويحمل منظارا يراقب أسدا بعيدا",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam43_text3"] = {
+    text: "In den USA spielt der Tourismus eine wichtige Rolle - Löwen bringen Touristen in amerikanische Safari-Parks",
+    meaning: "الأسود عامل جذب سياحي رئيسي في حدائق السفاري الأمريكية",
+    keywords: ["Löwen = أسود", "Tourismus = سياحة", "Safari-Park = منتزه سفاري", "Übernachtungspakete = باقات مبيت"],
+    simplified: "السياح يسافرون لأمريكا خصيصا لمشاهدة الأسود في موائلها الطبيعية",
+    imagine: "سائح يصور أسدا من نافذة سيارته في منتزه سفاري",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam43_text4"] = {
+    text: "In einigen asiatischen Ländern investieren wohlhabende Familien - Reiche Familien züchten exotische Tiere في Asien",
+    meaning: "عائلات غنية في آسيا تقتني الحيوانات المفترسة كالأسود في قصورها",
+    keywords: ["exotische Tiere = حيوانات غريبة", "Löwen = أسود", "artgerechte Haltung = تربية لائقة", "Tierschutzorganisationen = منظمات حماية حيوان"],
+    simplified: "أثرياء آسيا يشترون الأسود والفهود كحيوانات أليفة في قصورهم",
+    imagine: "رجل غني يجلس إلى جانب أسد مربوط في حديقة قصره",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam43_text5"] = {
+    text: "Die internationale Tierschutzorganisation 'Save the Wildlife' - Planung für den Tierschutz",
+    meaning: "تخطيط وإستراتيجيات لحماية الحيوانات المهددة بالانقراض خاصة الأسود",
+    keywords: ["Tierschutzorganisation = منظمة حماية حيوان", "Schutzgebiete = مناطق محمية", "Aufklärung = توعية", "Ranger = حراس"],
+    simplified: "منظمة عالمية تخطط لمحميات ودوريات لحماية الأسود من الصيد",
+    imagine: "خريطة عليها مناطق خضراء وعلامات أسود وطيور",
+    correct: "i"
+};
+
+// ========== Exam 44: Fisch (صحيح: 1,9,5,8,7) ==========
+HELP_DATA["lesen1_exam44_text1"] = {
+    text: "Willkommen in der Wüste. Die Sonne brennt - Extremer Lebensraum",
+    meaning: "كيف تعيش الكائنات الحية في بيئات قاسية مثل الصحراء الحارقة",
+    keywords: ["Wüste = صحراء", "extreme Umgebung = بيئة متطرفة", "Überlebenskünstler = فنان بقاء", "Bioniker = علماء المحاكاة الحيوية"],
+    simplified: "كائنات حية تكيفت مع ظروف الصحراء القاسية",
+    imagine: "سحلية تجري على رمال ساخنة ولسانها يخرج سريعا",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam44_text2"] = {
+    text: "Denn Bioniker entwickeln technische Anlagen - Auf der Suche nach verborgenen Details",
+    meaning: "علماء المحاكاة الحيوية يبحثون عن أسرار الطبيعة الصغيرة لصنع اختراعات مفيدة",
+    keywords: ["Bionik = محاكاة حيوية", "Biologie = بيولوجيا", "Technik = تقنية", "Details = تفاصيل"],
+    simplified: "علماء يقلدون أسرار الطبيعة لصنع تقنيات جديدة",
+    imagine: "عالم ينظر بالميكروسكوب إلى حشرة صغيرة ويرسم تصميمها أمامه",
+    correct: "j"
+};
+
+HELP_DATA["lesen1_exam44_text3"] = {
+    text: "Der Sandfisch ist eigentlich gar kein Fisch - Ein Fisch in den Dünen",
+    meaning: "سحلية صغيرة تسبح في الرمال كالسمكة في الماء بفضل جلدها الخشن",
+    keywords: ["Sandfisch = سمكة رمل", "Echse = سحلية", "Sand = رمل", "Haut = جلد"],
+    simplified: "سحلية تتحرك في الرمال الناعمة بسرعة مذهلة كأنها تسبح",
+    imagine: "سحلية صغيرة تختفي فجأة في الرمال وتظهر بعد ثواني بعيدا",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam44_text4"] = {
+    text: "Das größte Problem aller Wüstenbewohner ist die Wasserbeschaffung - Trinkwasser aus Nebel",
+    meaning: "خنفساء الصحراء تستخلص الماء من الضباب على جسدها لتشرب",
+    keywords: ["Wasserbeschaffung = توفير ماء", "Nebeltrinker-Käfer = خنفساء شرب الضباب", "kondensiert = يتكثف", "Nebelnetze = شبكات ضباب"],
+    simplified: "خنفساء تشرب الماء المتكثف من الضباب على جسمها في الصحراء",
+    imagine: "خنفساء تقف على رأسها في الصحراء وقطرات ماء تتجمع على ظهرها",
+    correct: "i"
+};
+
+HELP_DATA["lesen1_exam44_text5"] = {
+    text: "Beispiel Nummer drei: die Rollerspinne - Rasante Flucht",
+    meaning: "عنكبوت يهرب بتدحرجه كعجلة أسفل الكثبان الرملية بسرعة خيالية",
+    keywords: ["Rollerspinne = عنكبوت دوار", "Flucht = هروب", "Technische Anwendung = تطبيق تقني", "Mars-Auto = سيارة مريخ"],
+    simplified: "عنكبوت يتدحرج مثل الكرة أسفل الكثبان ليهرب من الأعداء بسرعة",
+    imagine: "عنكبوت يكور نفسه ويدور بسرعة أسفل كثيب رملي",
+    correct: "h"
+};
+
+// ========== Exam 45: Frauen im Arbeitsmarkt (صحيح: 0,1,7,3,4) ==========
+HELP_DATA["lesen1_exam45_text1"] = {
+    text: "Ein hochwertiger Schulabschluss gilt gemeinhin - Schlechtere Chancen für Frauen am Arbeitsmarkt",
+    meaning: "النساء أكثر تعليما من الرجال لكن فرصهن في العمل أقل",
+    keywords: ["Schulabschluss = شهادة مدرسية", "Frauen = نساء", "Arbeitsmarkt = سوق عمل", "Karriere = مهنة"],
+    simplified: "رغم تفوق النساء دراسيا إلا أن فرص عملهن أسوأ من الرجال",
+    imagine: "امرأة تحمل شهادة بتفوق ورجل بجانبه يحصل على وظيفة هي التي تريدها",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam45_text2"] = {
+    text: "Übergewicht könnte erheblich durch Krankheiten - Schnell essen macht dick",
+    meaning: "تناول الطعام بسرعة يمنع إشارات الشبع ويسبب السمنة",
+    keywords: ["schnelles Essen = أكل سريع", "Fettleibigkeit = بدانة", "Gehirn = مخ", "Sättigung = شبع"],
+    simplified: "الأكل بسرعة يخدع المخ ويمنع إحساس الشبع فيزيد وزنك",
+    imagine: "رجل يبتلع طعامه بسرعة وبطنه ينتفخ كالبالون",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam45_text3"] = {
+    text: "Wenn Sie mehr über richtige Ernährung wissen wollen - Ernährungstipps kostenlos am Telefon",
+    meaning: "خدمة هاتفية مجانية تقدم نصائح غذائية علمية وموثوقة",
+    keywords: ["Ernährung = تغذية", "kostenlos = مجاني", "Telefon = هاتف", "wissenschaftlich fundiert = قائم على علم"],
+    simplified: "ارقام هاتفية مجانية تعطيك نصائح الأكل الصحي من خبراء",
+    imagine: "شخص يتصل هاتفيا وآذنه تسمع نصائح عن الفواكه والخضروات",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam45_text4"] = {
+    text: "Das Arbeitsamt Berlin hat seine beiden Informationshefte - Was tun nach der Schule? Neue Ausbildungsmöglichkeiten",
+    meaning: "كتيبات إرشادية للشباب عن بدائل الجامعة من تدريب مهني",
+    keywords: ["Ausbildungsmöglichkeiten = فرص تدريب", "nach der Schule = بعد المدرسة", "Universitäten = جامعات", "Berufsausbildung = تدريب مهني"],
+    simplified: "كتيبات تشرح للشباب طرق العمل والتدريب غير الجامعة",
+    imagine: "شاب يقرأ كتيبا وعليه صور لعامل نجار وآخر مبرمج",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam45_text5"] = {
+    text: "Junge Frauen in der Schweiz sollen nun mehr Chancen - Initiative: Frauen für Männerberufe begeistern",
+    meaning: "حملة سويسرية لتشجيع الفتيات على دخول المهن التقنية والقيادية",
+    keywords: ["Motivationskampagne = حملة تحفيز", "Frauen = نساء", "technische Berufe = مهن تقنية", "Berufswahl = اختيار مهنة"],
+    simplified: "حملات إعلانية تشجع الفتيات على العمل في الميكانيكا والطب",
+    imagine: "ملصق كبير عليه امرأة تصلح سيارة وأخرى تجري عملية قلب مفتوح",
+    correct: "e"
+};
+
+// ========== Exam 46: Baby TV (صحيح: 7,0,3,4,8) ==========
+HELP_DATA["lesen1_exam46_text1"] = {
+    text: "Fernsehen ist der Sprachentwicklung bei Kleinkindern nicht förderlich - Schlechte Noten fürs Baby-TV",
+    meaning: "برامج الأطفال التلفزيونية لا تساعد الرضع على تعلم الكلمات",
+    keywords: ["Fernsehen = تلفاز", "Sprachentwicklung = تطور لغوي", "Kleinkinder = أطفال صغار", "Teletubbys = تليتبيز"],
+    simplified: "مشاهدة التلفاز لا تعلم الطفل الصغير الكلمات رغم ألوانها الجميلة",
+    imagine: "طفل صغير يحدق في شاشة ملونة ولا ينطق أي كلمة",
+    correct: "h"
+};
+
+HELP_DATA["lesen1_exam46_text2"] = {
+    text: "Pharmakologen am Universitätsklinikum Tübingen - Neue Richtlinie für Zertifizierung von Medikamenten für Kinder",
+    meaning: "قواعد جديدة لتجربة أدوية الأطفال لأن كثيرا منها لم يختبر على الأطفال أصلا",
+    keywords: ["Medikament = دواء", "Kinder = أطفال", "zugelassen = مرخص", "Dosierung = جرعة"],
+    simplified: "أدوية كثيرة تصرف للأطفال رغم أنها لم تختبر عليهم من الأساس",
+    imagine: "طبيب يصرف دواء لطفل صغير وعليه علامة استفهام",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam46_text3"] = {
+    text: "Alternative Heilverfahren können vor allem bei leichten Erkrankungen - Alternative Heilverfahren: Wie gut sind sie wirklich?",
+    meaning: "تقييم مدى فائدة الطب البديل كعلاج مكمل وليس بديلا عن الطب التقليدي",
+    keywords: ["alternative Heilverfahren = علاجات بديلة", "Komplementärmedizin = طب تكميلي", "Akupunktur = وبر", "Homöopathie = معالجة مثلية"],
+    simplified: "الطب البديل مفيد لحالات بسيطة كعلاج مساعد وليس أساسي",
+    imagine: "إبر صينية بجانب علبة دواء عادي على طاولة الطبيب",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam46_text4"] = {
+    text: "Die eine liebt Flora und Fauna, die andere hat ein Händchen - Naturkosmetik aus Geschwisterhand",
+    meaning: "أختان تديران مزرعة الجينسنغ وتنتجان مستحضرات تجميل طبيعية منه",
+    keywords: ["Ginseng = جينسنغ", "Kosmetiklinie = خط تجميل", "Arzneimittel = أدوية", "Anbau = زراعة"],
+    simplified: "أختان تنتجان مستحضرات تجميل وأدوية من نبات الجينسنغ الطبي",
+    imagine: "امرأتان تفحصان جذور الجينسنغ وسكتين قوارير بجانبهما",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam46_text5"] = {
+    text: "Kinder essen zu viel Fast Food, aber zu wenig Obst - Studie: Schulkinder treiben zu wenig Sport",
+    meaning: "الأطفال يعانون السمنة بسبب قلة الرياضة وكثرة الوجبات السريعة",
+    keywords: ["übergewichtig = زيادة وزن", "Fast Food = وجبات سريعة", "Bewegungsmangel = قلة حركة", "Folgeerkrankungen = أمراض لاحقة"],
+    simplified: "نقص الحركة والأكل السريع يجعل أطفال المدارس بدناء",
+    imagine: "طفل سمين يجلس على أريكة يأكل برغر وشاشة التلفاز أمامه",
+    correct: "i"
+};
+
+// ========== Exam 47: Bäder (صحيح: 1,0,5,3,8) ==========
+HELP_DATA["lesen1_exam47_text1"] = {
+    text: "Entdecken Sie interessante Städte und Regionen - Bäder, Seen und Natur – im hessischen Paradies",
+    meaning: "منتجعات صحية وبحيرات وطبيعة خلابة في ولاية هيسن الألمانية",
+    keywords: ["Kurorte = منتجعات صحية", "Natur pur = طبيعة نقية", "Edersee = بحيرة إيدر", "Luftkurort = منتجع هوائي"],
+    simplified: "جبال وبحيرات وينابيع ساخنة في غرب ألمانيا وجهة سياحية خفية",
+    imagine: "بحيرة زرقاء بين الجبال الخضراء ورجل جالس يتأمل",
+    correct: "b"
+};
+
+HELP_DATA["lesen1_exam47_text2"] = {
+    text: "Pferde waren schon immer Melanie Schilles Leidenschaft - Am Strand im Dienst – mehr Sicherheit für Urlauber",
+    meaning: "دوريات أمنية على ظهور الخيل على شواطئ بحر الشمال لإنقاذ المصطافين",
+    keywords: ["Strandwache = حراسة شاطئ", "Pferd = حصان", "Sicherheit = أمان", "Urlauber = مصطافين"],
+    simplified: "فرسان يجوبون الشاطئ لمساعدة السباحين ومنع السرقة",
+    imagine: "حصان يجري على الرمال وراكبته تنظر للبحر بمنظار",
+    correct: "a"
+};
+
+HELP_DATA["lesen1_exam47_text3"] = {
+    text: "Ein neuer Urlaubstrend setzt sich durch - Nach harter Arbeit durch nordische Gewässer",
+    meaning: "قضاء العطلة على طوف خشبي يبنيه السائح بنفسه في أنهار السويد",
+    keywords: ["Floß = طوف", "Abenteuerurlaub = عطلة مغامرة", "Wildnis = برية", "schwimmen lassen = تطفو"],
+    simplified: "سياح يبنون أطوافا خشبية ويبحرون عليها في أنهار السويد",
+    imagine: "عائلة تجلس على طوف خشبي وسط نهر هادئ وغابات كثيفة حولهم",
+    correct: "f"
+};
+
+HELP_DATA["lesen1_exam47_text4"] = {
+    text: "Von 9 bis 15 Uhr arbeitet Sebastian Keller - Jugendliche arbeiten für Jugendliche",
+    meaning: "شباب يتطوعون في أعمال خدمية يوم اجتماعي سنوي لخدمة المجتمع",
+    keywords: ["Jugendliche = شباب", "Sozialer Tag = يوم اجتماعي", "Senioren = مسنين", "Altenwohnheim = دار مسنين"],
+    simplified: "شباب يتطوعون لمساعدة كبار السن والأطفال في يوم خيري",
+    imagine: "مراهق يقرأ كتابا لرجل عجوز في غرفة استراحة دار مسنين",
+    correct: "d"
+};
+
+HELP_DATA["lesen1_exam47_text5"] = {
+    text: "Die Windjacken waren schon eingepackt - Wegen Niedrigwasser: vom Fluss auf die Straße",
+    meaning: "انخفاض منسوب المياه في الأنهار يحول رحلة نهرية إلى رحلة حافلات",
+    keywords: ["Niedrigwasser = منخفض مائي", "Flusskreuzfahrt = رحلة نهرية", "Bustour = رحلة باص", "Regenmangel = قلة مطر"],
+    simplified: "رحلة نهرية ب 2500 يورو تحولت إلى رحلة باص بسبب جفاف النهر",
+    imagine: "سفينة كبيرة عالقة في نهر ضحل وركاب يحملون حقائبهم إلى باص بجوارهم",
+    correct: "i"
 };
 
-HELP_DATA["lesen1_exam45_q3"] = {
-    text: "Ernährungstipps kostenlos am Telefon - Unter 0 810 810 27 werden gratis Informationen über gesunde Ernährung angeboten",
-    meaning: "نصائح غذائية مجانية عبر الهاتف - على الرقم 0 810 810 27 تُقدم معلومات مجانية عن التغذية الصحية",
-    keywords: ["Ernährungstipps = نصائح غذائية", "Telefon = هاتف", "kostenlos = مجاني"],
-    simplified: "نصائح غذائية مجانية عبر الهاتف",
-    imagine: "🧠👁️ تخيل شخصاً يتصل (anrufen) للحصول على نصائح غذائية 📞🥗"
-};
-
-HELP_DATA["lesen1_exam45_q4"] = {
-    text: "Was tun nach der Schule? Neue Ausbildungsmöglichkeiten - Das Arbeitsamt Berlin hat 'Alternative zum Studium' neu aufgelegt",
-    meaning: "ماذا تفعل بعد المدرسة؟ خيارات تدريب جديدة - مكتب العمل في برلين أعاد إصدار 'بديل للدراسة الجامعية'",
-    keywords: ["Ausbildungsmöglichkeiten = إمكانيات تدريب", "Schule = مدرسة", "Broschüre = كتيب"],
-    simplified: "ماذا تفعل بعد المدرسة؟ خيارات تدريب جديدة",
-    imagine: "🧠👁️ تخيل شاباً يقرأ كتيباً (Broschüre) عن التدريب المهني 📘👨‍🎓"
-};
-
-HELP_DATA["lesen1_exam45_q5"] = {
-    text: "Initiative: Frauen für Männerberufe begeistern - Junge Frauen in der Schweiz sollen mehr Chancen für eine offene Berufswahl haben",
-    meaning: "مبادرة: تحفيز النساء للمهن الرجالية - الشابات في سويسرا يجب أن يحصلن على فرص أكثر لاختيار مهنة مفتوح",
-    keywords: ["Frauen = نساء", "Männerberufe = مهن رجالية", "Initiative = مبادرة"],
-    simplified: "مبادرة: تحفيز النساء للمهن الرجالية",
-    imagine: "🧠👁️ تخيل امرأة (Frau) تعمل ميكانيكية سيارات 🔧👩‍🔧"
-};
-
-// ============================================
-// Exam 46: Baby TV (Exam 49)
-// ============================================
-
-HELP_DATA["lesen1_exam46_q1"] = {
-    text: "Schlechte Noten fürs Baby-TV - Fernsehen ist der Sprachentwicklung bei Kleinkindern nicht förderlich",
-    meaning: "درجات سيئة لتلفاز الأطفال - التلفاز ليس مفيداً لتطور اللغة عند الأطفال الصغار",
-    keywords: ["Baby-TV = تلفاز الأطفال", "schlechte Noten = درجات سيئة", "Sprache = لغة"],
-    simplified: "درجات سيئة لتلفاز الأطفال",
-    imagine: "🧠👁️ تخيل طفلاً رضيعاً (Baby) يشاهد التلفاز 📺👶"
-};
-
-HELP_DATA["lesen1_exam46_q2"] = {
-    text: "Neue Richtlinie für Zertifizierung von Medikamenten für Kinder - Pharmakologen stellten fest, dass in gut 13 Prozent der Fälle das verschriebene Medikament nicht für Kinder zugelassen war",
-    meaning: "توجيهات جديدة لترخيص أدوية الأطفال - علماء الصيدلة وجدوا أنه في أكثر من 13 في المئة من الحالات، الدواء الموصوف لم يكن مرخصاً للأطفال",
-    keywords: ["Medikamente = أدوية", "Kinder = أطفال", "Zertifizierung = ترخيص"],
-    simplified: "توجيهات جديدة لترخيص أدوية الأطفال",
-    imagine: "🧠👁️ تخيل طبيباً (Arzt) يصف دواءً لطفل 💊👨‍⚕️👶"
-};
-
-HELP_DATA["lesen1_exam46_q3"] = {
-    text: "Alternative Heilverfahren: Wie gut sind sie wirklich? - Alternative Heilverfahren können bei leichten Erkrankungen hilfreich sein",
-    meaning: "العلاجات البديلة: كيف فعالة حقاً؟ - العلاجات البديلة يمكن أن تكون مفيدة في الأمراض الخفيفة",
-    keywords: ["Heilverfahren = علاجات", "alternativ = بديل", "Kinderheilkunde = طب أطفال"],
-    simplified: "العلاجات البديلة: كيف فعالة حقاً؟",
-    imagine: "🧠👁️ تخيل طفلاً يتلقى علاجاً بديلاً (alternative Heilung) 🌿👶"
-};
-
-HELP_DATA["lesen1_exam46_q4"] = {
-    text: "Naturkosmetik aus Geschwisterhand - Die Schwestern Henrike Rodemeier und Gesine Wischmann betreiben Deutschlands einzige Ginseng-Farm",
-    meaning: "مستحضرات تجميل طبيعية من صنع أختين - الأختان هنريكه رودماير وغازين فيشمان تديران مزرعة الجينسنغ الوحيدة في ألمانيا",
-    keywords: ["Ginseng = جينسنغ", "Kosmetik = تجميل", "Geschwister = أخوات"],
-    simplified: "مستحضرات تجميل طبيعية من صنع أختين",
-    imagine: "🧠👁️ تخيل امرأتين (Frauen) تعملان في مزرعة جينسنغ 🌿👩‍🌾"
-};
 
-HELP_DATA["lesen1_exam46_q5"] = {
-    text: "Kinder und Jugendliche: Risikofaktor Übergewicht - 10 bis 20 Prozent aller Schulkinder und Jugendlichen sind übergewichtig, Tendenz steigend",
-    meaning: "الأطفال والمراهقون: السمنة كعامل خطر - 10 إلى 20 في المئة من جميع أطفال المدارس والمراهقين يعانون من زيادة الوزن، والاتجاه في ازدياد",
-    keywords: ["Übergewicht = سمنة", "Kinder = أطفال", "Risikofaktor = عامل خطر"],
-    simplified: "الأطفال والمراهقون: السمنة كعامل خطر",
-    imagine: "🧠👁️ تخيل طفلاً (Kind) يأكل طعاماً صحياً 🥗👶"
-};
-
-// ============================================
-// Exam 47: Bäder (Exam 50)
-// ============================================
-
-HELP_DATA["lesen1_exam47_q1"] = {
-    text: "Bäder, Seen und Natur – im hessischen Paradies - Im Herzen Deutschlands liegen wunderbare Landschaften, mit einem milden Klima",
-    meaning: "حمامات وبحيرات وطبيعة – جنة هيسن السحرية - في قلب ألمانيا توجد مناظر طبيعية رائعة، بمناخ معتدل",
-    keywords: ["Bäder = حمامات", "Seen = بحيرات", "Natur = طبيعة"],
-    simplified: "حمامات وبحيرات وطبيعة – جنة هيسن السحرية",
-    imagine: "🧠👁️ تخيل بحيرة (See) جميلة في هيسن 🏞️🇩🇪"
-};
-
-HELP_DATA["lesen1_exam47_q2"] = {
-    text: "Am Strand im Dienst – mehr Sicherheit für Urlauber - Melanie Schille verstärkt die Strandwache an der Nordseeküste",
-    meaning: "في الخدمة على الشاطئ - المزيد من الأمان للسياح - ميلاني شيل تعزز حراسة الشاطئ على ساحل بحر الشمال",
-    keywords: ["Strand = شاطئ", "Sicherheit = أمان", "Urlauber = سياح"],
-    simplified: "في الخدمة على الشاطئ - المزيد من الأمان للسياح",
-    imagine: "🧠👁️ تخيل حارس شاطئ (Strandwache) على حصان 🐎🏖️"
-};
-
-HELP_DATA["lesen1_exam47_q3"] = {
-    text: "Freiheit und Natur – nach sechs Wochen harter Arbeit - Ein neuer Urlaubstrend: In Schweden kann man selbst ein Floß bauen",
-    meaning: "الحرية والطبيعة – بعد ستة أسابيع من العمل الشاق - موجة سياحية جديدة: في السويد يمكن بناء طوف بنفسك",
-    keywords: ["Floß = طوف", "Natur = طبيعة", "Urlaub = عطلة"],
-    simplified: "الحرية والطبيعة – بعد ستة أسابيع من العمل الشاق",
-    imagine: "🧠👁️ تخيل شخصاً يبني طوافة (Floß) بنفسه 🪵🛶"
-};
-
-HELP_DATA["lesen1_exam47_q4"] = {
-    text: "Jugendliche arbeiten für Jugendliche - Sebastian Keller (18) arbeitet in einem Altenwohnheim, Rebecca (12) und Christiane (13) putzen den Eingang des Hamburger 'Michels'",
-    meaning: "شباب يعملون من أجل شباب آخرين - سباستيان كيلر (18) يعمل في دار للمسنين - ريبيكا (12) وكريستياني (13) تنظفان مدخل كنيسة 'ميشيل' في هامبورغ",
-    keywords: ["Jugendliche = شباب", "arbeiten = يعملون", "Sozialer Tag = اليوم الاجتماعي"],
-    simplified: "شباب يعملون من أجل شباب آخرين",
-    imagine: "🧠👁️ تخيل شباباً (Jugendliche) يتطوعون في عمل خيري 👥❤️"
-};
-
-HELP_DATA["lesen1_exam47_q5"] = {
-    text: "Wegen Niedrigwasser: vom Fluss auf die Straße - Thomas Meurer und Wiebke Fuchs freuten sich auf ihre Flusskreuzfahrt mit der 'MS Eurostar' von Potsdam nach Prag",
-    meaning: "بسبب انخفاض المياه – من النهر إلى الطريق - توماس مويرر وويبكه فوكس كانا متحمسين لرحلتهما النهرية على متن 'إم إس يوروستار' من بوتسدام إلى براغ",
-    keywords: ["Fluss = نهر", "Kreuzfahrt = رحلة بحرية", "Niedrigwasser = مياه منخفضة"],
-    simplified: "بسبب انخفاض المياه – من النهر إلى الطريق",
-    imagine: "🧠👁️ تخيل سفينة (Schiff) عالقة بسبب انخفاض الماء 🚢💧⚠️"
-};
-
-// ============================================
-// تصدير للاستخدام
-// ============================================
 
-console.log('✅ lesen1.js تم التحميل بنجاح - جميع الامتحانات 1-47 بالصيغة الجديدة');
 
 
 
