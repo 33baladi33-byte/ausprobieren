@@ -347,36 +347,46 @@
                     combo = 0;
                     
                     const btns = document.querySelectorAll('.game-option-btn');
-                    btns.forEach((btn, idx) => {
-                        if (q.type === "hoeren") {
+                    
+                    if (q.type === "hoeren") {
+                        btns.forEach((btn, idx) => {
                             if (idx === q.correctAnswerIndex) {
                                 btn.style.background = '#d4edda';
                                 btn.style.borderColor = '#28a745';
+                                btn.style.color = '#155724';
                             } else {
                                 btn.style.background = '#fff3e0';
                                 btn.style.borderColor = '#fd7e14';
+                                btn.style.color = '#e67e22';
                             }
-                                                } else if (q.type === "sprach") {
-                            btns.forEach(btn => {
-                                if (btn.getAttribute('data-correct') === 'true') {
-                                    btn.style.background = '#d4edda';
-                                    btn.style.borderColor = '#28a745';
-                                    btn.style.color = '#155724';
-                                } else {
-                                    btn.style.background = '#fff3e0';
-                                    btn.style.borderColor = '#fd7e14';
-                                    btn.style.color = '#e67e22';
-                                }
-                        } else {
+                        });
+                    } 
+                    else if (q.type === "sprach") {
+                        btns.forEach(btn => {
                             if (btn.getAttribute('data-correct') === 'true') {
                                 btn.style.background = '#d4edda';
                                 btn.style.borderColor = '#28a745';
+                                btn.style.color = '#155724';
                             } else {
                                 btn.style.background = '#fff3e0';
                                 btn.style.borderColor = '#fd7e14';
+                                btn.style.color = '#e67e22';
                             }
-                        }
-                    });
+                        });
+                    }
+                    else {
+                        btns.forEach(btn => {
+                            if (btn.getAttribute('data-correct') === 'true') {
+                                btn.style.background = '#d4edda';
+                                btn.style.borderColor = '#28a745';
+                                btn.style.color = '#155724';
+                            } else {
+                                btn.style.background = '#fff3e0';
+                                btn.style.borderColor = '#fd7e14';
+                                btn.style.color = '#e67e22';
+                            }
+                        });
+                    }
                     
                     transitionTimeout = setTimeout(() => {
                         currentIndex++;
@@ -619,20 +629,15 @@
         
         const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
         btns.forEach(btn => {
-            // الخيار الصحيح (يظهر دائماً بالأخضر)
             if (btn.getAttribute('data-correct') === 'true') {
                 btn.style.background = '#d4edda';
                 btn.style.borderColor = '#28a745';
                 btn.style.color = '#155724';
-            } 
-            // الخيار الذي اختاره المستخدم وكان خاطئاً (يظهر بالبرتقالي)
-            else if (!isCorrect && btn.getAttribute('data-value') === selectedValue) {
+            } else if (!isCorrect && btn.getAttribute('data-value') === selectedValue) {
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
-            }
-            // إعادة تعيين الخيارات الأخرى غير المختارة
-            else {
+            } else {
                 btn.style.background = '#f8f9fa';
                 btn.style.borderColor = '#e0e0e0';
                 btn.style.color = '#333';
