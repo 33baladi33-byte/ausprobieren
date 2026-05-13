@@ -44,7 +44,7 @@
         return shortened;
     }
     
-    // دالة رسم المؤقت الدائري (صغير جداً - رمادي أسود - أعلى اليسار)
+    // دالة رسم المؤقت الدائري (صغير - أزرق فاتح - أعلى اليسار)
     function createCircularTimer(percent) {
         const radius = 18;
         const circumference = 2 * Math.PI * radius;
@@ -64,13 +64,13 @@
         bgCircle.setAttribute("stroke-width", "3");
         svg.appendChild(bgCircle);
         
-        // الجزء المتحرك (رمادي غامق / أسود رمادي)
+        // الجزء المتحرك (أزرق فاتح)
         const fillCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         fillCircle.setAttribute("cx", "22.5");
         fillCircle.setAttribute("cy", "22.5");
         fillCircle.setAttribute("r", radius);
         fillCircle.setAttribute("fill", "none");
-        fillCircle.setAttribute("stroke", "#555555");
+        fillCircle.setAttribute("stroke", "#4a90e2");
         fillCircle.setAttribute("stroke-width", "3");
         fillCircle.setAttribute("stroke-linecap", "round");
         fillCircle.setAttribute("stroke-dasharray", circumference);
@@ -82,7 +82,7 @@
         percentText.setAttribute("x", "22.5");
         percentText.setAttribute("y", "27");
         percentText.setAttribute("text-anchor", "middle");
-        percentText.setAttribute("fill", "#555555");
+        percentText.setAttribute("fill", "#4a90e2");
         percentText.setAttribute("font-size", "9");
         percentText.setAttribute("font-weight", "600");
         percentText.setAttribute("font-family", "Arial, sans-serif");
@@ -99,9 +99,9 @@
         fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
         percentText.textContent = Math.round(percent) + "%";
         
-        if (percent <= 30) fillCircle.setAttribute("stroke", "#888888");
-        if (percent <= 15) fillCircle.setAttribute("stroke", "#aaaaaa");
-        if (percent > 30) fillCircle.setAttribute("stroke", "#555555");
+        if (percent <= 30) fillCircle.setAttribute("stroke", "#7cb3f0");
+        if (percent <= 15) fillCircle.setAttribute("stroke", "#a8c8f5");
+        if (percent > 30) fillCircle.setAttribute("stroke", "#4a90e2");
     }
     
     // توليد جولة ذكية
@@ -306,9 +306,9 @@
             timerCircle.setAttribute("stroke-dashoffset", offset);
             timerText.textContent = Math.round(percent) + "%";
             
-            if (percent <= 30) timerCircle.setAttribute("stroke", "#888888");
-            if (percent <= 15) timerCircle.setAttribute("stroke", "#aaaaaa");
-            if (percent > 30) timerCircle.setAttribute("stroke", "#555555");
+            if (percent <= 30) timerCircle.setAttribute("stroke", "#7cb3f0");
+            if (percent <= 15) timerCircle.setAttribute("stroke", "#a8c8f5");
+            if (percent > 30) timerCircle.setAttribute("stroke", "#4a90e2");
             
             if (remainingTime <= 0) {
                 clearInterval(timerInterval);
