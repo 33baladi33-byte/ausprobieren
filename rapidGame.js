@@ -1,5 +1,6 @@
 // ============================================
 // rapidGame.js - لعبة التحدي السريع (نسخة متطورة)
+// يدعم: Lesen Teil 1, Lesen Teil 3, وفقرات بلا عنوان
 // ============================================
 
 (function() {
@@ -7,11 +8,11 @@
     
     // إعدادات اللعبة
     const SETTINGS = {
-        timePerQuestion: 2.2,      // 2.2 ثانية للسؤال
-        transitionDelay: 250,       // 0.25 ثانية للانتقال
-        firstWordsLength: 8,        // أول 8 كلمات للفقرة
-        titleLength: 7,             // أول 7 كلمات للعنوان
-        roundLength: 16,            // 16 سؤال في الجولة
+        timePerQuestion: 2.2,
+        transitionDelay: 250,
+        firstWordsLength: 8,
+        titleLength: 7,
+        roundLength: 16,
         minWrongRepeatDelay: 2,
         maxWrongRepeatDelay: 5
     };
@@ -44,7 +45,7 @@
         return shortened;
     }
     
-    // دالة رسم المؤقت الدائري (صغير - أزرق فاتح - بدون أرقام)
+    // دالة رسم المؤقت الدائري (بدون أرقام)
     function createCircularTimer(percent) {
         const radius = 18;
         const circumference = 2 * Math.PI * radius;
@@ -77,10 +78,10 @@
         fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
         svg.appendChild(fillCircle);
         
-        return { svg, fillCircle, percentText: null };
+        return { svg, fillCircle };
     }
     
-    function updateCircularTimer(fillCircle, percentText, percent) {
+    function updateCircularTimer(fillCircle, percent) {
         const radius = 18;
         const circumference = 2 * Math.PI * radius;
         fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
@@ -212,8 +213,8 @@
                 originalQuestions = originalQuestions.map(q => ({
                     ...q,
                     shortFirstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
-                    shortCorrectTitle: q.shortCorrectTitle || shortenText(q.correctTitle, SETTINGS.titleLength),
-                    shortWrongTitles: q.shortWrongTitles || q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength))
+                    shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
+                    shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : [])
                 }));
                 questionStats = {};
                 originalQuestions.forEach((_, idx) => {
@@ -279,6 +280,7 @@
         
         const radius = 18;
         const circumference = 2 * Math.PI * radius;
+        timerCircle.setAttribute("stroke-dasharray", circumference);
         
         timerInterval = setInterval(() => {
             if (!gameActive || gamePaused) return;
@@ -361,16 +363,30 @@
         const q = currentRound[currentIndex];
         remainingTime = SETTINGS.timePerQuestion;
         
-        const options = [
-            { text: q.shortCorrectTitle, fullText: q.correctTitle, isCorrect: true }
-        ];
-        const wrongs = [...q.shortWrongTitles];
-        for (let i = wrongs.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [wrongs[i], wrongs[j]] = [wrongs[j], wrongs[i]];
+        // بناء الخيارات (يدعم الفقرات التي ليس لها عنوان)
+        const options = [];
+        
+        if (q.correctTitle) {
+            options.push({ text: q.shortCorrectTitle, fullText: q.correctTitle, isCorrect: true });
+        } else {
+            options.push({ text: "⚠️ هذه الفقرة لا يوجد لها عنوان", isCorrect: true });
         }
-        options.push({ text: wrongs[0], fullText: q.wrongTitles ? q.wrongTitles[0] : wrongs[0], isCorrect: false });
-        if (wrongs[1]) options.push({ text: wrongs[1], fullText: q.wrongTitles ? q.wrongTitles[1] : wrongs[1], isCorrect: false });
+        
+        const wrongs = [...q.shortWrongTitles];
+        if (wrongs.length > 0) {
+            for (let i = wrongs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [wrongs[i], wrongs[j]] = [wrongs[j], wrongs[i]];
+            }
+            options.push({ text: wrongs[0], fullText: q.wrongTitles ? q.wrongTitles[0] : wrongs[0], isCorrect: false });
+            if (wrongs[1]) options.push({ text: wrongs[1], fullText: q.wrongTitles ? q.wrongTitles[1] : wrongs[1], isCorrect: false });
+        } else if (q.correctTitle) {
+            // إذا لم تكن هناك عناوين خاطئة وكان للسؤال عنوان صحيح
+            options.push({ text: "عنوان تجريبي", isCorrect: false });
+            options.push({ text: "عنوان آخر", isCorrect: false });
+        }
+        
+        // خلط الخيارات
         for (let i = options.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [options[i], options[j]] = [options[j], options[i]];
@@ -471,12 +487,6 @@
         const timerCircleSvg = timerContainer.querySelector('circle:last-of-type');
         if (timerCircleSvg) {
             timerCircleSvg.classList.add('circular-timer-fill');
-            
-            // تحديد القيم الأولية للمؤقت
-            const radius = 18;
-            const circumference = 2 * Math.PI * radius;
-            timerCircleSvg.setAttribute("stroke-dasharray", circumference);
-            timerCircleSvg.setAttribute("stroke-dashoffset", circumference);
         }
         
         startTimer();
@@ -538,7 +548,7 @@
             const userAttempts = userAnswers.filter(a => a.originalIndex === idx);
             const correctAttempts = userAttempts.filter(a => a.isCorrect).length;
             questionResults[idx] = {
-                title: q.shortCorrectTitle,
+                title: q.shortCorrectTitle || "بدون عنوان",
                 attempts: userAttempts.length,
                 correct: correctAttempts,
                 wrong: userAttempts.length - correctAttempts
