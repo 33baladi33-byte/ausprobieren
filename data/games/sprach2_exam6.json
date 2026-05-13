@@ -1,0 +1,78 @@
+{
+  "skill": "sprach2",
+  "examId": 6,
+  "name": "Sprachbausteine Teil 2 - Exam 6: Umgang mit Haustieren",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "sind seltener krank",
+      "after": "Kinder in Haushalten ohne Tiere",
+      "options": ["als", "wie", "denn"],
+      "correct": "als"
+    },
+    {
+      "id": 2,
+      "before": "Die Studie wurde in der",
+      "after": "Woche veröffentlicht",
+      "options": ["vergangenen", "letzten", "vorherigen"],
+      "correct": "vergangenen"
+    },
+    {
+      "id": 3,
+      "before": "Es wurden",
+      "after": "keine Erklärungen für diese Tatsache geliefert",
+      "options": ["zwar", "doch", "aber"],
+      "correct": "zwar"
+    },
+    {
+      "id": 4,
+      "before": "Hunde haben nämlich",
+      "after": "die täglichen Spaziergänge draußen viel Kontakt",
+      "options": ["durch", "mit", "bei"],
+      "correct": "durch"
+    },
+    {
+      "id": 5,
+      "before": "Auch Katzen haben demnach",
+      "after": "Wirkung auf die Gesundheit der Kinder",
+      "options": ["dieselbe", "gleiche", "selbe"],
+      "correct": "dieselbe"
+    },
+    {
+      "id": 6,
+      "before": "Für die Studie",
+      "after": "in Finnland 397 Babys beobachtet",
+      "options": ["wurden", "waren", "haben"],
+      "correct": "wurden"
+    },
+    {
+      "id": 7,
+      "before": "ein um 30 %",
+      "after": "Risiko für Erkrankungen der Atemwege",
+      "options": ["geringeres", "kleineres", "niedrigeres"],
+      "correct": "geringeres"
+    },
+    {
+      "id": 8,
+      "before": "dass bei diesen Kindern Ohrenentzündungen",
+      "after": "auftraten",
+      "options": ["weniger", "seltener", "geringer"],
+      "correct": "weniger"
+    },
+    {
+      "id": 9,
+      "before": "dass die Gesundheit von Kindern in Gesellschaft von Tieren",
+      "after": "besser sei",
+      "options": ["deutlich", "wesentlich", "erheblich"],
+      "correct": "deutlich"
+    },
+    {
+      "id": 10,
+      "before": "Frühere Untersuchungen hatten das genaue",
+      "after": "der jetzigen Ergebnisse ergeben",
+      "options": ["gegenteil", "Gegenteil", "entgegen"],
+      "correct": "gegenteil"
+    }
+  ]
+}
