@@ -1,0 +1,57 @@
+{
+  "skill": "lesen1",
+  "examId": 1,
+  "name": "Lesen Teil 1 - Exam 1: Jugend Forscht",
+  "questions": [
+    {
+      "firstWords": "Die Zahlen wirken auf dem ersten",
+      "fullText": "Die Zahlen wirken auf dem ersten Blick dramatisch: 15 Prozent der Kinder sind übergewichtig...",
+      "correctTitle": "Wenn aus Erdbeeren Tomaten werden",
+      "wrongTitles": [
+        "Von der Diät zur Krankheit",
+        "Jugend forscht - auch auf dem Meer",
+        "Psychoterror an der Schule"
+      ]
+    },
+    {
+      "firstWords": "Immer mehr Mädchen leiden an schweren",
+      "fullText": "Immer mehr Mädchen leiden an schweren Essstörungen - und das, obwohl Ärzte und Fachleute seit Jahren warnen...",
+      "correctTitle": "Von der Diät zur Krankheit",
+      "wrongTitles": [
+        "Wenn aus Erdbeeren Tomaten werden",
+        "Psychoterror an der Schule",
+        "Jugend forscht - auch auf dem Meer"
+      ]
+    },
+    {
+      "firstWords": "Energiesparlampen, umweltfreundliche Elektrogeräte, Bio-Nagellack",
+      "fullText": "Energiesparlampen, umweltfreundliche Elektrogeräte, Bio-Nagellack - sieht man sich die Themen an, mit denen sich die Teilnehmer beschäftigt haben...",
+      "correctTitle": "Jugend forscht - auch auf dem Meer",
+      "wrongTitles": [
+        "Wenn aus Erdbeeren Tomaten werden",
+        "Von der Diät zur Krankheit",
+        "Psychoterror an der Schule"
+      ]
+    },
+    {
+      "firstWords": "13,5 Meter lang und leuchtend gelb",
+      "fullText": "13,5 Meter lang und leuchtend gelb - die 'Aldebaran' zieht die Blicke im Jachthafen auf sich...",
+      "correctTitle": "Jugend forscht - auch auf dem Meer",
+      "wrongTitles": [
+        "Wenn aus Erdbeeren Tomaten werden",
+        "Von der Diät zur Krankheit",
+        "Psychoterror an der Schule"
+      ]
+    },
+    {
+      "firstWords": "Mobbing ist kein neues Phänomen",
+      "fullText": "Mobbing ist kein neues Phänomen. Es ist auch in Schulen weitverbreitet...",
+      "correctTitle": "Psychoterror an der Schule",
+      "wrongTitles": [
+        "Wenn aus Erdbeeren Tomaten werden",
+        "Von der Diät zur Krankheit",
+        "Jugend forscht - auch auf dem Meer"
+      ]
+    }
+  ]
+}
