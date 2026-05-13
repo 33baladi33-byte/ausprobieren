@@ -9,24 +9,24 @@ const HELP_DATA = {};
 // ============================================
 
 // ============================================
-// Hören Teil 1 - Exams 1-10 (فقط الأسئلة الصحيحة)
+// Hören Teil 1 - Exams 1-45 (فقط الأسئلة الصحيحة)
 // ============================================
 
 // ========== Exam 1: Die Deutsche Lufthansa (صحيح: 2,3) ==========
 HELP_DATA["hoeren1_exam1_q2"] = {
     text: "Ein Bonner Sportverein zeigt der Öffentlichkeit",
-    meaning: "نادٍ رياضي في مدينة بون يعرض خدماته على الجمهور",
-    keywords: ["Bonner = من بون", "Sportverein = نادٍ رياضي", "Öffentlichkeit = الجمهور"],
-    simplified: "النادي الرياضي كيعرض خدماته للناس",
-    imagine: "🚀 فرخ كيلعب الكورة فالشارع والناس كاتصوره والمدرب كيصوت 'أحسن واحد فالدنيا' ⚽😂"
+    meaning: "ناد رياضي في بون يعرض خدماته على الجمهور",
+    keywords: ["Bonner = من بون", "Sportverein = ناد رياضي", "Öffentlichkeit = الجمهور"],
+    simplified: "النادي الرياضي يعرض خدماته للناس",
+    imagine: "لاعب كرة يصرخ 'تعالوا سجلوا عندنا'"
 };
 
 HELP_DATA["hoeren1_exam1_q3"] = {
     text: "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen",
-    meaning: "الظروف في دور الرعاية الألمانية تحتاج إلى تغيير عاجل",
+    meaning: "الظروف في دور الرعاية الألمانية تحتاج تغييرا عاجلا",
     keywords: ["Rahmenbedingungen = الظروف", "Pflegeheimen = دور الرعاية", "Änderung = تغيير"],
-    simplified: "دور العجوزات فالماتيا خاصها تبديل",
-    imagine: "🚀 جدات كيضربو بالعصي ويصرخو 'بغاو تغيير والا غادي نخرجو!' 👵💢"
+    simplified: "دور المسنين في ألمانيا تحتاج تغييرا",
+    imagine: "جدة عجوز ترفع لافتة 'نريد تغييرا الآن'"
 };
 
 // ========== Exam 2: Die Piloten der Lufthansa (صحيح: 3,5) ==========
@@ -34,58 +34,58 @@ HELP_DATA["hoeren1_exam2_q3"] = {
     text: "Immer mehr Menschen besuchen den Tag",
     meaning: "المزيد من الناس يزورون يوم الآثار المفتوحة",
     keywords: ["Tag des offenen Denkmals = يوم الآثار المفتوحة", "Menschen = ناس", "besuchen = يزورون"],
-    simplified: "ناس كثيرة كاتزور المعالم التاريخية",
-    imagine: "🚀 ناس مزدحمة قدام متحف وكل واحد كيقلب على صورة تذكارية والحراس كيصرخو 'شوي شوي يا جماعة' 📸🏛️"
+    simplified: "ناس كثيرون يزورون المعالم التاريخية",
+    imagine: "طابور طويل أمام متحف قديم"
 };
 
 HELP_DATA["hoeren1_exam2_q5"] = {
     text: "Bei den Fußballspielen gab es keinen",
     meaning: "لم يكن هناك فائز في مباريات كرة القدم",
     keywords: ["Fußballspielen = مباريات كرة قدم", "Sieger = فائز", "keinen = لا يوجد"],
-    simplified: "مات فكورة ما خرجش فايز",
-    imagine: "🚀 جوج فراقي كيلعبو وما يحرز حتى واحد هدف والجمهور كيصرخ 'هاد الماتش غادي يخلص علينا!' ⚽😫"
+    simplified: "مباراة كرة القدم لم تخرج فائزا",
+    imagine: "لاعبان يتصافحان بعد تعادل صفري"
 };
 
 // ========== Exam 3: Die Stadt Friedrichsberg (صحيح: 2,3,5) ==========
 HELP_DATA["hoeren1_exam3_q2"] = {
     text: "Die Alte Brücke ist zum Jahresbeginn",
-    meaning: "الجسر القديم أصبح سالكاً مع بداية العام",
+    meaning: "الجسر القديم أصبح سالكا مع بداية العام",
     keywords: ["Alte Brücke = جسر قديم", "Jahresbeginn = بداية العام", "befahrbar = سالك"],
-    simplified: "الجسر القديم تفتح مع راس العام",
-    imagine: "🚀 جسر عجوز كيصرخ 'أنا باقي حي' والناس كاتعبر فوقو والسيرات كاتصوتلو 🚗🌉"
+    simplified: "الجسر القديم فتح مع رأس السنة",
+    imagine: "جسر قديم مكتوب عليه 'الطريق مفتوح'"
 };
 
 HELP_DATA["hoeren1_exam3_q3"] = {
     text: "Der Wanderer wurde verarztet und in",
-    meaning: "تم إسعاف المتنزه ونقله إلى مكان آمن",
+    meaning: "تم إسعاف المتنزه ونقله لمكان آمن",
     keywords: ["Wanderer = متنزه", "verarztet = تم إسعافه", "in Sicherheit gebracht = نقل لمكان آمن"],
-    simplified: "المتنزه تداركوه ودوزوه لمكان آمن",
-    imagine: "🚀 رجل كانت ماشي فالجبل ووقع وسخة الإسعاف جاتو وداتو والطبيب كيصوت 'خلي عليا' 🚑⛰️"
+    simplified: "المتنزه أسعف ونقل لمكان آمن",
+    imagine: "سيارة إسعاف تنقل رجلا مصابا من الجبل"
 };
 
 HELP_DATA["hoeren1_exam3_q5"] = {
     text: "Man kann nach einer Registrierung an",
     meaning: "يمكن المشاركة في سباق جماعي بعد التسجيل",
     keywords: ["Registrierung = تسجيل", "Gruppenlauf = سباق جماعي", "teilnehmen = المشاركة"],
-    simplified: "تقدر تشارك فسباق جماعي بعد التسجيل",
-    imagine: "🚀 الناس كاتسجل باش تجري والكل كيهراو والناس كاتصوت 'جري جري جري' 🏃‍♂️🏃‍♀️🎉"
+    simplified: "تستطيع المشاركة في سباق بعد التسجيل",
+    imagine: "عداؤون يسجلون أسماءهم للسباق"
 };
 
 // ========== Exam 4: Erdbeben (صحيح: 1,5) ==========
 HELP_DATA["hoeren1_exam4_q1"] = {
     text: "Nach dem Erdbeben meldeten viele Bürger",
-    meaning: "بعد الزلزال، أبلغ العديد من المواطنين عن أضرار للشرطة والإطفاء",
+    meaning: "بعد الزلزال أبلغ المواطنون عن أضرار للشرطة والإطفاء",
     keywords: ["Erdbeben = زلزال", "Schäden = أضرار", "Polizei = شرطة", "Feuerwehr = إطفاء"],
-    simplified: "بعد الزلزال، الناس بلغو البوليس والإطفاء",
-    imagine: "🚀 شي زلزال هز الدار والناس كاتجرى فالشوارع وتصوت 'فينا الضرر يا لبوليس' 🌍💥"
+    simplified: "بعد الزلزال بلغ الناس البوليس والإطفاء",
+    imagine: "منزل منهار وسيارات إطفاء تصل"
 };
 
 HELP_DATA["hoeren1_exam4_q5"] = {
     text: "Anfang nächster Woche ist mit einer",
-    meaning: "من المتوقع ارتفاع نسبة الأوزون مع بداية الأسبوع القادم",
+    meaning: "من المتوقع ارتفاع الأوزون بداية الأسبوع القادم",
     keywords: ["Anfang nächster Woche = بداية الأسبوع القادم", "erhöhten Ozonbelastung = ارتفاع الأوزون", "rechnen = توقع"],
-    simplified: "الأوزون غادي يعلى مع راس الأسبوع الجاي",
-    imagine: "🚀 شمس كاتحرق والناس كاتعطس وتصوت 'هاد الأوزون غادي يقتلنا' ☀️😤"
+    simplified: "الأوزون سيرتفع مع بداية الأسبوع",
+    imagine: "شمس حارقة وكبار سن يعطسون"
 };
 
 // ========== Exam 5: Bierkonsum (صحيح: 2,4) ==========
@@ -93,16 +93,16 @@ HELP_DATA["hoeren1_exam5_q2"] = {
     text: "Deutsche Einkommen liegen im europäischen",
     meaning: "الدخل الألماني في منتصف الترتيب الأوروبي",
     keywords: ["Einkommen = دخل", "europäischen Vergleich = مقارنة أوروبية", "Mittelfeld = منتصف الترتيب"],
-    simplified: "رواتب الألمان فالوسط فاوروبا",
-    imagine: "🚀 ألماني كيقارن راتبو مع فرونساوي ويصرخ 'كلنا فالنص يا ولدي' 🇩🇪💰"
+    simplified: "رواتب الألمان في الوسط بأوروبا",
+    imagine: "ميزان يقف في المنتصف بالضبط"
 };
 
 HELP_DATA["hoeren1_exam5_q4"] = {
     text: "Es wird Gewalt von Fußballfans auch",
-    meaning: "يُخشى من عنف مشجعي كرة القدم في ألمانيا أيضاً",
-    keywords: ["Gewalt = عنف", "Fußballfans = مشجعي كرة قدم", "befürchtet = يُخشى"],
-    simplified: "العنف الكروي كاين فالماتيا تا هو",
-    imagine: "🚀 شي مشجع كاسكرسي ويصوت 'هاد التحكيم زبالة' والبوليس كاتجري وراه ⚽👮‍♂️"
+    meaning: "يخشى من عنف مشجعي كرة القدم في ألمانيا أيضا",
+    keywords: ["Gewalt = عنف", "Fußballfans = مشجعي كرة قدم", "befürchtet = يخشى"],
+    simplified: "العنف الكروي موجود في ألمانيا أيضا",
+    imagine: "مشجع غاضب يكسر كرسيا في الملعب"
 };
 
 // ========== Exam 6: Bierkonsum (Mittel) (صحيح: 2,4) ==========
@@ -110,100 +110,100 @@ HELP_DATA["hoeren1_exam6_q2"] = {
     text: "Deutsche Einkommen liegen im europäischen",
     meaning: "الدخل الألماني في منتصف الترتيب الأوروبي",
     keywords: ["Einkommen = دخل", "europäischen Vergleich = مقارنة أوروبية", "Mittelfeld = منتصف الترتيب"],
-    simplified: "ألمانيا متوسطين فالرواتب",
-    imagine: "🚀 ألماني كيشوف راتبو ويقارنو مع هولندي ويصوت 'نفس الشي ونفس الشي' 🇩🇪🇳🇱"
+    simplified: "ألمانيا في الوسط في الرواتب",
+    imagine: "ألماني وإنجليزي يتساويان في الراتب"
 };
 
 HELP_DATA["hoeren1_exam6_q4"] = {
     text: "Man befürchtet auch in Deutschland Gewalt",
-    meaning: "يُخشى من عنف مشجعي الكرة في ألمانيا أيضاً",
-    keywords: ["befürchtet = يُخشى", "Gewalt = عنف", "Fußballfans = مشجعي كرة قدم"],
-    simplified: "الخوف من عنف المشجعين فالماتيا تا هو",
-    imagine: "🚀 مشجع كيدير حركات استعراضية والجمهور كيصوت 'زيد زيد' والحكم كيهرب ⚽😱"
+    meaning: "يخشى من عنف مشجعي الكرة في ألمانيا أيضا",
+    keywords: ["befürchtet = يخشى", "Gewalt = عنف", "Fußballfans = مشجعي كرة قدم"],
+    simplified: "الخوف من عنف المشجعين في ألمانيا",
+    imagine: "علم أحمر يرفع قبل المباراة"
 };
 
 // ========== Exam 7: Deutsches Schiff (صحيح: 1,2,5) ==========
 HELP_DATA["hoeren1_exam7_q1"] = {
     text: "Ein deutsches Schiff ist am Südpol",
-    meaning: "سفينة ألمانية تجمدت في القطب الجنوبي لكن الناس بخير",
+    meaning: "سفينة ألمانية تجمدت بالقطب الجنوبي والناس بخير",
     keywords: ["deutsches Schiff = سفينة ألمانية", "Südpol = قطب جنوبي", "eingefroren = مجمدة", "Menschen kamen nicht zu Schaden = الناس بخير"],
-    simplified: "سفينة ألمانية تجمدات فالقطب والناس سالمين",
-    imagine: "🚢 سفينة واقفة فالثلج والبحارة كيهزو لافتة 'أرسلوا جاتو سخونة' 🥶❄️"
+    simplified: "سفينة ألمانية تجمدت في القطب الجنوبي",
+    imagine: "سفينة مغطاة بالثلج ومدخنة تخرج دخانا"
 };
 
 HELP_DATA["hoeren1_exam7_q2"] = {
     text: "Die Firma Brain International ist in",
     meaning: "شركة Brain International دخلت في صعوبات اقتصادية",
     keywords: ["Firma = شركة", "Brain International = Brain International", "wirtschaftliche Schwierigkeiten = صعوبات اقتصادية"],
-    simplified: "شركة Brain International دخلات فالمشاكل",
-    imagine: "🚀 شي مدير كايحوس فلأوراق ويصوت 'الفلوس فينها' والموضفين كايخرجو وحدة وحدة 💼😭"
+    simplified: "شركة Brain International دخلت في المشاكل",
+    imagine: "مدير يحزم أوراقه وصناديق فارغة"
 };
 
 HELP_DATA["hoeren1_exam7_q5"] = {
     text: "Nach den Bürgermeisterwahlen in Bensheim",
-    meaning: "بعد انتخابات العمدة في بنسهايم، يبقى الحزب المسيحي في الحكم",
-    keywords: ["Bürgermeisterwahlen = انتخابات عمدة", "Bensheim = بنسهايم", "CDU = الحزب المسيحي", "weiterhin an der Regierung = باقي فالحكم"],
-    simplified: "بعد الانتخابات فبنسهايم، الحزب المسيحي بقا فالحكم",
-    imagine: "🚀 عمدة كيرقص فرحان ويصوت 'أنا باقي أنا باقي' والناس كاتصفق وكاتعيط 👨‍💼🎉"
+    meaning: "بعد انتخابات العمدة في بنسهايم يبقى الحزب المسيحي في الحكم",
+    keywords: ["Bürgermeisterwahlen = انتخابات عمدة", "Bensheim = بنسهايم", "CDU = الحزب المسيحي", "weiterhin an der Regierung = باق في الحكم"],
+    simplified: "الحزب المسيحي بقي في الحكم بعد الانتخابات",
+    imagine: "عمدة يرفع يده منتصرا والناس تصفق"
 };
 
 // ========== Exam 8: Weniger Vögel, Viele Kunden (صحيح: 3,4,5) ==========
 HELP_DATA["hoeren1_exam8_q3"] = {
     text: "Europaweit gibt es immer weniger",
-    meaning: "هناك عدد أقل من الطيور في جميع أنحاء أوروبا",
-    keywords: ["Europaweit = في جميع أنحاء أوروبا", "weniger Vögel = طيور أقل", "gibt es = هناك"],
-    simplified: "الطيور كاتقل فجميع أنحاء أوروبا",
-    imagine: "🚀 عصفور كيصوت 'وين راح رفيقي؟' والغابة خاوية وكاتبكي 🐦😢"
+    meaning: "عدد الطيور يقل في جميع أنحاء أوروبا",
+    keywords: ["Europaweit = في كل أوروبا", "weniger Vögel = طيور أقل", "gibt es = هناك"],
+    simplified: "الطيور تقل في كل أوروبا",
+    imagine: "سماء خالية من العصافير تماما"
 };
 
 HELP_DATA["hoeren1_exam8_q4"] = {
     text: "Die Polizei hat auf der Autobahn",
     meaning: "الشرطة اكتشفت مركبة ممنوعة على الطريق السريع",
     keywords: ["Polizei = شرطة", "Autobahn = طريق سريع", "verbotenes Fahrzeug = مركبة ممنوعة", "entdeckt = اكتشفت"],
-    simplified: "البوليس لقات شي طونوبيل ممنوع فالاوتوروت",
-    imagine: "🚀 شي واحد كايحبس بالطونوبيل ديال راسو فوسط الاوتوروت والبوليس كايصوت 'وقف ولا غادي تسجل' 🚔😂"
+    simplified: "البوليس وجد سيارة ممنوعة على الأوتوبان",
+    imagine: "سيارة غريبة الشكل وأضواء بوليس خلفها"
 };
 
 HELP_DATA["hoeren1_exam8_q5"] = {
     text: "Bei dem Festival konnte man Konzerte",
-    meaning: "في المهرجان، يمكن حضور الحفلات الموسيقية في أماكن مختلفة",
+    meaning: "يمكن حضور الحفلات الموسيقية في أماكن مختلفة بالمهرجان",
     keywords: ["Festival = مهرجان", "Konzerte = حفلات موسيقية", "verschiedenen Orten = أماكن مختلفة"],
-    simplified: "فالمهرجان كانت الحفلات فبلايص مختلفة",
-    imagine: "🚀 ناس كاتجري من بلاصة لبلاصة والناس كاتصوت 'هاد المغني فهاد البلاصة وهاد فهاد' 🎤🎸"
+    simplified: "الحفلات كانت في أماكن مختلفة بالمهرجان",
+    imagine: "ثلاث مسارح وكل واحد يعزف موسيقى مختلفة"
 };
 
 // ========== Exam 9: Europäische Union (صحيح: 1,2) ==========
 HELP_DATA["hoeren1_exam9_q1"] = {
     text: "In der Europäischen Union verzeichnet man",
-    meaning: "الاتحاد الأوروبي يسجل انخفاضاً في البطالة بين الشباب",
+    meaning: "الاتحاد الأوروبي يسجل انخفاضا في بطالة الشباب",
     keywords: ["Europäische Union = الاتحاد الأوروبي", "weniger jugendliche Arbeitslose = بطالة شباب أقل", "verzeichnet = يسجل"],
-    simplified: "الاتحاد الأوروبي سجل نقص فالموطلين الشباب",
-    imagine: "🚀 شي موضف كايحط لافتة 'الشباب خداو خدمتهم' والشباب كايفرحو ويصوتو 💼🎉"
+    simplified: "الاتحاد الأوروبي سجل نقصا في عاطلين الشباب",
+    imagine: "شاب يلقي قبعة التخرج في الهواء"
 };
 
 HELP_DATA["hoeren1_exam9_q2"] = {
     text: "Das Bundesarbeitsministerium bemüht sich",
-    meaning: "وزارة العمل الاتحادية تسعى لجذب عمال أجانب من مهن محددة",
-    keywords: ["Bundesarbeitsministerium = وزارة العمل الاتحادية", "ausländische Arbeitnehmer = عمال أجانب", "bestimmter Berufsgruppen = مهن محددة"],
-    simplified: "وزارة الشغل كاتسعى باش تجيب عمال من برّا فمهن معينة",
-    imagine: "🚀 شي وزير كيوزع الفيزا ويصوت 'عندنا الخدمة جاو الخدمة' والناس كاتجرى 🌍💼"
+    meaning: "وزارة العمل تسعى لجلب عمال أجانب من مهن محددة",
+    keywords: ["Bundesarbeitsministerium = وزارة العمل", "ausländische Arbeitnehmer = عمال أجانب", "bestimmter Berufsgruppen = مهن محددة"],
+    simplified: "وزارة العمل تريد جلب عمال أجانب لمهن معينة",
+    imagine: "وزير يفتح الباب لعمال يحملون حقائب"
 };
 
 // ========== Exam 10: Unwetterschäden (صحيح: 1,4) ==========
 HELP_DATA["hoeren1_exam10_q1"] = {
     text: "Wegen Unwetterschäden wurden Urlauber",
-    meaning: "بسبب أضرار العواصف، تم إيواء السياح في مأوى طوارئ",
+    meaning: "بسبب أضرار العواصف تم إيواء السياح في مأوى طوارئ",
     keywords: ["Unwetterschäden = أضرار العواصف", "Urlauber = سياح", "Notunterkunft = مأوى طوارئ"],
-    simplified: "بسبب العواصف، السياح رقدو فخيمة ديال الطوارئ",
-    imagine: "🚀 سياح نايمين على الأرض فقاعة كبيرة والعاصفة كتصرخ برّا ويصوتو 'شنو هاد العيشة' 🏖️🌪️"
+    simplified: "السياح سكنوا في خيام طوارئ بسبب العواصف",
+    imagine: "خيمة كبيرة وسياح نائمون على الأرض"
 };
 
 HELP_DATA["hoeren1_exam10_q4"] = {
     text: "Am 21. Mai ist der Besuch der",
-    meaning: "في 21 مايو، زيارة المعرض الخاص مجانية",
+    meaning: "في 21 مايو زيارة المعرض الخاص مجانية",
     keywords: ["21. Mai = 21 مايو", "Sonderausstellung = معرض خاص", "kostenlos = مجاني"],
-    simplified: "ف21 مايو، الدخول للمعرض الخاص بلا فلوس",
-    imagine: "🚀 ناس واقفين فالصف قدام متحف وكل واحد كيصوت 'اليوم مجاني غادي ندخلو كلنا' 🏛️🎉"
+    simplified: "دخول المعرض الخاص مجاني في 21 مايو",
+    imagine: "لافتة مكتوب عليها 'الدخول مجاني اليوم'"
 };
 
 // ========== Exam 11: Nicht sicher (صحيح: 1,4) ==========
@@ -211,16 +211,16 @@ HELP_DATA["hoeren1_exam11_q1"] = {
     text: "Es ist nicht sicher, ob es",
     meaning: "ليس من المؤكد ما إذا كانت هذه المشكلة يمكن أن تحدث مرة أخرى",
     keywords: ["nicht sicher = غير مؤكد", "Problem = مشكلة", "wieder auftreten = تحدث مرة أخرى"],
-    simplified: "مش ممكن تعرف هاد المشكلة ترجع",
-    imagine: "🚀 شي واحد كيهز كتفو ويصوت 'مكنعرفش والو' والعالم كاتسول 😂🤷"
+    simplified: "ليس من المؤكد عودة هذه المشكلة",
+    imagine: "رجل يهز كتفيه بجهل"
 };
 
 HELP_DATA["hoeren1_exam11_q4"] = {
     text: "Die Produkte von TipTop sind in",
     meaning: "منتجات TipTop لم تعد مطلوبة في ألمانيا",
     keywords: ["Produkte = منتجات", "TipTop = TipTop", "nicht mehr so gefragt = لم تعد مطلوبة"],
-    simplified: "منتجات TipTop ما عادش مطلوبين فالماتيا",
-    imagine: "🚀 منتجات على الرف كاتغبر والناس كاتعدي وتصوت 'هاد شي خاي بزاف' 🏪😅"
+    simplified: "منتجات TipTop لم تعد مطلوبة",
+    imagine: "رف خال تماما بدون منتجات"
 };
 
 // ========== Exam 12: Nicht sicher 2 (صحيح: 1,4) ==========
@@ -228,41 +228,41 @@ HELP_DATA["hoeren1_exam12_q1"] = {
     text: "Es ist unklar, ob das Problem",
     meaning: "ليس من الواضح ما إذا كانت المشكلة يمكن أن تحدث مرة أخرى",
     keywords: ["unklar = غير واضح", "Problem = مشكلة", "wieder auftreten = تحدث مرة أخرى"],
-    simplified: "ما واضحش واش المشكلة ترجع",
-    imagine: "🚀 شي واحد كيحك راسو ويصوت 'هاد المشكلة غامضة' والجمهور كيضحك 🧐😂"
+    simplified: "نعود المشكلة مرة أخرى غير واضح",
+    imagine: "علامة استفهام كبيرة في الهواء"
 };
 
 HELP_DATA["hoeren1_exam12_q4"] = {
     text: "Die Produkte von TipTop sind in",
     meaning: "منتجات TipTop لم تعد مطلوبة في ألمانيا",
     keywords: ["Produkte = منتجات", "TipTop = TipTop", "nicht mehr so gefragt = لم تعد مطلوبة"],
-    simplified: "منتجات TipTop ماتلبش فالماتيا",
-    imagine: "🚀 رفوف خاويين والناس كاتعطي الضهر ل TipTop وتصوت 'لا شكراً' 🙅‍♂️😆"
+    simplified: "منتجات TipTop لا يطلبها أحد",
+    imagine: "زبون يمر بجانب منتج دون النظر له"
 };
 
 // ========== Exam 13: Frau Jürgens (صحيح: 3,4,5) ==========
 HELP_DATA["hoeren1_exam13_q3"] = {
     text: "Der öffentliche Nahverkehr funktioniert noch",
-    meaning: "وسائل النقل العام لا تعمل بشكل خالٍ من المشاكل بعد",
-    keywords: ["öffentliche Nahverkehr = وسائل نقل عام", "funktioniert = تعمل", "störungsfrei = خالٍ من المشاكل"],
-    simplified: "النقل العام ما زال فيه مشاكل",
-    imagine: "🚀 ترام كايتعطل والناس كاتنزل وتصوت 'هاد البلاد ما فيها رحمة' 🚋😤"
+    meaning: "وسائل النقل العام لا تعمل بدون مشاكل بعد",
+    keywords: ["öffentliche Nahverkehr = وسائل نقل عام", "funktioniert = تعمل", "störungsfrei = بدون مشاكل"],
+    simplified: "النقل العام ما زال به مشاكل",
+    imagine: "قطار متوقف وكثيرون ينتظرون"
 };
 
 HELP_DATA["hoeren1_exam13_q4"] = {
     text: "Wildes Camping ist im In- und",
     meaning: "التخييم البري مسموح به بشكل محدود داخل الوطن وخارجه",
-    keywords: ["Wildes Camping = تخييم بري", "In- und Ausland = داخل وخارج الوطن", "bedingt zugelassen = مسموح به بشكل محدود"],
-    simplified: "التخييم البري مسموح شوية فالداخل والخارج",
-    imagine: "🚀 شي واحد كاينصب الخيمة فوسط الطريق والبوليس كاتجي وتصوت 'هاد ممنوع' 🏕️👮‍♂️"
+    keywords: ["Wildes Camping = تخييم بري", "In- und Ausland = داخل وخارج الوطن", "bedingt zugelassen = مسموح بمحدودية"],
+    simplified: "التخييم البري مسموح بقليل هنا وهناك",
+    imagine: "خيمة نصها داخل الأرض ونصها خارج"
 };
 
 HELP_DATA["hoeren1_exam13_q5"] = {
     text: "Die Temperaturen steigen in den",
     meaning: "درجات الحرارة سترتفع في الأيام القادمة",
     keywords: ["Temperaturen = درجات حرارة", "steigen = ترتفع", "nächsten Tagen = الأيام القادمة"],
-    simplified: "الحرارة غادية تعلى فالأيام الجاية",
-    imagine: "🚀 شمس كاتحرق والناس كاتعري وتصوت 'سخونة سخونة' والنهر كايغلي ☀️💦"
+    simplified: "الحرارة سترتفع الأيام القادمة",
+    imagine: "مقياس حرارة يزداد ارتفاعا"
 };
 
 // ========== Exam 14: Die Wahlbeteiligung (صحيح: 1,3) ==========
@@ -270,16 +270,16 @@ HELP_DATA["hoeren1_exam14_q1"] = {
     text: "Die Wahlbeteiligung in Deutschland nimmt",
     meaning: "نسبة المشاركة في الانتخابات في ألمانيا في ازدياد مرة أخرى",
     keywords: ["Wahlbeteiligung = نسبة مشاركة", "nimmt zu = في ازدياد", "wieder = مرة أخرى"],
-    simplified: "الناس كاتصوت كتر فالماتيا",
-    imagine: "🚀 طوابير طويلة قدام مراكز الاقتراع والناس كاتصوت 'أنا شاركت أنا شاركت' 🗳️🎉"
+    simplified: "المشاركة الانتخابية في ازدياد مرة أخرى",
+    imagine: "صناديق اقتراع مملوءة عن آخرها"
 };
 
 HELP_DATA["hoeren1_exam14_q3"] = {
     text: "Bei der Sportveranstaltung wurden neue",
     meaning: "تم تسجيل أرقام قياسية جديدة في المنافسة الرياضية",
     keywords: ["Sportveranstaltung = منافسة رياضية", "neue Bestzeiten = أرقام قياسية جديدة", "aufgestellt = سجلت"],
-    simplified: "فالمسابقة الرياضية تخرقو الأرقام",
-    imagine: "🚀 عداء كايجرى بسرعة الصاروخ والجمهور كيصوت 'ما شاء الله' والساعة كاتوقف 🏃‍♂️⚡"
+    simplified: "تحطمت أرقام قياسية في المسابقة",
+    imagine: "ساعة توقيت تشير لرقم خيالي"
 };
 
 // ========== Exam 15: Die Wetterlage in den Alpen (صحيح: 2,3) ==========
@@ -287,498 +287,495 @@ HELP_DATA["hoeren1_exam15_q2"] = {
     text: "Die Fans des FC Neustadt waren",
     meaning: "كان مشجعو FC Neustadt متفاجئين بفوز فريقهم",
     keywords: ["Fans = مشجعين", "FC Neustadt = FC Neustadt", "überrascht = متفاجئين", "Sieg = فوز"],
-    simplified: "المشجعين تدهشو من الفوز ديال فرقتهم",
-    imagine: "🚀 مشجعين كيهزوا لافتات 'هاد الفوز صدمة' والعيون كاتخرج من راسهم ⚽😲"
+    simplified: "جماهير الفريق فوجئت بالفوز",
+    imagine: "جمهور مذهول وأعين واسعة"
 };
 
 HELP_DATA["hoeren1_exam15_q3"] = {
     text: "Erzieherinnen verlangen eine bessere",
     meaning: "المربيات يطالبن بأجر أفضل",
     keywords: ["Erzieherinnen = مربيات", "verlangen = يطالبن", "bessere Bezahlung = أجر أفضل"],
-    simplified: "المربيات كاطلبو راتب أعلى",
-    imagine: "🚀 مربيات واقفين بلافتات 'الراتب هزيل' والناس كاتصفق 👩‍🏫💪"
+    simplified: "المربيات يطالبن براتب أحسن",
+    imagine: "معلمة ترفع لافتة 'راتبنا قليل'"
 };
 
 // ========== Exam 16: Wetter in den Alpen (Mittel) (صحيح: 2,3,5) ==========
 HELP_DATA["hoeren1_exam16_q2"] = {
     text: "Die Fans, die das Spiel unterstützten,",
-    meaning: "كان المشجعون الذين شجعوا الفريق متفاجئين",
+    meaning: "المشجعون الذين شجعوا الفريق كانوا متفاجئين",
     keywords: ["Fans = مشجعين", "Spiel = مباراة", "unterstützten = شجعوا", "überrascht = متفاجئين"],
-    simplified: "المشجعين اللي شجعو الفريق تدهشو",
-    imagine: "🚀 مشجعين كيهزوا راسهم ويصوتو 'هاد الفوز حتى نحن ما كناش متوقعينو' ⚽🤯"
+    simplified: "الجماهير المشجعة فوجئت",
+    imagine: "مشجع يسقط من الكرسي دهشة"
 };
 
 HELP_DATA["hoeren1_exam16_q3"] = {
     text: "Eine Familie von Pandas kommt",
-    meaning: "عائلة من حيوانات الباندا تصل إلى الحديقة",
+    meaning: "عائلة من الباندا تصل إلى الحديقة",
     keywords: ["Familie = عائلة", "Pandas = باندا", "kommt an = تصل", "Park = حديقة"],
-    simplified: "عائلة ديال الباندا وصلات للحديقة",
-    imagine: "🚀 باندا كاتماكل الخيزران وتصوت 'هاد الحديقة ديالنا' والناس كاتصور 🐼🎋"
+    simplified: "عائلة باندا وصلت للحديقة",
+    imagine: "أم وأب وطفل من الباندا يأكلون الخيزران"
 };
 
 HELP_DATA["hoeren1_exam16_q5"] = {
     text: "Erzieherinnen verlangen bessere Bezahlung",
     meaning: "المربيات يطالبن بأجر أفضل",
     keywords: ["Erzieherinnen = مربيات", "verlangen = يطالبن", "bessere Bezahlung = أجر أفضل"],
-    simplified: "المربيات كاطلبو راتب أعلى",
-    imagine: "🚀 مربيات كايضربو بالأبواق ويصرخو 'الراتب راه قليل' 👩‍🏫📢"
+    simplified: "المربيات يطلبن راتبا أحسن",
+    imagine: "معلمات يتظاهرن والأطفال يلعبون"
 };
 
 // ========== Exam 17: Insel Bali (صحيح: 4,5) ==========
 HELP_DATA["hoeren1_exam17_q4"] = {
     text: "Der Sekthersteller hat die Pläne",
-    meaning: "غيرت شركة صناعة الشمبانيا خطط مشروع البناء الخاص بها",
-    keywords: ["Sekthersteller = شركة صناعة شمبانيا", "Pläne = خطط", "Bauvorhaben = مشروع بناء", "geändert = غيرت"],
-    simplified: "شركة الشمبانيا بدلات خطط البناء",
-    imagine: "🚀 مدير كايحط خطط فأنبوبة ويصرخ 'الخطط الجديدة أحسن' والموظفين كايصفقوا 🍾📋"
+    meaning: "غيرت شركة الشمبانيا خطط مشروع البناء الخاص بها",
+    keywords: ["Sekthersteller = شركة شمبانيا", "Pläne = خطط", "Bauvorhaben = مشروع بناء", "geändert = غيرت"],
+    simplified: "شركة الشمبانيا غيرت خطط البناء",
+    imagine: "مخطط بناء ممزق وآخر جديد بدله"
 };
 
 HELP_DATA["hoeren1_exam17_q5"] = {
     text: "Die Löscharbeiten sind noch nicht",
     meaning: "عمليات إطفاء الحريق لم تنته بعد",
     keywords: ["Löscharbeiten = عمليات إطفاء", "nicht abgeschlossen = لم تنته", "noch = بعد"],
-    simplified: "الاطفاء ما زال مكمّل",
-    imagine: "🚀 رجال الإطفاء كايصوتو 'الطافية باقي' والنار كاتحرق كتر 🔥🚒"
+    simplified: "الإطفاء لم ينته بعد",
+    imagine: "رجل إطفاء يرتدي خوذته ومستعد"
 };
 
 // ========== Exam 18: Die Fluggesellschaft (صحيح: 1,3,5) ==========
 HELP_DATA["hoeren1_exam18_q1"] = {
     text: "Kunden der Fluggesellschaft DL äußern",
-    meaning: "عملاء شركة الطيران DL يعربون عن عدم رضاهم",
-    keywords: ["Kunden = عملاء", "Fluggesellschaft DL = شركة طيران DL", "Unzufriedenheit = عدم رضا", "äußern = يعربون"],
-    simplified: "عملاء DL كايشكو من الخدمة",
-    imagine: "🚀 مسافر كايعيط فالمطار 'الطائرة تأخرت' والموظف كايضحك 😤✈️"
+    meaning: "عملاء شركة الطيران DL يعبرون عن عدم رضاهم",
+    keywords: ["Kunden = عملاء", "Fluggesellschaft DL = شركة طيران DL", "Unzufriedenheit = عدم رضا", "äußern = يعبرون"],
+    simplified: "زبائن DL غير راضين عن الخدمة",
+    imagine: "مسافر غاضب يشير بيديه في المطار"
 };
 
 HELP_DATA["hoeren1_exam18_q3"] = {
     text: "Die Sonnenstürme hatten keine negativen",
     meaning: "العواصف الشمسية لم يكن لها آثار سلبية",
     keywords: ["Sonnenstürme = عواصف شمسية", "keine negativen Auswirkungen = لا آثار سلبية", "hatten = كان"],
-    simplified: "العواصف الشمسية ما تسببتش فمشاكل",
-    imagine: "🚀 شمس كاتغضب والناس كاتخاف ولكن ولا شي حصل والشمس كاتضحك ☀️😈"
+    simplified: "العواصف الشمسية لم تسبب ضررا",
+    imagine: "شمس تضحك وكأن شيئا لم يحدث"
 };
 
 HELP_DATA["hoeren1_exam18_q5"] = {
     text: "Das Tiefdruckgebiet 'Helena' kann morgen",
-    meaning: "منطقة الضغط المنخفض 'هيلينا' يمكن أن تسبب مشاكل مرورية غداً في جنوب غرب ألمانيا",
-    keywords: ["Tiefdruckgebiet = منطقة ضغط منخفض", "Helena = هيلينا", "Verkehrsprobleme = مشاكل مرورية", "Südwesten Deutschlands = جنوب غرب ألمانيا"],
-    simplified: "إعصار 'هيلينا' غادي يسبب زحمة فالسويس د الماتيا",
-    imagine: "🚀 إعصار كايقلب الطروموبيلات والناس كاتصوت 'يا ساتر' والناس كاتهرب 🌪️🚗"
+    meaning: "منخفض 'هيلينا' قد يسبب مشاكل مرورية غدا بجنوب غرب ألمانيا",
+    keywords: ["Tiefdruckgebiet = منخفض جوي", "Helena = هيلينا", "Verkehrsprobleme = مشاكل مرورية", "Südwesten Deutschlands = جنوب غرب ألمانيا"],
+    simplified: "إعصار هيلينا سيسبب زحمة غدا في جنوب غرب ألمانيا",
+    imagine: "إعصار صغير يقلب السيارات كاللعب"
 };
 
 // ========== Exam 19: Der Fluggesellschaft (Mittel) (صحيح: 1,3,5) ==========
 HELP_DATA["hoeren1_exam19_q1"] = {
     text: "Die Fluggesellschaft DL fliegt z.",
-    meaning: "شركة الطيران DL لم تعد تسير رحلات إلى روستوك مثلاً",
-    keywords: ["Fluggesellschaft DL = شركة طيران DL", "fliegt nicht mehr an = لم تعد تسير رحلات إلى", "Rostock = روستوك"],
-    simplified: "شركة DL قطعات الخط مع روستوك",
-    imagine: "🚀 طيارة كاتقلع بلا ركاب والناس كاتصوت 'روستوك وين راهي' ✈️😢"
+    meaning: "شركة الطيران DL لم تعد تسير رحلات إلى روستوك",
+    keywords: ["Fluggesellschaft DL = شركة طيران DL", "fliegt nicht mehr an = لم تعد تسير ل", "Rostock = روستوك"],
+    simplified: "شركة DL قطعت رحلاتها إلى روستوك",
+    imagine: "طائرة تطير في اتجاه معاكس للمدينة"
 };
 
 HELP_DATA["hoeren1_exam19_q3"] = {
     text: "Die Sonnenstürme hatten keine negativen",
     meaning: "العواصف الشمسية لم يكن لها آثار سلبية",
     keywords: ["Sonnenstürme = عواصف شمسية", "keine negativen Auswirkungen = لا آثار سلبية", "hatten = كان"],
-    simplified: "العواصف الشمسية ما تسببتش فمشاكل",
-    imagine: "🚀 شمس كاتصوت 'أنا غادية ندمّر' ولكن ولا شي والجمهور كايضحك عليها ☀️🤣"
+    simplified: "عواصف الشمس أتت بلا ضرر",
+    imagine: "نظارات شمسية بوجه مبتسم"
 };
 
 HELP_DATA["hoeren1_exam19_q5"] = {
     text: "Das Tiefdruckgebiet 'Helena' kann morgen",
-    meaning: "منطقة الضغط المنخفض 'هيلينا' يمكن أن تسبب مشاكل مرورية غداً في جنوب غرب ألمانيا",
-    keywords: ["Tiefdruckgebiet = منطقة ضغط منخفض", "Helena = هيلينا", "Verkehrsprobleme = مشاكل مرورية", "Südwesten Deutschlands = جنوب غرب ألمانيا"],
-    simplified: "إعصار 'هيلينا' غادي يسبب زحمة فالسويس د الماتيا",
-    imagine: "🚀 رياح كاتقلع الأسقف والناس كاتجرى وتصوت 'هيلينا جات علينا' 🌬️😱"
+    meaning: "منخفض 'هيلينا' قد يسبب مشاكل مرورية غدا بجنوب غرب ألمانيا",
+    keywords: ["Tiefdruckgebiet = منخفض جوي", "Helena = هيلينا", "Verkehrsprobleme = مشاكل مرورية", "Südwesten Deutschlands = جنوب غرب ألمانيا"],
+    simplified: "هيلينا ستسبب زحمة غدا في جنوب غرب ألمانيا",
+    imagine: "علامة تحذير حمراء مع رمز إعصار"
 };
 
 // ========== Exam 20: Der Bau (صحيح: 1,3,4) ==========
 HELP_DATA["hoeren1_exam20_q1"] = {
     text: "Der Bau des höchsten Gebäudes der",
-    meaning: "بناء أطول مبنى في العالم في دبي كلف مليار دولار",
+    meaning: "بناء أطول مبنى بالعالم في دبي كلف مليار دولار",
     keywords: ["Bau = بناء", "höchsten Gebäudes = أطول مبنى", "Welt = عالم", "Dubai = دبي", "eine Milliarde Dollar = مليار دولار"],
-    simplified: "أطول برج فالعالم فدبي كلف مليار",
-    imagine: "🚀 برج كايطل على الغيوم والناس كاتصوت 'هاد مليار ماشي حقار' 🏗️💰"
+    simplified: "أطول برج بالعالم بدبي كلف مليار دولار",
+    imagine: "برج يخترق السحاب وكومة نقود تحته"
 };
 
 HELP_DATA["hoeren1_exam20_q3"] = {
     text: "Die niedersächsischen Grünen haben vor,",
-    meaning: "حزب الخضر في ساكسونيا السفلى يخطط لاستثمار أموال كثيرة في حماية المناخ والتعليم",
-    keywords: ["niedersächsischen Grünen = حزب الخضر في ساكسونيا السفلى", "vor = يخطط", "Klimaschutz = حماية المناخ", "Bildung = تعليم"],
-    simplified: "الخضر فساكسونيا كايخططو يستثمرو فالتعليم والمناخ",
-    imagine: "🚀 سياسي كايهز لافتة 'التعليم والمناخ أولاً' والناس كاتصفق 🌍📚"
+    meaning: "خضر ساكسونيا السفلى يخططون لاستثمار الكثير في المناخ والتعليم",
+    keywords: ["niedersächsischen Grünen = خضر ساكسونيا السفلى", "vor = يخططون", "Klimaschutz = حماية المناخ", "Bildung = تعليم"],
+    simplified: "حزب الخضر في ساكسونيا سيستثمر في التعليم والمناخ",
+    imagine: "شجرة وكتاب تحت أشعة الشمس"
 };
 
 HELP_DATA["hoeren1_exam20_q4"] = {
     text: "Der Freiburger FC hat das Finale",
-    meaning: "فريق Freiburg FC خسر المباراة النهائية",
-    keywords: ["Freiburger FC = Freiburg FC", "Finale = نهائي", "verloren = خسر"],
-    simplified: "Freiburg FC خسر فالآخر",
-    imagine: "🚀 لاعبين كايحطوا راسهم فالأرض والجمهور كايصوت 'الخسارة موجعة' ⚽😭"
+    meaning: "فريق فرايبورغ خسر المباراة النهائية",
+    keywords: ["Freiburger FC = فريق فرايبورغ", "Finale = نهائي", "verloren = خسر"],
+    simplified: "فريق فرايبورغ خسر النهائي",
+    imagine: "كأس خاسر مقلوب على الأرض"
 };
-// ============================================
-// Hören Teil 1 - Exams 21-30 (فقط الأسئلة الصحيحة)
-// ============================================
 
 // ========== Exam 21: 50-Euro (صحيح: 3) ==========
 HELP_DATA["hoeren1_exam21_q3"] = {
     text: "Wissenschaftler der Universität Mainz sind am Projekt zur Erforschung des Planeten Mars beteiligt.",
-    meaning: "علماء من جامعة ماينتس يشاركون في مشروع استكشاف كوكب المريخ",
+    meaning: "علماء ماينتس يشاركون في مشروع استكشاف المريخ",
     keywords: ["Wissenschaftler = علماء", "Universität Mainz = جامعة ماينتس", "Mars = المريخ", "beteiligt = مشاركون"],
-    simplified: "علماء من ماينتس كيشاركو فالبحث على المريخ",
-    imagine: "🚀 عالم فضاء كيشوف المريخ بالتلسكوب ويصوت 'هاد الكوكب غادي نعيشو فيه' 🔭🪐"
+    simplified: "علماء ماينتس يشاركون في بحث المريخ",
+    imagine: "تلسكوب كبير يتجه نحو كوكب أحمر"
 };
 
 // ========== Exam 22: Das Schladminger (صحيح: 1,2,5) ==========
 HELP_DATA["hoeren1_exam22_q1"] = {
     text: "Das Schladminger Skirennen fällt wieder aus.",
-    meaning: "سباق شلادمينغ للتزلج يُلغى مرة أخرى",
-    keywords: ["Schladminger = شلادمينغ", "Skirennen = سباق تزلج", "fällt aus = يُلغى", "wieder = مرة أخرى"],
-    simplified: "سباق التزلج فشلادمينغ كايتلغا تاني",
-    imagine: "🏂 المتسابقين كايجهزو حالهم والثلج كايذوب ويصوتو 'السباق طاح فالتلفون' ❄️😭"
+    meaning: "سباق شلادمينغ للتزلج يلغى مرة أخرى",
+    keywords: ["Schladminger = شلادمينغ", "Skirennen = سباق تزلج", "fällt aus = يلغى", "wieder = مرة أخرى"],
+    simplified: "سباق التزلج بشلادمينغ ألغي مجددا",
+    imagine: "لافتة مكتوب عليها 'ألغي' على ثلج"
 };
 
 HELP_DATA["hoeren1_exam22_q2"] = {
     text: "Mehr Mädchen als Buben leisten als pflegende Kinder und Jugendliche Betreuungsarbeit in den Familien.",
-    meaning: "بنات أكثر من أولاد يقدمن رعاية كأطفال ومراهقين في العائلات",
+    meaning: "بنات أكثر من أولاد يقدمن رعاية كأطفال بالعائلات",
     keywords: ["Mädchen = بنات", "Buben = أولاد", "pflegende Kinder = أطفال راعين", "Betreuungsarbeit = عمل رعاية"],
-    simplified: "البنات كيخدمو فالعايلة فالعناية أكثر من الأولاد",
-    imagine: "👧 بنت كاتعطي جدتها الدوا والولد كايلعب فالپلايستيشن الأم كاتصوت 'هاد البنت ملاك' 💊❤️"
+    simplified: "البنات أكثر من الأولاد في رعاية العائلة",
+    imagine: "بنت تطعم جدة وولد يلعب بجهازه"
 };
 
 HELP_DATA["hoeren1_exam22_q5"] = {
     text: "Insgesamt bleibt es mild.",
-    meaning: "يبقى الجو معتدلاً بشكل عام",
+    meaning: "يبقى الجو معتدلا بشكل عام",
     keywords: ["Insgesamt = بشكل عام", "bleibt = يبقى", "mild = معتدل"],
-    simplified: "الجو بقا معتدل فالشاملة",
-    imagine: "🌤️ واحد كاتوجه عينيه للسماء ويصوت 'هاد الجو مرة معتدل وباغي يديك ديك العافية' ☀️😎"
+    simplified: "الجو معتدل بصفة عامة",
+    imagine: "شمس دافئة وسحابة بيضاء واحدة"
 };
 
 // ========== Exam 23: Europawahlen (Linksparteien) (صحيح: 3,5) ==========
 HELP_DATA["hoeren1_exam23_q3"] = {
     text: "Der Benzinpreis hat sich aufgrund internationaler Einflussfaktoren erhöht.",
-    meaning: "سعر البنزين ارتفع بسبب عوامل تأثير دولية",
+    meaning: "سعر البنزين ارتفع لعوامل دولية",
     keywords: ["Benzinpreis = سعر البنزين", "erhöht = ارتفع", "internationaler Einflussfaktoren = عوامل تأثير دولية"],
     simplified: "البنزين غلا بسبب عوامل عالمية",
-    imagine: "⛽ واحد كايحط البنزين فالمضخة ويصوت 'هاد العافية خاصها قرضوط' والسيارة كاتعيط 💰😤"
+    imagine: "مضخة بنزين والأسعار تتغير للأعلى"
 };
 
 HELP_DATA["hoeren1_exam23_q5"] = {
     text: "Bei einem S-Bahn-Unglück in München gab es zahlreiche Verletzte und einen hohen Sachschaden.",
-    meaning: "في حادثة قطار الضواحي في ميونيخ، كان هناك العديد من الجرحى وأضرار مادية كبيرة",
-    keywords: ["S-Bahn-Unglück = حادثة قطار ضواحي", "München = ميونيخ", "zahlreiche Verletzte = جرحى كثيرون", "hohen Sachschaden = أضرار مادية كبيرة"],
-    simplified: "فحادثة القطار فميونيخ جرحة كثيرين وخسارة مادية كبيرة",
-    imagine: "🚆 شي قطار كايصدم بوست وكلشي كايجرى والناس كاتصوت 'النجدة النجدة' الإسعاف كاتجي 🚑💥"
+    meaning: "حادثة قطار بميونيخ خلفت جرحى وأضرارا مادية كبيرة",
+    keywords: ["S-Bahn-Unglück = حادثة قطار", "München = ميونيخ", "zahlreiche Verletzte = جرحى كثيرون", "hohen Sachschaden = أضرار مادية كبيرة"],
+    simplified: "حادثة قطار بميونيخ خلفت جرحى وخسائر كبيرة",
+    imagine: "قطار محطم وسيارات إسعاف كثيرة"
 };
 
 // ========== Exam 24: Europawahlen (CDU/CSU) (صحيح: 1,3,5) ==========
 HELP_DATA["hoeren1_exam24_q1"] = {
     text: "Bei den Europawahlen haben die CDU und CSU fast die Hälfte aller Stimmen erhalten.",
-    meaning: "في انتخابات أوروبا، حصل الاتحاد المسيحي الديمقراطي والاتحاد المسيحي الاجتماعي على نصف الأصوات تقريباً",
-    keywords: ["Europawahlen = انتخابات أوروبا", "CDU und CSU = الاتحاد المسيحي", "fast die Hälfte = النصف تقريباً", "Stimmen = أصوات"],
-    simplified: "فالانتخابات الأوروبية، الCDU والCSU خداو نص الأصوات",
-    imagine: "🗳️ واحد كايحط ورقة بصوتو ويصوت 'نص الأصوات لينا' والسياسيين كايرقصو 🎉📊"
+    meaning: "CDU و CSU حصلا على نصف الأصوات تقريبا بانتخابات أوروبا",
+    keywords: ["Europawahlen = انتخابات أوروبا", "CDU und CSU = CDU و CSU", "fast die Hälfte = النصف تقريبا", "Stimmen = أصوات"],
+    simplified: "CDU و CSU أخذا نصف الأصوات بانتخابات أوروبا",
+    imagine: "دائرة نصفها أزرق ونصفها أحمر"
 };
 
 HELP_DATA["hoeren1_exam24_q3"] = {
     text: "Der Benzinpreis hat sich aufgrund internationaler Einflussfaktoren erhöht.",
-    meaning: "سعر البنزين ارتفع بسبب عوامل تأثير دولية",
+    meaning: "سعر البنزين ارتفع لعوامل دولية",
     keywords: ["Benzinpreis = سعر البنزين", "erhöht = ارتفع", "internationaler Einflussfaktoren = عوامل تأثير دولية"],
-    simplified: "البنزين غلا بسباب عوامل عالمية",
-    imagine: "⛽ واحد كايقلب فجيبو وما كايلقى حتى فلوس ويصوت 'هاد البنزين غادي يخليني نمشي على رجلي' 🚶‍♂️💸"
+    simplified: "البنزين غلا بسبب عوامل عالمية",
+    imagine: "محفظة فارغة ومضخة بنزين"
 };
 
 HELP_DATA["hoeren1_exam24_q5"] = {
     text: "Bei einem S-Bahn-Unglück in München gab es zahlreiche Verletzte und einen hohen Sachschaden.",
-    meaning: "في حادثة قطار الضواحي في ميونيخ، كان هناك العديد من الجرحى وأضرار مادية كبيرة",
-    keywords: ["S-Bahn-Unglück = حادثة قطار ضواحي", "München = ميونيخ", "Verletzte = جرحى", "Sachschaden = أضرار مادية"],
-    simplified: "حادثة القطار فميونيخ جرحة وخسارة كبيرة",
-    imagine: "🚆 الناس كاتطلع من الشباك والناس كاتصرخ 'أنا جريح أنا جريح' والبوليس كاتسجل 🚑📝"
+    meaning: "حادثة قطار بميونيخ خلفت جرحى وأضرارا مادية كبيرة",
+    keywords: ["S-Bahn-Unglück = حادثة قطار", "München = ميونيخ", "Verletzte = جرحى", "Sachschaden = أضرار مادية"],
+    simplified: "حادثة قطار بميونيخ خلفت جرحى وخسائر",
+    imagine: "نقالة تحمل جريحا وقضبان ملتوية"
 };
 
 // ========== Exam 25: Die Bundesländer (صحيح: 1,2,5) ==========
 HELP_DATA["hoeren1_exam25_q1"] = {
     text: "Die Bundesländer sollen in Zukunft Geld für alternative Energien bekommen.",
-    meaning: "الولايات الألمانية يجب أن تحصل في المستقبل على أموال للطاقات البديلة",
+    meaning: "الولايات الألمانية ستحصل على أموال للطاقات البديلة مستقبلا",
     keywords: ["Bundesländer = ولايات", "Zukunft = مستقبل", "Geld = مال", "alternative Energien = طاقات بديلة"],
-    simplified: "الولايات الألمانية غادي تاخذ فلوس للطاقة النظيفة فالمستقبل",
-    imagine: "💡 واحد كايحط الواح شمسية فوق سطح الدار ويصوت 'الفلوس جاية لتونس' والكهرباء كاتزبر ☀️💰"
+    simplified: "الولايات الألمانية ستحصل على أموال للطاقة النظيفة",
+    imagine: "ألواح شمسية ونقود تخرج منها"
 };
 
 HELP_DATA["hoeren1_exam25_q2"] = {
     text: "Wenn man im Internet etwas kaufen möchte, sollte man seine Identität nachweisen müssen.",
-    meaning: "إذا أراد الشخص شراء شيء على الإنترنت، يجب عليه إثبات هويته",
+    meaning: "من يرد الشراء بالإنترنت يجب عليه إثبات هويته",
     keywords: ["Internet = إنترنت", "kaufen = شراء", "Identität = هوية", "nachweisen = إثبات"],
-    simplified: "إدا بغيت تشري حاجة من النت علم خاصك تثبت راسك",
-    imagine: "💻 واحد كايحاول يشتري حذاء والموقع كايطلب البطاقة الوطنية ويصوت 'شنو هاد البيروقراطية لله' 🆔😫"
+    simplified: "الشراء من النت يحتاج إثبات هوية",
+    imagine: "بطاقة هوية أمام شاشة حاسوب"
 };
 
 HELP_DATA["hoeren1_exam25_q5"] = {
     text: "Es ist noch nicht entschieden, wie lange der Streik dauern soll.",
-    meaning: "لم يُقرر بعد كم سيدوم الإضراب",
+    meaning: "لم يقرر بعد كم سيدوم الإضراب",
     keywords: ["noch nicht = ليس بعد", "entschieden = مقرر", "Streik = إضراب", "dauern = يدوم"],
-    simplified: "مازال ما تقررش هاد الإضراب غادي يدوم قداه",
-    imagine: "✊ العمال واقفين بالافواز ويصوتو 'مازال مازال' والمدير كايمسح العرق ⏰😰"
+    simplified: "مدة الإضراب لم تحدد بعد",
+    imagine: "ساعة توقف مؤقت ويد فوقها"
 };
 
 // ========== Exam 26: Bio-Siegels (صحيح: 1,5) ==========
 HELP_DATA["hoeren1_exam26_q1"] = {
     text: "Die Verwendung des Bio-Siegels ist streng geregelt.",
-    meaning: "استخدام ختم المنتجات العضوية منظم بشكل صارم",
-    keywords: ["Verwendung = استخدام", "Bio-Siegels = ختم بيو", "streng geregelt = منظم بشكل صارم"],
-    simplified: "الاستخدام ديال ختم المنتجات العضوية مدابز بقوة",
-    imagine: "🥚 بيضة عليها ختم والناس كاتحاول تغش وتصوت 'هاد الختم عاجبني' والبوليس كاتجي 🚔🔍"
+    meaning: "استخدام الختم العضوي منظم بشكل صارم",
+    keywords: ["Verwendung = استخدام", "Bio-Siegels = ختم بيو", "streng geregelt = منظم بصرامة"],
+    simplified: "ختم المنتجات العضوية منظم بقوة",
+    imagine: "ختم كبير بقفل عليه"
 };
 
 HELP_DATA["hoeren1_exam26_q5"] = {
     text: "Die EU-Kommission kritisiert die Stickstoffdioxid-Werte in deutschen Städten.",
-    meaning: "المفوضية الأوروبية تنتقد قيم ثاني أكسيد النيتروجين في المدن الألمانية",
+    meaning: "المفوضية الأوروبية تنتقد قيم ثاني أكسيد النيتروجين بالمدن الألمانية",
     keywords: ["EU-Kommission = مفوضية أوروبية", "kritisiert = تنتقد", "Stickstoffdioxid-Werte = قيم ثاني أكسيد النيتروجين", "deutschen Städten = مدن ألمانية"],
-    simplified: "المفوضية الأوروبية ناقدة الرطوبة ديال التلوث فلمدن الألمانية",
-    imagine: "🌫️ دخان كايطلع من المصانع وأوربا كاتصوت 'شنو هاد الهواء المسموم' والسياسي كايحك راسو 😤🏭"
+    simplified: "المفوضية الأوروبية تنتقد التلوث بمدن ألمانيا",
+    imagine: "عبارة كئيبة ومدخنة تخرج غازاتا"
 };
 
 // ========== Exam 27: Berufen (bonbon) (صحيح: 1,2) ==========
 HELP_DATA["hoeren1_exam27_q1"] = {
     text: "Viele Angestellte würden gern nur vier Tage pro Woche arbeiten.",
-    meaning: "كثير من الموظفين يودون العمل أربعة أيام فقط في الأسبوع",
-    keywords: ["Angestellte = موظفين", "vier Tage = أربعة أيام", "pro Woche = في الأسبوع", "arbeiten = يعملون"],
-    simplified: "بزاف ديال الموظفين حابين يخدمو غير ربعة أيام فالأسبوع",
-    imagine: "💼 واحد كايحلم ويصوت 'أربعة أيام فقط والجمعة للنوم' والمدير كايفيق من الحلم 😴🛌"
+    meaning: "كثير من الموظفين يودون العمل أربعة أيام فقط بالأسبوع",
+    keywords: ["Angestellte = موظفين", "vier Tage = أربعة أيام", "pro Woche = بالأسبوع", "arbeiten = يعملون"],
+    simplified: "موظفون كثيرون يريدون العمل 4 أيام فقط",
+    imagine: "تقويم بـ 4 أيام عمل و 3 أيام إجازة"
 };
 
 HELP_DATA["hoeren1_exam27_q2"] = {
     text: "In handwerklichen Berufen gibt es zurzeit viele freie Stellen.",
-    meaning: "في المهن الحرفية يوجد حالياً العديد من الوظائف الشاغرة",
-    keywords: ["handwerklichen Berufen = مهن حرفية", "zurzeit = حالياً", "freie Stellen = وظائف شاغرة", "viele = العديد"],
-    simplified: "فالصنائع اليدوية كاين بزاف ديال الخدمات الحالية",
-    imagine: "🔨 نجار كايلوح لأصحاب الكافي ويصوت 'الخدمة كاتقطع الخبز' والناس كاتجرى تشري العود 🪵💰"
+    meaning: "بالمهن الحرفية توجد حاليا وظائف شاغرة كثيرة",
+    keywords: ["handwerklichen Berufen = مهن حرفية", "zurzeit = حاليا", "freie Stellen = وظائف شاغرة", "viele = كثيرة"],
+    simplified: "بالحرف اليدوية وظائف كثيرة حاليا",
+    imagine: "عدة نجارة وكرسي خال بجانبها"
 };
 
 // ========== Exam 28: Zahl der Arbeitslosen (صحيح: 1,2,4) ==========
 HELP_DATA["hoeren1_exam28_q1"] = {
     text: "Die Zahl der Arbeitslosen in Deutschland hat sich im Mai verringert.",
-    meaning: "انخفض عدد العاطلين عن العمل في ألمانيا في مايو",
+    meaning: "عدد عاطلين ألمانيا انخفض بمايو",
     keywords: ["Zahl der Arbeitslosen = عدد العاطلين", "Deutschland = ألمانيا", "Mai = مايو", "verringert = انخفض"],
-    simplified: "العدد ديال الموطلين فالشغل فالماتيا نقص فماي",
-    imagine: "📉 واحد كايشوف الإحصاء ويصوت 'الناس خداو الخدمة' والفرحة كاتطير فالهوا 🎉📊"
+    simplified: "عدد العاطلين بألمانيا نقص بمايو",
+    imagine: "مخطط بياني ينخفض نحو الأسفل"
 };
 
 HELP_DATA["hoeren1_exam28_q2"] = {
     text: "Mexiko und Russland wollen ihre Zusammenarbeit in den Bereichen Wirtschaft und Finanzen weiter vertiefen.",
-    meaning: "المكسيك وروسيا تريدان تعميق تعاونهما في مجالات الاقتصاد والمالية",
+    meaning: "المكسيك وروسيا تريدان تعميق تعاونهما بالاقتصاد والمالية",
     keywords: ["Mexiko = مكسيك", "Russland = روسيا", "Zusammenarbeit = تعاون", "Wirtschaft = اقتصاد", "Finanzen = مالية", "vertiefen = تعميق"],
-    simplified: "المكسيك وروسيا بغاو يعمقو التعاون ديالهم فالاقتصاد والمالية",
-    imagine: "🤝 رئيس روسيا والمكسيك كايصافحو ويصوتو 'التعاون غادي يوصل للقمر' والكاريكاتيرات كاتصور 🚀💰"
+    simplified: "المكسيك وروسيا تريدان تعاونا أعمق بالاقتصاد والمال",
+    imagine: "علم المكسيك وعلم روسيا متشابكان"
 };
 
 HELP_DATA["hoeren1_exam28_q4"] = {
     text: "Der Präsident der Weltbank äußerte sich besorgt über Entwicklungshilfe für die so genannte 'Dritte Welt'.",
-    meaning: "رئيس البنك الدولي أعرب عن قلقه بشأن المساعدات التنموية لما يسمى 'العالم الثالث'",
+    meaning: "رئيس البنك الدولي أعرب قلقه حول مساعدات تنموية للعالم الثالث",
     keywords: ["Präsident der Weltbank = رئيس البنك الدولي", "besorgt = قلق", "Entwicklungshilfe = مساعدات تنموية", "Dritte Welt = عالم ثالث"],
-    simplified: "رئيس بنك العالم كايبان حزين على مساعدة العالم الثالث",
-    imagine: "🏦 واحد كايقلب مال الفلوس عندو ويصوت 'العالم الثالث باقي يحلم' وكايبكي 💵😢"
+    simplified: "رئيس البنك الدولي قلق على مساعدات العالم الثالث",
+    imagine: "رجل يرتدي بدلة ويبكي على منضدة"
 };
 
 // ========== Exam 29: BILD AM SONNTAG (صحيح: 1,2,3) ==========
 HELP_DATA["hoeren1_exam29_q1"] = {
     text: "Laut BILD AM SONNTAG können in Zukunft nur Mieter, aber nicht Vermieter bestimmte Mietverträge schneller kündigen.",
-    meaning: "وفقاً لـ 'بيلد أم زونتاغ'، في المستقبل يمكن للمستأجرين فقط، وليس للمالكين، إنهاء عقود إيجار معينة بشكل أسرع",
+    meaning: "بيلد أم زونتاغ: فقط المستأجرين لا المالكين يمكنهم إنهاء عقود أسرع مستقبلا",
     keywords: ["BILD AM SONNTAG = بيلد أم زونتاغ", "Mieter = مستأجرين", "Vermieter = مالكين", "Mietverträge = عقود إيجار", "kündigen = إنهاء"],
-    simplified: "فالمستقبل على حساب الجورنال، المستأجر فقط يقدر يفسخ الكراء بسرعة",
-    imagine: "📰 واحد كايقرا الجورنال ويصوت 'انا الحمدلله كريت الكراء' والمالك كايزعاف 🏠😡"
+    simplified: "المستأجر فقط سيمكنه إنهاء عقد الإيجار بسرعة مستقبلا",
+    imagine: "مستأجر سعيد ومالك غاضب"
 };
 
 HELP_DATA["hoeren1_exam29_q2"] = {
     text: "In bestimmten Bundesländern sollen Wohnhäuser abgerissen werden, weil sie unbewohnt sind.",
-    meaning: "في ولايات معينة، سيتم هدم المباني السكنية لأنها غير مأهولة",
+    meaning: "ببعض الولايات ستهدم مباني سكنية لعدم سكنها",
     keywords: ["Bundesländern = ولايات", "Wohnhäuser = مباني سكنية", "abgerissen = هدم", "unbewohnt = غير مأهولة"],
-    simplified: "فولايات معينة غادي يهدرو الديور الفاضية",
-    imagine: "🏚️ دار خاوية وفوقها لافتة 'الهدام قريب' والناس كاتصوت 'هاد الدار تحفة فاضية' 🚜💥"
+    simplified: "ببعض الولايات ستهدم بيوت لخلوها من السكان",
+    imagine: "منزل عليه علامة X حمراء"
 };
 
 HELP_DATA["hoeren1_exam29_q3"] = {
     text: "Sowohl die Waldbrände als auch die Hitzewelle in Griechenland sind zu Ende.",
-    meaning: "حرائق الغابات وموجة الحر في اليونان قد انتهت كلاهما",
+    meaning: "حرائق الغابات وموجة الحر باليونان انتهيا كلاهما",
     keywords: ["Waldbrände = حرائق غابات", "Hitzewelle = موجة حر", "Griechenland = يونان", "zu Ende = انتهت"],
-    simplified: "النار والحر فاليونان سالو كاملين",
-    imagine: "🌲 واحد كايحط لافتة 'اليونان بردات' والشمس كاتصوت 'حقك عليا' 🔥❄️"
+    simplified: "حرائق الغابات والحر باليونان انتهيا",
+    imagine: "شجرة محترقة وثلج يذوب عليها"
 };
 
 // ========== Exam 30: Studentenparty in Frankreich (صحيح: 3,5) ==========
 HELP_DATA["hoeren1_exam30_q3"] = {
     text: "Bei einer Studentenparty in Frankreich gibt es Tote und Verletzte.",
-    meaning: "في حفلة طلابية في فرنسا، هناك قتلى وجرحى",
+    meaning: "حفلة طلابية بفرنسا خلفت قتلى وجرحى",
     keywords: ["Studentenparty = حفلة طلابية", "Frankreich = فرنسا", "Tote = قتلى", "Verletzte = جرحى"],
-    simplified: "فالحفلة الطلابية ففرنسا كاين موتى وجرحى",
-    imagine: "🎉 واحد كايرقص والنار كاتطيح والناس كاتجرى وتصوت 'السلامة السلامة' والإسعاف كاتجي 🚑😱"
+    simplified: "حفلة طلابية بفرنسا خلفت موتى وجرحى",
+    imagine: "كأس مكسور ودماء على الأرض"
 };
 
 HELP_DATA["hoeren1_exam30_q5"] = {
     text: "Die Regierung plant eine Änderung bei der Führerschein-Probezeit.",
-    meaning: "الحكومة تخطط لتغيير في فترة اختبار رخصة السياقة",
+    meaning: "الحكومة تخطط لتغيير فترة اختبار رخصة السياقة",
     keywords: ["Regierung = حكومة", "plant = تخطط", "Änderung = تغيير", "Führerschein-Probezeit = فترة اختبار رخصة السياقة"],
-    simplified: "الحكومة كاتخطط تبديل فترة تجربة رخصة السياقة",
-    imagine: "🚗 واحد جديد كايحاول يمشي بالسيارة ويسأل 'فترة التجربة تبدلات وإلا لا؟' والشرطي كايصوت 🚔📝"
+    simplified: "الحكومة تخطط لتغيير فترة تجربة رخصة السياقة",
+    imagine: "رخصة سياقة عليها علامة إعادة نظر"
 };
 
 // ========== Exam 31: Deutsche Filmmuseum (صحيح: 2,4) ==========
 HELP_DATA["hoeren1_exam31_q2"] = {
     text: "Berufspendler kritisieren unnötige Wartezeiten",
-    meaning: "المسافرون يومياً للعمل ينتقدون أوقات الانتظار غير الضرورية وتكاليف الرحلات اليومية",
-    keywords: ["Berufspendler = مسافري العمل يومياً", "unnötige Wartezeiten = أوقات انتظار غير ضرورية", "Kosten = تكاليف"],
-    simplified: "الناس لي كاتسافر للخدمة كاتشكو من الانتظار والغلاء",
-    imagine: "🚀 راجل كايضرب الساعة بالمطرقة ويصوت 'أنا دائماً كاتأخر' ⏰🔨"
+    meaning: "مسافرو العمل ينتقدون أوقات الانتظار غير الضرورية",
+    keywords: ["Berufspendler = مسافرو العمل", "unnötige Wartezeiten = أوقات انتظار غير ضرورية", "Kosten = تكاليف"],
+    simplified: "مسافرو العمل ينتقدون الانتظار الطويل",
+    imagine: "ساعة تنتظر عند محطة قطار"
 };
 
 HELP_DATA["hoeren1_exam31_q4"] = {
     text: "Das Deutsche Filmmuseum möchte die",
-    meaning: "متحف السينما الألماني يريد زيادة أعداد الزوار في المستقبل",
+    meaning: "متحف السينما الألماني يريد زيادة أعداد الزوار",
     keywords: ["Filmmuseum = متحف سينما", "Besucherzahlen = أعداد زوار", "erhöhen = زيادة"],
-    simplified: "متحف السينما كايحب يزيد الزوار",
-    imagine: "🚀 كاميرا كاتطلب من الناس فالشوارع 'تصاورا معايا وحنا' 📸😂"
+    simplified: "متحف السينما يريد زيادة زواره",
+    imagine: "كاميرا ترحب بالناس عند الباب"
 };
 
 // ========== Exam 32: Ein Treffen bei der Integrationsbeauftragten (صحيح: 1,3,5) ==========
 HELP_DATA["hoeren1_exam32_q1"] = {
     text: "Ein Treffen bei der Integrationsbeauftragten",
-    meaning: "لقاء مع مسؤولة الاندماج يجب أن يساهم في تحسين اندماج المهاجرين",
+    meaning: "لقاء مع مسؤولة الاندماج لتحسين اندماج المهاجرين",
     keywords: ["Integrationsbeauftragten = مسؤولة الاندماج", "Integration = اندماج", "Migranten = مهاجرين"],
-    simplified: "لقاء مع مسؤولة الاندماج باش تحسن حال المهاجرين",
-    imagine: "🚀 حمامة كاتلبس بدلة رسمية وكاتوزع الفيزا 🕊️🎫"
+    simplified: "لقاء مع مسؤولة الاندماج لتحسين أوضاع المهاجرين",
+    imagine: "طاولة مستديرة ومهاجرون حولها"
 };
 
 HELP_DATA["hoeren1_exam32_q3"] = {
     text: "Untersuchung zum Essverhalten der Deutschen",
-    meaning: "دراسة حول سلوك الأكل لدى الألمان تظهر: الكثير يعانون من مشاكل الوزن",
+    meaning: "دراسة سلوك أكل الألمان تظهر معانات كثيرين من الوزن",
     keywords: ["Untersuchung = دراسة", "Essverhalten = سلوك الأكل", "Gewichtsprobleme = مشاكل وزن"],
-    simplified: "الدراسة كاتقول بزاف ديال الألمان عندهم السمنة",
-    imagine: "🚀 راجل عالق فكرسي والكرسي كايصرخ 'طيح عليا' 🪑😫"
+    simplified: "دراسة: كثير من الألمان يعانون السمنة",
+    imagine: "ميزان يشير لرقم كبير جدا"
 };
 
 HELP_DATA["hoeren1_exam32_q5"] = {
     text: "Später Bestattungsritus für Mahatma",
-    meaning: "طقوس دفن متأخرة للماهاتما غاندي",
+    meaning: "طقوس دفن متأخرة للمهاتما غاندي",
     keywords: ["Bestattungsritus = طقوس دفن", "Mahatma Gandhi = المهاتما غاندي", "später = متأخرة"],
-    simplified: "طقوس الدفن ديال غاندي تأخرات",
-    imagine: "🚀 غاندي كايتنفض ويصوت 'أنا باقي ما مشيتش' 🧘‍♂️😅"
+    simplified: "طقوس دفن المهاتما غاندي تأخرت",
+    imagine: "نظارات دائرية على تابوت"
 };
 
 // ========== Exam 33: die Konjunkturentwicklung negativ (صحيح: 1,4) ==========
 HELP_DATA["hoeren1_exam33_q1"] = {
     text: "Experten aus Bankenwelt und Wirtschaft",
-    meaning: "خبراء من عالم البنوك والاقتصاد يرون تطور الاقتصاد بشكل سلبي",
+    meaning: "خبراء البنوك والاقتصاد يرون تطور الاقتصاد سلبيا",
     keywords: ["Experten = خبراء", "Bankenwelt = عالم البنوك", "Konjunkturentwicklung = تطور اقتصاد", "negativ = سلبي"],
-    simplified: "خبراء البنوك كايشوفو الاقتصاد غادي فالخايب",
-    imagine: "🚀 خبير كايصوت 'الفلوس غادي تطير' والناس كاتجرى تطير 👨‍💼💸"
+    simplified: "خبراء البنوك يرون الاقتصاد متجها للأسوأ",
+    imagine: "مخطط أسهم ينهار للأسفل"
 };
 
 HELP_DATA["hoeren1_exam33_q4"] = {
     text: "Das Internationale Olympische Komitee trifft",
-    meaning: "اللجنة الأولمبية الدولية تجتمع في لوزان للتشاور حول مكان استضافة الألعاب الأولمبية 2012",
+    meaning: "اللجنة الأولمبية تجتمع بلوزان للتشاور حول مكان أولمبياد 2012",
     keywords: ["Olympische Komitee = لجنة أولمبية", "Lausanne = لوزان", "Austragungsort = مكان استضافة"],
-    simplified: "اللجنة الأولمبية كاتتشاور باش تختار المدينة اللي غادي تستضيف الأولمبياد",
-    imagine: "🚀 الحلقات الأولمبية كاتتشاور فهاد البلاصة واللا فهاد 🏅🤷"
+    simplified: "اللجنة الأولمبية تجتمع بلوزان لاختيار مكان أولمبياد 2012",
+    imagine: "خريطة العالم وعلم أولمبي عليها"
 };
 
 // ========== Exam 34: internationalen Konferenz (صحيح: 1,3) ==========
 HELP_DATA["hoeren1_exam34_q1"] = {
     text: "Auf einer internationalen Konferenz in",
-    meaning: "في مؤتمر دولي في بون، تقرر استخدام الطاقات الصديقة للبيئة بشكل متزايد في جميع أنحاء العالم",
+    meaning: "مؤتمر دولي ببون قرر استخدام الطاقة النظيفة بالعالم",
     keywords: ["Konferenz = مؤتمر", "Bonn = بون", "umweltfreundliche Energien = طاقات صديقة للبيئة"],
-    simplified: "فمؤتمر فبون قررو يستعملو الطاقة النظيفة فالعالم",
-    imagine: "🚀 لوح شمسي كايتكلم فالميكروفون ويصوت 'أنا الحل' ☀️🗣️"
+    simplified: "مؤتمر ببون قرر استخدام الطاقة النظيفة عالميا",
+    imagine: "لمبة خضراء تضيء وكل من حولها"
 };
 
 HELP_DATA["hoeren1_exam34_q3"] = {
     text: "In Ulm beginnt heute der Katholikentag",
-    meaning: "في أولم يبدأ اليوم يوم الكاثوليك، وهو لقاء علماني مسيحي كبير في ألمانيا",
-    keywords: ["Ulm = أولم", "Katholikentag = يوم الكاثوليك", "christliches Laientreffen = لقاء علماني مسيحي"],
-    simplified: "فأولم بدا اليوم يوم الكاثوليك، تجمع مسيحي كبير",
-    imagine: "🚀 صلبان كاترز الفشار وتصوت 'أهلا بيكم فالتجمع الكبير' ⛪😂"
+    meaning: "بأولم يبدأ اليوم يوم الكاثوليك وهو لقاء مسيحي كبير بألمانيا",
+    keywords: ["Ulm = أولم", "Katholikentag = يوم الكاثوليك", "christliches Laientreffen = لقاء مسيحي"],
+    simplified: "بأولم يبدأ اليوم يوم الكاثوليك وهو تجمع مسيحي كبير",
+    imagine: "كنيسة وأجراس تدق بشدة"
 };
 
 // ========== Exam 35: Um Tickets zu gewinnen (صحيح: 3,4) ==========
 HELP_DATA["hoeren1_exam35_q3"] = {
     text: "In Kärnten kann es aufgrund von",
-    meaning: "في كارينثيا، قد تحدث تأخيرات بسبب حركة المرور القوية القادمة من الاتجاه المعاكس",
+    meaning: "بكارينثيا قد تحدث تأخيرات بسبب حركة المرور القوية المعاكسة",
     keywords: ["Kärnten = كارينثيا", "Gegenverkehr = حركة مرور معاكسة", "Verzögerungen = تأخيرات"],
-    simplified: "فكارينثيا، الزحمة كاتسبب فالتأخير",
-    imagine: "🚀 سيارات كاتتصارع فالسيف وكل واحد كايصرخ 'أنا أولاً' 🚗💥"
+    simplified: "بكارينثيا المرور المعاكس القوي قد يسبب تأخيرات",
+    imagine: "سيارة وسيارة في اتجاهين متعاكسين"
 };
 
 HELP_DATA["hoeren1_exam35_q4"] = {
     text: "Aufgrund einer Kaltfront sinkt die",
-    meaning: "بسبب جبهة باردة، ينخفض مستوى تساقط الثلوج على طول الجانب الشمالي من جبال الألب إلى ما يقرب من 2000 متر",
-    keywords: ["Kaltfront = جبهة باردة", "Schneefallgrenze = مستوى تساقط ثلوج", "Alpennordseite = الجانب الشمالي من الألب"],
-    simplified: "بسبب جبهة باردة، الثلوج غادية تنزل حتى 2000 متر فالألب",
-    imagine: "🚀 بطريق كايسبح فالثلج ويصوت 'هاد الجو ديالي' 🐧❄️"
+    meaning: "بسبب جبهة باردة ينخفض مستوى تساقط الثلوج بشمال الألب لأقل من 2000 متر",
+    keywords: ["Kaltfront = جبهة باردة", "Schneefallgrenze = مستوى تساقط ثلوج", "Alpennordseite = شمال الألب"],
+    simplified: "جبهة باردة تخفض الثلوج بشمال الألب لأقل من 2000 متر",
+    imagine: "ثلوج تنزل من جبل عال"
 };
 
 // ========== Exam 36: Die tschechische Stadt Pilsen (صحيح: 1,2) ==========
 HELP_DATA["hoeren1_exam36_q1"] = {
     text: "Die tschechische Stadt Pilsen ist",
-    meaning: "مدينة بيلسن التشيكية هي عاصمة الثقافة الأوروبية لعام 2015",
+    meaning: "مدينة بيلسن التشيكية عاصمة الثقافة الأوروبية 2015",
     keywords: ["Pilsen = بيلسن", "Kulturhauptstadt = عاصمة ثقافة", "2015 = 2015"],
-    simplified: "مدينة بيلسن التشيكية كانت عاصمة الثقافة الأوروبية",
-    imagine: "🚀 جعة كاتلبس تاج وتقرا الكتب على المسرح 🍺👑📚"
+    simplified: "بيلسن التشيكية كانت عاصمة الثقافة الأوروبية 2015",
+    imagine: "كأس بيرة وعلم أوروبا فوقه"
 };
 
 HELP_DATA["hoeren1_exam36_q2"] = {
     text: "In der Nähe von St. Veit",
-    meaning: "بالقرب من سانت فايت أن دير غلان، كان هناك حادث سيارة مع قتيل",
-    keywords: ["Autounfall = حادث سيارة", "Toten = قتيل", "St. Veit an der Glan = سانت فايت أن دير غلان"],
-    simplified: "بالقرب من القديس فايت، كان حادث سيارة مع قتيل",
-    imagine: "🚀 سيارة كاتتصافح مع الشجرة بقوة وتتحول لأكورديون 🚗🌳💥"
+    meaning: "بالقرب من سانت فايت حادث سيارة مع قتيل",
+    keywords: ["Autounfall = حادث سيارة", "Toten = قتيل", "St. Veit an der Glan = سانت فايت"],
+    simplified: "بالقرب من سانت فايت حادث سيارة أودى بحياة شخص",
+    imagine: "سيارة محطمة وغطاء أبيض على الأرض"
 };
 
 // ========== Exam 37: Laut Statistischem Bundesamt (صحيح: 1,4,5) ==========
 HELP_DATA["hoeren1_exam37_q1"] = {
     text: "Laut Statistischem Bundesamt müssen junge",
-    meaning: "وفقاً لمكتب الإحصاء الاتحادي، يجب على الشباب ذوي الخبرات المهنية المفقودة الدخول في علاقات عمل محدودة زمنياً",
-    keywords: ["Statistischem Bundesamt = مكتب إحصاء اتحادي", "zeitlich begrenztes Arbeitsverhältnis = علاقة عمل محدودة زمنياً", "junge Leute = شباب"],
-    simplified: "مكتب الإحصاء كايقول الشباب بلا خبرة كايخدمو عقود مؤقتة",
-    imagine: "🚀 شاب كايوقع عقد بقلم مكحور ومراقب كايضحك ✍️😅"
+    meaning: "مكتب الإحصاء: الشباب قليلي الخبرة يدخلون عقودا مؤقتة",
+    keywords: ["Statistischem Bundesamt = مكتب إحصاء", "zeitlich begrenztes Arbeitsverhältnis = علاقة عمل محدودة", "junge Leute = شباب"],
+    simplified: "مكتب الإحصاء: الشباب بلا خبرة يأخذون عقودا مؤقتة",
+    imagine: "شاب يوقع عقدا ورقيب يضحك"
 };
 
 HELP_DATA["hoeren1_exam37_q4"] = {
     text: "Sowohl Asien als auch Europa",
-    meaning: "كل من آسيا وأوروبا يساهمان في تلوث البحار بالنفايات البلاستيكية",
+    meaning: "آسيا وأوروبا تساهمان في تلويث البحار بالبلاستيك",
     keywords: ["Verschmutzung = تلوث", "Plastikmüll = نفايات بلاستيكية", "Asien = آسيا", "Europa = أوروبا"],
-    simplified: "آسيا وأوروبا كاتسببو فالتلوث ديال البحر بالبلاستيك",
-    imagine: "🚀 سمكة كاتلبس قناع بلاستيكي وتصوت 'شكراً آسيا وأوروبا' 🐟🎭"
+    simplified: "آسيا وأوروبا تتشاركان في تلويث البحر بالبلاستيك",
+    imagine: "قارورة بلاستيكية تطفو بين قارتين"
 };
 
 HELP_DATA["hoeren1_exam37_q5"] = {
     text: "Das neuartige Ampelsystem zur Verbesserung",
-    meaning: "نظام إشارات المرور الجديد لتحسين سلامة المشاة هو حالياً في مرحلة الاختبار",
+    meaning: "نظام إشارات جديد لسلامة المشاة لا يزال بالاختبار",
     keywords: ["Ampelsystem = نظام إشارات", "Fußgängern = مشاة", "Testphase = مرحلة اختبار"],
-    simplified: "نظام جديد ديال الإشارات للمشاة باقي فالتجربة",
-    imagine: "🚦 إشارة كاتلبس نظارة طبية وتجري الفحوصات على راسها 👓😵"
+    simplified: "نظام إشارات جديد للمشاة لا يزال بالاختبار",
+    imagine: "إشارة مرور عليها نظارة طبية"
 };
 
 // ========== Exam 38: In Frankfurt haben Manager (صحيح: 1,2,3) ==========
 HELP_DATA["hoeren1_exam38_q1"] = {
     text: "München wurde wieder zur Stadt",
-    meaning: "تم اختيار ميونيخ مرة أخرى كمدينة ذات أعلى جودة حياة في ألمانيا",
-    keywords: ["München = ميونخ", "Lebensqualität = جودة حياة", "gewählt = تم اختيارها"],
-    simplified: "ميونيخ تختار كأحسن مدينة للحياة فالماتيا",
-    imagine: "🚀 جبل من البافاريا كايضحك ويحط الكاس ف راسو ⛰️🏆"
+    meaning: "ميونيخ اختيرت كأفضل مدينة للحياة بألمانيا مرة أخرى",
+    keywords: ["München = ميونخ", "Lebensqualität = جودة حياة", "gewählt = اختيرت"],
+    simplified: "ميونيخ أفضل مدينة للحياة بألمانيا مجددا",
+    imagine: "تاج على مدينة ميونيخ"
 };
 
 HELP_DATA["hoeren1_exam38_q2"] = {
     text: "In Frankfurt haben Manager darüber",
-    meaning: "في فرانكفورت، ناقش المديرون ما يجب على الشركات فعله لتظل ناجحة في المستقبل",
+    meaning: "بفرانكفورت ناقش المديرون ما يجب فعله لنجاح الشركات مستقبلا",
     keywords: ["Manager = مديرون", "diskutiert = ناقشوا", "erfolgreich = ناجحة"],
-    simplified: "المديرين ففرانكفورت كايخططو لمستقبل الشركات",
-    imagine: "🚀 رجال البدلات كايتكلمو مع حمامة على راسهم 👔🕊️"
+    simplified: "مديرو فرانكفورت ناقشوا مستقبل الشركات",
+    imagine: "بدلات تتكلم مع بعضها على طاولة"
 };
 
 HELP_DATA["hoeren1_exam38_q3"] = {
     text: "Nach Worten des Ministers fördert",
-    meaning: "حسب قول الوزير، العمل المتنقل يعزز النمو الاقتصادي والإنتاجية",
-    keywords: ["mobiles Arbeiten = عمل متنقل", "Wirtschaftswachstum = نمو اقتصادي", "Produktivität = إنتاجية"],
-    simplified: "الوزير كايقول العمل من الدار كايعطي النمو والإنتاجية",
-    imagine: "🚀 موضف نايم على كنبة دهبية ويصوت 'أنا منتج' 🛋️💼"
+    meaning: "الوزير يقول العمل عن بعد يعزز النمو والإنتاجية",
+    keywords: ["mobiles Arbeiten = عمل عن بعد", "Wirtschaftswachstum = نمو اقتصادي", "Produktivität = إنتاجية"],
+    simplified: "الوزير: العمل من المنزل يزيد النمو والإنتاجية",
+    imagine: "موظف نائم وراتبه يزيد"
 };
 
 // ========== Exam 39: Für die Polizei in Berlin (صحيح: 1,2,4,5) ==========
@@ -786,78 +783,74 @@ HELP_DATA["hoeren1_exam39_q1"] = {
     text: "Innenstädte werden immer weniger",
     meaning: "مراكز المدن أصبحت أقل جاذبية",
     keywords: ["Innenstädte = مراكز مدن", "weniger interessant = أقل جاذبية"],
-    simplified: "وسط المدينة فقد الجاذبية",
-    imagine: "🚀 مبنى كايتمطى ويمد رجليه فالسيف 🏙️😴"
+    simplified: "مراكز المدن أقل جاذبية",
+    imagine: "شارع خال تماما من المارة"
 };
 
 HELP_DATA["hoeren1_exam39_q2"] = {
     text: "Für die Polizei in Berlin",
-    meaning: "كانت هناك قضية صعبة لشرطة برلين",
+    meaning: "شرطة برلين واجهت قضية صعبة",
     keywords: ["Polizei = شرطة", "schwierigen Fall = قضية صعبة", "Berlin = برلين"],
-    simplified: "شرطة برلين واجهات قضية معقدة",
-    imagine: "🚀 بوليسي كايطارد خياله فالمرايا ويصوت 'قف يا مجرم' 👮‍♂️😂"
+    simplified: "شرطة برلين أمامها قضية معقدة",
+    imagine: "شرطي يحك رأره أمام ملف سميك"
 };
 
 HELP_DATA["hoeren1_exam39_q4"] = {
     text: "Musiker gaben ein Konzert für",
-    meaning: "موسيقيون قدموا حفلاً لهدف نبيل",
+    meaning: "موسيقيون قدموا حفلا لهدف نبيل",
     keywords: ["Musiker = موسيقيون", "Konzert = حفل", "guten Zweck = هدف نبيل"],
-    simplified: "الموسيقيين داو حفلة خيرية",
-    imagine: "🚀 عازف كمان كاتلبس قبعة مقلوبة كاتجمع النقود 🎻🎩"
+    simplified: "موسيقيون أقاموا حفلا خيريا",
+    imagine: "طبلة وقلب أحمر عليها"
 };
 
 HELP_DATA["hoeren1_exam39_q5"] = {
     text: "Deutsche Wintersportler sind bei",
-    meaning: "رياضيو الشتاء الألمان ناجحون في الألعاب الأولمبية",
+    meaning: "رياضيو الشتاء الألمان ناجحون بالأولمبياد",
     keywords: ["Wintersportler = رياضيو شتاء", "Olympischen Spielen = ألعاب أولمبية", "erfolgreich = ناجحون"],
-    simplified: "الرياضيين الألمان فالشتاء ناجحين فالأولمبياد",
-    imagine: "🚀 متزلق كايحط الجبل فجيبه وكيسال ⛷️🗻"
+    simplified: "رياضيو الشتاء الألمان ينجحون بالأولمبياد",
+    imagine: "ميدالية ذهبية وثلج تحتها"
 };
+
 // ========== Exam 40: Die Sprecherin ist verheiratet (صحيح: 1,3,4) ==========
 HELP_DATA["hoeren1_exam40_q1"] = {
     text: "Die Sprecherin möchte allein leben",
-    meaning: "المتحدثة تريد العيش بمفردها وتفعل ما تشاء",
-    keywords: ["Sprecherin = متحدثة", "allein leben = تعيش بمفردها", "machen können = تفعل"],
-    simplified: "المتحدثة كاتحب تعيش وحدها وتعمل اللي كاتبغي",
-    imagine: "🚀 امرأة كاترقد وحدها وتصوت 'أنا حرة' 💃🌧️"
+    meaning: "المتحدثة تريد العيش وحدها وتفعل ما تشاء",
+    keywords: ["Sprecherin = متحدثة", "allein leben = تعيش وحدها", "machen können = تستطيع فعل"],
+    simplified: "المتحدثة تريد العيش وحدها وتفعل ما تريد",
+    imagine: "امرأة ترقص وحدها بغرفة واسعة"
 };
 
 HELP_DATA["hoeren1_exam40_q3"] = {
     text: "Die Sprecherin ist verheiratet und",
     meaning: "المتحدثة متزوجة ولديها طفلان",
     keywords: ["verheiratet = متزوجة", "zwei Kinder = طفلان"],
-    simplified: "المتحدثة متزوجة وعندها جوج دراري",
-    imagine: "🚀 أم كاتجر جوج دراري كالبالونات وهم كايطيرو وراها 👩‍👧‍👦🎈"
+    simplified: "المتحدثة متزوجة وعندها طفلان",
+    imagine: "يدان صغيرتان تخرجان من فستان زفاف"
 };
 
 HELP_DATA["hoeren1_exam40_q4"] = {
     text: "Der Sprecher ist geschieden und",
-    meaning: "المتحدث مطلق ويعيش مع ابنته مع عائلة أخرى",
-    keywords: ["geschieden = مطلق", "Tochter = ابنته", "bei einer anderen Familie = مع عائلة أخرى"],
-    simplified: "المتحدث مطلق وعايش مع بنتو عند عائلة أخرى",
-    imagine: "🚀 أب كايقرا قصة لبنته والكلب كايسمع 📖🐕"
+    meaning: "المتحدث مطلق ويعيش مع ابنته لدى أسرة أخرى",
+    keywords: ["geschieden = مطلق", "Tochter = ابنته", "bei einer anderen Familie = لدى أسرة أخرى"],
+    simplified: "المتحدث مطلق ويعيش مع ابنته لدى أسرة أخرى",
+    imagine: "أب يمسك يد ابنته أمام منزل لا يخصه"
 };
-
-
-// ============================================
-// Hören Teil 1 - Exams 41-45 (فقط الأسئلة الصحيحة)
-// ============================================
 
 // ========== Exam 41: Bei der Sportveranstaltung (صحيح: 2,4) ==========
 HELP_DATA["hoeren1_exam41_q2"] = {
     text: "Aufgrund eines Unfalls kam es",
-    meaning: "بسبب حادث، كان هناك حشد كبير من سيارات الطوارئ",
+    meaning: "حادث تسبب في حشد كبير من سيارات الطوارئ",
     keywords: ["Unfall = حادث", "Großaufgebot = حشد كبير", "Einsatzwägen = سيارات طوارئ"],
-    simplified: "حادث جاب معاه بزاف ديال سيارات الطوارئ",
-    imagine: "🚀 شي واحد كايقلب الطونوبيل وسيارات الإسعاف كاتجري من كل ناحية والناس كاتصوت 'جينا جينا' 🚑🚨😂"
+    simplified: "حادث جلب سيارات طوارئ كثيرة جدا",
+    imagine: "خمس سيارات إسعاف وخمس سيارات بوليس"
 };
 
 HELP_DATA["hoeren1_exam41_q4"] = {
     text: "Bei der Sportveranstaltung 'Stilecht' sind",
-    meaning: "في فعالية 'Stilecht' الرياضية، هناك دراجات بجميع الأنواع",
-    keywords: ["Sportveranstaltung = فعالية رياضية", "Stilecht = Stilecht", "Fahrräder aller Arten = دراجات بجميع الأنواع", "vertreten = موجودة"],
-    simplified: "فرياضة 'Stilecht' كاينة الدراجات بكل الأنواع",
-    imagine: "🚀 دراجات كاتطير فالهوا والناس كاتصوت 'هاد النوع جديد علينا' 🚲🌟"
+    meaning: "بفعالية 'Stilecht' الرياضية توجد دراجات بكل الأنواع",
+    keywords: ["Sportveranstaltung = فعالية رياضية", "Stilecht = Stilecht", "Fahrräder aller Arten = دراجات كل الأنواع", "vertreten = موجودة"],
+    simplified: "بفعالية 'Stilecht' دراجات من كل الأنواع",
+    imagine: "دراجة عادية وأخرى كهربائية وثالثة بثلاث عجلات"
 };
 
 // ========== Exam 42: Das Bundesfamilienministerium (صحيح: 2,4) ==========
@@ -865,67 +858,67 @@ HELP_DATA["hoeren1_exam42_q2"] = {
     text: "Eine weitere Verlängerung der Lebensarbeitszeit",
     meaning: "تمديد آخر لسن العمل لن يسبب مشاكل اجتماعية خطيرة",
     keywords: ["Verlängerung = تمديد", "Lebensarbeitszeit = سن العمل", "sozialen Probleme = مشاكل اجتماعية", "keine ernsthaften = لا خطيرة"],
-    simplified: "زيادة سن التقاعد ما غادي تسبب مشاكل",
-    imagine: "🚀 جد عجوز كايخدم وهو نايم والمدير كايصوت 'هاد الراجل باقي فينّو' 👴💼😴"
+    simplified: "زيادة سن التقاعد مرة أخرى لن تسبب مشاكل",
+    imagine: "جد عجوز يرفع لافتة 'أنا لسه شاب'"
 };
 
 HELP_DATA["hoeren1_exam42_q4"] = {
     text: "Das Bundesfamilienministerium betrachtet den",
-    meaning: "وزارة الأسرة الاتحادية تعتبر توسيع سياسة الأسرة قد اكتمل",
+    meaning: "وزارة الأسرة ترى توسيع سياسة الأسرة قد اكتمل",
     keywords: ["Bundesfamilienministerium = وزارة الأسرة", "Ausbau = توسيع", "Familienpolitik = سياسة الأسرة", "abgeschlossen = مكتمل"],
-    simplified: "وزارة الأسرة كاتقول توسيع سياسة الأسرة سالات",
-    imagine: "🚀 وزيرة كاتحط لافتة 'المهمة كملات' والناس كاتصفق 👩‍💼✅"
+    simplified: "وزارة الأسرة: توسيع سياسة الأسرة انتهى",
+    imagine: "لافتة مكتوب عليها 'مهمة منجزة'"
 };
 
 // ========== Exam 43: Meeresküsten (صحيح: 2,5) ==========
 HELP_DATA["hoeren1_exam43_q2"] = {
     text: "An den deutschen Meeresküsten soll in",
-    meaning: "على سواحل البحر الألمانية، سيتم إنتاج المزيد من طاقة الرياح في المستقبل",
+    meaning: "على سواحل ألمانيا سينتج المزيد من طاقة الرياح مستقبلا",
     keywords: ["Meeresküsten = سواحل بحر", "Windkraft = طاقة رياح", "produziert = إنتاج", "Zukunft = مستقبل"],
-    simplified: "على شواطئ الماتيا غادي يزيدو طاقة الرياح",
-    imagine: "🚀 توربينات كاتدور والرياح كاتصوت 'أنا الطاقة النظيفة' والناس كاتحتفل 🌬️💡"
+    simplified: "سواحل ألمانيا ستنتج طاقة رياح أكثر مستقبلا",
+    imagine: "توربينات رياح تزرع على الشاطئ"
 };
 
 HELP_DATA["hoeren1_exam43_q5"] = {
     text: "Ein aufmerksamer Nachbar verhindert den",
-    meaning: "جار يقظ يمنع عملية السطو المخطط لها على منزل سكني",
-    keywords: ["aufmerksamer Nachbar = جار يقظ", "verhindert = يمنع", "Einbruch = سطو", "Wohnhaus = منزل سكني"],
-    simplified: "جار فطن منعالسرقة ديال دار",
-    imagine: "🚀 جار كايطيح باللص من النافذة ويصوت 'هاد الدار تحت حمايتي' والحتّا يهرب 🏠👊"
+    meaning: "جار يقظ يمنع عملية سطو مخطط لها على منزل",
+    keywords: ["aufmerksamer Nachbar = جار يقظ", "verhindert = يمنع", "Einbruch = سطو", "Wohnhaus = منزل"],
+    simplified: "جار منتبه يمنع سرقة منزل",
+    imagine: "جار يمسك لصا من قميصه"
 };
 
 // ========== Exam 44: Bauern warnen (صحيح: 2,4) ==========
 HELP_DATA["hoeren1_exam44_q2"] = {
     text: "Bauern warnen: Zu viel Umweltschutz",
-    meaning: "المزارعون يحذرون: حماية البيئة المفرطة تهدد وجود العديد من المزارع",
-    keywords: ["Bauern = مزارعون", "warnen = يحذرون", "zu viel Umweltschutz = حماية بيئة مفرطة", "gefährdet = تهدد", "Bauernhöfe = مزارع"],
-    simplified: "المزارعين كايحذرو: الحماية الزائدة للأرض غادي تدمر الضيعات",
-    imagine: "🚀 فلاح كايصوت 'حماية البيئة كاتقتلنا' والبقرة كاتحرث وراه 🐄😤"
+    meaning: "مزارعون يحذرون: حماية البيئة المفرطة تهدد وجود مزارع كثيرة",
+    keywords: ["Bauern = مزارعون", "warnen = يحذرون", "zu viel Umweltschutz = حماية مفرطة", "gefährdet = تهدد", "Bauernhöfe = مزارع"],
+    simplified: "المزارعون: حماية البيئة الزائدة تدمر مزارعنا",
+    imagine: "جرار زراعي متوقف وبجانبه لافتة 'أنقذونا'"
 };
 
 HELP_DATA["hoeren1_exam44_q4"] = {
     text: "Deutliche Unterschiede bei den Gehältern",
-    meaning: "فروق واضحة في الرواتب بين الولايات الألمانية الشرقية والغربية",
+    meaning: "فروق واضحة بالرواتب بين الولايات الألمانية الشرقية والغربية",
     keywords: ["Unterschiede = فروق", "Gehältern = رواتب", "ost- und westdeutschen Bundesländern = ولايات شرقية وغربية"],
-    simplified: "الرواتب فشرق ألمانيا أقل من الغرب",
-    imagine: "🚀 شرق كايصوت 'راتبنا قليل' وغرب كايصوت 'عندنا زيادة' والميزان كايحكم ⚖️💶"
+    simplified: "رواتب شرق ألمانيا أقل من غربها بشكل واضح",
+    imagine: "كفة ميزان منخفضة لجهة وأخرى مرتفعة"
 };
 
 // ========== Exam 45: Nach Ansicht mancher (صحيح: 2,4) ==========
 HELP_DATA["hoeren1_exam45_q2"] = {
     text: "Nach Ansicht mancher Politiker führt",
-    meaning: "حسب رأي بعض السياسيين، تخفيض وقت العمل يؤدي حتماً إلى فقدان الرفاهية",
-    keywords: ["Reduzierung = تخفيض", "Arbeitszeit = وقت العمل", "Verlust an Wohlstand = فقدان رفاهية", "unweigerlich = حتماً"],
-    simplified: "السياسيين كايقولو العمل أقل يعني الفقر كتر",
-    imagine: "🚀 سياسي كايبكي على كنبة دهبية ويصوت 'لا تقلل ساعات العمل' 👨‍💼😭"
+    meaning: "برأي بعض السياسيين تخفيض وقت العمل يؤدي حتما لخسارة الرفاهية",
+    keywords: ["Reduzierung = تخفيض", "Arbeitszeit = وقت العمل", "Verlust an Wohlstand = خسارة رفاهية", "unweigerlich = حتما"],
+    simplified: "السياسيون: تقليل ساعات العمل يعني الفقر",
+    imagine: "ساعة عمل مكسورة وكنبة خاوية"
 };
 
 HELP_DATA["hoeren1_exam45_q4"] = {
     text: "In verschiedenen Berufszweigen sind noch",
-    meaning: "في مختلف فروع المهن، لا تزال أماكن التدريب شاغرة",
+    meaning: "بفروع مهنية مختلفة لا تزال أماكن تدريب شاغرة",
     keywords: ["Berufszweigen = فروع مهنية", "Lehrstellen = أماكن تدريب", "frei = شاغرة", "noch = لا تزال"],
-    simplified: "فمجالات مهنية مختلفة باقي أماكن تدريب خاويين",
-    imagine: "🚀 كراسي خاويين كاتاصرخ 'جاو تدرّبو عندنا' والمتدربين كايهربو 🪑🏃‍♂️"
+    simplified: "بمجالات مهنية مختلفة أماكن تدريب لا تزال خالية",
+    imagine: "كراسي فارغة في فصل تدريب مهني"
 };
 
 // ============================================
