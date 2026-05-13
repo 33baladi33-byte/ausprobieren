@@ -3783,7 +3783,7 @@ HELP_DATA["hoeren3_exam29_q1"] = {
     meaning: "في خدمة معلومات تليكوم يمكنكم الاستعلام عن أسعار الأسهم أيضا",
     keywords: ["Informationsdienst = خدمة معلومات", "Telekom = تليكوم", "Aktienkurse = أسعار أسهم", "informieren = استعلام"],
     simplified: "خدمة تليكوم تعطيك أسعار الأسهم",
-    imagine: "شاشة هاتف وعليها أرقام خضراء وحمراء"،
+    imagine: "شاشة هاتف وعليها أرقام خضراء وحمراء",
     correct: true
 };
 
