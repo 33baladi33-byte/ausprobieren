@@ -1,5 +1,5 @@
 // ============================================
-// rapidGame.js - لعبة التحدي السريع (نسخة متطورة)
+// rapidGame.js - لعبة التحدي السريع
 // يدعم: Lesen Teil 1, Lesen Teil 3, Hören Teil 1
 // ============================================
 
@@ -33,7 +33,6 @@
     let remainingTime = SETTINGS.timePerQuestion;
     let currentOptionsDiv = null;
     let currentStartTime = 0;
-    let currentMultipleCorrectIndices = [];
     
     let questionStats = {};
     
@@ -46,7 +45,7 @@
         return shortened;
     }
     
-    // دالة رسم المؤقت الدائري (بدون أرقام)
+    // دالة رسم المؤقت الدائري
     function createCircularTimer(percent) {
         const radius = 18;
         const circumference = 2 * Math.PI * radius;
@@ -214,13 +213,29 @@
                     allQuestions = allQuestions.filter(q => q.correctTitle !== null && q.correctTitle !== undefined);
                 }
                 
-                originalQuestions = allQuestions.map(q => ({
-                    ...q,
-                    shortFirstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
-                    shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
-                    shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
-                    isMultiple: false
-                }));
+                // تحويل الأسئلة إلى صيغة موحدة
+                originalQuestions = allQuestions.map(q => {
+                    if (q.correctAnswerIndex !== undefined) {
+                        // Hören Teil 1: يحتوي على options و correctAnswerIndex
+                        return {
+                            firstWords: q.firstWords || shortenText(q.fullText, SETTINGS.firstWordsLength),
+                            fullText: q.fullText,
+                            isHören: true,
+                            options: q.options,
+                            correctAnswerIndex: q.correctAnswerIndex
+                        };
+                    } else {
+                        // Lesen Teil 1/3
+                        return {
+                            firstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
+                            fullText: q.fullText,
+                            isHören: false,
+                            shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
+                            shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
+                            correctTitle: q.correctTitle
+                        };
+                    }
+                });
                 
                 questionStats = {};
                 originalQuestions.forEach((_, idx) => {
@@ -315,25 +330,20 @@
                     questionStats[q.originalIndex].timesWrong++;
                     questionStats[q.originalIndex].wasSlow = true;
                     questionStats[q.originalIndex].lastWrongAt = currentIndex;
-                    userAnswers.push({ isCorrect: false, originalIndex: q.originalIndex, selectedIndices: [] });
+                    userAnswers.push({ isCorrect: false, originalIndex: q.originalIndex, selectedIndex: -1 });
                     combo = 0;
                     
                     const btns = document.querySelectorAll('.game-option-btn');
-                    const isMultiple = (q.correctIndices && q.correctIndices.length > 1);
-                    
-                    if (isMultiple) {
-                        btns.forEach(btn => {
-                            const idx = parseInt(btn.getAttribute('data-opt-index'));
-                            if (q.correctIndices.includes(idx)) {
+                    btns.forEach((btn, idx) => {
+                        if (q.isHören) {
+                            if (idx === q.correctAnswerIndex) {
                                 btn.style.background = '#d4edda';
                                 btn.style.borderColor = '#28a745';
                             } else {
                                 btn.style.background = '#fff3e0';
                                 btn.style.borderColor = '#fd7e14';
                             }
-                        });
-                    } else {
-                        btns.forEach(btn => {
+                        } else {
                             if (btn.getAttribute('data-correct') === 'true') {
                                 btn.style.background = '#d4edda';
                                 btn.style.borderColor = '#28a745';
@@ -341,8 +351,8 @@
                                 btn.style.background = '#fff3e0';
                                 btn.style.borderColor = '#fd7e14';
                             }
-                        });
-                    }
+                        }
+                    });
                     
                     transitionTimeout = setTimeout(() => {
                         currentIndex++;
@@ -387,7 +397,6 @@
         
         const q = currentRound[currentIndex];
         remainingTime = SETTINGS.timePerQuestion;
-        currentMultipleCorrectIndices = [];
         
         if (gameOverlay) gameOverlay.remove();
         gameOverlay = document.createElement('div');
@@ -406,29 +415,49 @@
         
         // السؤال
         const questionDiv = document.createElement('div');
-        questionDiv.style.cssText = 'font-size:26px;font-weight:500;padding:30px 50px 25px 50px;margin-top:20px;background:#f5f7fc;border-radius:20px;margin-bottom:30px;color:#1a1a2e;line-height:1.5';
-        questionDiv.textContent = `❝ ${q.shortFirstWords} ❞`;
+        questionDiv.style.cssText = 'font-size:24px;font-weight:500;padding:20px 30px;background:#f5f7fc;border-radius:20px;margin-bottom:25px;color:#1a1a2e;line-height:1.4';
+        
+        if (q.isHören) {
+            questionDiv.textContent = `من هي الإجابة الصحيحة؟`;
+        } else {
+            questionDiv.textContent = `❝ ${q.firstWords} ❞`;
+        }
         container.appendChild(questionDiv);
         
-        // بناء الخيارات
-        const options = [];
+        // الخيارات
+        const optionsDiv = document.createElement('div');
+        optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:30px';
         
-        if (q.correctTitle) {
-            options.push({ text: q.shortCorrectTitle, isCorrect: true, originalText: q.correctTitle });
-        } else if (q.correctIndices) {
-            // حالة الإجابات المتعددة (Hören Teil 1)
-            for (let i = 0; i < q.options.length; i++) {
-                options.push({ 
-                    text: q.options[i], 
-                    isCorrect: q.correctIndices.includes(i),
-                    originalText: q.options[i]
-                });
-            }
+        if (q.isHören) {
+            // Hören Teil 1: عرض الخيارات كاملة
+            q.options.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = 'game-option-btn';
+                optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt}`;
+                optBtn.setAttribute('data-opt-index', idx);
+                optBtn.setAttribute('data-correct', idx === q.correctAnswerIndex);
+                optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
+                optBtn.onmouseenter = () => { 
+                    optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
+                    optBtn.style.transform = 'translateY(-0.5px)';
+                };
+                optBtn.onmouseleave = () => { 
+                    optBtn.style.boxShadow = 'none';
+                    optBtn.style.transform = 'translateY(0)';
+                };
+                optBtn.onclick = () => checkHörenAnswer(idx === q.correctAnswerIndex, idx);
+                optionsDiv.appendChild(optBtn);
+            });
         } else {
-            options.push({ text: "⚠️ هذه الفقرة لا يوجد لها عنوان", isCorrect: true });
-        }
-        
-        if (q.wrongTitles && !q.correctIndices) {
+            // Lesen Teil 1/3: بناء الخيارات من العناوين
+            const options = [];
+            
+            if (q.correctTitle) {
+                options.push({ text: q.shortCorrectTitle, isCorrect: true });
+            } else {
+                options.push({ text: "⚠️ هذه الفقرة لا يوجد لها عنوان", isCorrect: true });
+            }
+            
             const wrongs = [...q.shortWrongTitles];
             if (wrongs.length > 0) {
                 for (let i = wrongs.length - 1; i > 0; i--) {
@@ -441,77 +470,33 @@
                 options.push({ text: "عنوان تجريبي", isCorrect: false });
                 options.push({ text: "عنوان آخر", isCorrect: false });
             }
-        }
-        
-        // خلط الخيارات
-        for (let i = options.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [options[i], options[j]] = [options[j], options[i]];
-        }
-        
-        // الخيارات
-        const optionsDiv = document.createElement('div');
-        optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:30px';
-        
-        const isMultiple = (q.correctIndices && q.correctIndices.length > 1);
-        
-        options.forEach((opt, idx) => {
-            const optBtn = document.createElement('button');
-            optBtn.className = 'game-option-btn';
-            optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
             
-            if (isMultiple) {
-                optBtn.setAttribute('data-opt-index', idx);
-                optBtn.setAttribute('data-correct', opt.isCorrect);
-                optBtn.setAttribute('data-selected', 'false');
-            } else {
-                optBtn.setAttribute('data-correct', opt.isCorrect);
+            // خلط الخيارات
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
             }
             
-            optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
-            optBtn.onmouseenter = () => { 
-                optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
-                optBtn.style.transform = 'translateY(-0.5px)';
-            };
-            optBtn.onmouseleave = () => { 
-                optBtn.style.boxShadow = 'none';
-                optBtn.style.transform = 'translateY(0)';
-            };
-            
-            if (isMultiple) {
-                optBtn.onclick = () => {
-                    const isSelected = optBtn.getAttribute('data-selected') === 'true';
-                    if (isSelected) {
-                        optBtn.setAttribute('data-selected', 'false');
-                        optBtn.style.background = '#ffffff';
-                        optBtn.style.borderColor = '#e0e0e0';
-                        currentMultipleCorrectIndices = currentMultipleCorrectIndices.filter(i => i !== idx);
-                    } else {
-                        optBtn.setAttribute('data-selected', 'true');
-                        optBtn.style.background = '#e0f2fe';
-                        optBtn.style.borderColor = '#4a90e2';
-                        currentMultipleCorrectIndices.push(idx);
-                        currentMultipleCorrectIndices.sort((a, b) => a - b);
-                    }
+            options.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = 'game-option-btn';
+                optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
+                optBtn.setAttribute('data-correct', opt.isCorrect);
+                optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
+                optBtn.onmouseenter = () => { 
+                    optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
+                    optBtn.style.transform = 'translateY(-0.5px)';
                 };
-            } else {
-                optBtn.onclick = () => checkSingleAnswer(opt.isCorrect, opt.text);
-            }
-            optionsDiv.appendChild(optBtn);
-        });
+                optBtn.onmouseleave = () => { 
+                    optBtn.style.boxShadow = 'none';
+                    optBtn.style.transform = 'translateY(0)';
+                };
+                optBtn.onclick = () => checkLesenAnswer(opt.isCorrect, opt.text);
+                optionsDiv.appendChild(optBtn);
+            });
+        }
         
         container.appendChild(optionsDiv);
-        
-        // زر تأكيد للإجابات المتعددة فقط
-        if (isMultiple) {
-            const submitBtn = document.createElement('button');
-            submitBtn.textContent = '✓ تأكيد الإجابة';
-            submitBtn.style.cssText = 'margin-top:15px;padding:12px 20px;background:#2c3e66;color:white;border:none;border-radius:60px;font-size:14px;cursor:pointer;transition:all 0.15s';
-            submitBtn.onmouseenter = () => { submitBtn.style.background = '#1a2a4a'; };
-            submitBtn.onmouseleave = () => { submitBtn.style.background = '#2c3e66'; };
-            submitBtn.onclick = () => checkMultipleAnswer(q);
-            optionsDiv.appendChild(submitBtn);
-        }
         
         // كومبو
         if (combo >= 3) {
@@ -568,7 +553,53 @@
         startTimer();
     }
     
-    function checkSingleAnswer(isCorrect, selectedTitle) {
+    function checkHörenAnswer(isCorrect, selectedIndex) {
+        if (!gameActive || gamePaused) return;
+        gameActive = false;
+        if (timerInterval) clearInterval(timerInterval);
+        
+        const q = currentRound[currentIndex];
+        const elapsed = (Date.now() - currentStartTime) / 1000;
+        const isFast = elapsed < 1.5;
+        
+        if (isCorrect) {
+            if (!isFast) questionStats[q.originalIndex].wasSlow = true;
+            combo++;
+            if (combo > bestCombo) bestCombo = combo;
+        } else {
+            questionStats[q.originalIndex].timesWrong++;
+            questionStats[q.originalIndex].wasSlow = true;
+            questionStats[q.originalIndex].lastWrongAt = currentIndex;
+            combo = 0;
+        }
+        
+        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
+        btns.forEach((btn, idx) => {
+            if (idx === q.correctAnswerIndex) {
+                btn.style.background = '#d4edda';
+                btn.style.borderColor = '#28a745';
+                btn.style.color = '#155724';
+            } else if (idx === selectedIndex && !isCorrect) {
+                btn.style.background = '#fff3e0';
+                btn.style.borderColor = '#fd7e14';
+                btn.style.color = '#e67e22';
+            }
+        });
+        
+        userAnswers.push({ 
+            isCorrect: isCorrect, 
+            originalIndex: q.originalIndex,
+            selectedIndex: selectedIndex
+        });
+        
+        if (transitionTimeout) clearTimeout(transitionTimeout);
+        transitionTimeout = setTimeout(() => {
+            currentIndex++;
+            showQuestion();
+        }, SETTINGS.transitionDelay);
+    }
+    
+    function checkLesenAnswer(isCorrect, selectedTitle) {
         if (!gameActive || gamePaused) return;
         gameActive = false;
         if (timerInterval) clearInterval(timerInterval);
@@ -604,60 +635,7 @@
         userAnswers.push({ 
             isCorrect: isCorrect, 
             originalIndex: q.originalIndex,
-            selectedIndices: [isCorrect ? 0 : -1]
-        });
-        
-        if (transitionTimeout) clearTimeout(transitionTimeout);
-        transitionTimeout = setTimeout(() => {
-            currentIndex++;
-            showQuestion();
-        }, SETTINGS.transitionDelay);
-    }
-    
-    function checkMultipleAnswer(q) {
-        if (!gameActive) return;
-        gameActive = false;
-        
-        const elapsed = (Date.now() - currentStartTime) / 1000;
-        const isFast = elapsed < 1.5;
-        
-        currentMultipleCorrectIndices.sort((a, b) => a - b);
-        const correctIndices = q.correctIndices.sort((a, b) => a - b);
-        
-        const isCorrect = currentMultipleCorrectIndices.length === correctIndices.length && 
-                          currentMultipleCorrectIndices.every((val, idx) => val === correctIndices[idx]);
-        
-        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
-        btns.forEach((btn, idx) => {
-            const isCorrectOpt = correctIndices.includes(idx);
-            const isSelected = currentMultipleCorrectIndices.includes(idx);
-            
-            if (isCorrectOpt) {
-                btn.style.background = '#d4edda';
-                btn.style.borderColor = '#28a745';
-                btn.style.color = '#155724';
-            } else if (isSelected && !isCorrectOpt) {
-                btn.style.background = '#fff3e0';
-                btn.style.borderColor = '#fd7e14';
-                btn.style.color = '#e67e22';
-            }
-        });
-        
-        if (isCorrect) {
-            if (!isFast) questionStats[q.originalIndex].wasSlow = true;
-            combo++;
-            if (combo > bestCombo) bestCombo = combo;
-        } else {
-            questionStats[q.originalIndex].timesWrong++;
-            questionStats[q.originalIndex].wasSlow = true;
-            questionStats[q.originalIndex].lastWrongAt = currentIndex;
-            combo = 0;
-        }
-        
-        userAnswers.push({ 
-            isCorrect: isCorrect, 
-            originalIndex: q.originalIndex,
-            selectedIndices: currentMultipleCorrectIndices
+            selectedIndex: -1
         });
         
         if (transitionTimeout) clearTimeout(transitionTimeout);
@@ -680,7 +658,7 @@
             const userAttempts = userAnswers.filter(a => a.originalIndex === idx);
             const correctAttempts = userAttempts.filter(a => a.isCorrect).length;
             questionResults[idx] = {
-                title: q.shortFirstWords || "فقرة",
+                title: q.firstWords || "فقرة",
                 attempts: userAttempts.length,
                 correct: correctAttempts,
                 wrong: userAttempts.length - correctAttempts
