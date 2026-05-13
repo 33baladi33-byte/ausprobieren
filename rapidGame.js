@@ -356,6 +356,14 @@
                                 btn.style.background = '#fff3e0';
                                 btn.style.borderColor = '#fd7e14';
                             }
+                        } else if (q.type === "sprach") {
+                            if (btn.getAttribute('data-correct') === 'true') {
+                                btn.style.background = '#d4edda';
+                                btn.style.borderColor = '#28a745';
+                            } else {
+                                btn.style.background = '#fff3e0';
+                                btn.style.borderColor = '#fd7e14';
+                            }
                         } else {
                             if (btn.getAttribute('data-correct') === 'true') {
                                 btn.style.background = '#d4edda';
@@ -608,14 +616,23 @@
         
         const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
         btns.forEach(btn => {
+            // الخيار الصحيح (يظهر دائماً بالأخضر)
             if (btn.getAttribute('data-correct') === 'true') {
                 btn.style.background = '#d4edda';
                 btn.style.borderColor = '#28a745';
                 btn.style.color = '#155724';
-            } else if (!isCorrect && btn.getAttribute('data-value') === selectedValue) {
+            } 
+            // الخيار الذي اختاره المستخدم وكان خاطئاً (يظهر بالبرتقالي)
+            else if (!isCorrect && btn.getAttribute('data-value') === selectedValue) {
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
+            }
+            // إعادة تعيين الخيارات الأخرى غير المختارة
+            else {
+                btn.style.background = '#f8f9fa';
+                btn.style.borderColor = '#e0e0e0';
+                btn.style.color = '#333';
             }
         });
         
@@ -658,6 +675,10 @@
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
+            } else {
+                btn.style.background = '#f8f9fa';
+                btn.style.borderColor = '#e0e0e0';
+                btn.style.color = '#333';
             }
         });
         
@@ -700,6 +721,10 @@
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
+            } else {
+                btn.style.background = '#f8f9fa';
+                btn.style.borderColor = '#e0e0e0';
+                btn.style.color = '#333';
             }
         });
         
@@ -726,12 +751,12 @@
             const correctAttempts = userAttempts.filter(a => a.isCorrect).length;
             let title = "";
             if (q.type === "sprach") {
-                title = q.before + " ... " + q.after;
+                title = (q.before || "").substring(0, 25) + " ... " + (q.after || "").substring(0, 25);
             } else {
                 title = q.firstWords || "فقرة";
             }
             questionResults[idx] = {
-                title: title.substring(0, 40),
+                title: title.substring(0, 45),
                 attempts: userAttempts.length,
                 correct: correctAttempts,
                 wrong: userAttempts.length - correctAttempts
