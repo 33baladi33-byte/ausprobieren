@@ -29,7 +29,6 @@
     let bestCombo = 0;
     let timerInterval = null;
     let transitionTimeout = null;
-    let pauseStartTime = 0;
     let remainingTime = SETTINGS.timePerQuestion;
     let currentOptionsDiv = null;
     let currentStartTime = 0;
@@ -45,7 +44,7 @@
         return shortened;
     }
     
-    // دالة رسم المؤقت الدائري (صغير وهادئ - أعلى اليسار)
+    // دالة رسم المؤقت الدائري (صغير جداً - أعلى اليسار)
     function createCircularTimer(percent) {
         const radius = 25;
         const circumference = 2 * Math.PI * radius;
@@ -90,17 +89,6 @@
         svg.appendChild(percentText);
         
         return { svg, fillCircle, percentText };
-    }
-    
-    function updateCircularTimer(fillCircle, percentText, percent) {
-        const radius = 25;
-        const circumference = 2 * Math.PI * radius;
-        fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
-        percentText.textContent = Math.round(percent) + "%";
-        
-        if (percent <= 30) fillCircle.setAttribute("stroke", "#7c8aa0");
-        if (percent <= 15) fillCircle.setAttribute("stroke", "#9a7b7b");
-        if (percent > 30) fillCircle.setAttribute("stroke", "#4a5b7a");
     }
     
     // توليد جولة ذكية
@@ -283,23 +271,31 @@
     
     function startTimer() {
         if (timerInterval) clearInterval(timerInterval);
+        
+        const timerCircle = document.querySelector('.circular-timer-fill');
+        const timerText = document.querySelector('.circular-timer-text');
+        
+        if (!timerCircle || !timerText) {
+            return;
+        }
+        
+        const radius = 25;
+        const circumference = 2 * Math.PI * radius;
+        
         timerInterval = setInterval(() => {
             if (!gameActive || gamePaused) return;
+            
             const elapsed = (Date.now() - currentStartTime) / 1000;
             remainingTime = Math.max(0, SETTINGS.timePerQuestion - elapsed);
             const percent = (remainingTime / SETTINGS.timePerQuestion) * 100;
             
-            const timerCircle = document.querySelector('.circular-timer-fill');
-            const timerText = document.querySelector('.circular-timer-text');
-            if (timerCircle && timerText) {
-                const radius = 25;
-                const circumference = 2 * Math.PI * radius;
-                timerCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
-                timerText.textContent = Math.round(percent) + "%";
-                if (percent <= 30) timerCircle.setAttribute("stroke", "#7c8aa0");
-                if (percent <= 15) timerCircle.setAttribute("stroke", "#9a7b7b");
-                if (percent > 30) timerCircle.setAttribute("stroke", "#4a5b7a");
-            }
+            const offset = circumference * (1 - percent / 100);
+            timerCircle.setAttribute("stroke-dashoffset", offset);
+            timerText.textContent = Math.round(percent) + "%";
+            
+            if (percent <= 30) timerCircle.setAttribute("stroke", "#7c8aa0");
+            if (percent <= 15) timerCircle.setAttribute("stroke", "#9a7b7b");
+            if (percent > 30) timerCircle.setAttribute("stroke", "#4a5b7a");
             
             if (remainingTime <= 0) {
                 clearInterval(timerInterval);
@@ -474,6 +470,12 @@
         if (timerCircleSvg && timerTextSvg) {
             timerCircleSvg.classList.add('circular-timer-fill');
             timerTextSvg.classList.add('circular-timer-text');
+            
+            // تحديد القيم الأولية للمؤقت
+            const radius = 25;
+            const circumference = 2 * Math.PI * radius;
+            timerCircleSvg.setAttribute("stroke-dasharray", circumference);
+            timerCircleSvg.setAttribute("stroke-dashoffset", circumference);
         }
         
         startTimer();
