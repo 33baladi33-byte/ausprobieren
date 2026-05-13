@@ -1,6 +1,7 @@
 // ============================================
 // rapidGame.js - لعبة التحدي السريع
 // تم التعديل: Hören Teil 1 (Reflex/Fast Recognition Modus)
+// المسار: data/games/hoeren1/exam1.json
 // ============================================
 
 (function() {
@@ -434,21 +435,36 @@
     function loadGameData(skill, examId) {
         currentSkill = skill;
         currentExamId = examId;
-        return fetch(`data/games/${skill}_exam${examId}.json`)
+        
+        // بناء المسار الصحيح: data/games/hoeren1/exam1.json
+        let filePath;
+        if (skill === 'hoeren1') {
+            filePath = `data/games/${skill}/exam${examId}.json`;
+        } else {
+            filePath = `data/games/${skill}_exam${examId}.json`;
+        }
+        
+        console.log(`📂 جاري تحميل: ${filePath}`);
+        
+        return fetch(filePath)
             .then(response => {
-                if (!response.ok) throw new Error('الملف غير موجود');
+                if (!response.ok) {
+                    console.error(`❌ الملف غير موجود: ${filePath}`);
+                    throw new Error('الملف غير موجود');
+                }
                 return response.json();
             })
             .then(data => {
+                console.log(`✅ تم تحميل الملف بنجاح:`, data);
                 currentGameData = data;
                 
                 // ==================== نظام Hören Teil 1 الجديد ====================
                 if (skill === 'hoeren1') {
-                    // حفظ الجمل من ملف الامتحان
-                    hoeren1Sentences = data.sentences || [];
+                    // حفظ الجمل من ملف الامتحان (يدعم sentences أو questions)
+                    hoeren1Sentences = data.sentences || data.questions || [];
+                    console.log(`📝 تم تحميل ${hoeren1Sentences.length} جملة لـ Hören 1`);
                     
                     // إنشاء جولات وهمية بعدد الجولات المطلوب
-                    // النظام سيقوم باختيار جمل عشوائية في كل مرة يتم فيها عرض السؤال
                     const totalRounds = SETTINGS.roundLength;
                     originalQuestions = [];
                     for (let i = 0; i < totalRounds; i++) {
@@ -516,7 +532,10 @@
                 });
                 return true;
             })
-            .catch(() => false);
+            .catch(error => {
+                console.error(`❌ خطأ في تحميل الملف:`, error);
+                return false;
+            });
     }
     
     function startGame(skill, examId) {
@@ -706,12 +725,14 @@
             const correctSentences = hoeren1Sentences.filter(s => s.correct === true);
             const incorrectSentences = hoeren1Sentences.filter(s => s.correct === false);
             
+            console.log(`📊 جمل صحيحة: ${correctSentences.length}, جمل خاطئة: ${incorrectSentences.length}`);
+            
             // اختيار جملة صحيحة عشوائية
             const selectedCorrect = correctSentences.length > 0 
                 ? correctSentences[Math.floor(Math.random() * correctSentences.length)]
                 : null;
             
-            // اختيار جملتين خاطئتين عشوائيتين مختلفتين عن بعضهما وعن الجملة الصحيحة
+            // اختيار جملتين خاطئتين عشوائيتين
             let selectedIncorrects = [];
             if (incorrectSentences.length >= 2) {
                 const shuffledIncorrects = [...incorrectSentences];
@@ -720,11 +741,15 @@
                     [shuffledIncorrects[i], shuffledIncorrects[j]] = [shuffledIncorrects[j], shuffledIncorrects[i]];
                 }
                 selectedIncorrects = shuffledIncorrects.slice(0, 2);
-            } else {
+            } else if (incorrectSentences.length === 1) {
                 selectedIncorrects = [...incorrectSentences];
-                while(selectedIncorrects.length < 2) {
-                    selectedIncorrects.push({ text: "جملة إضافية", correct: false, id: -1 });
-                }
+                // إضافة جملة وهمية إذا لم تكن هناك جملتان خاطئتان
+                selectedIncorrects.push({ text: "جملة إضافية", correct: false, id: -1 });
+            } else {
+                selectedIncorrects = [
+                    { text: "جملة خاطئة 1", correct: false, id: -1 },
+                    { text: "جملة خاطئة 2", correct: false, id: -1 }
+                ];
             }
             
             // تجميع جميع الخيارات (1 صحيحة + 2 خاطئة)
