@@ -924,670 +924,1347 @@ HELP_DATA["hoeren1_exam45_q4"] = {
 // Hören Teil 2
 // ============================================
 
-// ========== Exam 1: Herr Gasser und Frau Janke (صحيح: 3,4,8,9,10) ==========
+// ============================================
+// Hören Teil 2 - Exams 1-10 (فقط الأسئلة الصحيحة)
+// ============================================
+
+// ========== Exam 1: Herr Gasser und Frau Janke (صحيح: 2,3,7,8,9) ==========
 HELP_DATA["hoeren2_exam1_q3"] = {
     text: "Die Bergbauern können kaum vom Verkauf ihrer Produkte leben.",
-    meaning: "مزارعو الجبال بالكاد يستطيعون العيش من بيع منتجاتهم",
-    keywords: ["Bergbauern = مزارعو جبال", "kaum = بالكاد", "Verkauf = بيع", "Produkte = منتجات"],
-    simplified: "مزارعو الجبال يعيشون بصعوبة من منتجاتهم",
-    imagine: "تخيل مزارعاً يبيع خضرواته لكنه لا يكسب ما يكفي 🥬"
+    meaning: "فلاحو الجبال لا يستطيعون العيش تقريبا من بيع منتجاتهم",
+    keywords: ["Bergbauern = فلاحو جبال", "kaum = بالكاد", "Verkauf = بيع", "Produkte = منتجات"],
+    simplified: "فلاحو الجبال بالكاد يعيشون من بيع منتجاتهم",
+    imagine: "فلاح يحمل جبنة ويبكي أمام السوق",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam1_q4"] = {
     text: "Auch heute werden die steilen Hänge noch manuell bearbeitet.",
-    meaning: "حتى اليوم يتم التعامل مع المنحدرات الحادة يدوياً",
-    keywords: ["steilen Hänge = منحدرات حادة", "manuell = يدوياً", "bearbeitet = يتم التعامل"],
-    simplified: "المنحدرات الحادة لا تزال تعالج باليد",
-    imagine: "تخيل مزارعاً يعمل بيديه على منحدر شديد الانحدار ⛰️"
+    meaning: "حتى اليوم لا تزال المنحدرات الحادة تزرع يدويا",
+    keywords: ["steilen Hänge = منحدرات حادة", "manuell = يدويا", "bearbeitet = تزرع", "heute = اليوم"],
+    simplified: "المنحدرات الحادة لا تزال تزرع باليد",
+    imagine: "فلاح يصعد منحدرا حادا ومعوله بيده",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam1_q8"] = {
     text: "Für Frau Janke ist der Erholungswert trotz der Anstrengung sehr hoch.",
-    meaning: "بالنسبة للسيدة يانكي، قيمة الاسترخاء عالية جداً رغم التعب",
-    keywords: ["Erholungswert = قيمة الاسترخاء", "Anstrengung = تعب", "trotz = رغم"],
-    simplified: "الاسترخاء يستحق التعب بالنسبة لها",
-    imagine: "تخيل شخصاً متعباً لكنه سعيد بما يفعله 😊"
+    meaning: "قيمة الاسترخاء عالية جدا للسيدة يانكه رغم التعب",
+    keywords: ["Erholungswert = قيمة استرخاء", "Anstrengung = تعب", "sehr hoch = عالية جدا", "trotz = رغم"],
+    simplified: "الاسترخاء كبير للسيدة يانكه رغم التعب",
+    imagine: "امرأة متعبة لكنها تبتسم على الجبل",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam1_q9"] = {
     text: "Almhelferinnen und -helfer können vielseitige Aufgaben übernehmen.",
-    meaning: "مساعدو المرتفعات يمكنهم القيام بمهام متنوعة",
-    keywords: ["Almhelfer = مساعد مرتفعات", "vielseitige = متنوعة", "Aufgaben = مهام"],
-    simplified: "المساعدون يقومون بمهام كثيرة ومختلفة",
-    imagine: "تخيل شخصاً يقوم بأعمال عديدة في الجبل 🧗"
+    meaning: "مساعدو المراعي الجبلية يمكنهم القيام بمهام متعددة",
+    keywords: ["Almhelferinnen = مساعدات مراعي", "vielseitige = متعددة", "Aufgaben = مهام", "übernehmen = القيام"],
+    simplified: "مساعدو المراعي يقومون بمهام كثيرة ومتنوعة",
+    imagine: "رجل يحلب بقرة ويصلح سياجا معا",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam1_q10"] = {
     text: "Über die Dauer des Aufenthalts kann man frei entscheiden.",
     meaning: "يمكن للمرء أن يقرر بحرية مدة الإقامة",
-    keywords: ["Dauer = مدة", "Aufenthalts = إقامة", "frei entscheiden = يقرر بحرية"],
-    simplified: "مدة الإقامة يحددها الشخص بنفسه",
-    imagine: "تخيل شخصاً يختار كم يوماً سيبقى 📅"
+    keywords: ["Dauer = مدة", "Aufenthalts = إقامة", "frei = بحرية", "entscheiden = يقرر"],
+    simplified: "تستطيع أن تختار مدة إقامتك بنفسك",
+    imagine: "رجل يقلب تقويما ويختار تواريخ إقامته",
+    correct: true
 };
 
-// ========== Exam 2: Suza Hotop (صحيح: 1,3,4,8) ==========
+// ========== Exam 2: Suza Hotop (صحيح: 0,2,3,7) ==========
 HELP_DATA["hoeren2_exam2_q1"] = {
     text: "Für die Autorin Suza Hotop ist Schreiben Freude und Anstrengung zugleich.",
-    meaning: "بالنسبة للكاتبة سوزا هوتوب، الكتابة هي متعة وجهد في نفس الوقت",
-    keywords: ["Autorin = كاتبة", "Schreiben = كتابة", "Freude = متعة", "Anstrengung = جهد"],
-    simplified: "الكتابة عندها ممتعة ولكنها متعبة أيضاً",
-    imagine: "تخيل كاتبة تبتسم وهي متعبة من الكتابة ✍️"
+    meaning: "الكتابة بالنسبة للكاتبة سوزا هوتوب هي متعة وجهد معا",
+    keywords: ["Autorin = كاتبة", "Schreiben = كتابة", "Freude = متعة", "Anstrengung = جهد", "zugleich = معا"],
+    simplified: "الكتابة عند سوزا متعة وتعب في نفس الوقت",
+    imagine: "امرأة تبتسم وتعرق أمام الورقة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam2_q3"] = {
     text: "Am Anfang dachte Suza nicht daran, ihre Geschichte zu veröffentlichen.",
     meaning: "في البداية لم تفكر سوزا في نشر قصتها",
-    keywords: ["Am Anfang = في البداية", "veröffentlichen = نشر"],
-    simplified: "لم تكن تنوي النشر عندما بدأت",
-    imagine: "تخيل كاتبة تكتب لنفسها فقط 📝"
-};
-HELP_DATA["hoeren2_exam2_q4"] = {
-    text: "Zuerst stellte Suza Auszüge ihrer Geschichte ins Internet.",
-    meaning: "في البداية وضعت سوزا مقتطفات من قصتها على الإنترنت",
-    keywords: ["Zuerst = في البداية", "Auszüge = مقتطفات", "Internet = إنترنت"],
-    simplified: "نشرت أجزاء من قصتها على الإنترنت أولاً",
-    imagine: "تخيل كاتبة تنشر كتابها على الإنترنت 💻"
-};
-HELP_DATA["hoeren2_exam2_q8"] = {
-    text: "Suza folgt beim Schreiben keinen besonderen Vorbildern.",
-    meaning: "سوزا لا تتبع قدوات معينة في كتابتها",
-    keywords: ["folgt = تتبع", "Vorbildern = قدوات", "besonderen = معينة"],
-    simplified: "لها أسلوبها الخاص في الكتابة",
-    imagine: "تخيل كاتبة تكتب بأسلوبها الفريد ✨"
+    keywords: ["Anfang = بداية", "dachte nicht = لم تفكر", "Geschichte = قصة", "veröffentlichen = نشر"],
+    simplified: "سوزا لم تفكر بنشر قصتها بداية",
+    imagine: "امرأة تخفي أوراقها في الدرج",
+    correct: true
 };
 
-// ========== Exam 3: Suza Hotop (Mittel) (صحيح: 1,3,4,7,8) ==========
+HELP_DATA["hoeren2_exam2_q4"] = {
+    text: "Zuerst stellte Suza Auszüge ihrer Geschichte ins Internet.",
+    meaning: "أولا وضعت سوزا مقتطفات من قصتها على الإنترنت",
+    keywords: ["Zuerst = أولا", "Auszüge = مقتطفات", "Geschichte = قصة", "Internet = إنترنت"],
+    simplified: "سوزا نشرت مقتطفات قصتها على النت",
+    imagine: "امرأة ترفع أوراقها إلى شاشة الكمبيوتر",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam2_q8"] = {
+    text: "Suza folgt beim Schreiben keinen besonderen Vorbildern.",
+    meaning: "سوزا لا تتبع قدوات معينة أثناء الكتابة",
+    keywords: ["Schreiben = كتابة", "keinen = لا", "besonderen = معينة", "Vorbildern = قدوات"],
+    simplified: "سوزا لا تقلد أحدا عندما تكتب",
+    imagine: "امرأة تكتب وحدها دون النظر لأحد",
+    correct: true
+};
+
+// ========== Exam 3: Suza Hotop (Mittel) (صحيح: 0,2,3,6,7) ==========
 HELP_DATA["hoeren2_exam3_q1"] = {
     text: "Für die Autorin Suza Hotop ist Schreiben Freude und Anstrengung zugleich.",
-    meaning: "بالنسبة للكاتبة سوزا هوتوب، الكتابة هي متعة وجهد في نفس الوقت",
-    keywords: ["Autorin = كاتبة", "Schreiben = كتابة", "Freude = متعة", "Anstrengung = جهد"],
-    simplified: "الكتابة عندها ممتعة ولكنها متعبة أيضاً",
-    imagine: "تخيل كاتبة تبتسم وهي متعبة من الكتابة ✍️"
+    meaning: "الكتابة بالنسبة للكاتبة سوزا هوتوب هي متعة وجهد معا",
+    keywords: ["Autorin = كاتبة", "Schreiben = كتابة", "Freude = متعة", "Anstrengung = جهد", "zugleich = معا"],
+    simplified: "الكتابة عند سوزا فرح وتعب سوية",
+    imagine: "قلم يبكي ويضحك في نفس الوقت",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam3_q3"] = {
     text: "Am Anfang dachte Suza nicht daran, ihre Geschichte zu veröffentlichen.",
     meaning: "في البداية لم تفكر سوزا في نشر قصتها",
-    keywords: ["Am Anfang = في البداية", "veröffentlichen = نشر"],
-    simplified: "لم تكن تنوي النشر عندما بدأت",
-    imagine: "تخيل كاتبة تكتب لنفسها فقط 📝"
+    keywords: ["Anfang = بداية", "dachte nicht = لم تفكر", "Geschichte = قصة", "veröffentlichen = نشر"],
+    simplified: "بداية سوزا ما فكرتش تنشر قصتها",
+    imagine: "كتاب مغلق بقفل عليه",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam3_q4"] = {
     text: "Zuerst stellte Suza Auszüge ihrer Geschichte ins Internet.",
-    meaning: "في البداية وضعت سوزا مقتطفات من قصتها على الإنترنت",
-    keywords: ["Zuerst = في البداية", "Auszüge = مقتطفات", "Internet = إنترنت"],
-    simplified: "نشرت أجزاء من قصتها على الإنترنت أولاً",
-    imagine: "تخيل كاتبة تنشر كتابها على الإنترنت 💻"
+    meaning: "أولا وضعت سوزا مقتطفات من قصتها على الإنترنت",
+    keywords: ["Zuerst = أولا", "Auszüge = مقتطفات", "Geschichte = قصة", "Internet = إنترنت"],
+    simplified: "سوزا حطت أجزاء قصتها على النت",
+    imagine: "يد تضع صفحات فوق شاشة كمبيوتر",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam3_q7"] = {
     text: "Die Autorin plant nie ganz genau, was in der Geschichte passieren wird.",
-    meaning: "الكاتبة لا تخطط أبداً بدقة لما سيحدث في القصة",
-    keywords: ["plant nie = لا تخطط أبداً", "ganz genau = بدقة", "passieren = يحدث"],
-    simplified: "تترك مجالاً للتغيير في قصتها",
-    imagine: "تخيل كاتبة تترك قصتها تأخذ مجراها 🌊"
+    meaning: "الكاتبة لا تخطط أبدا بشكل دقيق لما سيحدث في القصة",
+    keywords: ["plant = تخطط", "nie = أبدا", "ganz genau = بدقة", "Geschichte = قصة"],
+    simplified: "الكاتبة لا تخطط لأحداث قصتها مسبقا",
+    imagine: "قلم يمشي على الورق دون خريطة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam3_q8"] = {
     text: "Suza folgt beim Schreiben keinen besonderen Vorbildern.",
-    meaning: "سوزا لا تتبع قدوات معينة في كتابتها",
-    keywords: ["folgt = تتبع", "Vorbildern = قدوات", "besonderen = معينة"],
-    simplified: "لها أسلوبها الخاص في الكتابة",
-    imagine: "تخيل كاتبة تكتب بأسلوبها الفريد ✨"
+    meaning: "سوزا لا تتبع قدوات معينة أثناء الكتابة",
+    keywords: ["Suza = سوزا", "Schreiben = كتابة", "keinen = لا", "Vorbildern = قدوات"],
+    simplified: "سوزا لا تقلد أحدا في كتاباتها",
+    imagine: "كاتبة تمحو اسم قدوتها من الدفتر",
+    correct: true
 };
 
-// ========== Exam 4: Professor Steiner (صحيح: 2,6,8,9,10) ==========
+// ========== Exam 4: Professor Steiner (صحيح: 1,5,7,8,9) ==========
 HELP_DATA["hoeren2_exam4_q2"] = {
     text: "Steiner vermittelt den Studierenden nicht nur theoretisches Wissen, sondern fordert auch, dass es praktisch angewendet wird.",
-    meaning: "شتاينر لا ينقل للطلاب معرفة نظرية فقط، بل يطلب أيضاً تطبيقها عملياً",
-    keywords: ["vermittelt = ينقل", "theoretisches Wissen = معرفة نظرية", "praktisch angewendet = تطبيق عملي"],
-    simplified: "يهتم بالتطبيق العملي وليس فقط النظري",
-    imagine: "تخيل أستاذاً يطلب من طلابه التطبيق العملي 👨‍🏫"
+    meaning: "شتاينر لا ينقل للطلاب معرفة نظرية فقط بل يطلب تطبيقها عمليا",
+    keywords: ["vermittelt = ينقل", "theoretisches Wissen = معرفة نظرية", "praktisch angewendet = تطبيق عملي", "fordert = يطلب"],
+    simplified: "شتاينر يطلب من طلابه تطبيق العلم وليس حفظه فقط",
+    imagine: "أستاذ يدفع طالبا لتجربة جهاز عمليا",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam4_q6"] = {
     text: "Journalisten sollten Lust haben, etwas zu entdecken.",
-    meaning: "يجب أن يكون لدى الصحفيين الرغبة في اكتشاف شيء ما",
-    keywords: ["Lust haben = لديه رغبة", "entdecken = اكتشاف"],
-    simplified: "الصحفي الجيد يحب الاستكشاف",
-    imagine: "تخيل صحفياً يبحث عن قصة جديدة 🔍"
+    meaning: "يجب أن يكون لدى الصحفيين رغبة في اكتشاف أشياء جديدة",
+    keywords: ["Journalisten = صحفيون", "Lust = رغبة", "entdecken = اكتشاف", "sollten = يجب"],
+    simplified: "الصحفيون يجب أن يحبوا الاكتشاف",
+    imagine: "صحفي يفتح بابا سريا بحماس",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam4_q8"] = {
     text: "Steiner hat während seines Journalistik-Studiums für das ZDF Fußballspiele moderiert.",
-    meaning: "خلال دراسته للصحافة، قدم شتاينر مباريات كرة القدم لصالح ZDF",
-    keywords: ["Journalistik-Studiums = دراسة الصحافة", "moderiert = قدم", "ZDF = قناة ZDF"],
-    simplified: "كان يقدم مباريات كرة القدم أثناء الدراسة",
-    imagine: "تخيل طالباً يقدم مباريات على التلفزيون 📺"
+    meaning: "شتاينر قدم مباريات كرة قدم لقناة ZDF أثناء دراسة الصحافة",
+    keywords: ["Journalistik-Studiums = دراسة صحافة", "ZDF = قناة ZDF", "Fußballspiele = مباريات كرة قدم", "moderiert = قدم"],
+    simplified: "شتاينر قدم مباريات كرة في التلفاز أثناء الدراسة",
+    imagine: "طالب يمسك ميكروفونا أمام شاشة خضراء",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam4_q9"] = {
     text: "Steiner ist es wichtig, als Moderator den Sportlern gegenüber neutral zu bleiben.",
-    meaning: "من المهم بالنسبة لشتاينر أن يبقى محايداً تجاه الرياضيين كمقدم",
-    keywords: ["neutral = محايد", "Sportlern = رياضيين", "wichtig = مهم"],
-    simplified: "الحيادية مهمة في عمله كمقدم",
-    imagine: "تخيل مذيعاً لا ينحاز لأي فريق 🎤"
+    meaning: "من المهم لشتاينر كمقدم أن يبقى محايدا تجاه الرياضيين",
+    keywords: ["Moderator = مقدم", "neutral = محايد", "Sportlern = رياضيين", "wichtig = مهم"],
+    simplified: "شتاينر يحرص على الحيادية مع الرياضيين",
+    imagine: "مقدم وقوف بين لاعبين متعاركين بيدين مفتوحتين",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam4_q10"] = {
     text: "Steiner rät Abiturienten dazu, verschiedene berufliche Möglichkeiten zu testen.",
-    meaning: "ينصح شتاينر طلاب الثانوية العامة بتجربة خيارات مهنية مختلفة",
-    keywords: ["Abiturienten = طلاب ثانوية", "berufliche Möglichkeiten = خيارات مهنية", "testen = تجربة"],
-    simplified: "يجب على الخريجين تجربة مجالات مختلفة قبل الاختيار",
-    imagine: "تخيل شاباً يجرب عدة وظائف قبل أن يختار 💼"
+    meaning: "شتاينر ينصح طلاب الثانوية بتجربة خيارات مهنية مختلفة",
+    keywords: ["Abiturienten = طلاب ثانوية", "rät = ينصح", "berufliche Möglichkeiten = خيارات مهنية", "testen = تجربة"],
+    simplified: "شتاينر ينصح الخريجين بتجربة عدة مهن",
+    imagine: "شاب يجرب قبعة طبيب ثم قبعة مهندس",
+    correct: true
 };
 
-// ========== Exam 5: Professor Steiner (Mittel) (صحيح: 2,9,10) ==========
+// ========== Exam 5: Professor Steiner (Mittel) (صحيح: 1,8,9) ==========
 HELP_DATA["hoeren2_exam5_q2"] = {
     text: "Steiner möchte, dass die Studierenden das Gelernte auch in der Praxis anwenden können.",
-    meaning: "يريد شتاينر أن يتمكن الطلاب من تطبيق ما تعلموه عملياً أيضاً",
-    keywords: ["Studierenden = طلاب", "Praxis = تطبيق عملي", "anwenden = تطبيق"],
-    simplified: "يهتم بتطبيق المعرفة عملياً",
-    imagine: "تخيل أستاذاً يطلب من طلابه التطبيق العملي 👨‍🏫"
+    meaning: "شتاينر يريد أن يتمكن الطلاب من تطبيق ما تعلموه عمليا",
+    keywords: ["Studierenden = طلاب", "Gelernte = ما تعلموه", "Praxis = عمليا", "anwenden = تطبيق"],
+    simplified: "شتاينر يريد طلابه يطبقون العلم عمليا",
+    imagine: "طالب يطبق نظرية على آلة حقيقية",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam5_q9"] = {
     text: "Steiner ist es wichtig, als Moderator den Sportlern gegenüber neutral zu bleiben.",
-    meaning: "من المهم بالنسبة لشتاينر أن يبقى محايداً تجاه الرياضيين كمقدم",
-    keywords: ["neutral = محايد", "Sportlern = رياضيين", "wichtig = مهم"],
-    simplified: "الحيادية مهمة في عمله كمقدم",
-    imagine: "تخيل مذيعاً لا ينحاز لأي فريق 🎤"
+    meaning: "من المهم لشتاينر كمقدم أن يبقى محايدا تجاه الرياضيين",
+    keywords: ["Moderator = مقدم", "neutral = محايد", "Sportlern = رياضيين", "wichtig = مهم"],
+    simplified: "الحيادية مع الرياضيين أساسية عند شتاينر",
+    imagine: "ميكروفون في المنتصف بين لاعبين متنافسين",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam5_q10"] = {
     text: "Steiner rät Abiturienten dazu, verschiedene Tests zu machen.",
-    meaning: "ينصح شتاينر طلاب الثانوية العامة بإجراء اختبارات مختلفة",
-    keywords: ["Abiturienten = طلاب ثانوية", "Tests = اختبارات", "zu machen = إجراء"],
-    simplified: "يجب على الخريجين تجربة اختبارات مختلفة",
-    imagine: "تخيل شاباً يجري اختبارات مهنية مختلفة 📝"
+    meaning: "شتاينر ينصح طلاب الثانوية بإجراء اختبارات متنوعة",
+    keywords: ["Abiturienten = طلاب ثانوية", "rät = ينصح", "verschiedene Tests = اختبارات متنوعة", "machen = إجراء"],
+    simplified: "شتاينر ينصح الخريجين بعمل اختبارات متعددة",
+    imagine: "طالب يحل عدة أوراق اختبار متنوعة",
+    correct: true
 };
 
-// ========== Exam 8: In dem Restaurant (صحيح: 1,3,4,7,8,9) ==========
+// ========== Exam 6: Mallorca (صحيح: 2,3,6) ==========
+HELP_DATA["hoeren2_exam6_q3"] = {
+    text: "Einige Einheimische in Mallorca haben begonnen, sich gegen das Vordringen der deutschen Sprache zu wehren.",
+    meaning: "بعض السكان الأصليين في مايوركا بدؤوا يقاومون زحف اللغة الألمانية",
+    keywords: ["Einheimische = سكان أصليون", "begonnen = بدؤوا", "Vordringen = زحف", "deutschen Sprache = لغة ألمانية"],
+    simplified: "سكان مايوركا يقاومون انتشار الألمانية",
+    imagine: "أحد السكان يضع لافتة ممنوع الألمانية",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam6_q4"] = {
+    text: "In Mallorca wird der Staat wegen der Umweltbelastungen zur Kasse gebeten.",
+    meaning: "في مايوركا يُطلب من الدولة دفع ثمن التلوث البيئي",
+    keywords: ["Mallorca = مايوركا", "Staat = دولة", "Umweltbelastungen = تلوث بيئي", "zur Kasse gebeten = يُطلب دفع"],
+    simplified: "الدولة تدفع ثمن التلوث في مايوركا",
+    imagine: "رسم تلوث يضرب الدولة على رأسها",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam6_q7"] = {
+    text: "Bulgarien hat sich als Urlaubsland sehr positiv entwickelt.",
+    meaning: "بلغاريا تطورت بشكل إيجابي جدا كدولة سياحية",
+    keywords: ["Bulgarien = بلغاريا", "Urlaubsland = دولة سياحية", "positiv entwickelt = تطورت إيجابيا", "sehr = جدا"],
+    simplified: "بلغاريا تحسنت كثيرا كوجهة سياحية",
+    imagine: "علم بلغاريا يعلو فوق راية سياحية",
+    correct: true
+};
+
+// ========== Exam 7: Mallorca (Mittel) (صحيح: 2,3,6) ==========
+HELP_DATA["hoeren2_exam7_q3"] = {
+    text: "Einige Einheimische in Mallorca haben begonnen, sich gegen das Vordringen der deutschen Sprache zu wehren.",
+    meaning: "بعض السكان الأصليين في مايوركا بدؤوا يقاومون زحف اللغة الألمانية",
+    keywords: ["Einheimische = سكان أصليون", "begonnen = بدؤوا", "Vordringen = زحف", "deutschen Sprache = لغة ألمانية"],
+    simplified: "سكان مايوركا يقاومون الألمانية القادمة",
+    imagine: "أحد السكان يشطب على كلمة ألمانية",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam7_q4"] = {
+    text: "Für den Einbruch des Tourismus auf Mallorca sind verschiedene Faktoren verantwortlich.",
+    meaning: "عوامل مختلفة مسؤولة عن انهيار السياحة في مايوركا",
+    keywords: ["Einbruch = انهيار", "Tourismus = سياحة", "Mallorca = مايوركا", "verschiedene Faktoren = عوامل مختلفة"],
+    simplified: "عوامل كثيرة سببت انهيار السياحة بمايوركا",
+    imagine: "أسباب متعددة تضرب حقيبة سفر",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam7_q7"] = {
+    text: "Bulgarien hat sich als Urlaubsland sehr positiv entwickelt.",
+    meaning: "بلغاريا تطورت بشكل إيجابي جدا كدولة سياحية",
+    keywords: ["Bulgarien = بلغاريا", "Urlaubsland = دولة سياحية", "positiv entwickelt = تطورت إيجابيا", "sehr = جدا"],
+    simplified: "بلغاريا تطورت إيجابا بالسياحة",
+    imagine: "شمس تشرق فوق خريطة بلغاريا",
+    correct: true
+};
+
+// ========== Exam 8: In dem Restaurant (صحيح: 0,2,3,6,8) ==========
 HELP_DATA["hoeren2_exam8_q1"] = {
     text: "In dem Restaurant gab es einen Wasserschaden.",
-    meaning: "كان هناك ضرر ناتج عن المياه في المطعم",
-    keywords: ["Restaurant = مطعم", "Wasserschaden = ضرر مائي"],
-    simplified: "تضرر المطعم بسبب المياه",
-    imagine: "تخيل ماء يتسرب في مطعم 💧"
+    meaning: "حدث ضرر مائي في المطعم",
+    keywords: ["Restaurant = مطعم", "Wasserschaden = ضرر مائي", "gab es = حدث"],
+    simplified: "المطعم أصابه ضرر من الماء",
+    imagine: "ماء يتسرب من سقف المطعم",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam8_q3"] = {
     text: "Im Haus der Großeltern lebten auch andere Kinder.",
-    meaning: "في بيت الأجداد عاش أيضاً أطفال آخرون",
-    keywords: ["Haus der Großeltern = بيت الأجداد", "andere Kinder = أطفال آخرون", "lebten = عاشوا"],
-    simplified: "كان هناك أطفال آخرون في بيت الأجداد",
-    imagine: "تخيل بيتاً مليئاً بالأطفال 👧🧒"
+    meaning: "في منزل الأجداد عاش أيضا أطفال آخرون",
+    keywords: ["Haus = منزل", "Großeltern = أجداد", "andere Kinder = أطفال آخرون", "lebten = عاشوا"],
+    simplified: "أطفال آخرون عاشوا مع الأجداد",
+    imagine: "أطفال كثيرون يلعبون في فناء الجد",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam8_q4"] = {
     text: "Der Stress störte den Studiogast während der Ausbildung nicht.",
-    meaning: "الضغط النفسي لم يزعج ضيف الاستوديو أثناء التدريب المهني",
-    keywords: ["Stress = ضغط نفسي", "störte = أزعج", "Ausbildung = تدريب مهني"],
-    simplified: "الضغط لم يزعجه أثناء التدريب",
-    imagine: "تخيل شخصاً هادئاً رغم الضغط 🧘"
+    meaning: "الضغط لم يزعج ضيف الاستوديو أثناء التدريب",
+    keywords: ["Stress = ضغط", "störte = أزعج", "Studiogast = ضيف استوديو", "Ausbildung = تدريب"],
+    simplified: "الضغط لم يضايق المتدرب الضيف",
+    imagine: "شاب يضحك وسط كومة من الكتب",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam8_q7"] = {
     text: "In der Essschule können Kinder kochen lernen.",
-    meaning: "في مدرسة الأكل، يمكن للأطفال تعلم الطبخ",
-    keywords: ["Essschule = مدرسة الأكل", "Kinder = أطفال", "kochen lernen = تعلم الطبخ"],
-    simplified: "الأطفال يتعلمون الطبخ هناك",
-    imagine: "تخيل أطفالاً يطبخون 👩‍🍳"
-};
-HELP_DATA["hoeren2_exam8_q8"] = {
-    text: "Anton Laurito lehnt Fastfood nicht grundsätzlich ab.",
-    meaning: "أنطون لوريتو لا يرفض الوجبات السريعة بشكل مبدئي",
-    keywords: ["lehnt ab = يرفض", "Fastfood = وجبات سريعة", "grundsätzlich = بشكل مبدئي"],
-    simplified: "ليس ضد الوجبات السريعة تماماً",
-    imagine: "تخيل برجر وسلطة معاً 🍔"
-};
-HELP_DATA["hoeren2_exam8_q9"] = {
-    text: "Der Koch hat eine gesunde Einstellung zum Thema Wettbewerb.",
-    meaning: "الطاهي لديه موقف صحي تجاه موضوع المنافسة",
-    keywords: ["gesunde Einstellung = موقف صحي", "Wettbewerb = منافسة"],
-    simplified: "نظرته للمنافسة إيجابية وصحية",
-    imagine: "تخيل طاهياً يبتسم رغم المنافسة 😊"
+    meaning: "في مدرسة الأكل يمكن للأطفال تعلم الطبخ",
+    keywords: ["Essschule = مدرسة أكل", "Kinder = أطفال", "kochen lernen = تعلم طبخ", "können = يمكن"],
+    simplified: "مدرسة تعلم الأطفال فن الطهي",
+    imagine: "طفل يلبس مئزر الطبخ ويقلب القدر",
+    correct: true
 };
 
-// ========== Exam 10: Carina (صحيح: 1,3,4,8,9,10) ==========
+HELP_DATA["hoeren2_exam8_q9"] = {
+    text: "Anton Laurito lehnt Fastfood nicht grundsätzlich ab.",
+    meaning: "أنطون لايريتو لا يرفض الوجبات السريعة من حيث المبدأ",
+    keywords: ["lehnt ab = يرفض", "Fastfood = وجبات سريعة", "nicht grundsätzlich = ليس من حيث المبدأ"],
+    simplified: "أنطون لا يرفض الوجبات السريعة تماما",
+    imagine: "طباخ يراقب برغر بعين فضولية",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam8_q10"] = {
+    text: "Der Koch hat eine gesunde Einstellung zum Thema Wettbewerb.",
+    meaning: "الطباخ لديه نظرة صحية تجاه موضوع المنافسة",
+    keywords: ["Koch = طباخ", "gesunde Einstellung = نظرة صحية", "Wettbewerb = منافسة", "Thema = موضوع"],
+    simplified: "الطباخ ينظر للمنافسة بنظرة إيجابية",
+    imagine: "طباخ يصافح طباخا آخر بمطبخ كبير",
+    correct: true
+};
+
+// ========== Exam 9: Julia (صحيح: 0,2,3,4,7) ==========
+HELP_DATA["hoeren2_exam9_q1"] = {
+    text: "Julia hatte an einem Schüleraustausch kein Interesse.",
+    meaning: "جوليا لم يكن لديها اهتمام بتبادل الطلاب",
+    keywords: ["Julia = جوليا", "Schüleraustausch = تبادل طلاب", "kein Interesse = لا اهتمام", "hatte = كان"],
+    simplified: "جوليا لم تهتم ببرنامج تبادل الطلاب",
+    imagine: "فتاة تشيح بوجهها عن كتيب التبادل",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam9_q3"] = {
+    text: "Frankreich ist als Aufenthaltsland bei Au-pairs nicht sehr gefragt.",
+    meaning: "فرنسا ليست مطلوبة جدا كدولة إقامة للمربيات",
+    keywords: ["Frankreich = فرنسا", "Aufenthaltsland = دولة إقامة", "Au-pairs = مربيات", "nicht sehr gefragt = ليست مطلوبة جدا"],
+    simplified: "فرنسا ليست وجهة مفضلة للمربيات",
+    imagine: "خريطة فرنسا وعليها علامة استفهام",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam9_q4"] = {
+    text: "Julia hatte auch darüber nachgedacht, in die Schweiz zu fahren.",
+    meaning: "جوليا فكرت أيضا في الذهاب إلى سويسرا",
+    keywords: ["Julia = جوليا", "nachgedacht = فكرت", "Schweiz = سويسرا", "zu fahren = للذهاب"],
+    simplified: "جوليا فكرت بالسفر إلى سويسرا أيضا",
+    imagine: "فتاة تتأمل صورة جبال سويسرا",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam9_q5"] = {
+    text: "Julia empfiehlt, mit der Gastfamilie einen Vertrag zu schließen.",
+    meaning: "جوليا توصي بإبرام عقد مع العائلة المضيفة",
+    keywords: ["empfiehlt = توصي", "Gastfamilie = عائلة مضيفة", "Vertrag = عقد", "schließen = إبرام"],
+    simplified: "جوليا تنصح بعقد اتفاق مع العائلة المضيفة",
+    imagine: "فتاة توقع ورقة مع عائلة تبتسم",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam9_q8"] = {
+    text: "Julia verbrachte mit den Kindern auch Zeit in Paris.",
+    meaning: "جوليا قضت مع الأطفال وقتا في باريس أيضا",
+    keywords: ["Julia = جوليا", "Kindern = أطفال", "Zeit = وقتا", "Paris = باريس"],
+    simplified: "جوليا ذهبت مع الأطفال إلى باريس",
+    imagine: "برج إيفل وأطفال يلعبون أمامه",
+    correct: true
+};
+
+// ========== Exam 10: Carina (صحيح: 0,2,3,7,8,9) ==========
 HELP_DATA["hoeren2_exam10_q1"] = {
     text: "Der Berufseinstieg ist in anderen Ländern nicht leicht.",
-    meaning: "بدء الحياة المهنية ليس سهلاً في البلدان الأخرى",
-    keywords: ["Berufseinstieg = بدء مهني", "anderen Ländern = بلدان أخرى", "nicht leicht = ليس سهلاً"],
-    simplified: "بدء العمل صعب في كل مكان",
-    imagine: "تخيل شخصاً يبحث عن وظيفة 🔍"
-};
-HELP_DATA["hoeren2_exam10_q3"] = {
-    text: "Carina hat sich der Agentur mit einem Film präsentiert.",
-    meaning: "قدمت كارينا نفسها للوكالة بفيلم",
-    keywords: ["Agentur = وكالة", "präsentiert = قدمت", "Film = فيلم"],
-    simplified: "استخدمت فيلماً لتقديم نفسها",
-    imagine: "تخيل كارينا تعرض فيلماً 🎬"
-};
-HELP_DATA["hoeren2_exam10_q4"] = {
-    text: "Carina musste für einen Film ihr Gewicht stark verändern.",
-    meaning: "اضطرت كارينا لتغيير وزنها بشكل كبير من أجل فيلم",
-    keywords: ["Gewicht = وزن", "stark verändern = تغيير كبير", "für einen Film = من أجل فيلم"],
-    simplified: "غيرت وزنها كثيراً لدور في فيلم",
-    imagine: "تخيل ممثلة تتبع حمية قاسية 🏋️"
-};
-HELP_DATA["hoeren2_exam10_q8"] = {
-    text: "Carina findet den Wechsel zwischen Schule und Drehterminen nicht leicht.",
-    meaning: "تجد كارينا التنقل بين المدرسة ومواعيد التصوير ليس سهلاً",
-    keywords: ["Wechsel = تنقل", "Schule = مدرسة", "Drehterminen = مواعيد تصوير"],
-    simplified: "الموازنة بين الدراسة والتمثيل صعبة",
-    imagine: "تخيل كارينا تجري بين المدرسة واستوديو التصوير 🏃"
-};
-HELP_DATA["hoeren2_exam10_q9"] = {
-    text: "Bei Dialogen darf man auch selbst etwas erfinden.",
-    meaning: "في الحوارات، يمكن للمرء أيضاً أن يخترع شيئاً بنفسه",
-    keywords: ["Dialogen = حوارات", "erfinden = يخترع", "selbst = بنفسه"],
-    simplified: "يسمح بالارتجال في الحوارات",
-    imagine: "تخيل ممثلاً يرتجل حواراً 🎤"
-};
-HELP_DATA["hoeren2_exam10_q10"] = {
-    text: "Carina empfiehlt, sich andere Schauspieler im Theater und in Filmen anzusehen.",
-    meaning: "تنصح كارينا بمشاهدة ممثلين آخرين في المسرح والأفلام",
-    keywords: ["empfiehlt = تنصح", "Schauspieler = ممثلين", "Theater = مسرح"],
-    simplified: "مشاهدة الممثلين الآخرين مفيدة",
-    imagine: "تخيل كارينا تشاهد فيلماً 📺"
+    meaning: "بداية الحياة المهنية ليست سهلة في بلدان أخرى",
+    keywords: ["Berufseinstieg = بداية مهنية", "anderen Ländern = بلدان أخرى", "nicht leicht = ليست سهلة"],
+    simplified: "بداية العمل صعبة في بلدان كثيرة",
+    imagine: "باب مكتوب عليه ممنوع الدخول",    
+    correct: true
 };
 
-// ========== Exam 12: Frau Schenk (صحيح: 1,4,6,7,8) ==========
+HELP_DATA["hoeren2_exam10_q3"] = {
+    text: "Carina hat sich der Agentur mit einem Film präsentiert.",
+    meaning: "كارينا قدمت نفسها للوكالة بفيلم",
+    keywords: ["Carina = كارينا", "Agentur = وكالة", "Film = فيلم", "präsentiert = قدمت"],
+    simplified: "كارينا عرضت فيلما للوكالة لتقبلها",
+    imagine: "فتاة تمرر شريط فيلم لوكيل أعمال",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam10_q4"] = {
+    text: "Carina musste für einen Film ihr Gewicht stark verändern.",
+    meaning: "كارينا اضطرت لتغيير وزنها بشكل كبير من أجل فيلم",
+    keywords: ["Carina = كارينا", "Film = فيلم", "Gewicht = وزن", "stark verändern = تغيير كبير"],
+    simplified: "كارينا غيرت وزنها كثيرا لدور فيلم",
+    imagine: "فتاة تقف على ميزان تارة نحيفة تارة ممتلئة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam10_q8"] = {
+    text: "Carina findet den Wechsel zwischen Schule und Drehterminen nicht leicht.",
+    meaning: "كارينا لا تجد الانتقال بين المدرسة ومواعيد التصوير سهلا",
+    keywords: ["Carina = كارينا", "Wechsel = انتقال", "Schule = مدرسة", "Drehterminen = مواعيد تصوير"],
+    simplified: "كارينا تواجه صعوبة بالتوفيق بين الدراسة والتمثيل",
+    imagine: "فتاة تجري بين باب مدرسة وكاميرا",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam10_q9"] = {
+    text: "Bei Dialogen darf man auch selbst etwas erfinden.",
+    meaning: "في الحوارات يمكن للمرء أيضا أن يختلق شيئا بنفسه",
+    keywords: ["Dialogen = حوارات", "darf = يمكن", "selbst = بنفسه", "erfinden = يختلق"],
+    simplified: "يسمح للمثل بابتكار حوارات بنفسه",
+    imagine: "ممثل يكتب كلمات على سيناريو فارغ",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam10_q10"] = {
+    text: "Carina empfiehlt, sich andere Schauspieler im Theater und in Filmen anzusehen.",
+    meaning: "كارينا توصي بمشاهدة ممثلين آخرين في المسرح والأفلام",
+    keywords: ["empfiehlt = توصي", "Schauspieler = ممثلين", "Theater = مسرح", "Filmen = أفلام"],
+    simplified: "كارينا تنصح بمشاهدة ممثلين آخرين",
+    imagine: "فتاة تجلس في صالة سينما وتقلد الممثلين",
+    correct: true
+};
+
+// ============================================
+// Hören Teil 2 - Exams 11-30 (فقط الأسئلة الصحيحة)
+// ============================================
+
+// ========== Exam 11: Carina (Mittel) (صحيح: 0,2,3,7,8,9) ==========
+HELP_DATA["hoeren2_exam11_q1"] = {
+    text: "Der Berufseinstieg ist in anderen Ländern nicht leicht.",
+    meaning: "بداية الحياة المهنية ليست سهلة في بلدان أخرى",
+    keywords: ["Berufseinstieg = بداية مهنية", "anderen Ländern = بلدان أخرى", "nicht leicht = ليست سهلة"],
+    simplified: "بداية العمل صعبة في بلدان أخرى",
+    imagine: "باب مكتوب عليه ممنوع الدخول",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam11_q3"] = {
+    text: "Carina hat bei der Agentur mit einem Videofilm Interesse geweckt.",
+    meaning: "كارينا أثارت اهتمام الوكالة بفيديو",
+    keywords: ["Carina = كارينا", "Agentur = وكالة", "Videofilm = فيديو", "Interesse geweckt = أثارت اهتمام"],
+    simplified: "كارينا جذبت انتباه الوكالة بفيديو",
+    imagine: "فتاة ترسل شريط فيديو لوكيل",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam11_q4"] = {
+    text: "Carina hat für einen Film eine Diät gemacht.",
+    meaning: "كارينا اتبعت حمية غذائية من أجل فيلم",
+    keywords: ["Carina = كارينا", "Film = فيلم", "Diät = حمية", "gemacht = اتبعت"],
+    simplified: "كارينا عملت رجيما لدور في فيلم",
+    imagine: "فتاة تزن نفسها على ميزان",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam11_q8"] = {
+    text: "Carina findet den Wechsel zwischen Schule und Drehterminen schwierig.",
+    meaning: "كارينا تجد الانتقال بين المدرسة ومواعيد التصوير صعبا",
+    keywords: ["Carina = كارينا", "Wechsel = انتقال", "Schule = مدرسة", "Drehterminen = مواعيد تصوير", "schwierig = صعب"],
+    simplified: "كارينا تواجه صعوبة بالتوفيق بين الدراسة والتمثيل",
+    imagine: "فتاة تجري بين باب مدرسة وكاميرا",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam11_q9"] = {
+    text: "Bei Dialogen darf man auch selbst etwas erfinden.",
+    meaning: "في الحوارات يمكن للمرء أن يختلق شيئا بنفسه",
+    keywords: ["Dialogen = حوارات", "darf = يمكن", "selbst = بنفسه", "erfinden = يختلق"],
+    simplified: "يسمح للمثل بابتكار حواراته بنفسه",
+    imagine: "ممثل يكتب كلمات على سيناريو فارغ",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam11_q10"] = {
+    text: "Carina empfiehlt, sich andere Schauspieler im Theater und in Filmen anzusehen.",
+    meaning: "كارينا توصي بمشاهدة ممثلين آخرين في المسرح والأفلام",
+    keywords: ["empfiehlt = توصي", "Schauspieler = ممثلين", "Theater = مسرح", "Filmen = أفلام"],
+    simplified: "كارينا تنصح بمشاهدة ممثلين آخرين",
+    imagine: "فتاة تجلس في سينما وتقلد الممثلين",
+    correct: true
+};
+
+// ========== Exam 12: Frau Schenk (صحيح: 0,3,5,6,7) ==========
 HELP_DATA["hoeren2_exam12_q1"] = {
     text: "Frau Schenk hat kurze blondierte Haare.",
-    meaning: "السيدة شينك لديها شعر قصير مصبوغ بالشعر الأشقر",
-    keywords: ["Frau Schenk = سيدة شينك", "kurze = قصير", "blondierte = مصبوغ أشقر"],
-    simplified: "شعرها قصير وأشقر",
-    imagine: "تخيل سيدة بشعر أشقر قصير 💇"
+    meaning: "السيدة شينك لديها شعر قصير مصبوغ باللون الأشقر",
+    keywords: ["Frau Schenk = سيدة شينك", "kurze = قصير", "blondierte = مصبوغ أشقر", "Haare = شعر"],
+    simplified: "شعر السيدة شينك قصير وأشقر",
+    imagine: "امرأة بشعر قصير أشقر تبتسم",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam12_q4"] = {
     text: "Der Interviewte hat keine guten Erinnerungen an seine Aufenthalte in Jugendherbergen.",
-    meaning: "الشخص الذي تمت مقابلته ليس لديه ذكريات جيدة عن إقامته في بيوت الشباب",
-    keywords: ["Interviewte = تمت مقابلته", "gute Erinnerungen = ذكريات جيدة", "Jugendherbergen = بيوت شباب"],
-    simplified: "ذكرياته في بيوت الشباب سيئة",
-    imagine: "تخيل شخصاً يتذكر إقامة سيئة في بيت شباب 🏚️"
+    meaning: "الشخص الذي تجري المقابلة معه ليس لديه ذكريات جيدة عن إقامته في بيوت الشباب",
+    keywords: ["Interviewte = شخص مقابلة", "keine guten Erinnerungen = لا ذكريات جيدة", "Jugendherbergen = بيوت شباب"],
+    simplified: "ذكريات الشخص عن بيوت الشباب سيئة",
+    imagine: "رجل يهز رأسه بحزن أمام سرير خشبي",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam12_q6"] = {
     text: "Nur bei Schulklassen achtet man auf Geschlechtertrennung in den Schlafräumen.",
-    meaning: "فقط مع الفصول الدراسية يتم الاهتمام بفصل الجنسين في غرف النوم",
-    keywords: ["Schulklassen = فصول دراسية", "Geschlechtertrennung = فصل جنسين", "achtet man = يتم الاهتمام"],
-    simplified: "يتم فصل الجنسين فقط للفصول المدرسية",
-    imagine: "تخيل غرفاً منفصلة للبنين والبنات 🚻"
+    meaning: "فقط مع الفصول المدرسية يتم الاهتمام بالفصل بين الجنسين في غرف النوم",
+    keywords: ["Schulklassen = فصول مدرسية", "Geschlechtertrennung = فصل بين جنسين", "Schlafräumen = غرف نوم"],
+    simplified: "فصل الجنسين في غرف النوم فقط للمدارس",
+    imagine: "لافتة بنات وأولاد على باب غرفة نوم",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam12_q7"] = {
     text: "Das Angebot an Speisen wird auf die Wünsche der Gäste zugeschnitten.",
     meaning: "عرض الطعام يتم تصميمه حسب رغبات الضيوف",
-    keywords: ["Angebot = عرض", "Speisen = طعام", "Wünsche der Gäste = رغبات الضيوف", "zugeschnitten = مصمم"],
-    simplified: "الطعام يلبي رغبات الضيوف",
-    imagine: "تخيل طعاماً يختاره الضيوف بأنفسهم 🍽️"
-};
-HELP_DATA["hoeren2_exam12_q8"] = {
-    text: "Schüler aus ländlichen Regionen sind meist unproblematische Gäste.",
-    meaning: "طلاب من المناطق الريفية هم عادة ضيوف غير مشكلة",
-    keywords: ["ländlichen Regionen = مناطق ريفية", "unproblematische Gäste = ضيوف غير مشكلة", "meist = عادة"],
-    simplified: "طلاب الريف ضيوف جيدون عادة",
-    imagine: "تخيل طلاباً مهذبين في بيت شباب 👨‍🎓"
+    keywords: ["Angebot = عرض", "Speisen = طعام", "Wünsche = رغبات", "Gäste = ضيوف", "zugeschnitten = مصمم"],
+    simplified: "الطعام يعد حسب رغبات الضيوف",
+    imagine: "طباخ يسأل الضيوف ماذا يريدون أن يأكلوا",
+    correct: true
 };
 
-// ========== Exam 14: Herr Karimov (صحيح: 2,5,8,9,10) ==========
+HELP_DATA["hoeren2_exam12_q8"] = {
+    text: "Schüler aus ländlichen Regionen sind meist unproblematische Gäste.",
+    meaning: "طلاب المناطق الريفية هم عادة ضيوف لا يسببون مشاكل",
+    keywords: ["ländlichen Regionen = مناطق ريفية", "unproblematische = لا يسبب مشاكل", "Gäste = ضيوف"],
+    simplified: "طلاب الريف ضيوف هادئون عادة",
+    imagine: "طلاب يجلسون بهدوء في غرفة الشباب",
+    correct: true
+};
+
+// ========== Exam 13: Frau Schenk (Mittel) (صحيح: 0,3,5,6,7) ==========
+HELP_DATA["hoeren2_exam13_q1"] = {
+    text: "Frau Schenk hat kurze blondierte Haare.",
+    meaning: "السيدة شينك لديها شعر قصير مصبوغ باللون الأشقر",
+    keywords: ["Frau Schenk = سيدة شينك", "kurze = قصير", "blondierte = مصبوغ أشقر", "Haare = شعر"],
+    simplified: "شعر السيدة شينك قصير ومصبوغ",
+    imagine: "امرأة بشعر أشقر قصير تضحك",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam13_q4"] = {
+    text: "Der Interviewte hat keine guten Erinnerungen an seine Aufenthalte in Jugendherbergen.",
+    meaning: "الشخص المقابل ليس لديه ذكريات جيدة عن بيوت الشباب",
+    keywords: ["Interviewte = شخص مقابلة", "keine guten Erinnerungen = لا ذكريات جيدة", "Jugendherbergen = بيوت شباب"],
+    simplified: "ذكريات الرجل عن بيوت الشباب سيئة",
+    imagine: "رجل يتذكر سريراً صغيراً ويتألم",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam13_q6"] = {
+    text: "Mädchen und Jungen müssen in verschiedenen Schlafräumen schlafen.",
+    meaning: "يجب أن ينام البنات والأولاد في غرف نوم منفصلة",
+    keywords: ["Mädchen = بنات", "Jungen = أولاد", "verschiedenen = منفصلة", "Schlafräumen = غرف نوم"],
+    simplified: "البنات والأولاد ينامون في غرف منفصلة",
+    imagine: "باب مكتوب عليه بنات وباب مكتوب عليه أولاد",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam13_q7"] = {
+    text: "In der Jugendherberge wird das Essen den Wünschen der Gästegruppen angepasst.",
+    meaning: "في بيت الشباب يتم تكييف الطعام حسب رغبات مجموعات الضيوف",
+    keywords: ["Jugendherberge = بيت شباب", "Essen = طعام", "Wünschen = رغبات", "Gästegruppen = مجموعات ضيوف"],
+    simplified: "الطعام في بيت الشباب حسب رغبة الضيوف",
+    imagine: "قائمة طعام طويلة يختار منها الضيوف",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam13_q8"] = {
+    text: "Schüler aus ländlichen Regionen verhalten sich in der Regel anständig.",
+    meaning: "طلاب المناطق الريفية يتصرفون بشكل لائق عادة",
+    keywords: ["ländlichen Regionen = مناطق ريفية", "anständig = لائق", "Regel = عادة"],
+    simplified: "طلاب الريف يكونون مهذبين غالبا",
+    imagine: "طلاب يصفقون بهدوء بعد محاضرة",
+    correct: true
+};
+
+// ========== Exam 14: Herr Karimov (صحيح: 1,4,7,8,9) ==========
 HELP_DATA["hoeren2_exam14_q2"] = {
     text: "Die Mitglieder bekommen für ihre Hilfe ein Stunden-Guthaben.",
     meaning: "الأعضاء يحصلون على رصيد ساعات مقابل مساعدتهم",
-    keywords: ["Mitglieder = أعضاء", "Hilfe = مساعدة", "Stunden-Guthaben = رصيد ساعات"],
-    simplified: "المساعدة تعطي رصيداً من الساعات",
-    imagine: "تخيل شخصاً يكسب ساعات مقابل العمل ⏰"
-};
-HELP_DATA["hoeren2_exam14_q5"] = {
-    text: "Manchmal erwarten Mitglieder keine Gegenleistung für ihre Arbeit.",
-    meaning: "أحياناً لا يتوقع الأعضاء مقابل لعملهم",
-    keywords: ["erwarten = يتوقعون", "keine Gegenleistung = لا مقابل", "Arbeit = عمل"],
-    simplified: "بعض المتطوعين لا يريدون أجراً",
-    imagine: "تخيل شخصاً يساعد دون مقابل ❤️"
-};
-HELP_DATA["hoeren2_exam14_q8"] = {
-    text: "Herr Karimov erledigt nicht so gerne Büroarbeit.",
-    meaning: "السيد كريموف لا يحب القيام بالأعمال المكتبية كثيراً",
-    keywords: ["erledigt = يقوم", "Büroarbeit = أعمال مكتبية", "nicht so gerne = ليس كثيراً"],
-    simplified: "لا يفضل الأعمال المكتبية",
-    imagine: "تخيل شخصاً يجلس خلف مكتب غير سعيد 📄"
-};
-HELP_DATA["hoeren2_exam14_q9"] = {
-    text: "Wer sich bei der Nachbarschaftshilfe einbringen möchte, muss sich persönlich vorstellen.",
-    meaning: "من يرغب في المشاركة في مساعدة الجيران، يجب أن يقدم نفسه شخصياً",
-    keywords: ["Nachbarschaftshilfe = مساعدة جيران", "einbringen = مشاركة", "persönlich vorstellen = تقديم شخصي"],
-    simplified: "التقديم الشخصي إلزامي للمشاركة",
-    imagine: "تخيل شخصاً يقدم نفسه لجيرانه 👋"
-};
-HELP_DATA["hoeren2_exam14_q10"] = {
-    text: "Herr Karimov brauchte vorübergehend einen Chauffeur.",
-    meaning: "احتاج السيد كريموف سائقاً مؤقتاً",
-    keywords: ["brauchte = احتاج", "vorübergehend = مؤقتاً", "Chauffeur = سائق"],
-    simplified: "كان بحاجة إلى سائق لفترة مؤقتة",
-    imagine: "تخيل شخصاً يستقل سيارة أجرة 🚗"
+    keywords: ["Mitglieder = أعضاء", "Hilfe = مساعدة", "Stunden-Guthaben = رصيد ساعات", "bekommen = يحصلون"],
+    simplified: "المتطوعون يحصلون على ساعات مقابل المساعدة",
+    imagine: "ساعة تملأ بالدقائق كلما ساعد شخص",
+    correct: true
 };
 
-// ========== Exam 15: Nadine (صحيح: 2,3,5,6,8,10) ==========
+HELP_DATA["hoeren2_exam14_q5"] = {
+    text: "Manchmal erwarten Mitglieder keine Gegenleistung für ihre Arbeit.",
+    meaning: "أحيانا لا يتوقع الأعضاء مقابلًا لعملهم",
+    keywords: ["Manchmal = أحيانا", "erwarten = يتوقعون", "keine Gegenleistung = لا مقابل", "ihre Arbeit = عملهم"],
+    simplified: "بعض المتطوعين لا يطلبون أجراً مقابل مساعدتهم",
+    imagine: "رجل يساعد جاره دون أن يمد يده",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam14_q8"] = {
+    text: "Herr Karimov erledigt nicht so gerne Büroarbeit.",
+    meaning: "السيد كريموف لا يحب القيام بالأعمال المكتبية كثيرا",
+    keywords: ["Herr Karimov = سيد كريموف", "erledigt = يقوم", "nicht so gerne = لا يحب كثيرا", "Büroarbeit = أعمال مكتبية"],
+    simplified: "كريموف لا يحب العمل المكتبي كثيرا",
+    imagine: "رجل ينام على مكتب مليء بالأوراق",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam14_q9"] = {
+    text: "Wer sich bei der Nachbarschaftshilfe einbringen möchte, muss sich persönlich vorstellen.",
+    meaning: "من يريد المشاركة في مساعدة الجيران يجب أن يقدم نفسه شخصيا",
+    keywords: ["Nachbarschaftshilfe = مساعدة جيران", "persönlich vorstellen = يقدم نفسه شخصيا", "einbringen = يشارك"],
+    simplified: "تقديم شخصي مطلوب للمشاركة في مساعدة الجيران",
+    imagine: "رجل يصافح جاره الجديد بحرارة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam14_q10"] = {
+    text: "Herr Karimov brauchte vorübergehend einen Chauffeur.",
+    meaning: "السيد كريموف احتاج سائقا بشكل مؤقت",
+    keywords: ["brauchte = احتاج", "vorübergehend = مؤقتا", "Chauffeur = سائق"],
+    simplified: "كريموف احتاج سائقا لفترة مؤقتة",
+    imagine: "رجل يمسك مفتاح سيارة وينظر للسائق",
+    correct: true
+};
+
+// ========== Exam 15: Nadine (صحيح: 1,2,4,5,7,9) ==========
 HELP_DATA["hoeren2_exam15_q2"] = {
     text: "Sie hatte vor der Weltreise einige Zweifel und Bedenken.",
     meaning: "كان لديها بعض الشكوك والمخاوف قبل رحلة العالم",
-    keywords: ["Zweifel = شكوك", "Bedenken = مخاوف", "vor der Weltreise = قبل الرحلة"],
-    simplified: "كانت قلقة قبل الرحلة",
-    imagine: "تخيل شخصاً يفكر قبل السفر 🤔"
+    keywords: ["vorher = قبل", "Weltreise = رحلة عالم", "Zweifel = شكوك", "Bedenken = مخاوف"],
+    simplified: "كانت لديها شكوك قبل رحلة العالم",
+    imagine: "امرأة تفكر حزينة أمام حقيبة سفر",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam15_q3"] = {
     text: "Die Journalistin ist während ihrer Reise auch geflogen.",
-    meaning: "الصحفية سافرت أيضاً بالطائرة خلال رحلتها",
-    keywords: ["Journalistin = صحفية", "während = خلال", "geflogen = سافرت جواً"],
-    simplified: "استخدمت الطائرة في رحلتها",
-    imagine: "تخيل شخصاً على متن طائرة ✈️"
+    meaning: "الصحفية سافرت بالطائرة أيضا خلال رحلتها",
+    keywords: ["Journalistin = صحفية", "während = خلال", "Reise = رحلة", "geflogen = سافرت بالطائرة"],
+    simplified: "الصحفية ركبت الطائرة في رحلتها",
+    imagine: "امرأة تطل من نافذة طائرة بسعادة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam15_q5"] = {
     text: "Ihre Freunde waren unterschiedlicher Meinung über ihr Vorhaben.",
-    meaning: "أصدقاؤها كانوا有不同的 آراء حول خطتها",
-    keywords: ["unterschiedlicher Meinung = آراء مختلفة", "Vorhaben = خطة", "Freunde = أصدقاء"],
-    simplified: "الأصدقاء اختلفوا في آرائهم",
-    imagine: "تخيل أصدقاء يتناقشون 🗣️"
+    meaning: "أصدقاؤها كانوا مختلفين في الرأي حول خطتها",
+    keywords: ["Freunde = أصدقاء", "unterschiedlicher Meinung = مختلفي الرأي", "Vorhaben = خطة"],
+    simplified: "أصدقاؤها اختلفوا في الرأي على خطتها",
+    imagine: "أصدقاء يتناقشون حول خريطة العالم",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam15_q6"] = {
     text: "In Tadschikistan hat sie eine Zeit lang andere Motorradfahrer begleitet.",
-    meaning: "في طاجيكستان، رافقت راكبي دراجات نارية آخرين لبعض الوقت",
+    meaning: "في طاجيكستان رافقت راكبي دراجات نارية آخرين لفترة",
     keywords: ["Tadschikistan = طاجيكستان", "Motorradfahrer = راكبي دراجات", "begleitet = رافقت"],
     simplified: "رافقت راكبي دراجات في طاجيكستان",
-    imagine: "تخيل دراجات نارية تسير معاً 🏍️"
+    imagine: "امرأة على دراجة بجانب دراجات أخرى في الجبل",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam15_q8"] = {
     text: "Nadine Wagner hat auf der Reise gelegentlich gearbeitet.",
-    meaning: "نادين فاغنر عملت أحياناً خلال الرحلة",
-    keywords: ["gelegentlich = أحياناً", "gearbeitet = عملت", "auf der Reise = في الرحلة"],
-    simplified: "كانت تعمل أحياناً لتغطية نفقاتها",
-    imagine: "تخيل شخصاً يعمل أثناء السفر 💻"
+    meaning: "نادين فاغنر عملت أحيانا خلال الرحلة",
+    keywords: ["Nadine Wagner = نادين فاغنر", "Reise = رحلة", "gelegentlich = أحيانا", "gearbeitet = عملت"],
+    simplified: "نادين عملت أحيانا أثناء رحلتها",
+    imagine: "امرأة تكتب على كمبيوتر محمول على الشاطئ",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam15_q10"] = {
     text: "Nach ihrer Rückkehr musste sie nicht lange nach einer neuen Arbeit suchen.",
-    meaning: "بعد عودتها، لم تضطر للبحث طويلاً عن عمل جديد",
-    keywords: ["Rückkehr = عودة", "neue Arbeit = عمل جديد", "nicht lange suchen = لم تبحث طويلاً"],
-    simplified: "وجدت عملاً بسرعة بعد العودة",
-    imagine: "تخيل شخصاً يجد وظيفة بسرعة 🎯"
+    meaning: "بعد عودتها لم تضطر للبحث طويلا عن عمل جديد",
+    keywords: ["Rückkehr = عودة", "lange suchen = بحث طويل", "neuen Arbeit = عمل جديد"],
+    simplified: "وجدت كارينا عملا بسرعة بعد عودتها",
+    imagine: "امرأة تحصل على عقد عمل عند وصولها",
+    correct: true
 };
 
-// ========== Exam 18: Roland (Spielen) (صحيح: 2,3,4,7,9,10) ==========
+// ========== Exam 16: Markus (صحيح: 1,3,4,7,9) ==========
+HELP_DATA["hoeren2_exam16_q2"] = {
+    text: "Markus wollte in einem besonders erfolgreichen Team mitarbeiten.",
+    meaning: "ماركوس أراد العمل في فريق ناجح بشكل خاص",
+    keywords: ["Markus = ماركوس", "erfolgreichen Team = فريق ناجح", "mitarbeiten = العمل مع"],
+    simplified: "ماركوس أراد العمل مع فريق ناجح جدا",
+    imagine: "شاب يصفق لفريق فائز في الملعب",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam16_q4"] = {
+    text: "Markus befindet sich zwischen Ausbildung und Beruf.",
+    meaning: "ماركوس موجود بين الدراسة والمهنة",
+    keywords: ["Markus = ماركوس", "zwischen = بين", "Ausbildung = دراسة", "Beruf = مهنة"],
+    simplified: "ماركوس بين نهاية الدراسة وبداية العمل",
+    imagine: "شاب واقف على مفترق طرق بين كتاب وآلة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam16_q5"] = {
+    text: "Das Studium in Bonn hat Markus sehr gut auf den Auslandsaufenthalt vorbereitet.",
+    meaning: "الدراسة في بون حضرت ماركوس بشكل جيد للإقامة بالخارج",
+    keywords: ["Studium = دراسة", "Bonn = بون", "Auslandsaufenthalt = إقامة خارجية", "vorbereitet = حضرت"],
+    simplified: "دراسة بون جهزت ماركوس للسفر للخارج",
+    imagine: "شاب يحمل شهادة ويصعد إلى طائرة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam16_q8"] = {
+    text: "Markus ist mit den Arbeitsbedingungen zufrieden.",
+    meaning: "ماركوس راض عن ظروف العمل",
+    keywords: ["Markus = ماركوس", "Arbeitsbedingungen = ظروف عمل", "zufrieden = راض"],
+    simplified: "ماركوس سعيد بظروف العمل",
+    imagine: "شاب يجلس على كرسي مريح ويبتسم",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam16_q10"] = {
+    text: "Für Markus ist es ein Vorteil, dass er in Deutschland Referate und Vorträge halten musste.",
+    meaning: "بالنسبة لماركوس من ميزة أنه كان عليه تقديم عروض ومحاضرات في ألمانيا",
+    keywords: ["Vorteil = ميزة", "Referate = عروض", "Vorträge = محاضرات", "Deutschland = ألمانيا"],
+    simplified: "تقديم العروض في ألمانيا أفاد ماركوس",
+    imagine: "شاب يقف أمام جمهور ويتحدث بثقة",
+    correct: true
+};
+
+// ========== Exam 17: Markus (Mittel) (صحيح: 1,3,4,7,9) ==========
+HELP_DATA["hoeren2_exam17_q2"] = {
+    text: "Markus wollte in einem besonders erfolgreichen Team mitarbeiten.",
+    meaning: "ماركوس أراد العمل في فريق ناجح بشكل خاص",
+    keywords: ["Markus = ماركوس", "erfolgreichen Team = فريق ناجح", "mitarbeiten = العمل مع"],
+    simplified: "ماركوس أراد الانضمام لفريق ناجح جدا",
+    imagine: "شاب يرفع كأس البطولة مع فريقه",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam17_q4"] = {
+    text: "Markus befindet sich zwischen Ausbildung und Beruf.",
+    meaning: "ماركوس موجود بين الدراسة والمهنة",
+    keywords: ["Markus = ماركوس", "zwischen = بين", "Ausbildung = دراسة", "Beruf = مهنة"],
+    simplified: "ماركوس في المرحلة بين الدراسة والعمل",
+    imagine: "شاب يحمل شهادة بيد وآلة باليد الأخرى",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam17_q5"] = {
+    text: "Markus profitiert in Amerika von Erfahrungen, die er während des Studiums gesammelt hat.",
+    meaning: "ماركوس يستفيد في أمريكا من خبرات جمعها أثناء الدراسة",
+    keywords: ["profitiert = يستفيد", "Amerika = أمريكا", "Erfahrungen = خبرات", "Studiums = دراسة"],
+    simplified: "خبرات الدراسة تفيد ماركوس في أمريكا",
+    imagine: "شاب يفتح كتابا قديما ويجد فيه خريطة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam17_q8"] = {
+    text: "Markus ist mit den Arbeitsbedingungen zufrieden.",
+    meaning: "ماركوس راض عن ظروف العمل",
+    keywords: ["Markus = ماركوس", "Arbeitsbedingungen = ظروف عمل", "zufrieden = راض"],
+    simplified: "ماركوس راضي جدا عن ظروف عمله",
+    imagine: "شاب يرفع إبهامه لأعلى في مكتبه",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam17_q10"] = {
+    text: "Für Markus ist es ein Vorteil, dass er in Deutschland Referate und Vorträge halten musste.",
+    meaning: "تقديم العروض في ألمانيا يعتبر ميزة لماركوس",
+    keywords: ["Vorteil = ميزة", "Referate = عروض", "Vorträge = محاضرات", "Deutschland = ألمانيا"],
+    simplified: "العروض الألمانية ساعدت ماركوس كثيرا",
+    imagine: "شاب يتحدث بطلاقة أمام جمهور أمريكي",
+    correct: true
+};
+
+// ========== Exam 18: Roland (Spielen) (صحيح: 1,2,3,6,8,9) ==========
 HELP_DATA["hoeren2_exam18_q2"] = {
     text: "Viktoria Köln möchte nicht nur gegen Mannschaften aus der Verbandsliga spielen.",
-    meaning: "فيكتوريا كولن لا تريد اللعب فقط ضد فرق من دوري المقاطعات",
-    keywords: ["Verbandsliga = دوري المقاطعات", "Mannschaften = فرق", "spielen = اللعب"],
-    simplified: "تريد مواجهة فرق أقوى",
-    imagine: "تخيل مباراة كرة قدم 🏟️"
+    meaning: "فيكتوريا كولن لا تريد اللعب فقط ضد فرق دوري المقاطعات",
+    keywords: ["Viktoria Köln = فيكتوريا كولن", "Mannschaften = فرق", "Verbandsliga = دوري مقاطعات", "spielen = تلعب"],
+    simplified: "فريق فيكتوريا يريد منافسة أقوى من دوري المقاطعات",
+    imagine: "فريق كرة قدم ينظر لجماهير كبيرة في الدرجة الأعلى",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam18_q3"] = {
     text: "Zu Beginn dieser Saison hat ein Spieler Viktoria Köln verlassen.",
-    meaning: "في بداية هذا الموسم، غادر لاعب فيكتوريا كولن",
-    keywords: ["Beginn = بداية", "Saison = موسم", "verlassen = غادر"],
-    simplified: "لاعب واحد غادر الفريق",
-    imagine: "تخيل لاعباً يغادر النادي 🚶"
+    meaning: "في بداية هذا الموسم غادر لاعب فيكتوريا كولن",
+    keywords: ["Beginn = بداية", "Saison = موسم", "Spieler = لاعب", "verlassen = غادر"],
+    simplified: "لاعب واحد رحل عن فيكتوريا هذا الموسم",
+    imagine: "لاعب يحمل حقيبته ويودع فريقه",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam18_q4"] = {
     text: "Neue Spieler kommen bei Viktoria Köln immer aus der eigenen Jugendmannschaft.",
-    meaning: "اللاعبون الجدد في فيكتوريا كولن يأتون دائماً من فريق الشباب الخاص بهم",
-    keywords: ["neue Spieler = لاعبون جدد", "eigenen Jugendmannschaft = فريق شباب خاص", "kommen = يأتون"],
-    simplified: "يتم ضم لاعبين من شباب النادي",
-    imagine: "تخيل لاعباً شاباً ينضم للفريق 🧒"
+    meaning: "اللاعبون الجدد في فيكتوريا كولن يأتون دائما من فريق الشباب الخاص",
+    keywords: ["Neue Spieler = لاعبون جدد", "eigenen Jugendmannschaft = فريق شباب خاص", "kommen = يأتون"],
+    simplified: "فيكتوريا كولن تصعد لاعبين من شبابها فقط",
+    imagine: "شاب ينتقل من فريق الشباب للفريق الأول",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam18_q7"] = {
     text: "Roland Wünschmann kann seinen Beruf und sein Ehrenamt als Fußballtrainer problemlos miteinander vereinbaren.",
-    meaning: "يمكن لرولاند فونشمان التوفيق بين مهنته وعمله التطوعي كمدرب كرة قدم دون مشاكل",
-    keywords: ["Ehrenamt = عمل تطوعي", "vereinbaren = التوفيق", "problemlos = دون مشاكل"],
-    simplified: "الموازنة بين العمل والتطوع سهلة بالنسبة له",
-    imagine: "تخيل شخصاً يدير وقتين ⏰"
+    meaning: "رولاند فونشمان يمكنه التوفيق بين وظيفته وعمله التطوعي كمدرب كرة قدم بسهولة",
+    keywords: ["Beruf = وظيفة", "Ehrenamt = عمل تطوعي", "Fußballtrainer = مدرب كرة قدم", "vereinbaren = يوفق"],
+    simplified: "رولاند يوفق بين وظيفته وتدريب كرة القدم بسهولة",
+    imagine: "رجل يرتدي بدلة رسمية وبيده صافرة حكم",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam18_q9"] = {
     text: "Der Vereinsvorstand schätzt Herrn Wünschmanns Arbeit.",
-    meaning: "مجلس إدارة النادي يقدر عمل السيد فونشمان",
-    keywords: ["Vereinsvorstand = مجلس إدارة النادي", "schätzt = يقدر", "Arbeit = عمل"],
-    simplified: "عمله يحظى بالتقدير",
-    imagine: "تخيل تصفيق 👏"
+    meaning: "إدارة النادي تقدر عمل السيد فونشمان",
+    keywords: ["Vereinsvorstand = إدارة نادي", "schätzt = يقدر", "Arbeit = عمل"],
+    simplified: "إدارة النادي راضية عن عمل رولاند",
+    imagine: "رئيس ناد يصافح مدرب فريقه بحرارة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam18_q10"] = {
     text: "Roland Wünschmann ist mit der bisherigen Nachwuchsförderung des Vereins zufrieden.",
-    meaning: "رولاند فونشمان راضٍ عن دعم الشباب في النادي حتى الآن",
-    keywords: ["Nachwuchsförderung = دعم الشباب", "zufrieden = راضٍ", "bisherigen = حتى الآن"],
-    simplified: "راضٍ عن دعم النادي للشباب",
-    imagine: "تخيل لاعباً شاباً يتدرب 👟"
+    meaning: "رولاند فونشمان راض عن رعاية المواهب الشابة في النادي حتى الآن",
+    keywords: ["Nachwuchsförderung = رعاية مواهب شابة", "Vereins = نادي", "zufrieden = راض"],
+    simplified: "رولاند سعيد برعاية الشباب في النادي",
+    imagine: "مدرب يشاهد لاعبا شابا يلعب ببراعة",
+    correct: true
 };
 
-// ========== Exam 19: Roland (aufsteigen) (صحيح: 3,4,7,9) ==========
+// ========== Exam 19: Roland (aufsteigen) (صحيح: 2,3,6,8) ==========
 HELP_DATA["hoeren2_exam19_q3"] = {
     text: "Zu Beginn dieser Saison hat ein Spieler Viktoria Köln verlassen.",
-    meaning: "في بداية هذا الموسم، غادر لاعب فيكتوريا كولن",
-    keywords: ["Beginn = بداية", "Saison = موسم", "verlassen = غادر"],
-    simplified: "لاعب واحد غادر الفريق",
-    imagine: "تخيل لاعباً يغادر النادي 🚶"
-};
-HELP_DATA["hoeren2_exam19_q4"] = {
-    text: "Neue Spieler kommen bei Viktoria Köln immer aus der eigenen Jugendmannschaft.",
-    meaning: "اللاعبون الجدد في فيكتوريا كولن يأتون دائماً من فريق الشباب الخاص بهم",
-    keywords: ["neue Spieler = لاعبون جدد", "eigenen Jugendmannschaft = فريق شباب خاص", "kommen = يأتون"],
-    simplified: "يتم ضم لاعبين من شباب النادي",
-    imagine: "تخيل لاعباً شاباً ينضم للفريق 🧒"
-};
-HELP_DATA["hoeren2_exam19_q7"] = {
-    text: "Roland Wünschmann kann seinen Beruf und sein Ehrenamt als Fußballtrainer miteinander vereinbaren.",
-    meaning: "يمكن لرولاند فونشمان التوفيق بين مهنته وعمله التطوعي كمدرب كرة قدم",
-    keywords: ["Ehrenamt = عمل تطوعي", "vereinbaren = التوفيق", "miteinander = معاً"],
-    simplified: "يستطيع التوفيق بين العمل والتطوع",
-    imagine: "تخيل شخصاً يدير وقتين ⏰"
-};
-HELP_DATA["hoeren2_exam19_q9"] = {
-    text: "Der Vereinsvorstand schätzt Herrn Wünschmanns Arbeit.",
-    meaning: "مجلس إدارة النادي يقدر عمل السيد فونشمان",
-    keywords: ["Vereinsvorstand = مجلس إدارة النادي", "schätzt = يقدر", "Arbeit = عمل"],
-    simplified: "عمله يحظى بالتقدير",
-    imagine: "تخيل تصفيق 👏"
+    meaning: "في بداية هذا الموسم غادر لاعب واحد فيكتوريا كولن",
+    keywords: ["Beginn = بداية", "Saison = موسم", "Spieler = لاعب", "verlassen = غادر"],
+    simplified: "لاعب واحد رحل عن فيكتوريا بداية الموسم",
+    imagine: "لاعب يلوح بيده مودعا من على الباب",
+    correct: true
 };
 
-// ========== Exam 20: Roland (einer höheren Lige) (صحيح: 2,3,5,8,9) ==========
+HELP_DATA["hoeren2_exam19_q4"] = {
+    text: "Neue Spieler kommen bei Viktoria Köln immer aus der eigenen Jugendmannschaft.",
+    meaning: "اللاعبون الجدد في فيكتوريا كولن يأتون من فريق الشباب الخاص",
+    keywords: ["Neue Spieler = لاعبون جدد", "Jugendmannschaft = فريق شباب", "kommen = يأتون"],
+    simplified: "اللاعبون الجدد هم من شباب النادي",
+    imagine: "شاب يرتدي قميص الفريق الأول لأول مرة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam19_q7"] = {
+    text: "Roland Wünschmann kann seinen Beruf und sein Ehrenamt als Fußballtrainer miteinander vereinbaren.",
+    meaning: "رولاند فونشمان يمكنه التوفيق بين وظيفته وعمله التطوعي كمدرب كرة قدم",
+    keywords: ["Beruf = وظيفة", "Ehrenamt = عمل تطوعي", "Fußballtrainer = مدرب كرة قدم", "vereinbaren = يوفق بين"],
+    simplified: "رولاند يوفق بين عمله وتدريب الكرة",
+    imagine: "رجل يمسك حقيبة عمل في يد وصافرة في يد أخرى",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam19_q9"] = {
+    text: "Der Vereinsvorstand schätzt Herrn Wünschmanns Arbeit.",
+    meaning: "إدارة النادي تقدر عمل السيد فونشمان",
+    keywords: ["Vereinsvorstand = إدارة نادي", "schätzt = يقدر", "Arbeit = عمل"],
+    simplified: "الإدارة راضية عن عمل المدرب رولاند",
+    imagine: "رئيس ناد يصفق للمدرب بعد مباراة",
+    correct: true
+};
+
+// ========== Exam 20: Roland (einer höheren Lige) (صحيح: 1,2,4,7,8) ==========
 HELP_DATA["hoeren2_exam20_q2"] = {
     text: "Viktoria Köln spielt seit Beginn der Saison in einer höheren Lige.",
-    meaning: "فيكتوريا كولن تلعب في دوري أعلى منذ بداية الموسم",
-    keywords: ["Beginn der Saison = بداية الموسم", "höheren Lige = دوري أعلى", "spielt = تلعب"],
-    simplified: "الفريق صعد إلى دوري أعلى",
-    imagine: "تخيل فريقاً يلعب في دوري ممتاز ⬆️"
+    meaning: "فيكتوريا كولن تلعب منذ بداية الموسم في دوري أعلى",
+    keywords: ["Viktoria Köln = فيكتوريا كولن", "Beginn = بداية", "Saison = موسم", "höheren Lige = دوري أعلى"],
+    simplified: "فيكتوريا كولن صعدت لدوري أعلى هذا الموسم",
+    imagine: "فريق يصعد سلما من البطولات",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam20_q3"] = {
     text: "Die meisten Spieler der Mannschaft haben schon in der letzten Saison bei Viktoria Köln gespielt.",
-    meaning: "معظم لاعبي الفريق لعبوا بالفعل في الموسم الماضي مع فيكتوريا كولن",
-    keywords: ["meisten Spieler = معظم اللاعبين", "letzten Saison = الموسم الماضي", "gespielt = لعبوا"],
-    simplified: "التشكيلة الأساسية بقيت كما هي",
-    imagine: "تخيل فريقاً متماسكاً 🤝"
+    meaning: "معظم لاعبي الفريق لعبوا الموسم الماضي مع فيكتوريا كولن",
+    keywords: ["meisten Spieler = معظم اللاعبين", "letzten Saison = الموسم الماضي", "Viktoria Köln = فيكتوريا كولن"],
+    simplified: "معظم اللاعبين بقوا من الموسم الماضي",
+    imagine: "لاعبون يرفعون قميص فريقهم بفخر",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam20_q5"] = {
     text: "Die Mannschaft von Viktoria Köln möchte in dieser Saison neue Spieltaktiken ausprobieren.",
     meaning: "فريق فيكتوريا كولن يريد تجربة تكتيكات لعب جديدة هذا الموسم",
-    keywords: ["Spieltaktiken = تكتيكات لعب", "ausprobieren = تجربة", "dieser Saison = هذا الموسم"],
-    simplified: "سيجربون أساليب جديدة في اللعب",
-    imagine: "تخيل مدرباً يخطط لتكتيك جديد 📋"
+    keywords: ["Mannschaft = فريق", "neue Spieltaktiken = تكتيكات لعب جديدة", "ausprobieren = تجربة"],
+    simplified: "فيكتوريا يريد تجربة خطط لعب جديدة",
+    imagine: "مدرب يرسم تشكيلة جديدة على السبورة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam20_q8"] = {
     text: "Roland Wünschmanns Frau engagiert sich für denselben Verein.",
-    meaning: "زوجة رولاند فونشمان تشارك في نفس النادي",
-    keywords: ["Frau = زوجة", "engagiert sich = تشارك", "denselben Verein = نفس النادي"],
-    simplified: "الزوجة تشارك أيضاً في النادي",
-    imagine: "تخيل زوجين يعملان معاً 👫"
+    meaning: "زوجة رولاند فونشمان تطوعت في نفس النادي",
+    keywords: ["Frau = زوجة", "engagiert sich = تطوعت", "denselben Verein = نفس النادي"],
+    simplified: "زوجة رولاند تطوعت في النادي نفسه",
+    imagine: "رجل وامرأة يلبسان قميصا واحدا للنادي",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam20_q9"] = {
     text: "Herr Wünschmann und der Vereinsvorstand sind meistens einer Meinung.",
-    meaning: "السيد فونشمان ومجلس إدارة النادي متفقان في الرأي غالباً",
-    keywords: ["Vereinsvorstand = مجلس إدارة النادي", "einer Meinung = في رأي واحد", "meistens = غالباً"],
-    simplified: "هناك توافق بينهما في الرأي",
-    imagine: "تخيل شخصين يتصافحان 🤝"
+    meaning: "السيد فونشمان وإدارة النادي متفقون غالبا",
+    keywords: ["Vereinsvorstand = إدارة نادي", "meistens = غالبا", "einer Meinung = متفقون"],
+    simplified: "رولاند والإدارة متفقون في أغلب الأوقات",
+    imagine: "رجل ومدير يصافحان وكلاهما يبتسم",
+    correct: true
 };
 
-// ========== Exam 22: Herr Scherer (صحيح: 3,4,10) ==========
+// ========== Exam 21: Die Deutschen machen (صحيح: 2,4,8) ==========
+HELP_DATA["hoeren2_exam21_q3"] = {
+    text: "Wellness-Angebote gibt es vor allem in Hotels der gehobenen Kategorie.",
+    meaning: "عروض العافية موجودة خاصة في فنادق الفئة العالية",
+    keywords: ["Wellness-Angebote = عروض عافية", "gehobenen Kategorie = فئة عالية", "Hotels = فنادق"],
+    simplified: "فنادق الدرجة العالية تقدم عروض العافية",
+    imagine: "فندق فخم وباب مكتوب عليه سبا",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam21_q5"] = {
+    text: "In den Hotels kann man auch schwimmen und in die Sauna gehen.",
+    meaning: "في الفنادق يمكن السباحة والذهاب للساونا",
+    keywords: ["Hotels = فنادق", "schwimmen = سباحة", "Sauna = ساونا"],
+    simplified: "الفنادق توفر سباحة وساونا للنزلاء",
+    imagine: "مسبح كبير وساونا بخارها يتصاعد",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam21_q9"] = {
+    text: "Die Hotels haben besondere Angebote für Männer.",
+    meaning: "الفنادق لديها عروض خاصة للرجال",
+    keywords: ["Hotels = فنادق", "besondere Angebote = عروض خاصة", "Männer = رجال"],
+    simplified: "الفنادق تقدم برامج خاصة للرجال",
+    imagine: "رجل يسترخي في كرسي مساج فاخر",
+    correct: true
+};
+
+// ========== Exam 22: Herr Scherer (صحيح: 2,3,9) ==========
 HELP_DATA["hoeren2_exam22_q3"] = {
     text: "Herr Scherer hat wechselnde Arbeitszeiten.",
-    meaning: "السيد شيرر لديه ساعات عمل متغيرة",
-    keywords: ["wechselnde = متغيرة", "Arbeitszeiten = ساعات عمل", "hat = لديه"],
-    simplified: "ساعات عمله ليست ثابتة",
-    imagine: "تخيل ساعة متغيرة ⏰"
+    meaning: "السيد شيرر لديه أوقات عمل متغيرة",
+    keywords: ["Herr Scherer = سيد شيرر", "wechselnde = متغيرة", "Arbeitszeiten = أوقات عمل"],
+    simplified: "شيرر يعمل في أوقات مختلفة كل يوم",
+    imagine: "ساعة يد تتغير عقاربها كل مرة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam22_q4"] = {
     text: "Verspätungen gehen häufig auf das Konto undisziplinierter Fahrgäste.",
-    meaning: "التأخيرات تعود غالباً إلى الركاب غير المنضبطين",
-    keywords: ["Verspätungen = تأخيرات", "undisziplinierter Fahrgäste = ركاب غير منضبطين", "gehen auf das Konto = تعود إلى"],
-    simplified: "الركاب غير المنضبطين يسببون التأخير",
-    imagine: "تخيل حافلة متأخرة 🚌"
+    meaning: "التأخيرات غالبا بسبب ركاب غير منضبطين",
+    keywords: ["Verspätungen = تأخيرات", "häufig = غالبا", "undisziplinierter Fahrgäste = ركاب غير منضبطين"],
+    simplified: "الركاب غير المهذبين يسببون التأخير",
+    imagine: "راكب يمسك الباب ويؤخر الحافلة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam22_q10"] = {
     text: "Herr Scherer hat bei der Post 15 Jahre in Nachtschicht gearbeitet.",
-    meaning: "عمل السيد شيرر في البريد لمدة 15 سنة في الوردية الليلية",
-    keywords: ["Post = بريد", "15 Jahre = 15 سنة", "Nachtschicht = وردية ليلية"],
-    simplified: "عمل في الوردية الليلية في البريد",
-    imagine: "تخيل شخصاً يعمل ليلاً 🌙"
+    meaning: "السيد شيرر عمل في البريد 15 سنة في الوردية الليلية",
+    keywords: ["Post = بريد", "15 Jahre = 15 سنة", "Nachtschicht = وردية ليلية", "gearbeitet = عمل"],
+    simplified: "شيرر اشتغل في البريد ليلا لمدة 15 عاما",
+    imagine: "رجل ينام نهارا ويصحو مع القمر",
+    correct: true
 };
 
-// ========== Exam 23: Beim Wettkampf (صحيح: 1,2,4,6) ==========
+// ========== Exam 23: Beim Wettkampf (صحيح: 0,1,3,5) ==========
 HELP_DATA["hoeren2_exam23_q1"] = {
     text: "Beim Wettkampf auf Sylt gibt es mehr Zuschauer als bei anderen Surf-Wettkämpfen.",
-    meaning: "في المسابقة في زيلت، هناك مشجعون أكثر من مسابقات ركوب الأمواج الأخرى",
-    keywords: ["Wettkampf = مسابقة", "Sylt = زيلت", "mehr Zuschauer = مشجعون أكثر"],
-    simplified: "زيلت تجذب جمهوراً أكبر",
-    imagine: "تخيل جمهوراً يهتف 📣"
+    meaning: "في مسابقة سيلت يوجد مشاهدون أكثر من مسابقات ركمجة الأمواج الأخرى",
+    keywords: ["Wettkampf = مسابقة", "Sylt = سيلت", "mehr Zuschauer = مشاهدون أكثر", "Surf-Wettkämpfen = مسابقات ركمجة"],
+    simplified: "جمهور سيلت أكبر من مسابقات الركمجة الأخرى",
+    imagine: "شاطئ مزدحم بالجماهير يتابعون الأمواج",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam23_q2"] = {
     text: "Die Wind-Bedingungen sind auf Sylt sehr unberechenbar.",
-    meaning: "ظروف الرياح في زيلت لا يمكن التنبؤ بها جداً",
-    keywords: ["Wind-Bedingungen = ظروف رياح", "unberechenbar = لا يمكن التنبؤ", "auf Sylt = في زيلت"],
-    simplified: "الرياح متقلبة في زيلت",
-    imagine: "تخيل أمواجاً قوية 🌊"
+    meaning: "ظروف الرياح في سيلت غير متوقعة جدا",
+    keywords: ["Wind-Bedingungen = ظروف رياح", "Sylt = سيلت", "unberechenbar = غير متوقعة"],
+    simplified: "الرياح في سيلت لا يمكن توقعها",
+    imagine: "رياح تغير اتجاهها فجأة كل دقيقة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam23_q4"] = {
     text: "Im Freestyle hat er schon starke Gegner, die viel jünger sind als er.",
-    meaning: "في الفري ستايل لديه خصوم أقوياء أصغر منه سناً بكثير",
-    keywords: ["Freestyle = فري ستايل", "starke Gegner = خصوم أقوياء", "viel jünger = أصغر بكثير"],
-    simplified: "لديه منافسون أصغر منه سناً",
-    imagine: "تخيل متسابقين شباب 🏄"
+    meaning: "في السباحة الحرة لديه خصوم أقوياء أصغر منه سنا",
+    keywords: ["Freestyle = سباحة حرة", "starke Gegner = خصوم أقوياء", "viel jünger = أصغر بكثير"],
+    simplified: "خصومه في السباحة الحرة أصغر وأقوى منه",
+    imagine: "شاب كبير يقف أمام شباب أصغر منه بكثير",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam23_q6"] = {
     text: "Sein Hobby ist, solche Strände zu suchen, wo sich im Windsurfen noch niemand ausprobiert hat.",
-    meaning: "هوايته هي البحث عن شواطئ لم يجرب أحد فيها ركوب الأمواج بالرياح بعد",
-    keywords: ["Hobby = هواية", "Strände = شواطئ", "ausprobiert hat = جرب"],
-    simplified: "يحب استكشاف شواطئ جديدة",
-    imagine: "تخيل شاطئاً جديداً 🏖️"
+    meaning: "هوايته البحث عن شواطئ لم يجرب فيها أحد ركمجة الرياح بعد",
+    keywords: ["Hobby = هواية", "Strände = شواطئ", "Windsurfen = ركمجة رياح", "niemand ausprobiert = لم يجرب أحد"],
+    simplified: "يحب اكتشاف شواطئ جديدة لركوب الأمواج",
+    imagine: "رجل يضع علما على شاطئ جديد",
+    correct: true
 };
 
-// ========== Exam 24: Vanessa (صحيح: 2,3,4,6,8,10) ==========
+// ========== Exam 24: Vanessa (صحيح: 1,2,3,5,7,9) ==========
 HELP_DATA["hoeren2_exam24_q2"] = {
     text: "Mit den Arbeitsbedingungen in der Werbeagentur war Vanessa unzufrieden.",
-    meaning: "كانت فانيسا غير راضية عن ظروف العمل في وكالة الإعلانات",
+    meaning: "فانيسا كانت غير راضية عن ظروف العمل في وكالة الإعلانات",
     keywords: ["Arbeitsbedingungen = ظروف عمل", "Werbeagentur = وكالة إعلانات", "unzufrieden = غير راضية"],
-    simplified: "ظروف العمل لم ترضها",
-    imagine: "تخيل شخصاً غير سعيد في مكتبه 😞"
-};
-HELP_DATA["hoeren2_exam24_q3"] = {
-    text: "Wenn Vanessa unter Menschen ist, schadet das manchmal ihrer Konzentration.",
-    meaning: "عندما تكون فانيسا بين الناس، فإن ذلك يضر أحياناً بتركيزها",
-    keywords: ["unter Menschen = بين الناس", "schadet = يضر", "Konzentration = تركيز"],
-    simplified: "التواجد بين الناس يؤثر على تركيزها",
-    imagine: "تخيل شخصاً في مكان مزدحم 🚇"
-};
-HELP_DATA["hoeren2_exam24_q4"] = {
-    text: "Die Sicherheit, die eine feste Stelle bietet, bedeutet Vanessa nicht viel.",
-    meaning: "الأمان الذي توفره وظيفة دائمة لا يعني الكثير بالنسبة لفانيسا",
-    keywords: ["Sicherheit = أمان", "feste Stelle = وظيفة دائمة", "bedeutet nicht viel = لا يعني الكثير"],
-    simplified: "الأمان الوظيفي ليس مهماً لها",
-    imagine: "تخيل شخصاً يفضل الحرية 🕊️"
-};
-HELP_DATA["hoeren2_exam24_q6"] = {
-    text: "Dass sie immer wieder neue Auftraggeber suchen muss, hat für Vanessa auch Vorteile.",
-    meaning: "أن عليها البحث مراراً عن عملاء جدد، له أيضاً مزايا بالنسبة لفانيسا",
-    keywords: ["Auftraggeber = عملاء", "suchen = البحث", "Vorteile = مزايا"],
-    simplified: "البحث عن عملاء جدد له جوانب إيجابية",
-    imagine: "تخيل شخصاً يتواصل مع عملاء جدد 📞"
-};
-HELP_DATA["hoeren2_exam24_q8"] = {
-    text: "Es fiel Vanessa leicht, sich von persönlichen Gegenständen zu trennen.",
-    meaning: "كان من السهل على فانيسا التخلي عن الأشياء الشخصية",
-    keywords: ["fiel leicht = كان سهلاً", "sich zu trennen = التخلي عن", "persönlichen Gegenständen = أشياء شخصية"],
-    simplified: "لم تجد صعوبة في التخلي عن ممتلكاتها",
-    imagine: "تخيل شخصاً يتخلص من أشياء قديمة 🗑️"
-};
-HELP_DATA["hoeren2_exam24_q10"] = {
-    text: "Auch wer ortsunabhängig arbeitet, sollte nicht zu oft den Ort wechseln.",
-    meaning: "حتى من يعمل بشكل مستقل عن المكان، لا ينبغي أن يغير المكان كثيراً",
-    keywords: ["ortsunabhängig = مستقل عن المكان", "zu oft = كثيراً", "Ort wechseln = تغيير المكان"],
-    simplified: "تغيير المكان بكثرة ليس فكرة جيدة",
-    imagine: "تخيل شخصاً ينتقل كثيراً 🚚"
+    simplified: "فانيسا لم تعجبها ظروف عمل وكالة الإعلانات",
+    imagine: "امرأة تمزق عقد عمل أمام مكتب",
+    correct: true
 };
 
-// ========== Exam 25: Zu Beginn (صحيح: 1,2,3,4,6,8,9) ==========
+HELP_DATA["hoeren2_exam24_q3"] = {
+    text: "Wenn Vanessa unter Menschen ist, schadet das manchmal ihrer Konzentration.",
+    meaning: "عندما تكون فانيسا بين الناس فهذا يضر بتركيزها أحيانا",
+    keywords: ["unter Menschen = بين الناس", "schadet = يضر", "Konzentration = تركيز"],
+    simplified: "وجود الناس حول فانيسا يشتت تركيزها",
+    imagine: "امرأة تغطي أذنيها في مكان مزدحم",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam24_q4"] = {
+    text: "Die Sicherheit, die eine feste Stelle bietet, bedeutet Vanessa nicht viel.",
+    meaning: "الأمان الذي توفره وظيفة ثابتة لا يعني الكثير لفانيسا",
+    keywords: ["Sicherheit = أمان", "feste Stelle = وظيفة ثابتة", "bedeutet nicht viel = لا يعني الكثير"],
+    simplified: "فانيسا لا تهتم بالأمان الوظيفي كثيرا",
+    imagine: "امرأة ترمي قلعة رملية بقدمها",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam24_q6"] = {
+    text: "Dass sie immer wieder neue Auftraggeber suchen muss, hat für Vanessa auch Vorteile.",
+    meaning: "اضطرارها للبحث عن عملاء جدد له مميزات لفانيسا",
+    keywords: ["neue Auftraggeber = عملاء جدد", "suchen = بحث", "Vorteile = مميزات"],
+    simplified: "فانيسا ترى إيجابيات في البحث عن عملاء جدد",
+    imagine: "امرأة تتصافح مع أشخاص جدد بسعادة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam24_q8"] = {
+    text: "Es fiel Vanessa leicht, sich von persönlichen Gegenständen zu trennen.",
+    meaning: "كان من السهل على فانيسا التخلي عن أغراضها الشخصية",
+    keywords: ["fiel leicht = كان سهلا", "persönlichen Gegenständen = أغراض شخصية", "zu trennen = التخلي عن"],
+    simplified: "فانيسا تخلت عن أشيائها الشخصية بسهولة",
+    imagine: "امرأة ترمي أشياء في حقيبة خارجة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam24_q10"] = {
+    text: "Auch wer ortsunabhängig arbeitet, sollte nicht zu oft den Ort wechseln.",
+    meaning: "حتى من يعمل من أي مكان لا يجب أن يغير المكان كثيرًا",
+    keywords: ["ortsunabhängig = من أي مكان", "nicht zu oft = ليس كثيرا", "Ort wechseln = تغيير مكان"],
+    simplified: "لا تغير مكان إقامتك كثيرا حتى لو كنت حرا",
+    imagine: "رجل يحمل حقيبة يقف أمام عدة مدن",
+    correct: true
+};
+
+// ========== Exam 25: Zu Beginn (صحيح: 0,1,2,3,5,7,8) ==========
 HELP_DATA["hoeren2_exam25_q1"] = {
     text: "Zu Beginn der Sendung hatte der Reporter ein exklusives Frühstücksrezept erwartet.",
-    meaning: "في بداية البرنامج، توقع المراسل وصفة إفطار حصرية",
-    keywords: ["Beginn = بداية", "Sendung = برنامج", "Frühstücksrezept = وصفة إفطار"],
-    simplified: "توقع وصفة إفطار خاصة",
-    imagine: "تخيل طبق إفطار 🍳"
+    meaning: "في بداية البرنامج توقع المراسل وصفة فطور حصرية",
+    keywords: ["Beginn = بداية", "Sendung = برنامج", "Reporter = مراسل", "exklusives Frühstücksrezept = وصفة فطور حصرية"],
+    simplified: "المراسل توقع وصفة فطور مميزة في بداية البرنامج",
+    imagine: "مراسل يمسك قلم وورقة وينتظر الطباخ",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam25_q2"] = {
     text: "Ole hat sich vor 17 Jahren selbstständig gemacht.",
-    meaning: "أولى أسس عمله الخاص منذ 17 عاماً",
-    keywords: ["vor 17 Jahren = منذ 17 عاماً", "selbstständig gemacht = أسس عمله الخاص"],
-    simplified: "بدأ عمله الخاص منذ 17 عاماً",
-    imagine: "تخيل رجل أعمال 💼"
+    meaning: "أوليه أصبح مستقلا منذ 17 سنة",
+    keywords: ["Ole = أوليه", "vor 17 Jahren = منذ 17 سنة", "selbstständig gemacht = أصبح مستقلا"],
+    simplified: "أوليه بدأ عمله الخاص منذ 17 عاما",
+    imagine: "رجل يفتح باب متجر جديد عليه رقم 17",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam25_q3"] = {
     text: "Davor hatte er eine Lehre als Koch absolviert.",
-    meaning: "قبل ذلك، أكمل تدريباً مهنياً كطاهي",
-    keywords: ["Davor = قبل ذلك", "Lehre = تدريب مهني", "als Koch = كطاهي"],
-    simplified: "تدرب كطاهٍ من قبل",
-    imagine: "تخيل طاهياً يرتدي قبعة 👨‍🍳"
+    meaning: "قبل ذلك كان قد أتم تدريبا كطباخ",
+    keywords: ["Davor = قبل ذلك", "Lehre = تدريب", "Koch = طباخ", "absolviert = أتم"],
+    simplified: "أوليه أتم تدريب طبخ قبل ذلك",
+    imagine: "شاب يرتدي قبعة الطباخ ويتخرج",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam25_q4"] = {
     text: "Er bevorzugt Gerichte ohne Fleisch.",
-    meaning: "يفضل الأطباق الخالية من اللحوم",
+    meaning: "يفضل الأطباق بدون لحم",
     keywords: ["bevorzugt = يفضل", "Gerichte = أطباق", "ohne Fleisch = بدون لحم"],
-    simplified: "لا يحب أكل اللحوم",
-    imagine: "تخيل طبق نباتي 🥗"
+    simplified: "أوليه يفضل الأكلات الخالية من اللحم",
+    imagine: "طباخ يضع خضروات فقط في القدر",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam25_q6"] = {
     text: "Er kocht für Musiker, die auf Tournee sind.",
-    meaning: "يطبخ للموسيقيين الذين في جولة",
-    keywords: ["kocht = يطبخ", "Musiker = موسيقيين", "auf Tournee = في جولة"],
-    simplified: "يطبخ للفنانين المتجولين",
-    imagine: "تخيل طباخاً لحفلة موسيقية 🎵"
+    meaning: "هو يطبخ لموسيقيين في جولة",
+    keywords: ["kocht = يطبخ", "Musiker = موسيقيين", "Tournee = جولة"],
+    simplified: "أوليه يطبخ للفرق الموسيقية أثناء جولاتهم",
+    imagine: "طباخ يقدم طبقا لموسيقي يحمل جيتارا",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam25_q8"] = {
     text: "Ole nimmt eine komplette Kücheneinrichtung mit auf Tournee.",
-    meaning: "أولى يأخذ معدات مطبخ كاملة معه في الجولة",
-    keywords: ["komplette Kücheneinrichtung = معدات مطبخ كاملة", "nimmt mit = يأخذ مع", "auf Tournee = في الجولة"],
-    simplified: "يأخذ معه كل ما يحتاجه للطبخ",
-    imagine: "تخيل مطبخاً متنقلاً 🚐"
+    meaning: "أوليه يأخذ معدات مطبخ كاملة معه في الجولة",
+    keywords: ["komplette Kücheneinrichtung = معدات مطبخ كاملة", "Tournee = جولة", "nimmt mit = يأخذ مع"],
+    simplified: "أوليه يسافر معه بمطبخ متكامل",
+    imagine: "شاحنة مليئة بأواني الطهي تتبع الحافلة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam25_q9"] = {
     text: "Er macht sich über den Sender lustig, weil der Reporter bei englischen Wörtern nachfragt.",
     meaning: "يسخر من المحطة لأن المراسل يسأل عن الكلمات الإنجليزية",
-    keywords: ["macht sich lustig = يسخر", "Sender = محطة", "nachfragt = يسأل"],
-    simplified: "يسخر من المراسل لجهله بالإنجليزية",
-    imagine: "تخيل شخصاً يضحك 😂"
+    keywords: ["macht sich lustig = يسخر", "Sender = محطة", "Reporter = مراسل", "englischen Wörtern = كلمات إنجليزية"],
+    simplified: "أوليه يضحك على المراسل الذي لا يفهم الإنجليزية",
+    imagine: "طباخ يضحك ومراسل يحمل قاموس إنجليزي",
+    correct: true
 };
 
-// ========== Exam 26: Die TU Dresden (صحيح: 3,5,7,8,10) ==========
+// ========== Exam 26: Die TU Dresden (صحيح: 2,4,6,7,9) ==========
 HELP_DATA["hoeren2_exam26_q3"] = {
     text: "Ältere Studierende kümmern sich um neue Studierende.",
-    meaning: "الطلاب الأكبر سناً يعتنون بالطلاب الجدد",
-    keywords: ["Ältere Studierende = طلاب أكبر سناً", "kümmern sich = يعتنون", "neue Studierende = طلاب جدد"],
-    simplified: "هناك نظام دعم للطلاب الجدد",
-    imagine: "تخيل طلاباً يتعاونون 🤝"
+    meaning: "الطلاب الأكبر سنا يهتمون بالطلاب الجدد",
+    keywords: ["Ältere Studierende = طلاب أكبر سنا", "kümmern sich = يهتمون", "neue Studierende = طلاب جدد"],
+    simplified: "الطلاب القدامى يساعدون الجدد في الجامعة",
+    imagine: "طالب كبير يشرح لطالب جديد مكان القاعة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam26_q5"] = {
     text: "Jens ist nicht sicher, ob er nach dem Studium einen interessanten Job bekommt.",
-    meaning: "ينس غير متأكد مما إذا كان سيحصل على وظيفة شيقة بعد الدراسة",
-    keywords: ["nicht sicher = غير متأكد", "interessanten Job = وظيفة شيقة", "nach dem Studium = بعد الدراسة"],
-    simplified: "قلق من مستقبله المهني",
-    imagine: "تخيل شخصاً يبحث عن عمل 🔍"
+    meaning: "ينس غير متأكد مما إذا كان سيحصل على وظيفة مثيرة بعد الدراسة",
+    keywords: ["nicht sicher = غير متأكد", "nach dem Studium = بعد الدراسة", "interessanten Job = وظيفة مثيرة"],
+    simplified: "ينس قلق من عدم حصوله على وظيفة جيدة بعد التخرج",
+    imagine: "شاب يحمل شهادته وينظر لسماء غائمة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam26_q7"] = {
     text: "Mit dem Semesterticket dürfen Studierende öffentliche Verkehrsmittel in Dresden nutzen.",
-    meaning: "بتذكرة الفصل الدراسي، يُسمح للطلاب باستخدام وسائل النقل العام في دريسدن",
-    keywords: ["Semesterticket = تذكرة فصل دراسي", "öffentliche Verkehrsmittel = وسائل نقل عام", "nutzen = استخدام"],
-    simplified: "التذكرة تشمل وسائل النقل العام",
-    imagine: "تخيل بطاقة مواصلات 🎫"
+    meaning: "بتذكرة الفصل الدراسي يمكن للطلاب استخدام وسائل النقل العام في دريسدن",
+    keywords: ["Semesterticket = تذكرة فصل", "öffentliche Verkehrsmittel = وسائل نقل عام", "Dresden = دريسدن"],
+    simplified: "تذكرة الفصل تخولك ركوب المواصلات في دريسدن",
+    imagine: "طالب يمسك تذكرة ويركب الحافلة بكل ثقة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam26_q8"] = {
     text: "Für Studienanfänger gibt es die Möglichkeit, bestimmte Grundkenntnisse aufzufrischen.",
-    meaning: "للطلاب الجدد هناك إمكانية لتحديث معارف أساسية معينة",
+    meaning: "للطلاب الجدد هناك إمكانية لتحديث بعض المعارف الأساسية",
     keywords: ["Studienanfänger = طلاب جدد", "Grundkenntnisse = معارف أساسية", "aufzufrischen = تحديث"],
-    simplified: "يوجد دورات لتقوية الأساسيات",
-    imagine: "تخيل طالباً يذاكر 📖"
+    simplified: "الطلاب الجدد يمكنهم مراجعة الأساسيات",
+    imagine: "طالب يمسح الغبار عن كتب قديمة",
+    correct: true
 };
+
 HELP_DATA["hoeren2_exam26_q10"] = {
     text: "An der TU Dresden kann man auch außergewöhnliche Sportarten treiben.",
-    meaning: "في جامعة دريسدن التقنية يمكن ممارسة رياضات غير عادية أيضاً",
-    keywords: ["außergewöhnliche Sportarten = رياضات غير عادية", "kann man = يمكن للمرء", "treiben = ممارسة"],
-    simplified: "يوجد رياضات متنوعة",
-    imagine: "تخيل طالباً يمارس رياضة ⚽"
+    meaning: "في جامعة دريسدن التقنية يمكن ممارسة رياضات غير عادية",
+    keywords: ["TU Dresden = جامعة دريسدن التقنية", "außergewöhnliche = غير عادية", "Sportarten = رياضات"],
+    simplified: "الجامعة تقدم رياضات غير تقليدية لطلابها",
+    imagine: "طالب يلعب تنس الطاولة على قدم واحدة",
+    correct: true
+};
+
+// ========== Exam 27: Lisa Eisenberg (صحيح: 1,2,3,5,7) ==========
+HELP_DATA["hoeren2_exam27_q2"] = {
+    text: "Während einer Reise entschied sich Lisa Eisenberg für einen beruflichen Neuanfang.",
+    meaning: "خلال رحلة قررت ليزا أيزنبرغ بداية مهنية جديدة",
+    keywords: ["während = خلال", "Reise = رحلة", "beruflichen Neuanfang = بداية مهنية جديدة", "entschied sich = قررت"],
+    simplified: "ليزا قررت تغيير مهنتها أثناء سفرها",
+    imagine: "امرأة تنظر من نافذة طائرة وتخطط لمستقبلها",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam27_q3"] = {
+    text: "Lisa Eisenbergs Geschäftsidee stieß in ihrem Bekanntenkreis auf Skepsis.",
+    meaning: "فكرة ليزا التجارية قوبلت بالتشكك في دائرة معارفها",
+    keywords: ["Geschäftsidee = فكرة تجارية", "Bekanntenkreis = دائرة معارف", "Skepsis = تشكك"],
+    simplified: "أصدقاء ليزا شككوا في فكرة مشروعها",
+    imagine: "أصدقاء يهزون رؤوسهم حول امرأة تشرح فكرتها",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam27_q4"] = {
+    text: "Lisa Eisenberg hat sich auf regionale Speisen spezialisiert.",
+    meaning: "ليزا أيزنبرغ تخصصت في الأطباق المحلية",
+    keywords: ["regionale Speisen = أطباق محلية", "spezialisiert = تخصصت"],
+    simplified: "ليزا متخصصة في الأكلات الشعبية للمنطقة",
+    imagine: "امرأة ترتدي مئزر طبخ وترفع طبقا محليا",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam27_q6"] = {
+    text: "Lisa Eisenberg muss nicht mehr aktiv nach Kunden suchen.",
+    meaning: "ليزا أيزنبرغ لم تعد بحاجة للبحث بنشاط عن زبائن",
+    keywords: ["nicht mehr = لم تعد", "aktiv suchen = بحث نشط", "Kunden = زبائن"],
+    simplified: "ليزا لم تعد تبحث عن زبائن بنفسها",
+    imagine: "امرأة تجلس وترتاح بينما الزبائن يأتون إليها",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam27_q8"] = {
+    text: "Es war für Lisa Eisenberg leicht, ein geeignetes Fahrzeug zu finden.",
+    meaning: "كان من السهل على ليزا أيزنبرغ إيجاد مركبة مناسبة",
+    keywords: ["leicht = سهل", "geeignetes Fahrzeug = مركبة مناسبة", "zu finden = إيجاد"],
+    simplified: "ليزا وجدت السيارة المناسبة بسهولة",
+    imagine: "امرأة تشير بإعجاب إلى شاحنة طعام جميلة",
+    correct: true
+};
+
+// ========== Exam 28: Franz Schumacher (صحيح: 0,1,3,5,7,9) ==========
+HELP_DATA["hoeren2_exam28_q1"] = {
+    text: "Franz Schumacher handelt nicht nur mit Produkten aus eigenem Anbau.",
+    meaning: "فرانز شوماخر لا يتاجر فقط بمنتجات من زراعته الخاصة",
+    keywords: ["handelt = يتاجر", "eigenem Anbau = زراعة خاصة", "nicht nur = ليس فقط"],
+    simplified: "فرانز يبيع منتجات ليست من زراعته فقط",
+    imagine: "رجل يبيع خضروات من عدة مزارع مختلفة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam28_q2"] = {
+    text: "Herr Schumacher lässt sich auch von anderen Bauern Produkte liefern.",
+    meaning: "السيد شوماخر يستورد منتجات من مزارعين آخرين",
+    keywords: ["anderen Bauern = مزارعين آخرين", "Produkte liefern = توريد منتجات", "lässt sich = يستورد"],
+    simplified: "فرانز يستورد منتجات من مزارعين غير نفسه",
+    imagine: "فلاح يستلم صناديق خضروات من جاره",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam28_q4"] = {
+    text: "Die große Mehrheit der Kunden von Herrn Schumacher sind Stammkunden.",
+    meaning: "الغالبية العظمى من زبائن السيد شوماخر هم زبائن دائمون",
+    keywords: ["große Mehrheit = غالبية عظمى", "Kunden = زبائن", "Stammkunden = زبائن دائمون"],
+    simplified: "معظم زبائن فرانز مشتركون دائمون",
+    imagine: "زبائن يبتسمون ويتعرفون على البائع جيدا",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam28_q6"] = {
+    text: "Franz Schumacher hat keine hohe Meinung vom 'Fachhändlerverein vom Rathausplatz'.",
+    meaning: "فرانز شوماخر ليس لديه رأي عالي في 'جمعية التجار المتخصصين في ساحة البلدية'",
+    keywords: ["keine hohe Meinung = ليس رأي عالي", "Fachhändlerverein = جمعية تجار متخصصين", "Rathausplatz = ساحة بلدية"],
+    simplified: "فرانز لا يحب جمعية تجار ساحة البلدية",
+    imagine: "رجل يشطب على اسم جمعية بقلم أحمر",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam28_q8"] = {
+    text: "Herr Schumacher hat seit über 20 Jahren einen Stand auf dem Landauer Markt.",
+    meaning: "السيد شوماخر لديه كشك في سوق لانداو منذ أكثر من 20 عاما",
+    keywords: ["seit über 20 Jahren = منذ أكثر من 20 عاما", "Stand = كشك", "Landauer Markt = سوق لانداو"],
+    simplified: "فرانز يبيع في سوق لانداو منذ 20 سنة",
+    imagine: "رجل واقف أمام كشكه وعليه علامة 20 سنة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam28_q10"] = {
+    text: "Herr Schumacher möchte in Zukunft einen Verkaufsstand in einer Markthalle eröffnen.",
+    meaning: "السيد شوماخر يريد فتح كشك بيع في قاعة سوق مستقبلا",
+    keywords: ["Zukunft = مستقبل", "Verkaufsstand = كشك بيع", "Markthalle = قاعة سوق"],
+    simplified: "فرانز يخطط لفتح كشك داخل قاعة السوق",
+    imagine: "رجل يضع لافتة جديدة في مبنى كبير للسوق",
+    correct: true
+};
+
+// ========== Exam 29: Meron Makeba (صحيح: 3,4,8,9) ==========
+HELP_DATA["hoeren2_exam29_q4"] = {
+    text: "Das Publikum hat bei der WM die Sportler aller Nationen unterstützt.",
+    meaning: "الجمهور في البطولة العالمية دعم رياضيين من كل الدول",
+    keywords: ["Publikum = جمهور", "WM = بطولة عالمية", "Sportler aller Nationen = رياضيين كل الدول", "unterstützt = دعم"],
+    simplified: "الجمهور شجع جميع الرياضيين بغض النظر عن دولهم",
+    imagine: "علم كل دولة يرفرف والجمهور يصفق للجميع",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam29_q5"] = {
+    text: "Frau Makeba trifft selten andere Sportler aus Ghana.",
+    meaning: "السيدة ماكيبا نادرا ما تقابل رياضيين آخرين من غانا",
+    keywords: ["trifft = تقابل", "selten = نادرا", "andere Sportler = رياضيين آخرين", "Ghana = غانا"],
+    simplified: "ميرون نادرا ما ترى رياضيين غانيين مثلها",
+    imagine: "امرأة تبحث عن أحد ولا تجد أحدا يرفع علم غانا",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam29_q9"] = {
+    text: "Frau Makeba glaubt nicht, dass man aufgrund der Herkunft in bestimmten Sportarten bevorzugt wird.",
+    meaning: "السيدة ماكيبا لا تعتقد أن الشخص يفضل في رياضات معينة بسبب أصله",
+    keywords: ["glaubt nicht = لا تعتقد", "Herkunft = أصل", "bevorzugt = يفضل", "bestimmten Sportarten = رياضات معينة"],
+    simplified: "ميرون ترفض فكرة تفضيل أحد بسبب أصله في الرياضة",
+    imagine: "ميزان متساو بين رياضي من هنا وآخر من هناك",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam29_q10"] = {
+    text: "Frau Makebas Erfahrungen im privaten Bereich unterscheiden sich stark von denen im Sport.",
+    meaning: "تجارب السيدة ماكيبا في المجال الخاص تختلف كثيرا عنها في الرياضة",
+    keywords: ["Erfahrungen = تجارب", "privaten Bereich = مجال خاص", "unterscheiden sich stark = تختلف كثيرا", "Sport = رياضة"],
+    simplified: "حياة ميرون الخاصة مختلفة جدا عن حياتها الرياضية",
+    imagine: "امرأة تخلع قميص الرياضة وتلبس ملابس عادية",
+    correct: true
+};
+
+// ========== Exam 30: Frau Kedar Malta (صحيح: 1,2,5,6,9) ==========
+HELP_DATA["hoeren2_exam30_q2"] = {
+    text: "Sie lebt jetzt in Malta.",
+    meaning: "هي تعيش الآن في مالطا",
+    keywords: ["lebt = تعيش", "jetzt = الآن", "Malta = مالطا"],
+    simplified: "السيدة كيدار تعيش حاليا في مالطا",
+    imagine: "امرأة تقف أمام شاطئ مالطي جميل",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam30_q3"] = {
+    text: "Sie ist effektiv und tätig in Malta.",
+    meaning: "هي فعالة ونشطة في مالطا",
+    keywords: ["effektiv = فعالة", "tätig = نشطة", "Malta = مالطا"],
+    simplified: "السيدة كيدار ناشطة وفعالة في مالطا",
+    imagine: "امرأة تبتسم وهي تساعد الناس في مالطا",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam30_q6"] = {
+    text: "Der Moderator kennt die Temperatur des Mittelmeers im Winter nicht.",
+    meaning: "المقدم لا يعرف حرارة البحر المتوسط شتاءا",
+    keywords: ["Moderator = مقدم", "Temperatur = حرارة", "Mittelmeers = بحر متوسط", "Winter = شتاء"],
+    simplified: "مقدم البرنامج يجهل حرارة البحر المتوسط شتاء",
+    imagine: "رجل يمسك ميكروفونا ويبحث في هاتفه عن درجة الحرارة",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam30_q7"] = {
+    text: "Der Moderator denkt, in Malta gibt es drei Amtssprachen.",
+    meaning: "المقدم يعتقد أن في مالطا ثلاث لغات رسمية",
+    keywords: ["Moderator = مقدم", "denkt = يعتقد", "Malta = مالطا", "drei Amtssprachen = ثلاث لغات رسمية"],
+    simplified: "المقدم يعتقد أن مالطا تتحدث ثلاث لغات",
+    imagine: "ثلاثة ألسنة تخرج من خريطة مالطا",
+    correct: true
+};
+
+HELP_DATA["hoeren2_exam30_q10"] = {
+    text: "Malteser kommen aus verschiedenen Religionen.",
+    meaning: "المالطيون من ديانات مختلفة",
+    keywords: ["Malteser = مالطيون", "verschiedenen = مختلفة", "Religionen = ديانات"],
+    simplified: "المالطيون لهم ديانات متنوعة",
+    imagine: "رموز دينية مختلفة على خريطة مالطا",
+    correct: true
 };
 
 // ========== Exam 32: Nadine Wagner (صحيح: 2,3,5,6,8,10) ==========
