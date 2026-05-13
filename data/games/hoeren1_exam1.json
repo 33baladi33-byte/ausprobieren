@@ -6,46 +6,51 @@
     {
       "firstWords": "Die Deutsche Lufthansa hat ihre Führungsposition",
       "fullText": "Die Deutsche Lufthansa hat ihre Führungsposition verloren.",
-      "correctTitle": "Lufthansa hat Führung verloren",
-      "wrongTitles": [
-        "Bonner Sportverein zeigt Angebot",
-        "Pflegeheime brauchen Änderung"
+      "correctAnswerIndex": 2,
+      "options": [
+        "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
+        "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung.",
+        "Die Deutsche Lufthansa hat ihre Führungsposition verloren."
       ]
     },
     {
       "firstWords": "Ein Bonner Sportverein zeigt der Öffentlichkeit",
       "fullText": "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
-      "correctTitle": "Bonner Sportverein zeigt Angebot",
-      "wrongTitles": [
-        "Lufthansa hat Führung verloren",
-        "Wärmedämmung senkt Heizkosten"
+      "correctAnswerIndex": 0,
+      "options": [
+        "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
+        "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung.",
+        "Das Nationale Olympische Komitee hat die Dopingsperre für Tom Sanders aufgehoben."
       ]
     },
     {
       "firstWords": "Die Rahmenbedingungen in deutschen Pflegeheimen",
       "fullText": "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung.",
-      "correctTitle": "Pflegeheime brauchen Änderung",
-      "wrongTitles": [
-        "Lufthansa hat Führung verloren",
-        "Olympische Dopingsperre aufgehoben"
+      "correctAnswerIndex": 1,
+      "options": [
+        "Die Deutsche Lufthansa hat ihre Führungsposition verloren.",
+        "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung.",
+        "Durch moderne Wärmedämmung könnten die Heizkosten deutlich reduziert werden."
       ]
     },
     {
       "firstWords": "Durch moderne Wärmedämmung könnten die Heizkosten",
       "fullText": "Durch moderne Wärmedämmung könnten die Heizkosten deutlich reduziert werden.",
-      "correctTitle": "Wärmedämmung senkt Heizkosten",
-      "wrongTitles": [
-        "Bonner Sportverein zeigt Angebot",
-        "Pflegeheime brauchen Änderung"
+      "correctAnswerIndex": 2,
+      "options": [
+        "Die Deutsche Lufthansa hat ihre Führungsposition verloren.",
+        "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
+        "Durch moderne Wärmedämmung könnten die Heizkosten deutlich reduziert werden."
       ]
     },
     {
       "firstWords": "Das Nationale Olympische Komitee hat die",
       "fullText": "Das Nationale Olympische Komitee hat die Dopingsperre für Tom Sanders aufgehoben.",
-      "correctTitle": "Olympische Dopingsperre aufgehoben",
-      "wrongTitles": [
-        "Bonner Sportverein zeigt Angebot",
-        "Pflegeheime brauchen Änderung"
+      "correctAnswerIndex": 0,
+      "options": [
+        "Das Nationale Olympische Komitee hat die Dopingsperre für Tom Sanders aufgehoben.",
+        "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
+        "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung."
       ]
     }
   ]

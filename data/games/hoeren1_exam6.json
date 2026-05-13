@@ -2,42 +2,41 @@
   "skill": "hoeren1",
   "examId": 6,
   "name": "Hören Teil 1 - Exam 6: Bierkonsum (Mittel)",
-  "type": "multiple",
   "questions": [
     {
       "firstWords": "Der Bierkonsum steigt um 10",
       "fullText": "Der Bierkonsum steigt um 10%.",
-      "correctOptions": [],
+      "correctAnswerIndex": 2,
       "options": [
-        "Der Bierkonsum steigt um 10%.",
         "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
-        "Man befürchtet auch in Deutschland Gewalt von Fußballfans."
+        "Man befürchtet auch in Deutschland Gewalt von Fußballfans.",
+        "Der Bierkonsum steigt um 10%."
       ]
     },
     {
       "firstWords": "Deutsche Einkommen liegen im europäischen Vergleich",
       "fullText": "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
-      "correctOptions": [1],
+      "correctAnswerIndex": 0,
       "options": [
-        "Der Bierkonsum steigt um 10%.",
         "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+        "Der Bierkonsum steigt um 10%.",
         "Es ist ein Ende des Bahnstreiks in Sicht."
       ]
     },
     {
       "firstWords": "Es ist ein Ende des Bahnstreiks",
       "fullText": "Es ist ein Ende des Bahnstreiks in Sicht.",
-      "correctOptions": [],
+      "correctAnswerIndex": 2,
       "options": [
-        "Es ist ein Ende des Bahnstreiks in Sicht.",
         "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
-        "Die Leopoldina soll internationale Akademie werden."
+        "Die Leopoldina soll internationale Akademie werden.",
+        "Es ist ein Ende des Bahnstreiks in Sicht."
       ]
     },
     {
       "firstWords": "Man befürchtet auch in Deutschland Gewalt",
       "fullText": "Man befürchtet auch in Deutschland Gewalt von Fußballfans.",
-      "correctOptions": [0],
+      "correctAnswerIndex": 0,
       "options": [
         "Man befürchtet auch in Deutschland Gewalt von Fußballfans.",
         "Der Bierkonsum steigt um 10%.",
@@ -47,11 +46,11 @@
     {
       "firstWords": "Die Leopoldina soll internationale Akademie",
       "fullText": "Die Leopoldina soll internationale Akademie werden.",
-      "correctOptions": [],
+      "correctAnswerIndex": 2,
       "options": [
-        "Die Leopoldina soll internationale Akademie werden.",
         "Man befürchtet auch in Deutschland Gewalt von Fußballfans.",
-        "Es ist ein Ende des Bahnstreiks in Sicht."
+        "Es ist ein Ende des Bahnstreiks in Sicht.",
+        "Die Leopoldina soll internationale Akademie werden."
       ]
     }
   ]
