@@ -1,0 +1,57 @@
+{
+  "skill": "hoeren3",
+  "examId": 1,
+  "name": "Hören Teil 3 - Exam 1: Telefon",
+  "questions": [
+    {
+      "firstWords": "Bei der Deutschen Telefon KG bekommen Sie",
+      "fullText": "Bei der Deutschen Telefon KG bekommen Sie nur Auskunft zu Telefonapparaten dieses Unternehmens.",
+      "correctAnswerIndex": 0,
+      "options": [
+        "Bei der Deutschen Telefon KG bekommen Sie nur Auskunft zu Telefonapparaten dieses Unternehmens.",
+        "Im Rahmen des 'BR3 Aquarena Weekends' in Starnberg können Sie jeden Abend ein Feuerwerk betrachten.",
+        "Die Trierer Domorganisten spielen am 6. Juli in Michelstadt."
+      ]
+    },
+    {
+      "firstWords": "Im Rahmen des BR3 Aquarena Weekends",
+      "fullText": "Im Rahmen des 'BR3 Aquarena Weekends' in Starnberg können Sie jeden Abend ein Feuerwerk betrachten.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Bei der Deutschen Telefon KG bekommen Sie nur Auskunft zu Telefonapparaten dieses Unternehmens.",
+        "Während des Musikfestivals 'Sound of Frankfurt' ist die Benutzung der U- und S-Bahnen gebührenfrei.",
+        "Im Rahmen des 'BR3 Aquarena Weekends' in Starnberg können Sie jeden Abend ein Feuerwerk betrachten."
+      ]
+    },
+    {
+      "firstWords": "Die Trierer Domorganisten spielen am",
+      "fullText": "Die Trierer Domorganisten spielen am 6. Juli in Michelstadt.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Bei der Deutschen Telefon KG bekommen Sie nur Auskunft zu Telefonapparaten dieses Unternehmens.",
+        "Sie haben eine ungültige Servicenummer gewählt und werden daher automatisch weiterverbunden.",
+        "Die Trierer Domorganisten spielen am 6. Juli in Michelstadt."
+      ]
+    },
+    {
+      "firstWords": "Während des Musikfestivals Sound of Frankfurt",
+      "fullText": "Während des Musikfestivals 'Sound of Frankfurt' ist die Benutzung der U- und S-Bahnen gebührenfrei.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Bei der Deutschen Telefon KG bekommen Sie nur Auskunft zu Telefonapparaten dieses Unternehmens.",
+        "Die Trierer Domorganisten spielen am 6. Juli in Michelstadt.",
+        "Während des Musikfestivals 'Sound of Frankfurt' ist die Benutzung der U- und S-Bahnen gebührenfrei."
+      ]
+    },
+    {
+      "firstWords": "Sie haben eine ungültige Servicenummer gewählt",
+      "fullText": "Sie haben eine ungültige Servicenummer gewählt und werden daher automatisch weiterverbunden.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Bei der Deutschen Telefon KG bekommen Sie nur Auskunft zu Telefonapparaten dieses Unternehmens.",
+        "Die Trierer Domorganisten spielen am 6. Juli in Michelstadt.",
+        "Sie haben eine ungültige Servicenummer gewählt und werden daher automatisch weiterverbunden."
+      ]
+    }
+  ]
+}

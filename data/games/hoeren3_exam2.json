@@ -1,0 +1,57 @@
+{
+  "skill": "hoeren3",
+  "examId": 2,
+  "name": "Hören Teil 3 - Exam 2: Musikfestivals",
+  "questions": [
+    {
+      "firstWords": "Während des Musikfestivals Sound of Frankfurt",
+      "fullText": "Während des Musikfestivals 'Sound of Frankfurt' gibt es verbilligte Fahrkarten für alle öffentlichen Verkehrsmittel.",
+      "correctAnswerIndex": 0,
+      "options": [
+        "Während des Musikfestivals 'Sound of Frankfurt' gibt es verbilligte Fahrkarten für alle öffentlichen Verkehrsmittel.",
+        "Sie gehen am 3. Juli ins Konzert, weil Sie die beiden Leipziger Klaviervirtuosen hören möchten.",
+        "Im Handwerksmuseum werden Kleidungsstücke ausgestellt."
+      ]
+    },
+    {
+      "firstWords": "Sie gehen am 3 Juli ins Konzert",
+      "fullText": "Sie gehen am 3. Juli ins Konzert, weil Sie die beiden Leipziger Klaviervirtuosen hören möchten.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Am Wochenende können Sie sich in Naumburg über die Bekämpfung von Krankheiten bei Apfelbäumen informieren.",
+        "Die Autobahn A5 ist zwischen Baden-Baden und Rastatt in beiden Richtungen gesperrt.",
+        "Sie gehen am 3. Juli ins Konzert, weil Sie die beiden Leipziger Klaviervirtuosen hören möchten."
+      ]
+    },
+    {
+      "firstWords": "Am Wochenende können Sie sich in",
+      "fullText": "Am Wochenende können Sie sich in Naumburg über die Bekämpfung von Krankheiten bei Apfelbäumen informieren.",
+      "correctAnswerIndex": 0,
+      "options": [
+        "Am Wochenende können Sie sich in Naumburg über die Bekämpfung von Krankheiten bei Apfelbäumen informieren.",
+        "Sie gehen am 3. Juli ins Konzert, weil Sie die beiden Leipziger Klaviervirtuosen hören möchten.",
+        "Im Handwerksmuseum werden Kleidungsstücke ausgestellt."
+      ]
+    },
+    {
+      "firstWords": "Im Handwerksmuseum werden Kleidungsstücke ausgestellt",
+      "fullText": "Im Handwerksmuseum werden Kleidungsstücke ausgestellt.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Während des Musikfestivals 'Sound of Frankfurt' gibt es verbilligte Fahrkarten für alle öffentlichen Verkehrsmittel.",
+        "Am Wochenende können Sie sich in Naumburg über die Bekämpfung von Krankheiten bei Apfelbäumen informieren.",
+        "Im Handwerksmuseum werden Kleidungsstücke ausgestellt."
+      ]
+    },
+    {
+      "firstWords": "Die Autobahn A5 ist zwischen BadenBaden",
+      "fullText": "Die Autobahn A5 ist zwischen Baden-Baden und Rastatt in beiden Richtungen gesperrt.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Am Wochenende können Sie sich in Naumburg über die Bekämpfung von Krankheiten bei Apfelbäumen informieren.",
+        "Sie gehen am 3. Juli ins Konzert, weil Sie die beiden Leipziger Klaviervirtuosen hören möchten.",
+        "Die Autobahn A5 ist zwischen Baden-Baden und Rastatt in beiden Richtungen gesperrt."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "skill": "hoeren3",
+  "examId": 6,
+  "name": "Hören Teil 3 - Exam 6: Im Süden Deutschlands Schnee",
+  "questions": [
+    {
+      "firstWords": "Morgen muss man im Süden Deutschlands",
+      "fullText": "Morgen muss man im Süden Deutschlands mit Schnee rechnen.",
+      "correctAnswerIndex": 0,
+      "options": [
+        "Morgen muss man im Süden Deutschlands mit Schnee rechnen.",
+        "Die zwei Jungen sind von zu Hause weggelaufen.",
+        "Am Samstag können Sie einen Mitarbeiter der Firma anrufen."
+      ]
+    },
+    {
+      "firstWords": "Die zwei Jungen sind von zu",
+      "fullText": "Die zwei Jungen sind von zu Hause weggelaufen.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Die historische elektrische Eisenbahn wird im Dezember wie gewohnt fahren.",
+        "Wegen einer Demonstration ist es verboten, in die Nürnberger Altstadt zu fahren.",
+        "Die zwei Jungen sind von zu Hause weggelaufen."
+      ]
+    },
+    {
+      "firstWords": "Am Samstag können Sie einen Mitarbeiter",
+      "fullText": "Am Samstag können Sie einen Mitarbeiter der Firma anrufen.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Morgen muss man im Süden Deutschlands mit Schnee rechnen.",
+        "Die historische elektrische Eisenbahn wird im Dezember wie gewohnt fahren.",
+        "Am Samstag können Sie einen Mitarbeiter der Firma anrufen."
+      ]
+    },
+    {
+      "firstWords": "Wegen einer Demonstration ist es verboten",
+      "fullText": "Wegen einer Demonstration ist es verboten, in die Nürnberger Altstadt zu fahren.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Die zwei Jungen sind von zu Hause weggelaufen.",
+        "Am Samstag können Sie einen Mitarbeiter der Firma anrufen.",
+        "Wegen einer Demonstration ist es verboten, in die Nürnberger Altstadt zu fahren."
+      ]
+    },
+    {
+      "firstWords": "Die historische elektrische Eisenbahn wird",
+      "fullText": "Die historische elektrische Eisenbahn wird im Dezember wie gewohnt fahren.",
+      "correctAnswerIndex": 0,
+      "options": [
+        "Die historische elektrische Eisenbahn wird im Dezember wie gewohnt fahren.",
+        "Morgen muss man im Süden Deutschlands mit Schnee rechnen.",
+        "Die zwei Jungen sind von zu Hause weggelaufen."
+      ]
+    }
+  ]
+}

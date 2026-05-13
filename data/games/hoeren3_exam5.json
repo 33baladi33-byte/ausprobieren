@@ -1,0 +1,57 @@
+{
+  "skill": "hoeren3",
+  "examId": 5,
+  "name": "Hören Teil 3 - Exam 5: Im Süden Deutschlands regnen",
+  "questions": [
+    {
+      "firstWords": "Im Süden Deutschlands wird es nachmittags",
+      "fullText": "Im Süden Deutschlands wird es nachmittags regnen.",
+      "correctAnswerIndex": 0,
+      "options": [
+        "Im Süden Deutschlands wird es nachmittags regnen.",
+        "Die Busse verkehren zu anderen Zeiten als die Regionalzüge.",
+        "Auf der A3 von Würzburg nach Frankfurt gibt es aufgrund eines Unfalls eine Vollsperrung."
+      ]
+    },
+    {
+      "firstWords": "Die Busse verkehren zu anderen Zeiten",
+      "fullText": "Die Busse verkehren zu anderen Zeiten als die Regionalzüge.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Wenn Sie über Ihre Autoversicherung sprechen wollen, müssen Sie die 1 wählen.",
+        "Ihr Bekannter ist jederzeit telefonisch erreichbar.",
+        "Die Busse verkehren zu anderen Zeiten als die Regionalzüge."
+      ]
+    },
+    {
+      "firstWords": "Auf der A3 von Würzburg nach Frankfurt",
+      "fullText": "Auf der A3 von Würzburg nach Frankfurt gibt es aufgrund eines Unfalls eine Vollsperrung.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Im Süden Deutschlands wird es nachmittags regnen.",
+        "Wenn Sie über Ihre Autoversicherung sprechen wollen, müssen Sie die 1 wählen.",
+        "Auf der A3 von Würzburg nach Frankfurt gibt es aufgrund eines Unfalls eine Vollsperrung."
+      ]
+    },
+    {
+      "firstWords": "Wenn Sie über Ihre Autoversicherung sprechen",
+      "fullText": "Wenn Sie über Ihre Autoversicherung sprechen wollen, müssen Sie die 1 wählen.",
+      "correctAnswerIndex": 0,
+      "options": [
+        "Wenn Sie über Ihre Autoversicherung sprechen wollen, müssen Sie die 1 wählen.",
+        "Die Busse verkehren zu anderen Zeiten als die Regionalzüge.",
+        "Ihr Bekannter ist jederzeit telefonisch erreichbar."
+      ]
+    },
+    {
+      "firstWords": "Ihr Bekannter ist jederzeit telefonisch erreichbar",
+      "fullText": "Ihr Bekannter ist jederzeit telefonisch erreichbar.",
+      "correctAnswerIndex": 2,
+      "options": [
+        "Im Süden Deutschlands wird es nachmittags regnen.",
+        "Wenn Sie über Ihre Autoversicherung sprechen wollen, müssen Sie die 1 wählen.",
+        "Ihr Bekannter ist jederzeit telefonisch erreichbar."
+      ]
+    }
+  ]
+}
