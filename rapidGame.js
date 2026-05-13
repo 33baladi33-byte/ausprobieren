@@ -77,16 +77,17 @@
         fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
         svg.appendChild(fillCircle);
         
-        // النسبة المئوية (صغيرة، عادية، غير مائلة)
+        // النسبة المئوية (سطر واحد عادي)
         const percentText = document.createElementNS("http://www.w3.org/2000/svg", "text");
         percentText.setAttribute("x", "22.5");
-        percentText.setAttribute("y", "27");
+        percentText.setAttribute("y", "27.5");
         percentText.setAttribute("text-anchor", "middle");
         percentText.setAttribute("fill", "#4a90e2");
-        percentText.setAttribute("font-size", "9");
+        percentText.setAttribute("font-size", "10");
         percentText.setAttribute("font-weight", "600");
         percentText.setAttribute("font-family", "Arial, sans-serif");
         percentText.style.fontStyle = "normal";
+        percentText.style.dominantBaseline = "middle";
         percentText.textContent = Math.round(percent) + "%";
         svg.appendChild(percentText);
         
@@ -424,7 +425,7 @@
             optBtn.setAttribute('data-correct', opt.isCorrect);
             optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
             optBtn.onmouseenter = () => { 
-                optBtn.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+                optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
                 optBtn.style.transform = 'translateY(-0.5px)';
             };
             optBtn.onmouseleave = () => { 
