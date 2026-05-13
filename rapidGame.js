@@ -1,6 +1,6 @@
 // ============================================
 // rapidGame.js - لعبة التحدي السريع
-// يدعم: Lesen Teil 1, Lesen Teil 3, Hören Teil 1
+// يدعم: Lesen Teil 1, Lesen Teil 3, Hören Teil 1, Sprachbausteine Teil 1/2
 // ============================================
 
 (function() {
@@ -215,21 +215,34 @@
                 
                 // تحويل الأسئلة إلى صيغة موحدة
                 originalQuestions = allQuestions.map(q => {
-                    if (q.correctAnswerIndex !== undefined) {
-                        // Hören Teil 1: يحتوي على options و correctAnswerIndex
+                    // Sprachbausteine Teil 1/2
+                    if (q.before !== undefined || q.options) {
                         return {
+                            type: "sprach",
+                            id: q.id,
+                            before: q.before || "",
+                            after: q.after || "",
+                            options: q.options,
+                            correct: q.correct,
+                            displayText: `${q.before} _____ (${q.id}) _____ ${q.after}`
+                        };
+                    }
+                    // Hören Teil 1
+                    else if (q.correctAnswerIndex !== undefined) {
+                        return {
+                            type: "hoeren",
                             firstWords: q.firstWords || shortenText(q.fullText, SETTINGS.firstWordsLength),
                             fullText: q.fullText,
-                            isHören: true,
                             options: q.options,
                             correctAnswerIndex: q.correctAnswerIndex
                         };
-                    } else {
-                        // Lesen Teil 1/3
+                    } 
+                    // Lesen Teil 1/3
+                    else {
                         return {
+                            type: "lesen",
                             firstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
                             fullText: q.fullText,
-                            isHören: false,
                             shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
                             shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
                             correctTitle: q.correctTitle
@@ -330,12 +343,12 @@
                     questionStats[q.originalIndex].timesWrong++;
                     questionStats[q.originalIndex].wasSlow = true;
                     questionStats[q.originalIndex].lastWrongAt = currentIndex;
-                    userAnswers.push({ isCorrect: false, originalIndex: q.originalIndex, selectedIndex: -1 });
+                    userAnswers.push({ isCorrect: false, originalIndex: q.originalIndex });
                     combo = 0;
                     
                     const btns = document.querySelectorAll('.game-option-btn');
                     btns.forEach((btn, idx) => {
-                        if (q.isHören) {
+                        if (q.type === "hoeren") {
                             if (idx === q.correctAnswerIndex) {
                                 btn.style.background = '#d4edda';
                                 btn.style.borderColor = '#28a745';
@@ -415,9 +428,11 @@
         
         // السؤال
         const questionDiv = document.createElement('div');
-        questionDiv.style.cssText = 'font-size:24px;font-weight:500;padding:20px 30px;background:#f5f7fc;border-radius:20px;margin-bottom:25px;color:#1a1a2e;line-height:1.4';
+        questionDiv.style.cssText = 'font-size:20px;font-weight:500;padding:20px 30px;background:#f5f7fc;border-radius:20px;margin-bottom:25px;color:#1a1a2e;line-height:1.5';
         
-        if (q.isHören) {
+        if (q.type === "sprach") {
+            questionDiv.textContent = q.displayText;
+        } else if (q.type === "hoeren") {
             questionDiv.textContent = `من هي الإجابة الصحيحة؟`;
         } else {
             questionDiv.textContent = `❝ ${q.firstWords} ❞`;
@@ -428,13 +443,32 @@
         const optionsDiv = document.createElement('div');
         optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:30px';
         
-        if (q.isHören) {
-            // Hören Teil 1: عرض الخيارات كاملة
+        if (q.type === "sprach") {
+            // Sprachbausteine: عرض الخيارات (3 خيارات)
             q.options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
                 optBtn.className = 'game-option-btn';
                 optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt}`;
-                optBtn.setAttribute('data-opt-index', idx);
+                optBtn.setAttribute('data-correct', opt === q.correct);
+                optBtn.setAttribute('data-value', opt);
+                optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
+                optBtn.onmouseenter = () => { 
+                    optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
+                    optBtn.style.transform = 'translateY(-0.5px)';
+                };
+                optBtn.onmouseleave = () => { 
+                    optBtn.style.boxShadow = 'none';
+                    optBtn.style.transform = 'translateY(0)';
+                };
+                optBtn.onclick = () => checkSprachAnswer(opt === q.correct, opt);
+                optionsDiv.appendChild(optBtn);
+            });
+        } else if (q.type === "hoeren") {
+            // Hören Teil 1
+            q.options.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = 'game-option-btn';
+                optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt}`;
                 optBtn.setAttribute('data-correct', idx === q.correctAnswerIndex);
                 optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
                 optBtn.onmouseenter = () => { 
@@ -449,7 +483,7 @@
                 optionsDiv.appendChild(optBtn);
             });
         } else {
-            // Lesen Teil 1/3: بناء الخيارات من العناوين
+            // Lesen Teil 1/3
             const options = [];
             
             if (q.correctTitle) {
@@ -471,7 +505,6 @@
                 options.push({ text: "عنوان آخر", isCorrect: false });
             }
             
-            // خلط الخيارات
             for (let i = options.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [options[i], options[j]] = [options[j], options[i]];
@@ -553,6 +586,48 @@
         startTimer();
     }
     
+    function checkSprachAnswer(isCorrect, selectedValue) {
+        if (!gameActive || gamePaused) return;
+        gameActive = false;
+        if (timerInterval) clearInterval(timerInterval);
+        
+        const q = currentRound[currentIndex];
+        const elapsed = (Date.now() - currentStartTime) / 1000;
+        const isFast = elapsed < 1.5;
+        
+        if (isCorrect) {
+            if (!isFast) questionStats[q.originalIndex].wasSlow = true;
+            combo++;
+            if (combo > bestCombo) bestCombo = combo;
+        } else {
+            questionStats[q.originalIndex].timesWrong++;
+            questionStats[q.originalIndex].wasSlow = true;
+            questionStats[q.originalIndex].lastWrongAt = currentIndex;
+            combo = 0;
+        }
+        
+        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
+        btns.forEach(btn => {
+            if (btn.getAttribute('data-correct') === 'true') {
+                btn.style.background = '#d4edda';
+                btn.style.borderColor = '#28a745';
+                btn.style.color = '#155724';
+            } else if (!isCorrect && btn.getAttribute('data-value') === selectedValue) {
+                btn.style.background = '#fff3e0';
+                btn.style.borderColor = '#fd7e14';
+                btn.style.color = '#e67e22';
+            }
+        });
+        
+        userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
+        
+        if (transitionTimeout) clearTimeout(transitionTimeout);
+        transitionTimeout = setTimeout(() => {
+            currentIndex++;
+            showQuestion();
+        }, SETTINGS.transitionDelay);
+    }
+    
     function checkHörenAnswer(isCorrect, selectedIndex) {
         if (!gameActive || gamePaused) return;
         gameActive = false;
@@ -586,11 +661,7 @@
             }
         });
         
-        userAnswers.push({ 
-            isCorrect: isCorrect, 
-            originalIndex: q.originalIndex,
-            selectedIndex: selectedIndex
-        });
+        userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
         
         if (transitionTimeout) clearTimeout(transitionTimeout);
         transitionTimeout = setTimeout(() => {
@@ -632,11 +703,7 @@
             }
         });
         
-        userAnswers.push({ 
-            isCorrect: isCorrect, 
-            originalIndex: q.originalIndex,
-            selectedIndex: -1
-        });
+        userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
         
         if (transitionTimeout) clearTimeout(transitionTimeout);
         transitionTimeout = setTimeout(() => {
@@ -657,8 +724,14 @@
         originalQuestions.forEach((q, idx) => {
             const userAttempts = userAnswers.filter(a => a.originalIndex === idx);
             const correctAttempts = userAttempts.filter(a => a.isCorrect).length;
+            let title = "";
+            if (q.type === "sprach") {
+                title = q.before + " ... " + q.after;
+            } else {
+                title = q.firstWords || "فقرة";
+            }
             questionResults[idx] = {
-                title: q.firstWords || "فقرة",
+                title: title.substring(0, 40),
                 attempts: userAttempts.length,
                 correct: correctAttempts,
                 wrong: userAttempts.length - correctAttempts
@@ -681,7 +754,7 @@
             const stat = questionResults[idx];
             if (stat.attempts > 0) {
                 const icon = stat.wrong === 0 ? '✅' : (stat.correct > stat.wrong ? '⚠️' : '❌');
-                statsHtml += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee"><span style="font-size:13px;text-align:left;flex:2">${stat.title}</span><span style="font-size:13px;color:${stat.wrong === 0 ? '#28a745' : (stat.correct > stat.wrong ? '#fd7e14' : '#dc3545')}">${icon} ${stat.correct}/${stat.attempts}</span></div>`;
+                statsHtml += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee"><span style="font-size:12px;text-align:left;flex:2">${stat.title}</span><span style="font-size:12px;color:${stat.wrong === 0 ? '#28a745' : (stat.correct > stat.wrong ? '#fd7e14' : '#dc3545')}">${icon} ${stat.correct}/${stat.attempts}</span></div>`;
             }
         }
         
