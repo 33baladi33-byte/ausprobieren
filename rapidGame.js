@@ -6,9 +6,8 @@
 (function() {
     "use strict";
     
-    // إعدادات اللعبة
-    const SETTINGS = {
-        timePerQuestion: 2.2,
+    // إعدادات اللعبة الأساسية
+    const BASE_SETTINGS = {
         transitionDelay: 250,
         firstWordsLength: 8,
         titleLength: 7,
@@ -16,6 +15,15 @@
         minWrongRepeatDelay: 2,
         maxWrongRepeatDelay: 5
     };
+    
+    // أوضاع السرعة
+    const SPEED_MODES = {
+        reflex: { name: "Reflex", timePerQuestion: 2.2, color: "#4a90e2" },
+        focus: { name: "Focus", timePerQuestion: 2.9, color: "#6c757d" }
+    };
+    
+    let currentSpeedMode = "reflex";
+    let SETTINGS = { ...BASE_SETTINGS, timePerQuestion: SPEED_MODES.reflex.timePerQuestion };
     
     // متغيرات اللعبة
     let gameActive = false;
@@ -45,7 +53,58 @@
         return shortened;
     }
     
-    // دالة رسم المؤقت الدائري
+    // تبديل وضع السرعة
+    function setSpeedMode(mode) {
+        if (!SPEED_MODES[mode]) return;
+        currentSpeedMode = mode;
+        SETTINGS.timePerQuestion = SPEED_MODES[mode].timePerQuestion;
+        
+        // تحديث شكل الأزرار إذا كانت اللعبة مفتوحة
+        const reflexBtn = document.getElementById('modeReflexBtn');
+        const focusBtn = document.getElementById('modeFocusBtn');
+        if (reflexBtn && focusBtn) {
+            if (mode === 'reflex') {
+                reflexBtn.style.background = '#4a90e2';
+                reflexBtn.style.color = 'white';
+                focusBtn.style.background = '#e8e8e8';
+                focusBtn.style.color = '#333';
+            } else {
+                focusBtn.style.background = '#6c757d';
+                focusBtn.style.color = 'white';
+                reflexBtn.style.background = '#e8e8e8';
+                reflexBtn.style.color = '#333';
+            }
+        }
+        
+        console.log(`🎮 تم التبديل إلى وضع ${SPEED_MODES[mode].name} - الوقت: ${SETTINGS.timePerQuestion} ثانية`);
+    }
+    
+    function createSpeedModeSelector() {
+        const container = document.createElement('div');
+        container.style.cssText = 'display:flex;justify-content:center;gap:10px;margin-bottom:20px';
+        
+        const reflexBtn = document.createElement('button');
+        reflexBtn.id = 'modeReflexBtn';
+        reflexBtn.textContent = '⚡ Reflex';
+        reflexBtn.style.cssText = 'padding:6px 18px;border-radius:30px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:none;background:#4a90e2;color:white;box-shadow:none';
+        reflexBtn.onmouseenter = () => { if (currentSpeedMode !== 'reflex') reflexBtn.style.background = '#e0e0e0'; };
+        reflexBtn.onmouseleave = () => { if (currentSpeedMode !== 'reflex') reflexBtn.style.background = '#e8e8e8'; };
+        reflexBtn.onclick = () => { setSpeedMode('reflex'); };
+        
+        const focusBtn = document.createElement('button');
+        focusBtn.id = 'modeFocusBtn';
+        focusBtn.textContent = '🎯 Focus';
+        focusBtn.style.cssText = 'padding:6px 18px;border-radius:30px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:none;background:#e8e8e8;color:#333;box-shadow:none';
+        focusBtn.onmouseenter = () => { if (currentSpeedMode !== 'focus') focusBtn.style.background = '#e0e0e0'; };
+        focusBtn.onmouseleave = () => { if (currentSpeedMode !== 'focus') focusBtn.style.background = '#e8e8e8'; };
+        focusBtn.onclick = () => { setSpeedMode('focus'); };
+        
+        container.appendChild(reflexBtn);
+        container.appendChild(focusBtn);
+        
+        return container;
+    }
+    
     function createCircularTimer(percent) {
         const radius = 18;
         const circumference = 2 * Math.PI * radius;
@@ -208,14 +267,11 @@
                 currentGameData = data;
                 let allQuestions = data.questions;
                 
-                // لـ Lesen Teil 3: إزالة الفقرات التي ليس لها عنوان صحيح
                 if (skill === 'lesen3') {
                     allQuestions = allQuestions.filter(q => q.correctTitle !== null && q.correctTitle !== undefined);
                 }
                 
-                // تحويل الأسئلة إلى صيغة موحدة
                 originalQuestions = allQuestions.map(q => {
-                    // Sprachbausteine Teil 1/2
                     if (q.before !== undefined || q.options) {
                         return {
                             type: "sprach",
@@ -227,7 +283,6 @@
                             displayText: `${q.before} _____ (${q.id}) _____ ${q.after}`
                         };
                     }
-                    // Hören Teil 1
                     else if (q.correctAnswerIndex !== undefined) {
                         return {
                             type: "hoeren",
@@ -237,7 +292,6 @@
                             correctAnswerIndex: q.correctAnswerIndex
                         };
                     } 
-                    // Lesen Teil 1/3
                     else {
                         return {
                             type: "lesen",
@@ -261,6 +315,7 @@
     
     function startGame(skill, examId) {
         if (gameActive) return;
+        setSpeedMode('reflex');
         loadGameData(skill, examId).then(loaded => {
             if (!loaded) { showNotAvailableMessage(); return; }
             if (originalQuestions.length === 0) {
@@ -348,45 +403,17 @@
                     
                     const btns = document.querySelectorAll('.game-option-btn');
                     
-                    if (q.type === "hoeren") {
-                        btns.forEach((btn, idx) => {
-                            if (idx === q.correctAnswerIndex) {
-                                btn.style.background = '#d4edda';
-                                btn.style.borderColor = '#28a745';
-                                btn.style.color = '#155724';
-                            } else {
-                                btn.style.background = '#fff3e0';
-                                btn.style.borderColor = '#fd7e14';
-                                btn.style.color = '#e67e22';
-                            }
-                        });
-                    } 
-                    else if (q.type === "sprach") {
-                        btns.forEach(btn => {
-                            if (btn.getAttribute('data-correct') === 'true') {
-                                btn.style.background = '#d4edda';
-                                btn.style.borderColor = '#28a745';
-                                btn.style.color = '#155724';
-                            } else {
-                                btn.style.background = '#fff3e0';
-                                btn.style.borderColor = '#fd7e14';
-                                btn.style.color = '#e67e22';
-                            }
-                        });
-                    }
-                    else {
-                        btns.forEach(btn => {
-                            if (btn.getAttribute('data-correct') === 'true') {
-                                btn.style.background = '#d4edda';
-                                btn.style.borderColor = '#28a745';
-                                btn.style.color = '#155724';
-                            } else {
-                                btn.style.background = '#fff3e0';
-                                btn.style.borderColor = '#fd7e14';
-                                btn.style.color = '#e67e22';
-                            }
-                        });
-                    }
+                    btns.forEach(btn => {
+                        if (btn.getAttribute('data-correct') === 'true') {
+                            btn.style.background = '#d4edda';
+                            btn.style.borderColor = '#28a745';
+                            btn.style.color = '#155724';
+                        } else {
+                            btn.style.background = '#fff3e0';
+                            btn.style.borderColor = '#fd7e14';
+                            btn.style.color = '#e67e22';
+                        }
+                    });
                     
                     transitionTimeout = setTimeout(() => {
                         currentIndex++;
@@ -439,6 +466,12 @@
         const container = document.createElement('div');
         container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:700px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative';
         
+        // مؤشر وضع السرعة
+        const modeIndicator = document.createElement('div');
+        modeIndicator.style.cssText = 'position:absolute;top:12px;right:12px;font-size:11px;color:#999;background:#f5f5f5;padding:2px 8px;border-radius:20px';
+        modeIndicator.textContent = currentSpeedMode === 'reflex' ? '⚡ Reflex' : '🎯 Focus';
+        container.appendChild(modeIndicator);
+        
         // المؤقت الدائري
         const timerContainer = document.createElement('div');
         timerContainer.className = 'circular-timer-container';
@@ -465,7 +498,6 @@
         optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:30px';
         
         if (q.type === "sprach") {
-            // Sprachbausteine: عرض الخيارات (3 خيارات)
             q.options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
                 optBtn.className = 'game-option-btn';
@@ -485,7 +517,6 @@
                 optionsDiv.appendChild(optBtn);
             });
         } else if (q.type === "hoeren") {
-            // Hören Teil 1
             q.options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
                 optBtn.className = 'game-option-btn';
@@ -504,7 +535,6 @@
                 optionsDiv.appendChild(optBtn);
             });
         } else {
-            // Lesen Teil 1/3
             const options = [];
             
             if (q.correctTitle) {
@@ -552,15 +582,7 @@
         
         container.appendChild(optionsDiv);
         
-        // كومبو
-        if (combo >= 3) {
-            const comboDiv = document.createElement('div');
-            comboDiv.style.cssText = 'font-size:18px;font-weight:500;margin-bottom:15px;color:#2c3e66';
-            comboDiv.textContent = `${combo >= 10 ? '⚡' : (combo >= 6 ? '🔥' : '✓')} COMBO x${combo}`;
-            container.appendChild(comboDiv);
-        }
-        
-        // التقدم وأزرار التحكم
+        // أزرار التحكم
         const bottomBar = document.createElement('div');
         bottomBar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-top:10px';
         
