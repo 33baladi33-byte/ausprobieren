@@ -431,107 +431,181 @@
         document.getElementById('closeNotAvailableBtn').onclick = () => overlay.remove();
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
-    
     function loadGameData(skill, examId) {
-        currentSkill = skill;
-        currentExamId = examId;
+    currentSkill = skill;
+    currentExamId = examId;
+    
+    // بناء المسار الصحيح - دعم كل من الصيغتين
+    let filePath;
+    if (skill === 'hoeren1') {
+        // Hören 1: data/games/hoeren1/exam1.json
+        filePath = `data/games/${skill}/exam${examId}.json`;
+    } else if (skill === 'lesen1') {
+        // Lesen 1: نحاول أولاً المسار الجديد، ثم القديم
+        const newPath = `data/games/${skill}/exam${examId}.json`;
+        const oldPath = `data/games/${skill}_exam${examId}.json`;
         
-        // بناء المسار الصحيح: data/games/hoeren1/exam1.json
-        let filePath;
-        if (skill === 'hoeren1') {
-            filePath = `data/games/${skill}/exam${examId}.json`;
-        } else {
-            filePath = `data/games/${skill}_exam${examId}.json`;
-        }
-        
-        console.log(`📂 جاري تحميل: ${filePath}`);
-        
-        return fetch(filePath)
+        // سنحاول المسار الجديد أولاً
+        return fetch(newPath)
             .then(response => {
-                if (!response.ok) {
-                    console.error(`❌ الملف غير موجود: ${filePath}`);
-                    throw new Error('الملف غير موجود');
+                if (response.ok) {
+                    filePath = newPath;
+                    return response.json();
+                } else {
+                    // إذا لم ينجح، نحاول المسار القديم
+                    return fetch(oldPath).then(res => {
+                        if (!res.ok) throw new Error('الملف غير موجود');
+                        filePath = oldPath;
+                        return res.json();
+                    });
                 }
-                return response.json();
             })
             .then(data => {
-                console.log(`✅ تم تحميل الملف بنجاح:`, data);
-                currentGameData = data;
-                
-                // ==================== نظام Hören Teil 1 الجديد ====================
-                if (skill === 'hoeren1') {
-                    // حفظ الجمل من ملف الامتحان (يدعم sentences أو questions)
-                    hoeren1Sentences = data.sentences || data.questions || [];
-                    console.log(`📝 تم تحميل ${hoeren1Sentences.length} جملة لـ Hören 1`);
-                    
-                    // إنشاء جولات وهمية بعدد الجولات المطلوب
-                    const totalRounds = SETTINGS.roundLength;
-                    originalQuestions = [];
-                    for (let i = 0; i < totalRounds; i++) {
-                        originalQuestions.push({
-                            type: "hoeren1_reflex",
-                            id: i,
-                            questionText: "اختر الجملة الصحيحة"
-                        });
-                    }
-                }
-                // ==================== باقي الأنظمة (Lesen, Sprach, Hören 2/3) ====================
-                else if (skill === 'lesen3') {
-                    let allQuestions = data.questions;
-                    allQuestions = allQuestions.filter(q => q.correctTitle !== null && q.correctTitle !== undefined);
-                    originalQuestions = allQuestions.map(q => {
-                        return {
-                            type: "lesen",
-                            firstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
-                            fullText: q.fullText,
-                            shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
-                            shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
-                            correctTitle: q.correctTitle
-                        };
-                    });
-                }
-                else if (data.questions) {
-                    let allQuestions = data.questions;
-                    originalQuestions = allQuestions.map(q => {
-                        if (q.before !== undefined || q.options) {
-                            return {
-                                type: "sprach",
-                                id: q.id,
-                                before: q.before || "",
-                                after: q.after || "",
-                                options: q.options,
-                                correct: q.correct,
-                                displayText: `${q.before} _____ (${q.id}) _____ ${q.after}`
-                            };
-                        }
-                        else if (q.correctAnswerIndex !== undefined) {
-                            return {
-                                type: "hoeren",
-                                firstWords: q.firstWords || shortenText(q.fullText, SETTINGS.firstWordsLength),
-                                fullText: q.fullText,
-                                options: q.options,
-                                correctAnswerIndex: q.correctAnswerIndex
-                            };
-                        } 
-                        else {
-                            return {
-                                type: "lesen",
-                                firstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
-                                fullText: q.fullText,
-                                shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
-                                shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
-                                correctTitle: q.correctTitle
-                            };
-                        }
-                    });
-                }
-                
-                questionStats = {};
-                originalQuestions.forEach((_, idx) => {
-                    questionStats[idx] = { timesWrong: 0, wasSlow: false, lastWrongAt: -999 };
-                });
-                return true;
+                return processGameData(data, skill, filePath);
             })
+            .catch(error => {
+                console.error(`❌ خطأ في تحميل الملف:`, error);
+                return false;
+            });
+    } else {
+        // باقي المهارات: data/games/skill_examId.json
+        filePath = `data/games/${skill}_exam${examId}.json`;
+    }
+    
+    if (filePath) {
+        return fetch(filePath)
+            .then(response => {
+                if (!response.ok) throw new Error('الملف غير موجود');
+                return response.json();
+            })
+            .then(data => processGameData(data, skill, filePath))
+            .catch(error => {
+                console.error(`❌ خطأ في تحميل الملف:`, error);
+                return false;
+            });
+    }
+    
+    return Promise.resolve(false);
+}
+
+// دالة منفصلة لمعالجة البيانات بعد التحميل
+function processGameData(data, skill, filePath) {
+    console.log(`✅ تم تحميل الملف بنجاح: ${filePath}`, data);
+    currentGameData = data;
+    
+    // ==================== نظام Hören Teil 1 الجديد ====================
+    if (skill === 'hoeren1') {
+        hoeren1Sentences = data.sentences || data.questions || [];
+        console.log(`📝 تم تحميل ${hoeren1Sentences.length} جملة لـ Hören 1`);
+        
+        const totalRounds = SETTINGS.roundLength;
+        originalQuestions = [];
+        for (let i = 0; i < totalRounds; i++) {
+            originalQuestions.push({
+                type: "hoeren1_reflex",
+                id: i,
+                questionText: "اختر الجملة الصحيحة"
+            });
+        }
+    }
+    // ==================== نظام Lesen Teil 1 الجديد (مع sharedOptions) ====================
+    else if (skill === 'lesen1' && data.sharedOptions) {
+        console.log(`📖 تحميل Lesen Teil 1 بنظام sharedOptions`);
+        const sharedOptions = data.sharedOptions;
+        
+        originalQuestions = data.questions.map((q, idx) => {
+            // الحصول على العنوان الصحيح من sharedOptions
+            const correctTitle = sharedOptions[q.correct];
+            // إزالة الحروف "a. "، "b. " من بداية العنوان إذا وجدت
+            const cleanCorrectTitle = correctTitle.replace(/^[a-z]\.\s*/, '');
+            
+            // الحصول على عناوين خاطئة (كل العناوين ما عدا العنوان الصحيح)
+            const wrongTitles = sharedOptions
+                .filter((_, index) => index !== q.correct)
+                .map(title => title.replace(/^[a-z]\.\s*/, ''));
+            
+            // اختيار عنوانين خاطئين عشوائيين
+            const shuffledWrongs = [...wrongTitles];
+            for (let i = shuffledWrongs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledWrongs[i], shuffledWrongs[j]] = [shuffledWrongs[j], shuffledWrongs[i]];
+            }
+            const selectedWrongTitles = shuffledWrongs.slice(0, 2);
+            
+            // استخراج أول 8 كلمات من النص
+            const firstWords = shortenText(q.text, SETTINGS.firstWordsLength);
+            
+            return {
+                type: "lesen",
+                id: idx,
+                firstWords: firstWords,
+                fullText: q.text,
+                shortCorrectTitle: cleanCorrectTitle.substring(0, 50),
+                shortWrongTitles: selectedWrongTitles.map(t => t.substring(0, 50)),
+                correctTitle: cleanCorrectTitle
+            };
+        });
+        
+        console.log(`📝 تم تحميل ${originalQuestions.length} سؤال لـ Lesen 1`);
+    }
+    // ==================== نظام Lesen Teil 3 ====================
+    else if (skill === 'lesen3') {
+        let allQuestions = data.questions;
+        allQuestions = allQuestions.filter(q => q.correctTitle !== null && q.correctTitle !== undefined);
+        originalQuestions = allQuestions.map(q => {
+            return {
+                type: "lesen",
+                firstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
+                fullText: q.fullText,
+                shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
+                shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
+                correctTitle: q.correctTitle
+            };
+        });
+    }
+    // ==================== نظام Sprachbausteine و Hören 2/3 ====================
+    else if (data.questions) {
+        let allQuestions = data.questions;
+        originalQuestions = allQuestions.map(q => {
+            if (q.before !== undefined || q.options) {
+                return {
+                    type: "sprach",
+                    id: q.id,
+                    before: q.before || "",
+                    after: q.after || "",
+                    options: q.options,
+                    correct: q.correct,
+                    displayText: `${q.before} _____ (${q.id}) _____ ${q.after}`
+                };
+            }
+            else if (q.correctAnswerIndex !== undefined) {
+                return {
+                    type: "hoeren",
+                    firstWords: q.firstWords || shortenText(q.fullText, SETTINGS.firstWordsLength),
+                    fullText: q.fullText,
+                    options: q.options,
+                    correctAnswerIndex: q.correctAnswerIndex
+                };
+            } 
+            else {
+                return {
+                    type: "lesen",
+                    firstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
+                    fullText: q.fullText,
+                    shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
+                    shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
+                    correctTitle: q.correctTitle
+                };
+            }
+        });
+    }
+    
+    questionStats = {};
+    originalQuestions.forEach((_, idx) => {
+        questionStats[idx] = { timesWrong: 0, wasSlow: false, lastWrongAt: -999 };
+    });
+    return true;
+}
             .catch(error => {
                 console.error(`❌ خطأ في تحميل الملف:`, error);
                 return false;
