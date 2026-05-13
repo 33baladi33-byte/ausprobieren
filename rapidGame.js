@@ -19,7 +19,7 @@
     // أوضاع السرعة
     const SPEED_MODES = {
         reflex: { name: "Reflex", timePerQuestion: 2.2, icon: "⚡⚡⚡", display: "⚡⚡⚡ Reflex" },
-        focus: { name: "Focus", timePerQuestion: 3.5, icon: "⚡", display: "⚡ Focus" }
+        focus: { name: "Focus", timePerQuestion: 5.0, icon: "⚡", display: "⚡ Focus" }
     };
     
     let currentSpeedMode = "reflex";
@@ -28,6 +28,7 @@
     // متغيرات اللعبة
     let gameActive = false;
     let gamePaused = false;
+    let gameStarted = false;
     let gameOverlay = null;
     let currentGameData = null;
     let originalQuestions = [];
@@ -44,7 +45,6 @@
     
     let questionStats = {};
     
-    // متغير لتخزين skill و examId الحالي لإعادة التشغيل عند تغيير الوضع
     let currentSkill = null;
     let currentExamId = null;
     
@@ -57,23 +57,156 @@
         return shortened;
     }
     
-    // إعادة تشغيل اللعبة بالكامل
-    function restartGame() {
+    // عرض شاشة اختيار الوضع
+    function showModeSelectionScreen() {
         if (gameOverlay) gameOverlay.remove();
-        gameActive = false;
+        
+        gameOverlay = document.createElement('div');
+        gameOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
+        
+        const container = document.createElement('div');
+        container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:450px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2)';
+        
+        // العنوان
+        const title = document.createElement('div');
+        title.textContent = '🎮 اختر الوضع المناسب لك';
+        title.style.cssText = 'font-size:18px;font-weight:600;color:#2c3e66;margin-bottom:20px';
+        container.appendChild(title);
+        
+        // أزرار الأوضاع
+        const modesContainer = document.createElement('div');
+        modesContainer.style.cssText = 'display:flex;justify-content:center;gap:15px;margin-bottom:20px';
+        
+        const reflexBtn = document.createElement('button');
+        reflexBtn.id = 'modeSelectReflex';
+        reflexBtn.textContent = '⚡⚡⚡ Reflex';
+        reflexBtn.style.cssText = 'padding:10px 20px;border-radius:30px;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #ccc;background:#e8e8e8;color:#333;transition:all 0.1s ease';
+        reflexBtn.onclick = () => {
+            setSpeedMode('reflex');
+            updateModeSelectionUI(reflexBtn, focusBtn);
+        };
+        
+        const focusBtn = document.createElement('button');
+        focusBtn.id = 'modeSelectFocus';
+        focusBtn.textContent = '⚡ Focus';
+        focusBtn.style.cssText = 'padding:10px 20px;border-radius:30px;font-size:14px;font-weight:500;cursor:pointer;border:1px solid #ccc;background:#e8e8e8;color:#333;transition:all 0.1s ease';
+        focusBtn.onclick = () => {
+            setSpeedMode('focus');
+            updateModeSelectionUI(reflexBtn, focusBtn);
+        };
+        
+        modesContainer.appendChild(reflexBtn);
+        modesContainer.appendChild(focusBtn);
+        container.appendChild(modesContainer);
+        
+        // زر البدء
+        const startBtn = document.createElement('button');
+        startBtn.textContent = '▶ ابدأ التحدي';
+        startBtn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:40px;padding:12px 30px;font-size:15px;font-weight:500;cursor:pointer;margin-top:15px;transition:all 0.15s';
+        startBtn.onmouseenter = () => { startBtn.style.background = '#1a2a4a'; };
+        startBtn.onmouseleave = () => { startBtn.style.background = '#2c3e66'; };
+        startBtn.onclick = () => {
+            gameOverlay.remove();
+            startGameAfterModeSelection();
+        };
+        container.appendChild(startBtn);
+        
+        gameOverlay.appendChild(container);
+        document.body.appendChild(gameOverlay);
+        
+        // تحديث واجهة اختيار الوضع
+        function updateModeSelectionUI(reflex, focus) {
+            if (currentSpeedMode === 'reflex') {
+                reflex.style.background = '#d4e8ff';
+                reflex.style.border = '1px solid #4a90e2';
+                reflex.style.color = '#2c3e66';
+                focus.style.background = '#e8e8e8';
+                focus.style.border = '1px solid #ccc';
+                focus.style.color = '#333';
+            } else {
+                focus.style.background = '#d4e8ff';
+                focus.style.border = '1px solid #4a90e2';
+                focus.style.color = '#2c3e66';
+                reflex.style.background = '#e8e8e8';
+                reflex.style.border = '1px solid #ccc';
+                reflex.style.color = '#333';
+            }
+        }
+        updateModeSelectionUI(reflexBtn, focusBtn);
+    }
+    
+    // بدء اللعبة بعد اختيار الوضع
+    function startGameAfterModeSelection() {
+        if (gameStarted) return;
+        gameStarted = true;
         gamePaused = false;
+        
+        loadGameData(currentSkill, currentExamId).then(loaded => {
+            if (!loaded) { showNotAvailableMessage(); return; }
+            if (originalQuestions.length === 0) {
+                showNotAvailableMessage();
+                return;
+            }
+            currentRound = generateSmartRound(originalQuestions, questionStats);
+            currentIndex = 0;
+            userAnswers = [];
+            combo = 0;
+            bestCombo = 0;
+            showCountdown();
+        });
+    }
+    
+    // إعادة تشغيل اللعبة بالكامل عند تغيير الوضع (بدون عد تنازلي)
+    function restartGameOnModeChange() {
+        if (!gameStarted) return;
+        
+        // إعادة تعيين المتغيرات
+        currentRound = generateSmartRound(originalQuestions, questionStats);
+        currentIndex = 0;
+        userAnswers = [];
+        combo = 0;
+        bestCombo = 0;
+        gameActive = false;
+        gameStarted = false;
+        gamePaused = true;
+        
         if (timerInterval) clearInterval(timerInterval);
         if (transitionTimeout) clearTimeout(transitionTimeout);
-        startGame(currentSkill, currentExamId);
+        
+        // تحديث واجهة البطاقة الحالية لإظهار زر Resume
+        if (gameOverlay) {
+            const container = gameOverlay.querySelector('.game-container-inner');
+            if (container) {
+                // تحديث التقدم
+                const progressDiv = container.querySelector('.game-progress');
+                if (progressDiv) progressDiv.textContent = `1 / ${currentRound.length}`;
+                
+                // عرض رسالة التوقف
+                const existingMsg = container.querySelector('.mode-change-message');
+                if (!existingMsg) {
+                    const msg = document.createElement('div');
+                    msg.className = 'mode-change-message';
+                    msg.textContent = '🔄 تم تغيير الوضع، اضغط Resume للبدء';
+                    msg.style.cssText = 'text-align:center;padding:15px;color:#e67e22;font-size:14px';
+                    const optionsDiv = container.querySelector('.game-options-div');
+                    if (optionsDiv) {
+                        optionsDiv.insertAdjacentElement('afterend', msg);
+                    }
+                }
+            }
+        }
+        
+        console.log('🔄 تم إعادة تعيين اللعبة بسبب تغيير الوضع');
     }
     
     // تبديل وضع السرعة
     function setSpeedMode(mode) {
         if (!SPEED_MODES[mode]) return;
+        const oldMode = currentSpeedMode;
         currentSpeedMode = mode;
         SETTINGS.timePerQuestion = SPEED_MODES[mode].timePerQuestion;
         
-        // تحديث شكل الأزرار
+        // تحديث شكل الأزرار في اللعبة (إذا كانت مفتوحة)
         const reflexBtn = document.getElementById('modeReflexBtn');
         const focusBtn = document.getElementById('modeFocusBtn');
         if (reflexBtn && focusBtn) {
@@ -98,9 +231,9 @@
             }
         }
         
-        // إعادة تشغيل اللعبة عند تغيير الوضع
-        if (currentSkill && currentExamId && gameOverlay) {
-            restartGame();
+        // إذا كانت اللعبة بدأت بالفعل، نعيد تشغيلها
+        if (gameStarted && oldMode !== mode) {
+            restartGameOnModeChange();
         }
         
         console.log(`🎮 تم التبديل إلى وضع ${SPEED_MODES[mode].name} - الوقت: ${SETTINGS.timePerQuestion} ثانية`);
@@ -113,7 +246,7 @@
         const reflexBtn = document.createElement('button');
         reflexBtn.id = 'modeReflexBtn';
         reflexBtn.textContent = '⚡⚡⚡ Reflex';
-        reflexBtn.style.cssText = 'padding:5px 14px;border-radius:25px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:1px solid #555;background:#3a3a3a;color:#fff;box-shadow:0 0 4px rgba(100,100,100,0.3)';
+        reflexBtn.style.cssText = 'padding:5px 14px;border-radius:25px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:1px solid #3a3a3a;background:#2a2a2a;color:#888;box-shadow:none';
         reflexBtn.onclick = () => { setSpeedMode('reflex'); };
         
         const focusBtn = document.createElement('button');
@@ -339,39 +472,11 @@
     }
     
     function startGame(skill, examId) {
-        if (gameActive) return;
-        // التأكد من أن الوضع الافتراضي هو Reflex عند بدء اللعبة
-        if (currentSpeedMode !== 'reflex') {
-            setSpeedMode('reflex');
-        } else {
-            // تحديث شكل الأزرار إذا لزم الأمر
-            const reflexBtn = document.getElementById('modeReflexBtn');
-            const focusBtn = document.getElementById('modeFocusBtn');
-            if (reflexBtn && focusBtn) {
-                reflexBtn.style.background = '#3a3a3a';
-                reflexBtn.style.color = '#fff';
-                reflexBtn.style.border = '1px solid #555';
-                reflexBtn.style.boxShadow = '0 0 4px rgba(100,100,100,0.3)';
-                focusBtn.style.background = '#2a2a2a';
-                focusBtn.style.color = '#888';
-                focusBtn.style.border = '1px solid #3a3a3a';
-                focusBtn.style.boxShadow = 'none';
-            }
-        }
-        loadGameData(skill, examId).then(loaded => {
-            if (!loaded) { showNotAvailableMessage(); return; }
-            if (originalQuestions.length === 0) {
-                showNotAvailableMessage();
-                return;
-            }
-            currentRound = generateSmartRound(originalQuestions, questionStats);
-            currentIndex = 0;
-            userAnswers = [];
-            combo = 0;
-            bestCombo = 0;
-            gamePaused = false;
-            showCountdown();
-        });
+        if (gameStarted) return;
+        currentSkill = skill;
+        currentExamId = examId;
+        setSpeedMode('reflex');
+        showModeSelectionScreen();
     }
     
     function pauseGame() {
@@ -392,6 +497,10 @@
         const pauseBtn = document.getElementById('gamePauseBtn');
         if (pauseBtn) pauseBtn.textContent = '⏸ Pause';
         
+        // إزالة رسالة تغيير الوضع إذا وجدت
+        const msg = document.querySelector('.mode-change-message');
+        if (msg) msg.remove();
+        
         currentStartTime = Date.now() - (SETTINGS.timePerQuestion - remainingTime) * 1000;
         startTimer();
     }
@@ -399,6 +508,7 @@
     function exitGame() {
         gameActive = false;
         gamePaused = false;
+        gameStarted = false;
         if (timerInterval) clearInterval(timerInterval);
         if (transitionTimeout) clearTimeout(transitionTimeout);
         if (gameOverlay) gameOverlay.remove();
@@ -505,6 +615,7 @@
         gameOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
         
         const container = document.createElement('div');
+        container.className = 'game-container-inner';
         container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:700px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative';
         
         // المؤقت الدائري
@@ -530,6 +641,7 @@
         
         // الخيارات
         const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'game-options-div';
         optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:20px';
         
         if (q.type === "sprach") {
@@ -622,6 +734,7 @@
         bottomBar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:10px';
         
         const progressDiv = document.createElement('div');
+        progressDiv.className = 'game-progress';
         progressDiv.style.cssText = 'font-size:13px;color:#999';
         progressDiv.textContent = `${currentIndex + 1} / ${currentRound.length}`;
         bottomBar.appendChild(progressDiv);
@@ -635,11 +748,15 @@
         
         const pauseBtn = document.createElement('button');
         pauseBtn.id = 'gamePauseBtn';
-        pauseBtn.textContent = '⏸ Pause';
+        pauseBtn.textContent = gameStarted ? '⏸ Pause' : '▶ Start';
         pauseBtn.style.cssText = 'background:#e8e8e8;color:#333;border:none;border-radius:30px;padding:6px 16px;font-size:12px;cursor:pointer;transition:all 0.15s';
         pauseBtn.onclick = () => {
-            if (gamePaused) resumeGame();
-            else pauseGame();
+            if (gameStarted) {
+                if (gamePaused) resumeGame();
+                else pauseGame();
+            } else {
+                startGameAfterModeSelection();
+            }
         };
         controlBtns.appendChild(pauseBtn);
         
@@ -655,17 +772,22 @@
         gameOverlay.appendChild(container);
         document.body.appendChild(gameOverlay);
         
-        gameActive = true;
-        gamePaused = false;
-        currentStartTime = Date.now();
-        currentOptionsDiv = optionsDiv;
-        
-        const timerCircleSvg = timerContainer.querySelector('circle:last-of-type');
-        if (timerCircleSvg) {
-            timerCircleSvg.classList.add('circular-timer-fill');
+        if (gameStarted) {
+            gameActive = true;
+            gamePaused = false;
+            currentStartTime = Date.now();
+            currentOptionsDiv = optionsDiv;
+            
+            const timerCircleSvg = timerContainer.querySelector('circle:last-of-type');
+            if (timerCircleSvg) {
+                timerCircleSvg.classList.add('circular-timer-fill');
+            }
+            
+            startTimer();
+        } else {
+            gameActive = false;
+            gamePaused = true;
         }
-        
-        startTimer();
     }
     
     function checkSprachAnswer(isCorrect, selectedValue) {
@@ -694,14 +816,11 @@
                 btn.style.background = '#d4edda';
                 btn.style.borderColor = '#28a745';
                 btn.style.color = '#155724';
-            } else if (!isCorrect && btn.getAttribute('data-value') === selectedValue) {
+            }
+            if (!isCorrect && btn.getAttribute('data-value') === selectedValue) {
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
-            } else {
-                btn.style.background = '#f8f9fa';
-                btn.style.borderColor = '#e0e0e0';
-                btn.style.color = '#333';
             }
         });
         
@@ -740,14 +859,11 @@
                 btn.style.background = '#d4edda';
                 btn.style.borderColor = '#28a745';
                 btn.style.color = '#155724';
-            } else if (idx === selectedIndex && !isCorrect) {
+            }
+            if (idx === selectedIndex && !isCorrect) {
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
-            } else {
-                btn.style.background = '#f8f9fa';
-                btn.style.borderColor = '#e0e0e0';
-                btn.style.color = '#333';
             }
         });
         
@@ -786,14 +902,11 @@
                 btn.style.background = '#d4edda';
                 btn.style.borderColor = '#28a745';
                 btn.style.color = '#155724';
-            } else if (!isCorrect && btn.textContent.includes(selectedTitle)) {
+            }
+            if (!isCorrect && btn.textContent.includes(selectedTitle)) {
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
-            } else {
-                btn.style.background = '#f8f9fa';
-                btn.style.borderColor = '#e0e0e0';
-                btn.style.color = '#333';
             }
         });
         
@@ -809,6 +922,7 @@
     function showResults() {
         if (gameOverlay) gameOverlay.remove();
         gameActive = false;
+        gameStarted = false;
         
         const correct = userAnswers.filter(a => a.isCorrect).length;
         const total = userAnswers.length;
@@ -871,7 +985,10 @@
         overlay.appendChild(container);
         document.body.appendChild(overlay);
         
-        document.getElementById('restartGameBtn').onclick = () => { overlay.remove(); startGame(currentGameData.skill, currentGameData.examId); };
+        document.getElementById('restartGameBtn').onclick = () => {
+            overlay.remove();
+            startGame(currentGameData.skill, currentGameData.examId);
+        };
         document.getElementById('closeGameBtn').onclick = () => overlay.remove();
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
