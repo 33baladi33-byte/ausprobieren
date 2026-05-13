@@ -276,7 +276,7 @@ const schreibenExams = [
 
 // ========== قائمة امتحانات Mündlich Teil 1 (دليل تعريفي) ==========
 const mündlich1Exams = [
-  { id: 1, title: "📖 دليل Mündlich Teil 1 - التعارف والموضوع القصير", enabled: true, hasFile: true, skillPath: "mündlich1" }
+  { id: 1, title: "قدم نفسك وتكلم عن موضوع اخترته", enabled: true, hasFile: true, skillPath: "mündlich1" }
 ];
 
 // ========== قائمة امتحانات Mündlich Teil 2 (الامتحانات الفعلية) ==========
@@ -327,7 +327,7 @@ const mündlich2Exams = [
 
 // ========== قائمة امتحانات Mündlich Teil 3 (دليل المشكلات) ==========
 const mündlich3Exams = [
-  { id: 1, title: "🎯 دليل Mündlich Teil 3 - Problemlösung", enabled: true, hasFile: true, skillPath: "mündlich3" }
+  { id: 1, title: "Problemlösung", enabled: true, hasFile: true, skillPath: "mündlich3" }
 ];
 
 // أسماء الملفات الحقيقية
