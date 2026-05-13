@@ -8035,2376 +8035,2754 @@ HELP_DATA["lesen2_exam37_q5"] = {
 // Exam 1: Filme - Fernsehprogramme
 // ============================================
 
+
+// ============================================
+// Lesen Teil 3 - Exams 1-12 (فقط الأسئلة الصحيحة)
+// ============================================
+
+// ========== Exam 1: Filme - Fernsehprogramme ==========
 HELP_DATA["lesen3_exam1_q1"] = {
     text: "Ullrich Kasten und Hans-Hermann Hertle schildern - Eine Bekannte interessiert sich für die Geschichte des bis 1989 geteilten Berlins.",
-    meaning: "أولريش كاستن وهانز-هيرمان هيرتل يصفان - إحدى المعارف مهتمة بتاريخ برلين المقسمة حتى عام 1989.",
-    keywords: ["schildern = يصفان", "geteilten Berlins = برلين المقسمة"],
-    simplified: "فيلم وثائقي عن جدار برلين",
-    imagine: "🧠🚧 امرأة تشاهد فيلماً بالأبيض والأسود عن جدار برلين وتدمع عيناها."
+    meaning: "أولريش كاستن وهانز-هيرمان هيرتل يصفان - إحدى المعارف مهتمة بتاريخ برلين المقسمة حتى عام 1989",
+    keywords: ["Dokumentation = فيلم وثائقي", "Mauerbau = بناء الجدار", "geteilten Berlins = برلين المقسمة"],
+    simplified: "فيلم وثائقي عن جدار برلين وتقسيم ألمانيا",
+    imagine: "امرأة تشاهد فيلما بالأبيض والأسود عن جدار برلين",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam1_q2"] = {
     text: "Ob Klassik, Rock'n'Roll oder Jazz - Sie suchen eine Musiksendung. Sie mögen besonders Klaviermusik.",
-    meaning: "سواء كلاسيكي أو روك أند رول أو جاز - أنت تبحث عن برنامج موسيقي. أنت تحب موسيقى البيانو بشكل خاص.",
-    keywords: ["Klassik = كلاسيكي", "Musiksendung = برنامج موسيقي"],
-    simplified: "برنامج موسيقي مع بيانو",
-    imagine: "🧠🎹 شخص يغير القنوات فيتوقف عند عازف بيانو ماهر."
+    meaning: "سواء كلاسيكي أو روك أو جاز - تبحث عن برنامج موسيقي تحب فيه البيانو",
+    keywords: ["Klassik = كلاسيكي", "Jazz = جاز", "Pianist = عازف بيانو", "Musiksendung = برنامج موسيقي"],
+    simplified: "برنامج تلفزيوني متنوع مع عازف بيانو ماهر",
+    imagine: "شخص يغير القنوات ويتوقف عند عازف بيانو سريع الأصابع",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam1_q3"] = {
     text: "Aus Sorge um die nationale Sicherheit - Sie sehen gern spannende, aber auch spaßige Agentenfilme.",
-    meaning: "خوفاً على الأمن القومي - أنت تحب مشاهدة أفلام التجسس المثيرة والممتعة.",
-    keywords: ["Sicherheit = أمن", "Agentenfilme = أفلام تجسس"],
-    simplified: "فيلم تجسس ممتع ومثير",
-    imagine: "🧠🕵️ عبقري مجنون وعصابات تلاحقه وطبيب نفسي غريب."
+    meaning: "خوفا على الأمن القومي - تحب مشاهدة أفلام التجسس المثيرة والممتعة",
+    keywords: ["Geheimdienst = مخابرات", "Psychiater = طبيب نفسي", "Agentenfilme = أفلام تجسس"],
+    simplified: "فيلم تجسس كوميدي مع طبيب مجنون وعالم خطير",
+    imagine: "رجل معصوب العينين وآخر يضحك كالمجنون خلفه",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam1_q4"] = {
     text: "Er schreit wie am Spieß - Sie mögen Familienkomödien, besonders mit frechen Kindern.",
-    meaning: "هو يصرخ بصوت عالٍ - أنت تحب الكوميديا العائلية، خاصة مع الأطفال الشقاة.",
-    keywords: ["schreit = يصرخ", "Familienkomödien = كوميديا عائلية"],
-    simplified: "كوميديا عائلية مع طفل شقي",
-    imagine: "🧠👶 طفل شقي يضع القطة في كيس قمامة وأمه تضحك."
+    meaning: "هو يصرخ بصوت عالٍ - تحب الكوميديا العائلية خاصة مع الأطفال الشقاة",
+    keywords: ["schreit = يصرخ", "Vater = أب", "allein erziehend = عزب يربي", "Familienkomödie = كوميديا عائلية"],
+    simplified: "أب أعزب يعاني مع طفله الشقي وحبيبته السابقة",
+    imagine: "أب يجري وراء طفل صغير يضع قطة في كيس قمامة",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam1_q5"] = {
     text: "Hier in Berlin bei meinen Freunden - Sie würden gern etwas über Großstadtjugendliche erfahren, die am Rand der Gesellschaft leben.",
-    meaning: "هنا في برلين عند أصدقائي - ترغب في معرفة شيء عن شباب المدن الكبرى الذين يعيشون على هامش المجتمع.",
-    keywords: ["Berlin = برلين", "Großstadtjugendliche = شباب المدن الكبرى"],
-    simplified: "شباب بلا مأوى في برلين",
-    imagine: "🧠🏚️ مراهق ينام في محطة مترو ويسأل المارة عن المال."
+    meaning: "هنا في برلين عند أصدقائي - ترغب في معرفة شيء عن شباب المدن الكبرى الذين يعيشون على الهامش",
+    keywords: ["Berlin = برلين", "Straße = شارع", "jugendlich = مراهق", "obdachlos = بلا مأوى"],
+    simplified: "مراهق يبلغ 16 عاما يعيش في شوارع برلين",
+    imagine: "شاب يجلس على درج مبنى وبجانبه كيس نوم وكلب ضال",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam1_q6"] = {
     text: "Mit Sandalen und T-Shirt - Sie möchten im nächsten Urlaub bergsteigen und sich über die Risiken informieren.",
-    meaning: "بالصنادل والتي شيرت - ترغب في تسلق الجبال في الإجازة القادمة وتريد التعرف على المخاطر.",
-    keywords: ["Sandalen = صنادل", "bergsteigen = يتسلق الجبال"],
-    simplified: "تسلق الجبال ومخاطره",
-    imagine: "🧠🏔️ رجل يقف على قمة جبل والرياح تعصف به فيسقط."
+    meaning: "بالصنادل والتي شيرت - ترغب في تسلق الجبال في الإجازة القادمة وتريد معرفة المخاطر",
+    keywords: ["Sandalen = صنادل", "Bergwacht = خدمة إنقاذ جبلي", "Alpen = الألب", "Retter = منقذين"],
+    simplified: "فيلم وثائقي عن حوادث الجبال وعمليات الإنقاذ",
+    imagine: "رجل معلق بحبل على جرف ثلجي وطائرة هليكوبتر تحوم فوقه",
+    correct: 9
 };
 
 HELP_DATA["lesen3_exam1_q7"] = {
     text: "'Schwere Jungs' bildet den Auftakt - Sie mögen Filme mit viel Action und viel Spaß.",
-    meaning: "'شباب ثقال' تفتتح - أنت تحب الأفلام التي تحتوي على الكثير من الأكشن والكثير من المرح.",
-    keywords: ["Action = أكشن", "Spaß = مرح"],
-    simplified: "فيلم أكشن كوميدي",
-    imagine: "🧠💥 لصان يهربان من السجن ويتنكران كرهبان ويضربان الجميع."
+    meaning: "'شباب ثقال' تفتتح - تحب الأفلام التي تحتوي على الكثير من الأكشن والمرح",
+    keywords: ["Actionkomödie = كوميديا أكشن", "Gauner = لصوص", "Mönche = رهبان", "Prügel = ضرب"],
+    simplified: "فيلم أكشن كوميدي عن لصين يتحولان إلى راهبين",
+    imagine: "رجلان يرتديان زي الرهبان ويتشاجران بقبضاتهم",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam1_q8"] = {
     text: "Nach den Weltcup-Siegen - Bekannte interessieren sich für Wintersportveranstaltungen.",
-    meaning: "بعد انتصارات كأس العالم - معارف مهتمون بفعاليات الرياضات الشتوية.",
-    keywords: ["Weltcup = كأس العالم", "Wintersport = رياضة شتوية"],
-    simplified: "منافسات رياضية شتوية",
-    imagine: "🧠⛷️ شاب يقفز من ارتفاع 120 متراً والجمهور يصفق."
+    meaning: "بعد انتصارات كأس العالم - معارف مهتمون بفعاليات الرياضات الشتوية",
+    keywords: ["Weltcup = كأس العالم", "Skispringen = قفز تزلج", "Österreich = النمسا", "Deutschland = ألمانيا"],
+    simplified: "مسابقة القفز على الجليد بين ألمانيا والنمسا",
+    imagine: "رجل يقفز من منحدر ثلجي كبير وذراعاه ممدودتان كالطائر",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam1_q9"] = {
     text: "Man sollte meinen, Schauspieler Hendrik Höfgen - Ein Bekannter möchte einen Film sehen, der nach dem Werk eines Schriftstellers gedreht wurde.",
-    meaning: "قد يعتقد المرء أن الممثل هندريك هوفجن - أحد المعارف يريد مشاهدة فيلم تم إنتاجه بناءً على عمل كاتب.",
-    keywords: ["Schauspieler = ممثل", "Schriftstellers = كاتب"],
-    simplified: "فيلم مقتبس من رواية",
-    imagine: "🧠🎭 ممثل يبيع روحه للنازيين من أجل السلطة."
+    meaning: "قد يعتقد المرء أن الممثل هندريك هوفجن - أحد المعارف يريد مشاهدة فيلم مقتبس عن عمل كاتب",
+    keywords: ["Roman = رواية", "Klaus Mann = كلاوس مان", "Nazis = نازيين", "Theater = مسرح"],
+    simplified: "فيلم درامي عن ممثل يبيع فنه للنازيين مأخوذ عن رواية",
+    imagine: "ممثل يرتدي زي المسرح ويقف أمام علم أحمر عليه صليب معقوف",
+    correct: 0
 };
 
-// ============================================
-// Exam 2: Filme - Fernsehprogramme (معدل)
-// ============================================
-
+// ========== Exam 2: Filme - Fernsehprogramme (معدل) ==========
 HELP_DATA["lesen3_exam2_q1"] = {
     text: "Ullrich Kasten und Hans-Hermann Hertle schildern - Eine Bekannte interessiert sich für informative Beiträge zur neueren Geschichte.",
-    meaning: "أولريش كاستن وهانز-هيرمان هيرتل يصفان - إحدى المعارف مهتمة بالمساهمات الإعلامية عن التاريخ المعاصر.",
-    keywords: ["schildern = يصفان", "neueren Geschichte = التاريخ المعاصر"],
-    simplified: "وثائقي عن التاريخ المعاصر",
-    imagine: "🧠📺 امرأة تسجل فيلماً وثائقياً عن تاريخ ألمانيا."
+    meaning: "أولريش كاستن وهانز-هيرمان هيرتل يصفان - إحدى المعارف مهتمة بالتقارير الإخبارية عن التاريخ الحديث",
+    keywords: ["Dokumentation = فيلم وثائقي", "Mauerbau = بناء الجدار", "Zeitzeugen = شهود عيان"],
+    simplified: "فيلم وثائقي عن جدار برلين مع مقابلات شهود عيان",
+    imagine: "رجل عجوز يبكي أمام صورة جدار خرساني كبير",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam2_q2"] = {
     text: "Ob Klassik, Rock'n'Roll oder Jazz - Sie suchen eine abwechslungsreiche Musiksendung mit Klaviermusik.",
-    meaning: "سواء كلاسيكي أو روك أند رول أو جاز - أنت تبحث عن برنامج موسيقي متنوع مع موسيقى البيانو.",
-    keywords: ["Klassik = كلاسيكي", "Musiksendung = برنامج موسيقي"],
-    simplified: "برنامج بيانو متنوع",
-    imagine: "🧠🎹 شخص يبحث عن قناة تعزف موسيقى البيانو."
+    meaning: "سواء كلاسيكي أو روك أو جاز - تبحث عن برنامج موسيقي متنوع مع بيانو",
+    keywords: ["Klassik = كلاسيكي", "Rock'n'Roll = روك", "Jazz = جاز", "Entertainer = مقدم ترفيه"],
+    simplified: "برنامج موسيقي ممتع مع عازف بيانو وضيفة مغنية",
+    imagine: "أصابع سريعة تضرب مفاتيح البيانو بالأبيض والأسود",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam2_q3"] = {
     text: "Aus Sorge um die nationale Sicherheit - Sie sehen gern spannende, aber auch spaßige Agentenfilme.",
-    meaning: "خوفاً على الأمن القومي - أنت تحب مشاهدة أفلام التجسس المثيرة والممتعة.",
-    keywords: ["Sicherheit = أمن", "Agentenfilme = أفلام تجسس"],
-    simplified: "فيلم تجسس مضحك",
-    imagine: "🧠🕵️ رجل يجلس أمام التلفاز يشاهد فيلم تجسس ويضحك."
+    meaning: "خوفا على الأمن القومي - تحب مشاهدة أفلام التجسس المثيرة والممتعة",
+    keywords: ["Geheimdienst = مخابرات", "Psychiater = طبيب نفسي", "Gangster = قطاع طرق"],
+    simplified: "فيلم تجسس كوميدي مع عالم مجنون وأطباء وقطاع طرق",
+    imagine: "طبيب نفسي يرتدي نظارة سوداء ويبتسم بجنون",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam2_q4"] = {
     text: "Er schreit wie am Spieß - Sie mögen Familienkomödien, besonders mit frechen Kindern.",
-    meaning: "هو يصرخ بصوت عالٍ - أنت تحب الكوميديا العائلية، خاصة مع الأطفال الشقاة.",
-    keywords: ["schreit = يصرخ", "Familienkomödien = كوميديا عائلية"],
-    simplified: "كوميديا عائلية مضحكة",
-    imagine: "🧠👶 أب يحاول تهدئة طفله المشاغب والجميع يضحك."
+    meaning: "هو يصرخ بصوت عالٍ - تحب الكوميديا العائلية خاصة مع الأطفال الشقاة",
+    keywords: ["schreit = يصرخ", "allein erziehend = عزب يربي", "Vater = أب", "Sohn = ابن"],
+    simplified: "أب أعزب يعاني مع طفله الشقي",
+    imagine: "طفل صغير يضع قطة في كيس قمامة وأبوه يركض خلفه",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam2_q5"] = {
     text: "Hier in Berlin bei meinen Freunden - Sie würden gern etwas über Großstadtjugendliche erfahren, die am Rand der Gesellschaft leben.",
-    meaning: "هنا في برلين عند أصدقائي - ترغب في معرفة شيء عن شباب المدن الكبرى الذين يعيشون على هامش المجتمع.",
-    keywords: ["Berlin = برلين", "Großstadtjugendliche = شباب المدن الكبرى"],
-    simplified: "حياة شباب بلا مأوى",
-    imagine: "🧠🏙️ شاب بلا مأوى يجلس أمام متجر ويطلب المال."
+    meaning: "هنا في برلين عند أصدقائي - ترغب في معرفة شيء عن شباب المدن الكبرى الذين يعيشون على الهامش",
+    keywords: ["Berlin = برلين", "obdachlos = بلا مأوى", "jugendlich = مراهق", "Notunterkünfte = ملاجئ طوارئ"],
+    simplified: "فيلم عن مراهقين بلا مأوى في شوارع برلين",
+    imagine: "شاب نائم على كرتون في محطة مترو ويرتجف من البرد",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam2_q6"] = {
     text: "Mit Sandalen und T-Shirt - Sie möchten im nächsten Urlaub bergsteigen und sich über die Risiken informieren.",
-    meaning: "بالصنادل والتي شيرت - ترغب في تسلق الجبال في الإجازة القادمة وتريد التعرف على المخاطر.",
-    keywords: ["Sandalen = صنادل", "bergsteigen = يتسلق الجبال"],
-    simplified: "مخاطر تسلق الجبال",
-    imagine: "🧠🏔️ رجل يتدلى من جرف والثلوج تتساقط حوله."
+    meaning: "بالصنادل والتي شيرت - ترغب في تسلق الجبال في الإجازة القادمة وتريد معرفة المخاطر",
+    keywords: ["Sandalen = صنادل", "Bergwacht = خدمة إنقاذ جبلي", "Alpen = الألب", "Unfälle = حوادث"],
+    simplified: "فيلم عن مخاطر تسلق الجبال في الألب",
+    imagine: "رجل يسقط من على حافة جبل ورجال الإنقاذ يهرعون",
+    correct: 9
 };
 
 HELP_DATA["lesen3_exam2_q7"] = {
     text: "'Schwere Jungs' bildet den Auftakt - Sie mögen Filme mit viel Action und viel Spaß.",
-    meaning: "'شباب ثقال' تفتتح - أنت تحب الأفلام التي تحتوي على الكثير من الأكشن والكثير من المرح.",
-    keywords: ["Action = أكشن", "Spaß = مرح"],
-    simplified: "أكشن وكوميديا",
-    imagine: "🧠💥 شخصان يتشاجران ثم يصبحان صديقين في النهاية."
+    meaning: "'شباب ثقال' تفتتح - تحب الأفلام التي تحتوي على الكثير من الأكشن والمرح",
+    keywords: ["Actionkomödie = كوميديا أكشن", "Gauner = لصوص", "Mönche = رهبان", "Hau-drauf = اضرب بقوة"],
+    simplified: "فيلم أكشن كوميدي عن لصين يتحولان إلى راهبين",
+    imagine: "لصان يرتديان زي الرهبان ويضربان بعضهما بأيد عارية",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam2_q8"] = {
     text: "Nach den Weltcup-Siegen - Ihre Bekannten verfolgen gern sportliche Wettkämpfe.",
-    meaning: "بعد انتصارات كأس العالم - معارفك يتابعون بحماس المنافسات الرياضية.",
-    keywords: ["Weltcup = كأس العالم", "sportliche Wettkämpfe = منافسات رياضية"],
-    simplified: "مشاهدة المنافسات الرياضية",
-    imagine: "🧠🏆 أصدقاء مجتمعون أمام التلفاز يصفقون للفريق الفائز."
+    meaning: "بعد انتصارات كأس العالم - معارفك يحبون متابعة المسابقات الرياضية",
+    keywords: ["Weltcup = كأس العالم", "Skispringen = قفز تزلج", "Österreich = النمسا", "Deutschland = ألمانيا"],
+    simplified: "مسابقة القفز على الجليد بين النمسا وألمانيا",
+    imagine: "شخص يطير في الهواء لمسافة 120 مترا والجمهور يصفق",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam2_q9"] = {
     text: "Man sollte meinen, Schauspieler Hendrik Höfgen - Ein Bekannter möchte einen Film sehen, der nach dem Werk eines Schriftstellers gedreht wurde.",
-    meaning: "قد يعتقد المرء أن الممثل هندريك هوفجن - أحد المعارف يريد مشاهدة فيلم تم إنتاجه بناءً على عمل كاتب.",
-    keywords: ["Schauspieler = ممثل", "Schriftstellers = كاتب"],
-    simplified: "فيلم مقتبس من كتاب",
-    imagine: "🧠🎭 رجل يقرأ عنوان الفيلم ويقول هذا مقتبس من رواية مشهورة."
+    meaning: "قد يعتقد المرء أن الممثل هندريك هوفجن - أحد المعارف يريد مشاهدة فيلم مقتبس عن عمل كاتب",
+    keywords: ["Roman = رواية", "Klaus Mann = كلاوس مان", "Nazis = نازيين", "Mephisto = مفستو"],
+    simplified: "فيلم درامي عن ممثل يبيع روحه للنازيين مقتبس عن رواية",
+    imagine: "ممثل يرتدي زي الشيطان ويقف أمام هتلر",
+    correct: 0
 };
 
-// ============================================
-// Exam 3: Im Katalog eines Buchversands
-// ============================================
-
+// ========== Exam 3: Im Katalog eines Buchversands ==========
 HELP_DATA["lesen3_exam3_q1"] = {
     text: "Die Nachfrage nach individueller Farb- und Stilberatung - Eine Bekannte möchte ihr äußeres Erscheinungsbild optimieren.",
-    meaning: "الطلب على استشارات الألوان والأنماط الفردية - إحدى المعارف تريد تحسين مظهرها الخارجي.",
-    keywords: ["Farbberatung = استشارة ألوان", "Erscheinungsbild = المظهر"],
-    simplified: "تحسين المظهر الشخصي",
-    imagine: "🧠💄 امرأة تقف أمام المرآة وتسأل أي لون يناسبني؟"
+    meaning: "الطلب على استشارات الألوان والأساليب الفردية كبيرة - إحدى المعارف تريد تحسين مظهرها الخارجي",
+    keywords: ["Farbberatung = استشارة ألوان", "Stilberatung = استشارة أناقة", "Outfit = ملابس", "Selbstdarstellung = تقديم الذات"],
+    simplified: "كتاب عن كيفية تحسين مظهرك الشخصي في العمل والحياة",
+    imagine: "امرأة تقف أمام المرآة وتجرب ألوان ملابس مختلفة",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam3_q2"] = {
     text: "Die meisten Menschen kennen keine Strategien - Eine Studentin sucht Informationen, wie sie besser und systematischer lernen kann.",
-    meaning: "معظم الناس لا يعرفون استراتيجيات - طالبة تبحث عن معلومات لتتعلم بشكل أفضل وأكثر منهجية.",
-    keywords: ["Strategien = استراتيجيات", "systematischer lernen = تتعلم بشكل منهجي"],
-    simplified: "تعلم أفضل وأكثر منهجية",
-    imagine: "🧠📚 طالبة جالسة في المكتبة وكتاب عن كيفية الدراسة أمامها."
+    meaning: "معظم الناس لا يعرفون استراتيجيات - طالبة تبحث عن معلومات حول كيف تتعلم بشكل أفضل ومنتظم",
+    keywords: ["Gedächtnis = ذاكرة", "Lernverhalten = سلوك تعلم", "Techniken = تقنيات", "Informationen = معلومات"],
+    simplified: "كتاب عن تقنيات الذاكرة وتعلم أسهل",
+    imagine: "طالبة تجلس أمام كتب كثيرة وتضع أصابعها على رأسها",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam3_q3"] = {
-    text: "Dieses erstmals 1788 erschienene Buch - Ein Bekannter schreibt an einer Hausarbeit über gesellschaftliche Normen und Verhaltensregeln verschiedener Jahrhunderte.",
-    meaning: "هذا الكتاب الذي صدر أول مرة عام 1788 - أحد المعارف يكتب بحثاً عن الأعراف الاجتماعية وقواعد السلوك عبر القرون.",
-    keywords: ["erschienene Buch = الكتاب الصادر", "Verhaltensregeln = قواعد سلوك"],
-    simplified: "بحث عن قواعد السلوك عبر العصور",
-    imagine: "🧠📜 شاب يقرأ كتاباً قديماً جداً ويأخذ ملاحظات لبحثه."
+    text: "Dieses erstmals 1788 erschienene Buch - Ein Bekannter schreibt an einer Hausarbeit über gesellschaftliche Normen und Verhaltensregeln.",
+    meaning: "هذا الكتاب الذي صدر لأول مرة عام 1788 - أحد المعارف يكتب بحثا عن الأعراف الاجتماعية وقواعد السلوك",
+    keywords: ["Benehmen = سلوك", "Umgang = تعامل", "Verhaltensregeln = قواعد سلوك", "gesellschaftliche Normen = أعراف اجتماعية"],
+    simplified: "كتاب قديم عن الأخلاق وآداب التعامل مع الناس",
+    imagine: "طالب يقرأ كتابا قديما جدا ومغبرا وعليه علامات استفهام",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam3_q4"] = {
-    text: "Jeder Mensch kann seine kommunikativen Möglichkeiten entdecken - Eine Bekannte ist sehr verunsichert, weil sie auf Konferenzen immer wieder Angst hat, frei zu sprechen.",
-    meaning: "كل إنسان يمكنه اكتشاف قدراته التواصلية - إحدى المعارف تشعر بالقلق لأنها تخاف من التحدث بحرية في المؤتمرات.",
-    keywords: ["kommunikativen Möglichkeiten = قدرات تواصلية", "Angst = خوف"],
-    simplified: "التغلب على الخوف من التحدث أمام الجمهور",
-    imagine: "🧠🎤 امرأة تقف خلف المنصة ويديها ترتجفان خوفاً."
+    text: "Jeder Mensch kann seine kommunikativen Möglichkeiten entdecken - Eine Bekannte ist sehr verunsichert wegen ihrer Angst vor Reden auf Konferenzen.",
+    meaning: "كل إنسان يمكنه اكتشاف قدراته التواصلية - إحدى المعارف قلقة جدا بسبب خوفها من التحدث في المؤتمرات",
+    keywords: ["kommunikativ = تواصلي", "Rede = خطاب", "Vortrag = محاضرة", "Redeängste = مخاوف الكلام"],
+    simplified: "كتاب عن التغلب على الخوف من التحدث أمام الجمهور",
+    imagine: "امرأة ترتجف وتتعرق قبل صعودها على المسرح",
+    correct: 9
 };
 
 HELP_DATA["lesen3_exam3_q5"] = {
     text: "Der Körper lügt nicht, Gesten und Gebärden - Ein Bekannter möchte wissen, welche Botschaften durch Gestik und Mimik transportiert werden.",
-    meaning: "الجسد لا يكذب، الإيماءات والحركات - أحد المعارف يريد معرفة الرسائل التي تنقلها الإيماءات وتعبيرات الوجه.",
-    keywords: ["Gesten = إيماءات", "Mimik = تعابير وجه"],
-    simplified: "لغة الجسد والإيماءات",
-    imagine: "🧠🙌 رجل جالس في مقهى يتأمل حركات أيدي الناس."
+    meaning: "الجسد لا يكذب والإيماءات - أحد المعارف يريد معرفة الرسائل التي تنقلها الإيماءات وتعبيرات الوجه",
+    keywords: ["Gesten = إيماءات", "Mimik = تعابير وجه", "Körpersprache = لغة جسد", "Signale = إشارات"],
+    simplified: "كتاب عن لغة الجسد ومعاني الحركات والإشارات",
+    imagine: "رجل يرفع إصبعه وامرأة أخرى تزم شفتيها",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam3_q6"] = {
-    text: "Rolph Barth 'Basiswissen: Bewerbungstraining' - Ein Bekannter ist sich noch unsicher, wie er sich bei einem Vorstellungsgespräch am besten präsentiert.",
-    meaning: "رولف بارث 'المعرفة الأساسية: تدريب التقديم' - أحد المعارف لا يزال غير متأكد كيف يقدم نفسه بشكل جيد في مقابلة عمل.",
-    keywords: ["Bewerbungstraining = تدريب تقديم", "Vorstellungsgespräch = مقابلة عمل"],
-    simplified: "التحضير لمقابلة عمل",
-    imagine: "🧠💼 شاب يجلس أمام المرآة يتمرن على كلماته لمقابلة العمل."
+    text: "Rolph Barth 'Basiswissen: Bewerbungstraining' - Ein Bekannter ist sich unsicher, wie er sich bei einem Vorstellungsgespräch am besten präsentiert.",
+    meaning: "رولف بارث 'أساسيات: تدريب التقديم' - أحد المعارف غير متأكد كيف يقدم نفسه بشكل جيد في مقابلة العمل",
+    keywords: ["Bewerbung = تقديم", "Vorstellungsgespräch = مقابلة عمل", "Arbeitsmarkt = سوق عمل", "Anschreiben = رسالة تقديم"],
+    simplified: "كتاب عن كيفية كتابة سيرة ذاتية والتصرف في مقابلة العمل",
+    imagine: "شاب يرتدي بدلة ويقف متوترا أمام باب مغلق",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam3_q7"] = {
-    text: "Viele Menschen wissen nicht mehr, wo Ihnen der Kopf steht - Ein befreundetes Ehepaar steht andauernd unter Stress und möchte wieder mehr Zeit für sich und andere haben.",
-    meaning: "كثير من الناس لا يعرفون أين رؤوسهم - زوجان صديقان يعيشان تحت ضغط مستمر ويريدان المزيد من الوقت لأنفسهما وللآخرين.",
-    keywords: ["Stress = ضغط", "Zeit = وقت"],
-    simplified: "التغلب على ضغوط الحياة",
-    imagine: "🧠⏰ رجل وامرأة ينظران إلى الساعة ووجوههما مرهقة."
+    text: "Viele Menschen wissen nicht mehr, wo ihnen der Kopf steht - Ein befreundetes Ehepaar steht andauernd unter Stress ويريد وقتا لنفسه.",
+    meaning: "كثير من الناس لا يعرفون أين رؤوسهم - زوجان صديقان تحت ضغط مستمر ويريدان وقتا لأنفسهما",
+    keywords: ["Zeitdruck = ضغط وقت", "Zeitmanagement = إدارة وقت", "Prioritäten = أولويات", "Zeitfalle = فخ الوقت"],
+    simplified: "كتاب عن إدارة الوقت والتخلص من الضغوط اليومية",
+    imagine: "زوجان يجريان بين الساعة والمواعيد والأوراق تتناثر حولهما",
+    correct: 1
 };
 
-// ============================================
-// Exam 4: kein Zeit
-// ============================================
-
+// ========== Exam 4: kein Zeit (Theaterstücke und Veranstaltungen) ==========
 HELP_DATA["lesen3_exam4_q1"] = {
-    text: "In Pollekes elfjährigem Leben scheint im Augenblick etwas falsch zu laufen - Sie möchten mit Ihrer zwölfjährigen Tochter ein altersgerechtes Theaterstück sehen.",
-    meaning: "في حياة بوليكي البالغة من العمر 11 عاماً - ترغب في مشاهدة مسرحية مناسبة لعمر ابنتك ذات الـ 12 سنة.",
-    keywords: ["elfjährigem = 11 عاماً", "altersgerechtes = مناسب للعمر"],
-    simplified: "مسرحية مناسبة لعمر 12 سنة",
-    imagine: "🧠🎭 أم وابنتها جالستان في المسرح وتضحكان معاً."
+    text: "In Pollekes elfjährigem Leben - Sie möchten mit Ihrer zwölfjährigen Tochter ein altersgerechtes Theaterstück sehen.",
+    meaning: "في حياة بوليك ذات الحادية عشرة - تريد الذهاب مع ابنتك البالغة اثنتي عشرة سنة لعرض مسرحي مناسب لعمرها",
+    keywords: ["Theaterstück = عرض مسرحي", "Alter ab 9 Jahren = عمر من 9 سنوات", "Theaterwerkstatt = ورشة مسرح", "Familie = عائلة"],
+    simplified: "مسرحية لفتاة عمرها 11 سنة عن مشاكل العائلة والحب",
+    imagine: "أم وابنتها تجلسان في مسرح وطفلة تمثل على الخشبة",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam4_q2"] = {
-    text: "Rasmus und der Landstreicher nach dem Kinderbuch von Astrid Lindgren - Sie möchten zusammen mit Ihrem kleinen Neffen einen Kinderfilm sehen.",
-    meaning: "راسموس والمتشرد حسب كتاب أستريد ليندغرين للأطفال - ترغب في مشاهدة فيلم أطفال مع ابن أختك الصغير.",
-    keywords: ["Kinderbuch = كتاب أطفال", "Kinderfilm = فيلم أطفال"],
-    simplified: "فيلم أطفال للحفيد الصغير",
-    imagine: "🧠🎬 خالة وابن أختها الصغير جالسان أمام التلفاز يضحكان."
+    text: "Rasmus und der Landstreicher nach Astrid Lindgren - Sie möchten zusammen mit Ihrem kleinen Neffen einen Kinderfilm sehen.",
+    meaning: "راسموس والمتشرد حسب أستريد ليندغرين - تريد الذهاب مع ابن أختك الصغير لمشاهدة فيلم أطفال",
+    keywords: ["Kinderbuch = كتاب أطفال", "Astrid Lindgren = أستريد ليندغرين", "Bürgerkino = سينما المواطن", "Alter ab 5 Jahren = عمر من 5 سنوات"],
+    simplified: "فيلم عن ولد يتيم يهرب من دار أطفال ويجد صديقا متشردا",
+    imagine: "طفل صغير يضحك وفيلم كرتون على الشاشة أمامه",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam4_q3"] = {
     text: "Beethovens Bonn - Ihre Schwester interessiert sich für die Biographien großer Musiker.",
-    meaning: "بون بيتهوفن - أختك مهتمة بالسير الذاتية للموسيقيين العظماء.",
-    keywords: ["Beethovens = بيتهوفن", "Biographien = سير ذاتية"],
-    simplified: "سيرة موسيقي عظيم",
-    imagine: "🧠🎵 امرأة تقرأ كتاباً عن حياة بيتهوفن والدموع في عينيها."
+    meaning: "بون بيتهوفن - أختك مهتمة بالسير الذاتية للموسيقيين العظماء",
+    keywords: ["Beethoven = بيتهوفن", "Komponist = ملحن", "Biographien = سير ذاتية", "Bonn = بون"],
+    simplified: "جولة في بون لزيارة أماكن حياة بيتهوفن",
+    imagine: "امرأة تقف أمام منزل قديم وتحمل كتابا عن بيتهوفن",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam4_q4"] = {
     text: "Radtour am Rhein - Sie wollen eine Stadtbesichtigung mit ein wenig Sport verbinden.",
-    meaning: "جولة بالدراجة على نهر الراين - تريد ربط زيارة المدينة بقليل من الرياضة.",
-    keywords: ["Radtour = جولة دراجة", "Sport = رياضة"],
-    simplified: "جولة مدينة بالدراجة",
-    imagine: "🧠🚲 شخص يركب دراجة وينظر إلى المباني القديمة."
+    meaning: "جولة بالدراجة على نهر الراين - تريد دمج زيارة المدينة مع القليل من الرياضة",
+    keywords: ["Radtour = جولة دراجات", "Rhein = راين", "ADFC = نادي الدراجات", "Stadtbesichtigung = زيارة مدينة"],
+    simplified: "جولة بالدراجة على طول نهر الراين مع مرشد سياحي",
+    imagine: "أشخاص يركبون دراجات بجانب نهر كبير وقصور قديمة",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam4_q5"] = {
     text: "Drei Flöhe und das Jesuskind - Sie wollen mit Ihren Kindern eine etwas andere, eher lustige Seite von Weihnachten erleben.",
-    meaning: "ثلاثة براغيث وطفل يسوع - تريد أن تعيش مع أطفالك جانباً مختلفاً ومضحكاً من عيد الميلاد.",
-    keywords: ["Flöhe = براغيث", "lustige Seite = جانب مضحك"],
-    simplified: "جانب مضحك من عيد الميلاد",
-    imagine: "🧠🎄 عائلة جالسة حول شجرة عيد الميلاد وكلهم يضحكون."
+    meaning: "ثلاثة براغيث وطفل يسوع - تريد مع أطفالك تجربة جانب مختلف ومضحك بعض الشيء للكريسماس",
+    keywords: ["Weihnachtsgeschichte = قصة عيد الميلاد", "Kinderstück = مسرحية أطفال", "humorvoll = فكاهي", "Alter ab 5 Jahren = عمر من 5 سنوات"],
+    simplified: "مسرحية مضحكة عن قصة عيد الميلاد من وجهة نظر ثلاثة براغيث",
+    imagine: "أطفال يضحكون وثلاث دمى على شكل براغيث على المسرح",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam4_q6"] = {
     text: "Weihnachtsshow 'Stille Nacht' trifft 'Last Christmas' - Sie möchten alte und neue Weihnachtslieder hören.",
-    meaning: "عرض عيد الميلاد 'ليلة صامتة' يقابل 'الكريسماس الماضي' - تريد سماع أغاني عيد الميلاد القديمة والجديدة.",
-    keywords: ["Weihnachtsshow = عرض عيد ميلاد", "Weihnachtslieder = أغاني عيد ميلاد"],
-    simplified: "أغاني عيد ميلاد قديمة وجديدة",
-    imagine: "🧠🎄 شخص يجلس في قاعة حفلات ويغني مع الفرقة."
+    meaning: "عرض عيد الميلاد 'ليلة صامتة' يواجه 'عيد الميلاد الماضي' - تريد سماع أغاني عيد الميلاد القديمة والجديدة",
+    keywords: ["Weihnachtsshow = عرض كريسماس", "Weihnachtslieder = أغاني عيد الميلاد", "Gospel = غوسبل", "Konzerthallen = قاعات حفلات"],
+    simplified: "حفل غنائي يجمع أغاني الكريسماس القديمة والحديثة",
+    imagine: "مغنيون يقفون على مسرح ونجمة ضخمة فوقهم",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam4_q7"] = {
     text: "Jazz vom Feinsten - Sie lieben Auftritte von herausragenden Musikern.",
-    meaning: "جاز من الدرجة الأولى - أنت تحب عروض الموسيقيين المتميزين.",
-    keywords: ["Jazz = جاز", "Auftritte = عروض"],
-    simplified: "عروض موسيقية مميزة",
-    imagine: "🧠🎺 شخص جالس في ملهى ليلي وعازف ترومبيت على المسرح."
+    meaning: "جاز من الدرجة الأولى - تحب عروض الموسيقيين البارعين",
+    keywords: ["Jazz = جاز", "Trompeter = عازف بوق", "virtuos = بارع", "Komponist = ملحن"],
+    simplified: "حفل جاز لعازف بوق سويدي مشهور",
+    imagine: "رجل ينفخ في البوق والجمهور يصفق بحماس",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam4_q8"] = {
     text: "10 Jahre FÜR DIE KATZ - Sie wollen mit Bekannten ausgehen um mal wieder herzhaft lachen.",
-    meaning: "10 سنوات 'من أجل القطة' - تريد الخروج مع معارفك لكي تضحك بحرارة مرة أخرى.",
-    keywords: ["Jahre = سنوات", "lachen = يضحك"],
-    simplified: "ليلة من الضحك مع الأصدقاء",
-    imagine: "🧠😂 مجموعة من الأصدقاء جالسون في كباريه ويضحكون بصوت عالٍ."
+    meaning: "10 سنوات من أجل القطة - تريد الخروج مع معارفك لتضحك من قلبك مرة أخرى",
+    keywords: ["Komiker = كوميديان", "Comedy = كوميديا", "Kabarett = كباريه", "lustig = مضحك"],
+    simplified: "عرض كوميدي بمناسبة مرور 10 سنوات على تأسيس فرقة كوميدية",
+    imagine: "جمهور يضحك بصوت عال ورجلان على المسرح يرتدون ملابس مضحكة",
+    correct: 9
 };
 
 HELP_DATA["lesen3_exam4_q9"] = {
-    text: "Das Weihnachtsvarieté - Sie möchten im Dezember essen gehen und ein buntes, künstlerisches Programm genießen.",
-    meaning: "فاريتيه عيد الميلاد - ترغب في تناول الطعام في ديسمبر والاستمتاع ببرنامج فني ملون.",
-    keywords: ["Weihnachtsvarieté = فاريتيه عيد الميلاد", "künstlerisches Programm = برنامج فني"],
-    simplified: "عشاء مع برنامج فني في ديسمبر",
-    imagine: "🧠🎪 شخص جالس في مطعم ويشاهد بهلوانياً على المسرح."
+    text: "Das Weihnachtsvarieté - Sie lieben künstlerische Vielfalt und wollen Weihnachten ausgehen.",
+    meaning: "فاريتيه عيد الميلاد - تحب التنوع الفني وتريد الخروج في عيد الميلاد",
+    keywords: ["Varieté = فاريتيه", "Akrobatik = ألعاب بهلوانية", "Jonglage = دحرجة", "Livemusiker = موسيقيون أحياء"],
+    simplified: "عرض متنوع في عيد الميلاد يجمع الألعاب البهلوانية والموسيقى",
+    imagine: "رجل يدحرج كرات نارية وآخر يعزف على البيانو",
+    correct: 2
 };
 
-// ============================================
-// Exam 5: kein Zeit (معدل)
-// ============================================
-
+// ========== Exam 5: kein Zeit (معدل) ==========
 HELP_DATA["lesen3_exam5_q1"] = {
     text: "In Pollekes elfjährigem Leben - Sie möchten mit Ihrer zwölfjährigen Tochter ein altersgerechtes Theaterstück sehen.",
-    meaning: "في حياة بوليكي البالغة من العمر 11 عاماً - ترغب في مشاهدة مسرحية مناسبة لعمر ابنتك ذات الـ 12 سنة.",
-    keywords: ["elfjährigem = 11 عاماً", "Theaterstück = مسرحية"],
-    simplified: "مسرحية مناسبة لطفلة 12 سنة",
-    imagine: "🧠🎭 أم تحتضن ابنتها أثناء مشاهدة مسرحية كوميدية."
+    meaning: "في حياة بوليك ذات الحادية عشرة - تريد الذهاب مع ابنتك لمسرحية تناسب عمرها",
+    keywords: ["Theaterwerkstatt = ورشة مسرح", "Alter ab 9 Jahren = عمر من 9 سنوات", "Familie = عائلة"],
+    simplified: "مسرحية لطفلة عمرها 11 سنة عن مشاكل العائلة",
+    imagine: "أم وابنتها في المسرح وطفلة تمثل على الخشبة",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam5_q2"] = {
-    text: "Rasmus und der Landstreicher - Sie suchen einen Kinderfilm für Ihren kleinen Sohn.",
-    meaning: "راسموس والمتشرد - تبحث عن فيلم أطفال لابنك الصغير.",
-    keywords: ["Landstreicher = متشرد", "Kinderfilm = فيلم أطفال"],
-    simplified: "فيلم أطفال للابن الصغير",
-    imagine: "🧠👦 أب جالس مع ابنه يشاهدان فيلماً عن المغامرات."
+    text: "Rasmus und der Landstreicher nach Astrid Lindgren - Sie suchen einen Kinderfilm für ihren kleinen Sohn.",
+    meaning: "راسموس والمتشرد حسب أستريد ليندغرين - تبحث عن فيلم أطفال لابنك الصغير",
+    keywords: ["Kinderbuch = كتاب أطفال", "Astrid Lindgren = أستريد ليندغرين", "Bürgerkino = سينما المواطن", "Alter ab 5 = عمر من 5"],
+    simplified: "فيلم عن ولد يتيم يهرب من دار أطفال",
+    imagine: "طفل صغير يصفق وفيلم كرتون على الشاشة",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam5_q3"] = {
     text: "Beethovens Bonn - Ihre Schwester interessiert sich für die Biographien großer Musiker.",
-    meaning: "بون بيتهوفن - أختك مهتمة بالسير الذاتية للموسيقيين العظماء.",
-    keywords: ["Beethovens = بيتهوفن", "großer Musiker = موسيقيين عظماء"],
-    simplified: "سيرة حياة موسيقي شهير",
-    imagine: "🧠🎵 امرأة تضع سماعات أذنها وتستمع إلى سيمفونية أثناء القراءة."
+    meaning: "بون بيتهوفن - أختك مهتمة بالسير الذاتية للموسيقيين العظماء",
+    keywords: ["Beethoven = بيتهوفن", "Komponist = ملحن", "Bonn = بون"],
+    simplified: "جولة في بون لزيارة أماكن بيتهوفن",
+    imagine: "امرأة أمام منزل قديم وتحمل كتابا عن بيتهوفن",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam5_q4"] = {
     text: "Radtour am Rhein - Sie suchen für sportliche Sprachkursteilnehmer eine Möglichkeit, Bonn zu zeigen.",
-    meaning: "جولة بالدراجة على نهر الراين - تبحث عن طريقة لإظهار بون لمشتركي دورة اللغة الرياضيين.",
-    keywords: ["Radtour = جولة دراجة", "Bonn = بون"],
-    simplified: "جولة رياضية في بون",
-    imagine: "🧠🚲 مجموعة من الطلاب الأجانب يركبون الدراجات في شوارع بون."
+    meaning: "جولة بالدراجة على الراين - تبحث عن طريقة لإظهار بون لمشتركين رياضيين في دورة لغة",
+    keywords: ["Radtour = جولة دراجات", "ADFC = نادي دراجات", "Rhein = راين", "Sport = رياضة"],
+    simplified: "جولة بالدراجة لاستكشاف مدينة بون",
+    imagine: "مجموعة تلبس خوذات دراجات وتقف أمام كاتدرائية",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam5_q5"] = {
     text: "Drei Flöhe und das Jesuskind - Sie wollen mit Ihren Kindern eine etwas andere, eher lustige Seite von Weihnachten erleben.",
-    meaning: "ثلاثة براغيث وطفل يسوع - تريد أن تعيش مع أطفالك جانباً مختلفاً ومضحكاً من عيد الميلاد.",
-    keywords: ["Flöhe = براغيث", "lustige Seite = جانب مضحك"],
-    simplified: "عيد ميلاد مضحك مع الأطفال",
-    imagine: "🧠🎄 أطفال يضحكون وهم يشاهدون مسرحية عن البراغيث الثلاثة."
+    meaning: "ثلاثة براغيث وطفل يسوع - تريد تجربة جانب مختلف ومضحك للكريسماس مع أطفالك",
+    keywords: ["Kinderstück = مسرحية أطفال", "humorvoll = فكاهي", "Weihnachtsgeschichte = قصة عيد الميلاد", "Alter ab 5 = عمر من 5"],
+    simplified: "مسرحية مضحكة عن الكريسماس من وجهة نظر ثلاثة براغيث",
+    imagine: "طفل يضحك ودمية برغوث على المسرح",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam5_q6"] = {
     text: "Weihnachtsshow 'Stille Nacht' trifft 'Last Christmas' - Sie möchten alte und neue Weihnachtslieder hören.",
-    meaning: "عرض عيد الميلاد 'ليلة صامتة' يقابل 'الكريسماس الماضي' - تريد سماع أغاني عيد الميلاد القديمة والجديدة.",
-    keywords: ["Weihnachtsshow = عرض عيد ميلاد", "Weihnachtslieder = أغاني عيد ميلاد"],
-    simplified: "أغاني عيد ميلاد قديمة وحديثة",
-    imagine: "🧠🎵 عائلة مجتمعة حول المدفأة وهم يغنون مع التلفاز."
+    meaning: "عرض 'ليلة صامتة' يواجه 'عيد الميلاد الماضي' - تريد سماع أغاني الكريسماس القديمة والجديدة",
+    keywords: ["Weihnachtsshow = عرض كريسماس", "Weihnachtslieder = أغاني كريسماس", "Gospel = غوسبل"],
+    simplified: "حفل يجمع أغاني الكريسماس القديمة والحديثة",
+    imagine: "جوقة تغني على مسرح وأضواء ملونة",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam5_q7"] = {
     text: "Jazz vom Feinsten - Sie lieben Auftritte von herausragenden Musikern.",
-    meaning: "جاز من الدرجة الأولى - أنت تحب عروض الموسيقيين المتميزين.",
-    keywords: ["Jazz = جاز", "herausragenden Musikern = موسيقيين متميزين"],
-    simplified: "عروض جاز ممتازة",
-    imagine: "🧠🎷 شخص يغلق عينيه ويستمتع بموسيقى الجاز في النادي."
+    meaning: "جاز من الدرجة الأولى - تحب عروض الموسيقيين البارعين",
+    keywords: ["Jazz = جاز", "Trompeter = عازف بوق", "virtuos = بارع"],
+    simplified: "حفل جاز لعازف بوق مشهور",
+    imagine: "عازف بوق يغلق عينيه وهو يعزف",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam5_q8"] = {
     text: "10 Jahre FÜR DIE KATZ - Sie wollen mit Bekannten ausgehen um mal wieder herzhaft lachen.",
-    meaning: "10 سنوات 'من أجل القطة' - تريد الخروج مع معارفك لكي تضحك بحرارة مرة أخرى.",
-    keywords: ["Jahre = سنوات", "lachen = يضحك"],
-    simplified: "خروج للضحك مع الأصدقاء",
-    imagine: "🧠😂 أشخاص يجلسون في كباريه ويصفقون لممثل كوميدي."
+    meaning: "10 سنوات من أجل القطة - تريد الخروج مع معارفك لتضحك من قلبك",
+    keywords: ["Komiker = كوميديان", "Comedy = كوميديا", "Kabarett = كباريه"],
+    simplified: "عرض كوميدي بمناسبة مرور 10 سنوات",
+    imagine: "جمهور يضحك ورفاقه يصفقون على المسرح",
+    correct: 9
 };
 
-// ============================================
-// Exam 6: Musik - spielt Gitarre
-// ============================================
-
+// ========== Exam 6: Musik - spielt Gitarre ==========
 HELP_DATA["lesen3_exam6_q1"] = {
-    text: "Die Veranstaltungsprofis - Ein Bekannter hat bei der Messe Frankfurt gearbeitet und sucht eine andere Stelle in diesem Bereich.",
-    meaning: "محترفو الفعاليات - أحد المعارف عمل في معرض فرانكفورت ويبحث عن وظيفة أخرى في هذا المجال.",
-    keywords: ["Veranstaltungsprofis = محترفو الفعاليات", "Messeorganisation = تنظيم معارض"],
-    simplified: "وظيفة في مجال تنظيم المعارض",
-    imagine: "🧠🏢 رجل يجلس أمام حاسوبه يبحث عن عمل في مجال المعارض."
+    text: "Die Veranstaltungsprofis - Ein Bekannter hat bei der Messe Frankfurt gearbeitet und sucht eine andere Stelle في diesem Bereich.",
+    meaning: "محترفو الفعاليات - أحد المعارف عمل في معرض فرانكفورت ويبحث عن وظيفة أخرى في هذا المجال",
+    keywords: ["Messen = معارض", "Veranstaltungsorganisation = تنظيم فعاليات", "Ausbildung = تدريب", "reisefreudig = محب للسفر"],
+    simplified: "وظيفة في مجال تنظيم المعارض والفعاليات في أوروبا",
+    imagine: "رجل يقف أمام لوحة إعلانات تبحث عن موظفين",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam6_q2"] = {
     text: "Gemeinsam mehr erleben - Ein Kollege möchte mit fünf Freunden eine mehrtägige Musikveranstaltung besuchen.",
-    meaning: "نعيش المزيد معاً - أحد الزملاء يريد زيارة فعالية موسيقية لعدة أيام مع خمسة أصدقاء.",
-    keywords: ["Gemeinsam = معاً", "Musikveranstaltung = فعالية موسيقية"],
-    simplified: "مهرجان موسيقي مع الأصدقاء",
-    imagine: "🧠🎸 خمسة أصدقاء يرقصون في مهرجان موسيقي تحت السماء المفتوحة."
+    meaning: "تجربة المزيد معا - زميل يريد مع خمسة أصدقاء زيارة فعالية موسيقية لعدة أيام",
+    keywords: ["Gruppenreisen = رحلات جماعية", "Jazzfestival = مهرجان جاز", "Klassikwoche = أسبوع كلاسيكي", "Veranstaltungen = فعاليات"],
+    simplified: "رحلة منظمة لمدة 4 أيام لحضور مهرجان جاز",
+    imagine: "خمسة أصدقاء يحملون حقائب ويدخلون قاعة حفلات",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam6_q3"] = {
     text: "Musikfestival Taubertal - Sie mögen Musik und möchten in diesem Bereich einen Job.",
-    meaning: "مهرجان تاوبرتال الموسيقي - أنت تحب الموسيقى وتريد وظيفة في هذا المجال.",
-    keywords: ["Musikfestival = مهرجان موسيقي", "Job = وظيفة"],
-    simplified: "وظيفة في مجال الموسيقى",
-    imagine: "🧠💼 شاب واقف خلف الكواليس في مهرجان موسيقي ويعمل."
+    meaning: "مهرجان تاوبرتال الموسيقي - تحب الموسيقى وتريد وظيفة في هذا المجال",
+    keywords: ["Musikfestival = مهرجان موسيقي", "Job = وظيفة", "Ticketkontrolle = فحص تذاكر", "Musiker = موسيقيين"],
+    simplified: "فرصة عمل في مهرجان موسيقي مع إمكانية مقابلة الموسيقيين",
+    imagine: "شاب يحمل لافتة أمن في مهرجان موسيقي حاشد",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam6_q4"] = {
     text: "Alle Veranstaltungen aus einer Hand - Sie möchten einer Freundin Eintrittskarten für eine Musikveranstaltung schenken.",
-    meaning: "جميع الفعاليات من مصدر واحد - تريد إهداء صديقتك تذاكر لحضور فعالية موسيقية.",
-    keywords: ["Veranstaltungen = فعاليات", "Eintrittskarten = تذاكر دخول"],
-    simplified: "تذاكر لحضور حفل موسيقي",
-    imagine: "🧠🎁 امرأة تضع تذكرتين في ظرف وتبتسم لصديقتها."
+    meaning: "جميع الفعاليات من يد واحدة - تريد إعطاء صديقتك تذاكر دخول لفعالية موسيقية كهدية",
+    keywords: ["Veranstaltungen = فعاليات", "Geschenkgutscheine = بطاقات هدايا", "Online-Shop = متجر إلكتروني", "Tickets = تذاكر"],
+    simplified: "موقع لبيع تذاكر الحفلات الموسيقية مع خيار بطاقات الهدايا",
+    imagine: "امرأة تطبع تذكرة حفل موسيقي من طابعة منزلها",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam6_q5"] = {
-    text: "Wir organisieren Veranstaltungen - Ein Bekannter muss eine Jubiläumsfeier organisieren und sucht Unterstützung.",
-    meaning: "نحن ننظم الفعاليات - أحد المعارف يجب أن ينظم حفل ذكرى سنوية ويبحث عن دعم.",
-    keywords: ["organisieren = ينظم", "Jubiläumsfeier = حفل ذكرى سنوية"],
-    simplified: "تنظيم حفل ذكرى سنوية",
-    imagine: "🧠🎈 رجل يتحدث مع منظم حفلات وكلاهما يضعان خططاً."
+    text: "I Gitarre, Violine & Co. - Die sechsjährige Tochter eines Nachbarn würde gerne mit anderen Kindern Musik machen.",
+    meaning: "أنا جيتار وكمان وشركاه - ابنة الجيران البالغة ست سنوات تحب صنع الموسيقى مع أطفال آخرين",
+    keywords: ["Musikverein = جمعية موسيقية", "Instrumente = آلات موسيقية", "Kinder = أطفال", "Probestunden = حصص تجريبية"],
+    simplified: "جمعية موسيقية تعلم الأطفال العزف والغناء من سن سنتين",
+    imagine: "ستة أطفال يجلسون في حلقة ومعلم يوزع الدفوف الصغيرة",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam6_q6"] = {
-    text: "I Gitarre, Violine & Co. - Die sechsjährige Tochter eines Nachbarn würde gerne mit anderen Kindern Musik machen.",
-    meaning: "أيها الغيتار والكمان وشركاه - ابنة الجيران ذات الست سنوات تريد صنع موسيقى مع أطفال آخرين.",
-    keywords: ["Gitarre = غيتار", "Musik machen = صنع موسيقى"],
-    simplified: "صنع موسيقى مع أطفال آخرين",
-    imagine: "🧠👧 طفلة صغيرة تضرب على الدف وهي تضحك مع أصدقائها."
+    text: "Rhein/Ruhr-Festival - Eine Bekannte ist Musikerin und sucht Möglichkeiten, mit ihrer Gruppe aufzutreten.",
+    meaning: "مهرجان الراين/الرور - إحدى المعارف موسيقية وتبحث عن فرص لتقديم عروض مع فرقتها",
+    keywords: ["Festival = مهرجان", "Künstler = فنانين", "Bühnen = مسارح", "Musikgruppen = فرق موسيقية"],
+    simplified: "مهرجان جديد يبحث عن فنانين منفردين وفرق لتقديم عروض",
+    imagine: "شابة تحمل آلة جيتار وتقف خلف كواليس المسرح",
+    correct: 9
 };
 
 HELP_DATA["lesen3_exam6_q7"] = {
-    text: "Rhein/Ruhr-Festival - Eine Bekannte ist Musikerin und sucht Möglichkeiten, mit ihrer Gruppe aufzutreten.",
-    meaning: "مهرجان الراين/الرور - إحدى المعارف موسيقية وتبحث عن فرص لتقديم عروض مع فرقتها.",
-    keywords: ["Festival = مهرجان", "aufzutreten = تقدم عروض"],
-    simplified: "فرصة للعرض مع الفرقة الموسيقية",
-    imagine: "🧠🎤 امرأة واقفة على المسرح وفرقتها خلفها والجمهور يصفق."
+    text: "Musiker gesucht - Ein Bekannter spielt Gitarre und möchte ein weiteres Instrument lernen.",
+    meaning: "مطلوب موسيقيون - أحد المعارف يعزف الجيتار ويريد تعلم آلة موسيقية أخرى",
+    keywords: ["Musiktandems = ثنائيات موسيقية", "Unterricht = دروس", "Instrument = آلة موسيقية", "registrieren = تسجيل"],
+    simplified: "موقع لتبادل تعلم الآلات الموسيقية بين العازفين",
+    imagine: "شاب يضع يده على كتف عازف كمان والآخر يبتسم",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam6_q8"] = {
-    text: "Musiker gesucht - Ein Bekannter spielt Gitarre und möchte ein weiteres Instrument lernen.",
-    meaning: "مطلوب موسيقيون - أحد المعارف يعزف الغيتار ويريد تعلم آلة موسيقية أخرى.",
-    keywords: ["Musiker = موسيقي", "Instrument lernen = يتعلم آلة موسيقية"],
-    simplified: "تعلم آلة موسيقية جديدة",
-    imagine: "🧠🎸🎹 شاب يجلس أمام بيانو ويحاول تعلم العزف عليه."
+    text: "Wir organisieren Veranstaltungen in verschiedenen Größenordnungen - Ein Bekannter muss eine Jubiläumsfeier organisieren und sucht Unterstützung.",
+    meaning: "نحن ننظم فعاليات بأحجام مختلفة - أحد المعارف عليه تنظيم حفل ذكرى سنوية ويبحث عن دعم",
+    keywords: ["Veranstaltungen = فعاليات", "Familienfeier = حفل عائلي", "Firmenveranstaltungen = فعاليات شركات", "Beratung = استشارة"],
+    simplified: "شركة تنظم حفلات من 10 إلى مئات الأشخاص وتقدم استشارات",
+    imagine: "رجل يتصل هاتفيا ويسأل عن تنظيم حفل زفاف",
+    correct: 6
 };
 
-// ============================================
-// Exam 7: المرأة الحامل
-// ============================================
-
+// ========== Exam 7: المرأة الحامل ==========
 HELP_DATA["lesen3_exam7_q1"] = {
-    text: "Bewerber sollten Bewerbungsgespräche nicht dem Zufall überlassen - Ihre Schwägerin erwartet ein Kind. Sie ist nicht sicher, ob Sie in einem Vorstellungsgespräch darauf hinweisen muss.",
-    meaning: "يجب على المتقدمين عدم ترك مقابلات العمل للصدفة - زوجة أخيك تنتظر طفلاً. إنها غير متأكدة مما إذا كان يجب أن تذكر ذلك في مقابلة العمل.",
-    keywords: ["Bewerbungsgespräche = مقابلات عمل", "Schwangerschaft = حمل"],
-    simplified: "الحمل ومقابلة العمل",
-    imagine: "🧠🤰 امرأة حامل جالسة أمام لجنة مقابلة وهي تفكر ماذا ستقول."
+    text: "Das Vorstellungsgespräch ist eine wichtige Hürde - Ihre Schwägerin erwartet ein Kind. Sie ist nicht sicher, ob sie في Vorstellungsgespräch darauf hinweisen muss.",
+    meaning: "مقابلة العمل عقبة مهمة - زوجة أخيك تنتظر طفلا وهي غير متأكدة إذا كان يجب أن تذكر ذلك في المقابلة",
+    keywords: ["Vorstellungsgespräch = مقابلة عمل", "Schwangerschaft = حمل", "Fragen = أسئلة", "wahrheitsgemäß = بصدق"],
+    simplified: "نصائح عن ممنوع التحدث عنه في مقابلة العمل مثل الحمل",
+    imagine: "امرأة حامل جالسة أمام مدير وظهرها متوتر",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam7_q2"] = {
-    text: "Robert Sonntag, Autor des Buches 'Hilfe, ich muss reden' - Eine Freundin, 20 Jahre alt, muss oft vor Arbeitskollegen Referate halten. Ihr Hauptproblem ist ihre Nervosität.",
-    meaning: "روبرت سونتاغ، مؤلف كتاب 'النجدة، يجب أن أتكلم' - صديقة تبلغ من العمر 20 عاماً، تقدم عروضاً أمام زملاء العمل. مشكلتها الرئيسية هي عصبيتها.",
-    keywords: ["reden = يتكلم", "Nervosität = عصبية"],
-    simplified: "التغلب على العصبية أثناء العروض",
-    imagine: "🧠🎤 شابة تقف خلف المنصة ويديها ترتجفان والعرق على جبينها."
+    text: "Robert Sonntag, Autor des Buches 'Hilfe, ich muss reden' - Eine Freundin, 20 Jahre alt, muss oft vor Arbeitskollegen Referate halten. مشكلتها الأساسية هي عصبيتها.",
+    meaning: "روبرت سونتاغ مؤلف كتاب 'النجدة أنا يجب أن أتكلم' - صديقة عمرها 20 سنة غالبا ما تقدم عروضا أمام زملاء العمل ومشكلتها الأساسية هي عصبيتها",
+    keywords: ["Angst = خوف", "Referate = عروض", "Körpersprache = لغة جسد", "Entspannungstechniken = تقنيات استرخاء"],
+    simplified: "كتاب ونصائح عن التغلب على الخوف من التحدث أمام الجمهور",
+    imagine: "فتاة ترتجف أمام زملائها في العمل وأوراقها تتطاير من يديها",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam7_q3"] = {
-    text: "Nichts ist auf privaten Feierlichkeiten schlimmer als langatmige Ansprachen - Ein älteres Ehepaar hat Goldene Hochzeit. Die Tochter möchte eine Rede halten und braucht dafür eine Anleitung.",
-    meaning: "لا شيء أسوأ في الاحتفالات الخاصة من الخطب الطويلة - زوجان كبيران في السن يحتفلان باليوبيل الذهبي. الابنة تريد إلقاء كلمة وتحتاج إرشاداً لذلك.",
-    keywords: ["Ansprachen = خطب", "Rede = كلمة"],
-    simplified: "إلقاء كلمة في اليوبيل الذهبي",
-    imagine: "🧠👩 ابنة واقفة أمام والديها وورقة في يدها وهي ترتجف."
+    text: "Wer zu seinem Vorstellungsgespräch eingeladen wird - Eine Freundin sucht einen Ausbildungsplatz. Sie ist zu einem Vorstellungsgespräch eingeladen und weiß nicht, was sie anziehen soll.",
+    meaning: "من تتم دعوته لمقابلة عمل - صديقة تبحث عن مكان تدريب ودُعيت لمقابلة عمل ولا تعرف ماذا ترتدي",
+    keywords: ["Vorstellungsgespräch = مقابلة عمل", "Kleidung = ملابس", "Ausbildungsplatz = مكان تدريب", "repräsentieren = تمثيل"],
+    simplified: "نصائح عن الملابس المناسبة لمقابلة العمل",
+    imagine: "فتاة تقف أمام خزانة ملابسها وفكرها مشتوت",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam7_q4"] = {
-    text: "Ein Auszubildender bei einer Bank oder Sparkasse bekommt 690 Euro - Eine Bekannte möchte eine Ausbildung machen und vielleicht später einmal studieren.",
-    meaning: "المتدرب في بنك أو بنك ادخار يحصل على 690 يورو - إحدى المعارف تريد القيام بتدريب مهني وربما الدراسة لاحقاً.",
-    keywords: ["Auszubildender = متدرب", "Ausbildung = تدريب مهني"],
-    simplified: "تدريب مهني ودراسة لاحقاً",
-    imagine: "🧠📚 امرأة شابة جالسة في قاعة محاضرات وتحلم بالمستقبل."
+    text: "Ein Auszubildender bei einer Bank - Eine Bekannte möchte eine Ausbildung machen und vielleicht später einmal studieren.",
+    meaning: "متدرِب في بنك - إحدى المعارف تريد القيام بتدريب وربما الدراسة لاحقا",
+    keywords: ["Auszubildender = متدرب", "Bank = بنك", "Vergütung = تعويض", "Fortbildung = تدريب إضافي"],
+    simplified: "معلومات عن رواتب المتدربين في البنوك وفرص الدراسة",
+    imagine: "شابة تحمل نقودا وتضعها في حصالة على شكل جامعة",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam7_q5"] = {
-    text: "Wer zu seinem Vorstellungsgespräch eingeladen wird, sollte auf korrekte Kleidung achten - Eine Freundin sucht einen Ausbildungsplatz. Sie ist zu einem Bewerbungsgespräch eingeladen und weiß nicht, was sie zu diesem Anlass anziehen soll.",
-    meaning: "من يُدعى لمقابلة عمل يجب أن ينتبه للملابس الصحيحة - صديقة تبحث عن مكان تدريب. دُعيت لمقابلة عمل ولا تعرف ماذا ترتدي لهذه المناسبة.",
-    keywords: ["Vorstellungsgespräch = مقابلة عمل", "Kleidung = ملابس"],
-    simplified: "اختيار الملابس المناسبة لمقابلة عمل",
-    imagine: "🧠👗 امرأة تقف أمام المرآة وتغير ملابسها ولا تعرف ماذا تختار."
+    text: "Für junge Leute kann das Internet zu einer Droge werden - Ein Freund surft täglich viele Stunden im Internet und تريد أن تنصحه لأنك تجد هذه الساعات كثيرة.",
+    meaning: "الإنترنت يمكن أن يصبح مخدرا للشباب - صديق يتصفح الإنترنت ساعات طويلة يوميا وتريد نصحه",
+    keywords: ["Internet = إنترنت", "Sucht = إدمان", "Surfzeiten = أوقات تصفح", "Psychologen = علماء نفس"],
+    simplified: "نصائح للتغلب على إدمان الإنترنت مثل سجل الأوقات",
+    imagine: "شاب جالس أمام شاشة وعيناه حمراوان والساعة تشير للخامسة صباحا",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam7_q6"] = {
-    text: "Für junge Leute kann das Internet zu einer Droge werden - Ein Freund surft täglich viele Stunden im Internet. Sie finden das zu viel und wollen ihm einen Rat geben.",
-    meaning: "بالنسبة للشباب، يمكن أن يصبح الإنترنت مخدراً - صديق يتصفح الإنترنت ساعات طويلة يومياً. تجد أن هذا كثير وتريد تقديم نصيحة له.",
-    keywords: ["Internet = إنترنت", "surft = يتصفح"],
-    simplified: "نصيحة لصديق مدمن إنترنت",
-    imagine: "🧠💻 شاب جالس أمام الكمبيوتر وعيناه مثبتتان على الشاشة ولا يتحرك."
+    text: "Nichts ist auf privaten Feierlichkeiten schlimmer - Ein älteres Ehepaar hat Goldene Hochzeit. Die Tochter möchte eine Rede halten und braucht dafür eine Anleitung.",
+    meaning: "لا شيء أسوأ في الاحتفالات الخاصة من الخطب الطويلة - زوجان مسنان لديهما زفاف ذهبي والابنة تريد إلقاء خطاب وتحتاج دليلا",
+    keywords: ["Ansprachen = خطابات", "Hochzeiten = أعراس", "Volkshochschulen = مدارس شعبية", "Seminare = ندوات"],
+    simplified: "دورات نهاية أسبوع لتعلم كيفية إلقاء خطاب قصير وممتع في المناسبات",
+    imagine: "امرأة واقفة على منصة وخلفها والديها يحملان بالونات ذهبية",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam7_q7"] = {
-    text: "'GRUNDSÄTZLICH HAT JEDER DIE MÖGLICHKEIT, BEI UNS EINE AUSBILDUNG ZU MACHEN' - Ein Freund möchte wissen, welche schulischen Leistungen bei der Vergabe von Ausbildungsplätzen im Bankgewerbe besonders wichtig sind.",
-    meaning: "'من حيث المبدأ، كل شخص لديه الفرصة للقيام بتدريب مهني عندنا' - صديق يريد معرفة أي التحصيل الدراسي مهم بشكل خاص عند تخصيص أماكن التدريب في القطاع المصرفي.",
-    keywords: ["AUSBILDUNG = تدريب مهني", "Bankgewerbe = قطاع مصرفي"],
-    simplified: "شروط القبول في تدريب بنكي",
-    imagine: "🧠📜 شاب جالس في مكتبة ويقرأ أوراقاً عن متطلبات البنوك."
+    text: "Ein Freund möchte wissen, welche schulischen Leistungen bei der Vergabe von Ausbildungsplätzen im Bankgewerbe besonders wichtig sind.",
+    meaning: "صديق يريد أن يعرف ما هي المعدلات المدرسية المهمة عند الحصول على أماكن تدريب في قطاع البنوك",
+    keywords: ["Sparkassen-Akademie = أكاديمية بنوك ادخار", "Noten = درجات", "Deutsch = ألمانية", "Mathematik = رياضيات"],
+    simplified: "المعرفة في البنوك تتطلب درجات جيدة في الألمانية والرياضيات",
+    imagine: "شاب يحدق في شهادة دراسية ونقود تخرج منها",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam7_q8"] = {
-    text: "Viele junge Leute flüchten sich in die virtuelle Scheinwelt - Eine befreundete Frau möchte ihren Sohn davon abhalten, ständig im Internet zu surfen, weil seine schulischen Leistungen rapide nachlassen.",
-    meaning: "كثير من الشباب يهربون إلى العالم الافتراضي الوهمي - امرأة صديقة تريد منع ابنها من التصفح المستمر للإنترنت لأن أداءه الدراسي يتراجع بسرعة.",
-    keywords: ["virtuelle Scheinwelt = عالم افتراضي وهمي", "surfen = يتصفح"],
-    simplified: "مساعدة ابن مدمن إنترنت",
-    imagine: "🧠👩 أم تقف بجانب ابنها وتطلب منه إغلاق الكمبيوتر والذهاب للدراسة."
+    text: "Viele junge Leute flüchten sich in die virtuelle Scheinwelt - Eine Bekannte sucht Rat bei Ihnen, weil ihr Sohn ständig im Internet surft und dabei die Schule vernachlässigt.",
+    meaning: "كثير من الشباب يهربون إلى العالم الافتراضي - إحدى المعارف تطلب منك النصيحة لأن ابنها يتصفح الإنترنت دائما ويهمل المدرسة",
+    keywords: ["Chatrooms = غرف محادثة", "vernachlässigen = يهمل", "Hausaufgaben = واجبات", "Eltern = آباء"],
+    simplified: "نصائح للآباء عن كيفية التعامل مع إدمان الأبناء للإنترنت",
+    imagine: "أم تجلس بجانب ابنها الصغير ويدها على كتفه وكلاهما ينظران إلى شاشة زرقاء",
+    correct: 9
 };
 
-// ============================================
-// Exam 8: المرأة الحامل (معدل)
-// ============================================
-
+// ========== Exam 8: المرأة الحامل (معدل) ==========
 HELP_DATA["lesen3_exam8_q1"] = {
-    text: "Das Vorstellungsgespräch ist eine wichtige Hürde - Ihre Schwägerin erwartet ein Kind. Sie ist nicht sicher, ob Sie in einem Vorstellungsgespräch darauf hinweisen muss.",
-    meaning: "مقابلة العمل عائق مهم - زوجة أخيك تنتظر طفلاً. إنها غير متأكدة مما إذا كان يجب أن تذكر ذلك في مقابلة العمل.",
-    keywords: ["Vorstellungsgespräch = مقابلة عمل", "Schwangerschaft = حمل"],
-    simplified: "الحمل والإشارة إليه في المقابلة",
-    imagine: "🧠🤰 امرأة حامل تمسك بيدها على بطنها وهي تتحدث مع مدير الموارد البشرية."
+    text: "Das Vorstellungsgespräch ist eine wichtige Hürde - Ihre Schwägerin erwartet ein Kind. Sie ist nicht sicher, ob sie في مقابلة عمل عليها الإشارة إلى ذلك.",
+    meaning: "مقابلة العمل عقبة مهمة - زوجة أخيك تنتظر طفلا وهي غير متأكدة إذا كان يجب ذكر ذلك في مقابلة العمل",
+    keywords: ["Vorstellungsgespräch = مقابلة عمل", "Schwangerschaft = حمل", "wahrheitsgemäß = بصدق", "Familienplanung = تنظيم الأسرة"],
+    simplified: "لا يجب الكشف عن الحمل أو خطط الإنجاب في مقابلة العمل",
+    imagine: "امرأة تضع يدها على بطنها ومدير ينظر إليها بنظرة حادة",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam8_q2"] = {
-    text: "Robert Sonntag, Autor des Buches 'Hilfe, ich muss reden' - Eine Freundin, 20 Jahre alt, muss oft vor Arbeitskollegen Referate halten. Ihr Hauptproblem ist ihre Nervosität.",
-    meaning: "روبرت سونتاغ، مؤلف كتاب 'النجدة، يجب أن أتكلم' - صديقة تبلغ 20 عاماً، تقدم عروضاً أمام زملاء العمل. مشكلتها الرئيسية هي عصبيتها.",
-    keywords: ["reden = يتكلم", "Nervosität = عصبية"],
-    simplified: "التغلب على الخوف من العروض",
-    imagine: "🧠🎤 شابة تقف أمام زملائها وكلماتها تتلعثم من الخوف."
+    text: "Robert Sonntag, Autor des Buches 'Hilfe, ich muss reden' - Eine Freundin, 20 Jahre alt, muss oft vor Arbeitskollegen Referate halten. مشكلتها الأساسية هي عصبيتها.",
+    meaning: "روبرت سونتاغ مؤلف كتاب 'النجدة أنا يجب أن أتكلم' - صديقة عمرها 20 سنة غالبا ما تقدم عروضا أمام زملاء العمل ومشكلتها الأساسية هي عصبيتها",
+    keywords: ["Angst = خوف", "Körpersprache = لغة جسد", "Stimme = صوت", "Entspannungstechniken = تقنيات استرخاء"],
+    simplified: "93 بالمئة من تأثير الخطاب يعتمد على لغة الجسد والصوت وليس الكلمات",
+    imagine: "فتاة واقفة على منصة ويديها ترتجفان وورقتها تهتز",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam8_q3"] = {
-    text: "Nichts ist auf privaten Feierlichkeiten schlimmer als langatmige Ansprachen - Ein älteres Ehepaar hat Goldene Hochzeit. Die Tochter möchte eine Rede halten und braucht dafür eine Anleitung.",
-    meaning: "لا شيء أسوأ في الاحتفالات الخاصة من الخطب الطويلة - زوجان كبيران يحتفلان باليوبيل الذهبي. الابنة تريد إلقاء كلمة وتحتاج إرشاداً.",
-    keywords: ["Ansprachen = خطب", "Rede = كلمة"],
-    simplified: "إلقاء كلمة في حفل زفاف ذهبي",
-    imagine: "🧠👩 ابنة تمسك بورقة وهي تقف أمام والديها المسنين."
+    text: "Wer zu seinem Vorstellungsgespräch eingeladen wird - Eine Freundin sucht einen Ausbildungsplatz. وهي مدعوة لمقابلة عمل ولا تعرف ماذا ترتدي.",
+    meaning: "من تتم دعوته لمقابلة عمل - صديقة تبحث عن مكان تدريب ودُعيت لمقابلة عمل ولا تعرف ماذا ترتدي",
+    keywords: ["Vorstellungsgespräch = مقابلة عمل", "Kleidung = ملابس", "repräsentieren = تمثيل", "zerrissene Jeans = جينز ممزق"],
+    simplified: "الملابس النظيفة واللائقة أساسية في مقابلة العمل",
+    imagine: "شابة تقف أمام باب زجاجي وتعكس صورتها مرآة وترتب قميصها",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam8_q4"] = {
-    text: "Ein Auszubildender bei einer Bank oder Sparkasse bekommt 690 Euro - Eine Bekannte möchte eine Ausbildung machen und vielleicht später einmal studieren.",
-    meaning: "المتدرب في بنك أو بنك ادخار يحصل على 690 يورو - إحدى المعارف تريد القيام بتدريب مهني وربما الدراسة لاحقاً.",
-    keywords: ["Auszubildender = متدرب", "Ausbildung = تدريب مهني"],
-    simplified: "تدريب ثم دراسة جامعية",
-    imagine: "🧠🎓 امرأة شابة تمسك شهادة وهي تبتسم."
+    text: "Ein Auszubildender bei einer Bank - Eine Bekannte möchte eine Ausbildung machen und vielleicht später einmal studieren.",
+    meaning: "متدرِب في بنك - إحدى المعارف تريد القيام بتدريب وربما الدراسة لاحقا",
+    keywords: ["Auszubildender = متدرب", "Bank = بنك", "Vergütung = تعويض", "Fortbildung = تدريب إضافي"],
+    simplified: "رواتب المتدربين في البنوك من 690 إلى 800 يورو شهريا",
+    imagine: "امرأة تحسب نقودا على آلة حاسبة وكتاب بجانبها",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam8_q5"] = {
-    text: "Wer zu seinem Vorstellungsgespräch eingeladen wird, sollte auf korrekte Kleidung achten - Eine Freundin sucht einen Ausbildungsplatz. Sie ist zu einem Bewerbungsgespräch eingeladen und weiß nicht, was sie zu diesem Anlass anziehen soll.",
-    meaning: "من يُدعى لمقابلة عمل يجب أن ينتبه للملابس الصحيحة - صديقة تبحث عن مكان تدريب. دُعيت لمقابلة عمل ولا تعرف ماذا ترتدي.",
-    keywords: ["Vorstellungsgespräch = مقابلة عمل", "Kleidung = ملابس"],
-    simplified: "ملابس مناسبة لمقابلة عمل",
-    imagine: "🧠👔 امرأة تنظر إلى خزانة ملابسها وتفكر ماذا تلبس."
+    text: "Für junge Leute kann das Internet zu einer Droge werden - Ein Freund surft täglich viele Stunden im Internet وترغب في إعطائه نصيحة.",
+    meaning: "الإنترنت يمكن أن يصبح مخدرا للشباب - صديق يتصفح الإنترنت ساعات طويلة يوميا وتريد نصحه",
+    keywords: ["Internetsucht = إدمان إنترنت", "Surfzeiten = أوقات تصفح", "Tagebuch = يوميات", "Regeln = قواعد"],
+    simplified: "تسجيل ساعات التصفح والبحث عن بدائل واقعية يقلل الإدمان",
+    imagine: "شاب يغلق حاسوبه ويخرج للنزهة مع كلبه وهو يبتسم",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam8_q6"] = {
-    text: "Für junge Leute kann das Internet zu einer Droge werden - Ein Freund surft täglich viele Stunden im Internet. Sie finden das zu viel und wollen ihm einen Rat geben.",
-    meaning: "بالنسبة للشباب، يمكن أن يصبح الإنترنت مخدراً - صديق يتصفح الإنترنت ساعات طويلة يومياً. تجد أن هذا كثير وتريد تقديم نصيحة له.",
-    keywords: ["Internet = إنترنت", "Droge = مخدر"],
-    simplified: "نصيحة لصديق مدمن إنترنت",
-    imagine: "🧠💻 شاب يجلس بمفرده في غرفة مظلمة ووجهه مضاء بشاشة الكمبيوتر."
+    text: "Nichts ist auf privaten Feierlichkeiten schlimmer - Ein älteres Ehepaar hat Goldene Hochzeit. الابنة تريد إلقاء خطاب وتحتاج دليلا.",
+    meaning: "لا شيء أسوأ في الاحتفالات الخاصة من الخطب الطويلة - زوجان مسنان لديهما زفاف ذهبي والابنة تريد إلقاء خطاب وتحتاج دليلا",
+    keywords: ["Goldene Hochzeit = زفاف ذهبي", "Rede = خطاب", "Volkshochschulen = مدارس شعبية", "Seminare = ندوات"],
+    simplified: "ندوات نهاية أسبوع لتعليم الخطب القصيرة والممتعة للمناسبات",
+    imagine: "ابنة وحيدة تقف أمام والديها وكلاهما يمسكان مناديل بيضاء",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam8_q7"] = {
-    text: "'GRUNDSÄTZLICH HAT JEDER DIE MÖGLICHKEIT, BEI UNS EINE AUSBILDUNG ZU MACHEN' - Ein Freund möchte wissen, welche schulischen Leistungen bei der Vergabe von Ausbildungsplätzen im Bankgewerbe besonders wichtig sind.",
-    meaning: "'من حيث المبدأ، كل شخص لديه الفرصة للقيام بتدريب مهني عندنا' - صديق يريد معرفة أي تحصيل دراسي مهم في تخصيص أماكن التدريب في القطاع المصرفي.",
-    keywords: ["AUSBILDUNG = تدريب مهني", "schulischen Leistungen = تحصيل دراسي"],
-    simplified: "المتطلبات الدراسية للتدريب البنكي",
-    imagine: "🧠📊 شاب ينظر إلى شهادة مدرسية ويحسب الدرجات بعناية."
+    text: "Ein Freund möchte wissen, welche schulischen Leistungen bei der Vergabe von Ausbildungsplätzen im Bankgewerbe besonders wichtig sind.",
+    meaning: "صديق يريد أن يعرف ما هي المعدلات المدرسية المهمة عند الحصول على أماكن تدريب في قطاع البنوك",
+    keywords: ["Sparkassen-Akademie = أكاديمية بنوك ادخار", "Noten = درجات", "Deutsch = ألمانية", "Mathematik = رياضيات", "Rollenspiele = لعب أدوار"],
+    simplified: "البنك يطلب درجات جيدة في الألمانية والرياضيات واختبار مهارات التواصل",
+    imagine: "شاب يمثل دور عميل غاضب أمام مدرب وكلاهما يحاولان إثبات وجهة نظرهما",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam8_q8"] = {
-    text: "Viele junge Leute flüchten sich in die virtuelle Scheinwelt - Eine Bekannte sucht Rat bei Ihnen, weil ihr Sohn ständig im Internet surft und dabei die Schule vernachlässigt.",
-    meaning: "كثير من الشباب يهربون إلى العالم الافتراضي الوهمي - إحدى المعارف تطلب نصيحتك لأن ابنها يتصفح الإنترنت باستمرار ويهمل المدرسة.",
-    keywords: ["virtuelle Scheinwelt = عالم افتراضي وهمي", "Schule = مدرسة"],
-    simplified: "استشارة حول ابن مدمن إنترنت",
-    imagine: "🧠👩 أم تتصل بك هاتفياً وهي قلقة على ابنها."
+    text: "Viele junge Leute flüchten sich in die virtuelle Scheinwelt - Eine Bekannte تطلب منك النصيحة لأن ابنها يهمل المدرسة بسبب الإنترنت.",
+    meaning: "كثير من الشباب يهربون إلى العالم الافتراضي - إحدى المعارف تطلب منك النصيحة لأن ابنها يهمل المدرسة بسبب الإنترنت",
+    keywords: ["Chatrooms = غرف محادثة", "vernachlässigen = يهمل", "Hausaufgaben = واجبات", "Alternativen = بدائل"],
+    simplified: "التحدث مع الطفل بلطف وتقديم بدائل هو الحل الأمثل",
+    imagine: "أم تحاول سحب ابنها من الكرسي أمام الكمبيوتر لكنه متمسك به",
+    correct: 9
 };
 
-// ============================================
-// Exam 9: Unterstützung in Mathematik
-// ============================================
-
+// ========== Exam 9: Unterstützung in Mathematik ==========
 HELP_DATA["lesen3_exam9_q1"] = {
     text: "Neues Ziel, neues Glück! - Sie möchten in einer anderen Stadt eine Ausbildung machen und suchen dort eine Wohnung.",
-    meaning: "هدف جديد، حظ جديد! - تريد القيام بتدريب مهني في مدينة أخرى وتبحث عن شقة هناك.",
-    keywords: ["Ziel = هدف", "Wohnung = شقة"],
-    simplified: "بحث عن سكن في مدينة أخرى للتدريب",
-    imagine: "🧠🏠 شاب ينظر إلى شقة فارغة ويبتسم لأنها سكنه الجديد."
+    meaning: "هدف جديد حظ جديد - تريد القيام بتدريب في مدينة أخرى وتبحث عن شقة هناك",
+    keywords: ["Umziehen = انتقال", "Wohnungen = شقق", "WG-Zimmer = غرفة مشاركة", "Miete = إيجار"],
+    simplified: "بوابة إنترنت للعثور على شقق وغرف مشاركة في مدن ألمانية",
+    imagine: "شاب يحمل حقيبة واقف أمام مبنى سكني كبير ينظر إلى هاتفه",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam9_q2"] = {
     text: "Andere Länder, andere Sprachen - Sie möchten einen Sprachkurs in einem anderen Land machen.",
-    meaning: "بلدان أخرى، لغات أخرى - تريد القيام بدورة لغة في بلد آخر.",
-    keywords: ["Länder = بلدان", "Sprachkurs = دورة لغة"],
-    simplified: "دورة لغة في الخارج",
-    imagine: "🧠✈️ شخص يحمل حقيبة سفر ويقف أمام طائرة متوجهاً لتعلم اللغة."
+    meaning: "بلدان أخرى لغات أخرى - تريد القيام بدورة لغة في بلد آخر",
+    keywords: ["Sprachen = لغات", "Einzelunterricht = دروس فردية", "Gruppe = مجموعة", "Arabisch = عربية", "Zulu = زولو"],
+    simplified: "دورات لغة في الخارج من العربية إلى الزولو",
+    imagine: "خريطة العالم ومجموعة من الأعلام المختلفة تغطيها",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam9_q3"] = {
     text: "Was bedeutet 'Tandemlernen'? - Sie wollen gerne noch eine Sprache lernen und suchen einen festen Lernpartner.",
-    meaning: "ماذا يعني 'التعلم الثنائي'؟ - تريد تعلم لغة أخرى وتبحث عن شريك تعلم دائم.",
-    keywords: ["Tandemlernen = تعلم ثنائي", "Lernpartner = شريك تعلم"],
-    simplified: "البحث عن شريك لتعلم اللغة",
-    imagine: "🧠👥 شخصان جالسان في مقهى يتحدثان ويتبادلان تعلم اللغات."
+    meaning: "ماذا يعني التعلم الثنائي؟ - تريد تعلم لغة أخرى وتبحث عن شريك تعلم ثابت",
+    keywords: ["Tandemlernen = تعلم ثنائي", "Muttersprachen = لغات أم", "Fremdsprache = لغة أجنبية", "Kultur = ثقافة"],
+    simplified: "تبادل لغوي مجاني بين شخصين من لغات أم مختلفة",
+    imagine: "شخصان يجلسان على طاولة وكلاهما يشيران إلى قاموسين مختلفين",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam9_q4"] = {
     text: "Umzug mal anders - Sie wollen umziehen, haben aber eigentlich gar keine Zeit, sich darum zu kümmern.",
-    meaning: "نقل منزل بشكل مختلف - تريد الانتقال ولكن ليس لديك وقت للاهتمام بذلك.",
-    keywords: ["Umzug = نقل منزل", "Zeit = وقت"],
-    simplified: "تنقل بدون وقت للتجهيز",
-    imagine: "🧠📦 شخص واقف أمام صناديق كثيرة ولا يعرف من أين يبدأ."
+    meaning: "انتقال بطريقة مختلفة - تريد الانتقال ولكن لا وقت لديك للاهتمام بالأمر",
+    keywords: ["Umzug = انتقال", "Service = خدمة", "Organisation = تنظيم", "fairer Preis = سعر عادل"],
+    simplified: "شركة تقدم خدمات الانتقال الكامل من الألف إلى الياء",
+    imagine: "رجل يضع قدميه على الطاولة ويشرب قهوة وعمال يحملون صناديق خلفه",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam9_q5"] = {
-    text: "Alle Informationen auf einer Seite - Sie möchten Physik studieren und möchten sich zunächst informieren.",
-    meaning: "جميع المعلومات في صفحة واحدة - تريد دراسة الفيزياء وتريد الاستعلام أولاً.",
-    keywords: ["Informationen = معلومات", "studieren = يدرس"],
-    simplified: "الاستعلام عن دراسة الفيزياء",
-    imagine: "🧠🔬 شاب يجلس أمام حاسوبه يبحث عن تخصص الفيزياء."
+    text: "Hilfe gesucht? Studierende und Auszubildende - Sie ziehen wegen einer Ausbildung um und suchen so günstig wie möglich Umzugshelfer.",
+    meaning: "مطلوب مساعدة؟ طلاب ومتدربون - تنتقل من أجل التدريب وتبحث عن مساعدي نقل بأقل تكلفة ممكنة",
+    keywords: ["Umzugshelfer = مساعدو نقل", "kostenlos = مجاني", "Netzwerk = شبكة", "gegenseitig = متبادل"],
+    simplified: "شبكة مجانية لمساعدة الطلاب والمتدربين في انتقالاتهم",
+    imagine: "ثلاثة شباب يحملون أريكة ويصعدون السلالم وهم يضحكون",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam9_q6"] = {
-    text: "Hilfe gesucht? Studierende und Auszubildende - Sie ziehen wegen einer Ausbildung um und suchen so günstig wie möglich Umzugshelfer.",
-    meaning: "مطلوب مساعدة؟ طلاب ومتدربون - تنتقل بسبب التدريب المهني وتبحث عن مساعدين لنقل المنزل بأقل تكلفة ممكنة.",
-    keywords: ["Auszubildende = متدربون", "Umzugshelfer = مساعدو نقل"],
-    simplified: "البحث عن مساعدين رخيصين لنقل المنزل",
-    imagine: "🧠🛋️ شخصان يحملان أريكة ثقيلة ويصعدان الدرج."
+    text: "Neu in der Stadt? - Sie sind gerade umgezogen und möchten neue Leute kennenlernen.",
+    meaning: "جديد في المدينة؟ - انتقلت مؤخرا وتريد التعرف على أشخاص جدد",
+    keywords: ["Umgezogen = منتقل", "Kontakte = معارف", "Stammtisch = لقاء دوري", "Freizeit = وقت فراغ"],
+    simplified: "لقاءات دورية لمن يريدون تكوين صداقات جديدة في المدينة",
+    imagine: "عدة أشخاص يجلسون حول طاولة مستديرة في مقهى ويتحدثون ويضحكون",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam9_q7"] = {
-    text: "Neu in der Stadt? - Sie sind gerade umgezogen und möchten neue Leute kennenlernen.",
-    meaning: "جديد في المدينة؟ - انتقلت للتو وترغب في التعرف على أشخاص جدد.",
-    keywords: ["Neu = جديد", "kennenlernen = يتعرف على"],
-    simplified: "التعرف على أشخاص جدد بعد الانتقال",
-    imagine: "🧠👋 شاب يقف في حفلة ويمد يده لشخص غريب ليتعرف عليه."
+    text: "Alle Informationen auf einer Seite - Sie möchten Physik studieren und möchten sich zunächst informieren.",
+    meaning: "جميع المعلومات على صفحة واحدة - تريد دراسة الفيزياء وتريد الاستعلام أولا",
+    keywords: ["Studium = دراسة", "Hochschulen = جامعات", "Studiengänge = تخصصات دراسية", "BAföG-Rechner = حاسبة مساعدات طلابية"],
+    simplified: "بوابة إنترنت شاملة لكل ما يتعلق بالدراسة الجامعية في ألمانيا",
+    imagine: "طالب يجلس أمام حاسبه وشاشة مليئة ببيوت الجامعات",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam9_q8"] = {
-    text: "Aller Anfang ist schwer - Sie brauchen Unterstützung in Mathematik und möchten in einer kleinen Gruppe lernen.",
-    meaning: "كل بداية صعبة - تحتاج دعماً في الرياضيات وتريد التعلم في مجموعة صغيرة.",
-    keywords: ["Mathematik = رياضيات", "kleinen Gruppe = مجموعة صغيرة"],
-    simplified: "دعم في الرياضيات في مجموعة صغيرة",
-    imagine: "🧠📐 ثلاثة طلاب يجلسون حول طاولة ويحلون مسألة رياضية معاً."
+    text: "Aller Anfang ist schwer - Sie brauchen Unterstützung in Mathematik und möchten في مجموعة صغيرة التعلم.",
+    meaning: "كل البدايات صعبة - تحتاج دعم في الرياضيات وتريد التعلم في مجموعة صغيرة",
+    keywords: ["Problemfächer = مواد صعبة", "Mathematik = رياضيات", "Lerngruppen = مجموعات تعلم", "pädagogische Ausbildung = تدريب تربوي"],
+    simplified: "دورات دعم في الرياضيات في مجموعات من ثلاثة إلى خمسة أشخاص",
+    imagine: "ثلاثة طلاب جالسين حول طاولة بيضاء وأستاذ يشرح معادلة على السبورة",
+    correct: 0
 };
 
-// ============================================
-// Exam 10: Ganztagesausflug
-// ============================================
-
+// ========== Exam 10: Ganztagesausflug ==========
 HELP_DATA["lesen3_exam10_q1"] = {
-    text: "Neues Angebot der VHS - Sie sind neu in der Stadt und möchten Ihren Stadtteil kennenlernen.",
-    meaning: "عرض جديد من مدرسة الشعب - أنت جديد في المدينة وتريد التعرف على منطقتك.",
-    keywords: ["Angebot = عرض", "Stadtteil = منطقة في المدينة"],
-    simplified: "التعرف على منطقة السكن الجديدة",
-    imagine: "🧠🏘️ شخص يمشي في شارع جديد وينظر إلى المباني من حوله."
+    text: "Entspannung am Wasser - Sie möchten einen Ganztagesausflug machen und sich dabei bewegen.",
+    meaning: "استرخاء على الماء - تريد القيام برحلة ليوم كامل وتحريك جسمك فيها",
+    keywords: ["Bootsverleih = تأجير قوارب", "Ruderboot = قارب تجديف", "Tretboot = قارب بدواسات", "Motorboot = قارب بمحرك", "Sport = رياضة"],
+    simplified: "استئجار قوارب في بحيرة بالدويناي مع خيارات تجديف أو محرك",
+    imagine: "رجل يجدف بقوة في بحيرة زرقاء ونفسه عالية",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam10_q2"] = {
     text: "Kurzreise nach München - Sie interessieren sich für Technikgeschichte.",
-    meaning: "رحلة قصيرة إلى ميونخ - أنت مهتم بتاريخ التقنية.",
-    keywords: ["Kurzreise = رحلة قصيرة", "Technikgeschichte = تاريخ التقنية"],
-    simplified: "رحلة لزيارة متحف التقنية",
-    imagine: "🧠🏛️ شخص واقف أمام طائرة قديمة في متحف وينظر إليها بانبهار."
+    meaning: "رحلة قصيرة إلى ميونيخ - أنت مهتم بتاريخ التكنولوجيا",
+    keywords: ["Deutsches Museum = متحف ألماني", "Technik = تقنية", "Führung = جولة إرشادية", "Geschichte = تاريخ"],
+    simplified: "رحلة ليوم واحد إلى متحف ميونيخ التقني مع جولة خاصة",
+    imagine: "رجل يضع يده على محرك بخاري قديم وعيناه شغوفتان",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam10_q3"] = {
-    text: "Entspannung am Wasser - Sie möchten einen Ganztagesausflug machen und sich dabei bewegen.",
-    meaning: "استرخاء على الماء - تريد القيام برحلة ليوم كامل والتحرك أثناءها.",
-    keywords: ["Entspannung = استرخاء", "bewegen = يتحرك"],
-    simplified: "رحلة ليوم مع حركة ونشاط",
-    imagine: "🧠🚣 شخص يجدف في بحيرة والشمس مشرقة."
+    text: "Schiffe versenken, Marmorkuchen und selbstgebastelte Papierhüte - Ihr Sohn möchte einen Kindergeburtstag feiern und braucht Hilfe bei der Organisation.",
+    meaning: "إغراق السفن وكعكة الرخام وقبعات ورقية مصنوعة يدويا - ابنك يريد الاحتفال بعيد ميلاده ويحتاج مساعدة في التنظيم",
+    keywords: ["Kindergeburtstag = عيد ميلاد طفل", "Dekoration = زينة", "Spiele = ألعاب", "Speisen = أطعمة"],
+    simplified: "خدمة كاملة لتنظيم حفلات أعياد ميلاد الأطفال من أكل ولعب وديكور",
+    imagine: "طفل ينفخ بالونات وأمه ترتب طاولة مزينة بملصقات ملونة",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam10_q4"] = {
-    text: "Schiffe versenken, Marmorkuchen und selbstgebastelte Papierhüte - Ihr Sohn möchte einen Kindergeburtstag feiern und braucht Hilfe bei der Organisation.",
-    meaning: "إغراق السفن، كعكة الرخام والقبعات الورقية المصنوعة يدوياً - ابنك يريد الاحتفال بعيد ميلاد أطفال ويحتاج مساعدة في التنظيم.",
-    keywords: ["Kindergeburtstag = عيد ميلاد أطفال", "Organisation = تنظيم"],
-    simplified: "تنظيم حفلة عيد ميلاد طفل",
-    imagine: "🧠🎈 أم تنفخ بالونات وتعلق الزينة لطفلها."
+    text: "Deutschland aus einer anderen Perspektive - Ein Freund möchte gerne eine Schiffsreise machen.",
+    meaning: "ألمانيا من منظور آخر - صديق يود القيام برحلة بحرية",
+    keywords: ["Flusskreuzfahrten = رحلات نهرية", "Rhein = راين", "Mosel = موزيل", "Donau = دانوب", "Natur = طبيعة"],
+    simplified: "رحلات بحرية على الأنهار الألمانية مع برامج سياحية على اليابسة",
+    imagine: "سفينة بيضاء كبيرة تبحر بين تلال خضراء وجبال",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam10_q5"] = {
-    text: "Nur auf Reisen lernt der Mensch - Ein Freund möchte mehr über die Geschichte deutscher Städte erfahren.",
-    meaning: "فقط بالسفر يتعلم الإنسان - صديق يريد معرفة المزيد عن تاريخ المدن الألمانية.",
-    keywords: ["Reisen = سفر", "Geschichte = تاريخ"],
-    simplified: "معرفة تاريخ المدن الألمانية",
-    imagine: "🧠🏰 رجل يقف أمام كاتدرائية قديمة ويقرأ اللوحة التعريفية."
+    text: "Unser Stadtteil ist lebendig - Sie möchten helfen, Ihren Stadtteil zu gestalten.",
+    meaning: "منطقتنا السكنية حية - تريد المساعدة في تصميم منطقتك السكنية",
+    keywords: ["Stadtteil = منطقة سكنية", "Fest = مهرجان", "Helfer = مساعدين", "Planung = تخطيط"],
+    simplified: "متطوعون مطلوبون لتنظيم مهرجان وتحسين المرافق في المنطقة",
+    imagine: "عدة أشخاص يرتدون قمصانا خضراء ويزرعون زهورا في ساحة عامة",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam10_q6"] = {
-    text: "Deutschland aus einer anderen Perspektive - Ein Freund möchte gerne eine Schiffsreise machen.",
-    meaning: "ألمانيا من منظور آخر - صديق يريد القيام برحلة بحرية.",
-    keywords: ["Perspektive = منظور", "Schiffsreise = رحلة بحرية"],
-    simplified: "رحلة بحرية في ألمانيا",
-    imagine: "🧠🛳️ رجل يقف على سطح سفينة وينظر إلى البحر."
+    text: "Neues Angebot der VHS - Sie sind neu in der Stadt und möchten Ihren Stadtteil kennenlernen.",
+    meaning: "عرض جديد لمدرسة الشعب - أنت جديد في المدينة وتريد التعرف على منطقتك السكنية",
+    keywords: ["VHS = مدرسة شعب", "Führungen = جولات إرشادية", "Stadtteil = منطقة سكنية", "kostenfrei = مجاني"],
+    simplified: "جولات مشي مجانية لتعريف القادمين الجدد بمرافق الحي",
+    imagine: "رجل يحمل خريطة ومجموعة من الجيران خلفه يشيرون إلى مباني",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam10_q7"] = {
-    text: "Unser Stadtteil ist lebendig - Sie möchten helfen, Ihren Stadtteil zu gestalten.",
-    meaning: "منطقتنا حية - تريد المساعدة في تشكيل منطقتك.",
-    keywords: ["Stadtteil = منطقة", "gestalten = يشكل"],
-    simplified: "المشاركة في تطوير المنطقة",
-    imagine: "🧠🖌️ شخص يحمل فرشاة دهان ويرسم جداراً برسومات جميلة."
+    text: "Nur auf Reisen lernt der Mensch - Ein Freund möchte mehr über die Geschichte deutscher Städte erfahren.",
+    meaning: "فقط في السفر يتعلم الإنسان - صديق يريد معرفة المزيد عن تاريخ المدن الألمانية",
+    keywords: ["Bildungsakademie = أكاديمية تعليمية", "Ausflüge = رحلات", "Geschichte = تاريخ", "Berlin = برلين", "Köln = كولونيا", "München = ميونيخ"],
+    simplified: "رحلات تعليمية لعدة أيام لاستكشاف تاريخ المدن الألمانية الكبرى",
+    imagine: "رجل يقف أمام بوابة براندنبورغ وكاتب يشرح له التاريخ",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam10_q8"] = {
     text: "Technik - spannend und verständlich - Sie möchten etwas mit Ihrer 6-jährigen Nichte unternehmen, die gerne ins Museum geht.",
-    meaning: "التقنية - مثيرة ومفهومة - تريد القيام بنشاط مع ابنة أختك ذات الـ 6 سنوات التي تحب الذهاب إلى المتحف.",
-    keywords: ["Technik = تقنية", "Museum = متحف"],
-    simplified: "زيارة متحف مع ابنة الأخت الصغيرة",
-    imagine: "🧠🔬 طفلة صغيرة تضع يديها على زجاج واجهة عرض متحف."
+    meaning: "التقنية - مثيرة ومفهومة - تريد القيام بنشاط مع ابنة أختك البالغة 6 سنوات والتي تحب الذهاب إلى المتاحف",
+    keywords: ["Technik-Museum = متحف تقني", "Kinder = أطفال", "spielerisch = بطريقة مرحة", "Führungen = جولات إرشادية"],
+    simplified: "متحف تقني للأطفال من 6 إلى 12 سنوات مع جولات مناسبة لأعمارهم",
+    imagine: "فتاة صغيرة تدير عجلة آلة قديمة وعيناها واسعتان بدهشة",
+    correct: 9
 };
 
-// ============================================
-// Exam 11: Ihren Eltern zur Silberhochzeit
-// ============================================
-
+// ========== Exam 11: Ihren Eltern zur Silberhochzeit ==========
 HELP_DATA["lesen3_exam11_q1"] = {
     text: "Norwegen: Kirkenes-Bergen - Sie möchten Ihren Eltern zur Silberhochzeit eine besondere Schiffsreise auf dem Meer schenken.",
-    meaning: "النرويج: كيركينس-برغن - تريد إهداء والديك رحلة بحرية خاصة بمناسبة الذكرى الفضية لزواجهما.",
-    keywords: ["Schiffsreise = رحلة بحرية", "Silberhochzeit = ذكرى فضية"],
-    simplified: "هدية رحلة بحرية لوالديك",
-    imagine: "🧠🛳️ زوجان كبيران يقفان على سطح سفينة وينظران إلى غروب الشمس."
+    meaning: "النرويج: كيركينيس-برغن - تريد إهداء والديك رحلة بحرية مميزة في البحر بمناسبة عيد زفافهما الفضي",
+    keywords: ["Seereise = رحلة بحرية", "Norwegen = النرويج", "Postschiff = سفينة بريد", "Frühbucher-Bonus = خصم الحجز المبكر"],
+    simplified: "رحلة بحرية لمدة 6 أيام على سفينة بريد في المضايق النرويجية",
+    imagine: "زوجان مسنان يقفان على سطح سفينة والجبال الثلجية خلف صورتهما",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam11_q2"] = {
     text: "Winterurlaub am Meer - Ihre Freundin möchte mit ihrem Mann Silvester und Neujahr im Urlaub feiern, aber nicht schon wieder im Gebirge.",
-    meaning: "عطلة شتوية على البحر - صديقتك تريد الاحتفال بعيد رأس السنة مع زوجها في إجازة، ولكن ليس مرة أخرى في الجبال.",
-    keywords: ["Winterurlaub = عطلة شتوية", "Gebirge = جبال"],
-    simplified: "عطلة رأس السنة على البحر",
-    imagine: "🧠🏖️ زوجان يجلسان على كرسي على شاطئ البحر والثلوج خلفهما."
+    meaning: "عطلة شتوية على البحر - صديقتك تريد الاحتفال برأس السنة مع زوجها في إجازة ولكن ليس في الجبال مجددا",
+    keywords: ["Winterurlaub = عطلة شتوية", "Nordsee = بحر الشمال", "Ostsee = بحر البلطيق", "Boßeln = لعبة", "Robbensafari = سفاري الفقمة", "Pferdekutsche = عربة خيول"],
+    simplified: "أنشطة شتوية على شواطئ بحر الشمال والبلطيق بدل الجبال",
+    imagine: "امرأة ورجل يجلسان بجانب مدفأة ويشربان كأس نبيذ أحمر والثلج خارج النافذة",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam11_q3"] = {
-    text: "Meditation im Schnee - Ein Bekannter möchte im Winter ein besinnliches Wochenende in den Bergen verbringen, denn er mag es, durch die verschneite Natur zu laufen.",
-    meaning: "تأمل في الثلج - أحد المعارف يريد قضاء نهاية أسبوع تأملية في الجبال شتاءً، لأنه يحب المشي في الطبيعة المغطاة بالثلوج.",
-    keywords: ["Meditation = تأمل", "verschneite Natur = طبيعة مغطاة بالثلوج"],
-    simplified: "نهاية أسبوع في الثلوج",
-    imagine: "🧠❄️ رجل يمشي بمفرده في الغابة والثلوج تتساقط حوله."
+    text: "Meditation im Schnee - Ein Bekannter möchte im Winter ein besinnliches Wochenende في الجبال قضاء، denn er mag es, durch die verschneite Natur zu laufen.",
+    meaning: "تأمل في الثلج - أحد المعارف يريد قضاء عطلة نهاية أسبوع تأملية في الجبال في الشتاء لأنه يحب المشي في الطبيعة المغطاة بالثلوج",
+    keywords: ["Schneeschuhwanderung = مشي بأحذية ثلجية", "Ostschweizer = شرق سويسرا", "meditativ = تأملي", "Schlitten = زلاجة"],
+    simplified: "عطلة نهاية أسبوع في الجبال السويسرية مع مشي بأحذية الثلج والتأمل",
+    imagine: "رجل يمشي ببطء في غابة ثلجية صامتة والثلوج تتساقط على كتفيه",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam11_q4"] = {
-    text: "Fluss- und Radreise durch Belgien - Sie wollen wie jedes Jahr in der zweiten Jahreshälfte eine organisierte Urlaubsreise in Europa machen und sich dabei viel mit dem Fahrrad fortbewegen.",
-    meaning: "رحلة نهرية وبالدراجة عبر بلجيكا - ترغب كل عام في النصف الثاني من السنة في القيام برحلة عطلات منظمة في أوروبا والتنقل كثيراً بالدراجة.",
-    keywords: ["Radreise = رحلة دراجة", "organisierte Urlaubsreise = رحلة عطلات منظمة"],
-    simplified: "رحلة منظمة بالدراجة في أوروبا",
-    imagine: "🧠🚴 مجموعة من الأشخاص يركبون الدراجات في طريق ريفي جميل."
+    text: "Fluss- und Radreise durch Belgien - Sie wollen wie jedes Jahr في النصف الثاني من العام eine organisierte Urlaubsreise von etwa أسبوع في أوروبا machen und sich dabei viel mit dem Fahrrad fortbewegen.",
+    meaning: "رحلة نهرية بالدراجة عبر بلجيكا - تريد في النصف الثاني من كل عام رحلة أوروبية منظمة لمدة أسبوع مع حركة كثيرة بالدراجة",
+    keywords: ["Flussreise = رحلة نهرية", "Radreise = رحلة دراجات", "Belgien = بلجيكا", "Brügge = بروج", "Brüssel = بروكسل"],
+    simplified: "8 أيام رحلة نهرية بالدراجة في بلجيكا مع قارب ودراجة ومرشد",
+    imagine: "أشخاص يركبون دراجات بجانب قناة مائية وقرى قديمة في الخلفية",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam11_q5"] = {
-    text: "Tagestouren in Rheinhessen und im Rheingau - Eine Bekannte aus dem Rhein-Main-Gebiet sucht Vorschläge für Ein-Tages-Ausflüge, denn sie übernachtet nicht gern in fremden Betten.",
-    meaning: "جولات ليوم واحد في راينهسن وراينغاو - إحدى المعارف من منطقة راين-ماين تبحث عن اقتراحات لرحلات ليوم واحد، لأنها لا تحب المبيت في أسرة غريبة.",
-    keywords: ["Tagestouren = جولات يوم", "Ausflüge = رحلات"],
-    simplified: "رحلات يوم بدون إقامة",
-    imagine: "🧠🗺️ امرأة تنظر إلى خريطة وتخطط ليومها بدون حقيبة سفر."
+    text: "Abend im Palladio - Sie möchten einen netten Abend mit Freunden bei gutem Essen und außergewöhnlichem Unterhaltungsprogramm verleben.",
+    meaning: "مساء في بالاديو - تريد قضاء أمسية لطيفة مع الأصدقاء مع طعام جيد وبرنامج ترفيهي استثنائي",
+    keywords: ["Gourmet-Theater = مسرح ذواقة", "Artistik = ألعاب بهلوانية", "Comedy = كوميديا", "Akrobaten = بهلوانيون", "Magier = سحرة", "Vier-Gang-Menü = قائمة من أربعة أطباق"],
+    simplified: "أمسية تجمع بين السحرة والمهرجين والبهلوانيين مع عشاء فاخر",
+    imagine: "أربعة أصدقاء يجلسون على طاولة مضاءة بالشموع وساحر يطفو فوق طاولتهم",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam11_q6"] = {
-    text: "Abend im Palladio - Sie möchten einen netten Abend mit Freunden bei gutem Essen und außergewöhnlichem Unterhaltungsprogramm verleben.",
-    meaning: "مساء في بالاديو - تريد قضاء أمسية لطيفة مع الأصدقاء مع طعام جيد وبرنامج ترفيهي استثنائي.",
-    keywords: ["Abend = مساء", "Unterhaltungsprogramm = برنامج ترفيهي"],
-    simplified: "أمسية طعام وترفيه مع الأصدقاء",
-    imagine: "🧠🍽️ مجموعة من الأصدقاء جالسون على طاولة ومهرج يقف أمامهم."
+    text: "Kloster Eberbach - Sie suchen für eine prunkvolle Hochzeitsfeier geeignete festliche Räumlichkeiten في stimmungsvoller klösterlicher Umgebung für zirka 50 Personen.",
+    meaning: "دير إيبرباخ - تبحث عن قاعات احتفالية مناسبة لحفل زفاف فاخر في محيط دير خلاب لنحو 50 شخصا",
+    keywords: ["Kloster Eberbach = دير إيبرباخ", "Hochzeiten = أعراس", "Veranstaltung = فعالية", "Bankett = مأدبة", "Räume = قاعات"],
+    simplified: "قاعات دير من القرون الوسطى تأجير لحفلات الزفاف والاحتفالات حتى 1000 شخص",
+    imagine: "عروس ترتدي فستانا أبيض طويلا وتمشي في ممر دير حجري قديم",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam11_q7"] = {
-    text: "Kloster Eberbach - Sie suchen für eine prunkvolle Hochzeitsfeier geeignete festliche Räumlichkeiten in einer stimmungsvollen klösterlichen Umgebung für zirka 50 Personen.",
-    meaning: "دير إيبرباخ - تبحث عن أماكن احتفالية مناسبة لحفل زفاف فاخر في بيئة دير مميزة لحوالي 50 شخصاً.",
-    keywords: ["Kloster = دير", "Hochzeitsfeier = حفل زفاف"],
-    simplified: "قاعة أفراح في دير",
-    imagine: "🧠🏰 عروس وعريس يقفان أمام مبنى دير قديم ويبتسمان."
+    text: "Viel Lob von der Lokalpresse für einen neuen Stadt-Führer über Frankfurt - Sie sind neu in Frankfurt a. M. und suchen deshalb nach nützlichen Informationen und praktischen Tipps, um sich schnell في der neuen Umgebung einzuleben.",
+    meaning: "مديح كبير من الصحافة المحلية لدليل مدينة جديد عن فرانكفورت - أنت جديد في فرانكفورت وتبحث عن معلومات مفيدة ونصائح عملية لتندمج بسرعة في البيئة الجديدة",
+    keywords: ["Frankfurt = فرانكفورت", "Reise-Führer = دليل سفر", "Kultur = ثقافة", "Adressen = عناوين", "Öffnungszeiten = أوقات افتتاح"],
+    simplified: "دليل ثقافي لفرانكفورت يحتوي آلاف العناوين والنصائح للقادمين الجدد",
+    imagine: "شاب يحمل خريطة واقف أمام برجين شاهقين وينظر إليهما بدهشة",
+    correct: 7
 };
 
-HELP_DATA["lesen3_exam11_q8"] = {
-    text: "Viel Lob von der Lokalpresse für einen neuen Stadt-Führer - Sie sind neu in Frankfurt a. M. und suchen deshalb nach nützlichen Informationen und praktischen Tipps, um sich schnell in der neuen Umgebung einzuleben.",
-    meaning: "مديح كبير من الصحافة المحلية لدليل مدينة جديد - أنت جديد في فرانكفورت ماين وتبحث عن معلومات مفيدة ونصائح عملية للتأقلم بسرعة في البيئة الجديدة.",
-    keywords: ["Stadt-Führer = دليل مدينة", "neuen Umgebung = بيئة جديدة"],
-    simplified: "دليل مدينة فرانكفورت الجديدة",
-    imagine: "🧠🗺️ شخص واقف في شارع مزدحم ويمسك خريطة بين يديه."
-};
-
-// ============================================
-// Exam 12: Rechtsanwalt
-// ============================================
-
+// ========== Exam 12: Rechtsanwalt ==========
 HELP_DATA["lesen3_exam12_q1"] = {
-    text: "Urlaub auf dem Sofa - Sie möchten durch Europa reisen und privat übernachten.",
-    meaning: "عطلة على الأريكة - ترغب في السفر عبر أوروبا والمبيت في منازل خاصة.",
-    keywords: ["Urlaub = عطلة", "privat übernachten = المبيت بشكل خاص"],
-    simplified: "سفر وأريكة في أوروبا",
-    imagine: "🧠🛋️ شخص يجلس على أريكة في منزل غريب ويبتسم."
+    text: "Ihr kompetenter Partner für Rechtsberatung - Einem Bekannten wurde die Arbeitsstelle gekündigt. Er möchte bei einem Anwalt um Rat fragen.",
+    meaning: "شريكك المختص في الاستشارات القانونية - أحد المعارف تم فصله من العمل ويريد استشارة محام",
+    keywords: ["Rechtsberatung = استشارة قانونية", "Arbeit = عمل", "Kündigung = فصل", "Arbeitsvertrag = عقد عمل"],
+    simplified: "محام متخصص في قضايا العمل من عقود إلى فصل تعسفي",
+    imagine: "رجل جالس أمام محام وكلاهما يحدقان في أوراق بيضاء مبعثرة",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam12_q2"] = {
-    text: "Alte Möbel aufarbeiten - Ihre Möbel sehen nicht mehr so gut aus. Daran möchten Sie etwas ändern.",
-    meaning: "ترميم الأثاث القديم - أثاثك لم يعد يبدو جيداً. تريد تغيير ذلك.",
-    keywords: ["Möbel = أثاث", "aufarbeiten = يرمم"],
-    simplified: "ترميم الأثاث القديم",
-    imagine: "🧠🪑 رجل يجلس على كرسي قديم وينظر إليه بحزن."
+    text: "Unser neues Wohnkonzept - Ihr Bekannter ist beruflich oft unterwegs und sucht eine Alternative zu Hotels. Dort soll es aber Internetzugang und Frühstück geben.",
+    meaning: "مفهوم السكن الجديد - أحد المعارف غالبا ما يسافر للعمل ويبحث عن بديل للفنادق مع إنترنت وإفطار",
+    keywords: ["Wohnkonzept = مفهوم سكني", "Geschäftsreise = رحلة عمل", "Internet = إنترنت", "Frühstück = إفطار", "persönlicher Service = خدمة شخصية"],
+    simplified: "شقق مفروشة بالكامل مع إنترنت وإفطار لرجال الأعمال في 25 مدينة",
+    imagine: "رجل يرتدي بدلة يجلس على مكتب خشبي فاخر ويتحدث بالفيديو مع عائلته",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam12_q3"] = {
-    text: "Kunstmarkt - Eine Bekannte malt sehr gut und sucht eine Gelegenheit, anderen ihre Bilder zu zeigen oder sie zu verkaufen.",
-    meaning: "سوق فني - إحدى المعارف ترسم جيداً وتبحث عن فرصة لعرض لوحاتها على الآخرين أو بيعها.",
-    keywords: ["Kunstmarkt = سوق فني", "Bilder = لوحات"],
-    simplified: "عرض وبيع اللوحات الفنية",
-    imagine: "🧠🎨 امرأة تعلق لوحتها على حائط في معرض فني."
+    text: "Urlaub auf dem Sofa - Sie möchten durch Europa reisen und privat übernachten.",
+    meaning: "عطلة على الأريكة - تريد السفر عبر أوروبا والمبيت في منازل خاصة",
+    keywords: ["Schlafplatz = مكان نوم", "Sofa = أريكة", "Frühstück = إفطار", "Europa = أوروبا", "Menschen = أناس"],
+    simplified: "موقع للحجز في منازل أوروبية بأسعار زهيدة تشمل المبيت والإفطار",
+    imagine: "مسافر يحمل حقيبة ويقف أمام باب منزل عادي ويبتسم",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam12_q4"] = {
-    text: "Unser neues Wohnkonzept - Ihr Bekannter ist beruflich oft unterwegs und sucht eine Alternative zu Hotels. Es soll dort aber Internetzugang und Frühstück geben.",
-    meaning: "مفهوم سكننا الجديد - قريبك يسافر كثيراً للعمل ويبحث عن بديل للفنادق. يجب أن يتوفر هناك إنترنت وفطور.",
-    keywords: ["Wohnkonzept = مفهوم سكن", "Frühstück = فطور"],
-    simplified: "بديل للفنادق مع إنترنت وفطور",
-    imagine: "🧠💼 رجل يجلس على مكتب ويضع حاسوبه المحمول بجانبه."
+    text: "Kunstmarkt - Eine Bekannte malt sehr gut und sucht eine Gelegenheit, anderen ihre Bilder zu zeigen oder sie zu verkaufen.",
+    meaning: "سوق فني - إحدى المعارف ترسم جيدا وتبحث عن فرصة لعرض لوحاتها أو بيعها للآخرين",
+    keywords: ["Kunstmarkt = سوق فني", "junge Künstler = فنانين شباب", "Ausstellung = معرض", "Werke = أعمال فنية"],
+    simplified: "معرض شهري للفنانين الشباب لعرض وبيع أعمالهم في صالات خاصة",
+    imagine: "امرأة تعلق لوحة زيتية على جدار أبيض وثلاثة أشخاص يتأملونها",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam12_q5"] = {
-    text: "Ihr gutes Recht - Sie haben Streit mit Ihrem Vermieter wegen der Nebenkosten und möchten sich beraten lassen.",
-    meaning: "حقك الجيد - لديك خلاف مع مالك العقار بسبب التكاليف الإضافية وتريد الحصول على استشارة.",
-    keywords: ["Recht = حق", "Vermieter = مالك عقار"],
-    simplified: "استشارة قانونية مع المحامي",
-    imagine: "🧠📃 رجل جالس في مكتب محامٍ ويشرح مشكلته."
+    text: "Zuhause bleiben und trotzdem was erleben - Sie möchten im Urlaub zwar nicht verreisen, aber trotzdem etwas unternehmen.",
+    meaning: "ابق في المنزل ومع ذلك جرب شيئا - لا تريد السفر في الإجازة ولكن مع ذلك تريد القيام بنشاط",
+    keywords: ["Urlaub zu Hause = إجازة في المنزل", "Veranstaltungstipps = نصائح فعاليات", "Konzerte = حفلات", "Theater = مسرح", "Kochkurse = دورات طبخ"],
+    simplified: "موقع يقدم أفكارا وتذاكر لفعاليات محلية لقضاء إجازة ممتعة دون سفر",
+    imagine: "شخص يجلس على أريكته ويضغط بهاتفه فتظهر أمامه قائمة حفلات موسيقية في مدينته",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam12_q6"] = {
-    text: "Günstig wohnen في über 70 Städten in Deutschland - Sie möchten mit Freunden durch Deutschland reisen und dabei günstig übernachten.",
-    meaning: "سكن اقتصادي في أكثر من 70 مدينة في ألمانيا - تريد السفر مع أصدقائك عبر ألمانيا والمبيت بتكلفة منخفضة.",
-    keywords: ["Günstig = اقتصادي", "übernachten = يبيت"],
-    simplified: "سفر رخيص في ألمانيا",
-    imagine: "🧠🏠 أربعة أصدقاء يقفون أمام فندق صغير ويحملون حقائبهم."
+    text: "Ihr gutes Recht - Sie haben Streit mit Ihrem Vermieter wegen der Nebenkosten und möchten sich beraten lassen.",
+    meaning: "حقك القانوني - لديك خلاف مع مالك العقار بسبب تكاليف الخدمات وتريد استشارة قانونية",
+    keywords: ["Mietrecht = قانون إيجار", "Mieterhöhung = زيادة إيجار", "Kündigung = إخلاء", "Mieterschutzbund = اتحاد حماية المستأجرين"],
+    simplified: "استشارات قانونية مجانية في قضايا الإيجار مع خيار العضوية ب 75 يورو سنويا",
+    imagine: "رجل غاضب يمسك ورقة أمامه ويديه ترتجفان من الغضب",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam12_q7"] = {
-    text: "Zuhause bleiben und trotzdem was erleben - Sie möchten im Urlaub zwar nicht verreisen, aber trotzdem etwas unternehmen.",
-    meaning: "البقاء في المنزل ومع ذلك تجربة شيء ما - لا تريد السفر في الإجازة ولكن مع ذلك تريد القيام بنشاط ما.",
-    keywords: ["Zuhause = منزل", "unternehmen = يقوم بنشاط"],
-    simplified: "عطلة في المنزل مع أنشطة",
-    imagine: "🧠🏠 شخص جالس على أريكته ويخطط ليومه في المدينة عبر الهاتف."
+    text: "Kunst und Kultur für Einsteiger - Sie möchten ausprobieren, ob Ihnen Zeichnen Spaß macht.",
+    meaning: "فن وثقافة للمبتدئين - تريد تجربة ما إذا كان الرسم يعجبك",
+    keywords: ["Schnupperkurse = دورات تجريبية", "Malerei = رسم", "Musik = موسيقى", "Literatur = أدب", "Geschichte = تاريخ"],
+    simplified: "دروس تجريبية مدتها 60 دقيقة في الرسم والموسيقى والأدب لمعرفة ما يناسبك",
+    imagine: "شخص يمسك قلما ويرسم خطوطا عشوائية على ورقة بيضاء ويبتسم",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam12_q8"] = {
-    text: "Kunst und Kultur für Einsteiger - Sie möchten ausprobieren, ob Ihnen Zeichnen Spaß macht.",
-    meaning: "الفن والثقافة للمبتدئين - تريد تجربة ما إذا كان الرسم ممتعاً بالنسبة لك.",
-    keywords: ["Kunst = فن", "Zeichnen = رسم"],
-    simplified: "تجربة تعلم الرسم",
-    imagine: "🧠✏️ شخص يمسك قلماً ويرسم على ورقة ويبتسم."
+    text: "Alte Möbel aufarbeiten - Ihre Möbel sehen nicht mehr so gut aus. Daran möchten Sie etwas ändern.",
+    meaning: "ترميم الأثاث القديم - أثاثك لم يعد يبدو جيدا وتريد تغيير ذلك",
+    keywords: ["Restauration = ترميم", "Möbel = أثاث", "Farbe = لون", "Werkstatt = ورشة", "Bezüge = أغطية"],
+    simplified: "ورشة متخصصة في ترميم الأثاث القديم وتغيير ألوانه وأقمشته",
+    imagine: "كرسي قديم متسخ يتحول فجأة إلى كرسي جديد أنيق ذهبي اللون",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam12_q9"] = {
-    text: "Ihr kompetenter Partner für Rechtsberatung - Einem Bekannten wurde die Arbeitsstelle gekündigt. Er möchte bei einem Anwalt um Rat fragen.",
-    meaning: "شريكك المختص للاستشارات القانونية - صديق تم فصله من العمل. يريد طلب المشورة من محام.",
-    keywords: ["Rechtsberatung = استشارة قانونية", "Anwalt = محام"],
-    simplified: "استشارة محامٍ بعد الفصل من العمل",
-    imagine: "🧠⚖️ رجل جالس أمام محام وكلاهما ينظران إلى أوراق."
+    text: "Günstig wohnen in über 70 Städten - Sie möchten mit Freunden durch Deutschland reisen und dabei günstig übernachten.",
+    meaning: "سكن رخيص في أكثر من 70 مدينة - تريد السفر مع أصدقائك عبر ألمانيا والمبيت بتكلفة منخفضة",
+    keywords: ["Pensionen = نُزل", "Mehrbettzimmer = غرف متعددة الأسرة", "zentral gelegen = موقع مركزي", "günstig = رخيص"],
+    simplified: "نُزل رخيصة في 70 مدينة ألمانية بغرف متعددة الأسرة مناسبة للشباب",
+    imagine: "ثلاثة شباب يحملون حقائب ظهر ويقفون أمام مبنى بسيط مكتوب عليه نُزل",
+    correct: 9
 };
 
+
 // ============================================
-// Exam 13: Rechtsanwalt (معدل)
+// Lesen Teil 3 - Exams 13-24 (فقط الأسئلة الصحيحة)
 // ============================================
 
+// ========== Exam 13: Au-pair Mädchen (صحيح: 8,9,1,5,7,4,3,6) ==========
+
 HELP_DATA["lesen3_exam13_q1"] = {
-    text: "Urlaub auf dem Sofa - Sie möchten durch Europa reisen und privat übernachten.",
-    meaning: "عطلة على الأريكة - ترغب في السفر عبر أوروبا والمبيت في منازل خاصة.",
-    keywords: ["Urlaub = عطلة", "privat übernachten = مبيت خاص"],
-    simplified: "سفر مع مبيت في منازل خاصة",
-    imagine: "🧠🛌 شخص نائم على أريكة في منزل غريب."
+    text: "Infos zur Auslandsüberweisung - Sie wollen Geld nach Kanada überweisen. Sie möchten wissen, wie viel Sie für die Überweisung bezahlen müssen.",
+    meaning: "معلومات حول التحويلات الدولية إلى خارج منطقة SEPA مع رسوم إضافية",
+    keywords: ["Auslandsüberweisung = تحويل دولي", "SEPA = منطقة المدفوعات الأوروبية", "Spesen = رسوم", "Kanada = كندا"],
+    simplified: "تحويل أموال إلى كندا يختلف عن التحويل داخل أوروبا",
+    imagine: "شاب ينظر إلى هاتفه وورقة بنك أمامه",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam13_q2"] = {
-    text: "Alte Möbel aufarbeiten - Ihre Wohnungseinrichtung sieht nicht mehr so gut aus. Daran möchten Sie etwas ändern.",
-    meaning: "ترميم الأثاث القديم - تأثيث منزلك لم يعد يبدو جيداً. تريد تغيير ذلك.",
-    keywords: ["Möbel = أثاث", "Wohnungseinrichtung = تأثيث منزل"],
-    simplified: "تغيير تأثيث المنزل القديم",
-    imagine: "🧠🛋️ امرأة تنظر إلى غرفة معيشتها وتفكر في تجديدها."
+    text: "Französische Muttersprachler bieten Übersetzungen - Ein Freund aus Salzburg will sich في Frankreich bewerben. Er möchte seine Zeugnisse übersetzen lassen.",
+    meaning: "مترجمون فرنسيون يقدمون ترجمة وثائق التقديم من الألمانية إلى الفرنسية",
+    keywords: ["Übersetzungen = ترجمات", "Schulzeugnisse = شهادات مدرسية", "Bewerbungen = طلبات وظيفة", "Frankreich = فرنسا"],
+    simplified: "ترجمة شهادات مدرسية وسير ذاتية من الألمانية للفرنسية",
+    imagine: "رجل يحمل وثائق ويمسك هاتفه على أذنه وجواز سفر بجانبه",
+    correct: 9
 };
 
 HELP_DATA["lesen3_exam13_q3"] = {
-    text: "Kunstmarkt - Eine Bekannte malt sehr gut und sucht eine Gelegenheit, ihre Bilder zu vermarkten.",
-    meaning: "سوق فني - إحدى المعارف ترسم جيداً وتبحث عن فرصة لتسويق لوحاتها.",
-    keywords: ["Kunstmarkt = سوق فني", "vermarkten = يسوق"],
-    simplified: "تسويق اللوحات الفنية",
-    imagine: "🧠🖼️ امرأة تعلن عن لوحاتها على موقع إلكتروني."
+    text: "Als Austauschschüler/in verbringst du einige Monate - Ihre 14-jährige Nichte möchte sich über einen Auslandsaufenthalt informieren.",
+    meaning: "برنامج تبادل طلابي للعيش مع عائلة مضيفة ودراسة في مدرسة محلية بالخارج",
+    keywords: ["Austauschschüler = طالب تبادل", "Gastfamilie = عائلة مضيفة", "Ausland = خارج البلاد", "Informationsveranstaltungen = لقاءات معلوماتية"],
+    simplified: "فرصة قضاء عدة أشهر أو سنة في الخارج مع عائلة مضيفة",
+    imagine: "فتاة تحمل حقيبة ظهر واقفة أمام طائرة",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam13_q4"] = {
-    text: "Unser neues Wohnkonzept - Ihr Bekannter ist beruflich oft unterwegs und sucht eine Alternative zu Hotels. Auf Frühstück und Internet möchte er aber nicht verzichten.",
-    meaning: "مفهوم سكننا الجديد - قريبك يسافر كثيراً للعمل ويبحث عن بديل للفنادق. لكنه لا يريد الاستغناء عن الفطور والإنترنت.",
-    keywords: ["Wohnkonzept = مفهوم سكن", "Frühstück = فطور"],
-    simplified: "بديل فندقي مع فطور وإنترنت",
-    imagine: "🧠🍳 رجل جالس على طاولة أمامه قهوة وكرواسون وحاسوب محمول."
+    text: "Als gebürtige Engländerin biete ich Übersetzungen an - Sie sollen die neue Webseite Ihrer Firma ins Englische übersetzen lassen.",
+    meaning: "مترجمة إنجليزية تقدم ترجمة نصوص تجارية ومواقع إلكترونية بخبرة 20 عاما",
+    keywords: ["Übersetzungen = ترجمات", "Englisch = إنجليزية", "Websites = مواقع", "Firmenflyer = منشورات شركة"],
+    simplified: "ترجمة مواقع ومنتجات شركة من الألمانية إلى الإنجليزية",
+    imagine: "امرأة تجلس على حاسوبها وكومة من الملفات بجانبها",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam13_q5"] = {
-    text: "Ihr gutes Recht - Sie haben Streit mit Ihrem Vermieter wegen der Nebenkosten und brauchen eine Auskunft.",
-    meaning: "حقك الجيد - لديك خلاف مع مالك العقار بسبب التكاليف الإضافية وتحتاج إلى معلومات.",
-    keywords: ["Recht = حق", "Auskunft = معلومات"],
-    simplified: "الحصول على معلومات قانونية",
-    imagine: "🧠📞 شخص يتحدث هاتفياً مع مستشار قانوني ووجهه متوتر."
+    text: "Mit einem Konto bei der RUFA profitieren Sie - Im Herbst beginnt Ihre Tochter ein Studium. Sie möchte ein Bankkonto eröffnen.",
+    meaning: "حساب بنكي مجاني للطلاب مع تأمين ضد الحوادث وخصومات في المتاجر",
+    keywords: ["Studentenkonto = حساب طلابي", "gratis = مجاني", "Unfallversicherung = تأمين حوادث", "Ermäßigungen = تخفيضات"],
+    simplified: "حساب بنكي مجاني للطلاب حتى سن 24 عاما",
+    imagine: "فتاة تمسك بطاقة بنكية وقبعة التخرج بجانبها",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam13_q6"] = {
-    text: "Günstig wohnen in über 70 Städten in Deutschland - Sie möchten mit Freunden durch Deutschland reisen und dabei günstig übernachten.",
-    meaning: "سكن اقتصادي في أكثر من 70 مدينة في ألمانيا - تريد السفر مع أصدقائك في ألمانيا والمبيت بتكلفة منخفضة.",
-    keywords: ["Günstig = اقتصادي", "übernachten = يبيت"],
-    simplified: "سفر رخيص مع الأصدقاء",
-    imagine: "🧠🏘️ ثلاثة أصدقاء يقفون أمام نزل شبابي ويرتدون حقائب الظهر."
+    text: "Wir laden Sie dazu ein, internationale Schüler aufzunehmen - Ihre kinderlose Nachbarsfamilie möchte für einige Zeit einen jungen Menschen aufnehmen.",
+    meaning: "استضافة طلاب دوليين في المنزل لتبادل الثقافات والتعرف على عادات جديدة",
+    keywords: ["aufnehmen = استضافة", "internationale Schüler = طلاب دوليين", "Gastfamilie = عائلة مضيفة", "Kultur = ثقافة"],
+    simplified: "فرصة لاستضافة طالب أجنبي في المنزل بدون أطفال",
+    imagine: "زوجان واقفان بجانب باب منزلهما وشاب يحمل حقيبة",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam13_q7"] = {
-    text: "Zuhause bleiben und trotzdem was erleben - Sie möchten im Urlaub zwar nicht verreisen, aber trotzdem etwas unternehmen.",
-    meaning: "البقاء في المنزل ومع ذلك تجربة شيء ما - لا تريد السفر في الإجازة ولكن مع ذلك تريد القيام بنشاط ما.",
-    keywords: ["Zuhause = منزل", "erleben = يجرب"],
-    simplified: "عطلة في المنزل",
-    imagine: "🧠🏠 شخص يشاهد التلفاز ويخطط ليوم غد في المدينة."
+    text: "Französisch ist Ihre Muttersprache? Wir suchen eine freie Mitarbeiterin - Eine französische Bekannte ist Übersetzerin und möchte gelegentlich arbeiten.",
+    meaning: "مطلوب مترجم حر من الألمانية إلى الفرنسية للعمل من المنزل",
+    keywords: ["freie Mitarbeiterin = موظفة حرة", "Übersetzungen = ترجمات", "Französisch = فرنسية", "Telefonate = مكالمات هاتفية"],
+    simplified: "وظيفة ترجمة نصوص قصيرة ومكالمات هاتفية من المنزل",
+    imagine: "امرأة تتحدث على الهاتف أمام حاسوبها المحمول",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam13_q8"] = {
-    text: "Kunst und Kultur für Einsteiger - Sie möchten ausprobieren, ob Sie kreativ mit Stiften, Pinseln und Farben umgehen können.",
-    meaning: "الفن والثقافة للمبتدئين - تريد تجربة ما إذا كان يمكنك التعامل بشكل إبداعي مع الأقلام والفرش والألوان.",
-    keywords: ["Kultur = ثقافة", "kreativ = مبدع"],
-    simplified: "تجربة الرسم والألوان",
-    imagine: "🧠🖌️ شخص يحمل فرشاة ويخلط الألوان على لوحة."
+    text: "Ein Tag im Zeichen der guten Nachbarschaft - Sie kochen gerne und suchen nach Rezepten aus anderen Ländern.",
+    meaning: "مهرجان للطهي العالمي مع وصفات من مختلف الثقافات متاحة عبر الإنترنت",
+    keywords: ["Nachbarschaftstag = يوم الجوار", "Kochen = طهي", "Spezialitäten = أطباق خاصة", "Online-Kochbuch = كتاب طبخ إلكتروني"],
+    simplified: "يوم للطهي المشترك يجمع وصفات من كل العالم",
+    imagine: "ثلاثة أشخاص يطبخون حول قدر كبير وكتاب مفتوح أمامهم",
+    correct: 6
 };
 
-HELP_DATA["lesen3_exam13_q9"] = {
-    text: "Ihr kompetenter Partner für Rechtsberatung - Ein Bekannter hat seine Arbeitsstelle verloren. Er möchte sich von einem Anwalt beraten lassen.",
-    meaning: "شريكك المختص للاستشارات القانونية - أحد المعارف فقد وظيفته. يريد الحصول على استشارة من محام.",
-    keywords: ["Rechtsberatung = استشارة قانونية", "Arbeitsstelle = وظيفة"],
-    simplified: "استشارة محامٍ بعد فقدان الوظيفة",
-    imagine: "🧠💼 رجال يجلسون حول طاولة ومحام يتحدث مع شخص فقد وظيفته."
-};
-
-// ============================================
-// Exam 14: Au-pair Mädchen
-// ============================================
+// ========== Exam 14: Hautprobleme (صحيح: 2,6,3,9,8,5,0,4,1) ==========
 
 HELP_DATA["lesen3_exam14_q1"] = {
-    text: "Infos zur Auslandsüberweisung - Sie wollen Geld nach Kanada überweisen. Sie möchten wissen, wie viel Sie für die Überweisung bezahlen müssen.",
-    meaning: "معلومات حول التحويل الخارجي - تريد تحويل أموال إلى كندا. تريد معرفة كم ستدفع مقابل التحويل.",
-    keywords: ["Auslandsüberweisung = تحويل خارجي", "bezahlen = يدفع"],
-    simplified: "معرفة تكلفة التحويل إلى كندا",
-    imagine: "🧠💸 شخص جالس أمام حاسبه وينظر إلى رسوم التحويل المصرفي."
+    text: "Ratgeber 'Was bei Erkältung hilft' - Ihre Bekannte hat Fieber, möchte aber keine Tabletten nehmen.",
+    meaning: "نصائح طبيعية لعلاج نزلات البرد مثل شرب الشاي وكمادات الماء",
+    keywords: ["Erkältung = نزلة برد", "Fieber = حرارة", "Wadenwickel = كمادات", "Salbeitee = شاي الميرمية"],
+    simplified: "علاج الحرارة والبرد بطرق منزلية بدون أدوية",
+    imagine: "امرأة جالسة على سرير وتحمل كوبا من الشاي الساخن",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam14_q2"] = {
-    text: "Französische Muttersprachler bieten Übersetzungen - Ein Freund aus Salzburg will sich in Frankreich bewerben. Er möchte seine Zeugnisse übersetzen lassen.",
-    meaning: "ناطقون أصليون بالفرنسية يقدمون ترجمات - صديق من سالزبورغ يريد التقدم لوظيفة في فرنسا. يريد ترجمة شهاداته.",
-    keywords: ["Übersetzungen = ترجمات", "Zeugnisse = شهادات"],
-    simplified: "ترجمة الشهادات للفرنسية",
-    imagine: "🧠📄 رجل يحمل شهادة ويجلس أمام مترجم."
+    text: "Kochen und waschen um 1900 - Sie bekommen Besuch und möchten am Sonntagvormittag etwas Interessantes unternehmen.",
+    meaning: "جولة إرشادية في متحف عن الحياة اليومية قبل 100 سنة بدون كهرباء",
+    keywords: ["Museum = متحف", "Führung = جولة إرشادية", "Kochen = طبخ", "Waschen = غسل", "1900 = 1900"],
+    simplified: "رحلة إلى الماضي لتعلم كيف كان أجدادنا يعيشون",
+    imagine: "عائلة تقف أمام موقد قديم وأدوات نحاسية معلقة",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam14_q3"] = {
-    text: "Als Austauschschüler/in verbringst du einige Monate im Ausland - Ihre 14-jährige Nichte möchte sich über einen Auslandsaufenthalt informieren.",
-    meaning: "كطالب تبادل تقضي بضعة أشهر في الخارج - ابنة أختك ذات الـ 14 سنة تريد الاستعلام عن البقاء في الخارج.",
-    keywords: ["Austauschschüler = طالب تبادل", "Auslandsaufenthalt = بقاء في الخارج"],
-    simplified: "الاستعلام عن برامج التبادل الطلابي",
-    imagine: "🧠✈️ فتاة مراهقة تجلس أمام حاسوبها وتتصفح برامج التبادل الطلابي."
+    text: "Nachhilfe - Das Ehepaar, das unter Ihnen wohnt, möchte etwas über Computer lernen.",
+    meaning: "دروس كمبيوتر مجانية يقدمها طلاب لتعليم الكبار أساسيات الحاسوب",
+    keywords: ["Nachhilfe = دروس خصوصية", "Computer = كمبيوتر", "Schüler = طلاب", "Erwachsene = بالغين", "kostenlos = مجاني"],
+    simplified: "طلاب يعلمون الكبار استخدام الكمبيوتر مجانا كل سبت",
+    imagine: "زوجان جالسان أمام حاسوب وطالب صغير يشير إلى الشاشة",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam14_q4"] = {
-    text: "Als gebürtige Engländerin biete ich Übersetzungen - Sie sollen die neue Webseite Ihrer Firma ins Englische übersetzen lassen.",
-    meaning: "كإنجليزية الأصل أقدم ترجمات - يجب عليك ترجمة موقع شركتك الجديد إلى الإنجليزية.",
-    keywords: ["Übersetzungen = ترجمات", "Webseite = موقع إلكتروني"],
-    simplified: "ترجمة موقع الشركة للإنجليزية",
-    imagine: "🧠💻 شخص ينظر إلى شاشة حاسوب ويقرر ترجمة الموقع."
+    text: "Zusatz-Versicherung - Sie wollen Informationen über eine Zahnversicherung, ohne telefonieren zu müssen.",
+    meaning: "تأمين أسنان إضافي يضاعف دعم التأمين الصحي لتركيبات الأسنان",
+    keywords: ["Zahnversicherung = تأمين أسنان", "Zuschuss = دعم مالي", "Krankenkasse = تأمين صحي", "Online = عبر الإنترنت"],
+    simplified: "معلومات عن تأمين الأسنان متاحة عبر الإنترنت بدون اتصال هاتفي",
+    imagine: "شخص يقرأ على حاسبه المحمول وابتسامة كبيرة على وجهه",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam14_q5"] = {
-    text: "Mit einem Konto bei der RUFA profitieren Sie - Im Herbst beginnt Ihre Tochter ein Studium. Sie möchte ein Bankkonto eröffnen.",
-    meaning: "مع حساب في RUFA ستستفيد - ابنتك ستبدأ الدراسة الجامعية في الخريف. تريد فتح حساب بنكي.",
-    keywords: ["Konto = حساب", "Studium = دراسة جامعية"],
-    simplified: "فتح حساب بنكي للابنة الجامعية",
-    imagine: "🧠👩‍🎓 أم وابنتها تجلسان أمام موظف بنك ويفتحان حساباً."
+    text: "Omnitamol 500 Tabletten - Ihre Nachbarin ist seit einer Woche erkältet. Naturheilmittel haben nicht geholfen.",
+    meaning: "دواء لعلاج الألم والحمى مع تعليمات دقيقة للاستخدام للأطفال والبالغين",
+    keywords: ["Tabletten = أقراص", "Schmerzen = ألم", "Fieber = حمى", "Erkältung = نزلة برد", "Kinder = أطفال"],
+    simplified: "أدوية للحمى ونزلات البرد مع تنبيه لاستشارة الطبيب بعد 4 أيام",
+    imagine: "امرأة تحمل علبة دواء ويسأل بيطري معطف أبيض إلى جوارها",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam14_q6"] = {
-    text: "Wir laden Sie ein, internationale Schüler bei Ihnen aufzunehmen - Ihre kinderlose Nachbarsfamilie möchte für einige Zeit einen jungen Menschen aufnehmen.",
-    meaning: "ندعوك لاستقبال طلاب دوليين في منزلك - عائلة جيرانك التي ليس لديها أطفال تريد استقبال شاب لفترة من الوقت.",
-    keywords: ["aufzunehmen = يستقبل", "jungen Menschen = شاب"],
-    simplified: "استضافة طالب دولي",
-    imagine: "🧠🏠 زوجان يجلسان على أريكة ويتحدثان مع شاب عن العيش معهما."
+    text: "Sofort-Versicherung - Sie haben ein Haustier, das im letzten Jahr viel Geld für den Tierarzt gekostet hat. Sie suchen eine Möglichkeit, Kosten zu sparen.",
+    meaning: "تأمين صحي للحيوانات الأليفة يغطي تكاليف العلاج والعمليات الجراحية",
+    keywords: ["Tierschutzversicherung = تأمين حيوانات", "Haustier = حيوان أليف", "Behandlung = علاج", "Operation = عملية جراحية"],
+    simplified: "تأمين يغطي تكاليف علاج الحيوانات الأليفة حتى 1000 يورو",
+    imagine: "كلب يجلس بجانب طبق من النقود ورجل يبتعد",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam14_q7"] = {
-    text: "Französisch ist Ihre Muttersprache? - Eine französische Bekannte ist Übersetzerin und möchte gelegentlich arbeiten.",
-    meaning: "الفرنسية هي لغتك الأم؟ - إحدى المعارف الفرنسية تعمل مترجمة وتريد العمل بين الحين والآخر.",
-    keywords: ["Muttersprache = لغة أم", "Übersetzerin = مترجمة"],
-    simplified: "عمل ترجمة من حين لآخر",
-    imagine: "🧠📝 امرأة تجلس أمام حاسوبها وتترجم مستنداً."
+    text: "Neue Kleidung kann krank machen - Ein Kollege hat seit ein paar Tagen Hautprobleme und weiß nicht, ما السبب.",
+    meaning: "الملابس الجديدة قد تحتوي على مواد كيميائية تسبب حساسية الجلد",
+    keywords: ["Kleidung = ملابس", "Allergien = حساسيات", "Hautreizungen = تهيج جلدي", "waschen = غسل"],
+    simplified: "غسل الملابس الجديدة قبل ارتدائها يحمي من الحساسية",
+    imagine: "رجل يحك يده وقميصه الجديد على الأرض بجانبه",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam14_q8"] = {
-    text: "Spezialitäten aus der Küche - Sie kochen gerne und suchen nach Rezepten aus anderen Ländern.",
-    meaning: "تخصصات من المطبخ - أنت تحب الطبخ وتبحث عن وصفات من بلدان أخرى.",
-    keywords: ["Spezialitäten = تخصصات", "Rezepte = وصفات"],
-    simplified: "البحث عن وصفات عالمية",
-    imagine: "🧠🍳 شخص يقف في المطبخ وينظر إلى كتاب وصفات عالمية."
+    text: "Erkältungszeit = Theaterzeit - Sie möchten etwas mit Ihrer 7-jährigen Tochter unternehmen.",
+    meaning: "مسرح عرائس لسن 6 فما فوق يعرض قصة طفل يعاني من الحساسية",
+    keywords: ["Puppentheater = مسرح عرائس", "Kinder = أطفال", "Familie = عائلة", "Erkältung = نزلة برد"],
+    simplified: "مسرحية عرائس عائلية عن الأنفلونزا لطفلة صغيرة",
+    imagine: "بنت صغيرة ترفع يدها ودمية على المسرح خلفها",
+    correct: 1
 };
 
-// ============================================
-// Exam 15: Hautprobleme
-// ============================================
+HELP_DATA["lesen3_exam14_q9"] = {
+    text: "Vienna CONEKT - Sie möchten eine Versicherung für Ihren Neuwagen abschließen und sofort wissen, was es kostet.",
+    meaning: "تأمين سيارة بحساب التكلفة مباشرة عبر الإنترنت وإمكانية الإلغاء شهريا",
+    keywords: ["Auto versichern = تأمين سيارة", "Beitrag = قسط التأمين", "online berechnen = حساب عبر الإنترنت", "kündigen = إلغاء"],
+    simplified: "حساب تكلفة تأمين السيارة فورا على الموقع الإلكتروني",
+    imagine: "رجل واقف بجانب سيارته الجديدة وينظر إلى هاتفه المحمول",
+    correct: 9
+};
+
+// ========== Exam 15: Eine Bekannte ist schwanger (صحيح: 8,3,1,4,6,7,9,2,0,5) ==========
 
 HELP_DATA["lesen3_exam15_q1"] = {
-    text: "Ratgeber 'Was bei Erkältung hilft' - Ihre Bekannte hat Fieber, möchte aber keine Tabletten nehmen.",
-    meaning: "دليل 'ما يساعد في حالة البرد' - إحدى معارفك لديها حمى ولكنها لا تريد تناول أدوية.",
-    keywords: ["Ratgeber = دليل", "Fieber = حمى"],
-    simplified: "نصائح للحمى بدون أدوية",
-    imagine: "🧠🤒 امرأة جالسة على سرير وميزان حرارة في فمها."
+    text: "Wenn eine schwangere Frau erkrankt - Eine Freundin bekommt ein Baby. Sie hat oft Schmerzen. Welche Möglichkeit gibt es, ihr zu helfen?",
+    meaning: "الوخز بالإبر كعلاج بديل آمن للحوامل لتخفيف الألم دون أدوية",
+    keywords: ["schwangere Frau = امرأة حامل", "Akupunktur = وبر إبر", "Schmerzmittel = مسكنات", "keine Gefahr = بدون خطر"],
+    simplified: "علاج الألم للحوامل بالوخز بالإبر دون ضرر على الجنين",
+    imagine: "امرأة حامل مستلقية وإبر صغيرة في جسمها وطبيب بجانبها",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam15_q2"] = {
-    text: "Kochen und waschen um 1900 - Sie bekommen Besuch und möchten am Sonntagvormittag etwas Interessantes unternehmen.",
-    meaning: "الطهي والغسل حوالي عام 1900 - سيأتيك ضيوف وتريد القيام بنشاط ممتع صباح الأحد.",
-    keywords: ["Kochen = طهي", "Sonntagvormittag = صباح الأحد"],
-    simplified: "نشاط صباح الأحد مع الضيوف",
-    imagine: "🧠🏛️ شخصان يقفان أمام لوحة في متحف وينظران إليها."
+    text: "Die regelmäßige Ernährung mit Tomaten - Sie möchten durch pflanzliche Ernährung Ihren Körper vor schweren Krankheiten schützen.",
+    meaning: "الطماطم المسلوقة مع زيت الزيتون تقلل خطر السرطان بنسبة 50 بالمئة",
+    keywords: ["Tomaten = طماطم", "Krebserkrankungen = أمراض السرطان", "Lycopin = ليكوبين", "gesundheitsfördernd = معزز للصحة"],
+    simplified: "أكل الطماطم المطبوخة يقي من السرطان أكثر من الطازجة",
+    imagine: "طبق سباغيتي حمراء وطبق سلطة طماطم وآخر يختار الساخن",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam15_q3"] = {
-    text: "Nachhilfe - Das Ehepaar, das unter Ihnen wohnt, möchte etwas über Computer lernen.",
-    meaning: "دروس خصوصية - الزوجان اللذان يسكنان أسفل منزلك يريدان تعلم شيء عن الكمبيوتر.",
-    keywords: ["Nachhilfe = دروس خصوصية", "Computer = كمبيوتر"],
-    simplified: "تعليم الكمبيوتر لجيران",
-    imagine: "🧠💻 زوجان كبيران يجلسان أمام كمبيوتر وابنتهما تشرح لهما."
+    text: "Dass zu langes In-der-Sonne-Liegen nicht gut ist - Ein Bekannter fliegt im Urlaub ans Meer. Sie möchten ihn über mögliche Risiken der Sonnenstrahlung informieren.",
+    meaning: "حروق الشمس الخفيفة خطيرة وتزيد خطر سرطان الجلد، الفحص المبكر ضروري",
+    keywords: ["Sonne = شمس", "Sonnenbrand = حروق شمس", "Hautkrebs = سرطان جلد", "Untersuchung = فحص"],
+    simplified: "حتى الحروق البسيطة من الشمس قد تؤدي لسرطان الجلد",
+    imagine: "رجل أحمر الجلد مستلق على كرسي شمس وواقي شمس بجانبه",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam15_q4"] = {
-    text: "Vienna CONEKT - Sie möchten eine Versicherung für Ihren Neuwagen abschließen und sofort wissen, was es kostet.",
-    meaning: "فيينا كونيكت - تريد إبرام تأمين لسيارتك الجديدة ومعرفة التكلفة فوراً.",
-    keywords: ["Versicherung = تأمين", "Neuwagen = سيارة جديدة"],
-    simplified: "تأمين سيارة جديدة",
-    imagine: "🧠🚗 شخص جالس أمام حاسبه ويحسب سعر التأمين لسيارته الجديدة."
+    text: "In der Schwangerschaft haben Frauen erhöhten Bedarf - Eine Bekannte, die ein Kind erwartet, sucht Ernährungstipps.",
+    meaning: "نصائح غذائية للحوامل: فواكه وخضروات وحبوب ومنتجات ألبان ولحوم قليلة الدهون",
+    keywords: ["Schwangerschaft = حمل", "Vitamine = فيتامينات", "Mineralstoffe = معادن", "Eisen = حديد", "Calcium = كالسيوم"],
+    simplified: "الحامل تحتاج لفواكه وخضروات وألبان ولحوم قليلة الدهون",
+    imagine: "امرأة حامل تضع خضروات في سلة التسوق وتبتسم",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam15_q5"] = {
-    text: "Sofort-Versicherung - Sie haben ein Haustier, das im letzten Jahr viel Geld für den Tierarzt gekostet hat. Sie suchen eine Möglichkeit, Kosten zu sparen.",
-    meaning: "تأمين فوري - لديك حيوان أليف كلفك الكثير من المال للطبيب البيطري العام الماضي. تبحث عن طريقة لتوفير التكاليف.",
-    keywords: ["Versicherung = تأمين", "Haustier = حيوان أليف"],
-    simplified: "توفير تكاليف علاج الحيوان الأليف",
-    imagine: "🧠🐕 شخص يحمل كلبه ويدخل عيادة الطبيب البيطري."
+    text: "Damenschuhe mit hohen Absätzen schaden der Gesundheit - Ihre Freundin denkt darüber nach, alle hochhackigen Schuhe wegzuwerfen, weil sie negative Auswirkungen befürchtet.",
+    meaning: "دراسة تثبت أن الكعب العالي لا يسبب آلام الركبة والظهر كما كان يعتقد سابقا",
+    keywords: ["hohe Absätze = كعب عالي", "Gesundheit = صحة", "Rücken = ظهر", "Knie = ركبة", "Vorurteil = تحيز"],
+    simplified: "الكعب العالي ليس ضارا بالصحة كما يقال",
+    imagine: "امرأة تمسك حذاء بكعب عال وتنظر إليه بتردد",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam15_q6"] = {
-    text: "Omnitamol 500 Tabletten - Ihre Nachbarin ist seit einer Woche erkältet. Natürliche Heilmittel haben nicht geholfen.",
-    meaning: "أومنيتامول 500 قرص - جارتك مصابة بالبرد منذ أسبوع. العلاجات الطبيعية لم تساعد.",
-    keywords: ["Tabletten = أقراص", "erkältet = مصاب بالبرد"],
-    simplified: "علاج البرد بعد فشل العلاجات الطبيعية",
-    imagine: "🧠🤧 امرأة تجلس على أريكة وتضع منديلاً على أنفها."
+    text: "Eine alte und höchst effektive Methode zur Entspannung - Eine Freundin hat viel Stress und möchte einen Ausgleich finden, der auch mit sportlichen Aktivitäten verbunden ist.",
+    meaning: "التاي تشي هو رياضة صينية تجمع بين الحركات البطيئة والاسترخاء والتأمل",
+    keywords: ["Tai Chi Chuan = تاي تشي", "Entspannung = استرخاء", "Bewegungen = حركات", "Konzentration = تركيز", "Harmonie = انسجام"],
+    simplified: "رياضة تجمع بين التركيز والحركة الهادئة وتخفيف التوتر",
+    imagine: "امرأة تتحرك ببطء شديد ويديها مرفوعتان مع أشخاص آخرين",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam15_q7"] = {
-    text: "Neue Kleidung kann krank machen - Ein Kollege hat seit ein paar Tagen Hautprobleme und weiß nicht, was die Ursache sein könnte.",
-    meaning: "الملابس الجديدة يمكن أن تسبب المرض - زميل يعاني من مشاكل جلدية منذ بضعة أيام ولا يعرف ما هو السبب.",
-    keywords: ["Kleidung = ملابس", "Hautprobleme = مشاكل جلدية"],
-    simplified: "معرفة سبب مشاكل الجلد",
-    imagine: "🧠👕 رجل ينظر إلى قميص جديد ويدي على صدره يحك."
+    text: "Die Fußreflexzonenmassage entwickelte im Jahr 1913 - Ein Bekannter hat oft Kopfschmerzen. Er möchte jedoch keine Tabletten nehmen.",
+    meaning: "تدليك نقاط معينة في القدمين ينشط شفاء الجسم الذاتي ويخفف الصداع",
+    keywords: ["Fußreflexzonenmassage = تدليك نقاط القدم", "Kopfschmerzen = صداع", "Selbstheilungskraft = قدرة شفاء ذاتية", "Nervenreize = تنبيه عصبي"],
+    simplified: "تدليك القدمين بديل طبيعي لعلاج الصداع وآلام الظهر",
+    imagine: "رجل جالس وقدماه في حوض ماء ويد تمسك كرة صغيرة تحت قدميه",
+    correct: 9
 };
 
 HELP_DATA["lesen3_exam15_q8"] = {
-    text: "Erkältungszeit = Theaterzeit - Sie möchten etwas mit Ihrer 7-jährigen Tochter unternehmen.",
-    meaning: "وقت البرد = وقت المسرح - تريد القيام بنشاط مع ابنتك ذات الـ 7 سنوات.",
-    keywords: ["Theaterzeit = وقت مسرح", "Tochter = ابنة"],
-    simplified: "نشاط مع ابنة السابعة",
-    imagine: "🧠🎭 أب وابنته الصغيرة جالسان في مسرح العرائس."
+    text: "Gute Schuhe müssen nicht unbedingt teuer sein - Ein Bekannter möchte sich modische Schuhe kaufen. Er weiß aber nicht, ob er sich das leisten kann.",
+    meaning: "الاختبارات أثبتت أن الحذاء البسيط قد يكون بنفس جودة الحذاء الفاخر والمكلف",
+    keywords: ["Schuhe = أحذية", "teuer = غالي", "Qualität = جودة", "Designerschuh = حذاء مصمم", "billig = رخيص"],
+    simplified: "لا تشتري الحذاء الغالي فالسعر ليس دليلا على الجودة",
+    imagine: "رجل ينظر إلى حذاء رخيص وآخر غالي ويحك رأسه",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam15_q9"] = {
-    text: "Zusatz-Versicherung - Sie wollen Informationen über eine Zahnversicherung, ohne telefonieren zu müssen.",
-    meaning: "تأمين إضافي - تريد معلومات عن تأمين الأسنان دون الحاجة للاتصال الهاتفي.",
-    keywords: ["Zusatz-Versicherung = تأمين إضافي", "Zahnversicherung = تأمين أسنان"],
-    simplified: "الحصول على معلومات تأمين الأسنان عبر الإنترنت",
-    imagine: "🧠🦷 شخص يجلس أمام حاسوبه ويبحث عن تأمين أسنان على الإنترنت."
+    text: "Eine alte und höchst effektive Methode zur Entspannung - Eine Freundin hat viel Stress und möchte einen Ausgleich finden.",
+    meaning: "تدليك الصوت بأوعية تبتة يحفز الاسترخاء ويخفف التوتر بدون مجهود بدني",
+    keywords: ["Klangmassage = تدليك صوتي", "tibetanische Klangschalen = أوعية صوت تبتية", "Entspannung = استرخاء", "Vibration = اهتزاز"],
+    simplified: "أوعية تبتية تخلق اهتزازات مريحة على الجسم والعقل",
+    imagine: "امرأة مستلقية وأوعية معدنية على صدرها ورجل يقرعها خشب",
+    correct: null
 };
 
-// ============================================
-// Exam 16: Eine Bekannte ist schwanger
-// ============================================
+// ========== Exam 16: Die Tochter einer Bekannten wird vier Jahre alt (صحيح: 8,5,0,6,4,1,3,9,2,7) ==========
 
 HELP_DATA["lesen3_exam16_q1"] = {
-    text: "Wenn eine schwangere Frau erkrankt - Eine Freundin bekommt ein Baby. Sie hat oft Schmerzen. Welche Möglichkeit gibt es, ihr zu helfen?",
-    meaning: "عندما تمرض امرأة حامل - صديقة تنتظر طفلاً. غالباً ما تشعر بألم. ما هي الطريقة لمساعدتها؟",
-    keywords: ["schwangere = حامل", "Schmerzen = آلام"],
-    simplified: "مساعدة صديقة حامل تعاني من الألم",
-    imagine: "🧠🤰 امرأة حامل تضع يدها على ظهرها وهي تتألم."
+    text: "Expedition ins Reich der Schneeleoparden - Sie möchten mit Ihrem zwölfjährigen Sohn eine Ausstellung besuchen. Er interessiert sich für Tiere.",
+    meaning: "معرض تفاعلي عن النمور الثلجية النادرة مناسب للكبار والصغار",
+    keywords: ["Ausstellung = معرض", "Schneeleoparden = نمور ثلجية", "Großkatzen = قطط كبيرة", "interaktiv = تفاعلي", "Familie = عائلة"],
+    simplified: "معرض لنمور الثلج المهددة بالانقراض للأطفال فوق 6 سنوات",
+    imagine: "ولد صغير يضع يده على جدار زجاجي ونمر ثلجي خلفه",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam16_q2"] = {
-    text: "Die regelmäßige Ernährung mit Tomaten - Sie möchten durch pflanzliche Ernährung Ihren Körper vor schweren Krankheiten schützen.",
-    meaning: "التغذية المنتظمة بالطماطم - تريد حماية جسمك من الأمراض الخطيرة من خلال التغذية النباتية.",
-    keywords: ["Ernährung = تغذية", "Krankheiten = أمراض"],
-    simplified: "الوقاية من الأمراض بالتغذية النباتية",
-    imagine: "🧠🍅 شخص يأكل سلطة طماطم وهو يبتسم."
+    text: "Alte Jeans, Blusen oder Kleider - Eine Freundin hat viele Kleidungsstücke, die sie nicht mehr trägt. Sie sucht Anregungen, was sie damit machen könnte.",
+    meaning: "أفكار لصنع إكسسوارات جديدة من الملابس القديمة بأسلوب الخياطة اليدوية",
+    keywords: ["alte Jeans = جينز قديم", "neue Accessoires = إكسسوارات جديدة", "nähen = خياطة", "Ratgeber = دليل"],
+    simplified: "كتاب يعلمك تحويل الملابس القديمة إلى جدد وأغطية كراسي",
+    imagine: "امرأة تمسك جينز قديم وتقصه بمقص ويدها مبتسمة",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam16_q3"] = {
-    text: "Dass zu langes In-der-Sonne-Liegen nicht gut ist - Ein Bekannter fliegt im Urlaub ans Meer. Sie möchten ihn über mögliche Risiken der Sonnenstrahlung informieren.",
-    meaning: "أن الاستلقاء الطويل تحت الشمس ليس جيداً - أحد المعارف يسافر إلى البحر لقضاء إجازة. تريد إبلاغه بالمخاطر المحتملة للإشعاع الشمسي.",
-    keywords: ["Sonne = شمس", "Risiken = مخاطر"],
-    simplified: "تحذير من مخاطر الشمس",
-    imagine: "🧠☀️ رجل يستلقي على كرسي على الشاطئ وشخص آخر يحذره."
+    text: "Es ist ein sonniger Herbsttag - Die Tochter einer Bekannten wird vier Jahre alt. Sie möchten ihr etwas zum Geburtstag mitbringen.",
+    meaning: "قصة شتوية مصورة للأطفال من سن 3 سنوات عن مغامرة أميرة وثعلب ثلجي",
+    keywords: ["Wintergeschichte = قصة شتوية", "Kinder = أطفال", "ab 3 Jahren = من 3 سنوات", "Prinzessin = أميرة", "Fuchs = ثعلب"],
+    simplified: "كتاب مصور لقصة شتوية ساحرة للأميرات الصغيرات",
+    imagine: "طفلة تحمل كتابا وتفرح ووجهها مبتسم",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam16_q4"] = {
-    text: "In der Schwangerschaft haben Frauen erhöhten Bedarf - Eine Bekannte, die ein Kind erwartet, sucht Ernährungstipps.",
-    meaning: "في الحمل، لدى النساء حاجة متزايدة - إحدى المعارف التي تنتظر طفلاً تبحث عن نصائح غذائية.",
-    keywords: ["Schwangerschaft = حمل", "Ernährungstipps = نصائح غذائية"],
-    simplified: "نصائح غذائية للحامل",
-    imagine: "🧠🍎 امرأة حامل تقف أمام ثلاجة وتختار الفواكه."
+    text: "Schnee in der Kunst - Sie besuchen einen Freund, der sich für Malerei interessiert. Sie möchten ihm ein passendes Geschenk mitbringen.",
+    meaning: "كتاب فني عن رسومات الثلوج عبر العصور من الرومانسية حتى اليوم",
+    keywords: ["Schnee = ثلج", "Kunst = فن", "Gemälde = لوحات", "Romantik = رومانسية", "Impressionismus = انطباعية"],
+    simplified: "كتاب فاخر يوثق جمال الثلج في لوحات عباقرة الرسم",
+    imagine: "رجل يقلب صفحات كتاب يظهر فيه جبال ثلجية مرسومة",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam16_q5"] = {
-    text: "Damenschuhe mit hohen Absätzen schaden der Gesundheit - Ihre Freundin denkt darüber nach, alle hochhackigen Schuhe wegzuwerfen, weil sie negative Auswirkungen auf ihre Gelenke befürchtet.",
-    meaning: "أحذية النساء ذات الكعب العالي تضر بالصحة - صديقتك تفكر في التخلص من جميع أحذيتها ذات الكعب العالي لأنها تخشى آثاراً سلبية على مفاصلها.",
-    keywords: ["hohen Absätzen = كعب عالي", "Gesundheit = صحة"],
-    simplified: "الاستغناء عن الكعب العالي",
-    imagine: "🧠👠 امرأة تحمل حذاءً بكعب عال وتنظر إليه بحيرة."
+    text: "Märchenlandschaft aus Schnee und Eis - Ein Freund würde gerne im Winter verreisen. Er möchte viel Zeit an der frischen Luft verbringen und sich bewegen.",
+    meaning: "عطلة مشي لمدة 8 أيام في جبال الألب مع إقامة في فندق 4 نجوم",
+    keywords: ["Winterwanderungen = مشي شتوي", "Oberstdorf = أوبرستدورف", "Wellness = عناية صحية", "Gruppe = مجموعة", "Halbpension = نصف إقامة"],
+    simplified: "سياحة مشي في الثلوج مع وجبات ومنتجع صحي شامل",
+    imagine: "رجل يمشي بعصا في ثلوج عميقة وخلفه منتجع ضخم",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam16_q6"] = {
-    text: "Die Fußreflexzonenmassage - Ein Bekannter hat oft Kopfschmerzen. Er möchte jedoch keine Tabletten nehmen.",
-    meaning: "تدليك مناطق الانعكاس في القدم - أحد المعارف يعاني من صداع متكرر. لكنه لا يريد تناول أدوية.",
-    keywords: ["Kopfschmerzen = صداع", "Tabletten = أقراص"],
-    simplified: "علاج الصداع بدون أدوية",
-    imagine: "🧠🤕 رجل يجلس ويداه على رأسه ومتألم."
+    text: "Atemberaubende Fotos leicht gemacht - Ein Bekannter hat sich einen Fotoapparat gekauft und möchte die Grundlagen der Fotografie erlernen.",
+    meaning: "ورشة تصوير للمناظر الطبيعية لتعلم تقنيات الإضاءة والتكوين الفني",
+    keywords: ["Seminar = ورشة", "Fotografie = تصوير", "Landschaftsfotografie = تصوير طبيعة", "Techniken = تقنيات"],
+    simplified: "دورة تدريبية في تصوير الطبيعة للمبتدئين",
+    imagine: "رجل يحمل كاميرا ويجلس على صخرة تصور شلالا",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam16_q7"] = {
-    text: "Gute Schuhe müssen nicht unbedingt teuer sein - Ein Bekannter möchte sich modische Schuhe kaufen. Er weiß aber nicht, ob er sich das leisten kann.",
-    meaning: "الأحذية الجيدة ليست بالضرورة باهظة الثمن - أحد المعارف يريد شراء أحذية عصرية. لكنه لا يعرف ما إذا كان بإمكانه تحمل تكلفتها.",
-    keywords: ["Schuhe = أحذية", "teuer = غالي"],
-    simplified: "شراء أحذية عصرية بسعر مناسب",
-    imagine: "🧠👞 رجل يقف في متجر أحذية وينظر إلى الأسعار ويتأوه."
+    text: "Tolle Aufnahmen in einer spektakulären Landschaft - Eine Bekannte kann gut fotografieren und hat bereits einige Kurse gemacht. Sie würde gerne neue kreative Techniken kennenlernen.",
+    meaning: "ورشة تصوير متقدمة لمدة يوم كامل في بحيرة كونيغسيه للمصورين المتمرسين",
+    keywords: ["Workshop = ورشة", "Landschaftsfotografie = تصوير طبيعة", "Fortgeschrittene = متقدمون", "Kreativtechniken = تقنيات إبداعية"],
+    simplified: "دورة تصوير متقدمة لمن جربوا الكاميرا من قبل",
+    imagine: "امرأة ترتدي ملابس عملية وتضبط كاميرتها أمام منظر طبيعي ساحر",
+    correct: 3
 };
 
-// ============================================
-// Exam 17: Die Tochter einer Bekannten wird vier Jahre alt
-// ============================================
+HELP_DATA["lesen3_exam16_q8"] = {
+    text: "Sie treffen sich an einem Sonntagnachmittag mit einer Freundin, die sich gerne mit Mode und ihrer Geschichte beschäftigt. Sie möchten mit ihr etwas unternehmen.",
+    meaning: "معرض عن تاريخ الجينز من ملابس العمل إلى منصات عروض الأزياء",
+    keywords: ["Ausstellung = معرض", "Blue Jeans = جينز أزرق", "Mode = موضة", "Geschichte = تاريخ", "Designerstücke = قطع مصممة"],
+    simplified: "معرض عن تطور الجينز عبر الزمن بالأصلية والجديدة",
+    imagine: "صديقتان تقفان أمام جدار زجاجي فيه جينز قديم جدا",
+    correct: null
+};
+
+// ========== Exam 17: Tierdokumentationen (صحيح: 4,0,8,3,6,2,5,9) ==========
 
 HELP_DATA["lesen3_exam17_q1"] = {
-    text: "Expedition ins Reich der Schneeleoparden - Sie möchten mit Ihrem zwölfjährigen Sohn eine Ausstellung besuchen. Er interessiert sich für Tiere.",
-    meaning: "رحلة إلى عالم الفهود الثلجية - تريد زيارة معرض مع ابنك ذي الـ 12 سنة. إنه مهتم بالحيوانات.",
-    keywords: ["Schneeleoparden = فهود ثلجية", "Tiere = حيوانات"],
-    simplified: "زيارة معرض حيوانات مع الابن",
-    imagine: "🧠🐆 ولد يقف أمام هيكل عظمي لأسد في متحف."
+    text: "Auf den Spuren der Wildkatze - Ihr Sohn wird nächste Woche zehn Jahre alt. Sie möchten ihn mit einer besonderen Feier überraschen.",
+    meaning: "مكان متخصص في حفلات أعياد الميلاد للأطفال مع برنامج عن القطط البرية",
+    keywords: ["Wildkatzendorf = قرية القطط البرية", "Kindergeburtstage = أعياد ميلاد أطفال", "Fütterungen = إطعام", "Kinderführungen = جولات أطفال"],
+    simplified: "حفلة عيد ميلاد مميزة في قرية القطط البرية مع برنامج خاص",
+    imagine: "أطفال واقفون حول سياج وقطة برية خلفه وعليها قبعة",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam17_q2"] = {
-    text: "Alte Jeans, Blusen oder Kleider - Eine Freundin hat viele Kleidungsstücke, die sie nicht mehr trägt. Sie sucht Anregungen, was sie damit machen könnte.",
-    meaning: "جينز قديم، بلوزات أو فساتين - صديقة لديها العديد من قطع الملابس التي لم تعد ترتديها. تبحث عن أفكار عما يمكنها فعله بها.",
-    keywords: ["Alte Jeans = جينز قديم", "Kleidungsstücke = قطع ملابس"],
-    simplified: "إعادة استخدام الملابس القديمة",
-    imagine: "🧠👗 امرأة تنظر إلى كومة من الملابس القديمة وتفكر."
+    text: "Am 1. August zeigen wir den 90-minütigen Film - Ein Bekannter interessiert sich für Tierdokumentationen und würde gerne wissen, wie solche Filme entstehen.",
+    meaning: "فيلم عن أشهر صانعي أفلام الطبيعة وراء الكواليس والمعدات المستخدمة",
+    keywords: ["Tierfilmer = مصورو حيوانات", "Naturkulissen = مناظر طبيعية", "Dreharbeiten = تصوير", "Ausstattung = معدات"],
+    simplified: "فيلم وثائقي يشرح خفايا تصوير الحيوانات البرية",
+    imagine: "رجل يحمل كاميرا كبيرة ويختبئ خلف شجيرة وأسد أمامه",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam17_q3"] = {
-    text: "Es ist ein sonniger Herbsttag - Die Tochter einer Bekannten wird vier Jahre alt. Sie möchten ihr etwas zum Geburtstag mitbringen.",
-    meaning: "إنه يوم خريفي مشمس - ابنة إحدى المعارف ستبلغ الرابعة. تريد إحضار شيء لها بمناسبة عيد الميلاد.",
-    keywords: ["Herbsttag = يوم خريفي", "Geburtstag = عيد ميلاد"],
-    simplified: "هدية لعيد ميلاد طفلة أربع سنوات",
-    imagine: "🧠🎁 امرأة تحمل هدية مغلفة واقفة أمام باب منزل."
+    text: "Ausstellung im Park - Sie suchen ein Geschenk für einen Freund, der sich für Kunst interessiert.",
+    meaning: "معرض فني يضم رسومات ومنحوتات خشبية وسيراميك وحلي يمكن شراؤها",
+    keywords: ["Ausstellung = معرض", "Künstler = فنانين", "Zeichnungen = رسومات", "Holzskulpturen = منحوتات خشبية", "Keramik = سيراميك"],
+    simplified: "معرض فني مع إمكانية شراء اللوحات والمنحوتات",
+    imagine: "رجل يشير إلى تمثال خشبي بجانبه لوحة زيتية على الحائط",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam17_q4"] = {
-    text: "Märchenlandschaft aus Schnee und Eis - Ein Freund würde gerne im Winter verreisen. Er möchte viel Zeit an der frischen Luft verbringen und sich bewegen.",
-    meaning: "منظر طبيعي خرافي من الثلج والجليد - صديق يريد السفر في الشتاء. يريد قضاء وقت طويل في الهواء الطلق والتحرك.",
-    keywords: ["Schnee = ثلج", "frischen Luft = هواء نقي"],
-    simplified: "عطلة شتوية في الطبيعة",
-    imagine: "🧠❄️ رجل يمشي في الغابة والثلوج تغطي الأرض."
+    text: "Schon lange lebt Kaninchen Hoppi - Ihr siebenjähriger Neffe liebt phantasievolle Geschichten. Sie wollen nachmittags etwas mit ihm unternehmen.",
+    meaning: "فيلم رسوم متحركة عن أرنب يحمي وكره من رجل شرير يريد بناء ملعب جولف",
+    keywords: ["Animationsfilm = فيلم رسوم", "Kaninchen = أرنب", "Abenteuer = مغامرات", "Kinder ab 6 Jahren = أطفال من 6 سنوات"],
+    simplified: "فيلم كوميدي عن عائلة أرانب تكافح لإنقاذ موطنها",
+    imagine: "طفل صغير يصفق وأرنب أزرق على الشاشة أمامه",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam17_q5"] = {
-    text: "Atemberaubende Fotos leicht gemacht - Ein Bekannter hat sich einen Fotoapparat gekauft und möchte die Grundlagen der Fotografie erlernen.",
-    meaning: "صور مذهلة بسهولة - أحد المعارف اشترى كاميرا ويريد تعلم أساسيات التصوير الفوتوغرافي.",
-    keywords: ["Fotos = صور", "Fotografie = تصوير فوتوغرافي"],
-    simplified: "تعلم أساسيات التصوير",
-    imagine: "🧠📷 رجل يحمل كاميرا وينظر من خلال العدسة."
+    text: "Du bist gern kreativ - Ihre zehnjährige Tochter zeichnet viel und möchte ihre Fähigkeiten weiter verbessern.",
+    meaning: "دورة رسم منتظمة لصغار الفنانين من سن 10 سنوات بتدريب رسامة محترفة",
+    keywords: ["Kurs = دورة", "Kreativ = إبداعي", "Nachwuchskünstler = فنانين صغار", "zeichnen = رسم", "malen = تلوين"],
+    simplified: "دروس رسم أسبوعية للفنانين الصغار لتطوير مهاراتهم",
+    imagine: "بنت تجلس أمام لوحة قماشية وفرشاة بألوان زاهية",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam17_q6"] = {
-    text: "Tolle Aufnahmen in einer spektakulären Landschaft - Eine Bekannte kann gut fotografieren und hat bereits einige Kurse gemacht. Sie würde gerne neue kreative Techniken kennenlernen.",
-    meaning: "لقطات رائعة في منظر طبيعي مذهل - إحدى المعارف تجيد التصوير وقد أخذت بعض الدورات. تريد تعلم تقنيات إبداعية جديدة.",
-    keywords: ["Aufnahmen = لقطات", "kreative Techniken = تقنيات إبداعية"],
-    simplified: "تعلم تقنيات تصوير جديدة",
-    imagine: "🧠📸 امراة تحمل كاميرا وتلتقط صورة لغروب الشمس."
+    text: "Mit einem scharfen Blick fürs Detail gestaltete - Ihr Onkel möchte sich eine Ausstellung mit Gemälden ansehen.",
+    meaning: "معرض للوحات طبيعة وحيوانات برسام بلطيقي دقيق التفاصيل",
+    keywords: ["Ausstellung = معرض", "Gemälde = لوحات", "Tierbilder = صور حيوانات", "Landschaftsbilder = لوحات طبيعة"],
+    simplified: "معرض فني لرسام مختص بالطبيعة والحياة البرية الأفريقية",
+    imagine: "رجل واقف أمام لوحة لغابة ويلمس ذقنه متأملا",
+    correct: 2
 };
 
-// ============================================
-// Exam 18: Tierdokumentationen
-// ============================================
+HELP_DATA["lesen3_exam17_q7"] = {
+    text: "Noch nicht lange ist es her, dass Wildkatzen - Ihre 16-jährige Nichte interessiert sich für heimische Tierwelt und würde sich gerne einen Film ansehen.",
+    meaning: "فيلم وثائقي عن القطط البرية الأوروبية وجهود إنقاذها من الانقراض",
+    keywords: ["Wildkatzen = قطط برية", "Dokumentation = فيلم وثائقي", "Rettung = إنقاذ", "Wälder = غابات", "heimisch = محلي"],
+    simplified: "فيلم عن القطط البرية في غابات أوروبا ومشروع لحمايتها",
+    imagine: "فتاة تنظر إلى شاشة وقطة برية تمشي على خشب مقطوع",
+    correct: 5
+};
+
+HELP_DATA["lesen3_exam17_q8"] = {
+    text: "Heiße Rhythmen und kühle Drinks - Sie würden gerne abends etwas mit Freunden draußen unternehmen und dabei sportlich aktiv sein.",
+    meaning: "حفل موسيقي على مسبح مع إمكانية السباحة ولعب كرة الشاطئ حتى منتصف الليل",
+    keywords: ["Konzert = حفل موسيقي", "Waldschwimmbad = مسبح غابة", "baden = سباحة", "Beach-Volleyball = كرة شاطئ", "Jugendliche = شباب"],
+    simplified: "حفلة صيفية على مسبح مع سباحة وموسيقى ورياضات شاطئية",
+    imagine: "أربعة أصدقاء يلعبون كرة شاطئ بجانب مسبح وعليهم إضاءات ملونة",
+    correct: 9
+};
+
+// ========== Exam 18: Aufräumen (صحيح: 0,3,2,9,1,8,6,4,7,5) ==========
 
 HELP_DATA["lesen3_exam18_q1"] = {
-    text: "Auf den Spuren der Wildkatze - Ihr Sohn wird nächste Woche zehn Jahre alt. Sie möchten ihn mit einer besonderen Feier überraschen.",
-    meaning: "على خطى القطة البرية - ابنك سيبلغ العاشرة الأسبوع القادم. تريد مفاجأته بحفل خاص.",
-    keywords: ["Wildkatze = قطة برية", "Feier = حفل"],
-    simplified: "مفاجأة عيد ميلاد الابن",
-    imagine: "🧠🎂 أم تحمل كعكة وتدخل الغرفة وابنها يبتسم."
+    text: "Das große Aufräumbuch - Alle Ihre Schränke sind voll mit Sachen und Sie haben kaum mehr Platz في der Wohnung. Sie suchen Ideen, wie Sie das ändern können.",
+    meaning: "كتاب إرشادي لتنظيم المنزل والتخلص من الأشياء غير الضرورية خطوة بخطوة",
+    keywords: ["Aufräumen = ترتيب", "Ratgeber = دليل", "aussortieren = فرز", "wegwerfen = رمي", "Ordnung = نظام"],
+    simplified: "دليل لتنظيم المنزل والتخلص من الفوضى والملابس القديمة",
+    imagine: "شخص يقف أمام خزانة مفتوحة والملابس تتدافع خارجها",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam18_q2"] = {
-    text: "Am 1. August zeigen wir den Film 'Der Natur auf der Spur' - Ein Bekannter interessiert sich für Tierdokumentationen und würde gerne wissen, wie solche Filme entstehen.",
-    meaning: "في 1 أغسطس نعرض فيلم 'على خطى الطبيعة' - أحد المعارف مهتم بالأفلام الوثائقية عن الحيوانات ويريد معرفة كيف تُصنع مثل هذه الأفلام.",
-    keywords: ["Film = فيلم", "Tierdokumentationen = أفلام وثائقية عن الحيوانات"],
-    simplified: "كيف تُصنع أفلام الحيوانات",
-    imagine: "🧠🎥 رجل يقف خلف كاميرا ويصور حماراً وحشياً."
+    text: "Einrichtungshaus Unterberg - Ihr Bruder sucht ein hochwertiges neues Sofa.",
+    meaning: "متجر أثاث فاخر في هيلدسهايم يبيع أرائك وطاولات وحدائق بجودة عالية",
+    keywords: ["Möbelhaus = متجر أثاث", "hochwertig = عالي الجودة", "Sofa = أريكة", "Ausstellung = معرض", "Design = تصميم"],
+    simplified: "معرض أثاث فاخر بأجود الخامات والتصاميم العصرية",
+    imagine: "رجل يجلس على أريكة بيضاء ويبتسم وبجانبه وسائد ملونة",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam18_q3"] = {
-    text: "Du bist gern kreativ - Ihre zehnjährige Tochter zeichnet viel und möchte ihre Fähigkeiten weiter verbessern.",
-    meaning: "أنت تحب الإبداع - ابنتك ذات العشر سنوات ترسم كثيراً وتريد تحسين مهاراتها.",
-    keywords: ["kreativ = مبدع", "zeichnet = ترسم"],
-    simplified: "تحسين مهارات الرسم للابنة",
-    imagine: "🧠🎨 طفلة تجلس أمام لوحة وترسم زهرة."
+    text: "Henrike Derendorf: Das neue Wohnbuch - Eine Bekannte zieht um und sucht Tipps zu Einrichtung und Wandfarben.",
+    meaning: "كتاب ديكور يحتوي 1000 فكرة لتصميم منزلي واختيار الألوان المناسبة",
+    keywords: ["Wohnbuch = كتاب منزلي", "Einrichtung = تأثيث", "Raumgestaltung = تنسيق غرف", "Farben = ألوان", "Stilrichtungen = أنماط"],
+    simplified: "كتاب يقدم أفكارا لتأثيث وتزيين المنزل بأناقة",
+    imagine: "امرأة تضع ديكورات على حائط غرفة نومها وتبتسم",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam18_q4"] = {
-    text: "Mit einem scharfen Blick fürs Detail - Ihr Onkel möchte sich eine Ausstellung mit Gemälden ansehen.",
-    meaning: "بنظرة حادة للتفاصيل - عمك يريد مشاهدة معرض للوحات.",
-    keywords: ["Detail = تفصيل", "Ausstellung = معرض"],
-    simplified: "زيارة معرض لوحات",
-    imagine: "🧠🖼️ رجل كبير يقف أمام لوحة ويحدق فيها."
+    text: "Rat mal, wo die Tiere wohnen! - Sie suchen ein Kinderbuch für Ihren siebenjährigen Sohn. Er möchte gerne mehr über Tiere erfahren.",
+    meaning: "كتاب علمي للأطفال عن حياة الحيوانات في الحديقة والغابة والمنزل",
+    keywords: ["Kinderbuch = كتاب أطفال", "Tiere = حيوانات", "Zoologe = عالم حيوانات", "Entdeckungsreise = رحلة استكشافية", "ab 6 Jahren = من 6 سنوات"],
+    simplified: "كتاب مصور عن الثعالب والعصافير والنحل في بيئاتهم الطبيعية",
+    imagine: "ولد صغير يقرأ كتابا وعقرب ساعة وكلب نائم بجانبه",
+    correct: 9
 };
 
 HELP_DATA["lesen3_exam18_q5"] = {
-    text: "Noch nicht lange ist es her, dass Wildkatzen verbreitet waren - Ihre 16-jährige Nichte interessiert sich für heimische Tierwelt und würde sich gerne einen Film ansehen.",
-    meaning: "ليس منذ زمن طويل كانت القطط البرية منتشرة - ابنة أختك ذات الـ 16 سنة مهتمة بالحياة البرية المحلية وتود مشاهدة فيلم.",
-    keywords: ["Wildkatzen = قطط برية", "Film = فيلم"],
-    simplified: "فيلم عن الحياة البرية",
-    imagine: "🧠🐺 فتاة جالسة أمام التلفاز تشاهد فيلماً عن الذئاب."
+    text: "Tiere hautnah erleben - Eine Bekannte möchte mit ihrer Familie einen Ausflug machen und dabei am liebsten Tiere beobachten.",
+    meaning: "حديقة حيوانات مفتوحة حيث يمكن إطعام ومداعبة الجمال والقرود",
+    keywords: ["Wildpark = حديقة حيوانات برية", "Tiere beobachten = مراقبة حيوانات", "streicheln = مداعبة", "Kamele reiten = ركوب جمال"],
+    simplified: "رحلة لعائلة لمشاهدة الحيوانات القريبة وتقديم الطعام لها",
+    imagine: "أسرة تمشي في ممر خشبي وغزال يقترب منهم يريد أكل جزر",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam18_q6"] = {
-    text: "Heiße Rhythmen und kühle Drinks - Sie würden gerne abends etwas mit Freunden draußen unternehmen und dabei sportlich aktiv sein.",
-    meaning: "إيقاعات ساخنة ومشروبات باردة - ترغب في القيام بنشاط مع الأصدقاء في الخارج مساءً وأن تكون نشيطاً بدنياً.",
-    keywords: ["Rhythmen = إيقاعات", "sportlich = رياضي"],
-    simplified: "نشاط رياضي مسائي مع الأصدقاء",
-    imagine: "🧠🏃 مجموعة من الأصدقاء يلعبون كرة القدم في ملعب ليلي."
+    text: "Geschichten für Kinder - Ihre Cousine studiert und würde gern في eine Wohngemeinschaft ziehen.",
+    meaning: "ورشة تطوعية لكتابة قصص الأطفال وتعلم أساسيات النشر والرسم",
+    keywords: ["Kinderbücher = كتب أطفال", "Basiskurs = دورة أساسية", "Illustrationen = رسوم", "Verlag = دار نشر"],
+    simplified: "دورة كتابة قصص مصورة للأطفال للمبتدئين والمتقدمين",
+    imagine: "شابة تمسك قلم وترسم وجه قطة على ورقة وأمامها كومة كتب",
+    correct: null
 };
 
-// ============================================
-// Exam 19: Aufräumen
-// ============================================
+HELP_DATA["lesen3_exam18_q7"] = {
+    text: "Katze, Papagei, Meerschweinchen - Ihre Schwester möchte wissen, ob sie في ihre Mietwohnung einen Hund halten darf.",
+    meaning: "محاضرة قانونية عن حقوق وواجبات مستأجر المنزل فيما يتعلق بتربية الحيوانات الأليفة",
+    keywords: ["Mietrecht = قانون إيجار", "Haustiere = حيوانات أليفة", "Vermieter = مالك", "Nachbarn = جيران", "Vortrag = محاضرة"],
+    simplified: "دليل قانوني حول شروط تربية الحيوانات الأليفة في الشقق المستأجرة",
+    imagine: "امرأة تمسك كلبها الصغير أمام كتاب قانون وورقة رسمية",
+    correct: 6
+};
+
+HELP_DATA["lesen3_exam18_q8"] = {
+    text: "Helden der Kindheit - Sie möchten eine Ausstellung besuchen, die auch für Ihre Kinder interessant ist.",
+    meaning: "معرض عن شخصيات كتب الأطفال مثل بيبي بيتسترومب مع ألعاب تفاعلية للأطفال",
+    keywords: ["Ausstellung = معرض", "Kinderbücher = كتب أطفال", "Figuren = شخصيات", "Mitmachen = مشاركة", "Spiele = ألعاب"],
+    simplified: "معرض ممتع لشخصيات كرتونية مع أنشطة تفاعلية للأطفال",
+    imagine: "طفل يقفز أمام تمثال لشخصية كرتونية وأمه تلتقط الصورة",
+    correct: 8
+};
+
+HELP_DATA["lesen3_exam18_q9"] = {
+    text: "Wohnen in der Gründerzeit - Ihr Vater interessiert sich für alte wertvolle Möbel.",
+    meaning: "معرض لأثاث الفخم من أواخر القرن التاسع عشر في قصر تاريخي",
+    keywords: ["Ausstellung = معرض", "Gründerzeit = فترة تأسيس", "originale Möbel = أثاث أصلي", "Wohnkultur = ثقافة سكنية", "Bürgertum = طبقة برجوازية"],
+    simplified: "جولة في متحف لأثاث فخم من زمن الأجداد",
+    imagine: "رجل عجوز يمرر يده على طاولة خشبية منحوتة",
+    correct: 4
+};
+
+HELP_DATA["lesen3_exam18_q10"] = {
+    text: "Ihre Tochter geht zur Schule und sucht einen Praktikumsplatz - Ihre Tochter geht zur Schule und sucht einen Praktikumsplatz.",
+    meaning: "دار نشر تطلب متدربين للتعرف على المهام التحريرية والتسويقية",
+    keywords: ["Praktikum = تدريب عملي", "Verlag = دار نشر", "redaktionell = تحريري", "Marketing = تسويق", "Studenten = طلاب"],
+    simplified: "فرصة تدريب في مجال النشر والعلاقات العامة لطلاب الجامعة",
+    imagine: "فتاة تحمل كومة كتب وتقف أمام باب زجاجي مكتوب دار نشر",
+    correct: null
+};
+
+// ========== Exam 19: Erholung und Reisen (صحيح: 8,4,2,7,0,5,6,3,1,9) ==========
 
 HELP_DATA["lesen3_exam19_q1"] = {
-    text: "Das große Aufräumbuch - Alle Ihre Schränke sind voll mit Sachen und Sie haben kaum mehr Platz in der Wohnung. Sie suchen Ideen, wie Sie das ändern können.",
-    meaning: "كتاب التنظيم الكبير - جميع خزائنك مليئة بالأشياء ولا يوجد لديك مساحة تقريباً في الشقة. تبحث عن أفكار لتغيير ذلك.",
-    keywords: ["Aufräumbuch = كتاب تنظيم", "Platz = مساحة"],
-    simplified: "تنظيم وتخليص الشقة من الفوضى",
-    imagine: "🧠📦 رجل يقف أمام خزانة مفتوحة وملابس تسقط منه."
+    text: "Urlaubsregion Allgäuer Alpen - Ein Bekannter liebt die Bergwelt, kann aber keine steilen und anstrengenden Wege mehr gehen.",
+    meaning: "منطقة جبلية في الألب مع تلفريك وكراسي معلقة توفر رؤية القمم بدون تعب",
+    keywords: ["Allgäuer Alpen = ألب ألغاو", "Bergwanderer = متسلق جبال", "Bergbahnen = تلفريك", "Sessellifte = كراسي معلقة"],
+    simplified: "جبال الألب الألمانية بمصاعد وكراسي معلقة لضعاف القلوب",
+    imagine: "رجل عجوز يجلس على كرسي معلق فوق قمم ثلجية ويبتسم",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam19_q2"] = {
-    text: "Einrichtungshaus Unterberg - Ihr Bruder sucht ein hochwertiges neues Sofa.",
-    meaning: "متجر أثاث أونتربرغ - أخوك يبحث عن أريكة جديدة عالية الجودة.",
-    keywords: ["Einrichtungshaus = متجر أثاث", "Sofa = أريكة"],
-    simplified: "شراء أريكة جديدة",
-    imagine: "🧠🛋️ رجل يجلس على أريكة في المتجر ويختبرها."
+    text: "Ferien im Harz - Ein Bekannter möchte im Urlaub auf einem See Boot fahren.",
+    meaning: "مكان مرتفع في هارتس مع سد مائي يوفر رياضات مائية مثل التجديف والتزلج على الماء",
+    keywords: ["Harz = هارتس", "Okertalsperre = سد أوكر", "Wassersport = رياضة مائية", "Surfen = ركمجة", "Paddeln = تجديف"],
+    simplified: "بحيرة اصطناعية في هارتس لممارسة الرياضات المائية",
+    imagine: "رجل على زورق صغير يحرك المجداف وبجانبه بحيرة زرقاء",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam19_q3"] = {
-    text: "Helden der Kindheit - Sie möchten eine Ausstellung besuchen, die auch für Ihre Kinder interessant ist.",
-    meaning: "أبطال الطفولة - تريد زيارة معرض مثير للاهتمام أيضاً لأطفالك.",
-    keywords: ["Helden = أبطال", "Kinder = أطفال"],
-    simplified: "معرض يناسب الأطفال",
-    imagine: "🧠🏛️ أب وابنه يقفان أمام تمثال لشخصية كرتونية."
+    text: "Auf den Spuren des römischen Dichters Ausonius - Eine Bekannte möchte eine mehrtägige Fußwanderung machen und dabei etwas über die kulturelle Vergangenheit der Region erfahren.",
+    meaning: "طريق روماني قديم بطول 140 كيلومترا لمسافرين متمكنين مع متاحف أثرية",
+    keywords: ["Wanderweg = طريق مشاة", "römische Heerstraße = طريق روماني", "Museen = متاحف", "Vergangenheit = ماضي"],
+    simplified: "جولة مشي لأيام على طريق الآثار الرومانية القديمة",
+    imagine: "امرأة تحمل عصا وياقة عالية تمشي على طريق مرصوف بالحجارة وأعمدة رومانية خلفها",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam19_q4"] = {
-    text: "Henrike Derendorf: Das neue Wohnbuch - Eine Bekannte zieht um und sucht Tipps zu Einrichtung und Wandfarben.",
-    meaning: "هنريك ديريندورف: كتاب السكن الجديد - إحدى المعارف تنتقل وتبحث عن نصائح حول التأثيث وألوان الجدران.",
-    keywords: ["Wohnbuch = كتاب سكن", "Einrichtung = تأثيث"],
-    simplified: "نصائح لتأثيث المنزل الجديد",
-    imagine: "🧠🎨 امرأة تحمل دهاناً وتنظر إلى جدار أبيض."
+    text: "Durch das Watt - Eine Bekannte ist Hobbyzoologin und interessiert sich für den Lebensraum 'Küste'.",
+    meaning: "المشي لمسافات طويلة في منطقة المد والجزر في بحر الشمال لمراقبة الفقمات والطيور",
+    keywords: ["Wattwanderung = مشي في المد", "Nordsee = بحر الشمال", "Seehunde = فقمات", "Nationalpark = حديقة وطنية", "Halligen = جزر صغيرة"],
+    simplified: "رحلة استكشافية إلى شواطئ بحر الشمال للتعرف على الكائنات الحية",
+    imagine: "امرأة تحمل منظار تنظر إلى صخرة عليها فقمة صغيرة وكلبها بجانبها",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam19_q5"] = {
-    text: "Katze, Papagei, Meerschweinchen - was ist erlaubt? - Ihre Schwester möchte wissen, ob sie in ihre Mietwohnung einen Hund halten darf.",
-    meaning: "قطة، ببغاء، خنزير غينيا - ما هو مسموح؟ - أختك تريد معرفة ما إذا كان بإمكانها تربية كلب في شقتها المستأجرة.",
-    keywords: ["erlaubt = مسموح", "Hund = كلب"],
-    simplified: "هل يُسمح بتربية كلب في شقة مستأجرة؟",
-    imagine: "🧠🐕 امرأة تقف أمام باب شقتها وكلب يعوي بجانبها."
+    text: "Achtung, Kamera läuft! - Ein Bekannter möchte miterleben, wie spektakuläre Filmszenen gedreht werden.",
+    meaning: "مدينة ملاهي سينمائية تتضمن محاكاة مشاهد حركة ومطاردة مع أفعوانيات ضخمة",
+    keywords: ["Movie Park = منتزه سينمائي", "Action = أكشن", "Stunts = حركات بهلوانية", "Flugsimulator = محاكاة طيران", "Achterbahnen = قطارات متعرجة"],
+    simplified: "منتزه ترفيهي يشعرك أنك في فيلم أكشن حقيقي",
+    imagine: "شاب يجلس في مقعد طائرة وامرأة تصرخ خلفه وتحلق السحاب",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam19_q6"] = {
-    text: "Rat mal, wo die Tiere wohnen! - Sie suchen ein Kinderbuch für Ihren siebenjährigen Sohn. Er möchte gerne mehr über Tiere erfahren.",
-    meaning: "خمن أين تعيش الحيوانات! - تبحث عن كتاب أطفال لابنك ذي السبع سنوات. يريد معرفة المزيد عن الحيوانات.",
-    keywords: ["Tiere = حيوانات", "Kinderbuch = كتاب أطفال"],
-    simplified: "كتاب حيوانات للأطفال",
-    imagine: "🧠📖 أب يقرأ كتاباً لابنه عن الحيوانات والولد يشير إلى صورة أسد."
+    text: "Spiel und Spaß am Bodensee - Eine Familie möchte mit ihren Kindern einen aktiven und lustigen Tag verbringen.",
+    meaning: "مدينة ألعاب مائية وخشبية مع أنشطة تفاعلية للأطفال عند بحيرة بودنسي",
+    keywords: ["Spieleland = مدينة ألعاب", "Bodensee = بحيرة بودنسي", "Familie = عائلة", "Attraktionen = ألعاب", "Ravensburger = رافنسبورغر"],
+    simplified: "حديقة ألعاب عائلية على بحيرة بودنسي مع 50 لعبة ممتعة",
+    imagine: "أطفال يركضون في ملاهي وبحيرة زرقاء خلفهم ووالدهم يصورهم",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam19_q7"] = {
-    text: "Tiere hautnah erleben - Eine Bekannte möchte mit ihrer Familie einen Ausflug machen und dabei am liebsten Tiere beobachten.",
-    meaning: "تجربة الحيوانات عن قرب - إحدى المعارف تريد القيام برحلة مع عائلتها وتفضل مراقبة الحيوانات.",
-    keywords: ["Tiere = حيوانات", "Ausflug = رحلة"],
-    simplified: "رحلة عائلية لمراقبة الحيوانات",
-    imagine: "🧠🦌 عائلة تقف سياج حديقة حيوانات وتنظر إلى زرافة."
+    text: "Bad Elster - heilendes Wasser - Ein Bekannter hat ein neues Kniegelenk bekommen und sucht eine geeignete Kur.",
+    meaning: "حمامات كبريتية ومعدنية لعلاج الروماتيزم وإصابات الرياضة بعد العمليات الجراحية",
+    keywords: ["Bad Elster = باد إلستر", "Mineralquellen = ينابيع معدنية", "Kur = علاج", "Rheuma = روماتيزم", "Reha = تأهيل"],
+    simplified: "ينابيع حارة وكبريتية لعلاج العظام والمفاصل",
+    imagine: "رجل عجوز يجلس في ماء فقاعي ويداه على عصاة أمامه جبال خضراء",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam19_q8"] = {
-    text: "Wohnen in der Gründerzeit - Ihr Vater interessiert sich für alte wertvolle Möbel.",
-    meaning: "السكن في فترة التأسيس - والدك مهتم بالأثاث القديم الثمين.",
-    keywords: ["Gründerzeit = فترة التأسيس", "wertvolle Möbel = أثاث ثمين"],
-    simplified: "الأثاث القديم الثمين",
-    imagine: "🧠🪑 رجل كبير يجلس على كرسي قديم ويمسح الغبار عنه."
+    text: "Bad Homburg - in einzigartiger Badekultur entspannen - Eine Bekannte möchte sich في einem Kurort von der Hektik des Alltags erholen.",
+    meaning: "منتجع صحي بمياه معدنية وبرامج رياضية وعلاجية لمكافحة التوتر",
+    keywords: ["Bad Homburg = باد هومبورغ", "Thermalwasser = مياه حرارية", "Entspannung = استرخاء", "Stress = توتر", "Fitness = لياقة"],
+    simplified: "منتجع صحي فاخر بمياه معدنية وكهف استرخاء",
+    imagine: "امرأة مستلقية على كرسي وكمادات على وجهها ومياه تنبع من حنفية أمامها",
+    correct: 3
 };
 
-// ============================================
-// Exam 20: Erholung und Reisen
-// ============================================
+HELP_DATA["lesen3_exam19_q9"] = {
+    text: "Eine Bekannte interessiert sich für CDs mit klassischer Musik - Eine Bekannte interessiert sich für CDs mit klassischer Musik.",
+    meaning: "مجموعة سي دي لموسيقى كلاسيكية عالمية وارتجالات الجاز والأوركسترا",
+    keywords: ["CDs = أقراص", "klassische Musik = موسيقى كلاسيكية", "Jazz = جاز", "Orchester = أوركسترا"],
+    simplified: "سي دي لموسيقى كلاسيكية لأشهر عازفي العالم",
+    imagine: "امرأة تضع سماعات في أذنيها وتغمض عينيها وأصابعها تضرب الهواء",
+    correct: null
+};
+
+HELP_DATA["lesen3_exam19_q10"] = {
+    text: "Eine Bekannte möchte Geschichten über Ritter und Burgen lesen - Eine Bekannte möchte Geschichten über Ritter und Burgen lesen.",
+    meaning: "مهرجانات في قلاع ألمانية تشمل عروض فرسان وغناء وأسواقًا تقليدية",
+    keywords: ["Burgen = قلاع", "Ritter = فرسان", "Mittelalter = قرون وسطى", "Feste = مهرجانات", "Handwerkskunst = حرف يدوية"],
+    simplified: "مهرجانات في قلاع قديمة تعيد إحياء القرون الوسطى بالفرسان والمواكب",
+    imagine: "أطفال وأهلهم واقفين بجانب ساحة وفارس على حصان أبيض خلفهم",
+    correct: null
+};
+
+// ========== Exam 20: Sport (صحيح: 2,7,5,0,1,3,4,6,9,8) ==========
 
 HELP_DATA["lesen3_exam20_q1"] = {
-    text: "Urlaubsregion Allgäuer Alpen - Ein Bekannter liebt die Bergwelt, kann aber keine steilen und anstrengenden Wege mehr gehen.",
-    meaning: "منطقة عطلات ألجاو الألبية - أحد المعارف يحب عالم الجبال ولكنه لم يعد يستطيع المشي في الطرق شديدة الانحدار والمتعبة.",
-    keywords: ["Allgäuer Alpen = جبال الألب ألجاو", "Bergwelt = عالم الجبال"],
-    simplified: "الاستمتاع بالجبال بدون مشقة",
-    imagine: "🧠🏔️ رجل كبير يقف أمام جبل وينظر إلى القمة ويتنهد."
+    text: "Die Österreicherin Gerlinde Kaltenbrunner - Sie möchten mehr über die psychischen Aspekte des Klettersports erfahren.",
+    meaning: "محاضرة لأول امرأة تتسلق 14 قمة فوق 8000 متر عن الإرادة والانضباط",
+    keywords: ["Bergsteigerin = متسلقة جبال", "Vortrag = محاضرة", "Leidenschaft = شغف", "Willensstärke = قوة إرادة", "Geduld = صبر"],
+    simplified: "قصة تحديات أقوى متسلقة جبال في العالم بدون أكسجين",
+    imagine: "امرأة تقف على منصة وصور جبال خلفها وشاشة عليها ثلوج",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam20_q2"] = {
-    text: "Auf den Spuren des römischen Dichters Ausonius - Eine Bekannte möchte eine mehrtägige Fußwanderung machen und dabei etwas über die kulturelle Vergangenheit der Region erfahren.",
-    meaning: "على خطى الشاعر الروماني أوسونيوس - إحدى المعارف تريد القيام برحلة مشي لعدة أيام ومعرفة شيء عن الماضي الثقافي للمنطقة.",
-    keywords: ["Wanderweg = طريق مشي", "kulturelle Vergangenheit = ماض ثقافي"],
-    simplified: "رحلة مشي تاريخية",
-    imagine: "🧠🥾 امرأة تمشي على طريق ترابي وتحمل خريطة."
+    text: "Neue Studie erschienen - Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport.",
+    meaning: "دراسة تؤكد أن الرياضة المعتدلة مفيدة لكن الإفراط فيها يعود بالضرر",
+    keywords: ["Studie = دراسة", "Training = تمرين", "Diabetes = سكري", "Herzerkrankungen = أمراض قلب", "extrem = مفرط"],
+    simplified: "الرياضة اليومية مفيدة لكن الإفراط فيها يزيد المخاطر الصحية",
+    imagine: "شخص يركض بسرعة ثم ينهار على الأرض يتنفس بصعوبة ويداه على قلبه",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam20_q3"] = {
-    text: "Durch das Watt - Eine Bekannte ist Hobbyzoologin und interessiert sich für den Lebensraum 'Küste'.",
-    meaning: "عبر منطقة المد والجزر - إحدى المعارف عالمة حيوانات هاوية ومهتمة بموطن 'الساحل'.",
-    keywords: ["Watt = منطقة مد وجزر", "Küste = ساحل"],
-    simplified: "استكشاف الحياة البحرية على الساحل",
-    imagine: "🧠🌊 امرأة تمشي حافية القدمين على الرمال وتنظر إلى السرطانات الصغيرة."
+    text: "Nervenkitzel pur: Bungee-Jumping - Sie möchten einem Freund ein besonderes Sporterlebnis schenken.",
+    meaning: "فرصة القفز بالحبال من ارتفاع 100 متر فوق الماء ليلا أو نهارا",
+    keywords: ["Bungee-Jumping = قفز بالحبال", "Extremsportart = رياضة متطرفة", "Nachtspringe = قفز ليلي", "Reservierung = حجز"],
+    simplified: "قفزة مغامرة من أعلى الجسر إلى الماء بتأمين كامل",
+    imagine: "شاب مربوط بحبل يقفز من أعلى جسر ويصيح والسماء زرقاء خلفه",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam20_q4"] = {
-    text: "Achtung, Kamera läuft! - Ein Bekannter möchte miterleben, wie spektakuläre Filmszenen gedreht werden.",
-    meaning: "انتباه، الكاميرا تدور! - أحد المعارف يريد أن يشهد كيفية تصوير مشاهد سينمائية مثيرة.",
-    keywords: ["Kamera = كاميرا", "Filmszenen = مشاهد سينمائية"],
-    simplified: "مشاهدة تصوير فيلم",
-    imagine: "🧠🎬 رجل يقف خلف الكاميرا ويشاهد ممثلين يقفزون."
+    text: "Helfer und Helferinnen gesucht - Ein Freund von Ihnen möchte gerne bei einer Sportveranstaltung mitarbeiten.",
+    meaning: "متطوعون مطلوبون لتنظيم ماراثون نصف سنوي بأعمال خفيفة متنوعة",
+    keywords: ["Halbmarathon = نصف ماراثون", "Freiwillige = متطوعين", "Benefizveranstaltung = فعالية خيرية", "Verpflegung = تغذية", "Startnummer = رقم بداية"],
+    simplified: "فرصة تطوع في سباق الركض الخيري لمساعدة المجتمع",
+    imagine: "شاب يرتدي صدار أمان ويمنح العدائين أكواب ماء والجمهور يصفق خلفه",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam20_q5"] = {
-    text: "Spiel und Spaß am Bodensee - Eine Familie möchte mit ihren Kindern einen aktiven und lustigen Tag verbringen.",
-    meaning: "لعب ومتعة في بحيرة بودن - عائلة تريد قضاء يوم نشط وممتع مع أطفالها.",
-    keywords: ["Spaß = مرح", "Familie = عائلة"],
-    simplified: "يوم ممتع مع الأطفال",
-    imagine: "🧠🎢 أطفال يركبون لعبة دوارة وأبوهم يصورهم."
+    text: "Spektakuläre Feuerwehrübung - Sie interessieren sich für Videos von besonderen Rettungseinsätzen.",
+    meaning: "فيديو عن محاكاة لإنقاذ مصابين من برج مرتفع بواسطة سلم وسيارة إطفاء",
+    keywords: ["Feuerwehrübung = تمرين إطفاء", "Rettungseinsätze = عمليات إنقاذ", "Drehleiter = سلم دوار", "Schwerverletzte = مصابين خطيرين"],
+    simplified: "فيديو عن مهمة إنقاذ دراماتيكية لرجال الإطفاء في برج",
+    imagine: "رجل معلق في سلم طويل وسيارات إطفاء زرقاء تحته ورجال على الأرض يلتقطونه",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam20_q6"] = {
-    text: "Bad Elster - heilendes Wasser aus sprudelnden Quellen - Ein Bekannter hat ein neues Kniegelenk bekommen und sucht eine geeignete Kur.",
-    meaning: "باد إلستر - ماء شاف من ينابيع فوارة - أحد المعارف حصل على مفصل ركبة جديد ويبحث عن علاج مناسب في منتجع صحي.",
-    keywords: ["heilendes Wasser = ماء شاف", "Kur = علاج"],
-    simplified: "البحث عن علاج طبيعي",
-    imagine: "🧠🏥 رجل يجلس في حوض ماء ساخن ويرفع ركبته ببطء."
+    text: "Aktion 'Sauberes Grün' - Sie möchten dazu beitragen, Ihre Stadt schöner zu machen.",
+    meaning: "حملة تنظيف لمدة 3 أيام للحدائق والمتنزهات بمشاركة أفراد ومؤسسات",
+    keywords: ["Aktion = حملة", "sauber machen = تنظيف", "Grünflächen = مساحات خضراء", "Parks = متنزهات", "Spielplätze = ملاعب أطفال"],
+    simplified: "أيام تطوع لتنظيف وتجميل مرافق مدينتك العامة",
+    imagine: "أشخاص يرتدون قفازات ويمسحون الأرض وحولهم أكياس كبيرة من القمامة",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam20_q7"] = {
-    text: "Bad Homburg - in einzigartiger Badekultur entspannen wie Könige - Eine Bekannte möchte sich in einem Kurort von der Hektik des Alltags erholen.",
-    meaning: "باد هومبورغ - الاسترخاء في ثقافة استحمام فريدة مثل الملوك - إحدى المعارف تريد الاسترخاء في منتجع صحي من ضغوط الحياة اليومية.",
-    keywords: ["Badekultur = ثقافة استحمام", "Kurort = منتجع صحي"],
-    simplified: "الاسترخاء في منتجع صحي",
-    imagine: "🧠🧖‍♀️ امرأة مغمضة عينيها ووجهها مغطى بالطين."
+    text: "Tag der offenen Tür in der städtischen Bücherei - Ihre sechzehnjährige Cousine beschäftigt sich gerne mit kleinen Kindern.",
+    meaning: "تطوع شباب لقراءة قصص للأطفال الصغار في المكتبة بمناسبة اليوم العالمي للكتاب",
+    keywords: ["vorlesen = قراءة بصوت عال", "junge Leser = قراء صغار", "Ehrenamt = تطوع", "Kinderprogramm = برنامج أطفال", "Belohnung = مكافأة"],
+    simplified: "فرصة تطوع لقراءة القصص للأطفال في يوم المكتبة المفتوح",
+    imagine: "فتاة مراهقة تجلس أمام طفلة صغيرة وتقرأ كتابا وعليها صور فراشات",
+    correct: 6
 };
-// ============================================
-// Exam 21: Sport
-// ============================================
+
+HELP_DATA["lesen3_exam20_q8"] = {
+    text: "Ihr Vater plant, eine Familienchronik zu schreiben - Ihr Vater plant, eine Familienchronik zu schreiben.",
+    meaning: "المتحف يرغب في استعارة صور تاريخية ورياضية قديمة من المواطنين لمعرض قادم",
+    keywords: ["historische Aufnahmen = لقطات تاريخية", "private Bilder = صور شخصية", "Sportveranstaltungen = أحداث رياضية", "Jubiläum = ذكرى سنوية"],
+    simplified: "المكتب الثقافي يبحث عن صور عائلية قديمة لعرضها في معرض المدينة",
+    imagine: "رجل عجوز يخرج ألبوم صور أصفر من تحت السرير وينفض الغبار عنها",
+    correct: null
+};
+
+HELP_DATA["lesen3_exam20_q9"] = {
+    text: "Ihr kleiner Bruder möchte einmal ein Feuerwehrauto aus der Nähe sehen - Ihr kleiner Bruder möchte einmal ein Feuerwehrauto aus der Nähe sehen.",
+    meaning: "عيد ميلاد احتفالي لمدينة الإطفاء بمشاركة سيارات ومعدات وعروض إطفاء حقيقية",
+    keywords: ["Jubiläum = ذكرى سنوية", "Feuerwehr = إطفاء", "Löschfahrzeug = سيارة إطفاء", "Leistungsschau = عرض قدرات", "Grillfeuer = حفلة شواء"],
+    simplified: "يوم مفتوح للاطفال لمشاهدة سيارات الإطفاء عن قرب في المدينة",
+    imagine: "طفل صغير يضع خوذة حمراء ويجلس في مقعد سيارة إطفاء حمراء ويبتسم",
+    correct: 9
+};
+
+HELP_DATA["lesen3_exam20_q10"] = {
+    text: "Seniorenwohnhaus 'Zur alten Linde' - Seniorenwohnhaus 'Zur alten Linde'",
+    meaning: "فرص تطوع لزيارة ودعم كبار السن في دار رعاية المسنين بأعمال بسيطة",
+    keywords: ["Seniorenwohnhaus = دار مسنين", "ehrenamtlich = تطوع", "Besuchsdienste = خدمات زيارات", "Hilfestellung = مساعدة", "Begleitung = مرافقة"],
+    simplified: "فرصة للتطوع في رعاية كبار السن بدار محلية",
+    imagine: "رجل عجوز جالس على كرسي متحرك وامرأة تدفعه وإعلام ملون تحيطهما",
+    correct: null
+};
+
+// ========== Exam 21: Sport ==========
 
 HELP_DATA["lesen3_exam21_q1"] = {
     text: "Die Österreicherin Gerlinde Kaltenbrunner - Sie möchten mehr über die psychischen Aspekte des Klettersports erfahren.",
-    meaning: "النمساوية غيرلينده كالتنبرونر - تريد معرفة المزيد عن الجوانب النفسية لرياضة التسلق.",
-    keywords: ["Bergsteigerin = متسلقة جبال", "psychischen Aspekte = جوانب نفسية"],
-    simplified: "الجوانب النفسية لتسلق الجبال",
-    imagine: "🧠🧗‍♀️ امرأة تقف على قمة جبل وتنظر إلى الأسفل بثبات."
+    meaning: "محاضرة لأول امرأة تتسلق 14 قمة فوق 8000 متر عن الإرادة والانضباط",
+    keywords: ["Bergsteigerin = متسلقة جبال", "Vortrag = محاضرة", "Leidenschaft = شغف", "Willensstärke = قوة إرادة"],
+    simplified: "قصة أقوى متسلقة جبال في العالم بدون أكسجين",
+    imagine: "امرأة تقف على منصة وصور جبال ثلجية خلفها",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam21_q2"] = {
     text: "Neue Studie erschienen - Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport.",
-    meaning: "دراسة جديدة صدرت - تبحث عن معلومات حول تأثيرات الرياضة على الصحة.",
-    keywords: ["Studie = دراسة", "gesundheitlichen Auswirkungen = تأثيرات صحية"],
-    simplified: "تأثير الرياضة على الصحة",
-    imagine: "🧠📊 عالم يجلس أمام حاسوب وينظر إلى رسم بياني."
+    meaning: "دراسة تؤكد أن الرياضة المعتدلة مفيدة لكن الإفراط فيها يزيد المخاطر",
+    keywords: ["Studie = دراسة", "Training = تمرين", "extrem = مفرط", "Diabetes = سكري", "Herzerkrankungen = أمراض قلب"],
+    simplified: "الرياضة اليومية مفيدة لكن الإفراط فيها يضر",
+    imagine: "شخص يركض بسرعة ثم ينهار على الأرض يلهث",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam21_q3"] = {
     text: "Nervenkitzel pur: Bungee-Jumping - Sie möchten einem Freund ein besonderes Sporterlebnis schenken.",
-    meaning: "إثارة خالصة: القفز بالحبال - تريد إهداء صديقك تجربة رياضية مميزة.",
-    keywords: ["Bungee-Jumping = قفز بالحبال", "Sporterlebnis = تجربة رياضية"],
-    simplified: "هدية تجربة رياضية ممتعة",
-    imagine: "🧠🪢 رجل يقف على حافة جسر وينظر إلى الأسفل."
+    meaning: "فرصة القفز بالحبال من ارتفاع 100 متر فوق الماء ليلا أو نهارا",
+    keywords: ["Bungee-Jumping = قفز بالحبال", "Extremsportart = رياضة متطرفة", "Nachtspringe = قفز ليلي"],
+    simplified: "قفزة مغامرة من أعلى الجسر إلى الماء",
+    imagine: "شاب مربوط بحبل يقفز من أعلى جسر ويصيح",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam21_q4"] = {
-    text: "Spektakuläre Feuerwehrübung - Sie interessieren sich für Videos von besonderen Rettungseinsätzen.",
-    meaning: "تمرين إطفاء مذهل - أنت مهتم بمقاطع فيديو لعمليات إنقاذ خاصة.",
-    keywords: ["Feuerwehrübung = تمرين إطفاء", "Rettungseinsätzen = عمليات إنقاذ"],
-    simplified: "فيديوهات عمليات إنقاذ",
-    imagine: "🧠🚒 رجل يشاهد مقطع فيديو على هاتفه عن رجال إطفاء."
+    text: "Helfer und Helferinnen gesucht - Ein Freund von Ihnen möchte gerne bei einer Sportveranstaltung mitarbeiten.",
+    meaning: "متطوعون مطلوبون لتنظيم ماراثون نصف سنوي بأعمال متنوعة",
+    keywords: ["Halbmarathon = نصف ماراثون", "Freiwillige = متطوعين", "Benefizveranstaltung = فعالية خيرية"],
+    simplified: "فرصة تطوع في سباق الركض الخيري لمساعدة المجتمع",
+    imagine: "شاب يرتدي صدار أمان ويمنح العدائين أكواب ماء",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam21_q5"] = {
-    text: "Helfer und Helferinnen gesucht - Ein Freund von Ihnen möchte gerne bei einer Sportveranstaltung mitarbeiten.",
-    meaning: "مطلوب مساعدين ومساعدات - صديق لك يريد العمل في حدث رياضي.",
-    keywords: ["Helfer = مساعدين", "Sportveranstaltung = حدث رياضي"],
-    simplified: "العمل في حدث رياضي",
-    imagine: "🧠🏃 رجل يقف على خط النهاية ويوزع الماء على العدائين."
+    text: "Spektakuläre Feuerwehrübung - Sie interessieren sich für Videos von besonderen Rettungseinsätzen.",
+    meaning: "فيديو عن إنقاذ مصابين من برج مرتفع بواسطة سلم وسيارة إطفاء",
+    keywords: ["Feuerwehrübung = تمرين إطفاء", "Rettungseinsätze = عمليات إنقاذ", "Drehleiter = سلم دوار"],
+    simplified: "فيديو عن مهمة إنقاذ دراماتيكية لرجال الإطفاء",
+    imagine: "رجل معلق في سلم طويل وسيارات إطفاء تحته",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam21_q6"] = {
-    text: "Aktion 'Sauberes Grün' - Sie möchten mithelfen, Ihre Stadt schöner zu machen.",
-    meaning: "حملة 'أخضر نظيف' - تريد المساعدة في جعل مدينتك أجمل.",
-    keywords: ["Sauberes = نظيف", "Stadt = مدينة"],
-    simplified: "المشاركة في تنظيف المدينة",
-    imagine: "🧠🗑️ شخص يلتقط القمامة من الأرض ويضعها في كيس."
+    text: "Aktion 'Sauberes Grün' - Sie möchten dazu beitragen, Ihre Stadt schöner zu machen.",
+    meaning: "حملة تنظيف لمدة 3 أيام للحدائق والمتنزهات",
+    keywords: ["Aktion = حملة", "sauber machen = تنظيف", "Grünflächen = مساحات خضراء", "Parks = متنزهات"],
+    simplified: "أيام تطوع لتنظيف وتجميل مرافق مدينتك",
+    imagine: "أشخاص يرتدون قفازات ويمسحون الأرض وأكياس قمامة حولهم",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam21_q7"] = {
     text: "Tag der offenen Tür in der städtischen Bücherei - Ihre sechzehnjährige Cousine beschäftigt sich gerne mit kleinen Kindern.",
-    meaning: "يوم مفتوح في المكتبة البلدية - ابنة عمك ذات الـ 16 سنة تحب التعامل مع الأطفال الصغار.",
-    keywords: ["Bücherei = مكتبة", "kleinen Kindern = أطفال صغار"],
-    simplified: "التطوع مع الأطفال في المكتبة",
-    imagine: "🧠📖 فتاة مراهقة تجلس على الأرض وتقرأ قصة لأطفال."
+    meaning: "تطوع شباب لقراءة قصص للأطفال الصغار في المكتبة",
+    keywords: ["vorlesen = قراءة بصوت عال", "junge Leser = قراء صغار", "Ehrenamt = تطوع", "Kinderprogramm = برنامج أطفال"],
+    simplified: "فرصة تطوع لقراءة القصص للأطفال في يوم المكتبة المفتوح",
+    imagine: "فتاة مراهقة تجلس أمام طفلة صغيرة وتقرأ كتابا",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam21_q8"] = {
     text: "150 Jahre Stadtfeuerwehr - Ihr kleiner Bruder möchte einmal ein Feuerwehrauto aus der Nähe sehen.",
-    meaning: "150 سنة لإطفاء المدينة - أخوك الصغير يريد رؤية سيارة إطفاء عن قرب.",
-    keywords: ["Stadtfeuerwehr = إطفاء المدينة", "Feuerwehrauto = سيارة إطفاء"],
-    simplified: "زيارة سيارة إطفاء",
-    imagine: "🧠🚒 ولد صغير يقف بجانب سيارة إطفاء حمراء ويلمسها."
+    meaning: "يوم مفتوح للاحتفال بذكرى الإطفاء مع سيارات ومعدات وعروض",
+    keywords: ["Jubiläum = ذكرى سنوية", "Feuerwehr = إطفاء", "Löschfahrzeug = سيارة إطفاء", "Leistungsschau = عرض قدرات"],
+    simplified: "يوم مفتوح للأطفال لمشاهدة سيارات الإطفاء عن قرب",
+    imagine: "طفل صغير يضع خوذة حمراء ويجلس في مقعد سيارة إطفاء",
+    correct: 8
 };
 
-// ============================================
-// Exam 22: Sport (معدل)
-// ============================================
+// ========== Exam 22: Sport (معدل) ==========
 
 HELP_DATA["lesen3_exam22_q1"] = {
-    text: "Die Österreicherin Gerlinde Kaltenbrunner - Sie möchten mehr über die psychischen Aspekte des Klettersports erfahren.",
-    meaning: "النمساوية غيرلينده كالتنبرونر - تريد معرفة المزيد عن الجوانب النفسية لرياضة التسلق.",
-    keywords: ["Österreicherin = نمساوية", "Klettersports = رياضة التسلق"],
-    simplified: "الجوانب النفسية للتسلق",
-    imagine: "🧠⛰️ امرأة تمسك بحبل وتتسلق جرفاً صخرياً."
+    text: "Neue Studie erschienen - Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport.",
+    meaning: "دراسة تؤكد أن الرياضة المعتدلة مفيدة والإفراط فيها يزيد المخاطر",
+    keywords: ["Studie = دراسة", "Training = تمرين", "extrem = مفرط", "Diabetes = سكري", "Herzerkrankungen = أمراض قلب"],
+    simplified: "الرياضة اليومية مفيدة لكن الإفراط فيها يضر بصحتك",
+    imagine: "شخص يركض بسرعة ثم ينهار على الأرض وهو يتنفس بصعوبة",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam22_q2"] = {
-    text: "Neue Studie erschienen - Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport.",
-    meaning: "دراسة جديدة صدرت - تبحث عن معلومات حول تأثيرات الرياضة على الصحة.",
-    keywords: ["Studie = دراسة", "gesundheitlichen = صحية"],
-    simplified: "تأثيرات الرياضة على الصحة",
-    imagine: "🧠📈 طبيب ينظر إلى رسم بياني لضربات القلب."
+    text: "Spektakuläre Feuerwehrübung - Sie interessieren sich für Videos von besonderen Rettungseinsätzen.",
+    meaning: "فيديو عن إنقاذ مصابين من برج مرتفع بواسطة سلم دوار",
+    keywords: ["Feuerwehrübung = تمرين إطفاء", "Rettungseinsätze = عمليات إنقاذ", "Drehleiter = سلم دوار"],
+    simplified: "فيديو درامي عن مهمة إنقاذ لرجال الإطفاء",
+    imagine: "رجل معلق في سلم طويل وسيارات إطفاء زرقاء تحته",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam22_q3"] = {
-    text: "Nervenkitzel pur: Bungee-Jumping - Sie möchten einem Freund ein besonderes Sporterlebnis schenken.",
-    meaning: "إثارة خالصة: القفز بالحبال - تريد إهداء صديقك تجربة رياضية مميزة.",
-    keywords: ["Nervenkitzel = إثارة", "Sporterlebnis = تجربة رياضية"],
-    simplified: "هدية تجربة رياضية",
-    imagine: "🧠🪢 شاب يربط الحبل حول قدميه وهو يبتسم بحماس."
+    text: "Die Österreicherin Gerlinde Kaltenbrunner - Sie möchten mehr über die psychischen Aspekte des Klettersports erfahren.",
+    meaning: "محاضرة عن تسلق الجبال والإرادة والشغف والانضباط",
+    keywords: ["Bergsteigerin = متسلقة جبال", "Vortrag = محاضرة", "Leidenschaft = شغف", "Willensstärke = قوة إرادة"],
+    simplified: "قصة أقوى متسلقة جبال في العالم بدون أكسجين",
+    imagine: "امرأة تقف على منصة وصور جبال ثلجية خلفها",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam22_q4"] = {
-    text: "Spektakuläre Feuerwehrübung - Sie interessieren sich für Videos von besonderen Rettungseinsätzen.",
-    meaning: "تمرين إطفاء مذهل - أنت مهتم بمقاطع فيديو لعمليات إنقاذ خاصة.",
-    keywords: ["Feuerwehrübung = تمرين إطفاء", "Rettungseinsätzen = إنقاذ"],
-    simplified: "مشاهدة فيديوهات إنقاذ",
-    imagine: "🧠🔥 رجل يشاهد رجال إطفاء وهم يخمدون حريقاً."
+    text: "Nervenkitzel pur: Bungee-Jumping - Sie möchten einem Freund ein besonderes Sporterlebnis schenken.",
+    meaning: "فرصة القفز بالحبال من ارتفاع 100 متر فوق الماء",
+    keywords: ["Bungee-Jumping = قفز بالحبال", "Extremsportart = رياضة متطرفة", "Nachtspringe = قفز ليلي"],
+    simplified: "هدية مغامرة بالقفز من أعلى الجسر إلى الماء",
+    imagine: "شاب مربوط بحبل يقفز من أعلى جسر ويصيح والسماء زرقاء",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam22_q5"] = {
-    text: "Helfer und Helferinnen gesucht - Ein Freund von Ihnen möchte gerne bei einer Sportveranstaltung mitarbeiten.",
-    meaning: "مطلوب مساعدين ومساعدات - صديق لك يريد العمل في حدث رياضي.",
-    keywords: ["Helfer = مساعدين", "Sportveranstaltung = حدث رياضي"],
-    simplified: "المساعدة في حدث رياضي",
-    imagine: "🧠🏅 رجل يقف على جانب مضمار السباق ويشجع العدائين."
+    text: "Aktion 'Sauberes Grün' - Sie möchten dazu beitragen, Ihre Stadt schöner zu machen.",
+    meaning: "حملة تنظيف للحدائق والمتنزهات بمشاركة أفراد ومؤسسات",
+    keywords: ["Aktion = حملة", "sauber machen = تنظيف", "Grünflächen = مساحات خضراء"],
+    simplified: "أيام تطوع لتنظيف وتجميل حدائق مدينتك",
+    imagine: "أشخاص يرتدون قفازات ويجمعون القمامة في أكياس كبيرة",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam22_q6"] = {
-    text: "Aktion 'Sauberes Grün' - Sie möchten dazu beitragen, Ihre Stadt schöner zu machen.",
-    meaning: "حملة 'أخضر نظيف' - تريد المساهمة في جعل مدينتك أجمل.",
-    keywords: ["Aktion = حملة", "Sauberes = نظيف"],
-    simplified: "المساهمة في تجميل المدينة",
-    imagine: "🧠🌳 أشخاص يزرعون شجرة صغيرة في الحديقة."
+    text: "Tag der offenen Tür in der städtischen Bücherei - Ihre sechzehnjährige Cousine beschäftigt sich gerne mit kleinen Kindern.",
+    meaning: "تطوع لقراءة قصص للأطفال الصغار في المكتبة",
+    keywords: ["vorlesen = قراءة بصوت عال", "junge Leser = قراء صغار", "Ehrenamt = تطوع", "Kinderprogramm = برنامج أطفال"],
+    simplified: "فرصة تطوع لقراءة القصص للأطفال في يوم المكتبة المفتوح",
+    imagine: "فتاة مراهقة تجلس أمام طفلة صغيرة وتقرأ كتابا وعليها صور",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam22_q7"] = {
-    text: "Tag der offenen Tür in der städtischen Bücherei - Ihre sechzehnjährige Cousine beschäftigt sich gerne mit kleinen Kindern.",
-    meaning: "يوم مفتوح في المكتبة البلدية - ابنة عمك ذات الـ 16 سنة تحب التعامل مع الأطفال الصغار.",
-    keywords: ["Bücherei = مكتبة", "Cousine = ابنة عم"],
-    simplified: "مساعدة الأطفال في المكتبة",
-    imagine: "🧠👧 فتاة تحمل طفلاً صغيراً على ذراعيها وهو يضحك."
+    text: "Ihr Vater plant, eine Familienchronik zu schreiben - Ihr Vater plant, eine Familienchronik zu schreiben.",
+    meaning: "المتحف يبحث عن صور قديمة من المواطنين لمعرض قادم",
+    keywords: ["historische Aufnahmen = لقطات تاريخية", "private Bilder = صور شخصية", "Jubiläum = ذكرى سنوية"],
+    simplified: "المكتب الثقافي يبحث عن صور عائلية قديمة لعرضها",
+    imagine: "رجل عجوز يخرج ألبوم صور أصفر من تحت السرير",
+    correct: null
 };
 
 HELP_DATA["lesen3_exam22_q8"] = {
     text: "150 Jahre Stadtfeuerwehr - Ihr kleiner Bruder möchte einmal ein Feuerwehrauto aus der Nähe sehen.",
-    meaning: "150 سنة لإطفاء المدينة - أخوك الصغير يريد رؤية سيارة إطفاء عن قرب.",
-    keywords: ["Stadtfeuerwehr = إطفاء المدينة", "Feuerwehrauto = سيارة إطفاء"],
-    simplified: "رؤية سيارة إطفاء",
-    imagine: "🧠👦 ولد صغير يضع يده على سيارة إطفاء حمراء وعيناه واسعتان."
+    meaning: "يوم مفتوح مع سيارات إطفاء ومعدات وعروض حقيقية",
+    keywords: ["Jubiläum = ذكرى سنوية", "Feuerwehr = إطفاء", "Löschfahrzeug = سيارة إطفاء", "Leistungsschau = عرض قدرات"],
+    simplified: "يوم مفتوح للأطفال لمشاهدة سيارات الإطفاء عن قرب",
+    imagine: "طفل صغير يضع خوذة حمراء ويجلس في مقعد سيارة إطفاء ويبتسم",
+    correct: 9
 };
 
-// ============================================
-// Exam 23: Wein und Insekten
-// ============================================
+// ========== Exam 23: Wein und Insekten ==========
 
 HELP_DATA["lesen3_exam23_q1"] = {
-    text: "Auf unserer Homepage finden Sie Wetterberichte - Eine Bekannte fährt in Urlaub und möchte wissen, wie das Wetter in Italien ist.",
-    meaning: "على موقعنا تجد تقارير الطقس - إحدى المعارف تسافر في إجازة وتريد معرفة كيف سيكون الطقس في إيطاليا.",
-    keywords: ["Wetterberichte = تقارير طقس", "Urlaub = إجازة"],
-    simplified: "معرفة طقس إيطاليا",
-    imagine: "🧠☀️ امرأة تنظر إلى هاتفها لتتأكد من طقس الغد."
+    text: "Insektenwelten - der neue Insektenführer - Ein Nachbar sucht ein illustriertes Buch, um Insektenarten erkennen zu können.",
+    meaning: "دليل جيب يحتوي 1500 نوع حشرات أوروبية مع صور ورسومات ملونة",
+    keywords: ["Insektenführer = دليل حشرات", "Bestimmungsbuch = كتاب تعريف", "Arten = أنواع", "Fotos = صور"],
+    simplified: "كتيب مصور لكل أنواع الحشرات في أوروبا",
+    imagine: "رجل ينظر إلى خنفساء ثم يفتح كتابه الصغير",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam23_q2"] = {
-    text: "Wir bauen seit vier Generationen Wein an - Ihre Freundin interessiert sich für Bio-Weine und möchte Reisen und Arbeiten verbinden.",
-    meaning: "نزرع الكرم منذ أربعة أجيال - صديقتك مهتمة بالنبيذ العضوي وتريد الجمع بين السفر والعمل.",
-    keywords: ["Wein = نبيذ", "Reisen = سفر"],
-    simplified: "العمل والسفر مع النبيذ العضوي",
-    imagine: "🧠🍇 امرأة تقطف عنباً في كرم وتضعها في سلة."
+    text: "Der Sturm deckt das Dach Ihres Wohnhauses ab - Ein Sturm hat Ihr Auto beschädigt. Sie möchten wissen, was Sie nun machen sollen.",
+    meaning: "نصائح عن التأمين ضد أضرار الطقس وكيفية تجنبها والإجراءات اللازمة",
+    keywords: ["Unwetterschäden = أضرار طقس", "Versicherungen = تأمين", "Schadensfall = حالة ضرر"],
+    simplified: "دليل الحماية من أضرار العواصف والفيضانات",
+    imagine: "رجل واقف أمام سيارته وغطاء المحرك مطوي والرياح تهب",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam23_q3"] = {
-    text: "23. November: Vortrag Zeinab Schmidt-Hussain - Sie möchten gerne mehr über die Lebensbedingungen bei extremer Kälte erfahren.",
-    meaning: "23 نوفمبر: محاضرة زينب شميدت حسين - ترغب في معرفة المزيد عن ظروف المعيشة في البرد القارس.",
-    keywords: ["Vortrag = محاضرة", "extremen Kälte = برد قارس"],
-    simplified: "الحياة في البرد القارس",
-    imagine: "🧠❄️ شخص يقف في الثلج ويتجمد أنفاسه."
+    text: "Auf unserer Homepage finden Sie nicht nur aktuelle Wetterberichte - Eine Bekannte fährt في Urlaub und möchte wissen, wie das Wetter في Italien ist.",
+    meaning: "موقع أرصاد جوية يقدم توقعات لأوروبا والعالم وتحذيرات من العواصف",
+    keywords: ["Wetterberichte = تقارير طقس", "Vorhersagen = توقعات", "Unwetterwarnungen = تحذيرات عواصف"],
+    simplified: "تطبيق هاتف للطقس في أي مدينة في العالم",
+    imagine: "امرأة تنظر إلى شاشة هاتف وعليها شمس فوق خريطة إيطاليا",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam23_q4"] = {
-    text: "Sie sind auf der Suche nach dem besten Preis-Leistungs-Verhältnis - Sie sollen im Internet günstigen Wein für ein Familienfest bestellen.",
-    meaning: "أنت تبحث عن أفضل نسبة سعر إلى جودة - يجب عليك طلب نبيذ رخيص عبر الإنترنت لعطلة عائلية.",
-    keywords: ["Preis-Leistungs-Verhältnis = نسبة سعر إلى جودة", "Familienfest = عطلة عائلية"],
-    simplified: "طلب نبيذ رخيص للعائلة",
-    imagine: "🧠🍷 شخص يجلس أمام حاسبه ويطلب زجاجات نبيذ عبر الإنترنت."
+    text: "Für Liebhaber französischer Weine - Freunde von Ihnen möchten auf einer Reise im Ausland an Weinproben teilnehmen.",
+    meaning: "رحلات مخصصة لمناطق النبيذ الفرنسية مع زيارة مزارع وفنادق فاخرة",
+    keywords: ["Weinbaugebiete = مناطق نبيذ", "Frankreich = فرنسا", "Weingüter = مزارع نبيذ", "Verkostung = تذوق"],
+    simplified: "جولات سياحية لنبيذ فرنسا مع مبيت في قصور",
+    imagine: "زوجان يجلسان على طاولة وأكواب نبيذ أمامهما ومزارع خلف الزجاج",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam23_q5"] = {
-    text: "Für Liebhaber französischer Weine - Freunde von Ihnen möchten auf einer Reise im Ausland an Weinproben teilnehmen.",
-    meaning: "لعشاق النبيذ الفرنسي - أصدقاؤك يريدون المشاركة في تذوق النبيذ في رحلة إلى الخارج.",
-    keywords: ["Weine = نبيذ", "Weinproben = تذوق نبيذ"],
-    simplified: "تذوق نبيذ في الخارج",
-    imagine: "🧠🍷🍇 أصدقاء يجلسون حول طاولة ويشربون كؤوساً صغيرة."
+    text: "Wir bauen seit vier Generationen Wein an - Ihre Freundin interessiert sich für Bio-Weine und möchte Reisen und Arbeiten verbinden.",
+    meaning: "مزرعة نبيذ عضوي في إيطاليا تطلب مساعدين مقابل سكن وطعام",
+    keywords: ["Weingut = مزرعة نبيذ", "ökologischer Weinbau = زراعة عضوية", "Ernte = حصاد", "Helfer = مساعدين"],
+    simplified: "فرصة عمل موسمي في مزرعة نبيذ إيطالية مع إقامة مجانية",
+    imagine: "امرأة تقطف عنبا في حقل وبيت حجري قديم خلفها",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam23_q6"] = {
-    text: "Das Städtische Museum beherbergt eine Insektensammlung - Sie planen für den Kindergeburtstag Ihrer Tochter einen lehrreichen Nachmittag.",
-    meaning: "المتحف البلدي يضم مجموعة حشرات - تخطط ليوم تعليمي لحفلة عيد ميلاد ابنتك بعد الظهر.",
-    keywords: ["Insektensammlung = مجموعة حشرات", "Kindergeburtstag = عيد ميلاد أطفال"],
-    simplified: "زيارة تعليمية للأطفال",
-    imagine: "🧠🐞 أطفال يقفون حول علبة زجاجية بها حشرات."
+    text: "23. November: Vortrag Zeinab Schmidt-Hussain - Sie möchten gerne mehr über die Lebensbedingungen bei extremer Kälte erfahren.",
+    meaning: "محاضرة لعالمة مناخ عن حياتها في محطة أبحاث بالقطب الجنوبي",
+    keywords: ["Vortrag = محاضرة", "Klimaforscherin = عالمة مناخ", "Südpol = قطب جنوبي", "Temperaturen = درجات حرارة"],
+    simplified: "قصة عالمة في القطب الجنوبي تحت 40 درجة تحت الصفر",
+    imagine: "امرأة ترتدي معطفا ثقيلا وتنظر إلى جليد أزرق",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam23_q7"] = {
-    text: "Der Sturm deckt das Dach Ihres Wohnhauses ab - Ein Sturm hat Ihr Auto beschädigt. Sie möchten wissen, was Sie nun machen sollen.",
-    meaning: "العاصفة تكشف سطح منزلك - عاصفة تسببت في تلف سيارتك. تريد معرفة ما الذي يجب عليك فعله الآن.",
-    keywords: ["Sturm = عاصفة", "Auto = سيارة"],
-    simplified: "ماذا تفعل بعد تلف السيارة بعاصفة",
-    imagine: "🧠🚗💨 رجل يقف أمام سيارته وشجرة ساقطة بجانبها."
+    text: "Das Städtische Museum beherbergt auch eine bedeutende Insektensammlung - Sie planen für den Kindergeburtstag Ihrer Tochter einen lehrreichen Nachmittag.",
+    meaning: "متحف حشرات به نماذج عملاقة ومحاضرات مبسطة عن عالم الحشرات للأطفال",
+    keywords: ["Insektensammlung = مجموعة حشرات", "Kinder = أطفال", "Vorträge = محاضرات", "Modelle = نماذج", "Museum = متحف"],
+    simplified: "رحلة تعليمية ممتعة لمتحف الحشرات للصغار",
+    imagine: "طفلة تضع يدها على نموذج نحلة عملاقة ووالدها يصورها",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam23_q8"] = {
-    text: "Insektenwelten - der neue Insektenführer - Ein Nachbar sucht ein illustriertes Buch, um Insektenarten erkennen zu können.",
-    meaning: "عوالم الحشرات - دليل الحشرات الجديد - جار يبحث عن كتاب مصور للتعرف على أنواع الحشرات.",
-    keywords: ["Insektenführer = دليل حشرات", "Insektenarten = أنواع حشرات"],
-    simplified: "كتاب مصور للحشرات",
-    imagine: "🧠🐜 رجل يحمل عدسة مكبرة وينظر إلى خنفساء."
+    text: "Sie sollen im Internet günstigen Wein für ein Familienfest bestellen - Sie sollen im Internet günstigen Wein für ein Familienfest bestellen.",
+    meaning: "متجر إلكتروني يبيع أنواع نبيذ بأسعار مخفضة تصل إلى 40 بالمئة",
+    keywords: ["Online-Shop = متجر إلكتروني", "Sonderpreise = أسعار خاصة", "Rabatt = خصم", "Wein = نبيذ"],
+    simplified: "شراء نبيذ بأسعار الجملة عبر الإنترنت بخصم يصل لأربعين بالمئة",
+    imagine: "شخص يضغط زر الشراء على حاسوبه وزجاجات نبيذ تظهر على الشاشة",
+    correct: 8
 };
 
-// ============================================
-// Exam 24: Reiseführer
-// ============================================
+// ========== Exam 24: Reiseführer ==========
 
 HELP_DATA["lesen3_exam24_q1"] = {
     text: "Baden wie vor 2000 Jahren - Ein Bekannter möchte mit seiner zehnjährigen Tochter eine Ausstellung besuchen, es sollte auch Angebote für Kinder geben.",
-    meaning: "الاستحمام كما قبل 2000 سنة - أحد المعارف يريد زيارة معرض مع ابنته ذات العشر سنوات، ويجب أن تكون هناك عروض للأطفال أيضاً.",
-    keywords: ["Baden = استحمام", "Ausstellung = معرض"],
-    simplified: "معرض يناسب الأطفال",
-    imagine: "🧠🏛️ أب وابنته يقفان أمام نموذج لحمام روماني قديم."
+    meaning: "متحف تاريخ الاستحمام للأطفال مع رسوم كوميدية وألعاب تفاعلية",
+    keywords: ["Museum = متحف", "Badekultur = ثقافة الاستحمام", "Kinder = أطفال", "Comic = كوميكس", "Rallye = رالي"],
+    simplified: "رحلة في تاريخ الحمامات الرومانية مع أنشطة للأطفال",
+    imagine: "بنت صغيرة تقف أمام حوض روماني قديم ووالدها يشرح لها",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam24_q2"] = {
-    text: "Die Geschichte des Essens: Dessert - Ihr Bruder möchte einen Vortrag zu einem historischen Thema hören.",
-    meaning: "تاريخ الطعام: الحلوى - أخوك يريد الاستماع إلى محاضرة عن موضوع تاريخي.",
-    keywords: ["Geschichte = تاريخ", "Vortrag = محاضرة"],
-    simplified: "محاضرة تاريخية",
-    imagine: "🧠🍰 شاب جالس في قاعة محاضرات ويأخذ ملاحظات."
+    text: "Werden Sie Botschafter unserer Stadt! - Eine Freundin würde gerne als Stadtführerin arbeiten, hat aber noch keine Berufserfahrung.",
+    meaning: "دورة تدريبية لمدة 100 ساعة لتصبح مرشدا سياحيا معتمدا في كوبلنز",
+    keywords: ["Ausbildung = تدريب", "Stadtführer = مرشد سياحي", "Theorie = نظرية", "Praxis = تطبيق", "Fremdsprache = لغة أجنبية"],
+    simplified: "دورة تأهيلية لتصبح مرشدا سياحيا في مدينتك",
+    imagine: "امرأة تقف أمام مجموعة سياحية وتشير إلى نهر ومباني قديمة",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam24_q3"] = {
-    text: "Ein Blick hinter die Kulissen - Sie möchten wissen, wie Pflegeprodukte hergestellt werden.",
-    meaning: "نظرة خلف الكواليس - تريد معرفة كيفية صنع منتجات العناية.",
-    keywords: ["Kulissen = كواليس", "Pflegeprodukte = منتجات عناية"],
-    simplified: "كيف تُصنع منتجات العناية",
-    imagine: "🧠🏭 شخص يقف في مصنع وينظر إلى آلات كبيرة."
+    text: "Die Geschichte des Essens: Dessert - Ihr Bruder möchte einen Vortrag zu einem historischen Thema hören.",
+    meaning: "محاضرة عن تاريخ الحلويات وأقدم وصفة كعكة في العالم قبل 3000 سنة",
+    keywords: ["Vortrag = محاضرة", "Geschichte des Essens = تاريخ الطعام", "Dessert = حلوى", "Rezepte = وصفات", "Sumerer = سومريون"],
+    simplified: "قصة الحلويات عبر العصور من سومر إلى اليوم",
+    imagine: "رجل يجلس على كرسي ويستمع إلى مؤرخ يشرح كعكة سومرية قديمة",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam24_q4"] = {
-    text: "Rom bei Nacht - Sie möchten im Urlaub an einer besonderen Stadtführung teilnehmen.",
-    meaning: "روما ليلاً - ترغب في المشاركة في جولة مدينة خاصة أثناء الإجازة.",
-    keywords: ["Rom = روما", "Stadtführung = جولة مدينة"],
-    simplified: "جولة ليلية في روما",
-    imagine: "🧠🌙 شخصان يمشيان في شارع مضاء بالفوانيس."
+    text: "Echt sizilianisch! - Eine Freundin kocht gerne und sucht جديدة Anregungen",
+    meaning: "كتاب طبخ يحتوي 80 وصفة عائلية من المطبخ الصقلي مع صور ملونة",
+    keywords: ["Kochbuch = كتاب طبخ", "sizilianisch = صقلي", "Familienrezepte = وصفات عائلية", "Farbfotos = صور ملونة"],
+    simplified: "وصفات صقلية أصلية من مطبخ عائلة إيطالية",
+    imagine: "امرأة تقلب صفحات كتاب مليء بالصور وأطباق pasta و pizzas",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam24_q5"] = {
-    text: "Werden Sie Botschafter unserer Stadt! - Eine Freundin würde gerne als Stadtführerin arbeiten, hat aber noch keine Berufserfahrung.",
-    meaning: "كن سفيراً لمدينتنا! - صديقة تريد العمل كمرشدة سياحية في المدينة، ولكن ليس لديها خبرة مهنية بعد.",
-    keywords: ["Botschafter = سفير", "Stadtführerin = مرشدة مدينة"],
-    simplified: "العمل كمرشدة سياحية",
-    imagine: "🧠🧭 امرأة تقف أمام مجموعة سياح وهم يلتقطون الصور."
+    text: "Ein Bad fürs Leben - Ihre Schwester möchte bald ihr Bad renovieren lassen. Sie sucht Bilder von modernen Badezimmern.",
+    meaning: "كتاب به صور وأفكار لتجديد الحمامات بأنماط وألوان مختلفة",
+    keywords: ["Bad = حمام", "renovieren = تجديد", "Fotos = صور", "Grundrisse = مخططات", "Ausstattung = تجهيزات"],
+    simplified: "كتاب إلهام لتصميم حمامات عصرية لكل الأذواق",
+    imagine: "امرأة تحمل مجلة وصور حمام فاخر بالبلاط الرخامي",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam24_q6"] = {
-    text: "Zwei Meister am Herd - Sie mögen leichte Unterhaltung und würden gerne mal wieder richtig lachen.",
-    meaning: "سيدان في المطبخ - تحب الترفيه الخفيف وتريد الضحك بصوت عالٍ مرة أخرى.",
-    keywords: ["Unterhaltung = ترفيه", "lachen = يضحك"],
-    simplified: "كوميديا خفيفة للضحك",
-    imagine: "🧠😂 شخص يجلس في سينما ويضحك بشدة حتى تدمع عيناه."
+    text: "Ihre Tante möchte einen Vortrag über die Sehenswürdigkeiten Roms besuchen - Ihre Tante möchte einen Vortrag über die Sehenswürdigkeiten Roms besuchen.",
+    meaning: "دليل سياحي لروما يحتوي جولات مشي وأسواق ومطاعم وتطبيق مجاني للهاتف",
+    keywords: ["Stadtführer = دليل مدينة", "Rom = روما", "Sehenswürdigkeiten = معالم سياحية", "Spaziergänge = جولات مشي", "Shoppingtipps = نصائح تسوق"],
+    simplified: "دليل سياحي شامل لروما مع خرائط إلكترونية",
+    imagine: "امرأة مسنة تحمل خريطة وتقف أمام الكولوسيوم",
+    correct: null
 };
 
+HELP_DATA["lesen3_exam24_q7"] = {
+    text: "Rom bei Nacht - Sie möchten im Urlaub an einer besonderen Stadtführung teilnehmen.",
+    meaning: "جولة ليلية في روما في مجموعة صغيرة مع عشاء بيتزا وزيارة الكولوسيوم",
+    keywords: ["Stadtführung = جولة سياحية", "Rom = روما", "Nacht = ليل", "Pizza = بيتزا", "Kolosseum = كولوسيوم"],
+    simplified: "جولة رومانسية في روما بالليل مع عشاء إيطالي",
+    imagine: "زوجان يمشيان في شارع روماني قديم وأضواء صفراء وأعمدة أثرية",
+    correct: 7
+};
+
+HELP_DATA["lesen3_exam24_q8"] = {
+    text: "Ein Blick hinter die Kulissen - Sie möchten wissen, wie Pflegeprodukte hergestellt werden.",
+    meaning: "جولة في مصنع مستحضرات تجميل طبيعية من الألب مع عينات مجانية",
+    keywords: ["Fabrik = مصنع", "Naturkosmetik = مستحضرات تجميل طبيعية", "Führung = جولة إرشادية", "kostenfrei = مجاني", "Pröbchen = عينات"],
+    simplified: "جولة مجانية في مصنع كريمات وشامبو الجبال الألمانية",
+    imagine: "امرأة تنظر من نافذة زجاجية وآلات تمزج موادا بيضاء",
+    correct: 8
+};
+
+HELP_DATA["lesen3_exam24_q9"] = {
+    text: "Zwei Meister am Herd - Sie mögen leichte Unterhaltung und würden gerne mal wieder richtig lachen.",
+    meaning: "فيلم كوميدي عن طباخين أحدهم نجم والآخر بطال يتعاونان لإبهار نقاد الطعام",
+    keywords: ["Filmkomödie = فيلم كوميدي", "Spitzenkoch = طباخ نجم", "Kritiker = نقاد", "Witz = نكتة", "Humor = فكاهة"],
+    simplified: "فيلم طهي مضحك عن طباخ محترف وآخر مهمل معا",
+    imagine: "رجلان في مطبخ والقدر يطير في الهواء وهما يضحكان",
+    correct: 9
+};
+
+
 // ============================================
-// Exam 25: Gartenbau
+// Lesen Teil 3 - Exams 25-36 (فقط الأسئلة الصحيحة)
 // ============================================
 
+// ========== Exam 25: Gartenbau ==========
+
 HELP_DATA["lesen3_exam25_q1"] = {
-    text: "Die 'Gärten der Welt' sind zehn Themengärten - Ihr Nachbar beschäftigt sich gerne mit Architektur. Er möchte an einem freien Nachmittag spazierengehen und dabei interessante Bauwerke ansehen.",
-    meaning: "'حدائق العالم' هي عشرة حدائق ذات مواضيع - جارك مهتم بالهندسة المعمارية. يريد القيام بنزهة بعد ظهر يوم حر ورؤية المباني المثيرة للاهتمام.",
-    keywords: ["Gärten = حدائق", "Architektur = عمارة"],
-    simplified: "نزهة لمشاهدة المباني القديمة",
-    imagine: "🧠🏛️ رجل يمشي بجانب مبنى قديم وينظر إلى تفاصيله."
+    text: "Meisterwerke der Gartenarchitektur - Ein Kollege sammelt Bücher über Gartengestaltung في unterschiedlichen Ländern und Epochen.",
+    meaning: "كتاب مصور عن حدائق العالم من العصور القديمة إلى الحديثة",
+    keywords: ["Gartenarchitektur = هندسة حدائق", "Bildband = كتاب مصور", "italienisch = إيطالي", "französisch = فرنسي", "chinesisch = صيني"],
+    simplified: "كتاب مصور عن أجمل حدائق العالم عبر التاريخ",
+    imagine: "رجل يقلب صفحات كتاب مليء بصور حدائق قصور فرساي",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam25_q2"] = {
-    text: "Nach rechts, nach links oder geradeaus? - Sie möchten mit Ihrem zehnjährigen Sohn in der freien Natur einen abenteuerlichen und unterhaltsamen Nachmittag verbringen.",
-    meaning: "إلى اليمين، إلى اليسار أو بشكل مستقيم؟ - تريد قضاء فترة بعد ظهر مليئة بالمغامرة والمرح مع ابنك ذي العشر سنوات في الطبيعة المفتوحة.",
-    keywords: ["Irrgarten = متاهة", "Abenteuer = مغامرة"],
-    simplified: "مغامرة في الطبيعة مع الابن",
-    imagine: "🧠🌳🌿 أب وابنه يمشيان بين أشجار طويلة ويبحثان عن مخرج."
+    text: "Baden und Schwimmen ist nicht nur gesund - Eine Kollegin interessiert sich für Kultur- und Stadtgeschichte.",
+    meaning: "معرض تاريخي عن ثقافة الاستحمام في فرانكفورت عبر العصور",
+    keywords: ["Ausstellung = معرض", "Badekultur = ثقافة استحمام", "Frankfurt = فرانكفورت", "Mittelalter = قرون وسطى"],
+    simplified: "معرض عن تاريخ الحمامات العامة في فرانكفورت",
+    imagine: "امرأة تقف أمام صورة قديمة لحوض استحمام روماني",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam25_q3"] = {
-    text: "Palmen in der Großstadt - Ihre Tante möchte exotische Vögel beobachten.",
-    meaning: "النخيل في المدينة الكبيرة - خالتك تريد مراقبة الطيور الغريبة.",
-    keywords: ["Palmen = نخيل", "exotische Vögel = طيور غريبة"],
-    simplified: "مراقبة الطيور الغريبة",
-    imagine: "🧠🐦🦜 امرأة تحمل منظاراً وتنظر إلى ببغاء ملون."
+    text: "Die 'Gärten der Welt' sind zehn Themengärten - Ihr Nachbar beschäftigt sich gerne mit Architektur. Er möchte an einem freien Nachmittag spazierengehen und dabei interessante Bauwerke ansehen.",
+    meaning: "حدائق عالمية في برلين تجمع عمارة الحدائق الصينية واليابانية والعربية",
+    keywords: ["Gärten = حدائق", "Themengärten = حدائق موضوعية", "chinesisch = صيني", "japanisch = ياباني", "Brücken = جسور", "Pavillons = أكشاك"],
+    simplified: "جولة في حدائق تعرض عمارة وتصميمات من كل العالم",
+    imagine: "رجل واقف أمام جسر أحمر على طريقة الحدائق الصينية",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam25_q4"] = {
-    text: "Erholung vom Alltagsstress - Ihre Nichte studiert Kunst und möchte sich Bilder mit Naturmotiven ansehen.",
-    meaning: "الاسترخاء من ضغوط الحياة اليومية - ابنة أختك تدرس الفن وتريد مشاهدة لوحات ذات طابع طبيعي.",
-    keywords: ["Erholung = استرخاء", "Naturmotiven = طابع طبيعي"],
-    simplified: "لوحات ذات طابع طبيعي",
-    imagine: "🧠🖼️🌻 فتاة تقف أمام لوحة لزهور عباد الشمس."
+    text: "Einen Garten ganz nach den eigenen Vorstellungen anlegen - Ihre Mutter möchte den Garten neu gestalten und sucht Tipps من der Praxis.",
+    meaning: "كتاب إرشادي لتصميم الحدائق مع صور ورسومات ونصائح عملية",
+    keywords: ["Gartenbau = بستنة", "Anleitungen = إرشادات", "Bepflanzung = زراعة", "Gartenarchitektur = هندسة حدائق"],
+    simplified: "دليل عملي لتصميم حديقة الأحلام وزراعتها",
+    imagine: "امرأة تخطط لحديقتها على ورقة وأمامها كتاب مفتوح عن الزهور",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam25_q5"] = {
-    text: "Meisterwerke der Gartenarchitektur - Ein Kollege sammelt Bücher über Gartengestaltung in unterschiedlichen Ländern und Epochen.",
-    meaning: "روائع العمارة الحدائقية - زميل يجمع كتباً عن تصميم الحدائق في بلدان وعصور مختلفة.",
-    keywords: ["Gartenarchitektur = عمارة حدائقية", "Gartengestaltung = تصميم حدائق"],
-    simplified: "كتب عن تصميم الحدائق",
-    imagine: "🧠📚🏰 رجل يقلب صفحات كتاب فيه صور لحدائق قديمة."
+    text: "Erholung vom Alltagsstress und Ruhe findet man im Garten - Ihre Nichte studiert Kunst und möchte sich Bilder mit Naturmotiven ansehen.",
+    meaning: "معرض لأكثر من 100 لوحة و رسم لحدائق من العصور الوسطى حتى اليوم",
+    keywords: ["Ausstellung = معرض", "Gartenbilder = لوحات حدائق", "Gemälde = لوحات", "Zeichnungen = رسومات", "Künstler = فنانين"],
+    simplified: "معرض فني يوثق جمال الحدائق في لوحات الزيتية",
+    imagine: "فتاة تقف أمام لوحة زيتية لحديقة ملونة وأزهارها تتفتح",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam25_q6"] = {
-    text: "Einen Garten ganz nach den eigenen Vorstellungen anlegen - Ihre Mutter möchte den Garten neu gestalten und sucht Tipps aus der Praxis.",
-    meaning: "إنشاء حديقة حسب رغباتك الخاصة - والدتك تريد إعادة تصميم الحديقة وتبحث عن نصائح عملية.",
-    keywords: ["Garten = حديقة", "Tipps = نصائح"],
-    simplified: "نصائح لتنسيق الحدائق",
-    imagine: "🧠🌱👩 امرأة تجلس على العشب وتقرأ كتاباً عن الزراعة."
+    text: "Obst und Gemüse im Garten anbauen - Ihre Schwester sucht einen Garten, in dem sie sich von ihrem anstrengenden Beruf erholen kann.",
+    meaning: "حدائق منزلية صغيرة متاحة للإيجار في مدينة إنغرز لهواة البستنة",
+    keywords: ["Kleingartenverein = جمعية حدائق صغيرة", "Garten bewirtschaften = زراعة حديقة", "Erholung = استرخاء", "frei = متاحة"],
+    simplified: "فرصة لاستئجار قطعة أرض صغيرة للزراعة والاسترخاء",
+    imagine: "امرأة تحمل سلة خضروات طازجة من حديقتها الصغيرة",
+    correct: 7
 };
 
-// ============================================
-// Exam 26: Haushaltshilfe
-// ============================================
+HELP_DATA["lesen3_exam25_q7"] = {
+    text: "Palmen in der Großstadt - Ihre Tante möchte exotische Vögel beobachten.",
+    meaning: "حديقة نباتية في فرانكفورت مع نخيل و ببغاوات وأسماك استوائية",
+    keywords: ["Palmengarten = حديقة نخيل", "Papageien = ببغاوات", "subtropisch = شبه استوائي", "Aquarien = أحواض سمك"],
+    simplified: "حديقة استوائية وسط المدينة مع طيور ملونة ونخيل عالي",
+    imagine: "امرأة تنظر إلى ببغاء أحمر في قفير زجاجي والنخيل حولها",
+    correct: 8
+};
+
+HELP_DATA["lesen3_exam25_q8"] = {
+    text: "Nach rechts, nach links oder geradeaus? - Sie möchten mit Ihrem zehnjährigen Sohn في der freien Natur einen abenteuerlichen und unterhaltsamen Nachmittag verbringen.",
+    meaning: "حديقة متاهة لجميع الأعمار بمسافة 4 كيلومترات وأبراج مراقبة",
+    keywords: ["Irrgarten = حديقة متاهة", "Labyrinth = متاهة", "Familie = عائلة", "Aussichtsturm = برج مراقبة", "Nervenkitzel = تشويق"],
+    simplified: "متاهة خضراء عملاقة مع أبراج للعائلات والأطفال",
+    imagine: "ولد صغير يركض في ممر بين شجيرات طويلة وأبوه يتبعه ويضحكان",
+    correct: 9
+};
+
+// ========== Exam 26: Haushaltshilfe ==========
 
 HELP_DATA["lesen3_exam26_q1"] = {
-    text: "Die Produktion und der Verbrauch von Kunststoff steigen - Sie möchten in Ihrem Haushalt weniger Plastik verwenden.",
-    meaning: "إنتاج واستهلاك البلاستيك في ازدياد - تريد استخدام بلاستيك أقل في منزلك.",
-    keywords: ["Kunststoff = بلاستيك", "Haushalt = منزل"],
-    simplified: "تقليل استخدام البلاستيك",
-    imagine: "🧠🛍️🚫 شخص يحمل كيس قماش بدلاً من كيس بلاستيكي."
+    text: "Brauchen Sie Unterstützung im Haushalt? - Ein Bekannter sucht eine Haushaltshilfe, die manchmal im Garten hilft.",
+    meaning: "مساعدة منزلية للتنظيف والكي و الطهي وأعمال الحديقة ورياض الأطفال",
+    keywords: ["Haushalt = منزل", "Gartenarbeit = أعمال حديقة", "zuverlässig = موثوق", "Erfahrung = خبرة"],
+    simplified: "مساعدة منزلية تعتني بالتنظيف والحديقة والطبخ",
+    imagine: "رجل واقف أمام بابه يجلس مع امرأة تحمل مكنسة وجزازة عشب",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam26_q2"] = {
-    text: "BÄCKEREI - KONDITOREI BROTECKE - Eine Freundin möchte einmal einen Tag lang in einer Bäckerei arbeiten.",
-    meaning: "مخبز - حلويات بروتيكه - صديقة تريد العمل في مخبز ليوم واحد.",
-    keywords: ["BÄCKEREI = مخبز", "arbeiten = يعمل"],
-    simplified: "تجربة العمل في مخبز",
-    imagine: "🧠🥖👩 امرأة تقف في مخبز وتعجن العجين."
+    text: "Intensivkurs zur Dekorateurin - Eine Bekannte möchte lernen, wie man Schaufenster gestaltet.",
+    meaning: "دورة تركيز لمدة أربعة أسابيع لتعلم فن التزيين وعرض المنتجات في المتاجر",
+    keywords: ["Dekorateurin = مزينة", "Auslagen = واجهات عرض", "Verkaufsräume = قاعات بيع", "Werkstoffe = مواد", "Arbeitstechniken = تقنيات عمل"],
+    simplified: "دورة تدريبية لتصميم وتزيين واجهات المتاجر الجذابة",
+    imagine: "امرأة تعلق ملابسا ملونة على مانيكان في واجهة زجاجية",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam26_q3"] = {
-    text: "Brauchen Sie Unterstützung im Haushalt? - Ein Bekannter sucht eine Haushaltshilfe, die manchmal im Garten hilft.",
-    meaning: "هل تحتاجين إلى مساعدة في المنزل؟ - أحد المعارف يبحث عن مساعدة منزلية تساعد أحياناً في الحديقة.",
-    keywords: ["Unterstützung = مساعدة", "Garten = حديقة"],
-    simplified: "مساعدة منزلية تعتني بالحديقة",
-    imagine: "🧠🧹🌿 رجل يقف أمام منزله وامرأة تحمل مقص أشجار بجانبه."
+    text: "TORTEN UND MEHR... - Eine Freundin möchte eine besondere Party für ihre siebenjährige Tochter organisieren.",
+    meaning: "دورة طبخ كب كيك للأطفال مع تزيين وتصميم للحفلات الخاصة",
+    keywords: ["Cupcakes = كب كيك", "Kinder = أطفال", "Geburtstagsfeiern = حفلات عيد ميلاد", "dekorieren = تزيين", "Spritzbeutel = كيس تزيين"],
+    simplified: "حفلة تعلم الأطفال تزيين وتزيين الكب كيك",
+    imagine: "أطفال صغار يرتدون مآزر وممسكين بأنابيب كريمة ملونة",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam26_q4"] = {
-    text: "Intensivkurs zur Dekorateurin/zum Dekorateur - Eine Bekannte möchte lernen, wie man Schaufenster gestaltet.",
-    meaning: "دورة مكثفة لتصبح ديكورية/ديكوري - إحدى المعارف تريد تعلم كيفية تصميم واجهات المتاجر.",
-    keywords: ["Dekorateurin = ديكورية", "Schaufenster = واجهات متاجر"],
-    simplified: "تصميم واجهات المتاجر",
-    imagine: "🧠🪞👗 امرأة تقف أمام نافذة متجر وتعلق الملابس."
+    text: "BÄCKEREI - KONDITOREI BROTECKE - Eine Freundin möchte einmal einen Tag lang في einer Bäckerei arbeiten.",
+    meaning: "فرصة تدريب وزيارة لمخبز لتعلم مهن الخباز والحلواني",
+    keywords: ["Ausbildungsmöglichkeiten = فرص تدريب", "Bäcker = خباز", "Konditor = حلواني", "Schnuppertag = يوم تعريفي", "Praktikum = تدريب عملي"],
+    simplified: "تجربة عمل ليوم واحد في مخبز لصنع الخبز والحلويات",
+    imagine: "امرأة تعجن عجينة في مخبز والفرن يخرج خبزا ذهبيا",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam26_q5"] = {
-    text: "Rebecca, 38. Ich bin auf der Suche nach Familien - Ihre Mutter braucht jemanden, der im Haushalt hilft und manchmal kocht.",
-    meaning: "ريبيكا، 38. أنا أبحث عن عائلات - والدتك تحتاج إلى شخص يساعد في المنزل ويطبخ أحياناً.",
-    keywords: ["Haushalt = منزل", "kocht = يطبخ"],
-    simplified: "مساعدة منزلية تطبخ",
-    imagine: "🧠🍲👵 امرأة تجلس على كرسي وشخص آخر يحضر لها الطعام في المطبخ."
+    text: "Während der dreijährigen Ausbildung zur Buchhändlerin - Ihr Neffe liest gerne und möchte sein Hobby zu seinem Beruf machen.",
+    meaning: "تدريب لمدة ثلاث سنوات لتصبح بائع كتب مع تعلم تنظيم الفعاليات",
+    keywords: ["Buchhändlerin = بائعة كتب", "Ausbildung = تدريب", "Sortiment = تشكيلة", "Events = فعاليات", "Autorenlesungen = قراءات كُتّاب"],
+    simplified: "فرصة تدريب في مكتبة لتحب الكتب وتحب العمل مع الناس",
+    imagine: "شاب يرتب كتبا على رف طويل وقارئ يختار أحدها مبتسما",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam26_q6"] = {
-    text: "TORTEN UND MEHR... - Eine Freundin möchte eine besondere Party für ihre siebenjährige Tochter organisieren.",
-    meaning: "كعك والمزيد... - صديقة تريد تنظيم حفلة خاصة لابنتها ذات السبع سنوات.",
-    keywords: ["TORTEN = كعك", "Party = حفلة"],
-    simplified: "تنظيم حفلة لطفلة",
-    imagine: "🧠🎂🎈 امرأة تنفخ بالوناً وطفلة صغيرة بجانبها تبتسم."
+    text: "Rebecca, 38. Ich bin auf der Suche nach Familien - Ihre Mutter braucht jemanden, der im Haushalt hilft und manchmal kocht.",
+    meaning: "مساعدة منزلية ذات خبرة للتنظيف والكي وإعداد الوجبات ورعاية الأطفال",
+    keywords: ["Unterstützung = دعم", "Haushalt = منزل", "Kinderbetreuung = رعاية أطفال", "Mahlzeiten zubereiten = إعداد وجبات"],
+    simplified: "مساعدة منزلية موثوقة تنظف وتطبخ وتعتنى بالأطفال",
+    imagine: "امرأة تغسل أطباقا في مطبخ كبير وطفل صغير يأكل بجانبها",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam26_q7"] = {
     text: "LIZZIS BACKSTUBE - Sie möchten für Ihren Sohn eine Geburtstagstorte bestellen. Ihr Sohn verträgt keine Laktose.",
-    meaning: "ليزيز باكشتوبه - تريد طلب كعكة عيد ميلاد لابنك. ابنك لا يتحمل اللاكتوز.",
-    keywords: ["BACKSTUBE = مخبز صغير", "Geburtstagstorte = كعكة عيد ميلاد"],
-    simplified: "كعكة خالية من اللاكتوز",
-    imagine: "🧠🎂❌ أم تنظر إلى كعكة جميلة وتسأل: هل فيها حليب؟"
+    meaning: "مخبز مخصص للحلويات يقدم كعكات خالية من الجلوتين ولاكتوز ونباتية حسب الطلب",
+    keywords: ["Konditorei = محل حلويات", "Hochzeitstorten = كعكات زفاف", "laktosefrei = خال من اللاكتوز", "glutenfrei = خال من الجلوتين", "vegan = نباتي"],
+    simplified: "تورتات مخصصة حسب الطلب لمرضى الحساسية و نباتيين",
+    imagine: "طفل صغير ينظر إلى كعكة ملونة مكتوب عليها اسمه بطريقة سحرية",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam26_q8"] = {
-    text: "Während der dreijährigen Ausbildung zur Buchhändlerin - Ihr Neffe liest gerne und möchte sein Hobby zu seinem Beruf machen.",
-    meaning: "خلال التدريب المهني لمدة ثلاث سنوات ليصبح بائع كتب - ابن أختك يحب القراءة ويريد تحويل هوايته إلى مهنته.",
-    keywords: ["Buchhändlerin = بائعة كتب", "Hobby = هواية"],
-    simplified: "تحويل القراءة إلى مهنة",
-    imagine: "🧠📚👦 شاب يقف في مكتبة ويمسك كتاباً بين يديه ويبتسم."
+    text: "Die Produktion und der Verbrauch von Kunststoff steigen - Sie möchten في Ihrem Haushalt weniger Plastik verwenden.",
+    meaning: "أفكار ونصائح لتقليل استخدام البلاستيك في المنزل بشكل تدريجي",
+    keywords: ["Kunststoff = بلاستيك", "Verpackungsmüll = نفايات تغليف", "Haushalt = منزل", "verzichten = الاستغناء عن"],
+    simplified: "دليل عملي للاستغناء التدريجي عن البلاستيك في بيتك",
+    imagine: "سيدة تخرج بضائع من أكياس قماشية وتضعها في برطمانات زجاجية",
+    correct: 9
 };
 
-// ============================================
-// Exam 27: Einwanderung
-// ============================================
+// ========== Exam 27: Einwanderung ==========
 
 HELP_DATA["lesen3_exam27_q1"] = {
     text: "14.01. - 10:00 Uhr (VOX) McLeods Töchter - Sie möchten sich einen Dokumentarfilm über die Einwanderung nach Australien und über den damit verbundenen Prozess ansehen.",
-    meaning: "14.01 - 10:00 صباحاً (VOX) بنات ماكلاود - تريد مشاهدة فيلم وثائقي عن الهجرة إلى أستراليا والعملية المرتبطة بها.",
-    keywords: ["Einwanderung = هجرة", "Australien = أستراليا"],
-    simplified: "فيلم وثائقي عن الهجرة لأستراليا",
-    imagine: "🧠🦘📺 شخص يشاهد تلفازاً وفيه طائرة تهبط في مطار سيدني."
+    meaning: "فيلم درامي عن إيطالي يعيش بطريقة غير شرعية في أستراليا ويواجه مشاكل الهجرة",
+    keywords: ["Einwanderungsbehörde = دائرة الهجرة", "Australien = أستراليا", "illegal = غير قانوني", "Aufenthaltsgenehmigung = تصريح إقامة"],
+    simplified: "قصة عاشق إيطالي في خطر الترحيل من أستراليا",
+    imagine: "رجل وامرأة يقفان أمام مكتب هجرة ووجههما متوتر",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam27_q2"] = {
-    text: "14.01. - 16:00 Uhr (VOX) auf und davon - Ein junges Mädchen möchte später als Au-pair oder Austauschschülerin ins Ausland gehen und deshalb interessiert es sich für das Thema.",
-    meaning: "14.01 - 16:00 (VOX) انطلق وابتعد - فتاة صغيرة تريد الذهاب إلى الخارج لاحقاً كفتاة سفر (أو باي) أو طالبة تبادل ولذلك فهي مهتمة بالموضوع.",
-    keywords: ["Au-pair = فتاة سفر", "Austauschschülerin = طالبة تبادل"],
-    simplified: "برامج السفر للخارج للشابات",
-    imagine: "🧠👧✈️ فتاة مراهقة تجلس أمام حاسوبها وتتصفح برامج التبادل الثقافي."
+    text: "14.01. - 16:00 Uhr (VOX) auf und davon - Ein junges Mädchen möchte später als Au-pair oder Austauschschülerin ins Ausland gehen deshalb interessiert es sich für das Thema.",
+    meaning: "وثائقي عن تجارب شباب ألمانيا في الخارج كمربيات أطفال أو طلاب تبادل",
+    keywords: ["Au-pair = مربية أطفال", "Austauschschüler = طالب تبادل", "Ausland = خارج البلاد", "Dokumentation = فيلم وثائقي"],
+    simplified: "قصة طالبة ألمانية تترك عائلتها لتجربة الحياة في الخارج",
+    imagine: "فتاة تحمل حقيبة ظهر وتقف أمام طائرة تبتسم",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam27_q3"] = {
     text: "SPIEGEL TV Thema: Die Chemie des Todes - Ein Mann interessiert sich für die Aufdeckung von Verbrechen, die früher nicht gelöst werden konnten.",
-    meaning: "موضوع قناة شبيغل تي في: كيمياء الموت - رجل مهتم بكشف الجرائم التي لم يتم حلها سابقاً.",
-    keywords: ["Verbrechen = جرائم", "aufdecken = يكشف"],
-    simplified: "كشف الجرائم القديمة",
-    imagine: "🧠🔬🧪 عالم يرتدي معطفاً أبيض وينظر إلى عينة تحت المجهر."
+    meaning: "فيلم وثائقي عن تقنيات الطب الشرعي الحديثة لحل جرائم القتل المستعصية",
+    keywords: ["Forensiker = طب شرعي", "Kriminaltechnik = تقنيات إجرامية", "Mordfälle = قضايا قتل", "mikroskopisch = مجهري"],
+    simplified: "كيف تحل الشرطة الجرائم القديمة ببصمات مجهرية تحت الميكروسكوب",
+    imagine: "رجل يرتدي معطفا أبيض يفحص عينة تحت مجهر في مختبر",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam27_q4"] = {
-    text: "16.01.2008 - 22:50 Uhr BBC Exklusiv - Sie schwärmen für Krimis, die auf Grund tatsächlicher Fälle rekonstruiert wurden.",
-    meaning: "16.01.2008 - 22:50 بي بي سي حصري - أنت متحمس لأفلام الجريمة التي تم إعادة بنائها بناءً على قضايا حقيقية.",
-    keywords: ["Krimis = أفلام جريمة", "tatsächlicher Fälle = قضايا حقيقية"],
-    simplified: "أفلام جريمة واقعية",
-    imagine: "🧠🔍🕵️ رجل يجلس على أريكته ويشاهد فيلماً عن تحقيق جنائي."
+    text: "Sie haben großes Interesse daran, wie mithilfe von Computertechnik das Wetter an verschiedenen Orten der Welt vorhergesagt werden kann.",
+    meaning: "فيلم وثائقي عن آلية عمل الطقس مع رسومات حاسوبية وأرشيف نادر",
+    keywords: ["Wetter = طقس", "Dokumentation = فيلم وثائقي", "Computeranimationen = رسومات حاسوبية", "Wettermaschine = آلة الطقس"],
+    simplified: "فيلم يشرح خفايا الطقس في أقصى بقاع الأرض",
+    imagine: "شخص يقف أمام خريطة الطقس على شاشة عملاقة وعيون الشاشة على حركة السحب",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam27_q5"] = {
     text: "Jamie At Home (RTL2) Samstags - Sie suchen ein Gartenmagazin, aus dem Sie alles über den Anbau von Gemüse- und Obstsorten erfahren können.",
-    meaning: "جيمي في المنزل (RTL2) أيام السبت - تبحث عن مجلة بستنة تتعرف من خلالها على كل شيء عن زراعة الخضروات والفواكه.",
-    keywords: ["Gartenmagazin = مجلة بستنة", "Anbau = زراعة"],
-    simplified: "مجلة عن زراعة الخضروات",
-    imagine: "🧠🌽🍅 رجل يقف في حديقة منزله ويقطف طماطماً حمراء."
+    meaning: "برنامج طبخ ياباني عن زراعة الخضار واستخدامها مباشرة من الحديقة للمطبخ",
+    keywords: ["Garten = حديقة", "Gemüse = خضروات", "Rezepte = وصفات", "anbauen = زراعة", "ernten = حصاد"],
+    simplified: "طباخ مشهور يزرع خضاره بنفسه ويطهوه بأسهل طريقة",
+    imagine: "رجل يقف في حديقة ويمسك طماطم حمراء طازجة في يده",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam27_q6"] = {
     text: "Die Wahrheit und nichts als die Wahrheit - Sie möchten sich eine Quizsendung ansehen, an der Familienmitglieder teilnehmen.",
-    meaning: "الحقيقة ولا شيء غير الحقيقة - تريد مشاهدة برنامج مسابقات يشارك فيه أفراد العائلة.",
-    keywords: ["Quizsendung = برنامج مسابقات", "Familienmitglieder = أفراد عائلة"],
-    simplified: "برنامج مسابقات عائلي",
-    imagine: "🧠📺🤔 عائلة جالسة على أريكة تشاهد برنامج مسابقات وتصرخ بالإجابات."
+    meaning: "برنامج مسابقات تلفزيوني عائلي يربح المشاركون المال عن الإجابة الصادقة على أسئلة شخصية",
+    keywords: ["Show = برنامج", "Quiz = مسابقة", "Familien = عائلات", "Wahrheit = حقيقة", "Fragen = أسئلة"],
+    simplified: "برنامج مسابقات عائلي يجيب أفراد الأسرة عن أسئلة محرجة",
+    imagine: "عائلة تجلس على منصة واستوديو تلفزيوني وجمهور يصفق",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam27_q7"] = {
-    text: "ML Mona Lisa (ZDF) - Traumurlaub ganz anders - Eine Bekannte von Ihnen sucht einen Reisefilm, ähnlich dem 'Traumschiff', in dem es während eines Reiseaufenthaltes alles über den Aufenthaltsort gezeigt wird.",
-    meaning: "إم إل موناليزا (ZDF) - عطلة أحلام مختلفة تماماً - إحدى معارفك تبحث عن فيلم سفر شبيه بـ 'سفينة الأحلام' يُعرض فيه كل شيء عن مكان الإقامة أثناء الرحلة.",
-    keywords: ["Reisefilm = فيلم سفر", "Traumschiff = سفينة أحلام"],
-    simplified: "فيلم سفر سياحي",
-    imagine: "🧠🛳️🏝️ امرأة تشاهد التلفاز وترى سفينة سياحية كبيرة على الشاشة."
+    text: "ML Mona Lisa (ZDF) - Traumurlaub ganz anders - Eine Bekannte von Ihnen sucht einen Reisefilm, ähnlich dem 'Traumschiff', في dem während eines Reiseaufenthaltes alles über den Aufenthaltsort gezeigt wird.",
+    meaning: "فيلم عن طبيبة أسنان تتطوع في أكبر مستشفى عائم في العالم في إفريقيا",
+    keywords: ["Ärzteschiff = سفينة طبية", "Urlaub = عطلة", "Afrika = إفريقيا", "Kreuzfahrtschiff = سفينة سياحية", "Klinik = عيادة"],
+    simplified: "رحلة استثنائية على سفينة مستشفى وليس سفينة سياحية",
+    imagine: "امرأة ترتدي معطف طبيب أبيض تقف على ظهر سفينة كبيرة بجانبها معدات طبية",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam27_q8"] = {
-    text: "Bauer sucht Frau Episode: Folge 3 - Ein Mann interessiert sich für das Bauernleben und sucht deshalb eine passende Sendung.",
-    meaning: "مزارع يبحث عن زوجة الحلقة 3 - رجل مهتم بحياة المزارعين ولذلك يبحث عن برنامج مناسب.",
-    keywords: ["Bauer = مزارع", "Bauernleben = حياة مزارع"],
-    simplified: "برنامج عن حياة المزارعين",
-    imagine: "🧠🐄🚜 رجل يجلس أمام التلفاز ويشاهد مزارعاً يحلب بقرة."
+    text: "Bauer sucht Frau - Ein Mann interessiert sich für das Bauernleben und sucht deshalb eine passende Sendung.",
+    meaning: "برنامج تلفزيوني واقعي عن مزارعين ألمان يبحثون عن شريكات لحياتهم في مزارعهم",
+    keywords: ["Bauer = مزارع", "Bauernhof = مزرعة", "Schweine = خنازير", "Biobauer = مزارع عضوي", "Familie = عائلة"],
+    simplified: "برنامج عن مزارعين حقيقيين يبحثون عن حب في الريف الألماني",
+    imagine: "رجل واقف في حظيرة خنازير وامرأة تبتسم بجانبه وجماهير تشاهد من الشاشة",
+    correct: 9
 };
 
-// ============================================
-// Exam 28: Musikinstrumente
-// ============================================
+// ========== Exam 28: Musikinstrumente ==========
 
 HELP_DATA["lesen3_exam28_q1"] = {
     text: "Deutsch im Beruf - An Ihrem Arbeitsplatz müssen Sie viele deutsche Geschäftsbriefe schreiben, sind aber oft unsicher und suchen einen entsprechenden Kurs.",
-    meaning: "الألمانية في العمل - في مكان عملك، يجب أن تكتب العديد من الرسائل التجارية الألمانية، ولكنك غالباً ما تكون غير متأكد وتبحث عن دورة تدريبية مناسبة.",
-    keywords: ["Geschäftsbriefe = رسائل تجارية", "Kurs = دورة"],
-    simplified: "دورة في كتابة الرسائل التجارية",
-    imagine: "🧠✉️💼 رجل يجلس أمام حاسوبه وينظر إلى شاشة فارغة ولا يعرف ماذا يكتب."
+    meaning: "دورة يوم السبت لتعلم قواعد كتابة الرسائل والإيميلات الرسمية باللغة الألمانية",
+    keywords: ["Geschäftsbriefe = رسائل عمل", "E-Mails = بريد إلكتروني", "Telefonieren = مكالمات هاتفية", "Rechtschreibung = إملاء", "Grammatik = قواعد"],
+    simplified: "دورات تحسين الألمانية الكتابية لأغراض العمل والمراسلات",
+    imagine: "موظف يمسك قلمه ويصحح رسالة أمام حاسبه المكتبي",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam28_q2"] = {
     text: "Grundlagen der Pressearbeit für Vereine - Ihr Freund ist Vorsitzender eines Golfclubs und muss immer wieder Informationen an die Medien geben. Er möchte diese Aufgabe professionell erledigen.",
-    meaning: "أساسيات العمل الصحفي للأندية - صديقك هو رئيس نادي غولف وعليه أن يقدم معلومات لوسائل الإعلام مراراً وتكراراً. يريد القيام بهذه المهمة بشكل احترافي.",
-    keywords: ["Pressearbeit = عمل صحفي", "Verein = نادي"],
-    simplified: "تعلم أساسيات العمل الصحفي",
-    imagine: "🧠🎤⛳ رجل يقف أمام صحفيين ويجيب على أسئلتهم بثقة."
+    meaning: "دورة تعليم أساسيات النشر الصحفي للجمعيات: كيف تكتب بيانا صحفيا وكيف تجذب وسائل الإعلام",
+    keywords: ["Pressearbeit = عمل صحفي", "Vereine = جمعيات", "Pressemitteilung = بيان صحفي", "Medien = وسائل إعلام", "Seminar = ندوة"],
+    simplified: "دورة تدريبية في كتابة البيانات الصحفية وإدارة العلاقات الإعلامية",
+    imagine: "رجل واقف على منصة ويمسك ميكروفونا أمامه جمهور من الصحفيين",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam28_q3"] = {
-    text: "Entscheidungen leichter fällen - Ihre Freundin zögert häufig, sich auf eine Sache festzulegen. Hat sie schließlich einen Entschluss gefasst, bereut sie diesen bisweilen.",
-    meaning: "اتخاذ القرارات بسهولة - صديقتك تتردد غالباً في الالتزام بشيء ما. وعندما تتخذ قراراً أخيراً، فإنها تندم عليه أحياناً.",
-    keywords: ["Entscheidungen = قرارات", "zögert = تتردد"],
-    simplified: "تعلم اتخاذ القرارات",
-    imagine: "🧠🤔💭 امرأة تقف أمام بابين ولا تعرف أيهما تختار."
+    text: "Zeichnen für Anfänger - Eine Bekannte wird zur Erzieherin ausgebildet. Sie sucht einen Kurs, في dem sie die Fähigkeit zur bildlichen Darstellung entwickeln kann.",
+    meaning: "دورة رسم للمبتدئين لتعلم رسم الأجسام والمنظورات مع قائمة الأدوات المطلوبة",
+    keywords: ["Zeichnen = رسم", "Anfänger = مبتدئين", "Proportionen = تناسق", "Perspektive = منظور", "Bleistift = قلم رصاص"],
+    simplified: "دورة تعليم الرسم من الصفر بقلم الرصاص وأساسيات المنظور",
+    imagine: "امرأة ترسم إناء زهور على ورقة وقلم رصاص بين أصابعها",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam28_q4"] = {
-    text: "Physiotherapie - Sie suchen eine gesundheitliche Berufsausbildung, und Sie interessieren sich für alles, wo Sie viel mit Menschen zu tun haben.",
-    meaning: "علاج طبيعي - تبحث عن تدريب مهني صحي، وأنت مهتم بكل ما تتعامل فيه كثيراً مع الناس.",
-    keywords: ["Physiotherapie = علاج طبيعي", "Berufsausbildung = تدريب مهني"],
-    simplified: "التدريب على العلاج الطبيعي",
-    imagine: "🧠💪🤝 امرأة تساعد رجلاً كبيراً على المشي مرة أخرى."
+    text: "Physiotherapie - Sie suchen eine Berufsausbildung, bei der Sie viel mit Menschen zu tun haben. Und Sie interessieren sich für alles, was mit Gesundheit zu tun hat.",
+    meaning: "تدريب مهني لمدة أربعة فصول دراسية لتصبح معالج طبيعي بمتوسط مؤهل واختبار قبول",
+    keywords: ["Physiotherapie = علاج طبيعي", "Ausbildung = تدريب", "Patienten = مرضى", "Gesundheit = صحة", "Behandlung = علاج"],
+    simplified: "تدريب معتمد لمدة عامين في العلاج الطبيعي لمساعدة المرضى",
+    imagine: "رجل يضع يده على كتف امرأة ويساعدها على المشي",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam28_q5"] = {
-    text: "Referate und Hausarbeiten erfolgreich meistern - Sie beginnen gerade mit Ihrem Studium, beherrschen die wissenschaftlichen Arbeitstechniken noch nicht.",
-    meaning: "إتقان العروض التقديمية والواجبات المنزلية بنجاح - أنت بدأت دراستك الجامعية للتو، ولم تتقن بعد تقنيات العمل العلمي.",
-    keywords: ["Referate = عروض تقديمية", "wissenschaftlichen Arbeitstechniken = تقنيات العمل العلمي"],
-    simplified: "تعلم تقنيات العمل الجامعي",
-    imagine: "🧠📚📝 شاب يجلس أمام كومة من الكتب ولا يعرف من أين يبدأ."
+    text: "Entscheidungen leichter fällen - Ihre Freundin zögert häufig, sich auf eine Sache festzulegen. Hat sie endlich einen Entschluss gefasst, bereut sie diesen bisweilen",
+    meaning: "دورة لتعلم تقنيات اتخاذ القرارات الصحيحة بثقة وتقبل النتائج",
+    keywords: ["Entscheidungen = قرارات", "Techniken = تقنيات", "Zufriedenheit = رضا", "priorisieren = تحديد أولويات"],
+    simplified: "كيف تتخذ قرارات أفضل وتتوقف عن التردد والندم",
+    imagine: "امرأة جالسة أمام اثنين من الأبواب واحدة مفتوحة والأخرى مغلقة وحائرة",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam28_q6"] = {
-    text: "Souverän in Vorstellungsgesprächen - Sie haben sich auf eine Arbeitsstelle beworben und wollen sich gut vorbereiten, falls man Sie persönlich kennen lernen möchte.",
-    meaning: "بثقة في مقابلات العمل - تقدمت لوظيفة وتريد الاستعداد جيداً في حال أرادوا مقابلتك شخصياً.",
-    keywords: ["Vorstellungsgesprächen = مقابلات عمل", "vorbereiten = تستعد"],
-    simplified: "التحضير لمقابلة عمل",
-    imagine: "🧠👔💼 شاب يقف أمام المرآة ويتمرن على الكلام."
+    text: "Traditionelle thailändische Speisen - Sie wollen Rezepte aus der fernöstlichen Küche kennen lernen.",
+    meaning: "دورة طبخ طعام تايلاندي أصيل في عطلة نهاية الأسبوع مع أكلات مشهورة",
+    keywords: ["thailändische Küche = مطبخ تايلاندي", "Gerichte = أطباق", "Vorspeisen = مقبلات", "Salate = سلطات", "weniger Kalorien = أقل سعرات"],
+    simplified: "دورات تعلم الطبخ التايلاندي مع الحساء الحار والنودلز",
+    imagine: "امرأة تقطع الخضار في مقلاة وتخرج منها ألسنة بخار ورائحة حارة",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam28_q7"] = {
-    text: "Zeichnen für Anfänger - Eine Bekannte wird zur Erzieherin ausgebildet. Sie sucht einen Kurs, in dem sie die Fähigkeit zur bildlichen Darstellung entwickeln kann.",
-    meaning: "الرسم للمبتدئين - إحدى المعارف تتدرب لتصبح مربية أطفال. تبحث عن دورة يمكنها من خلالها تطوير القدرة على التصوير البصري.",
-    keywords: ["Zeichnen = رسم", "bildlichen Darstellung = تصوير بصري"],
-    simplified: "تعلم الرسم للمربيات",
-    imagine: "🧠✏️🎨 امرأة ترسم شكلاً بسيطاً للأطفال بيدها."
+    text: "Referate und Hausarbeiten erfolgreich meistern - Sie beginnen gerade mit Ihrem Studium, beherrschen die wissenschaftlichen Arbeitstechniken noch nicht.",
+    meaning: "دورة لتعلم كتابة الأبحاث الجامعية وإعداد العروض التقديمية والمراجع العلمية",
+    keywords: ["Referate = عروض تقديمية", "Hausarbeiten = أبحاث", "Universität = جامعة", "Zitieren = اقتباس", "Klausuren = امتحانات"],
+    simplified: "دورة في كتابة الأبحاث والعروض التقديمية للطلاب الجدد",
+    imagine: "طالب يجلس أمام كومة كبيرة من الكتب والمراجع وأوراق بيضاء عديدة",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam28_q8"] = {
-    text: "Traditionelle thailändische Speisen - Sie wollen aus der fernöstlichen Küche Rezepte kennenlernen.",
-    meaning: "أطباق تايلاندية تقليدية - تريد التعرف على وصفات من المطبخ الشرق أقصى.",
-    keywords: ["thailändische = تايلاندية", "Rezepte = وصفات"],
-    simplified: "وصفات من المطبخ التايلاندي",
-    imagine: "🧠🥢🍚 شخص يقف في المطبخ ويخلط الخضروات في مقلاة."
+    text: "Sie haben sich auf eine Arbeitsstelle beworben und wollen sich gut vorbereiten, falls man Sie persönlich kennen lernen möchte.",
+    meaning: "دورة تحضيرية لمقابلات العمل مع تمارين لعب الأدوار وتسجيلات فيديو",
+    keywords: ["Vorstellungsgespräch = مقابلة عمل", "Selbstpräsentation = تقديم ذات", "Rollenspiele = تمثيل أدوار", "Feedback = تغذية راجعة", "Videoaufzeichnungen = تسجيلات فيديو"],
+    simplified: "دورة تحضيرية لمقابلات العمل مع محاكاة حقيقية",
+    imagine: "شاب يقف أمام لجنة ويداه ترتجفان ويسجل نفسه على كاميرا الهاتف",
+    correct: 9
 };
 
-// ============================================
-// Exam 29: Musikinstrumente (معدل)
-// ============================================
+// ========== Exam 29: Musikinstrumente (معدل) - نفس الأسئلة الصحيحة ==========
 
 HELP_DATA["lesen3_exam29_q1"] = {
-    text: "Deutsch im Beruf - An Ihrem Arbeitsplatz müssen Sie viele deutsche Geschäftsbriefe schreiben, sind aber oft unsicher und suchen einen entsprechenden Kurs.",
-    meaning: "الألمانية في العمل - في مكان عملك، يجب أن تكتب العديد من الرسائل التجارية الألمانية، ولكنك غالباً ما تكون غير متأكد وتبحث عن دورة تدريبية مناسبة.",
-    keywords: ["Deutsch = ألمانية", "Geschäftsbriefe = رسائل تجارية"],
-    simplified: "دورة لتحسين كتابة الرسائل",
-    imagine: "🧠📝✉️ موظف جالس أمام مكتبه وينظر إلى حاسوبه بتوتر."
+    text: "Deutsch im Beruf - An Ihrem Arbeitsplatz müssen Sie viele deutsche Geschäftsbriefe schreiben, sind aber oft unsicher.",
+    meaning: "دورة تحسين التواصل الكتابي والهاتفي في العمل لتقليل الأخطاء",
+    keywords: ["Geschäftsbriefe = رسائل عمل", "Rechtschreibung = إملاء", "E-Mails = بريد إلكتروني", "Telefonieren = مكالمات هاتفية"],
+    simplified: "دورات اللغة الألمانية التطبيقية للشركات والموظفين",
+    imagine: "موظفة تصلح رسالة بريد إلكتروني على حاسوبها",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam29_q2"] = {
-    text: "Grundlagen der Pressearbeit für Vereine - Ihr Freund ist Vorsitzender eines Golfclubs und muss immer wieder Informationen an die Medien geben. Er möchte diese Aufgabe professionell erledigen.",
-    meaning: "أساسيات العمل الصحفي للأندية - صديقك هو رئيس نادي غولف وعليه أن يقدم معلومات لوسائل الإعلام مراراً وتكراراً. يريد القيام بهذه المهمة بشكل احترافي.",
-    keywords: ["Pressearbeit = عمل صحفي", "Golfclubs = نادي غولف"],
-    simplified: "مهارات العمل مع الإعلام",
-    imagine: "🧠📸🎙️ رجل واقف أمام كاميرا التلفاز ويتحدث بثقة."
+    text: "Grundlagen der Pressearbeit für Vereine - Ihr Freund ist Vorsitzender eines Golfclubs ويريد إتقان نشر أخبار ناديه.",
+    meaning: "دورة تدريبية في إدارة العلاقات الإعلامية وإعداد التقارير للجمعيات",
+    keywords: ["Pressearbeit = عمل صحفي", "Vereine = جمعيات", "Pressemitteilung = بيان صحفي", "Medien = وسائل إعلام"],
+    simplified: "تعليم كتابة التقارير الإعلامية للجمعيات الأهلية",
+    imagine: "رجل يوزع أوراقا على صحفيين وصورته تظهر على شاشة خلفية",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam29_q3"] = {
-    text: "Entscheidungen leichter fällen - Ihre Freundin zögert häufig, sich auf eine Sache festzulegen. Hat sie schließlich einen Entschluss gefasst, bereut sie diesen bisweilen.",
-    meaning: "اتخاذ القرارات بسهولة - صديقتك تتردد غالباً في الالتزام بشيء ما. وعندما تتخذ قراراً أخيراً، فإنها تندم عليه أحياناً.",
-    keywords: ["Entscheidungen = قرارات", "zögert = تتردد"],
-    simplified: "التغلب على التردد",
-    imagine: "🧠🤷‍♀️😖 امرأة تنظر إلى قائمتي طعام ولا تعرف ماذا تطلب."
+    text: "Zeichnen für Anfänger - Eine Bekannte تدرس لتصبح مربية أطفال وتحتاج مهارات الرسم.",
+    meaning: "دورة رسم لأساسيات المنظور والضوء والظل لغير الفنانين",
+    keywords: ["Zeichnen = رسم", "Anfänger = مبتدئين", "Perspektive = منظور", "Bleistift = قلم رصاص", "Radiergummi = ممحاة"],
+    simplified: "أساسيات الرسم بقلم الرصاص لعشاق الفن",
+    imagine: "يد ترسم خطوطا متقاطعة على دفتر أبيض لتشكيل مكعب",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam29_q4"] = {
-    text: "Physiotherapie - Sie suchen eine gesundheitliche Berufsausbildung, und Sie interessieren sich für alles, wo Sie viel mit Menschen zu tun haben.",
-    meaning: "علاج طبيعي - تبحث عن تدريب مهني صحي، وأنت مهتم بكل ما تتعامل فيه كثيراً مع الناس.",
-    keywords: ["Physiotherapie = علاج طبيعي", "gesundheitliche = صحي"],
-    simplified: "دراسة العلاج الطبيعي",
-    imagine: "🧠🩺🤲 شخص يدلك كتف شخص آخر بلطف."
+    text: "Physiotherapie - Sie suchen تدريبا صحيا مع التعامل المباشر مع المرضى.",
+    meaning: "برنامج تدريب معتمد في العلاج الطبيعي يؤهل للعمل في المستشفيات والعيادات",
+    keywords: ["Physiotherapie = علاج طبيعي", "Ausbildung = تدريب", "Patienten = مرضى", "Heilung = شفاء", "Behandlung = علاج"],
+    simplified: "تدريب عملي في العلاج الطبيعي مع شهادة رسمية",
+    imagine: "معالج يضع يديه على ركبة مريضة وتظهر عليها الراحة",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam29_q5"] = {
-    text: "Referate und Hausarbeiten erfolgreich meistern - Sie beginnen gerade mit Ihrem Studium, beherrschen die wissenschaftlichen Arbeitstechniken noch nicht.",
-    meaning: "إتقان العروض التقديمية والواجبات المنزلية بنجاح - أنت بدأت دراستك الجامعية للتو، ولم تتقن بعد تقنيات العمل العلمي.",
-    keywords: ["Studium = دراسة جامعية", "Arbeitstechniken = تقنيات العمل"],
-    simplified: "تقنيات البحث الجامعي",
-    imagine: "🧠📖😟 طالب يجلس في مكتبة مزدحمة ولا يعرف كيف يبدأ بحثه."
+    text: "Entscheidungen leichter fällen - Ihre Freundin تعاني من التردد الدائم في اختياراتها.",
+    meaning: "دورة في علم اتخاذ القرار وتقنيات تحليل الخيارات والخروج من دائرة الندم",
+    keywords: ["Entscheidungen = قرارات", "Techniken = تقنيات", "Planung = تخطيط", "Analyse = تحليل"],
+    simplified: "كيف تتخذ قراراتك بوضوح وتتوقف عن التردد والنوم",
+    imagine: "امرأة جالسة أمام كتاب وقلم ووجهها يعلوه علامة تعجب",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam29_q6"] = {
-    text: "Souverän in Vorstellungsgesprächen - Sie haben sich auf eine Arbeitsstelle beworben und wollen sich gut vorbereiten, falls man Sie persönlich kennen lernen möchte.",
-    meaning: "بثقة في مقابلات العمل - تقدمت لوظيفة وتريد الاستعداد جيداً في حال أرادوا مقابلتك شخصياً.",
-    keywords: ["Vorstellungsgesprächen = مقابلات عمل", "beworben = تقدمت"],
-    simplified: "التحضير للمقابلة الشخصية",
-    imagine: "🧠💼🪞 شاب يقف أمام المرآة ويربط ربطة عنقه بعناية."
+    text: "Traditionelle thailändische Speisen - تريد تعلم وصفات من المطبخ التايلاندي.",
+    meaning: "دورة تعليم الأطباق التايلاندية الشهية كالحساء البيكار والسلطات",
+    keywords: ["thailändische Küche = مطبخ تايلاندي", "Vorspeisen = مقبلات", "Hauptgerichte = أطباق رئيسية", "Salate = سلطات"],
+    simplified: "دورات طبخ تايلاندي ياباني مع نكهات حارة حلوة",
+    imagine: "امرأة ترتدي قبعة طبخ وتتبل مقلاة بالبهارات الصفراء والحمراء",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam29_q7"] = {
-    text: "Zeichnen für Anfänger - Eine Bekannte wird zur Erzieherin ausgebildet. Sie sucht einen Kurs, in dem sie die Fähigkeit zur bildlichen Darstellung entwickeln kann.",
-    meaning: "الرسم للمبتدئين - إحدى المعارف تتدرب لتصبح مربية أطفال. تبحث عن دورة يمكنها من خلالها تطوير القدرة على التصوير البصري.",
-    keywords: ["Erzieherin = مربية أطفال", "bildlichen Darstellung = تصوير بصري"],
-    simplified: "تعلم الرسم للأطفال",
-    imagine: "🧠👧🐶 امرأة ترسم كلباً صغيراً على السبورة أمام أطفال صغار."
+    text: "Referate und Hausarbeiten erfolgreich meistern - أنت طالب جامعي جديد وتحتاج لتعلم كتابة الأبحاث.",
+    meaning: "دورة في مهارات البحث العلمي وإعداد العروض التقديمية والرسائل الأكاديمية",
+    keywords: ["Referate = عروض تقديمية", "Hausarbeiten = أبحاث", "Zitieren = اقتباس", "Klausuren = امتحانات", "E-Mail = بريد إلكتروني"],
+    simplified: "دورة في أساليب البحث والكتابة الأكاديمية للطلاب الجدد",
+    imagine: "طالب يمسك موسوعة ويبحث بين الصفحات ووجهه متحمس",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam29_q8"] = {
-    text: "Traditionelle thailändische Speisen - Sie wollen aus der fernöstlichen Küche Rezepte kennenlernen.",
-    meaning: "أطباق تايلاندية تقليدية - تريد التعرف على وصفات من المطبخ الشرق أقصى.",
-    keywords: ["thailändische = تايلاندية", "fernöstlichen Küche = مطبخ شرق أقصى"],
-    simplified: "وصفات شرق آسيوية",
-    imagine: "🧠🍜🥢 شخص يأكل من وعاء نودلز بعيدان صينية."
+    text: "Sie haben sich auf eine Arbeitsstelle beworben - وتحتاج للتحضير للمقابلة الشخصية.",
+    meaning: "دورة تدريبية في مهارات المقابلة الشخصية مع تمارين عملية وتصحيح أخطاء",
+    keywords: ["Vorstellungsgespräch = مقابلة عمل", "Selbstpräsentation = تقديم ذات", "Rollenspiele = تمثيل أدوار", "Videoaufzeichnungen = تسجيلات فيديو"],
+    simplified: "دورة محاكاة لمقابلات العمل مع تغذية راجعة فورية",
+    imagine: "شاب يضبط ربطة عنقه أمام مرآة ويتدرب على الابتسام",
+    correct: 9
 };
 
-// ============================================
-// Exam 30: Arbeitsorganisation
-// ============================================
+// ========== Exam 30: Arbeitsorganisation ==========
 
 HELP_DATA["lesen3_exam30_q1"] = {
-    text: "Schwiegermütter - Schwiegertöchter Problem oder Chance - Eine Bekannte möchte ihre Beziehung zur Mutter des Mannes verändern.",
-    meaning: "الحموات والكنات مشكلة أم فرصة - إحدى المعارف تريد تغيير علاقتها بزوجة والد زوجها (أم الزوج).",
-    keywords: ["Schwiegermütter = حموات", "Beziehung = علاقة"],
-    simplified: "تحسين العلاقة مع الحماة",
-    imagine: "🧠👩‍👩‍👧 امرأة وامرأة أكبر منها تجلسان على أريكة وتتحدثان بجفاء."
+    text: "Zeitmanagement - Eine Kollegin kann ihren Arbeitsbereich nicht gut strukturieren و deshalb Probleme hat, ihre Aufgaben rechtzeitig zu erledigen",
+    meaning: "دورة في إدارة الوقت وتحديد الأولويات وتجنب مضيعات الوقت اليومية",
+    keywords: ["Zeitmanagement = إدارة وقت", "Stress = ضغط", "Prioritäten = أولويات", "Zeitdiebe = مضيعات وقت", "Tagesablauf = روتين يومي"],
+    simplified: "دورة في تنظيم الوقت والتخلص من عوامل التشتيت",
+    imagine: "امرأة تحمل مفكرة وقلم وساعة منبه خلفها على الطاولة",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam30_q2"] = {
-    text: "Mit Männern Gespräche führen - Ein Freund möchte etwas über Konfliktgespräche mit Frauen erfahren.",
-    meaning: "قيادة المحادثات مع الرجال - صديق يريد معرفة شيء عن محادثات الصراع مع النساء.",
-    keywords: ["Gespräche = محادثات", "Konfliktgespräche = محادثات صراع"],
-    simplified: "كيفية التعامل مع خلافات النساء",
-    imagine: "🧠🗣️💬 رجل وامرأة يقفان وجهاً لوجه ويبدوان غاضبين."
+    text: "Hilfe mein Haustier ist krank! - Ein Bekannter hat einen kranken Hund und sucht tierärztliche Hilfe.",
+    meaning: "ورشة إسعافات أولية للحيوانات الأليفة وكيفية التعرف على علامات المرض",
+    keywords: ["Haustier = حيوان أليف", "krank = مريض", "erste Hilfe = إسعاف أولي", "Tierarzt = طبيب بيطري", "Fütterung = تغذية"],
+    simplified: "دورة تعليمية في إسعاف الحيوانات الأليفة وعلاجها",
+    imagine: "رجل يضع يده على رقبة كلبه وهو نائم على سرير صغير",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam30_q3"] = {
-    text: "Kommunikation - Eine Freundin möchte Strategien erlernen, wie man wirkungsvoller argumentiert und dadurch leichter seine Ziele erreicht.",
-    meaning: "التواصل - صديقة تريد تعلم استراتيجيات للمناقشة بشكل أكثر فعالية وبالتالي تحقيق أهدافها بسهولة أكبر.",
-    keywords: ["Kommunikation = تواصل", "argumentiert = يناقش"],
-    simplified: "تعلم فن الإقناع",
-    imagine: "🧠💪🎯 امرأة واقفة أمام جمهور وتتحدث بحماس."
+    text: "Schwiegermütter - Schwiegertöchter - Eine Bekannte möchte ihre Beziehung zur Mutter des Mannes verändern.",
+    meaning: "دورة تحسين العلاقة بين الزوجة ووالدة الزوج بطرق احترام وحل النزاعات",
+    keywords: ["Schwiegermütter = حمات", "Schwiegertöchter = كنت", "Konflikte = نزاعات", "Miteinander = تعايش", "Respekt = احترام"],
+    simplified: "دورة في التعامل الإيجابي مع حماتك وحل المشكلات",
+    imagine: "امرأتان تجلسان على طاولة وكل منهما تضع يديها على فنجان شاي",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam30_q4"] = {
-    text: "Zeitmanagement - Eine Kollegin kann ihren Arbeitsbereich nicht gut strukturieren und hat deshalb Probleme, ihre Aufgaben rechtzeitig zu erledigen.",
-    meaning: "إدارة الوقت - زميلة لا تستطيع تنظيم مجال عملها بشكل جيد ولذلك تواجه مشاكل في إنجاز مهامها في الوقت المحدد.",
-    keywords: ["Zeitmanagement = إدارة وقت", "Aufgaben = مهام"],
-    simplified: "تنظيم وقت العمل",
-    imagine: "🧠📋😫 امرأة تجلس أمام مكتب مليء بالأوراق ووجهها متعب."
+    text: "Mit Männern Gespräche führen - Ein Freund möchte etwas über Konfliktgespräche mit Frauen erfahren.",
+    meaning: "دورة للنساء حول كيفية التواصل الفعال مع الرجال في العمل وحل النزاعات",
+    keywords: ["Gespräche = محادثات", "Männer = رجال", "Konfliktgespräche = محادثات نزاع", "Frau = امرأة", "Kommunikation = تواصل"],
+    simplified: "دورات في فن الحوار مع الرجال وحل الخلافات بذكاء",
+    imagine: "امرأة تقف أمام رجل وكلاهما يحاول إقناع الآخر بأوراق في يديه",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam30_q5"] = {
-    text: "Mit Hunden sprechen - Ein Bekannter hat eine Hundepension. Er glaubt, dass er die ihm anvertrauten Tiere oft missversteht.",
-    meaning: "التحدث مع الكلاب - أحد المعارف لديه فندق للكلاب. يعتقد أنه كثيراً ما يسيء فهم الحيوانات الموضوعة تحت رعايته.",
-    keywords: ["Hunden = كلاب", "missversteht = يسيء الفهم"],
-    simplified: "فهم لغة الكلاب",
-    imagine: "🧠🐕😕 رجل ينظر إلى كلب ينبح عليه ولا يفهم ماذا يريد."
+    text: "Überwinde deinen inneren Schweinehund - Eine Freundin schiebt Dinge, die ihr keinen Spaß machen, immer vor sich her.",
+    meaning: "دورة في التغلب على التسويف والمماطلة وتنفيذ المهام غير المحببة فورا",
+    keywords: ["hinauszögern = تأجيل", "überwinde = تتغلب", "Strategien = استراتيجيات", "unangenehme Dinge = أشياء غير محببة", "sofort erledigen = تنفيذ فورا"],
+    simplified: "كيف تتخلص من عادة تأجيل الأشياء غير المريحة",
+    imagine: "امرأة جالسة أمام كومة من الأعمال غير المنتهية ورجل يشير لها من بعيد بعلامة تحفيز",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam30_q6"] = {
-    text: "Hilfe mein Haustier ist krank! - Ein Bekannter hat einen kranken Hund und sucht tierärztliche Hilfe.",
-    meaning: "النجدة حيواني الأليف مريض! - أحد المعارف لديه كلب مريض ويبحث عن مساعدة بيطرية.",
-    keywords: ["Haustier = حيوان أليف", "tierärztliche Hilfe = مساعدة بيطرية"],
-    simplified: "علاج كلب مريض",
-    imagine: "🧠🐕🩺 رجل يحمل كلبه المتعب بين ذراعيه ويجري إلى العيادة."
+    text: "Flirten leicht gemacht - Ein Bekannter möchte leichter Kontakt zu anderen Menschen finden.",
+    meaning: "دورة في فن المجاملة والغزل والتواصل غير اللفظي للمبتدئين",
+    keywords: ["Flirten = غزل", "Kontakt = تواصل", "Annäherung = تقارب", "Augen = عيون", "Lächeln = ابتسامة", "Wörter = كلمات"],
+    simplified: "دورة تعلم فنون المغازلة والتواصل اللطيف مع الآخرين",
+    imagine: "شاب يبتلع ريقته ويحاول بدء محادثة مع فتاة في المقهى",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam30_q7"] = {
-    text: "Überwinde deinen inneren Schweinehund - Eine Freundin schiebt Dinge, die ihr keinen Spaß machen, immer vor sich her.",
-    meaning: "تغلب على كسلك الداخلي - صديقة تؤجل الأشياء التي لا تستمتع بها دائماً.",
-    keywords: ["Schweinehund = كسل", "schiebt auf = تؤجل"],
-    simplified: "التغلب على التسويف",
-    imagine: "🧠📱😴 امرأة جالسة على أريكة وتمسح بهاتفها والأطباق المتسخة أمامها."
+    text: "Kommunikation - Eine Freundin möchte Strategien erlernen, wie man wirkungsvoller argumentiert und dadurch leichter seine Ziele erreicht.",
+    meaning: "دورة في مهارات التواصل الفعال وتقنيات الإقناع وتحقيق الأهداف",
+    keywords: ["Kommunikation = تواصل", "argumentieren = يجادل", "Ziele erreichen = تحقيق أهداف", "Gesprächsverhalten = سلوك محادثة", "durchsetzen = يفرض"],
+    simplified: "دورة في تقنيات الكلام والإقناع لتحقيق أهدافك بثقة",
+    imagine: "امرأة واقفة على منصة وجمهور كبير أمامها وأصابعها تشير إلى شريحة عرض",
+    correct: 8
 };
 
-// ============================================
-// Exam 31: Hunde
-// ============================================
+HELP_DATA["lesen3_exam30_q8"] = {
+    text: "Mit Hunden sprechen - Ein Bekannter hat eine Hundepension. Er glaubt, dass er die ihm anvertrauten Tiere oft missversteht.",
+    meaning: "دورة في فهم لغة جسد الكلاب وتحليل سلوكها لتحسين التواصل معها",
+    keywords: ["Hunde = كلاب", "Körpersprache = لغة جسد", "Reaktionen = ردود فعل", "verstehen = فهم", "Druck = ضغط"],
+    simplified: "دورة في تفسير حركات الكلاب والتواصل معها بفعالية",
+    imagine: "رجل جالس إلى كلبه ويداه على الأرض وكلاهما ينظران إلى بعضهما البعض بتركيز",
+    correct: 9
+};
+
+// ========== Exam 31: Hunde ==========
 
 HELP_DATA["lesen3_exam31_q1"] = {
-    text: "Vier herzerliebste Mopswelpen - Sie suchen nach einem jungen Hund für Ihre Familie.",
-    meaning: "أربعة من أجمل جراء الموبس - تبحث عن كلب صغير لعائلتك.",
-    keywords: ["Mopswelpen = جراء موبس", "jungen Hund = كلب صغير"],
-    simplified: "تبني كلب للعائلة",
-    imagine: "🧠🐶👨‍👩‍👧 عائلة تقف وأب يميل على صندوق فيه كلاب صغيرة تلهث."
+    text: "Herbstzeit ist Lesezeit! - Ein Bekannter möchte alte Romane verschenken.",
+    meaning: "سوق خيري لبيع الكتب المستعملة والأقراص المدمجة بأسعار من 1 يورو",
+    keywords: ["Bücherflohmarkt = سوق كتب مستعملة", "Romane = روايات", "CDs = أقراص", "Spielesammlungen = ألعاب مجمعة", "soziale Zwecke = أغراض خيرية"],
+    simplified: "سوق لبيع الكتب والقصص القديمة بأسعار رمزية",
+    imagine: "رجل يضع كيسا كبيرا من الكتب على طاولة خيرية",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam31_q2"] = {
-    text: "Auenbacher Bach-Verein - Ihr Mann singt gerne und möchte Mitglied in einem Gesangverein werden.",
-    meaning: "جوقة أوينباخر باخ - زوجك يحب الغناء ويريد أن يصبح عضواً في جوقة غنائية.",
-    keywords: ["Verein = نادي/جوقة", "Gesangverein = جوقة غنائية"],
-    simplified: "الانضمام لجوقة غنائية",
-    imagine: "🧠🎤🎵 رجل يقف بين مجموعة من الناس وهم يغنون معاً وابتسامة على وجهه."
+    text: "In unserem Shop finden Sie mehr als 3000 verschiedene Produkte - Ein Freund braucht nur noch einen Hundekorb für seinen kleinen Hund.",
+    meaning: "متجر إلكتروني متخصص في مستلزمات الكلاب مع خصم للمشترين الجدد",
+    keywords: ["Hundezubehör = مستلزمات كلاب", "Körbe = سلال", "Schlafplätze = أماكن نوم", "Spielzeug = ألعاب", "Online-Hundeshop = متجر كلاب إلكتروني"],
+    simplified: "متجر إلكتروني لكل شيء يحتاجه كلبك من سرير إلى طوق ولعبة",
+    imagine: "شخص يضغط زر الشراء على هاتفه وظهور صورة سرير كلب بني جميل",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam31_q3"] = {
-    text: "Nach 30 Jahren am Völkerpark schließen wir unseren Laden - Eine Freundin möchte günstige Bücher für ihre achtjährige Tochter kaufen.",
-    meaning: "بعد 30 عاماً في فولكربارك نغلق متجرنا - صديقة تريد شراء كتب رخيصة لابنتها ذات الثماني سنوات.",
-    keywords: ["Bücher = كتب", "günstige = رخيصة"],
-    simplified: "شراء كتب رخيصة للابنة",
-    imagine: "🧠👧📖 امرأة تقف أمام كومة كبيرة من الكتب وتختار مجموعة منها."
+    text: "Auenbacher Bach-Verein - Ihr Mann singt gerne und möchte Mitglied في einem Gesangverein werden.",
+    meaning: "جوقة غنائية ترحب بأعضاء جدد بدون حاجة لتدريب صوتي مسبق",
+    keywords: ["Chor = جوقة", "Mitglied = عضو", "Gesangsausbildung = تدريب غنائي", "Proben = تدريبات", "Musikschule = مدرسة موسيقى"],
+    simplified: "فرقة غنائية تبحث عن أعضاء جدد بدون مؤهلات صوتية مسبقة",
+    imagine: "رجل واقف بين جوقة ويفتح فمه ليغني وورقة موسيقية أمامه",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam31_q4"] = {
-    text: "Neugründung eines interkulturellen Vereins - Ihre Familie möchte sich mit Menschen aus anderen Ländern treffen.",
-    meaning: "تأسيس جديد لنادٍ متعدد الثقافات - عائلتك تريد مقابلة أشخاص من بلدان أخرى.",
-    keywords: ["interkulturellen = متعدد الثقافات", "Menschen = أشخاص"],
-    simplified: "التواصل مع ثقافات أخرى",
-    imagine: "🧠🌍🤝 عائلة تجلس حول طاولة كبيرة مع أشخاص من دول مختلفة."
+    text: "Ihre Tochter wünscht sich einen Hund. Sie möchten sich zuerst informieren",
+    meaning: "محاضرة توعوية عن كل ما يجب مراعاته قبل شراء كلب: السكن والوقت والتكلفة",
+    keywords: ["Hund kaufen = شراء كلب", "informieren = استعلام", "Mietvertrag = عقد إيجار", "finanzielle Mittel = إمكانيات مالية", "Lebenssituation = حالة معيشية"],
+    simplified: "محاضرة إرشادية قبل اتخاذ قرار تربية الكلب في المنزل",
+    imagine: "امرأة جالسة بين والديها وورقة بقائمة شروط وبجانبهما كلب صغير",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam31_q5"] = {
-    text: "Sie möchten einen Hund kaufen? - Ihre Tochter wünscht sich einen Hund. Sie möchten sich zuerst informieren.",
-    meaning: "هل تريد شراء كلب؟ - ابنتك تتمنى كلباً. تريد الاستعلام أولاً.",
-    keywords: ["Hund = كلب", "informieren = تستعلم"],
-    simplified: "الاستعلام قبل شراء كلب",
-    imagine: "🧠📱🤔 أم تجلس أمام حاسوبها وتقرأ عن تربية الكلاب وابنتها الصغيرة تجلس بجانبها متحمسة."
+    text: "Sie möchten einen Kulturverein gründen und sich informieren",
+    meaning: "محاضرة عن القوانين والإجراءات الرسمية لتأسيس الجمعيات في ألمانيا",
+    keywords: ["Verein gründen = تأسيس جمعية", "gesetzliche Bestimmungen = أحكام قانونية", "Vortragsreihe = سلسلة محاضرات", "kostenlos = مجاني"],
+    simplified: "محاضرة مجانية عن كيفية تأسيس جمعية ثقافية في ألمانيا",
+    imagine: "رجال ونساء يجلسون في قاعة اجتماعات ويستمعون إلى محام يشرح أوراقا رسمية",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam31_q6"] = {
-    text: "Sportvereine, Musikvereine, Tanzvereine - Sie möchten einen Kulturverein gründen und sich informieren.",
-    meaning: "أندية رياضية، أندية موسيقية، أندية رقص - تريد تأسيس نادٍ ثقافي والاستعلام.",
-    keywords: ["Verein = نادي", "Kulturverein = نادي ثقافي"],
-    simplified: "تأسيس نادي ثقافي",
-    imagine: "🧠📝🏛️ مجموعة من الناس جالسين حول طاولة وهم يخططون لتأسيس نادٍ على الورق."
+    text: "Vier herzerliebste Mopswelpen - Sie suchen nach einem jungen Hund für Ihre Familie.",
+    meaning: "جرو مخلص من مَوْبس مع شهادة صحية وتطعيمات كاملة ينمو بين قطط وخيول وأطفال",
+    keywords: ["Mopswelpen = جرو مَوبْس", "Familienhunde = كلاب عائلية", "gechipt = مزود بشريحة", "entwurmt = معالج من الديدان", "tierärztliches Gesundheitszeugnis = شهادة صحية بيطرية"],
+    simplified: "جرو صغير للتبني في بيئة عائلية مع قطط وخيول وأطفال",
+    imagine: "أم وأب وطفل صغير يحملون جروا صغيرا أسود وأبوه يضحك",
+    correct: 9
 };
 
-HELP_DATA["lesen3_exam31_q7"] = {
-    text: "Hundezubehör günstig abzugeben - Ein Freund braucht nur noch einen Hundekorb für seinen kleinen Hund.",
-    meaning: "مستلزمات كلاب للبيع بسعر رخيص - صديق يحتاج فقط إلى سلة كلب لكلبه الصغير.",
-    keywords: ["Hundezubehör = مستلزمات كلاب", "Hundekorb = سلة كلب"],
-    simplified: "شراء سلة كلب صغير",
-    imagine: "🧠🐕🛏️ رجل واقف في متجر ويضع يده على سلة ناعمة صغيرة اللون."
-};
-
-// ============================================
-// Exam 32: schnelle Wasserfahrzeuge
-// ============================================
+// ========== Exam 32: Schnelle Wasserfahrzeuge ==========
 
 HELP_DATA["lesen3_exam32_q1"] = {
-    text: "Auf den Höhen des Rheins - Ein befreundetes Ehepaar macht gern Tageswanderungen in Gesellschaft.",
-    meaning: "على مرتفعات نهر الراين - زوجان صديقان يحبان القيام برحلات مشي ليوم واحد برفقة آخرين.",
-    keywords: ["Wanderungen = رحلات مشي", "Gesellschaft = برفقة"],
-    simplified: "رحلات مشي جماعية",
-    imagine: "🧠🥾👫 رجل وامرأة يمشيان مع مجموعة من الناس على طريق جبلي ويضحكون."
+    text: "Die Nordseeküste wirbt für sich am Rhein - Ein Kollege interessiert sich für schnelle Wasserfahrzeuge.",
+    meaning: "عرض سفينة كاتاماران حمراء سريعة تصل لسرعة 74 كيلومترا في الساعة تبحر على نهر الراين",
+    keywords: ["Katamaran = كاتاماران", "schnell = سريع", "Knoten = عقدة بحرية", "Passagierschiff = سفينة ركاب", "Rhein = راين"],
+    simplified: "سفينة حمراء سريعة جدا تبحر على نهر الراين لزوار المعرض",
+    imagine: "قارب أحمر طويل يشق الماء بسرعة ويتطاير الرذاذ خلفه",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam32_q2"] = {
-    text: "Eine Rheinfahrt, die ist lustig - Ihr Bruder interessiert sich für alte Fahrzeuge und möchte eine Tagesfahrt machen.",
-    meaning: "رحلة على نهر الراين، إنها ممتعة - أخوك مهتم بالمركبات القديمة ويريد القيام برحلة ليوم واحد.",
-    keywords: ["Rheinfahrt = رحلة نهر الراين", "alte Fahrzeuge = مركبات قديمة"],
-    simplified: "رحلة على متن مركبة قديمة",
-    imagine: "🧠🚢🧑 رجل يقف على متن سفينة بخارية قديمة وينظر إلى عجلة القيادة."
+    text: "Wattwanderung - Ein Bekannter möchte barfuß am Meer spazieren gehen.",
+    meaning: "جولة مشي في الوحل على شواطئ بحر الشمال مع مرشد وزيارة جزر المد",
+    keywords: ["Wattwanderung = مشي في المد", "barfuß = حافي القدمين", "Nordsee = بحر الشمال", "Meeresboden = قاع البحر", "Ebbe = جزر"],
+    simplified: "نزهة حافية الأقدام في الطين ومياه بحر الشمال مع دليل سياحي",
+    imagine: "رجل حافي القدمين يمشي في وحل ناعم وسمك صغير يقفز بجانبه",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam32_q3"] = {
-    text: "Der Wanderladen am Rathausplatz 4 - Eine Bekannte möchte gute Laufschuhe kaufen.",
-    meaning: "متجر المشي لمسافات طويلة في ساحة البلدية 4 - إحدى المعارف تريد شراء أحذية جري جيدة.",
-    keywords: ["Wanderladen = متجر مشي", "Laufschuhe = أحذية جري"],
-    simplified: "شراء أحذية رياضية",
-    imagine: "🧠👟🏃‍♀️ امرأة تجلس على كرسي في متجر وتجرب حذاءاً رياضياً."
+    text: "Ihre Nachbarn möchten, dass ihre 7- und 9-jährigen Töchter mehr über den Umgang mit Tieren lernen.",
+    meaning: "جولات تعليمية شهرية في حديقة حيوان أوبل للأطفال مع برامج العطلات وركن للمداعبة وركوب الجمال",
+    keywords: ["Opel-Zoo = حديقة حيوان أوبل", "pädagogische Führungen = جولات تعليمية", "Kinder = أطفال", "Streichelzoo = ركن المداعبة", "Abenteuerspielplatz = ملعب مغامرات"],
+    simplified: "زيارة تعليمية لحديقة الحيوان مع برامج خاصة للأطفال",
+    imagine: "بنتان صغيرتان تمدان أيديهما لمداعبة ماعز صغير وكلاهما يضحكان",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam32_q4"] = {
-    text: "Der Rhein und seine Geschichte - Ein Bekannter interessiert sich für die Geschichte der Erde und möchte sich weiterbilden.",
-    meaning: "نهر الراين وتاريخه - أحد المعارف مهتم بتاريخ الأرض ويريد مواصلة تعليمه.",
-    keywords: ["Geschichte = تاريخ", "Erde = أرض"],
-    simplified: "تعلم تاريخ الأرض",
-    imagine: "🧠🗺️🌍 رجل جالس في محاضرة وينظر إلى شاشة عليها صورة ديناصور."
+    text: "Auf den Höhen des Rheins - Ein befreundetes Ehepaar macht gern Tageswanderungen في Gesellschaft.",
+    meaning: "جولة مشي جماعية في جبال تاونوس بإطلالة على نهر الراين لمسافات طويلة",
+    keywords: ["Wanderung = تنزه", "Gruppe = مجموعة", "Rhein = راين", "festes Schuhwerk = حذاء ثابت", "Gaststätten = مطاعم"],
+    simplified: "جولة مشي لمشاهدة مناظر نهر الراين مع دليل ونشاطات أسبوعية",
+    imagine: "زوجان واقفان على قمة جبل وأيديهما تشيران إلى نهر أزرق بعيد والناس يصفقون خلفهم",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam32_q5"] = {
-    text: "Ein Zoo für Jung und Alt - Ihre Nachbarn möchten, dass ihre 7- und 9-jährigen Töchter mehr über den Umgang mit Tieren lernen.",
-    meaning: "حديقة حيوانات للصغار والكبار - جيرانك يريدون أن تتعلم بناتهم البالغات 7 و 9 سنوات المزيد عن التعامل مع الحيوانات.",
-    keywords: ["Zoo = حديقة حيوانات", "Tieren = حيوانات"],
-    simplified: "تعليم الأطفال التعامل مع الحيوانات",
-    imagine: "🧠🐐👧 بنتان صغيرتان تقفان أمام عنزة وتمسكان يديهما لتلمسها."
+    text: "Der Wanderladen am Rathausplatz - Eine Bekannte möchte gute Laufschuhe kaufen.",
+    meaning: "متجر متخصص في معدات التنزه والتسلق الجبلي مع منتجات أصلية ونصائح احترافية",
+    keywords: ["Wanderladen = متجر تنزه", "Markenprodukte = منتجات ماركات", "Stiefel = حذاء", "fachkundige Beratung = استشارة متخصصة", "Bergsteigen = تسلق جبال"],
+    simplified: "متجر لبيع أحذية المشي والتسلق والملابس الرياضية الأصلية",
+    imagine: "امرأة تجرب حذاء جبلي ثقيل في متجر ومرآة طويلة أمامها",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam32_q6"] = {
-    text: "Wattwanderung - Ein Bekannter möchte barfuß am Meer spazieren gehen.",
-    meaning: "المشي في منطقة المد والجزر - أحد المعارف يريد المشي حافي القدمين على شاطئ البحر.",
-    keywords: ["Wattwanderung = مشي في المد", "barfuß = حافي القدمين"],
-    simplified: "المشي حافي القدمين على الشاطئ",
-    imagine: "🧠👣🌊 رجل يمشي على رمال مبللة وقدماه تترك أثراً خلفها."
+    text: "Der Rhein und seine Geschichte - Ein Bekannter interessiert sich für die Geschichte der Erde und möchte sich weiterbilden.",
+    meaning: "سلسلة محاضرات جامعية عن جيولوجيا نهر الراين وتكون الحفريات قبل ملايين السنين",
+    keywords: ["Vortragsreihe = سلسلة محاضرات", "Geologie = جيولوجيا", "Fossilien = حفريات", "Universität = جامعة", "Gesteinsformationen = تشكيلات صخرية"],
+    simplified: "محاضرات علمية عن تاريخ نهر الراين الجيولوجي وعمر الأرض",
+    imagine: "رجل يحمل صخرة قديمة ويشرح شكلها لجمهور من الطلاب",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam32_q7"] = {
-    text: "Die Nordseeküste wirbt für sich am Rhein - Ein Kollege interessiert sich für schnelle Wasserfahrzeuge.",
-    meaning: "ساحل بحر الشمال يعلن عن نفسه على نهر الراين - زميل مهتم بالمركبات المائية السريعة.",
-    keywords: ["Nordseeküste = ساحل بحر الشمال", "Wasserfahrzeuge = مركبات مائية"],
-    simplified: "المركبات المائية السريعة",
-    imagine: "🧠🚤💨 رجل يقف على رصيف الميناء وينظر إلى قارب سريع يمر أمامه بسرعة."
+    text: "Eine Rheinfahrt, die ist lustig - Ihr Bruder interessiert sich für alte Fahrzeuge und möchte eine Tagesfahrt machen.",
+    meaning: "رحلة نهرية على متن باخرة مجداف تاريخية من 1908 مع عشاء وغناء ومواكب أسطورية",
+    keywords: ["Schaufelraddampfer = باخرة مجداف", "historisch = تاريخي", "Wein = نبيذ", "Gesang = غناء", "Loreley = لوريلاي"],
+    simplified: "رحلة نهرية على سفينة بخارية قديمة مع طعام وشراب وأساطير الراين",
+    imagine: "قارب ضخم بعجلات جانبية يتحرك ببطء على الماء ورجل يلوح من على سطح السفينة",
+    correct: 7
 };
 
-// ============================================
-// Exam 33: ein paar Tage in Berlin
-// ============================================
+HELP_DATA["lesen3_exam32_q8"] = {
+    text: "Geschichte und Geschichten vom Rhein - Ein Freund sammelt Bücher mit den Autogrammen der Autoren.",
+    meaning: "معرض تاريخي وأمسيات قراءة مع توقيعات الكُتّاب في مكتبة بينغن",
+    keywords: ["Ausstellung = معرض", "Lesungen = قراءات", "Autogrammstunden = ساعات توقيع", "Schriftsteller = كتّاب", "Bibliothek = مكتبة"],
+    simplified: "معرض عن أساطير الراين مع جلسات قراءة وتوقيعات للكتّاب",
+    imagine: "شاب يقف في طابور وكتاب في يده وكاتب يجلس على طاولة ويوقع له",
+    correct: 8
+};
+
+// ========== Exam 33: ein paar Tage in Berlin ==========
 
 HELP_DATA["lesen3_exam33_q1"] = {
-    text: "Das Comedy Filmfest tourt auch dieses Jahr - Sie möchten mit Freunden einen unterhaltsamen Film anschauen.",
-    meaning: "مهرجان الأفلام الكوميدية يجول هذا العام أيضاً - تريد مشاهدة فيلم ترفيهي مع أصدقائك.",
-    keywords: ["Comedy = كوميديا", "unterhaltsamen Film = فيلم ترفيهي"],
-    simplified: "مشاهدة فيلم كوميدي مع الأصدقاء",
-    imagine: "🧠🍿😄 مجموعة من الأصدقاء يجلسون في صالة سينما ويأكلون الفشار ويضحكون."
+    text: "Eine Karte, 30 Häuser - Ein Bekannter ist ein paar Tage في Berlin und würde sich gerne verschiedene Kunstausstellungen ansehen.",
+    meaning: "بطاقة دخول لمدة 3 أيام لأكثر من 30 متحفا في برلين بسعر مخفض",
+    keywords: ["Museumspass = بطاقة متاحف", "Berlin = برلين", "Kunst = فن", "Eintritt = دخول", "Nationalgalerie = معرض وطني"],
+    simplified: "بطاقة خصم لدخول المتاحف الفنية والتاريخية في برلين لمدة 3 أيام",
+    imagine: "رجل يمسك بطاقة صفراء ويقف أمام بوابة متحف ضخم",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam33_q2"] = {
-    text: "Berlin erleben - Sie würden gerne mit Freunden eine mehrtägige Stadttour machen und suchen ein Angebot.",
-    meaning: "جوهرة برلين - ترغب في القيام بجولة مدينة لعدة أيام مع الأصدقاء وتبحث عن عرض.",
-    keywords: ["Berlin = برلين", "Stadttour = جولة مدينة"],
-    simplified: "رحلة لعدة أيام إلى برلين",
-    imagine: "🧠🏙️🗺️ ثلاثة أصدقاء يقفون أمام بوابة براندنبورغ ويمسكون خريطة."
+    text: "Berlin Gendarmenmarkt - Eine Bekannte träumt davon, selbst einmal bei einem Film mitzuspielen.",
+    meaning: "فرصة للتمثيل ككومبارس في فيلم عن برلين في العشرينيات الذهبية مقابل 75 يورو يوميا",
+    keywords: ["Film = فيلم", "Komparsen = كومبارس", "Drehtag = يوم تصوير", "Gage = أجر", "Berlin = برلين"],
+    simplified: "فرصة للمشاركة كدور صغير في فيلم تاريخي برليني بأجر يومي",
+    imagine: "امرأة تقف أمام كاميرا وتلوح بيدها والمخرج يصرخ آكشن",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam33_q3"] = {
-    text: "Berlin Gendarmenmarkt - Eine Bekannte träumt davon, selbst einmal bei einem Film mitzuspielen.",
-    meaning: "برلين جندارمنماركت - إحدى المعارف تحلم بالتمثيل في فيلم مرة واحدة.",
-    keywords: ["Film = فيلم", "mitzuspielen = تمثيل"],
-    simplified: "الحلم بالتمثيل في فيلم",
-    imagine: "🧠🎬🎭 امرأة تقف أمام كاميرا وتشير بيديها بشكل درامي."
+    text: "Stadtführungen in Berlin - Eine Freundin sucht einen Nebenjob. Sie würde dabei gerne viel Zeit draußen verbringen.",
+    meaning: "وظيفة كمرشد سياحي في برلين لمدة عام مع ساعات عمل مرنة ونظام 450 يورو",
+    keywords: ["Stadtführungen = جولات سياحية", "Guide = مرشد", "Nebenjob = عمل جانبي", "Freiberufler = مستقل", "Berlin = برلين"],
+    simplified: "فرصة عمل كمرشد سياحي في الهواء الطلق بأجر مرن",
+    imagine: "فتاة تقف أمام مجموعة سياحية وتشير إلى مباني تاريخية وكلهم يتابعونها",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam33_q4"] = {
-    text: "Eine Karte, 30 Häuser - Ein Bekannter hält sich einige Tage in Berlin auf und möchte in dieser Zeit verschiedene Kunstausstellungen besuchen.",
-    meaning: "بطاقة واحدة، 30 متحفاً - أحد المعارف يقضي بضعة أيام في برلين ويريد زيارة معارض فنية مختلفة خلال هذا الوقت.",
-    keywords: ["Karte = بطاقة", "Kunstausstellungen = معارض فنية"],
-    simplified: "زيارة المعارض الفنية في برلين",
-    imagine: "🧠🎨🖼️ رجل يقف أمام لوحة لبيكاسو في متحف وينظر إليها بتمعن."
+    text: "Ihr Cousin ist Student und sucht für die Sommermonate einen Nebenjob.",
+    meaning: "مطلوب مساعد في صالة سينما للعمل في العطلة الصيفية 25 ساعة أسبوعيا",
+    keywords: ["Aushilfe = مساعد", "Kino = سينما", "Student = طالب", "Sommer = صيف", "Arbeit = عمل"],
+    simplified: "وظيفة صيفية في سينما لطالب بمرتب شهري",
+    imagine: "شاب يرتدي مئزر سينما ويبيع الفشار على الشباك وابتسامته عريضة",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam33_q5"] = {
-    text: "Stadtführungen in Berlin - Eine Freundin sucht einen Nebenjob, bei dem sie gerne viel Zeit im Freien verbringen würde.",
-    meaning: "جولات سياحية في برلين - صديقة تبحث عن وظيفة جانبية تقضي فيها وقتاً طويلاً في الهواء الطلق.",
-    keywords: ["Stadtführungen = جولات سياحية", "Nebenjob = وظيفة جانبية"],
-    simplified: "وظيفة في الهواء الطلق",
-    imagine: "🧠🧢🌞 امرأة واقفة تحت الشمس وتمسك بلافتة سياحية بيدها."
+    text: "Das etwas gemütlichere Berlin - Sie möchten eine besondere Stadtführung في Berlin buchen",
+    meaning: "جولة مشي لمدينة فريديناو في برلين تشمل تذوق طعام من ثلاثة مطابخ مختلفة",
+    keywords: ["Stadtführung = جولة سياحية", "Berlin = برلين", "kulinarisch = شهي", "Altbauten = مبانٍ قديمة", "Café = مقهى"],
+    simplified: "جولة غذائية ثقافية في أحياء برلين المخفية لمدة 3 ساعات",
+    imagine: "سائحة تجلس في مقهى وتأكل معجنات إيطالية وكتاب دليل بين يديها",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam33_q6"] = {
-    text: "Feiern wie in den Goldenen Zwanzigern - Sie sind zu einer Kostüm-Party eingeladen und brauchen dafür etwas zum Anziehen.",
-    meaning: "الاحتفال كما في العشرينيات الذهبية - أنت مدعو إلى حفلة أزياء تنكرية وتحتاج إلى شيء لترتديه.",
-    keywords: ["Kostüm-Party = حفلة أزياء", "Anziehen = يرتدي"],
-    simplified: "تحضير زي لحفلة تنكرية",
-    imagine: "🧠👗💃 امرأة تقف أمام المرآة مرتدية فستاناً قديماً من العشرينيات وقبعة ريش."
+    text: "Das Comedy Filmfest - Sie möchten mit Freunden einen unterhaltsamen Film anschauen",
+    meaning: "فيلم كوميدي رومانسي عن صاحبة متجر شوكولاتة وجارها المزعج في مهرجان الأفلام الكوميدية",
+    keywords: ["Comedy = كوميديا", "Filmfest = مهرجان أفلام", "romantisch = رومانسي", "Berlin = برلين", "Schnellimbiss = مطعم سريع"],
+    simplified: "فيلم رومانسي كوميدي أوروبي عن الحب والجيرة في مهرجان برلين",
+    imagine: "زوجان يجلسان في صالة سينما ويضحكان وكلاهما يمسك يده الأخرى",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam33_q7"] = {
-    text: "Das etwas gemütlichere Berlin - Sie haben vor, eine besondere Stadtführung durch Berlin zu reservieren.",
-    meaning: "برلين الأكثر راحة بعض الشيء - تخطط لحجز جولة مدينة مميزة في برلين.",
-    keywords: ["Stadtführung = جولة مدينة", "reservieren = تحجز"],
-    simplified: "حجز جولة سياحية في برلين",
-    imagine: "🧠📞🗺️ شخص يتصل هاتفياً ويبتسم أثناء حجز جولته في برلين."
+    text: "Feiern wie in den Goldenen Zwanzigern - Sie sind zu einer Kostüm-Party eingeladen und brauchen dafür etwas zum Anziehen.",
+    meaning: "متجر إلكتروني لبيع الملابس والإكسسوارات لحفلات تنكرية بموضوع العشرينيات الذهبية",
+    keywords: ["Kostüm = زي تنكري", "Party = حفلة", "1920er = عشرينيات", "Kleidung = ملابس", "Accessoires = إكسسوارات"],
+    simplified: "تسوق ملابس عصر العشرينيات الذهبية عبر النت للحفلات التنكرية",
+    imagine: "فتاة تقف أمام مرآة وترتدي فستانا طويلا لامعا وريشا في رأسها",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam33_q8"] = {
-    text: "Sie lieben Filme? Dann machen Sie doch das Kino zu Ihrem Arbeitsplatz - Ihr Cousin ist Student und möchte in den Sommermonaten einer Nebentätigkeit nachgehen.",
-    meaning: "هل تحب الأفلام؟ إذن اجعل السينما مكان عملك - ابن عمك طالب ويريد القيام بعمل جانبي خلال أشهر الصيف.",
-    keywords: ["Kino = سينما", "Nebentätigkeit = عمل جانبي"],
-    simplified: "العمل في السينما صيفاً",
-    imagine: "🧠🍿🎬 شاب يقف خلف كاونتر السينما ويبيع التذاكر ويبتسم."
+    text: "Berlin erleben - Sie würden gerne mit Freunden eine mehrtägige Stadttour machen und suchen ein Angebot",
+    meaning: "رحلة 4 أيام إلى برلين مع القطار والفندق والإفطار بسعر يبدأ من 437 يورو",
+    keywords: ["Städtereise = رحلة مدينة", "Berlin = برلين", "Hotel = فندق", "Frühstück = إفطار", "Deutsche Bahn = السكك الحديدية الألمانية"],
+    simplified: "باقة سفر لبرلين تشمل المواصلات والإقامة والإفطار لعدة أيام",
+    imagine: "أربعة أصدقاء يجلسون في قطار ويخططون لليوم التالي على خريطة أمامهم",
+    correct: 9
 };
 
-// ============================================
-// Exam 34: ein paar Tage in Berlin (معدل)
-// ============================================
+// ========== Exam 34: ein paar Tage in Berlin (معدل) - نفس الأسئلة الصحيحة ==========
 
 HELP_DATA["lesen3_exam34_q1"] = {
-    text: "Das Comedy Filmfest tourt auch dieses Jahr - Sie planen, mit Ihren Freunden einen Film zu schauen, der gute Unterhaltung bietet.",
-    meaning: "مهرجان الأفلام الكوميدية يجول هذا العام أيضاً - تخطط لمشاهدة فيلم مع أصدقائك يقدم ترفيهاً جيداً.",
-    keywords: ["Comedy = كوميديا", "Unterhaltung = ترفيه"],
-    simplified: "ليلة سينما مع الأصدقاء",
-    imagine: "🧠🍿🎭 أربعة أصدقاء يجلسون على أريكة في المنزل ويشاهدون فيلماً مضحكاً."
+    text: "Eine Karte, 30 Häuser - Ein Bekannter hält sich einige Tage في Berlin auf und möchte في dieser Zeit verschiedene Kunstausstellungen besuchen.",
+    meaning: "بطاقة متاحف برلين لثلاثة أيام تشمل 30 متحفا بأسعار مخفضة",
+    keywords: ["Museumspass = بطاقة متاحف", "Kunstausstellungen = معارض فنية", "Eintritt = دخول", "Berlin = برلين", "Alte Nationalgalerie = المعرض الوطني القديم"],
+    simplified: "تذكرة شاملة لدخول متاحف برلين الفنية لمدة 3 أيام",
+    imagine: "رجال واقفون أمام لوحة مشهورة وبطاقة زرقاء في أيديهم",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam34_q2"] = {
-    text: "Berlin erleben - Sie planen eine mehrtägige Städtereise mit Freunden und möchten dafür ein geeignetes Angebot finden.",
-    meaning: "جوهرة برلين - تخطط لرحلة مدينة لعدة أيام مع الأصدقاء وتريد العثور على عرض مناسب.",
-    keywords: ["Städtereise = رحلة مدينة", "Freunden = أصدقاء"],
-    simplified: "تنظيم رحلة إلى برلين مع الأصدقاء",
-    imagine: "🧠✈️🏨 ثلاثة أصدقاء يحملون حقائب السفر ويقفون أمام فندق."
+    text: "Berlin Gendarmenmarkt - Eine Freundin von mir wünscht sich, irgendwann selbst eine Rolle في einem Film zu spielen.",
+    meaning: "فرصة للظهور ككومبارس في فيلم عن برلين في العشرينيات مع أجر",
+    keywords: ["Filmrolle = دور فيلم", "Komparsen = كومبارس", "Berlin = برلين", "Drehtag = يوم تصوير", "Bewerbung = تقديم"],
+    simplified: "اختبارات أداء لدور صغير في فيلم تاريخي في برلين",
+    imagine: "فتاة تقف أمام لجنة اختيار وتمثل مشهدا خياليا أمام الكاميرا",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam34_q3"] = {
-    text: "Berlin Gendarmenmarkt - Eine Freundin von mir wünscht sich, irgendwann selbst eine Rolle in einem Film zu spielen.",
-    meaning: "برلين جندارمنماركت - صديقتي تتمنى أن تلعب دوراً في فيلم يوماً ما.",
-    keywords: ["Rolle = دور", "Film = فيلم"],
-    simplified: "الحلم بالتمثيل السينمائي",
-    imagine: "🧠🎬🌟 امرأة تقف أمام مرآة كبيرة وتتدرب على أداء دورها بحماس."
+    text: "Stadtführungen in Berlin - Eine Freundin sucht einen Nebenjob, bei dem sie gerne viel Zeit im Freien verbringen würde.",
+    meaning: "وظيفة كمرشد سياحي في برلين بأجر 450 يورو شهريا وساعات مرنة",
+    keywords: ["Stadtführungen = جولات سياحية", "Guide = مرشد", "Nebenjob = عمل جانبي", "Freiberufler = مستقل", "kommunikativ = اجتماعي"],
+    simplified: "فرصة عمل في الهواء الطلق كمرشد سياحي في برلين",
+    imagine: "امرأة ترتدي قبعة عريضة وتشير إلى مباني تاريخية وجمهور سياحي حولها",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam34_q4"] = {
-    text: "Eine Karte, 30 Häuser - Ein Bekannter hält sich einige Tage in Berlin auf und möchte in dieser Zeit verschiedene Kunstausstellungen besuchen.",
-    meaning: "بطاقة واحدة، 30 متحفاً - أحد المعارف يقضي بضعة أيام في برلين ويريد زيارة معارض فنية مختلفة خلال هذا الوقت.",
-    keywords: ["Kunstausstellungen = معارض فنية", "Berlin = برلين"],
-    simplified: "جولة فنية في برلين",
-    imagine: "🧠🖼️🏛️ رجل واقف في متحف طويل وينظر إلى تمثال رخامي كبير."
+    text: "Ihr Cousin ist Student und möchte في den Sommermonaten einer Nebentätigkeit nachgehen.",
+    meaning: "مطلوب مساعد صيفي في دار سينما لمدة 25 ساعة أسبوعيا في يوليو وأغسطس",
+    keywords: ["Nebentätigkeit = عمل جانبي", "Student = طالب", "Sommer = صيف", "Kino = سينما", "Aushilfe = مساعد"],
+    simplified: "وظيفة مؤقتة في سينما للطلاب في العطلة الصيفية",
+    imagine: "شاب يرتدي بدلة موحدة ويمسك جهاز فحص تذاكر وقاعة سينما خلفه",
+    correct: 4
 };
 
 HELP_DATA["lesen3_exam34_q5"] = {
-    text: "Stadtführungen in Berlin - Eine Freundin sucht einen Nebenjob, bei dem sie gerne viel Zeit im Freien verbringen würde.",
-    meaning: "جولات سياحية في برلين - صديقة تبحث عن وظيفة جانبية تقضي فيها وقتاً طويلاً في الهواء الطلق.",
-    keywords: ["Stadtführungen = جولات سياحية", "Freien = الهواء الطلق"],
-    simplified: "وظيفة مرشدة سياحية",
-    imagine: "🧠🧥❄️ امرأة تقف في طقس بارد وتشرح التاريخ لمجموعة من السياح."
+    text: "Das etwas gemütlichere Berlin - Sie haben vor, eine besondere Stadtführung durch Berlin zu reservieren.",
+    meaning: "جولة سياحية لحي فريديناو الهادئ مع تذوق مأكولات إيطالية وكورية ومغربية",
+    keywords: ["Stadtführung = جولة سياحية", "Berlin = برلين", "kulinarisch = شهي", "Altbauten = مبانٍ قديمة", "Geheimtipp = نصيحة سرية"],
+    simplified: "جولة مشي ثقافية لمدة 3 ساعات في أحياء برلين المخفية مع أكلات عالمية",
+    imagine: "شابان يجلسان في مطعم عربي ويأكلان كسكس ومرشد سياحي يشرح بطاقة الطعام",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam34_q6"] = {
-    text: "Feiern wie in den Goldenen Zwanzigern - Sie gehen auf eine Kostümfeier und suchen dafür ein geeignetes Kostüm.",
-    meaning: "الاحتفال كما في العشرينيات الذهبية - ستذهب إلى حفلة أزياء تنكرية وتبحث عن زي مناسب لذلك.",
-    keywords: ["Kostümfeier = حفلة أزياء", "Kostüm = زي"],
-    simplified: "البحث عن زي تنكري",
-    imagine: "🧠🕵️‍♂️👒 رجل أمام المرآة يرتدي قبعة رجل نبيل قديمة ومعطفاً طويلاً."
+    text: "Das Comedy Filmfest - Sie planen, mit Ihren Freunden einen Film zu schauen, der gute Unterhaltung bietet.",
+    meaning: "فيلم كوميدي رومانسي في مهرجان الأفلام الكوميدية الأوروبي عن صاحبة شوكولاتة ومطعم وجبات سريعة",
+    keywords: ["Comedy = كوميديا", "Filmfest = مهرجان أفلام", "romantisch = رومانسي", "Unterhaltung = ترفيه", "Berlin = برلين"],
+    simplified: "فيلم أوروبي مضحك عن منافسة بين متجر شوكولا ومطعم همبرغر",
+    imagine: "أربعة أصدقاء يجلسون في صف السينما ويضحكون وكلهم يحملون الفشار",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam34_q7"] = {
-    text: "Das etwas gemütlichere Berlin - Sie haben vor, eine besondere Stadtführung durch Berlin zu reservieren.",
-    meaning: "برلين الأكثر راحة بعض الشيء - تخطط لحجز جولة مدينة مميزة في برلين.",
-    keywords: ["Stadtführung = جولة مدينة", "reservieren = تحجز"],
-    simplified: "حجز جولة مميزة في برلين",
-    imagine: "🧠💻🗺️ شخص جالس أمام حاسوب وينقر على زر الحجز عبر الإنترنت لرحلة في برلين."
+    text: "Feiern wie in den Goldenen Zwanzigern - Sie gehen auf eine Kostümfeier und suchen dafür ein geeignetes Kostüm.",
+    meaning: "متجر إلكتروني لملابس حفلات العشرينيات الذهبية من فساتين وبدلات وقبعات",
+    keywords: ["Kostüm = زي تنكري", "Mottoparty = حفلة تنكرية", "1920er = عشرينيات", "Accessoires = إكسسوارات", "Online-Shop = متجر إلكتروني"],
+    simplified: "أزياء حفلات مستوحاة من موضة العشرينيات الذهبية للنساء والرجال",
+    imagine: "امرأة ترتدي فستانا مزينا بالترتر وقبعة صغيرة جانبية وبروش لامع",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam34_q8"] = {
-    text: "Sie lieben Filme? Dann machen Sie doch das Kino zu Ihrem Arbeitsplatz - Ihr Cousin ist Student und möchte in den Sommermonaten einer Nebentätigkeit nachgehen.",
-    meaning: "هل تحب الأفلام؟ إذن اجعل السينما مكان عملك - ابن عمك طالب ويريد القيام بعمل جانبي خلال أشهر الصيف.",
-    keywords: ["Student = طالب", "Nebentätigkeit = عمل جانبي"],
-    simplified: "العمل في السينما فترة الصيف",
-    imagine: "🧠🎬👨‍🎓 شاب يرتدي قميص السينما الرسمي ويكنس أرضية القاعة."
+    text: "Berlin erleben - Sie planen eine mehrtägige Städtereise mit Freunden und möchten dafür ein geeignetes Angebot finden.",
+    meaning: "باقة سفر لبرلين لمدة 4 أيام مع سفر بالقطار وإقامة فندقية مع إفطار",
+    keywords: ["Städtereise = رحلة مدينة", "Berlin = برلين", "Hotelübernachtung = إقامة فندقية", "Frühstück = إفطار", "Pauschalreise = رحلة شاملة"],
+    simplified: "رحلات جماعية لبرلين تشمل السفر والإقامة والإفطار لعدة أيام",
+    imagine: "ثلاثة أشخاص يحملون حقائب سفر ويمسكون تذاكر قطار بابتسامات عريضة",
+    correct: 9
 };
 
-// ============================================
-// Exam 35: Autos
-// ============================================
+// ========== Exam 35: Autos ==========
 
 HELP_DATA["lesen3_exam35_q1"] = {
-    text: "Alles rund um das Thema Geld - Ihr Bruder möchte in einem Kurs sein Wissen über Finanzen erweitern.",
-    meaning: "كل شيء حول موضوع المال - أخوك يريد توسيع معرفته حول التمويل من خلال دورة تدريبية.",
-    keywords: ["Geld = مال", "Finanzen = تمويل"],
-    simplified: "دورة في التمويل الشخصي",
-    imagine: "🧠💰📊 رجل جالس في قاعة تدريب وينظر إلى سبورة مكتوب عليها أرقام."
+    text: "Entdeckungsreise in die Welt der Technik - Ein Bekannter interessiert sich für wertvolle alte Fahrzeuge.",
+    meaning: "متحف تقني يضم سيارات كلاسيكية فاخرة وطائرات أسرع من الصوت وقاطرات بخارية",
+    keywords: ["Technikmuseum = متحف تقني", "Oldtimer = سيارات كلاسيكية", "Rennwagen = سيارات سباق", "Flugzeuge = طائرات", "Dampfloks = قاطرات بخارية"],
+    simplified: "زيارة متحف ضخم للسيارات القديمة والطائرات التاريخية",
+    imagine: "رجل يضع يده على سيارة حمراء قديمة لامعة ويبتسم",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam35_q2"] = {
-    text: "Energiesparen leicht gemacht - Ihr Nachbar braucht einen neuen Kühlschrank und möchte sich über verschiedene Modelle informieren.",
-    meaning: "توفير الطاقة بسهولة - جارك يحتاج إلى ثلاجة جديدة ويريد الاستعلام عن موديلات مختلفة.",
-    keywords: ["Energiesparen = توفير طاقة", "Kühlschrank = ثلاجة"],
-    simplified: "اختيار ثلاجة موفرة للطاقة",
-    imagine: "🧠❄️🔌 رجل يقف أمام صف من الثلاجات البيضاء ويقرأ بطاقات الأسعار."
+    text: "Alles rund um das Thema Geld. Workshop - Ihr Bruder möchte في einem Kurs sein Wissen über Finanzen erweitern.",
+    meaning: "دورة تدريبية لمدة يومين في التخطيط المالي وإدارة الديون والادخار والاستثمار",
+    keywords: ["Workshop = ورشة عمل", "Finanzen = شؤون مالية", "Budgetplanung = تخطيط ميزانية", "Sparen = ادخار", "Kredit = قرض"],
+    simplified: "دورة شاملة في إدارة المال الشخصي وميزانية المنزل والاستثمار",
+    imagine: "رجل جالس أمام أوراق مالية وآلة حاسبة وسهم إشارة خضراء",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam35_q3"] = {
-    text: "Entspannt unterwegs in der Stadt und auf dem Land - Sie möchten auf Ihren PKW verzichten und suchen Tipps.",
-    meaning: "متنقلاً براحة في المدينة والريف - تريد الاستغناء عن سيارتك الخاصة وتبحث عن نصائح.",
-    keywords: ["PKW = سيارة خاصة", "verzichten = تستغني"],
-    simplified: "بدائل عن السيارة الخاصة",
-    imagine: "🧠🚲🌳 شخص يجلس على مقعد في الحديقة ويقرأ كتيباً عن وسائل النقل البديلة."
+    text: "Rasantes Abenteuer für Autofans - Ihr Cousin würde gerne mal mit einem schnellen Sportwagen fahren.",
+    meaning: "تجربة قيادة سيارة فيراري على مضمار طائرات مهجور بسرعة غير محدودة",
+    keywords: ["Ferrari = فيراري", "Rennwagen = سيارة سباق", "Fahrtraining = تدريب قيادة", "Vollgas = سرعة قصوى", "Flugplatz = مطار"],
+    simplified: "قيادة سيارة أحلامك بسرعة جنونية على مدرج مهجور",
+    imagine: "شاب يجلس في مقعد سيارة حمراء رياضية ويداه على المقود وأسنانه تنجز",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam35_q4"] = {
-    text: "Entdeckungsreise in die Welt der Technik - Ein Bekannter interessiert sich für wertvolle alte Fahrzeuge.",
-    meaning: "رحلة استكشافية إلى عالم التقنية - أحد المعارف مهتم بالمركبات القديمة الثمينة.",
-    keywords: ["Entdeckungsreise = رحلة استكشافية", "alte Fahrzeuge = مركبات قديمة"],
-    simplified: "زيارة متحف السيارات القديمة",
-    imagine: "🧠🚗🔧 رجل ينحني أمام سيارة كلاسيكية حمراء وينظر إلى محركها."
+    text: "Energiesparen leicht gemacht - Ihr Nachbar braucht einen neuen Kühlschrank und möchte sich über verschiedene Modelle informieren.",
+    meaning: "موقع إلكتروني يساعد في اختيار الأجهزة المنزلية الموفرة للطاقة حسب الحجم والفعالية",
+    keywords: ["Energiekosten = تكاليف طاقة", "Geräte = أجهزة", "Stromverbrauch = استهلاك كهرباء", "Effizienz = كفاءة", "Website = موقع"],
+    simplified: "دليل شراء الأجهزة الكهربائية الجديدة حسب استهلاكها للكهرباء",
+    imagine: "رجل واقف أمام ثلاجة يقرأ بطاقة الطاقة الخضراء والصفراء والحمراء",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam35_q5"] = {
-    text: "Rasantes Abenteuer für Autofans - Ihr Cousin würde gerne mal mit einem schnellen Sportwagen fahren.",
-    meaning: "مغامرة سريعة لعشاق السيارات - ابن عمك يود القيادة بسيارة رياضية سريعة مرة واحدة.",
-    keywords: ["Sportwagen = سيارة رياضية", "schnellen = سريعة"],
-    simplified: "تجربة قيادة سيارة رياضية",
-    imagine: "🧠🏎️💨 رجل جالس داخل سيارة فيراري حمراء ويداه على المقود وابتسامة عريضة."
+    text: "Unkompliziert und spontan unterwegs sein? - Ihre Schwester hat kein Auto. Für gelegentliche Fahrten sucht sie eine Alternative zu öffentlichen Verkehrsmitteln.",
+    meaning: "خدمة مشاركة سيارات في نورنبرغ بأجرة شاملة للوقود والتأمين وحجز عبر الهاتف",
+    keywords: ["Carsharing = مشاركة سيارة", "Mieten = استئجار", "kein eigenes Auto = لا سيارة خاصة", "Smartphone-App = تطبيق هاتف", "Online-Buchung = حجز عبر الإنترنت"],
+    simplified: "استئجار سيارات قريبة منك بالدقيقة أو بالساعة بدون شروط شهرية",
+    imagine: "امرأة تفتح تطبيق هاتفها وتختار سيارة زرقاء من خريطة قريبة منها",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam35_q6"] = {
-    text: "Unkompliziert und spontan unterwegs sein - Ihre Schwester hat kein Auto. Für gelegentliche Fahrten sucht sie eine Alternative zu öffentlichen Verkehrsmitteln.",
-    meaning: "التنقل بدون تعقيد وعفوية - أختك ليس لديها سيارة. للرحلات العرضية تبحث عن بديل لوسائل النقل العامة.",
-    keywords: ["Alternative = بديل", "öffentlichen Verkehrsmitteln = وسائل نقل عامة"],
-    simplified: "بديل عن وسائل النقل العامة",
-    imagine: "🧠📱🚗 امرأة تنظر إلى هاتفها وتضغط أيقونة سيارة مشاركة في التطبيق."
+    text: "Sie brauchen bald neue Haushaltsgeräte, haben aber noch nicht genug Geld gespart.",
+    meaning: "قرض استهلاكي مرن من 1000 إلى 50000 يورو بدون دفعة أولى وبأقساط شهرية بسيطة",
+    keywords: ["Verbraucherkredit = قرض استهلاكي", "monatliche Raten = أقساط شهرية", "keine Anzahlung = بدون دفعة مسبقة", "Online-Kreditentscheidung = قرار قرض فوري"],
+    simplified: "تمويل مشترياتك المنزلية بالتقسيط الشهري بدون فوائد مرتفعة",
+    imagine: "عائلة جالسة على أريكة جديدة وسلة تسوق مليئة بالأجهزة وأوراق القرض أمامهم",
+    correct: 7
 };
 
 HELP_DATA["lesen3_exam35_q7"] = {
-    text: "Versteckte Kosten? - Sie hatten eine hohe Stromrechnung und möchten wissen, wie viel Energie die Geräte in Ihrem Haushalt verbrauchen.",
-    meaning: "تكاليف خفية؟ - كان لديك فاتورة كهرباء مرتفعة وتريد معرفة كمية الطاقة التي تستهلكها الأجهزة في منزلك.",
-    keywords: ["Stromrechnung = فاتورة كهرباء", "Energie = طاقة"],
-    simplified: "قياس استهلاك الأجهزة الكهربائية",
-    imagine: "🧠💡🔌 رجل يقف أمام غسالة صحون ويضع جهاز قياس كهرباء صغيراً فيها بتركيز."
+    text: "Entspannt unterwegs في der Stadt und auf dem Land - Sie möchten auf Ihren PKW verzichten und suchen Tipps.",
+    meaning: "كتاب عن الحياة بدون سيارة للعائلات في الريف والمدينة مع بدائل عملية كثيرة",
+    keywords: ["Auto verzichten = الاستغناء عن سيارة", "Alternativen = بدائل", "Alltag = حياة يومية", "Familie = عائلة", "Dorf = قرية"],
+    simplified: "تجارب و نصائح عائلية للعيش بدون سيارة في الريف والمدينة",
+    imagine: "امرأة تدفع عربة بقالة في شارع رئيسي وباص يمر بجانبها",
+    correct: 8
 };
 
 HELP_DATA["lesen3_exam35_q8"] = {
-    text: "Warum noch länger warten? - Sie brauchen bald neue Haushaltsgeräte, haben aber noch nicht genug Geld gespart.",
-    meaning: "لماذا الانتظار أكثر؟ - ستحتاج قريباً إلى أجهزة منزلية جديدة، ولكنك لم تدخر ما يكفي من المال بعد.",
-    keywords: ["Haushaltsgeräte = أجهزة منزلية", "Geld = مال"],
-    simplified: "شراء أجهزة منزلية عند ضيق الميزانية",
-    imagine: "🧠🛒😟 امرأة تقف أمام غسالة جديدة في المتجر وتنظر إلى سعرها ويبدو عليها الحزن."
+    text: "Versteckte Kosten? - Sie hatten eine hohe Stromrechnung und möchten wissen, wie viel Energie die Geräte في Ihrem Haushalt verbrauchen.",
+    meaning: "جهاز قياس استهلاك الكهرباء للأجهزة المنزلية لحساب التكلفة الفعلية للتيار",
+    keywords: ["Strommessgerät = جهاز قياس كهرباء", "Verbrauch = استهلاك", "Stromkosten = تكاليف كهرباء", "LCD-Display = شاشة عرض", "Haushalt = منزل"],
+    simplified: "جهاز صغير يقيس استهلاك أجهزتك للكهرباء وتكلفتها الحقيقية",
+    imagine: "يد تمسك جهاز صغير وتوصله بغسالة وأرقام حمراء تظهر على شاشته",
+    correct: 9
 };
 
-// ============================================
-// Exam 36: Möbel für die neue Wohnung
-// ============================================
+// ========== Exam 36: Möbel für die neue Wohnung ==========
 
 HELP_DATA["lesen3_exam36_q1"] = {
-    text: "25 Jahre in Hamburg - Ihre Cousine schaut sich gerne Bühnenshows an und möchte wissen, welche Arbeiten hinter den Kulissen erledigt werden.",
-    meaning: "25 عاماً في هامبورغ - ابنة عمتك تحب مشاهدة العروض المسرحية وتريد معرفة الأعمال التي تتم خلف الكواليس.",
-    keywords: ["Bühnenshows = عروض مسرحية", "Kulissen = كواليس"],
-    simplified: "أسرار العمل خلف الكواليس",
-    imagine: "🧠🎭🎪 امرأة تقف خلف الستارة وتنظر إلى العمال وهم يركضون يحملون الأزياء."
+    text: "Ihr Kleiderschrank platzt aus allen Nähten - Eine Bekannte sucht Möbel für ihre neue Wohnung und wünscht sich viel Platz für ihre Kleidung.",
+    meaning: "خزانة ملابس مخصصة بالقياس مع نظام داخلي متغير حسب احتياجاتك",
+    keywords: ["Kleiderschrank = خزانة ملابس", "begehbarer Kleiderschrank = خزانة ملابس قابلة للمشي", "Innenausstattung = تجهيز داخلي", "Beratungstermin = موعد استشارة", "kostenlos = مجاني"],
+    simplified: "خزانة ملابس مصممة حسب رغبتك تتسع لكل ملابسك",
+    imagine: "امرأة تقف في غرفة كبيرة والجدران كلها أرفف معلقة ودرج ومرآة",
+    correct: 0
 };
 
 HELP_DATA["lesen3_exam36_q2"] = {
-    text: "Der perfekte Kleiderschrank - Eine Freundin hat viele Sachen zum Anziehen, die sie nie trägt. Sie möchte einen guten Kleidungsstil entwickeln.",
-    meaning: "خزانة الملابس المثالية - صديقة لديها العديد من الأشكال التي لا ترتديها أبداً. تريد تطوير أسلوب ملابس جيد.",
-    keywords: ["Kleiderschrank = خزانة ملابس", "Kleidungsstil = أسلوب ملابس"],
-    simplified: "تطوير أسلوب شخصي في الملابس",
-    imagine: "🧠👗👉 امرأة تقف أمام خزانة ملابسها ويديها على وركها تفكر."
+    text: "Der perfekte Kleiderschrank - Eine Freundin hat viele Sachen zum Anziehen, die sie nie trägt. Sie möchte einen guten Kleidungsstيل entwickeln.",
+    meaning: "كتاب عن الموضة يساعدك على اكتشاف ما يناسب شكلك وما لا يناسب وبناء خزانة أساسية مثالية",
+    keywords: ["Kleiderschrank = خزانة ملابس", "Modetrends = صيحات موضة", "Typ = شخصية", "Qualität = جودة", "Garderobe = خزانة ملابس"],
+    simplified: "دليل لبناء خزانة ملابس عصرية تناسب شخصيتك وميزانيتك",
+    imagine: "امرأة تقف أمام خزانة ملابسها كاملة وتختار قطعة واحدة وقالت هذا أنا",
+    correct: 1
 };
 
 HELP_DATA["lesen3_exam36_q3"] = {
     text: "www.selbstgemacht-info.net - Eine Nachbarin ist sehr kreativ und stellt Kleidung selbst her. Sie überlegt, ob sie diese auch verkaufen könnte.",
-    meaning: "www.selbstgemacht-info.net - جارتك مبدعة جداً وتصنع الملابس بنفسها. تفكر فيما إذا كان بإمكانها بيعها أيضاً.",
-    keywords: ["selbstgemacht = مصنوع يدوياً", "verkaufen = تبيع"],
-    simplified: "بيع الملابس المصنوعة يدوياً",
-    imagine: "🧠🪡👗 امرأة جالسة أمام ماكينة خياطة قديمة وتنظر إلى فستان جميل انتهت منه للتو."
+    meaning: "موقع يوفر معلومات عن أفضل منصات البيع لمنتجات يدوية وقوانين التجارة الإلكترونية",
+    keywords: ["selbstgemacht = مصنوع يدويا", "vermarkten = تسويق", "Online-Shop = متجر إلكتروني", "rechtliche Bestimmungen = أحكام قانونية", "Internetplattformen = منصات إنترنت"],
+    simplified: "دليل لبيع المشغولات اليدوية أونلاين من منصات إلى قوانين البيع",
+    imagine: "امرأة تحمل حقيبة يد من القماش من تصميمها وتلتقط صورة لها بهاتفها",
+    correct: 2
 };
 
 HELP_DATA["lesen3_exam36_q4"] = {
-    text: "Ihr Kleiderschrank platzt aus allen Nähten? - Eine Bekannte sucht Möbel für ihre neue Wohnung und wünscht sich viel Platz für ihre Kleidung.",
-    meaning: "خزانة ملابسك تنفجر من كل الدرزات؟ - إحدى المعارف تبحث عن أثاث لشقتها الجديدة وتتمنى مساحة كبيرة لملابسها.",
-    keywords: ["Kleiderschrank = خزانة ملابس", "Platz = مساحة"],
-    simplified: "تأثيث غرفة النوم بخزانة كبيرة",
-    imagine: "🧠📏👠 امرأة تقف في غرفة نوم فارغة وتفكر أين ستضع خزانة ملابسها الكبيرة."
+    text: "Regionale Musicalstars gesucht - Ihr 18-jähriger Bruder singt gerne في seiner Freizeit und träumt davon, mal auf der Bühne zu stehen.",
+    meaning: "اختبارات أداء لموسيقيال جديد يبحث عن ممثلين للرقص والغناء والتمثيل من الهواة والمحترفين",
+    keywords: ["Musical = مسرح غنائي", "Casting = اختبار أداء", "Tanz = رقص", "Gesang = غناء", "Schauspiel = تمثيل"],
+    simplified: "فرصة للمواهب الشابة للانضمام إلى فريق عمل مسرحية غنائية جديدة",
+    imagine: "شاب يقف على خشبة المسرح ويغني بكل قوته ولجنة الاختيار تنصت بتركيز",
+    correct: 3
 };
 
 HELP_DATA["lesen3_exam36_q5"] = {
-    text: "Regionale Musicalstars gesucht - Ihr 18-jähriger Bruder singt gerne in seiner Freizeit und träumt davon, mal auf der Bühne zu stehen.",
-    meaning: "مطلوب نجوم مسرحيات غنائية محليين - أخوك البالغ 18 عاماً يحب الغناء في أوقات فراغه ويحلم بالوقوف على خشبة المسرح يوماً ما.",
-    keywords: ["Musicalstars = نجوم مسرحيات غنائية", "Bühne = خشبة مسرح"],
-    simplified: "الغناء على المسرح",
-    imagine: "🧠🎙️🎤 شاب واقف على خشبة المسرح ويغني بأعلى صوته والجمهور يصفق بشدة."
+    text: "25 Jahre in Hamburg - Ihre Cousine schaut sich gerne Bühnenshows an und möchte wissen, welche Arbeiten hinter den Kulissen erledigt werden.",
+    meaning: "جولة خلف الكواليس في مسرحية غنائية ناجحة مدتها 25 سنة مع فريق العمل وشرح مهامهم",
+    keywords: ["Bühnenshow = عرض مسرحي", "hinter der Bühne = خلف الكواليس", "Mitarbeiter = موظفين", "Vorstellung = عرض", "Jubiläum = ذكرى سنوية"],
+    simplified: "رحلة خلف ستار مسرح غنائي لرؤية أسرار الصنعة",
+    imagine: "فتاة تضع سماعة رأس وتمسك بجهاز إضاءة ملون وممثلون خلفها على المسرح",
+    correct: 5
 };
 
 HELP_DATA["lesen3_exam36_q6"] = {
-    text: "Mode, Stars, Lifestyle - Ihre Tochter ist Studentin und würde gerne Moderedakteurin werden. Sie möchte erste Erfahrungen in diesem Beruf sammeln.",
-    meaning: "موضة، نجوم، نمط حياة - ابنتك طالبة جامعية وتود أن تصبح محررة أزياء. تريد اكتساب الخبرات الأولى في هذه المهنة.",
-    keywords: ["Moderedakteurin = محررة أزياء", "Erfahrungen = خبرات"],
-    simplified: "تجربة العمل كمحررة أزياء",
-    imagine: "🧠👩‍💻📸 شابة تجلس أمام حاسوبها المحمول وتكتب مقالاً عن أحدث صيحات الموضة."
+    text: "Streifzug durch die Modewelt - Ihre Schwester studiert Geschichte und interessiert sich für Zeitschriften von früher.",
+    meaning: "معرض لأزياء باريس القديمة من القرن العشرين مع ملابس أصلية وصور وتسجيلات نادرة",
+    keywords: ["Ausstellung = معرض", "Mode = موضة", "Paris = باريس", "historische Kleidungsstücke = ملابس تاريخية", "Accessoires = إكسسوارات", "Tonaufnahmen = تسجيلات صوتية"],
+    simplified: "معرض فني لتطور أزياء النساء في باريس قبل 100 سنة",
+    imagine: "امرأة تقف أمام فستان عتيق طويل في زجاج شفاف ومصباح عليها",
+    correct: 6
 };
 
 HELP_DATA["lesen3_exam36_q7"] = {
-    text: "Streifzug durch die Modewelt - Ihre Schwester studiert Geschichte und interessiert sich für Zeitschriften von früher.",
-    meaning: "جولة في عالم الموضة - أختك تدرس التاريخ ومهتمة بالمجلات القديمة.",
-    keywords: ["Modewelt = عالم موضة", "Zeitschriften = مجلات"],
-    simplified: "مجلات الأزياء القديمة",
-    imagine: "🧠📰👗 امرأة جالسة في أرشيف وتقلب صفحات مجلة أزياء قديمة جداً."
+    text: "Mode, Stars, Lifestyle - Ihre Tochter ist Studentin und würde gerne Moderedakteurin werden. Sie möchte erste Erfahrungen في diesem Beruf sammeln.",
+    meaning: "فرصة تدريب في مجلة أزياء دولية لاكتشاف صناعة المحتوى الإعلامي والموضة",
+    keywords: ["Praktikum = تدريب", "Moderedakteurin = محررة أزياء", "Magazin = مجلة", "Trends = صيحات", "Medien = وسائل إعلام"],
+    simplified: "تدريب في مجلة أزياء عالمية لمحبي الموضة والإعلام",
+    imagine: "فتاة تقف أمام حاسوبها وفي يدها مجلة مفتوحة وصور ملابس ملونة خلفها",
+    correct: 7
 };
+
+HELP_DATA["lesen3_exam36_q8"] = {
+    text: "Filmhit als Musikspektakel - Sie möchten sich eine unterhaltsame Bühnenshow ansehen.",
+    meaning: "مسرحية غنائية مستوحاة من فيلم كوميدي ناجح عن امرأة رئيسة تحرير متسلطة وموظفتها الجديدة",
+    keywords: ["Musical = مسرحية غنائية", "Filmhit = فيلم ناجح", "Komödie = كوميديا", "Pop-Weltstar = نجم بوب عالمي", "Chefredakteurin = رئيسة تحرير"],
+    simplified: "مسرحية غنائية كوميدية عن عالم المجلات والموضة بنجوم عالميين",
+    imagine: "جمهور يصفق وامرأة ترتدي فستانا أنيقا تغني على المسرح وأضواء ملونة",
+    correct: 9
+};
+
 
 // ============================================
 // Exam 1 (exam1.json) - Hallo Ferdinand
