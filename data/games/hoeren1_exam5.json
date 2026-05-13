@@ -1,0 +1,58 @@
+{
+  "skill": "hoeren1",
+  "examId": 5,
+  "name": "Hören Teil 1 - Exam 5: Bierkonsum",
+  "type": "multiple",
+  "questions": [
+    {
+      "firstWords": "Der Bierkonsum steigt um 10",
+      "fullText": "Der Bierkonsum steigt um 10%.",
+      "correctOptions": [],
+      "options": [
+        "Der Bierkonsum steigt um 10%.",
+        "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+        "Es wird Gewalt von Fußballfans auch in Deutschland befürchtet."
+      ]
+    },
+    {
+      "firstWords": "Deutsche Einkommen liegen im europäischen Vergleich",
+      "fullText": "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+      "correctOptions": [1],
+      "options": [
+        "Der Bierkonsum steigt um 10%.",
+        "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+        "Es ist ein Ende des Bahnstreiks in Sicht."
+      ]
+    },
+    {
+      "firstWords": "Es ist ein Ende des Bahnstreiks",
+      "fullText": "Es ist ein Ende des Bahnstreiks in Sicht.",
+      "correctOptions": [],
+      "options": [
+        "Es ist ein Ende des Bahnstreiks in Sicht.",
+        "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+        "Die Leopoldina soll internationale Akademie werden."
+      ]
+    },
+    {
+      "firstWords": "Es wird Gewalt von Fußballfans auch",
+      "fullText": "Es wird Gewalt von Fußballfans auch in Deutschland befürchtet.",
+      "correctOptions": [0],
+      "options": [
+        "Es wird Gewalt von Fußballfans auch in Deutschland befürchtet.",
+        "Der Bierkonsum steigt um 10%.",
+        "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld."
+      ]
+    },
+    {
+      "firstWords": "Die Leopoldina soll internationale Akademie",
+      "fullText": "Die Leopoldina soll internationale Akademie werden.",
+      "correctOptions": [],
+      "options": [
+        "Die Leopoldina soll internationale Akademie werden.",
+        "Es wird Gewalt von Fußballfans auch in Deutschland befürchtet.",
+        "Es ist ein Ende des Bahnstreiks in Sicht."
+      ]
+    }
+  ]
+}

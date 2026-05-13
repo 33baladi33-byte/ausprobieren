@@ -1,0 +1,58 @@
+{
+  "skill": "hoeren1",
+  "examId": 2,
+  "name": "Hören Teil 1 - Exam 2: Die Piloten der Lufthansa",
+  "type": "multiple",
+  "questions": [
+    {
+      "firstWords": "Die Piloten der Lufthansa kämpfen für eine",
+      "fullText": "Die Piloten der Lufthansa kämpfen für eine bessere Bezahlung.",
+      "correctOptions": [],
+      "options": [
+        "Die Piloten der Lufthansa kämpfen für eine bessere Bezahlung.",
+        "Immer mehr Menschen besuchen den Tag des offenen Denkmals.",
+        "Bei den Fußballspielen gab es keinen Sieger."
+      ]
+    },
+    {
+      "firstWords": "Das Gesundheitsministerium empfiehlt allen Bürgern",
+      "fullText": "Das Gesundheitsministerium empfiehlt allen Bürgern eine Grippeimpfung.",
+      "correctOptions": [],
+      "options": [
+        "Das Gesundheitsministerium empfiehlt allen Bürgern eine Grippeimpfung.",
+        "Immer mehr Menschen besuchen den Tag des offenen Denkmals.",
+        "Bei den Fußballspielen gab es keinen Sieger."
+      ]
+    },
+    {
+      "firstWords": "Immer mehr Menschen besuchen den Tag des",
+      "fullText": "Immer mehr Menschen besuchen den Tag des offenen Denkmals.",
+      "correctOptions": [1],
+      "options": [
+        "Die Piloten der Lufthansa kämpfen für eine bessere Bezahlung.",
+        "Immer mehr Menschen besuchen den Tag des offenen Denkmals.",
+        "Die Mehrheit der deutschen Arbeitnehmer würde auch im Ausland arbeiten."
+      ]
+    },
+    {
+      "firstWords": "Die Mehrheit der deutschen Arbeitnehmer würde auch",
+      "fullText": "Die Mehrheit der deutschen Arbeitnehmer würde auch im Ausland arbeiten.",
+      "correctOptions": [],
+      "options": [
+        "Die Mehrheit der deutschen Arbeitnehmer würde auch im Ausland arbeiten.",
+        "Immer mehr Menschen besuchen den Tag des offenen Denkmals.",
+        "Bei den Fußballspielen gab es keinen Sieger."
+      ]
+    },
+    {
+      "firstWords": "Bei den Fußballspielen gab es keinen",
+      "fullText": "Bei den Fußballspielen gab es keinen Sieger.",
+      "correctOptions": [2],
+      "options": [
+        "Die Piloten der Lufthansa kämpfen für eine bessere Bezahlung.",
+        "Das Gesundheitsministerium empfiehlt allen Bürgern eine Grippeimpfung.",
+        "Bei den Fußballspielen gab es keinen Sieger."
+      ]
+    }
+  ]
+}

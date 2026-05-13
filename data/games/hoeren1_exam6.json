@@ -1,0 +1,58 @@
+{
+  "skill": "hoeren1",
+  "examId": 6,
+  "name": "Hören Teil 1 - Exam 6: Bierkonsum (Mittel)",
+  "type": "multiple",
+  "questions": [
+    {
+      "firstWords": "Der Bierkonsum steigt um 10",
+      "fullText": "Der Bierkonsum steigt um 10%.",
+      "correctOptions": [],
+      "options": [
+        "Der Bierkonsum steigt um 10%.",
+        "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+        "Man befürchtet auch in Deutschland Gewalt von Fußballfans."
+      ]
+    },
+    {
+      "firstWords": "Deutsche Einkommen liegen im europäischen Vergleich",
+      "fullText": "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+      "correctOptions": [1],
+      "options": [
+        "Der Bierkonsum steigt um 10%.",
+        "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+        "Es ist ein Ende des Bahnstreiks in Sicht."
+      ]
+    },
+    {
+      "firstWords": "Es ist ein Ende des Bahnstreiks",
+      "fullText": "Es ist ein Ende des Bahnstreiks in Sicht.",
+      "correctOptions": [],
+      "options": [
+        "Es ist ein Ende des Bahnstreiks in Sicht.",
+        "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
+        "Die Leopoldina soll internationale Akademie werden."
+      ]
+    },
+    {
+      "firstWords": "Man befürchtet auch in Deutschland Gewalt",
+      "fullText": "Man befürchtet auch in Deutschland Gewalt von Fußballfans.",
+      "correctOptions": [0],
+      "options": [
+        "Man befürchtet auch in Deutschland Gewalt von Fußballfans.",
+        "Der Bierkonsum steigt um 10%.",
+        "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld."
+      ]
+    },
+    {
+      "firstWords": "Die Leopoldina soll internationale Akademie",
+      "fullText": "Die Leopoldina soll internationale Akademie werden.",
+      "correctOptions": [],
+      "options": [
+        "Die Leopoldina soll internationale Akademie werden.",
+        "Man befürchtet auch in Deutschland Gewalt von Fußballfans.",
+        "Es ist ein Ende des Bahnstreiks in Sicht."
+      ]
+    }
+  ]
+}
