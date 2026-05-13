@@ -1,6 +1,6 @@
 // ============================================
 // rapidGame.js - لعبة التحدي السريع
-// تم التعديل: Hören Teil 1 (Reflex Modus)
+// تم التعديل: Hören Teil 1 (Reflex/Fast Recognition Modus)
 // ============================================
 
 (function() {
@@ -48,8 +48,8 @@
     let currentSkill = null;
     let currentExamId = null;
 
-    // متغير جديد خاص بـ Hören 1 لحفظ الجمل الأصلية
-    let hoeren1FullSentences = [];
+    // متغير خاص بـ Hören 1 لحفظ الجمل الأصلية
+    let hoeren1Sentences = [];
     
     function shortenText(text, maxWords) {
         if (!text) return "";
@@ -442,23 +442,24 @@
             .then(data => {
                 currentGameData = data;
                 
-                // التحقق من نوع الامتحان لـ Hören 1
-                if (skill === 'hoeren1' && data.type === 'reflex_truefalse') {
-                    // حفظ الجمل الأصلية في متغير خاص
-                    hoeren1FullSentences = data.sentences;
+                // ==================== نظام Hören Teil 1 الجديد ====================
+                if (skill === 'hoeren1') {
+                    // حفظ الجمل من ملف الامتحان
+                    hoeren1Sentences = data.sentences || [];
                     
-                    // إنشاء أسئلة وهمية للعبة بعدد الجولات المطلوب
-                    // هذا يسمح لنظام الجولات (generateSmartRound) بالعمل بشكل طبيعي
+                    // إنشاء جولات وهمية بعدد الجولات المطلوب
+                    // النظام سيقوم باختيار جمل عشوائية في كل مرة يتم فيها عرض السؤال
                     const totalRounds = SETTINGS.roundLength;
                     originalQuestions = [];
                     for (let i = 0; i < totalRounds; i++) {
                         originalQuestions.push({
                             type: "hoeren1_reflex",
                             id: i,
-                            // سنقوم باختيار الجمل في كل مرة يتم فيها عرض السؤال
+                            questionText: "اختر الجملة الصحيحة"
                         });
                     }
                 }
+                // ==================== باقي الأنظمة (Lesen, Sprach, Hören 2/3) ====================
                 else if (skill === 'lesen3') {
                     let allQuestions = data.questions;
                     allQuestions = allQuestions.filter(q => q.correctTitle !== null && q.correctTitle !== undefined);
@@ -678,14 +679,15 @@
         timerContainer.appendChild(timerSvg.svg);
         container.appendChild(timerContainer);
         
-        // السؤال
+        // السؤال (نص السؤال حسب نوع السؤال)
         const questionDiv = document.createElement('div');
         questionDiv.style.cssText = 'font-size:20px;font-weight:500;padding:20px 30px;background:#f5f7fc;border-radius:20px;margin-bottom:25px;color:#1a1a2e;line-height:1.5';
         
         if (q.type === "sprach") {
             questionDiv.textContent = q.displayText;
         } else if (q.type === "hoeren1_reflex") {
-            questionDiv.textContent = `اختر الجملة الصحيحة`;
+            // نص السؤال لـ Hören 1 النظام الجديد
+            questionDiv.textContent = "اختر الجملة الصحيحة";
         } else if (q.type === "hoeren") {
             questionDiv.textContent = `من هي الإجابة الصحيحة؟`;
         } else {
@@ -698,11 +700,11 @@
         optionsDiv.className = 'game-options-div';
         optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:20px';
         
-        // منطق Hören 1 الجديد (Reflex Modus)
+        // ==================== نظام Hören Teil 1 الجديد (Reflex/Fast Recognition) ====================
         if (q.type === "hoeren1_reflex") {
             // فصل الجمل الصحيحة عن الخاطئة
-            const correctSentences = hoeren1FullSentences.filter(s => s.correct === true);
-            const incorrectSentences = hoeren1FullSentences.filter(s => s.correct === false);
+            const correctSentences = hoeren1Sentences.filter(s => s.correct === true);
+            const incorrectSentences = hoeren1Sentences.filter(s => s.correct === false);
             
             // اختيار جملة صحيحة عشوائية
             const selectedCorrect = correctSentences.length > 0 
@@ -719,10 +721,9 @@
                 }
                 selectedIncorrects = shuffledIncorrects.slice(0, 2);
             } else {
-                // إذا لم يكن هناك جملتان خاطئتان، نستخدم الجمل المتاحة
                 selectedIncorrects = [...incorrectSentences];
                 while(selectedIncorrects.length < 2) {
-                    selectedIncorrects.push({ text: "جملة إضافية", correct: false });
+                    selectedIncorrects.push({ text: "جملة إضافية", correct: false, id: -1 });
                 }
             }
             
@@ -761,6 +762,7 @@
                 optionsDiv.appendChild(optBtn);
             });
         }
+        // ==================== Sprachbausteine ====================
         else if (q.type === "sprach") {
             q.options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
@@ -780,7 +782,9 @@
                 optBtn.onclick = () => checkSprachAnswer(opt === q.correct, opt);
                 optionsDiv.appendChild(optBtn);
             });
-        } else if (q.type === "hoeren") {
+        } 
+        // ==================== Hören Teil 2/3 ====================
+        else if (q.type === "hoeren") {
             q.options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
                 optBtn.className = 'game-option-btn';
@@ -798,7 +802,9 @@
                 optBtn.onclick = () => checkHörenAnswer(idx === q.correctAnswerIndex, idx);
                 optionsDiv.appendChild(optBtn);
             });
-        } else {
+        } 
+        // ==================== Lesen Teil 1/2/3 ====================
+        else {
             const options = [];
             
             if (q.correctTitle) {
@@ -908,6 +914,7 @@
         }
     }
     
+    // دالة تطبيق الألوان (موحدة لجميع الأنظمة)
     function applyAnswerColors(isCorrect, selectedValue, selectedIndex, q) {
         const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
         
@@ -973,6 +980,8 @@
         });
     }
     
+    // ==================== دوال التحقق من الإجابات ====================
+    
     // دالة جديدة لفحص إجابات Hören 1 Reflex Modus
     function checkHören1ReflexAnswer(isCorrect, selectedValue) {
         if (!gameActive || gamePaused) return;
@@ -994,7 +1003,6 @@
             combo = 0;
         }
         
-        // تمرير currentOptions مع q لاستخدامها في applyAnswerColors
         applyAnswerColors(isCorrect, selectedValue, null, { type: "hoeren1_reflex", currentOptions: q.currentOptions });
         
         userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
@@ -1106,70 +1114,39 @@
         
         const correct = userAnswers.filter(a => a.isCorrect).length;
         const total = userAnswers.length;
-        const accuracy = total > 0 ? ((correct / total) * 100).toFixed(1) : 0;
-        
-        const questionResults = {};
-        originalQuestions.forEach((q, idx) => {
-            const userAttempts = userAnswers.filter(a => a.originalIndex === idx);
-            const correctAttempts = userAttempts.filter(a => a.isCorrect).length;
-            let title = "";
-            if (q.type === "sprach") {
-                title = (q.before || "").substring(0, 25) + " ... " + (q.after || "").substring(0, 25);
-            } else if (q.type === "hoeren1_reflex") {
-                title = "جولة سريعة";
-            } else {
-                title = q.firstWords || "فقرة";
-            }
-            questionResults[idx] = {
-                title: title.substring(0, 45),
-                attempts: userAttempts.length,
-                correct: correctAttempts,
-                wrong: userAttempts.length - correctAttempts
-            };
-        });
-        
-        let gradeText = '', gradeColor = '', gradeTextColor = '';
-        if (accuracy >= 80) { gradeText = '🧠 ممتاز! أنت جاهز للامتحان'; gradeColor = '#e6f4ea'; gradeTextColor = '#2e7d32'; }
-        else if (accuracy >= 60) { gradeText = '👍 جيد جداً، واصل التدريب'; gradeColor = '#fef5e7'; gradeTextColor = '#b45f06'; }
-        else { gradeText = '💪 لا تستسلم! أعد المحاولة'; gradeColor = '#fef5e7'; gradeTextColor = '#b45f06'; }
+        const accuracy = total > 0 ? ((correct / total) * 100).toFixed(0) : 0;
         
         const overlay = document.createElement('div');
-        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(2px)';
         
         const container = document.createElement('div');
-        container.style.cssText = 'background:white;border-radius:28px;padding:35px;width:90%;max-width:500px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);max-height:80vh;overflow-y:auto';
+        container.style.cssText = 'background:white;border-radius:16px;padding:16px 20px;width:90%;max-width:320px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.05)';
         
-        let statsHtml = '';
-        for (let idx in questionResults) {
-            const stat = questionResults[idx];
-            if (stat.attempts > 0) {
-                const icon = stat.wrong === 0 ? '✅' : (stat.correct > stat.wrong ? '⚠️' : '❌');
-                statsHtml += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee"><span style="font-size:12px;text-align:left;flex:2">${stat.title}</span><span style="font-size:12px;color:${stat.wrong === 0 ? '#2e7d32' : (stat.correct > stat.wrong ? '#b45f06' : '#b45f06')}">${icon} ${stat.correct}/${stat.attempts}</span></div>`;
-            }
-        }
+        let gradeIcon = '';
+        let gradeColor = '';
+        if (accuracy >= 80) { gradeIcon = '🧠'; gradeColor = '#2e7d32'; }
+        else if (accuracy >= 60) { gradeIcon = '👍'; gradeColor = '#b45f06'; }
+        else { gradeIcon = '💪'; gradeColor = '#b45f06'; }
         
         container.innerHTML = `
-            <div style="font-size:48px;margin-bottom:10px">🏆</div>
-            <h2 style="margin-bottom:20px;color:#2c3e66">نهاية التحدي</h2>
-            <div style="font-size:52px;font-weight:600;color:#2c3e66;margin-bottom:8px">${correct}/${total}</div>
-            <div style="font-size:15px;color:#666;margin-bottom:25px">الدقة: ${accuracy}%</div>
-            <div style="display:flex;justify-content:center;gap:40px;margin-bottom:25px">
-                <div><div style="font-size:28px;font-weight:600;color:#f5b042">${bestCombo}</div><div style="font-size:12px;color:#999">أفضل كومبو</div></div>
-                <div><div style="font-size:28px;font-weight:600;color:#2c3e66">${total}</div><div style="font-size:12px;color:#999">إجمالي</div></div>
+            <div style="font-size:24px;margin-bottom:4px">${gradeIcon}</div>
+            <div style="font-size:28px;font-weight:600;color:#2c3e66;margin:4px 0">${correct}/${total}</div>
+            <div style="font-size:13px;color:${gradeColor};margin-bottom:12px">${accuracy}%</div>
+            <div style="display:flex;justify-content:center;gap:24px;margin-bottom:16px">
+                <div><div style="font-size:20px;font-weight:600;color:#f5b042">${bestCombo}</div><div style="font-size:10px;color:#999">combo</div></div>
             </div>
-            ${statsHtml ? `<div style="background:#f8f9fa;border-radius:16px;padding:15px;margin-bottom:25px;max-height:200px;overflow-y:auto"><div style="font-size:13px;font-weight:bold;margin-bottom:10px">📊 تفاصيل كل فقرة:</div>${statsHtml}</div>` : ''}
-            <div style="background:${gradeColor};padding:14px;border-radius:16px;margin-bottom:25px;color:${gradeTextColor};font-weight:500">${gradeText}</div>
-            <div style="display:flex;gap:15px;justify-content:center">
-                <button id="restartGameBtn" style="background:#2c3e66;color:white;border:none;border-radius:40px;padding:12px 28px;font-size:14px;cursor:pointer">🔄 تحدٍّ جديد</button>
-                <button id="closeGameBtn" style="background:#e8e8e8;color:#333;border:none;border-radius:40px;padding:12px 28px;font-size:14px;cursor:pointer">✖ إغلاق</button>
+            <div style="display:flex;gap:10px;justify-content:center">
+                <button id="restartGameBtn" style="background:#2c3e66;color:white;border:none;border-radius:24px;padding:8px 16px;font-size:12px;cursor:pointer">↺ تحدٍّ جديد</button>
+                <button id="closeGameBtn" style="background:#f0f0f0;color:#666;border:none;border-radius:24px;padding:8px 16px;font-size:12px;cursor:pointer">✖ إغلاق</button>
             </div>
         `;
+        
         overlay.appendChild(container);
         document.body.appendChild(overlay);
         
         document.getElementById('restartGameBtn').onclick = () => {
             overlay.remove();
-            startGame(currentGameData.skill, currentGameData.examId);
+            startGame(currentSkill, currentExamId);
         };
         document.getElementById('closeGameBtn').onclick = () => overlay.remove();
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
