@@ -1,0 +1,47 @@
+{
+  "title": "Lesen Teil 1 - Exam 1: Jugend Forscher",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Die Zahlen wirken auf dem ersten Blick dramatisch: 15 Prozent",
+      "correctTitle": "Wenn aus Erdbeeren Tomaten werden",
+      "wrongTitles": [
+        "Jugend forscht - auch auf dem Meer",
+        "Von der Diät zur Krankheit"
+      ]
+    },
+    {
+      "firstWords": "Immer mehr Mädchen leiden an schweren Essstörungen",
+      "correctTitle": "Von der Diät zur Krankheit",
+      "wrongTitles": [
+        "Jugend forscht - auch auf dem Meer",
+        "Wenn aus Erdbeeren Tomaten werden"
+      ]
+    },
+    {
+      "firstWords": "Energiesparlampen, umweltfreundliche Elektrogeräte",
+      "correctTitle": "Jugend forscht - auch auf dem Meer",
+      "wrongTitles": [
+        "Von der Diät zur Krankheit",
+        "Wenn aus Erdbeeren Tomaten werden"
+      ]
+    },
+    {
+      "firstWords": "13,5 Meter lang und leuchtend gelb - die 'Aldebaran'",
+      "correctTitle": "Schiffsreise für Jugendliche",
+      "wrongTitles": [
+        "Jugend forscht - auch auf dem Meer",
+        "Starker Wettbewerb um Schüler"
+      ]
+    },
+    {
+      "firstWords": "Mobbing ist kein neues Phänomen",
+      "correctTitle": "Psychoterror an der Schule",
+      "wrongTitles": [
+        "Mehr Gewalt auf Schulhöfen",
+        "Wenn Lernen krank macht"
+      ]
+    }
+  ]
+}
