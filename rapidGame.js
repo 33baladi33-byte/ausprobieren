@@ -115,9 +115,9 @@
         };
         buttonsContainer.appendChild(startBtn);
         
-        // زر إلغاء صغير
+        // زر ليس الان
         const cancelBtn = document.createElement('button');
-        cancelBtn.textContent = '✖ إلغاء';
+        cancelBtn.textContent = 'ليس الان';
         cancelBtn.style.cssText = 'background:#f0f0f0;color:#888;border:none;border-radius:40px;padding:12px 20px;font-size:13px;font-weight:400;cursor:pointer;transition:all 0.15s';
         cancelBtn.onmouseenter = () => { cancelBtn.style.background = '#e0e0e0'; cancelBtn.style.color = '#666'; };
         cancelBtn.onmouseleave = () => { cancelBtn.style.background = '#f0f0f0'; cancelBtn.style.color = '#888'; };
@@ -801,6 +801,61 @@
         }
     }
     
+    function applyAnswerColors(isCorrect, selectedValue, selectedIndex, q) {
+        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
+        
+        btns.forEach((btn, idx) => {
+            let isCorrectBtn = false;
+            
+            if (q.type === "sprach") {
+                isCorrectBtn = btn.getAttribute('data-correct') === 'true';
+            } else if (q.type === "hoeren") {
+                isCorrectBtn = idx === q.correctAnswerIndex;
+            } else {
+                isCorrectBtn = btn.getAttribute('data-correct') === 'true';
+            }
+            
+            // الإجابة الصحيحة دائمًا باللون الأخضر
+            if (isCorrectBtn) {
+                btn.style.background = '#e6f4ea';
+                btn.style.borderColor = '#8bc34a';
+                btn.style.color = '#2e7d32';
+            }
+            
+            // إذا كانت الإجابة خاطئة، نلون اختيار المستخدم بالبرتقالي
+            if (!isCorrect) {
+                if (q.type === "sprach" && btn.getAttribute('data-value') === selectedValue) {
+                    btn.style.background = '#fef5e7';
+                    btn.style.borderColor = '#f5b042';
+                    btn.style.color = '#b45f06';
+                } else if (q.type === "hoeren" && idx === selectedIndex) {
+                    btn.style.background = '#fef5e7';
+                    btn.style.borderColor = '#f5b042';
+                    btn.style.color = '#b45f06';
+                } else if (q.type === "lesen" && btn.textContent.includes(selectedValue)) {
+                    btn.style.background = '#fef5e7';
+                    btn.style.borderColor = '#f5b042';
+                    btn.style.color = '#b45f06';
+                }
+            } else {
+                // إذا كانت الإجابة صحيحة، نلون اختيار المستخدم باللون الأخضر
+                if (q.type === "sprach" && btn.getAttribute('data-value') === selectedValue) {
+                    btn.style.background = '#e6f4ea';
+                    btn.style.borderColor = '#8bc34a';
+                    btn.style.color = '#2e7d32';
+                } else if (q.type === "hoeren" && idx === selectedIndex) {
+                    btn.style.background = '#e6f4ea';
+                    btn.style.borderColor = '#8bc34a';
+                    btn.style.color = '#2e7d32';
+                } else if (q.type === "lesen" && btn.textContent.includes(selectedValue)) {
+                    btn.style.background = '#e6f4ea';
+                    btn.style.borderColor = '#8bc34a';
+                    btn.style.color = '#2e7d32';
+                }
+            }
+        });
+    }
+    
     function checkSprachAnswer(isCorrect, selectedValue) {
         if (!gameActive || gamePaused) return;
         gameActive = false;
@@ -821,24 +876,7 @@
             combo = 0;
         }
         
-        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
-        btns.forEach(btn => {
-            if (btn.getAttribute('data-correct') === 'true') {
-                btn.style.background = '#e6f4ea';
-                btn.style.borderColor = '#8bc34a';
-                btn.style.color = '#2e7d32';
-            }
-            if (!isCorrect && btn.getAttribute('data-value') === selectedValue) {
-                btn.style.background = '#fef5e7';
-                btn.style.borderColor = '#f5b042';
-                btn.style.color = '#b45f06';
-            }
-            if (isCorrect && btn.getAttribute('data-value') === selectedValue) {
-                btn.style.background = '#e6f4ea';
-                btn.style.borderColor = '#8bc34a';
-                btn.style.color = '#2e7d32';
-            }
-        });
+        applyAnswerColors(isCorrect, selectedValue, null, { type: "sprach", correctAnswerIndex: null });
         
         userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
         
@@ -869,24 +907,7 @@
             combo = 0;
         }
         
-        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
-        btns.forEach((btn, idx) => {
-            if (idx === q.correctAnswerIndex) {
-                btn.style.background = '#e6f4ea';
-                btn.style.borderColor = '#8bc34a';
-                btn.style.color = '#2e7d32';
-            }
-            if (idx === selectedIndex && !isCorrect) {
-                btn.style.background = '#fef5e7';
-                btn.style.borderColor = '#f5b042';
-                btn.style.color = '#b45f06';
-            }
-            if (idx === selectedIndex && isCorrect) {
-                btn.style.background = '#e6f4ea';
-                btn.style.borderColor = '#8bc34a';
-                btn.style.color = '#2e7d32';
-            }
-        });
+        applyAnswerColors(isCorrect, null, selectedIndex, { type: "hoeren", correctAnswerIndex: q.correctAnswerIndex });
         
         userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
         
@@ -917,24 +938,7 @@
             combo = 0;
         }
         
-        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
-        btns.forEach(btn => {
-            if (btn.getAttribute('data-correct') === 'true') {
-                btn.style.background = '#e6f4ea';
-                btn.style.borderColor = '#8bc34a';
-                btn.style.color = '#2e7d32';
-            }
-            if (!isCorrect && btn.textContent.includes(selectedTitle)) {
-                btn.style.background = '#fef5e7';
-                btn.style.borderColor = '#f5b042';
-                btn.style.color = '#b45f06';
-            }
-            if (isCorrect && btn.textContent.includes(selectedTitle)) {
-                btn.style.background = '#e6f4ea';
-                btn.style.borderColor = '#8bc34a';
-                btn.style.color = '#2e7d32';
-            }
-        });
+        applyAnswerColors(isCorrect, selectedTitle, null, { type: "lesen", correctAnswerIndex: null });
         
         userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
         
