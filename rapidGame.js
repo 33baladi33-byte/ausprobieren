@@ -1,6 +1,6 @@
 // ============================================
 // rapidGame.js - لعبة التحدي السريع (نسخة متطورة)
-// يدعم: Lesen Teil 1, Lesen Teil 3 (بدون فقرات بلا عنوان), Hören Teil 1 (اختيار متعدد)
+// يدعم: Lesen Teil 1, Lesen Teil 3, Hören Teil 1
 // ============================================
 
 (function() {
@@ -33,7 +33,7 @@
     let remainingTime = SETTINGS.timePerQuestion;
     let currentOptionsDiv = null;
     let currentStartTime = 0;
-    let currentSelectedOptions = [];
+    let currentMultipleCorrectIndices = [];
     
     let questionStats = {};
     
@@ -209,33 +209,18 @@
                 currentGameData = data;
                 let allQuestions = data.questions;
                 
-                // ✅ لـ Lesen Teil 3: إزالة الفقرات التي ليس لها عنوان صحيح
+                // لـ Lesen Teil 3: إزالة الفقرات التي ليس لها عنوان صحيح
                 if (skill === 'lesen3') {
                     allQuestions = allQuestions.filter(q => q.correctTitle !== null && q.correctTitle !== undefined);
-                    console.log(`📊 Lesen Teil 3: تم استبعاد الفقرات بدون عنوان، المتبقي: ${allQuestions.length} فقرة`);
                 }
                 
-                originalQuestions = allQuestions;
-                
-                if (data.type === 'multiple') {
-                    // Hören Teil 1 نوع - اختيار متعدد
-                    originalQuestions = originalQuestions.map(q => ({
-                        ...q,
-                        shortFirstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
-                        isMultiple: true,
-                        correctIndices: q.correctOptions,
-                        options: q.options
-                    }));
-                } else {
-                    // Lesen Teil 1/3 نوع - مطابقة
-                    originalQuestions = originalQuestions.map(q => ({
-                        ...q,
-                        shortFirstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
-                        shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
-                        shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
-                        isMultiple: false
-                    }));
-                }
+                originalQuestions = allQuestions.map(q => ({
+                    ...q,
+                    shortFirstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
+                    shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
+                    shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
+                    isMultiple: false
+                }));
                 
                 questionStats = {};
                 originalQuestions.forEach((_, idx) => {
@@ -330,25 +315,34 @@
                     questionStats[q.originalIndex].timesWrong++;
                     questionStats[q.originalIndex].wasSlow = true;
                     questionStats[q.originalIndex].lastWrongAt = currentIndex;
-                    userAnswers.push({ 
-                        isCorrect: false, 
-                        originalIndex: q.originalIndex,
-                        selectedOptions: [],
-                        correctOptions: q.correctIndices || [0]
-                    });
+                    userAnswers.push({ isCorrect: false, originalIndex: q.originalIndex, selectedIndices: [] });
                     combo = 0;
                     
                     const btns = document.querySelectorAll('.game-option-btn');
-                    btns.forEach(btn => {
-                        const isCorrectBtn = btn.getAttribute('data-correct') === 'true';
-                        if (isCorrectBtn) {
-                            btn.style.background = '#d4edda';
-                            btn.style.borderColor = '#28a745';
-                        } else {
-                            btn.style.background = '#fff3e0';
-                            btn.style.borderColor = '#fd7e14';
-                        }
-                    });
+                    const isMultiple = (q.correctIndices && q.correctIndices.length > 1);
+                    
+                    if (isMultiple) {
+                        btns.forEach(btn => {
+                            const idx = parseInt(btn.getAttribute('data-opt-index'));
+                            if (q.correctIndices.includes(idx)) {
+                                btn.style.background = '#d4edda';
+                                btn.style.borderColor = '#28a745';
+                            } else {
+                                btn.style.background = '#fff3e0';
+                                btn.style.borderColor = '#fd7e14';
+                            }
+                        });
+                    } else {
+                        btns.forEach(btn => {
+                            if (btn.getAttribute('data-correct') === 'true') {
+                                btn.style.background = '#d4edda';
+                                btn.style.borderColor = '#28a745';
+                            } else {
+                                btn.style.background = '#fff3e0';
+                                btn.style.borderColor = '#fd7e14';
+                            }
+                        });
+                    }
                     
                     transitionTimeout = setTimeout(() => {
                         currentIndex++;
@@ -393,7 +387,7 @@
         
         const q = currentRound[currentIndex];
         remainingTime = SETTINGS.timePerQuestion;
-        currentSelectedOptions = [];
+        currentMultipleCorrectIndices = [];
         
         if (gameOverlay) gameOverlay.remove();
         gameOverlay = document.createElement('div');
@@ -416,104 +410,108 @@
         questionDiv.textContent = `❝ ${q.shortFirstWords} ❞`;
         container.appendChild(questionDiv);
         
-        // الخيارات
-        const optionsDiv = document.createElement('div');
-        optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:30px';
+        // بناء الخيارات
+        const options = [];
         
-        if (q.isMultiple) {
-            // Hören Teil 1: اختيار متعدد
-            q.options.forEach((opt, idx) => {
-                const optBtn = document.createElement('button');
-                optBtn.className = 'game-option-btn';
-                optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt}`;
-                optBtn.setAttribute('data-opt-index', idx);
-                optBtn.setAttribute('data-selected', 'false');
-                optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
-                optBtn.onmouseenter = () => { 
-                    optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
-                    optBtn.style.transform = 'translateY(-0.5px)';
-                };
-                optBtn.onmouseleave = () => { 
-                    optBtn.style.boxShadow = 'none';
-                    optBtn.style.transform = 'translateY(0)';
-                };
-                optBtn.onclick = () => {
-                    const isSelected = optBtn.getAttribute('data-selected') === 'true';
-                    if (isSelected) {
-                        optBtn.setAttribute('data-selected', 'false');
-                        optBtn.style.background = '#ffffff';
-                        optBtn.style.borderColor = '#e0e0e0';
-                        currentSelectedOptions = currentSelectedOptions.filter(i => i !== idx);
-                    } else {
-                        optBtn.setAttribute('data-selected', 'true');
-                        optBtn.style.background = '#e0f2fe';
-                        optBtn.style.borderColor = '#4a90e2';
-                        currentSelectedOptions.push(idx);
-                    }
-                };
-                optionsDiv.appendChild(optBtn);
-            });
-            
-            const submitBtn = document.createElement('button');
-            submitBtn.textContent = '✓ تأكيد الإجابة';
-            submitBtn.style.cssText = 'margin-top:15px;padding:12px 20px;background:#2c3e66;color:white;border:none;border-radius:60px;font-size:14px;cursor:pointer;transition:all 0.15s';
-            submitBtn.onmouseenter = () => { submitBtn.style.background = '#1a2a4a'; };
-            submitBtn.onmouseleave = () => { submitBtn.style.background = '#2c3e66'; };
-            submitBtn.onclick = () => {
-                if (timerInterval) clearInterval(timerInterval);
-                gameActive = false;
-                checkMultipleAnswer(q);
-            };
-            optionsDiv.appendChild(submitBtn);
-            
-        } else {
-            // Lesen Teil 1/3: اختيار واحد
-            let options = [];
-            
-            if (q.correctTitle) {
-                options.push({ text: q.shortCorrectTitle, fullText: q.correctTitle, isCorrect: true });
-            } else {
-                options.push({ text: "⚠️ هذه الفقرة لا يوجد لها عنوان", isCorrect: true });
+        if (q.correctTitle) {
+            options.push({ text: q.shortCorrectTitle, isCorrect: true, originalText: q.correctTitle });
+        } else if (q.correctIndices) {
+            // حالة الإجابات المتعددة (Hören Teil 1)
+            for (let i = 0; i < q.options.length; i++) {
+                options.push({ 
+                    text: q.options[i], 
+                    isCorrect: q.correctIndices.includes(i),
+                    originalText: q.options[i]
+                });
             }
-            
+        } else {
+            options.push({ text: "⚠️ هذه الفقرة لا يوجد لها عنوان", isCorrect: true });
+        }
+        
+        if (q.wrongTitles && !q.correctIndices) {
             const wrongs = [...q.shortWrongTitles];
             if (wrongs.length > 0) {
                 for (let i = wrongs.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
                     [wrongs[i], wrongs[j]] = [wrongs[j], wrongs[i]];
                 }
-                options.push({ text: wrongs[0], fullText: q.wrongTitles ? q.wrongTitles[0] : wrongs[0], isCorrect: false });
-                if (wrongs[1]) options.push({ text: wrongs[1], fullText: q.wrongTitles ? q.wrongTitles[1] : wrongs[1], isCorrect: false });
+                options.push({ text: wrongs[0], isCorrect: false });
+                if (wrongs[1]) options.push({ text: wrongs[1], isCorrect: false });
             } else if (q.correctTitle) {
                 options.push({ text: "عنوان تجريبي", isCorrect: false });
                 options.push({ text: "عنوان آخر", isCorrect: false });
             }
-            
-            for (let i = options.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [options[i], options[j]] = [options[j], options[i]];
-            }
-            
-            options.forEach((opt, idx) => {
-                const optBtn = document.createElement('button');
-                optBtn.className = 'game-option-btn';
-                optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
-                optBtn.setAttribute('data-correct', opt.isCorrect);
-                optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
-                optBtn.onmouseenter = () => { 
-                    optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
-                    optBtn.style.transform = 'translateY(-0.5px)';
-                };
-                optBtn.onmouseleave = () => { 
-                    optBtn.style.boxShadow = 'none';
-                    optBtn.style.transform = 'translateY(0)';
-                };
-                optBtn.onclick = () => checkSingleAnswer(opt.isCorrect, opt.text);
-                optionsDiv.appendChild(optBtn);
-            });
         }
         
+        // خلط الخيارات
+        for (let i = options.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [options[i], options[j]] = [options[j], options[i]];
+        }
+        
+        // الخيارات
+        const optionsDiv = document.createElement('div');
+        optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:30px';
+        
+        const isMultiple = (q.correctIndices && q.correctIndices.length > 1);
+        
+        options.forEach((opt, idx) => {
+            const optBtn = document.createElement('button');
+            optBtn.className = 'game-option-btn';
+            optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
+            
+            if (isMultiple) {
+                optBtn.setAttribute('data-opt-index', idx);
+                optBtn.setAttribute('data-correct', opt.isCorrect);
+                optBtn.setAttribute('data-selected', 'false');
+            } else {
+                optBtn.setAttribute('data-correct', opt.isCorrect);
+            }
+            
+            optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
+            optBtn.onmouseenter = () => { 
+                optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
+                optBtn.style.transform = 'translateY(-0.5px)';
+            };
+            optBtn.onmouseleave = () => { 
+                optBtn.style.boxShadow = 'none';
+                optBtn.style.transform = 'translateY(0)';
+            };
+            
+            if (isMultiple) {
+                optBtn.onclick = () => {
+                    const isSelected = optBtn.getAttribute('data-selected') === 'true';
+                    if (isSelected) {
+                        optBtn.setAttribute('data-selected', 'false');
+                        optBtn.style.background = '#ffffff';
+                        optBtn.style.borderColor = '#e0e0e0';
+                        currentMultipleCorrectIndices = currentMultipleCorrectIndices.filter(i => i !== idx);
+                    } else {
+                        optBtn.setAttribute('data-selected', 'true');
+                        optBtn.style.background = '#e0f2fe';
+                        optBtn.style.borderColor = '#4a90e2';
+                        currentMultipleCorrectIndices.push(idx);
+                        currentMultipleCorrectIndices.sort((a, b) => a - b);
+                    }
+                };
+            } else {
+                optBtn.onclick = () => checkSingleAnswer(opt.isCorrect, opt.text);
+            }
+            optionsDiv.appendChild(optBtn);
+        });
+        
         container.appendChild(optionsDiv);
+        
+        // زر تأكيد للإجابات المتعددة فقط
+        if (isMultiple) {
+            const submitBtn = document.createElement('button');
+            submitBtn.textContent = '✓ تأكيد الإجابة';
+            submitBtn.style.cssText = 'margin-top:15px;padding:12px 20px;background:#2c3e66;color:white;border:none;border-radius:60px;font-size:14px;cursor:pointer;transition:all 0.15s';
+            submitBtn.onmouseenter = () => { submitBtn.style.background = '#1a2a4a'; };
+            submitBtn.onmouseleave = () => { submitBtn.style.background = '#2c3e66'; };
+            submitBtn.onclick = () => checkMultipleAnswer(q);
+            optionsDiv.appendChild(submitBtn);
+        }
         
         // كومبو
         if (combo >= 3) {
@@ -606,8 +604,7 @@
         userAnswers.push({ 
             isCorrect: isCorrect, 
             originalIndex: q.originalIndex,
-            selectedOptions: [isCorrect ? 0 : -1],
-            correctOptions: [0]
+            selectedIndices: [isCorrect ? 0 : -1]
         });
         
         if (transitionTimeout) clearTimeout(transitionTimeout);
@@ -624,16 +621,16 @@
         const elapsed = (Date.now() - currentStartTime) / 1000;
         const isFast = elapsed < 1.5;
         
-        currentSelectedOptions.sort((a, b) => a - b);
+        currentMultipleCorrectIndices.sort((a, b) => a - b);
         const correctIndices = q.correctIndices.sort((a, b) => a - b);
         
-        const isCorrect = currentSelectedOptions.length === correctIndices.length && 
-                          currentSelectedOptions.every((val, idx) => val === correctIndices[idx]);
+        const isCorrect = currentMultipleCorrectIndices.length === correctIndices.length && 
+                          currentMultipleCorrectIndices.every((val, idx) => val === correctIndices[idx]);
         
         const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
         btns.forEach((btn, idx) => {
             const isCorrectOpt = correctIndices.includes(idx);
-            const isSelected = currentSelectedOptions.includes(idx);
+            const isSelected = currentMultipleCorrectIndices.includes(idx);
             
             if (isCorrectOpt) {
                 btn.style.background = '#d4edda';
@@ -660,8 +657,7 @@
         userAnswers.push({ 
             isCorrect: isCorrect, 
             originalIndex: q.originalIndex,
-            selectedOptions: currentSelectedOptions,
-            correctOptions: correctIndices
+            selectedIndices: currentMultipleCorrectIndices
         });
         
         if (transitionTimeout) clearTimeout(transitionTimeout);
