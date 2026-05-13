@@ -44,7 +44,7 @@
         return shortened;
     }
     
-    // دالة رسم المؤقت الدائري (صغير - أزرق فاتح - أعلى اليسار)
+    // دالة رسم المؤقت الدائري (صغير - أزرق فاتح - بدون أرقام)
     function createCircularTimer(percent) {
         const radius = 18;
         const circumference = 2 * Math.PI * radius;
@@ -77,28 +77,13 @@
         fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
         svg.appendChild(fillCircle);
         
-        // النسبة المئوية (سطر واحد عادي)
-        const percentText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        percentText.setAttribute("x", "22.5");
-        percentText.setAttribute("y", "27.5");
-        percentText.setAttribute("text-anchor", "middle");
-        percentText.setAttribute("fill", "#4a90e2");
-        percentText.setAttribute("font-size", "10");
-        percentText.setAttribute("font-weight", "600");
-        percentText.setAttribute("font-family", "Arial, sans-serif");
-        percentText.style.fontStyle = "normal";
-        percentText.style.dominantBaseline = "middle";
-        percentText.textContent = Math.round(percent) + "%";
-        svg.appendChild(percentText);
-        
-        return { svg, fillCircle, percentText };
+        return { svg, fillCircle, percentText: null };
     }
     
     function updateCircularTimer(fillCircle, percentText, percent) {
         const radius = 18;
         const circumference = 2 * Math.PI * radius;
         fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
-        percentText.textContent = Math.round(percent) + "%";
         
         if (percent <= 30) fillCircle.setAttribute("stroke", "#7cb3f0");
         if (percent <= 15) fillCircle.setAttribute("stroke", "#a8c8f5");
@@ -287,9 +272,8 @@
         if (timerInterval) clearInterval(timerInterval);
         
         const timerCircle = document.querySelector('.circular-timer-fill');
-        const timerText = document.querySelector('.circular-timer-text');
         
-        if (!timerCircle || !timerText) {
+        if (!timerCircle) {
             return;
         }
         
@@ -305,7 +289,6 @@
             
             const offset = circumference * (1 - percent / 100);
             timerCircle.setAttribute("stroke-dashoffset", offset);
-            timerText.textContent = Math.round(percent) + "%";
             
             if (percent <= 30) timerCircle.setAttribute("stroke", "#7cb3f0");
             if (percent <= 15) timerCircle.setAttribute("stroke", "#a8c8f5");
@@ -486,10 +469,8 @@
         
         // تعيين مراجع المؤقت الدائري للتحديث
         const timerCircleSvg = timerContainer.querySelector('circle:last-of-type');
-        const timerTextSvg = timerContainer.querySelector('text');
-        if (timerCircleSvg && timerTextSvg) {
+        if (timerCircleSvg) {
             timerCircleSvg.classList.add('circular-timer-fill');
-            timerTextSvg.classList.add('circular-timer-text');
             
             // تحديد القيم الأولية للمؤقت
             const radius = 18;
