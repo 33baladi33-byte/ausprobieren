@@ -1,6 +1,6 @@
 // ============================================
 // rapidGame.js - لعبة التحدي السريع (نسخة متطورة)
-// يدعم: Lesen Teil 1, Lesen Teil 3, وفقرات بلا عنوان
+// يدعم: Lesen Teil 1, Lesen Teil 3, Hören Teil 1 (اختيار متعدد)
 // ============================================
 
 (function() {
@@ -33,6 +33,7 @@
     let remainingTime = SETTINGS.timePerQuestion;
     let currentOptionsDiv = null;
     let currentStartTime = 0;
+    let currentSelectedOptions = [];
     
     let questionStats = {};
     
@@ -55,7 +56,6 @@
         svg.setAttribute("viewBox", "0 0 45 45");
         svg.style.cssText = "transform:rotate(-90deg);display:block";
         
-        // الخلفية (رمادي فاتح جداً)
         const bgCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         bgCircle.setAttribute("cx", "22.5");
         bgCircle.setAttribute("cy", "22.5");
@@ -65,7 +65,6 @@
         bgCircle.setAttribute("stroke-width", "3");
         svg.appendChild(bgCircle);
         
-        // الجزء المتحرك (أزرق فاتح)
         const fillCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         fillCircle.setAttribute("cx", "22.5");
         fillCircle.setAttribute("cy", "22.5");
@@ -91,7 +90,6 @@
         if (percent > 30) fillCircle.setAttribute("stroke", "#4a90e2");
     }
     
-    // توليد جولة ذكية
     function generateSmartRound(questions, stats) {
         const round = [];
         const usageCount = {};
@@ -210,12 +208,27 @@
             .then(data => {
                 currentGameData = data;
                 originalQuestions = data.questions;
-                originalQuestions = originalQuestions.map(q => ({
-                    ...q,
-                    shortFirstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
-                    shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
-                    shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : [])
-                }));
+                
+                if (data.type === 'multiple') {
+                    // Hören Teil 1 نوع - اختيار متعدد
+                    originalQuestions = originalQuestions.map(q => ({
+                        ...q,
+                        shortFirstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
+                        isMultiple: true,
+                        correctIndices: q.correctOptions,
+                        options: q.options
+                    }));
+                } else {
+                    // Lesen Teil 1/3 نوع - مطابقة
+                    originalQuestions = originalQuestions.map(q => ({
+                        ...q,
+                        shortFirstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
+                        shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
+                        shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
+                        isMultiple: false
+                    }));
+                }
+                
                 questionStats = {};
                 originalQuestions.forEach((_, idx) => {
                     questionStats[idx] = { timesWrong: 0, wasSlow: false, lastWrongAt: -999 };
@@ -305,12 +318,18 @@
                     questionStats[q.originalIndex].timesWrong++;
                     questionStats[q.originalIndex].wasSlow = true;
                     questionStats[q.originalIndex].lastWrongAt = currentIndex;
-                    userAnswers.push({ isCorrect: false, originalIndex: q.originalIndex });
+                    userAnswers.push({ 
+                        isCorrect: false, 
+                        originalIndex: q.originalIndex,
+                        selectedOptions: [],
+                        correctOptions: q.correctIndices || [0]
+                    });
                     combo = 0;
                     
                     const btns = document.querySelectorAll('.game-option-btn');
                     btns.forEach(btn => {
-                        if (btn.getAttribute('data-correct') === 'true') {
+                        const isCorrectBtn = btn.getAttribute('data-correct') === 'true';
+                        if (isCorrectBtn) {
                             btn.style.background = '#d4edda';
                             btn.style.borderColor = '#28a745';
                         } else {
@@ -362,35 +381,7 @@
         
         const q = currentRound[currentIndex];
         remainingTime = SETTINGS.timePerQuestion;
-        
-        // بناء الخيارات (يدعم الفقرات التي ليس لها عنوان)
-        const options = [];
-        
-        if (q.correctTitle) {
-            options.push({ text: q.shortCorrectTitle, fullText: q.correctTitle, isCorrect: true });
-        } else {
-            options.push({ text: "⚠️ هذه الفقرة لا يوجد لها عنوان", isCorrect: true });
-        }
-        
-        const wrongs = [...q.shortWrongTitles];
-        if (wrongs.length > 0) {
-            for (let i = wrongs.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [wrongs[i], wrongs[j]] = [wrongs[j], wrongs[i]];
-            }
-            options.push({ text: wrongs[0], fullText: q.wrongTitles ? q.wrongTitles[0] : wrongs[0], isCorrect: false });
-            if (wrongs[1]) options.push({ text: wrongs[1], fullText: q.wrongTitles ? q.wrongTitles[1] : wrongs[1], isCorrect: false });
-        } else if (q.correctTitle) {
-            // إذا لم تكن هناك عناوين خاطئة وكان للسؤال عنوان صحيح
-            options.push({ text: "عنوان تجريبي", isCorrect: false });
-            options.push({ text: "عنوان آخر", isCorrect: false });
-        }
-        
-        // خلط الخيارات
-        for (let i = options.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [options[i], options[j]] = [options[j], options[i]];
-        }
+        currentSelectedOptions = [];
         
         if (gameOverlay) gameOverlay.remove();
         gameOverlay = document.createElement('div');
@@ -399,7 +390,7 @@
         const container = document.createElement('div');
         container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:700px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative';
         
-        // المؤقت الدائري (صغير في أقصى أعلى اليسار)
+        // المؤقت الدائري
         const timerContainer = document.createElement('div');
         timerContainer.className = 'circular-timer-container';
         timerContainer.style.cssText = 'position:absolute;top:8px;left:8px;width:40px;height:40px';
@@ -417,23 +408,100 @@
         const optionsDiv = document.createElement('div');
         optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:30px';
         
-        options.forEach((opt, idx) => {
-            const optBtn = document.createElement('button');
-            optBtn.className = 'game-option-btn';
-            optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
-            optBtn.setAttribute('data-correct', opt.isCorrect);
-            optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
-            optBtn.onmouseenter = () => { 
-                optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
-                optBtn.style.transform = 'translateY(-0.5px)';
+        if (q.isMultiple) {
+            // Hören Teil 1: اختيار متعدد (3 خيارات، يمكن اختيار أكثر من واحد)
+            q.options.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = 'game-option-btn';
+                optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt}`;
+                optBtn.setAttribute('data-opt-index', idx);
+                optBtn.setAttribute('data-selected', 'false');
+                optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
+                optBtn.onmouseenter = () => { 
+                    optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
+                    optBtn.style.transform = 'translateY(-0.5px)';
+                };
+                optBtn.onmouseleave = () => { 
+                    optBtn.style.boxShadow = 'none';
+                    optBtn.style.transform = 'translateY(0)';
+                };
+                optBtn.onclick = () => {
+                    const isSelected = optBtn.getAttribute('data-selected') === 'true';
+                    if (isSelected) {
+                        optBtn.setAttribute('data-selected', 'false');
+                        optBtn.style.background = '#ffffff';
+                        optBtn.style.borderColor = '#e0e0e0';
+                        currentSelectedOptions = currentSelectedOptions.filter(i => i !== idx);
+                    } else {
+                        optBtn.setAttribute('data-selected', 'true');
+                        optBtn.style.background = '#e0f2fe';
+                        optBtn.style.borderColor = '#4a90e2';
+                        currentSelectedOptions.push(idx);
+                    }
+                };
+                optionsDiv.appendChild(optBtn);
+            });
+            
+            // زر تأكيد الإجابة
+            const submitBtn = document.createElement('button');
+            submitBtn.textContent = '✓ تأكيد الإجابة';
+            submitBtn.style.cssText = 'margin-top:15px;padding:12px 20px;background:#2c3e66;color:white;border:none;border-radius:60px;font-size:14px;cursor:pointer;transition:all 0.15s';
+            submitBtn.onmouseenter = () => { submitBtn.style.background = '#1a2a4a'; };
+            submitBtn.onmouseleave = () => { submitBtn.style.background = '#2c3e66'; };
+            submitBtn.onclick = () => {
+                if (timerInterval) clearInterval(timerInterval);
+                gameActive = false;
+                checkMultipleAnswer(q);
             };
-            optBtn.onmouseleave = () => { 
-                optBtn.style.boxShadow = 'none';
-                optBtn.style.transform = 'translateY(0)';
-            };
-            optBtn.onclick = () => checkAnswer(opt.isCorrect, opt.text);
-            optionsDiv.appendChild(optBtn);
-        });
+            optionsDiv.appendChild(submitBtn);
+            
+        } else {
+            // Lesen Teil 1/3: اختيار واحد
+            let options = [];
+            
+            if (q.correctTitle) {
+                options.push({ text: q.shortCorrectTitle, fullText: q.correctTitle, isCorrect: true });
+            } else {
+                options.push({ text: "⚠️ هذه الفقرة لا يوجد لها عنوان", isCorrect: true });
+            }
+            
+            const wrongs = [...q.shortWrongTitles];
+            if (wrongs.length > 0) {
+                for (let i = wrongs.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [wrongs[i], wrongs[j]] = [wrongs[j], wrongs[i]];
+                }
+                options.push({ text: wrongs[0], fullText: q.wrongTitles ? q.wrongTitles[0] : wrongs[0], isCorrect: false });
+                if (wrongs[1]) options.push({ text: wrongs[1], fullText: q.wrongTitles ? q.wrongTitles[1] : wrongs[1], isCorrect: false });
+            } else if (q.correctTitle) {
+                options.push({ text: "عنوان تجريبي", isCorrect: false });
+                options.push({ text: "عنوان آخر", isCorrect: false });
+            }
+            
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+            }
+            
+            options.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = 'game-option-btn';
+                optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
+                optBtn.setAttribute('data-correct', opt.isCorrect);
+                optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
+                optBtn.onmouseenter = () => { 
+                    optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
+                    optBtn.style.transform = 'translateY(-0.5px)';
+                };
+                optBtn.onmouseleave = () => { 
+                    optBtn.style.boxShadow = 'none';
+                    optBtn.style.transform = 'translateY(0)';
+                };
+                optBtn.onclick = () => checkSingleAnswer(opt.isCorrect, opt.text);
+                optionsDiv.appendChild(optBtn);
+            });
+        }
+        
         container.appendChild(optionsDiv);
         
         // كومبو
@@ -483,7 +551,6 @@
         currentStartTime = Date.now();
         currentOptionsDiv = optionsDiv;
         
-        // تعيين مراجع المؤقت الدائري للتحديث
         const timerCircleSvg = timerContainer.querySelector('circle:last-of-type');
         if (timerCircleSvg) {
             timerCircleSvg.classList.add('circular-timer-fill');
@@ -492,13 +559,12 @@
         startTimer();
     }
     
-    function checkAnswer(isCorrect, selectedShortTitle) {
+    function checkSingleAnswer(isCorrect, selectedTitle) {
         if (!gameActive || gamePaused) return;
         gameActive = false;
         if (timerInterval) clearInterval(timerInterval);
         
         const q = currentRound[currentIndex];
-        const optionsDiv = currentOptionsDiv;
         const elapsed = (Date.now() - currentStartTime) / 1000;
         const isFast = elapsed < 1.5;
         
@@ -513,20 +579,81 @@
             combo = 0;
         }
         
-        const btns = optionsDiv.querySelectorAll('.game-option-btn');
+        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
         btns.forEach(btn => {
             if (btn.getAttribute('data-correct') === 'true') {
                 btn.style.background = '#d4edda';
                 btn.style.borderColor = '#28a745';
                 btn.style.color = '#155724';
-            } else if (!isCorrect && btn.textContent.includes(selectedShortTitle)) {
+            } else if (!isCorrect && btn.textContent.includes(selectedTitle)) {
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
             }
         });
         
-        userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
+        userAnswers.push({ 
+            isCorrect: isCorrect, 
+            originalIndex: q.originalIndex,
+            selectedOptions: [isCorrect ? 0 : -1],
+            correctOptions: [0]
+        });
+        
+        if (transitionTimeout) clearTimeout(transitionTimeout);
+        transitionTimeout = setTimeout(() => {
+            currentIndex++;
+            showQuestion();
+        }, SETTINGS.transitionDelay);
+    }
+    
+    function checkMultipleAnswer(q) {
+        if (!gameActive) return;
+        gameActive = false;
+        
+        const elapsed = (Date.now() - currentStartTime) / 1000;
+        const isFast = elapsed < 1.5;
+        
+        // ترتيب الخيارات المختارة
+        currentSelectedOptions.sort((a, b) => a - b);
+        const correctIndices = q.correctIndices.sort((a, b) => a - b);
+        
+        // التحقق مما إذا كانت الإجابة صحيحة (نفس المصفوفة)
+        const isCorrect = currentSelectedOptions.length === correctIndices.length && 
+                          currentSelectedOptions.every((val, idx) => val === correctIndices[idx]);
+        
+        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
+        btns.forEach((btn, idx) => {
+            const isCorrectOpt = correctIndices.includes(idx);
+            const isSelected = currentSelectedOptions.includes(idx);
+            
+            if (isCorrectOpt) {
+                btn.style.background = '#d4edda';
+                btn.style.borderColor = '#28a745';
+                btn.style.color = '#155724';
+            } else if (isSelected && !isCorrectOpt) {
+                btn.style.background = '#fff3e0';
+                btn.style.borderColor = '#fd7e14';
+                btn.style.color = '#e67e22';
+            }
+        });
+        
+        if (isCorrect) {
+            if (!isFast) questionStats[q.originalIndex].wasSlow = true;
+            combo++;
+            if (combo > bestCombo) bestCombo = combo;
+        } else {
+            questionStats[q.originalIndex].timesWrong++;
+            questionStats[q.originalIndex].wasSlow = true;
+            questionStats[q.originalIndex].lastWrongAt = currentIndex;
+            combo = 0;
+        }
+        
+        userAnswers.push({ 
+            isCorrect: isCorrect, 
+            originalIndex: q.originalIndex,
+            selectedOptions: currentSelectedOptions,
+            correctOptions: correctIndices
+        });
         
         if (transitionTimeout) clearTimeout(transitionTimeout);
         transitionTimeout = setTimeout(() => {
@@ -548,7 +675,7 @@
             const userAttempts = userAnswers.filter(a => a.originalIndex === idx);
             const correctAttempts = userAttempts.filter(a => a.isCorrect).length;
             questionResults[idx] = {
-                title: q.shortCorrectTitle || "بدون عنوان",
+                title: q.shortFirstWords,
                 attempts: userAttempts.length,
                 correct: correctAttempts,
                 wrong: userAttempts.length - correctAttempts
