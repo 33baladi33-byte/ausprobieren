@@ -1,0 +1,87 @@
+{
+  "skill": "lesen1",
+  "examId": 4,
+  "name": "Lesen Teil 1 - Exam 4: Tanzkurs",
+  "questions": [
+    {
+      "firstWords": "Der Begriff Extremsport wird oft subjektiv verwendet",
+      "fullText": "Der Begriff Extremsport wird oft subjektiv verwendet. Man kann viele gängige Sportarten als Extremsport bezeichnen, wenn sie mit erhöhtem Risiko für das eigene Leben ausgeübt werden...",
+      "correctTitle": "Höher schneller weiter Suche nach Nervenkitzel",
+      "shortCorrectTitle": "Höher schneller weiter Nervenkitzel",
+      "wrongTitles": [
+        "Verändertes Freizeitverhalten von Jugendlichen",
+        "Hilfen für überforderte Schüler",
+        "Keine Zeit für Langeweile bei Kindern"
+      ],
+      "shortWrongTitles": [
+        "Verändertes Freizeitverhalten Jugendlicher",
+        "Hilfen für überforderte Schüler",
+        "Keine Zeit für Langeweile"
+      ]
+    },
+    {
+      "firstWords": "Musik Sport ehrenamtliches Engagement Jugendlicher",
+      "fullText": "Musik, Sport, ehrenamtliches Engagement - die Teilnahme von Jugendlichen an diesen sogenannten bildungsorientierten Freizeitaktivitäten hat in den vergangenen zehn Jahren deutlich zugenommen...",
+      "correctTitle": "Verändertes Freizeitverhalten von Jugendlichen",
+      "shortCorrectTitle": "Verändertes Freizeitverhalten Jugendlicher",
+      "wrongTitles": [
+        "Höher schneller weiter Suche nach Nervenkitzel",
+        "Hilfen für überforderte Schüler",
+        "Freie Plätze im Tanzkurs für Jugendliche"
+      ],
+      "shortWrongTitles": [
+        "Höher schneller weiter Nervenkitzel",
+        "Hilfen für überforderte Schüler",
+        "Freie Plätze im Tanzkurs"
+      ]
+    },
+    {
+      "firstWords": "In Firmen gibt es Entspannungskurse schon",
+      "fullText": "In Firmen gibt es sie schon, jetzt wollen auch Schulen Entspannungskurse anbieten. Schüler sollen zwischen den Unterrichtsstunden mit Entspannungstechniken lernen, Stress abzubauen...",
+      "correctTitle": "Hilfen für überforderte Schüler",
+      "shortCorrectTitle": "Hilfen für überforderte Schüler",
+      "wrongTitles": [
+        "Verändertes Freizeitverhalten von Jugendlichen",
+        "Höher schneller weiter Suche nach Nervenkitzel",
+        "Keine Zeit für Langeweile bei Kindern"
+      ],
+      "shortWrongTitles": [
+        "Verändertes Freizeitverhalten Jugendlicher",
+        "Höher schneller weiter Nervenkitzel",
+        "Keine Zeit für Langeweile"
+      ]
+    },
+    {
+      "firstWords": "Tanja Kleist ist von modernem Tanz begeistert",
+      "fullText": "Tanja Kleist ist von modernem Tanz absolut begeistert. Seit ihrem neunten Lebensjahr tanzt sie, früher auf Wettkampfniveau. Seit einigen Jahren engagiert sie sich beim TSV Neustadt...",
+      "correctTitle": "Freie Plätze im Tanzkurs",
+      "shortCorrectTitle": "Freie Plätze im Tanzkurs",
+      "wrongTitles": [
+        "Verändertes Freizeitverhalten von Jugendlichen",
+        "Hilfen für überforderte Schüler",
+        "Keine Zeit für Langeweile bei Kindern"
+      ],
+      "shortWrongTitles": [
+        "Verändertes Freizeitverhalten Jugendlicher",
+        "Hilfen für überforderte Schüler",
+        "Keine Zeit für Langeweile"
+      ]
+    },
+    {
+      "firstWords": "Montags Tennis dienstags Klavierunterricht mittwochs Tanz",
+      "fullText": "Montags Tennis, dienstags Klavierunterricht, mittwochs Jazztanz in der Gruppe und donnerstags Treffen der Astronomie-Gruppe. Was klingt wie der Terminkalender eines vielbeschäftigten Erwachsenen...",
+      "correctTitle": "Keine Zeit für Langeweile",
+      "shortCorrectTitle": "Keine Zeit für Langeweile",
+      "wrongTitles": [
+        "Verändertes Freizeitverhalten von Jugendlichen",
+        "Hilfen für überforderte Schüler",
+        "Freie Plätze im Tanzkurs für Jugendliche"
+      ],
+      "shortWrongTitles": [
+        "Verändertes Freizeitverhalten Jugendlicher",
+        "Hilfen für überforderte Schüler",
+        "Freie Plätze im Tanzkurs"
+      ]
+    }
+  ]
+}

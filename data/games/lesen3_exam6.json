@@ -1,0 +1,167 @@
+{
+  "skill": "lesen3",
+  "examId": 6,
+  "name": "Lesen Teil 3 - Exam 6: Musik - spielt Gitarre",
+  "questions": [
+    {
+      "firstWords": "Sport Theater mehr bieten wir Ihnen",
+      "fullText": "Sport, Theater & mehr... ...bieten wir Ihnen in unserem Online-Kartenshop. Wir sind spezialisiert auf Tickets für Sportveranstaltungen in Deutschland...",
+      "correctTitle": null,
+      "shortCorrectTitle": null,
+      "wrongTitles": [],
+      "shortWrongTitles": []
+    },
+    {
+      "firstWords": "Die Veranstaltungsprofis Seit mehr als zwanzig",
+      "fullText": "Die Veranstaltungsprofis Seit mehr als zwanzig Jahren organisieren wir Messen in ganz Europa. Wenn auch Sie sich für eine Tätigkeit im Bereich Messeorganisation interessieren...",
+      "correctTitle": "Bekannter sucht Stelle im Messebereich",
+      "shortCorrectTitle": "Bekannter sucht Messe Stelle",
+      "wrongTitles": [
+        "Kollege möchte mehrtägige Musikveranstaltung",
+        "Sie möchten Freundin Eintrittskarten schenken",
+        "Sie mögen Musik und möchten Job in Bereich"
+      ],
+      "shortWrongTitles": [
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie Freundin Eintrittskarten schenken",
+        "Sie mögen Musik Job Bereich"
+      ]
+    },
+    {
+      "firstWords": "Gemeinsam mehr erleben Gruppenreisen bieten",
+      "fullText": "Gemeinsam mehr erleben Gruppenreisen bieten wir Ihnen bereits ab fünf Personen an - Städtereisen, Wellnesswochenenden und neu im Angebot auch Reisen zu kulturellen Veranstaltungen...",
+      "correctTitle": "Kollege möchte mit Freunden mehrtägige Musikveranstaltung besuchen",
+      "shortCorrectTitle": "Kollege mehrtägige Musikveranstaltung",
+      "wrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Sie möchten Freundin Eintrittskarten schenken",
+        "Sie mögen Musik und möchten Job in Bereich"
+      ],
+      "shortWrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Sie Freundin Eintrittskarten schenken",
+        "Sie mögen Musik Job Bereich"
+      ]
+    },
+    {
+      "firstWords": "Musikfestival Taubertal 24 Juli bis",
+      "fullText": "Musikfestival Taubertal: 24. Juli bis 3. August Auch in diesem Jahr kommen wieder viele bekannte Bands...",
+      "correctTitle": "Sie mögen Musik und möchten in diesem Bereich einen Job",
+      "shortCorrectTitle": "Sie mögen Musik Job Bereich",
+      "wrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie möchten Freundin Eintrittskarten schenken"
+      ],
+      "shortWrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie Freundin Eintrittskarten schenken"
+      ]
+    },
+    {
+      "firstWords": "Alle Veranstaltungen aus einer Hand",
+      "fullText": "Alle Veranstaltungen aus einer Hand Ob Jazz, Rock, Klassik, Musical: Bei uns finden Sie Veranstaltungen aus allen Musikbereichen! Reservieren Sie noch heute Karten...",
+      "correctTitle": "Sie möchten einer Freundin Eintrittskarten für eine Musikveranstaltung schenken",
+      "shortCorrectTitle": "Sie Freundin Eintrittskarten schenken",
+      "wrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie mögen Musik Job Bereich"
+      ],
+      "shortWrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie mögen Musik Job Bereich"
+      ]
+    },
+    {
+      "firstWords": "Mailänder Scala Deutsche Oper Berlin und",
+      "fullText": "Mailänder Scala, Deutsche Oper Berlin und vieles mehr Der etwas andere Zugang zur Musik: Wir organisieren Besichtigungen von bekannten Opernhäusern oder Konzertsälen...",
+      "correctTitle": null,
+      "shortCorrectTitle": null,
+      "wrongTitles": [],
+      "shortWrongTitles": []
+    },
+    {
+      "firstWords": "Wir organisieren Veranstaltungen in verschiedenen",
+      "fullText": "Wir organisieren Veranstaltungen in verschiedenen Größenordnungen - von der kleinen Familienfeier mit zehn Personen bis hin zu großen Firmenveranstaltungen...",
+      "correctTitle": "Bekannter muss Jubiläumsfeier organisieren und sucht Unterstützung",
+      "shortCorrectTitle": "Bekannter sucht Unterstützung Feier",
+      "wrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie mögen Musik Job Bereich"
+      ],
+      "shortWrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie mögen Musik Job Bereich"
+      ]
+    },
+    {
+      "firstWords": "Künstleragentur Lippmann Bei der Künstleragentur",
+      "fullText": "Künstleragentur Lippmann Bei der Künstleragentur Lippmann sind über 100 Künstler registriert, die Sie für Veranstaltungen buchen können...",
+      "correctTitle": null,
+      "shortCorrectTitle": null,
+      "wrongTitles": [],
+      "shortWrongTitles": []
+    },
+    {
+      "firstWords": "I Gitarre Violine Co Im Musikverein",
+      "fullText": "I Gitarre, Violine & Co. Im Musikverein Wohlklang lernen schon die ganz Kleinen den spielerischen Umgang mit Instrumenten...",
+      "correctTitle": "Sechsjährige Tochter möchte mit anderen Kindern Musik machen",
+      "shortCorrectTitle": "Tochter möchte Musik mit Kindern",
+      "wrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie mögen Musik Job Bereich"
+      ],
+      "shortWrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie mögen Musik Job Bereich"
+      ]
+    },
+    {
+      "firstWords": "Instrumente Noten Musikbücher Das Musikhaus",
+      "fullText": "Instrumente, Noten, Musikbücher Das Musikhaus Hohenzollern hat jetzt wieder besondere Angebote für alle Interessierten...",
+      "correctTitle": null,
+      "shortCorrectTitle": null,
+      "wrongTitles": [],
+      "shortWrongTitles": []
+    },
+    {
+      "firstWords": "RheinRuhrFestival Im kommenden Herbst findet",
+      "fullText": "Rhein/Ruhr-Festival Im kommenden Herbst findet zum ersten Mal das neue Rhein/Ruhr-Festival statt - und wir benötigen noch Hilfe...",
+      "correctTitle": "Bekannte Musikerin sucht Auftrittsmöglichkeiten für Gruppe",
+      "shortCorrectTitle": "Bekannte sucht Auftritt für Gruppe",
+      "wrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie mögen Musik Job Bereich"
+      ],
+      "shortWrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie mögen Musik Job Bereich"
+      ]
+    },
+    {
+      "firstWords": "Musiker gesucht Seit einem Jahr vermitteln",
+      "fullText": "Musiker gesucht Seit einem Jahr vermitteln wir 'Musiktandems' - Musiker suchen Musiker und geben sich gegenseitig Unterricht...",
+      "correctTitle": "Bekannter spielt Gitarre und möchte weiteres Instrument lernen",
+      "shortCorrectTitle": "Bekannter möchte Instrument lernen",
+      "wrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie mögen Musik Job Bereich"
+      ],
+      "shortWrongTitles": [
+        "Bekannter sucht Messe Stelle",
+        "Kollege mehrtägige Musikveranstaltung",
+        "Sie mögen Musik Job Bereich"
+      ]
+    }
+  ]
+}
