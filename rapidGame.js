@@ -10,7 +10,7 @@
         timePerQuestion: 2.2,      // 2.2 ثانية للسؤال
         transitionDelay: 250,       // 0.25 ثانية للانتقال
         firstWordsLength: 8,        // أول 8 كلمات للفقرة
-        titleLength: 8,             // أول 8 كلمات للعنوان
+        titleLength: 7,             // أول 7 كلمات للعنوان
         roundLength: 16,            // 16 سؤال في الجولة
         minWrongRepeatDelay: 2,
         maxWrongRepeatDelay: 5
@@ -31,7 +31,6 @@
     let transitionTimeout = null;
     let pauseStartTime = 0;
     let remainingTime = SETTINGS.timePerQuestion;
-    let currentTimerFill = null;
     let currentOptionsDiv = null;
     let currentStartTime = 0;
     
@@ -44,6 +43,64 @@
         let shortened = words.slice(0, maxWords).join(' ');
         shortened += '...';
         return shortened;
+    }
+    
+    // دالة رسم المؤقت الدائري (صغير وهادئ - أعلى اليسار)
+    function createCircularTimer(percent) {
+        const radius = 25;
+        const circumference = 2 * Math.PI * radius;
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", "55");
+        svg.setAttribute("height", "55");
+        svg.setAttribute("viewBox", "0 0 60 60");
+        svg.style.cssText = "transform:rotate(-90deg);";
+        
+        // الخلفية (رمادي غامق فاتح)
+        const bgCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        bgCircle.setAttribute("cx", "30");
+        bgCircle.setAttribute("cy", "30");
+        bgCircle.setAttribute("r", radius);
+        bgCircle.setAttribute("fill", "none");
+        bgCircle.setAttribute("stroke", "#d4d4d8");
+        bgCircle.setAttribute("stroke-width", "4");
+        svg.appendChild(bgCircle);
+        
+        // الجزء المتحرك (أزرق رمادي)
+        const fillCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        fillCircle.setAttribute("cx", "30");
+        fillCircle.setAttribute("cy", "30");
+        fillCircle.setAttribute("r", radius);
+        fillCircle.setAttribute("fill", "none");
+        fillCircle.setAttribute("stroke", "#4a5b7a");
+        fillCircle.setAttribute("stroke-width", "4");
+        fillCircle.setAttribute("stroke-linecap", "round");
+        fillCircle.setAttribute("stroke-dasharray", circumference);
+        fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
+        svg.appendChild(fillCircle);
+        
+        // النسبة المئوية (صغيرة جداً)
+        const percentText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        percentText.setAttribute("x", "30");
+        percentText.setAttribute("y", "35");
+        percentText.setAttribute("text-anchor", "middle");
+        percentText.setAttribute("fill", "#4a5b7a");
+        percentText.setAttribute("font-size", "11");
+        percentText.setAttribute("font-weight", "500");
+        percentText.textContent = Math.round(percent) + "%";
+        svg.appendChild(percentText);
+        
+        return { svg, fillCircle, percentText };
+    }
+    
+    function updateCircularTimer(fillCircle, percentText, percent) {
+        const radius = 25;
+        const circumference = 2 * Math.PI * radius;
+        fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
+        percentText.textContent = Math.round(percent) + "%";
+        
+        if (percent <= 30) fillCircle.setAttribute("stroke", "#7c8aa0");
+        if (percent <= 15) fillCircle.setAttribute("stroke", "#9a7b7b");
+        if (percent > 30) fillCircle.setAttribute("stroke", "#4a5b7a");
     }
     
     // توليد جولة ذكية
@@ -136,61 +193,6 @@
         return 1;
     }
     
-    // دالة رسم المؤقت الدائري
-    function createCircularTimer(percent) {
-        const radius = 40;
-        const circumference = 2 * Math.PI * radius;
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("width", "90");
-        svg.setAttribute("height", "90");
-        svg.setAttribute("viewBox", "0 0 100 100");
-        svg.style.cssText = "transform:rotate(-90deg);";
-        
-        const bgCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        bgCircle.setAttribute("cx", "50");
-        bgCircle.setAttribute("cy", "50");
-        bgCircle.setAttribute("r", radius);
-        bgCircle.setAttribute("fill", "none");
-        bgCircle.setAttribute("stroke", "#e8e8e8");
-        bgCircle.setAttribute("stroke-width", "6");
-        svg.appendChild(bgCircle);
-        
-        const fillCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        fillCircle.setAttribute("cx", "50");
-        fillCircle.setAttribute("cy", "50");
-        fillCircle.setAttribute("r", radius);
-        fillCircle.setAttribute("fill", "none");
-        fillCircle.setAttribute("stroke", "#2c3e66");
-        fillCircle.setAttribute("stroke-width", "6");
-        fillCircle.setAttribute("stroke-linecap", "round");
-        fillCircle.setAttribute("stroke-dasharray", circumference);
-        fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
-        svg.appendChild(fillCircle);
-        
-        const percentText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        percentText.setAttribute("x", "50");
-        percentText.setAttribute("y", "55");
-        percentText.setAttribute("text-anchor", "middle");
-        percentText.setAttribute("fill", "#2c3e66");
-        percentText.setAttribute("font-size", "20");
-        percentText.setAttribute("font-weight", "bold");
-        percentText.textContent = Math.round(percent) + "%";
-        svg.appendChild(percentText);
-        
-        return { svg, fillCircle, percentText };
-    }
-    
-    function updateCircularTimer(fillCircle, percentText, percent) {
-        const radius = 40;
-        const circumference = 2 * Math.PI * radius;
-        fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
-        percentText.textContent = Math.round(percent) + "%";
-        
-        if (percent <= 30) fillCircle.setAttribute("stroke", "#fd7e14");
-        if (percent <= 15) fillCircle.setAttribute("stroke", "#dc3545");
-        if (percent > 30) fillCircle.setAttribute("stroke", "#2c3e66");
-    }
-    
     function showNotAvailableMessage() {
         const overlay = document.createElement('div');
         overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:10000;display:flex;justify-content:center;align-items:center';
@@ -223,8 +225,8 @@
                 originalQuestions = originalQuestions.map(q => ({
                     ...q,
                     shortFirstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
-                    shortCorrectTitle: shortenText(q.correctTitle, SETTINGS.titleLength),
-                    shortWrongTitles: q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength))
+                    shortCorrectTitle: q.shortCorrectTitle || shortenText(q.correctTitle, SETTINGS.titleLength),
+                    shortWrongTitles: q.shortWrongTitles || q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength))
                 }));
                 questionStats = {};
                 originalQuestions.forEach((_, idx) => {
@@ -257,11 +259,6 @@
         
         const pauseBtn = document.getElementById('gamePauseBtn');
         if (pauseBtn) pauseBtn.textContent = '▶ Resume';
-        
-        const timerContainer = document.querySelector('.circular-timer-container');
-        if (timerContainer) {
-            timerContainer.style.opacity = '0.5';
-        }
     }
     
     function resumeGame() {
@@ -272,10 +269,6 @@
         const pauseBtn = document.getElementById('gamePauseBtn');
         if (pauseBtn) pauseBtn.textContent = '⏸ Pause';
         
-        const timerContainer = document.querySelector('.circular-timer-container');
-        if (timerContainer) timerContainer.style.opacity = '1';
-        
-        // استئناف المؤقت
         currentStartTime = Date.now() - (SETTINGS.timePerQuestion - remainingTime) * 1000;
         startTimer();
     }
@@ -299,13 +292,13 @@
             const timerCircle = document.querySelector('.circular-timer-fill');
             const timerText = document.querySelector('.circular-timer-text');
             if (timerCircle && timerText) {
-                const radius = 40;
+                const radius = 25;
                 const circumference = 2 * Math.PI * radius;
                 timerCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
                 timerText.textContent = Math.round(percent) + "%";
-                if (percent <= 30) timerCircle.setAttribute("stroke", "#fd7e14");
-                if (percent <= 15) timerCircle.setAttribute("stroke", "#dc3545");
-                if (percent > 30) timerCircle.setAttribute("stroke", "#2c3e66");
+                if (percent <= 30) timerCircle.setAttribute("stroke", "#7c8aa0");
+                if (percent <= 15) timerCircle.setAttribute("stroke", "#9a7b7b");
+                if (percent > 30) timerCircle.setAttribute("stroke", "#4a5b7a");
             }
             
             if (remainingTime <= 0) {
@@ -383,8 +376,8 @@
             const j = Math.floor(Math.random() * (i + 1));
             [wrongs[i], wrongs[j]] = [wrongs[j], wrongs[i]];
         }
-        options.push({ text: wrongs[0], fullText: q.wrongTitles[0], isCorrect: false });
-        if (wrongs[1]) options.push({ text: wrongs[1], fullText: q.wrongTitles[1], isCorrect: false });
+        options.push({ text: wrongs[0], fullText: q.wrongTitles ? q.wrongTitles[0] : wrongs[0], isCorrect: false });
+        if (wrongs[1]) options.push({ text: wrongs[1], fullText: q.wrongTitles ? q.wrongTitles[1] : wrongs[1], isCorrect: false });
         for (let i = options.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [options[i], options[j]] = [options[j], options[i]];
@@ -397,10 +390,10 @@
         const container = document.createElement('div');
         container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:700px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative';
         
-        // المؤقت الدائري
+        // المؤقت الدائري (صغير في أعلى اليسار)
         const timerContainer = document.createElement('div');
         timerContainer.className = 'circular-timer-container';
-        timerContainer.style.cssText = 'position:absolute;top:20px;right:20px;width:90px;height:90px';
+        timerContainer.style.cssText = 'position:absolute;top:12px;left:12px;width:55px;height:55px';
         const timerSvg = createCircularTimer(100);
         timerContainer.appendChild(timerSvg.svg);
         container.appendChild(timerContainer);
@@ -475,10 +468,15 @@
         currentStartTime = Date.now();
         currentOptionsDiv = optionsDiv;
         
-        startTimer();
+        // تعيين مراجع المؤقت الدائري للتحديث
+        const timerCircleSvg = timerContainer.querySelector('circle:last-of-type');
+        const timerTextSvg = timerContainer.querySelector('text');
+        if (timerCircleSvg && timerTextSvg) {
+            timerCircleSvg.classList.add('circular-timer-fill');
+            timerTextSvg.classList.add('circular-timer-text');
+        }
         
-        window._currentOptionsDiv = optionsDiv;
-        window._currentQuestion = q;
+        startTimer();
     }
     
     function checkAnswer(isCorrect, selectedShortTitle) {
