@@ -2,56 +2,50 @@
   "skill": "hoeren1",
   "examId": 1,
   "name": "Hören Teil 1 - Exam 1: Die Deutsche Lufthansa",
-  "type": "multiple",
   "questions": [
     {
       "firstWords": "Die Deutsche Lufthansa hat ihre Führungsposition",
       "fullText": "Die Deutsche Lufthansa hat ihre Führungsposition verloren.",
-      "correctOptions": [],
-      "options": [
-        "Die Deutsche Lufthansa hat ihre Führungsposition verloren.",
-        "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
-        "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung."
+      "correctTitle": "Lufthansa hat Führung verloren",
+      "wrongTitles": [
+        "Bonner Sportverein zeigt Angebot",
+        "Pflegeheime brauchen Änderung"
       ]
     },
     {
       "firstWords": "Ein Bonner Sportverein zeigt der Öffentlichkeit",
       "fullText": "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
-      "correctOptions": [1],
-      "options": [
-        "Die Deutsche Lufthansa hat ihre Führungsposition verloren.",
-        "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
-        "Durch moderne Wärmedämmung könnten die Heizkosten deutlich reduziert werden."
+      "correctTitle": "Bonner Sportverein zeigt Angebot",
+      "wrongTitles": [
+        "Lufthansa hat Führung verloren",
+        "Wärmedämmung senkt Heizkosten"
       ]
     },
     {
       "firstWords": "Die Rahmenbedingungen in deutschen Pflegeheimen",
       "fullText": "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung.",
-      "correctOptions": [2],
-      "options": [
-        "Die Deutsche Lufthansa hat ihre Führungsposition verloren.",
-        "Das Nationale Olympische Komitee hat die Dopingsperre für Tom Sanders aufgehoben.",
-        "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung."
+      "correctTitle": "Pflegeheime brauchen Änderung",
+      "wrongTitles": [
+        "Lufthansa hat Führung verloren",
+        "Olympische Dopingsperre aufgehoben"
       ]
     },
     {
       "firstWords": "Durch moderne Wärmedämmung könnten die Heizkosten",
       "fullText": "Durch moderne Wärmedämmung könnten die Heizkosten deutlich reduziert werden.",
-      "correctOptions": [],
-      "options": [
-        "Durch moderne Wärmedämmung könnten die Heizkosten deutlich reduziert werden.",
-        "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
-        "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung."
+      "correctTitle": "Wärmedämmung senkt Heizkosten",
+      "wrongTitles": [
+        "Bonner Sportverein zeigt Angebot",
+        "Pflegeheime brauchen Änderung"
       ]
     },
     {
       "firstWords": "Das Nationale Olympische Komitee hat die",
       "fullText": "Das Nationale Olympische Komitee hat die Dopingsperre für Tom Sanders aufgehoben.",
-      "correctOptions": [],
-      "options": [
-        "Das Nationale Olympische Komitee hat die Dopingsperre für Tom Sanders aufgehoben.",
-        "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
-        "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung."
+      "correctTitle": "Olympische Dopingsperre aufgehoben",
+      "wrongTitles": [
+        "Bonner Sportverein zeigt Angebot",
+        "Pflegeheime brauchen Änderung"
       ]
     }
   ]
