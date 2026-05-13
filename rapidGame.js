@@ -1,6 +1,6 @@
 // ============================================
 // rapidGame.js - لعبة التحدي السريع
-// يدعم: Lesen Teil 1, Lesen Teil 3, Hören Teil 1/2/3, Sprachbausteine Teil 1/2
+// تم التعديل: Hören Teil 1 (Reflex Modus)
 // ============================================
 
 (function() {
@@ -47,6 +47,9 @@
     
     let currentSkill = null;
     let currentExamId = null;
+
+    // متغير جديد خاص بـ Hören 1 لحفظ الجمل الأصلية
+    let hoeren1FullSentences = [];
     
     function shortenText(text, maxWords) {
         if (!text) return "";
@@ -438,34 +441,28 @@
             })
             .then(data => {
                 currentGameData = data;
-                let allQuestions = data.questions;
                 
-                if (skill === 'lesen3') {
-                    allQuestions = allQuestions.filter(q => q.correctTitle !== null && q.correctTitle !== undefined);
-                }
-                
-                originalQuestions = allQuestions.map(q => {
-                    if (q.before !== undefined || q.options) {
-                        return {
-                            type: "sprach",
-                            id: q.id,
-                            before: q.before || "",
-                            after: q.after || "",
-                            options: q.options,
-                            correct: q.correct,
-                            displayText: `${q.before} _____ (${q.id}) _____ ${q.after}`
-                        };
+                // التحقق من نوع الامتحان لـ Hören 1
+                if (skill === 'hoeren1' && data.type === 'reflex_truefalse') {
+                    // حفظ الجمل الأصلية في متغير خاص
+                    hoeren1FullSentences = data.sentences;
+                    
+                    // إنشاء أسئلة وهمية للعبة بعدد الجولات المطلوب
+                    // هذا يسمح لنظام الجولات (generateSmartRound) بالعمل بشكل طبيعي
+                    const totalRounds = SETTINGS.roundLength;
+                    originalQuestions = [];
+                    for (let i = 0; i < totalRounds; i++) {
+                        originalQuestions.push({
+                            type: "hoeren1_reflex",
+                            id: i,
+                            // سنقوم باختيار الجمل في كل مرة يتم فيها عرض السؤال
+                        });
                     }
-                    else if (q.correctAnswerIndex !== undefined) {
-                        return {
-                            type: "hoeren",
-                            firstWords: q.firstWords || shortenText(q.fullText, SETTINGS.firstWordsLength),
-                            fullText: q.fullText,
-                            options: q.options,
-                            correctAnswerIndex: q.correctAnswerIndex
-                        };
-                    } 
-                    else {
+                }
+                else if (skill === 'lesen3') {
+                    let allQuestions = data.questions;
+                    allQuestions = allQuestions.filter(q => q.correctTitle !== null && q.correctTitle !== undefined);
+                    originalQuestions = allQuestions.map(q => {
                         return {
                             type: "lesen",
                             firstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
@@ -474,8 +471,43 @@
                             shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
                             correctTitle: q.correctTitle
                         };
-                    }
-                });
+                    });
+                }
+                else if (data.questions) {
+                    let allQuestions = data.questions;
+                    originalQuestions = allQuestions.map(q => {
+                        if (q.before !== undefined || q.options) {
+                            return {
+                                type: "sprach",
+                                id: q.id,
+                                before: q.before || "",
+                                after: q.after || "",
+                                options: q.options,
+                                correct: q.correct,
+                                displayText: `${q.before} _____ (${q.id}) _____ ${q.after}`
+                            };
+                        }
+                        else if (q.correctAnswerIndex !== undefined) {
+                            return {
+                                type: "hoeren",
+                                firstWords: q.firstWords || shortenText(q.fullText, SETTINGS.firstWordsLength),
+                                fullText: q.fullText,
+                                options: q.options,
+                                correctAnswerIndex: q.correctAnswerIndex
+                            };
+                        } 
+                        else {
+                            return {
+                                type: "lesen",
+                                firstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
+                                fullText: q.fullText,
+                                shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
+                                shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
+                                correctTitle: q.correctTitle
+                            };
+                        }
+                    });
+                }
                 
                 questionStats = {};
                 originalQuestions.forEach((_, idx) => {
@@ -611,6 +643,16 @@
         }, 1000);
     }
     
+    // دالة مساعدة لاختيار عناصر عشوائية من مصفوفة
+    function getRandomItems(arr, count) {
+        const shuffled = [...arr];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled.slice(0, count);
+    }
+    
     function showQuestion() {
         if (currentIndex >= currentRound.length) {
             showResults();
@@ -642,6 +684,8 @@
         
         if (q.type === "sprach") {
             questionDiv.textContent = q.displayText;
+        } else if (q.type === "hoeren1_reflex") {
+            questionDiv.textContent = `اختر الجملة الصحيحة`;
         } else if (q.type === "hoeren") {
             questionDiv.textContent = `من هي الإجابة الصحيحة؟`;
         } else {
@@ -654,7 +698,70 @@
         optionsDiv.className = 'game-options-div';
         optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:20px';
         
-        if (q.type === "sprach") {
+        // منطق Hören 1 الجديد (Reflex Modus)
+        if (q.type === "hoeren1_reflex") {
+            // فصل الجمل الصحيحة عن الخاطئة
+            const correctSentences = hoeren1FullSentences.filter(s => s.correct === true);
+            const incorrectSentences = hoeren1FullSentences.filter(s => s.correct === false);
+            
+            // اختيار جملة صحيحة عشوائية
+            const selectedCorrect = correctSentences.length > 0 
+                ? correctSentences[Math.floor(Math.random() * correctSentences.length)]
+                : null;
+            
+            // اختيار جملتين خاطئتين عشوائيتين مختلفتين عن بعضهما وعن الجملة الصحيحة
+            let selectedIncorrects = [];
+            if (incorrectSentences.length >= 2) {
+                const shuffledIncorrects = [...incorrectSentences];
+                for (let i = shuffledIncorrects.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffledIncorrects[i], shuffledIncorrects[j]] = [shuffledIncorrects[j], shuffledIncorrects[i]];
+                }
+                selectedIncorrects = shuffledIncorrects.slice(0, 2);
+            } else {
+                // إذا لم يكن هناك جملتان خاطئتان، نستخدم الجمل المتاحة
+                selectedIncorrects = [...incorrectSentences];
+                while(selectedIncorrects.length < 2) {
+                    selectedIncorrects.push({ text: "جملة إضافية", correct: false });
+                }
+            }
+            
+            // تجميع جميع الخيارات (1 صحيحة + 2 خاطئة)
+            const allOptions = [
+                { text: selectedCorrect.text, isCorrect: true, id: selectedCorrect.id },
+                { text: selectedIncorrects[0].text, isCorrect: false, id: selectedIncorrects[0].id },
+                { text: selectedIncorrects[1].text, isCorrect: false, id: selectedIncorrects[1].id }
+            ];
+            
+            // خلط الخيارات
+            for (let i = allOptions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [allOptions[i], allOptions[j]] = [allOptions[j], allOptions[i]];
+            }
+            
+            // تخزين الخيارات الحالية في السؤال لاستخدامها في التحقق
+            q.currentOptions = allOptions;
+            
+            allOptions.forEach((opt, idx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = 'game-option-btn';
+                optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
+                optBtn.setAttribute('data-correct', opt.isCorrect);
+                optBtn.setAttribute('data-value', opt.text);
+                optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
+                optBtn.onmouseenter = () => { 
+                    optBtn.style.boxShadow = '0 1px 2px rgba(0,0,0,0.06)';
+                    optBtn.style.transform = 'translateY(-0.5px)';
+                };
+                optBtn.onmouseleave = () => { 
+                    optBtn.style.boxShadow = 'none';
+                    optBtn.style.transform = 'translateY(0)';
+                };
+                optBtn.onclick = () => checkHören1ReflexAnswer(opt.isCorrect, opt.text);
+                optionsDiv.appendChild(optBtn);
+            });
+        }
+        else if (q.type === "sprach") {
             q.options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
                 optBtn.className = 'game-option-btn';
@@ -811,6 +918,8 @@
                 isCorrectBtn = btn.getAttribute('data-correct') === 'true';
             } else if (q.type === "hoeren") {
                 isCorrectBtn = idx === q.correctAnswerIndex;
+            } else if (q.type === "hoeren1_reflex" && q.currentOptions) {
+                isCorrectBtn = q.currentOptions[idx]?.isCorrect === true;
             } else {
                 isCorrectBtn = btn.getAttribute('data-correct') === 'true';
             }
@@ -832,6 +941,10 @@
                     btn.style.background = '#fef5e7';
                     btn.style.borderColor = '#f5b042';
                     btn.style.color = '#b45f06';
+                } else if (q.type === "hoeren1_reflex" && btn.getAttribute('data-value') === selectedValue) {
+                    btn.style.background = '#fef5e7';
+                    btn.style.borderColor = '#f5b042';
+                    btn.style.color = '#b45f06';
                 } else if (q.type === "lesen" && btn.textContent.includes(selectedValue)) {
                     btn.style.background = '#fef5e7';
                     btn.style.borderColor = '#f5b042';
@@ -847,6 +960,10 @@
                     btn.style.background = '#e6f4ea';
                     btn.style.borderColor = '#8bc34a';
                     btn.style.color = '#2e7d32';
+                } else if (q.type === "hoeren1_reflex" && btn.getAttribute('data-value') === selectedValue) {
+                    btn.style.background = '#e6f4ea';
+                    btn.style.borderColor = '#8bc34a';
+                    btn.style.color = '#2e7d32';
                 } else if (q.type === "lesen" && btn.textContent.includes(selectedValue)) {
                     btn.style.background = '#e6f4ea';
                     btn.style.borderColor = '#8bc34a';
@@ -854,6 +971,39 @@
                 }
             }
         });
+    }
+    
+    // دالة جديدة لفحص إجابات Hören 1 Reflex Modus
+    function checkHören1ReflexAnswer(isCorrect, selectedValue) {
+        if (!gameActive || gamePaused) return;
+        gameActive = false;
+        if (timerInterval) clearInterval(timerInterval);
+        
+        const q = currentRound[currentIndex];
+        const elapsed = (Date.now() - currentStartTime) / 1000;
+        const isFast = elapsed < 1.5;
+        
+        if (isCorrect) {
+            if (!isFast) questionStats[q.originalIndex].wasSlow = true;
+            combo++;
+            if (combo > bestCombo) bestCombo = combo;
+        } else {
+            questionStats[q.originalIndex].timesWrong++;
+            questionStats[q.originalIndex].wasSlow = true;
+            questionStats[q.originalIndex].lastWrongAt = currentIndex;
+            combo = 0;
+        }
+        
+        // تمرير currentOptions مع q لاستخدامها في applyAnswerColors
+        applyAnswerColors(isCorrect, selectedValue, null, { type: "hoeren1_reflex", currentOptions: q.currentOptions });
+        
+        userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
+        
+        if (transitionTimeout) clearTimeout(transitionTimeout);
+        transitionTimeout = setTimeout(() => {
+            currentIndex++;
+            showQuestion();
+        }, SETTINGS.transitionDelay);
     }
     
     function checkSprachAnswer(isCorrect, selectedValue) {
@@ -965,6 +1115,8 @@
             let title = "";
             if (q.type === "sprach") {
                 title = (q.before || "").substring(0, 25) + " ... " + (q.after || "").substring(0, 25);
+            } else if (q.type === "hoeren1_reflex") {
+                title = "جولة سريعة";
             } else {
                 title = q.firstWords || "فقرة";
             }
