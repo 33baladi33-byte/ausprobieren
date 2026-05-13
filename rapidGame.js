@@ -1,6 +1,6 @@
 // ============================================
 // rapidGame.js - لعبة التحدي السريع
-// يدعم: Lesen Teil 1, Lesen Teil 3, Hören Teil 1, Sprachbausteine Teil 1/2
+// يدعم: Lesen Teil 1, Lesen Teil 3, Hören Teil 1/2/3, Sprachbausteine Teil 1/2
 // ============================================
 
 (function() {
@@ -65,7 +65,7 @@
         gameOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
         
         const container = document.createElement('div');
-        container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:450px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2)';
+        container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:450px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative';
         
         // العنوان
         const title = document.createElement('div');
@@ -99,17 +99,35 @@
         modesContainer.appendChild(focusBtn);
         container.appendChild(modesContainer);
         
+        // أزرار التحكم في الأسفل
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.style.cssText = 'display:flex;justify-content:center;gap:12px;margin-top:15px';
+        
         // زر البدء
         const startBtn = document.createElement('button');
         startBtn.textContent = '▶ ابدأ التحدي';
-        startBtn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:40px;padding:12px 30px;font-size:15px;font-weight:500;cursor:pointer;margin-top:15px;transition:all 0.15s';
+        startBtn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:40px;padding:12px 28px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.15s';
         startBtn.onmouseenter = () => { startBtn.style.background = '#1a2a4a'; };
         startBtn.onmouseleave = () => { startBtn.style.background = '#2c3e66'; };
         startBtn.onclick = () => {
             gameOverlay.remove();
             startGameAfterModeSelection();
         };
-        container.appendChild(startBtn);
+        buttonsContainer.appendChild(startBtn);
+        
+        // زر إلغاء صغير
+        const cancelBtn = document.createElement('button');
+        cancelBtn.textContent = '✖ إلغاء';
+        cancelBtn.style.cssText = 'background:#f0f0f0;color:#888;border:none;border-radius:40px;padding:12px 20px;font-size:13px;font-weight:400;cursor:pointer;transition:all 0.15s';
+        cancelBtn.onmouseenter = () => { cancelBtn.style.background = '#e0e0e0'; cancelBtn.style.color = '#666'; };
+        cancelBtn.onmouseleave = () => { cancelBtn.style.background = '#f0f0f0'; cancelBtn.style.color = '#888'; };
+        cancelBtn.onclick = () => {
+            gameOverlay.remove();
+            gameStarted = false;
+        };
+        buttonsContainer.appendChild(cancelBtn);
+        
+        container.appendChild(buttonsContainer);
         
         gameOverlay.appendChild(container);
         document.body.appendChild(gameOverlay);
@@ -156,11 +174,10 @@
         });
     }
     
-    // إعادة تشغيل اللعبة بالكامل عند تغيير الوضع (بدون عد تنازلي)
+    // إعادة تشغيل اللعبة بالكامل عند تغيير الوضع
     function restartGameOnModeChange() {
         if (!gameStarted) return;
         
-        // إعادة تعيين المتغيرات
         currentRound = generateSmartRound(originalQuestions, questionStats);
         currentIndex = 0;
         userAnswers = [];
@@ -173,15 +190,12 @@
         if (timerInterval) clearInterval(timerInterval);
         if (transitionTimeout) clearTimeout(transitionTimeout);
         
-        // تحديث واجهة البطاقة الحالية لإظهار رسالة مع سهم
         if (gameOverlay) {
             const container = gameOverlay.querySelector('.game-container-inner');
             if (container) {
-                // تحديث التقدم
                 const progressDiv = container.querySelector('.game-progress');
                 if (progressDiv) progressDiv.textContent = `1 / ${currentRound.length}`;
                 
-                // عرض رسالة التوقف الجميلة بجانب زر Resume
                 const existingMsg = container.querySelector('.mode-change-message');
                 if (!existingMsg) {
                     const bottomBar = container.querySelector('.bottom-bar');
@@ -194,7 +208,6 @@
                     }
                 }
                 
-                // تحديث اسم زر الإيقاف المؤقت
                 const pauseBtn = container.querySelector('#gamePauseBtn');
                 if (pauseBtn) pauseBtn.textContent = '▶ Resume';
             }
@@ -210,7 +223,6 @@
         currentSpeedMode = mode;
         SETTINGS.timePerQuestion = SPEED_MODES[mode].timePerQuestion;
         
-        // تحديث شكل الأزرار في اللعبة (إذا كانت مفتوحة)
         const reflexBtn = document.getElementById('modeReflexBtn');
         const focusBtn = document.getElementById('modeFocusBtn');
         if (reflexBtn && focusBtn) {
@@ -235,7 +247,6 @@
             }
         }
         
-        // إذا كانت اللعبة بدأت بالفعل، نعيد تشغيلها
         if (gameStarted && oldMode !== mode) {
             restartGameOnModeChange();
         }
@@ -501,7 +512,6 @@
         const pauseBtn = document.getElementById('gamePauseBtn');
         if (pauseBtn) pauseBtn.textContent = '⏸ Pause';
         
-        // إزالة رسالة تغيير الوضع إذا وجدت
         const msg = document.querySelector('.mode-change-message');
         if (msg) msg.remove();
         
@@ -560,9 +570,9 @@
                     const btns = document.querySelectorAll('.game-option-btn');
                     btns.forEach(btn => {
                         if (btn.getAttribute('data-correct') === 'true') {
-                            btn.style.background = '#d4edda';
-                            btn.style.borderColor = '#28a745';
-                            btn.style.color = '#155724';
+                            btn.style.background = '#e6f4ea';
+                            btn.style.borderColor = '#8bc34a';
+                            btn.style.color = '#2e7d32';
                         }
                     });
                     
@@ -729,7 +739,7 @@
         
         container.appendChild(optionsDiv);
         
-        // أزرار التحكم + أزرار السرعة في نفس الصف
+        // أزرار التحكم + أزرار السرعة
         const bottomBar = document.createElement('div');
         bottomBar.className = 'bottom-bar';
         bottomBar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:10px';
@@ -740,7 +750,6 @@
         progressDiv.textContent = `${currentIndex + 1} / ${currentRound.length}`;
         bottomBar.appendChild(progressDiv);
         
-        // أزرار السرعة في المنتصف
         const speedSelector = createSpeedModeSelector();
         bottomBar.appendChild(speedSelector);
         
@@ -815,19 +824,19 @@
         const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
         btns.forEach(btn => {
             if (btn.getAttribute('data-correct') === 'true') {
-                btn.style.background = '#d4edda';
-                btn.style.borderColor = '#28a745';
-                btn.style.color = '#155724';
+                btn.style.background = '#e6f4ea';
+                btn.style.borderColor = '#8bc34a';
+                btn.style.color = '#2e7d32';
             }
             if (!isCorrect && btn.getAttribute('data-value') === selectedValue) {
-                btn.style.background = '#fff3e0';
-                btn.style.borderColor = '#fd7e14';
-                btn.style.color = '#e67e22';
+                btn.style.background = '#fef5e7';
+                btn.style.borderColor = '#f5b042';
+                btn.style.color = '#b45f06';
             }
             if (isCorrect && btn.getAttribute('data-value') === selectedValue) {
-                btn.style.background = '#d4edda';
-                btn.style.borderColor = '#28a745';
-                btn.style.color = '#155724';
+                btn.style.background = '#e6f4ea';
+                btn.style.borderColor = '#8bc34a';
+                btn.style.color = '#2e7d32';
             }
         });
         
@@ -863,19 +872,19 @@
         const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
         btns.forEach((btn, idx) => {
             if (idx === q.correctAnswerIndex) {
-                btn.style.background = '#d4edda';
-                btn.style.borderColor = '#28a745';
-                btn.style.color = '#155724';
+                btn.style.background = '#e6f4ea';
+                btn.style.borderColor = '#8bc34a';
+                btn.style.color = '#2e7d32';
             }
             if (idx === selectedIndex && !isCorrect) {
-                btn.style.background = '#fff3e0';
-                btn.style.borderColor = '#fd7e14';
-                btn.style.color = '#e67e22';
+                btn.style.background = '#fef5e7';
+                btn.style.borderColor = '#f5b042';
+                btn.style.color = '#b45f06';
             }
             if (idx === selectedIndex && isCorrect) {
-                btn.style.background = '#d4edda';
-                btn.style.borderColor = '#28a745';
-                btn.style.color = '#155724';
+                btn.style.background = '#e6f4ea';
+                btn.style.borderColor = '#8bc34a';
+                btn.style.color = '#2e7d32';
             }
         });
         
@@ -911,19 +920,19 @@
         const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
         btns.forEach(btn => {
             if (btn.getAttribute('data-correct') === 'true') {
-                btn.style.background = '#d4edda';
-                btn.style.borderColor = '#28a745';
-                btn.style.color = '#155724';
+                btn.style.background = '#e6f4ea';
+                btn.style.borderColor = '#8bc34a';
+                btn.style.color = '#2e7d32';
             }
             if (!isCorrect && btn.textContent.includes(selectedTitle)) {
-                btn.style.background = '#fff3e0';
-                btn.style.borderColor = '#fd7e14';
-                btn.style.color = '#e67e22';
+                btn.style.background = '#fef5e7';
+                btn.style.borderColor = '#f5b042';
+                btn.style.color = '#b45f06';
             }
             if (isCorrect && btn.textContent.includes(selectedTitle)) {
-                btn.style.background = '#d4edda';
-                btn.style.borderColor = '#28a745';
-                btn.style.color = '#155724';
+                btn.style.background = '#e6f4ea';
+                btn.style.borderColor = '#8bc34a';
+                btn.style.color = '#2e7d32';
             }
         });
         
@@ -964,9 +973,9 @@
         });
         
         let gradeText = '', gradeColor = '', gradeTextColor = '';
-        if (accuracy >= 80) { gradeText = '🧠 ممتاز! أنت جاهز للامتحان'; gradeColor = '#d4edda'; gradeTextColor = '#155724'; }
-        else if (accuracy >= 60) { gradeText = '👍 جيد جداً، واصل التدريب'; gradeColor = '#fff3cd'; gradeTextColor = '#856404'; }
-        else { gradeText = '💪 لا تستسلم! أعد المحاولة'; gradeColor = '#f8d7da'; gradeTextColor = '#721c24'; }
+        if (accuracy >= 80) { gradeText = '🧠 ممتاز! أنت جاهز للامتحان'; gradeColor = '#e6f4ea'; gradeTextColor = '#2e7d32'; }
+        else if (accuracy >= 60) { gradeText = '👍 جيد جداً، واصل التدريب'; gradeColor = '#fef5e7'; gradeTextColor = '#b45f06'; }
+        else { gradeText = '💪 لا تستسلم! أعد المحاولة'; gradeColor = '#fef5e7'; gradeTextColor = '#b45f06'; }
         
         const overlay = document.createElement('div');
         overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
@@ -979,7 +988,7 @@
             const stat = questionResults[idx];
             if (stat.attempts > 0) {
                 const icon = stat.wrong === 0 ? '✅' : (stat.correct > stat.wrong ? '⚠️' : '❌');
-                statsHtml += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee"><span style="font-size:12px;text-align:left;flex:2">${stat.title}</span><span style="font-size:12px;color:${stat.wrong === 0 ? '#28a745' : (stat.correct > stat.wrong ? '#fd7e14' : '#dc3545')}">${icon} ${stat.correct}/${stat.attempts}</span></div>`;
+                statsHtml += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee"><span style="font-size:12px;text-align:left;flex:2">${stat.title}</span><span style="font-size:12px;color:${stat.wrong === 0 ? '#2e7d32' : (stat.correct > stat.wrong ? '#b45f06' : '#b45f06')}">${icon} ${stat.correct}/${stat.attempts}</span></div>`;
             }
         }
         
@@ -989,7 +998,7 @@
             <div style="font-size:52px;font-weight:600;color:#2c3e66;margin-bottom:8px">${correct}/${total}</div>
             <div style="font-size:15px;color:#666;margin-bottom:25px">الدقة: ${accuracy}%</div>
             <div style="display:flex;justify-content:center;gap:40px;margin-bottom:25px">
-                <div><div style="font-size:28px;font-weight:600;color:#fd7e14">${bestCombo}</div><div style="font-size:12px;color:#999">أفضل كومبو</div></div>
+                <div><div style="font-size:28px;font-weight:600;color:#f5b042">${bestCombo}</div><div style="font-size:12px;color:#999">أفضل كومبو</div></div>
                 <div><div style="font-size:28px;font-weight:600;color:#2c3e66">${total}</div><div style="font-size:12px;color:#999">إجمالي</div></div>
             </div>
             ${statsHtml ? `<div style="background:#f8f9fa;border-radius:16px;padding:15px;margin-bottom:25px;max-height:200px;overflow-y:auto"><div style="font-size:13px;font-weight:bold;margin-bottom:10px">📊 تفاصيل كل فقرة:</div>${statsHtml}</div>` : ''}
