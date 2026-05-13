@@ -173,7 +173,7 @@
         if (timerInterval) clearInterval(timerInterval);
         if (transitionTimeout) clearTimeout(transitionTimeout);
         
-        // تحديث واجهة البطاقة الحالية لإظهار زر Resume
+        // تحديث واجهة البطاقة الحالية لإظهار رسالة مع سهم
         if (gameOverlay) {
             const container = gameOverlay.querySelector('.game-container-inner');
             if (container) {
@@ -181,18 +181,22 @@
                 const progressDiv = container.querySelector('.game-progress');
                 if (progressDiv) progressDiv.textContent = `1 / ${currentRound.length}`;
                 
-                // عرض رسالة التوقف
+                // عرض رسالة التوقف الجميلة بجانب زر Resume
                 const existingMsg = container.querySelector('.mode-change-message');
                 if (!existingMsg) {
-                    const msg = document.createElement('div');
-                    msg.className = 'mode-change-message';
-                    msg.textContent = '🔄 تم تغيير الوضع، اضغط Resume للبدء';
-                    msg.style.cssText = 'text-align:center;padding:15px;color:#e67e22;font-size:14px';
-                    const optionsDiv = container.querySelector('.game-options-div');
-                    if (optionsDiv) {
-                        optionsDiv.insertAdjacentElement('afterend', msg);
+                    const bottomBar = container.querySelector('.bottom-bar');
+                    if (bottomBar) {
+                        const msg = document.createElement('div');
+                        msg.className = 'mode-change-message';
+                        msg.style.cssText = 'display:flex;align-items:center;gap:6px;background:#4a90e2;color:white;padding:6px 12px;border-radius:30px;font-size:12px;margin-right:10px';
+                        msg.innerHTML = '← تم تغيير الوضع';
+                        bottomBar.insertBefore(msg, bottomBar.querySelector('.control-btns'));
                     }
                 }
+                
+                // تحديث اسم زر الإيقاف المؤقت
+                const pauseBtn = container.querySelector('#gamePauseBtn');
+                if (pauseBtn) pauseBtn.textContent = '▶ Resume';
             }
         }
         
@@ -559,10 +563,6 @@
                             btn.style.background = '#d4edda';
                             btn.style.borderColor = '#28a745';
                             btn.style.color = '#155724';
-                        } else {
-                            btn.style.background = '#fff3e0';
-                            btn.style.borderColor = '#fd7e14';
-                            btn.style.color = '#e67e22';
                         }
                     });
                     
@@ -731,6 +731,7 @@
         
         // أزرار التحكم + أزرار السرعة في نفس الصف
         const bottomBar = document.createElement('div');
+        bottomBar.className = 'bottom-bar';
         bottomBar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:10px';
         
         const progressDiv = document.createElement('div');
@@ -744,6 +745,7 @@
         bottomBar.appendChild(speedSelector);
         
         const controlBtns = document.createElement('div');
+        controlBtns.className = 'control-btns';
         controlBtns.style.cssText = 'display:flex;gap:12px';
         
         const pauseBtn = document.createElement('button');
@@ -822,6 +824,11 @@
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
             }
+            if (isCorrect && btn.getAttribute('data-value') === selectedValue) {
+                btn.style.background = '#d4edda';
+                btn.style.borderColor = '#28a745';
+                btn.style.color = '#155724';
+            }
         });
         
         userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
@@ -865,6 +872,11 @@
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
             }
+            if (idx === selectedIndex && isCorrect) {
+                btn.style.background = '#d4edda';
+                btn.style.borderColor = '#28a745';
+                btn.style.color = '#155724';
+            }
         });
         
         userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
@@ -907,6 +919,11 @@
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
+            }
+            if (isCorrect && btn.textContent.includes(selectedTitle)) {
+                btn.style.background = '#d4edda';
+                btn.style.borderColor = '#28a745';
+                btn.style.color = '#155724';
             }
         });
         
