@@ -1,6 +1,6 @@
 // ============================================
 // rapidGame.js - لعبة التحدي السريع
-// يدعم: Lesen Teil 1, Lesen Teil 3, Hören Teil 1, Sprachbausteine Teil 1/2
+// يدعم: Lesen Teil 1, Lesen Teil 3, Hören Teil 1/2/3, Sprachbausteine Teil 1/2
 // ============================================
 
 (function() {
@@ -65,7 +65,7 @@
         gameOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
         
         const container = document.createElement('div');
-        container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:450px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2)';
+        container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:450px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative';
         
         // العنوان
         const title = document.createElement('div');
@@ -99,17 +99,35 @@
         modesContainer.appendChild(focusBtn);
         container.appendChild(modesContainer);
         
+        // أزرار التحكم في الأسفل
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.style.cssText = 'display:flex;justify-content:center;gap:12px;margin-top:15px';
+        
         // زر البدء
         const startBtn = document.createElement('button');
         startBtn.textContent = '▶ ابدأ التحدي';
-        startBtn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:40px;padding:12px 30px;font-size:15px;font-weight:500;cursor:pointer;margin-top:15px;transition:all 0.15s';
+        startBtn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:40px;padding:12px 28px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.15s';
         startBtn.onmouseenter = () => { startBtn.style.background = '#1a2a4a'; };
         startBtn.onmouseleave = () => { startBtn.style.background = '#2c3e66'; };
         startBtn.onclick = () => {
             gameOverlay.remove();
             startGameAfterModeSelection();
         };
-        container.appendChild(startBtn);
+        buttonsContainer.appendChild(startBtn);
+        
+        // زر ليس الان
+        const cancelBtn = document.createElement('button');
+        cancelBtn.textContent = 'ليس الان';
+        cancelBtn.style.cssText = 'background:#f0f0f0;color:#888;border:none;border-radius:40px;padding:12px 20px;font-size:13px;font-weight:400;cursor:pointer;transition:all 0.15s';
+        cancelBtn.onmouseenter = () => { cancelBtn.style.background = '#e0e0e0'; cancelBtn.style.color = '#666'; };
+        cancelBtn.onmouseleave = () => { cancelBtn.style.background = '#f0f0f0'; cancelBtn.style.color = '#888'; };
+        cancelBtn.onclick = () => {
+            gameOverlay.remove();
+            gameStarted = false;
+        };
+        buttonsContainer.appendChild(cancelBtn);
+        
+        container.appendChild(buttonsContainer);
         
         gameOverlay.appendChild(container);
         document.body.appendChild(gameOverlay);
@@ -156,11 +174,10 @@
         });
     }
     
-    // إعادة تشغيل اللعبة بالكامل عند تغيير الوضع (بدون عد تنازلي)
+    // إعادة تشغيل اللعبة بالكامل عند تغيير الوضع
     function restartGameOnModeChange() {
         if (!gameStarted) return;
         
-        // إعادة تعيين المتغيرات
         currentRound = generateSmartRound(originalQuestions, questionStats);
         currentIndex = 0;
         userAnswers = [];
@@ -173,26 +190,26 @@
         if (timerInterval) clearInterval(timerInterval);
         if (transitionTimeout) clearTimeout(transitionTimeout);
         
-        // تحديث واجهة البطاقة الحالية لإظهار زر Resume
         if (gameOverlay) {
             const container = gameOverlay.querySelector('.game-container-inner');
             if (container) {
-                // تحديث التقدم
                 const progressDiv = container.querySelector('.game-progress');
                 if (progressDiv) progressDiv.textContent = `1 / ${currentRound.length}`;
                 
-                // عرض رسالة التوقف
                 const existingMsg = container.querySelector('.mode-change-message');
                 if (!existingMsg) {
-                    const msg = document.createElement('div');
-                    msg.className = 'mode-change-message';
-                    msg.textContent = '🔄 تم تغيير الوضع، اضغط Resume للبدء';
-                    msg.style.cssText = 'text-align:center;padding:15px;color:#e67e22;font-size:14px';
-                    const optionsDiv = container.querySelector('.game-options-div');
-                    if (optionsDiv) {
-                        optionsDiv.insertAdjacentElement('afterend', msg);
+                    const bottomBar = container.querySelector('.bottom-bar');
+                    if (bottomBar) {
+                        const msg = document.createElement('div');
+                        msg.className = 'mode-change-message';
+                        msg.style.cssText = 'display:flex;align-items:center;gap:6px;background:#4a90e2;color:white;padding:6px 12px;border-radius:30px;font-size:12px;margin-right:10px';
+                        msg.innerHTML = '← تم تغيير الوضع';
+                        bottomBar.insertBefore(msg, bottomBar.querySelector('.control-btns'));
                     }
                 }
+                
+                const pauseBtn = container.querySelector('#gamePauseBtn');
+                if (pauseBtn) pauseBtn.textContent = '▶ Resume';
             }
         }
         
@@ -206,7 +223,6 @@
         currentSpeedMode = mode;
         SETTINGS.timePerQuestion = SPEED_MODES[mode].timePerQuestion;
         
-        // تحديث شكل الأزرار في اللعبة (إذا كانت مفتوحة)
         const reflexBtn = document.getElementById('modeReflexBtn');
         const focusBtn = document.getElementById('modeFocusBtn');
         if (reflexBtn && focusBtn) {
@@ -231,7 +247,6 @@
             }
         }
         
-        // إذا كانت اللعبة بدأت بالفعل، نعيد تشغيلها
         if (gameStarted && oldMode !== mode) {
             restartGameOnModeChange();
         }
@@ -497,7 +512,6 @@
         const pauseBtn = document.getElementById('gamePauseBtn');
         if (pauseBtn) pauseBtn.textContent = '⏸ Pause';
         
-        // إزالة رسالة تغيير الوضع إذا وجدت
         const msg = document.querySelector('.mode-change-message');
         if (msg) msg.remove();
         
@@ -556,13 +570,9 @@
                     const btns = document.querySelectorAll('.game-option-btn');
                     btns.forEach(btn => {
                         if (btn.getAttribute('data-correct') === 'true') {
-                            btn.style.background = '#d4edda';
-                            btn.style.borderColor = '#28a745';
-                            btn.style.color = '#155724';
-                        } else {
-                            btn.style.background = '#fff3e0';
-                            btn.style.borderColor = '#fd7e14';
-                            btn.style.color = '#e67e22';
+                            btn.style.background = '#e6f4ea';
+                            btn.style.borderColor = '#8bc34a';
+                            btn.style.color = '#2e7d32';
                         }
                     });
                     
@@ -729,8 +739,9 @@
         
         container.appendChild(optionsDiv);
         
-        // أزرار التحكم + أزرار السرعة في نفس الصف
+        // أزرار التحكم + أزرار السرعة
         const bottomBar = document.createElement('div');
+        bottomBar.className = 'bottom-bar';
         bottomBar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:10px';
         
         const progressDiv = document.createElement('div');
@@ -739,11 +750,11 @@
         progressDiv.textContent = `${currentIndex + 1} / ${currentRound.length}`;
         bottomBar.appendChild(progressDiv);
         
-        // أزرار السرعة في المنتصف
         const speedSelector = createSpeedModeSelector();
         bottomBar.appendChild(speedSelector);
         
         const controlBtns = document.createElement('div');
+        controlBtns.className = 'control-btns';
         controlBtns.style.cssText = 'display:flex;gap:12px';
         
         const pauseBtn = document.createElement('button');
@@ -790,6 +801,61 @@
         }
     }
     
+    function applyAnswerColors(isCorrect, selectedValue, selectedIndex, q) {
+        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
+        
+        btns.forEach((btn, idx) => {
+            let isCorrectBtn = false;
+            
+            if (q.type === "sprach") {
+                isCorrectBtn = btn.getAttribute('data-correct') === 'true';
+            } else if (q.type === "hoeren") {
+                isCorrectBtn = idx === q.correctAnswerIndex;
+            } else {
+                isCorrectBtn = btn.getAttribute('data-correct') === 'true';
+            }
+            
+            // الإجابة الصحيحة دائمًا باللون الأخضر
+            if (isCorrectBtn) {
+                btn.style.background = '#e6f4ea';
+                btn.style.borderColor = '#8bc34a';
+                btn.style.color = '#2e7d32';
+            }
+            
+            // إذا كانت الإجابة خاطئة، نلون اختيار المستخدم بالبرتقالي
+            if (!isCorrect) {
+                if (q.type === "sprach" && btn.getAttribute('data-value') === selectedValue) {
+                    btn.style.background = '#fef5e7';
+                    btn.style.borderColor = '#f5b042';
+                    btn.style.color = '#b45f06';
+                } else if (q.type === "hoeren" && idx === selectedIndex) {
+                    btn.style.background = '#fef5e7';
+                    btn.style.borderColor = '#f5b042';
+                    btn.style.color = '#b45f06';
+                } else if (q.type === "lesen" && btn.textContent.includes(selectedValue)) {
+                    btn.style.background = '#fef5e7';
+                    btn.style.borderColor = '#f5b042';
+                    btn.style.color = '#b45f06';
+                }
+            } else {
+                // إذا كانت الإجابة صحيحة، نلون اختيار المستخدم باللون الأخضر
+                if (q.type === "sprach" && btn.getAttribute('data-value') === selectedValue) {
+                    btn.style.background = '#e6f4ea';
+                    btn.style.borderColor = '#8bc34a';
+                    btn.style.color = '#2e7d32';
+                } else if (q.type === "hoeren" && idx === selectedIndex) {
+                    btn.style.background = '#e6f4ea';
+                    btn.style.borderColor = '#8bc34a';
+                    btn.style.color = '#2e7d32';
+                } else if (q.type === "lesen" && btn.textContent.includes(selectedValue)) {
+                    btn.style.background = '#e6f4ea';
+                    btn.style.borderColor = '#8bc34a';
+                    btn.style.color = '#2e7d32';
+                }
+            }
+        });
+    }
+    
     function checkSprachAnswer(isCorrect, selectedValue) {
         if (!gameActive || gamePaused) return;
         gameActive = false;
@@ -810,19 +876,7 @@
             combo = 0;
         }
         
-        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
-        btns.forEach(btn => {
-            if (btn.getAttribute('data-correct') === 'true') {
-                btn.style.background = '#d4edda';
-                btn.style.borderColor = '#28a745';
-                btn.style.color = '#155724';
-            }
-            if (!isCorrect && btn.getAttribute('data-value') === selectedValue) {
-                btn.style.background = '#fff3e0';
-                btn.style.borderColor = '#fd7e14';
-                btn.style.color = '#e67e22';
-            }
-        });
+        applyAnswerColors(isCorrect, selectedValue, null, { type: "sprach", correctAnswerIndex: null });
         
         userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
         
@@ -853,19 +907,7 @@
             combo = 0;
         }
         
-        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
-        btns.forEach((btn, idx) => {
-            if (idx === q.correctAnswerIndex) {
-                btn.style.background = '#d4edda';
-                btn.style.borderColor = '#28a745';
-                btn.style.color = '#155724';
-            }
-            if (idx === selectedIndex && !isCorrect) {
-                btn.style.background = '#fff3e0';
-                btn.style.borderColor = '#fd7e14';
-                btn.style.color = '#e67e22';
-            }
-        });
+        applyAnswerColors(isCorrect, null, selectedIndex, { type: "hoeren", correctAnswerIndex: q.correctAnswerIndex });
         
         userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
         
@@ -896,19 +938,7 @@
             combo = 0;
         }
         
-        const btns = currentOptionsDiv.querySelectorAll('.game-option-btn');
-        btns.forEach(btn => {
-            if (btn.getAttribute('data-correct') === 'true') {
-                btn.style.background = '#d4edda';
-                btn.style.borderColor = '#28a745';
-                btn.style.color = '#155724';
-            }
-            if (!isCorrect && btn.textContent.includes(selectedTitle)) {
-                btn.style.background = '#fff3e0';
-                btn.style.borderColor = '#fd7e14';
-                btn.style.color = '#e67e22';
-            }
-        });
+        applyAnswerColors(isCorrect, selectedTitle, null, { type: "lesen", correctAnswerIndex: null });
         
         userAnswers.push({ isCorrect: isCorrect, originalIndex: q.originalIndex });
         
@@ -926,68 +956,39 @@
         
         const correct = userAnswers.filter(a => a.isCorrect).length;
         const total = userAnswers.length;
-        const accuracy = total > 0 ? ((correct / total) * 100).toFixed(1) : 0;
-        
-        const questionResults = {};
-        originalQuestions.forEach((q, idx) => {
-            const userAttempts = userAnswers.filter(a => a.originalIndex === idx);
-            const correctAttempts = userAttempts.filter(a => a.isCorrect).length;
-            let title = "";
-            if (q.type === "sprach") {
-                title = (q.before || "").substring(0, 25) + " ... " + (q.after || "").substring(0, 25);
-            } else {
-                title = q.firstWords || "فقرة";
-            }
-            questionResults[idx] = {
-                title: title.substring(0, 45),
-                attempts: userAttempts.length,
-                correct: correctAttempts,
-                wrong: userAttempts.length - correctAttempts
-            };
-        });
-        
-        let gradeText = '', gradeColor = '', gradeTextColor = '';
-        if (accuracy >= 80) { gradeText = '🧠 ممتاز! أنت جاهز للامتحان'; gradeColor = '#d4edda'; gradeTextColor = '#155724'; }
-        else if (accuracy >= 60) { gradeText = '👍 جيد جداً، واصل التدريب'; gradeColor = '#fff3cd'; gradeTextColor = '#856404'; }
-        else { gradeText = '💪 لا تستسلم! أعد المحاولة'; gradeColor = '#f8d7da'; gradeTextColor = '#721c24'; }
+        const accuracy = total > 0 ? ((correct / total) * 100).toFixed(0) : 0;
         
         const overlay = document.createElement('div');
-        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(2px)';
         
         const container = document.createElement('div');
-        container.style.cssText = 'background:white;border-radius:28px;padding:35px;width:90%;max-width:500px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);max-height:80vh;overflow-y:auto';
+        container.style.cssText = 'background:white;border-radius:16px;padding:16px 20px;width:90%;max-width:320px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.08);border:1px solid rgba(0,0,0,0.05)';
         
-        let statsHtml = '';
-        for (let idx in questionResults) {
-            const stat = questionResults[idx];
-            if (stat.attempts > 0) {
-                const icon = stat.wrong === 0 ? '✅' : (stat.correct > stat.wrong ? '⚠️' : '❌');
-                statsHtml += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee"><span style="font-size:12px;text-align:left;flex:2">${stat.title}</span><span style="font-size:12px;color:${stat.wrong === 0 ? '#28a745' : (stat.correct > stat.wrong ? '#fd7e14' : '#dc3545')}">${icon} ${stat.correct}/${stat.attempts}</span></div>`;
-            }
-        }
+        let gradeIcon = '';
+        let gradeColor = '';
+        if (accuracy >= 80) { gradeIcon = '🧠'; gradeColor = '#2e7d32'; }
+        else if (accuracy >= 60) { gradeIcon = '👍'; gradeColor = '#b45f06'; }
+        else { gradeIcon = '💪'; gradeColor = '#b45f06'; }
         
         container.innerHTML = `
-            <div style="font-size:48px;margin-bottom:10px">🏆</div>
-            <h2 style="margin-bottom:20px;color:#2c3e66">نهاية التحدي</h2>
-            <div style="font-size:52px;font-weight:600;color:#2c3e66;margin-bottom:8px">${correct}/${total}</div>
-            <div style="font-size:15px;color:#666;margin-bottom:25px">الدقة: ${accuracy}%</div>
-            <div style="display:flex;justify-content:center;gap:40px;margin-bottom:25px">
-                <div><div style="font-size:28px;font-weight:600;color:#fd7e14">${bestCombo}</div><div style="font-size:12px;color:#999">أفضل كومبو</div></div>
-                <div><div style="font-size:28px;font-weight:600;color:#2c3e66">${total}</div><div style="font-size:12px;color:#999">إجمالي</div></div>
+            <div style="font-size:24px;margin-bottom:4px">${gradeIcon}</div>
+            <div style="font-size:28px;font-weight:600;color:#2c3e66;margin:4px 0">${correct}/${total}</div>
+            <div style="font-size:13px;color:${gradeColor};margin-bottom:12px">${accuracy}%</div>
+            <div style="display:flex;justify-content:center;gap:24px;margin-bottom:16px">
+                <div><div style="font-size:20px;font-weight:600;color:#f5b042">${bestCombo}</div><div style="font-size:10px;color:#999">combo</div></div>
             </div>
-            ${statsHtml ? `<div style="background:#f8f9fa;border-radius:16px;padding:15px;margin-bottom:25px;max-height:200px;overflow-y:auto"><div style="font-size:13px;font-weight:bold;margin-bottom:10px">📊 تفاصيل كل فقرة:</div>${statsHtml}</div>` : ''}
-            <div style="background:${gradeColor};padding:14px;border-radius:16px;margin-bottom:25px;color:${gradeTextColor};font-weight:500">${gradeText}</div>
-            <div style="display:flex;gap:15px;justify-content:center">
-                <button id="restartGameBtn" style="background:#2c3e66;color:white;border:none;border-radius:40px;padding:12px 28px;font-size:14px;cursor:pointer">🔄 تحدٍّ جديد</button>
-                <button id="closeGameBtn" style="background:#e8e8e8;color:#333;border:none;border-radius:40px;padding:12px 28px;font-size:14px;cursor:pointer">✖ إغلاق</button>
+            <div style="display:flex;gap:10px;justify-content:center">
+                <button id="restartGameBtn" style="background:#2c3e66;color:white;border:none;border-radius:24px;padding:8px 16px;font-size:12px;cursor:pointer">↺ تحدٍّ جديد</button>
+                <button id="closeGameBtn" style="background:#f0f0f0;color:#666;border:none;border-radius:24px;padding:8px 16px;font-size:12px;cursor:pointer">✖ إغلاق</button>
             </div>
         `;
+        
         overlay.appendChild(container);
         document.body.appendChild(overlay);
         
         document.getElementById('restartGameBtn').onclick = () => {
             overlay.remove();
-            startGame(currentGameData.skill, currentGameData.examId);
+            startGame(currentSkill, currentExamId);
         };
         document.getElementById('closeGameBtn').onclick = () => overlay.remove();
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
