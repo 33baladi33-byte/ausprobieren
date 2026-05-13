@@ -356,14 +356,17 @@
                                 btn.style.background = '#fff3e0';
                                 btn.style.borderColor = '#fd7e14';
                             }
-                        } else if (q.type === "sprach") {
-                            if (btn.getAttribute('data-correct') === 'true') {
-                                btn.style.background = '#d4edda';
-                                btn.style.borderColor = '#28a745';
-                            } else {
-                                btn.style.background = '#fff3e0';
-                                btn.style.borderColor = '#fd7e14';
-                            }
+                                                } else if (q.type === "sprach") {
+                            btns.forEach(btn => {
+                                if (btn.getAttribute('data-correct') === 'true') {
+                                    btn.style.background = '#d4edda';
+                                    btn.style.borderColor = '#28a745';
+                                    btn.style.color = '#155724';
+                                } else {
+                                    btn.style.background = '#fff3e0';
+                                    btn.style.borderColor = '#fd7e14';
+                                    btn.style.color = '#e67e22';
+                                }
                         } else {
                             if (btn.getAttribute('data-correct') === 'true') {
                                 btn.style.background = '#d4edda';
