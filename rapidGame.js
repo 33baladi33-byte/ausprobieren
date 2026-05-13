@@ -7,14 +7,13 @@
     
     // ---------- إعدادات اللعبة ----------
     const SETTINGS = {
-        timePerQuestion: 2.2,      // 2.2 ثانية للسؤال
-        transitionDelay: 250,       // 0.25 ثانية للانتقال
-        firstWordsLength: 7,        // أول 7 كلمات
-        titleLength: 7              // أول 7 كلمات للعنوان
+        timePerQuestion: 2.2,
+        transitionDelay: 250,
+        firstWordsLength: 7,
+        titleLength: 7
     };
     
-    // ---------- بيانات اللعبة (قابلة للتوسعة) ----------
-    // فقط Lesen Teil 1 - Exam 1 متاح حالياً
+    // ---------- بيانات اللعبة ----------
     const AVAILABLE_GAMES = {
         "lesen1_exam1": {
             name: "Lesen Teil 1 - Exam 1",
@@ -30,7 +29,6 @@
         }
     };
     
-    // دالة تقصير النص لأول عدد محدد من الكلمات
     function shortenText(text, maxWords) {
         const words = text.split(' ');
         let shortened = words.slice(0, maxWords).join(' ');
@@ -38,7 +36,6 @@
         return shortened;
     }
     
-    // ---------- متغيرات اللعبة ----------
     let gameActive = false;
     let gameOverlay = null;
     let currentGame = null;
@@ -48,17 +45,13 @@
     let combo = 0;
     let bestCombo = 0;
     let timerInterval = null;
-    let timeLeft = 0;
     let transitionTimeout = null;
     
-    // ---------- دالة عرض رسالة "غير متاح" ----------
     function showNotAvailableMessage() {
         const overlay = document.createElement('div');
         overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:10000;display:flex;justify-content:center;align-items:center';
-        
         const card = document.createElement('div');
         card.style.cssText = 'background:white;border-radius:24px;padding:40px;max-width:400px;text-align:center;border:1px solid #e0e0e0;box-shadow:0 10px 30px rgba(0,0,0,0.1)';
-        
         card.innerHTML = `
             <div style="font-size:48px;margin-bottom:16px">🎮</div>
             <h3 style="color:#2c3e66;margin-bottom:12px">هذا الوضع سيتوفر قريباً</h3>
@@ -70,12 +63,10 @@
         `;
         overlay.appendChild(card);
         document.body.appendChild(overlay);
-        
         document.getElementById('closeNotAvailableBtn').onclick = () => overlay.remove();
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
-    // ---------- دالة تحميل بيانات اللعبة حسب الامتحان الحالي ----------
     function loadGameData(skill, examId) {
         const key = `${skill}_exam${examId}`;
         if (AVAILABLE_GAMES[key]) {
@@ -85,7 +76,6 @@
         return false;
     }
     
-    // ---------- دالة قص النصوص ----------
     function prepareQuestion(q) {
         return {
             ...q,
@@ -95,42 +85,32 @@
         };
     }
     
-    // ---------- دالة بدء اللعبة ----------
     function startGame(skill, examId) {
         if (gameActive) return;
-        
         if (!loadGameData(skill, examId)) {
             showNotAvailableMessage();
             return;
         }
-        
-        // تجهيز الأسئلة وتقصير النصوص
         currentQuestions = currentGame.questions.map(q => prepareQuestion(q));
-        // خلط الأسئلة
         for (let i = currentQuestions.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [currentQuestions[i], currentQuestions[j]] = [currentQuestions[j], currentQuestions[i]];
         }
-        
         currentIndex = 0;
         userAnswers = [];
         combo = 0;
         bestCombo = 0;
-        
         showCountdown();
     }
     
-    // ---------- العد التنازلي ----------
     function showCountdown() {
         const overlay = document.createElement('div');
         overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:10000;display:flex;justify-content:center;align-items:center';
-        
         const countdown = document.createElement('div');
         countdown.style.cssText = 'font-size:100px;font-weight:bold;color:white;text-shadow:0 0 20px rgba(0,0,0,0.5);transition:all 0.1s';
         countdown.textContent = '3';
         overlay.appendChild(countdown);
         document.body.appendChild(overlay);
-        
         let count = 3;
         const interval = setInterval(() => {
             count--;
@@ -149,16 +129,12 @@
         }, 1000);
     }
     
-    // ---------- عرض السؤال ----------
     function showQuestion() {
         if (currentIndex >= currentQuestions.length) {
             showResults();
             return;
         }
-        
         const q = currentQuestions[currentIndex];
-        
-        // بناء الخيارات مع أسماء مختصرة
         const options = [
             { text: q.shortCorrectTitle, fullText: q.correctTitle, isCorrect: true }
         ];
@@ -169,22 +145,17 @@
         }
         options.push({ text: wrongs[0], fullText: q.wrongTitles[0], isCorrect: false });
         if (wrongs[1]) options.push({ text: wrongs[1], fullText: q.wrongTitles[1], isCorrect: false });
-        
-        // خلط الخيارات
         for (let i = options.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [options[i], options[j]] = [options[j], options[i]];
         }
         
-        // إنشاء الواجهة
         if (gameOverlay) gameOverlay.remove();
         gameOverlay = document.createElement('div');
         gameOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
-        
         const container = document.createElement('div');
-        container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:650px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.2)';
+        container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:650px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2)';
         
-        // المؤقت
         const timerBar = document.createElement('div');
         timerBar.style.cssText = 'width:100%;height:4px;background:#e8e8e8;border-radius:2px;margin-bottom:30px;overflow:hidden';
         const timerFill = document.createElement('div');
@@ -192,16 +163,13 @@
         timerBar.appendChild(timerFill);
         container.appendChild(timerBar);
         
-        // السؤال (أول 7 كلمات فقط)
         const questionDiv = document.createElement('div');
         questionDiv.style.cssText = 'font-size:28px;font-weight:500;padding:30px 20px;background:#f5f7fc;border-radius:20px;margin-bottom:30px;color:#1a1a2e;letter-spacing:-0.3px;line-height:1.4';
         questionDiv.textContent = `❝ ${q.shortFirstWords} ❞`;
         container.appendChild(questionDiv);
         
-        // الخيارات
         const optionsDiv = document.createElement('div');
         optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:30px';
-        
         options.forEach((opt, idx) => {
             const optBtn = document.createElement('button');
             optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
@@ -221,7 +189,6 @@
         });
         container.appendChild(optionsDiv);
         
-        // كومبو
         if (combo >= 3) {
             const comboDiv = document.createElement('div');
             comboDiv.style.cssText = 'font-size:18px;font-weight:500;margin-bottom:15px;color:#2c3e66;letter-spacing:1px';
@@ -229,7 +196,6 @@
             container.appendChild(comboDiv);
         }
         
-        // التقدم
         const progressDiv = document.createElement('div');
         progressDiv.style.cssText = 'font-size:13px;color:#999';
         progressDiv.textContent = `${currentIndex + 1} / ${currentQuestions.length}`;
@@ -238,11 +204,8 @@
         gameOverlay.appendChild(container);
         document.body.appendChild(gameOverlay);
         
-        // بدء المؤقت
         gameActive = true;
-        timeLeft = SETTINGS.timePerQuestion;
         let startTime = Date.now();
-        
         if (timerInterval) clearInterval(timerInterval);
         timerInterval = setInterval(() => {
             if (!gameActive) return;
@@ -250,17 +213,14 @@
             const remaining = Math.max(0, SETTINGS.timePerQuestion - elapsed);
             const percent = (remaining / SETTINGS.timePerQuestion) * 100;
             timerFill.style.width = `${percent}%`;
-            
             if (remaining <= 0.3) timerFill.style.background = '#dc3545';
             else if (remaining <= 0.8) timerFill.style.background = '#fd7e14';
             else timerFill.style.background = '#2c3e66';
-            
             if (remaining <= 0) {
                 clearInterval(timerInterval);
                 timerInterval = null;
                 if (gameActive) {
                     gameActive = false;
-                    // إظهار الإجابة الصحيحة
                     const btns = optionsDiv.querySelectorAll('button');
                     btns.forEach(btn => {
                         const isCorrectBtn = btn.getAttribute('data-correct') === 'true';
@@ -273,9 +233,8 @@
                             btn.style.borderColor = '#fd7e14';
                         }
                     });
-                    userAnswers.push({ isCorrect: false, time: SETTINGS.timePerQuestion });
+                    userAnswers.push({ isCorrect: false });
                     combo = 0;
-                    
                     if (transitionTimeout) clearTimeout(transitionTimeout);
                     transitionTimeout = setTimeout(() => {
                         currentIndex++;
@@ -285,22 +244,14 @@
             }
         }, 20);
         
-        // حفظ مراجع
-        window._currentTimerFill = timerFill;
         window._currentOptionsDiv = optionsDiv;
-        window._currentQuestion = q;
     }
     
-    // ---------- التحقق من الإجابة ----------
     function checkAnswer(isCorrect, selectedShortTitle) {
         if (!gameActive) return;
         gameActive = false;
         if (timerInterval) clearInterval(timerInterval);
-        
-        const q = currentQuestions[currentIndex];
         const optionsDiv = window._currentOptionsDiv;
-        
-        // تغيير ألوان الخيارات (برتقالي للخطأ / أخضر هادئ للصحيح)
         const btns = optionsDiv.querySelectorAll('button');
         btns.forEach(btn => {
             const isCorrectBtn = btn.getAttribute('data-correct') === 'true';
@@ -312,21 +263,15 @@
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
-            } else if (!isCorrectBtn) {
-                btn.style.background = '#f8f9fa';
-                btn.style.borderColor = '#e0e0e0';
             }
         });
-        
         if (isCorrect) {
             combo++;
             if (combo > bestCombo) bestCombo = combo;
         } else {
             combo = 0;
         }
-        
         userAnswers.push({ isCorrect: isCorrect });
-        
         if (transitionTimeout) clearTimeout(transitionTimeout);
         transitionTimeout = setTimeout(() => {
             currentIndex++;
@@ -334,45 +279,32 @@
         }, SETTINGS.transitionDelay);
     }
     
-    // ---------- عرض النتائج ----------
     function showResults() {
         if (gameOverlay) gameOverlay.remove();
         gameActive = false;
-        
         const correct = userAnswers.filter(a => a.isCorrect).length;
         const total = userAnswers.length;
         const accuracy = total > 0 ? ((correct / total) * 100).toFixed(1) : 0;
         
-        const overlay = document.createElement('div');
-        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
-        
-        const container = document.createElement('div');
-        container.style.cssText = 'background:white;border-radius:28px;padding:35px;width:90%;max-width:450px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2)';
-        
-        let gradeText = '';
-        let gradeColor = '';
+        let gradeText = '', gradeColor = '', gradeTextColor = '';
         if (accuracy >= 80) { gradeText = '🧠 ممتاز! أنت جاهز للامتحان'; gradeColor = '#d4edda'; gradeTextColor = '#155724'; }
         else if (accuracy >= 60) { gradeText = '👍 جيد جداً، واصل التدريب'; gradeColor = '#fff3cd'; gradeTextColor = '#856404'; }
         else { gradeText = '💪 لا تستسلم! أعد المحاولة'; gradeColor = '#f8d7da'; gradeTextColor = '#721c24'; }
         
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
+        const container = document.createElement('div');
+        container.style.cssText = 'background:white;border-radius:28px;padding:35px;width:90%;max-width:450px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2)';
         container.innerHTML = `
             <div style="font-size:48px;margin-bottom:10px">🏆</div>
             <h2 style="margin-bottom:20px;color:#2c3e66">نهاية التحدي</h2>
             <div style="font-size:52px;font-weight:600;color:#2c3e66;margin-bottom:8px">${correct}/${total}</div>
             <div style="font-size:15px;color:#666;margin-bottom:25px">الدقة: ${accuracy}%</div>
             <div style="display:flex;justify-content:center;gap:40px;margin-bottom:25px">
-                <div>
-                    <div style="font-size:28px;font-weight:600;color:#fd7e14">${bestCombo}</div>
-                    <div style="font-size:12px;color:#999">أفضل كومبو</div>
-                </div>
-                <div>
-                    <div style="font-size:28px;font-weight:600;color:#2c3e66">${total}</div>
-                    <div style="font-size:12px;color:#999">إجمالي</div>
-                </div>
+                <div><div style="font-size:28px;font-weight:600;color:#fd7e14">${bestCombo}</div><div style="font-size:12px;color:#999">أفضل كومبو</div></div>
+                <div><div style="font-size:28px;font-weight:600;color:#2c3e66">${total}</div><div style="font-size:12px;color:#999">إجمالي</div></div>
             </div>
-            <div style="background:${gradeColor};padding:14px;border-radius:16px;margin-bottom:25px;color:${gradeTextColor};font-weight:500">
-                ${gradeText}
-            </div>
+            <div style="background:${gradeColor};padding:14px;border-radius:16px;margin-bottom:25px;color:${gradeTextColor};font-weight:500">${gradeText}</div>
             <div style="display:flex;gap:15px;justify-content:center">
                 <button id="restartGameBtn" style="background:#2c3e66;color:white;border:none;border-radius:40px;padding:12px 28px;font-size:14px;cursor:pointer;font-weight:500">🔄 تحدٍّ جديد</button>
                 <button id="closeGameBtn" style="background:#e8e8e8;color:#333;border:none;border-radius:40px;padding:12px 28px;font-size:14px;cursor:pointer;font-weight:500">✖ إغلاق</button>
@@ -380,19 +312,15 @@
         `;
         overlay.appendChild(container);
         document.body.appendChild(overlay);
-        
-        document.getElementById('restartGameBtn').onclick = () => {
-            overlay.remove();
-            startGame(currentGame.skill, currentGame.examId);
-        };
+        document.getElementById('restartGameBtn').onclick = () => { overlay.remove(); startGame(currentGame.skill, currentGame.examId); };
         document.getElementById('closeGameBtn').onclick = () => overlay.remove();
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
-    // ---------- إضافة زر اللعبة ----------
     function addGameButton() {
         const nav = document.getElementById('examNavButtons');
         if (!nav) {
+            console.log("⏳ انتظار ظهور أزرار التنقل...");
             setTimeout(addGameButton, 300);
             return;
         }
@@ -405,18 +333,20 @@
         btn.onmouseenter = () => { btn.style.transform = 'translateY(-1px)'; btn.style.boxShadow = '0 2px 6px rgba(0,0,0,0.15)'; };
         btn.onmouseleave = () => { btn.style.transform = 'translateY(0)'; btn.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)'; };
         btn.onclick = () => {
-            const currentSkill = getCurrentSkill ? getCurrentSkill() : 'lesen1';
-            const currentExamId = getCurrentExamId ? getCurrentExamId() : 1;
+            const currentSkill = typeof getCurrentSkill === 'function' ? getCurrentSkill() : 'lesen1';
+            const currentExamId = typeof getCurrentExamId === 'function' ? getCurrentExamId() : 1;
             startGame(currentSkill, currentExamId);
         };
         nav.appendChild(btn);
         console.log('🎮 زر التحدي السريع جاهز');
     }
     
-    // ---------- التشغيل ----------
+    // تشغيل اللعبة - انتظار تحميل الصفحة بالكامل
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', addGameButton);
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(addGameButton, 500);
+        });
     } else {
-        addGameButton();
+        setTimeout(addGameButton, 500);
     }
 })();
