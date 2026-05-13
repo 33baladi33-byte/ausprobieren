@@ -18,8 +18,8 @@
     
     // أوضاع السرعة
     const SPEED_MODES = {
-        reflex: { name: "Reflex", timePerQuestion: 2.2, icon: "⚡", display: "⚡ Reflex" },
-        focus: { name: "Focus", timePerQuestion: 2.9, icon: "⚡⚡", display: "⚡⚡ Focus" }
+        reflex: { name: "Reflex", timePerQuestion: 2.2, icon: "⚡⚡⚡", display: "⚡⚡⚡ Reflex" },
+        focus: { name: "Focus", timePerQuestion: 3.5, icon: "⚡", display: "⚡ Focus" }
     };
     
     let currentSpeedMode = "reflex";
@@ -44,6 +44,10 @@
     
     let questionStats = {};
     
+    // متغير لتخزين skill و examId الحالي لإعادة التشغيل عند تغيير الوضع
+    let currentSkill = null;
+    let currentExamId = null;
+    
     function shortenText(text, maxWords) {
         if (!text) return "";
         const words = text.split(' ');
@@ -51,6 +55,16 @@
         let shortened = words.slice(0, maxWords).join(' ');
         shortened += '...';
         return shortened;
+    }
+    
+    // إعادة تشغيل اللعبة بالكامل
+    function restartGame() {
+        if (gameOverlay) gameOverlay.remove();
+        gameActive = false;
+        gamePaused = false;
+        if (timerInterval) clearInterval(timerInterval);
+        if (transitionTimeout) clearTimeout(transitionTimeout);
+        startGame(currentSkill, currentExamId);
     }
     
     // تبديل وضع السرعة
@@ -64,20 +78,29 @@
         const focusBtn = document.getElementById('modeFocusBtn');
         if (reflexBtn && focusBtn) {
             if (mode === 'reflex') {
-                reflexBtn.style.background = '#e8e8e8';
-                reflexBtn.style.color = '#333';
-                reflexBtn.style.border = '1px solid #ccc';
-                focusBtn.style.background = '#f0f0f0';
-                focusBtn.style.color = '#999';
-                focusBtn.style.border = '1px solid #e0e0e0';
+                reflexBtn.style.background = '#3a3a3a';
+                reflexBtn.style.color = '#fff';
+                reflexBtn.style.border = '1px solid #555';
+                reflexBtn.style.boxShadow = '0 0 4px rgba(100,100,100,0.3)';
+                focusBtn.style.background = '#2a2a2a';
+                focusBtn.style.color = '#888';
+                focusBtn.style.border = '1px solid #3a3a3a';
+                focusBtn.style.boxShadow = 'none';
             } else {
-                focusBtn.style.background = '#e8e8e8';
-                focusBtn.style.color = '#333';
-                focusBtn.style.border = '1px solid #ccc';
-                reflexBtn.style.background = '#f0f0f0';
-                reflexBtn.style.color = '#999';
-                reflexBtn.style.border = '1px solid #e0e0e0';
+                focusBtn.style.background = '#3a3a3a';
+                focusBtn.style.color = '#fff';
+                focusBtn.style.border = '1px solid #555';
+                focusBtn.style.boxShadow = '0 0 4px rgba(100,100,100,0.3)';
+                reflexBtn.style.background = '#2a2a2a';
+                reflexBtn.style.color = '#888';
+                reflexBtn.style.border = '1px solid #3a3a3a';
+                reflexBtn.style.boxShadow = 'none';
             }
+        }
+        
+        // إعادة تشغيل اللعبة عند تغيير الوضع
+        if (currentSkill && currentExamId && gameOverlay) {
+            restartGame();
         }
         
         console.log(`🎮 تم التبديل إلى وضع ${SPEED_MODES[mode].name} - الوقت: ${SETTINGS.timePerQuestion} ثانية`);
@@ -89,18 +112,14 @@
         
         const reflexBtn = document.createElement('button');
         reflexBtn.id = 'modeReflexBtn';
-        reflexBtn.textContent = '⚡ Reflex';
-        reflexBtn.style.cssText = 'padding:5px 14px;border-radius:25px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:1px solid #ccc;background:#e8e8e8;color:#333;box-shadow:none';
-        reflexBtn.onmouseenter = () => { if (currentSpeedMode !== 'reflex') reflexBtn.style.background = '#e0e0e0'; };
-        reflexBtn.onmouseleave = () => { if (currentSpeedMode !== 'reflex') reflexBtn.style.background = '#f0f0f0'; };
+        reflexBtn.textContent = '⚡⚡⚡ Reflex';
+        reflexBtn.style.cssText = 'padding:5px 14px;border-radius:25px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:1px solid #555;background:#3a3a3a;color:#fff;box-shadow:0 0 4px rgba(100,100,100,0.3)';
         reflexBtn.onclick = () => { setSpeedMode('reflex'); };
         
         const focusBtn = document.createElement('button');
         focusBtn.id = 'modeFocusBtn';
-        focusBtn.textContent = '⚡⚡ Focus';
-        focusBtn.style.cssText = 'padding:5px 14px;border-radius:25px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:1px solid #e0e0e0;background:#f0f0f0;color:#999;box-shadow:none';
-        focusBtn.onmouseenter = () => { if (currentSpeedMode !== 'focus') focusBtn.style.background = '#e0e0e0'; };
-        focusBtn.onmouseleave = () => { if (currentSpeedMode !== 'focus') focusBtn.style.background = '#f0f0f0'; };
+        focusBtn.textContent = '⚡ Focus';
+        focusBtn.style.cssText = 'padding:5px 14px;border-radius:25px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:1px solid #3a3a3a;background:#2a2a2a;color:#888;box-shadow:none';
         focusBtn.onclick = () => { setSpeedMode('focus'); };
         
         container.appendChild(reflexBtn);
@@ -262,6 +281,8 @@
     }
     
     function loadGameData(skill, examId) {
+        currentSkill = skill;
+        currentExamId = examId;
         return fetch(`data/games/${skill}_exam${examId}.json`)
             .then(response => {
                 if (!response.ok) throw new Error('الملف غير موجود');
@@ -319,7 +340,24 @@
     
     function startGame(skill, examId) {
         if (gameActive) return;
-        setSpeedMode('reflex');
+        // التأكد من أن الوضع الافتراضي هو Reflex عند بدء اللعبة
+        if (currentSpeedMode !== 'reflex') {
+            setSpeedMode('reflex');
+        } else {
+            // تحديث شكل الأزرار إذا لزم الأمر
+            const reflexBtn = document.getElementById('modeReflexBtn');
+            const focusBtn = document.getElementById('modeFocusBtn');
+            if (reflexBtn && focusBtn) {
+                reflexBtn.style.background = '#3a3a3a';
+                reflexBtn.style.color = '#fff';
+                reflexBtn.style.border = '1px solid #555';
+                reflexBtn.style.boxShadow = '0 0 4px rgba(100,100,100,0.3)';
+                focusBtn.style.background = '#2a2a2a';
+                focusBtn.style.color = '#888';
+                focusBtn.style.border = '1px solid #3a3a3a';
+                focusBtn.style.boxShadow = 'none';
+            }
+        }
         loadGameData(skill, examId).then(loaded => {
             if (!loaded) { showNotAvailableMessage(); return; }
             if (originalQuestions.length === 0) {
@@ -660,6 +698,10 @@
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
+            } else {
+                btn.style.background = '#f8f9fa';
+                btn.style.borderColor = '#e0e0e0';
+                btn.style.color = '#333';
             }
         });
         
@@ -748,6 +790,10 @@
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
+            } else {
+                btn.style.background = '#f8f9fa';
+                btn.style.borderColor = '#e0e0e0';
+                btn.style.color = '#333';
             }
         });
         
