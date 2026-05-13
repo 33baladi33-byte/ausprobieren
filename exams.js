@@ -67,6 +67,7 @@ function createResultBadge(score) {
   `;
   return badge;
 }
+
 // ========== دالة عرض نافذة القفل ==========
 function showLockedMessage(examTitle) {
     // إزالة الأرقام من اسم الامتحان (مثل " (10)" أو " (12)")
@@ -412,7 +413,7 @@ const examsDatabase = {
   { id: 5, title: "kein Zeit (معدل)", enabled: true, hasFile: true },
   { id: 6, title: "Musik - spielt Gitarre", enabled: true, hasFile: true },
   { id: 7, title: "Die schwangere Frau", enabled: true, hasFile: true },
-  { id: 8, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true }, // تمت الإضافة
+  { id: 8, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true },
   { id: 9, title: "Unterstützung in Mathematik", enabled: true, hasFile: true },
   { id: 10, title: "Ganztagesausflug", enabled: true, hasFile: true },
   { id: 11, title: "Ihren Eltern zur Silberhochzeit", enabled: true, hasFile: true },
@@ -824,11 +825,11 @@ async function renderExamListForSkill(skill, teilName) {
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
   
- for (let i = 0; i < targetExams.length; i++) {
-  const exam = targetExams[i];
-  const examNumber = exam.id;
-  // 🔴 التعديل: أول 4 امتحانات فقط مفتوحة في الوضع المجاني
-  const isFreeExam = (examNumber <= 6);
+  for (let i = 0; i < targetExams.length; i++) {
+    const exam = targetExams[i];
+    const examNumber = exam.id;
+    // 🔴 التعديل: أول 6 امتحانات مفتوحة في الوضع المجاني
+    const isFreeExam = (examNumber <= 6);
     
     const div = document.createElement("div");
     div.className = "item";
@@ -856,35 +857,33 @@ async function renderExamListForSkill(skill, teilName) {
       div.style.transition = "all 0.25s ease";
       div.style.cursor = "pointer";
       
-     const rightSide = document.createElement("span");
-rightSide.className = "exam-right-icons";
+      const rightSide = document.createElement("span");
+      rightSide.className = "exam-right-icons";
 
-const premiumSpan = document.createElement("span");
-premiumSpan.className = "premium-badge";
-premiumSpan.innerHTML = "Premium";
-rightSide.appendChild(premiumSpan);
-      
-      // تم إزالة PRO نهائياً
+      const premiumSpan = document.createElement("span");
+      premiumSpan.className = "premium-badge";
+      premiumSpan.innerHTML = "Premium";
+      rightSide.appendChild(premiumSpan);
       
       div.appendChild(rightSide);
       titleSpan.style.color = "#6b7280";
       titleSpan.style.transition = "color 0.25s ease";
       
       div.onmouseenter = function() {
-  this.style.backgroundColor = "rgba(255,255,255,0.95)";
-  this.style.transform = "translateX(5px)";
-  this.style.borderColor = "#60a5fa";
-  titleSpan.style.color = "#4b5563";
-  if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
-};
+        this.style.backgroundColor = "rgba(255,255,255,0.95)";
+        this.style.transform = "translateX(5px)";
+        this.style.borderColor = "#60a5fa";
+        titleSpan.style.color = "#4b5563";
+        if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+      };
 
-div.onmouseleave = function() {
-  this.style.backgroundColor = "rgba(255,255,255,0.75)";
-  this.style.transform = "translateX(0)";
-  this.style.borderColor = "#e2e8f0";
-  titleSpan.style.color = "#6b7280";
-  if (premiumSpan) premiumSpan.style.transform = "scale(1)";
-};
+      div.onmouseleave = function() {
+        this.style.backgroundColor = "rgba(255,255,255,0.75)";
+        this.style.transform = "translateX(0)";
+        this.style.borderColor = "#e2e8f0";
+        titleSpan.style.color = "#6b7280";
+        if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+      };
       
       div.onclick = (function(title, id) {
         return function() {
@@ -915,36 +914,51 @@ function setupLockedNextButton() {
   
   getUserStatusForExam().then(status => {
     const isPremium = (status === 'premium');
-    if (!isPremium && currentExamId === 6 && nextBtn.style.display !== 'none') {
-      nextBtn.style.position = "relative";
-      nextBtn.style.paddingLeft = "35px";
+    
+    // احصل على الامتحان التالي
+    const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
+    const nextExam = currentExamsList[currentIndex + 1];
+    
+    if (nextExam) {
+      const nextExamId = nextExam.id;
       
-      let lockIcon = nextBtn.querySelector('.next-lock-icon');
-      if (!lockIcon) {
-        lockIcon = document.createElement('span');
-        lockIcon.className = 'next-lock-icon';
-        lockIcon.innerHTML = '🔒';
-        lockIcon.style.cssText = 'position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; color: #60a5fa;';
-        nextBtn.appendChild(lockIcon);
+      // فقط إذا كان الامتحان التالي أكبر من 6 والمستخدم ليس بريميوم
+      if (!isPremium && nextExamId > 6 && nextBtn.style.display !== 'none') {
+        nextBtn.style.position = "relative";
+        nextBtn.style.paddingLeft = "35px";
+        
+        let lockIcon = nextBtn.querySelector('.next-lock-icon');
+        if (!lockIcon) {
+          lockIcon = document.createElement('span');
+          lockIcon.className = 'next-lock-icon';
+          lockIcon.innerHTML = '🔒';
+          lockIcon.style.cssText = 'position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; color: #ef4444;';
+          nextBtn.appendChild(lockIcon);
+        }
+        nextBtn.style.backgroundColor = "#b0bec5";
+        nextBtn.style.opacity = "0.8";
+        
+        // تغيير وظيفة الزر لمنع الانتقال
+        nextBtn.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          showLockedMessage(nextExam.title + " (" + nextExamId + ")");
+          return false;
+        };
+      } 
+      // إذا كان الامتحان التالي ضمن الـ 6 الأولى، دع الزر يعمل بشكل طبيعي
+      else if (isPremium || nextExamId <= 6) {
+        const lockIcon = nextBtn.querySelector('.next-lock-icon');
+        if (lockIcon) lockIcon.remove();
+        nextBtn.style.backgroundColor = "";
+        nextBtn.style.opacity = "1";
+        nextBtn.style.paddingLeft = "";
+        
+        // استعادة الوظيفة الأصلية للزر
+        nextBtn.onclick = () => {
+          openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
+        };
       }
-      nextBtn.style.backgroundColor = "#b0bec5";
-      nextBtn.style.opacity = "0.8";
-      
-      const originalOnClick = nextBtn.onclick;
-      nextBtn._originalOnClick = originalOnClick;
-      nextBtn.onclick = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        showLockedMessage("الامتحان التالي (يتطلب ترقية)");
-        return false;
-      };
-    } else if (isPremium && nextBtn._originalOnClick) {
-      const lockIcon = nextBtn.querySelector('.next-lock-icon');
-      if (lockIcon) lockIcon.remove();
-      nextBtn.style.backgroundColor = "";
-      nextBtn.style.opacity = "1";
-      nextBtn.style.paddingLeft = "";
-      nextBtn.onclick = nextBtn._originalOnClick;
     }
   });
 }
@@ -970,6 +984,18 @@ function shouldHideHelpButton(skill) {
 }
 
 async function openExam(examId, examTitle, skill) {
+  // ===== فحص الوصول للامتحان =====
+  const userStatus = await getUserStatusForExam();
+  const isPremium = (userStatus === 'premium');
+  const maxFreeExamId = 6; // أول 6 امتحانات مجانية للمستخدمين غير المدفوعين
+  
+  // إذا كان المستخدم ليس بريميوم والامتحان المطلوب أكبر من 6، اظهر القفل
+  if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
+    showLockedMessage(examTitle + " (" + examId + ")");
+    return;
+  }
+  // ===== نهاية فحص الوصول =====
+  
   console.log("🔍 openExam parameters:", { examId, examTitle, skill });
   
   currentExamId = examId;
@@ -1360,6 +1386,7 @@ function updateExamNavButtons() {
   
   if (hasNext) {
     nextBtn.style.display = "inline-block";
+    // تعيين onclick مؤقتاً، سيتم تحديثه في setupLockedNextButton
     nextBtn.onclick = () => {
       const nextExam = currentExamsList[currentIndex + 1];
       openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
