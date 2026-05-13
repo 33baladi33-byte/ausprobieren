@@ -915,7 +915,7 @@ function setupLockedNextButton() {
   
   getUserStatusForExam().then(status => {
     const isPremium = (status === 'premium');
-    if (!isPremium && nextBtn.style.display !== 'none') {
+    if (!isPremium && currentExamId === 6 && nextBtn.style.display !== 'none') {
       nextBtn.style.position = "relative";
       nextBtn.style.paddingLeft = "35px";
       
