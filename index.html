@@ -651,5 +651,301 @@
     console.log("✅ جميع الـ Scripts تم تحميلها مرة واحدة فقط");
     console.log("🎮 لعبة التحدي السريع جاهزة - ابحث عن زر ⚡");
 </script>
+    <script>
+// ============================================
+// لعبة التحدي السريع - كود واحد مستقل تماماً
+// لا يحتاج أي ملفات خارجية
+// ============================================
+
+(function() {
+    "use strict";
+    
+    // متغيرات اللعبة
+    let gameActive = false;
+    let gameOverlay = null;
+    let currentQuestions = [];
+    let currentIndex = 0;
+    let userAnswers = [];
+    let combo = 0;
+    let bestCombo = 0;
+    let timerInterval = null;
+    let timeLeft = 0;
+    let currentOptions = [];
+    
+    // بيانات الامتحان (مؤقتة - يمكن استبدالها ببيانات حقيقية)
+    const demoQuestions = [
+        { firstWords: "Die Zahlen wirken auf den", correctTitle: "Wenn aus Erdbeeren Tomaten werden", wrongTitles: ["Von der Diät zur Krankheit", "Jugend forscht"] },
+        { firstWords: "Immer mehr Mädchen leiden", correctTitle: "Von der Diät zur Krankheit", wrongTitles: ["Psychoterror an der Schule", "Jugend forscht"] },
+        { firstWords: "Jugend forscht - auch auf", correctTitle: "Jugend forscht - auch auf dem Meer", wrongTitles: ["Wenn aus Erdbeeren Tomaten werden", "Psychoterror an der Schule"] },
+        { firstWords: "Psychoterror an der Schule", correctTitle: "Psychoterror an der Schule", wrongTitles: ["Jugend forscht", "Wenn aus Erdbeeren Tomaten werden"] }
+    ];
+    
+    // إضافة زر اللعبة
+    function addGameButton() {
+        const nav = document.getElementById('examNavButtons');
+        if (!nav) {
+            setTimeout(addGameButton, 500);
+            return;
+        }
+        if (document.getElementById('rapidGameBtn')) return;
+        
+        const btn = document.createElement('button');
+        btn.id = 'rapidGameBtn';
+        btn.innerHTML = '⚡ التحدي السريع';
+        btn.style.cssText = 'background:linear-gradient(135deg,#ff9800,#e65100);color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:bold;cursor:pointer;margin-left:10px;box-shadow:0 2px 5px rgba(0,0,0,0.2);transition:all 0.3s';
+        btn.onmouseenter = () => { btn.style.transform = 'scale(1.02)'; };
+        btn.onmouseleave = () => { btn.style.transform = 'scale(1)'; };
+        btn.onclick = () => startGame();
+        nav.appendChild(btn);
+        console.log('🎮 زر التحدي السريع جاهز');
+    }
+    
+    // بدء اللعبة
+    function startGame() {
+        if (gameActive) return;
+        
+        currentQuestions = [...demoQuestions];
+        for (let i = currentQuestions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [currentQuestions[i], currentQuestions[j]] = [currentQuestions[j], currentQuestions[i]];
+        }
+        currentIndex = 0;
+        userAnswers = [];
+        combo = 0;
+        bestCombo = 0;
+        
+        showCountdown();
+    }
+    
+    // عد تنازلي
+    function showCountdown() {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:10000;display:flex;justify-content:center;align-items:center';
+        
+        const countdown = document.createElement('div');
+        countdown.style.cssText = 'font-size:80px;font-weight:bold;color:white;text-shadow:0 0 20px rgba(0,0,0,0.5)';
+        countdown.textContent = '3';
+        overlay.appendChild(countdown);
+        document.body.appendChild(overlay);
+        
+        let count = 3;
+        const interval = setInterval(() => {
+            count--;
+            if (count > 0) {
+                countdown.textContent = count;
+            } else if (count === 0) {
+                countdown.textContent = 'GO! 🚀';
+                countdown.style.fontSize = '60px';
+            } else {
+                clearInterval(interval);
+                overlay.remove();
+                showQuestion();
+            }
+        }, 1000);
+    }
+    
+    // عرض السؤال
+    function showQuestion() {
+        if (currentIndex >= currentQuestions.length) {
+            showResults();
+            return;
+        }
+        
+        const q = currentQuestions[currentIndex];
+        currentOptions = [];
+        
+        // بناء الخيارات
+        currentOptions.push({ text: q.correctTitle, isCorrect: true });
+        const wrongs = [...q.wrongTitles];
+        for (let i = wrongs.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [wrongs[i], wrongs[j]] = [wrongs[j], wrongs[i]];
+        }
+        currentOptions.push({ text: wrongs[0], isCorrect: false });
+        if (wrongs[1]) currentOptions.push({ text: wrongs[1], isCorrect: false });
+        for (let i = currentOptions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [currentOptions[i], currentOptions[j]] = [currentOptions[j], currentOptions[i]];
+        }
+        
+        // إنشاء الواجهة
+        if (gameOverlay) gameOverlay.remove();
+        gameOverlay = document.createElement('div');
+        gameOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:10000;display:flex;justify-content:center;align-items:center';
+        
+        const container = document.createElement('div');
+        container.style.cssText = 'background:white;border-radius:32px;padding:30px;width:90%;max-width:600px;text-align:center';
+        
+        // المؤقت
+        const timerBar = document.createElement('div');
+        timerBar.style.cssText = 'width:100%;height:6px;background:#e0e0e0;border-radius:3px;margin-bottom:25px;overflow:hidden';
+        const timerFill = document.createElement('div');
+        timerFill.style.cssText = 'width:100%;height:100%;background:linear-gradient(90deg,#4caf50,#8bc34a);border-radius:3px;transition:width 0.02s linear';
+        timerBar.appendChild(timerFill);
+        container.appendChild(timerBar);
+        
+        // السؤال
+        const questionDiv = document.createElement('div');
+        questionDiv.style.cssText = 'font-size:28px;font-weight:bold;padding:30px 20px;background:#f0f4ff;border-radius:24px;margin-bottom:30px;color:#1a1a2e';
+        questionDiv.textContent = `“${q.firstWords}...”`;
+        container.appendChild(questionDiv);
+        
+        // الخيارات
+        const optionsDiv = document.createElement('div');
+        optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:15px;margin-bottom:30px';
+        
+        currentOptions.forEach((opt, idx) => {
+            const optBtn = document.createElement('button');
+            optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
+            optBtn.style.cssText = 'padding:16px 20px;background:white;border:2px solid #e0e0e0;border-radius:60px;font-size:16px;text-align:left;cursor:pointer;transition:all 0.1s';
+            optBtn.onmouseenter = () => { optBtn.style.background = '#e8e8ff'; optBtn.style.borderColor = '#7c6ce6'; };
+            optBtn.onmouseleave = () => { optBtn.style.background = 'white'; optBtn.style.borderColor = '#e0e0e0'; };
+            optBtn.onclick = () => checkAnswer(opt.isCorrect, opt.text);
+            optionsDiv.appendChild(optBtn);
+        });
+        container.appendChild(optionsDiv);
+        
+        // كومبو
+        if (combo >= 3) {
+            const comboDiv = document.createElement('div');
+            comboDiv.style.cssText = 'font-size:20px;font-weight:bold;margin-bottom:15px;color:#ff5722';
+            comboDiv.textContent = `${combo >= 10 ? '🚀' : (combo >= 6 ? '⚡' : '🔥')} COMBO x${combo}`;
+            container.appendChild(comboDiv);
+        }
+        
+        // التقدم
+        const progressDiv = document.createElement('div');
+        progressDiv.style.cssText = 'font-size:14px;color:#888';
+        progressDiv.textContent = `${currentIndex + 1} / ${currentQuestions.length}`;
+        container.appendChild(progressDiv);
+        
+        gameOverlay.appendChild(container);
+        document.body.appendChild(gameOverlay);
+        
+        // بدء المؤقت (2.2 ثانية)
+        gameActive = true;
+        timeLeft = 2.2;
+        let startTime = Date.now();
+        
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (!gameActive) return;
+            const elapsed = (Date.now() - startTime) / 1000;
+            const remaining = Math.max(0, 2.2 - elapsed);
+            const percent = (remaining / 2.2) * 100;
+            timerFill.style.width = `${percent}%`;
+            
+            if (remaining <= 0.3) timerFill.style.background = 'linear-gradient(90deg,#f44336,#d32f2f)';
+            else if (remaining <= 0.8) timerFill.style.background = 'linear-gradient(90deg,#ff9800,#ff5722)';
+            
+            if (remaining <= 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                if (gameActive) {
+                    gameActive = false;
+                    // إظهار الإجابة الصحيحة
+                    const btns = optionsDiv.querySelectorAll('button');
+                    btns.forEach(btn => {
+                        if (btn.textContent.includes(q.correctTitle)) {
+                            btn.style.background = '#d4edda';
+                            btn.style.borderColor = '#28a745';
+                        } else {
+                            btn.style.background = '#f8d7da';
+                            btn.style.borderColor = '#dc3545';
+                        }
+                    });
+                    userAnswers.push({ isCorrect: false, time: 2.2 });
+                    combo = 0;
+                    setTimeout(() => {
+                        currentIndex++;
+                        showQuestion();
+                    }, 600);
+                }
+            }
+        }, 20);
+        
+        // حفظ مراجع للاستخدام في checkAnswer
+        window._currentTimerFill = timerFill;
+        window._currentOptionsDiv = optionsDiv;
+        window._currentQuestion = q;
+    }
+    
+    function checkAnswer(isCorrect, selectedTitle) {
+        if (!gameActive) return;
+        gameActive = false;
+        if (timerInterval) clearInterval(timerInterval);
+        
+        const q = currentQuestions[currentIndex];
+        const optionsDiv = window._currentOptionsDiv;
+        
+        // تغيير ألوان الخيارات
+        const btns = optionsDiv.querySelectorAll('button');
+        btns.forEach(btn => {
+            if (btn.textContent.includes(q.correctTitle)) {
+                btn.style.background = '#d4edda';
+                btn.style.borderColor = '#28a745';
+            } else if (btn.textContent.includes(selectedTitle) && !isCorrect) {
+                btn.style.background = '#f8d7da';
+                btn.style.borderColor = '#dc3545';
+            }
+        });
+        
+        if (isCorrect) {
+            combo++;
+            if (combo > bestCombo) bestCombo = combo;
+        } else {
+            combo = 0;
+        }
+        
+        userAnswers.push({ isCorrect: isCorrect });
+        
+        setTimeout(() => {
+            currentIndex++;
+            showQuestion();
+        }, 600);
+    }
+    
+    function showResults() {
+        if (gameOverlay) gameOverlay.remove();
+        gameActive = false;
+        
+        const correct = userAnswers.filter(a => a.isCorrect).length;
+        const total = userAnswers.length;
+        const accuracy = ((correct / total) * 100).toFixed(1);
+        
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:10000;display:flex;justify-content:center;align-items:center';
+        
+        const container = document.createElement('div');
+        container.style.cssText = 'background:white;border-radius:32px;padding:30px;width:90%;max-width:500px;text-align:center';
+        container.innerHTML = `
+            <h2 style="margin-bottom:20px">🏆 نهاية التحدي</h2>
+            <div style="font-size:48px;font-weight:bold;color:#7c6ce6;margin-bottom:10px">${correct}/${total}</div>
+            <div style="font-size:16px;color:#666;margin-bottom:20px">الدقة: ${accuracy}%</div>
+            <div style="font-size:16px;color:#666;margin-bottom:20px">🔥 أفضل كومبو: ${bestCombo}</div>
+            <div style="background:#e8f4fd;padding:15px;border-radius:16px;margin-bottom:25px">
+                ${accuracy >= 80 ? '🧠 ممتاز! أنت جاهز للامتحان' : (accuracy >= 60 ? '👍 جيد، واصل التدريب' : '💪 لا تستسلم! أعد المحاولة')}
+            </div>
+            <button id="restartGameBtn" style="background:#7c6ce6;color:white;border:none;border-radius:40px;padding:12px 30px;font-size:16px;cursor:pointer;margin:5px">🔄 تحدٍّ جديد</button>
+            <button id="closeGameBtn" style="background:#e0e0e0;color:#333;border:none;border-radius:40px;padding:12px 30px;font-size:16px;cursor:pointer;margin:5px">✖ إغلاق</button>
+        `;
+        overlay.appendChild(container);
+        document.body.appendChild(overlay);
+        
+        document.getElementById('restartGameBtn').onclick = () => {
+            overlay.remove();
+            startGame();
+        };
+        document.getElementById('closeGameBtn').onclick = () => overlay.remove();
+    }
+    
+    // تشغيل
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', addGameButton);
+    } else {
+        addGameButton();
+    }
+})();
+</script>
 </body>
 </html>
