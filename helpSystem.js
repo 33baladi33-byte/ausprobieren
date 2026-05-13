@@ -17502,39 +17502,7 @@ if (document.readyState === 'loading') {
     addHelpButton();
     setupExamChangeListener();
 }
-// ============================================
-// إضافة زر لعبة التحدي السريع
-// ============================================
-function addGameButton() {
-    const nav = document.getElementById('examNavButtons');
-    if (!nav) return;
-    if (document.getElementById('globalGameButton')) return;
-    
-    const gameBtn = document.createElement('button');
-    gameBtn.id = 'globalGameButton';
-    gameBtn.textContent = '⚡ التحدي السريع';
-    gameBtn.style.cssText = 'background:linear-gradient(135deg,#ff9800,#e65100);color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:bold;cursor:pointer;margin-left:10px;box-shadow:0 2px 5px rgba(0,0,0,0.2);transition:all 0.3s';
-    gameBtn.onmouseenter = () => { gameBtn.style.transform = 'scale(1.02)'; };
-    gameBtn.onmouseleave = () => { gameBtn.style.transform = 'scale(1)'; };
-    gameBtn.onclick = (e) => {
-        e.stopPropagation();
-        const examId = getCurrentExamId();
-        if (typeof window.startRapidMatch === 'function') {
-            window.startRapidMatch(examId);
-        } else {
-            console.error('❌ لعبة التحدي السريع غير متاحة');
-            alert('اللعبة قيد التحميل... أعد المحاولة بعد لحظة');
-        }
-    };
-    nav.appendChild(gameBtn);
-}
 
-// استدعاء الدالة بعد تحميل الصفحة
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addGameButton);
-} else {
-    addGameButton();
-}
 console.log('✅ helpSystem.js تم التحميل بنجاح');
 console.log('📊 Hören Teil 1: 45 امتحان (1-27 أساسي + 28-45 تركيا)');
 console.log('📊 Hören Teil 2: 49 امتحان (1-31 أساسي + 32-49 تركيا)');
