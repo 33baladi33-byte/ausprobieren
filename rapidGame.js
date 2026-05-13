@@ -422,9 +422,15 @@
             optBtn.className = 'game-option-btn';
             optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
             optBtn.setAttribute('data-correct', opt.isCorrect);
-            optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #d0d0d0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s linear;color:#333;width:100%';
-            optBtn.onmouseenter = () => { optBtn.style.background = '#f0f2f5'; optBtn.style.borderColor = '#b0b0b0'; };
-            optBtn.onmouseleave = () => { optBtn.style.background = '#ffffff'; optBtn.style.borderColor = '#d0d0d0'; };
+            optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
+            optBtn.onmouseenter = () => { 
+                optBtn.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+                optBtn.style.transform = 'translateY(-0.5px)';
+            };
+            optBtn.onmouseleave = () => { 
+                optBtn.style.boxShadow = 'none';
+                optBtn.style.transform = 'translateY(0)';
+            };
             optBtn.onclick = () => checkAnswer(opt.isCorrect, opt.text);
             optionsDiv.appendChild(optBtn);
         });
