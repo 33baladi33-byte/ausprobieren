@@ -18,8 +18,8 @@
     
     // أوضاع السرعة
     const SPEED_MODES = {
-        reflex: { name: "Reflex", timePerQuestion: 2.2, color: "#4a90e2" },
-        focus: { name: "Focus", timePerQuestion: 2.9, color: "#6c757d" }
+        reflex: { name: "Reflex", timePerQuestion: 2.2, icon: "⚡", display: "⚡ Reflex" },
+        focus: { name: "Focus", timePerQuestion: 2.9, icon: "⚡⚡", display: "⚡⚡ Focus" }
     };
     
     let currentSpeedMode = "reflex";
@@ -59,20 +59,24 @@
         currentSpeedMode = mode;
         SETTINGS.timePerQuestion = SPEED_MODES[mode].timePerQuestion;
         
-        // تحديث شكل الأزرار إذا كانت اللعبة مفتوحة
+        // تحديث شكل الأزرار
         const reflexBtn = document.getElementById('modeReflexBtn');
         const focusBtn = document.getElementById('modeFocusBtn');
         if (reflexBtn && focusBtn) {
             if (mode === 'reflex') {
-                reflexBtn.style.background = '#4a90e2';
-                reflexBtn.style.color = 'white';
-                focusBtn.style.background = '#e8e8e8';
-                focusBtn.style.color = '#333';
-            } else {
-                focusBtn.style.background = '#6c757d';
-                focusBtn.style.color = 'white';
                 reflexBtn.style.background = '#e8e8e8';
                 reflexBtn.style.color = '#333';
+                reflexBtn.style.border = '1px solid #ccc';
+                focusBtn.style.background = '#f0f0f0';
+                focusBtn.style.color = '#999';
+                focusBtn.style.border = '1px solid #e0e0e0';
+            } else {
+                focusBtn.style.background = '#e8e8e8';
+                focusBtn.style.color = '#333';
+                focusBtn.style.border = '1px solid #ccc';
+                reflexBtn.style.background = '#f0f0f0';
+                reflexBtn.style.color = '#999';
+                reflexBtn.style.border = '1px solid #e0e0e0';
             }
         }
         
@@ -81,22 +85,22 @@
     
     function createSpeedModeSelector() {
         const container = document.createElement('div');
-        container.style.cssText = 'display:flex;justify-content:center;gap:10px;margin-bottom:20px';
+        container.style.cssText = 'display:flex;justify-content:center;gap:8px;margin:15px 0 10px 0';
         
         const reflexBtn = document.createElement('button');
         reflexBtn.id = 'modeReflexBtn';
         reflexBtn.textContent = '⚡ Reflex';
-        reflexBtn.style.cssText = 'padding:6px 18px;border-radius:30px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:none;background:#4a90e2;color:white;box-shadow:none';
+        reflexBtn.style.cssText = 'padding:5px 14px;border-radius:25px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:1px solid #ccc;background:#e8e8e8;color:#333;box-shadow:none';
         reflexBtn.onmouseenter = () => { if (currentSpeedMode !== 'reflex') reflexBtn.style.background = '#e0e0e0'; };
-        reflexBtn.onmouseleave = () => { if (currentSpeedMode !== 'reflex') reflexBtn.style.background = '#e8e8e8'; };
+        reflexBtn.onmouseleave = () => { if (currentSpeedMode !== 'reflex') reflexBtn.style.background = '#f0f0f0'; };
         reflexBtn.onclick = () => { setSpeedMode('reflex'); };
         
         const focusBtn = document.createElement('button');
         focusBtn.id = 'modeFocusBtn';
-        focusBtn.textContent = '🎯 Focus';
-        focusBtn.style.cssText = 'padding:6px 18px;border-radius:30px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:none;background:#e8e8e8;color:#333;box-shadow:none';
+        focusBtn.textContent = '⚡⚡ Focus';
+        focusBtn.style.cssText = 'padding:5px 14px;border-radius:25px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.1s ease;border:1px solid #e0e0e0;background:#f0f0f0;color:#999;box-shadow:none';
         focusBtn.onmouseenter = () => { if (currentSpeedMode !== 'focus') focusBtn.style.background = '#e0e0e0'; };
-        focusBtn.onmouseleave = () => { if (currentSpeedMode !== 'focus') focusBtn.style.background = '#e8e8e8'; };
+        focusBtn.onmouseleave = () => { if (currentSpeedMode !== 'focus') focusBtn.style.background = '#f0f0f0'; };
         focusBtn.onclick = () => { setSpeedMode('focus'); };
         
         container.appendChild(reflexBtn);
@@ -402,7 +406,6 @@
                     combo = 0;
                     
                     const btns = document.querySelectorAll('.game-option-btn');
-                    
                     btns.forEach(btn => {
                         if (btn.getAttribute('data-correct') === 'true') {
                             btn.style.background = '#d4edda';
@@ -466,12 +469,6 @@
         const container = document.createElement('div');
         container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:700px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative';
         
-        // مؤشر وضع السرعة
-        const modeIndicator = document.createElement('div');
-        modeIndicator.style.cssText = 'position:absolute;top:12px;right:12px;font-size:11px;color:#999;background:#f5f5f5;padding:2px 8px;border-radius:20px';
-        modeIndicator.textContent = currentSpeedMode === 'reflex' ? '⚡ Reflex' : '🎯 Focus';
-        container.appendChild(modeIndicator);
-        
         // المؤقت الدائري
         const timerContainer = document.createElement('div');
         timerContainer.className = 'circular-timer-container';
@@ -495,7 +492,7 @@
         
         // الخيارات
         const optionsDiv = document.createElement('div');
-        optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:30px';
+        optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:20px';
         
         if (q.type === "sprach") {
             q.options.forEach((opt, idx) => {
@@ -582,14 +579,18 @@
         
         container.appendChild(optionsDiv);
         
-        // أزرار التحكم
+        // أزرار التحكم + أزرار السرعة في نفس الصف
         const bottomBar = document.createElement('div');
-        bottomBar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-top:10px';
+        bottomBar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-top:10px;flex-wrap:wrap;gap:10px';
         
         const progressDiv = document.createElement('div');
         progressDiv.style.cssText = 'font-size:13px;color:#999';
         progressDiv.textContent = `${currentIndex + 1} / ${currentRound.length}`;
         bottomBar.appendChild(progressDiv);
+        
+        // أزرار السرعة في المنتصف
+        const speedSelector = createSpeedModeSelector();
+        bottomBar.appendChild(speedSelector);
         
         const controlBtns = document.createElement('div');
         controlBtns.style.cssText = 'display:flex;gap:12px';
@@ -659,10 +660,6 @@
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
-            } else {
-                btn.style.background = '#f8f9fa';
-                btn.style.borderColor = '#e0e0e0';
-                btn.style.color = '#333';
             }
         });
         
@@ -751,10 +748,6 @@
                 btn.style.background = '#fff3e0';
                 btn.style.borderColor = '#fd7e14';
                 btn.style.color = '#e67e22';
-            } else {
-                btn.style.background = '#f8f9fa';
-                btn.style.borderColor = '#e0e0e0';
-                btn.style.color = '#333';
             }
         });
         
