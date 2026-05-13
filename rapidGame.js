@@ -44,51 +44,64 @@
         return shortened;
     }
     
-    // دالة رسم المؤقت الدائري (صغير جداً - أعلى اليسار)
+    // دالة رسم المؤقت الدائري (صغير جداً - رمادي أسود - أعلى اليسار)
     function createCircularTimer(percent) {
-        const radius = 25;
+        const radius = 18;
         const circumference = 2 * Math.PI * radius;
         const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("width", "55");
-        svg.setAttribute("height", "55");
-        svg.setAttribute("viewBox", "0 0 60 60");
-        svg.style.cssText = "transform:rotate(-90deg);";
+        svg.setAttribute("width", "40");
+        svg.setAttribute("height", "40");
+        svg.setAttribute("viewBox", "0 0 45 45");
+        svg.style.cssText = "transform:rotate(-90deg);display:block";
         
-        // الخلفية (رمادي غامق فاتح)
+        // الخلفية (رمادي فاتح جداً)
         const bgCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        bgCircle.setAttribute("cx", "30");
-        bgCircle.setAttribute("cy", "30");
+        bgCircle.setAttribute("cx", "22.5");
+        bgCircle.setAttribute("cy", "22.5");
         bgCircle.setAttribute("r", radius);
         bgCircle.setAttribute("fill", "none");
-        bgCircle.setAttribute("stroke", "#d4d4d8");
-        bgCircle.setAttribute("stroke-width", "4");
+        bgCircle.setAttribute("stroke", "#d4d4d4");
+        bgCircle.setAttribute("stroke-width", "3");
         svg.appendChild(bgCircle);
         
-        // الجزء المتحرك (أزرق رمادي)
+        // الجزء المتحرك (رمادي غامق / أسود رمادي)
         const fillCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        fillCircle.setAttribute("cx", "30");
-        fillCircle.setAttribute("cy", "30");
+        fillCircle.setAttribute("cx", "22.5");
+        fillCircle.setAttribute("cy", "22.5");
         fillCircle.setAttribute("r", radius);
         fillCircle.setAttribute("fill", "none");
-        fillCircle.setAttribute("stroke", "#4a5b7a");
-        fillCircle.setAttribute("stroke-width", "4");
+        fillCircle.setAttribute("stroke", "#555555");
+        fillCircle.setAttribute("stroke-width", "3");
         fillCircle.setAttribute("stroke-linecap", "round");
         fillCircle.setAttribute("stroke-dasharray", circumference);
         fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
         svg.appendChild(fillCircle);
         
-        // النسبة المئوية (صغيرة جداً)
+        // النسبة المئوية (صغيرة، عادية، غير مائلة)
         const percentText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        percentText.setAttribute("x", "30");
-        percentText.setAttribute("y", "35");
+        percentText.setAttribute("x", "22.5");
+        percentText.setAttribute("y", "27");
         percentText.setAttribute("text-anchor", "middle");
-        percentText.setAttribute("fill", "#4a5b7a");
-        percentText.setAttribute("font-size", "11");
-        percentText.setAttribute("font-weight", "500");
+        percentText.setAttribute("fill", "#555555");
+        percentText.setAttribute("font-size", "9");
+        percentText.setAttribute("font-weight", "600");
+        percentText.setAttribute("font-family", "Arial, sans-serif");
+        percentText.style.fontStyle = "normal";
         percentText.textContent = Math.round(percent) + "%";
         svg.appendChild(percentText);
         
         return { svg, fillCircle, percentText };
+    }
+    
+    function updateCircularTimer(fillCircle, percentText, percent) {
+        const radius = 18;
+        const circumference = 2 * Math.PI * radius;
+        fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
+        percentText.textContent = Math.round(percent) + "%";
+        
+        if (percent <= 30) fillCircle.setAttribute("stroke", "#888888");
+        if (percent <= 15) fillCircle.setAttribute("stroke", "#aaaaaa");
+        if (percent > 30) fillCircle.setAttribute("stroke", "#555555");
     }
     
     // توليد جولة ذكية
@@ -279,7 +292,7 @@
             return;
         }
         
-        const radius = 25;
+        const radius = 18;
         const circumference = 2 * Math.PI * radius;
         
         timerInterval = setInterval(() => {
@@ -293,9 +306,9 @@
             timerCircle.setAttribute("stroke-dashoffset", offset);
             timerText.textContent = Math.round(percent) + "%";
             
-            if (percent <= 30) timerCircle.setAttribute("stroke", "#7c8aa0");
-            if (percent <= 15) timerCircle.setAttribute("stroke", "#9a7b7b");
-            if (percent > 30) timerCircle.setAttribute("stroke", "#4a5b7a");
+            if (percent <= 30) timerCircle.setAttribute("stroke", "#888888");
+            if (percent <= 15) timerCircle.setAttribute("stroke", "#aaaaaa");
+            if (percent > 30) timerCircle.setAttribute("stroke", "#555555");
             
             if (remainingTime <= 0) {
                 clearInterval(timerInterval);
@@ -386,10 +399,10 @@
         const container = document.createElement('div');
         container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:700px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative';
         
-        // المؤقت الدائري (صغير في أعلى اليسار)
+        // المؤقت الدائري (صغير في أقصى أعلى اليسار)
         const timerContainer = document.createElement('div');
         timerContainer.className = 'circular-timer-container';
-        timerContainer.style.cssText = 'position:absolute;top:12px;left:12px;width:55px;height:55px';
+        timerContainer.style.cssText = 'position:absolute;top:8px;left:8px;width:40px;height:40px';
         const timerSvg = createCircularTimer(100);
         timerContainer.appendChild(timerSvg.svg);
         container.appendChild(timerContainer);
@@ -472,7 +485,7 @@
             timerTextSvg.classList.add('circular-timer-text');
             
             // تحديد القيم الأولية للمؤقت
-            const radius = 25;
+            const radius = 18;
             const circumference = 2 * Math.PI * radius;
             timerCircleSvg.setAttribute("stroke-dasharray", circumference);
             timerCircleSvg.setAttribute("stroke-dashoffset", circumference);
