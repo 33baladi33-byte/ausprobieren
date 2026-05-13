@@ -1,5 +1,5 @@
 // ============================================
-// rapidGame.js - لعبة التحدي السريع (نسخة ذكية)
+// rapidGame.js - لعبة التحدي السريع (نسخة متطورة)
 // ============================================
 
 (function() {
@@ -10,14 +10,15 @@
         timePerQuestion: 2.2,      // 2.2 ثانية للسؤال
         transitionDelay: 250,       // 0.25 ثانية للانتقال
         firstWordsLength: 8,        // أول 8 كلمات للفقرة
-        titleLength: 8,              // أول 8 كلمات للعنوان
-        roundLength: 16,             // 16 سؤال في الجولة
-        minWrongRepeatDelay: 2,      // أقل تأخير لإعادة السؤال الخاطئ
-        maxWrongRepeatDelay: 5       // أقصى تأخير لإعادة السؤال الخاطئ
+        titleLength: 8,             // أول 8 كلمات للعنوان
+        roundLength: 16,            // 16 سؤال في الجولة
+        minWrongRepeatDelay: 2,
+        maxWrongRepeatDelay: 5
     };
     
     // متغيرات اللعبة
     let gameActive = false;
+    let gamePaused = false;
     let gameOverlay = null;
     let currentGameData = null;
     let originalQuestions = [];
@@ -28,30 +29,31 @@
     let bestCombo = 0;
     let timerInterval = null;
     let transitionTimeout = null;
+    let pauseStartTime = 0;
+    let remainingTime = SETTINGS.timePerQuestion;
+    let currentTimerFill = null;
+    let currentOptionsDiv = null;
+    let currentStartTime = 0;
     
-    // إحصائيات الأسئلة للتكرار الذكي
     let questionStats = {};
     
     function shortenText(text, maxWords) {
         if (!text) return "";
         const words = text.split(' ');
+        if (words.length <= maxWords) return text;
         let shortened = words.slice(0, maxWords).join(' ');
-        if (words.length > maxWords) shortened += '...';
+        shortened += '...';
         return shortened;
     }
     
-    // دالة توليد جولة ذكية
+    // توليد جولة ذكية
     function generateSmartRound(questions, stats) {
         const round = [];
         const usageCount = {};
-        const pendingRepeat = []; // أسئلة تنتظر الإعادة
+        const pendingRepeat = [];
         
-        // تهيئة عدد مرات ظهور كل سؤال
-        questions.forEach((q, idx) => {
-            usageCount[idx] = 0;
-        });
+        questions.forEach((_, idx) => { usageCount[idx] = 0; });
         
-        // إضافة الأسئلة الخاطئة من الإحصائيات إلى قائمة الانتظار
         for (let idx in stats) {
             const stat = stats[idx];
             if (stat.timesWrong > 0 && stat.timesWrong < 3 && stat.lastWrongAt > -5) {
@@ -70,12 +72,11 @@
         while (round.length < SETTINGS.roundLength && maxAttempts < 100) {
             maxAttempts++;
             
-            // التحقق من الأسئلة المنتظرة للإعادة
             let addedRepeat = false;
             for (let i = 0; i < pendingRepeat.length; i++) {
                 if (pendingRepeat[i].scheduledAt === currentPos) {
                     const qIdx = pendingRepeat[i].questionId;
-                    if (usageCount[qIdx] < 3) { // الحد الأقصى 3 مرات
+                    if (usageCount[qIdx] < 3) {
                         round.push({ ...questions[qIdx], originalIndex: qIdx, isRepeat: true });
                         usageCount[qIdx]++;
                         pendingRepeat.splice(i, 1);
@@ -93,9 +94,8 @@
                 continue;
             }
             
-            // اختيار سؤال جديد (الأقل ظهوراً)
             let availableQuestions = [];
-            questions.forEach((q, idx) => {
+            questions.forEach((_, idx) => {
                 const maxAllowed = getMaxAppearances(stats[idx]);
                 if (usageCount[idx] < maxAllowed) {
                     availableQuestions.push(idx);
@@ -103,14 +103,10 @@
             });
             
             if (availableQuestions.length === 0) {
-                // إذا ظهرت جميع الأسئلة بالحد الأقصى، نعيد ضبط العداد
-                for (let idx in usageCount) {
-                    usageCount[idx] = 0;
-                }
+                for (let idx in usageCount) { usageCount[idx] = 0; }
                 availableQuestions = questions.map((_, idx) => idx);
             }
             
-            // اختيار عشوائي مع مراعاة الأسئلة التي أخطأ فيها
             let selectedIdx;
             const wrongQuestions = availableQuestions.filter(idx => stats[idx] && stats[idx].timesWrong > 0);
             if (wrongQuestions.length > 0 && Math.random() < 0.6) {
@@ -124,7 +120,6 @@
             currentPos++;
         }
         
-        // خلط الترتيب النهائي قليلاً
         for (let i = round.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [round[i], round[j]] = [round[j], round[i]];
@@ -139,6 +134,61 @@
         if (stat.timesWrong === 1) return 2;
         if (stat.wasSlow) return 2;
         return 1;
+    }
+    
+    // دالة رسم المؤقت الدائري
+    function createCircularTimer(percent) {
+        const radius = 40;
+        const circumference = 2 * Math.PI * radius;
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", "90");
+        svg.setAttribute("height", "90");
+        svg.setAttribute("viewBox", "0 0 100 100");
+        svg.style.cssText = "transform:rotate(-90deg);";
+        
+        const bgCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        bgCircle.setAttribute("cx", "50");
+        bgCircle.setAttribute("cy", "50");
+        bgCircle.setAttribute("r", radius);
+        bgCircle.setAttribute("fill", "none");
+        bgCircle.setAttribute("stroke", "#e8e8e8");
+        bgCircle.setAttribute("stroke-width", "6");
+        svg.appendChild(bgCircle);
+        
+        const fillCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        fillCircle.setAttribute("cx", "50");
+        fillCircle.setAttribute("cy", "50");
+        fillCircle.setAttribute("r", radius);
+        fillCircle.setAttribute("fill", "none");
+        fillCircle.setAttribute("stroke", "#2c3e66");
+        fillCircle.setAttribute("stroke-width", "6");
+        fillCircle.setAttribute("stroke-linecap", "round");
+        fillCircle.setAttribute("stroke-dasharray", circumference);
+        fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
+        svg.appendChild(fillCircle);
+        
+        const percentText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        percentText.setAttribute("x", "50");
+        percentText.setAttribute("y", "55");
+        percentText.setAttribute("text-anchor", "middle");
+        percentText.setAttribute("fill", "#2c3e66");
+        percentText.setAttribute("font-size", "20");
+        percentText.setAttribute("font-weight", "bold");
+        percentText.textContent = Math.round(percent) + "%";
+        svg.appendChild(percentText);
+        
+        return { svg, fillCircle, percentText };
+    }
+    
+    function updateCircularTimer(fillCircle, percentText, percent) {
+        const radius = 40;
+        const circumference = 2 * Math.PI * radius;
+        fillCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
+        percentText.textContent = Math.round(percent) + "%";
+        
+        if (percent <= 30) fillCircle.setAttribute("stroke", "#fd7e14");
+        if (percent <= 15) fillCircle.setAttribute("stroke", "#dc3545");
+        if (percent > 30) fillCircle.setAttribute("stroke", "#2c3e66");
     }
     
     function showNotAvailableMessage() {
@@ -170,25 +220,16 @@
             .then(data => {
                 currentGameData = data;
                 originalQuestions = data.questions;
-                
-                // تقصير النصوص
                 originalQuestions = originalQuestions.map(q => ({
                     ...q,
                     shortFirstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
                     shortCorrectTitle: shortenText(q.correctTitle, SETTINGS.titleLength),
                     shortWrongTitles: q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength))
                 }));
-                
-                // تهيئة الإحصائيات
                 questionStats = {};
                 originalQuestions.forEach((_, idx) => {
-                    questionStats[idx] = {
-                        timesWrong: 0,
-                        wasSlow: false,
-                        lastWrongAt: -999
-                    };
+                    questionStats[idx] = { timesWrong: 0, wasSlow: false, lastWrongAt: -999 };
                 });
-                
                 return true;
             })
             .catch(() => false);
@@ -196,22 +237,107 @@
     
     function startGame(skill, examId) {
         if (gameActive) return;
-        
         loadGameData(skill, examId).then(loaded => {
-            if (!loaded) {
-                showNotAvailableMessage();
-                return;
-            }
-            
-            // توليد جولة ذكية
+            if (!loaded) { showNotAvailableMessage(); return; }
             currentRound = generateSmartRound(originalQuestions, questionStats);
             currentIndex = 0;
             userAnswers = [];
             combo = 0;
             bestCombo = 0;
-            
+            gamePaused = false;
             showCountdown();
         });
+    }
+    
+    function pauseGame() {
+        if (!gameActive || gamePaused) return;
+        gamePaused = true;
+        gameActive = false;
+        if (timerInterval) clearInterval(timerInterval);
+        
+        const pauseBtn = document.getElementById('gamePauseBtn');
+        if (pauseBtn) pauseBtn.textContent = '▶ Resume';
+        
+        const timerContainer = document.querySelector('.circular-timer-container');
+        if (timerContainer) {
+            timerContainer.style.opacity = '0.5';
+        }
+    }
+    
+    function resumeGame() {
+        if (!gamePaused) return;
+        gamePaused = false;
+        gameActive = true;
+        
+        const pauseBtn = document.getElementById('gamePauseBtn');
+        if (pauseBtn) pauseBtn.textContent = '⏸ Pause';
+        
+        const timerContainer = document.querySelector('.circular-timer-container');
+        if (timerContainer) timerContainer.style.opacity = '1';
+        
+        // استئناف المؤقت
+        currentStartTime = Date.now() - (SETTINGS.timePerQuestion - remainingTime) * 1000;
+        startTimer();
+    }
+    
+    function exitGame() {
+        gameActive = false;
+        gamePaused = false;
+        if (timerInterval) clearInterval(timerInterval);
+        if (transitionTimeout) clearTimeout(transitionTimeout);
+        if (gameOverlay) gameOverlay.remove();
+    }
+    
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (!gameActive || gamePaused) return;
+            const elapsed = (Date.now() - currentStartTime) / 1000;
+            remainingTime = Math.max(0, SETTINGS.timePerQuestion - elapsed);
+            const percent = (remainingTime / SETTINGS.timePerQuestion) * 100;
+            
+            const timerCircle = document.querySelector('.circular-timer-fill');
+            const timerText = document.querySelector('.circular-timer-text');
+            if (timerCircle && timerText) {
+                const radius = 40;
+                const circumference = 2 * Math.PI * radius;
+                timerCircle.setAttribute("stroke-dashoffset", circumference * (1 - percent / 100));
+                timerText.textContent = Math.round(percent) + "%";
+                if (percent <= 30) timerCircle.setAttribute("stroke", "#fd7e14");
+                if (percent <= 15) timerCircle.setAttribute("stroke", "#dc3545");
+                if (percent > 30) timerCircle.setAttribute("stroke", "#2c3e66");
+            }
+            
+            if (remainingTime <= 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                if (gameActive && !gamePaused) {
+                    gameActive = false;
+                    const q = currentRound[currentIndex];
+                    questionStats[q.originalIndex].timesWrong++;
+                    questionStats[q.originalIndex].wasSlow = true;
+                    questionStats[q.originalIndex].lastWrongAt = currentIndex;
+                    userAnswers.push({ isCorrect: false, originalIndex: q.originalIndex });
+                    combo = 0;
+                    
+                    const btns = document.querySelectorAll('.game-option-btn');
+                    btns.forEach(btn => {
+                        if (btn.getAttribute('data-correct') === 'true') {
+                            btn.style.background = '#d4edda';
+                            btn.style.borderColor = '#28a745';
+                        } else {
+                            btn.style.background = '#fff3e0';
+                            btn.style.borderColor = '#fd7e14';
+                        }
+                    });
+                    
+                    transitionTimeout = setTimeout(() => {
+                        currentIndex++;
+                        showQuestion();
+                    }, SETTINGS.transitionDelay);
+                }
+            }
+        }, 20);
     }
     
     function showCountdown() {
@@ -247,7 +373,7 @@
         }
         
         const q = currentRound[currentIndex];
-        const stats = questionStats[q.originalIndex];
+        remainingTime = SETTINGS.timePerQuestion;
         
         const options = [
             { text: q.shortCorrectTitle, fullText: q.correctTitle, isCorrect: true }
@@ -269,28 +395,32 @@
         gameOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
         
         const container = document.createElement('div');
-        container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:650px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2)';
+        container.style.cssText = 'background:white;border-radius:28px;padding:30px;width:90%;max-width:700px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.2);position:relative';
         
-        const timerBar = document.createElement('div');
-        timerBar.style.cssText = 'width:100%;height:4px;background:#e8e8e8;border-radius:2px;margin-bottom:30px;overflow:hidden';
-        const timerFill = document.createElement('div');
-        timerFill.style.cssText = 'width:100%;height:100%;background:#2c3e66;border-radius:2px;transition:width 0.02s linear';
-        timerBar.appendChild(timerFill);
-        container.appendChild(timerBar);
+        // المؤقت الدائري
+        const timerContainer = document.createElement('div');
+        timerContainer.className = 'circular-timer-container';
+        timerContainer.style.cssText = 'position:absolute;top:20px;right:20px;width:90px;height:90px';
+        const timerSvg = createCircularTimer(100);
+        timerContainer.appendChild(timerSvg.svg);
+        container.appendChild(timerContainer);
         
+        // السؤال
         const questionDiv = document.createElement('div');
-        questionDiv.style.cssText = 'font-size:28px;font-weight:500;padding:30px 20px;background:#f5f7fc;border-radius:20px;margin-bottom:30px;color:#1a1a2e;line-height:1.4';
+        questionDiv.style.cssText = 'font-size:26px;font-weight:500;padding:30px 50px 25px 50px;margin-top:20px;background:#f5f7fc;border-radius:20px;margin-bottom:30px;color:#1a1a2e;line-height:1.5';
         questionDiv.textContent = `❝ ${q.shortFirstWords} ❞`;
         container.appendChild(questionDiv);
         
+        // الخيارات
         const optionsDiv = document.createElement('div');
         optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:30px';
         
         options.forEach((opt, idx) => {
             const optBtn = document.createElement('button');
+            optBtn.className = 'game-option-btn';
             optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
             optBtn.setAttribute('data-correct', opt.isCorrect);
-            optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #d0d0d0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s linear;color:#333';
+            optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #d0d0d0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s linear;color:#333;width:100%';
             optBtn.onmouseenter = () => { optBtn.style.background = '#f0f2f5'; optBtn.style.borderColor = '#b0b0b0'; };
             optBtn.onmouseleave = () => { optBtn.style.background = '#ffffff'; optBtn.style.borderColor = '#d0d0d0'; };
             optBtn.onclick = () => checkAnswer(opt.isCorrect, opt.text);
@@ -298,6 +428,7 @@
         });
         container.appendChild(optionsDiv);
         
+        // كومبو
         if (combo >= 3) {
             const comboDiv = document.createElement('div');
             comboDiv.style.cssText = 'font-size:18px;font-weight:500;margin-bottom:15px;color:#2c3e66';
@@ -305,96 +436,73 @@
             container.appendChild(comboDiv);
         }
         
+        // التقدم وأزرار التحكم
+        const bottomBar = document.createElement('div');
+        bottomBar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin-top:10px';
+        
         const progressDiv = document.createElement('div');
         progressDiv.style.cssText = 'font-size:13px;color:#999';
         progressDiv.textContent = `${currentIndex + 1} / ${currentRound.length}`;
-        container.appendChild(progressDiv);
+        bottomBar.appendChild(progressDiv);
+        
+        const controlBtns = document.createElement('div');
+        controlBtns.style.cssText = 'display:flex;gap:12px';
+        
+        const pauseBtn = document.createElement('button');
+        pauseBtn.id = 'gamePauseBtn';
+        pauseBtn.textContent = '⏸ Pause';
+        pauseBtn.style.cssText = 'background:#e8e8e8;color:#333;border:none;border-radius:30px;padding:6px 16px;font-size:12px;cursor:pointer;transition:all 0.15s';
+        pauseBtn.onclick = () => {
+            if (gamePaused) resumeGame();
+            else pauseGame();
+        };
+        controlBtns.appendChild(pauseBtn);
+        
+        const exitBtn = document.createElement('button');
+        exitBtn.textContent = '✖ Exit';
+        exitBtn.style.cssText = 'background:#e8e8e8;color:#333;border:none;border-radius:30px;padding:6px 16px;font-size:12px;cursor:pointer;transition:all 0.15s';
+        exitBtn.onclick = () => exitGame();
+        controlBtns.appendChild(exitBtn);
+        
+        bottomBar.appendChild(controlBtns);
+        container.appendChild(bottomBar);
         
         gameOverlay.appendChild(container);
         document.body.appendChild(gameOverlay);
         
         gameActive = true;
-        let startTime = Date.now();
-        let isFast = true;
+        gamePaused = false;
+        currentStartTime = Date.now();
+        currentOptionsDiv = optionsDiv;
         
-        if (timerInterval) clearInterval(timerInterval);
-        timerInterval = setInterval(() => {
-            if (!gameActive) return;
-            const elapsed = (Date.now() - startTime) / 1000;
-            const remaining = Math.max(0, SETTINGS.timePerQuestion - elapsed);
-            const percent = (remaining / SETTINGS.timePerQuestion) * 100;
-            timerFill.style.width = `${percent}%`;
-            
-            if (remaining <= 0.3) timerFill.style.background = '#dc3545';
-            else if (remaining <= 0.8) timerFill.style.background = '#fd7e14';
-            else timerFill.style.background = '#2c3e66';
-            
-            if (remaining <= 0) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-                if (gameActive) {
-                    gameActive = false;
-                    
-                    // تسجيل الإجابة كخاطئة مع الوقت البطيء
-                    const currentStats = questionStats[q.originalIndex];
-                    currentStats.timesWrong++;
-                    currentStats.wasSlow = true;
-                    currentStats.lastWrongAt = currentIndex;
-                    
-                    const btns = optionsDiv.querySelectorAll('button');
-                    btns.forEach(btn => {
-                        if (btn.getAttribute('data-correct') === 'true') {
-                            btn.style.background = '#d4edda';
-                            btn.style.borderColor = '#28a745';
-                            btn.style.color = '#155724';
-                        } else {
-                            btn.style.background = '#fff3e0';
-                            btn.style.borderColor = '#fd7e14';
-                        }
-                    });
-                    userAnswers.push({ isCorrect: false, originalIndex: q.originalIndex });
-                    combo = 0;
-                    
-                    if (transitionTimeout) clearTimeout(transitionTimeout);
-                    transitionTimeout = setTimeout(() => {
-                        currentIndex++;
-                        showQuestion();
-                    }, SETTINGS.transitionDelay);
-                }
-            }
-        }, 20);
+        startTimer();
         
         window._currentOptionsDiv = optionsDiv;
-        window._currentStartTime = startTime;
         window._currentQuestion = q;
     }
     
     function checkAnswer(isCorrect, selectedShortTitle) {
-        if (!gameActive) return;
+        if (!gameActive || gamePaused) return;
         gameActive = false;
         if (timerInterval) clearInterval(timerInterval);
         
         const q = currentRound[currentIndex];
-        const elapsed = (Date.now() - window._currentStartTime) / 1000;
+        const optionsDiv = currentOptionsDiv;
+        const elapsed = (Date.now() - currentStartTime) / 1000;
         const isFast = elapsed < 1.5;
-        const optionsDiv = window._currentOptionsDiv;
-        
-        const currentStats = questionStats[q.originalIndex];
         
         if (isCorrect) {
-            if (!isFast) {
-                currentStats.wasSlow = true;
-            }
+            if (!isFast) questionStats[q.originalIndex].wasSlow = true;
             combo++;
             if (combo > bestCombo) bestCombo = combo;
         } else {
-            currentStats.timesWrong++;
-            currentStats.wasSlow = true;
-            currentStats.lastWrongAt = currentIndex;
+            questionStats[q.originalIndex].timesWrong++;
+            questionStats[q.originalIndex].wasSlow = true;
+            questionStats[q.originalIndex].lastWrongAt = currentIndex;
             combo = 0;
         }
         
-        const btns = optionsDiv.querySelectorAll('button');
+        const btns = optionsDiv.querySelectorAll('.game-option-btn');
         btns.forEach(btn => {
             if (btn.getAttribute('data-correct') === 'true') {
                 btn.style.background = '#d4edda';
@@ -424,7 +532,6 @@
         const total = userAnswers.length;
         const accuracy = total > 0 ? ((correct / total) * 100).toFixed(1) : 0;
         
-        // إحصائيات لكل سؤال
         const questionResults = {};
         originalQuestions.forEach((q, idx) => {
             const userAttempts = userAnswers.filter(a => a.originalIndex === idx);
@@ -453,12 +560,7 @@
             const stat = questionResults[idx];
             if (stat.attempts > 0) {
                 const icon = stat.wrong === 0 ? '✅' : (stat.correct > stat.wrong ? '⚠️' : '❌');
-                statsHtml += `
-                    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee">
-                        <span style="font-size:13px;text-align:left;flex:2">${stat.title}</span>
-                        <span style="font-size:13px;color:${stat.wrong === 0 ? '#28a745' : (stat.correct > stat.wrong ? '#fd7e14' : '#dc3545')}">${icon} ${stat.correct}/${stat.attempts}</span>
-                    </div>
-                `;
+                statsHtml += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #eee"><span style="font-size:13px;text-align:left;flex:2">${stat.title}</span><span style="font-size:13px;color:${stat.wrong === 0 ? '#28a745' : (stat.correct > stat.wrong ? '#fd7e14' : '#dc3545')}">${icon} ${stat.correct}/${stat.attempts}</span></div>`;
             }
         }
         
@@ -488,10 +590,7 @@
     
     function addGameButton() {
         const nav = document.getElementById('examNavButtons');
-        if (!nav) {
-            setTimeout(addGameButton, 500);
-            return;
-        }
+        if (!nav) { setTimeout(addGameButton, 500); return; }
         if (document.getElementById('rapidGameBtn')) return;
         
         const btn = document.createElement('button');
