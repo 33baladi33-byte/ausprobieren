@@ -241,7 +241,42 @@
 <script src="exams.js"></script>
 <script src="auth.js"></script>
 <script src="notifications.js"></script>
-<script src="js/rapidGame.js"></script>
+
+<script>
+// ============================================
+// لعبة التحدي السريع - كود مباشر
+// ============================================
+(function() {
+    "use strict";
+    
+    function addGameButton() {
+        var nav = document.getElementById('examNavButtons');
+        if (!nav) {
+            setTimeout(addGameButton, 500);
+            return;
+        }
+        if (document.getElementById('rapidGameBtn')) return;
+        
+        var btn = document.createElement('button');
+        btn.id = 'rapidGameBtn';
+        btn.innerHTML = '⚡ التحدي السريع';
+        btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
+        btn.onclick = function() {
+            alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
+        };
+        nav.appendChild(btn);
+        console.log('🎮 زر التحدي السريع جاهز');
+    }
+    
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(addGameButton, 500);
+        });
+    } else {
+        setTimeout(addGameButton, 500);
+    }
+})();
+</script>
 
 <script>
     // ✅ نظام تكبير وتصغير الموقع
