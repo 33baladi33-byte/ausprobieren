@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 7: المرأة الحامل",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Das Vorstellungsgespräch ist eine wichtige Hürde bei der Suche nach einem Arbeitsplatz...",
+      "correctTitle": "Ihre Schwägerin erwartet ein Kind. Sie ist nicht sicher, ob Sie in einem Vorstellungsgespräch darauf hinweisen muss.",
+      "shortCorrectTitle": "Ihre Schwägerin ist unsicher wegen Schwangerschaft im Bewerbungsgespräch.",
+      "wrongTitles": [
+        "Eine Freundin sucht einen Ausbildungsplatz und weiß nicht, was sie anziehen soll.",
+        "Ein Bekannter ist Bankkaufmann und sucht eine Stelle."
+      ]
+    },
+    {
+      "firstWords": "Robert Sonntag, Autor des Buches 'Hilfe, ich muss reden' behauptet...",
+      "correctTitle": "Eine Freundin, 20 Jahre alt, muss oft vor Arbeitskollegen Referate halten. Ihr Hauptproblem ist ihre Nervosität.",
+      "shortCorrectTitle": "Eine Freundin hat Probleme mit Nervosität bei Referaten.",
+      "wrongTitles": [
+        "Ein älteres Ehepaar hat Goldene Hochzeit. Die Tochter möchte eine Rede halten.",
+        "Eine Bekannte sucht Rat wegen ihres internetabhängigen Sohnes."
+      ]
+    },
+    {
+      "firstWords": "Wer zu seinem Vorstellungsgespräch eingeladen wird, sollte auf korrekte Kleidung achten...",
+      "correctTitle": "Eine Freundin sucht einen Ausbildungsplatz. Sie ist zu einem Bewerbungsgespräch eingeladen und weiß nicht, was sie anziehen soll.",
+      "shortCorrectTitle": "Eine Freundin weiß nicht, was sie zum Bewerbungsgespräch anziehen soll.",
+      "wrongTitles": [
+        "Ihre Schwägerin ist unsicher wegen Schwangerschaft im Bewerbungsgespräch.",
+        "Ein Bekannter ist Bankkaufmann und sucht eine Stelle."
+      ]
+    },
+    {
+      "firstWords": "Ein Auszubildender bei einer Bank oder Sparkasse bekommt 690,- Euro...",
+      "correctTitle": "Eine Bekannte möchte eine Ausbildung machen und vielleicht später einmal studieren.",
+      "shortCorrectTitle": "Eine Bekannte möchte Ausbildung machen und später studieren.",
+      "wrongTitles": [
+        "Ein Freund möchte wissen, welche schulischen Leistungen bei Banken wichtig sind.",
+        "Ein Bekannter ist Bankkaufmann und sucht eine Stelle."
+      ]
+    },
+    {
+      "firstWords": "Für junge Leute kann das Internet zu einer Droge werden...",
+      "correctTitle": "Ein Freund surft täglich viele Stunden im Internet. Sie finden das zu viel und wollen ihm einen Rat geben.",
+      "shortCorrectTitle": "Ein Freund surft zu viel im Internet.",
+      "wrongTitles": [
+        "Eine Bekannte sucht Rat wegen ihres internetabhängigen Sohnes.",
+        "Sie mögen Musik und möchten in diesem Bereich einen Job."
+      ]
+    },
+    {
+      "firstWords": "Nichts ist auf privaten Feierlichkeiten wie Hochzeiten schlimmer als langatmige Ansprachen...",
+      "correctTitle": "Ein älteres Ehepaar hat Goldene Hochzeit. Die Tochter möchte eine Rede halten und braucht dafür eine Anleitung.",
+      "shortCorrectTitle": "Eine Tochter braucht Anleitung für eine Rede zur Goldenen Hochzeit.",
+      "wrongTitles": [
+        "Eine Freundin hat Probleme mit Nervosität bei Referaten.",
+        "Eine Bekannte sucht Rat wegen ihres internetabhängigen Sohnes."
+      ]
+    },
+    {
+      "firstWords": "'GRUNDSÄTZLICH HAT JEDER DIE MÖGLICHKEIT, BEI UNS EINE AUSBILDUNG ZU MACHEN'...",
+      "correctTitle": "Ein Freund möchte wissen, welche schulischen Leistungen bei der Vergabe von Ausbildungsplätzen im Bankgewerbe besonders wichtig sind.",
+      "shortCorrectTitle": "Ein Freund möchte wissen, welche Schulleistungen bei Banken wichtig sind.",
+      "wrongTitles": [
+        "Eine Bekannte möchte Ausbildung machen und später studieren.",
+        "Ein Bekannter ist Bankkaufmann und sucht eine Stelle."
+      ]
+    },
+    {
+      "firstWords": "Viele junge Leute flüchten sich in die virtuelle Scheinwelt...",
+      "correctTitle": "Eine Bekannte sucht Rat bei Ihnen, weil ihr Sohn ständig im Internet surft und dabei die Schule vernachlässigt.",
+      "shortCorrectTitle": "Eine Bekannte sucht Rat wegen ihres internetabhängigen Sohnes.",
+      "wrongTitles": [
+        "Ein Freund surft zu viel im Internet.",
+        "Sie mögen Musik und möchten in diesem Bereich einen Job."
+      ]
+    }
+  ]
+}

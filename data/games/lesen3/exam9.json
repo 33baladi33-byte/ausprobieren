@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 9: Ganztagesausflug",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Entspannung am Wasser Von März bis September können Sie bei unserem Bootsverleih...",
+      "correctTitle": "Sie möchten einen Ganztagesausflug machen und sich dabei bewegen.",
+      "shortCorrectTitle": "Sie möchten einen Ausflug mit Bewegung machen.",
+      "wrongTitles": [
+        "Ein Freund möchte gerne eine Schiffsreise machen.",
+        "Sie möchten etwas mit Ihrer Nichte unternehmen."
+      ]
+    },
+    {
+      "firstWords": "Schiffe versenken, Marmorkuchen und selbstgebastelte Papierhüte...",
+      "correctTitle": "Ihr Sohn möchte einen Kindergeburtstag feiern und braucht Hilfe bei der Organisation.",
+      "shortCorrectTitle": "Ihr Sohn braucht Hilfe bei der Geburtstagsorganisation.",
+      "wrongTitles": [
+        "Sie möchten etwas mit Ihrer Nichte unternehmen.",
+        "Sie möchten helfen Ihren Stadtteil zu gestalten."
+      ]
+    },
+    {
+      "firstWords": "Kurzreise nach München Studienreisen Studius bietet Ihnen einen besonderen Ausflug an...",
+      "correctTitle": "Sie interessieren sich für Technikgeschichte.",
+      "shortCorrectTitle": "Sie interessieren sich für Technikgeschichte.",
+      "wrongTitles": [
+        "Ein Freund möchte mehr über die Geschichte deutscher Städte erfahren.",
+        "Sie möchten einen Ganztagesausflug machen."
+      ]
+    },
+    {
+      "firstWords": "Deutschland aus einer anderen Perspektive Lernen Sie die schönsten deutschen Landschaften...",
+      "correctTitle": "Ein Freund möchte gerne eine Schiffsreise machen.",
+      "shortCorrectTitle": "Ein Freund möchte eine Schiffsreise machen.",
+      "wrongTitles": [
+        "Sie möchten einen Ganztagesausflug machen.",
+        "Sie interessieren sich für Technikgeschichte."
+      ]
+    },
+    {
+      "firstWords": "Unser Stadtteil ist lebendig Deshalb planen wir, im kommenden Jahr auf allen Plätzen...",
+      "correctTitle": "Sie möchten helfen, Ihren Stadtteil zu gestalten.",
+      "shortCorrectTitle": "Sie möchten Ihren Stadtteil gestalten helfen.",
+      "wrongTitles": [
+        "Sie sind neu in der Stadt und möchten Ihren Stadtteil kennenlernen.",
+        "Ihr Sohn braucht Hilfe bei der Geburtstagsorganisation."
+      ]
+    },
+    {
+      "firstWords": "Neues Angebot der VHS Ab dem kommenden Monat bietet die Volkshochschule...",
+      "correctTitle": "Sie sind neu in der Stadt und möchten Ihren Stadtteil kennenlernen.",
+      "shortCorrectTitle": "Sie sind neu in der Stadt und möchten den Stadtteil kennenlernen.",
+      "wrongTitles": [
+        "Sie möchten helfen Ihren Stadtteil zu gestalten.",
+        "Sie möchten einen Ganztagesausflug machen."
+      ]
+    },
+    {
+      "firstWords": "Nur auf Reisen lernt der Mensch Seit fast fünf Jahrzehnten bietet die Bildungsakademie...",
+      "correctTitle": "Ein Freund möchte mehr über die Geschichte deutscher Städte erfahren.",
+      "shortCorrectTitle": "Ein Freund möchte mehr über Geschichte deutscher Städte erfahren.",
+      "wrongTitles": [
+        "Sie interessieren sich für Technikgeschichte.",
+        "Sie sind neu in der Stadt und möchten den Stadtteil kennenlernen."
+      ]
+    },
+    {
+      "firstWords": "Technik - spannend und verständlich Sie kennen die typische Kinderfrage: 'Wie geht das?'...",
+      "correctTitle": "Sie möchten etwas mit Ihrer 6-jährigen Nichte unternehmen, die gerne ins Museum geht.",
+      "shortCorrectTitle": "Sie möchten mit Ihrer Nichte ins Museum gehen.",
+      "wrongTitles": [
+        "Ihr Sohn braucht Hilfe bei der Geburtstagsorganisation.",
+        "Sie interessieren sich für Technikgeschichte."
+      ]
+    }
+  ]
+}

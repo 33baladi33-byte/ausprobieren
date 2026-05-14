@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 6: Musik - spielt Gitarre",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Die Veranstaltungsprofis Seit mehr als zwanzig Jahren organisieren wir Messen...",
+      "correctTitle": "Ein Bekannter hat bei der Messe Frankfurt gearbeitet und sucht eine andere Stelle in diesem Bereich.",
+      "shortCorrectTitle": "Ein Bekannter sucht eine Stelle im Messewesen.",
+      "wrongTitles": [
+        "Sie mögen Musik und möchten in diesem Bereich einen Job.",
+        "Eine Bekannte ist Musikerin und sucht Auftrittsmöglichkeiten."
+      ]
+    },
+    {
+      "firstWords": "Gemeinsam mehr erleben Gruppenreisen bieten wir Ihnen bereits ab fünf Personen...",
+      "correctTitle": "Ein Kollege möchte mit fünf Freunden eine mehrtägige Musikveranstaltung besuchen.",
+      "shortCorrectTitle": "Ein Kollege möchte mit Freunden eine Musikveranstaltung besuchen.",
+      "wrongTitles": [
+        "Sie interessieren sich für Bücher und möchten eine Messe besuchen.",
+        "Sie mögen Musik und möchten in diesem Bereich einen Job."
+      ]
+    },
+    {
+      "firstWords": "Alle Veranstaltungen aus einer Hand Ob Jazz, Rock, Klassik, Musical...",
+      "correctTitle": "Sie möchten einer Freundin Eintrittskarten für eine Musikveranstaltung schenken.",
+      "shortCorrectTitle": "Sie möchten Eintrittskarten für Musik verschenken.",
+      "wrongTitles": [
+        "Ein Bekannter spielt Gitarre und möchte ein weiteres Instrument lernen.",
+        "Sie mögen Musik und möchten in diesem Bereich einen Job."
+      ]
+    },
+    {
+      "firstWords": "Wir organisieren Veranstaltungen in verschiedenen Größenordnungen...",
+      "correctTitle": "Ein Bekannter muss eine Jubiläumsfeier organisieren und sucht Unterstützung.",
+      "shortCorrectTitle": "Ein Bekannter sucht Unterstützung für eine Jubiläumsfeier.",
+      "wrongTitles": [
+        "Sie mögen Musik und möchten in diesem Bereich einen Job.",
+        "Eine Bekannte ist Musikerin und sucht Auftrittsmöglichkeiten."
+      ]
+    },
+    {
+      "firstWords": "Musikfestival Taubertal: 24. Juli bis 3. August...",
+      "correctTitle": "Sie mögen Musik und möchten in diesem Bereich einen Job.",
+      "shortCorrectTitle": "Sie mögen Musik und möchten einen Job in diesem Bereich.",
+      "wrongTitles": [
+        "Ein Bekannter sucht eine Stelle im Messewesen.",
+        "Eine Bekannte ist Musikerin und sucht Auftrittsmöglichkeiten."
+      ]
+    },
+    {
+      "firstWords": "I Gitarre, Violine & Co. Im Musikverein Wohlklang lernen schon die ganz Kleinen...",
+      "correctTitle": "Die sechsjährige Tochter eines Nachbarn würde gerne mit anderen Kindern Musik machen.",
+      "shortCorrectTitle": "Ein Nachbarskind möchte mit anderen Musik machen.",
+      "wrongTitles": [
+        "Ein Bekannter spielt Gitarre und möchte ein weiteres Instrument lernen.",
+        "Sie mögen Musik und möchten in diesem Bereich einen Job."
+      ]
+    },
+    {
+      "firstWords": "Rhein/Ruhr-Festival Im kommenden Herbst findet zum ersten Mal...",
+      "correctTitle": "Eine Bekannte ist Musikerin und sucht Möglichkeiten, mit ihrer Gruppe aufzutreten.",
+      "shortCorrectTitle": "Eine Bekannte sucht Auftrittsmöglichkeiten für ihre Gruppe.",
+      "wrongTitles": [
+        "Sie mögen Musik und möchten in diesem Bereich einen Job.",
+        "Ein Bekannter sucht eine Stelle im Messewesen."
+      ]
+    },
+    {
+      "firstWords": "Musiker gesucht Seit einem Jahr vermitteln wir 'Musiktandems'...",
+      "correctTitle": "Ein Bekannter spielt Gitarre und möchte ein weiteres Instrument lernen.",
+      "shortCorrectTitle": "Ein Bekannter möchte ein weiteres Instrument lernen.",
+      "wrongTitles": [
+        "Die sechsjährige Tochter eines Nachbarn möchte mit anderen Musik machen.",
+        "Sie mögen Musik und möchten in diesem Bereich einen Job."
+      ]
+    }
+  ]
+}

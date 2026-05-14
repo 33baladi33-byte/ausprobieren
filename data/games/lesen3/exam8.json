@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 8: Unterstützung in Mathematik",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Neues Ziel, neues Glück! Du bist gerade 'auf dem Sprung'...",
+      "correctTitle": "Sie möchten in einer anderen Stadt eine Ausbildung machen und suchen dort eine Wohnung.",
+      "shortCorrectTitle": "Sie suchen eine Wohnung für Ausbildung in anderer Stadt.",
+      "wrongTitles": [
+        "Sie suchen einen Nachmieter und wollen eine kostenlose Anzeige aufgeben.",
+        "Sie sind umgezogen und möchten neue Leute kennenlernen."
+      ]
+    },
+    {
+      "firstWords": "Andere Länder... andere Sprachen. Und wo lernt man eine Sprache am besten?...",
+      "correctTitle": "Sie möchten einen Sprachkurs in einem anderen Land machen.",
+      "shortCorrectTitle": "Sie möchten einen Sprachkurs im Ausland machen.",
+      "wrongTitles": [
+        "Sie wollen gerne noch eine Sprache lernen und suchen einen Lernpartner.",
+        "Sie suchen für eine Bekannte einen bezahlten Job außerhalb Deutschlands."
+      ]
+    },
+    {
+      "firstWords": "Was bedeutet 'Tandemlernen'? Zwei Menschen mit verschiedenen Muttersprachen...",
+      "correctTitle": "Sie wollen gerne noch eine Sprache lernen und suchen einen festen Lernpartner.",
+      "shortCorrectTitle": "Sie suchen einen Lernpartner für Sprachen.",
+      "wrongTitles": [
+        "Sie möchten einen Sprachkurs im Ausland machen.",
+        "Sie suchen für eine Bekannte einen bezahlten Job außerhalb Deutschlands."
+      ]
+    },
+    {
+      "firstWords": "Umzug mal anders Wer kennt das nicht: Wenn man umziehen will...",
+      "correctTitle": "Sie wollen umziehen, haben aber eigentlich gar keine Zeit, sich darum zu kümmern.",
+      "shortCorrectTitle": "Sie wollen umziehen haben aber keine Zeit.",
+      "wrongTitles": [
+        "Sie ziehen wegen einer Ausbildung um und suchen günstige Umzugshelfer.",
+        "Sie suchen einen Nachmieter und wollen eine Anzeige aufgeben."
+      ]
+    },
+    {
+      "firstWords": "Alle Informationen auf einer Seite Die neue Internetseite www.studium.de...",
+      "correctTitle": "Sie möchten Physik studieren und möchten sich zunächst informieren.",
+      "shortCorrectTitle": "Sie möchten sich über Physik-Studium informieren.",
+      "wrongTitles": [
+        "Sie brauchen Unterstützung in Mathematik.",
+        "Sie suchen einen Nachmieter."
+      ]
+    },
+    {
+      "firstWords": "Hilfe gesucht? Studierende und Auszubildende müssen oft umziehen...",
+      "correctTitle": "Sie ziehen wegen einer Ausbildung um und suchen so günstig wie möglich Umzugshelfer.",
+      "shortCorrectTitle": "Sie suchen günstige Umzugshelfer für Ausbildungsumzug.",
+      "wrongTitles": [
+        "Sie wollen umziehen haben aber keine Zeit.",
+        "Sie suchen einen Nachmieter."
+      ]
+    },
+    {
+      "firstWords": "Neu in der Stadt? Ihr seid umgezogen und habt eine Ausbildung begonnen?...",
+      "correctTitle": "Sie sind gerade umgezogen und möchten neue Leute kennenlernen.",
+      "shortCorrectTitle": "Sie sind umgezogen und möchten neue Leute kennenlernen.",
+      "wrongTitles": [
+        "Sie suchen einen Nachmieter.",
+        "Sie möchten einen Sprachkurs im Ausland machen."
+      ]
+    },
+    {
+      "firstWords": "Aller Anfang ist schwer. Einige Fächer sind schon in der Schule nicht beliebt...",
+      "correctTitle": "Sie brauchen Unterstützung in Mathematik und möchten in einer kleinen Gruppe lernen.",
+      "shortCorrectTitle": "Sie brauchen Unterstützung in Mathematik in kleiner Gruppe.",
+      "wrongTitles": [
+        "Sie möchten sich über Physik-Studium informieren.",
+        "Sie suchen einen Nachmieter."
+      ]
+    }
+  ]
+}

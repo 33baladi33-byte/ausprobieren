@@ -1,0 +1,70 @@
+{
+  "title": "Lesen Teil 3 - Exam 3: Im Katalog eines Buchversands",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Die Nachfrage nach individueller Farb- und Stilberatung ist groß...",
+      "correctTitle": "Eine Bekannte möchte ihr äußeres Erscheinungsbild optimieren.",
+      "shortCorrectTitle": "Eine Bekannte möchte ihr äußeres Erscheinungsbild optimieren.",
+      "wrongTitles": [
+        "Eine Studentin sucht Informationen, wie sie besser lernen kann.",
+        "Ein Bekannter möchte wissen, was Gestik und Mimik bedeuten."
+      ]
+    },
+    {
+      "firstWords": "Die meisten Menschen kennen keine Strategien, wie sie ihr Lernverhalten...",
+      "correctTitle": "Eine Studentin sucht Informationen, wie sie besser und systematischer lernen kann.",
+      "shortCorrectTitle": "Eine Studentin sucht Informationen zum besseren Lernen.",
+      "wrongTitles": [
+        "Ein Bekannter schreibt an einer Hausarbeit über gesellschaftliche Normen.",
+        "Eine Bekannte ist sehr verunsichert vor Referaten."
+      ]
+    },
+    {
+      "firstWords": "Dieses erstmals 1788 erschienene Buch handelt von dem Umgang der Menschen...",
+      "correctTitle": "Ein Bekannter schreibt an einer Hausarbeit über gesellschaftliche Normen und Verhaltensregeln verschiedener Jahrhunderte.",
+      "shortCorrectTitle": "Ein Bekannter schreibt über gesellschaftliche Normen.",
+      "wrongTitles": [
+        "Eine Bekannte möchte ihr äußeres Erscheinungsbild optimieren.",
+        "Eine Bekannte ist sehr verunsichert vor Referaten."
+      ]
+    },
+    {
+      "firstWords": "Der Körper lügt nicht, Gesten und Gebärden decken die Ebene des Unbewusstsein auf...",
+      "correctTitle": "Ein Bekannter möchte wissen, welche Botschaften durch Gestik und Mimik transportiert werden.",
+      "shortCorrectTitle": "Ein Bekannter möchte wissen, was Gestik und Mimik bedeuten.",
+      "wrongTitles": [
+        "Eine Studentin sucht Informationen zum besseren Lernen.",
+        "Eine Bekannte möchte ihr äußeres Erscheinungsbild optimieren."
+      ]
+    },
+    {
+      "firstWords": "Rolph Barth 'Basiswissen: Bewerbungstraining' Die Konkurrenz auf dem Arbeitsmarkt...",
+      "correctTitle": "Ein Bekannter ist sich noch unsicher, wie er sich bei einem Vorstellungsgespräch am besten präsentiert.",
+      "shortCorrectTitle": "Ein Bekannter ist unsicher bei der Bewerbung.",
+      "wrongTitles": [
+        "Eine Bekannte möchte ihr äußeres Erscheinungsbild optimieren.",
+        "Eine Bekannte ist sehr verunsichert vor Referaten."
+      ]
+    },
+    {
+      "firstWords": "Jeder Mensch kann seine kommunikativen Möglichkeiten entdecken...",
+      "correctTitle": "Eine Bekannte ist sehr verunsichert, weil sie auf Konferenzen immer wieder Angst hat, frei zu sprechen.",
+      "shortCorrectTitle": "Eine Bekannte hat Angst frei zu sprechen.",
+      "wrongTitles": [
+        "Ein Bekannter ist unsicher bei der Bewerbung.",
+        "Eine Studentin sucht Informationen zum besseren Lernen."
+      ]
+    },
+    {
+      "firstWords": "Viele Menschen wissen nicht mehr, wo Ihnen der Kopf steht...",
+      "correctTitle": "Ein befreundetes Ehepaar steht andauernd unter Stress und möchte wieder mehr Zeit für sich haben.",
+      "shortCorrectTitle": "Ein Ehepaar möchte mehr Zeit für sich haben.",
+      "wrongTitles": [
+        "Eine Bekannte möchte ihr äußeres Erscheinungsbild optimieren.",
+        "Eine Bekannte ist sehr verunsichert vor Referaten."
+      ]
+    }
+  ]
+}

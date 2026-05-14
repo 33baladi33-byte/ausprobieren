@@ -1,0 +1,88 @@
+{
+  "title": "Lesen Teil 3 - Exam 2: Filme - Fernsehprogramme (معدل)",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Ullrich Kasten und Hans-Hermann Hertle schildern in ihrer hervorragenden...",
+      "correctTitle": "Eine Bekannte interessiert sich für informative Beiträge zur neueren Geschichte.",
+      "shortCorrectTitle": "Eine Bekannte interessiert sich für informative Beiträge zur neueren Geschichte.",
+      "wrongTitles": [
+        "Sie suchen eine abwechslungsreiche Musiksendung mit Klaviermusik.",
+        "Sie mögen Filme mit viel Action und viel Spaß."
+      ]
+    },
+    {
+      "firstWords": "Ob Klassik, Rock'n'Roll oder Jazz, Joja Wendt, Hamburger Pianist...",
+      "correctTitle": "Sie suchen eine abwechslungsreiche Musiksendung mit Klaviermusik.",
+      "shortCorrectTitle": "Sie suchen eine abwechslungsreiche Musiksendung mit Klaviermusik.",
+      "wrongTitles": [
+        "Ihre Bekannten verfolgen gern sportliche Wettkämpfe.",
+        "Sie mögen Familienkomödien, besonders mit frechen Kindern."
+      ]
+    },
+    {
+      "firstWords": "Aus Sorge um die nationale Sicherheit versteckt der amerikanische Geheimdienst...",
+      "correctTitle": "Sie sehen gern spannende, aber auch spaßige Agentenfilme.",
+      "shortCorrectTitle": "Sie sehen gern spannende, aber auch spaßige Agentenfilme.",
+      "wrongTitles": [
+        "Ein Bekannter interessiert sich für koreanische Geschichte.",
+        "Sie mögen Filme mit viel Action und viel Spaß."
+      ]
+    },
+    {
+      "firstWords": "Er schreit wie am Spieß, wenn er lange Hosen tragen soll...",
+      "correctTitle": "Sie mögen Familienkomödien, besonders mit frechen Kindern.",
+      "shortCorrectTitle": "Sie mögen Familienkomödien, besonders mit frechen Kindern.",
+      "wrongTitles": [
+        "Sie würden gern etwas über Großstadtjugendliche erfahren.",
+        "Sie möchten im nächsten Urlaub bergsteigen."
+      ]
+    },
+    {
+      "firstWords": "Hier in Berlin bei meinen Freunden habe ich mein Zuhause hinter mir gelassen...",
+      "correctTitle": "Sie würden gern etwas über Großstadtjugendliche erfahren, die am Rand der Gesellschaft leben.",
+      "shortCorrectTitle": "Sie würden gern etwas über Großstadtjugendliche erfahren.",
+      "wrongTitles": [
+        "Eine Bekannte interessiert sich für die Geschichte des geteilten Berlins.",
+        "Sie mögen Familienkomödien."
+      ]
+    },
+    {
+      "firstWords": "Mit Sandalen und T-Shirt hängen sie in den Felswänden...",
+      "correctTitle": "Sie möchten im nächsten Urlaub bergsteigen und sich über die Risiken informieren.",
+      "shortCorrectTitle": "Sie möchten im nächsten Urlaub bergsteigen.",
+      "wrongTitles": [
+        "Sie suchen eine abwechslungsreiche Musiksendung.",
+        "Sie sehen gern spannende Agentenfilme."
+      ]
+    },
+    {
+      "firstWords": "'Schwere Jungs' bildet den Auftakt zu einer sechsteiligen Reihe...",
+      "correctTitle": "Sie mögen Filme mit viel Action und viel Spaß.",
+      "shortCorrectTitle": "Sie mögen Filme mit viel Action und viel Spaß.",
+      "wrongTitles": [
+        "Sie sehen gern spannende Agentenfilme.",
+        "Ein Bekannter interessiert sich für koreanische Geschichte."
+      ]
+    },
+    {
+      "firstWords": "Nach den Weltcup-Siegen in Willingen und Sapporo stehen die Chancen...",
+      "correctTitle": "Ihre Bekannten verfolgen gern sportliche Wettkämpfe.",
+      "shortCorrectTitle": "Ihre Bekannten verfolgen gern sportliche Wettkämpfe.",
+      "wrongTitles": [
+        "Sie suchen eine abwechslungsreiche Musiksendung.",
+        "Sie mögen Filme mit viel Action."
+      ]
+    },
+    {
+      "firstWords": "Man sollte meinen, Schauspieler Hendrik Höfgen wäre gegen unmoralische Angebote gefeit...",
+      "correctTitle": "Ein Bekannter möchte einen Film sehen, der nach dem Werk eines Schriftstellers gedreht wurde.",
+      "shortCorrectTitle": "Ein Bekannter möchte einen Film sehen nach einem Schriftstellerwerk.",
+      "wrongTitles": [
+        "Eine Bekannte interessiert sich für die Geschichte des geteilten Berlins.",
+        "Sie mögen Familienkomödien."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Lesen Teil 3 - Exam 5: kein Zeit (معدل)",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "In Pollekes elfjährigem Leben scheint im Augenblick etwas falsch zu laufen...",
+      "correctTitle": "Sie möchten mit Ihrer zwölfjährigen Tochter ein altersgerechtes Theaterstück sehen.",
+      "shortCorrectTitle": "Sie möchten mit Ihrer Tochter ein Theaterstück sehen.",
+      "wrongTitles": [
+        "Sie suchen einen Kinderfilm für ihren kleinen Sohn.",
+        "Sie wollen mit Ihren Kindern eine lustige Seite von Weihnachten erleben."
+      ]
+    },
+    {
+      "firstWords": "Rasmus und der Landstreicher Nach den Kinderbuch von Astrid Lindgren...",
+      "correctTitle": "Sie suchen einen Kinderfilm für ihren kleinen Sohn.",
+      "shortCorrectTitle": "Sie suchen einen Kinderfilm für ihren kleinen Sohn.",
+      "wrongTitles": [
+        "Sie möchten mit Ihrer Tochter ein Theaterstück sehen.",
+        "Sie wollen mit Ihren Kindern eine lustige Weihnachtsseite erleben."
+      ]
+    },
+    {
+      "firstWords": "Beethovens Bonn Im Dezember 1770 erblickte Ludwig van Beethoven...",
+      "correctTitle": "Ihre Schwester interessiert sich für die Biographien großer Musiker.",
+      "shortCorrectTitle": "Ihre Schwester interessiert sich für Musiker-Biographien.",
+      "wrongTitles": [
+        "Sie lieben Auftritte von herausragenden Musikern.",
+        "Sie möchten alte und neue Weihnachtslieder hören."
+      ]
+    },
+    {
+      "firstWords": "Radtour am Rhein...",
+      "correctTitle": "Sie suchen für sportliche Sprachkursteilnehmer eine Möglichkeit, Bonn zu zeigen.",
+      "shortCorrectTitle": "Sie suchen eine Möglichkeit Bonn zu zeigen.",
+      "wrongTitles": [
+        "Sie wollen eine Stadtbesichtigung mit Sport verbinden.",
+        "Sie wollen mit Bekannten ausgehen um herzhaft lachen."
+      ]
+    },
+    {
+      "firstWords": "Drei Flöhe und das Jesuskind...",
+      "correctTitle": "Sie wollen mit Ihren Kindern eine etwas andere, eher lustige Seite von Weihnachten erleben.",
+      "shortCorrectTitle": "Sie wollen mit Kindern eine lustige Weihnachtsseite erleben.",
+      "wrongTitles": [
+        "Sie möchten mit Ihrer Tochter ein Theaterstück sehen.",
+        "Sie möchten alte und neue Weihnachtslieder hören."
+      ]
+    },
+    {
+      "firstWords": "Weihnachtsshow 'Stille Nacht' trifft 'Last Christmas'...",
+      "correctTitle": "Sie möchten alte und neue Weihnachtslieder hören.",
+      "shortCorrectTitle": "Sie möchten alte und neue Weihnachtslieder hören.",
+      "wrongTitles": [
+        "Sie lieben Auftritte von herausragenden Musikern.",
+        "Sie wollen mit Ihren Kindern eine lustige Weihnachtsseite erleben."
+      ]
+    },
+    {
+      "firstWords": "Jazz vom Feinsten...",
+      "correctTitle": "Sie lieben Auftritte von herausragenden Musikern.",
+      "shortCorrectTitle": "Sie lieben Auftritte von herausragenden Musikern.",
+      "wrongTitles": [
+        "Ihre Schwester interessiert sich für Musiker-Biographien.",
+        "Sie möchten alte und neue Weihnachtslieder hören."
+      ]
+    },
+    {
+      "firstWords": "10 Jahre FÜR DIE KATZ...",
+      "correctTitle": "Sie wollen mit Bekannten ausgehen um mal wieder herzhaft lachen.",
+      "shortCorrectTitle": "Sie wollen mit Bekannten ausgehen um herzhaft lachen.",
+      "wrongTitles": [
+        "Sie wollen mit Ihren Kindern eine lustige Weihnachtsseite erleben.",
+        "Sie lieben Auftritte von herausragenden Musikern."
+      ]
+    },
+    {
+      "firstWords": "Das Weihnachtsvarieté...",
+      "correctTitle": "Sie lieben künstlerische Vielfalt und Vielseitigkeit und wollen Weihnachten ausgehen.",
+      "shortCorrectTitle": "Sie lieben künstlerische Vielfalt und wollen Weihnachten ausgehen.",
+      "wrongTitles": [
+        "Sie lieben Auftritte von herausragenden Musikern.",
+        "Sie wollen mit Bekannten ausgehen um herzhaft lachen."
+      ]
+    }
+  ]
+}
