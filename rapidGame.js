@@ -2,6 +2,7 @@
 // rapidGame.js - لعبة التحدي السريع
 // يدعم: Hören Teil 1,2,3 | Lesen Teil 1,2,3 | Sprachbausteine Teil 1,2
 // نظام الألوان: أخضر فاتح ✅ | برتقالي فاتح ❌
+// المسار: data/games/المهارة/examX.json
 // ============================================
 
 (function() {
@@ -413,31 +414,32 @@
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
+    // ==================== دالة تحميل البيانات (المعدلة) ====================
     function loadGameData(skill, examId) {
-    currentSkill = skill;
-    currentExamId = examId;
-    
-    // جميع المهارات تستخدم مسار مجلد
-    let filePath = `data/games/${skill}/exam${examId}.json`;
-    
-    console.log(`📂 جاري تحميل: ${filePath}`);
-    
-    return fetch(filePath)
-        .then(response => {
-            if (!response.ok) {
-                console.error(`❌ الملف غير موجود: ${filePath}`);
-                throw new Error('الملف غير موجود');
-            }
-            return response.json();
-        })
-        .then(data => {
-            return processGameData(data, skill, filePath);
-        })
-        .catch(error => {
-            console.error(`❌ خطأ في تحميل الملف:`, error);
-            return false;
-        });
-}
+        currentSkill = skill;
+        currentExamId = examId;
+        
+        // جميع المهارات تستخدم مسار مجلد واحد
+        let filePath = `data/games/${skill}/exam${examId}.json`;
+        
+        console.log(`📂 جاري تحميل: ${filePath}`);
+        
+        return fetch(filePath)
+            .then(response => {
+                if (!response.ok) {
+                    console.error(`❌ الملف غير موجود: ${filePath}`);
+                    throw new Error('الملف غير موجود');
+                }
+                return response.json();
+            })
+            .then(data => {
+                return processGameData(data, skill, filePath);
+            })
+            .catch(error => {
+                console.error(`❌ خطأ في تحميل الملف:`, error);
+                return false;
+            });
+    }
     
     function processGameData(data, skill, filePath) {
         console.log(`✅ تم تحميل الملف بنجاح: ${filePath}`, data);
@@ -459,8 +461,8 @@
                 });
             }
         }
-        // ==================== نظام Lesen Teil 1 و Teil 3 (Matching - أول 7-9 كلمات + 3 عناوين) ====================
-        else if (skill === 'lesen1' || skill === 'lesen3') {
+        // ==================== نظام Lesen Teil 1,2,3 (Matching) ====================
+        else if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3') {
             if (data.sharedOptions) {
                 // صيغة sharedOptions
                 const sharedOptions = data.sharedOptions;
@@ -482,7 +484,6 @@
                         type: "lesen",
                         id: idx,
                         firstWords: firstWords,
-                        fullText: q.text,
                         shortCorrectTitle: cleanCorrectTitle.substring(0, 50),
                         shortWrongTitles: selectedWrongTitles.map(t => t.substring(0, 50)),
                         correctTitle: cleanCorrectTitle
@@ -499,32 +500,12 @@
                         type: "lesen",
                         id: idx,
                         firstWords: firstWords,
-                        fullText: q.fullText || q.text,
                         shortCorrectTitle: (q.correctTitle || "").substring(0, 50),
                         shortWrongTitles: selectedWrongTitles.map(t => t.substring(0, 50)),
                         correctTitle: q.correctTitle
                     };
                 });
             }
-            console.log(`📝 تم تحميل ${originalQuestions.length} سؤال لـ ${skill.toUpperCase()}`);
-        }
-        // ==================== نظام Lesen Teil 2 (Matching - نفس نظام Teil 1 و 3) ====================
-        else if (skill === 'lesen2') {
-            originalQuestions = data.questions.map((q, idx) => {
-                const firstWords = shortenText(q.fullText || q.text, SETTINGS.firstWordsLength);
-                const wrongTitlesList = q.wrongTitles || [];
-                const selectedWrongTitles = [...wrongTitlesList].slice(0, 2);
-                
-                return {
-                    type: "lesen",
-                    id: idx,
-                    firstWords: firstWords,
-                    fullText: q.fullText || q.text,
-                    shortCorrectTitle: (q.correctTitle || "").substring(0, 50),
-                    shortWrongTitles: selectedWrongTitles.map(t => t.substring(0, 50)),
-                    correctTitle: q.correctTitle
-                };
-            });
             console.log(`📝 تم تحميل ${originalQuestions.length} سؤال لـ ${skill.toUpperCase()}`);
         }
         // ==================== نظام Sprachbausteine Teil 1 و 2 ====================
