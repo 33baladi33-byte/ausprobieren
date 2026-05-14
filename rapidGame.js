@@ -464,16 +464,11 @@ function loadGameData(skill, examId) {
         });
 }
 
-// ==================== دالة معالجة البيانات ====================
-function processGameData(data, skill, filePath) {
-    console.log(`✅ تم تحميل الملف بنجاح: ${filePath}`, data);
-    currentGameData = data;
-    
-    // ==================== نظام Hören Teil 1 (جميع الامتحانات) ====================
-    if (skill === 'hoeren1') {
+   // ==================== نظام Hören Teil 1 و Teil 2 ====================
+    if (skill === 'hoeren1' || skill === 'hoeren2') {
         // دعم كل من صيغة sentences و questions
         hoeren1Sentences = data.sentences || data.questions || [];
-        console.log(`📝 تم تحميل ${hoeren1Sentences.length} جملة لـ Hören 1 (Exam ${currentExamId})`);
+        console.log(`📝 تم تحميل ${hoeren1Sentences.length} جملة لـ ${skill.toUpperCase()} (Exam ${currentExamId})`);
         
         const totalRounds = SETTINGS.roundLength;
         originalQuestions = [];
