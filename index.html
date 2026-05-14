@@ -7,6 +7,55 @@
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/webp" href="images/favicon.webp">
 <link rel="shortcut icon" type="image/webp" href="images/favicon.webp">
+<style>
+    /* إضافات CSS للعناصر الجديدة */
+    .hero-features-list {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 18px 24px;
+        margin: 20px 0 18px 0;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        text-align: right;
+    }
+    
+    .hero-features-list div {
+        font-size: 0.95rem;
+        color: #e0e0e0;
+        margin-bottom: 12px;
+        line-height: 1.5;
+        font-weight: 400;
+    }
+    
+    .hero-features-list div:last-child {
+        margin-bottom: 0;
+    }
+    
+    .final-desc {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #ffffff;
+        background: linear-gradient(135deg, rgba(44, 62, 102, 0.6), rgba(52, 73, 94, 0.4));
+        padding: 12px 18px;
+        border-radius: 16px;
+        display: inline-block;
+        margin-top: 5px;
+    }
+    
+    @media (max-width: 768px) {
+        .hero-features-list {
+            padding: 14px 18px;
+        }
+        .hero-features-list div {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        .final-desc {
+            font-size: 0.9rem;
+            padding: 10px 14px;
+        }
+    }
+</style>
 </head>
 <body>
 
@@ -90,17 +139,33 @@
                 </div>
             </div>
             <div class="hero-content-side">
+                <!-- الجزء الذي تم استبداله -->
                 <h1 class="hero-title">
-                    <span class="blue-text">B2</span> إن شاء الله في الجيب
+                    حضّر لـ <span class="blue-text">B2</span> بطريقة ذكية وسريعة
                 </h1>
+
                 <div class="hero-description-wrapper">
                     <p class="hero-desc">
-                        مرحبا بيك <span class="blue-text">صاحبي</span>  ما تحتاجش تبقى تغرق راسك مع PDF والحفظ العشوائي… دوز الامتحانات، تدرّب بطريقة ذكية، وغادي تلقى راسك كتفهم وكتعقل بسهولة بفضل المساعدة الذكية اللي كنقدموها في الموقع واللي جرّبتها شخصيًا وفعلًا كننصحك بيها
+                        مرحبا بيك <span class="blue-text">صاحبي</span> 👋  
+                        هنا غادي تلقى جميع امتحانات B2 مع التصحيح الكامل والإجابات الصحيحة، باش تتدرّب بطريقة واضحة ومنظمة بدون تضييع الوقت.
                     </p>
+
                     <p class="hero-desc second-desc">
-                      الاجوبة صحيحة. <span class="blue-text">100%</span>
+                        وعندنا أيضًا نظام مساعدة ذكي كيعاونك تتذكّر بسرعة وتفهم الامتحان بسهولة.
+                    </p>
+
+                    <div class="hero-features-list">
+                        <div>• بطاقات ذكية كتسهّل الحفظ والتذكّر</div>
+                        <div>• لعبة ردّ فعل سريعة كتخليك تربط الأجوبة بالأفكار بدون ملل</div>
+                        <div>• تدريب عملي كيخليك تتعوّد على شكل الامتحان الحقيقي</div>
+                    </div>
+
+                    <p class="hero-desc final-desc">
+                        كل هاد الشي معمول باش يعطيك تجربة تعلم سريعة، خفيفة، وفعّالة 🚀
                     </p>
                 </div>
+                <!-- نهاية الجزء المستبدل -->
+
                 <div class="info-glass-card">
                     <div class="info-icon">💡</div>
                     <div class="info-text">الأغلبية كيسقطو حيت عندهم مشكل فالحفظ وما كايعرفوش يخدموا بطريقة صحيحة.</div>
@@ -224,9 +289,7 @@
             <p>شوف ناس سبقوك واستافدو من المنصة.</p>
             <button id="closeReviewsModal" class="close-reviews-modal">✕</button>
         </div>
-        <div class="reviews-modal-slider-container">
-            <div class="reviews-modal-slider" id="reviewsModalSlider"></div>
-        </div>
+        <div class="reviews-modal-slider-container"></div>
         <div class="reviews-modal-controls">
             <button id="modalPrevBtn" class="modal-control-btn">❮</button>
             <span id="modalCounter" class="modal-counter-text">1 / 6</span>
