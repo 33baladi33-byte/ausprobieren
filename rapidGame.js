@@ -715,7 +715,7 @@
             questionDiv.textContent = "اختر الإجابة الصحيحة";
         } else {
             // Lesen Teil 1,2,3: عرض أول 7-9 كلمات
-            questionDiv.textContent = `❝ ${q.firstWords} ❞`;
+            questionDiv.textContent = q.firstWords;
         }
         container.appendChild(questionDiv);
         
