@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 9: Sehr geehrter Herr Martini (معدل)",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "zu der Studienreise",
+      "after": "Schulklasse nach Frankfurt",
+      "options": ["Seiner", "Deiner", "Ihrer"],
+      "correct": "Ihrer"
+    },
+    {
+      "id": 2,
+      "before": "Frankfurt am Main im",
+      "after": "Oktober",
+      "options": ["ankommenden", "gekommenden", "kommenden"],
+      "correct": "kommenden"
+    },
+    {
+      "id": 3,
+      "before": "werden von uns sorgfältig",
+      "after": "strengen Kriterien ausgewählt",
+      "options": ["aus", "mit", "nach"],
+      "correct": "nach"
+    },
+    {
+      "id": 4,
+      "before": "Unsere Gastfamilien",
+      "after": "Halbpension an",
+      "options": ["bieten", "fordern", "behmen"],
+      "correct": "bieten"
+    },
+    {
+      "id": 5,
+      "before": "im näheren Umkreis der Schule,",
+      "after": "der Weg von der",
+      "options": ["so dass", "weil", "wenn"],
+      "correct": "so dass"
+    },
+    {
+      "id": 6,
+      "before": "",
+      "after": "Schülerinnen und Schülern",
+      "options": ["gemeinsam mit", "verbunden von", "zusammen neben"],
+      "correct": "gemeinsam mit"
+    },
+    {
+      "id": 7,
+      "before": "Dazu gehört z. B.",
+      "after": "der Gemäldegalerie",
+      "options": ["die", "der Besuch", "das Betrachten"],
+      "correct": "der Besuch"
+    },
+    {
+      "id": 8,
+      "before": "Auch ein Besuch beim Hessischen Rundfunk",
+      "after": "",
+      "options": ["hat geplant", "ist geplant", "wird geplant haben"],
+      "correct": "ist geplant"
+    },
+    {
+      "id": 9,
+      "before": "der deutschen und der italienischen Kultur",
+      "after": "werden sollen",
+      "options": ["besprochen", "gesprochen", "versprochen"],
+      "correct": "besprochen"
+    },
+    {
+      "id": 10,
+      "before": "dass Sie und Ihre Klasse einen erlebnisreichen Aufenthalt",
+      "after": "werden",
+      "options": ["haben", "hatten", "hätten"],
+      "correct": "haben"
+    }
+  ]
+}

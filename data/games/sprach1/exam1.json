@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 1: Hallo Ferdinand",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "arbeiten muss,",
+      "after": "meine Miete bezahlen",
+      "options": ["um", "ohne", "anstatt"],
+      "correct": "um"
+    },
+    {
+      "id": 2,
+      "before": "Ich weiß nicht,",
+      "after": "ich das sonst",
+      "options": ["ob", "dass", "während"],
+      "correct": "ob"
+    },
+    {
+      "id": 3,
+      "before": "Das ist zwar",
+      "after": "sehr anstrengend,",
+      "options": ["aber", "denn", "und"],
+      "correct": "aber"
+    },
+    {
+      "id": 4,
+      "before": "wollte ich ja",
+      "after": "Kellnerin werden",
+      "options": ["bestimmt", "unbedingt", "völlig"],
+      "correct": "unbedingt"
+    },
+    {
+      "id": 5,
+      "before": "Wenn ich",
+      "after": "nicht täusche,",
+      "options": ["mich", "dich", "sich"],
+      "correct": "mich"
+    },
+    {
+      "id": 6,
+      "before": "schon ein Paar,",
+      "after": "wir noch in",
+      "options": ["als", "wenn", "wie"],
+      "correct": "als"
+    },
+    {
+      "id": 7,
+      "before": "für die",
+      "after": "Wochenenden aus?",
+      "options": ["baldigen", "kommenden", "vergangenen"],
+      "correct": "kommenden"
+    },
+    {
+      "id": 8,
+      "before": "hättest du Lust",
+      "after": "?",
+      "options": ["danach", "darüber", "dazu"],
+      "correct": "dazu"
+    },
+    {
+      "id": 9,
+      "before": "nicht nur leckere Kuchen,",
+      "after": "auch kleine Gerichte",
+      "options": ["aber", "oder", "sondern"],
+      "correct": "sondern"
+    },
+    {
+      "id": 10,
+      "before": "Wäre das was",
+      "after": "dich?",
+      "options": ["für", "gegen", "ohne"],
+      "correct": "für"
+    }
+  ]
+}

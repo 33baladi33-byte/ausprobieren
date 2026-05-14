@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 4: Hallo Judith / Lina",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "",
+      "after": "rufst du heute schon",
+      "options": ["Zuversichtlich", "Möglichst", "Hoffentlich"],
+      "correct": "Hoffentlich"
+    },
+    {
+      "id": 2,
+      "before": "möchten",
+      "after": "unserer Kollegin Elena",
+      "options": ["vermutlich", "nämlich", "bestimmt"],
+      "correct": "nämlich"
+    },
+    {
+      "id": 3,
+      "before": "ist ja",
+      "after": "übermorgen abends",
+      "options": ["schon", "fast", "beinahe"],
+      "correct": "schon"
+    },
+    {
+      "id": 4,
+      "before": "Bist du",
+      "after": "einverstanden, dass wir",
+      "options": ["damit", "dafür", "dadurch"],
+      "correct": "damit"
+    },
+    {
+      "id": 5,
+      "before": "Du erinnerst dich:",
+      "after": "wir das letzte Mal",
+      "options": ["Wenn", "Wann", "Als"],
+      "correct": "Als"
+    },
+    {
+      "id": 6,
+      "before": "gehen dann nachmittags",
+      "after": "in der Stadt einkaufen",
+      "options": ["zueinander", "voneinander", "miteinander"],
+      "correct": "miteinander"
+    },
+    {
+      "id": 7,
+      "before": "könntest du dann übermorgen noch",
+      "after": "vor der Feier unterschreiben",
+      "options": ["vor Kurzem", "kürzlich", "kurz"],
+      "correct": "kurz"
+    },
+    {
+      "id": 8,
+      "before": "hatten viele Kollegen Urlaub,",
+      "after": "ich sehr viel zu",
+      "options": ["weshalb", "insofern", "deshalb"],
+      "correct": "weshalb"
+    },
+    {
+      "id": 9,
+      "before": "gibt es übrigens auch",
+      "after": "neue Entwicklungen",
+      "options": ["vollkommen", "sämtlich", "erschöpfend"],
+      "correct": "vollkommen"
+    },
+    {
+      "id": 10,
+      "before": "Ich wünsche dir heute einen",
+      "after": "Tag...",
+      "options": ["passenden", "bequemen", "angenehmen"],
+      "correct": "angenehmen"
+    }
+  ]
+}

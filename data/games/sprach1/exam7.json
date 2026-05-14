@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 7: Hallo Leon",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Betreff: Grüße",
+      "after": "Berlin",
+      "options": ["ab", "aus", "von"],
+      "correct": "aus"
+    },
+    {
+      "id": 2,
+      "before": "berichte ich dir,",
+      "after": "alles los war",
+      "options": ["wann", "was", "wie"],
+      "correct": "was"
+    },
+    {
+      "id": 3,
+      "before": "viel Stress,",
+      "after": "drei Kollegen im",
+      "options": ["da", "indem", "obwohl"],
+      "correct": "da"
+    },
+    {
+      "id": 4,
+      "before": "Hoffentlich",
+      "after": "das in Zukunft",
+      "options": ["ist", "wird", "würde"],
+      "correct": "wird"
+    },
+    {
+      "id": 5,
+      "before": "und ich",
+      "after": "am liebsten zuhause",
+      "options": ["bin", "war", "wäre"],
+      "correct": "wäre"
+    },
+    {
+      "id": 6,
+      "before": "Da",
+      "after": "ich ja schlecht",
+      "options": ["konnte", "musste", "sollte"],
+      "correct": "konnte"
+    },
+    {
+      "id": 7,
+      "before": "zu dem Konzert gegangen sind,",
+      "after": "es war einfach",
+      "options": ["aber", "denn", "sondern"],
+      "correct": "denn"
+    },
+    {
+      "id": 8,
+      "before": "und uns eingeladen,",
+      "after": "war zwar schön,",
+      "options": ["Beide", "Beiden", "Beides"],
+      "correct": "Beides"
+    },
+    {
+      "id": 9,
+      "before": "dass wir für die kommenden Wochenenden",
+      "after": "keine Pläne haben",
+      "options": ["erst", "noch", "schon"],
+      "correct": "noch"
+    },
+    {
+      "id": 10,
+      "before": "ich freue mich",
+      "after": "deine nächste E-Mail!",
+      "options": ["auf", "für", "über"],
+      "correct": "auf"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 10: Liebe Maria, lieber Timur",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "nachdem wir gestren aus dem Urlaub zurückgekommen",
+      "after": "haben wir eure",
+      "options": ["seien", "sind", "waren"],
+      "correct": "waren"
+    },
+    {
+      "id": 2,
+      "before": "",
+      "after": "gibt es nicht veil",
+      "options": ["Da", "Das", "Dass"],
+      "correct": "Da"
+    },
+    {
+      "id": 3,
+      "before": "wir freun uns sehr",
+      "after": "euch",
+      "options": ["an", "auf", "für"],
+      "correct": "auf"
+    },
+    {
+      "id": 4,
+      "before": "Es ist eine geniale idee",
+      "after": "in der Türkay in Östreich",
+      "options": ["je", "sowohl", "weder"],
+      "correct": "sowohl"
+    },
+    {
+      "id": 5,
+      "before": "so können alle freunde und",
+      "after": "dabei sein",
+      "options": ["Verwandte", "Verwandten", "Verwandter"],
+      "correct": "Verwandten"
+    },
+    {
+      "id": 6,
+      "before": "wir hoffen dass wir einige",
+      "after": "alten frende wiedrsehen",
+      "options": ["unsere", "unseren", "unserer"],
+      "correct": "unserer"
+    },
+    {
+      "id": 7,
+      "before": "die wir dort",
+      "after": "jugendliche gemeinsam",
+      "options": ["als", "für", "wie"],
+      "correct": "als"
+    },
+    {
+      "id": 8,
+      "before": "nun überlegen wir",
+      "after": "wir nicht gleich ein",
+      "options": ["dass", "falls", "ob"],
+      "correct": "ob"
+    },
+    {
+      "id": 9,
+      "before": "habt ihr sicher mit den Besitzungen alle Hände voll zu",
+      "after": "",
+      "options": ["bereten", "machen", "tun"],
+      "correct": "tun"
+    },
+    {
+      "id": 10,
+      "before": "und am Sonntag",
+      "after": "wir die Gelegenheit",
+      "options": ["hätten", "könnten", "solten"],
+      "correct": "hätten"
+    }
+  ]
+}

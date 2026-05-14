@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 6: Liebe Karin (معدل)",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "das studieren,",
+      "after": "du möchtest",
+      "options": ["das", "was", "welches"],
+      "correct": "was"
+    },
+    {
+      "id": 2,
+      "before": "Wie ist es",
+      "after": "so an der Uni",
+      "options": ["denn", "doch", "mal"],
+      "correct": "denn"
+    },
+    {
+      "id": 3,
+      "before": "Musst du zuhause auch",
+      "after": "viel lernen?",
+      "options": ["dazu", "noch", "sogar"],
+      "correct": "noch"
+    },
+    {
+      "id": 4,
+      "before": "würde ich deine Einladung",
+      "after": "und dich besuchen",
+      "options": ["abnehmen", "nehmen", "annehmen"],
+      "correct": "annehmen"
+    },
+    {
+      "id": 5,
+      "before": "wenn",
+      "after": "frei hat, komme ich",
+      "options": ["bevor", "bis", "sobald"],
+      "correct": "sobald"
+    },
+    {
+      "id": 6,
+      "before": "ist bestimmt toll,",
+      "after": "es mal Streit gibt",
+      "options": ["Wenn", "auch wenn", "wenn auch"],
+      "correct": "auch wenn"
+    },
+    {
+      "id": 7,
+      "before": "dass ihr",
+      "after": "alle gut versteht",
+      "options": ["euch", "Ihr", "Sich"],
+      "correct": "euch"
+    },
+    {
+      "id": 8,
+      "before": "Das freut mich",
+      "after": "dich!",
+      "options": ["an", "für", "über"],
+      "correct": "für"
+    },
+    {
+      "id": 9,
+      "before": "Wir hatten",
+      "after": "mal überlegt",
+      "options": ["demnächst", "neulich", "noch nicht"],
+      "correct": "neulich"
+    },
+    {
+      "id": 10,
+      "before": "und wir",
+      "after": "uns nicht viel zumuten",
+      "options": ["müssen", "sollen", "wollen"],
+      "correct": "wollen"
+    }
+  ]
+}

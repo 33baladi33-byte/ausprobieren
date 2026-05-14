@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 3: Liebe Vanessa",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "danke für deinen Brief,",
+      "after": "ich mich total",
+      "options": ["an den", "auf dem", "über den"],
+      "correct": "über den"
+    },
+    {
+      "id": 2,
+      "before": "du schon drei Wochen",
+      "after": "von mir gehört",
+      "options": ["nichts mehr", "noch nicht", "keines"],
+      "correct": "nichts mehr"
+    },
+    {
+      "id": 3,
+      "before": "Du weißt",
+      "after": "selbst, wie anstrengend",
+      "options": ["doch", "eben", "überhaupt"],
+      "correct": "doch"
+    },
+    {
+      "id": 4,
+      "before": "",
+      "after": "ist es übrigens",
+      "options": ["Wann", "Was", "Wie"],
+      "correct": "Wie"
+    },
+    {
+      "id": 5,
+      "before": "am Fuße",
+      "after": "Alpen",
+      "options": ["der", "die", "von"],
+      "correct": "der"
+    },
+    {
+      "id": 6,
+      "before": "haben ständig die Füße weh",
+      "after": "doch meine Gasteltern",
+      "options": ["gelaufen", "getan", "geworden"],
+      "correct": "getan"
+    },
+    {
+      "id": 7,
+      "before": "bis sie vor Erschöpfung",
+      "after": "",
+      "options": ["durchfallen", "umfallen", "wegfallen"],
+      "correct": "umfallen"
+    },
+    {
+      "id": 8,
+      "before": "Stell",
+      "after": "vor, alle Wanderer",
+      "options": ["dich", "dir", "mal"],
+      "correct": "dir"
+    },
+    {
+      "id": 9,
+      "before": "gibt es",
+      "after": "Menge Hindernisse",
+      "options": ["alle", "ganze", "jede"],
+      "correct": "jede"
+    },
+    {
+      "id": 10,
+      "before": "wollten gar nicht mehr",
+      "after": "aufhören",
+      "options": ["dabei", "damit", "davon"],
+      "correct": "damit"
+    }
+  ]
+}
