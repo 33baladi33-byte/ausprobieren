@@ -1,0 +1,78 @@
+{
+  "skill": "sprach1",
+  "examId": 6,
+  "name": "Sprachbausteine Teil 1 - Exam 6: Liebe Karin (معدل)",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Endlich kannst du auch das studieren,",
+      "after": "du möchtest",
+      "options": ["das", "was", "welches"],
+      "correct": 1
+    },
+    {
+      "id": 2,
+      "before": "Wie ist es",
+      "after": "so an der Uni dort",
+      "options": ["denn", "doch", "mal"],
+      "correct": 0
+    },
+    {
+      "id": 3,
+      "before": "Musst du zuhause auch",
+      "after": "viel lernen",
+      "options": ["dazu", "noch", "sogar"],
+      "correct": 1
+    },
+    {
+      "id": 4,
+      "before": "Jobbst du eigentlich noch",
+      "after": "?",
+      "options": ["neben", "nebenbei", "Heben"],
+      "correct": 1
+    },
+    {
+      "id": 5,
+      "before": "Deshalb würde ich deine Einladung wirklich gerne",
+      "after": "und dich demnächst in München besuchen",
+      "options": ["abnehmen", "nehmen", "annehmen"],
+      "correct": 2
+    },
+    {
+      "id": 6,
+      "before": "Aber",
+      "after": "frei hat, komme ich mal zu dir",
+      "options": ["bevor", "bis", "sobald"],
+      "correct": 2
+    },
+    {
+      "id": 7,
+      "before": "In einer Wohngemeinschaft zu leben, ist bestimmt toll,",
+      "after": "es mal Streit gibt",
+      "options": ["Wenn", "auch wenn", "wenn auch"],
+      "correct": 1
+    },
+    {
+      "id": 8,
+      "before": "dass deine beiden Mitbewohnerinnen sehr nett sind und",
+      "after": "euch alle gut versteht",
+      "options": ["euch", "Ihr", "Sich"],
+      "correct": 1
+    },
+    {
+      "id": 9,
+      "before": "Wir hatten",
+      "after": "mal überlegt, in eine größere Wohnung zu ziehen",
+      "options": ["demnächst", "neulich", "noch nicht"],
+      "correct": 1
+    },
+    {
+      "id": 10,
+      "before": "und wir",
+      "after": "uns nicht viel zumuten",
+      "options": ["müssen", "sollen", "wollen"],
+      "correct": 2
+    }
+  ]
+}

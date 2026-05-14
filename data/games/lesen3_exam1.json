@@ -1,0 +1,175 @@
+{
+  "skill": "lesen3",
+  "examId": 1,
+  "name": "Lesen Teil 3 - Exam 1: Filme - Fernsehprogramme",
+  "questions": [
+    {
+      "firstWords": "Ullrich Kasten und Hans-Hermann Hertle schildern",
+      "fullText": "Ullrich Kasten und Hans-Hermann Hertle schildern in ihrer hervorragenden Dokumentation anhand von Archivmaterial minutiös sämtliche Stationen des Mauerbaus...",
+      "correctTitle": "Bekannte interessiert sich für Geschichte des geteilten Berlins",
+      "shortCorrectTitle": "Bekannte interessiert geteiltes Berlin",
+      "wrongTitles": [
+        "Bekannte interessieren sich für Wintersport",
+        "Sie suchen Musiksendung mit Klaviermusik",
+        "Sie mögen Familienkomödien mit Kindern"
+      ],
+      "shortWrongTitles": [
+        "Bekannte interessieren Wintersport",
+        "Sie suchen Musiksendung Klavier",
+        "Sie mögen Familienkomödien Kinder"
+      ]
+    },
+    {
+      "firstWords": "Ob Klassik RocknRoll oder Jazz Joja",
+      "fullText": "Ob Klassik, Rock'n'Roll oder Jazz, Joja Wendt, Hamburger Pianist mit enormen Entertainer-Qualitäten, variiert bekannte Songs und stellt seine Fingerfertigkeit auch in eigenen Kompositionen unter Beweis...",
+      "correctTitle": "Sie suchen Musiksendung mit Klaviermusik",
+      "shortCorrectTitle": "Sie suchen Musiksendung Klavier",
+      "wrongTitles": [
+        "Bekannte interessiert geteiltes Berlin",
+        "Sie mögen Familienkomödien mit Kindern",
+        "Bekannte interessieren sich für Wintersport"
+      ],
+      "shortWrongTitles": [
+        "Bekannte interessiert Berlin",
+        "Sie mögen Familienkomödien",
+        "Bekannte interessieren Wintersport"
+      ]
+    },
+    {
+      "firstWords": "Gut kochen kann Amanda nicht Folglich",
+      "fullText": "Gut kochen kann Amanda nicht. Folglich steht ihr kleines, von der Mutter geerbtes Restaurant in Manhattan kurz vor dem Aus...",
+      "correctTitle": null,
+      "shortCorrectTitle": null,
+      "wrongTitles": [],
+      "shortWrongTitles": []
+    },
+    {
+      "firstWords": "Aus Sorge um die nationale Sicherheit",
+      "fullText": "Aus Sorge um die nationale Sicherheit versteckt der amerikanische Geheimdienst den genialen, aber vermeintlich psychisch kranken Physiker Arthur Vincenti...",
+      "correctTitle": "Sie sehen gern spannende spaßige Agentenfilme",
+      "shortCorrectTitle": "Sie sehen gern Agentenfilme",
+      "wrongTitles": [
+        "Sie suchen Musiksendung mit Klaviermusik",
+        "Bekannte interessiert geteiltes Berlin",
+        "Sie mögen Familienkomödien mit Kindern"
+      ],
+      "shortWrongTitles": [
+        "Sie suchen Musiksendung Klavier",
+        "Bekannte interessiert Berlin",
+        "Sie mögen Familienkomödien"
+      ]
+    },
+    {
+      "firstWords": "Er schreit wie am Spieß wenn",
+      "fullText": "Er schreit wie am Spieß, wenn er lange Hosen tragen soll, und lacht sich kaputt, wenn er die Katze in eine Mülltüte gesteckt hat...",
+      "correctTitle": "Sie mögen Familienkomödien besonders mit frechen Kindern",
+      "shortCorrectTitle": "Sie mögen Familienkomödien Kinder",
+      "wrongTitles": [
+        "Bekannte interessiert geteiltes Berlin",
+        "Sie sehen gern Agentenfilme",
+        "Bekannte interessieren sich für Wintersport"
+      ],
+      "shortWrongTitles": [
+        "Bekannte interessiert Berlin",
+        "Sie sehen gern Agentenfilme",
+        "Bekannte interessieren Wintersport"
+      ]
+    },
+    {
+      "firstWords": "Hier in Berlin bei meinen Freunden",
+      "fullText": "Hier in Berlin bei meinen Freunden habe ich mein Zuhause hinter mir gelassen. Hier geht's mir gut. Ich bin endlich frei, sagt Sascha...",
+      "correctTitle": "Sie würden etwas über Großstadtjugendliche erfahren",
+      "shortCorrectTitle": "Sie über Großstadtjugendliche erfahren",
+      "wrongTitles": [
+        "Sie suchen Musiksendung mit Klaviermusik",
+        "Sie mögen Familienkomödien mit Kindern",
+        "Bekannte interessieren sich für Wintersport"
+      ],
+      "shortWrongTitles": [
+        "Sie suchen Musiksendung Klavier",
+        "Sie mögen Familienkomödien",
+        "Bekannte interessieren Wintersport"
+      ]
+    },
+    {
+      "firstWords": "Mit Sandalen und TShirt hängen sie",
+      "fullText": "Mit Sandalen und T-Shirt hängen sie in den Felswänden, ihr Handy halten sie für eine Lebensversicherung, die Alpen für einen Freizeitpark...",
+      "correctTitle": "Sie möchten im Urlaub bergsteigen und Risiken erfahren",
+      "shortCorrectTitle": "Sie möchten bergsteigen Risiken",
+      "wrongTitles": [
+        "Sie sehen gern Agentenfilme",
+        "Bekannte interessiert geteiltes Berlin",
+        "Sie suchen Musiksendung mit Klavier"
+      ],
+      "shortWrongTitles": [
+        "Sie sehen gern Agentenfilme",
+        "Bekannte interessiert Berlin",
+        "Sie suchen Musiksendung"
+      ]
+    },
+    {
+      "firstWords": "Schwere Jungs bildet den Auftakt",
+      "fullText": "'Schwere Jungs' bildet den Auftakt zu einer sechsteiligen Reihe mit Actionkomödien: Hau-drauf-Filme, wie sie schon unzählige Male mit dem Schläger-Duo Terence Hill und Bud Spencer über den Bildschirm flimmerten...",
+      "correctTitle": "Sie mögen Filme mit viel Action und viel Spaß",
+      "shortCorrectTitle": "Sie mögen Action Filme Spaß",
+      "wrongTitles": [
+        "Bekannte interessiert geteiltes Berlin",
+        "Sie suchen Musiksendung mit Klavier",
+        "Sie mögen Familienkomödien mit Kindern"
+      ],
+      "shortWrongTitles": [
+        "Bekannte interessiert Berlin",
+        "Sie suchen Musiksendung",
+        "Sie mögen Familienkomödien"
+      ]
+    },
+    {
+      "firstWords": "Nach den WeltcupSiegen in Willingen",
+      "fullText": "Nach den Weltcup-Siegen in Willingen und Sapporo stehen die Chancen für das österreichische Team gut, beim Skispringen ganz weit vorn zu landen...",
+      "correctTitle": "Bekannte interessieren sich für Wintersportveranstaltungen",
+      "shortCorrectTitle": "Bekannte interessieren Wintersport",
+      "wrongTitles": [
+        "Sie suchen Musiksendung mit Klaviermusik",
+        "Sie mögen Familienkomödien mit Kindern",
+        "Sie sehen gern Agentenfilme"
+      ],
+      "shortWrongTitles": [
+        "Sie suchen Musiksendung Klavier",
+        "Sie mögen Familienkomödien",
+        "Sie sehen gern Agentenfilme"
+      ]
+    },
+    {
+      "firstWords": "Man darf gespannt sein wie viel",
+      "fullText": "Man darf gespannt sein, wie viel Spott die für ihre spitzen Zungen bekannten Basler Fasnächtler für das vergangene Jahr übrig haben...",
+      "correctTitle": null,
+      "shortCorrectTitle": null,
+      "wrongTitles": [],
+      "shortWrongTitles": []
+    },
+    {
+      "firstWords": "Dreizehn Alben hat die vielköpfige",
+      "fullText": "Dreizehn Alben hat die vielköpfige korsische Gruppe 'I Muvrini' um die Brüder Jean-Francois und Alain Bernardini bereits veröffentlicht...",
+      "correctTitle": null,
+      "shortCorrectTitle": null,
+      "wrongTitles": [],
+      "shortWrongTitles": []
+    },
+    {
+      "firstWords": "Man sollte meinen Schauspieler Hendrik",
+      "fullText": "Man sollte meinen, Schauspieler Hendrik Höfgen wäre gegen unmoralische Angebote gefeit. Schließlich feierte er zur Zeit der Weimarer Republik große Erfolge in der Rolle des Mephisto...",
+      "correctTitle": "Bekannter möchte Film nach Werk eines Schriftstellers",
+      "shortCorrectTitle": "Bekannter Film nach Schriftsteller",
+      "wrongTitles": [
+        "Sie sehen gern Agentenfilme",
+        "Bekannte interessieren Wintersport",
+        "Sie suchen Musiksendung mit Klavier"
+      ],
+      "shortWrongTitles": [
+        "Sie sehen gern Agentenfilme",
+        "Bekannte interessieren Wintersport",
+        "Sie suchen Musiksendung"
+      ]
+    }
+  ]
+}

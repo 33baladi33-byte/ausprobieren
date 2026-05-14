@@ -1,0 +1,78 @@
+{
+  "skill": "sprach2",
+  "examId": 1,
+  "name": "Sprachbausteine Teil 2 - Exam 1: Das Fahrrad",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Volkswagen, Porsche, Mercedes Benz, BMW, Audi: in",
+      "after": "einem anderen Land gibt es so viele Automobilfabriken",
+      "options": ["kaum", "fast", "beinahe"],
+      "correct": "kaum"
+    },
+    {
+      "id": 2,
+      "before": "sich vom Automobil freizumachen und",
+      "after": "ein anderes Verkehrsmittel umzusteigen",
+      "options": ["auf", "an", "zu"],
+      "correct": "auf"
+    },
+    {
+      "id": 3,
+      "before": "an den im Stau wartenden Fahrzeugen",
+      "after": "und ausgeruht am Arbeitsplatz anzukommen",
+      "options": ["vorbei", "vor", "durch"],
+      "correct": "vorbei"
+    },
+    {
+      "id": 4,
+      "before": "Wer Fahrrad fährt",
+      "after": "zu sitzen, bringt seinen Blutkreislauf in Schwung",
+      "options": ["statt", "anstatt", "als"],
+      "correct": "statt"
+    },
+    {
+      "id": 5,
+      "before": "die sich sonst die meiste Zeit",
+      "after": "geschlossener Räume in Büros aufhalten",
+      "options": ["innerhalb", "außerhalb", "oberhalb"],
+      "correct": "innerhalb"
+    },
+    {
+      "id": 6,
+      "before": "Schulen oder Fabriken aufhalten",
+      "after": "",
+      "options": ["müssen", "können", "dürfen"],
+      "correct": "müssen"
+    },
+    {
+      "id": 7,
+      "before": "Ein breites Angebot",
+      "after": "Zubehör für Fahrräder",
+      "options": ["an", "für", "von"],
+      "correct": "an"
+    },
+    {
+      "id": 8,
+      "before": "die das Fahrrad im Falle eines Unfalls fast so sicher wie einen Panzer machen",
+      "after": "",
+      "options": ["sollen", "müssen", "können"],
+      "correct": "sollen"
+    },
+    {
+      "id": 9,
+      "before": "Nur wenn es regnet",
+      "after": "sind die Autoschlangen wieder länger",
+      "options": ["dann", "so", "doch"],
+      "correct": "dann"
+    },
+    {
+      "id": 10,
+      "before": "",
+      "after": "einen praktischen Wetterschutz für Radfahrer haben die Geschäfte noch nicht im Angebot",
+      "options": ["denn", "aber", "doch"],
+      "correct": "denn"
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "skill": "lesen3",
+  "examId": 4,
+  "name": "Lesen Teil 3 - Exam 4: Kein Zeit",
+  "questions": [
+    {
+      "firstWords": "In Pollekes elfjährigem Leben scheint im Augenblick",
+      "fullText": "In Pollekes elfjährigem Leben scheint im Augenblick etwas falsch zu laufen. Es stört sie ja gar nicht, dass ihre Eltern geschieden sind...",
+      "correctTitle": "Sie möchten mit Ihrer zwölfjährigen Tochter ein altersgerechtes Theaterstück sehen",
+      "shortCorrectTitle": "Sie möchten Theaterstück mit Tochter",
+      "wrongTitles": [
+        "Sie möchten mit Neffen Kinderfilm sehen",
+        "Ihre Schwester interessiert Biographien Musiker",
+        "Sie lieben Auftritte herausragender Musiker"
+      ],
+      "shortWrongTitles": [
+        "Sie möchten Kinderfilm mit Neffen",
+        "Schwester interessiert Musiker Biographien",
+        "Sie lieben Musiker Auftritte"
+      ]
+    },
+    {
+      "firstWords": "Rasmus und der Landstreicher Nach den",
+      "fullText": "Rasmus und der Landstreicher Nach den Kinderbuch von Astrid Lindgren Rasmus ist in einem Kinderheim aufgewachsen, er hat keine Eltern...",
+      "correctTitle": "Sie möchten zusammen mit Ihrem kleinen Neffen einen Kinderfilm sehen",
+      "shortCorrectTitle": "Sie möchten Kinderfilm mit Neffen",
+      "wrongTitles": [
+        "Sie möchten Theaterstück mit Tochter",
+        "Ihre Schwester interessiert Musiker Biographien",
+        "Sie lieben Auftritte herausragender Musiker"
+      ],
+      "shortWrongTitles": [
+        "Sie möchten Theaterstück mit Tochter",
+        "Schwester interessiert Musiker Biographien",
+        "Sie lieben Musiker Auftritte"
+      ]
+    },
+    {
+      "firstWords": "Die Verfilmung des Buches Im Feld",
+      "fullText": "Die Verfilmung des Buches 'Im Feld' handelt von einem jungen Mann, der bisher mit den Wölfen geheult hat. Er hat stets gemacht, was alle gemacht haben...",
+      "correctTitle": null,
+      "shortCorrectTitle": null,
+      "wrongTitles": [],
+      "shortWrongTitles": []
+    },
+    {
+      "firstWords": "Geschlossene Gesellschaft Drama von JeanPaulSartre",
+      "fullText": "Geschlossene Gesellschaft: Drama von Jean-Paul-Sartre Drei Personen, ein Mann und zwei Frauen, werden nach ihrem Tod in einem Zimmer eingesperrt...",
+      "correctTitle": null,
+      "shortCorrectTitle": null,
+      "wrongTitles": [],
+      "shortWrongTitles": []
+    },
+    {
+      "firstWords": "Beethovens Bonn Im Dezember 1770 erblickte",
+      "fullText": "Beethovens Bonn Im Dezember 1770 erblickte Ludwig van Beethoven in der Bonngasse 20 das Licht der Welt. Wer ahnte damals, dass mit ihm ein musikalisches Genie geboren wurde...",
+      "correctTitle": "Ihre Schwester interessiert sich für Biographien großer Musiker",
+      "shortCorrectTitle": "Schwester interessiert Musiker Biographien",
+      "wrongTitles": [
+        "Sie möchten Theaterstück mit Tochter",
+        "Sie möchten Kinderfilm mit Neffen",
+        "Sie lieben Auftritte herausragender Musiker"
+      ],
+      "shortWrongTitles": [
+        "Sie möchten Theaterstück mit Tochter",
+        "Sie möchten Kinderfilm mit Neffen",
+        "Sie lieben Musiker Auftritte"
+      ]
+    },
+    {
+      "firstWords": "Radtour am Rhein Hinweis Diese Tour",
+      "fullText": "Radtour am Rhein Hinweis: Diese Tour ist nur von Gruppen auf Anfrage buchbar! Die Fahrräder sind mitzubringen. Die Tour wird vom ADFC angeboten...",
+      "correctTitle": "Sie wollen eine Stadtbesichtigung mit ein wenig Sport verbinden",
+      "shortCorrectTitle": "Sie wollen Stadtbesichtigung mit Sport",
+      "wrongTitles": [
+        "Sie möchten Theaterstück mit Tochter",
+        "Sie möchten Kinderfilm mit Neffen",
+        "Sie lieben Auftritte herausragender Musiker"
+      ],
+      "shortWrongTitles": [
+        "Sie möchten Theaterstück mit Tochter",
+        "Sie möchten Kinderfilm mit Neffen",
+        "Sie lieben Musiker Auftritte"
+      ]
+    },
+    {
+      "firstWords": "Weihnachtsmarkt in Koblenz Über 100",
+      "fullText": "Weihnachtsmarkt in Koblenz Über 100 festlich geschmückte Holzhäuschen, der Duft von Lebkuchen und Glühwein liegt in der Luft...",
+      "correctTitle": null,
+      "shortCorrectTitle": null,
+      "wrongTitles": [],
+      "shortWrongTitles": []
+    },
+    {
+      "firstWords": "Drei Flöhe und das Jesuskind Im Jahr",
+      "fullText": "Drei Flöhe und das Jesuskind Im Jahr 1 machten sich drei Flöhe aus Deutschland auf den Weg nach Israel, um einmal so richtig zu entspannen...",
+      "correctTitle": "Sie wollen mit Kindern eine andere lustige Seite von Weihnachten erleben",
+      "shortCorrectTitle": "Sie wollen lustige Weihnachten mit Kindern",
+      "wrongTitles": [
+        "Sie möchten alte und neue Weihnachtslieder hören",
+        "Sie wollen essen und künstlerisches Programm genießen",
+        "Sie wollen mit Bekannten herzhaft lachen"
+      ],
+      "shortWrongTitles": [
+        "Sie möchten alte neue Weihnachtslieder",
+        "Sie wollen essen künstlerisches Programm",
+        "Sie wollen mit Bekannten lachen"
+      ]
+    },
+    {
+      "firstWords": "Weihnachtsshow Stille Nacht trifft Last",
+      "fullText": "Weihnachtsshow 'Stille Nacht' trifft 'Last Christmas'. Gospel umarmt Soul, und Pop küsst Klassik. Als 1997 die Idee entstand, eine Weihnachtsshow zu entwickeln...",
+      "correctTitle": "Sie möchten alte und neue Weihnachtslieder hören",
+      "shortCorrectTitle": "Sie möchten alte neue Weihnachtslieder",
+      "wrongTitles": [
+        "Sie wollen lustige Weihnachten mit Kindern",
+        "Sie wollen essen und künstlerisches Programm",
+        "Sie wollen mit Bekannten herzhaft lachen"
+      ],
+      "shortWrongTitles": [
+        "Sie wollen lustige Weihnachten",
+        "Sie wollen essen künstlerisches Programm",
+        "Sie wollen mit Bekannten lachen"
+      ]
+    },
+    {
+      "firstWords": "Jazz vom Feinsten mit durchaus gewollten",
+      "fullText": "Jazz vom Feinsten mit durchaus gewollten konservativen Zügen. Der Trompeter Lasse Lindgren ist einer der innovativen Spitzen-Trompeter der aktuellen Jazzszene in Schweden...",
+      "correctTitle": "Sie lieben Auftritte von herausragenden Musikern",
+      "shortCorrectTitle": "Sie lieben Musiker Auftritte",
+      "wrongTitles": [
+        "Sie möchten Theaterstück mit Tochter",
+        "Sie möchten Kinderfilm mit Neffen",
+        "Schwester interessiert Musiker Biographien"
+      ],
+      "shortWrongTitles": [
+        "Sie möchten Theaterstück mit Tochter",
+        "Sie möchten Kinderfilm mit Neffen",
+        "Schwester interessiert Musiker"
+      ]
+    },
+    {
+      "firstWords": "10 Jahre FÜR DIE KATZ Unglaublich",
+      "fullText": "10 Jahre FÜR DIE KATZ Unglaublich! 10 Jahre ist es bereits her, seit FÜR DIE KATZ wie ein Faustschlag ins Licht der Öffentlichkeit traten...",
+      "correctTitle": "Sie wollen mit Bekannten ausgehen um herzhaft lachen",
+      "shortCorrectTitle": "Sie wollen mit Bekannten lachen",
+      "wrongTitles": [
+        "Sie möchten alte neue Weihnachtslieder",
+        "Sie wollen lustige Weihnachten mit Kindern",
+        "Sie wollen essen und künstlerisches Programm"
+      ],
+      "shortWrongTitles": [
+        "Sie möchten alte neue Weihnachtslieder",
+        "Sie wollen lustige Weihnachten",
+        "Sie wollen essen künstlerisches Programm"
+      ]
+    },
+    {
+      "firstWords": "Das Weihnachtsvarieté erwartet Sie auch",
+      "fullText": "Das Weihnachtsvarieté erwartet Sie auch in diesem Jahr mit atemberaubender Akrobatik, traumhafter Jonglage, ergänzt von Livemusikern...",
+      "correctTitle": "Sie möchten im Dezember essen gehen und ein buntes künstlerisches Programm genießen",
+      "shortCorrectTitle": "Sie wollen essen künstlerisches Programm",
+      "wrongTitles": [
+        "Sie möchten alte neue Weihnachtslieder",
+        "Sie wollen lustige Weihnachten mit Kindern",
+        "Sie wollen mit Bekannten lachen"
+      ],
+      "shortWrongTitles": [
+        "Sie möchten alte neue Weihnachtslieder",
+        "Sie wollen lustige Weihnachten",
+        "Sie wollen mit Bekannten lachen"
+      ]
+    }
+  ]
+}

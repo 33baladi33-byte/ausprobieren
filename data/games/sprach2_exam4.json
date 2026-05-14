@@ -1,0 +1,78 @@
+{
+  "skill": "sprach2",
+  "examId": 4,
+  "name": "Sprachbausteine Teil 2 - Exam 4: Jugend diskutiert - mach mit!",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Den Wettbewerb \"Jugend diskutiert\" gibt es bereits",
+      "after": "Herbst 2002",
+      "options": ["seit", "vor", "nach"],
+      "correct": "seit"
+    },
+    {
+      "id": 2,
+      "before": "",
+      "after": "immer bereiten sich die Teilnehmer dann im Unterricht vor",
+      "options": ["wie", "als", "so"],
+      "correct": "wie"
+    },
+    {
+      "id": 3,
+      "before": "Du fragst dich,",
+      "after": "du teilnehmen solltest",
+      "options": ["warum", "wieso", "weshalb"],
+      "correct": "warum"
+    },
+    {
+      "id": 4,
+      "before": "Im Austausch mit den anderen entwickelst du deine Persönlichkeit weiter.",
+      "after": "bietet dir \"Jugend diskutiert\" die Chance",
+      "options": ["ausserdem", "außerdem", "dazu"],
+      "correct": "ausserdem"
+    },
+    {
+      "id": 5,
+      "before": "die dann",
+      "after": "Regionalwettbewerben teilnehmen",
+      "options": ["an", "bei", "in"],
+      "correct": "an"
+    },
+    {
+      "id": 6,
+      "before": "",
+      "after": "Preise kann man professionelle Trainings gewinnen",
+      "options": ["als", "wie", "so"],
+      "correct": "als"
+    },
+    {
+      "id": 7,
+      "before": "",
+      "after": "\"Jugend diskutiert\" kannst du viel lernen",
+      "options": ["bei", "in", "durch"],
+      "correct": "bei"
+    },
+    {
+      "id": 8,
+      "before": "Du gewinnst mehr Selbstbewusstsein,",
+      "after": "du lernst, wie man das Wort ergreift",
+      "options": ["weil", "denn", "da"],
+      "correct": "weil"
+    },
+    {
+      "id": 9,
+      "before": "Die Sichtweisen der anderen zeigen dir darüber hinaus,",
+      "after": "du vielleicht selbst noch nicht gesehen hast",
+      "options": ["was", "das", "dass"],
+      "correct": "was"
+    },
+    {
+      "id": 10,
+      "before": "",
+      "after": "das alles im Unterricht gelernt hat, kann gemeinsam mit anderen viel bewegen",
+      "options": ["wer", "der", "welcher"],
+      "correct": "wer"
+    }
+  ]
+}
