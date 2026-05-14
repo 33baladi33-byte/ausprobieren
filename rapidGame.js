@@ -53,13 +53,18 @@
     // متغير خاص بـ Hören لحفظ الجمل الأصلية
     let hoerenSentences = [];
     
-    // دالة اختصار النص
+    // دالة اختصار النص (مع تصحيح)
     function shortenText(text, maxWords) {
         if (!text) return "";
+        console.log(`🔍 shortenText input: "${text.substring(0, 100)}..."`);
+        
         const words = text.split(' ');
-        if (words.length <= maxWords) return text;
+        if (words.length <= maxWords) {
+            console.log(`🔍 shortenText output (نص قصير): "${text}"`);
+            return text;
+        }
         let shortened = words.slice(0, maxWords).join(' ');
-        shortened += '...';
+        console.log(`🔍 shortenText output (نص مختصر): "${shortened}"`);
         return shortened;
     }
     
@@ -414,7 +419,7 @@
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
-    // ==================== دالة تحميل البيانات (المعدلة) ====================
+    // ==================== دالة تحميل البيانات ====================
     function loadGameData(skill, examId) {
         currentSkill = skill;
         currentExamId = examId;
@@ -463,49 +468,36 @@
         }
         // ==================== نظام Lesen Teil 1,2,3 (Matching) ====================
         else if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3') {
-            if (data.sharedOptions) {
-                // صيغة sharedOptions
-                const sharedOptions = data.sharedOptions;
-                originalQuestions = data.questions.map((q, idx) => {
-                    const correctTitle = sharedOptions[q.correct];
-                    const cleanCorrectTitle = correctTitle.replace(/^[a-z]\.\s*/, '');
-                    const wrongTitles = sharedOptions
-                        .filter((_, index) => index !== q.correct)
-                        .map(title => title.replace(/^[a-z]\.\s*/, ''));
-                    const shuffledWrongs = [...wrongTitles];
-                    for (let i = shuffledWrongs.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [shuffledWrongs[i], shuffledWrongs[j]] = [shuffledWrongs[j], shuffledWrongs[i]];
-                    }
-                    const selectedWrongTitles = shuffledWrongs.slice(0, 2);
-                    const firstWords = shortenText(q.text, SETTINGS.firstWordsLength);
-                    
-                    return {
-                        type: "lesen",
-                        id: idx,
-                        firstWords: firstWords,
-                        shortCorrectTitle: cleanCorrectTitle.substring(0, 50),
-                        shortWrongTitles: selectedWrongTitles.map(t => t.substring(0, 50)),
-                        correctTitle: cleanCorrectTitle
-                    };
-                });
-            } else {
-                // الصيغة العادية
-                originalQuestions = data.questions.map((q, idx) => {
-                    const firstWords = shortenText(q.fullText || q.text, SETTINGS.firstWordsLength);
-                    const wrongTitlesList = q.wrongTitles || [];
-                    const selectedWrongTitles = [...wrongTitlesList].slice(0, 2);
-                    
-                    return {
-                        type: "lesen",
-                        id: idx,
-                        firstWords: firstWords,
-                        shortCorrectTitle: (q.correctTitle || "").substring(0, 50),
-                        shortWrongTitles: selectedWrongTitles.map(t => t.substring(0, 50)),
-                        correctTitle: q.correctTitle
-                    };
-                });
-            }
+            originalQuestions = data.questions.map((q, idx) => {
+                // استخراج أول 8 كلمات من firstWords أو fullText أو text
+                let firstWords = "";
+                if (q.firstWords) {
+                    firstWords = q.firstWords;
+                    console.log(`📝 السؤال ${idx + 1}: firstWords من الملف = "${firstWords.substring(0, 100)}"`);
+                } else if (q.fullText) {
+                    firstWords = shortenText(q.fullText, SETTINGS.firstWordsLength);
+                    console.log(`📝 السؤال ${idx + 1}: firstWords مستخرج من fullText = "${firstWords}"`);
+                } else if (q.text) {
+                    firstWords = shortenText(q.text, SETTINGS.firstWordsLength);
+                    console.log(`📝 السؤال ${idx + 1}: firstWords مستخرج من text = "${firstWords}"`);
+                }
+                
+                // معالجة العناوين الخاطئة
+                const wrongTitlesList = q.wrongTitles || [];
+                const selectedWrongTitles = wrongTitlesList.slice(0, 2);
+                
+                console.log(`📝 السؤال ${idx + 1}: firstWords النهائي = "${firstWords}"`);
+                console.log(`📝 السؤال ${idx + 1}: correctTitle = "${q.correctTitle}"`);
+                
+                return {
+                    type: "lesen",
+                    id: idx,
+                    firstWords: firstWords,
+                    shortCorrectTitle: (q.correctTitle || "").substring(0, 50),
+                    shortWrongTitles: selectedWrongTitles.map(t => t.substring(0, 50)),
+                    correctTitle: q.correctTitle
+                };
+            });
             console.log(`📝 تم تحميل ${originalQuestions.length} سؤال لـ ${skill.toUpperCase()}`);
         }
         // ==================== نظام Sprachbausteine Teil 1 و 2 ====================
@@ -688,6 +680,8 @@
         const q = currentRound[currentIndex];
         remainingTime = SETTINGS.timePerQuestion;
         
+        console.log(`🎯 عرض السؤال ${currentIndex + 1}:`, q);
+        
         if (gameOverlay) gameOverlay.remove();
         gameOverlay = document.createElement('div');
         gameOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
@@ -709,13 +703,17 @@
         // عرض النص حسب نوع السؤال
         if (q.type === "sprach") {
             questionDiv.textContent = q.displayText;
+            console.log(`📖 عرض سؤال Sprach: ${q.displayText}`);
         } else if (q.type === "hoeren_reflex") {
             questionDiv.textContent = "اختر الجملة الصحيحة";
+            console.log(`📖 عرض سؤال Hören: اختر الجملة الصحيحة`);
         } else if (q.type === "hoeren") {
             questionDiv.textContent = "اختر الإجابة الصحيحة";
+            console.log(`📖 عرض سؤال Hören قديم: اختر الإجابة الصحيحة`);
         } else {
             // Lesen Teil 1,2,3: عرض أول 7-9 كلمات
             questionDiv.textContent = q.firstWords;
+            console.log(`📖 عرض سؤال Lesen: "${q.firstWords}"`);
         }
         container.appendChild(questionDiv);
         
@@ -815,11 +813,14 @@
                 [options[i], options[j]] = [options[j], options[i]];
             }
             
+            console.log(`📖 خيارات Lesen:`, options.map(o => o.text));
+            
             options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
                 optBtn.className = 'game-option-btn';
                 optBtn.textContent = `${String.fromCharCode(65+idx)}. ${opt.text}`;
                 optBtn.setAttribute('data-correct', opt.isCorrect);
+                optBtn.setAttribute('data-value', opt.text);
                 optBtn.style.cssText = 'padding:14px 20px;background:#ffffff;border:1px solid #e0e0e0;border-radius:60px;font-size:15px;text-align:left;cursor:pointer;transition:all 0.05s ease;color:#333;width:100%;box-shadow:none';
                 optBtn.onclick = () => checkAnswer(opt.isCorrect, opt.text, null, q);
                 optionsDiv.appendChild(optBtn);
