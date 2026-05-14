@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Deutsches Schiff",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Ein deutsches Schiff ist am Südpol eingefroren, aber Menschen kamen nicht zu Schaden.", "correct": true },
+    { "id": 2, "text": "Die Firma Brain International ist in wirtschaftliche Schwierigkeiten geraten.", "correct": true },
+    { "id": 3, "text": "Die Europäische Union will Gesetze zur Kontrolle sozialer Netzwerke erlassen.", "correct": false },
+    { "id": 4, "text": "Mit einem neuen Gesetz wollen die österreichischen Banken Sparkonten wieder attraktiver machen.", "correct": false },
+    { "id": 5, "text": "Nach den Bürgermeisterwahlen in Bensheim bleibt die CDU weiterhin an der Regierung.", "correct": true }
+  ]
+}
