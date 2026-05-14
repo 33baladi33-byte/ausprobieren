@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 4: Jugend diskutiert - mach mit!",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Den Wettbewerb Jugend diskutiert gibt es bereits",
+      "after": "Herbst 2002",
+      "options": ["seit", "vor", "nach"],
+      "correct": "seit"
+    },
+    {
+      "id": 2,
+      "before": "",
+      "after": "immer bereiten sich",
+      "options": ["wie", "als", "so"],
+      "correct": "wie"
+    },
+    {
+      "id": 3,
+      "before": "Du fragst dich,",
+      "after": "du teilnehmen solltest",
+      "options": ["warum", "wann", "wo"],
+      "correct": "warum"
+    },
+    {
+      "id": 4,
+      "before": "",
+      "after": "bietet dir Jugend diskutiert",
+      "options": ["ausserdem", "außerdem", "dazu"],
+      "correct": "ausserdem"
+    },
+    {
+      "id": 5,
+      "before": "die dann",
+      "after": "Regionalwettbewerben teilnehmen",
+      "options": ["an", "bei", "in"],
+      "correct": "an"
+    },
+    {
+      "id": 6,
+      "before": "",
+      "after": "Preise kann man",
+      "options": ["als", "wie", "dann"],
+      "correct": "als"
+    },
+    {
+      "id": 7,
+      "before": "",
+      "after": "Jugend diskutierst kannst du",
+      "options": ["bei", "mit", "durch"],
+      "correct": "bei"
+    },
+    {
+      "id": 8,
+      "before": "Du gewinnst mehr Selbstbewusstsein,",
+      "after": "du lernst, wie",
+      "options": ["weil", "denn", "da"],
+      "correct": "weil"
+    },
+    {
+      "id": 9,
+      "before": "zeigen dir darüber hinaus,",
+      "after": "du vielleicht selbst",
+      "options": ["was", "wie", "wo"],
+      "correct": "was"
+    },
+    {
+      "id": 10,
+      "before": "",
+      "after": "das alles im Unterricht",
+      "options": ["wer", "wen", "wem"],
+      "correct": "wer"
+    }
+  ]
+}

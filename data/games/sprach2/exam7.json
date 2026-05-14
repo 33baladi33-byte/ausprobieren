@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 7: Liebesgrüße aus der Kühltruhe",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "kann man",
+      "after": "des Inhalts des Tiefkühlfachs",
+      "options": ["anhand", "aufgrund", "mittels"],
+      "correct": "anhand"
+    },
+    {
+      "id": 2,
+      "before": "unterscheiden fünf Kategorien",
+      "after": "Single-Männern",
+      "options": ["von", "bei", "unter"],
+      "correct": "von"
+    },
+    {
+      "id": 3,
+      "before": "den Kreativen,",
+      "after": "den Cocktail- und",
+      "options": ["sowie", "auch", "und"],
+      "correct": "sowie"
+    },
+    {
+      "id": 4,
+      "before": "aus",
+      "after": "denen er eine",
+      "options": ["denen", "welchen", "diesen"],
+      "correct": "denen"
+    },
+    {
+      "id": 5,
+      "before": "Der Nachteil liegt",
+      "after": "der Hand",
+      "options": ["auf", "in", "an"],
+      "correct": "auf"
+    },
+    {
+      "id": 6,
+      "before": "Ihnen ist es sogar zu",
+      "after": "zwei Tüten zu",
+      "options": ["anstrengend", "schwierig", "mühsam"],
+      "correct": "anstrengend"
+    },
+    {
+      "id": 7,
+      "before": "",
+      "after": "kaufen diese Männer",
+      "options": ["folglich", "also", "deshalb"],
+      "correct": "folglich"
+    },
+    {
+      "id": 8,
+      "before": "Zumindest Frauen sehen das wohl",
+      "after": "skeptisch",
+      "options": ["eher", "mehr", "sehr"],
+      "correct": "eher"
+    },
+    {
+      "id": 9,
+      "before": "Doch egal,",
+      "after": "welcher Kategorie ein",
+      "options": ["zu", "in", "bei"],
+      "correct": "zu"
+    },
+    {
+      "id": 10,
+      "before": "andere",
+      "after": "eher keine Lust",
+      "options": ["wohl", "sicher", "doch"],
+      "correct": "wohl"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 10: Deutschland – ein Paradies für Kinder?",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Verglichen",
+      "after": "der Bevölkerungszahl",
+      "options": ["mit", "bei", "zu"],
+      "correct": "mit"
+    },
+    {
+      "id": 2,
+      "before": "drei Jahre",
+      "after": "dem Kind zu Hause",
+      "options": ["bei", "mit", "zu"],
+      "correct": "bei"
+    },
+    {
+      "id": 3,
+      "before": "",
+      "after": "hat den Vorteil",
+      "options": ["das", "dies", "was"],
+      "correct": "das"
+    },
+    {
+      "id": 4,
+      "before": "Dies scheinen die Hauptgründe",
+      "after": "zu sein, warum",
+      "options": ["dafür", "dazu", "darum"],
+      "correct": "dafür"
+    },
+    {
+      "id": 5,
+      "before": "Sie sitzen eben nicht still am Tisch,",
+      "after": "stören mit ihrem Lachen",
+      "options": ["sondern", "aber", "doch"],
+      "correct": "sondern"
+    },
+    {
+      "id": 6,
+      "before": "",
+      "after": "diese selbst häufig",
+      "options": ["obwohl", "wenn", "da"],
+      "correct": "obwohl"
+    },
+    {
+      "id": 7,
+      "before": "Prozesse gegen Kindergärten an,",
+      "after": "die Kinder die Ruhe",
+      "options": ["weil", "denn", "da"],
+      "correct": "weil"
+    },
+    {
+      "id": 8,
+      "before": "In den meisten Zügen sind die Gänge so angeordnet,",
+      "after": "mit einem Kinderwagen",
+      "options": ["dass", "so dass", "als dass"],
+      "correct": "dass"
+    },
+    {
+      "id": 9,
+      "before": "damit Anspruch",
+      "after": "einen Platz",
+      "options": ["auf", "an", "zu"],
+      "correct": "auf"
+    },
+    {
+      "id": 10,
+      "before": "spricht man in Deutschland gerne",
+      "after": "Problemen",
+      "options": ["von", "über", "mit"],
+      "correct": "von"
+    }
+  ]
+}

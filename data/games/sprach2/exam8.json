@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 8: Liebesgrüße aus der Kühltruhe (معدل)",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Einer Studie",
+      "after": "kann man anhand",
+      "options": ["zufolge", "nach", "gemäß"],
+      "correct": "zufolge"
+    },
+    {
+      "id": 2,
+      "before": "unterscheiden fünf Kategorien",
+      "after": "Single-Männern",
+      "options": ["von", "bei", "unter"],
+      "correct": "von"
+    },
+    {
+      "id": 3,
+      "before": "den Kreativen,",
+      "after": "den Cocktail- und",
+      "options": ["sowie", "auch", "und"],
+      "correct": "sowie"
+    },
+    {
+      "id": 4,
+      "before": "aus",
+      "after": "er eine Mahlzeit",
+      "options": ["denen", "welchen", "diesen"],
+      "correct": "denen"
+    },
+    {
+      "id": 5,
+      "before": "Hauptgewinn für",
+      "after": "Frau ist aber",
+      "options": ["jede", "alle", "jeder"],
+      "correct": "jede"
+    },
+    {
+      "id": 6,
+      "before": "Ihnen ist es sogar zu",
+      "after": "zwei Tüten zu",
+      "options": ["anstrengend", "schwierig", "mühsam"],
+      "correct": "anstrengend"
+    },
+    {
+      "id": 7,
+      "before": "",
+      "after": "kaufen diese Männer",
+      "options": ["folglich", "also", "deshalb"],
+      "correct": "folglich"
+    },
+    {
+      "id": 8,
+      "before": "Aber",
+      "after": "sollen sie so",
+      "options": ["ob", "wie", "dass"],
+      "correct": "ob"
+    },
+    {
+      "id": 9,
+      "before": "Doch egal,",
+      "after": "welcher Kategorie ein",
+      "options": ["zu", "in", "bei"],
+      "correct": "zu"
+    },
+    {
+      "id": 10,
+      "before": "Einige haben",
+      "after": "wenig Zeit",
+      "options": ["vermutlich", "wahrscheinlich", "vielleicht"],
+      "correct": "vermutlich"
+    }
+  ]
+}

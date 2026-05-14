@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 5: Theater für Kinder und Jugendliche",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Theater fördert nicht nur die Kreativität,",
+      "after": "auch die Körpererfahrung",
+      "options": ["sondern", "aber", "doch"],
+      "correct": "sondern"
+    },
+    {
+      "id": 2,
+      "before": "arbeitet",
+      "after": "vielen Jahren",
+      "options": ["seit", "vor", "nach"],
+      "correct": "seit"
+    },
+    {
+      "id": 3,
+      "before": "die",
+      "after": "familiärer und anderer",
+      "options": ["wegen", "trotz", "durch"],
+      "correct": "wegen"
+    },
+    {
+      "id": 4,
+      "before": "werden",
+      "after": "dem kommenden Jahr",
+      "options": ["ab", "seit", "von"],
+      "correct": "ab"
+    },
+    {
+      "id": 5,
+      "before": "",
+      "after": "Ende des Projekts",
+      "options": ["am", "zum", "beim"],
+      "correct": "am"
+    },
+    {
+      "id": 6,
+      "before": "Allen Mitarbeitern ist",
+      "after": "wichtig, dass die",
+      "options": ["es", "das", "dies"],
+      "correct": "es"
+    },
+    {
+      "id": 7,
+      "before": "wäre das Vorhaben unmöglich,",
+      "after": "bei der Stadt",
+      "options": ["da", "weil", "denn"],
+      "correct": "da"
+    },
+    {
+      "id": 8,
+      "before": "Der Verein kümmert sich auch",
+      "after": "die Projekte bekannt",
+      "options": ["darum", "dafür", "dazu"],
+      "correct": "darum"
+    },
+    {
+      "id": 9,
+      "before": "Man hofft,",
+      "after": "diese Weise noch mehr",
+      "options": ["auf", "durch", "mit"],
+      "correct": "auf"
+    },
+    {
+      "id": 10,
+      "before": "sammelt das Jugendzentrum Spenden,",
+      "after": "weitere Projekte finanzieren",
+      "options": ["um", "für", "zu"],
+      "correct": "um"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 3: Man(n) kocht selbst",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "",
+      "after": "immer mehr Männer",
+      "options": ["denn", "daher", "damit"],
+      "correct": "denn"
+    },
+    {
+      "id": 2,
+      "before": "Ein Grund",
+      "after": "diese Entwicklung",
+      "options": ["für", "zu", "mit"],
+      "correct": "für"
+    },
+    {
+      "id": 3,
+      "before": "Doch welch ein Unterschied besteht",
+      "after": "den Ansprüchen",
+      "options": ["zwischen", "unter", "neben"],
+      "correct": "zwischen"
+    },
+    {
+      "id": 4,
+      "before": "Nicht",
+      "after": "Topf darf es",
+      "options": ["irgendein", "irgendwo", "irgendwie"],
+      "correct": "irgendein"
+    },
+    {
+      "id": 5,
+      "before": "Die zweite Voraussetzung",
+      "after": "dass die Gerichte",
+      "options": ["dafür", "dazu", "damit"],
+      "correct": "dafür"
+    },
+    {
+      "id": 6,
+      "before": "Jetzt hängt es nur noch",
+      "after": "ab, was der Hobbykoch",
+      "options": ["davon", "daran", "dazu"],
+      "correct": "davon"
+    },
+    {
+      "id": 7,
+      "before": "Helfen die Bücher nicht",
+      "after": "",
+      "options": ["weiter", "weiterhin", "weiterweg"],
+      "correct": "weiter"
+    },
+    {
+      "id": 8,
+      "before": "Das führt",
+      "after": "dass man(n) zu Hause",
+      "options": ["dazu", "dafür", "darum"],
+      "correct": "dazu"
+    },
+    {
+      "id": 9,
+      "before": "Das größte Problem ist aber,",
+      "after": "es viel zu aufwändig",
+      "options": ["dass", "ob", "wenn"],
+      "correct": "dass"
+    },
+    {
+      "id": 10,
+      "before": "Das Interessante",
+      "after": "ist, dass dabei",
+      "options": ["daran", "dafür", "darum"],
+      "correct": "daran"
+    }
+  ]
+}

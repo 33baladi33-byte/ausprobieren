@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 9: Online-Sprachkurse",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "zahlreiche Online-Sprachkurse und",
+      "after": "mit Smartphones kann",
+      "options": ["sogar", "auch", "noch"],
+      "correct": "sogar"
+    },
+    {
+      "id": 2,
+      "before": "Tandem-Partnerschaft",
+      "after": "einem Muttersprachler",
+      "options": ["mit", "zu", "für"],
+      "correct": "mit"
+    },
+    {
+      "id": 3,
+      "before": "nicht nur lesen,",
+      "after": "gleichzeitig auch hören",
+      "options": ["sondern", "aber", "doch"],
+      "correct": "sondern"
+    },
+    {
+      "id": 4,
+      "before": "Wörter nachsprechen,",
+      "after": "dass ein ganzer Kurs",
+      "options": ["ohne", "nicht", "kaum"],
+      "correct": "ohne"
+    },
+    {
+      "id": 5,
+      "before": "lieber mehrmals täglich wiederholen,",
+      "after": "sie in einer Stunde",
+      "options": ["anstatt", "statt", "als"],
+      "correct": "anstatt"
+    },
+    {
+      "id": 6,
+      "before": "Die kleinen Helfer sind",
+      "after": "gut zum Vokabellernen",
+      "options": ["besonders", "speziell", "insbesondere"],
+      "correct": "besonders"
+    },
+    {
+      "id": 7,
+      "before": "Das spielerische Vokabeltraining macht zwar Spaß,",
+      "after": "Satzbau oder andere",
+      "options": ["aber", "doch", "jedoch"],
+      "correct": "aber"
+    },
+    {
+      "id": 8,
+      "before": "Dafür",
+      "after": "man besser in einen",
+      "options": ["sollte", "müsste", "könnte"],
+      "correct": "sollte"
+    },
+    {
+      "id": 9,
+      "before": "Der schnellste Weg,",
+      "after": "einen passenden Tandem-Partner",
+      "options": ["um", "zu", "für"],
+      "correct": "um"
+    },
+    {
+      "id": 10,
+      "before": "eingeben,",
+      "after": "werden alle Treffer",
+      "options": ["schon", "gleich", "dann"],
+      "correct": "schon"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 2: Das Fahrrad (معدل)",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "In",
+      "after": "einem anderen Land",
+      "options": ["kaum", "fast", "beinahe"],
+      "correct": "kaum"
+    },
+    {
+      "id": 2,
+      "before": "und",
+      "after": "ein anderes Verkehrsmittel",
+      "options": ["auf", "an", "bei"],
+      "correct": "auf"
+    },
+    {
+      "id": 3,
+      "before": "auf den",
+      "after": "gut ausgebauten Fahrradwegen",
+      "options": ["zumeist", "fast", "beinahe"],
+      "correct": "zumeist"
+    },
+    {
+      "id": 4,
+      "before": "Wer Fahrrad fährt",
+      "after": "zu sitzen",
+      "options": ["statt", "anstatt", "außer"],
+      "correct": "statt"
+    },
+    {
+      "id": 5,
+      "before": "sich sonst die meiste Zeit",
+      "after": "geschlossener Räume",
+      "options": ["innerhalb", "außerhalb", "oberhalb"],
+      "correct": "innerhalb"
+    },
+    {
+      "id": 6,
+      "before": "in Büros, Schulen oder Fabriken aufhalten",
+      "after": "",
+      "options": ["müssen", "sollen", "wollen"],
+      "correct": "müssen"
+    },
+    {
+      "id": 7,
+      "before": "Ein breites Angebot",
+      "after": "Zubehör für Fahrräder",
+      "options": ["an", "von", "mit"],
+      "correct": "an"
+    },
+    {
+      "id": 8,
+      "before": "fast so sicher wie einen Panzer machen",
+      "after": "",
+      "options": ["sollen", "müssen", "können"],
+      "correct": "sollen"
+    },
+    {
+      "id": 9,
+      "before": "Nur wenn es regnet",
+      "after": "sind die Autoschlangen",
+      "options": ["dann", "denn", "da"],
+      "correct": "dann"
+    },
+    {
+      "id": 10,
+      "before": "",
+      "after": "einen praktischen Wetterschutz",
+      "options": ["denn", "doch", "dann"],
+      "correct": "denn"
+    }
+  ]
+}
