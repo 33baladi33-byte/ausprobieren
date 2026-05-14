@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Bierkonsum",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Der Bierkonsum steigt um 10%.", "correct": false },
+    { "id": 2, "text": "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.", "correct": true },
+    { "id": 3, "text": "Es ist ein Ende des Bahnstreiks in Sicht.", "correct": false },
+    { "id": 4, "text": "Es wird Gewalt von Fußballfans auch in Deutschland befürchtet.", "correct": true },
+    { "id": 5, "text": "Die Leopoldina soll internationale Akademie werden.", "correct": false }
+  ]
+}
