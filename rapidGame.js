@@ -50,22 +50,18 @@
     let currentSkill = null;
     let currentExamId = null;
 
-    // متغير خاص بـ Hören لحفظ الجمل الأصلية
-    let hoerenSentences = [];
+    // متغير خاص بـ Hören و Lesen 2 لحفظ الجمل الأصلية
+    let reflexSentences = [];
     
-    // دالة اختصار النص (مع تصحيح)
-    function shortenText(text, maxWords) {
+    // دالة استخراج أول 7-9 كلمات من النص
+    function extractFirstWords(text, maxWords) {
         if (!text) return "";
-        console.log(`🔍 shortenText input: "${text.substring(0, 100)}..."`);
-        
-        const words = text.split(' ');
-        if (words.length <= maxWords) {
-            console.log(`🔍 shortenText output (نص قصير): "${text}"`);
-            return text;
-        }
-        let shortened = words.slice(0, maxWords).join(' ');
-        console.log(`🔍 shortenText output (نص مختصر): "${shortened}"`);
-        return shortened;
+        let cleanText = text.replace(/^Text \d+:\s*/, '');
+        const words = cleanText.split(' ');
+        const wordCount = Math.min(maxWords, words.length);
+        let result = words.slice(0, wordCount).join(' ');
+        if (words.length > wordCount) result += '...';
+        return result;
     }
     
     // عرض شاشة اختيار الوضع
@@ -424,7 +420,6 @@
         currentSkill = skill;
         currentExamId = examId;
         
-        // جميع المهارات تستخدم مسار مجلد واحد
         let filePath = `data/games/${skill}/exam${examId}.json`;
         
         console.log(`📂 جاري تحميل: ${filePath}`);
@@ -450,54 +445,65 @@
         console.log(`✅ تم تحميل الملف بنجاح: ${filePath}`, data);
         currentGameData = data;
         
-        // ==================== نظام Hören Teil 1,2,3 (Reflex Modus) ====================
-        if (skill === 'hoeren1' || skill === 'hoeren2' || skill === 'hoeren3') {
-            hoerenSentences = data.sentences || data.questions || [];
-            console.log(`📝 تم تحميل ${hoerenSentences.length} جملة لـ ${skill.toUpperCase()} (Exam ${currentExamId})`);
+        // ==================== نظام Reflex Modus (Hören 1,2,3 و Lesen 2) ====================
+        if (skill === 'hoeren1' || skill === 'hoeren2' || skill === 'hoeren3' || skill === 'lesen2') {
+            reflexSentences = data.sentences || [];
+            console.log(`📝 تم تحميل ${reflexSentences.length} جملة لـ ${skill.toUpperCase()} (Exam ${currentExamId})`);
             
             const totalRounds = SETTINGS.roundLength;
             originalQuestions = [];
             for (let i = 0; i < totalRounds; i++) {
                 originalQuestions.push({
-                    type: "hoeren_reflex",
+                    type: "reflex_mode",
                     id: i,
-                    questionText: "اختر الجملة الصحيحة",
+                    questionText: "اختر الإجابة الصحيحة",
                     examId: currentExamId
                 });
             }
         }
-        // ==================== نظام Lesen Teil 1,2,3 (Matching) ====================
-        else if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3') {
-            originalQuestions = data.questions.map((q, idx) => {
-                // استخراج أول 8 كلمات من firstWords أو fullText أو text
-                let firstWords = "";
-                if (q.firstWords) {
-                    firstWords = q.firstWords;
-                    console.log(`📝 السؤال ${idx + 1}: firstWords من الملف = "${firstWords.substring(0, 100)}"`);
-                } else if (q.fullText) {
-                    firstWords = shortenText(q.fullText, SETTINGS.firstWordsLength);
-                    console.log(`📝 السؤال ${idx + 1}: firstWords مستخرج من fullText = "${firstWords}"`);
-                } else if (q.text) {
-                    firstWords = shortenText(q.text, SETTINGS.firstWordsLength);
-                    console.log(`📝 السؤال ${idx + 1}: firstWords مستخرج من text = "${firstWords}"`);
-                }
-                
-                // معالجة العناوين الخاطئة
-                const wrongTitlesList = q.wrongTitles || [];
-                const selectedWrongTitles = wrongTitlesList.slice(0, 2);
-                
-                console.log(`📝 السؤال ${idx + 1}: firstWords النهائي = "${firstWords}"`);
-                console.log(`📝 السؤال ${idx + 1}: correctTitle = "${q.correctTitle}"`);
-                
-                return {
-                    type: "lesen",
-                    id: idx,
-                    firstWords: firstWords,
-                    shortCorrectTitle: (q.correctTitle || "").substring(0, 50),
-                    shortWrongTitles: selectedWrongTitles.map(t => t.substring(0, 50)),
-                    correctTitle: q.correctTitle
-                };
-            });
+        // ==================== نظام Lesen Teil 1,3 (Matching) ====================
+        else if (skill === 'lesen1' || skill === 'lesen3') {
+            if (data.sharedOptions) {
+                const sharedOptions = data.sharedOptions;
+                originalQuestions = data.questions.map((q, idx) => {
+                    const correctTitle = sharedOptions[q.correct];
+                    const cleanCorrectTitle = correctTitle.replace(/^[a-z]\.\s*/, '');
+                    const wrongTitles = sharedOptions
+                        .filter((_, index) => index !== q.correct)
+                        .map(title => title.replace(/^[a-z]\.\s*/, ''));
+                    const shuffledWrongs = [...wrongTitles];
+                    for (let i = shuffledWrongs.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [shuffledWrongs[i], shuffledWrongs[j]] = [shuffledWrongs[j], shuffledWrongs[i]];
+                    }
+                    const selectedWrongTitles = shuffledWrongs.slice(0, 2);
+                    const firstWords = q.firstWords || extractFirstWords(q.text, SETTINGS.firstWordsLength);
+                    
+                    return {
+                        type: "lesen_matching",
+                        id: idx,
+                        firstWords: firstWords,
+                        shortCorrectTitle: cleanCorrectTitle,
+                        shortWrongTitles: selectedWrongTitles,
+                        correctTitle: cleanCorrectTitle
+                    };
+                });
+            } else {
+                originalQuestions = data.questions.map((q, idx) => {
+                    const firstWords = q.firstWords || extractFirstWords(q.text, SETTINGS.firstWordsLength);
+                    const wrongTitlesList = q.wrongTitles || [];
+                    const selectedWrongTitles = wrongTitlesList.slice(0, 2);
+                    
+                    return {
+                        type: "lesen_matching",
+                        id: idx,
+                        firstWords: firstWords,
+                        shortCorrectTitle: q.correctTitle || "",
+                        shortWrongTitles: selectedWrongTitles,
+                        correctTitle: q.correctTitle || ""
+                    };
+                });
+            }
             console.log(`📝 تم تحميل ${originalQuestions.length} سؤال لـ ${skill.toUpperCase()}`);
         }
         // ==================== نظام Sprachbausteine Teil 1 و 2 ====================
@@ -522,8 +528,8 @@
             originalQuestions = allQuestions.map(q => {
                 if (q.correctAnswerIndex !== undefined) {
                     return {
-                        type: "hoeren",
-                        firstWords: q.firstWords || shortenText(q.fullText, SETTINGS.firstWordsLength),
+                        type: "hoeren_old",
+                        firstWords: q.firstWords || extractFirstWords(q.fullText, SETTINGS.firstWordsLength),
                         fullText: q.fullText,
                         options: q.options,
                         correctAnswerIndex: q.correctAnswerIndex
@@ -531,12 +537,11 @@
                 } 
                 else {
                     return {
-                        type: "lesen",
-                        firstWords: shortenText(q.firstWords || q.fullText, SETTINGS.firstWordsLength),
-                        fullText: q.fullText,
-                        shortCorrectTitle: q.shortCorrectTitle || (q.correctTitle ? shortenText(q.correctTitle, SETTINGS.titleLength) : null),
-                        shortWrongTitles: q.shortWrongTitles || (q.wrongTitles ? q.wrongTitles.map(t => shortenText(t, SETTINGS.titleLength)) : []),
-                        correctTitle: q.correctTitle
+                        type: "lesen_matching",
+                        firstWords: q.firstWords || extractFirstWords(q.text, SETTINGS.firstWordsLength),
+                        shortCorrectTitle: q.correctTitle || "",
+                        shortWrongTitles: q.wrongTitles || [],
+                        correctTitle: q.correctTitle || ""
                     };
                 }
             });
@@ -680,8 +685,6 @@
         const q = currentRound[currentIndex];
         remainingTime = SETTINGS.timePerQuestion;
         
-        console.log(`🎯 عرض السؤال ${currentIndex + 1}:`, q);
-        
         if (gameOverlay) gameOverlay.remove();
         gameOverlay = document.createElement('div');
         gameOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(4px)';
@@ -703,17 +706,13 @@
         // عرض النص حسب نوع السؤال
         if (q.type === "sprach") {
             questionDiv.textContent = q.displayText;
-            console.log(`📖 عرض سؤال Sprach: ${q.displayText}`);
-        } else if (q.type === "hoeren_reflex") {
-            questionDiv.textContent = "اختر الجملة الصحيحة";
-            console.log(`📖 عرض سؤال Hören: اختر الجملة الصحيحة`);
-        } else if (q.type === "hoeren") {
+        } else if (q.type === "reflex_mode") {
             questionDiv.textContent = "اختر الإجابة الصحيحة";
-            console.log(`📖 عرض سؤال Hören قديم: اختر الإجابة الصحيحة`);
+        } else if (q.type === "hoeren_old") {
+            questionDiv.textContent = "اختر الإجابة الصحيحة";
         } else {
-            // Lesen Teil 1,2,3: عرض أول 7-9 كلمات
+            // Lesen Matching: عرض أول 7-9 كلمات
             questionDiv.textContent = q.firstWords;
-            console.log(`📖 عرض سؤال Lesen: "${q.firstWords}"`);
         }
         container.appendChild(questionDiv);
         
@@ -721,10 +720,10 @@
         optionsDiv.className = 'game-options-div';
         optionsDiv.style.cssText = 'display:flex;flex-direction:column;gap:12px;margin-bottom:20px';
         
-        // ==================== Hören Reflex Modus ====================
-        if (q.type === "hoeren_reflex") {
-            const correctSentences = hoerenSentences.filter(s => s.correct === true);
-            const incorrectSentences = hoerenSentences.filter(s => s.correct === false);
+        // ==================== Reflex Modus (Hören و Lesen 2) ====================
+        if (q.type === "reflex_mode") {
+            const correctSentences = reflexSentences.filter(s => s.correct === true);
+            const incorrectSentences = reflexSentences.filter(s => s.correct === false);
             
             const selectedCorrect = correctSentences.length > 0 
                 ? correctSentences[Math.floor(Math.random() * correctSentences.length)]
@@ -741,7 +740,7 @@
             } else {
                 selectedIncorrects = [...incorrectSentences];
                 while(selectedIncorrects.length < 2) {
-                    selectedIncorrects.push({ text: "جملة إضافية", correct: false, id: -1 });
+                    selectedIncorrects.push({ text: "خيار إضافي", correct: false, id: -1 });
                 }
             }
             
@@ -783,7 +782,7 @@
             });
         } 
         // ==================== Hören القديم ====================
-        else if (q.type === "hoeren") {
+        else if (q.type === "hoeren_old") {
             q.options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
                 optBtn.className = 'game-option-btn';
@@ -794,7 +793,7 @@
                 optionsDiv.appendChild(optBtn);
             });
         } 
-        // ==================== Lesen Teil 1,2,3 (Matching) ====================
+        // ==================== Lesen Matching (Teil 1 و 3) ====================
         else {
             const options = [
                 { text: q.shortCorrectTitle, isCorrect: true }
@@ -812,8 +811,6 @@
                 const j = Math.floor(Math.random() * (i + 1));
                 [options[i], options[j]] = [options[j], options[i]];
             }
-            
-            console.log(`📖 خيارات Lesen:`, options.map(o => o.text));
             
             options.forEach((opt, idx) => {
                 const optBtn = document.createElement('button');
@@ -919,9 +916,9 @@
             
             if (q.type === "sprach") {
                 isCorrectBtn = btn.getAttribute('data-correct') === 'true';
-            } else if (q.type === "hoeren") {
+            } else if (q.type === "hoeren_old") {
                 isCorrectBtn = idx === q.correctAnswerIndex;
-            } else if (q.type === "hoeren_reflex" && q.currentOptions) {
+            } else if (q.type === "reflex_mode" && q.currentOptions) {
                 isCorrectBtn = q.currentOptions[idx]?.isCorrect === true;
             } else {
                 isCorrectBtn = btn.getAttribute('data-correct') === 'true';
@@ -936,22 +933,22 @@
             
             // إذا كانت الإجابة خاطئة، نلون اختيار المستخدم بالبرتقالي الفاتح
             if (!isCorrect) {
-                if ((q.type === "sprach" || q.type === "hoeren_reflex" || q.type === "lesen") && btn.getAttribute('data-value') === selectedValue) {
+                if ((q.type === "sprach" || q.type === "reflex_mode" || q.type === "lesen_matching") && btn.getAttribute('data-value') === selectedValue) {
                     btn.style.background = '#fef5e7';
                     btn.style.borderColor = '#f5b042';
                     btn.style.color = '#b45f06';
-                } else if (q.type === "hoeren" && idx === selectedIndex) {
+                } else if (q.type === "hoeren_old" && idx === selectedIndex) {
                     btn.style.background = '#fef5e7';
                     btn.style.borderColor = '#f5b042';
                     btn.style.color = '#b45f06';
                 }
             } else {
                 // إذا كانت الإجابة صحيحة، نلون اختيار المستخدم باللون الأخضر
-                if ((q.type === "sprach" || q.type === "hoeren_reflex" || q.type === "lesen") && btn.getAttribute('data-value') === selectedValue) {
+                if ((q.type === "sprach" || q.type === "reflex_mode" || q.type === "lesen_matching") && btn.getAttribute('data-value') === selectedValue) {
                     btn.style.background = '#e6f4ea';
                     btn.style.borderColor = '#8bc34a';
                     btn.style.color = '#2e7d32';
-                } else if (q.type === "hoeren" && idx === selectedIndex) {
+                } else if (q.type === "hoeren_old" && idx === selectedIndex) {
                     btn.style.background = '#e6f4ea';
                     btn.style.borderColor = '#8bc34a';
                     btn.style.color = '#2e7d32';
