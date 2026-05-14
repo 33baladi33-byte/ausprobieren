@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 7: Insel",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Die Shengsi-Inseln liegen im Ostchinesischen Meer...",
+      "correctTitle": "Grüne Geisterinsel in Asien",
+      "shortCorrectTitle": "Grüne Geisterinsel in Asien",
+      "wrongTitles": [
+        "Nachhaltiger Tourismus auf chinesischen Inseln",
+        "Fernreisen in eine unberührte Tierwelt"
+      ]
+    },
+    {
+      "firstWords": "Der Reiseveranstalter TOURIMARS hat kürzlich eine Befragung durchgeführt...",
+      "correctTitle": "Die beliebtesten Reiseziele unter den europäischen Inseln",
+      "shortCorrectTitle": "Die beliebtesten Reiseziele unter den europäischen Inseln",
+      "wrongTitles": [
+        "Inseln zählen weltweit zu den wichtigsten Reisedestinationen",
+        "Geführte Bootsausflüge zu einsamen Badebuchten"
+      ]
+    },
+    {
+      "firstWords": "Das ostfriesische Memmert ist für seltene Vögel reserviert...",
+      "correctTitle": "Tierparadies auf einer Nordseeinsel",
+      "shortCorrectTitle": "Tierparadies auf einer Nordseeinsel",
+      "wrongTitles": [
+        "Deutscher Forscher startet Expedition auf Vogelinsel in Südamerika",
+        "Fernreisen in eine unberührte Tierwelt"
+      ]
+    },
+    {
+      "firstWords": "Die südamerikanischen Galapagosinseln locken nicht mit weißen Sandstränden...",
+      "correctTitle": "Fernreisen in eine unberührte Tierwelt",
+      "shortCorrectTitle": "Fernreisen in eine unberührte Tierwelt",
+      "wrongTitles": [
+        "Tierparadies auf einer Nordseeinsel",
+        "Grüne Geisterinsel in Asien"
+      ]
+    },
+    {
+      "firstWords": "Dass Elefanten in Thailand teurer sein können als ein 3er-BMW...",
+      "correctTitle": "Umstrittener Umgang mit Tieren als Touristenmagnet",
+      "shortCorrectTitle": "Umstrittener Umgang mit Tieren als Touristenmagnet",
+      "wrongTitles": [
+        "Immer mehr Reiseunternehmen streichen Thailand aus ihrem Angebot",
+        "Tierparadies auf einer Nordseeinsel"
+      ]
+    }
+  ]
+}

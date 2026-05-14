@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 4: Tanzkurs",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Der Begriff Extremsport wird oft subjektiv verwendet...",
+      "correctTitle": "Höher, schneller, weiter: Suche nach dem Nervenkitzel",
+      "shortCorrectTitle": "Höher, schneller, weiter: Suche nach dem Nervenkitzel",
+      "wrongTitles": [
+        "Neue Sportarten",
+        "Befragung bestätigt alte Vorurteile"
+      ]
+    },
+    {
+      "firstWords": "Musik, Sport, ehrenamtliches Engagement - die Teilnahme von Jugendlichen...",
+      "correctTitle": "Verändertes Freizeitverhalten von Jugendlichen",
+      "shortCorrectTitle": "Verändertes Freizeitverhalten von Jugendlichen",
+      "wrongTitles": [
+        "Keine Zeit für Langeweile",
+        "Stolze Eltern: vom Schüler zum Superstar"
+      ]
+    },
+    {
+      "firstWords": "In Firmen gibt es sie schon, jetzt wollen auch Schulen Entspannungskurse...",
+      "correctTitle": "Hilfen für überforderte Schüler",
+      "shortCorrectTitle": "Hilfen für überforderte Schüler",
+      "wrongTitles": [
+        "Neue Lerntechniken präsentiert",
+        "Tanzlehrer fordern moderne Tänze bekannter machen"
+      ]
+    },
+    {
+      "firstWords": "Tanja Kleist ist von modernem Tanz absolut begeistert...",
+      "correctTitle": "Freie Plätze im Tanzkurs",
+      "shortCorrectTitle": "Freie Plätze im Tanzkurs",
+      "wrongTitles": [
+        "Tanzlehrer fordern moderne Tänze bekannter machen",
+        "Stolze Eltern: vom Schüler zum Superstar"
+      ]
+    },
+    {
+      "firstWords": "Montags Tennis, dienstags Klavierunterricht, mittwochs Jazztanz...",
+      "correctTitle": "Keine Zeit für Langeweile",
+      "shortCorrectTitle": "Keine Zeit für Langeweile",
+      "wrongTitles": [
+        "Verändertes Freizeitverhalten von Jugendlichen",
+        "Höher, schneller, weiter: Suche nach dem Nervenkitzel"
+      ]
+    }
+  ]
+}
