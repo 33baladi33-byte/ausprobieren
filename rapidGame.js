@@ -414,37 +414,30 @@
     }
     
     function loadGameData(skill, examId) {
-        currentSkill = skill;
-        currentExamId = examId;
-        
-        let filePath;
-        // Hören 1,2,3 تستخدم مسار مجلد
-        if (skill === 'hoeren1' || skill === 'hoeren2' || skill === 'hoeren3') {
-            filePath = `data/games/${skill}/exam${examId}.json`;
-        } 
-        // Lesen 1,2,3 و Sprach 1,2 تستخدم مسار شرطة سفلية
-        else {
-            filePath = `data/games/${skill}_exam${examId}.json`;
-        }
-        
-        console.log(`📂 جاري تحميل: ${filePath}`);
-        
-        return fetch(filePath)
-            .then(response => {
-                if (!response.ok) {
-                    console.error(`❌ الملف غير موجود: ${filePath}`);
-                    throw new Error('الملف غير موجود');
-                }
-                return response.json();
-            })
-            .then(data => {
-                return processGameData(data, skill, filePath);
-            })
-            .catch(error => {
-                console.error(`❌ خطأ في تحميل الملف:`, error);
-                return false;
-            });
-    }
+    currentSkill = skill;
+    currentExamId = examId;
+    
+    // جميع المهارات تستخدم مسار مجلد
+    let filePath = `data/games/${skill}/exam${examId}.json`;
+    
+    console.log(`📂 جاري تحميل: ${filePath}`);
+    
+    return fetch(filePath)
+        .then(response => {
+            if (!response.ok) {
+                console.error(`❌ الملف غير موجود: ${filePath}`);
+                throw new Error('الملف غير موجود');
+            }
+            return response.json();
+        })
+        .then(data => {
+            return processGameData(data, skill, filePath);
+        })
+        .catch(error => {
+            console.error(`❌ خطأ في تحميل الملف:`, error);
+            return false;
+        });
+}
     
     function processGameData(data, skill, filePath) {
         console.log(`✅ تم تحميل الملف بنجاح: ${filePath}`, data);
