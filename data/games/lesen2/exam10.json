@@ -1,0 +1,22 @@
+{
+  "title": "Lesen Teil 2 - Exam 10: Gedächtnis (معدل)",
+  "skill": "lesen2",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "besteht überwiegend aus Senioren.", "correct": false },
+    { "id": 2, "text": "besteht sowohl aus jungen als auch alten Menschen.", "correct": true },
+    { "id": 3, "text": "besteht hauptsächlich aus berufstätigen Frauen.", "correct": false },
+    { "id": 4, "text": "weil sie sich von den vielen Informationen überfordert fühlen.", "correct": true },
+    { "id": 5, "text": "weil sie sich alles bewusst merken wollen.", "correct": false },
+    { "id": 6, "text": "weil sie das Gefühl haben, dass ihr Gedächtnis nachlässt.", "correct": false },
+    { "id": 7, "text": "vergisst die meisten Informationen innerhalb kürzester Zeit.", "correct": true },
+    { "id": 8, "text": "kann über einen Zeitraum von 20 Minuten alles behalten.", "correct": false },
+    { "id": 9, "text": "kann sich alle erdenklichen Geräusche und Gerüche merken.", "correct": false },
+    { "id": 10, "text": "intensive Gefühle merken.", "correct": true },
+    { "id": 11, "text": "an Daten und Begriffe erinnern.", "correct": false },
+    { "id": 12, "text": "als Kind etwas merken.", "correct": false },
+    { "id": 13, "text": "verwendet für ihre Aktenablage nur Tiersymbole.", "correct": false },
+    { "id": 14, "text": "verbindet Informationen mit Bildern.", "correct": true },
+    { "id": 15, "text": "lehrt andere, wie man sich 'Eselsbrücken' ausdenkt.", "correct": false }
+  ]
+}

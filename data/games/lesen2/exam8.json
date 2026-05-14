@@ -1,0 +1,22 @@
+{
+  "title": "Lesen Teil 2 - Exam 8: Kreditkarte",
+  "skill": "lesen2",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "gibt es für Jugendliche schon bei zahlreichen Geldinstituten.", "correct": true },
+    { "id": 2, "text": "können Jugendliche zusammen mit einer Handy-Prepaidkarte bekommen.", "correct": false },
+    { "id": 3, "text": "macht es möglich, mit dem Handy zu bezahlen.", "correct": false },
+    { "id": 4, "text": "da nur der Karteninhaber seine Karte aufladen darf.", "correct": false },
+    { "id": 5, "text": "denn die Eltern werden bei einer Aufladung benachrichtigt.", "correct": false },
+    { "id": 6, "text": "weil die Ausgaben durch das Guthaben begrenzt sind.", "correct": true },
+    { "id": 7, "text": "für Angestellte mit einem guten Gehalt.", "correct": false },
+    { "id": 8, "text": "für Jugendliche ohne festes Einkommen.", "correct": true },
+    { "id": 9, "text": "für Menschen mit einem eigenen Bankkonto.", "correct": false },
+    { "id": 10, "text": "kosten ähnlich viel wie klassische Kreditkarten.", "correct": true },
+    { "id": 11, "text": "verursachen keine unerwarteten Kosten.", "correct": false },
+    { "id": 12, "text": "werden als Zahlungsmittel ebenso akzeptiert wie klassische.", "correct": false },
+    { "id": 13, "text": "zahlen Erwachsene ab 21 Jahren eine höhere Jahresgebühr als Jugendliche.", "correct": true },
+    { "id": 14, "text": "zahlen Jugendliche unter 18 Jahren nur die Nutzungsgebühr am Geldautomaten.", "correct": false },
+    { "id": 15, "text": "zahlen Kunden zwischen 18 und 21 Jahren noch nichts.", "correct": false }
+  ]
+}

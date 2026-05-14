@@ -1,0 +1,22 @@
+{
+  "title": "Lesen Teil 2 - Exam 3: Der Ein-Personen-Karneval",
+  "skill": "lesen2",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "führt in Unna einen kleinen Karnevalsumzug durch.", "correct": true },
+    { "id": 2, "text": "ist in Unna seit 50 Jahren eine gefeierte Persönlichkeit.", "correct": false },
+    { "id": 3, "text": "veranstaltet den einzigen Karnevalsumzug der Welt.", "correct": false },
+    { "id": 4, "text": "fährt traditionell ein blondes Schulmädchen mit.", "correct": false },
+    { "id": 5, "text": "präsentiert er kleine Szenen, die auf den Alltag Bezug nehmen.", "correct": false },
+    { "id": 6, "text": "stellt er sozialkritische Themen auf witzige Art und Weise dar.", "correct": true },
+    { "id": 7, "text": "hatte zunächst wenig Verständnis für Helmut Scherer.", "correct": true },
+    { "id": 8, "text": "hielt anfangs Helmut Scherer für kühl und nüchtern.", "correct": false },
+    { "id": 9, "text": "verhinderte Helmut Scherers ersten Karnevalsumzug.", "correct": false },
+    { "id": 10, "text": "hat Helmut Scherer sogar Geld eingebracht.", "correct": false },
+    { "id": 11, "text": "ist heute eine gute Reklame für die Stadt Unna.", "correct": true },
+    { "id": 12, "text": "wird in Zukunft von einer ganzen Gruppe durchgeführt.", "correct": false },
+    { "id": 13, "text": "hat an Karnevalsumzügen in mehreren Städten teilgenommen.", "correct": true },
+    { "id": 14, "text": "hat inzwischen in ganz Deutschland Fan-Clubs.", "correct": false },
+    { "id": 15, "text": "sucht einen Nachfolger.", "correct": false }
+  ]
+}

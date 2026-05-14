@@ -1,0 +1,22 @@
+{
+  "title": "Lesen Teil 2 - Exam 2: Krista (معدل)",
+  "skill": "lesen2",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "dominieren als Rinderrasse die Milchviehwirtschaft.", "correct": true },
+    { "id": 2, "text": "sind für die Milchproduktion wenig geeignet.", "correct": false },
+    { "id": 3, "text": "wurden ursprünglich in Norddeutschland gezüchtet.", "correct": false },
+    { "id": 4, "text": "hat bereits einige Preise gewonnen.", "correct": true },
+    { "id": 5, "text": "war Siegerin bei einer Veranstaltung in Italien.", "correct": false },
+    { "id": 6, "text": "wurde als schönste Kuh Europas ausgezeichnet.", "correct": false },
+    { "id": 7, "text": "bekam Krista einen Nachwuchs.", "correct": false },
+    { "id": 8, "text": "wäre Krista fast gestorben.", "correct": false },
+    { "id": 9, "text": "wurde Krista ärztlich behandelt.", "correct": true },
+    { "id": 10, "text": "betreffen die Familie Seeger nicht.", "correct": false },
+    { "id": 11, "text": "sind eine Folge des Verbraucherverhaltens.", "correct": true },
+    { "id": 12, "text": "werden im Film ausführlich behandelt.", "correct": false },
+    { "id": 13, "text": "begeistert Kinobetreiber bislang nicht.", "correct": true },
+    { "id": 14, "text": "könnte die Kritiker nicht überzeugen.", "correct": false },
+    { "id": 15, "text": "wurde als beste Dokumentation ausgezeichnet.", "correct": false }
+  ]
+}

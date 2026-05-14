@@ -1,0 +1,22 @@
+{
+  "title": "Lesen Teil 2 - Exam 9: Gedächtnis",
+  "skill": "lesen2",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "besuchen ausschließlich Frauen, die im Büro arbeiten.", "correct": false },
+    { "id": 2, "text": "besuchen junge und alte Menschen gleichermaßen.", "correct": true },
+    { "id": 3, "text": "besuchen überwiegend alte Menschen.", "correct": false },
+    { "id": 4, "text": "weil sie das Gefühl haben, dass ihr Gedächtnis schlechter wird.", "correct": false },
+    { "id": 5, "text": "weil sie immer mehr vergessen.", "correct": false },
+    { "id": 6, "text": "weil sie sich von den vielen Informationen überfordert fühlen.", "correct": true },
+    { "id": 7, "text": "kann sich alle erdenklichen Geräusche und Gerüche merken.", "correct": false },
+    { "id": 8, "text": "kann über einen Zeitraum von 20 Minuten alles behalten.", "correct": false },
+    { "id": 9, "text": "vergisst die meisten Informationen innerhalb kürzester Zeit.", "correct": true },
+    { "id": 10, "text": "als Kind etwas merken.", "correct": false },
+    { "id": 11, "text": "an Daten und Begriffe erinnern.", "correct": false },
+    { "id": 12, "text": "emotional aufgeladene Situationen merken.", "correct": true },
+    { "id": 13, "text": "lehrt andere, wie man sich 'Eselsbrücken' ausdenkt.", "correct": false },
+    { "id": 14, "text": "verbindet Informationen mit Bildern.", "correct": true },
+    { "id": 15, "text": "verwendet für ihre Aktenablage nur Tiersymbole.", "correct": false }
+  ]
+}

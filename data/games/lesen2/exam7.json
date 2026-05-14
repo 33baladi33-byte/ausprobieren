@@ -1,0 +1,22 @@
+{
+  "title": "Lesen Teil 2 - Exam 7: ein leben für den Kaffee (معدل 2)",
+  "skill": "lesen2",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "existiert eine Vielzahl von Kaffeeröstereien.", "correct": false },
+    { "id": 2, "text": "gibt es nur noch wenige traditionelle Kaffeeröstereien.", "correct": true },
+    { "id": 3, "text": "handeln nur noch internationale Gesellschaften mit Kaffee.", "correct": false },
+    { "id": 4, "text": "sind die Anbaubedingungen der Kaffeebohnen im Vordergrund.", "correct": false },
+    { "id": 5, "text": "spielt der günstige Einkaufspreis eine wichtige Rolle.", "correct": false },
+    { "id": 6, "text": "stehen die Güte und Beschaffenheit des Kaffees im Vordergrund.", "correct": true },
+    { "id": 7, "text": "dürfen nach dem Rösten zwar zu dunkel sein, aber nicht zu hell.", "correct": false },
+    { "id": 8, "text": "können nach der Röstung ohne Geschmacksverlust lange Zeit gelagert werden.", "correct": false },
+    { "id": 9, "text": "müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten.", "correct": true },
+    { "id": 10, "text": "werden im Kontor nur an Stammkunden abgegeben.", "correct": false },
+    { "id": 11, "text": "werden in Handarbeit gemischt.", "correct": false },
+    { "id": 12, "text": "werden zusätzlich online vermarktet.", "correct": true },
+    { "id": 13, "text": "wollen die Kaffeerösterei zu Bildungszwecken zur Verfügung stellen.", "correct": true },
+    { "id": 14, "text": "wollen ein Museum über den Kaffeeanbau eröffnen.", "correct": false },
+    { "id": 15, "text": "wollen keinen Röstkaffee mehr verkaufen.", "correct": false }
+  ]
+}
