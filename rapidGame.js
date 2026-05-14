@@ -463,77 +463,43 @@
                 });
             }
         }
-        // ==================== نظام Lesen Teil 1,2,3 (Matching) ====================
-        else if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3') {
-            if (data.sharedOptions) {
-                // صيغة sharedOptions
-                const sharedOptions = data.sharedOptions;
-                originalQuestions = data.questions.map((q, idx) => {
-                    // استخراج العنوان الصحيح من sharedOptions (كامل بدون اختصار)
-                    const correctTitle = sharedOptions[q.correct];
-                    const cleanCorrectTitle = correctTitle.replace(/^[a-z]\.\s*/, '');
-                    
-                    // استخراج العناوين الخاطئة (كل العناوين ما عدا الصحيح)
-                    const wrongTitles = sharedOptions
-                        .filter((_, index) => index !== q.correct)
-                        .map(title => title.replace(/^[a-z]\.\s*/, ''));
-                    
-                    // اختيار عنوانين خاطئين عشوائيين
-                    const shuffledWrongs = [...wrongTitles];
-                    for (let i = shuffledWrongs.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [shuffledWrongs[i], shuffledWrongs[j]] = [shuffledWrongs[j], shuffledWrongs[i]];
-                    }
-                    const selectedWrongTitles = shuffledWrongs.slice(0, 2);
-                    
-                    // استخراج أول 7-9 كلمات من النص
-                    let firstWords = "";
-                    if (q.text) {
-                        // إزالة "Text X: " من بداية النص إذا وجدت
-                        let cleanText = q.text.replace(/^Text \d+:\s*/, '');
-                        const words = cleanText.split(' ');
-                        const wordCount = Math.min(8, words.length);
-                        firstWords = words.slice(0, wordCount).join(' ');
-                        if (words.length > wordCount) firstWords += '...';
-                    }
-                    
-                    console.log(`📝 السؤال ${idx + 1}: firstWords = "${firstWords}"`);
-                    console.log(`📝 السؤال ${idx + 1}: correctTitle = "${cleanCorrectTitle}"`);
-                    
-                    return {
-                        type: "lesen",
-                        id: idx,
-                        firstWords: firstWords,
-                        shortCorrectTitle: cleanCorrectTitle, // عنوان كامل
-                        shortWrongTitles: selectedWrongTitles, // عناوين كاملة
-                        correctTitle: cleanCorrectTitle
-                    };
-                });
-            } else {
-                // الصيغة العادية (بدون sharedOptions)
-                originalQuestions = data.questions.map((q, idx) => {
-                    let firstWords = "";
-                    if (q.text) {
-                        let cleanText = q.text.replace(/^Text \d+:\s*/, '');
-                        const words = cleanText.split(' ');
-                        const wordCount = Math.min(8, words.length);
-                        firstWords = words.slice(0, wordCount).join(' ');
-                        if (words.length > wordCount) firstWords += '...';
-                    }
-                    
-                    const wrongTitlesList = q.wrongTitles || [];
-                    const selectedWrongTitles = wrongTitlesList.slice(0, 2);
-                    
-                    return {
-                        type: "lesen",
-                        id: idx,
-                        firstWords: firstWords,
-                        shortCorrectTitle: q.correctTitle || "",
-                        shortWrongTitles: selectedWrongTitles,
-                        correctTitle: q.correctTitle || ""
-                    };
-                });
+// في processGameData لقسم Lesen
+else if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3') {
+    if (data.sharedOptions) {
+        const sharedOptions = data.sharedOptions;
+        originalQuestions = data.questions.map((q, idx) => {
+            const correctTitle = sharedOptions[q.correct];
+            const cleanCorrectTitle = correctTitle.replace(/^[a-z]\.\s*/, '');
+            const wrongTitles = sharedOptions
+                .filter((_, index) => index !== q.correct)
+                .map(title => title.replace(/^[a-z]\.\s*/, ''));
+            const shuffledWrongs = [...wrongTitles];
+            for (let i = shuffledWrongs.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledWrongs[i], shuffledWrongs[j]] = [shuffledWrongs[j], shuffledWrongs[i]];
             }
+            const selectedWrongTitles = shuffledWrongs.slice(0, 2);
+            
+            // استخدم firstWords من الملف إذا وجد، وإلا استخرج من النص
+            let firstWords = q.firstWords || "";
+            if (!firstWords && q.text) {
+                let cleanText = q.text.replace(/^Text \d+:\s*/, '');
+                const words = cleanText.split(' ');
+                firstWords = words.slice(0, 8).join(' ') + (words.length > 8 ? '...' : '');
+            }
+            
+            return {
+                type: "lesen",
+                id: idx,
+                firstWords: firstWords,
+                shortCorrectTitle: cleanCorrectTitle,
+                shortWrongTitles: selectedWrongTitles,
+                correctTitle: cleanCorrectTitle
+            };
+        });
+    }
+
+        
             console.log(`📝 تم تحميل ${originalQuestions.length} سؤال لـ ${skill.toUpperCase()}`);
         }
         // ==================== نظام Sprachbausteine Teil 1 و 2 ====================
