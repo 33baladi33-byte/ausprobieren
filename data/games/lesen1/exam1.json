@@ -4,17 +4,17 @@
   "type": "matching",
   "questions": [
     {
-      "firstWords": "Die Zahlen wirken auf dem ersten Blick dramatisch: 15 Prozent...",
+      "firstWords": "Die Zahlen wirken auf dem ersten Blick dramatisch: 15 Prozent der Kinder sind",
       "correctTitle": "Wenn aus Erdbeeren Tomaten werden",
       "shortCorrectTitle": "Wenn aus Erdbeeren Tomaten werden",
       "wrongTitles": [
         "Jugend forscht - auch auf dem Meer",
-        "Jugend engagiert sich für den Umweltschutz / schülerwettbewerb Umweltschutz (معدل)"
+        "Jugend engagiert sich für den Umweltschutz"
       ]
     },
     {
-      "firstWords": "Immer mehr Mädchen leiden an schweren Essstörungen - und das,...",
-      "correctTitle": "Von der Diät zur Krankheit / Mädchen abnehmen krankheiten (معدل)",
+      "firstWords": "Immer mehr Mädchen leiden an schweren Essstörungen - und das, obwohl Ärzte",
+      "correctTitle": "Von der Diät zur Krankheit",
       "shortCorrectTitle": "Von der Diät zur Krankheit",
       "wrongTitles": [
         "Kochen für Eltern und Kinder",
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "firstWords": "Energiesparlampen, umweltfreundliche Elektrogeräte, Bio-Nagellack...",
+      "firstWords": "Energiesparlampen, umweltfreundliche Elektrogeräte, Bio-Nagellack - sieht man sich",
       "correctTitle": "Jugend forscht - auch auf dem Meer",
       "shortCorrectTitle": "Jugend forscht - auch auf dem Meer",
       "wrongTitles": [
@@ -31,7 +31,7 @@
       ]
     },
     {
-      "firstWords": "13,5 Meter lang und leuchtend gelb - die 'Aldebaran'...",
+      "firstWords": "13,5 Meter lang und leuchtend gelb - die 'Aldebaran' zieht die Blicke",
       "correctTitle": "Schiffsreise für Jugendliche",
       "shortCorrectTitle": "Schiffsreise für Jugendliche",
       "wrongTitles": [
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "firstWords": "Mobbing ist kein neues Phänomen. Es ist auch in Schulen...",
+      "firstWords": "Mobbing ist kein neues Phänomen. Es ist auch in Schulen weitverbreitet.",
       "correctTitle": "Psychoterror an der Schule",
       "shortCorrectTitle": "Psychoterror an der Schule",
       "wrongTitles": [
