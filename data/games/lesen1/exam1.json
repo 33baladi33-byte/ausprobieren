@@ -4,7 +4,7 @@
   "type": "matching",
   "questions": [
     {
-      "firstWords": "Die Zahlen wirken auf dem ersten Blick dramatisch: 15 Prozent...",
+      "firstWords": "Die Zahlen wirken auf dem ersten Blick dramatisch:",
       "correctTitle": "Wenn aus Erdbeeren Tomaten werden",
       "shortCorrectTitle": "Wenn aus Erdbeeren Tomaten werden",
       "wrongTitles": [
@@ -13,7 +13,7 @@
       ]
     },
     {
-      "firstWords": "Immer mehr Mädchen leiden an schweren Essstörungen - und das,...",
+      "firstWords": "Immer mehr Mädchen leiden an schweren Essstörungen - und das,",
       "correctTitle": "Von der Diät zur Krankheit / Mädchen abnehmen krankheiten (معدل)",
       "shortCorrectTitle": "Von der Diät zur Krankheit",
       "wrongTitles": [
@@ -22,7 +22,7 @@
       ]
     },
     {
-      "firstWords": "Energiesparlampen, umweltfreundliche Elektrogeräte, Bio-Nagellack...",
+      "firstWords": "Energiesparlampen, umweltfreundliche Elektrogeräte, Bio-Nagellack -",
       "correctTitle": "Jugend forscht - auch auf dem Meer",
       "shortCorrectTitle": "Jugend forscht - auch auf dem Meer",
       "wrongTitles": [
@@ -31,7 +31,7 @@
       ]
     },
     {
-      "firstWords": "13,5 Meter lang und leuchtend gelb - die 'Aldebaran'...",
+      "firstWords": "13,5 Meter lang und leuchtend gelb - die 'Aldebaran' zieht",
       "correctTitle": "Schiffsreise für Jugendliche",
       "shortCorrectTitle": "Schiffsreise für Jugendliche",
       "wrongTitles": [
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "firstWords": "Mobbing ist kein neues Phänomen. Es ist auch in Schulen...",
+      "firstWords": "Mobbing ist kein neues Phänomen. Es ist auch in Schulen",
       "correctTitle": "Psychoterror an der Schule",
       "shortCorrectTitle": "Psychoterror an der Schule",
       "wrongTitles": [
