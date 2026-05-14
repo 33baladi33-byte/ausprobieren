@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Internet prüfen",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Sie können im Internet prüfen, ob Ihre aktuelle Bestellung schon unterwegs ist.", "correct": true },
+    { "id": 2, "text": "Man kann für die Nachtveranstaltung noch Karten im Internet kaufen.", "correct": false },
+    { "id": 3, "text": "Die Teilnahme an der Party im Burghof kostet nichts.", "correct": false },
+    { "id": 4, "text": "In Bamberg kann man in der nächsten Woche besonders günstig Mitglied in einem Sportverein werden.", "correct": false },
+    { "id": 5, "text": "Wer ein wichtiges Anliegen hat, soll eine andere Nummer wählen.", "correct": true }
+  ]
+}

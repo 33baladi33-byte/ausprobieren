@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Im Süden Deutschlands Schnee",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Morgen muss man im Süden Deutschlands mit Schnee rechnen.", "correct": true },
+    { "id": 2, "text": "Die zwei Jungen sind von zu Hause weggelaufen.", "correct": false },
+    { "id": 3, "text": "Am Samstag können Sie einen Mitarbeiter der Firma anrufen.", "correct": false },
+    { "id": 4, "text": "Wegen einer Demonstration ist es verboten, in die Nürnberger Altstadt zu fahren.", "correct": false },
+    { "id": 5, "text": "Die historische elektrische Eisenbahn wird im Dezember wie gewohnt fahren.", "correct": true }
+  ]
+}

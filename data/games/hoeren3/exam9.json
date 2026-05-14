@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Ehrenamts (Mittel)",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Man kann am 'Tag des Ehrenamts' probeweise mithelfen.", "correct": true },
+    { "id": 2, "text": "Die Skateboard-Vorführung fällt dieses Mal aus.", "correct": false },
+    { "id": 3, "text": "Vor Passwort-Programmen wird gewarnt.", "correct": false },
+    { "id": 4, "text": "Es wird empfohlen, mit dem Fahrrad zum Volkspark zu fahren.", "correct": false },
+    { "id": 5, "text": "Wenn man das Training ausprobieren möchte, sollte man vorher Bescheid sagen.", "correct": true }
+  ]
+}

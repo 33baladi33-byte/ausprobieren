@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Demonstration",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Demonstration findet in Frankfurt vor der Alten Oper statt.", "correct": false },
+    { "id": 2, "text": "In der kommenden Saison wird eine Symphonie von Mahler aufgeführt.", "correct": true },
+    { "id": 3, "text": "Die Weltmeisterschaften im Eiskunstlauf finden in der Dortmunder Helmut-Körnig-Halle statt.", "correct": false },
+    { "id": 4, "text": "Die Autobahn A980 ist mit Schneeketten befahrbar.", "correct": false },
+    { "id": 5, "text": "Für die Vermittlung einer Mitfahrgelegenheit per E-Mail erhebt 'fahre mit' keine Gebühren.", "correct": true }
+  ]
+}
