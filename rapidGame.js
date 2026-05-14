@@ -589,7 +589,7 @@ function loadGameData(skill, examId) {
     return true;
 }
     
-    function startGame(skill, examId) {
+    function startGame(skill, examId) 
         if (gameStarted) return;
         currentSkill = skill;
         currentExamId = examId;
