@@ -209,9 +209,76 @@
         display: none;
     }
 
+    /* تنسيقات الوضع الليلي */
+    .darkmode-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 20px 0 15px 0;
+    }
+
+    .darkmode-control {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .darkmode-label {
+        font-size: 0.95rem;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .darkmode-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+    }
+
+    .darkmode-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .darkmode-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #3a3a4a;
+        transition: 0.3s;
+        border-radius: 24px;
+    }
+
+    .darkmode-slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+    }
+
+    input:checked + .darkmode-slider {
+        background-color: #5dade2;
+    }
+
+    input:checked + .darkmode-slider:before {
+        transform: translateX(26px);
+    }
+
     @media (max-width: 768px) {
         .tips-mini-card {
-            width: 280px;
+            width: 310px;
             right: -50px;
             max-height: 300px;
         }
@@ -293,6 +360,16 @@
                 <button id="increaseFontBtn" class="font-size-btn" title="تكبير">A+</button>
             </div>
             <button id="resetFontBtn" class="reset-font-btn" title="إعادة الحجم الطبيعي">↺ إعادة الضبط</button>
+            
+            <!-- قسم الوضع الليلي -->
+            <div class="darkmode-divider"></div>
+            <div class="darkmode-control">
+                <span class="darkmode-label">🌙 الوضع الليلي</span>
+                <label class="darkmode-switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="darkmode-slider"></span>
+                </label>
+            </div>
         </div>
     </div>
 </div>
@@ -424,7 +501,7 @@
     <div class="full-tips-section">
         <h3>💡 كفاش؟</h3>
         <div class="full-content">
-            <p>• راجع الامتحانات اللي بغيتي باستخدام البومودورو، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
+            <p>• راجع الامتحانات اللي بغيتي بنضام البومودورو، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
             <p>• من بعد ما تسالي كلشي دكشي اللي قديتي تراجعو، سير بدل الجو شوية, دير اللي بيتي المهم نسى وطلق عقلك يستراح (ما بين 1 ساعة و 3 ساعات)</p>
             <p>• من بعد عاود دخل للامتحانات اللي راجعتي و لعب فيهم لكل امتحان لعب وعاود مبين 3 ل5 المرات</p>
             <p>• غدا تاني نفس الحاجة و لاكن حاول تلعب فشي امتحانات درتيهم لبارح هدشي مهيخدش منك الوقت.</p>
@@ -506,6 +583,32 @@
 <script src="rapidGame.js"></script>
 
 <script>
+// ============================================
+// الوضع الليلي (Dark Mode)
+// ============================================
+(function() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    
+    // التحقق من وجود وضع ليلي محفوظ
+    const savedDarkMode = localStorage.getItem('darkMode');
+    if (savedDarkMode === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if (darkModeToggle) darkModeToggle.checked = true;
+    }
+    
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    }
+})();
+
 // ============================================
 // بطاقة كفاش المنبثقة - عند الضغط على الزر
 // ============================================
