@@ -1,0 +1,240 @@
+/* tipsModal.css - نافذة نصائح الدراسة */
+
+/* زر كفاش */
+.tips-trigger-btn {
+    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+    border: 1px solid rgba(100, 150, 200, 0.3);
+    border-radius: 30px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    margin-left: 10px;
+}
+
+.tips-trigger-btn:hover {
+    background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
+    border-color: rgba(100, 150, 200, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* النافذة المنبثقة */
+.tips-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.tips-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tips-modal-container {
+    background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+    border-radius: 28px;
+    max-width: 500px;
+    width: 90%;
+    margin: 20px;
+    border: 1px solid rgba(100, 150, 200, 0.25);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.tips-modal-overlay.active .tips-modal-container {
+    transform: scale(1);
+}
+
+/* رأس النافذة */
+.tips-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tips-modal-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tips-modal-header h3 span {
+    font-size: 1.8rem;
+}
+
+.close-tips-modal {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-tips-modal:hover {
+    background: rgba(255, 100, 100, 0.3);
+    transform: rotate(90deg);
+}
+
+/* محتوى النافذة */
+.tips-modal-body {
+    padding: 24px;
+}
+
+/* البطاقة الترحيبية */
+.tips-welcome-card {
+    background: linear-gradient(135deg, rgba(44, 62, 102, 0.3), rgba(30, 40, 60, 0.2));
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 24px;
+    text-align: center;
+    border: 1px solid rgba(100, 150, 200, 0.2);
+}
+
+.tips-welcome-card .welcome-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+}
+
+.tips-welcome-card h4 {
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin: 0 0 8px 0;
+}
+
+.tips-welcome-card p {
+    color: #a0a0a0;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* قائمة الخطوات */
+.tips-steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.tips-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.step-number {
+    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #5dade2;
+    border: 1px solid rgba(93, 173, 226, 0.3);
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h4 {
+    color: #ffffff;
+    margin: 0 0 6px 0;
+    font-size: 1rem;
+}
+
+.step-content p {
+    color: #b0b0b0;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.step-content .step-highlight {
+    color: #5dade2;
+    font-weight: 500;
+}
+
+/* التذييل */
+.tips-modal-footer {
+    background: rgba(44, 62, 102, 0.2);
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0 0 28px 28px;
+    text-align: center;
+}
+
+.tips-modal-footer .motto {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #5dade2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tips-modal-footer .motto span {
+    font-size: 1.2rem;
+}
+
+/* أيقونة زمنية */
+.time-icon, .coffee-icon, .brain-icon, .repeat-icon {
+    margin-right: 6px;
+}
+
+/* للشاشات الصغيرة */
+@media (max-width: 550px) {
+    .tips-modal-container {
+        width: 95%;
+    }
+    
+    .tips-step {
+        gap: 12px;
+    }
+    
+    .step-number {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .tips-modal-body {
+        padding: 18px;
+    }
+}
