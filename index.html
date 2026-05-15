@@ -7,293 +7,6 @@
 <link rel="stylesheet" href="style.css">
 <link rel="icon" type="image/webp" href="images/favicon.webp">
 <link rel="shortcut icon" type="image/webp" href="images/favicon.webp">
-<style>
-    /* إضافات CSS للعناصر الجديدة في الصفحة الرئيسية */
-    .hero-features-list {
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        padding: 18px 24px;
-        margin: 20px 0 18px 0;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        text-align: right;
-    }
-    
-    .hero-features-list div {
-        font-size: 0.95rem;
-        color: #e0e0e0;
-        margin-bottom: 12px;
-        line-height: 1.5;
-        font-weight: 400;
-    }
-    
-    .hero-features-list div:last-child {
-        margin-bottom: 0;
-    }
-    
-    .final-desc {
-        font-size: 1rem;
-        font-weight: 500;
-        color: #ffffff;
-        background: linear-gradient(135deg, rgba(44, 62, 102, 0.6), rgba(52, 73, 94, 0.4));
-        padding: 12px 18px;
-        border-radius: 16px;
-        display: inline-block;
-        margin-top: 5px;
-    }
-    
-    @media (max-width: 768px) {
-        .hero-features-list {
-            padding: 14px 18px;
-        }
-        .hero-features-list div {
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-        }
-        .final-desc {
-            font-size: 0.9rem;
-            padding: 10px 14px;
-        }
-    }
-
-    /* تنسيق زر كفاش */
-    .tips-trigger-btn {
-        background: linear-gradient(135deg, #2c3e66, #1a2a4a);
-        border: 1px solid rgba(100, 150, 200, 0.3);
-        border-radius: 30px;
-        padding: 8px 16px;
-        font-size: 14px;
-        font-weight: 500;
-        color: #ffffff;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        transition: all 0.3s ease;
-        font-family: inherit;
-        margin-left: 10px;
-        position: relative;
-    }
-
-    .tips-trigger-btn:hover {
-        background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
-        border-color: rgba(100, 150, 200, 0.6);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    /* البطاقة الصغيرة المنبثقة */
-    .tips-mini-card {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        margin-top: 12px;
-        background: #1a1a2e;
-        border-radius: 16px;
-        width: 370px;
-        border: 1px solid rgba(100, 150, 200, 0.3);
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-        z-index: 1000;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: all 0.2s ease;
-        display: flex;
-        flex-direction: column;
-        max-height: 350px;
-    }
-
-    .tips-trigger-btn.active .tips-mini-card {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    .tips-mini-card::before {
-        content: '';
-        position: absolute;
-        top: -8px;
-        right: 20px;
-        width: 0;
-        height: 0;
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-bottom: 8px solid #1a1a2e;
-    }
-
-    .tips-mini-card .mini-title {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #5dade2;
-        margin: 0;
-        padding: 12px 16px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        flex-shrink: 0;
-    }
-
-    .tips-mini-card .mini-content {
-        font-size: 0.85rem;
-        color: #d0d0d0;
-        line-height: 1.6;
-        padding: 12px 16px;
-        overflow-y: auto;
-        max-height: 250px;
-        flex: 1;
-    }
-
-    .tips-mini-card .mini-content p {
-        margin: 0 0 10px 0;
-    }
-
-    .tips-mini-card .mini-content p:last-child {
-        margin-bottom: 0;
-    }
-
-    /* تخصيص شريط التمرير */
-    .tips-mini-card .mini-content::-webkit-scrollbar {
-        width: 4px;
-    }
-
-    .tips-mini-card .mini-content::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 4px;
-    }
-
-    .tips-mini-card .mini-content::-webkit-scrollbar-thumb {
-        background: #5dade2;
-        border-radius: 4px;
-    }
-
-    /* المحتوى الكامل في الأسفل */
-    .full-tips-section {
-        background: linear-gradient(135deg, #0f0f1a, #0a0a12);
-        border-radius: 24px;
-        margin: 40px 20px 30px 20px;
-        padding: 30px;
-        border: 1px solid rgba(100, 150, 200, 0.2);
-    }
-
-    .full-tips-section h3 {
-        color: #ffffff;
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .full-tips-section .full-content {
-        color: #c0c0c0;
-        line-height: 1.8;
-        font-size: 1rem;
-    }
-
-    .full-tips-section .full-content p {
-        margin: 15px 0;
-    }
-
-    .full-tips-section .full-content .motto {
-        margin-top: 20px;
-        padding-top: 15px;
-        border-top: 1px solid rgba(93, 173, 226, 0.3);
-        color: #5dade2;
-        font-weight: 500;
-        text-align: center;
-    }
-
-    /* إخفاء زر كفاش في الصفحة الرئيسية */
-    .home .tips-trigger-btn {
-        display: none;
-    }
-
-    /* تنسيقات الوضع الليلي */
-    .darkmode-divider {
-        height: 1px;
-        background: rgba(255, 255, 255, 0.1);
-        margin: 20px 0 15px 0;
-    }
-
-    .darkmode-control {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 0;
-    }
-
-    .darkmode-label {
-        font-size: 0.95rem;
-        color: #ffffff;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .darkmode-switch {
-        position: relative;
-        display: inline-block;
-        width: 50px;
-        height: 24px;
-    }
-
-    .darkmode-switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .darkmode-slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #3a3a4a;
-        transition: 0.3s;
-        border-radius: 24px;
-    }
-
-    .darkmode-slider:before {
-        position: absolute;
-        content: "";
-        height: 18px;
-        width: 18px;
-        left: 3px;
-        bottom: 3px;
-        background-color: white;
-        transition: 0.3s;
-        border-radius: 50%;
-    }
-
-    input:checked + .darkmode-slider {
-        background-color: #5dade2;
-    }
-
-    input:checked + .darkmode-slider:before {
-        transform: translateX(26px);
-    }
-
-    @media (max-width: 768px) {
-        .tips-mini-card {
-            width: 310px;
-            right: -50px;
-            max-height: 300px;
-        }
-        .tips-mini-card::before {
-            right: 60px;
-        }
-        .tips-mini-card .mini-content {
-            max-height: 200px;
-        }
-        .full-tips-section {
-            margin: 30px 15px 20px 15px;
-            padding: 20px;
-        }
-    }
-</style>
 </head>
 <body>
 
@@ -306,23 +19,6 @@
     </div>
     
     <div class="right-side">
-        <!-- زر كفاش مع بطاقته الصغيرة -->
-        <div class="tips-trigger-btn" id="tipsTriggerBtn">
-            💡 كفاش؟
-            <div class="tips-mini-card" id="tipsMiniCard">
-                <div class="mini-title">
-                    💡 كفاش؟
-                </div>
-                <div class="mini-content">
-                    <p>• راجع الامتحانات اللي بغيتي باستخدام البومودورو، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
-                    <p>• من بعد ما تسالي كلشي دكشي اللي قديتي تراجعو، سير بدل الجو شوية, دير اللي بغيتي المهم نسى وطلق عقلك يستراح (ما بين 1 ساعة و 3 ساعات)</p>
-                    <p>• من بعد عاود دخل للامتحانات اللي راجعتي و لعب فيهم لكل امتحان لعب وعاود مبين 3 ل5 المرات</p>
-                    <p>• غدا تاني نفس الحاجة و لاكن حاول تلعب فشي امتحانات درتيهم لبارح هدشي مهيخدش منك الوقت.</p>
-                    <p style="margin-top: 8px; color: #5dade2;">🫡 راك ناجح</p>
-                </div>
-            </div>
-        </div>
-        
         <div class="notification-container">
             <button id="notificationBell" class="notification-bell">
                 🔔
@@ -360,16 +56,6 @@
                 <button id="increaseFontBtn" class="font-size-btn" title="تكبير">A+</button>
             </div>
             <button id="resetFontBtn" class="reset-font-btn" title="إعادة الحجم الطبيعي">↺ إعادة الضبط</button>
-            
-            <!-- قسم الوضع الليلي -->
-            <div class="darkmode-divider"></div>
-            <div class="darkmode-control">
-                <span class="darkmode-label">🌙 الوضع الليلي</span>
-                <label class="darkmode-switch">
-                    <input type="checkbox" id="darkModeToggle">
-                    <span class="darkmode-slider"></span>
-                </label>
-            </div>
         </div>
     </div>
 </div>
@@ -404,30 +90,25 @@
                 </div>
             </div>
             <div class="hero-content-side">
-                <h1 class="hero-title">
-                    فهم أسرع، حفظ أسهل، <span class="blue-text">نتائج أفضل</span>
-                </h1>
+    <h1 class="hero-title">
+        فهم أسرع، حفظ أسهل، <span class="blue-text">نتائج أفضل</span>
+    </h1>
 
-                <div class="hero-description-wrapper">
-                    <p class="hero-desc">
+    <div class="hero-description-wrapper">
+        <p class="hero-desc">
                         مرحبا بيك <span class="blue-text">صاحبي</span>  هنا غادي تلقى جميع امتحانات بي 2 مع التصحيح الكامل والإجابات الصحيحة، باش تتدرّب بطريقة واضحة ومنظمة.
-                        <br><br>
-                        ومشي غير هدشي !! كينين مميزات مغديش تلاقاهى فبلاصة اخرى:
-                    </p>
-                    <div class="hero-features-list">
-                        <div>• بطاقات ذكية كتسهّل الحفظ والتذكّر</div>
-                        <div>• لعبة ردّ فعل سريعة باش تعقل على الأجوبة بسهولة</div>
-                        <div>• تدريب عملي على شكل الامتحان الحقيقي</div>
-                        <div>• مساعدة يومية عبر الواتساب</div>
-                    </div>
-                    <p class="hero-desc final-desc">
-                        كل هاد الشي باش تتعلّم بسرعة وبطريقة ذكية 🚀
-                    </p>
+
+ومشي غير هدشي !! كينين مميزات مغديش تلاقاهى فبلاصة اخرى:
+• بطاقات ذكية كتسهّل الحفظ والتذكّر
+• لعبة ردّ فعل سريعة باش تعقل على الأجوبة بسهولة
+• تدريب عملي على شكل الامتحان الحقيقي
+• مساعدة يومية عبر الواتساب
+                        
+كل هاد الشي باش تتعلّم بسرعة وبطريقة ذكية 🚀
                     <p class="hero-desc second-desc">
-                        الاجوبة صحيحة. <span class="blue-text">100%</span>
+                      الاجوبة صحيحة. <span class="blue-text">100%</span>
                     </p>
                 </div>
-                
                 <div class="info-glass-card">
                     <div class="info-icon">💡</div>
                     <div class="info-text">الأغلبية كيسقطو حيت عندهم مشكل فالحفظ وما كايعرفوش يخدموا بطريقة صحيحة.</div>
@@ -496,18 +177,6 @@
             </div>
         </div>
     </section>
-
-    <!-- المحتوى الكامل في الأسفل -->
-    <div class="full-tips-section">
-        <h3>💡 كفاش؟</h3>
-        <div class="full-content">
-            <p>• راجع الامتحانات اللي بغيتي بنضام البومودورو، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
-            <p>• من بعد ما تسالي كلشي دكشي اللي قديتي تراجعو، سير بدل الجو شوية, دير اللي بيتي المهم نسى وطلق عقلك يستراح (ما بين 1 ساعة و 3 ساعات)</p>
-            <p>• من بعد عاود دخل للامتحانات اللي راجعتي و لعب فيهم لكل امتحان لعب وعاود مبين 3 ل5 المرات</p>
-            <p>• غدا تاني نفس الحاجة و لاكن حاول تلعب فشي امتحانات درتيهم لبارح هدشي مهيخدش منك الوقت.</p>
-            <div class="motto">🫡 شعارنا راك ناجح</div>
-        </div>
-    </div>
 </div>
 
 <div id="list" class="page">
@@ -583,85 +252,6 @@
 <script src="rapidGame.js"></script>
 
 <script>
-// ============================================
-// الوضع الليلي (Dark Mode)
-// ============================================
-(function() {
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    
-    // التحقق من وجود وضع ليلي محفوظ
-    const savedDarkMode = localStorage.getItem('darkMode');
-    if (savedDarkMode === 'enabled') {
-        document.body.classList.add('dark-mode');
-        if (darkModeToggle) darkModeToggle.checked = true;
-    }
-    
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('change', function() {
-            if (this.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-    }
-})();
-
-// ============================================
-// بطاقة كفاش المنبثقة - عند الضغط على الزر
-// ============================================
-(function() {
-    const tipsBtn = document.getElementById('tipsTriggerBtn');
-    
-    if (tipsBtn) {
-        tipsBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            this.classList.toggle('active');
-        });
-        
-        // إغلاق البطاقة عند الضغط في أي مكان آخر
-        document.addEventListener('click', function(e) {
-            if (!tipsBtn.contains(e.target)) {
-                tipsBtn.classList.remove('active');
-            }
-        });
-    }
-})();
-
-// ============================================
-// إظهار/إخفاء زر كفاش حسب الصفحة
-// ============================================
-(function() {
-    const tipsBtn = document.getElementById('tipsTriggerBtn');
-    const homePage = document.getElementById('home');
-    const listPage = document.getElementById('list');
-    const examPage = document.getElementById('exam');
-    
-    function checkAndToggleTipsButton() {
-        if (!tipsBtn) return;
-        
-        if (homePage && homePage.classList.contains('active')) {
-            tipsBtn.style.display = 'none';
-        } else if ((listPage && listPage.classList.contains('active')) || (examPage && examPage.classList.contains('active'))) {
-            tipsBtn.style.display = 'flex';
-        } else {
-            tipsBtn.style.display = 'none';
-        }
-    }
-    
-    const observer = new MutationObserver(function() {
-        checkAndToggleTipsButton();
-    });
-    
-    if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
-    if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
-    if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
-    
-    checkAndToggleTipsButton();
-})();
-
 // ============================================
 // لعبة التحدي السريع - كود مباشر
 // ============================================
@@ -937,13 +527,13 @@
         reviewsModal.classList.remove('active');
     }
     
-    if (closeReviewsModal) closeReviewsModal.addEventListener('click', closeReviewsModalFunc);
-    if (modalPrevBtn) modalPrevBtn.addEventListener('click', () => {
+    closeReviewsModal.addEventListener('click', closeReviewsModalFunc);
+    modalPrevBtn.addEventListener('click', () => {
         if (currentModalIndex > 0) {
             scrollToImage(currentModalIndex - 1);
         }
     });
-    if (modalNextBtn) modalNextBtn.addEventListener('click', () => {
+    modalNextBtn.addEventListener('click', () => {
         if (currentModalIndex < reviewImages.length - 1) {
             scrollToImage(currentModalIndex + 1);
         }
@@ -954,14 +544,12 @@
         modalContainerElem.addEventListener('scroll', updateModalCounter);
     }
     
-    if (reviewsModal) {
-        reviewsModal.addEventListener('click', (e) => {
-            if (e.target === reviewsModal) closeReviewsModalFunc();
-        });
-    }
+    reviewsModal.addEventListener('click', (e) => {
+        if (e.target === reviewsModal) closeReviewsModalFunc();
+    });
     
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && reviewsModal && reviewsModal.classList.contains('active')) {
+        if (e.key === 'Escape' && reviewsModal.classList.contains('active')) {
             closeReviewsModalFunc();
         }
     });
@@ -1027,15 +615,13 @@
     observer.observe(document.body, { childList: true, subtree: true });
     bindSlideClickEvents();
     
-    if (modalClose) modalClose.addEventListener('click', closeImageModal);
-    if (modalNext) modalNext.addEventListener('click', nextImageModal);
-    if (modalPrev) modalPrev.addEventListener('click', prevImageModal);
+    modalClose.addEventListener('click', closeImageModal);
+    modalNext.addEventListener('click', nextImageModal);
+    modalPrev.addEventListener('click', prevImageModal);
     
-    if (modal) {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeImageModal();
-        });
-    }
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeImageModal();
+    });
     
     document.addEventListener('keydown', (e) => {
         if (!modal.classList.contains('active')) return;
@@ -1047,9 +633,7 @@
     const startBtn = document.getElementById('startBtn');
     if(startBtn) {
         startBtn.addEventListener('click', function() {
-            if (typeof goList === 'function') {
-                goList();
-            }
+            goList();
             setTimeout(() => {
                 const hoerenTeil1 = document.querySelector('.teile-row .item:first-child');
                 if(hoerenTeil1 && hoerenTeil1.click) {
