@@ -118,6 +118,7 @@
         border-radius: 4px;
     }
 
+    /* إخفاء زر كفاش في الصفحة الرئيسية */
     .home .tips-trigger-btn {
         display: none;
     }
@@ -189,7 +190,7 @@
         transform: translateX(26px);
     }
 
-    /* الوضع الليلي - الألوان */
+    /* الوضع الليلي - تغيير ألوان أزرار الأجزاء (Teile) */
     body.dark-mode {
         background: #0a0a0f;
     }
@@ -209,6 +210,26 @@
         background: rgba(0, 0, 0, 0.4);
     }
 
+    /* تنسيق أزرار الأجزاء في الوضع الليلي */
+    body.dark-mode .teile-row .item {
+        background: #2a2a3a !important;
+        border-color: rgba(255, 255, 255, 0.1);
+        color: #c0c0c0;
+    }
+
+    body.dark-mode .teile-row .item h4 {
+        color: #c0c0c0;
+    }
+
+    body.dark-mode .teile-row .item p {
+        color: #a0a0a0;
+    }
+
+    body.dark-mode .teile-row .item:hover {
+        background: #3a3a4a !important;
+    }
+
+    /* باقي تنسيقات الوضع الليلي */
     body.dark-mode .full-tips-section {
         background: #0f0f1a;
         border-color: rgba(100, 150, 200, 0.2);
@@ -220,20 +241,6 @@
 
     body.dark-mode .tips-mini-card::before {
         border-bottom-color: #0f0f1a;
-    }
-
-    body.dark-mode .teile-row .item {
-        background: #0f0f1a;
-        border-color: rgba(255, 255, 255, 0.1);
-        color: #e0e0e0;
-    }
-
-    body.dark-mode .teile-row .item h4 {
-        color: #e0e0e0;
-    }
-
-    body.dark-mode .teile-row .item p {
-        color: #888;
     }
 
     body.dark-mode .exam-box {
@@ -256,15 +263,6 @@
 
     body.dark-mode .item:hover .exam-title {
         color: #5dade2;
-    }
-
-    body.dark-mode .teil-item {
-        background: #0f0f1a;
-        color: #e0e0e0;
-    }
-
-    body.dark-mode .teil-item:hover {
-        background: #1a1a2e;
     }
 
     body.dark-mode .features-section {
@@ -338,7 +336,7 @@
     </div>
     
     <div class="right-side">
-        <!-- زر كفاش -->
+        <!-- زر كفاش مع بطاقته الصغيرة -->
         <div class="tips-trigger-btn" id="tipsTriggerBtn">
             💡 كفاش؟
             <div class="tips-mini-card" id="tipsMiniCard">
