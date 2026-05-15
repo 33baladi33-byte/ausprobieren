@@ -1893,3 +1893,116 @@ body:has(#exam.active) .top-bar {
 .lock-icon-mini {
     display: none;
 }
+/* ======================================== */
+/* الوضع الليلي (Dark Mode) */
+/* ======================================== */
+
+.darkmode-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 20px 0 15px 0;
+}
+
+.darkmode-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.darkmode-label {
+    font-size: 0.95rem;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* مفتاح التبديل */
+.darkmode-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.darkmode-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.darkmode-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #3a3a4a;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.darkmode-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .darkmode-slider {
+    background-color: #5dade2;
+}
+
+input:checked + .darkmode-slider:before {
+    transform: translateX(26px);
+}
+
+/* الوضع الليلي - الألوان */
+body.dark-mode {
+    background: #0a0a0f;
+}
+
+body.dark-mode .top-bar {
+    background: #0f0f1a;
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .hero-desc,
+body.dark-mode .features-description,
+body.dark-mode .info-text {
+    color: #d0d0d0;
+}
+
+body.dark-mode .hero-features-list {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .full-tips-section {
+    background: #0f0f1a;
+}
+
+body.dark-mode .tips-mini-card {
+    background: #0f0f1a;
+}
+
+body.dark-mode .tips-mini-card::before {
+    border-bottom-color: #0f0f1a;
+}
+
+body.dark-mode .teile-row .item {
+    background: #0f0f1a;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .exam-box {
+    background: #0f0f1a;
+}
+
+/* باقي العناصر يمكن إضافتها حسب الحاجة */
