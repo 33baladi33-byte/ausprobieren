@@ -1571,7 +1571,35 @@ body:has(#exam.active) .top-bar {
         font-size: 13px;
     }
 }
-
+/* ========================================
+       إضافة: تنسيق عناوين الأجزاء (Teile) في الهواتف
+       ======================================== */
+    .teile-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 5px;
+    }
+    
+    .teile-row .item {
+        padding: 8px 6px;
+        margin: 0;
+        text-align: center;
+    }
+    
+    .teile-row .item h4 {
+        font-size: 0.7rem !important;
+        margin-bottom: 3px;
+        white-space: nowrap;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .teile-row .item p {
+        font-size: 0.55rem !important;
+        margin: 0;
+    }
+}
 /* للشاشات الكبيرة (الحاسوب) */
 @media (min-width: 769px) {
     .premium-badge {
@@ -1893,9 +1921,10 @@ body:has(#exam.active) .top-bar {
 .lock-icon-mini {
     display: none;
 }
-/* ======================================== */
-/* الوضع الليلي (Dark Mode) */
-/* ======================================== */
+
+/* ========================================
+   الوضع الليلي (Dark Mode)
+   ======================================== */
 
 .darkmode-divider {
     height: 1px;
@@ -1996,13 +2025,76 @@ body.dark-mode .tips-mini-card::before {
     border-bottom-color: #0f0f1a;
 }
 
+/* تنسيق عناوين الأجزاء في الوضع الليلي */
 body.dark-mode .teile-row .item {
     background: #0f0f1a;
     border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .teile-row .item h4 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .teile-row .item p {
+    color: #888;
 }
 
 body.dark-mode .exam-box {
     background: #0f0f1a;
 }
 
-/* باقي العناصر يمكن إضافتها حسب الحاجة */
+body.dark-mode .item {
+    background: #0f0f1a;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+}
+
+body.dark-mode .item:hover {
+    background: #1a1a2e;
+}
+
+body.dark-mode .exam-title {
+    color: #e0e0e0;
+}
+
+body.dark-mode .item:hover .exam-title {
+    color: #5dade2;
+}
+
+body.dark-mode .teil-item {
+    background: #0f0f1a;
+    color: #e0e0e0;
+}
+
+body.dark-mode .teil-item:hover {
+    background: #1a1a2e;
+}
+
+body.dark-mode .features-section {
+    background: linear-gradient(135deg, #0a0a0f, #0f0f1a);
+}
+
+body.dark-mode .features-title {
+    color: #ffffff;
+}
+
+body.dark-mode .settings-modal-content {
+    background: #0f0f1a;
+}
+
+body.dark-mode .login-popup-content {
+    background: #0f0f1a;
+}
+
+body.dark-mode .profile-dropdown {
+    background: #0f0f1a;
+}
+
+body.dark-mode .notification-dropdown {
+    background: #0f0f1a;
+}
+
+body.dark-mode .reviews-modal-content {
+    background: rgba(15, 23, 42, 0.95);
+}
+
