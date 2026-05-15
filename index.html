@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zertiva B2 - أدكى منصة للتحضير لامتحان Telc B2</title>
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="tipsModal.css">
 <link rel="icon" type="image/webp" href="images/favicon.webp">
 <link rel="shortcut icon" type="image/webp" href="images/favicon.webp">
 <style>
@@ -73,6 +72,7 @@
         transition: all 0.3s ease;
         font-family: inherit;
         margin-left: 10px;
+        position: relative;
     }
 
     .tips-trigger-btn:hover {
@@ -82,199 +82,122 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
-    /* النافذة المنبثقة */
-    .tips-modal-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.75);
-        backdrop-filter: blur(8px);
-        z-index: 10000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    /* البطاقة الصغيرة المنبثقة */
+    .tips-mini-card {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 12px;
+        background: #1a1a2e;
+        border-radius: 16px;
+        width: 320px;
+        padding: 16px;
+        border: 1px solid rgba(100, 150, 200, 0.3);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
         opacity: 0;
         visibility: hidden;
-        transition: all 0.3s ease;
+        transform: translateY(-10px);
+        transition: all 0.2s ease;
     }
 
-    .tips-modal-overlay.active {
+    .tips-trigger-btn.active .tips-mini-card {
         opacity: 1;
         visibility: visible;
+        transform: translateY(0);
     }
 
-    .tips-modal-container {
-        background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
-        border-radius: 28px;
-        max-width: 500px;
-        width: 90%;
-        margin: 20px;
-        border: 1px solid rgba(100, 150, 200, 0.25);
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        transform: scale(0.95);
-        transition: transform 0.3s ease;
+    .tips-mini-card::before {
+        content: '';
+        position: absolute;
+        top: -8px;
+        right: 20px;
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-bottom: 8px solid #1a1a2e;
     }
 
-    .tips-modal-overlay.active .tips-modal-container {
-        transform: scale(1);
-    }
-
-    .tips-modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 24px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .tips-modal-header h3 {
-        margin: 0;
-        font-size: 1.4rem;
+    .tips-mini-card .mini-title {
+        font-size: 1rem;
         font-weight: 600;
+        color: #5dade2;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 8px;
+    }
+
+    .tips-mini-card .mini-content {
+        font-size: 0.85rem;
+        color: #d0d0d0;
+        line-height: 1.6;
+    }
+
+    .tips-mini-card .mini-content p {
+        margin: 0 0 8px 0;
+    }
+
+    .tips-mini-card .more-hint {
+        margin-top: 10px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.75rem;
+        color: #888;
+        text-align: center;
+    }
+
+    /* المحتوى الكامل في الأسفل */
+    .full-tips-section {
+        background: linear-gradient(135deg, #0f0f1a, #0a0a12);
+        border-radius: 24px;
+        margin: 40px 20px 30px 20px;
+        padding: 30px;
+        border: 1px solid rgba(100, 150, 200, 0.2);
+    }
+
+    .full-tips-section h3 {
         color: #ffffff;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
         gap: 10px;
     }
 
-    .tips-modal-header h3 span {
-        font-size: 1.8rem;
-    }
-
-    .close-tips-modal {
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        font-size: 1.3rem;
-        cursor: pointer;
-        color: #ffffff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-    }
-
-    .close-tips-modal:hover {
-        background: rgba(255, 100, 100, 0.3);
-        transform: rotate(90deg);
-    }
-
-    .tips-modal-body {
-        padding: 24px;
-    }
-
-    .tips-welcome-card {
-        background: linear-gradient(135deg, rgba(44, 62, 102, 0.3), rgba(30, 40, 60, 0.2));
-        border-radius: 20px;
-        padding: 20px;
-        margin-bottom: 24px;
-        text-align: center;
-        border: 1px solid rgba(100, 150, 200, 0.2);
-    }
-
-    .tips-welcome-card .welcome-icon {
-        font-size: 3rem;
-        margin-bottom: 12px;
-    }
-
-    .tips-welcome-card h4 {
-        font-size: 1.3rem;
-        color: #ffffff;
-        margin: 0 0 8px 0;
-    }
-
-    .tips-welcome-card p {
-        color: #a0a0a0;
-        margin: 0;
-        font-size: 0.9rem;
-    }
-
-    .tips-steps-list {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        margin-bottom: 24px;
-    }
-
-    .tips-step {
-        display: flex;
-        gap: 16px;
-        align-items: flex-start;
-    }
-
-    .step-number {
-        background: linear-gradient(135deg, #2c3e66, #1a2a4a);
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        font-size: 1.2rem;
-        color: #5dade2;
-        border: 1px solid rgba(93, 173, 226, 0.3);
-        flex-shrink: 0;
-    }
-
-    .step-content {
-        flex: 1;
-    }
-
-    .step-content h4 {
-        color: #ffffff;
-        margin: 0 0 6px 0;
+    .full-tips-section .full-content {
+        color: #c0c0c0;
+        line-height: 1.8;
         font-size: 1rem;
     }
 
-    .step-content p {
-        color: #b0b0b0;
-        margin: 0;
-        font-size: 0.9rem;
-        line-height: 1.5;
+    .full-tips-section .full-content p {
+        margin: 15px 0;
     }
 
-    .step-content .step-highlight {
+    .full-tips-section .full-content .motto {
+        margin-top: 20px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(93, 173, 226, 0.3);
         color: #5dade2;
         font-weight: 500;
-    }
-
-    .tips-modal-footer {
-        background: rgba(44, 62, 102, 0.2);
-        padding: 16px 24px;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 0 0 28px 28px;
         text-align: center;
     }
 
-    .tips-modal-footer .motto {
-        font-size: 1rem;
-        font-weight: 500;
-        color: #5dade2;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    @media (max-width: 550px) {
-        .tips-modal-container {
-            width: 95%;
+    @media (max-width: 768px) {
+        .tips-mini-card {
+            width: 280px;
+            right: -50px;
         }
-        .tips-step {
-            gap: 12px;
+        .tips-mini-card::before {
+            right: 60px;
         }
-        .step-number {
-            width: 32px;
-            height: 32px;
-            font-size: 1rem;
-        }
-        .tips-modal-body {
-            padding: 18px;
+        .full-tips-section {
+            margin: 30px 15px 20px 15px;
+            padding: 20px;
         }
     }
 </style>
@@ -290,8 +213,22 @@
     </div>
     
     <div class="right-side">
-        <!-- زر كفاش - تمت إضافته هنا بجانب الإشعارات -->
-        <button id="tipsTriggerBtn" class="tips-trigger-btn">💡 كفاش؟</button>
+        <!-- زر كفاش مع بطاقته الصغيرة -->
+        <div class="tips-trigger-btn" id="tipsTriggerBtn">
+            💡 كفاش؟
+            <div class="tips-mini-card" id="tipsMiniCard">
+                <div class="mini-title">
+                    <span>💡</span> نصائح سريعة
+                </div>
+                <div class="mini-content">
+                    <p>• راجع الامتحانات اللي بغيتي باستخدام البومودورو، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
+                    <p>• من بعد ما تسالي كلشي دكشي اللي قديتي تراجعو، سير بدل الجو شوية...</p>
+                </div>
+                <div class="more-hint">
+                    ⬇️ انزل للأسفل للمزيد ⬇️
+                </div>
+            </div>
+        </div>
         
         <div class="notification-container">
             <button id="notificationBell" class="notification-bell">
@@ -350,68 +287,6 @@
         <button id="popupLoginBtn" class="btn-popup-login">دخول / إنشاء حساب</button>
         <br>
         <button id="closePopupBtn" class="btn-popup-close">إغلاق</button>
-    </div>
-</div>
-
-<!-- نافذة كفاش المنبثقة -->
-<div id="tipsModalOverlay" class="tips-modal-overlay">
-    <div class="tips-modal-container">
-        <div class="tips-modal-header">
-            <h3>
-                <span>💡</span>
-                كفاش؟ طريقة المراجعة
-            </h3>
-            <button class="close-tips-modal" id="closeTipsModalBtn">✕</button>
-        </div>
-        
-        <div class="tips-modal-body">
-            <div class="tips-welcome-card">
-                <div class="welcome-icon">🎯</div>
-                <h4>طريقة المراجعة الذكية</h4>
-                <p>اتبع هذه الخطوات البسيطة لتحصل على أفضل نتيجة</p>
-            </div>
-            
-            <div class="tips-steps-list">
-                <div class="tips-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h4>🍅 راجع بتركيز</h4>
-                        <p>راجع الامتحانات اللي بغيتي باستخدام نظام <span class="step-highlight">بومودورو</span>، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
-                    </div>
-                </div>
-                
-                <div class="tips-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h4>🌿 خذ راحة فعّالة</h4>
-                        <p>من بعد ما تراجع دكشي اللي قديتي عليه، سير بدل الجو شوية، دير اللي بغيتي المهم نسى وطلق عقلك يستراح (ما بين <span class="step-highlight">1 ساعة و 3 ساعات</span>)</p>
-                    </div>
-                </div>
-                
-                <div class="tips-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h4>🔄 التكرار المذهل</h4>
-                        <p>من بعد عاود دخل للامتحانات اللي راجعتي ولعب فيهم لكل امتحان لعب وعاود مبين <span class="step-highlight">3 لـ 5 مرات</span></p>
-                    </div>
-                </div>
-                
-                <div class="tips-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h4>📅 المراجعة اليومية</h4>
-                        <p>غدا تاني نفس الحاجة ولاكن حاول تلعب فشي امتحانات درتيهم لبارح، هاد الشي مهيخدش منك الوقت <span class="step-highlight">⚡</span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="tips-modal-footer">
-            <div class="motto">
-                <span>🫡</span>
-                راك ناجح
-            </div>
-        </div>
     </div>
 </div>
 
@@ -518,6 +393,18 @@
             </div>
         </div>
     </section>
+
+    <!-- المحتوى الكامل في الأسفل -->
+    <div class="full-tips-section">
+        <h3>💡 كفاش؟</h3>
+        <div class="full-content">
+            <p>• راجع الامتحانات اللي بغيتي باستخدام البومودورو، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
+            <p>• من بعد ما تسالي كلشي دكشي اللي قديتي تراجعو، سير بدل الجو شوية, دير اللي بيتي المهم نسى وطلق عقلك يستراح (ما بين 1 ساعة و 3 ساعات)</p>
+            <p>• من بعد عاود دخل للامتحانات اللي راجعتي و لعب فيهم لكل امتحان لعب وعاود مبين 3 ل5 المرات</p>
+            <p>• غدا تاني نفس الحاجة و لاكن حاول تلعب فشي امتحانات درتيهم لبارح هدشي مهيخدش منك الوقت.</p>
+            <div class="motto">🫡 شعارنا راك ناجح</div>
+        </div>
+    </div>
 </div>
 
 <div id="list" class="page">
@@ -594,50 +481,24 @@
 
 <script>
 // ============================================
-// نافذة كفاش المنبثقة - كود مباشر
+// بطاقة كفاش المنبثقة - عند الضغط على الزر
 // ============================================
 (function() {
-    "use strict";
-    
-    const overlay = document.getElementById('tipsModalOverlay');
-    const closeBtn = document.getElementById('closeTipsModalBtn');
     const tipsBtn = document.getElementById('tipsTriggerBtn');
     
-    function openTipsModal() {
-        if (overlay) {
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-    }
-    
-    function closeTipsModal() {
-        if (overlay) {
-            overlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    }
-    
     if (tipsBtn) {
-        tipsBtn.addEventListener('click', openTipsModal);
-    }
-    
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeTipsModal);
-    }
-    
-    if (overlay) {
-        overlay.addEventListener('click', function(e) {
-            if (e.target === overlay) {
-                closeTipsModal();
+        tipsBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+        });
+        
+        // إغلاق البطاقة عند الضغط في أي مكان آخر
+        document.addEventListener('click', function(e) {
+            if (!tipsBtn.contains(e.target)) {
+                tipsBtn.classList.remove('active');
             }
         });
     }
-    
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && overlay && overlay.classList.contains('active')) {
-            closeTipsModal();
-        }
-    });
 })();
 
 // ============================================
