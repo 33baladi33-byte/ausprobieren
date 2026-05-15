@@ -178,6 +178,11 @@
         text-align: center;
     }
 
+    /* إخفاء زر كفاش في الصفحة الرئيسية */
+    .home .tips-trigger-btn {
+        display: none;
+    }
+
     @media (max-width: 768px) {
         .tips-mini-card {
             width: 280px;
@@ -209,7 +214,7 @@
             💡 كفاش؟
             <div class="tips-mini-card" id="tipsMiniCard">
                 <div class="mini-title">
-                    <span>💡</span> نصائح سريعة
+                    💡 كفاش؟
                 </div>
                 <div class="mini-content">
                     <p>• راجع الامتحانات اللي بغيتي باستخدام البومودورو، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
@@ -487,6 +492,40 @@
             }
         });
     }
+})();
+
+// ============================================
+// إظهار/إخفاء زر كفاش حسب الصفحة
+// ============================================
+(function() {
+    const tipsBtn = document.getElementById('tipsTriggerBtn');
+    const homePage = document.getElementById('home');
+    const listPage = document.getElementById('list');
+    const examPage = document.getElementById('exam');
+    
+    function checkAndToggleTipsButton() {
+        if (!tipsBtn) return;
+        
+        // التحقق من أي صفحة نشطة
+        if (homePage && homePage.classList.contains('active')) {
+            tipsBtn.style.display = 'none';
+        } else if ((listPage && listPage.classList.contains('active')) || (examPage && examPage.classList.contains('active'))) {
+            tipsBtn.style.display = 'flex';
+        } else {
+            tipsBtn.style.display = 'none';
+        }
+    }
+    
+    // مراقبة التغيرات في الصفحات
+    const observer = new MutationObserver(function() {
+        checkAndToggleTipsButton();
+    });
+    
+    if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
+    if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
+    if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
+    
+    checkAndToggleTipsButton();
 })();
 
 // ============================================
