@@ -1,5 +1,6 @@
 /**
  * auth.js - نظام إدارة تسجيل الدخول والاشتراك لموقع Zertiva B2
+ * مع إضافة نظام منع مشاركة الحساب (جهاز واحد لكل حساب)
  */
 
 const WA_NUMBER = "212687561491";
@@ -8,28 +9,157 @@ const WA_URL = `https://wa.me/${WA_NUMBER}`;
 let currentUserStatus = 'guest';
 let currentExpiry = null;
 
+// ============================================
+// نظام منع مشاركة الحساب - جهاز واحد لكل حساب
+// ============================================
+
+// إنشاء معرف جلسة فريد
+function generateSessionId() {
+    return Date.now() + '-' + Math.random().toString(36).substr(2, 16) + '-' + navigator.userAgent.substring(0, 20);
+}
+
+// الحصول على معرف الجهاز (بسيط)
+function getDeviceId() {
+    let deviceId = localStorage.getItem('zertiva_device_id');
+    if (!deviceId) {
+        deviceId = 'dev-' + Date.now() + '-' + Math.random().toString(36).substr(2, 10);
+        localStorage.setItem('zertiva_device_id', deviceId);
+    }
+    return deviceId;
+}
+
+// تسجيل الدخول مع إنشاء جلسة
+function registerSession(email) {
+    const sessionId = generateSessionId();
+    const deviceId = getDeviceId();
+    const loginTime = Date.now();
+    
+    // حفظ جلسة هذا المستخدم
+    localStorage.setItem('zertiva_session_id', sessionId);
+    localStorage.setItem('zertiva_session_time', loginTime);
+    
+    // حفظ الجلسات النشطة لكل بريد
+    const activeSessions = JSON.parse(localStorage.getItem('zertiva_active_sessions') || '{}');
+    activeSessions[email] = {
+        sessionId: sessionId,
+        deviceId: deviceId,
+        loginTime: loginTime,
+        lastActive: loginTime
+    };
+    localStorage.setItem('zertiva_active_sessions', JSON.stringify(activeSessions));
+    
+    return true;
+}
+
+// التحقق من صحة الجلسة (هل هذا الجهاز هو النشط لهذا البريد)
+function isSessionValid() {
+    const email = localStorage.getItem('zertiva_email');
+    const currentSession = localStorage.getItem('zertiva_session_id');
+    const currentDevice = getDeviceId();
+    
+    if (!email || !currentSession) return true; // لا توجد جلسة، لا مشكلة
+    
+    const activeSessions = JSON.parse(localStorage.getItem('zertiva_active_sessions') || '{}');
+    const sessionData = activeSessions[email];
+    
+    // إذا لم تكن هناك جلسة مسجلة لهذا البريد -> مسموح
+    if (!sessionData) return true;
+    
+    // التحقق: نفس الجلسة ونفس الجهاز
+    const isValid = (sessionData.sessionId === currentSession && sessionData.deviceId === currentDevice);
+    
+    if (!isValid) {
+        console.log("⚠️ تم اكتشاف جلسة أخرى لنفس الحساب!");
+    }
+    
+    return isValid;
+}
+
+// تحديث آخر نشاط
+function updateLastActivity() {
+    const email = localStorage.getItem('zertiva_email');
+    const currentSession = localStorage.getItem('zertiva_session_id');
+    
+    if (!email || !currentSession) return;
+    
+    const activeSessions = JSON.parse(localStorage.getItem('zertiva_active_sessions') || '{}');
+    if (activeSessions[email] && activeSessions[email].sessionId === currentSession) {
+        activeSessions[email].lastActive = Date.now();
+        localStorage.setItem('zertiva_active_sessions', JSON.stringify(activeSessions));
+    }
+    localStorage.setItem('zertiva_last_activity', Date.now());
+}
+
+// تسجيل الخروج مع إزالة الجلسة
+function logoutUser(message) {
+    const email = localStorage.getItem('zertiva_email');
+    const currentSession = localStorage.getItem('zertiva_session_id');
+    
+    // إزالة الجلسة النشطة
+    if (email) {
+        const activeSessions = JSON.parse(localStorage.getItem('zertiva_active_sessions') || '{}');
+        if (activeSessions[email] && activeSessions[email].sessionId === currentSession) {
+            delete activeSessions[email];
+            localStorage.setItem('zertiva_active_sessions', JSON.stringify(activeSessions));
+        }
+    }
+    
+    // مسح بيانات المستخدم
+    localStorage.removeItem('zertiva_email');
+    localStorage.removeItem('zertiva_password');
+    localStorage.removeItem('zertiva_session_id');
+    localStorage.removeItem('zertiva_session_time');
+    localStorage.removeItem('zertiva_last_activity');
+    
+    if (message) {
+        alert(message);
+    }
+    
+    location.reload();
+}
+
+// مراقبة الجلسة بشكل مستمر (كل 5 ثواني)
+let sessionMonitorInterval = null;
+
+function startSessionMonitor() {
+    if (sessionMonitorInterval) clearInterval(sessionMonitorInterval);
+    
+    sessionMonitorInterval = setInterval(() => {
+        const isLoggedIn = localStorage.getItem('zertiva_email');
+        if (isLoggedIn) {
+            if (!isSessionValid()) {
+                logoutUser("⚠️ تم تسجيل الدخول من جهاز آخر. تم تسجيل خروجك للحفاظ على أمان حسابك.");
+            } else {
+                updateLastActivity();
+            }
+        }
+    }, 5000); // فحص كل 5 ثواني
+}
+
+// ============================================
+// الدوال الأصلية (معدلة)
+// ============================================
+
 function getLoggedInEmail() {
+    // التحقق من صحة الجلسة قبل إرجاع البريد
+    if (!isSessionValid()) {
+        return null;
+    }
     return localStorage.getItem('zertiva_email');
 }
 
 function getLoggedInPassword() {
+    if (!isSessionValid()) {
+        return null;
+    }
     return localStorage.getItem('zertiva_password');
 }
 
 function setLoggedInUser(email, password) {
+    // تسجيل الجلسة الجديدة
+    registerSession(email);
     localStorage.setItem('zertiva_email', email);
     localStorage.setItem('zertiva_password', password);
-}
-
-function logoutUser() {
-    localStorage.removeItem('zertiva_email');
-    localStorage.removeItem('zertiva_password');
-    alert("تم تسجيل الخروج بنجاح");
-    location.reload();
-}
-
-function isUserLoggedIn() {
-    return getLoggedInEmail() !== null;
 }
 
 async function getPremiumUsers() {
@@ -131,7 +261,6 @@ async function updateProfileDropdown() {
     if(!profileEmail) return;
     
     if(email) {
-        // حذف زر الترقية إذا كان موجوداً (للمستخدم المسجل)
         const oldUpgradeBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldUpgradeBtn) oldUpgradeBtn.remove();
         
@@ -164,7 +293,6 @@ async function updateProfileDropdown() {
         profileExpiry.innerHTML = 'الوصول محدود لبعض الامتحانات';
         profileStatus.innerHTML = '';
         
-        // إضافة زر الترقية للمستخدم غير المسجل (لون رمادي مزرق)
         const upgradeBtn = document.createElement('button');
         upgradeBtn.id = 'dropdownUpgradeBtn';
         upgradeBtn.innerHTML = 'الترقية إلى الحساب الكامل →';
@@ -188,13 +316,11 @@ async function updateProfileDropdown() {
             this.style.background = '#64748B';
         };
         upgradeBtn.onclick = function() {
-            // فتح نافذة تسجيل الدخول أولاً
             showLoginPopup();
         };
         
         const dropdown = document.getElementById('profileDropdown');
         if (dropdown) {
-            // حذف الزر القديم إذا كان موجوداً
             const oldBtn = document.getElementById('dropdownUpgradeBtn');
             if (oldBtn) oldBtn.remove();
             dropdown.appendChild(upgradeBtn);
@@ -240,17 +366,16 @@ async function handleLogin() {
         let expiry = currentExpiry;
         let expiryDate = new Date(expiry);
         let formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
-        alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}\nجميع الامتحانات متاحة لك.`);
+        alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}\nجميع الامتحانات متاحة لك.\n\n🔐 تنبيه: حسابك مقيد بجهاز واحد فقط. إذا دخلت من جهاز آخر، سيتم تسجيل خروجك من هذا الجهاز.`);
     } else if(status === 'expired') {
         alert(`⚠️ مرحباً ${email}\n⏰ انتهت صلاحية اشتراكك.\n✨ يرجى الاشتراك مرة أخرى.`);
     } else {
-        alert(`✅ مرحباً ${email}\n📖 حسابك مجاني حالياً.\n✨ متاح لك فقط الامتحان الأول من كل قسم.\nللوصول إلى كل الامتحانات، اضغط "اشتراك" ثم ادفع.`);
+        alert(`✅ مرحباً ${email}\n📖 حسابك مجاني حالياً.\n✨ متاح لك فقط الامتحان الأول من كل قسم.\nللوصول إلى كل الامتحانات، اضغط "اشتراك" ثم ادفع.\n\n🔐 تنبيه: حسابك مقيد بجهاز واحد فقط.`);
     }
     
     hideLoginPopup();
     await updateProfileDropdown();
     
-    // إذا كان المستخدم مسجل (مجاني أو منتهي) نوجهه لصفحة الاشتراك
     if (status !== 'premium') {
         window.location.href = 'subscribe.html';
     } else {
@@ -304,7 +429,7 @@ function bindAuthEvents() {
     if(profileIcon) profileIcon.addEventListener('click', toggleProfileDropdown);
     
     let profileLogoutBtn = document.getElementById('profileLogoutBtn');
-    if(profileLogoutBtn) profileLogoutBtn.addEventListener('click', logoutUser);
+    if(profileLogoutBtn) profileLogoutBtn.addEventListener('click', () => logoutUser("تم تسجيل الخروج بنجاح"));
     
     let logoHomeBtn = document.getElementById('logoHomeBtn');
     if(logoHomeBtn) {
@@ -342,6 +467,7 @@ async function initAuth() {
     await updateProfileDropdown();
     observePageChanges();
     setTimeout(setupLockedNextButton, 800);
+    startSessionMonitor(); // بدء مراقبة الجلسة
 }
 
 if (document.readyState === 'loading') {
