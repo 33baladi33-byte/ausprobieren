@@ -74,9 +74,12 @@
         // حفظ الإحصائيات
         saveStats();
         
+        // رسالة تشجيعية
+        const encouragementMessage = "🎉 شكراً جزيلاً! تقييمك يساعدنا على تحسين المنصة وتقديم الأفضل لك";
+        
         return { 
             success: true, 
-            message: `شكراً لتقييمك! 🌟 (الآن ${reviewStats.total} تقييم بمتوسط ${reviewStats.average})`,
+            message: `✅ ${encouragementMessage}\n\n⭐ الآن ${reviewStats.total} تقييماً بمتوسط ${reviewStats.average} / 5\n\n🔹 تقييمك يساعد الآلاف من المستخدمين الجدد لاختيار المنصة بثقة`,
             stats: reviewStats
         };
     }
@@ -232,7 +235,7 @@
         const messageDiv = document.getElementById('submitMessage');
         
         if (currentSelectedRating === 0) {
-            messageDiv.innerHTML = '<div class="error-message">الرجاء اختيار عدد النجوم</div>';
+            messageDiv.innerHTML = '<div class="error-message">⭐ الرجاء اختيار عدد النجوم أولاً</div>';
             setTimeout(() => {
                 messageDiv.innerHTML = '';
             }, 3000);
@@ -245,14 +248,15 @@
         const result = addRating(currentSelectedRating);
         
         if (result.success) {
-            messageDiv.innerHTML = `<div class="success-message">${result.message}</div>`;
+            messageDiv.innerHTML = `<div class="success-message" style="white-space: pre-line;">${result.message}</div>`;
             currentSelectedRating = 0;
             setupStarInput();
             updateStatsUI();
             
+            // إعادة تمكين الزر بعد 3 ثواني وإخفاء الرسالة بعد 5 ثواني
             setTimeout(() => {
                 messageDiv.innerHTML = '';
-            }, 3000);
+            }, 8000);
         } else {
             messageDiv.innerHTML = `<div class="error-message">${result.message}</div>`;
             setTimeout(() => {
@@ -261,7 +265,7 @@
         }
         
         submitBtn.disabled = false;
-        submitBtn.textContent = 'إرسال التقييم';
+        submitBtn.textContent = '⭐ إرسال التقييم';
     }
     
     // ========== فتح وإغلاق النافذة ==========
