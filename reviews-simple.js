@@ -79,7 +79,7 @@
         
         return { 
             success: true, 
-            message: `✅ ${encouragementMessage}\n\n⭐ الآن ${reviewStats.total} تقييماً بمتوسط ${reviewStats.average} / 5\n\n🔹 تقييمك يساعد الآلاف من المستخدمين الجدد لاختيار المنصة بثقة`,
+            message: `✅ ${encouragementMessage}\n\n⭐ الآن ${reviewStats.total} تقييماً بمتوسط ${reviewStats.average} / 5\n\n🔹 تقييمك يساعد المستخدمين الجدد لاختيار المنصة بثقة`,
             stats: reviewStats
         };
     }
