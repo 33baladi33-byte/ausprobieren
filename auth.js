@@ -1,6 +1,6 @@
 /**
  * auth.js - نظام إدارة تسجيل الدخول والاشتراك لموقع Zertiva B2
- * مع نظام جهاز واحد لكل حساب - بدون رسائل مزعجة
+ * مع نظام صفحة واحدة لكل حساب (Tab واحد فقط)
  */
 
 const WA_NUMBER = "212687561491";
@@ -8,118 +8,85 @@ const WA_URL = `https://wa.me/${WA_NUMBER}`;
 
 let currentUserStatus = 'guest';
 let currentExpiry = null;
+let sessionCheckInterval = null;
 
 // ============================================
-// نظام جهاز واحد لكل حساب - بدون رسائل
+// نظام صفحة واحدة لكل حساب
 // ============================================
 
-// إنشاء معرف جلسة فريد
-function generateSessionId() {
-    return Date.now() + '-' + Math.random().toString(36).substr(2, 16) + '-' + navigator.userAgent.substring(0, 20);
+// إنشاء معرف جلسة فريد لهذه الصفحة (Tab)
+function generateTabSessionId() {
+    return Date.now() + '-' + Math.random().toString(36).substr(2, 16) + '-' + Math.random().toString(36).substr(2, 8);
 }
 
-// الحصول على معرف الجهاز
-function getDeviceId() {
-    let deviceId = localStorage.getItem('zertiva_device_id');
-    if (!deviceId) {
-        deviceId = 'dev-' + Date.now() + '-' + Math.random().toString(36).substr(2, 10);
-        localStorage.setItem('zertiva_device_id', deviceId);
-    }
-    return deviceId;
+// تسجيل الدخول - هذه الصفحة هي المسيطرة الآن
+function registerThisTab(email) {
+    const tabSessionId = generateTabSessionId();
+    
+    // حفظ في sessionStorage (خاص بهذه الصفحة فقط)
+    sessionStorage.setItem('zertiva_tab_session', tabSessionId);
+    sessionStorage.setItem('zertiva_tab_email', email);
+    sessionStorage.setItem('zertiva_tab_time', Date.now());
+    
+    // حفظ الجلسة الرئيسية في localStorage (مشترك بين كل الصفحات)
+    localStorage.setItem('zertiva_master_session', tabSessionId);
+    localStorage.setItem('zertiva_master_email', email);
+    localStorage.setItem('zertiva_master_time', Date.now());
 }
 
-// تسجيل الدخول - إنشاء جلسة جديدة (تطرد أي جلسة قديمة)
-function registerNewSession(email) {
-    const sessionId = generateSessionId();
-    const deviceId = getDeviceId();
-    const loginTime = Date.now();
+// التحقق: هل هذه الصفحة هي المسيطرة حالياً؟
+function isThisTabMaster() {
+    const masterSession = localStorage.getItem('zertiva_master_session');
+    const tabSession = sessionStorage.getItem('zertiva_tab_session');
+    const masterEmail = localStorage.getItem('zertiva_master_email');
+    const tabEmail = sessionStorage.getItem('zertiva_tab_email');
     
-    // حفظ جلسة المستخدم الحالي
-    localStorage.setItem('zertiva_session_id', sessionId);
-    localStorage.setItem('zertiva_session_time', loginTime);
+    // إذا لا توجد جلسة رئيسية
+    if (!masterSession || !masterEmail) return true;
     
-    // حفظ الجلسة النشطة لهذا البريد (القديمة تُحذف تلقائياً)
-    const activeSessions = JSON.parse(localStorage.getItem('zertiva_active_sessions') || '{}');
-    activeSessions[email] = {
-        sessionId: sessionId,
-        deviceId: deviceId,
-        loginTime: loginTime,
-        lastActive: loginTime
-    };
-    localStorage.setItem('zertiva_active_sessions', JSON.stringify(activeSessions));
+    // إذا هذه الصفحة ليس لها جلسة
+    if (!tabSession || !tabEmail) return false;
     
-    return true;
-}
-
-// التحقق من صحة الجلسة (بدون رسائل، فقط true/false)
-function isSessionValid() {
-    const email = localStorage.getItem('zertiva_email');
-    const currentSession = localStorage.getItem('zertiva_session_id');
-    const currentDevice = getDeviceId();
-    
-    if (!email || !currentSession) return true;
-    
-    const activeSessions = JSON.parse(localStorage.getItem('zertiva_active_sessions') || '{}');
-    const sessionData = activeSessions[email];
-    
-    if (!sessionData) return true;
-    
-    // نفس الجلسة ونفس الجهاز
-    return (sessionData.sessionId === currentSession && sessionData.deviceId === currentDevice);
-}
-
-// تحديث آخر نشاط
-function updateLastActivity() {
-    const email = localStorage.getItem('zertiva_email');
-    const currentSession = localStorage.getItem('zertiva_session_id');
-    
-    if (!email || !currentSession) return;
-    
-    const activeSessions = JSON.parse(localStorage.getItem('zertiva_active_sessions') || '{}');
-    if (activeSessions[email] && activeSessions[email].sessionId === currentSession) {
-        activeSessions[email].lastActive = Date.now();
-        localStorage.setItem('zertiva_active_sessions', JSON.stringify(activeSessions));
-    }
+    // التحقق: نفس الجلسة ونفس البريد
+    return (masterSession === tabSession && masterEmail === tabEmail);
 }
 
 // تسجيل الخروج الصامت (بدون رسائل)
 function silentLogout() {
-    const email = localStorage.getItem('zertiva_email');
-    const currentSession = localStorage.getItem('zertiva_session_id');
+    // تنظيف localStorage (الجلسة الرئيسية)
+    localStorage.removeItem('zertiva_master_session');
+    localStorage.removeItem('zertiva_master_email');
+    localStorage.removeItem('zertiva_master_time');
     
-    if (email) {
-        const activeSessions = JSON.parse(localStorage.getItem('zertiva_active_sessions') || '{}');
-        if (activeSessions[email] && activeSessions[email].sessionId === currentSession) {
-            delete activeSessions[email];
-            localStorage.setItem('zertiva_active_sessions', JSON.stringify(activeSessions));
-        }
-    }
+    // تنظيف sessionStorage (هذه الصفحة)
+    sessionStorage.removeItem('zertiva_tab_session');
+    sessionStorage.removeItem('zertiva_tab_email');
+    sessionStorage.removeItem('zertiva_tab_time');
     
+    // تنظيف بيانات المستخدم القديمة
     localStorage.removeItem('zertiva_email');
     localStorage.removeItem('zertiva_password');
-    localStorage.removeItem('zertiva_session_id');
-    localStorage.removeItem('zertiva_session_time');
-    localStorage.removeItem('zertiva_last_activity');
 }
 
-// مراقبة الجلسة - تطرد المستخدم بهدوء إذا دخل من جهاز آخر
-let sessionMonitorInterval = null;
-
-function startSessionMonitor() {
-    if (sessionMonitorInterval) clearInterval(sessionMonitorInterval);
+// بدء مراقبة الصفحة (كل ثانية)
+function startTabMonitor() {
+    if (sessionCheckInterval) clearInterval(sessionCheckInterval);
     
-    sessionMonitorInterval = setInterval(() => {
+    sessionCheckInterval = setInterval(() => {
         const isLoggedIn = localStorage.getItem('zertiva_email');
         if (isLoggedIn) {
-            if (!isSessionValid()) {
+            if (!isThisTabMaster()) {
+                // هذه الصفحة فقدت السيطرة → تسجيل خروج فوري
                 silentLogout();
                 // إعادة تحميل الصفحة بدون رسالة
                 window.location.reload();
             } else {
-                updateLastActivity();
+                // تحديث وقت النشاط
+                localStorage.setItem('zertiva_master_time', Date.now());
+                sessionStorage.setItem('zertiva_tab_time', Date.now());
             }
         }
-    }, 5000);
+    }, 1000); // كل ثانية
 }
 
 // ============================================
@@ -127,21 +94,23 @@ function startSessionMonitor() {
 // ============================================
 
 function getLoggedInEmail() {
-    if (!isSessionValid()) {
+    // التحقق من أن هذه الصفحة هي المسيطرة
+    if (!isThisTabMaster()) {
         return null;
     }
     return localStorage.getItem('zertiva_email');
 }
 
 function getLoggedInPassword() {
-    if (!isSessionValid()) {
+    if (!isThisTabMaster()) {
         return null;
     }
     return localStorage.getItem('zertiva_password');
 }
 
 function setLoggedInUser(email, password) {
-    registerNewSession(email);
+    // تسجيل هذه الصفحة كصفحة مسيطرة
+    registerThisTab(email);
     localStorage.setItem('zertiva_email', email);
     localStorage.setItem('zertiva_password', password);
 }
@@ -453,7 +422,7 @@ async function initAuth() {
     await updateProfileDropdown();
     observePageChanges();
     setTimeout(setupLockedNextButton, 800);
-    startSessionMonitor();
+    startTabMonitor(); // بدء مراقبة الصفحة
 }
 
 if (document.readyState === 'loading') {
