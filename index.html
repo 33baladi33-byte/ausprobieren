@@ -717,10 +717,21 @@
 })();
 
 // ============================================
-// لعبة التحدي السريع
+// لعبة التحدي السريع - تظهر فقط في الأجزاء المناسبة
 // ============================================
 (function() {
     "use strict";
+    
+    // الأجزاء التي لا يجب أن يظهر فيها الزر
+    const hideGameButtonSkills = ["schreiben", "mündlich", "mündlich1", "mündlich2", "mündlich3", "tips"];
+    
+    function shouldShowGameButton() {
+        // نتحقق من الـ currentSkill الموجود في النطاق العام (من exams.js)
+        if (typeof currentSkill !== 'undefined') {
+            return !hideGameButtonSkills.includes(currentSkill);
+        }
+        return true; // إذا لم نعرف المهارة، نظهر الزر افتراضياً
+    }
     
     function addGameButton() {
         var nav = document.getElementById('examNavButtons');
@@ -729,6 +740,12 @@
             return;
         }
         if (document.getElementById('rapidGameBtn')) return;
+        
+        // التحقق إذا كان يجب إظهار الزر بناءً على المهارة الحالية
+        if (!shouldShowGameButton()) {
+            console.log('🎮 زر التحدي السريع مخفي في هذا القسم');
+            return;
+        }
         
         var btn = document.createElement('button');
         btn.id = 'rapidGameBtn';
@@ -741,12 +758,36 @@
         console.log('🎮 زر التحدي السريع جاهز');
     }
     
+    // مراقبة التغيرات في currentSkill (من exams.js)
+    function observeSkillChanges() {
+        let lastSkill = null;
+        
+        setInterval(function() {
+            if (typeof currentSkill !== 'undefined' && currentSkill !== lastSkill) {
+                lastSkill = currentSkill;
+                
+                // إزالة الزر القديم إذا كان موجوداً
+                const oldBtn = document.getElementById('rapidGameBtn');
+                if (oldBtn) oldBtn.remove();
+                
+                // إضافة الزر من جديد إذا كان مسموحاً به
+                if (!hideGameButtonSkills.includes(currentSkill)) {
+                    addGameButton();
+                } else {
+                    console.log('🎮 زر التحدي السريع مخفي في: ' + currentSkill);
+                }
+            }
+        }, 500);
+    }
+    
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(addGameButton, 500);
+            setTimeout(observeSkillChanges, 600);
         });
     } else {
         setTimeout(addGameButton, 500);
+        setTimeout(observeSkillChanges, 600);
     }
 })();
 </script>
