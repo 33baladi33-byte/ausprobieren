@@ -721,35 +721,36 @@
 // ============================================
 function addGameButton() {
     var nav = document.getElementById('examNavButtons');
+
     if (!nav) {
         setTimeout(addGameButton, 500);
         return;
     }
 
-    // حذف الزر القديم إذا كان موجود
+    // حذف الزر القديم
     var oldBtn = document.getElementById('rapidGameBtn');
     if (oldBtn) {
         oldBtn.remove();
     }
 
-    // معرفة الجزء الحالي
-    var currentTitle = document.getElementById('examTitle');
+    // الأجزاء التي لا نريد الزر فيها
+    var hiddenParts = ['schreiben', 'mündlich', 'tips'];
 
-    if (currentTitle) {
-        var titleText = currentTitle.textContent.toLowerCase();
+    // هل أحد هذه الأجزاء ظاهر؟
+    for (var i = 0; i < hiddenParts.length; i++) {
+        var section = document.getElementById(hiddenParts[i]);
 
-        // الأجزاء اللي ما نبغيوش يظهر فيها الزر
         if (
-            titleText.includes('schreiben') ||
-            titleText.includes('mündlich') ||
-            titleText.includes('tips')
+            section &&
+            section.style.display !== 'none'
         ) {
-            return;
+            return; // لا تنشئ الزر
         }
     }
 
     // إنشاء الزر
     var btn = document.createElement('button');
+
     btn.id = 'rapidGameBtn';
     btn.innerHTML = '⚡ التحدي السريع';
 
@@ -770,8 +771,6 @@ function addGameButton() {
     };
 
     nav.appendChild(btn);
-
-    console.log('🎮 زر التحدي السريع جاهز');
 }
     
     if (document.readyState === 'loading') {
