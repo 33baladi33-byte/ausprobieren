@@ -1010,7 +1010,7 @@
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
-   function addGameButton() {
+ function addGameButton() {
     const nav = document.getElementById('examNavButtons');
 
     if (!nav) {
@@ -1018,31 +1018,32 @@
         return;
     }
 
-    // حذف الزر القديم
+    // حذف الزر القديم دائماً
     const oldBtn = document.getElementById('rapidGameBtn');
     if (oldBtn) oldBtn.remove();
 
-    // الأجزاء التي نريد إخفاء الزر فيها
-    const hiddenSections = [
-        'schreiben',
-        'mündlich1',
-        'mündlich2',
-        'mündlich3',
-        'mündlich',
-        'tips'
+    // المهارات المسموح فيها ظهور الزر فقط
+    const allowedSkills = [
+        'lesen1',
+        'lesen2',
+        'lesen3',
+        'hoeren1',
+        'hoeren2',
+        'hoeren3',
+        'sprach1',
+        'sprach2'
     ];
 
-    // التحقق من الجزء الظاهر حالياً
-    for (const id of hiddenSections) {
-        const section = document.getElementById(id);
+    // معرفة الجزء الحالي
+    const currentSkill =
+        typeof getCurrentSkill === 'function'
+            ? getCurrentSkill()
+            : null;
 
-        if (
-            section &&
-            section.style.display !== 'none'
-        ) {
-            console.log('🚫 الزر مخفي في:', id);
-            return;
-        }
+    // إذا لم يكن الجزء من المسموح بها → لا تُظهر الزر
+    if (!allowedSkills.includes(currentSkill)) {
+        console.log('🚫 الزر مخفي في:', currentSkill);
+        return;
     }
 
     // إنشاء الزر
@@ -1055,11 +1056,6 @@
         'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
 
     btn.onclick = () => {
-        const currentSkill =
-            typeof getCurrentSkill === 'function'
-                ? getCurrentSkill()
-                : 'lesen1';
-
         const currentExamId =
             typeof getCurrentExamId === 'function'
                 ? getCurrentExamId()
@@ -1070,5 +1066,5 @@
 
     nav.appendChild(btn);
 
-    console.log('🎮 زر العب جاهز');
+    console.log('🎮 زر العب جاهز في:', currentSkill);
 }
