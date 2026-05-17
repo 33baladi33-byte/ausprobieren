@@ -1010,23 +1010,30 @@
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
-   function addGameButton() {
+  function addGameButton() {
     const nav = document.getElementById('examNavButtons');
     if (!nav) { setTimeout(addGameButton, 500); return; }
     
+    // إزالة الزر القديم
     const oldBtn = document.getElementById('rapidGameBtn');
     if (oldBtn) oldBtn.remove();
     
-    // الأجزاء الممنوعة
+    // الأجزاء الممنوعة (لا يظهر فيها الزر)
     const HIDDEN_SKILLS = ["schreiben", "mündlich", "mündlich1", "mündlich2", "mündlich3", "tips"];
     
-    let currentGameSkill = typeof currentSkill !== 'undefined' ? currentSkill : null;
+    // الحصول على القسم الحالي
+    let currentGameSkill = null;
+    if (typeof currentSkill !== 'undefined') {
+        currentGameSkill = currentSkill;
+    }
     
+    // التحقق: إذا كان القسم من الأجزاء الممنوعة، لا نضيف الزر
     if (currentGameSkill && HIDDEN_SKILLS.includes(currentGameSkill)) {
         console.log('🎮 زر العب مخفي في: ' + currentGameSkill);
         return;
     }
     
+    // إنشاء الزر
     const btn = document.createElement('button');
     btn.id = 'rapidGameBtn';
     btn.innerHTML = '⚡ العب';
@@ -1036,12 +1043,12 @@
         let examId = typeof currentExamId !== 'undefined' ? currentExamId : 1;
         
         if (!skill) {
-            alert("⚠️ الرجاء فتح امتحان أولاً.");
+            alert("⚠️ الرجاء فتح امتحان أولاً");
             return;
         }
         
         if (HIDDEN_SKILLS.includes(skill)) {
-            alert("⚠️ اللعبة غير متوفرة في هذا القسم.");
+            alert("⚠️ اللعبة غير متوفرة في هذا القسم");
             return;
         }
         
@@ -1051,9 +1058,10 @@
     console.log('🎮 زر العب جاهز');
 }
 
+// مراقبة تغيير القسم
 function observeSkillForGameButton() {
     let lastSkill = null;
-    setInterval(() => {
+    setInterval(function() {
         if (typeof currentSkill !== 'undefined' && currentSkill !== lastSkill) {
             lastSkill = currentSkill;
             addGameButton();
@@ -1061,6 +1069,7 @@ function observeSkillForGameButton() {
     }, 500);
 }
 
+// بدء التشغيل
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(addGameButton, 500);
