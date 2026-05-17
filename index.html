@@ -719,59 +719,27 @@
 // ============================================
 // لعبة التحدي السريع
 // ============================================
-function addGameButton() {
-    var nav = document.getElementById('examNavButtons');
-
-    if (!nav) {
-        setTimeout(addGameButton, 500);
-        return;
-    }
-
-    // حذف الزر القديم
-    var oldBtn = document.getElementById('rapidGameBtn');
-    if (oldBtn) {
-        oldBtn.remove();
-    }
-
-    // الأجزاء التي لا نريد الزر فيها
-    var hiddenParts = ['schreiben', 'mündlich', 'tips'];
-
-    // هل أحد هذه الأجزاء ظاهر؟
-    for (var i = 0; i < hiddenParts.length; i++) {
-        var section = document.getElementById(hiddenParts[i]);
-
-        if (
-            section &&
-            section.style.display !== 'none'
-        ) {
-            return; // لا تنشئ الزر
+(function() {
+    "use strict";
+    
+    function addGameButton() {
+        var nav = document.getElementById('examNavButtons');
+        if (!nav) {
+            setTimeout(addGameButton, 500);
+            return;
         }
+        if (document.getElementById('rapidGameBtn')) return;
+        
+        var btn = document.createElement('button');
+        btn.id = 'rapidGameBtn';
+        btn.innerHTML = '⚡ التحدي السريع';
+        btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
+        btn.onclick = function() {
+            alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
+        };
+        nav.appendChild(btn);
+        console.log('🎮 زر التحدي السريع جاهز');
     }
-
-    // إنشاء الزر
-    var btn = document.createElement('button');
-
-    btn.id = 'rapidGameBtn';
-    btn.innerHTML = '⚡ التحدي السريع';
-
-    btn.style.cssText = `
-        background:#2c3e66;
-        color:white;
-        border:none;
-        border-radius:30px;
-        padding:8px 20px;
-        font-size:14px;
-        font-weight:500;
-        cursor:pointer;
-        margin-left:10px
-    `;
-
-    btn.onclick = function() {
-        alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
-    };
-
-    nav.appendChild(btn);
-}
     
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
