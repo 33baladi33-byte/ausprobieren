@@ -1,14 +1,12 @@
 // ============================================
 // rapidGame.js - لعبة التحدي السريع
 // يدعم: Hören Teil 1,2,3 | Lesen Teil 1,2,3 | Sprachbausteine Teil 1,2
-// لا يظهر في: Schreiben, Mündlich, Tips
+// نظام الألوان: أخضر فاتح ✅ | برتقالي فاتح ❌
+// المسار: data/games/المهارة/examX.json
 // ============================================
 
 (function() {
     "use strict";
-    
-    // ========== الأجزاء التي لا يظهر فيها الزر ==========
-    const HIDDEN_SKILLS = ["schreiben", "mündlich", "mündlich1", "mündlich2", "mündlich3", "tips"];
     
     // إعدادات اللعبة الأساسية
     const BASE_SETTINGS = {
@@ -1012,71 +1010,27 @@
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
-    // ========== دالة إضافة زر العب (مع منع الظهور في الأجزاء الممنوعة) ==========
     function addGameButton() {
         const nav = document.getElementById('examNavButtons');
         if (!nav) { setTimeout(addGameButton, 500); return; }
+        if (document.getElementById('rapidGameBtn')) return;
         
-        // حذف الزر القديم إن وجد
-        const oldBtn = document.getElementById('rapidGameBtn');
-        if (oldBtn) oldBtn.remove();
-        
-        // التحقق من currentSkill (من exams.js)
-        let currentGameSkill = null;
-        if (typeof currentSkill !== 'undefined') {
-            currentGameSkill = currentSkill;
-        }
-        
-        // إذا كان القسم من الأجزاء الممنوعة، لا نضيف الزر
-        if (currentGameSkill && HIDDEN_SKILLS.includes(currentGameSkill)) {
-            console.log('🎮 زر العب مخفي في هذا القسم: ' + currentGameSkill);
-            return;
-        }
-        
-        // إنشاء الزر
         const btn = document.createElement('button');
         btn.id = 'rapidGameBtn';
         btn.innerHTML = '⚡ العب';
         btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
         btn.onclick = () => {
-            let skill = currentGameSkill;
-            let examId = typeof currentExamId !== 'undefined' ? currentExamId : 1;
-            
-            if (!skill) {
-                alert("لا يمكن تشغيل اللعبة الآن. يرجى اختيار امتحان أولاً.");
-                return;
-            }
-            
-            if (HIDDEN_SKILLS.includes(skill)) {
-                alert("⚠️ وضع اللعبة غير متوفر في هذا القسم حالياً.");
-                return;
-            }
-            
-            startGame(skill, examId);
+            const currentSkill = typeof getCurrentSkill === 'function' ? getCurrentSkill() : 'lesen1';
+            const currentExamId = typeof getCurrentExamId === 'function' ? getCurrentExamId() : 1;
+            startGame(currentSkill, currentExamId);
         };
         nav.appendChild(btn);
         console.log('🎮 زر العب جاهز');
     }
     
-    // ========== مراقبة تغيير القسم ==========
-    function observeSkillForGameButton() {
-        let lastSkill = null;
-        setInterval(function() {
-            if (typeof currentSkill !== 'undefined' && currentSkill !== lastSkill) {
-                lastSkill = currentSkill;
-                addGameButton();
-            }
-        }, 500);
-    }
-    
-    // ========== بدء التشغيل ==========
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(addGameButton, 500);
-            setTimeout(observeSkillForGameButton, 1000);
-        });
+        document.addEventListener('DOMContentLoaded', () => { setTimeout(addGameButton, 500); });
     } else {
         setTimeout(addGameButton, 500);
-        setTimeout(observeSkillForGameButton, 1000);
     }
 })();
