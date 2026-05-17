@@ -716,11 +716,21 @@
     checkAndToggleTipsButton();
 })();
 
-// ============================================
-// لعبة التحدي السريع
+    // ============================================
+// لعبة التحدي السريع - تظهر فقط في الأجزاء المناسبة
 // ============================================
 (function() {
     "use strict";
+    
+    // الأجزاء المسموح بها للعبة
+    const ALLOWED_SKILLS = ["lesen1", "lesen2", "lesen3", "hoeren1", "hoeren2", "hoeren3", "sprach1", "sprach2"];
+    
+    function shouldShowGameButton() {
+        if (typeof currentSkill !== 'undefined' && currentSkill) {
+            return ALLOWED_SKILLS.includes(currentSkill);
+        }
+        return false;
+    }
     
     function addGameButton() {
         var nav = document.getElementById('examNavButtons');
@@ -728,7 +738,16 @@
             setTimeout(addGameButton, 500);
             return;
         }
-        if (document.getElementById('rapidGameBtn')) return;
+        
+        // إزالة الزر القديم إذا كان موجوداً
+        var oldBtn = document.getElementById('rapidGameBtn');
+        if (oldBtn) oldBtn.remove();
+        
+        // التحقق: هل يجب إظهار الزر؟
+        if (!shouldShowGameButton()) {
+            console.log('🎮 زر التحدي السريع مخفي في هذا القسم');
+            return;
+        }
         
         var btn = document.createElement('button');
         btn.id = 'rapidGameBtn';
@@ -741,15 +760,29 @@
         console.log('🎮 زر التحدي السريع جاهز');
     }
     
+    // مراقبة تغيير القسم
+    function observeSkillChanges() {
+        let lastSkill = null;
+        setInterval(function() {
+            if (typeof currentSkill !== 'undefined' && currentSkill !== lastSkill) {
+                lastSkill = currentSkill;
+                addGameButton();
+            }
+        }, 500);
+    }
+    
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(addGameButton, 500);
+            setTimeout(observeSkillChanges, 600);
         });
     } else {
         setTimeout(addGameButton, 500);
+        setTimeout(observeSkillChanges, 600);
     }
 })();
-</script>
+
+
 
 <script>
     // ✅ نظام تكبير وتصغير الموقع
