@@ -1010,7 +1010,7 @@
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
-function addGameButton() {
+    function addGameButton() {
     const nav = document.getElementById('examNavButtons');
     if (!nav) { setTimeout(addGameButton, 500); return; }
     
