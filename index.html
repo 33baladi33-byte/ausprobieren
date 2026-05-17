@@ -715,20 +715,19 @@
     
     checkAndToggleTipsButton();
 })();
-
 // ============================================
-// لعبة التحدي السريع - تظهر فقط في الأجزاء المناسبة
+// لعبة التحدي السريع - يظهر فقط في الأجزاء المسموحة
 // ============================================
 (function() {
     "use strict";
     
-    // الأجزاء التي لا يجب أن يظهر فيها الزر
-    const hideGameButtonSkills = ["schreiben", "mündlich", "mündlich1", "mündlich2", "mündlich3", "tips"];
+    // الأجزاء التي لا يظهر فيها الزر
+    const hiddenSkills = ["schreiben", "mündlich", "mündlich1", "mündlich2", "mündlich3", "tips"];
     
     function shouldShowGameButton() {
-        // نتحقق من الـ currentSkill الموجود في النطاق العام (من exams.js)
-        if (typeof currentSkill !== 'undefined') {
-            return !hideGameButtonSkills.includes(currentSkill);
+        // نتحقق من currentSkill الموجود في النطاق العام (من exams.js)
+        if (typeof currentSkill !== 'undefined' && currentSkill) {
+            return !hiddenSkills.includes(currentSkill);
         }
         return true; // إذا لم نعرف المهارة، نظهر الزر افتراضياً
     }
@@ -739,9 +738,12 @@
             setTimeout(addGameButton, 500);
             return;
         }
-        if (document.getElementById('rapidGameBtn')) return;
         
-        // التحقق إذا كان يجب إظهار الزر بناءً على المهارة الحالية
+        // إزالة الزر القديم إذا كان موجوداً
+        var oldBtn = document.getElementById('rapidGameBtn');
+        if (oldBtn) oldBtn.remove();
+        
+        // التحقق إذا كان يجب إظهار الزر
         if (!shouldShowGameButton()) {
             console.log('🎮 زر التحدي السريع مخفي في هذا القسم');
             return;
@@ -758,24 +760,14 @@
         console.log('🎮 زر التحدي السريع جاهز');
     }
     
-    // مراقبة التغيرات في currentSkill (من exams.js)
+    // مراقبة تغيير القسم (عند فتح امتحان جديد)
     function observeSkillChanges() {
         let lastSkill = null;
         
         setInterval(function() {
             if (typeof currentSkill !== 'undefined' && currentSkill !== lastSkill) {
                 lastSkill = currentSkill;
-                
-                // إزالة الزر القديم إذا كان موجوداً
-                const oldBtn = document.getElementById('rapidGameBtn');
-                if (oldBtn) oldBtn.remove();
-                
-                // إضافة الزر من جديد إذا كان مسموحاً به
-                if (!hideGameButtonSkills.includes(currentSkill)) {
-                    addGameButton();
-                } else {
-                    console.log('🎮 زر التحدي السريع مخفي في: ' + currentSkill);
-                }
+                addGameButton(); // إعادة إنشاء الزر (سيظهر أو يختفي حسب القسم)
             }
         }, 500);
     }
@@ -790,6 +782,7 @@
         setTimeout(observeSkillChanges, 600);
     }
 })();
+    
 </script>
 
 <script>
