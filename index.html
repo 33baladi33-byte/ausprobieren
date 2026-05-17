@@ -716,44 +716,11 @@
     checkAndToggleTipsButton();
 })();
 
- // ============================================
-// لعبة التحدي السريع - تظهر فقط في الأقسام المسموحة
+// ============================================
+// لعبة التحدي السريع
 // ============================================
 (function() {
     "use strict";
-    
-    // الأقسام المسموح بها للعبة
-    const ALLOWED_SKILLS = [
-        "lesen1", "lesen2", "lesen3",
-        "hoeren1", "hoeren2", "hoeren3",
-        "sprach1", "sprach2"
-    ];
-    
-   // ============================================
-// لعبة التحدي السريع - تظهر فقط في الأجزاء المسموحة
-// ============================================
-(function() {
-    "use strict";
-    
-    // أسماء الأجزاء (من واجهة المستخدم) التي لا يظهر فيها الزر
-    const HIDDEN_TEIL_NAMES = ["Schreiben", "Mündlich", "Tips"];
-    
-    function shouldShowGameButton() {
-        // نبحث عن النص النشط في قائمة الأجزاء (teileList)
-        const teileItems = document.querySelectorAll('.teile-row .item');
-        for (let i = 0; i < teileItems.length; i++) {
-            const item = teileItems[i];
-            const text = item.textContent || item.innerText;
-            
-            // إذا كان هذا الجزء نشطاً (محدداً) واسمه ممنوع
-            if (item.classList.contains('active-teil') || item.style.backgroundColor !== 'rgba(15, 23, 42, 0.75)') {
-                if (HIDDEN_TEIL_NAMES.some(hidden => text.includes(hidden))) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
     
     function addGameButton() {
         var nav = document.getElementById('examNavButtons');
@@ -761,70 +728,28 @@
             setTimeout(addGameButton, 500);
             return;
         }
-        
-        // إزالة الزر القديم
-        var oldBtn = document.getElementById('rapidGameBtn');
-        if (oldBtn) oldBtn.remove();
-        
-        // التحقق: هل يجب إظهار الزر؟
-        if (!shouldShowGameButton()) {
-            console.log('🎮 زر التحدي السريع مخفي في هذا القسم');
-            return;
-        }
+        if (document.getElementById('rapidGameBtn')) return;
         
         var btn = document.createElement('button');
         btn.id = 'rapidGameBtn';
         btn.innerHTML = '⚡ التحدي السريع';
         btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
         btn.onclick = function() {
-            // محاولة تشغيل اللعبة من rapidGame.js
-            if (typeof startGame === 'function') {
-                let skill = typeof currentSkill !== 'undefined' ? currentSkill : null;
-                let examId = typeof currentExamId !== 'undefined' ? currentExamId : 1;
-                if (skill) {
-                    startGame(skill, examId);
-                } else {
-                    alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
-                }
-            } else {
-                alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
-            }
+            alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
         };
         nav.appendChild(btn);
         console.log('🎮 زر التحدي السريع جاهز');
     }
     
-    // مراقبة تغيير القسم (عند النقر على عناوين الأجزاء)
-    function observeTeilChanges() {
-        const teileContainer = document.getElementById('teileList');
-        if (!teileContainer) return;
-        
-        const observer = new MutationObserver(function() {
-            setTimeout(addGameButton, 100);
-        });
-        
-        observer.observe(teileContainer, { childList: true, subtree: true, attributes: true });
-        
-        // أيضاً نراقب النقرات على عناوين الأجزاء
-        document.addEventListener('click', function(e) {
-            if (e.target.closest('.teile-row .item')) {
-                setTimeout(addGameButton, 200);
-            }
-        });
-    }
-    
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(addGameButton, 500);
-            setTimeout(observeTeilChanges, 600);
         });
     } else {
         setTimeout(addGameButton, 500);
-        setTimeout(observeTeilChanges, 600);
     }
 })();
-
-
+</script>
 
 <script>
     // ✅ نظام تكبير وتصغير الموقع
