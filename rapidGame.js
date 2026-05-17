@@ -1022,22 +1022,27 @@
     const oldBtn = document.getElementById('rapidGameBtn');
     if (oldBtn) oldBtn.remove();
 
-    // معرفة الجزء الحالي
-    const currentSkill =
-        typeof getCurrentSkill === 'function'
-            ? getCurrentSkill()
-            : '';
-
-    // إخفاء الزر في هذه الأجزاء
-    const hiddenSkills = [
+    // الأجزاء التي نريد إخفاء الزر فيها
+    const hiddenSections = [
         'schreiben',
+        'mündlich1',
+        'mündlich2',
+        'mündlich3',
         'mündlich',
         'tips'
     ];
 
-    if (hiddenSkills.includes(currentSkill)) {
-        console.log('🚫 تم إخفاء زر اللعبة في:', currentSkill);
-        return;
+    // التحقق من الجزء الظاهر حالياً
+    for (const id of hiddenSections) {
+        const section = document.getElementById(id);
+
+        if (
+            section &&
+            section.style.display !== 'none'
+        ) {
+            console.log('🚫 الزر مخفي في:', id);
+            return;
+        }
     }
 
     // إنشاء الزر
@@ -1050,6 +1055,11 @@
         'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
 
     btn.onclick = () => {
+        const currentSkill =
+            typeof getCurrentSkill === 'function'
+                ? getCurrentSkill()
+                : 'lesen1';
+
         const currentExamId =
             typeof getCurrentExamId === 'function'
                 ? getCurrentExamId()
@@ -1062,4 +1072,3 @@
 
     console.log('🎮 زر العب جاهز');
 }
-})();
