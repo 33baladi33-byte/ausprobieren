@@ -715,21 +715,24 @@
     
     checkAndToggleTipsButton();
 })();
+
 // ============================================
-// لعبة التحدي السريع - يظهر فقط في الأجزاء المسموحة
+// لعبة التحدي السريع - تظهر فقط في الأجزاء المناسبة
 // ============================================
 (function() {
     "use strict";
     
-    // الأجزاء التي لا يظهر فيها الزر
-    const hiddenSkills = ["schreiben", "mündlich", "mündlich1", "mündlich2", "mündlich3", "tips"];
+    // الأجزاء التي لا يجب أن يظهر فيها الزر (لأن اللعبة لا تناسبها)
+    const hideGameForSkills = ["schreiben", "mündlich", "mündlich1", "mündlich2", "mündlich3", "tips"];
     
     function shouldShowGameButton() {
-        // نتحقق من currentSkill الموجود في النطاق العام (من exams.js)
+        // إذا كان currentSkill موجوداً (من exams.js)
         if (typeof currentSkill !== 'undefined' && currentSkill) {
-            return !hiddenSkills.includes(currentSkill);
+            // نمنع الظهور فقط في الأجزاء المحددة
+            return !hideGameForSkills.includes(currentSkill);
         }
-        return true; // إذا لم نعرف المهارة، نظهر الزر افتراضياً
+        // في البداية (عندما لا يكون هناك امتحان مفتوح) لا نظهر الزر
+        return false;
     }
     
     function addGameButton() {
@@ -743,46 +746,48 @@
         var oldBtn = document.getElementById('rapidGameBtn');
         if (oldBtn) oldBtn.remove();
         
-        // التحقق إذا كان يجب إظهار الزر
+        // التحقق: هل يجب إظهار الزر؟
         if (!shouldShowGameButton()) {
             console.log('🎮 زر التحدي السريع مخفي في هذا القسم');
             return;
         }
         
+        // إنشاء الزر الجديد
         var btn = document.createElement('button');
         btn.id = 'rapidGameBtn';
         btn.innerHTML = '⚡ التحدي السريع';
         btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
         btn.onclick = function() {
+            // هنا يمكنك وضع وظيفة اللعبة الحقيقية عندما تصبح جاهزة
             alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
         };
         nav.appendChild(btn);
         console.log('🎮 زر التحدي السريع جاهز');
     }
     
-    // مراقبة تغيير القسم (عند فتح امتحان جديد)
+    // مراقبة تغيير القسم (عند فتح امتحان جديد في جزء مختلف)
     function observeSkillChanges() {
         let lastSkill = null;
         
         setInterval(function() {
             if (typeof currentSkill !== 'undefined' && currentSkill !== lastSkill) {
                 lastSkill = currentSkill;
-                addGameButton(); // إعادة إنشاء الزر (سيظهر أو يختفي حسب القسم)
+                addGameButton(); // إعادة التحقق من الظهور
             }
-        }, 500);
+        }, 300);
     }
     
+    // بدء التشغيل بعد تحميل الصفحة
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(addGameButton, 500);
-            setTimeout(observeSkillChanges, 600);
+            setTimeout(addGameButton, 800);
+            setTimeout(observeSkillChanges, 1000);
         });
     } else {
-        setTimeout(addGameButton, 500);
-        setTimeout(observeSkillChanges, 600);
+        setTimeout(addGameButton, 800);
+        setTimeout(observeSkillChanges, 1000);
     }
 })();
-    
 </script>
 
 <script>
