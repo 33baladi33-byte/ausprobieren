@@ -1079,3 +1079,4 @@ if (document.readyState === 'loading') {
     setTimeout(addGameButton, 500);
     setTimeout(observeSkillForGameButton, 1000);
 }
+})();
