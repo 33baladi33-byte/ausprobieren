@@ -716,7 +716,7 @@
     checkAndToggleTipsButton();
 })();
 
-    // ============================================
+   // ============================================
 // لعبة التحدي السريع - تظهر فقط في الأجزاء المناسبة
 // ============================================
 (function() {
@@ -754,7 +754,27 @@
         btn.innerHTML = '⚡ التحدي السريع';
         btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
         btn.onclick = function() {
-            alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
+            // الحصول على القسم الحالي ورقم الامتحان من exams.js
+            let skill = typeof currentSkill !== 'undefined' ? currentSkill : null;
+            let examId = typeof currentExamId !== 'undefined' ? currentExamId : null;
+            
+            if (!skill || !examId) {
+                alert("⚠️ الرجاء فتح امتحان أولاً قبل تشغيل اللعبة.");
+                return;
+            }
+            
+            // التحقق من أن القسم مسموح به
+            if (!ALLOWED_SKILLS.includes(skill)) {
+                alert("⚠️ وضع اللعبة غير متوفر في هذا القسم حالياً.");
+                return;
+            }
+            
+            // محاولة تشغيل اللعبة إذا كانت موجودة في rapidGame.js
+            if (typeof startGame === 'function') {
+                startGame(skill, examId);
+            } else {
+                alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
+            }
         };
         nav.appendChild(btn);
         console.log('🎮 زر التحدي السريع جاهز');
@@ -781,6 +801,7 @@
         setTimeout(observeSkillChanges, 600);
     }
 })();
+
 
 
 
