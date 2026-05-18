@@ -26,7 +26,16 @@ function saveExamResult(skill, examId, score) {
     // ========== تسجيل الامتحان في نظام التقرير اليومي ==========
     const examTitle = currentExamData?.title || `Exam ${examId}`;
     const total = 25; // عدد الأسئلة الافتراضي
-    const correctCount = Math.round((score / 100) * total);
+    
+    // حساب عدد الإجابات الصحيحة من النسبة المئوية
+    let correctAnswers = 0;
+    if (currentExamData?.questions && currentExamData.questions.length > 0) {
+      const totalQuestions = currentExamData.questions.length;
+      const pointsPerQuestion = 25 / totalQuestions;
+      correctAnswers = Math.round(score / pointsPerQuestion);
+    } else {
+      correctAnswers = Math.round((score / 100) * total);
+    }
     
     if (typeof window.registerCompletedExam === 'function') {
         window.registerCompletedExam({
@@ -34,10 +43,12 @@ function saveExamResult(skill, examId, score) {
             examId: examId,
             examTitle: examTitle,
             score: score,
-            correctAnswers: correctCount,
+            correctAnswers: correctAnswers,
             totalQuestions: total
         });
         console.log(`📊 [تقرير اليوم] تم تسجيل امتحان مكتمل: ${skill} - Exam ${examId} (${score}%)`);
+    } else {
+        console.warn("⚠️ registerCompletedExam غير معرف!");
     }
     // ===========================================================
     
