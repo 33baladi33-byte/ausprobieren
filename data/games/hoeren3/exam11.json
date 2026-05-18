@@ -1,0 +1,26 @@
+{
+  "title": "Hörverstehen Teil 3 - Wochenanfang",
+  "type": "truefalse",
+  "questions": [
+    {
+      "text": "Am Wochenanfang soll man einen Aufenthalt im Freien vermeiden.",
+      "correct": true
+    },
+    {
+      "text": "Abends ist das Risiko, einen Wildunfall zu haben, am größten.",
+      "correct": true
+    },
+    {
+      "text": "Man kann bei dem Fest an verschiedenen Orten Musik hören.",
+      "correct": true
+    },
+    {
+      "text": "In dringenden Fällen können Sie die Firma ab Montag erreichen.",
+      "correct": false
+    },
+    {
+      "text": "Am Abend werden Verkehrsbehinderungen erwartet.",
+      "correct": false
+    }
+  ]
+}
