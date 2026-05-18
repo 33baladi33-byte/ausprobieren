@@ -22,36 +22,6 @@ function saveExamResult(skill, examId, score) {
     const key = `exam_result_${skill}_${examId}`;
     localStorage.setItem(key, score.toString());
     console.log(`✅ تم حفظ النتيجة ${score} لـ ${skill} ${examId}`);
-    
-    // ========== تسجيل الامتحان في نظام التقرير اليومي ==========
-    const examTitle = currentExamData?.title || `Exam ${examId}`;
-    const total = 25; // عدد الأسئلة الافتراضي
-    
-    // حساب عدد الإجابات الصحيحة من النسبة المئوية
-    let correctAnswers = 0;
-    if (currentExamData?.questions && currentExamData.questions.length > 0) {
-      const totalQuestions = currentExamData.questions.length;
-      const pointsPerQuestion = 25 / totalQuestions;
-      correctAnswers = Math.round(score / pointsPerQuestion);
-    } else {
-      correctAnswers = Math.round((score / 100) * total);
-    }
-    
-    if (typeof window.registerCompletedExam === 'function') {
-        window.registerCompletedExam({
-            skill: skill,
-            examId: examId,
-            examTitle: examTitle,
-            score: score,
-            correctAnswers: correctAnswers,
-            totalQuestions: total
-        });
-        console.log(`📊 [تقرير اليوم] تم تسجيل امتحان مكتمل: ${skill} - Exam ${examId} (${score}%)`);
-    } else {
-        console.warn("⚠️ registerCompletedExam غير معرف!");
-    }
-    // ===========================================================
-    
   } catch(e) {
     console.error("❌ خطأ في حفظ النتيجة:", e);
   }
