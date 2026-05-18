@@ -1518,7 +1518,24 @@ function checkTeil1(questions, answers) {
   }
   
   saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
+
+   // ========== تسجيل الامتحان في نظام التقرير اليومي ==========
+  const examTitle = currentExamData?.title || `Exam ${currentExamId}`;
+  if (typeof window.registerCompletedExam === 'function') {
+      window.registerCompletedExam({
+          skill: currentSkill,
+          examId: currentExamId,
+          examTitle: examTitle,
+          score: parseFloat(finalScore),
+          correctAnswers: score,
+          totalQuestions: total
+      });
+      console.log(`📊 [تقرير اليوم] تم تسجيل امتحان مكتمل: ${currentSkill} - Exam ${currentExamId} (${finalScore}%)`);
+  }
+  // ===========================================================
   
+
+                              
   if (document.getElementById("list").classList.contains("active")) {
     renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
   }
