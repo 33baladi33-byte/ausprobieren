@@ -1,16 +1,16 @@
 {
   "title": "Hörverstehen Teil 2 - Bibliothek (مواضيع تركيا)",
-  "type": "truefalse",
-  "questions": [
-    { "text": "Astrid Nowak hat ihr ganzes Berufsleben in der Stadtbibliothek verbracht.", "correct": false },
-    { "text": "Die meisten Besucher/innen der Stadtbibliothek wollen Medien ausleihen.", "correct": true },
-    { "text": "Viele halten sich gern in den attraktiven Räumen der Bibliothek auf.", "correct": true },
-    { "text": "Die Bibliothek bietet ihre Dienstleistungen seit Jahren auch sonntags an.", "correct": false },
-    { "text": "Die vielfältigen Angebote der Bibliothek sind gratis nutzbar.", "correct": true },
-    { "text": "Ein Angebotsschwerpunkt sind Informationsmedien für jüngere Leute.", "correct": false },
-    { "text": "Man kann in der Bibliothek auch elektronische Geräte mieten.", "correct": false },
-    { "text": "Heute finden nur Kurse aus dem Bereich Medien und Technik statt.", "correct": false },
-    { "text": "Es gibt einen Raum, in dem man mit anderen zusammen moderne technische Werkzeuge ausprobieren kann.", "correct": true },
-    { "text": "Die Bibliotheken in Deutschland werden genauso häufig genutzt wie Kinos oder Museen.", "correct": false }
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Astrid Nowak hat ihr ganzes Berufsleben in der Stadtbibliothek verbracht.", "correct": false },
+    { "id": 2, "text": "Die meisten Besucher/innen der Stadtbibliothek wollen Medien ausleihen.", "correct": true },
+    { "id": 3, "text": "Viele halten sich gern in den attraktiven Räumen der Bibliothek auf.", "correct": true },
+    { "id": 4, "text": "Die Bibliothek bietet ihre Dienstleistungen seit Jahren auch sonntags an.", "correct": false },
+    { "id": 5, "text": "Die vielfältigen Angebote der Bibliothek sind gratis nutzbar.", "correct": true },
+    { "id": 6, "text": "Ein Angebotsschwerpunkt sind Informationsmedien für jüngere Leute.", "correct": false },
+    { "id": 7, "text": "Man kann in der Bibliothek auch elektronische Geräte mieten.", "correct": false },
+    { "id": 8, "text": "Heute finden nur Kurse aus dem Bereich Medien und Technik statt.", "correct": false },
+    { "id": 9, "text": "Es gibt einen Raum, in dem man mit anderen zusammen moderne technische Werkzeuge ausprobieren kann.", "correct": true },
+    { "id": 10, "text": "Die Bibliotheken in Deutschland werden genauso häufig genutzt wie Kinos oder Museen.", "correct": false }
   ]
 }

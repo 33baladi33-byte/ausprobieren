@@ -1,11 +1,11 @@
 {
-  "title": "Studentenparty in Frankreich (مواضيع تركيا)",
-  "type": "truefalse",
-  "questions": [
-    { "text": "Bayern und Nordrhein-Westfalen erhalten zukünftig jedes Jahr 2,3 Milliarden Euro für den Bau neuer Autobahnen.", "correct": false },
-    { "text": "Wegen hoher Minustemperaturen findet in ganz Russland kein Unterricht statt.", "correct": false },
-    { "text": "Bei einer Studentenparty in Frankreich gibt es Tote und Verletzte.", "correct": true },
-    { "text": "Das Bundesfinanzministerium hat im letzten Jahr die Steuern gesenkt.", "correct": false },
-    { "text": "Die Regierung plant eine Änderung bei der Führerschein-Probezeit.", "correct": true }
+  "title": "Hörverstehen Teil 1 - Studentenparty in Frankreich",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Bayern und Nordrhein-Westfalen erhalten zukünftig jedes Jahr 2,3 Milliarden Euro für den Bau neuer Autobahnen.", "correct": false },
+    { "id": 2, "text": "Wegen hoher Minustemperaturen findet in ganz Russland kein Unterricht statt.", "correct": false },
+    { "id": 3, "text": "Bei einer Studentenparty in Frankreich gibt es Tote und Verletzte.", "correct": true },
+    { "id": 4, "text": "Das Bundesfinanzministerium hat im letzten Jahr die Steuern gesenkt.", "correct": false },
+    { "id": 5, "text": "Die Regierung plant eine Änderung bei der Führerschein-Probezeit.", "correct": true }
   ]
 }

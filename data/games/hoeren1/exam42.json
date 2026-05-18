@@ -1,11 +1,11 @@
 {
-  "title": "Das Bundesfamilienministerium (مواضيع تركيا)",
-  "type": "truefalse",
-  "questions": [
-    { "text": "In Zukunft wird es schwieriger sein, Bauvorhaben des Bundes – wie Autobahnen oder Schienenwege – zu verhindern.", "correct": false },
-    { "text": "Eine weitere Verlängerung der Lebensarbeitszeit würde keine ernsthaften sozialen Probleme verursachen.", "correct": true },
-    { "text": "Der auf der Nordsee in Seenot geratene Fischkutter ist inzwischen gefunden worden.", "correct": false },
-    { "text": "Das Bundesfamilienministerium betrachtet den Ausbau der Familienpolitik als abgeschlossen.", "correct": true },
-    { "text": "Für Kinder, die sich im Kindergarten beim Spielen verletzen, haftet nicht automatisch die Einrichtung.", "correct": false }
+  "title": "Hörverstehen Teil 1 - Das Bundesfamilienministerium",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "In Zukunft wird es schwieriger sein, Bauvorhaben des Bundes – wie Autobahnen oder Schienenwege – zu verhindern.", "correct": false },
+    { "id": 2, "text": "Eine weitere Verlängerung der Lebensarbeitszeit würde keine ernsthaften sozialen Probleme verursachen.", "correct": true },
+    { "id": 3, "text": "Der auf der Nordsee in Seenot geratene Fischkutter ist inzwischen gefunden worden.", "correct": false },
+    { "id": 4, "text": "Das Bundesfamilienministerium betrachtet den Ausbau der Familienpolitik als abgeschlossen.", "correct": true },
+    { "id": 5, "text": "Für Kinder, die sich im Kindergarten beim Spielen verletzen, haftet nicht automatisch die Einrichtung.", "correct": false }
   ]
 }

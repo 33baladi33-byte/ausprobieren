@@ -1,11 +1,11 @@
 {
-  "title": "Die Zahl der Arbeitslosen (مواضيع تركيا)",
-  "type": "truefalse",
-  "questions": [
-    { "text": "Die Zahl der Arbeitslosen in Deutschland hat sich im Mai verringert.", "correct": true },
-    { "text": "Mexiko und Russland wollen ihre Zusammenarbeit in den Bereichen Wirtschaft und Finanzen weiter vertiefen.", "correct": true },
-    { "text": "Der deutsche Einzelhandel ist mit den Ergebnissen des Sommerschlussverkaufs sehr zufrieden.", "correct": false },
-    { "text": "Der Präsident der Weltbank äußerte sich besorgt über Entwicklungshilfe für die so genannte 'Dritte Welt'.", "correct": true },
-    { "text": "Bei einer Explosion im Erich-Kästner-Kinderdorf starben vier Jugendliche.", "correct": false }
+  "title": "Hörverstehen Teil 1 - Die Zahl der Arbeitslosen",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Zahl der Arbeitslosen in Deutschland hat sich im Mai verringert.", "correct": true },
+    { "id": 2, "text": "Mexiko und Russland wollen ihre Zusammenarbeit in den Bereichen Wirtschaft und Finanzen weiter vertiefen.", "correct": true },
+    { "id": 3, "text": "Der deutsche Einzelhandel ist mit den Ergebnissen des Sommerschlussverkaufs sehr zufrieden.", "correct": false },
+    { "id": 4, "text": "Der Präsident der Weltbank äußerte sich besorgt über Entwicklungshilfe für die so genannte 'Dritte Welt'.", "correct": true },
+    { "id": 5, "text": "Bei einer Explosion im Erich-Kästner-Kinderdorf starben vier Jugendliche.", "correct": false }
   ]
 }

@@ -1,26 +1,11 @@
 {
   "title": "Hörverstehen Teil 1 - Die Wetterlage in den Alpen",
-  "type": "truefalse",
-  "questions": [
-    {
-      "text": "Die Wetterlage in den Alpen wird sich in den nächsten Tagen verbessern.",
-      "correct": false
-    },
-    {
-      "text": "Die Fans des FC Neustadt waren von dem Sieg ihrer Mannschaft überrascht.",
-      "correct": true
-    },
-    {
-      "text": "Erzieherinnen verlangen eine bessere Bezahlung.",
-      "correct": true
-    },
-    {
-      "text": "Im Berliner Zoo gibt es eine große Pandafamilie.",
-      "correct": false
-    },
-    {
-      "text": "Die Zahl der Deutschland-Urlauber ist rückläufig.",
-      "correct": false
-    }
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Wetterlage in den Alpen wird sich in den nächsten Tagen verbessern.", "correct": false },
+    { "id": 2, "text": "Die Fans des FC Neustadt waren von dem Sieg ihrer Mannschaft überrascht.", "correct": true },
+    { "id": 3, "text": "Erzieherinnen verlangen eine bessere Bezahlung.", "correct": true },
+    { "id": 4, "text": "Im Berliner Zoo gibt es eine große Pandafamilie.", "correct": false },
+    { "id": 5, "text": "Die Zahl der Deutschland-Urlauber ist rückläufig.", "correct": false }
   ]
 }
