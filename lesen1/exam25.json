@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 25: Bienen",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Kaffee verleiht neuen Schwung und hebt die Stimmung...",
+      "correctTitle": "Genussmittel erhöht die Wahrnehmung bestimmter Wörter",
+      "shortCorrectTitle": "Genussmittel erhöht die Wahrnehmung bestimmter Wörter",
+      "wrongTitles": [
+        "Koffein im Blütennektar verbessert die Gedächtnisleistung",
+        "Wie Kaffee unser Sprachvermögen beeinträchtigt"
+      ]
+    },
+    {
+      "firstWords": "Ihr Gehirn ist gerade ein Millionstel Mal so groß wie unseres...",
+      "correctTitle": "Pflanzen und Insekten - eine gemeinsame Entwicklung",
+      "shortCorrectTitle": "Pflanzen und Insekten - eine gemeinsame Entwicklung",
+      "wrongTitles": [
+        "Die bisher ältesten Pflanzensamen entdeckt",
+        "Neue Erkenntnisse über das weltweite Bienensterben"
+      ]
+    },
+    {
+      "firstWords": "Bienen, die Pollen von Kaffee oder anderen koffeinhaltigen Pflanzen sammeln...",
+      "correctTitle": "Koffein im Blütennektar verbessert die Gedächtnisleistung",
+      "shortCorrectTitle": "Koffein im Blütennektar verbessert die Gedächtnisleistung",
+      "wrongTitles": [
+        "Genussmittel erhöht die Wahrnehmung bestimmter Wörter",
+        "Koffeinrückstände in landwirtschaftlichen Erzeugnissen"
+      ]
+    },
+    {
+      "firstWords": "Es ist ein schwerer Gang im Leben jedes Imkers...",
+      "correctTitle": "Insektensterben in der kalten Jahreszeit",
+      "shortCorrectTitle": "Insektensterben in der kalten Jahreszeit",
+      "wrongTitles": [
+        "Neue Erkenntnisse über das weltweite Bienensterben",
+        "Methoden zum Überleben in der kalten Jahreszeit"
+      ]
+    },
+    {
+      "firstWords": "Viele Insekten überwintern als Puppe oder Larve...",
+      "correctTitle": "Methoden zum Überleben in der kalten Jahreszeit",
+      "shortCorrectTitle": "Methoden zum Überleben in der kalten Jahreszeit",
+      "wrongTitles": [
+        "Wie aus Tieren Frostschutzmittel gewonnen werden",
+        "Insektensterben in der kalten Jahreszeit"
+      ]
+    }
+  ]
+}

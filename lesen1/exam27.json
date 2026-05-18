@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 27: Geld",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Spardosen sind Sammelbehälter, Dekoration oder Kinderspielzeug...",
+      "correctTitle": "Sammelgefäße als Ausstellungsobjekte",
+      "shortCorrectTitle": "Sammelgefäße als Ausstellungsobjekte",
+      "wrongTitles": [
+        "Sparbüchsen - nun wieder in Mode",
+        "Ausstellung über Finanzmetropole"
+      ]
+    },
+    {
+      "firstWords": "Wer beim leisen Klirren von Geldstücken ein prickelndes Gefühl verspürt...",
+      "correctTitle": "Lehrreicher Rundgang zu Finanzwissen",
+      "shortCorrectTitle": "Lehrreicher Rundgang zu Finanzwissen",
+      "wrongTitles": [
+        "Ausstellung über Finanzmetropole",
+        "Fachinformationen für Finanzprofis"
+      ]
+    },
+    {
+      "firstWords": "Darum geht es, zu begreifen, wie Wirtschaft funktioniert...",
+      "correctTitle": "Finanz-ABC für Anfänger",
+      "shortCorrectTitle": "Finanz-ABC für Anfänger",
+      "wrongTitles": [
+        "Fachinformationen für Finanzprofis",
+        "Vertrauen zeigt sich auf dem Konto"
+      ]
+    },
+    {
+      "firstWords": "Eine neue Untersuchung des Instituts der deutschen Wirtschaft...",
+      "correctTitle": "Interessante Tätigkeit wichtiger als hohes Gehalt",
+      "shortCorrectTitle": "Interessante Tätigkeit wichtiger als hohes Gehalt",
+      "wrongTitles": [
+        "Vertrauen zeigt sich auf dem Konto",
+        "Fachinformationen für Finanzprofis"
+      ]
+    },
+    {
+      "firstWords": "Über Geld sprechen viele Deutsche nicht gerne...",
+      "correctTitle": "Wie Kinder den Umgang mit Geld lernen",
+      "shortCorrectTitle": "Wie Kinder den Umgang mit Geld lernen",
+      "wrongTitles": [
+        "Wie man Kinder zum Sparen motiviert",
+        "Vertrauen zeigt sich auf dem Konto"
+      ]
+    }
+  ]
+}

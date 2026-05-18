@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 36: kein Zeit (التعديل 1)",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Die Krüger sind eine ganz normale Familie...",
+      "correctTitle": "Zeitprobleme in der Familie",
+      "shortCorrectTitle": "Zeitprobleme in der Familie",
+      "wrongTitles": [
+        "Termindruck schon bei Kindern",
+        "Probleme bei der Kindererziehung"
+      ]
+    },
+    {
+      "firstWords": "Der Wunsch nach Zweisamkeit hat sich zu einem guten Geschäft...",
+      "correctTitle": "Vorsicht vor zweifelhaften Kontaktagenturen!",
+      "shortCorrectTitle": "Vorsicht vor zweifelhaften Kontaktagenturen!",
+      "wrongTitles": [
+        "Partnervermittlungen generell empfehlenswert",
+        "Partnervermittlung per Telefon"
+      ]
+    },
+    {
+      "firstWords": "Wie entsteht eine langfristige Beziehung? Was viele nicht wissen...",
+      "correctTitle": "Liebe fürs Leben muss wachsen",
+      "shortCorrectTitle": "Liebe fürs Leben muss wachsen",
+      "wrongTitles": [
+        "Aktive Partnersuche gegen das Alleinsein",
+        "Zeitprobleme in der Familie"
+      ]
+    },
+    {
+      "firstWords": "Knapp 13 Millionen Single-Haushalte...",
+      "correctTitle": "Aktive Partnersuche gegen das Alleinsein",
+      "shortCorrectTitle": "Aktive Partnersuche gegen das Alleinsein",
+      "wrongTitles": [
+        "Liebe fürs Leben muss wachsen",
+        "Vorsicht vor zweifelhaften Kontaktagenturen!"
+      ]
+    },
+    {
+      "firstWords": "Nach dem Abitur, zum Studium oder weil der Zeitpunkt...",
+      "correctTitle": "Wenn die Kinder aus dem Haus sind",
+      "shortCorrectTitle": "Wenn die Kinder aus dem Haus sind",
+      "wrongTitles": [
+        "Kinder bleiben immer länger bei den Eltern wohnen",
+        "Termindruck schon bei Kindern"
+      ]
+    }
+  ]
+}

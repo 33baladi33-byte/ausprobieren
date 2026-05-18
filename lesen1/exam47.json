@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 47: Bäder",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Entdecken Sie interessante Städte und Regionen. Im Herzen...",
+      "correctTitle": "Bäder, Seen und Natur – im hessischen Paradies",
+      "shortCorrectTitle": "Bäder, Seen und Natur in Hessen",
+      "wrongTitles": [
+        "Zu Gast bei den Fürsten",
+        "Urlaub an deutschen Seen immer gefährlicher"
+      ]
+    },
+    {
+      "firstWords": "Pferde waren schon immer Melanie Schilles Leidenschaft...",
+      "correctTitle": "Am Strand im Dienst – mehr Sicherheit für Urlauber",
+      "shortCorrectTitle": "Am Strand im Dienst",
+      "wrongTitles": [
+        "Kinderarbeit in Deutschland",
+        "Jugendliche arbeiten für Jugendliche"
+      ]
+    },
+    {
+      "firstWords": "Ein neuer Urlaubstrend setzt sich durch: Statt faul...",
+      "correctTitle": "Nach harter Arbeit durch nordische Gewässer",
+      "shortCorrectTitle": "Nach harter Arbeit durch nordische Gewässer",
+      "wrongTitles": [
+        "Freiheit und Natur – nach sechs Wochen harter Arbeit",
+        "Schaden an Kreuzfahrtschiff verhindert Weiterfahrt"
+      ]
+    },
+    {
+      "firstWords": "Von 9 bis 15 Uhr arbeitet Sebastian Keller (18) in...",
+      "correctTitle": "Jugendliche arbeiten für Jugendliche",
+      "shortCorrectTitle": "Jugendliche arbeiten für Jugendliche",
+      "wrongTitles": [
+        "Kinderarbeit in Deutschland",
+        "Am Strand im Dienst"
+      ]
+    },
+    {
+      "firstWords": "Die Windjacken waren schon eingepackt, die Koffer geschlossen...",
+      "correctTitle": "Wegen Niedrigwasser: vom Fluss auf die Straße",
+      "shortCorrectTitle": "Wegen Niedrigwasser: vom Fluss auf die Straße",
+      "wrongTitles": [
+        "Schaden an Kreuzfahrtschiff verhindert Weiterfahrt",
+        "Nach harter Arbeit durch nordische Gewässer"
+      ]
+    }
+  ]
+}

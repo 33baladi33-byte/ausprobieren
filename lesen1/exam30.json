@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 30: Alpen",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Für Raucher wird es an der Universität in Köln ab dem kommenden...",
+      "correctTitle": "Uni-Campus: rauchfreie Zone eingerichtet",
+      "shortCorrectTitle": "Uni-Campus: rauchfreie Zone eingerichtet",
+      "wrongTitles": [
+        "Rauchverbot in Sportvereinen",
+        "Zigaretten gegen Alleinsein"
+      ]
+    },
+    {
+      "firstWords": "Urlaub in den Bergen ist sehr gesund. Das fanden jetzt Wissenschaftler...",
+      "correctTitle": "Höhenluft - gut fürs Herz",
+      "shortCorrectTitle": "Höhenluft - gut fürs Herz",
+      "wrongTitles": [
+        "Hochgebirge als Skiparadies",
+        "Zum Leistungssport in die Berge"
+      ]
+    },
+    {
+      "firstWords": "Schlechte Haut, übler Atem, leere Brieftasche...",
+      "correctTitle": "Mädchen geben mehr Geld für Zigaretten aus als Jungen",
+      "shortCorrectTitle": "Mädchen geben mehr Geld für Zigaretten aus als Jungen",
+      "wrongTitles": [
+        "Mit der Zigarette an die frische Luft",
+        "Junge Sportler: weniger suchtanfällig"
+      ]
+    },
+    {
+      "firstWords": "Sport im Hochgebirge? Da denkt man zuallererst an Wintersport...",
+      "correctTitle": "Freizeitsport in den Alpen",
+      "shortCorrectTitle": "Freizeitsport in den Alpen",
+      "wrongTitles": [
+        "Hochgebirge als Skiparadies",
+        "Zum Leistungssport in die Berge"
+      ]
+    },
+    {
+      "firstWords": "Sportvereine spielen eine immer wichtigere soziale Rolle...",
+      "correctTitle": "Junge Sportler: weniger suchtanfällig",
+      "shortCorrectTitle": "Junge Sportler: weniger suchtanfällig",
+      "wrongTitles": [
+        "Rauchverbot in Sportvereinen",
+        "Zigaretten gegen Alleinsein"
+      ]
+    }
+  ]
+}

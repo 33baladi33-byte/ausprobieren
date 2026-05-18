@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 44: Fisch",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Willkommen in der Wüste. Die Sonne brennt...",
+      "correctTitle": "Extremer Lebensraum",
+      "shortCorrectTitle": "Extremer Lebensraum",
+      "wrongTitles": [
+        "Die Ursachen für den Wassermangel",
+        "Fische im Fokus der Forscher"
+      ]
+    },
+    {
+      "firstWords": "Denn Bioniker entwickeln technische Anlagen nach dem...",
+      "correctTitle": "Auf der Suche nach verborgenen Details",
+      "shortCorrectTitle": "Auf der Suche nach verborgenen Details",
+      "wrongTitles": [
+        "Das Geheimnis des schnellen Schwimmens",
+        "Bioniker erforschen die Wüstennatur"
+      ]
+    },
+    {
+      "firstWords": "Der Sandfisch ist eigentlich gar kein Fisch, sondern...",
+      "correctTitle": "Ein Fisch in den Dünen",
+      "shortCorrectTitle": "Ein Fisch in den Dünen",
+      "wrongTitles": [
+        "Rasante Flucht",
+        "Wie wird Technik in der Natur eingesetzt"
+      ]
+    },
+    {
+      "firstWords": "Das größte Problem aller Wüstenbewohner ist die...",
+      "correctTitle": "Trinkwasser aus Nebel",
+      "shortCorrectTitle": "Trinkwasser aus Nebel",
+      "wrongTitles": [
+        "Die Ursachen für den Wassermangel",
+        "Extremer Lebensraum"
+      ]
+    },
+    {
+      "firstWords": "Beispiel Nummer drei: die Rollerspinne. Auch sie lebt...",
+      "correctTitle": "Rasante Flucht",
+      "shortCorrectTitle": "Rasante Flucht",
+      "wrongTitles": [
+        "Ein Fisch in den Dünen",
+        "Bioniker erforschen die Wüstennatur"
+      ]
+    }
+  ]
+}

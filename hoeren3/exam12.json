@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Im August",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Im August gibt es jeden Tag eine Aufführung.", "correct": false },
+    { "id": 2, "text": "Zur Station Grünberg kommen Sie mit der U-Bahn-Linie 68.", "correct": false },
+    { "id": 3, "text": "In weniger dringlichen Fällen soll man eine Nachricht hinterlassen.", "correct": true },
+    { "id": 4, "text": "Am Mittwoch und Donnerstag können Sie Sachspenden vorbeibringen.", "correct": true },
+    { "id": 5, "text": "Nur an den Nachmittagen wird eine hohe Verkehrsdichte erwartet.", "correct": false }
+  ]
+}

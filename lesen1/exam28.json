@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 28: Kinder und Schulen",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Nach der englischen Bezeichnung für 'Schultüte' sucht man vergebens...",
+      "correctTitle": "Traditionen zum Schulanfang",
+      "shortCorrectTitle": "Traditionen zum Schulanfang",
+      "wrongTitles": [
+        "Woher stammt der Brauch mit der Schultüte?",
+        "Das richtige Alter für die Einschulung"
+      ]
+    },
+    {
+      "firstWords": "Raban Rabovic ist ein kleiner Rabe. Seit Wochen denkt er...",
+      "correctTitle": "Neues Buch für kleine Leseanfänger",
+      "shortCorrectTitle": "Neues Buch für kleine Leseanfänger",
+      "wrongTitles": [
+        "Neue Methode: So lernen Kinder leichter lesen und schreiben",
+        "Wörterbuch mit CD - Neuerscheinung"
+      ]
+    },
+    {
+      "firstWords": "Auf den Straßen sind ab Schulbeginn wieder viele Kinder unterwegs...",
+      "correctTitle": "Vorsicht an Haltestellen!",
+      "shortCorrectTitle": "Vorsicht an Haltestellen!",
+      "wrongTitles": [
+        "Mit Schulanfängern richtiges Verhalten im Verkehr üben",
+        "Das neue Schülerticket - rund ums Jahr mit Bus und Bahn fahren"
+      ]
+    },
+    {
+      "firstWords": "In Deutschland herrscht für alle Kinder Schulpflicht...",
+      "correctTitle": "Das richtige Alter für die Einschulung",
+      "shortCorrectTitle": "Das richtige Alter für die Einschulung",
+      "wrongTitles": [
+        "Traditionen zum Schulanfang",
+        "Mit Schulanfängern richtiges Verhalten im Verkehr üben"
+      ]
+    },
+    {
+      "firstWords": "Ein Großteil des Busverkehrs in der Region dient vor allem...",
+      "correctTitle": "Weniger Fahrten in den Schulferien",
+      "shortCorrectTitle": "Weniger Fahrten in den Schulferien",
+      "wrongTitles": [
+        "Das neue Schülerticket - rund ums Jahr mit Bus und Bahn fahren",
+        "Vorsicht an Haltestellen!"
+      ]
+    }
+  ]
+}

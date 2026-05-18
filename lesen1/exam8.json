@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 8: Bilder",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Der Buchtitel erinnert an eine Horrorgeschichte: 'Die Nacht'...",
+      "correctTitle": "Das Ende der Dunkelheit",
+      "shortCorrectTitle": "Das Ende der Dunkelheit",
+      "wrongTitles": [
+        "Entwicklungsgeschichte der Lampen",
+        "Erde, Mond und Sterne - wie man sie noch nie gesehen hat"
+      ]
+    },
+    {
+      "firstWords": "Fotos machen ist heute nicht schwer. Schnell nimmt man das Handy...",
+      "correctTitle": "Gelungene Einführung in die moderne Fotografie",
+      "shortCorrectTitle": "Gelungene Einführung in die moderne Fotografie",
+      "wrongTitles": [
+        "Mit Profis eine neue Foto-Technik erlernen",
+        "Ein Fotograf auf Reisen"
+      ]
+    },
+    {
+      "firstWords": "Bilder der Fotografin Annie Leibovitz sind ab kommendem Samstag...",
+      "correctTitle": "Bilder einer bedeutenden Künstlerin",
+      "shortCorrectTitle": "Bilder einer bedeutenden Künstlerin",
+      "wrongTitles": [
+        "Eine Fotografin dreht einen Film",
+        "Familienfotos berühmter Persönlichkeiten"
+      ]
+    },
+    {
+      "firstWords": "Die Abkürzung TWAN klingt nach einem neuen Computerprogramm...",
+      "correctTitle": "Erde, Mond und Sterne - wie man sie noch nie gesehen hat",
+      "shortCorrectTitle": "Erde, Mond und Sterne - wie man sie noch nie gesehen hat",
+      "wrongTitles": [
+        "Das Ende der Dunkelheit",
+        "Ein Fotograf auf Reisen"
+      ]
+    },
+    {
+      "firstWords": "Er gehörte zu den ganz Großen seines Fachs: Andreas Feininger...",
+      "correctTitle": "Die bemerkenswerte Karriere eines Fotografen",
+      "shortCorrectTitle": "Die bemerkenswerte Karriere eines Fotografen",
+      "wrongTitles": [
+        "Ein Fotograf auf Reisen",
+        "Bilder einer bedeutenden Künstlerin"
+      ]
+    }
+  ]
+}

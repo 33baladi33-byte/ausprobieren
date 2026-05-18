@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 38: Limonade (التعديل 1)",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Möchten Sie Kraft, Jugend und Gesundheit aus der Flasche?...",
+      "correctTitle": "Frische Luft als wahre Energiequelle",
+      "shortCorrectTitle": "Frische Luft als wahre Energiequelle",
+      "wrongTitles": [
+        "Viel Wasser trinken - Gesundheit tanken",
+        "Mehr Sauerstoff im Sprudel macht fit"
+      ]
+    },
+    {
+      "firstWords": "Wenn es regnet, dann fließt das Regenwasser in den Erdboden...",
+      "correctTitle": "Vom Regen zum Mineralwasser",
+      "shortCorrectTitle": "Vom Regen zum Mineralwasser",
+      "wrongTitles": [
+        "Alarm: Nitrat im Regenwasser bedroht die Gesundheit",
+        "Limonade aus dem Wasserhahn"
+      ]
+    },
+    {
+      "firstWords": "Nach den Unwettern der letzten Sommer sprechen Meteorologen...",
+      "correctTitle": "Sommer bedeutet in Zukunft nicht unbedingt Sonne",
+      "shortCorrectTitle": "Sommer bedeutet in Zukunft nicht unbedingt Sonne",
+      "wrongTitles": [
+        "Die Sonne macht Landwirten Probleme",
+        "Vom Regen zum Mineralwasser"
+      ]
+    },
+    {
+      "firstWords": "Wozu noch Kästen mit Mineralwasserflaschen nach Hause schleppen...",
+      "correctTitle": "Sprudel hausgemacht – Zeit des Flaschen-Tragens ist vorbei",
+      "shortCorrectTitle": "Sprudel hausgemacht – Zeit des Flaschen-Tragens ist vorbei",
+      "wrongTitles": [
+        "Limonade aus dem Wasserhahn",
+        "Viel Wasser trinken - Gesundheit tanken"
+      ]
+    },
+    {
+      "firstWords": "'Wasser ist zum Waschen da' lautete ein deutscher Schlager...",
+      "correctTitle": "Viel Wasser trinken - Gesundheit tanken",
+      "shortCorrectTitle": "Viel Wasser trinken - Gesundheit tanken",
+      "wrongTitles": [
+        "Limonade - als modernes Kultgetränk wieder im Trend",
+        "Frische Luft als wahre Energiequelle"
+      ]
+    }
+  ]
+}

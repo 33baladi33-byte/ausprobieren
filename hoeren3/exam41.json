@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Fußballspiels im Ostpark (مواضيع تركيا)",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Übertragung des Fußballspiels im Ostpark findet bei jedem Wetter statt.", "correct": true },
+    { "id": 2, "text": "Wer sich für den Newsletter registriert, kann jeden Monat etwas gewinnen.", "correct": true },
+    { "id": 3, "text": "Alle Besucher des Schwimmbads dürfen heute im Restaurant kostenlos etwas trinken.", "correct": false },
+    { "id": 4, "text": "Wegen einer technischen Störung ist der Onlineshop weder telefonisch noch per E-Mail erreichbar.", "correct": false },
+    { "id": 5, "text": "Am Familiensonntag dürfen Kinder kostenlos ins Museum.", "correct": false }
+  ]
+}

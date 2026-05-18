@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 24: Kartoffel (التعديل 1)",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Über zehntausend wissenschaftliche Studien wurden in den vergangenen Jahren...",
+      "correctTitle": "Gesundes Leben schützt vor Zivilisationskrankheiten",
+      "shortCorrectTitle": "Gesundes Leben schützt vor Zivilisationskrankheiten",
+      "wrongTitles": [
+        "WHO untersucht Zusammenhang von Krebs und Herzinfarkt",
+        "Tolle Figur durch ausgewogene Ernährung"
+      ]
+    },
+    {
+      "firstWords": "Am Mittelmeer und in Mexiko wächst die Aloe-Vera-Pflanze...",
+      "correctTitle": "Pflanzliche Stoffe für die Gesundheit der Haut",
+      "shortCorrectTitle": "Pflanzliche Stoffe für die Gesundheit der Haut",
+      "wrongTitles": [
+        "Vitaminreiche Ernährung mit Aloe Vera",
+        "Gesunde Ernährung mit Aloe Vera"
+      ]
+    },
+    {
+      "firstWords": "Eine der ältesten bekannten Gemüsesorten ist der Spargel...",
+      "correctTitle": "Ein schlankes Gemüse für schlanke Leute",
+      "shortCorrectTitle": "Ein schlankes Gemüse für schlanke Leute",
+      "wrongTitles": [
+        "Das ideale Gemüse für schwer Arbeitende",
+        "Kartoffelrezepte als Zeitungsbeilage"
+      ]
+    },
+    {
+      "firstWords": "Schlank sein ist 'in'. Deshalb versuchen Millionen Menschen...",
+      "correctTitle": "Tolle Figur durch ausgewogene Ernährung",
+      "shortCorrectTitle": "Tolle Figur durch ausgewogene Ernährung",
+      "wrongTitles": [
+        "Gesundheitsrisiken durch fettreiche Ernährung",
+        "Das ideale Gemüse für schwer Arbeitende"
+      ]
+    },
+    {
+      "firstWords": "Als typisch deutsch gilt sie, doch rund um den Globus...",
+      "correctTitle": "Von der Wildpflanze zum international geschätzten Nahrungsmittel",
+      "shortCorrectTitle": "Von der Wildpflanze zum international geschätzten Nahrungsmittel",
+      "wrongTitles": [
+        "Das ideale Gemüse für schwer Arbeitende",
+        "Ein schlankes Gemüse für schlanke Leute"
+      ]
+    }
+  ]
+}

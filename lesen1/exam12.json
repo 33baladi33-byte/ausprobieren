@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 12: Insekten (التعديل 1)",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Heute und morgen tagt in Göteborg die Internationale Nordseekonferenz...",
+      "correctTitle": "Um die Zukunft der Nordsee ist es schlecht bestellt",
+      "shortCorrectTitle": "Um die Zukunft der Nordsee ist es schlecht bestellt",
+      "wrongTitles": [
+        "WWF zieht positive Bilanz für die Nordsee",
+        "Rhein nach Chemieunfall noch immer tot"
+      ]
+    },
+    {
+      "firstWords": "Für immer wird eine der größten Umweltkatastrophen mit dem Namen...",
+      "correctTitle": "Rückblick: Fischsterben im Rhein",
+      "shortCorrectTitle": "Rückblick: Fischsterben im Rhein",
+      "wrongTitles": [
+        "Rhein nach Chemieunfall noch immer tot",
+        "Neue Insektenart in Frankreich"
+      ]
+    },
+    {
+      "firstWords": "Der Klimawandel bringt es in Verbindung mit der Globalisierung mit sich...",
+      "correctTitle": "Kleine Insekten können Krankheiten bringen",
+      "shortCorrectTitle": "Kleine Insekten können Krankheiten bringen",
+      "wrongTitles": [
+        "Neue Mittel gegen Mücken",
+        "Bauern sind gezwungen Gift einzusetzen"
+      ]
+    },
+    {
+      "firstWords": "Forscher haben bei Versuchen im Bronx Zoo in New York eine neue Erkenntnis...",
+      "correctTitle": "Neue Studie: Nicht nur Ameisen und Bienen erkennen sich selbst",
+      "shortCorrectTitle": "Neue Studie: Nicht nur Ameisen und Bienen erkennen sich selbst",
+      "wrongTitles": [
+        "Probleme beim Versuchsaufbau: Studie gescheitert",
+        "Rückblick: Fischsterben im Rhein"
+      ]
+    },
+    {
+      "firstWords": "Die anhaltenden außergewöhnlich hohen Temperaturen haben in Südfrankreich...",
+      "correctTitle": "Bauern sind gezwungen Gift gegen schädliche Insekten einzusetzen",
+      "shortCorrectTitle": "Bauern sind gezwungen Gift einzusetzen",
+      "wrongTitles": [
+        "Neue Insektenart in Frankreich",
+        "Kleine Insekten können Krankheiten bringen"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Das Fest (ohne Frankfurt)",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Heute kann man vormittags das Fest besuchen.", "correct": true },
+    { "id": 2, "text": "Der Verkauf beginnt um 9 Uhr morgens.", "correct": false },
+    { "id": 3, "text": "Jugendliche Eintrittskarten kosten 13,50 €.", "correct": true },
+    { "id": 4, "text": "Die Fahrkarte ist in bestimmten Zügen gültig.", "correct": false },
+    { "id": 5, "text": "Am Sonntag können Kinder ein Theaterstück anschauen.", "correct": false }
+  ]
+}

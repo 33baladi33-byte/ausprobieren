@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 45: Frauen im Arbeitsmarkt",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Ein hochwertiger Schulabschluss gilt gemeinhin als Schlüssel...",
+      "correctTitle": "Schlechtere Chancen für Frauen am Arbeitsmarkt",
+      "shortCorrectTitle": "Schlechtere Chancen für Frauen",
+      "wrongTitles": [
+        "Immer mehr Frauen machen Karriere im technischen Bereich",
+        "Schweizer Frauen kämpfen für mehr Rechte im Beruf"
+      ]
+    },
+    {
+      "firstWords": "Übergewicht könnte erheblich durch Krankheiten, aber auch...",
+      "correctTitle": "Schnell essen macht dick",
+      "shortCorrectTitle": "Schnell essen macht dick",
+      "wrongTitles": [
+        "Experiment in Florida: Schlank in zwölf Stunden",
+        "Ernährungstipps kostenlos am Telefon"
+      ]
+    },
+    {
+      "firstWords": "Wenn Sie mehr über richtige Ernährung und das ideale...",
+      "correctTitle": "Ernährungstipps kostenlos am Telefon",
+      "shortCorrectTitle": "Ernährungstipps kostenlos am Telefon",
+      "wrongTitles": [
+        "Wissenschaftler warnen: Immer mehr dicke Mädchen",
+        "Schnell essen macht dick"
+      ]
+    },
+    {
+      "firstWords": "Das Arbeitsamt Berlin hat seine beiden Informationshefte...",
+      "correctTitle": "Was tun nach der Schule? Neue Ausbildungsmöglichkeiten",
+      "shortCorrectTitle": "Neue Ausbildungsmöglichkeiten nach der Schule",
+      "wrongTitles": [
+        "Neue Broschüre: Studieren im Ausland",
+        "Initiative: Frauen für Männerberufe begeistern"
+      ]
+    },
+    {
+      "firstWords": "Junge Frauen in der Schweiz sollen nun mehr Chancen...",
+      "correctTitle": "Initiative: Frauen für Männerberufe begeistern",
+      "shortCorrectTitle": "Frauen für Männerberufe begeistern",
+      "wrongTitles": [
+        "Schweizer Frauen kämpfen für mehr Rechte im Beruf",
+        "Immer mehr Frauen machen Karriere im technischen Bereich"
+      ]
+    }
+  ]
+}

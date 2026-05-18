@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 20: Umwelt",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Sie sind eine gut funktionierende Gemeinschaft mit einer Vision...",
+      "correctTitle": "Neue Besitzer für nicht mehr gebrauchte Gegenstände",
+      "shortCorrectTitle": "Neue Besitzer für nicht mehr gebrauchte Gegenstände",
+      "wrongTitles": [
+        "Gemeinsam kaputte Geräte retten",
+        "Voller Einkaufstüten machen nur kurze Zeit Freude"
+      ]
+    },
+    {
+      "firstWords": "'Man gönnt sich ja sonst nichts.' Und schon ist die Einkaufstüte voll...",
+      "correctTitle": "Volle Einkaufstüten machen nur kurze Zeit Freude",
+      "shortCorrectTitle": "Volle Einkaufstüten machen nur kurze Zeit Freude",
+      "wrongTitles": [
+        "Kaufsucht überwinden – diese Möglichkeiten gibt es",
+        "Studie zeigt, welche Geschenke glücklich machen"
+      ]
+    },
+    {
+      "firstWords": "Geklickt, gekauft, zurückgeschickt: Kunden nutzen im Online-Handel...",
+      "correctTitle": "Rücksendungen verringern: Händler hoffen auf Lösungen",
+      "shortCorrectTitle": "Rücksendungen verringern: Händler hoffen auf Lösungen",
+      "wrongTitles": [
+        "Rücksendungen verderben Online-Händlern das Geschäft",
+        "Studie zeigt, welche Geschenke glücklich machen"
+      ]
+    },
+    {
+      "firstWords": "Keine Lust mehr auf die Konsum-Gesellschaft? Dann könnte es ein erster Schritt...",
+      "correctTitle": "Gemeinsam kaputte Geräte retten",
+      "shortCorrectTitle": "Gemeinsam kaputte Geräte retten",
+      "wrongTitles": [
+        "Neue Besitzer für nicht mehr gebrauchte Gegenstände",
+        "Reparatur alter Haushaltsgeräte lohnt oft nicht"
+      ]
+    },
+    {
+      "firstWords": "Viele Menschen sind erstaunlich großzügig: Sie machen anderen gern Geschenke...",
+      "correctTitle": "Wer Engagement zeigt, steigert sein Glücksgefühl",
+      "shortCorrectTitle": "Wer Engagement zeigt, steigert sein Glücksgefühl",
+      "wrongTitles": [
+        "Studie zeigt, welche Geschenke glücklich machen",
+        "Voller Einkaufstüten machen nur kurze Zeit Freude"
+      ]
+    }
+  ]
+}

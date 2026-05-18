@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 11: Insekten",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Die anhaltenden außergewöhnlich hohen Temperaturen haben im Süden Frankreichs...",
+      "correctTitle": "Landwirte wollen Gift gegen schädliche Insekten einsetzen",
+      "shortCorrectTitle": "Landwirte wollen Gift gegen schädliche Insekten einsetzen",
+      "wrongTitles": [
+        "Neue Heuschreckenart in Frankreich entdeckt",
+        "Kleine Plagegeister können Krankheiten bringen"
+      ]
+    },
+    {
+      "firstWords": "Für immer wird eine der größten Umweltkatastrophen mit dem Namen...",
+      "correctTitle": "Rückblick: Fischsterben im Rhein",
+      "shortCorrectTitle": "Rückblick: Fischsterben im Rhein",
+      "wrongTitles": [
+        "Rhein nach Chemieunfall noch immer tot",
+        "WWF zieht positive Bilanz für die Nordsee"
+      ]
+    },
+    {
+      "firstWords": "Der Klimawandel bringt es in Verbindung mit der Globalisierung mit sich...",
+      "correctTitle": "Kleine Plagegeister können Krankheiten bringen",
+      "shortCorrectTitle": "Kleine Plagegeister können Krankheiten bringen",
+      "wrongTitles": [
+        "Neue Mittel gegen Mücken",
+        "Landwirte wollen Gift gegen schädliche Insekten einsetzen"
+      ]
+    },
+    {
+      "firstWords": "Forscher haben bei Versuchen im Bronx Zoo in New York eine neue Erkenntnis...",
+      "correctTitle": "Neue Studie: Nicht nur Affen und Delfine erkennen sich selbst",
+      "shortCorrectTitle": "Neue Studie: Nicht nur Affen und Delfine erkennen sich selbst",
+      "wrongTitles": [
+        "Probleme beim Versuchsaufbau: Studie gescheitert",
+        "Rückblick: Fischsterben im Rhein"
+      ]
+    },
+    {
+      "firstWords": "Heute und morgen tagt in Göteborg die Internationale Nordseekonferenz...",
+      "correctTitle": "Um die Zukunft der Nordsee ist es schlecht bestellt",
+      "shortCorrectTitle": "Um die Zukunft der Nordsee ist es schlecht bestellt",
+      "wrongTitles": [
+        "WWF zieht positive Bilanz für die Nordsee",
+        "Rhein nach Chemieunfall noch immer tot"
+      ]
+    }
+  ]
+}

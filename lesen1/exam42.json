@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 42: Schlafzug (التعديل 1)",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Viele Tiere können im Winter auf Sparflamme schalten...",
+      "correctTitle": "Tiere im Energiesparmodus",
+      "shortCorrectTitle": "Tiere im Energiesparmodus",
+      "wrongTitles": [
+        "Warum Menschen keinen Winterschlaf halten",
+        "Was hinter unserer Wintermüdigkeit steckt"
+      ]
+    },
+    {
+      "firstWords": "Licht kann sich positiv auf die Gesundheit auswirken...",
+      "correctTitle": "Richtiges Licht fördert das Lernen",
+      "shortCorrectTitle": "Richtiges Licht fördert Lernen",
+      "wrongTitles": [
+        "Licht aus – Energiesparen im Klassenzimmer",
+        "Professor fordert kürzere Arbeitszeiten"
+      ]
+    },
+    {
+      "firstWords": "Im Winter würden wir morgens am liebsten lange im...",
+      "correctTitle": "Was hinter unserer Wintermüdigkeit steckt",
+      "shortCorrectTitle": "Was hinter Wintermüdigkeit steckt",
+      "wrongTitles": [
+        "Sind Frühaufsteher intelligenter?",
+        "Wandern im Dunkeln – Tipps für Nachtwanderungen"
+      ]
+    },
+    {
+      "firstWords": "Verfestigen sich gelernte Vokabeln, während wir schlafen?...",
+      "correctTitle": "Klug durch Schlaf",
+      "shortCorrectTitle": "Klug durch Schlaf",
+      "wrongTitles": [
+        "Bewegung macht gute Laune",
+        "Professor fordert kürzere Arbeitszeiten"
+      ]
+    },
+    {
+      "firstWords": "Kürzere Tage, dunkle Wolken, Nieselregen: Die kalte...",
+      "correctTitle": "Bewegung macht gute Laune",
+      "shortCorrectTitle": "Bewegung macht gute Laune",
+      "wrongTitles": [
+        "Klug durch Schlaf",
+        "Was hinter unserer Wintermüdigkeit steckt"
+      ]
+    }
+  ]
+}

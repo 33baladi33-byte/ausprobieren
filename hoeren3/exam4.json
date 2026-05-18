@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Fahrschule",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Bei der Fahrschule kann man sich über das Internet anmelden.", "correct": true },
+    { "id": 2, "text": "Die Anruferin ist im Hinblick auf die Abfahrtszeit flexibel.", "correct": false },
+    { "id": 3, "text": "Für den Halb-Marathon kann man sich noch am Sonntag registrieren lassen.", "correct": false },
+    { "id": 4, "text": "Bei dem Flug nach Mallorca ändert sich die Abflugzeit.", "correct": true },
+    { "id": 5, "text": "In Halle D wird aus E-Books vorgelesen.", "correct": false }
+  ]
+}

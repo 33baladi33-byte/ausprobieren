@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 40: Auf dem Weg",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Wir bieten Bewegungsförderung mit und auf Pferden...",
+      "correctTitle": "Ein tierischer Lernspaß für alle",
+      "shortCorrectTitle": "Ein tierischer Lernspaß für alle",
+      "wrongTitles": [
+        "Mit dem eigenen Pferd zu Olympia",
+        "Fit und gesund auch nach der Pensionierung"
+      ]
+    },
+    {
+      "firstWords": "Die Schwimm- und Sportfreunde 1905 e.V. gehörten in den 70er...",
+      "correctTitle": "Auf dem Weg zu internationalen Wettkämpfen",
+      "shortCorrectTitle": "Auf dem Weg zu internationalen Wettkämpfen",
+      "wrongTitles": [
+        "Neueröffnetes Internat für junge Sporttaucher",
+        "Mit dem eigenen Pferd zu Olympia"
+      ]
+    },
+    {
+      "firstWords": "In unserem modernen Studio bieten wir Ihnen alle Arten...",
+      "correctTitle": "Fit und gesund auch nach der Pensionierung",
+      "shortCorrectTitle": "Fit und gesund auch nach der Pensionierung",
+      "wrongTitles": [
+        "Schlank, fit und glücklich im Flug",
+        "Durch Wassergymnastik Verspannungen lösen"
+      ]
+    },
+    {
+      "firstWords": "Das Trampolin ist ein einzigartiges Trainingsgerät...",
+      "correctTitle": "Schlank, fit und glücklich im Flug",
+      "shortCorrectTitle": "Schlank, fit und glücklich im Flug",
+      "wrongTitles": [
+        "Durch Wassergymnastik Verspannungen lösen",
+        "Muskeln wie ein Gewichtheber"
+      ]
+    },
+    {
+      "firstWords": "Sporttauchen ist eine fantastische Natursportart...",
+      "correctTitle": "Sport treiben wie ein Fisch unter Wasser",
+      "shortCorrectTitle": "Sport treiben wie ein Fisch unter Wasser",
+      "wrongTitles": [
+        "Gefahren beim Tauchen",
+        "Neueröffnetes Internat für junge Sporttaucher"
+      ]
+    }
+  ]
+}

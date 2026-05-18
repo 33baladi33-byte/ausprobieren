@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 22: Licht (التعديل 1)",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Heute machen die elektrische Beleuchtung in Wohnhäusern, Straßenlaternen...",
+      "correctTitle": "Was tun, wenn es Nacht wird? Lichtquellen vergangener Zeiten",
+      "shortCorrectTitle": "Was tun, wenn es Nacht wird?",
+      "wrongTitles": [
+        "Warum Licht für unser Wohlbefinden wichtig ist",
+        "Die Auswirkungen künstlichen Lichts"
+      ]
+    },
+    {
+      "firstWords": "Jahrelang zog es vor allem junge Berufstätige in die großen Städte...",
+      "correctTitle": "Stadtbewohner entdecken das Landleben",
+      "shortCorrectTitle": "Stadtbewohner entdecken das Landleben",
+      "wrongTitles": [
+        "Der Wald als neues Zuhause",
+        "Wohnungsnot in Metropolen"
+      ]
+    },
+    {
+      "firstWords": "Satellitenbilder der Erde bei Nacht zeigen ein strahlendes Lichtermeer...",
+      "correctTitle": "Die Auswirkungen künstlichen Lichts",
+      "shortCorrectTitle": "Die Auswirkungen künstlichen Lichts",
+      "wrongTitles": [
+        "Was tun, wenn es Nacht wird?",
+        "Warum Licht für unser Wohlbefinden wichtig ist"
+      ]
+    },
+    {
+      "firstWords": "Vor zehn Jahren lebten Dirk und Antje Seebens noch in Mannheim...",
+      "correctTitle": "Der Wald als neues Zuhause",
+      "shortCorrectTitle": "Der Wald als neues Zuhause",
+      "wrongTitles": [
+        "Stadtbewohner entdecken das Landleben",
+        "Trend: Großstädter machen Urlaub im Wald"
+      ]
+    },
+    {
+      "firstWords": "Wer verbringt nicht gerne sein Wochenende fernab der Stadt...",
+      "correctTitle": "Stadtbewohner leben umweltfreundlicher",
+      "shortCorrectTitle": "Stadtbewohner leben umweltfreundlicher",
+      "wrongTitles": [
+        "Landbewohner fordern besseren öffentlichen Nahverkehr",
+        "Der Wald als neues Zuhause"
+      ]
+    }
+  ]
+}

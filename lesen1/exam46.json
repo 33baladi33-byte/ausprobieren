@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 46: Baby TV",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Fernsehen ist der Sprachentwicklung bei Kleinkindern nicht...",
+      "correctTitle": "Schlechte Noten fürs Baby-TV",
+      "shortCorrectTitle": "Schlechte Noten für Baby-TV",
+      "wrongTitles": [
+        "Gefahren zu hohen Fernsehkonsums bei Kindern",
+        "Neueste Forschungsergebnisse zur Wirkung von Ginseng"
+      ]
+    },
+    {
+      "firstWords": "Pharmakologen am Universitätsklinikum Tübingen haben kürzlich...",
+      "correctTitle": "Neue Richtlinie für Zertifizierung von Medikamenten für Kinder",
+      "shortCorrectTitle": "Neue Richtlinie für Kindermedikamente",
+      "wrongTitles": [
+        "Kinder bekommen immer mehr Medikamente",
+        "Neue Verfahren in der Kinderheilkunde"
+      ]
+    },
+    {
+      "firstWords": "Alternative Heilverfahren können vor allem bei leichten...",
+      "correctTitle": "Alternative Heilverfahren: Wie gut sind sie wirklich?",
+      "shortCorrectTitle": "Alternative Heilverfahren",
+      "wrongTitles": [
+        "Neue Verfahren in der Kinderheilkunde",
+        "Naturkosmetik aus Geschwisterhand"
+      ]
+    },
+    {
+      "firstWords": "Die eine liebt Flora und Fauna, die andere hat ein...",
+      "correctTitle": "Naturkosmetik aus Geschwisterhand",
+      "shortCorrectTitle": "Naturkosmetik aus Geschwisterhand",
+      "wrongTitles": [
+        "Neueste Forschungsergebnisse zur Wirkung von Ginseng",
+        "Alternative Heilverfahren"
+      ]
+    },
+    {
+      "firstWords": "Kinder essen zu viel Fast Food, aber zu wenig Obst...",
+      "correctTitle": "Kinder und Jugendliche: Risikofaktor Übergewicht",
+      "shortCorrectTitle": "Risikofaktor Übergewicht bei Kindern",
+      "wrongTitles": [
+        "Studie: Schulkinder treiben zu wenig Sport",
+        "Gefahren zu hohen Fernsehkonsums"
+      ]
+    }
+  ]
+}

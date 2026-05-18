@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Reitturnier",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Besucher des Reitturniers sollten möglichst Parkplätze außerhalb des Turniergeländes nutzen.", "correct": true },
+    { "id": 2, "text": "Das Open-Air-Gospelkonzert wird live im Radio übertragen.", "correct": false },
+    { "id": 3, "text": "Bei der Berliner Museumsnacht können Sie mit einer Sonderbuslinie bequem erreichen.", "correct": true },
+    { "id": 4, "text": "Wegen Glätte ist die A5 zwischen Mannheim und Frankfurt in beide Richtungen voll gesperrt.", "correct": false },
+    { "id": 5, "text": "Hotelreservierungen in Dresden sind ausschließlich telefonisch möglich.", "correct": false }
+  ]
+}

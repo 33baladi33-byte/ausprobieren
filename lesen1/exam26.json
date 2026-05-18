@@ -1,0 +1,52 @@
+{
+  "title": "Lesen Teil 1 - Exam 26: Spiele",
+  "skill": "lesen1",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Die erste Kösener Puppenfabrik wurde 1912 von Käthe Kruse gegründet...",
+      "correctTitle": "Naturgetreue Handarbeit für das Kinderzimmer",
+      "shortCorrectTitle": "Naturgetreue Handarbeit für das Kinderzimmer",
+      "wrongTitles": [
+        "Massenfertigung von Kuscheltieren",
+        "Dinge zum Anfassen bleiben beliebt"
+      ]
+    },
+    {
+      "firstWords": "Die Modelleisenbahn hat auch im Computerzeitalter ihre Anziehungskraft...",
+      "correctTitle": "Kleine Züge mit langer Geschichte",
+      "shortCorrectTitle": "Kleine Züge mit langer Geschichte",
+      "wrongTitles": [
+        "Technik-Spielzeug von früher wieder im Handel",
+        "Alte Spiele stärken das Miteinander"
+      ]
+    },
+    {
+      "firstWords": "Gedruckten Büchern wurde vor einigen Jahren von Experten...",
+      "correctTitle": "Dinge zum Anfassen bleiben beliebt",
+      "shortCorrectTitle": "Dinge zum Anfassen bleiben beliebt",
+      "wrongTitles": [
+        "Warum sich Leser von Büchern abwenden",
+        "Viele Computerspiele kommen schnell aus der Mode"
+      ]
+    },
+    {
+      "firstWords": "Immer neue Spielekonsolen, Spielformate und Apps drängen auf den Markt...",
+      "correctTitle": "Alte Spiele stärken das Miteinander",
+      "shortCorrectTitle": "Alte Spiele stärken das Miteinander",
+      "wrongTitles": [
+        "Je mehr Spielsachen, desto größer die Kreativität",
+        "Überfluss im Kinderzimmer"
+      ]
+    },
+    {
+      "firstWords": "Jahr für Jahr steigt der Umsatz der Spielzeughersteller...",
+      "correctTitle": "Überfluss im Kinderzimmer",
+      "shortCorrectTitle": "Überfluss im Kinderzimmer",
+      "wrongTitles": [
+        "Je mehr Spielsachen, desto größer die Kreativität",
+        "Alte Spiele stärken das Miteinander"
+      ]
+    }
+  ]
+}

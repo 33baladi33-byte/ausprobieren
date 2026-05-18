@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Alle Flüge der Fluglinie AirMer (مواضيع تركيا)",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Das Restaurant hat bis 23 Uhr geöffnet.", "correct": false },
+    { "id": 2, "text": "Alle Flüge der Fluglinie AirMer sind für heute und morgen gestrichen.", "correct": true },
+    { "id": 3, "text": "Auf alle Möbel gibt es heute und morgen einen Preisnachlass von bis zu 70%.", "correct": false },
+    { "id": 4, "text": "Der Schickmarkt hat ab Freitagvormittag geöffnet.", "correct": false },
+    { "id": 5, "text": "Der Intercity nach Bregenz fällt aufgrund eines technischen Gebrechens aus.", "correct": false }
+  ]
+}
