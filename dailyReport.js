@@ -1,6 +1,31 @@
 // ============================================
 // dailyReport.js - نظام التقرير اليومي الحقيقي
 // ============================================
+// تأكد من تعريف الدالة في النطاق العام
+window.registerCompletedExam = function(examData) {
+    console.log("✅ registerCompletedExam تم استدعاؤها!", examData);
+    const today = new Date().toISOString().slice(0,10);
+    let completedExams = [];
+    const saved = localStorage.getItem('zertiva_completed_exams');
+    if (saved) {
+        try { completedExams = JSON.parse(saved); } catch(e) {}
+    }
+    completedExams = completedExams.filter(e => !(e.skill === examData.skill && e.examId === examData.examId && e.date === today));
+    completedExams.push({
+        skill: examData.skill,
+        examId: examData.examId,
+        examTitle: examData.examTitle,
+        score: examData.score,
+        correctAnswers: examData.correctAnswers,
+        totalQuestions: examData.totalQuestions || 25,
+        date: today,
+        completedAt: examData.completedAt || new Date().toISOString()
+    });
+    localStorage.setItem('zertiva_completed_exams', JSON.stringify(completedExams));
+    console.log("✅ تم الحفظ في localStorage:", completedExams);
+};
+
+
 
 (function() {
     "use strict";
