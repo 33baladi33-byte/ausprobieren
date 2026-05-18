@@ -1,11 +1,11 @@
 {
   "title": "Hörverstehen Teil 3 - den Opel-Zoo (مواضيع تركيا)",
-  "type": "truefalse",
-  "questions": [
-    { "text": "Am Donnerstag ist in der Uckermark mit Birkenpollen zu rechnen.", "correct": true },
-    { "text": "Die Führung durch Frankfurts Hochhäuser beginnt am Messeturm.", "correct": false },
-    { "text": "Am 9. Juli kann man den Opel-Zoo nachts besuchen.", "correct": true },
-    { "text": "Für die Wanderung zur Ronneburg sollte man unbedingt genügend Verpflegung mitnehmen.", "correct": false },
-    { "text": "Auf der A7 Ulm - Füssen ist der linke Fahrstreifen gesperrt.", "correct": false }
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Am Donnerstag ist in der Uckermark mit Birkenpollen zu rechnen.", "correct": true },
+    { "id": 2, "text": "Die Führung durch Frankfurts Hochhäuser beginnt am Messeturm.", "correct": false },
+    { "id": 3, "text": "Am 9. Juli kann man den Opel-Zoo nachts besuchen.", "correct": true },
+    { "id": 4, "text": "Für die Wanderung zur Ronneburg sollte man unbedingt genügend Verpflegung mitnehmen.", "correct": false },
+    { "id": 5, "text": "Auf der A7 Ulm - Füssen ist der linke Fahrstreifen gesperrt.", "correct": false }
   ]
 }

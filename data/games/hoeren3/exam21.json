@@ -1,26 +1,11 @@
 {
   "title": "Hörverstehen Teil 3 - In Raum C23",
-  "type": "truefalse",
-  "questions": [
-    {
-      "text": "In Raum C23 trägt ein bekannter Schriftsteller etwas vor.",
-      "correct": false
-    },
-    {
-      "text": "Wenn Ihre Software nicht funktioniert, erhalten Sie über das Internet Unterstützung.",
-      "correct": true
-    },
-    {
-      "text": "In der Stadtbibliothek präsentiert heute eine Hochschule ihr Angebot vor allem für Berufstätige.",
-      "correct": false
-    },
-    {
-      "text": "Im Internet finden Sie auch Angebote für spezielle Zielgruppen.",
-      "correct": false
-    },
-    {
-      "text": "Wenn man Dienstag oder Donnerstag jemanden persönlich sprechen möchte, braucht man einen Termin.",
-      "correct": false
-    }
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "In Raum C23 trägt ein bekannter Schriftsteller etwas vor.", "correct": false },
+    { "id": 2, "text": "Wenn Ihre Software nicht funktioniert, erhalten Sie über das Internet Unterstützung.", "correct": true },
+    { "id": 3, "text": "In der Stadtbibliothek präsentiert heute eine Hochschule ihr Angebot vor allem für Berufstätige.", "correct": false },
+    { "id": 4, "text": "Im Internet finden Sie auch Angebote für spezielle Zielgruppen.", "correct": false },
+    { "id": 5, "text": "Wenn man Dienstag oder Donnerstag jemanden persönlich sprechen möchte, braucht man einen Termin.", "correct": false }
   ]
 }

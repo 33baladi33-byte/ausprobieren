@@ -1,11 +1,11 @@
 {
   "title": "Hörverstehen Teil 3 - Die Gruppe Die Prinzen (مواضيع تركيا)",
-  "type": "truefalse",
-  "questions": [
-    { "text": "Die Gruppe 'Die Prinzen' tritt am 23. Juni in Kiel auf.", "correct": true },
-    { "text": "Der Frankfurter JPMorgan Chase Corporate Challenge Lauf beginnt in der Nähe der Alten Oper.", "correct": false },
-    { "text": "Die Prager Nacht findet im Regensburger Dom statt.", "correct": false },
-    { "text": "Auf der A3 Frankfurt Richtung Würzburg ist zwischen Offenbach und Seligenstadt ein Stau.", "correct": true },
-    { "text": "Der Anbieter 'Call & Call' verbindet Sie kostenlos mit Ihrem Gesprächspartner.", "correct": false }
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Gruppe 'Die Prinzen' tritt am 23. Juni in Kiel auf.", "correct": true },
+    { "id": 2, "text": "Der Frankfurter JPMorgan Chase Corporate Challenge Lauf beginnt in der Nähe der Alten Oper.", "correct": false },
+    { "id": 3, "text": "Die Prager Nacht findet im Regensburger Dom statt.", "correct": false },
+    { "id": 4, "text": "Auf der A3 Frankfurt Richtung Würzburg ist zwischen Offenbach und Seligenstadt ein Stau.", "correct": true },
+    { "id": 5, "text": "Der Anbieter 'Call & Call' verbindet Sie kostenlos mit Ihrem Gesprächspartner.", "correct": false }
   ]
 }

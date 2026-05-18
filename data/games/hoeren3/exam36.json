@@ -1,11 +1,11 @@
 {
   "title": "Hörverstehen Teil 3 - Das Geschäft für österreichische Spezialitäten (مواضيع تركيا)",
-  "type": "truefalse",
-  "questions": [
-    { "text": "Das Geschäft für österreichische Spezialitäten befindet sich in Check-in-2.", "correct": true },
-    { "text": "Fortgeschrittene Schüler, Studenten, Profis und Lehrkräfte haben die Möglichkeit zu unterrichten.", "correct": false },
-    { "text": "Interessenten können auf der Messe nur Bestellungen aufgeben.", "correct": false },
-    { "text": "Alle Studierenden müssen ab dem Wintersemester Studiengebühren bezahlen.", "correct": false },
-    { "text": "Der Bürgermeister eröffnet das Fest.", "correct": true }
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Das Geschäft für österreichische Spezialitäten befindet sich in Check-in-2.", "correct": true },
+    { "id": 2, "text": "Fortgeschrittene Schüler, Studenten, Profis und Lehrkräfte haben die Möglichkeit zu unterrichten.", "correct": false },
+    { "id": 3, "text": "Interessenten können auf der Messe nur Bestellungen aufgeben.", "correct": false },
+    { "id": 4, "text": "Alle Studierenden müssen ab dem Wintersemester Studiengebühren bezahlen.", "correct": false },
+    { "id": 5, "text": "Der Bürgermeister eröffnet das Fest.", "correct": true }
   ]
 }
