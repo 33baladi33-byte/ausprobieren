@@ -70,7 +70,6 @@ function createResultBadge(score) {
 
 // ========== دالة عرض نافذة القفل ==========
 function showLockedMessage(examTitle) {
-    // إزالة الأرقام من اسم الامتحان (مثل " (10)" أو " (12)")
     let cleanTitle = examTitle.replace(/\s*\(\d+\)\s*$/, '').trim();
     
     let modal = document.createElement('div');
@@ -104,7 +103,6 @@ function showLockedMessage(examTitle) {
     let upgradeBtn = document.getElementById('upgradeNowBtnModal');
     let closeBtn = document.getElementById('closeModalBtn');
     
-    // تأثير hover على زر الترقية
     upgradeBtn.onmouseenter = function() {
         this.style.background = '#2563eb';
         this.style.transform = 'scale(1.02)';
@@ -114,7 +112,6 @@ function showLockedMessage(examTitle) {
         this.style.transform = 'scale(1)';
     };
     
-    // تأثير hover على زر الإغلاق
     closeBtn.onmouseenter = function() {
         this.style.background = '#e2e8f0';
         this.style.transform = 'scale(1.02)';
@@ -722,7 +719,6 @@ function renderTeileList() {
   }
 }
 
-// وظيفة عرض أزرار التنقل بين أجزاء Mündlich
 function renderMündlichPartTabs() {
   const container = document.getElementById("examsList");
   if (!container) return;
@@ -828,7 +824,6 @@ async function renderExamListForSkill(skill, teilName) {
   for (let i = 0; i < targetExams.length; i++) {
     const exam = targetExams[i];
     const examNumber = exam.id;
-    // 🔴 التعديل: أول 6 امتحانات مفتوحة في الوضع المجاني
     const isFreeExam = (examNumber <= 6);
     
     const div = document.createElement("div");
@@ -915,14 +910,12 @@ function setupLockedNextButton() {
   getUserStatusForExam().then(status => {
     const isPremium = (status === 'premium');
     
-    // احصل على الامتحان التالي
     const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
     const nextExam = currentExamsList[currentIndex + 1];
     
     if (nextExam) {
       const nextExamId = nextExam.id;
       
-      // فقط إذا كان الامتحان التالي أكبر من 6 والمستخدم ليس بريميوم
       if (!isPremium && nextExamId > 6 && nextBtn.style.display !== 'none') {
         nextBtn.style.position = "relative";
         nextBtn.style.paddingLeft = "35px";
@@ -938,7 +931,6 @@ function setupLockedNextButton() {
         nextBtn.style.backgroundColor = "#b0bec5";
         nextBtn.style.opacity = "0.8";
         
-        // تغيير وظيفة الزر لمنع الانتقال
         nextBtn.onclick = function(e) {
           e.preventDefault();
           e.stopPropagation();
@@ -946,7 +938,6 @@ function setupLockedNextButton() {
           return false;
         };
       } 
-      // إذا كان الامتحان التالي ضمن الـ 6 الأولى، دع الزر يعمل بشكل طبيعي
       else if (isPremium || nextExamId <= 6) {
         const lockIcon = nextBtn.querySelector('.next-lock-icon');
         if (lockIcon) lockIcon.remove();
@@ -954,7 +945,6 @@ function setupLockedNextButton() {
         nextBtn.style.opacity = "1";
         nextBtn.style.paddingLeft = "";
         
-        // استعادة الوظيفة الأصلية للزر
         nextBtn.onclick = () => {
           openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
         };
@@ -984,17 +974,14 @@ function shouldHideHelpButton(skill) {
 }
 
 async function openExam(examId, examTitle, skill) {
-  // ===== فحص الوصول للامتحان =====
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
-  const maxFreeExamId = 6; // أول 6 امتحانات مجانية للمستخدمين غير المدفوعين
+  const maxFreeExamId = 6;
   
-  // إذا كان المستخدم ليس بريميوم والامتحان المطلوب أكبر من 6، اظهر القفل
   if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
     showLockedMessage(examTitle + " (" + examId + ")");
     return;
   }
-  // ===== نهاية فحص الوصول =====
   
   console.log("🔍 openExam parameters:", { examId, examTitle, skill });
   
@@ -1095,35 +1082,29 @@ async function openExam(examId, examTitle, skill) {
   }
 }
 
-// دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
   if (currentSkill) {
-    // إذا كان skill هو mündlich1
     if (currentSkill === "mündlich1") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich1", "Mündlich - Teil 1 📖");
     } 
-    // إذا كان skill هو mündlich2
     else if (currentSkill === "mündlich2") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich2", "Mündlich - Teil 2 🗣️");
     }
-    // إذا كان skill هو mündlich3
     else if (currentSkill === "mündlich3") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich3", "Mündlich - Teil 3 🎯");
     }
-    // لأي مündlich آخر (احتياطي)
     else if (currentSkill.startsWith('mündlich')) {
       renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
     }
-    // لبقية الأقسام (Hören, Lesen, Sprachbausteine, Schreiben, Tips)
     else {
       const teil = teile.find(t => t.skill === currentSkill);
       if (teil) {
@@ -1140,7 +1121,6 @@ function goBackToExamsList() {
   }
 }
 
-// وظيفة عرض الامتحانات من نوع info (Teil 1 و Teil 3)
 function renderInfoExam(examData) {
   let containerId = currentSkill;
   if (currentSkill === "mündlich1" || currentSkill === "mündlich3") {
@@ -1386,7 +1366,6 @@ function updateExamNavButtons() {
   
   if (hasNext) {
     nextBtn.style.display = "inline-block";
-    // تعيين onclick مؤقتاً، سيتم تحديثه في setupLockedNextButton
     nextBtn.onclick = () => {
       const nextExam = currentExamsList[currentIndex + 1];
       openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
@@ -1519,7 +1498,7 @@ function checkTeil1(questions, answers) {
   
   saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
 
-   // ========== تسجيل الامتحان في نظام التقرير اليومي ==========
+  // ========== تسجيل الامتحان في نظام التقرير اليومي ==========
   const examTitle = currentExamData?.title || `Exam ${currentExamId}`;
   if (typeof window.registerCompletedExam === 'function') {
       window.registerCompletedExam({
@@ -1534,8 +1513,6 @@ function checkTeil1(questions, answers) {
   }
   // ===========================================================
   
-
-                              
   if (document.getElementById("list").classList.contains("active")) {
     renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
   }
