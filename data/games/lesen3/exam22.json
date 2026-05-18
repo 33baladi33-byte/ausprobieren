@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 22: Sport (معدل)",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Neue Studie erschienen Eine neue Studie stellt intensiv betriebenem körperlichem Training kein gutes Zeugnis aus...",
+      "correctTitle": "Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport.",
+      "shortCorrectTitle": "Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport.",
+      "wrongTitles": [
+        "Sie möchten mehr über die psychischen Aspekte des Klettersports erfahren.",
+        "Sie möchten einem Freund ein besonderes Sporterlebnis schenken"
+      ]
+    },
+    {
+      "firstWords": "Spektakuläre Feuerwehrübung Übung für den Ernstfall: Gemeinsam mit anderen Einsatzorganisationen...",
+      "correctTitle": "Sie interessieren sich für Videos von besonderen Rettungseinsätzen.",
+      "shortCorrectTitle": "Sie interessieren sich für Videos von besonderen Rettungseinsätzen.",
+      "wrongTitles": [
+        "Ihr kleiner Bruder möchte einmal ein Feuerwehrauto aus der Nähe sehen.",
+        "Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport."
+      ]
+    },
+    {
+      "firstWords": "Die Österreicherin Gerlinde Kaltenbrunner zählt zu den bekanntesten Bergsteigerinnen der Welt...",
+      "correctTitle": "Sie möchten mehr über die psychischen Aspekte des Klettersports erfahren.",
+      "shortCorrectTitle": "Sie möchten mehr über die psychischen Aspekte des Klettersports erfahren.",
+      "wrongTitles": [
+        "Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport.",
+        "Sie möchten einem Freund ein besonderes Sporterlebnis schenken"
+      ]
+    },
+    {
+      "firstWords": "Nervenkitzel pur: Bungee-Jumping Wir bieten euch unvergessliche Erlebnisse rund um die Extremsportart...",
+      "correctTitle": "Sie möchten einem Freund ein besonderes Sporterlebnis schenken",
+      "shortCorrectTitle": "Sie möchten einem Freund ein besonderes Sporterlebnis schenken",
+      "wrongTitles": [
+        "Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport.",
+        "Sie möchten mehr über die psychischen Aspekte des Klettersports erfahren."
+      ]
+    },
+    {
+      "firstWords": "Aktion 'Sauberes Grün' Die Aktion 'Sauberes Grün' findet dieses Jahr nicht wie bisher an einem einzigen Tag statt...",
+      "correctTitle": "Sie möchten dazu beitragen, Ihre Stadt schöner zu machen.",
+      "shortCorrectTitle": "Sie möchten dazu beitragen, Ihre Stadt schöner zu machen.",
+      "wrongTitles": [
+        "Ihr Vater plant, eine Familienchronik zu schreiben.",
+        "Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport."
+      ]
+    },
+    {
+      "firstWords": "Tag der offenen Tür in der städtischen Bücherei Zum Anlass des Welttages des Buches am 23. April...",
+      "correctTitle": "Ihre sechzehnjährige Cousine beschäftigt sich gerne mit kleinen Kindern.",
+      "shortCorrectTitle": "Ihre sechzehnjährige Cousine beschäftigt sich gerne mit kleinen Kindern.",
+      "wrongTitles": [
+        "Ihr Vater plant, eine Familienchronik zu schreiben.",
+        "Sie möchten dazu beitragen, Ihre Stadt schöner zu machen."
+      ]
+    },
+    {
+      "firstWords": "150 Jahre Stadtfeuerwehr Zum Jubiläum '150 Jahre Stadtfeuerwehr' laden die Feuerwehr und der Katastrophenschutz...",
+      "correctTitle": "Ihr kleiner Bruder möchte einmal ein Feuerwehrauto aus der Nähe sehen.",
+      "shortCorrectTitle": "Ihr kleiner Bruder möchte einmal ein Feuerwehrauto aus der Nähe sehen.",
+      "wrongTitles": [
+        "Sie interessieren sich für Videos von besonderen Rettungseinsätzen.",
+        "Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport."
+      ]
+    },
+    {
+      "firstWords": "Helfer und Helferinnen gesucht Für unseren Halbmarathon am 20. Juli suchen wir noch Freiwillige...",
+      "correctTitle": "Ein Freund von Ihnen möchte gerne bei einer Sportveranstaltung mitarbeiten",
+      "shortCorrectTitle": "Ein Freund möchte gerne bei einer Sportveranstaltung mitarbeiten",
+      "wrongTitles": [
+        "Sie möchten einem Freund ein besonderes Sporterlebnis schenken",
+        "Sie suchen Informationen zu den gesundheitlichen Auswirkungen von Sport."
+      ]
+    }
+  ]
+}

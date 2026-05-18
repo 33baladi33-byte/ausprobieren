@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 27: Einwanderung",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "14.01. - 10:00 Uhr (VOX) McLeods Töchter 19/1 Ein Italiener zum Verlieben...",
+      "correctTitle": "Sie möchten sich einen Dokumentarfilm über die Einwanderung nach Australien und über den damit verbundenen Prozess ansehen",
+      "shortCorrectTitle": "Sie möchten einen Film über Einwanderung nach Australien sehen.",
+      "wrongTitles": [
+        "Ein junges Mädchen möchte später als Au-pair ins Ausland gehen.",
+        "Sie schwärmen für Krimis, die auf tatsächlichen Fällen basieren."
+      ]
+    },
+    {
+      "firstWords": "14.01. - 16:00 Uhr (VOX) auf und davon - Mein Auslandstagebuch Folge 88...",
+      "correctTitle": "Ein junges Mädchen möchte später als Au-pair oder Austauschschülerin ins Ausland gehen und deshalb interessiert es sich für das Thema.",
+      "shortCorrectTitle": "Ein junges Mädchen interessiert sich für Auslandsaufenthalte.",
+      "wrongTitles": [
+        "Sie möchten sich einen Dokumentarfilm über Einwanderung ansehen.",
+        "Sie schwärmen für Krimis, die auf tatsächlichen Fällen basieren."
+      ]
+    },
+    {
+      "firstWords": "SPIEGEL TV Thema: Die Chemie des Todes - Mördersuche im Labor, Teil 3...",
+      "correctTitle": "Ein Mann interessiert sich für die Aufdeckung von Verbrechen, die früher nicht gelöst werden konnten.",
+      "shortCorrectTitle": "Ein Mann interessiert sich für Aufdeckung alter Verbrechen.",
+      "wrongTitles": [
+        "Sie schwärmen für Krimis, die auf tatsächlichen Fällen basieren.",
+        "Sie möchten sich einen Dokumentarfilm über Einwanderung ansehen."
+      ]
+    },
+    {
+      "firstWords": "16.01.2008 - 22:50 Uhr BBC Exklusiv Thema: Wildes Wetter, Teil 2: Kälte und Hitze...",
+      "correctTitle": "Sie haben großes Interesse daran, wie mithilfe von Computertechnik das Wetter an verschiedenen Orten der Welt vorhergesagt werden kann.",
+      "shortCorrectTitle": "Sie interessieren sich für Wettervorhersage mit Computertechnik.",
+      "wrongTitles": [
+        "Ein Mann interessiert sich dafür, wie Wetterphänomene entstehen.",
+        "Sie suchen ein Gartenmagazin über Gemüseanbau."
+      ]
+    },
+    {
+      "firstWords": "Jamie At Home (RTL2) Samstags Jamie Oliver ist zurück an Heim und Herd!...",
+      "correctTitle": "Sie suchen ein Gartenmagazin, aus dem Sie alles über den Anbau von Gemüse- und Obstsorten erfahren können.",
+      "shortCorrectTitle": "Sie suchen ein Gartenmagazin über Gemüse- und Obstsorten.",
+      "wrongTitles": [
+        "Ein Mann interessiert sich dafür, wie Wetterphänomene entstehen.",
+        "Sie möchten sich eine Quizsendung ansehen."
+      ]
+    },
+    {
+      "firstWords": "Die Wahrheit und nichts als die Wahrheit Ab 28. Januar montags um 22:15 Uhr bei RTL II...",
+      "correctTitle": "Sie möchten sich eine Quizsendung ansehen, an der Familienmitglieder teilnehmen",
+      "shortCorrectTitle": "Sie möchten eine Quizsendung mit Familienmitgliedern sehen.",
+      "wrongTitles": [
+        "Sie suchen ein Gartenmagazin über Gemüseanbau.",
+        "Sie möchten sich einen Dokumentarfilm über Einwanderung ansehen."
+      ]
+    },
+    {
+      "firstWords": "ML Mona Lisa (ZDF) - Traumurlaub ganz anders Ärzteschiff für Menschen in Not...",
+      "correctTitle": "Eine Bekannte von Ihnen sucht einen Reisefilm, ähnlich dem 'Traumschiff', in dem es während eines Reiseaufenthaltes alles über den Aufenthaltsort gezeigt wird.",
+      "shortCorrectTitle": "Eine Bekannte sucht einen Reisefilm ähnlich dem Traumschiff.",
+      "wrongTitles": [
+        "Sie möchten sich eine Quizsendung ansehen.",
+        "Ein Mann interessiert sich für das Bauernleben."
+      ]
+    },
+    {
+      "firstWords": "Bauer sucht Frau Episode: Folge 3 Sonntag, 13. Januar Serie, 60 Min...",
+      "correctTitle": "Ein Mann interessiert sich für das Bauernleben und sucht deshalb eine passende Sendung.",
+      "shortCorrectTitle": "Ein Mann interessiert sich für das Bauernleben.",
+      "wrongTitles": [
+        "Eine Bekannte sucht einen Reisefilm.",
+        "Sie suchen ein Gartenmagazin über Gemüseanbau."
+      ]
+    }
+  ]
+}

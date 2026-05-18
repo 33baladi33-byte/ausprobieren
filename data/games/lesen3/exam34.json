@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 34: ein paar Tage in Berlin (معدل)",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Eine Karte, 30 Häuser Ob Meisterwerke der Kunst, archäologische Schätze...",
+      "correctTitle": "Ein Bekannter hält sich einige Tage in Berlin auf und möchte in dieser Zeit verschiedene Kunstausstellungen besuchen.",
+      "shortCorrectTitle": "Ein Bekannter möchte Kunstausstellungen in Berlin besuchen.",
+      "wrongTitles": [
+        "Sie planen eine mehrtägige Städtereise mit Freunden.",
+        "Sie planen, mit Ihren Freunden einen unterhaltsamen Film zu schauen."
+      ]
+    },
+    {
+      "firstWords": "Berlin Gendarmenmarkt Im März beginnen die Dreharbeiten für den Film...",
+      "correctTitle": "Eine Freundin von mir wünscht sich, irgendwann selbst eine Rolle in einem Film zu spielen.",
+      "shortCorrectTitle": "Eine Freundin möchte eine Rolle in einem Film spielen.",
+      "wrongTitles": [
+        "Ihr Cousin sucht für die Sommermonate einen Nebenjob.",
+        "Eine Freundin sucht einen Nebenjob mit viel Zeit draußen."
+      ]
+    },
+    {
+      "firstWords": "Stadtführungen in Berlin Sie haben Freude daran, Geschichten lebendig zu erzählen...",
+      "correctTitle": "Eine Freundin sucht einen Nebenjob, bei dem sie gerne viel Zeit im Freien verbringen würde.",
+      "shortCorrectTitle": "Eine Freundin sucht einen Nebenjob mit viel Zeit draußen.",
+      "wrongTitles": [
+        "Ihr Cousin sucht für die Sommermonate einen Nebenjob.",
+        "Sie haben vor, eine besondere Stadtführung durch Berlin zu reservieren."
+      ]
+    },
+    {
+      "firstWords": "Sie lieben Filme? Dann machen Sie doch das Kino zu Ihrem Arbeitsplatz...",
+      "correctTitle": "Ihr Cousin ist Student und möchte in den Sommermonaten einer Nebentätigkeit nachgehen.",
+      "shortCorrectTitle": "Ihr Cousin sucht einen Nebenjob für den Sommer.",
+      "wrongTitles": [
+        "Eine Freundin sucht einen Nebenjob mit viel Zeit draußen.",
+        "Sie haben vor, eine besondere Stadtführung zu reservieren."
+      ]
+    },
+    {
+      "firstWords": "Das etwas gemütlichere Berlin Der wenig bekannte Berliner Stadtteil Friedenau...",
+      "correctTitle": "Sie haben vor, eine besondere Stadtführung durch Berlin zu reservieren.",
+      "shortCorrectTitle": "Sie möchten eine besondere Stadtführung in Berlin reservieren.",
+      "wrongTitles": [
+        "Eine Freundin sucht einen Nebenjob mit viel Zeit draußen.",
+        "Sie planen eine mehrtägige Städtereise mit Freunden."
+      ]
+    },
+    {
+      "firstWords": "Das Comedy Filmfest tourt auch dieses Jahr durch Deutschland...",
+      "correctTitle": "Sie planen, mit Ihren Freunden einen Film zu schauen, der gute Unterhaltung bietet.",
+      "shortCorrectTitle": "Sie möchten einen unterhaltsamen Film schauen.",
+      "wrongTitles": [
+        "Sie planen eine mehrtägige Städtereise mit Freunden.",
+        "Ein Bekannter möchte Kunstausstellungen in Berlin sehen."
+      ]
+    },
+    {
+      "firstWords": "Feiern wie in den Goldenen Zwanzigern Ein ausgelassenes Lebensgefühl und rauschende Nächte...",
+      "correctTitle": "Sie gehen auf eine Kostümfeier und suchen dafür ein geeignetes Kostüm.",
+      "shortCorrectTitle": "Sie suchen ein Kostüm für eine Kostümfeier.",
+      "wrongTitles": [
+        "Sie planen einen unterhaltsamen Film zu schauen.",
+        "Sie planen eine mehrtägige Städtereise mit Freunden."
+      ]
+    },
+    {
+      "firstWords": "Berlin erleben Unsere Reise führt Sie in eine der abwechslungsreichsten Städte Deutschlands...",
+      "correctTitle": "Sie planen eine mehrtägige Städtereise mit Freunden und möchten dafür ein geeignetes Angebot finden.",
+      "shortCorrectTitle": "Sie suchen ein Angebot für eine mehrtägige Städtereise.",
+      "wrongTitles": [
+        "Sie planen einen unterhaltsamen Film zu schauen.",
+        "Sie suchen ein Kostüm für eine Kostümfeier."
+      ]
+    }
+  ]
+}

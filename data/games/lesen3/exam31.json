@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 31: Hunde",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Vier herzerliebste Mopswelpen, drei Weibchen und ein Männchen, in gute Hände abzugeben...",
+      "correctTitle": "Sie suchen nach einem jungen Hund für Ihre Familie.",
+      "shortCorrectTitle": "Sie suchen nach einem jungen Hund.",
+      "wrongTitles": [
+        "Ein Freund braucht einen Hundekorb.",
+        "Ihre Tochter wünscht sich einen Hund."
+      ]
+    },
+    {
+      "firstWords": "Herbstzeit ist Lesezeit! Wir veranstalten auch dieses Jahr wieder unseren traditionellen Bücherflohmarkt...",
+      "correctTitle": "Eine Freundin möchte günstige Bücher für ihre achtjährige Tochter kaufen.",
+      "shortCorrectTitle": "Eine Freundin möchte günstige Kinderbücher kaufen.",
+      "wrongTitles": [
+        "Ein Bekannter möchte alte Romane verschenken.",
+        "Sie interessieren sich für die Arbeit in einer Buchhandlung."
+      ]
+    },
+    {
+      "firstWords": "Auenbacher Bach-Verein Auf den folgenden Seiten finden Sie Informationen zu unserem gemischten Chor...",
+      "correctTitle": "Ihr Mann singt gerne und möchte Mitglied in einem Gesangverein werden.",
+      "shortCorrectTitle": "Ihr Mann möchte in einem Gesangverein singen.",
+      "wrongTitles": [
+        "Ihre Familie möchte sich mit Menschen aus anderen Ländern treffen.",
+        "Sie interessieren sich für die Arbeit in einer Buchhandlung."
+      ]
+    },
+    {
+      "firstWords": "Nach 30 Jahren am Völkerpark schließen wir im Frühjahr unseren Laden...",
+      "correctTitle": "Sie interessieren sich für die Arbeit in einer Buchhandlung",
+      "shortCorrectTitle": "Sie interessieren sich für Buchhandlungsarbeit.",
+      "wrongTitles": [
+        "Eine Freundin möchte günstige Kinderbücher kaufen.",
+        "Ihr Mann möchte in einem Gesangverein singen."
+      ]
+    },
+    {
+      "firstWords": "Neugründung eines interkulturellen Vereins Gemeinsam singen, musizieren, kochen, essen und diskutieren...",
+      "correctTitle": "Ihre Familie möchte sich mit Menschen aus anderen Ländern treffen",
+      "shortCorrectTitle": "Ihre Familie möchte sich mit Menschen aus anderen Ländern treffen.",
+      "wrongTitles": [
+        "Ihr Mann möchte in einem Gesangverein singen.",
+        "Sie interessieren sich für die Arbeit in einer Buchhandlung."
+      ]
+    },
+    {
+      "firstWords": "Sie möchten einen Hund kaufen? Ein solcher Schritt sollte gut überlegt sein...",
+      "correctTitle": "Ihre Tochter wünscht sich einen Hund. Sie möchten sich zuerst informieren",
+      "shortCorrectTitle": "Sie möchten sich vor einem Hundekauf informieren.",
+      "wrongTitles": [
+        "Sie suchen nach einem jungen Hund für Ihre Familie.",
+        "Ein Freund braucht einen Hundekorb."
+      ]
+    },
+    {
+      "firstWords": "Sportvereine, Musikvereine, Tanzvereine, Anglervereine, die Liste ist lang...",
+      "correctTitle": "Sie möchten einen Kulturverein gründen und sich informieren",
+      "shortCorrectTitle": "Sie möchten einen Kulturverein gründen.",
+      "wrongTitles": [
+        "Ihr Mann möchte in einem Gesangverein singen.",
+        "Ihre Familie möchte sich mit Menschen aus anderen Ländern treffen."
+      ]
+    },
+    {
+      "firstWords": "In unserem Shop finden Sie mehr als 3000 verschiedene Produkte...",
+      "correctTitle": "Ein Freund braucht nur noch einen Hundekorb für seinen kleinen Hund.",
+      "shortCorrectTitle": "Ein Freund braucht einen Hundekorb.",
+      "wrongTitles": [
+        "Sie suchen nach einem jungen Hund für Ihre Familie.",
+        "Ihre Tochter wünscht sich einen Hund."
+      ]
+    }
+  ]
+}

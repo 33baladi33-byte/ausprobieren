@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 35: Autos",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Entdeckungsreise in die Welt der Technik Willkommen im Technikmuseum Walldorf...",
+      "correctTitle": "Ein Bekannter interessiert sich für wertvolle alte Fahrzeuge.",
+      "shortCorrectTitle": "Ein Bekannter interessiert sich für alte Fahrzeuge.",
+      "wrongTitles": [
+        "Ihr Cousin würde gerne mal mit einem schnellen Sportwagen fahren.",
+        "Ihr Sohn interessiert sich für schnelle Autos."
+      ]
+    },
+    {
+      "firstWords": "Alles rund um das Thema Geld. Workshop für Verbraucherinnen und Verbraucher...",
+      "correctTitle": "Ihr Bruder möchte in einem Kurs sein Wissen über Finanzen erweitern.",
+      "shortCorrectTitle": "Ihr Bruder möchte sein Finanzwissen erweitern.",
+      "wrongTitles": [
+        "Sie brauchen bald neue Haushaltsgeräte, haben aber noch nicht genug Geld gespart.",
+        "Sie hatten eine hohe Stromrechnung und möchten den Verbrauch prüfen."
+      ]
+    },
+    {
+      "firstWords": "Rasantes Abenteuer für Autofans Sie interessieren sich für Rennwagen und würden gerne selbst einmal mit Vollgas fahren?",
+      "correctTitle": "Ihr Cousin würde gerne mal mit einem schnellen Sportwagen fahren.",
+      "shortCorrectTitle": "Ihr Cousin möchte einen schnellen Sportwagen fahren.",
+      "wrongTitles": [
+        "Ein Bekannter interessiert sich für alte Fahrzeuge.",
+        "Ihr Nachbar braucht einen neuen Kühlschrank."
+      ]
+    },
+    {
+      "firstWords": "Energiesparen leicht gemacht Hohe Strompreise sind für viele eine Belastung...",
+      "correctTitle": "Ihr Nachbar braucht einen neuen Kühlschrank und möchte sich über verschiedene Modelle informieren.",
+      "shortCorrectTitle": "Ihr Nachbar möchte sich über Kühlschrank-Modelle informieren.",
+      "wrongTitles": [
+        "Sie hatten eine hohe Stromrechnung und möchten den Verbrauch prüfen.",
+        "Sie brauchen bald neue Haushaltsgeräte, haben aber noch nicht genug Geld gespart."
+      ]
+    },
+    {
+      "firstWords": "Unkompliziert und spontan unterwegs sein? Wir haben die Lösung für Sie...",
+      "correctTitle": "Ihre Schwester hat kein Auto. Für gelegentliche Fahrten sucht sie eine Alternative zu öffentlichen Verkehrsmitteln.",
+      "shortCorrectTitle": "Ihre Schwester sucht eine Alternative zu öffentlichen Verkehrsmitteln.",
+      "wrongTitles": [
+        "Sie möchten auf Ihren PKW verzichten und suchen Tipps.",
+        "Sie brauchen bald neue Haushaltsgeräte."
+      ]
+    },
+    {
+      "firstWords": "Warum noch länger warten? Eine neue Küche, eine berufliche Weiterbildung...",
+      "correctTitle": "Sie brauchen bald neue Haushaltsgeräte, haben aber noch nicht genug Geld gespart.",
+      "shortCorrectTitle": "Sie brauchen neue Haushaltsgeräte, haben aber nicht genug Geld.",
+      "wrongTitles": [
+        "Sie hatten eine hohe Stromrechnung und möchten den Verbrauch prüfen.",
+        "Ihr Nachbar braucht einen neuen Kühlschrank."
+      ]
+    },
+    {
+      "firstWords": "Entspannt unterwegs in der Stadt und auf dem Land Ohne Auto lebt man einfacher und glücklicher...",
+      "correctTitle": "Sie möchten auf Ihren PKW verzichten und suchen Tipps.",
+      "shortCorrectTitle": "Sie möchten auf Ihr Auto verzichten.",
+      "wrongTitles": [
+        "Ihre Schwester sucht eine Alternative zu öffentlichen Verkehrsmitteln.",
+        "Sie brauchen neue Haushaltsgeräte, haben aber nicht genug Geld."
+      ]
+    },
+    {
+      "firstWords": "Versteckte Kosten? Wollen Sie wissen, wie viel Strom Ihr Kühlschrank, Wasserkocher und Staubsauger benötigen?",
+      "correctTitle": "Sie hatten eine hohe Stromrechnung und möchten wissen, wie viel Energie die Geräte in Ihrem Haushalt verbrauchen.",
+      "shortCorrectTitle": "Sie möchten den Energieverbrauch Ihrer Geräte prüfen.",
+      "wrongTitles": [
+        "Ihr Nachbar braucht einen neuen Kühlschrank.",
+        "Sie brauchen neue Haushaltsgeräte, haben aber nicht genug Geld."
+      ]
+    }
+  ]
+}

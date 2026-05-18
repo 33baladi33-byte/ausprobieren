@@ -1,0 +1,97 @@
+{
+  "title": "Lesen Teil 3 - Exam 14: Au-pair Mädchen",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Infos zur Auslandsüberweisung Bitte verwenden Sie die Funktion Auslandsüberweisung...",
+      "correctTitle": "Sie wollen Geld nach Kanada überweisen. Sie möchten wissen, wie viel Sie für die Überweisung bezahlen müssen.",
+      "shortCorrectTitle": "Sie wollen Geld nach Kanada überweisen.",
+      "wrongTitles": [
+        "Im Herbst beginnt Ihre Tochter ein Studium. Sie möchte ein Bankkonto eröffnen.",
+        "Sie suchen ein Au-pair Mädchen, das im Haushalt helfen soll."
+      ]
+    },
+    {
+      "firstWords": "Französische Muttersprachler bieten Übersetzungen Deutsch-Französische...",
+      "correctTitle": "Ein Freund aus Salzburg will sich in Frankreich bewerben. Er möchte seine Zeugnisse übersetzen lassen.",
+      "shortCorrectTitle": "Ein Freund möchte seine Zeugnisse übersetzen lassen.",
+      "wrongTitles": [
+        "Sie sollen die neue Webseite Ihrer Firma ins Englische übersetzen lassen.",
+        "Eine französische Bekannte ist Übersetzerin und möchte gelegentlich arbeiten."
+      ]
+    },
+    {
+      "firstWords": "Als Austauschschüler/in verbringst du einige Monate oder ein ganzes Jahr im Ausland...",
+      "correctTitle": "Ihre 14-jährige Nichte möchte sich über einen Auslandsaufenthalt informieren",
+      "shortCorrectTitle": "Ihre Nichte möchte sich über einen Auslandsaufenthalt informieren.",
+      "wrongTitles": [
+        "Sie suchen ein Au-pair Mädchen, das im Haushalt helfen soll.",
+        "Ihr Sohn möchte als Koch im Ausland arbeiten."
+      ]
+    },
+    {
+      "firstWords": "Als gebürtige Engländerin, mit einem Studienabschluss in Englisch...",
+      "correctTitle": "Sie sollen die neue Webseite Ihrer Firma ins Englische übersetzen lassen.",
+      "shortCorrectTitle": "Sie sollen die Webseite ins Englische übersetzen lassen.",
+      "wrongTitles": [
+        "Ein Freund aus Salzburg will sich in Frankreich bewerben.",
+        "Eine französische Bekannte ist Übersetzerin und möchte gelegentlich arbeiten."
+      ]
+    },
+    {
+      "firstWords": "Mit einem Konto bei der RUFA profitieren Sie von attraktiven Angeboten...",
+      "correctTitle": "Im Herbst beginnt Ihre Tochter ein Studium. Sie möchte ein Bankkonto eröffnen.",
+      "shortCorrectTitle": "Ihre Tochter möchte ein Bankkonto eröffnen.",
+      "wrongTitles": [
+        "Sie wollen Geld nach Kanada überweisen.",
+        "Sie suchen ein Au-pair Mädchen."
+      ]
+    },
+    {
+      "firstWords": "Wir laden Sie dazu ein, internationale Schülerinnen und Schüler bei Ihnen zu Hause aufzunehmen...",
+      "correctTitle": "Ihre kinderlose Nachbarsfamilie möchte für einige Zeit einen jungen Menschen aufnehmen.",
+      "shortCorrectTitle": "Eine kinderlose Familie möchte einen jungen Menschen aufnehmen.",
+      "wrongTitles": [
+        "Sie suchen ein Au-pair Mädchen.",
+        "Ihre 14-jährige Nichte möchte sich über einen Auslandsaufenthalt informieren."
+      ]
+    },
+    {
+      "firstWords": "Französisch ist Ihre Muttersprache? Wir suchen eine freie Mitarbeiterin...",
+      "correctTitle": "Eine französische Bekannte ist Übersetzerin und möchte gelegentlich arbeiten.",
+      "shortCorrectTitle": "Eine französische Bekannte möchte gelegentlich arbeiten.",
+      "wrongTitles": [
+        "Sie sollen die neue Webseite Ihrer Firma ins Englische übersetzen lassen.",
+        "Ein Freund aus Salzburg will sich in Frankreich bewerben."
+      ]
+    },
+    {
+      "firstWords": "Ein Tag im Zeichen der guten Nachbarschaft Im Rahmen des europäischen Nachbarschaftstages...",
+      "correctTitle": "Sie kochen gerne und suchen nach Rezepten aus anderen Ländern.",
+      "shortCorrectTitle": "Sie suchen nach Rezepten aus anderen Ländern.",
+      "wrongTitles": [
+        "Sie suchen ein Au-pair Mädchen.",
+        "Ihre Tochter möchte ein Bankkonto eröffnen."
+      ]
+    },
+    {
+      "firstWords": "Konto-Neuheiten Mit der neuen BaZa-App erledigen Sie Ihre Bankgeschäfte...",
+      "correctTitle": "Im Herbst beginnt Ihre Tochter ein Studium. Sie möchte ein Bankkonto eröffnen.",
+      "shortCorrectTitle": "Ihre Tochter möchte ein Bankkonto eröffnen.",
+      "wrongTitles": [
+        "Sie wollen Geld nach Kanada überweisen.",
+        "Sie suchen ein Au-pair Mädchen."
+      ]
+    },
+    {
+      "firstWords": "Seit einigen Jahren bietet die Volkshochschule Laiendolmetscherinnen an...",
+      "correctTitle": "Sie suchen ein Au-pair Mädchen, das im Haushalt helfen und mit ihren Kindern Englisch sprechen soll.",
+      "shortCorrectTitle": "Sie suchen ein Au-pair Mädchen.",
+      "wrongTitles": [
+        "Ihre 14-jährige Nichte möchte sich über einen Auslandsaufenthalt informieren.",
+        "Ihr Sohn möchte als Koch im Ausland arbeiten."
+      ]
+    }
+  ]
+}

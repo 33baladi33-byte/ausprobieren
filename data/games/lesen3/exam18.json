@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 18: Tierdokumentationen",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Auf den Spuren der Wildkatze Im Wildkatzendorf Hütscheroda...",
+      "correctTitle": "Ihr Sohn wird nächste Woche zehn Jahre alt. Sie möchten ihn mit einer besonderen Feier überraschen.",
+      "shortCorrectTitle": "Sie möchten Ihren Sohn mit einer besonderen Feier überraschen.",
+      "wrongTitles": [
+        "Ihre 16-jährige Nichte interessiert sich für heimische Tierwelt.",
+        "Ein Bekannter interessiert sich für Tierdokumentationen."
+      ]
+    },
+    {
+      "firstWords": "Am 1. August zeigen wir den 90-minütigen Film 'Der Natur auf der Spur'...",
+      "correctTitle": "Ein Bekannter interessiert sich für Tierdokumentationen und würde gerne wissen, wie solche Filme entstehen.",
+      "shortCorrectTitle": "Ein Bekannter möchte wissen, wie Tierdokumentationen entstehen.",
+      "wrongTitles": [
+        "Ihre 16-jährige Nichte interessiert sich für heimische Tierwelt.",
+        "Sie möchten einen Vortrag über bedrohte Tiere besuchen."
+      ]
+    },
+    {
+      "firstWords": "Schon lange lebt Kaninchen Hoppi mit seiner Familie und vielen Freunden auf der Sonnenwiese...",
+      "correctTitle": "Ihr siebenjähriger Neffe liebt phantasievolle Geschichten. Sie wollen nachmittags etwas mit ihm unternehmen.",
+      "shortCorrectTitle": "Sie wollen mit Ihrem Neffen etwas unternehmen.",
+      "wrongTitles": [
+        "Ihr Sohn wird nächste Woche zehn Jahre alt.",
+        "Sie möchten mit Ihrem Sohn eine Ausstellung besuchen."
+      ]
+    },
+    {
+      "firstWords": "Du bist gern kreativ und möchtest professionelle Mal- und Zeichentechniken erlernen?",
+      "correctTitle": "Ihre zehnjährige Tochter zeichnet viel und möchte ihre Fähigkeiten weiter verbessern.",
+      "shortCorrectTitle": "Ihre Tochter möchte ihre Zeichenfähigkeiten verbessern.",
+      "wrongTitles": [
+        "Sie suchen ein Geschenk für einen Freund, der sich für Kunst interessiert.",
+        "Ein Bekannter interessiert sich für Tierdokumentationen."
+      ]
+    },
+    {
+      "firstWords": "Mit einem scharfen Blick fürs Detail gestaltete der deutsch-baltische Maler...",
+      "correctTitle": "Sie suchen ein Geschenk für einen Freund, der sich für Kunst interessiert.",
+      "shortCorrectTitle": "Sie suchen ein Geschenk für einen kunstinteressierten Freund.",
+      "wrongTitles": [
+        "Ihre zehnjährige Tochter zeichnet viel.",
+        "Ein Bekannter interessiert sich für Tierdokumentationen."
+      ]
+    },
+    {
+      "firstWords": "Noch nicht lange ist es her, dass Wildkatzen in Europa weitverbreitet waren...",
+      "correctTitle": "Ihre 16-jährige Nichte interessiert sich für heimische Tierwelt und würde sich gerne einen Film ansehen.",
+      "shortCorrectTitle": "Ihre Nichte möchte einen Film über heimische Tierwelt sehen.",
+      "wrongTitles": [
+        "Ein Bekannter interessiert sich für Tierdokumentationen.",
+        "Sie möchten einen Vortrag über bedrohte Tiere besuchen."
+      ]
+    },
+    {
+      "firstWords": "Heiße Rhythmen und kühle Drinks Am Samstag, dem 3. August...",
+      "correctTitle": "Sie würden gerne abends etwas mit Freunden draußen unternehmen und dabei sportlich aktiv sein.",
+      "shortCorrectTitle": "Sie möchten abends mit Freunden etwas Sportliches unternehmen.",
+      "wrongTitles": [
+        "Ihr Sohn wird nächste Woche zehn Jahre alt.",
+        "Ihre zehnjährige Tochter zeichnet viel."
+      ]
+    },
+    {
+      "firstWords": "Zeichenschule für Kinder Vom Kreis zum Schaf, vom Strich zum Krokodil...",
+      "correctTitle": "Sie suchen ein Geschenk für einen Freund, der sich für Kunst interessiert.",
+      "shortCorrectTitle": "Sie suchen ein Geschenk für einen kunstinteressierten Freund.",
+      "wrongTitles": [
+        "Ihre zehnjährige Tochter zeichnet viel.",
+        "Ihr siebenjähriger Neffe liebt phantasievolle Geschichten."
+      ]
+    }
+  ]
+}

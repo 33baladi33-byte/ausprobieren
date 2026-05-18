@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 30: Arbeitsorganisation",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Zeitmanagement Über Stress und Zeitdruck klagt fast jeder...",
+      "correctTitle": "Eine Kollegin kann ihren Arbeitsbereich nicht gut strukturieren und hat deshalb Probleme, ihre Aufgaben rechtzeitig zu erledigen",
+      "shortCorrectTitle": "Eine Kollegin hat Probleme mit Arbeitsorganisation.",
+      "wrongTitles": [
+        "Eine Bekannte sucht einen Kurs gegen Stress.",
+        "Eine Freundin schiebt Dinge immer vor sich her."
+      ]
+    },
+    {
+      "firstWords": "Hilfe mein Haustier ist krank! Was ist, wenn Ihr vierbeiniger Liebling krank wird?...",
+      "correctTitle": "Ein Bekannter hat einen kranken Hund und sucht tierärztliche Hilfe.",
+      "shortCorrectTitle": "Ein Bekannter sucht tierärztliche Hilfe.",
+      "wrongTitles": [
+        "Ein Bekannter hat eine Hundepension.",
+        "Sie suchen eine gesundheitliche Berufsausbildung."
+      ]
+    },
+    {
+      "firstWords": "Schwiegermütter - Schwiegertöchter Problem oder Chance...",
+      "correctTitle": "Eine Bekannte möchte ihre Beziehung zur Mutter des Mannes verändern.",
+      "shortCorrectTitle": "Eine Bekannte möchte ihre Beziehung zur Schwiegermutter verändern.",
+      "wrongTitles": [
+        "Ein Freund möchte etwas über Konfliktgespräche erfahren.",
+        "Eine Freundin möchte den Führerschein machen."
+      ]
+    },
+    {
+      "firstWords": "Mit Männern Gespräche führen Ein Seminar für Frauen...",
+      "correctTitle": "Ein Freund möchte etwas über Konfliktgespräche mit Frauen erfahren.",
+      "shortCorrectTitle": "Ein Freund möchte etwas über Konfliktgespräche erfahren.",
+      "wrongTitles": [
+        "Eine Bekannte möchte ihre Beziehung zur Schwiegermutter verändern.",
+        "Eine Freundin möchte den Führerschein machen."
+      ]
+    },
+    {
+      "firstWords": "Überwinde deinen inneren Schweinehund Gehören Sie auch zu denjenigen, die unangenehme Dinge lieber hinauszögern?...",
+      "correctTitle": "Eine Freundin schiebt Dinge, die ihr keinen Spaß machen, immer vor sich her.",
+      "shortCorrectTitle": "Eine Freundin schiebt Dinge immer vor sich her.",
+      "wrongTitles": [
+        "Eine Kollegin hat Probleme mit Arbeitsorganisation.",
+        "Eine Bekannte sucht einen Kurs gegen Stress."
+      ]
+    },
+    {
+      "firstWords": "Flirten leicht gemacht Wer flirten kann, kommt leicht in Kontakt mit anderen...",
+      "correctTitle": "Ein Bekannter möchte leichter Kontakt zu anderen Menschen finden.",
+      "shortCorrectTitle": "Ein Bekannter möchte leichter Kontakt finden.",
+      "wrongTitles": [
+        "Eine Freundin möchte den Führerschein machen.",
+        "Ein Bekannter hat eine Hundepension."
+      ]
+    },
+    {
+      "firstWords": "Kommunikation Fühlen Sie sich im Gespräch unsicher?...",
+      "correctTitle": "Eine Freundin möchte Strategien erlernen, wie man wirkungsvoller argumentiert und dadurch leichter seine Ziele erreicht.",
+      "shortCorrectTitle": "Eine Freundin möchte wirkungsvoller argumentieren.",
+      "wrongTitles": [
+        "Eine Bekannte sucht einen Kurs gegen Stress.",
+        "Ein Bekannter möchte leichter Kontakt finden."
+      ]
+    },
+    {
+      "firstWords": "Mit Hunden sprechen Seit langer Zeit bemühen sich die Menschen, Hunden klarzumachen, was sie von ihnen erwarten...",
+      "correctTitle": "Ein Bekannter hat eine Hundepension. Er glaubt, dass er die ihm anvertrauten Tiere oft missversteht.",
+      "shortCorrectTitle": "Ein Bekannter glaubt, Hunde oft misszuverstehen.",
+      "wrongTitles": [
+        "Ein Bekannter hat einen kranken Hund.",
+        "Sie suchen eine gesundheitliche Berufsausbildung."
+      ]
+    }
+  ]
+}

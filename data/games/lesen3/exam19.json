@@ -1,0 +1,70 @@
+{
+  "title": "Lesen Teil 3 - Exam 19: Aufräumen",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Das große Aufräumbuch Mit ihrer Aufräummethode hat die aus dem Fernsehen bekannte Wohnberaterin...",
+      "correctTitle": "Alle Ihre Schränke sind voll mit Sachen und Sie haben kaum mehr Platz in der Wohnung. Sie suchen Ideen, wie Sie das ändern können.",
+      "shortCorrectTitle": "Sie suchen Ideen, um mehr Platz in der Wohnung zu schaffen.",
+      "wrongTitles": [
+        "Ihr Bruder sucht ein hochwertiges neues Sofa.",
+        "Ihr Vater interessiert sich für alte wertvolle Möbel."
+      ]
+    },
+    {
+      "firstWords": "Einrichtungshaus Unterberg - das exklusive Möbelhaus im Zentrum der Stadt Hildesheim...",
+      "correctTitle": "Ihr Bruder sucht ein hochwertiges neues Sofa.",
+      "shortCorrectTitle": "Ihr Bruder sucht ein neues Sofa.",
+      "wrongTitles": [
+        "Alle Ihre Schränke sind voll mit Sachen.",
+        "Ihr Vater interessiert sich für alte wertvolle Möbel."
+      ]
+    },
+    {
+      "firstWords": "Henrike Derendorf: Das neue Wohnbuch. 1000 Ideen für ein schönes Zuhause...",
+      "correctTitle": "Eine Bekannte zieht um und sucht Tipps zu Einrichtung und Wandfarben.",
+      "shortCorrectTitle": "Eine Bekannte sucht Tipps zur Einrichtung.",
+      "wrongTitles": [
+        "Ihr Bruder sucht ein hochwertiges neues Sofa.",
+        "Ihr Vater interessiert sich für alte wertvolle Möbel."
+      ]
+    },
+    {
+      "firstWords": "Katze, Papagei, Meerschweinchen - was ist erlaubt? Muss ich den Vermieter fragen...",
+      "correctTitle": "Ihre Schwester möchte wissen, ob sie in ihre Mietwohnung einen Hund halten darf.",
+      "shortCorrectTitle": "Ihre Schwester möchte wissen, ob sie einen Hund halten darf.",
+      "wrongTitles": [
+        "Alle Ihre Schränke sind voll mit Sachen.",
+        "Ihre Cousine studiert und würde gern in eine Wohngemeinschaft ziehen."
+      ]
+    },
+    {
+      "firstWords": "Rat mal, wo die Tiere wohnen! Wie schlau sind Bienen? Welche Tiere leben im Garten?",
+      "correctTitle": "Sie suchen ein Kinderbuch für Ihren siebenjährigen Sohn. Er möchte gerne mehr über Tiere erfahren",
+      "shortCorrectTitle": "Sie suchen ein Kinderbuch über Tiere.",
+      "wrongTitles": [
+        "Sie möchten eine Ausstellung besuchen, die auch für Ihre Kinder interessant ist.",
+        "Ihre Tochter geht zur Schule und sucht einen Praktikumsplatz."
+      ]
+    },
+    {
+      "firstWords": "Tiere hautnah erleben Bei uns finden heimische Wildtiere, aber auch Exoten aus aller Welt ein artgerechtes Zuhause...",
+      "correctTitle": "Eine Bekannte möchte mit ihrer Familie einen Ausflug machen und dabei am liebsten Tiere beobachten",
+      "shortCorrectTitle": "Eine Bekannte möchte einen Ausflug mit Tierbeobachtung machen.",
+      "wrongTitles": [
+        "Sie suchen ein Kinderbuch für Ihren Sohn.",
+        "Sie möchten eine Ausstellung besuchen, die auch für Ihre Kinder interessant ist."
+      ]
+    },
+    {
+      "firstWords": "Wohnen in der Gründerzeit In einer Ausstellung im Schloss Britz erfahren die Besucher alles...",
+      "correctTitle": "Ihr Vater interessiert sich für alte wertvolle Möbel",
+      "shortCorrectTitle": "Ihr Vater interessiert sich für alte Möbel.",
+      "wrongTitles": [
+        "Ihr Bruder sucht ein hochwertiges neues Sofa.",
+        "Eine Bekannte zieht um und sucht Tipps zur Einrichtung."
+      ]
+    }
+  ]
+}

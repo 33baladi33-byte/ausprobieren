@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 20: Erholung und Reisen",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Urlaubsregion Allgäuer Alpen Die Urlaubsregion Allgäuer Alpen ist eine der schönsten Deutschlands...",
+      "correctTitle": "Ein Bekannter liebt die Bergwelt, kann aber keine steilen und anstrengenden Wege mehr gehen.",
+      "shortCorrectTitle": "Ein Bekannter liebt die Berge, kann aber nicht mehr anstrengend wandern.",
+      "wrongTitles": [
+        "Ein Bekannter möchte im Urlaub auf einem See Boot fahren.",
+        "Eine Familie möchte mit ihren Kindern einen aktiven Tag verbringen."
+      ]
+    },
+    {
+      "firstWords": "Ferien im Harz Der Harz erhebt sich inselartig über der Norddeutschen Tiefebene...",
+      "correctTitle": "Ein Bekannter möchte im Urlaub auf einem See Boot fahren",
+      "shortCorrectTitle": "Ein Bekannter möchte auf einem See Boot fahren.",
+      "wrongTitles": [
+        "Ein Bekannter liebt die Bergwelt.",
+        "Eine Familie möchte mit ihren Kindern einen aktiven Tag verbringen."
+      ]
+    },
+    {
+      "firstWords": "Auf den Spuren des römischen Dichters Ausonius Von Bingen am Rhein bis nach Trier an der Mosel...",
+      "correctTitle": "Eine Bekannte möchte eine mehrtägige Fußwanderung machen und dabei etwas über die kulturelle Vergangenheit der Region erfahren.",
+      "shortCorrectTitle": "Eine Bekannte möchte eine Wanderung mit kulturellen Einblicken machen.",
+      "wrongTitles": [
+        "Ein Bekannter liebt die Bergwelt.",
+        "Ein Bekannter möchte im Urlaub auf einem See Boot fahren."
+      ]
+    },
+    {
+      "firstWords": "Durch das Watt Es gibt eine Steigerung zum 'normalen' Strandspaziergang: die Wattwanderung...",
+      "correctTitle": "Eine Bekannte ist Hobbyzoologin und interessiert sich für den Lebensraum 'Küste'.",
+      "shortCorrectTitle": "Eine Bekannte interessiert sich für den Lebensraum Küste.",
+      "wrongTitles": [
+        "Eine Familie möchte mit ihren Kindern einen aktiven Tag verbringen.",
+        "Ein Bekannter liebt die Bergwelt."
+      ]
+    },
+    {
+      "firstWords": "Achtung, Kamera läuft! Und Action! Besucher des Movie Park Deutschland sollten sich nicht wundern...",
+      "correctTitle": "Ein Bekannter möchte miterleben, wie spektakuläre Filmszenen gedreht werden.",
+      "shortCorrectTitle": "Ein Bekannter möchte Filmszenen-Dreh miterleben.",
+      "wrongTitles": [
+        "Eine Familie möchte mit ihren Kindern einen aktiven Tag verbringen.",
+        "Eine Bekannte möchte sich in einem Kurort erholen."
+      ]
+    },
+    {
+      "firstWords": "Spiel und Spaß am Bodensee Auf die Plätze - die kleinen grauen Zellen anknipsen...",
+      "correctTitle": "Eine Familie möchte mit ihren Kindern einen aktiven und lustigen Tag verbringen.",
+      "shortCorrectTitle": "Eine Familie möchte einen aktiven Tag mit Kindern verbringen.",
+      "wrongTitles": [
+        "Ein Bekannter möchte miterleben, wie Filmszenen gedreht werden.",
+        "Eine Bekannte möchte eine Wanderung mit kulturellen Einblicken machen."
+      ]
+    },
+    {
+      "firstWords": "Bad Elster - heilendes Wasser aus sprudelnden Quellen In Bad Elster sprudeln gleich drei Trinkquellen...",
+      "correctTitle": "Ein Bekannter hat ein neues Kniegelenk bekommen und sucht eine geeignete Kur.",
+      "shortCorrectTitle": "Ein Bekannter sucht eine Kur.",
+      "wrongTitles": [
+        "Eine Bekannte möchte sich in einem Kurort von der Hektik des Alltags erholen.",
+        "Sie fahren gerne Ski und möchten Wintersport machen."
+      ]
+    },
+    {
+      "firstWords": "Bad Homburg - in einzigartiger Badekultur entspannen wie Könige...",
+      "correctTitle": "Eine Bekannte möchte sich in einem Kurort von der Hektik des Alltags erholen.",
+      "shortCorrectTitle": "Eine Bekannte möchte sich in einem Kurort erholen.",
+      "wrongTitles": [
+        "Ein Bekannter hat ein neues Kniegelenk bekommen und sucht eine Kur.",
+        "Eine Familie möchte mit ihren Kindern einen aktiven Tag verbringen."
+      ]
+    }
+  ]
+}

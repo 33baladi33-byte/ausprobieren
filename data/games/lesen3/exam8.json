@@ -1,78 +1,78 @@
 {
-  "title": "Lesen Teil 3 - Exam 8: Unterstützung in Mathematik",
+  "title": "Lesen Teil 3 - Die schwangere Frau (المعدل)",
   "skill": "lesen3",
   "type": "matching",
   "questions": [
     {
-      "firstWords": "Neues Ziel, neues Glück! Du bist gerade 'auf dem Sprung'...",
-      "correctTitle": "Sie möchten in einer anderen Stadt eine Ausbildung machen und suchen dort eine Wohnung.",
-      "shortCorrectTitle": "Sie suchen eine Wohnung für Ausbildung in anderer Stadt.",
+      "firstWords": "Das Vorstellungsgespräch ist eine wichtige Hürde",
+      "correctTitle": "Ihre Schwägerin erwartet ein Kind. Sie ist nicht sicher, ob Sie in einem Vorstellungsgespräch darauf hinweisen muss",
+      "shortCorrectTitle": "Schwangere muss Schwangerschaft nicht angeben",
       "wrongTitles": [
-        "Sie suchen einen Nachmieter und wollen eine kostenlose Anzeige aufgeben.",
-        "Sie sind umgezogen und möchten neue Leute kennenlernen."
+        "Ihr Neffe sucht einen Ausbildungsplatz als Elektriker. Er weiß nicht genau, wie er seine Bewerbung korrekt schreiben soll.",
+        "Eine Freundin, 20 Jahre alt, muss oft vor Arbeitskollegen Referate halten. Ihr Hauptproblem ist ihre Nervosität."
       ]
     },
     {
-      "firstWords": "Andere Länder... andere Sprachen. Und wo lernt man eine Sprache am besten?...",
-      "correctTitle": "Sie möchten einen Sprachkurs in einem anderen Land machen.",
-      "shortCorrectTitle": "Sie möchten einen Sprachkurs im Ausland machen.",
+      "firstWords": "Robert Sonntag, Autor des Buches \"Hilfe, ich muss reden\"",
+      "correctTitle": "Eine Freundin, 20 Jahre alt, muss oft vor Arbeitskollegen Referate halten. Ihr Hauptproblem ist ihre Nervosität.",
+      "shortCorrectTitle": "Tipps gegen Nervosität bei Referaten",
       "wrongTitles": [
-        "Sie wollen gerne noch eine Sprache lernen und suchen einen Lernpartner.",
-        "Sie suchen für eine Bekannte einen bezahlten Job außerhalb Deutschlands."
+        "Ihre Schwägerin erwartet ein Kind.",
+        "Eine Freundin sucht einen Ausbildungsplatz und weiß nicht, was sie anziehen soll."
       ]
     },
     {
-      "firstWords": "Was bedeutet 'Tandemlernen'? Zwei Menschen mit verschiedenen Muttersprachen...",
-      "correctTitle": "Sie wollen gerne noch eine Sprache lernen und suchen einen festen Lernpartner.",
-      "shortCorrectTitle": "Sie suchen einen Lernpartner für Sprachen.",
+      "firstWords": "Wer zu seinem Vorstellungsgespräch eingeladen wird, sollte",
+      "correctTitle": "Eine Freundin sucht einen Ausbildungsplatz. Sie ist zu einem Bewerbungsgespräch eingeladen und weiß nicht, was sie zu diesem Anlass anziehen soll.",
+      "shortCorrectTitle": "Kleidung fürs Bewerbungsgespräch",
       "wrongTitles": [
-        "Sie möchten einen Sprachkurs im Ausland machen.",
-        "Sie suchen für eine Bekannte einen bezahlten Job außerhalb Deutschlands."
+        "Eine Bekannte möchte eine Ausbildung machen und vielleicht später einmal studieren.",
+        "Ein Freund surft täglich viele Stunden im Internet."
       ]
     },
     {
-      "firstWords": "Umzug mal anders Wer kennt das nicht: Wenn man umziehen will...",
-      "correctTitle": "Sie wollen umziehen, haben aber eigentlich gar keine Zeit, sich darum zu kümmern.",
-      "shortCorrectTitle": "Sie wollen umziehen haben aber keine Zeit.",
+      "firstWords": "Ein Auszubildender bei einer Bank oder Sparkasse",
+      "correctTitle": "Eine Bekannte möchte eine Ausbildung machen und vielleicht später einmal studieren.",
+      "shortCorrectTitle": "Ausbildung mit späteren Studiumsmöglichkeiten",
       "wrongTitles": [
-        "Sie ziehen wegen einer Ausbildung um und suchen günstige Umzugshelfer.",
-        "Sie suchen einen Nachmieter und wollen eine Anzeige aufgeben."
+        "Ein Freund möchte wissen, welche schulischen Leistungen bei der Vergabe von Ausbildungsplätzen im Bankgewerbe besonders wichtig sind.",
+        "Ein Bekannter ist Bankkaufmann und sucht eine Stelle."
       ]
     },
     {
-      "firstWords": "Alle Informationen auf einer Seite Die neue Internetseite www.studium.de...",
-      "correctTitle": "Sie möchten Physik studieren und möchten sich zunächst informieren.",
-      "shortCorrectTitle": "Sie möchten sich über Physik-Studium informieren.",
+      "firstWords": "Für junge Leute kann das Internet zu einer",
+      "correctTitle": "Ein Freund surft täglich viele Stunden im Internet. Sie finden das zu viel und wollen ihm einen Rat geben.",
+      "shortCorrectTitle": "Tipps gegen Internetsucht für einen Freund",
       "wrongTitles": [
-        "Sie brauchen Unterstützung in Mathematik.",
-        "Sie suchen einen Nachmieter."
+        "Eine Bekannte sucht Rat bei Ihnen, weil ihr Sohn ständig im Internet surft und dabei die Schule vernachlässigt.",
+        "Ihre Schwägerin erwartet ein Kind."
       ]
     },
     {
-      "firstWords": "Hilfe gesucht? Studierende und Auszubildende müssen oft umziehen...",
-      "correctTitle": "Sie ziehen wegen einer Ausbildung um und suchen so günstig wie möglich Umzugshelfer.",
-      "shortCorrectTitle": "Sie suchen günstige Umzugshelfer für Ausbildungsumzug.",
+      "firstWords": "\"GRUNDSÄTZLICH HAT JEDER DIE MÖGLICHKEIT, BEI UNS",
+      "correctTitle": "Ein Freund möchte wissen, welche schulischen Leistungen bei der Vergabe von Ausbildungsplätzen im Bankgewerbe besonders wichtig sind.",
+      "shortCorrectTitle": "Wichtige Schulnoten für Bankausbildung",
       "wrongTitles": [
-        "Sie wollen umziehen haben aber keine Zeit.",
-        "Sie suchen einen Nachmieter."
+        "Eine Bekannte möchte eine Ausbildung machen und vielleicht später einmal studieren.",
+        "Ein Bekannter ist Bankkaufmann und sucht eine Stelle."
       ]
     },
     {
-      "firstWords": "Neu in der Stadt? Ihr seid umgezogen und habt eine Ausbildung begonnen?...",
-      "correctTitle": "Sie sind gerade umgezogen und möchten neue Leute kennenlernen.",
-      "shortCorrectTitle": "Sie sind umgezogen und möchten neue Leute kennenlernen.",
+      "firstWords": "Nichts ist auf privaten Feierlichkeiten wie Hochzeiten",
+      "correctTitle": "Ein älteres Ehepaar hat Goldene Hochzeit. Die Tochter möchte eine Rede halten und braucht dafür eine Anleitung",
+      "shortCorrectTitle": "Anleitung für eine Festrede",
       "wrongTitles": [
-        "Sie suchen einen Nachmieter.",
-        "Sie möchten einen Sprachkurs im Ausland machen."
+        "Eine Freundin muss oft Referate halten und ist nervös.",
+        "Ihre Schwägerin erwartet ein Kind."
       ]
     },
     {
-      "firstWords": "Aller Anfang ist schwer. Einige Fächer sind schon in der Schule nicht beliebt...",
-      "correctTitle": "Sie brauchen Unterstützung in Mathematik und möchten in einer kleinen Gruppe lernen.",
-      "shortCorrectTitle": "Sie brauchen Unterstützung in Mathematik in kleiner Gruppe.",
+      "firstWords": "Viele junge Leute flüchten sich in die virtuelle",
+      "correctTitle": "Eine Bekannte sucht Rat bei Ihnen, weil ihr Sohn ständig im Internet surft und dabei die Schule vernachlässigt.",
+      "shortCorrectTitle": "Rat für Eltern internetabhängiger Kinder",
       "wrongTitles": [
-        "Sie möchten sich über Physik-Studium informieren.",
-        "Sie suchen einen Nachmieter."
+        "Ein Freund surft täglich viele Stunden im Internet.",
+        "Ihre Schwägerin erwartet ein Kind."
       ]
     }
   ]

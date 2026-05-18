@@ -1,78 +1,78 @@
 {
-  "title": "Lesen Teil 3 - Exam 9: Ganztagesausflug",
+  "title": "Lesen Teil 3 - Exam 9: Unterstützung in Mathematik",
   "skill": "lesen3",
   "type": "matching",
   "questions": [
     {
-      "firstWords": "Entspannung am Wasser Von März bis September können Sie bei unserem Bootsverleih...",
-      "correctTitle": "Sie möchten einen Ganztagesausflug machen und sich dabei bewegen.",
-      "shortCorrectTitle": "Sie möchten einen Ausflug mit Bewegung machen.",
+      "firstWords": "Neues Ziel, neues Glück! Du bist gerade 'auf dem Sprung'...",
+      "correctTitle": "Sie möchten in einer anderen Stadt eine Ausbildung machen und suchen dort eine Wohnung.",
+      "shortCorrectTitle": "Sie suchen eine Wohnung für Ausbildung in anderer Stadt.",
       "wrongTitles": [
-        "Ein Freund möchte gerne eine Schiffsreise machen.",
-        "Sie möchten etwas mit Ihrer Nichte unternehmen."
+        "Sie suchen einen Nachmieter und wollen eine kostenlose Anzeige aufgeben.",
+        "Sie sind umgezogen und möchten neue Leute kennenlernen."
       ]
     },
     {
-      "firstWords": "Schiffe versenken, Marmorkuchen und selbstgebastelte Papierhüte...",
-      "correctTitle": "Ihr Sohn möchte einen Kindergeburtstag feiern und braucht Hilfe bei der Organisation.",
-      "shortCorrectTitle": "Ihr Sohn braucht Hilfe bei der Geburtstagsorganisation.",
+      "firstWords": "Andere Länder... andere Sprachen. Und wo lernt man eine Sprache am besten?...",
+      "correctTitle": "Sie möchten einen Sprachkurs in einem anderen Land machen.",
+      "shortCorrectTitle": "Sie möchten einen Sprachkurs im Ausland machen.",
       "wrongTitles": [
-        "Sie möchten etwas mit Ihrer Nichte unternehmen.",
-        "Sie möchten helfen Ihren Stadtteil zu gestalten."
+        "Sie wollen gerne noch eine Sprache lernen und suchen einen Lernpartner.",
+        "Sie suchen für eine Bekannte einen bezahlten Job außerhalb Deutschlands."
       ]
     },
     {
-      "firstWords": "Kurzreise nach München Studienreisen Studius bietet Ihnen einen besonderen Ausflug an...",
-      "correctTitle": "Sie interessieren sich für Technikgeschichte.",
-      "shortCorrectTitle": "Sie interessieren sich für Technikgeschichte.",
+      "firstWords": "Was bedeutet 'Tandemlernen'? Zwei Menschen mit verschiedenen Muttersprachen...",
+      "correctTitle": "Sie wollen gerne noch eine Sprache lernen und suchen einen festen Lernpartner.",
+      "shortCorrectTitle": "Sie suchen einen Lernpartner für Sprachen.",
       "wrongTitles": [
-        "Ein Freund möchte mehr über die Geschichte deutscher Städte erfahren.",
-        "Sie möchten einen Ganztagesausflug machen."
+        "Sie möchten einen Sprachkurs im Ausland machen.",
+        "Sie suchen für eine Bekannte einen bezahlten Job außerhalb Deutschlands."
       ]
     },
     {
-      "firstWords": "Deutschland aus einer anderen Perspektive Lernen Sie die schönsten deutschen Landschaften...",
-      "correctTitle": "Ein Freund möchte gerne eine Schiffsreise machen.",
-      "shortCorrectTitle": "Ein Freund möchte eine Schiffsreise machen.",
+      "firstWords": "Umzug mal anders Wer kennt das nicht: Wenn man umziehen will...",
+      "correctTitle": "Sie wollen umziehen, haben aber eigentlich gar keine Zeit, sich darum zu kümmern.",
+      "shortCorrectTitle": "Sie wollen umziehen haben aber keine Zeit.",
       "wrongTitles": [
-        "Sie möchten einen Ganztagesausflug machen.",
-        "Sie interessieren sich für Technikgeschichte."
+        "Sie ziehen wegen einer Ausbildung um und suchen günstige Umzugshelfer.",
+        "Sie suchen einen Nachmieter und wollen eine Anzeige aufgeben."
       ]
     },
     {
-      "firstWords": "Unser Stadtteil ist lebendig Deshalb planen wir, im kommenden Jahr auf allen Plätzen...",
-      "correctTitle": "Sie möchten helfen, Ihren Stadtteil zu gestalten.",
-      "shortCorrectTitle": "Sie möchten Ihren Stadtteil gestalten helfen.",
+      "firstWords": "Alle Informationen auf einer Seite Die neue Internetseite www.studium.de...",
+      "correctTitle": "Sie möchten Physik studieren und möchten sich zunächst informieren.",
+      "shortCorrectTitle": "Sie möchten sich über Physik-Studium informieren.",
       "wrongTitles": [
-        "Sie sind neu in der Stadt und möchten Ihren Stadtteil kennenlernen.",
-        "Ihr Sohn braucht Hilfe bei der Geburtstagsorganisation."
+        "Sie brauchen Unterstützung in Mathematik.",
+        "Sie suchen einen Nachmieter."
       ]
     },
     {
-      "firstWords": "Neues Angebot der VHS Ab dem kommenden Monat bietet die Volkshochschule...",
-      "correctTitle": "Sie sind neu in der Stadt und möchten Ihren Stadtteil kennenlernen.",
-      "shortCorrectTitle": "Sie sind neu in der Stadt und möchten den Stadtteil kennenlernen.",
+      "firstWords": "Hilfe gesucht? Studierende und Auszubildende müssen oft umziehen...",
+      "correctTitle": "Sie ziehen wegen einer Ausbildung um und suchen so günstig wie möglich Umzugshelfer.",
+      "shortCorrectTitle": "Sie suchen günstige Umzugshelfer für Ausbildungsumzug.",
       "wrongTitles": [
-        "Sie möchten helfen Ihren Stadtteil zu gestalten.",
-        "Sie möchten einen Ganztagesausflug machen."
+        "Sie wollen umziehen haben aber keine Zeit.",
+        "Sie suchen einen Nachmieter."
       ]
     },
     {
-      "firstWords": "Nur auf Reisen lernt der Mensch Seit fast fünf Jahrzehnten bietet die Bildungsakademie...",
-      "correctTitle": "Ein Freund möchte mehr über die Geschichte deutscher Städte erfahren.",
-      "shortCorrectTitle": "Ein Freund möchte mehr über Geschichte deutscher Städte erfahren.",
+      "firstWords": "Neu in der Stadt? Ihr seid umgezogen und habt eine Ausbildung begonnen?...",
+      "correctTitle": "Sie sind gerade umgezogen und möchten neue Leute kennenlernen.",
+      "shortCorrectTitle": "Sie sind umgezogen und möchten neue Leute kennenlernen.",
       "wrongTitles": [
-        "Sie interessieren sich für Technikgeschichte.",
-        "Sie sind neu in der Stadt und möchten den Stadtteil kennenlernen."
+        "Sie suchen einen Nachmieter.",
+        "Sie möchten einen Sprachkurs im Ausland machen."
       ]
     },
     {
-      "firstWords": "Technik - spannend und verständlich Sie kennen die typische Kinderfrage: 'Wie geht das?'...",
-      "correctTitle": "Sie möchten etwas mit Ihrer 6-jährigen Nichte unternehmen, die gerne ins Museum geht.",
-      "shortCorrectTitle": "Sie möchten mit Ihrer Nichte ins Museum gehen.",
+      "firstWords": "Aller Anfang ist schwer. Einige Fächer sind schon in der Schule nicht beliebt...",
+      "correctTitle": "Sie brauchen Unterstützung in Mathematik und möchten in einer kleinen Gruppe lernen.",
+      "shortCorrectTitle": "Sie brauchen Unterstützung in Mathematik in kleiner Gruppe.",
       "wrongTitles": [
-        "Ihr Sohn braucht Hilfe bei der Geburtstagsorganisation.",
-        "Sie interessieren sich für Technikgeschichte."
+        "Sie möchten sich über Physik-Studium informieren.",
+        "Sie suchen einen Nachmieter."
       ]
     }
   ]

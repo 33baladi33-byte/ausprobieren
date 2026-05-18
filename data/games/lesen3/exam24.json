@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 24: Reiseführer",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Baden wie vor 2000 Jahren Das Museum der Badekultur lädt große und kleine Besucher zu einer informativen und kurzweiligen Reise...",
+      "correctTitle": "Ein Bekannter möchte mit seiner zehnjährigen Tochter eine Ausstellung besuchen, es sollte auch Angebote für Kinder geben.",
+      "shortCorrectTitle": "Ein Bekannter möchte mit seiner Tochter eine Ausstellung mit Kinderangeboten besuchen.",
+      "wrongTitles": [
+        "Ihre Tante möchte einen Vortrag über die Sehenswürdigkeiten Roms besuchen.",
+        "Sie möchten im Urlaub an einer besonderen Stadtführung teilnehmen."
+      ]
+    },
+    {
+      "firstWords": "Werden Sie Botschafter unserer Stadt! Sie kennen sich gut in Koblenz aus...",
+      "correctTitle": "Eine Freundin würde gerne als Stadtführerin arbeiten, hat aber noch keine Berufserfahrung.",
+      "shortCorrectTitle": "Eine Freundin möchte als Stadtführerin arbeiten, hat aber noch keine Erfahrung.",
+      "wrongTitles": [
+        "Ihr Nachbar plant eine Reise nach Berlin und sucht einen Stadtführer",
+        "Sie möchten im Urlaub an einer besonderen Stadtführung teilnehmen."
+      ]
+    },
+    {
+      "firstWords": "Echt sizilianisch! Genießen wie auf Italiens sonnigster Insel...",
+      "correctTitle": "Eine Freundin kocht gerne und sucht neue Anregungen",
+      "shortCorrectTitle": "Eine Freundin sucht neue Koch-Anregungen.",
+      "wrongTitles": [
+        "Ihr Bruder möchte einen Vortrag zu einem historischen Thema hören.",
+        "Sie mögen leichte Unterhaltung."
+      ]
+    },
+    {
+      "firstWords": "Die Geschichte des Essens: Dessert Jede Epoche hatte ihre eigenen Rezepte, Zutaten und Techniken...",
+      "correctTitle": "Ihr Bruder möchte einen Vortrag zu einem historischen Thema hören.",
+      "shortCorrectTitle": "Ihr Bruder möchte einen historischen Vortrag hören.",
+      "wrongTitles": [
+        "Eine Freundin kocht gerne und sucht neue Anregungen",
+        "Sie mögen leichte Unterhaltung."
+      ]
+    },
+    {
+      "firstWords": "Ein Bad fürs Leben Sie planen ein neues Bad? In Ulrike Fergaus Buch 'Ein Bad fürs Leben' finden Sie eine Fülle von Anregungen...",
+      "correctTitle": "Ihre Schwester möchte bald ihr Bad renovieren lassen. Sie sucht Bilder von modernen Badezimmern.",
+      "shortCorrectTitle": "Ihre Schwester sucht Bilder von modernen Badezimmern.",
+      "wrongTitles": [
+        "Sie möchten wissen, wie Pflegeprodukte hergestellt werden.",
+        "Ihr Bruder möchte einen Vortrag zu einem historischen Thema hören."
+      ]
+    },
+    {
+      "firstWords": "Rom bei Nacht Erleben Sie die Ewige Stadt nach Einbruch der Dunkelheit bei einer Besichtigungstour in einer kleinen Gruppe...",
+      "correctTitle": "Sie möchten im Urlaub an einer besonderen Stadtführung teilnehmen.",
+      "shortCorrectTitle": "Sie möchten im Urlaub an einer besonderen Stadtführung teilnehmen.",
+      "wrongTitles": [
+        "Ihre Tante möchte einen Vortrag über die Sehenswürdigkeiten Roms besuchen.",
+        "Ein Bekannter möchte mit seiner Tochter eine Ausstellung besuchen."
+      ]
+    },
+    {
+      "firstWords": "Ein Blick hinter die Kulissen Entdecken Sie die Welt von 'Alpen-Naturkosmetik'...",
+      "correctTitle": "Sie möchten wissen, wie Pflegeprodukte hergestellt werden.",
+      "shortCorrectTitle": "Sie möchten wissen, wie Pflegeprodukte hergestellt werden.",
+      "wrongTitles": [
+        "Ihre Schwester sucht Bilder von modernen Badezimmern.",
+        "Sie möchten im Urlaub an einer besonderen Stadtführung teilnehmen."
+      ]
+    },
+    {
+      "firstWords": "Zwei Meister am Herd in der Filmkomödie 'Zwei Meister am Herd' dreht sich alles um Gourmets, Sterne und feinste Zutaten...",
+      "correctTitle": "Sie mögen leichte Unterhaltung und würden gerne mal wieder richtig lachen.",
+      "shortCorrectTitle": "Sie mögen leichte Unterhaltung und würden gerne lachen.",
+      "wrongTitles": [
+        "Eine Freundin kocht gerne und sucht neue Anregungen",
+        "Ihr Bruder möchte einen Vortrag zu einem historischen Thema hören."
+      ]
+    }
+  ]
+}

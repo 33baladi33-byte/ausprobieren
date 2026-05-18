@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 25: Gartenbau",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Meisterwerke der Gartenarchitektur Gärten sind Paradiese von Menschenhand: Natur und Architektur werden eins...",
+      "correctTitle": "Ein Kollege sammelt Bücher über Gartengestaltung in unterschiedlichen Ländern und Epochen.",
+      "shortCorrectTitle": "Ein Kollege sammelt Bücher über Gartengestaltung.",
+      "wrongTitles": [
+        "Ihr Onkel möchte auf einer Weltreise berühmte Parkanlagen besichtigen.",
+        "Ihre Mutter möchte den Garten neu gestalten und sucht Tipps."
+      ]
+    },
+    {
+      "firstWords": "Baden und Schwimmen ist nicht nur gesund, sondern bereitet Kindern und Erwachsenen viel Freude!...",
+      "correctTitle": "Eine Kollegin interessiert sich für Kultur- und Stadtgeschichte.",
+      "shortCorrectTitle": "Eine Kollegin interessiert sich für Kultur- und Stadtgeschichte.",
+      "wrongTitles": [
+        "Ihr Onkel möchte auf einer Weltreise berühmte Parkanlagen besichtigen.",
+        "Ihre Tante möchte exotische Vögel beobachten."
+      ]
+    },
+    {
+      "firstWords": "Die 'Gärten der Welt' sind zehn Themengärten, die im Erholungspark Marzahn angelegt sind...",
+      "correctTitle": "Ihr Onkel möchte auf einer Weltreise berühmte Park- und Gartenanlagen besichtigen.",
+      "shortCorrectTitle": "Ihr Onkel möchte berühmte Park- und Gartenanlagen besichtigen.",
+      "wrongTitles": [
+        "Eine Kollegin interessiert sich für Kultur- und Stadtgeschichte.",
+        "Ihre Mutter möchte den Garten neu gestalten und sucht Tipps."
+      ]
+    },
+    {
+      "firstWords": "Einen Garten ganz nach den eigenen Vorstellungen anlegen, Gemüse anbauen, die Schönheit von Blumen und Ziersträuchern genießen...",
+      "correctTitle": "Ihre Mutter möchte den Garten neu gestalten und sucht Tipps aus der Praxis.",
+      "shortCorrectTitle": "Ihre Mutter möchte den Garten neu gestalten und sucht Tipps.",
+      "wrongTitles": [
+        "Ihr Onkel möchte auf einer Weltreise berühmte Parkanlagen besichtigen.",
+        "Ihre Nichte studiert Kunst und möchte sich Bilder mit Naturmotiven ansehen."
+      ]
+    },
+    {
+      "firstWords": "Erholung vom Alltagsstress und Ruhe findet man im Garten, bei der Arbeit an der frischen Luft...",
+      "correctTitle": "Ihre Nichte studiert Kunst und möchte sich Bilder mit Naturmotiven ansehen.",
+      "shortCorrectTitle": "Ihre Nichte möchte sich Bilder mit Naturmotiven ansehen.",
+      "wrongTitles": [
+        "Ihre Mutter möchte den Garten neu gestalten und sucht Tipps.",
+        "Ihre Schwester sucht einen Garten, in dem sie sich erholen kann."
+      ]
+    },
+    {
+      "firstWords": "Obst und Gemüse im Garten anbauen - das ist auch möglich, wenn Sie in der Stadt leben...",
+      "correctTitle": "Ihre Schwester sucht einen Garten, in dem sie sich von ihrem anstrengenden Beruf erholen kann.",
+      "shortCorrectTitle": "Ihre Schwester sucht einen Garten zur Erholung.",
+      "wrongTitles": [
+        "Ihre Nichte studiert Kunst und möchte sich Bilder mit Naturmotiven ansehen.",
+        "Ihre Mutter möchte den Garten neu gestalten und sucht Tipps."
+      ]
+    },
+    {
+      "firstWords": "Palmen in der Großstadt Mitten in Frankfurt können Besucher Pflanzen und Gewächse aus allen Teilen der Welt entdecken...",
+      "correctTitle": "Ihr Nachbar beschäftigt sich gerne mit Architektur. Er möchte an einem freien Nachmittag spazierengehen und dabei interessante Bauwerke ansehen.",
+      "shortCorrectTitle": "Ihr Nachbar möchte spazierengehen und interessante Bauwerke ansehen.",
+      "wrongTitles": [
+        "Ihre Tante möchte exotische Vögel beobachten.",
+        "Sie möchten mit Ihrem Sohn einen abenteuerlichen Nachmittag verbringen."
+      ]
+    },
+    {
+      "firstWords": "Nach rechts, nach links oder geradeaus? Der in einer idyllischen Landschaft gelegene Irrgarten in Vilpian lädt Groß und Klein ein...",
+      "correctTitle": "Sie möchten mit Ihrem zehnjährigen Sohn in der freien Natur einen abenteuerlichen und unterhaltsamen Nachmittag verbringen.",
+      "shortCorrectTitle": "Sie möchten einen abenteuerlichen Nachmittag mit Ihrem Sohn verbringen.",
+      "wrongTitles": [
+        "Ihre Tante möchte exotische Vögel beobachten.",
+        "Ihr Onkel möchte berühmte Parkanlagen besichtigen."
+      ]
+    }
+  ]
+}

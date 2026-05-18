@@ -1,0 +1,79 @@
+{
+  "title": "Lesen Teil 3 - Exam 36: Möbel für die neue Wohnung",
+  "skill": "lesen3",
+  "type": "matching",
+  "questions": [
+    {
+      "firstWords": "Ihr Kleiderschrank platzt aus allen Nähten? Kein Problem! Wir haben die Lösung: ein begehbarer Kleiderschrank...",
+      "correctTitle": "Eine Bekannte sucht Möbel für ihre neue Wohnung und wünscht sich viel Platz für ihre Kleidung.",
+      "shortCorrectTitle": "Eine Bekannte sucht Möbel mit viel Platz für Kleidung.",
+      "wrongTitles": [
+        "Eine Freundin hat viele Sachen zum Anziehen, die sie nie trägt.",
+        "Ihr Sohn interessiert sich für die Gestaltung von Räumen."
+      ]
+    },
+    {
+      "firstWords": "Der perfekte Kleiderschrank Ihr Kleiderschrank ist voll und trotzdem wissen Sie nicht, was zusammenpasst?...",
+      "correctTitle": "Eine Freundin hat viele Sachen zum Anziehen, die sie nie trägt. Sie möchte einen guten Kleidungsstil entwickeln.",
+      "shortCorrectTitle": "Eine Freundin möchte einen guten Kleidungsstil entwickeln.",
+      "wrongTitles": [
+        "Eine Bekannte sucht Möbel für ihre neue Wohnung.",
+        "Ihr Sohn interessiert sich für die Gestaltung von Räumen."
+      ]
+    },
+    {
+      "firstWords": "www.selbstgemacht-info.net Geld mit dem eigenen Hobby verdienen Sie stricken, nähen oder basteln gerne...",
+      "correctTitle": "Eine Nachbarin ist sehr kreativ und stellt Kleidung selbst her. Sie überlegt, ob sie diese auch verkaufen könnte.",
+      "shortCorrectTitle": "Eine Nachbarin überlegt, selbstgemachte Kleidung zu verkaufen.",
+      "wrongTitles": [
+        "Ihre Schwester studiert Geschichte und interessiert sich für Zeitschriften.",
+        "Sie interessieren sich für antike Möbel."
+      ]
+    },
+    {
+      "firstWords": "Regionale Musicalstars gesucht Das Team des Erfolgskomponisten Mirko Graafe sucht Profis und talentierte Anfänger...",
+      "correctTitle": "Ihr 18-jähriger Bruder singt gerne in seiner Freizeit und träumt davon, mal auf der Bühne zu stehen.",
+      "shortCorrectTitle": "Ihr Bruder träumt davon, auf der Bühne zu stehen.",
+      "wrongTitles": [
+        "Ihre Cousine schaut sich gerne Bühnenshows an.",
+        "Ihre Tochter möchte Moderedakteurin werden."
+      ]
+    },
+    {
+      "firstWords": "25 Jahre in Hamburg Wir feiern Geburtstag: 25 Jahre voller Emotionen und atemberaubender Musik!...",
+      "correctTitle": "Ihre Cousine schaut sich gerne Bühnenshows an und möchte wissen, welche Arbeiten hinter den Kulissen erledigt werden.",
+      "shortCorrectTitle": "Ihre Cousine möchte wissen, was hinter den Kulissen einer Show passiert.",
+      "wrongTitles": [
+        "Ihr Bruder träumt davon, auf der Bühne zu stehen.",
+        "Sie möchten sich eine unterhaltsame Bühnenshow ansehen."
+      ]
+    },
+    {
+      "firstWords": "Streifzug durch die Modewelt Paris war um 1900 das inspirierende Zentrum von Kunst, Mode und Lebensart...",
+      "correctTitle": "Ihre Schwester studiert Geschichte und interessiert sich für Zeitschriften von früher.",
+      "shortCorrectTitle": "Ihre Schwester interessiert sich für Zeitschriften von früher.",
+      "wrongTitles": [
+        "Sie interessieren sich für antike Möbel.",
+        "Ihre Tochter möchte Moderedakteurin werden."
+      ]
+    },
+    {
+      "firstWords": "Mode, Stars, Lifestyle Ob in New York, Paris oder Mailand: Wenn es um Trends aus der Modewelt geht, sind wir dabei!...",
+      "correctTitle": "Ihre Tochter ist Studentin und würde gerne Moderedakteurin werden. Sie möchte erste Erfahrungen in diesem Beruf sammeln.",
+      "shortCorrectTitle": "Ihre Tochter möchte Moderedakteurin werden und Erfahrungen sammeln.",
+      "wrongTitles": [
+        "Ihre Schwester interessiert sich für Zeitschriften von früher.",
+        "Sie interessieren sich für antike Möbel."
+      ]
+    },
+    {
+      "firstWords": "Filmhit als Musikspektakel Die erfolgreiche Komödie 'Eine Chefin zum Fürchten' kehrt zurück...",
+      "correctTitle": "Sie möchten sich eine unterhaltsame Bühnenshow ansehen.",
+      "shortCorrectTitle": "Sie möchten eine unterhaltsame Bühnenshow ansehen.",
+      "wrongTitles": [
+        "Ihre Cousine schaut sich gerne Bühnenshows an.",
+        "Ihr Bruder träumt davon, auf der Bühne zu stehen."
+      ]
+    }
+  ]
+}
