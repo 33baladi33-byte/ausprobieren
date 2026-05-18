@@ -1,0 +1,320 @@
+/* ========================================
+   dailyReport.css - تقرير الأداء اليومي
+   ======================================== */
+
+/* زر التقرير اليومي */
+.daily-report-btn {
+    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+    border: 1px solid rgba(100, 150, 200, 0.3);
+    border-radius: 30px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    margin-left: 10px;
+}
+
+.daily-report-btn:hover {
+    background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
+    border-color: rgba(100, 150, 200, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* نافذة التقرير */
+.report-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 10050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.report-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.report-modal-container {
+    background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+    border-radius: 28px;
+    max-width: 550px;
+    width: 90%;
+    max-height: 85vh;
+    margin: 20px;
+    border: 1px solid rgba(100, 150, 200, 0.25);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.report-modal-overlay.active .report-modal-container {
+    transform: scale(1);
+}
+
+/* رأس النافذة */
+.report-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(44, 62, 102, 0.2);
+}
+
+.report-modal-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.close-report-modal {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-report-modal:hover {
+    background: rgba(255, 100, 100, 0.3);
+    transform: rotate(90deg);
+}
+
+/* محتوى النافذة */
+.report-modal-body {
+    padding: 20px 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.report-modal-body::-webkit-scrollbar {
+    width: 5px;
+}
+
+.report-modal-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.report-modal-body::-webkit-scrollbar-thumb {
+    background: #5dade2;
+    border-radius: 10px;
+}
+
+/* التاريخ */
+.report-date {
+    text-align: center;
+    color: #888;
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* بطاقات الإحصائيات */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid rgba(100, 150, 200, 0.15);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #5dade2;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #a0a0a0;
+    margin-top: 5px;
+}
+
+/* أفضل جزء */
+.best-part {
+    background: rgba(93, 173, 226, 0.15);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(93, 173, 226, 0.3);
+    text-align: center;
+}
+
+.best-part-label {
+    font-size: 0.75rem;
+    color: #a0a0a0;
+    margin-bottom: 5px;
+}
+
+.best-part-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #5dade2;
+}
+
+/* قسم المراجعة */
+.weak-parts, .tomorrow-review {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.weak-list, .review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.weak-list li, .review-list li {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: #d0d0d0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weak-badge {
+    background: rgba(220, 53, 69, 0.2);
+    color: #dc3545;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+}
+
+.urgent-badge {
+    background: rgba(255, 100, 0, 0.2);
+    color: #ff6600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+}
+
+/* المقارنة مع الأمس */
+.comparison-box {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.comparison-text {
+    font-size: 0.9rem;
+    color: #5dade2;
+    font-weight: 500;
+}
+
+/* رسالة تحفيزية */
+.motivation-message {
+    background: linear-gradient(135deg, rgba(93, 173, 226, 0.1), rgba(44, 62, 102, 0.2));
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.motivation-text {
+    font-size: 0.95rem;
+    color: #5dade2;
+    font-weight: 500;
+}
+
+.motivation-icon {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+}
+
+/* تذييل النافذة */
+.report-modal-footer {
+    background: rgba(44, 62, 102, 0.2);
+    padding: 12px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    font-size: 0.7rem;
+    color: #777;
+}
+
+/* تنسيق الزر في الشريط العلوي */
+body:has(#list.active) .daily-report-btn,
+body:has(#exam.active) .daily-report-btn {
+    display: none !important;
+}
+
+body:has(#home.active) .daily-report-btn {
+    display: flex !important;
+}
+
+/* الوضع الليلي */
+body.dark-mode .report-modal-container {
+    background: linear-gradient(145deg, #0a0a12, #050508);
+}
+
+@media (max-width: 550px) {
+    .stats-grid {
+        gap: 8px;
+    }
+    .stat-card {
+        padding: 10px;
+    }
+    .stat-number {
+        font-size: 1.5rem;
+    }
+    .report-modal-body {
+        padding: 15px 18px;
+    }
+}
