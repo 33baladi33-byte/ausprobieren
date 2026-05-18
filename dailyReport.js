@@ -1,131 +1,65 @@
 // ============================================
-// dailyReport.js - نظام التقرير اليومي
+// dailyReport.js - نظام التقرير اليومي الحقيقي
+// يعتمد فقط على النشاط الفعلي للمستخدم في اليوم الحالي
 // ============================================
 
 (function() {
     "use strict";
     
     // ========== رسائل تحفيزية ==========
-    const MOTIVATION_MESSAGES = [
-        "🎉 أنت تتحسن بسرعة! استمر على هذا المنوال",
-        "🌟 اليوم كان ممتازاً! أنت في الطريق الصحيح",
-        "💪 أنت تتطور فعلاً! النتائج بدأت تظهر",
-        "📈 أداؤك رائع! واصل بنفس الطاقة",
-        "🔥 أنت في الطريق الصحيح، لا تتوقف!"
-    ];
-    
     const FIRST_DAY_MESSAGES = [
-        "🎯 هذه بداية ممتازة، استمر على هذا الطريق!",
-        "🌟 اليوم الأول جيد، وسنبدأ من هنا إلى النجاح",
-        "💪 أنت بدأت المراجعة، وهذا شيء رائع! استمر",
-        "📚 خطوة أولى موفقة! غداً سنكون أفضل إن شاء الله",
-        "🎉 بداية قوية! الطريق إلى B2 يبدأ بخطوة"
+        "🎯 خطوة أولى موفقة! غداً سنكون أفضل إن شاء الله",
+        "🌟 بداية رائعة! استمر على هذا المنوال",
+        "💪 أنت بدأت المراجعة، وهذا شيء رائع!",
+        "📚 اليوم الأول جيد، الطريق إلى B2 يبدأ بخطوة",
+        "🎉 ممتاز! كل يوم تتعلم شيئاً جديداً"
     ];
     
     const IMPROVEMENT_MESSAGES = [
         "📈 أنت أفضل من أمس بنسبة {percent}%! تطور ملحوظ",
         "🎯 أداؤك تحسن اليوم! +{percent}% عن الأمس",
         "⭐ ممتاز! تقدمك مستمر ({percent}% زيادة)",
-        "🚀 أنت تتطور فعلاً! أفضل من أمس بـ {percent}%",
-        "💪 واصل هكذا، الفرق {percent}% لصالحك"
+        "🚀 أنت تتطور فعلاً! أفضل من أمس بـ {percent}%"
     ];
     
-    const DECLINE_MESSAGES = [
-        "📉 اليوم كان أقل من الأمس، لكن غداً فرصة جديدة",
-        "💪 يوم عادي، غداً ستكون أفضل إن شاء الله",
-        "🎯 لا تقلق، كل يوم له ظروفه، استمر في المحاولة",
-        "🌟 المهم أنك لم تتوقف، غداً أفضل بإذن الله",
-        "📚 استمر، النجاح يحتاج إلى صبر"
+    const NO_COMPARISON_MESSAGES = [
+        "💪 أنت في الطريق الصحيح، استمر",
+        "🌟 يوم ممتاز، واصل بنفس الطاقة",
+        "🎯 أنت تتحسن مع كل يوم، لا تتوقف"
     ];
     
     // ========== تخزين البيانات ==========
-    let dailyData = {
-        lastDate: null,
-        examsCompleted: 0,
+    let todayData = {
+        date: null,
+        examsCompleted: [],     // { skill, examId, examTitle, score, date }
         gamesPlayed: 0,
-        correctAnswers: 0,
-        examResults: []  // { skill, examId, examTitle, score, date }
+        correctAnswers: 0
     };
     
-    // ========== تحميل بيانات اليوم ==========
-    function loadTodayData() {
-        const today = new Date().toISOString().slice(0,10);
-        const saved = localStorage.getItem('zertiva_daily_report');
-        
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved);
-                if (parsed.lastDate === today) {
-                    dailyData = parsed;
-                } else {
-                    // يوم جديد، حفظ اليوم السابق للمقارنة
-                    const yesterdayData = { ...parsed };
-                    dailyData = {
-                        lastDate: today,
-                        examsCompleted: 0,
-                        gamesPlayed: 0,
-                        correctAnswers: 0,
-                        examResults: []
-                    };
-                    localStorage.setItem('zertiva_daily_report_yesterday', JSON.stringify(yesterdayData));
-                }
-            } catch(e) {}
-        }
-        
-        // تجميع نتائج الامتحانات من localStorage
-        collectExamResults();
+    // ========== الحصول على تاريخ اليوم ==========
+    function getTodayDate() {
+        return new Date().toISOString().slice(0,10);
     }
     
-    // ========== تجميع نتائج الامتحانات ==========
-    function collectExamResults() {
-        const today = new Date().toISOString().slice(0,10);
-        const examResults = [];
-        let totalCorrect = 0;
-        let examsCount = 0;
+    // ========== تسجيل نتيجة امتحان مع التاريخ ==========
+    function registerExamResult(skill, examId, score, examTitle) {
+        const today = getTodayDate();
+        const resultKey = `exam_${skill}_${examId}`;
+        const existing = localStorage.getItem(resultKey);
+        let existingData = existing ? JSON.parse(existing) : null;
         
-        // البحث عن جميع نتائج الامتحانات
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && key.startsWith('exam_result_')) {
-                const score = parseFloat(localStorage.getItem(key));
-                if (!isNaN(score)) {
-                    // استخراج المعلومات من المفتاح
-                    const parts = key.split('_');
-                    const skill = parts[2];
-                    const examId = parts[3];
-                    
-                    // الحصول على تاريخ النتيجة (إذا كان محفوظاً)
-                    const dateKey = `exam_date_${skill}_${examId}`;
-                    const examDate = localStorage.getItem(dateKey) || today;
-                    
-                    // إذا كانت النتيجة من اليوم
-                    if (examDate === today) {
-                        totalCorrect += Math.round(score);
-                        examsCount++;
-                        
-                        examResults.push({
-                            skill: skill,
-                            examId: parseInt(examId),
-                            examTitle: getExamTitle(skill, examId),
-                            score: score,
-                            date: examDate
-                        });
-                    }
-                }
-            }
-        }
+        // حفظ أو تحديث النتيجة مع التاريخ
+        localStorage.setItem(resultKey, JSON.stringify({
+            score: score,
+            date: today,
+            title: examTitle || getExamTitle(skill, examId)
+        }));
         
-        dailyData.examsCompleted = examsCount;
-        dailyData.correctAnswers = totalCorrect;
-        dailyData.examResults = examResults;
-        
-        // حفظ البيانات
-        saveTodayData();
+        console.log(`📝 تم تسجيل نتيجة ${skill} Exam ${examId}: ${score}% في ${today}`);
     }
     
     // ========== الحصول على عنوان الامتحان ==========
     function getExamTitle(skill, examId) {
-        // محاولة الحصول من examsDatabase إذا كانت متاحة
         if (typeof examsDatabase !== 'undefined' && examsDatabase[skill]) {
             const exam = examsDatabase[skill].find(e => e.id === examId);
             if (exam) return exam.title;
@@ -133,57 +67,124 @@
         return `${skill.toUpperCase()} Exam ${examId}`;
     }
     
-    // ========== حفظ بيانات اليوم ==========
-    function saveTodayData() {
-        localStorage.setItem('zertiva_daily_report', JSON.stringify(dailyData));
-    }
-    
-    // ========== حساب الفرق مع الأمس ==========
-    function getComparisonWithYesterday() {
-        const yesterday = localStorage.getItem('zertiva_daily_report_yesterday');
-        if (!yesterday) return null;
+    // ========== جلب جميع نتائج اليوم فقط ==========
+    function loadTodayResults() {
+        const today = getTodayDate();
+        const examsCompleted = [];
+        let gamesPlayed = 0;
+        let correctAnswers = 0;
         
-        try {
-            const yesterdayData = JSON.parse(yesterday);
-            const todayTotal = dailyData.correctAnswers;
-            const yesterdayTotal = yesterdayData.correctAnswers || 0;
-            
-            if (yesterdayTotal === 0) return null;
-            
-            const diff = todayTotal - yesterdayTotal;
-            const percent = Math.round((diff / yesterdayTotal) * 100);
-            
-            return {
-                diff: diff,
-                percent: Math.abs(percent),
-                isBetter: diff > 0,
-                isWorse: diff < 0
-            };
-        } catch(e) {
-            return null;
+        // البحث في localStorage عن جميع نتائج الامتحانات
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('exam_')) {
+                try {
+                    const data = JSON.parse(localStorage.getItem(key));
+                    if (data && data.date === today) {
+                        // استخراج skill و examId من المفتاح
+                        const parts = key.split('_');
+                        const skill = parts[1];
+                        const examId = parseInt(parts[2]);
+                        
+                        examsCompleted.push({
+                            skill: skill,
+                            examId: examId,
+                            examTitle: data.title || getExamTitle(skill, examId),
+                            score: data.score,
+                            date: data.date
+                        });
+                        
+                        // حساب الإجابات الصحيحة (score هي النسبة المئوية)
+                        // نفترض أن كل امتحان له 25 سؤال
+                        const totalQuestions = 25;
+                        const correctCount = Math.round((data.score / 100) * totalQuestions);
+                        correctAnswers += correctCount;
+                    }
+                } catch(e) {}
+            }
         }
+        
+        // الحصول على عدد الألعاب التي لعبها اليوم (من localStorage آخر)
+        const gamesKey = `games_played_${today}`;
+        const savedGames = localStorage.getItem(gamesKey);
+        if (savedGames) {
+            gamesPlayed = parseInt(savedGames) || 0;
+        }
+        
+        return {
+            date: today,
+            examsCompleted: examsCompleted,
+            gamesPlayed: gamesPlayed,
+            correctAnswers: correctAnswers
+        };
     }
     
-    // ========== تحديد الأجزاء الضعيفة ==========
-    function getWeakParts() {
+    // ========== تسجيل لعبة تم لعبها اليوم ==========
+    function registerGamePlayed() {
+        const today = getTodayDate();
+        const gamesKey = `games_played_${today}`;
+        let current = parseInt(localStorage.getItem(gamesKey)) || 0;
+        current++;
+        localStorage.setItem(gamesKey, current);
+        console.log(`🎮 تم تسجيل لعبة اليوم: ${current}`);
+    }
+    
+    // ========== جلب بيانات الأمس للمقارنة ==========
+    function getYesterdayData() {
+        const today = getTodayDate();
+        let yesterdayData = null;
+        
+        // البحث عن اليوم السابق (آخر يوم له نشاط قبل اليوم)
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('exam_')) {
+                try {
+                    const data = JSON.parse(localStorage.getItem(key));
+                    if (data && data.date !== today) {
+                        if (!yesterdayData || data.date > yesterdayData.date) {
+                            yesterdayData = data;
+                        }
+                    }
+                } catch(e) {}
+            }
+        }
+        
+        if (!yesterdayData) return null;
+        
+        // جمع نتائج ذلك اليوم
+        const results = [];
+        let totalCorrect = 0;
+        
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('exam_')) {
+                try {
+                    const data = JSON.parse(localStorage.getItem(key));
+                    if (data && data.date === yesterdayData.date) {
+                        results.push(data);
+                        totalCorrect += Math.round((data.score / 100) * 25);
+                    }
+                } catch(e) {}
+            }
+        }
+        
+        return {
+            date: yesterdayData.date,
+            examsCount: results.length,
+            correctAnswers: totalCorrect
+        };
+    }
+    
+    // ========== تحديد الأجزاء الضعيفة (من امتحانات اليوم فقط) ==========
+    function getWeakParts(exams) {
         const weak = [];
         const urgent = [];
         
-        dailyData.examResults.forEach(result => {
-            if (result.score <= 40) {
-                urgent.push({
-                    skill: result.skill,
-                    examId: result.examId,
-                    examTitle: result.examTitle,
-                    score: result.score
-                });
-            } else if (result.score <= 50) {
-                weak.push({
-                    skill: result.skill,
-                    examId: result.examId,
-                    examTitle: result.examTitle,
-                    score: result.score
-                });
+        exams.forEach(exam => {
+            if (exam.score <= 40) {
+                urgent.push(exam);
+            } else if (exam.score <= 50) {
+                weak.push(exam);
             }
         });
         
@@ -191,21 +192,16 @@
     }
     
     // ========== تحديد أفضل جزء في اليوم ==========
-    function getBestPart() {
-        if (dailyData.examResults.length === 0) return null;
-        
-        const best = dailyData.examResults.reduce((max, current) => {
+    function getBestPart(exams) {
+        if (exams.length === 0) return null;
+        return exams.reduce((max, current) => {
             return (current.score > max.score) ? current : max;
-        }, dailyData.examResults[0]);
-        
-        return best;
+        }, exams[0]);
     }
     
     // ========== اقتراح امتحانات لغد ==========
-    function getTomorrowReviews() {
-        const { weak, urgent } = getWeakParts();
+    function getTomorrowReviews(weak, urgent) {
         const allReviews = [...urgent, ...weak];
-        
         // إزالة التكرارات
         const unique = [];
         const seen = new Set();
@@ -216,31 +212,7 @@
                 unique.push(item);
             }
         }
-        
-        // أخذ أول 5 اقتراحات
         return unique.slice(0, 5);
-    }
-    
-    // ========== الحصول على رسالة تحفيزية ==========
-    function getMotivationMessage() {
-        const comparison = getComparisonWithYesterday();
-        const isFirstDay = dailyData.examsCompleted === 0 && dailyData.gamesPlayed === 0;
-        
-        // إذا كان أول استخدام أو لا توجد بيانات للمقارنة
-        if (isFirstDay || !comparison) {
-            const randomIndex = Math.floor(Math.random() * FIRST_DAY_MESSAGES.length);
-            return FIRST_DAY_MESSAGES[randomIndex];
-        }
-        
-        // إذا كان هناك تحسن
-        if (comparison.isBetter) {
-            const randomIndex = Math.floor(Math.random() * IMPROVEMENT_MESSAGES.length);
-            return IMPROVEMENT_MESSAGES[randomIndex].replace('{percent}', comparison.percent);
-        }
-        
-        // إذا كان هناك تراجع
-        const randomIndex = Math.floor(Math.random() * DECLINE_MESSAGES.length);
-        return DECLINE_MESSAGES[randomIndex];
     }
     
     // ========== الحصول على اسم القسم بالعربية ==========
@@ -261,19 +233,97 @@
         return names[skill] || skill;
     }
     
+    // ========== حساب المقارنة مع الأمس ==========
+    function getComparisonMessage(yesterdayData, todayCorrect, todayExamsCount) {
+        if (!yesterdayData || yesterdayData.examsCount === 0) {
+            return null;
+        }
+        
+        const todayTotal = todayCorrect;
+        const yesterdayTotal = yesterdayData.correctAnswers;
+        
+        if (yesterdayTotal === 0) return null;
+        
+        const diff = todayTotal - yesterdayTotal;
+        const percent = Math.round(Math.abs(diff / yesterdayTotal) * 100);
+        
+        if (diff > 0) {
+            const messages = [...IMPROVEMENT_MESSAGES];
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            return randomMsg.replace('{percent}', percent);
+        } else if (diff < 0) {
+            return `📉 اليوم كان أقل من الأمس بـ ${percent}%، لكن غداً فرصة جديدة للتحسن`;
+        }
+        return null;
+    }
+    
+    // ========== الحصول على رسالة تحفيزية ==========
+    function getMotivationMessage(examsCount, yesterdayData, comparisonMsg) {
+        if (examsCount === 0) {
+            return null;
+        }
+        
+        if (!yesterdayData || yesterdayData.examsCount === 0) {
+            const randomIndex = Math.floor(Math.random() * FIRST_DAY_MESSAGES.length);
+            return FIRST_DAY_MESSAGES[randomIndex];
+        }
+        
+        if (comparisonMsg) {
+            return comparisonMsg;
+        }
+        
+        const randomIndex = Math.floor(Math.random() * NO_COMPARISON_MESSAGES.length);
+        return NO_COMPARISON_MESSAGES[randomIndex];
+    }
+    
     // ========== إنشاء نافذة التقرير ==========
     function createReportModal() {
         if (document.getElementById('reportModal')) return;
         
+        // تحميل بيانات اليوم الحقيقية
+        const todayResults = loadTodayResults();
+        const exams = todayResults.examsCompleted;
+        const examsCount = exams.length;
+        const gamesCount = todayResults.gamesPlayed;
+        const correctAnswers = todayResults.correctAnswers;
+        
         const today = new Date();
         const formattedDate = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}`;
         
-        const bestPart = getBestPart();
-        const { weak, urgent } = getWeakParts();
-        const tomorrowReviews = getTomorrowReviews();
-        const comparison = getComparisonWithYesterday();
-        const motivationMessage = getMotivationMessage();
-        const isFirstDay = dailyData.examsCompleted === 0 && dailyData.gamesPlayed === 0;
+        // إذا لم يقم المستخدم بأي نشاط اليوم
+        if (examsCount === 0 && gamesCount === 0) {
+            const noActivityModal = document.createElement('div');
+            noActivityModal.id = 'reportModal';
+            noActivityModal.className = 'report-modal-overlay';
+            noActivityModal.innerHTML = `
+                <div class="report-modal-container" style="max-width: 380px;">
+                    <div class="report-modal-header">
+                        <h3>📊 تقرير اليوم</h3>
+                        <button class="close-report-modal">✕</button>
+                    </div>
+                    <div class="report-modal-body" style="text-align: center; padding: 40px 24px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📚</div>
+                        <div style="font-size: 1.1rem; font-weight: 500; color: #5dade2; margin-bottom: 12px;">لم تقم بأي مراجعة اليوم بعد</div>
+                        <div style="color: #a0a0a0; font-size: 0.85rem;">هذه الخاصية تعمل بعد أن تنهي مراجعتك اليومية</div>
+                    </div>
+                    <div class="report-modal-footer">
+                        🌟 ابدأ المراجعة الآن، وستظهر نتائجك هنا
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(noActivityModal);
+            return noActivityModal;
+        }
+        
+        // حساب الأجزاء الضعيفة (من امتحانات اليوم فقط)
+        const { weak, urgent } = getWeakParts(exams);
+        const bestPart = getBestPart(exams);
+        const tomorrowReviews = getTomorrowReviews(weak, urgent);
+        
+        // المقارنة مع الأمس
+        const yesterdayData = getYesterdayData();
+        const comparisonMsg = getComparisonMessage(yesterdayData, correctAnswers, examsCount);
+        const motivationMsg = getMotivationMessage(examsCount, yesterdayData, comparisonMsg);
         
         const modal = document.createElement('div');
         modal.id = 'reportModal';
@@ -289,20 +339,16 @@
                     
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <div class="stat-number">${dailyData.examsCompleted}</div>
+                            <div class="stat-number">${examsCount}</div>
                             <div class="stat-label">امتحانات أنجزتها</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">${dailyData.gamesPlayed}</div>
+                            <div class="stat-number">${gamesCount}</div>
                             <div class="stat-label">ألعاب تدريبية</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">${dailyData.correctAnswers}</div>
+                            <div class="stat-number">${correctAnswers}</div>
                             <div class="stat-label">إجابة صحيحة</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number">${dailyData.examResults.length}</div>
-                            <div class="stat-label">امتحانات مختبرة</div>
                         </div>
                     </div>
                     
@@ -310,6 +356,7 @@
                     <div class="best-part">
                         <div class="best-part-label">🏆 أفضل جزء لديك اليوم</div>
                         <div class="best-part-value">${getSkillName(bestPart.skill)} — ${bestPart.examTitle || `Exam ${bestPart.examId}`}</div>
+                        <div style="font-size: 0.8rem; color: #5dade2; margin-top: 5px;">${bestPart.score}%</div>
                     </div>
                     ` : ''}
                     
@@ -344,19 +391,9 @@
                     </div>
                     ` : ''}
                     
-                    ${!isFirstDay && comparison ? `
-                    <div class="comparison-box">
-                        <div class="comparison-text">
-                            ${comparison.isBetter ? `📈 أنت أفضل من أمس بـ ${comparison.percent}%` : 
-                              comparison.isWorse ? `📉 اليوم كان أقل من أمس بـ ${comparison.percent}%` : 
-                              '📊 أداؤك اليوم مماثل للأمس'}
-                        </div>
-                    </div>
-                    ` : ''}
-                    
                     <div class="motivation-message">
                         <div class="motivation-icon">💪</div>
-                        <div class="motivation-text">${motivationMessage}</div>
+                        <div class="motivation-text">${motivationMsg || "أنت في الطريق الصحيح، استمر!"}</div>
                     </div>
                 </div>
                 <div class="report-modal-footer">
@@ -366,14 +403,6 @@
         `;
         
         document.body.appendChild(modal);
-        
-        const closeBtn = modal.querySelector('.close-report-modal');
-        closeBtn.addEventListener('click', () => closeReportModal());
-        
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeReportModal();
-        });
-        
         return modal;
     }
     
@@ -381,19 +410,28 @@
         const modal = document.getElementById('reportModal');
         if (modal) {
             modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
             document.body.style.overflow = '';
         }
     }
     
     function openReportModal() {
-        loadTodayData();
+        const modal = createReportModal();
+        if (modal) {
+            setTimeout(() => {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 10);
+        }
         
-        let modal = document.getElementById('reportModal');
-        if (modal) modal.remove();
+        const closeBtn = modal?.querySelector('.close-report-modal');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeReportModal);
+        }
         
-        modal = createReportModal();
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        modal?.addEventListener('click', (e) => {
+            if (e.target === modal) closeReportModal();
+        });
     }
     
     // ========== إضافة زر التقرير في الصفحة الرئيسية ==========
@@ -407,7 +445,6 @@
         if (document.getElementById('dailyReportBtn')) return;
         
         const reviewsBtn = document.getElementById('reviewsStatsBtn');
-        const tipsBtn = document.getElementById('tipsTriggerBtn');
         
         const reportBtn = document.createElement('button');
         reportBtn.id = 'dailyReportBtn';
@@ -418,8 +455,6 @@
         // إضافة الزر بعد زر التقييمات
         if (reviewsBtn) {
             rightSide.insertBefore(reportBtn, reviewsBtn.nextSibling);
-        } else if (tipsBtn) {
-            rightSide.insertBefore(reportBtn, tipsBtn.nextSibling);
         } else {
             rightSide.insertBefore(reportBtn, rightSide.firstChild);
         }
@@ -427,6 +462,10 @@
         reportBtn.addEventListener('click', openReportModal);
         console.log('📊 زر التقرير اليومي تمت إضافته بنجاح');
     }
+    
+    // ========== ربط دوال التسجيل بالنطاق العام ==========
+    window.registerExamResult = registerExamResult;
+    window.registerGamePlayed = registerGamePlayed;
     
     // ========== مراقبة الصفحة الرئيسية ==========
     function observeHomePageForReport() {
@@ -436,38 +475,15 @@
         if (!homePage || !reportBtn) return;
         
         const observer = new MutationObserver(() => {
-            if (homePage.classList.contains('active')) {
-                reportBtn.style.display = 'flex';
-            } else {
-                reportBtn.style.display = 'none';
-            }
+            reportBtn.style.display = homePage.classList.contains('active') ? 'flex' : 'none';
         });
         
         observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
-        
-        if (homePage.classList.contains('active')) {
-            reportBtn.style.display = 'flex';
-        } else {
-            reportBtn.style.display = 'none';
-        }
+        reportBtn.style.display = homePage.classList.contains('active') ? 'flex' : 'none';
     }
-    
-    // ========== تسجيل نتائج الامتحان مع التاريخ ==========
-    function registerExamResult(skill, examId, score) {
-        const today = new Date().toISOString().slice(0,10);
-        const dateKey = `exam_date_${skill}_${examId}`;
-        localStorage.setItem(dateKey, today);
-        
-        // إعادة تحميل البيانات
-        loadTodayData();
-    }
-    
-    // ربط الدالة بالنطاق العام
-    window.registerExamResult = registerExamResult;
     
     // ========== التهيئة ==========
     function init() {
-        loadTodayData();
         addReportButton();
         setTimeout(observeHomePageForReport, 100);
     }
