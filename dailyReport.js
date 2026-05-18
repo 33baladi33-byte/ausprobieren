@@ -1,5 +1,6 @@
 // ============================================
-// dailyReport.js - نظام التقرير اليومي الحقيقي V2
+// dailyReport.js - نظام التقرير اليومي الحقيقي V3
+// يعتمد فقط على النشاط الفعلي للمستخدم في اليوم الحالي
 // ============================================
 
 (function() {
@@ -8,8 +9,7 @@
     // ========== مفاتيح التخزين ==========
     const STORAGE_KEYS = {
         COMPLETED_EXAMS: 'zertiva_completed_exams',
-        COMPLETED_GAMES: 'zertiva_completed_games',
-        LAST_REPORT_DATE: 'zertiva_last_report_date'
+        COMPLETED_GAMES: 'zertiva_completed_games'
     };
     
     // ========== تسجيل امتحان مكتمل ==========
@@ -59,20 +59,21 @@
             } catch(e) {}
         }
         
-        // إزالة أي تسجيل سابق لنفس اليوم (نعدل العدد)
-        const existingToday = completedGames.filter(g => g.date === today);
-        const otherDays = completedGames.filter(g => g.date !== today);
+        // البحث عن اليوم الحالي
+        const existingIndex = completedGames.findIndex(g => g.date === today);
+        if (existingIndex !== -1) {
+            completedGames[existingIndex].count++;
+            completedGames[existingIndex].lastUpdated = new Date().toISOString();
+        } else {
+            completedGames.push({
+                date: today,
+                count: 1,
+                lastUpdated: new Date().toISOString()
+            });
+        }
         
-        const newCount = (existingToday.length > 0 ? existingToday[0].count : 0) + 1;
-        
-        otherDays.push({
-            date: today,
-            count: newCount,
-            lastUpdated: new Date().toISOString()
-        });
-        
-        localStorage.setItem(STORAGE_KEYS.COMPLETED_GAMES, JSON.stringify(otherDays));
-        console.log(`🎮 [تقرير اليوم] تم تسجيل لعبة مكتملة. إجمالي اليوم: ${newCount}`);
+        localStorage.setItem(STORAGE_KEYS.COMPLETED_GAMES, JSON.stringify(completedGames));
+        console.log(`🎮 [تقرير اليوم] تم تسجيل لعبة مكتملة. إجمالي اليوم: ${completedGames.find(g => g.date === today)?.count || 1}`);
     }
     
     // ========== جلب امتحانات اليوم ==========
@@ -89,6 +90,9 @@
             const allExams = JSON.parse(saved);
             const todayExams = allExams.filter(exam => exam.date === today);
             console.log(`📊 [تقرير اليوم] تم العثور على ${todayExams.length} امتحان مكتمل اليوم`);
+            todayExams.forEach(exam => {
+                console.log(`   - ${exam.skill} Exam ${exam.examId}: ${exam.score}%`);
+            });
             return todayExams;
         } catch(e) {
             console.error('خطأ في قراءة الامتحانات:', e);
@@ -178,7 +182,13 @@
     const IMPROVEMENT_MESSAGES = [
         "📈 أنت أفضل من أمس بنسبة {percent}%! تطور ملحوظ",
         "🎯 أداؤك تحسن اليوم! +{percent}% عن الأمس",
-        "⭐ ممتاز! تقدمك مستمر ({percent}% زيادة)"
+        "⭐ ممتاز! تقدمك مستمر ({percent}% 증가)"
+    ];
+    
+    const NO_COMPARISON_MESSAGES = [
+        "💪 أنت في الطريق الصحيح، استمر",
+        "🌟 يوم ممتاز، واصل بنفس الطاقة",
+        "🎯 أنت تتحسن مع كل يوم، لا تتوقف"
     ];
     
     // ========== إنشاء نافذة التقرير ==========
@@ -233,11 +243,13 @@
         // المقارنة مع الأمس
         const yesterdayStats = getYesterdayStats();
         let comparisonMsg = null;
+        let showComparison = false;
         
         if (yesterdayStats && yesterdayStats.examsCount > 0) {
             const todayTotal = correctAnswers;
             const yesterdayTotal = yesterdayStats.correctAnswers;
             if (yesterdayTotal > 0) {
+                showComparison = true;
                 const diff = todayTotal - yesterdayTotal;
                 const percent = Math.round(Math.abs(diff / yesterdayTotal) * 100);
                 if (diff > 0) {
@@ -245,6 +257,8 @@
                     comparisonMsg = msg.replace('{percent}', percent);
                 } else if (diff < 0) {
                     comparisonMsg = `📉 اليوم كان أقل من أمس بـ ${percent}%، غداً فرصة جديدة للتحسن`;
+                } else {
+                    comparisonMsg = `📊 أداؤك اليوم مماثل للأمس`;
                 }
             }
         }
@@ -255,7 +269,7 @@
             if (!yesterdayStats || yesterdayStats.examsCount === 0) {
                 motivationMsg = FIRST_DAY_MESSAGES[Math.floor(Math.random() * FIRST_DAY_MESSAGES.length)];
             } else {
-                motivationMsg = "💪 أنت في الطريق الصحيح، استمر";
+                motivationMsg = NO_COMPARISON_MESSAGES[Math.floor(Math.random() * NO_COMPARISON_MESSAGES.length)];
             }
         }
         
@@ -325,6 +339,12 @@
                     </div>
                     ` : ''}
                     
+                    ${showComparison ? `
+                    <div class="comparison-box">
+                        <div class="comparison-text">${comparisonMsg}</div>
+                    </div>
+                    ` : ''}
+                    
                     <div class="motivation-message">
                         <div class="motivation-icon">💪</div>
                         <div class="motivation-text">${motivationMsg}</div>
@@ -368,7 +388,7 @@
         });
     }
     
-    // ========== إضافة زر التقرير ==========
+    // ========== إضافة زر التقرير في الشريط العلوي (يظهر فقط في صفحة القائمة والامتحانات) ==========
     function addReportButton() {
         const rightSide = document.querySelector('.top-bar .right-side');
         if (!rightSide) {
@@ -389,6 +409,33 @@
         console.log('📊 زر التقرير اليومي تمت إضافته بنجاح');
     }
     
+    // ========== إظهار/إخفاء الزر حسب الصفحة ==========
+    function observePageForReportButton() {
+        const reportBtn = document.getElementById('dailyReportBtn');
+        if (!reportBtn) return;
+        
+        const homePage = document.getElementById('home');
+        const listPage = document.getElementById('list');
+        const examPage = document.getElementById('exam');
+        
+        function updateButtonVisibility() {
+            if (listPage && listPage.classList.contains('active')) {
+                reportBtn.style.display = 'flex';
+            } else if (examPage && examPage.classList.contains('active')) {
+                reportBtn.style.display = 'flex';
+            } else {
+                reportBtn.style.display = 'none';
+            }
+        }
+        
+        const observer = new MutationObserver(updateButtonVisibility);
+        if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
+        if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
+        if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
+        
+        updateButtonVisibility();
+    }
+    
     // ========== ربط الدوال بالنطاق العام ==========
     window.registerCompletedExam = registerCompletedExam;
     window.registerCompletedGame = registerCompletedGame;
@@ -396,6 +443,7 @@
     // ========== التهيئة ==========
     function init() {
         addReportButton();
+        setTimeout(observePageForReportButton, 100);
         console.log('📊 نظام التقرير اليومي جاهز');
         console.log('💡 استخدم window.registerCompletedExam() لتسجيل امتحان مكتمل');
         console.log('💡 استخدم window.registerCompletedGame() لتسجيل لعبة مكتملة');
