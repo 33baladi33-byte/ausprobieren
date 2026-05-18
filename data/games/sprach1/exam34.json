@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 34: Liebe Lara",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "dass ich erst jetzt auf",
+      "after": "Brief antworte",
+      "options": ["deinen", "dein", "deine"],
+      "correct": "deinen"
+    },
+    {
+      "id": 2,
+      "before": "Jetzt aber tue ich es,",
+      "after": "du wirklich tolle Neuigkeiten",
+      "options": ["weil", "denn", "obwohl"],
+      "correct": "weil"
+    },
+    {
+      "id": 3,
+      "before": "Ich weiß",
+      "after": "gut, wie wir uns",
+      "options": ["noch", "schon", "weiterhin"],
+      "correct": "noch"
+    },
+    {
+      "id": 4,
+      "before": "",
+      "after": "deinen Neubeginn wünschen Peter",
+      "options": ["für", "vor", "zu"],
+      "correct": "für"
+    },
+    {
+      "id": 5,
+      "before": "Robert gefällt es gut auf seiner",
+      "after": "Stelle",
+      "options": ["neuen", "neue", "neuer"],
+      "correct": "neuen"
+    },
+    {
+      "id": 6,
+      "before": "Du weißt",
+      "after": ", was das heißt",
+      "options": ["ja", "bloß", "mal"],
+      "correct": "ja"
+    },
+    {
+      "id": 7,
+      "before": "",
+      "after": "sind wir natürlich stolz",
+      "options": ["darauf", "damit", "darüber"],
+      "correct": "darauf"
+    },
+    {
+      "id": 8,
+      "before": "Es",
+      "after": "schön, wenn wir uns",
+      "options": ["wäre", "ist", "würde"],
+      "correct": "wäre"
+    },
+    {
+      "id": 9,
+      "before": "Vielleicht findet ihr",
+      "after": "der Umzugsvorbereitungen noch Zeit",
+      "options": ["trotz", "aufgrund", "wegen"],
+      "correct": "trotz"
+    },
+    {
+      "id": 10,
+      "before": "damit wir etwas abmachen",
+      "after": "",
+      "options": ["können", "könnten", "konnten"],
+      "correct": "können"
+    }
+  ]
+}

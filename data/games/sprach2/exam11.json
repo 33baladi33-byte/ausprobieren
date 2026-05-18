@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 11: Deutschland – ein Paradies für Kinder? (معدل 1)",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "steht ein Betreuungsplatz in einer Kindertagesstätte",
+      "after": "Verfügung",
+      "options": ["zur", "auf", "bei"],
+      "correct": "zur"
+    },
+    {
+      "id": 2,
+      "before": "drei Jahre",
+      "after": "dem Kind zu Hause",
+      "options": ["bei", "mit", "zu"],
+      "correct": "bei"
+    },
+    {
+      "id": 3,
+      "before": "",
+      "after": "hat den Vorteil",
+      "options": ["das", "dies", "was"],
+      "correct": "das"
+    },
+    {
+      "id": 4,
+      "before": "",
+      "after": "wird die Elternzeit",
+      "options": ["dennoch", "doch", "jedoch"],
+      "correct": "dennoch"
+    },
+    {
+      "id": 5,
+      "before": "Dies scheinen die Hauptgründe",
+      "after": "zu sein",
+      "options": ["dafür", "dazu", "darum"],
+      "correct": "dafür"
+    },
+    {
+      "id": 6,
+      "before": "Sie sitzen eben nicht still am Tisch,",
+      "after": "stören mit ihrem Lachen",
+      "options": ["sondern", "aber", "doch"],
+      "correct": "sondern"
+    },
+    {
+      "id": 7,
+      "before": "stört das",
+      "after": ": Telefonate sind",
+      "options": ["niemanden", "jemanden", "keinen"],
+      "correct": "niemanden"
+    },
+    {
+      "id": 8,
+      "before": "strengen Anwohner Prozesse gegen Kindergärten an,",
+      "after": "die Kinder die Ruhe",
+      "options": ["weil", "denn", "da"],
+      "correct": "weil"
+    },
+    {
+      "id": 9,
+      "before": "In den meisten Zügen sind die Gänge so angeordnet,",
+      "after": "mit einem Kinderwagen",
+      "options": ["dass", "so dass", "als dass"],
+      "correct": "dass"
+    },
+    {
+      "id": 10,
+      "before": "damit Anspruch",
+      "after": "einen Platz",
+      "options": ["auf", "an", "zu"],
+      "correct": "auf"
+    }
+  ]
+}

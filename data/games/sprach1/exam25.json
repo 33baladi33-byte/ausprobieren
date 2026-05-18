@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 25: Liebe Paola",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Ich hoffe, dass wir",
+      "after": "bald kennenlernen",
+      "options": ["sie", "ihr", "Sie"],
+      "correct": "sie"
+    },
+    {
+      "id": 2,
+      "before": "",
+      "after": "warten wir lieber noch",
+      "options": ["deshalb", "obwohl", "trotzdem"],
+      "correct": "deshalb"
+    },
+    {
+      "id": 3,
+      "before": "Sagt uns einfach Bescheid,",
+      "after": "euch ein Treffen lieb",
+      "options": ["wann", "bis", "dann"],
+      "correct": "wann"
+    },
+    {
+      "id": 4,
+      "before": "Eine kleine Überraschung für eure Laura steht",
+      "after": "jeden Fall bereit",
+      "options": ["auf", "im", "in"],
+      "correct": "auf"
+    },
+    {
+      "id": 5,
+      "before": "",
+      "after": "diesem Jahr sind hier",
+      "options": ["seit", "vom", "zum"],
+      "correct": "seit"
+    },
+    {
+      "id": 6,
+      "before": "Ich überlege mir,",
+      "after": "ich nicht wieder anfangen",
+      "options": ["ob", "obwohl", "ohnehin"],
+      "correct": "ob"
+    },
+    {
+      "id": 7,
+      "before": "denn ich kann mir gar nicht",
+      "after": ", wie ich den Schichtdienst",
+      "options": ["vorstellen", "verstellen", "zustellen"],
+      "correct": "vorstellen"
+    },
+    {
+      "id": 8,
+      "before": "Was hältst du",
+      "after": "",
+      "options": ["davon", "dafür", "damit"],
+      "correct": "davon"
+    },
+    {
+      "id": 9,
+      "before": "bei der meine Ausbildung",
+      "after": "Krankenschwester von Vorteil",
+      "options": ["als", "wie", "zu"],
+      "correct": "als"
+    },
+    {
+      "id": 10,
+      "before": "Wie dem auch",
+      "after": "",
+      "options": ["sei", "hätte", "wäre"],
+      "correct": "sei"
+    }
+  ]
+}

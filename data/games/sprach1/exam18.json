@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 18: Sehr geehrter Herr Dr. Dobromil",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "mit",
+      "after": "Interesse habe ich Ihr",
+      "options": ["allergrößtem", "allergrößte", "allergrößten"],
+      "correct": "allergrößtem"
+    },
+    {
+      "id": 2,
+      "before": "Ihr Stellenangebot in der Essener Zeitung gelesen,",
+      "after": "Sie eine Teilzeit-Mitarbeiterin",
+      "options": ["in dem", "an dem", "auf dem"],
+      "correct": "in dem"
+    },
+    {
+      "id": 3,
+      "before": "in einem so renommierten Geschäft wie dem",
+      "after": "übernehmen zu können",
+      "options": ["Ihren", "Ihrem", "Ihres"],
+      "correct": "Ihrem"
+    },
+    {
+      "id": 4,
+      "before": "eine verantwortungsvolle Aufgabe übernehmen",
+      "after": "",
+      "options": ["zu können", "können", "könnte"],
+      "correct": "zu können"
+    },
+    {
+      "id": 5,
+      "before": "begann ich eine dreijährige Schreinerlehre",
+      "after": "der Firma Eichelbohrer",
+      "options": ["bei", "an", "mit"],
+      "correct": "bei"
+    },
+    {
+      "id": 6,
+      "before": "arbeitete ich",
+      "after": "bei Stutz & Partner",
+      "options": ["ein Jahr lang", "durch ein Jahr", "seit einem Jahr"],
+      "correct": "ein Jahr lang"
+    },
+    {
+      "id": 7,
+      "before": "im Fachbereich Möbeldesign ein und",
+      "after": "meine Liebe zu",
+      "options": ["entdeckte", "erfand", "merkte"],
+      "correct": "entdeckte"
+    },
+    {
+      "id": 8,
+      "before": "konnte ich umfangreiche Kenntnisse erwerben,",
+      "after": "Möbelstile und die",
+      "options": ["was", "das", "welches"],
+      "correct": "was"
+    },
+    {
+      "id": 9,
+      "before": "in den verschiedensten Epochen",
+      "after": "in Nord- und in Südeuropa",
+      "options": ["sowohl", "teils", "weder"],
+      "correct": "sowohl"
+    },
+    {
+      "id": 10,
+      "before": "Aus diesem Grund habe ich mich entschlossen,",
+      "after": ", und bewerbe mich",
+      "options": ["auf Ihre Anzeige zu antworten", "auf Ihre Anzeige antworten", "um auf Ihre Anzeige zu antworten"],
+      "correct": "auf Ihre Anzeige zu antworten"
+    }
+  ]
+}

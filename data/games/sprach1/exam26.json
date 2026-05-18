@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 26: Liebe Jutta",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "ich hatte aber",
+      "after": "einen triftigen Grund",
+      "options": ["dafür", "darauf", "dazu"],
+      "correct": "dafür"
+    },
+    {
+      "id": 2,
+      "before": "Ich habe das Schreiben",
+      "after": "meiner Krankheit vernachlässigt",
+      "options": ["wegen", "statt", "während"],
+      "correct": "wegen"
+    },
+    {
+      "id": 3,
+      "before": "ich habe aber die richtige Untersuchung immer wieder",
+      "after": "",
+      "options": ["verschoben", "verschieben", "verschiebten"],
+      "correct": "verschoben"
+    },
+    {
+      "id": 4,
+      "before": "Schließlich konnte ich",
+      "after": "richtig schlafen",
+      "options": ["nicht mehr", "sogar", "noch nicht"],
+      "correct": "nicht mehr"
+    },
+    {
+      "id": 5,
+      "before": "Mein Arzt hat mich ins Krankenhaus zu einigen Untersuchungen",
+      "after": "",
+      "options": ["eingewiesen", "geschicken", "nachgewiesen"],
+      "correct": "eingewiesen"
+    },
+    {
+      "id": 6,
+      "before": "und dazu noch ein paar Kilo",
+      "after": "habe, ist meine",
+      "options": ["übergewicht", "Gleichgewicht", "Gleichgültigkeit"],
+      "correct": "übergewicht"
+    },
+    {
+      "id": 7,
+      "before": "Ich gehe jetzt einige Monate lang",
+      "after": "Behandlung",
+      "options": ["zur", "auf", "für"],
+      "correct": "zur"
+    },
+    {
+      "id": 8,
+      "before": "Einige Behandlungen sind schon",
+      "after": "mir und sie scheinen",
+      "options": ["hinter", "über", "vor"],
+      "correct": "hinter"
+    },
+    {
+      "id": 9,
+      "before": "der",
+      "after": "auch geraten hat, mich",
+      "options": ["unter anderem", "vor allem", "auf alle Fälle"],
+      "correct": "unter anderem"
+    },
+    {
+      "id": 10,
+      "before": "was mir",
+      "after": "schaden würde",
+      "options": ["gar nicht", "eigentlich", "überhaupt"],
+      "correct": "gar nicht"
+    }
+  ]
+}

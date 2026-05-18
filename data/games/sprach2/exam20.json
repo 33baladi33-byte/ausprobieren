@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 20: Kaffee und Kuchen – ein Stück Tradition",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "in Deutschland trifft man sich am Sonntagnachmittag",
+      "after": "Kaffee und Kuchen",
+      "options": ["zu", "mit", "bei"],
+      "correct": "zu"
+    },
+    {
+      "id": 2,
+      "before": "",
+      "after": "lange es den Brauch",
+      "options": ["wie", "so", "als"],
+      "correct": "wie"
+    },
+    {
+      "id": 3,
+      "before": "",
+      "after": "ist nur, dass sich",
+      "options": ["sicher", "gewiss", "bestimmt"],
+      "correct": "sicher"
+    },
+    {
+      "id": 4,
+      "before": "",
+      "after": "entstanden zahlreiche Kaffeehäuser",
+      "options": ["damals", "dann", "nachher"],
+      "correct": "damals"
+    },
+    {
+      "id": 5,
+      "before": "Dort wurde jedoch nicht nur gespeist und getrunken,",
+      "after": "man konnte in Gesellschaft",
+      "options": ["sondern", "aber", "doch"],
+      "correct": "sondern"
+    },
+    {
+      "id": 6,
+      "before": "So wurde 1732 die berühmte Kaffeekantate",
+      "after": "Johann Sebastian Bach",
+      "options": ["von", "durch", "bei"],
+      "correct": "von"
+    },
+    {
+      "id": 7,
+      "before": "das sich nur Adelige und wohlhabende Bürger leisten",
+      "after": "",
+      "options": ["konnten", "konnten", "vermochten"],
+      "correct": "konnten"
+    },
+    {
+      "id": 8,
+      "before": "und ist es",
+      "after": "heute geblieben",
+      "options": ["bis", "seit", "für"],
+      "correct": "bis"
+    },
+    {
+      "id": 9,
+      "before": "Spezialitäten",
+      "after": "alle Welt wie Café",
+      "options": ["aus", "von", "in"],
+      "correct": "aus"
+    },
+    {
+      "id": 10,
+      "before": "setzten seitdem Espressokocher oder Kaffeevollautomaten",
+      "after": "häufiger Konkurrenz",
+      "options": ["immer", "mehr", "öfter"],
+      "correct": "immer"
+    }
+  ]
+}

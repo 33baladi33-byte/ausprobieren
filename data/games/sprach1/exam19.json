@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 19: Liebe Lina, lieber Florian",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Ihr",
+      "after": "doch endlich unser neues",
+      "options": ["sollt", "könnt", "dürft"],
+      "correct": "sollt"
+    },
+    {
+      "id": 2,
+      "before": "Deshalb möchten wir euch",
+      "after": "das verlängerte Wochenende",
+      "options": ["für", "an", "in"],
+      "correct": "für"
+    },
+    {
+      "id": 3,
+      "before": "Wohnen könnt ihr natürlich",
+      "after": "uns",
+      "options": ["bei", "unter", "zu"],
+      "correct": "bei"
+    },
+    {
+      "id": 4,
+      "before": "Die Stadt Steyr hat",
+      "after": "zu bieten",
+      "options": ["einiges", "einige", "einigen"],
+      "correct": "einiges"
+    },
+    {
+      "id": 5,
+      "before": "und auf",
+      "after": "Turm der Stadtpfarrkirche",
+      "options": ["den", "dem", "der"],
+      "correct": "den"
+    },
+    {
+      "id": 6,
+      "before": "Bei einem längeren Rundgang",
+      "after": "auch die wunderbare",
+      "options": ["sind", "ist", "waren"],
+      "correct": "sind"
+    },
+    {
+      "id": 7,
+      "before": "Besonders interessant ist die Runde durch den Wehrgraten,",
+      "after": "man an den alten",
+      "options": ["wo", "wann", "wie"],
+      "correct": "wo"
+    },
+    {
+      "id": 8,
+      "before": "",
+      "after": "erfährt man alles über",
+      "options": ["dabei", "daneben", "darin"],
+      "correct": "dabei"
+    },
+    {
+      "id": 9,
+      "before": "Außerdem finden an",
+      "after": "Wochenende die jährlichen",
+      "options": ["diesem", "dies", "dieses"],
+      "correct": "diesem"
+    },
+    {
+      "id": 10,
+      "before": "Auch die Umgebung kann",
+      "after": "sehen lassen",
+      "options": ["sich", "man", "sie"],
+      "correct": "sich"
+    }
+  ]
+}

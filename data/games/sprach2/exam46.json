@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 46: Die Rückkehr des Nachtzugs",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Warum die Klimadebatte Schlafwagen wieder in",
+      "after": "bringt",
+      "options": ["Mode", "Moda", "Modus"],
+      "correct": "Mode"
+    },
+    {
+      "id": 2,
+      "before": "Der Zug heißt Nightjet, aber",
+      "after": "so schnell wie mit dem",
+      "options": ["ganz", "genau", "sehr"],
+      "correct": "ganz"
+    },
+    {
+      "id": 3,
+      "before": "könnten wir das Angebot rasch deutlich",
+      "after": "",
+      "options": ["ausweiten", "vergrößern", "erweitern"],
+      "correct": "ausweiten"
+    },
+    {
+      "id": 4,
+      "before": "",
+      "after": "seien in der Regel acht",
+      "options": ["insgesamt", "zusammen", "alles"],
+      "correct": "insgesamt"
+    },
+    {
+      "id": 5,
+      "before": "eine",
+      "after": "Intercity-Nachtverbindung gestartet",
+      "options": ["neue", "Neue", "neue"],
+      "correct": "neue"
+    },
+    {
+      "id": 6,
+      "before": "Sollen auch rund tausend zusätzliche Mitarbeiter",
+      "after": "werden",
+      "options": ["eingestellt", "angestellt", "beschäftigt"],
+      "correct": "eingestellt"
+    },
+    {
+      "id": 7,
+      "before": "warum nicht",
+      "after": "dieses Angebot bei Nachtzügen",
+      "options": ["Konkurrenten", "Wettbewerber", "Konkurrenz"],
+      "correct": "Konkurrenten"
+    },
+    {
+      "id": 8,
+      "before": "",
+      "after": "ein klimafreundliches Mobilitätsangebot",
+      "options": ["durch", "durch", "durch"],
+      "correct": "durch"
+    },
+    {
+      "id": 9,
+      "before": "wenn so dieser neue Nachtzug in den blau-gelben Europafarben",
+      "after": "wäre",
+      "options": ["gestaltet", "gemacht", "designed"],
+      "correct": "gestaltet"
+    },
+    {
+      "id": 10,
+      "before": "Der Nachtzug der Deutschen Bahn wurde",
+      "after": "damals hoher Verluste",
+      "options": ["wegen", "aufgrund", "durch"],
+      "correct": "wegen"
+    }
+  ]
+}

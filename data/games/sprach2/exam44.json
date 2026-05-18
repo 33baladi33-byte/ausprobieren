@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 44: Die Katzen",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Dabei sind sie durchaus in der",
+      "after": "",
+      "options": ["lage", "Lage", "Position"],
+      "correct": "lage"
+    },
+    {
+      "id": 2,
+      "before": "Nach eigenen",
+      "after": "haben sie den ersten",
+      "options": ["angaben", "Angaben", "Aussagen"],
+      "correct": "angaben"
+    },
+    {
+      "id": 3,
+      "before": "wenn nicht der Katzenbesitzer selbst zu seinem Tier sprach,",
+      "after": "eine fremde Person",
+      "options": ["sondern", "aber", "doch"],
+      "correct": "sondern"
+    },
+    {
+      "id": 4,
+      "before": "ihren Namen von",
+      "after": "ihrer Artgenossen unterscheiden",
+      "options": ["denen", "den", "der"],
+      "correct": "denen"
+    },
+    {
+      "id": 5,
+      "before": "Die Forscher hatten das",
+      "after": "von 78 Katzen untersucht",
+      "options": ["verhalten", "Verhalten", "Verhaltens"],
+      "correct": "verhalten"
+    },
+    {
+      "id": 6,
+      "before": "",
+      "after": "spielten sie den Tieren",
+      "options": ["zunächst", "dann", "zuerst"],
+      "correct": "zunächst"
+    },
+    {
+      "id": 7,
+      "before": "Dabei nahm die Aufmerksamkeit der Katzen immer",
+      "after": "ab",
+      "options": ["weiter", "mehr", "stärker"],
+      "correct": "weiter"
+    },
+    {
+      "id": 8,
+      "before": "warum ist es",
+      "after": "schwierig, ihnen Tricks",
+      "options": ["bloß", "nur", "eben"],
+      "correct": "bloß"
+    },
+    {
+      "id": 9,
+      "before": "Katzen sind sehr intelligente und lernfähige Tiere -",
+      "after": "sie bereit sind mitzumachen",
+      "options": ["sofern", "wenn", "falls"],
+      "correct": "sofern"
+    },
+    {
+      "id": 10,
+      "before": "Aus vorherigen Untersuchungen ist",
+      "after": "",
+      "options": ["bekannt", "klar", "deutlich"],
+      "correct": "bekannt"
+    }
+  ]
+}

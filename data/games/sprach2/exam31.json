@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 31: Joggen: Mehr als nur Laufen",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Auto, Rolltreppe, Fahrstuhl - das moderne Leben ist",
+      "after": "geworden",
+      "options": ["bequem", "einfach", "leicht"],
+      "correct": "bequem"
+    },
+    {
+      "id": 2,
+      "before": "Herz-Kreislauf-Erkrankungen",
+      "after": "in den westlichen Industrieländern",
+      "options": ["sind", "werden", "haben"],
+      "correct": "sind"
+    },
+    {
+      "id": 3,
+      "before": "Wichtig ist",
+      "after": "richtig zu trainieren",
+      "options": ["immer", "auch", "noch"],
+      "correct": "immer"
+    },
+    {
+      "id": 4,
+      "before": "das bedeutet Ausdauertraining",
+      "after": "Verbrennung von Sauerstoff",
+      "options": ["unter", "mit", "bei"],
+      "correct": "unter"
+    },
+    {
+      "id": 5,
+      "before": "Dabei",
+      "after": "der Puls kontrolliert werden",
+      "options": ["sollte", "kann", "muss"],
+      "correct": "sollte"
+    },
+    {
+      "id": 6,
+      "before": "",
+      "after": "mehr Menschen den Schritt",
+      "options": ["dass", "ob", "wenn"],
+      "correct": "dass"
+    },
+    {
+      "id": 7,
+      "before": "Rund 40 Prozent",
+      "after": "Deutschen bringen zu",
+      "options": ["aller", "alle", "der"],
+      "correct": "aller"
+    },
+    {
+      "id": 8,
+      "before": "nicht selten mit",
+      "after": "Herzinfarkt",
+      "options": ["einem", "einen", "einer"],
+      "correct": "einem"
+    },
+    {
+      "id": 9,
+      "before": "auch, und immer häufiger",
+      "after": "Frauen",
+      "options": ["bei", "für", "von"],
+      "correct": "bei"
+    },
+    {
+      "id": 10,
+      "before": "minimiert sich das Risiko, einen Herzinfarkt zu erleiden",
+      "after": "Milch und Milchprodukte",
+      "options": ["wie", "als", "so"],
+      "correct": "wie"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 31: Sehr geehrte Frau Szabo",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "vielen Dank für Ihr Interesse",
+      "after": "unseren Deutschkursen",
+      "options": ["an", "bei", "in"],
+      "correct": "an"
+    },
+    {
+      "id": 2,
+      "before": "überweisen Sie bitte eine Anzahlung",
+      "after": "von € 200,-",
+      "options": ["in Höhe", "in Betrag", "in Summe"],
+      "correct": "in Höhe"
+    },
+    {
+      "id": 3,
+      "before": "",
+      "after": "besserer Einschätzung Ihrer",
+      "options": ["zwecks", "für", "zur"],
+      "correct": "zwecks"
+    },
+    {
+      "id": 4,
+      "before": "Ein mündlicher Test wird sich am ersten Unterrichtstag in unserer Schule",
+      "after": "",
+      "options": ["anschließen", "angeschlossen", "schließen an"],
+      "correct": "anschließen"
+    },
+    {
+      "id": 5,
+      "before": "Außerdem finden Sie in den Unterlagen einen Fragenbogen",
+      "after": "Ihrer Freizeitinteressen",
+      "options": ["bezüglich", "anlässlich", "mittels"],
+      "correct": "bezüglich"
+    },
+    {
+      "id": 6,
+      "before": "Ihnen den Aufenthalt in Leipzig so angenehm",
+      "after": "möglich zu gestalten",
+      "options": ["wie", "als", "wenn"],
+      "correct": "wie"
+    },
+    {
+      "id": 7,
+      "before": "Sie können wählen zwischen einem 3-Sterne-Hotel,",
+      "after": "Privatunterkunft in einer deutschen Gastfamilie",
+      "options": ["einer", "ein", "einem"],
+      "correct": "einer"
+    },
+    {
+      "id": 8,
+      "before": "",
+      "after": "Ihre Anmeldung bei uns eingegangen ist",
+      "options": ["sobald", "sofort", "sooft"],
+      "correct": "sobald"
+    },
+    {
+      "id": 9,
+      "before": "einen Stadtplan mit Wegbeschreibung,",
+      "after": "Sie den Weg zu uns",
+      "options": ["damit", "dafür", "dazu"],
+      "correct": "damit"
+    },
+    {
+      "id": 10,
+      "before": "",
+      "after": "weitere Fragen steht Ihnen",
+      "options": ["bei", "für", "zu"],
+      "correct": "bei"
+    }
+  ]
+}

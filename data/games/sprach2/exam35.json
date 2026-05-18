@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 35: Maßgeschneidert nach Bodyscanning",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Haben Sie sich schon einmal",
+      "after": "geärgert, dass Sie",
+      "options": ["darüber", "daran", "dazu"],
+      "correct": "darüber"
+    },
+    {
+      "id": 2,
+      "before": "gibt es fast",
+      "after": "noch in den falschen",
+      "options": ["nur", "noch", "auch"],
+      "correct": "nur"
+    },
+    {
+      "id": 3,
+      "before": "Eine Untersuchung des Textilforschungszentrums brachte nun",
+      "after": "Licht",
+      "options": ["ans", "ins", "aufs"],
+      "correct": "ans"
+    },
+    {
+      "id": 4,
+      "before": "dass viele Konfektionsgrößen offenbar",
+      "after": "den Kundinnen noch den",
+      "options": ["weder", "weder", "nicht"],
+      "correct": "weder"
+    },
+    {
+      "id": 5,
+      "before": "in der körperlichen Entwicklung der Bevölkerung in Deutschland suchen",
+      "after": "",
+      "options": ["müssen", "sollen", "können"],
+      "correct": "müssen"
+    },
+    {
+      "id": 6,
+      "before": "",
+      "after": "der Handel natürlich daran",
+      "options": ["da", "weil", "denn"],
+      "correct": "da"
+    },
+    {
+      "id": 7,
+      "before": "wurde jetzt ein neues Projekt geplant,",
+      "after": "Aufschluss darüber geben soll",
+      "options": ["das", "dass", "welches"],
+      "correct": "das"
+    },
+    {
+      "id": 8,
+      "before": "Diese dreidimensionalen Bilder",
+      "after": "es ermöglichen",
+      "options": ["sollen", "können", "müssen"],
+      "correct": "sollen"
+    },
+    {
+      "id": 9,
+      "before": "Als Kundinnen und Kunden",
+      "after": "wir uns außerdem",
+      "options": ["dürfen", "können", "mögen"],
+      "correct": "dürfen"
+    },
+    {
+      "id": 10,
+      "before": "darauf freuen,",
+      "after": "sich als Nebenprodukt",
+      "options": ["dass", "dass", "da"],
+      "correct": "dass"
+    }
+  ]
+}

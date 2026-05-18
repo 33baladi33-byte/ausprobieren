@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 29: Ausbildung mit über 30",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "",
+      "after": "sie hat sich für einen",
+      "options": ["denn", "nun", "also"],
+      "correct": "denn"
+    },
+    {
+      "id": 2,
+      "before": "Ihr Ziel: Sie",
+      "after": "in den Streifendienst",
+      "options": ["möchte", "will", "kann"],
+      "correct": "möchte"
+    },
+    {
+      "id": 3,
+      "before": "",
+      "after": "es heute in vielen",
+      "options": ["da", "weil", "denn"],
+      "correct": "da"
+    },
+    {
+      "id": 4,
+      "before": "geben sie öfter auch Älteren eine",
+      "after": "",
+      "options": ["chance", "Chance", "Möglichkeit"],
+      "correct": "chance"
+    },
+    {
+      "id": 5,
+      "before": "Thomas Neuendorfer erklärt,",
+      "after": "sein Arbeitgeber gerne",
+      "options": ["warum", "wieso", "weshalb"],
+      "correct": "warum"
+    },
+    {
+      "id": 6,
+      "before": "außerdem bereit, Verantwortung zu",
+      "after": "",
+      "options": ["übernehmen", "tragen", "leisten"],
+      "correct": "übernehmen"
+    },
+    {
+      "id": 7,
+      "before": "Zudem",
+      "after": "sie die Jüngeren unterstützen",
+      "options": ["könnten", "sollten", "würden"],
+      "correct": "könnten"
+    },
+    {
+      "id": 8,
+      "before": "dass sie dem Unternehmen kürzer vor",
+      "after": "stehen",
+      "options": ["verfügung", "Verfügung", "Arbeit"],
+      "correct": "verfügung"
+    },
+    {
+      "id": 9,
+      "before": "",
+      "after": "haben ältere Azubis in vielen",
+      "options": ["trotzdem", "dennoch", "deshalb"],
+      "correct": "trotzdem"
+    },
+    {
+      "id": 10,
+      "before": "Der Betrag wird dabei nicht nach dem Alter festgelegt,",
+      "after": "es wird der individuelle",
+      "options": ["sondern", "aber", "doch"],
+      "correct": "sondern"
+    }
+  ]
+}

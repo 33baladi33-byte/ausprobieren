@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 41: Wie TV-Bilder die Fantasie von Kindern prägen",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Werden Kinder und Jugendliche",
+      "after": "brutale, von Gewalt geprägte",
+      "options": ["durch", "von", "mit"],
+      "correct": "durch"
+    },
+    {
+      "id": 2,
+      "before": "",
+      "after": "allem Jungen scheinen für",
+      "options": ["vor", "bei", "für"],
+      "correct": "vor"
+    },
+    {
+      "id": 3,
+      "before": "hat zusammen mit seinen Forscherkollegen untersucht,",
+      "after": "Bilder in den Köpfen",
+      "options": ["welche", "dass", "ob"],
+      "correct": "welche"
+    },
+    {
+      "id": 4,
+      "before": "Die Fantasien der Jungen und Mädchen",
+      "after": "sich deutlich",
+      "options": ["unterschieden", "veränderten", "zeigten"],
+      "correct": "unterschieden"
+    },
+    {
+      "id": 5,
+      "before": "Die Schülerinnen",
+      "after": "das Märchen dagegen",
+      "options": ["ließen", "machten", "ließen"],
+      "correct": "ließen"
+    },
+    {
+      "id": 6,
+      "before": "Das Experiment zeige jedoch,",
+      "after": "sehr Bilder aus den Medien",
+      "options": ["wie", "was", "dass"],
+      "correct": "wie"
+    },
+    {
+      "id": 7,
+      "before": "die Vorstellungswelt",
+      "after": "Jugendlichen prägen",
+      "options": ["von", "der", "den"],
+      "correct": "von"
+    },
+    {
+      "id": 8,
+      "before": "lernt man das Vokabular,",
+      "after": "dem man die Welt",
+      "options": ["mit", "durch", "bei"],
+      "correct": "mit"
+    },
+    {
+      "id": 9,
+      "before": "kann keine Vorstellung davon entwickeln,",
+      "after": "Musik überhaupt ist",
+      "options": ["was", "wie", "dass"],
+      "correct": "was"
+    },
+    {
+      "id": 10,
+      "before": "Gefährlich werde es aber",
+      "after": "wenn positive Alternativbilder",
+      "options": ["dann", "denn", "wenn"],
+      "correct": "dann"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 42: Städte vor dem Infarkt",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Schon immer haben Menschen",
+      "after": "geträumt, jederzeit mobil",
+      "options": ["davon", "dazu", "darüber"],
+      "correct": "davon"
+    },
+    {
+      "id": 2,
+      "before": "",
+      "after": "Auto fährt, hat in seinem",
+      "options": ["wer", "wem", "wen"],
+      "correct": "wer"
+    },
+    {
+      "id": 3,
+      "before": "Daraus folgt,",
+      "after": "für so viele Fahrzeuge",
+      "options": ["dass", "dass", "ob"],
+      "correct": "dass"
+    },
+    {
+      "id": 4,
+      "before": "Die Straßen sind",
+      "after": "nicht breit genug",
+      "options": ["oft", "immer", "meist"],
+      "correct": "oft"
+    },
+    {
+      "id": 5,
+      "before": "stehen die Fahrzeuge inzwischen länger, als sie",
+      "after": "",
+      "options": ["fahren", "stehen", "laufen"],
+      "correct": "fahren"
+    },
+    {
+      "id": 6,
+      "before": "Nichts geht mehr,",
+      "after": "die Zahl der Straßenfahrzeuge",
+      "options": ["denn", "weil", "da"],
+      "correct": "denn"
+    },
+    {
+      "id": 7,
+      "before": "Die Erwärmung der Luft führt",
+      "after": "dass sich das Klima",
+      "options": ["dazu", "dafür", "darum"],
+      "correct": "dazu"
+    },
+    {
+      "id": 8,
+      "before": "",
+      "after": "dem Verkehrsinfarkt zuvorzukommen",
+      "options": ["um", "für", "zu"],
+      "correct": "um"
+    },
+    {
+      "id": 9,
+      "before": "In den großen Metropolen",
+      "after": "sich die Tunnel der",
+      "options": ["graben", "bauen", "ziehen"],
+      "correct": "graben"
+    },
+    {
+      "id": 10,
+      "before": "wieder herauszukommen noch viel Überzeugungsarbeit",
+      "after": "wird",
+      "options": ["kosten", "brauchen", "erfordern"],
+      "correct": "kosten"
+    }
+  ]
+}

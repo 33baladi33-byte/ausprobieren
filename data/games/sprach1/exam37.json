@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 37: Liebe Autorinnen und Autoren",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "",
+      "after": "ihr alle wisst, kann Claudia",
+      "options": ["wie", "was", "wann"],
+      "correct": "wie"
+    },
+    {
+      "id": 2,
+      "before": "wenn alle Texte und Bilder",
+      "after": "",
+      "options": ["vorliegen", "unterliegen", "liegen lassen"],
+      "correct": "vorliegen"
+    },
+    {
+      "id": 3,
+      "before": "Ein gutes Layout ist auch",
+      "after": "Interesse der Autorinnen und Autoren",
+      "options": ["im", "von", "ohne"],
+      "correct": "im"
+    },
+    {
+      "id": 4,
+      "before": "Liefert also bitte eure Beiträge rechtzeitig",
+      "after": "",
+      "options": ["ab", "zu", "ein"],
+      "correct": "ab"
+    },
+    {
+      "id": 5,
+      "before": "das Copyright natürlich",
+      "after": "euch",
+      "options": ["bei", "mit", "für"],
+      "correct": "bei"
+    },
+    {
+      "id": 6,
+      "before": "sind die Verkaufszahlen unserer Vereinszeitung im letzten Jahr",
+      "after": "zurückgegangen",
+      "options": ["stark", "unerschütterlich", "fest"],
+      "correct": "stark"
+    },
+    {
+      "id": 7,
+      "before": "Deshalb möchten wir euch alle noch einmal herzlich",
+      "after": "bitten",
+      "options": ["darum", "deswegen", "dafür"],
+      "correct": "darum"
+    },
+    {
+      "id": 8,
+      "before": "die unsere Vereinsmitglieder betreffen und sie auch wirklich",
+      "after": "",
+      "options": ["ansprechen", "besprechen", "aussprechen"],
+      "correct": "ansprechen"
+    },
+    {
+      "id": 9,
+      "before": "Das heißt nicht,",
+      "after": "man große Themen wie",
+      "options": ["dass", "ob", "damit"],
+      "correct": "dass"
+    },
+    {
+      "id": 10,
+      "before": "Wir verstehen uns ausdrücklich",
+      "after": "unabhängige Zeitung",
+      "options": ["als", "sowie", "als ob"],
+      "correct": "als"
+    }
+  ]
+}

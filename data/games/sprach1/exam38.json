@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 38: Liebe Clara",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Nun ist es ja schon einige Monate her, dass wir zuletzt",
+      "after": "gehört haben",
+      "options": ["voneinander", "miteinander", "zueinander"],
+      "correct": "voneinander"
+    },
+    {
+      "id": 2,
+      "before": "Zurzeit mache ich eine Rundreise",
+      "after": "Europa",
+      "options": ["durch", "über", "in"],
+      "correct": "durch"
+    },
+    {
+      "id": 3,
+      "before": "",
+      "after": "du weißt, habe ich in",
+      "options": ["wie", "als", "wenn"],
+      "correct": "wie"
+    },
+    {
+      "id": 4,
+      "before": "Mein Chef",
+      "after": "zuerst nicht gerade von",
+      "options": ["war", "würde", "wurde"],
+      "correct": "war"
+    },
+    {
+      "id": 5,
+      "before": "In den Sommermonaten ist",
+      "after": "in der Firma ohnehin",
+      "options": ["es", "er", "man"],
+      "correct": "es"
+    },
+    {
+      "id": 6,
+      "before": "Meine",
+      "after": "Station war Amsterdam",
+      "options": ["erste", "ersten", "erst"],
+      "correct": "erste"
+    },
+    {
+      "id": 7,
+      "before": "Ich möchte gar nicht",
+      "after": "denken, dass ich irgendwann",
+      "options": ["daran", "darüber", "davon"],
+      "correct": "daran"
+    },
+    {
+      "id": 8,
+      "before": "wieder an den Schreibtisch zurück",
+      "after": "",
+      "options": ["muss", "kann", "mag"],
+      "correct": "muss"
+    },
+    {
+      "id": 9,
+      "before": "In den letzten Tagen kam",
+      "after": "manchmal der Gedanke",
+      "options": ["mir", "bei", "in"],
+      "correct": "mir"
+    },
+    {
+      "id": 10,
+      "before": "dass ich nach meiner Rückkehr auch etwas ganz Neues anfangen",
+      "after": "",
+      "options": ["könnte", "bräuchte", "dürfte"],
+      "correct": "könnte"
+    }
+  ]
+}

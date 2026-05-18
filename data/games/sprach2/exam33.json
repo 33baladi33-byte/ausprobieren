@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 33: Der klügste Freund des Menschen (معدل)",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Seit jeher gilt der Hund",
+      "after": "als treuer Begleiter",
+      "options": ["zwar", "doch", "aber"],
+      "correct": "zwar"
+    },
+    {
+      "id": 2,
+      "before": "in Leipzig durchgeführt",
+      "after": "",
+      "options": ["wurden", "waren", "hatten"],
+      "correct": "wurden"
+    },
+    {
+      "id": 3,
+      "before": "besonders an den Augen",
+      "after": "",
+      "options": ["ab", "an", "auf"],
+      "correct": "ab"
+    },
+    {
+      "id": 4,
+      "before": "aber sie reagieren auch",
+      "after": "die Stimme",
+      "options": ["auf", "an", "bei"],
+      "correct": "auf"
+    },
+    {
+      "id": 5,
+      "before": "Ganz besonders der Blickkontakt",
+      "after": "für Hunde ein",
+      "options": ["sei", "ist", "war"],
+      "correct": "sei"
+    },
+    {
+      "id": 6,
+      "before": "",
+      "after": "der Behälter nach dem Öffnen",
+      "options": ["war", "ist", "wurde"],
+      "correct": "war"
+    },
+    {
+      "id": 7,
+      "before": "er leitet sie",
+      "after": "Hindernisse herum",
+      "options": ["um", "an", "bei"],
+      "correct": "um"
+    },
+    {
+      "id": 8,
+      "before": "Nach umfangreichen Erbgutuntersuchungen geht man",
+      "after": "aus",
+      "options": ["davon", "darüber", "darauf"],
+      "correct": "davon"
+    },
+    {
+      "id": 9,
+      "before": "Hundebesitzer von heute können also stolz",
+      "after": "sein",
+      "options": ["darauf", "daran", "darüber"],
+      "correct": "darauf"
+    },
+    {
+      "id": 10,
+      "before": "nicht nur einen anhänglichen,",
+      "after": "auch einen intelligenten",
+      "options": ["sondern", "aber", "doch"],
+      "correct": "sondern"
+    }
+  ]
+}

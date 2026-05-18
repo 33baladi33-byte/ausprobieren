@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 17: Sicherer Schulweg",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Kinder sind oft mit dem Straßenverkehr überfordert,",
+      "after": "ist es wichtig",
+      "options": ["deshalb", "darum", "daher"],
+      "correct": "deshalb"
+    },
+    {
+      "id": 2,
+      "before": "",
+      "after": "immer ist der kürzeste",
+      "options": ["nicht", "nie", "keinesfalls"],
+      "correct": "nicht"
+    },
+    {
+      "id": 3,
+      "before": "sich voll auf das Kind",
+      "after": "",
+      "options": ["konzentrieren", "fokussieren", "richten"],
+      "correct": "konzentrieren"
+    },
+    {
+      "id": 4,
+      "before": "sondern sich auch",
+      "after": "daran halten",
+      "options": ["selbst", "selber", "persönlich"],
+      "correct": "selbst"
+    },
+    {
+      "id": 5,
+      "before": "Manchmal ist es",
+      "after": ", wenn die Großen",
+      "options": ["hilfreich", "nützlich", "sinnvoll"],
+      "correct": "hilfreich"
+    },
+    {
+      "id": 6,
+      "before": "Schritt",
+      "after": "Schritt verlängern",
+      "options": ["für", "nach", "von"],
+      "correct": "für"
+    },
+    {
+      "id": 7,
+      "before": "die wichtigsten Regeln für das",
+      "after": "im Straßenverkehr",
+      "options": ["verhalten", "Verhalten", "Handeln"],
+      "correct": "verhalten"
+    },
+    {
+      "id": 8,
+      "before": "kann man noch mögliche",
+      "after": "Situationen besprechen",
+      "options": ["kritische", "gefährliche", "schwierige"],
+      "correct": "kritische"
+    },
+    {
+      "id": 9,
+      "before": "So lernt das Kind, sich",
+      "after": "im Straßenverkehr",
+      "options": ["selbstbewusst", "sicher", "selbstsicher"],
+      "correct": "selbstbewusst"
+    },
+    {
+      "id": 10,
+      "before": "und selbstständig",
+      "after": "zu finden",
+      "options": ["lösungen", "Lösungen", "Wege"],
+      "correct": "lösungen"
+    }
+  ]
+}

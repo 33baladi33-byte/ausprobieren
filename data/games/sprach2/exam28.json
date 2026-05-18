@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 28: Wie Handschrift wieder cool wird",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Das Handgelenk hingegen schmerzt relativ schnell,",
+      "after": "Handschrift ungewohnt ist",
+      "options": ["weil", "denn", "da"],
+      "correct": "weil"
+    },
+    {
+      "id": 2,
+      "before": "Vor allem ältere Kinder haben mit dem Schreiben in der Schule",
+      "after": "mehr Probleme",
+      "options": ["immer", "noch", "auch"],
+      "correct": "immer"
+    },
+    {
+      "id": 3,
+      "before": "gibt es einen neuen Trend, der mit Handschrift zu",
+      "after": "hat",
+      "options": ["tun", "machen", "haben"],
+      "correct": "tun"
+    },
+    {
+      "id": 4,
+      "before": "Erfahrungen",
+      "after": "hat die Wiener Designerin",
+      "options": ["damit", "daran", "dazu"],
+      "correct": "damit"
+    },
+    {
+      "id": 5,
+      "before": "Auf",
+      "after": "Weise vermittelt die Künstlerin",
+      "options": ["spielerische", "lustige", "einfache"],
+      "correct": "spielerische"
+    },
+    {
+      "id": 6,
+      "before": "ist wichtig,",
+      "after": "Kinder die Freude am Schreiben",
+      "options": ["dass", "ob", "wenn"],
+      "correct": "dass"
+    },
+    {
+      "id": 7,
+      "before": "die eigene Handschrift zu beurteilen und zu",
+      "after": "",
+      "options": ["gestalten", "zeichnen", "entwerfen"],
+      "correct": "gestalten"
+    },
+    {
+      "id": 8,
+      "before": "bis ihnen das flüssig von der Hand",
+      "after": "",
+      "options": ["geht", "kommt", "läuft"],
+      "correct": "geht"
+    },
+    {
+      "id": 9,
+      "before": "Die Verbindung",
+      "after": "Schrift und Bild",
+      "options": ["von", "mit", "aus"],
+      "correct": "von"
+    },
+    {
+      "id": 10,
+      "before": "wie es früher unterrichtet und von einigen auch gefürchtet",
+      "after": "",
+      "options": ["wurde", "ward", "ist"],
+      "correct": "wurde"
+    }
+  ]
+}

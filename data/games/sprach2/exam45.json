@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 45: Teleshopping – nicht immer gut und günstig",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Qualität",
+      "after": "enttäuschend, Preise ziemlich",
+      "options": ["eher", "recht", "ziemlich"],
+      "correct": "eher"
+    },
+    {
+      "id": 2,
+      "before": "das Fazit, das die Stiftung Warentest zum Thema Teleshopping nach dem Test von drei großen Anbietern",
+      "after": "",
+      "options": ["zog", "zog", "zog"],
+      "correct": "zog"
+    },
+    {
+      "id": 3,
+      "before": "mit den Erfahrungen, die wir",
+      "after": "Beschwerdefällen machen",
+      "options": ["bei", "in", "durch"],
+      "correct": "bei"
+    },
+    {
+      "id": 4,
+      "before": "wird der Kaufpreis nicht erstattet,",
+      "after": "es erfolgt nur eine Gutschrift",
+      "options": ["sondern", "aber", "doch"],
+      "correct": "sondern"
+    },
+    {
+      "id": 5,
+      "before": "und das nicht einmal in voller",
+      "after": "",
+      "options": ["höhe", "Höhe", "Summe"],
+      "correct": "höhe"
+    },
+    {
+      "id": 6,
+      "before": "Ganz",
+      "after": "davon gilt natürlich deutsches",
+      "options": ["abgesehen", "abgesehen", "abgesehen"],
+      "correct": "abgesehen"
+    },
+    {
+      "id": 7,
+      "before": "an deutsche Verbraucher",
+      "after": "",
+      "options": ["wenden", "richten", "wenden"],
+      "correct": "wenden"
+    },
+    {
+      "id": 8,
+      "before": "dieses Recht gilt",
+      "after": "unbefristet, wenn keine",
+      "options": ["sogar", "auch", "noch"],
+      "correct": "sogar"
+    },
+    {
+      "id": 9,
+      "before": "beim Teleshopping",
+      "after": "konsequent ihre Rechte durchzusetzen",
+      "options": ["genauso", "ebenso", "gleich"],
+      "correct": "genauso"
+    },
+    {
+      "id": 10,
+      "before": "",
+      "after": "hilft die Verbraucherzentrale",
+      "options": ["dabei", "dabei", "dazu"],
+      "correct": "dabei"
+    }
+  ]
+}

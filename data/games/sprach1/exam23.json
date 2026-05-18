@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 23: Liebe Corinna",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Es tut mir wirklich Leid,",
+      "after": "ich dir seit Ewigkeiten",
+      "options": ["dass", "ob", "weil"],
+      "correct": "dass"
+    },
+    {
+      "id": 2,
+      "before": "mich mit etwas Anderem zu",
+      "after": "als mit der neuen",
+      "options": ["beschäftigen", "bedienen", "beeilen"],
+      "correct": "beschäftigen"
+    },
+    {
+      "id": 3,
+      "before": "Die gibt es",
+      "after": "wie Sand am Meer",
+      "options": ["doch", "bloß", "nur"],
+      "correct": "doch"
+    },
+    {
+      "id": 4,
+      "before": "Wir kultivieren und verkaufen Obstbäume,",
+      "after": "an die Obstbauern der",
+      "options": ["insbesondere", "außerdem", "jedoch"],
+      "correct": "insbesondere"
+    },
+    {
+      "id": 5,
+      "before": "acht Stunden am Tag körperlich",
+      "after": "im Freien - zu arbeiten",
+      "options": ["überwiegend", "übermächtig", "übermäßig"],
+      "correct": "überwiegend"
+    },
+    {
+      "id": 6,
+      "before": "Und leider",
+      "after": "ich fast eine dreiviertel",
+      "options": ["muss", "darf", "soll"],
+      "correct": "muss"
+    },
+    {
+      "id": 7,
+      "before": "Ich habe im Moment nur",
+      "after": "Lust, etwas zu unternehmen",
+      "options": ["wenig", "gering", "knapp"],
+      "correct": "wenig"
+    },
+    {
+      "id": 8,
+      "before": "aber ich bin mir sicher: Sie",
+      "after": "wieder",
+      "options": ["kommt", "läuft", "steht"],
+      "correct": "kommt"
+    },
+    {
+      "id": 9,
+      "before": "Oder",
+      "after": "du dir noch ein bisschen",
+      "options": ["lässt", "brauchst", "hast"],
+      "correct": "lässt"
+    },
+    {
+      "id": 10,
+      "before": "Fang so früh wie",
+      "after": "mit den Bewerbungen an",
+      "options": ["möglich", "kürzlich", "üblich"],
+      "correct": "möglich"
+    }
+  ]
+}

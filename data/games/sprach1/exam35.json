@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 35: Lieber David",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Und",
+      "after": "schöner ist es, dass Du",
+      "options": ["noch", "ganz", "zwar"],
+      "correct": "noch"
+    },
+    {
+      "id": 2,
+      "before": "dass Du uns besuchen willst,",
+      "after": "Du in München zu tun",
+      "options": ["obwohl", "jedoch", "trotzdem"],
+      "correct": "obwohl"
+    },
+    {
+      "id": 3,
+      "before": "Du kannst Dir den Kölner Dom",
+      "after": "und noch ein paar",
+      "options": ["anschauen", "überschauen", "vorschauen"],
+      "correct": "anschauen"
+    },
+    {
+      "id": 4,
+      "before": "Und natürlich",
+      "after": "wir genug Zeit für",
+      "options": ["sollten", "konnten", "wollten"],
+      "correct": "sollten"
+    },
+    {
+      "id": 5,
+      "before": "an welchem Tag und um welche Uhrzeit Du am Hauptbahnhof",
+      "after": "",
+      "options": ["ankommen wirst", "ankommen wirst", "wirst ankommen"],
+      "correct": "ankommen wirst"
+    },
+    {
+      "id": 6,
+      "before": "Warte einfach am Bahnsteig auf uns,",
+      "after": "wir uns verspäten sollten",
+      "options": ["falls", "für den Fall", "im Fall"],
+      "correct": "falls"
+    },
+    {
+      "id": 7,
+      "before": "Wir benutzen es",
+      "after": "für ihn, wenn er",
+      "options": ["seitdem", "neulich", "vormals"],
+      "correct": "seitdem"
+    },
+    {
+      "id": 8,
+      "before": "Wir können dann alte Erinnerungen",
+      "after": "",
+      "options": ["auffrischen", "aufholen", "aufsparen"],
+      "correct": "auffrischen"
+    },
+    {
+      "id": 9,
+      "before": "Wir haben sehr viele Fotos gemacht,",
+      "after": "wir bei Dir zu Besuch waren",
+      "options": ["als", "wann", "wo"],
+      "correct": "als"
+    },
+    {
+      "id": 10,
+      "before": "aber",
+      "after": "Dich überraschen...",
+      "options": ["lass", "geh", "komm"],
+      "correct": "lass"
+    }
+  ]
+}

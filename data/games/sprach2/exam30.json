@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 30: Verlernen die Deutschen die Höflichkeit?",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Drei von vier Deutschen",
+      "after": "dieser Behauptung zu",
+      "options": ["stimmen", "meinen", "sagen"],
+      "correct": "stimmen"
+    },
+    {
+      "id": 2,
+      "before": "",
+      "after": "einer Umfrage zufolge",
+      "options": ["meinen", "sagen", "glauben"],
+      "correct": "meinen"
+    },
+    {
+      "id": 3,
+      "before": "besteht der Wunsch",
+      "after": "gewissen Höflichkeitsformen",
+      "options": ["nach", "für", "über"],
+      "correct": "nach"
+    },
+    {
+      "id": 4,
+      "before": "Klare Spielregeln für ein höfliches",
+      "after": "",
+      "options": ["miteinander", "zusammen", "einander"],
+      "correct": "miteinander"
+    },
+    {
+      "id": 5,
+      "before": "In einer immer weniger von Formalität geprägten Welt sucht man sie oft",
+      "after": "",
+      "options": ["vergeblich", "erfolglos", "umsonst"],
+      "correct": "vergeblich"
+    },
+    {
+      "id": 6,
+      "before": "",
+      "after": "die Hälfte der Deutschen gibt zu",
+      "options": ["gut", "gut", "schön"],
+      "correct": "gut"
+    },
+    {
+      "id": 7,
+      "before": "Während es jüngere Menschen zum Beispiel als normal oder sogar angenehm empfinden",
+      "after": "vom Kellner geduzt zu werden",
+      "options": ["mögen", "können", "wollen"],
+      "correct": "mögen"
+    },
+    {
+      "id": 8,
+      "before": "Nur ein Viertel der Befragten kann sich damit anfreunden, besonders Ältere",
+      "after": "",
+      "options": ["stören", "ärgern", "belästigen"],
+      "correct": "stören"
+    },
+    {
+      "id": 9,
+      "before": "dass Männer Frauen die Tür aufhalten und ihnen den Vortritt",
+      "after": "",
+      "options": ["lassen", "geben", "machen"],
+      "correct": "lassen"
+    },
+    {
+      "id": 10,
+      "before": "Wenn man weiß, was",
+      "after": "gehört, kann es doch nicht so schwer sein",
+      "options": ["sich", "man", "es"],
+      "correct": "sich"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 39: Lernen ist kein Privileg der Jugend",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Senioren sind heute höchst",
+      "after": "aktiv",
+      "options": ["rege", "sehr", "viel"],
+      "correct": "rege"
+    },
+    {
+      "id": 2,
+      "before": "wie es",
+      "after": "verschiedenen deutschen Universitäten",
+      "options": ["an", "in", "bei"],
+      "correct": "an"
+    },
+    {
+      "id": 3,
+      "before": "",
+      "after": "in Trier waren im",
+      "options": ["allein", "nur", "auch"],
+      "correct": "allein"
+    },
+    {
+      "id": 4,
+      "before": "",
+      "after": "folgten die neueren Sprach-",
+      "options": ["darauf", "danach", "dazu"],
+      "correct": "darauf"
+    },
+    {
+      "id": 5,
+      "before": "Die Gründe dafür",
+      "after": "sein",
+      "options": ["dürften", "könnten", "mögen"],
+      "correct": "dürften"
+    },
+    {
+      "id": 6,
+      "before": "dass Frauen in ihren jüngeren Lebensjahren häufig",
+      "after": "eine berufliche Karriere",
+      "options": ["auf", "für", "über"],
+      "correct": "auf"
+    },
+    {
+      "id": 7,
+      "before": "",
+      "after": "setzten sie sich für",
+      "options": ["stattdessen", "dafür", "dennoch"],
+      "correct": "stattdessen"
+    },
+    {
+      "id": 8,
+      "before": "deren Einsatz in den \"Familienjahren\" häufig zu",
+      "after": "gekommen war",
+      "options": ["kurz", "wenig", "kaum"],
+      "correct": "kurz"
+    },
+    {
+      "id": 9,
+      "before": "",
+      "after": "dessen sehen sie keine",
+      "options": ["aufgrund", "wegen", "durch"],
+      "correct": "aufgrund"
+    },
+    {
+      "id": 10,
+      "before": "Er wird gespeist",
+      "after": "die Vitalität",
+      "options": ["durch", "von", "mit"],
+      "correct": "durch"
+    }
+  ]
+}

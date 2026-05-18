@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 36: Sehr geehrter Herr Wenzel",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "questions": [
+    {
+      "id": 1,
+      "before": "vielen Dank",
+      "after": "Ihre Anfrage bezüglich",
+      "options": ["für", "auf", "wegen"],
+      "correct": "für"
+    },
+    {
+      "id": 2,
+      "before": "und zwar",
+      "after": "am ersten Montag",
+      "options": ["jeweils", "jeden", "jedoch"],
+      "correct": "jeweils"
+    },
+    {
+      "id": 3,
+      "before": "Jeder Abend ist einem bestimmten kulturellen Aspekt",
+      "after": ", von der Dichtung",
+      "options": ["gewidmet", "gedacht", "geeignet"],
+      "correct": "gewidmet"
+    },
+    {
+      "id": 4,
+      "before": "haben dazu mehrere",
+      "after": "Treffen",
+      "options": ["vorbereitende", "vorbereitend", "vorbereiteten"],
+      "correct": "vorbereitende"
+    },
+    {
+      "id": 5,
+      "before": "Von besonderem Interesse dürften für die",
+      "after": "unserer Mitglieder",
+      "options": ["meisten", "am meisten", "meistens"],
+      "correct": "meisten"
+    },
+    {
+      "id": 6,
+      "before": "Diese führen beispielsweise",
+      "after": "der Route deutscher Dichter",
+      "options": ["entlang", "gegenüber", "während"],
+      "correct": "entlang"
+    },
+    {
+      "id": 7,
+      "before": "",
+      "after": "den Spuren Tschaikowskis nach",
+      "options": ["auf", "hinter", "neben"],
+      "correct": "auf"
+    },
+    {
+      "id": 8,
+      "before": "mit",
+      "after": "Hilfe Sie Ihr kulturelles Wissen erweitern können",
+      "options": ["deren", "der", "dessen"],
+      "correct": "deren"
+    },
+    {
+      "id": 9,
+      "before": "können Sie diese bei uns gegen andere Karten umtauschen",
+      "after": "diese organisatorisch möglich ist",
+      "options": ["sofern", "sogar", "sogleich"],
+      "correct": "sofern"
+    },
+    {
+      "id": 10,
+      "before": "und steht Ihnen für Fragen gern zur",
+      "after": "",
+      "options": ["erreichbar", "erhältlich", "wirksam"],
+      "correct": "erreichbar"
+    }
+  ]
+}

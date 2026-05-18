@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 36: Maßgeschneidert nach Bodyscanning (معدل)",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Haben Sie sich schon einmal",
+      "after": "aufgeregt, dass Sie",
+      "options": ["darüber", "daran", "dazu"],
+      "correct": "darüber"
+    },
+    {
+      "id": 2,
+      "before": "gibt es fast",
+      "after": "noch in den falschen",
+      "options": ["nur", "noch", "auch"],
+      "correct": "nur"
+    },
+    {
+      "id": 3,
+      "before": "Eine Untersuchung des Textilforschungszentrums Hohenstein",
+      "after": "nun zu der folgenden",
+      "options": ["kam", "ging", "führte"],
+      "correct": "kam"
+    },
+    {
+      "id": 4,
+      "before": "dass viele Konfektionsgrößen offenbar",
+      "after": "den Kundinnen noch den",
+      "options": ["weder", "weder", "nicht"],
+      "correct": "weder"
+    },
+    {
+      "id": 5,
+      "before": "Die Länge der Arme",
+      "after": "zugenommen",
+      "options": ["habe", "hat", "ist"],
+      "correct": "habe"
+    },
+    {
+      "id": 6,
+      "before": "",
+      "after": "man natürlich daran interessiert",
+      "options": ["da", "weil", "denn"],
+      "correct": "da"
+    },
+    {
+      "id": 7,
+      "before": "Dazu wurde ein neues Verfahren entwickelt,",
+      "after": "Männer und Frauen neu",
+      "options": ["das", "dass", "welches"],
+      "correct": "das"
+    },
+    {
+      "id": 8,
+      "before": "Diese dreidimensionalen Bilder",
+      "after": "es ermöglichen",
+      "options": ["sollen", "können", "müssen"],
+      "correct": "sollen"
+    },
+    {
+      "id": 9,
+      "before": "darauf freuen,",
+      "after": "sich als Nebenprodukt",
+      "options": ["dass", "dass", "da"],
+      "correct": "dass"
+    },
+    {
+      "id": 10,
+      "before": "dann ist ein Kleidungsstück mit der Nummer 36 überall",
+      "after": "groß",
+      "options": ["gleich", "genau", "wie"],
+      "correct": "gleich"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 21: Fische sind schlauer, als wir denken",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "questions": [
+    {
+      "id": 1,
+      "before": "Doch",
+      "after": "das Gegenteil ist",
+      "options": ["genau", "wirklich", "eben"],
+      "correct": "genau"
+    },
+    {
+      "id": 2,
+      "before": "zu erstaunlichen kognitiven Leistungen",
+      "after": "",
+      "options": ["fähig", "imstande", "geeignet"],
+      "correct": "fähig"
+    },
+    {
+      "id": 3,
+      "before": "Im Laufe der Zeit",
+      "after": "sie hochspezialisierte Sinnesfähigkeiten",
+      "options": ["entwickelten", "bildeten", "schufen"],
+      "correct": "entwickelten"
+    },
+    {
+      "id": 4,
+      "before": "Einige Arten lernen durch",
+      "after": "oder benutzen sogar",
+      "options": ["beobachtung", "Beobachtung", "nachahmung"],
+      "correct": "beobachtung"
+    },
+    {
+      "id": 5,
+      "before": "Bis in die 1930er Jahre wurde Fischen",
+      "after": "nicht einmal zugetraut",
+      "options": ["noch", "auch", "immer"],
+      "correct": "noch"
+    },
+    {
+      "id": 6,
+      "before": "Der Forscher bewies",
+      "after": "auch als Erster",
+      "options": ["übrigens", "nebenbei", "außerdem"],
+      "correct": "übrigens"
+    },
+    {
+      "id": 7,
+      "before": "",
+      "after": "warum wurden die Fähigkeiten",
+      "options": ["doch", "aber", "jedoch"],
+      "correct": "doch"
+    },
+    {
+      "id": 8,
+      "before": "",
+      "after": "intelligent halten wir oft",
+      "options": ["für", "von", "als"],
+      "correct": "für"
+    },
+    {
+      "id": 9,
+      "before": "mit ganz anderen Lebensbedingungen zurechtkommen",
+      "after": "Tiere an Land",
+      "options": ["als", "wie", "denn"],
+      "correct": "als"
+    },
+    {
+      "id": 10,
+      "before": "",
+      "after": "mehr über Fische herausfinden",
+      "options": ["wer", "wen", "wem"],
+      "correct": "wer"
+    }
+  ]
+}
