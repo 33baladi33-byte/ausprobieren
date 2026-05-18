@@ -144,7 +144,7 @@
 /* بطاقات الإحصائيات */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     margin-bottom: 20px;
 }
@@ -165,7 +165,7 @@
 }
 
 .stat-label {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: #a0a0a0;
     margin-top: 5px;
 }
@@ -187,7 +187,7 @@
 }
 
 .best-part-value {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #5dade2;
 }
@@ -254,7 +254,7 @@
 }
 
 .comparison-text {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: #5dade2;
     font-weight: 500;
 }
@@ -290,12 +290,12 @@
 }
 
 /* تنسيق الزر في الشريط العلوي */
-.daily-report-btn {
-    display: none;
-}
-
 body:has(#list.active) .daily-report-btn,
 body:has(#exam.active) .daily-report-btn {
+    display: none !important;
+}
+
+body:has(#home.active) .daily-report-btn {
     display: flex !important;
 }
 
