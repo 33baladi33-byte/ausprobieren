@@ -18,7 +18,6 @@
 <link rel="shortcut icon" type="image/webp" href="images/favicon.webp">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="reviews.css">
-<link rel="stylesheet" href="dailyReport.css">
 <style>
     /* تنسيق زر كفاش */
     .tips-trigger-btn {
@@ -723,73 +722,31 @@
 (function() {
     "use strict";
     
-    // الأجزاء التي لا يظهر فيها الزر
-    const HIDDEN_GAME_SKILLS = ["schreiben", "mündlich", "mündlich1", "mündlich2", "mündlich3", "tips"];
-    
-    function shouldShowGameButton() {
-        if (typeof currentSkill !== 'undefined' && currentSkill) {
-            return !HIDDEN_GAME_SKILLS.includes(currentSkill);
-        }
-        return false;
-    }
-    
     function addGameButton() {
         var nav = document.getElementById('examNavButtons');
         if (!nav) {
             setTimeout(addGameButton, 500);
             return;
         }
-        
-        // إزالة الزر القديم
-        var oldBtn = document.getElementById('rapidGameBtn');
-        if (oldBtn) oldBtn.remove();
-        
-        // التحقق: هل يجب إظهار الزر؟
-        if (!shouldShowGameButton()) {
-            console.log('🎮 زر التحدي السريع مخفي في هذا القسم');
-            return;
-        }
+        if (document.getElementById('rapidGameBtn')) return;
         
         var btn = document.createElement('button');
         btn.id = 'rapidGameBtn';
         btn.innerHTML = '⚡ التحدي السريع';
         btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
         btn.onclick = function() {
-            if (typeof startGame === 'function') {
-                let skill = typeof currentSkill !== 'undefined' ? currentSkill : null;
-                let examId = typeof currentExamId !== 'undefined' ? currentExamId : 1;
-                if (skill && !HIDDEN_GAME_SKILLS.includes(skill)) {
-                    startGame(skill, examId);
-                } else {
-                    alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
-                }
-            } else {
-                alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
-            }
+            alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
         };
         nav.appendChild(btn);
         console.log('🎮 زر التحدي السريع جاهز');
     }
     
-    // مراقبة تغيير القسم
-    function observeSkillChanges() {
-        let lastSkill = null;
-        setInterval(function() {
-            if (typeof currentSkill !== 'undefined' && currentSkill !== lastSkill) {
-                lastSkill = currentSkill;
-                addGameButton();
-            }
-        }, 500);
-    }
-    
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(addGameButton, 500);
-            setTimeout(observeSkillChanges, 600);
         });
     } else {
         setTimeout(addGameButton, 500);
-        setTimeout(observeSkillChanges, 600);
     }
 })();
 </script>
@@ -1186,6 +1143,5 @@
     console.log("✅ جميع الـ Scripts تم تحميلها مرة واحدة فقط");
 </script>
     <script src="reviews-simple.js"></script>
-    <script src="dailyReport.js"></script>
 </body>
 </html>
