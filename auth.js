@@ -1,6 +1,5 @@
 /**
- * auth.js - نظام إدارة تسجيل الدخول والاشتراك
- * مع نظام علامة تبويب واحدة لكل حساب (Tab واحد فقط) - بدون تباطؤ
+ * auth.js - نظام إدارة تسجيل الدخول والاشتراك لموقع Zertiva B2
  */
 
 const WA_NUMBER = "212687561491";
@@ -8,123 +7,29 @@ const WA_URL = `https://wa.me/${WA_NUMBER}`;
 
 let currentUserStatus = 'guest';
 let currentExpiry = null;
-let broadcastChannel = null;
-
-// ============================================
-// نظام تبويب واحدة لكل حساب (Tab واحد فقط)
-// ============================================
-
-// إنشاء معرف فريد للجلسة
-function generateSessionId() {
-    return Date.now() + '-' + Math.random().toString(36).substr(2, 16);
-}
-
-// بدء الاستماع للأحداث بين التبويبات
-function initBroadcastChannel() {
-    if (broadcastChannel) return;
-    
-    try {
-        broadcastChannel = new BroadcastChannel('zertiva_auth');
-        broadcastChannel.onmessage = (event) => {
-            const { type, email, sessionId } = event.data;
-            
-            if (type === 'NEW_LOGIN') {
-                const currentSession = sessionStorage.getItem('zertiva_session_id');
-                const currentEmail = sessionStorage.getItem('zertiva_tab_email');
-                
-                // إذا كان نفس البريد وجلسة مختلفة → تسجيل خروج هذه التبويبة
-                if (currentEmail === email && currentSession !== sessionId) {
-                    silentLogout();
-                }
-            }
-        };
-    } catch(e) {
-        console.warn("BroadcastChannel not supported");
-    }
-}
-
-// تسجيل الدخول - إعلام باقي التبويبات
-function notifyOtherTabs(email, sessionId) {
-    if (!broadcastChannel) return;
-    
-    try {
-        broadcastChannel.postMessage({
-            type: 'NEW_LOGIN',
-            email: email,
-            sessionId: sessionId,
-            timestamp: Date.now()
-        });
-    } catch(e) {}
-}
-
-// تسجيل الدخول
-function registerLogin(email) {
-    const sessionId = generateSessionId();
-    
-    // تخزين في sessionStorage (خاص بهذه التبويبة فقط)
-    sessionStorage.setItem('zertiva_session_id', sessionId);
-    sessionStorage.setItem('zertiva_tab_email', email);
-    sessionStorage.setItem('zertiva_tab_time', Date.now());
-    
-    // تخزين بيانات المستخدم في localStorage
-    localStorage.setItem('zertiva_email', email);
-    localStorage.setItem('zertiva_session_id', sessionId);
-    
-    // إعلام باقي التبويبات
-    notifyOtherTabs(email, sessionId);
-}
-
-// التحقق من صحة الجلسة (بدون حلقات لا نهائية)
-function isSessionValid() {
-    const localEmail = localStorage.getItem('zertiva_email');
-    const localSession = localStorage.getItem('zertiva_session_id');
-    const tabSession = sessionStorage.getItem('zertiva_session_id');
-    const tabEmail = sessionStorage.getItem('zertiva_tab_email');
-    
-    if (!localEmail || !localSession) return false;
-    if (!tabSession || !tabEmail) return false;
-    
-    return (localEmail === tabEmail && localSession === tabSession);
-}
-
-// تسجيل الخروج الصامت
-function silentLogout() {
-    const wasLoggedIn = !!localStorage.getItem('zertiva_email');
-    
-    localStorage.removeItem('zertiva_email');
-    localStorage.removeItem('zertiva_password');
-    localStorage.removeItem('zertiva_session_id');
-    
-    sessionStorage.removeItem('zertiva_session_id');
-    sessionStorage.removeItem('zertiva_tab_email');
-    sessionStorage.removeItem('zertiva_tab_time');
-    
-    if (wasLoggedIn) {
-        window.location.reload();
-    }
-}
-
-// ============================================
-// الدوال الأساسية (معدلة)
-// ============================================
 
 function getLoggedInEmail() {
-    if (!isSessionValid()) {
-        return null;
-    }
     return localStorage.getItem('zertiva_email');
 }
 
 function getLoggedInPassword() {
-    if (!isSessionValid()) {
-        return null;
-    }
     return localStorage.getItem('zertiva_password');
 }
 
 function setLoggedInUser(email, password) {
-    registerLogin(email);
+    localStorage.setItem('zertiva_email', email);
     localStorage.setItem('zertiva_password', password);
+}
+
+function logoutUser() {
+    localStorage.removeItem('zertiva_email');
+    localStorage.removeItem('zertiva_password');
+    alert("تم تسجيل الخروج بنجاح");
+    location.reload();
+}
+
+function isUserLoggedIn() {
+    return getLoggedInEmail() !== null;
 }
 
 async function getPremiumUsers() {
@@ -226,6 +131,7 @@ async function updateProfileDropdown() {
     if(!profileEmail) return;
     
     if(email) {
+        // حذف زر الترقية إذا كان موجوداً (للمستخدم المسجل)
         const oldUpgradeBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldUpgradeBtn) oldUpgradeBtn.remove();
         
@@ -258,6 +164,7 @@ async function updateProfileDropdown() {
         profileExpiry.innerHTML = 'الوصول محدود لبعض الامتحانات';
         profileStatus.innerHTML = '';
         
+        // إضافة زر الترقية للمستخدم غير المسجل (لون رمادي مزرق)
         const upgradeBtn = document.createElement('button');
         upgradeBtn.id = 'dropdownUpgradeBtn';
         upgradeBtn.innerHTML = 'الترقية إلى الحساب الكامل →';
@@ -281,11 +188,13 @@ async function updateProfileDropdown() {
             this.style.background = '#64748B';
         };
         upgradeBtn.onclick = function() {
+            // فتح نافذة تسجيل الدخول أولاً
             showLoginPopup();
         };
         
         const dropdown = document.getElementById('profileDropdown');
         if (dropdown) {
+            // حذف الزر القديم إذا كان موجوداً
             const oldBtn = document.getElementById('dropdownUpgradeBtn');
             if (oldBtn) oldBtn.remove();
             dropdown.appendChild(upgradeBtn);
@@ -341,6 +250,7 @@ async function handleLogin() {
     hideLoginPopup();
     await updateProfileDropdown();
     
+    // إذا كان المستخدم مسجل (مجاني أو منتهي) نوجهه لصفحة الاشتراك
     if (status !== 'premium') {
         window.location.href = 'subscribe.html';
     } else {
@@ -354,6 +264,7 @@ async function setupLockedNextButton() {
     
     if(nextBtn && status !== 'premium') {
         nextBtn.classList.add('locked-nav');
+        let oldClick = nextBtn.onclick;
         nextBtn.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -369,7 +280,7 @@ function bindAuthEvents() {
     
     let navSubscribeBtn = document.getElementById('navSubscribeBtn');
     if(navSubscribeBtn) navSubscribeBtn.addEventListener('click', () => {
-        if(getLoggedInEmail()) {
+        if(isUserLoggedIn()) {
             window.location.href = 'subscribe.html';
         } else {
             showLoginPopup();
@@ -393,9 +304,7 @@ function bindAuthEvents() {
     if(profileIcon) profileIcon.addEventListener('click', toggleProfileDropdown);
     
     let profileLogoutBtn = document.getElementById('profileLogoutBtn');
-    if(profileLogoutBtn) profileLogoutBtn.addEventListener('click', () => {
-        silentLogout();
-    });
+    if(profileLogoutBtn) profileLogoutBtn.addEventListener('click', logoutUser);
     
     let logoHomeBtn = document.getElementById('logoHomeBtn');
     if(logoHomeBtn) {
@@ -429,7 +338,6 @@ function observePageChanges() {
 }
 
 async function initAuth() {
-    initBroadcastChannel();
     bindAuthEvents();
     await updateProfileDropdown();
     observePageChanges();
