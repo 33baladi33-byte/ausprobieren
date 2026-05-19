@@ -44,7 +44,13 @@ async function sendLiveAnswerEvent(questionIndex, answerText, isCorrect) {
         console.log(`⚡ [Live] أرسلت: ${answerText} على السؤال ${questionIndex + 1}`);
     }
 }
-
+// ✅ أضف الدالة هنا (بعد sendLiveAnswerEvent وقبل glowFriendQuestion)
+async function updateRoomScore() {
+    if (typeof window.updateRoomScore === 'function') {
+        await window.updateRoomScore();
+        console.log("📊 تم تحديث النتيجة في الشريط");
+    }
+}
 // توهج سؤال الصديق
 function glowFriendQuestion(questionIndex) {
     document.querySelectorAll('.question-card').forEach(card => {
@@ -660,8 +666,6 @@ function displaySavedResult(skill, examId, titleSpan) {
     }
   }
 }
-
-// ========== بناء امتحانات Teil 1 مع الأحداث المباشرة ==========
 function buildTeil1(questions) {
     const container = document.getElementById("teil1");
     if (!container) return;
@@ -689,7 +693,10 @@ function buildTeil1(questions) {
         // ✅ عند تمرير الماوس: إرسال "أنا هنا"
         card.onmouseenter = (function(qIdx) {
             return function() {
-                sendLiveCurrentQuestion(qIdx);
+                if (typeof sendLiveCurrentQuestion === 'function') {
+                    sendLiveCurrentQuestion(qIdx);
+                }
+                console.log(`🖱️ تمرير الماوس على السؤال ${qIdx + 1}`);
             };
         })(i);
         
@@ -707,7 +714,7 @@ function buildTeil1(questions) {
             const radioId = "q" + i + "_" + j;
             label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
             
-            // ✅ عند اختيار إجابة: إرسال حدث مباشر
+            // ✅ عند اختيار إجابة
             label.onclick = (function(qIdx, ansIdx) {
                 return async function() {
                     // حفظ الإجابة محلياً
@@ -715,8 +722,17 @@ function buildTeil1(questions) {
                     const isCorrect = (ansIdx === q.correct);
                     const answerText = q.options[ansIdx];
                     
+                    console.log(`📝 [محلي] السؤال ${qIdx + 1}: ${answerText} (${isCorrect ? 'صحيح' : 'خطأ'})`);
+                    
                     // ✅ إرسال الحدث المباشر إلى الغرفة
-                    await sendLiveAnswerEvent(qIdx, answerText, isCorrect);
+                    if (typeof sendLiveAnswerEvent === 'function') {
+                        await sendLiveAnswerEvent(qIdx, answerText, isCorrect);
+                    }
+                    
+                    // ✅ مزامنة الإجابة مع الغرفة (للحفظ)
+                    if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
+                        await window.StudyRoom.syncAnswer(qIdx, ansIdx, isCorrect);
+                    }
                     
                     // تغيير لون الإجابة محلياً
                     const allOptions = document.querySelectorAll(`#q_${qIdx} .option-label`);
@@ -729,7 +745,10 @@ function buildTeil1(questions) {
                     label.style.border = `2px solid ${isCorrect ? '#4caf50' : '#f44336'}`;
                     label.style.color = '#333';
                     
-                    console.log(`📝 [محلي] السؤال ${qIdx + 1}: ${answerText} (${isCorrect ? 'صحيح' : 'خطأ'})`);
+                    // تحديث النتيجة في الشريط
+                    if (typeof updateRoomScore === 'function') {
+                        setTimeout(() => updateRoomScore(), 100);
+                    }
                 };
             })(i, j);
             
@@ -744,7 +763,9 @@ function buildTeil1(questions) {
     checkBtn.innerText = "✅ تصحيح";
     checkBtn.className = "check-btn";
     checkBtn.onclick = function() {
-        checkTeil1(questions, userAnswers);
+        if (typeof checkTeil1 === 'function') {
+            checkTeil1(questions, userAnswers);
+        }
     };
     container.appendChild(checkBtn);
     
@@ -756,12 +777,17 @@ function buildTeil1(questions) {
     
     // ✅ بدء مراقبة أحداث الصديق
     setTimeout(() => {
-        startLiveFriendWatching();
+        if (typeof startLiveFriendWatching === 'function') {
+            startLiveFriendWatching();
+        }
+        console.log("👥 بدء مراقبة أحداث الصديق");
     }, 500);
     
     // ✅ إرسال السؤال الأول
     setTimeout(() => {
-        sendLiveCurrentQuestion(0);
+        if (typeof sendLiveCurrentQuestion === 'function') {
+            sendLiveCurrentQuestion(0);
+        }
     }, 1000);
     
     console.log(`✅ تم بناء ${questions.length} سؤال مع الأحداث المباشرة Live Events`);
