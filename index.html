@@ -707,7 +707,7 @@
     </div>
 </div>
 
-<!-- ========== الصفحة الرئيسية ========== -->
+<!-- الصفحة الرئيسية -->
 <div id="home" class="page active home">
     <div class="hero-wrapper">
         <div class="hero-container">
@@ -743,7 +743,10 @@
                     <div class="info-icon">💡</div>
                     <div class="info-text">الأغلبية كيسقطو حيت عندهم مشكل فالحفظ وما كايعرفوش يخدموا بطريقة صحيحة.</div>
                 </div>  
-                <button id="startBtn" class="hero-btn-primary">اكتشف الامتحانات</button>
+                <button id="startBtn" class="hero-btn-primary">
+                    اكتشف الامتحانات
+                    <span class="btn-arrow-icon">→</span>
+                </button>
                 
                 <div id="reviewsWidget" class="reviews-widget collapsed">
                     <div class="widget-bubble">
@@ -806,49 +809,47 @@
     </section>
 </div>
 
-<!-- ========== صفحة قائمة الامتحانات ========== -->
 <div id="list" class="page">
-    <div class="teile-header-section">
-        <h3 id="teilHeaderTitle" style="display: none;">اختر القسم (Teil)</h3>
-    </div>
-    <div id="teileList" class="teile-row"></div>
-    <div id="examsList" class="exams-container">
-        <div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>
-    </div>
-    <button id="backHomeBtn" class="back-home-btn">الرئيسية</button>
+  <div class="teile-header-section">
+    <h3 id="teilHeaderTitle" style="display: none;">اختر القسم (Teil)</h3>
+  </div>
+  <div id="teileList" class="teile-row"></div>
+  <div id="examsList" class="exams-container">
+    <div class="welcome-message"></div>
+  </div>
+  <button id="backHomeBtn" class="back-home-btn">الرئيسية</button>
 </div>
 
-<!-- ========== صفحة الامتحان ========== -->
 <div id="exam" class="page">
-    <div class="exam-box">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <button id="backArrowFromExam" class="arrow-back-btn">↰</button>
-            <h2 id="examTitle" style="margin: 0; flex: 1; text-align: center;"></h2>
-            <div style="width: 40px;"></div>
-        </div>
-        <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
-            <button id="prevExamBtn" class="nav-exam-btn">◀ السابق</button>
-            <button id="nextExamBtn" class="nav-exam-btn">التالي ▶</button>
-            <!-- زر المراجعة مع صديق سيتم إضافته هنا بواسطة studyRoom.js -->
-        </div>
-        <div id="teil1" style="display:none;"></div>
-        <div id="teil2" style="display:none;"></div>
-        <div id="teil3" style="display:none;"></div>
-        <div id="sprach1" style="display:none;"></div>
-        <div id="sprach2" style="display:none;"></div>
-        <div id="hoeren1" style="display:none;"></div>
-        <div id="hoeren2" style="display:none;"></div>
-        <div id="hoeren3" style="display:none;"></div>
-        <div id="schreiben" style="display:none;"></div>
-        <div id="mündlich1" style="display:none;"></div>
-        <div id="mündlich2" style="display:none;"></div>
-        <div id="mündlich3" style="display:none;"></div>
-        <div id="mündlich" style="display:none;"></div>
-        <div id="tips" style="display:none;"></div>
-        <div style="display: flex; justify-content: center; margin-top: 25px;">
-            <button id="backToListBtn" class="back-list-btn">عودة إلى القائمة</button>
-        </div>
-    </div>
+<div class="exam-box">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <button id="backArrowFromExam" class="arrow-back-btn">↰</button>
+    <h2 id="examTitle" style="margin: 0; flex: 1; text-align: center;"></h2>
+    <div style="width: 40px;"></div>
+  </div>
+  <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+    <button id="prevExamBtn" class="nav-exam-btn">◀ السابق</button>
+    <button id="nextExamBtn" class="nav-exam-btn">التالي ▶</button>
+    <!-- زر المراجعة مع صديق سيتم إضافته هنا بواسطة studyRoom.js -->
+  </div>
+  <div id="teil1" style="display:none;"></div>
+  <div id="teil2" style="display:none;"></div>
+  <div id="teil3" style="display:none;"></div>
+  <div id="sprach1" style="display:none;"></div>
+  <div id="sprach2" style="display:none;"></div>
+  <div id="hoeren1" style="display:none;"></div>
+  <div id="hoeren2" style="display:none;"></div>
+  <div id="hoeren3" style="display:none;"></div>
+  <div id="schreiben" style="display:none;"></div>
+  <div id="mündlich1" style="display:none;"></div>
+  <div id="mündlich2" style="display:none;"></div>
+  <div id="mündlich3" style="display:none;"></div>
+  <div id="mündlich" style="display:none;"></div>
+  <div id="tips" style="display:none;"></div>
+  <div style="display: flex; justify-content: center; margin-top: 25px;">
+    <button id="backToListBtn" class="back-list-btn">عودة إلى القائمة</button>
+  </div>
+</div>
 </div>
 
 <a href="https://wa.me/212687561491" target="_blank" id="whatsappFloat" class="whatsapp-float">
@@ -1386,13 +1387,15 @@
     const startBtn = document.getElementById('startBtn');
     if(startBtn) {
         startBtn.addEventListener('click', function() {
-            console.log("🟢 تم الضغط على زر اكتشف الامتحانات");
             if (typeof goList === 'function') {
                 goList();
-            } else {
-                console.log("❌ goList غير معرفة!");
-                alert("حدث خطأ: لم يتم تحميل الدوال بشكل صحيح. يرجى تحديث الصفحة.");
             }
+            setTimeout(() => {
+                const hoerenTeil1 = document.querySelector('.teile-row .item:first-child');
+                if(hoerenTeil1 && hoerenTeil1.click) {
+                    hoerenTeil1.click();
+                }
+            }, 100);
         });
     }
     
