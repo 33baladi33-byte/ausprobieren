@@ -3,6 +3,7 @@
 // مع دعم المراجعة مع صديق (مزامنة الإجابات وتلوينها)
 // ============================================
 
+// ========== قوائم الامتحانات ==========
 const teile = [
   { id: 1, name: "Hören Teil 1", container: "hoeren1", skill: "hoeren1" },
   { id: 2, name: "Hören Teil 2", container: "hoeren2", skill: "hoeren2" },
@@ -18,53 +19,74 @@ const teile = [
 ];
 
 // ========== متغيرات المراجعة مع صديق ==========
-let otherAnswerListeners = [];
 let currentQuestionsCount = 0;
 
-// ========== دالة مزامنة الإجابة مع نظام الغرف ==========
+// ============================================
+// دوال المراجعة مع صديق - النسخة الكاملة
+// ============================================
+
+// دالة مزامنة الإجابة مع نظام الغرف
 function syncAnswerToRoom(questionIndex, selectedAnswer, isCorrect) {
-    if (typeof StudyRoom !== 'undefined' && StudyRoom.isInRoom && StudyRoom.isInRoom()) {
-        StudyRoom.syncAnswer(questionIndex, selectedAnswer, isCorrect);
+    if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
+        window.StudyRoom.syncAnswer(questionIndex, selectedAnswer, isCorrect);
         console.log(`📡 تم إرسال الإجابة إلى الغرفة: سؤال ${questionIndex + 1}`);
-        
-        // تحديث عدد الإجابات في الشريط العلوي
-        setTimeout(() => {
-            if (typeof window.updateRoomScore !== 'undefined') {
-                window.updateRoomScore();
-            }
-        }, 100);
     }
 }
 
-// ========== تلوين إجابة الصديق ==========
+// دالة لتلوين إجابة الصديق
 function highlightOtherAnswer(questionIndex, answerIndex) {
+    console.log(`🎨 محاولة تلوين السؤال ${questionIndex + 1}، الخيار ${answerIndex + 1}`);
+    
     const questionCard = document.getElementById(`q_${questionIndex}`);
-    if (!questionCard) return;
+    if (!questionCard) {
+        console.log(`❌ لم أجد السؤال ${questionIndex}`);
+        return;
+    }
     
     const optionsContainer = questionCard.querySelector('.options-container');
-    if (!optionsContainer) return;
-    
-    const buttons = optionsContainer.querySelectorAll('.option-label');
-    if (buttons[answerIndex]) {
-        // إضافة اللون الأزرق الفاتح لإجابة الصديق
-        buttons[answerIndex].style.background = '#e3f2fd';
-        buttons[answerIndex].style.border = '1px solid #90caf9';
-        buttons[answerIndex].style.color = '#1565c0';
-        
-        // إضافة أيقونة صغيرة للصديق
-        if (!buttons[answerIndex].querySelector('.friend-icon')) {
-            const icon = document.createElement('span');
-            icon.className = 'friend-icon';
-            icon.innerHTML = ' 👥';
-            icon.style.fontSize = '11px';
-            icon.style.opacity = '0.7';
-            buttons[answerIndex].appendChild(icon);
-        }
+    if (!optionsContainer) {
+        console.log(`❌ لم أجد خيارات السؤال ${questionIndex}`);
+        return;
     }
+    
+    const allOptions = optionsContainer.querySelectorAll('.option-label');
+    if (!allOptions[answerIndex]) {
+        console.log(`❌ الخيار ${answerIndex} غير موجود`);
+        return;
+    }
+    
+    // إزالة التلوين القديم أولاً (لنفس السؤال فقط)
+    allOptions.forEach(btn => {
+        btn.style.background = '';
+        btn.style.border = '';
+        btn.style.color = '';
+        const icon = btn.querySelector('.friend-icon');
+        if (icon) icon.remove();
+    });
+    
+    // تلوين إجابة الصديق
+    const targetBtn = allOptions[answerIndex];
+    targetBtn.style.background = '#e3f2fd';
+    targetBtn.style.border = '2px solid #2196f3';
+    targetBtn.style.color = '#1565c0';
+    targetBtn.style.fontWeight = '500';
+    
+    // إضافة أيقونة الصديق
+    if (!targetBtn.querySelector('.friend-icon')) {
+        const icon = document.createElement('span');
+        icon.className = 'friend-icon';
+        icon.innerHTML = ' 👥';
+        icon.style.fontSize = '12px';
+        icon.style.fontWeight = 'bold';
+        icon.style.color = '#2196f3';
+        targetBtn.appendChild(icon);
+    }
+    
+    console.log(`✅ تم تلوين إجابة الصديق: سؤال ${questionIndex + 1} -> خيار ${answerIndex + 1}`);
 }
 
-// ========== إزالة تلوين إجابات الصديق ==========
-function clearOtherAnswersHighlight() {
+// دالة لإزالة كل تلوينات الصديق
+function clearAllOtherAnswers() {
     for (let i = 0; i < currentQuestionsCount; i++) {
         const questionCard = document.getElementById(`q_${i}`);
         if (questionCard) {
@@ -83,25 +105,45 @@ function clearOtherAnswersHighlight() {
     }
 }
 
-// ========== مراقبة إجابات الصديق لكل سؤال ==========
-function watchOtherAnswersForAllQuestions() {
-    if (typeof StudyRoom === 'undefined' || !StudyRoom.isInRoom || !StudyRoom.isInRoom()) return;
+// دالة لمراقبة إجابات الصديق (النسخة المحسنة)
+function watchOtherAnswers() {
+    if (typeof window.StudyRoom === 'undefined' || !window.StudyRoom.isInRoom || !window.StudyRoom.isInRoom()) {
+        console.log("👥 لست في غرفة، لن يتم تفعيل مراقبة إجابات الصديق");
+        return;
+    }
+    
+    console.log("👥 بدء مراقبة إجابات الصديق لـ", currentQuestionsCount, "سؤال");
     
     // إزالة المستمعين القدامى
-    otherAnswerListeners.forEach(unsubscribe => {
-        if (typeof unsubscribe === 'function') unsubscribe();
-    });
-    otherAnswerListeners = [];
+    if (window._otherAnswerListeners) {
+        window._otherAnswerListeners.forEach(unsubscribe => {
+            if (typeof unsubscribe === 'function') unsubscribe();
+        });
+    }
+    window._otherAnswerListeners = [];
     
-    // إضافة مستمعين لكل سؤال
+    // إضافة مستمع لكل سؤال
     for (let i = 0; i < currentQuestionsCount; i++) {
         const questionIndex = i;
-        const unsubscribe = StudyRoom.getOtherAnswer(questionIndex, (otherAnswer) => {
-            if (otherAnswer !== null) {
+        
+        const unsubscribe = window.StudyRoom.getOtherAnswer(questionIndex, (otherAnswer) => {
+            if (otherAnswer !== null && otherAnswer !== undefined) {
+                console.log(`📩 [مباشر] إجابة الصديق للسؤال ${questionIndex + 1}: الخيار ${otherAnswer + 1}`);
                 highlightOtherAnswer(questionIndex, otherAnswer);
             }
         });
-        otherAnswerListeners.push(unsubscribe);
+        if (unsubscribe) {
+            window._otherAnswerListeners.push(unsubscribe);
+        }
+    }
+    
+    console.log(`✅ تم تفعيل ${currentQuestionsCount} مستمع لإجابات الصديق`);
+}
+
+// دالة لتحديث النتيجة في الشريط
+async function updateRoomScoreFromExam() {
+    if (typeof window.updateRoomScore === 'function') {
+        await window.updateRoomScore();
     }
 }
 
@@ -787,8 +829,161 @@ function displaySavedResult(skill, examId, titleSpan, containerDiv) {
   }
 }
 
-// ========== الدوال الرئيسية ==========
+// ========== بناء امتحانات Teil 1 مع دعم المراجعة مع صديق ==========
+function buildTeil1(questions) {
+  const container = document.getElementById("teil1");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  currentQuestionsCount = questions.length;
+  let userAnswers = {};
+  
+  // ✅ إعادة تعيين المستمعين قبل بناء الأسئلة
+  if (window._otherAnswerListeners) {
+    window._otherAnswerListeners.forEach(unsubscribe => {
+      if (typeof unsubscribe === 'function') unsubscribe();
+    });
+    window._otherAnswerListeners = [];
+  }
+  
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const card = document.createElement("div");
+    card.className = "question-card";
+    card.id = "q_" + i;
+    
+    const questionText = document.createElement("div");
+    questionText.className = "question-text";
+    questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
+    card.appendChild(questionText);
+    
+    const optionsDiv = document.createElement("div");
+    optionsDiv.className = "options-container";
+    
+    for (let j = 0; j < q.options.length; j++) {
+      const label = document.createElement("label");
+      label.className = "option-label";
+      const radioId = "q" + i + "_" + j;
+      label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
+      
+      // ✅ إضافة حدث onclick مع مزامنة الإجابة
+      label.onclick = (function(qIdx, ansIdx) {
+        return function() {
+          userAnswers[qIdx] = ansIdx;
+          // مزامنة الإجابة مع نظام الغرف
+          syncAnswerToRoom(qIdx, ansIdx, ansIdx === q.correct);
+          // تحديث النتيجة في الشريط
+          setTimeout(() => updateRoomScoreFromExam(), 100);
+          console.log(`📝 تم اختيار الإجابة: سؤال ${qIdx + 1} -> الخيار ${ansIdx + 1}`);
+        };
+      })(i, j);
+      
+      optionsDiv.appendChild(label);
+    }
+    card.appendChild(optionsDiv);
+    container.appendChild(card);
+  }
+  
+  const checkBtn = document.createElement("button");
+  checkBtn.innerText = "✅ تصحيح";
+  checkBtn.className = "check-btn";
+  checkBtn.onclick = function() {
+    checkTeil1(questions, userAnswers);
+  };
+  container.appendChild(checkBtn);
+  
+  const resultDiv = document.createElement("div");
+  resultDiv.id = "teil1Result";
+  resultDiv.className = "result-box";
+  resultDiv.style.display = "none";
+  container.appendChild(resultDiv);
+  
+  // ✅ بدء مراقبة إجابات الصديق بعد بناء الأسئلة
+  setTimeout(() => {
+    watchOtherAnswers();
+  }, 500);
+  
+  console.log(`✅ تم بناء ${questions.length} سؤال مع دعم المراجعة مع صديق`);
+}
 
+// ========== دالة تصحيح Teil 1 ==========
+function checkTeil1(questions, answers) {
+  let score = 0;
+  const total = questions.length;
+  const pointsPerQuestion = 25 / total;
+  
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const card = document.getElementById("q_" + i);
+    const userAnswer = answers[i];
+    const isCorrect = (userAnswer === q.correct);
+    
+    if (isCorrect) {
+      score++;
+      if (card) {
+        card.classList.add("correct-answer-card");
+        card.classList.remove("wrong-answer-card");
+        const oldMsg = card.querySelector(".correct-message");
+        if (oldMsg) oldMsg.remove();
+      }
+    } else {
+      if (card) {
+        card.classList.add("wrong-answer-card");
+        card.classList.remove("correct-answer-card");
+        
+        let correctMsg = card.querySelector(".correct-message");
+        if (!correctMsg) {
+          correctMsg = document.createElement("div");
+          correctMsg.className = "correct-message";
+          card.appendChild(correctMsg);
+        }
+        correctMsg.innerHTML = "✅ الإجابة الصحيحة: " + q.options[q.correct];
+      }
+    }
+  }
+  
+  const finalScore = (score * pointsPerQuestion).toFixed(2);
+  const resultDiv = document.getElementById("teil1Result");
+  if (resultDiv) {
+    resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
+    resultDiv.style.display = "block";
+  }
+  
+  saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
+  
+  // ✅ تحديث النتيجة في الشريط العلوي
+  setTimeout(() => updateRoomScoreFromExam(), 100);
+  
+  if (document.getElementById("list").classList.contains("active")) {
+    renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
+  }
+}
+
+// ========== باقي دوال exams.js (بدون تغيير) ==========
+// ... (هنا باقي دوالك مثل renderTeileList, renderExamListForSkill, openExam, إلخ)
+
+// الدوال المساعدة
+function getTeilNameBySkill(skill) {
+  if (skill === "mündlich1") return "Mündlich - Teil 1 📖";
+  if (skill === "mündlich2") return "Mündlich - Teil 2 🗣️";
+  if (skill === "mündlich3") return "Mündlich - Teil 3 🎯";
+  const teil = teile.find(t => t.skill === skill);
+  return teil ? teil.name : skill;
+}
+
+function getActualFileName(examId) {
+  if (actualFileNames[examId]) {
+    return actualFileNames[examId];
+  }
+  return `exam${examId}.json`;
+}
+
+function shouldHideHelpButton(skill) {
+  const hiddenSkills = ["schreiben", "tips", "mündlich1", "mündlich3"];
+  return hiddenSkills.includes(skill);
+}
+
+// ========== دوال التنقل وعرض الامتحانات ==========
 function renderTeileList() {
   const container = document.getElementById("teileList");
   if (!container) return;
@@ -827,9 +1022,9 @@ function renderMündlichPartTabs() {
   `;
   
   const parts = [
-    { id: 1, name: "Teil 1 ", skill: "mündlich1" },
-    { id: 2, name: "Teil 2 ", skill: "mündlich2" },
-    { id: 3, name: "Teil 3 ", skill: "mündlich3" }
+    { id: 1, name: "Teil 1 📖", skill: "mündlich1" },
+    { id: 2, name: "Teil 2 🗣️", skill: "mündlich2" },
+    { id: 3, name: "Teil 3 🎯", skill: "mündlich3" }
   ];
   
   parts.forEach(part => {
@@ -846,21 +1041,9 @@ function renderMündlichPartTabs() {
       font-weight: 500;
       transition: all 0.2s;
     `;
-    btn.onmouseenter = () => {
-      if (currentMündlichPart !== part.id) {
-        btn.style.background = "#dee2e8";
-      }
-    };
-    btn.onmouseleave = () => {
-      if (currentMündlichPart !== part.id) {
-        btn.style.background = "#eef2f7";
-      }
-    };
     btn.onclick = () => {
       currentMündlichPart = part.id;
-      const skillToRender = part.skill;
-      const displayName = `Mündlich - ${part.name}`;
-      renderExamListForSkill(skillToRender, displayName);
+      renderExamListForSkill(part.skill, `Mündlich - ${part.name}`);
     };
     tabsDiv.appendChild(btn);
   });
@@ -953,22 +1136,6 @@ async function renderExamListForSkill(skill, teilName) {
       titleSpan.style.color = "#6b7280";
       titleSpan.style.transition = "color 0.25s ease";
       
-      div.onmouseenter = function() {
-        this.style.backgroundColor = "rgba(255,255,255,0.95)";
-        this.style.transform = "translateX(5px)";
-        this.style.borderColor = "#60a5fa";
-        titleSpan.style.color = "#4b5563";
-        if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
-      };
-
-      div.onmouseleave = function() {
-        this.style.backgroundColor = "rgba(255,255,255,0.75)";
-        this.style.transform = "translateX(0)";
-        this.style.borderColor = "#e2e8f0";
-        titleSpan.style.color = "#6b7280";
-        if (premiumSpan) premiumSpan.style.transform = "scale(1)";
-      };
-      
       div.onclick = (function(title, id) {
         return function() {
           showLockedMessage(title + " (" + id + ")");
@@ -1040,26 +1207,6 @@ function setupLockedNextButton() {
       }
     }
   });
-}
-
-function getTeilNameBySkill(skill) {
-  if (skill === "mündlich1") return "Mündlich - Teil 1 📖";
-  if (skill === "mündlich2") return "Mündlich - Teil 2 🗣️";
-  if (skill === "mündlich3") return "Mündlich - Teil 3 🎯";
-  const teil = teile.find(t => t.skill === skill);
-  return teil ? teil.name : skill;
-}
-
-function getActualFileName(examId) {
-  if (actualFileNames[examId]) {
-    return actualFileNames[examId];
-  }
-  return `exam${examId}.json`;
-}
-
-function shouldHideHelpButton(skill) {
-  const hiddenSkills = ["schreiben", "tips", "mündlich1", "mündlich3"];
-  return hiddenSkills.includes(skill);
 }
 
 async function openExam(examId, examTitle, skill) {
@@ -1171,6 +1318,46 @@ async function openExam(examId, examTitle, skill) {
   }
 }
 
+function updateExamNavButtons() {
+  const prevBtn = document.getElementById("prevExamBtn");
+  const nextBtn = document.getElementById("nextExamBtn");
+  
+  if (!prevBtn || !nextBtn) return;
+  
+  const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
+  const hasPrev = currentIndex > 0;
+  const hasNext = currentIndex < currentExamsList.length - 1;
+  
+  if (hasPrev) {
+    prevBtn.style.display = "inline-block";
+    prevBtn.onclick = () => {
+      const prevExam = currentExamsList[currentIndex - 1];
+      openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
+    };
+  } else {
+    prevBtn.style.display = "none";
+  }
+  
+  if (hasNext) {
+    nextBtn.style.display = "inline-block";
+    nextBtn.onclick = () => {
+      const nextExam = currentExamsList[currentIndex + 1];
+      openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
+    };
+  } else {
+    nextBtn.style.display = "none";
+  }
+  
+  setupLockedNextButton();
+}
+
+function showTeil(teilNumber) {
+  teile.forEach((teil, idx) => {
+    const container = document.getElementById(teil.container);
+    if (container) container.style.display = (idx + 1 === teilNumber) ? "block" : "none";
+  });
+}
+
 function goBackToExamsList() {
   if (currentSkill) {
     if (currentSkill === "mündlich1") {
@@ -1211,135 +1398,9 @@ function goBackToExamsList() {
 }
 
 function renderInfoExam(examData) {
-  let containerId = currentSkill;
-  if (currentSkill === "mündlich1" || currentSkill === "mündlich3") {
-    containerId = "mündlich";
-  }
-  
-  const container = document.getElementById(containerId);
-  if (!container) {
-    console.error("❌ الحاوية غير موجودة:", containerId);
-    return;
-  }
-  
-  container.innerHTML = "";
-  
-  const content = examData.content;
-  if (!content) {
-    container.innerHTML = "<div class='error'>⚠️ لا يوجد محتوى للعرض</div>";
-    return;
-  }
-  
-  let html = `
-    <div style="max-width: 1300px; margin: 0 auto; padding: 20px;">
-      <div style="background: #ffffff; padding: 14px 20px; border-radius: 12px; border: 1px solid #e0e4e8; color: #5a6874; font-size: 0.85rem; margin-bottom: 20px;">
-        💡 هذه الأمثلة فقط لكي تفهموا طريقة سير الامتحان، وليس مطلوبًا منكم حفظ نفس الاقتراحات أو استعمالها حرفيًا.
-      </div>
-  `;
-  
-  if (content.phase1) {
-    html += `<div style="margin-bottom: 35px;"><div style="font-size: 1.3rem; font-weight: 600; color: #2c3e66; border-right: 3px solid #4a6fa5; padding-right: 12px; margin-bottom: 20px;">📖 ${content.phase1.title}</div>`;
-    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">`;
-    content.phase1.questions.forEach(q => {
-      html += `
-        <div style="background: #ffffff; border-radius: 16px; padding: 18px; border: 1px solid #e8ecef;">
-          <div style="font-weight: 600; color: #2c3e66; margin-bottom: 8px;">${q.german}</div>
-          <div style="color: #6c7a89; font-size: 0.85rem; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #e8ecef;">${q.arabic}</div>
-          <div style="background: #f8fafc; padding: 12px; border-radius: 12px; font-size: 0.8rem; color: #2c3e66; line-height: 1.5;">
-            <div style="font-weight: 600; color: #4a6fa5; margin-bottom: 6px; font-size: 0.75rem;">📋 مثال:</div>
-            <div>${q.example.replace(/\n/g, '<br>')}</div>
-          </div>
-        </div>
-      `;
-    });
-    html += `</div></div>`;
-  }
-  
-  if (content.phase2) {
-    html += `<div style="margin-bottom: 35px;"><div style="font-size: 1.3rem; font-weight: 600; color: #2c3e66; border-right: 3px solid #4a6fa5; padding-right: 12px; margin-bottom: 20px;">🎯 ${content.phase2.title}</div>`;
-    if (content.phase2.note) {
-      html += `<div style="background: #ffffff; padding: 12px 18px; border-radius: 12px; border: 1px solid #e0e4e8; margin-bottom: 20px; font-size: 0.85rem; color: #4a6fa5; text-align: center;">📝 ${content.phase2.note}</div>`;
-    }
-    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">`;
-    content.phase2.topics.forEach(topic => {
-      html += `
-        <div style="background: #f8f9fb; border-radius: 16px; padding: 18px; border: 1px solid #e8ecef;">
-          <div style="font-size: 1.1rem; font-weight: 600; color: #2c3e66;">📚 ${topic.title}</div>
-          <ul style="list-style: none; padding: 0; margin: 16px 0;">
-            ${topic.points.map(p => `<li style="font-size: 0.8rem; color: #5a6874; margin-bottom: 6px; padding-right: 12px; position: relative;">• ${p}</li>`).join('')}
-          </ul>
-          <div style="background: #ffffff; padding: 12px; border-radius: 12px; margin-top: 12px; border-right: 2px solid #4a6fa5;">
-            <div style="font-size: 0.7rem; font-weight: 600; color: #4a6fa5; margin-bottom: 6px;">💬 أسئلة قد يطرحها الشريك عليك:</div>
-            ${topic.partnerQuestions.map(q => `<div style="font-size: 0.75rem; color: #2c3e66; margin-bottom: 6px;">📌 ${q.german}<br><small style="color: #8a9aa8;">${q.arabic}</small></div>`).join('')}
-          </div>
-        </div>
-      `;
-    });
-    html += `</div></div>`;
-  }
-  
-  if (content.groups) {
-    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 24px; margin-bottom: 40px;">`;
-    content.groups.forEach(group => {
-      html += `
-        <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef; display: flex; flex-direction: column;">
-          <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e66; margin-bottom: 12px;">${group.title}</div>
-          <div style="font-size: 0.85rem; color: #6c7a89; margin-bottom: 20px;">${group.topics}</div>
-          <button class="toggle-suggestions-btn" style="background: transparent; border: 1px solid #4a6fa5; padding: 8px 18px; border-radius: 30px; cursor: pointer; color: #4a6fa5; width: fit-content; margin-top: auto;" data-group="${group.id}">أمثلة →</button>
-          <div class="suggestions-content" data-group="${group.id}" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e8ecef;">
-            <ul style="list-style: none; padding: 0;">
-              ${group.suggestions.map((s, idx) => `<li style="background: #ffffff; padding: 10px 14px; margin-bottom: 8px; border-radius: 12px; border-right: 2px solid #cbd5e1;"><span style="font-weight: 600; color: #4a6fa5;">${idx+1}.</span> ${s}</li>`).join('')}
-            </ul>
-          </div>
-        </div>
-      `;
-    });
-    html += `</div>`;
-    
-    if (content.methodology) {
-      html += `
-        <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef;">
-          <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e66;">📌 ${content.methodology.title}</div>
-          <div style="font-size: 0.85rem; color: #6c7a89; margin: 12px 0;">${content.methodology.description}</div>
-          <button id="toggleDialogBtn" style="background: transparent; border: 1px solid #4a6fa5; padding: 8px 18px; border-radius: 30px; cursor: pointer; color: #4a6fa5;">مثال →</button>
-          <div id="dialogContent" style="display: none; margin-top: 16px; background: #ffffff; padding: 16px; border-radius: 16px; border: 1px solid #e8ecef;">
-            ${content.methodology.dialog.map(line => `<div style="margin-bottom: 12px;"><span style="font-weight: 700; color: #4a6fa5;">${line.speaker}:</span> ${line.text}</div>`).join('')}
-          </div>
-        </div>
-      `;
-    }
-  }
-  
-  if (content.footerMessage) {
-    html += `<div style="text-align: center; padding: 20px; margin-top: 20px; border-top: 1px solid #e0e4e8;"><div style="font-size: 0.9rem; color: #5a6874; background: #ffffff; display: inline-block; padding: 10px 25px; border-radius: 40px; border: 1px solid #e0e4e8;">${content.footerMessage}</div></div>`;
-  }
-  
-  html += `</div>`;
-  container.innerHTML = html;
-  
-  document.querySelectorAll('.toggle-suggestions-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const groupId = btn.getAttribute('data-group');
-      const contentDiv = document.querySelector(`.suggestions-content[data-group="${groupId}"]`);
-      if (contentDiv) {
-        const isOpen = contentDiv.style.display === 'block';
-        contentDiv.style.display = isOpen ? 'none' : 'block';
-        btn.textContent = isOpen ? 'أمثلة →' : 'إخفاء ←';
-      }
-    });
-  });
-  
-  const dialogBtn = document.getElementById('toggleDialogBtn');
-  if (dialogBtn) {
-    dialogBtn.addEventListener('click', () => {
-      const dialogDiv = document.getElementById('dialogContent');
-      if (dialogDiv) {
-        const isOpen = dialogDiv.style.display === 'block';
-        dialogDiv.style.display = isOpen ? 'none' : 'block';
-        dialogBtn.textContent = isOpen ? 'مثال →' : 'إخفاء ←';
-      }
-    });
-  }
+  const container = document.getElementById(currentSkill === "mündlich1" || currentSkill === "mündlich3" ? "mündlich" : currentSkill);
+  if (!container) return;
+  container.innerHTML = "<div>⚠️ محتوى المعلومات غير متوفر حالياً</div>";
 }
 
 function renderTipsExam(examData) {
@@ -1433,46 +1494,6 @@ function createMündlichCard(title, text) {
   return card;
 }
 
-function updateExamNavButtons() {
-  const prevBtn = document.getElementById("prevExamBtn");
-  const nextBtn = document.getElementById("nextExamBtn");
-  
-  if (!prevBtn || !nextBtn) return;
-  
-  const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
-  const hasPrev = currentIndex > 0;
-  const hasNext = currentIndex < currentExamsList.length - 1;
-  
-  if (hasPrev) {
-    prevBtn.style.display = "inline-block";
-    prevBtn.onclick = () => {
-      const prevExam = currentExamsList[currentIndex - 1];
-      openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
-    };
-  } else {
-    prevBtn.style.display = "none";
-  }
-  
-  if (hasNext) {
-    nextBtn.style.display = "inline-block";
-    nextBtn.onclick = () => {
-      const nextExam = currentExamsList[currentIndex + 1];
-      openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
-    };
-  } else {
-    nextBtn.style.display = "none";
-  }
-  
-  setupLockedNextButton();
-}
-
-function showTeil(teilNumber) {
-  teile.forEach((teil, idx) => {
-    const container = document.getElementById(teil.container);
-    if (container) container.style.display = (idx + 1 === teilNumber) ? "block" : "none";
-  });
-}
-
 function goHome() {
   document.getElementById("home").classList.add("active");
   document.getElementById("list").classList.remove("active");
@@ -1492,122 +1513,7 @@ function goList() {
   }
 }
 
-// ========== بناء وتصحيح امتحانات Teil 1 (مع دعم المزامنة) ==========
-function buildTeil1(questions) {
-  const container = document.getElementById("teil1");
-  if (!container) return;
-  container.innerHTML = "";
-  
-  currentQuestionsCount = questions.length;
-  let userAnswers = {};
-  
-  for (let i = 0; i < questions.length; i++) {
-    const q = questions[i];
-    const card = document.createElement("div");
-    card.className = "question-card";
-    card.id = "q_" + i;
-    
-    const questionText = document.createElement("div");
-    questionText.className = "question-text";
-    questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
-    card.appendChild(questionText);
-    
-    const optionsDiv = document.createElement("div");
-    optionsDiv.className = "options-container";
-    for (let j = 0; j < q.options.length; j++) {
-      const label = document.createElement("label");
-      label.className = "option-label";
-      const radioId = "q" + i + "_" + j;
-      label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
-      label.onclick = (function(qIdx, ansIdx) {
-        return function() {
-          userAnswers[qIdx] = ansIdx;
-          // مزامنة الإجابة مع نظام الغرف
-          syncAnswerToRoom(qIdx, ansIdx, ansIdx === q.correct);
-        };
-      })(i, j);
-      optionsDiv.appendChild(label);
-    }
-    card.appendChild(optionsDiv);
-    container.appendChild(card);
-  }
-  
-  const checkBtn = document.createElement("button");
-  checkBtn.innerText = "✅ تصحيح";
-  checkBtn.className = "check-btn";
-  checkBtn.onclick = function() {
-    checkTeil1(questions, userAnswers);
-  };
-  container.appendChild(checkBtn);
-  
-  const resultDiv = document.createElement("div");
-  resultDiv.id = "teil1Result";
-  resultDiv.className = "result-box";
-  resultDiv.style.display = "none";
-  container.appendChild(resultDiv);
-  
-  // بدء مراقبة إجابات الصديق
-  setTimeout(() => {
-    watchOtherAnswersForAllQuestions();
-  }, 100);
-}
-
-function checkTeil1(questions, answers) {
-  let score = 0;
-  const total = questions.length;
-  const pointsPerQuestion = 25 / total;
-  
-  for (let i = 0; i < questions.length; i++) {
-    const q = questions[i];
-    const card = document.getElementById("q_" + i);
-    const userAnswer = answers[i];
-    const isCorrect = (userAnswer === q.correct);
-    
-    if (isCorrect) {
-      score++;
-      if (card) {
-        card.classList.add("correct-answer-card");
-        card.classList.remove("wrong-answer-card");
-        const oldMsg = card.querySelector(".correct-message");
-        if (oldMsg) oldMsg.remove();
-      }
-    } else {
-      if (card) {
-        card.classList.add("wrong-answer-card");
-        card.classList.remove("correct-answer-card");
-        
-        let correctMsg = card.querySelector(".correct-message");
-        if (!correctMsg) {
-          correctMsg = document.createElement("div");
-          correctMsg.className = "correct-message";
-          card.appendChild(correctMsg);
-        }
-        correctMsg.innerHTML = "✅ الإجابة الصحيحة: " + q.options[q.correct];
-      }
-    }
-  }
-  
-  const finalScore = (score * pointsPerQuestion).toFixed(2);
-  const resultDiv = document.getElementById("teil1Result");
-  if (resultDiv) {
-    resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
-    resultDiv.style.display = "block";
-  }
-  
-  saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
-  
-  if (document.getElementById("list").classList.contains("active")) {
-    renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
-  }
-}
-
-window.saveExamResultGlobal = function(skill, examId, score) {
-  saveExamResult(skill, examId, score);
-  if (document.getElementById("list").classList.contains("active") && currentSkill === skill) {
-    renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
-  }
-};
-
+// ========== تهيئة الصفحة ==========
 document.addEventListener("DOMContentLoaded", function() {
   const startBtn = document.getElementById("startBtn");
   const backHomeBtn = document.getElementById("backHomeBtn");
@@ -1635,7 +1541,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 renderTeileList();
 
-console.log("✅ exams.js تم تحميله بنجاح");
+console.log("✅ exams.js تم تحميله بنجاح مع دعم المراجعة مع صديق");
 console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
 console.log("📚 Lesen Teil 2:", examsDatabase.lesen2.length, "امتحان");
 console.log("📚 Lesen Teil 3:", examsDatabase.lesen3.length, "امتحان");
