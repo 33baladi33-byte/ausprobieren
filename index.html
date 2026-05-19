@@ -365,6 +365,41 @@
             max-height: 200px;
         }
     }
+
+    /* تنسيق زر التقرير اليومي */
+    .daily-report-btn {
+        background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+        border: 1px solid rgba(100, 150, 200, 0.3);
+        border-radius: 30px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #ffffff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        margin-left: 10px;
+    }
+
+    .daily-report-btn:hover {
+        background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
+        border-color: rgba(100, 150, 200, 0.6);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* إخفاء زر التقرير في الصفحة الرئيسية، يظهر فقط في صفحات القائمة والامتحانات */
+    body:has(#home.active) .daily-report-btn {
+        display: none !important;
+    }
+
+    body:has(#list.active) .daily-report-btn,
+    body:has(#exam.active) .daily-report-btn {
+        display: flex !important;
+    }
 </style>
 </head>
 <body>
@@ -394,6 +429,9 @@
                 </div>
             </div>
         </div>
+        
+        <!-- زر التقرير اليومي -->
+        <button id="dailyReportBtn" class="daily-report-btn">📊 أنا أنهيت المراجعة اليوم</button>
         
         <div class="notification-container">
             <button id="notificationBell" class="notification-bell">
@@ -638,6 +676,9 @@
 <script src="auth.js"></script>
 <script src="notifications.js"></script>
 <script src="rapidGame.js"></script>
+<script src="dailyTracker.js"></script>
+<script src="dailyReport.js"></script>
+<script src="reviews-simple.js"></script>
 
 <script>
 // ============================================
@@ -715,6 +756,35 @@
     if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
     
     checkAndToggleTipsButton();
+})();
+
+// ============================================
+// إظهار/إخفاء زر التقرير اليومي حسب الصفحة
+// ============================================
+(function() {
+    const reportBtn = document.getElementById('dailyReportBtn');
+    if (!reportBtn) return;
+    
+    const homePage = document.getElementById('home');
+    const listPage = document.getElementById('list');
+    const examPage = document.getElementById('exam');
+    
+    function updateReportButtonVisibility() {
+        if (homePage && homePage.classList.contains('active')) {
+            reportBtn.style.display = 'none';
+        } else if ((listPage && listPage.classList.contains('active')) || (examPage && examPage.classList.contains('active'))) {
+            reportBtn.style.display = 'flex';
+        } else {
+            reportBtn.style.display = 'none';
+        }
+    }
+    
+    const observer = new MutationObserver(updateReportButtonVisibility);
+    if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
+    if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
+    if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
+    
+    updateReportButtonVisibility();
 })();
 
 // ============================================
@@ -1143,7 +1213,5 @@
     
     console.log("✅ جميع الـ Scripts تم تحميلها مرة واحدة فقط");
 </script>
-    <script src="dailyReport.js"></script>
-    <script src="reviews-simple.js"></script>
 </body>
 </html>
