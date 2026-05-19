@@ -2730,9 +2730,115 @@ if (originalBuildTrueFalseExam) {
     setTimeout(applyMobileStylesToEngine, 100);
   };
 }
+// ============================================
+// تحسين قوائم "اختر" في Teil 1 و Teil 3 للهواتف
+// ============================================
 
-// ============================================
-// نهاية التعديلات الخاصة بالهواتف
-// ============================================
-// ========== نهاية الملف ==========
+function enhanceSelectsForMobile() {
+    if (window.innerWidth <= 768) {
+        // تحسين جميع قوائم select في Teil 1 و Teil 3
+        const selects = document.querySelectorAll('#teil1 select, #teil3 select');
+        selects.forEach(select => {
+            // إضافة نفس التفاعل الموجود في الحاسوب
+            select.style.backgroundColor = '#1e293b';
+            select.style.color = '#f1f5f9';
+            select.style.border = '1px solid rgba(56, 189, 248, 0.3)';
+            select.style.borderRadius = '12px';
+            select.style.padding = '6px 10px';
+            select.style.fontSize = '0.65rem';
+            select.style.cursor = 'pointer';
+            select.style.transition = 'all 0.2s ease';
+            
+            // إضافة تأثير hover
+            select.onmouseenter = function() {
+                this.style.borderColor = '#38bdf8';
+                this.style.boxShadow = '0 0 0 2px rgba(56, 189, 248, 0.2)';
+            };
+            select.onmouseleave = function() {
+                this.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+                this.style.boxShadow = 'none';
+            };
+        });
+    }
+}
+
+// استدعاء الدالة بعد تحميل Teil 1 أو Teil 3
+const originalBuildTeil1 = window.buildTeil1;
+if (originalBuildTeil1) {
+    window.buildTeil1 = function(questions) {
+        originalBuildTeil1(questions);
+        setTimeout(enhanceSelectsForMobile, 50);
+    };
+}
+
+const originalRenderTeil3Exam = window.renderTeil3Exam;
+if (originalRenderTeil3Exam) {
+    window.renderTeil3Exam = function() {
+        originalRenderTeil3Exam();
+        setTimeout(() => {
+            enhanceSelectsForMobile();
+            // إعادة ترتيب Teil 3 للهواتف
+            if (window.innerWidth <= 768) {
+                const teil3Container = document.getElementById('teil3');
+                if (teil3Container) {
+                    const twoColumns = teil3Container.querySelector('div[style*="display: flex"]');
+                    if (twoColumns) {
+                        twoColumns.style.flexDirection = 'column';
+                    }
+                }
+            }
+        }, 50);
+    };
+}
+
+// تحسين Sprach1,2 للهواتف
+const originalRenderSprach1Exam = window.renderSprach1Exam;
+if (originalRenderSprach1Exam) {
+    window.renderSprach1Exam = function(examData) {
+        originalRenderSprach1Exam(examData);
+        setTimeout(() => {
+            if (window.innerWidth <= 768) {
+                const sprach1Container = document.getElementById('sprach1');
+                if (sprach1Container) {
+                    const twoColumns = sprach1Container.querySelector('div[style*="display: flex"]');
+                    if (twoColumns) {
+                        twoColumns.style.flexDirection = 'row';
+                        twoColumns.style.flexWrap = 'wrap';
+                        const children = twoColumns.children;
+                        if (children[0]) children[0].style.order = '0';
+                        if (children[1]) children[1].style.order = '1';
+                    }
+                }
+            }
+        }, 100);
+    };
+}
+
+const originalRenderSprach2Exam = window.renderSprach2Exam;
+if (originalRenderSprach2Exam) {
+    window.renderSprach2Exam = function(examData) {
+        originalRenderSprach2Exam(examData);
+        setTimeout(() => {
+            if (window.innerWidth <= 768) {
+                const sprach2Container = document.getElementById('sprach2');
+                if (sprach2Container) {
+                    const twoColumns = sprach2Container.querySelector('div[style*="display: flex"]');
+                    if (twoColumns) {
+                        twoColumns.style.flexDirection = 'row';
+                        twoColumns.style.flexWrap = 'wrap';
+                        const children = twoColumns.children;
+                        if (children[0]) children[0].style.order = '0';
+                        if (children[1]) children[1].style.order = '1';
+                    }
+                }
+            }
+        }, 100);
+    };
+}
+
+// استدعاء تحسين القوائم عند تغيير الحجم
+window.addEventListener('resize', function() {
+    setTimeout(enhanceSelectsForMobile, 100);
+});
+
 console.log("✅ engine.js تم تحميله بالكامل");
