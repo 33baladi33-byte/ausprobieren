@@ -46,7 +46,11 @@ async function sendAnswerToRoom(questionIndex, selectedAnswer, isCorrect, answer
     }
 }
 
-// 2️⃣ إرسال السؤال الحالي (Presence)
+// ============================================
+// نظام ربط الامتحان بالغرفة - أحداث مباشرة
+// ============================================
+
+// إرسال السؤال الحالي (عند التمرير أو التركيز)
 async function sendCurrentQuestionToRoom(questionIndex) {
     if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
         await window.StudyRoom.updateCurrentQuestion(questionIndex);
@@ -54,100 +58,68 @@ async function sendCurrentQuestionToRoom(questionIndex) {
     }
 }
 
-// 3️⃣ إرسال حدث تفاعل
-async function sendActivityEvent(questionIndex, action, answerText) {
+// إرسال حدث اختيار إجابة
+async function sendAnswerEventToRoom(questionIndex, answerText, isCorrect) {
     if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
-        await window.StudyRoom.sendActivityEvent(questionIndex, action, answerText);
+        // إرسال حدث التفاعل
+        await window.StudyRoom.sendActivityEvent(questionIndex, 'answer', answerText);
+        // حفظ الإجابة للمزامنة
+        await window.StudyRoom.syncAnswer(questionIndex, answerText, isCorrect);
+        console.log(`⚡ [Event] أرسلت: اخترت إجابة للسؤال ${questionIndex + 1}`);
     }
 }
 
-// 4️⃣ تلوين إجابة الصديق
-function colorFriendAnswer(questionIndex, answerIndex) {
-    console.log(`🎨 [تلوين] السؤال ${questionIndex + 1} -> الخيار ${answerIndex + 1}`);
+// مراقبة أحداث الصديق
+function startWatchingFriendEvents() {
+    if (typeof window.StudyRoom === 'undefined' || !window.StudyRoom.isInRoom || !window.StudyRoom.isInRoom()) {
+        console.log("👥 لست في غرفة، لن يتم تفعيل المراقبة");
+        return;
+    }
     
-    const questionCard = document.getElementById(`q_${questionIndex}`);
-    if (!questionCard) return;
-    
-    const optionsContainer = questionCard.querySelector('.options-container');
-    if (!optionsContainer) return;
-    
-    const allButtons = optionsContainer.querySelectorAll('.option-label');
-    if (!allButtons[answerIndex]) return;
-    
-    // إزالة أي تلوين سابق للصديق في هذا السؤال
-    allButtons.forEach(btn => {
-        if (btn.classList.contains('friend-answer')) {
-            btn.classList.remove('friend-answer');
-            btn.style.background = '';
-            btn.style.border = '';
-            const icon = btn.querySelector('.friend-icon');
-            if (icon) icon.remove();
-        }
+    // مراقبة السؤال الحالي للصديق
+    if (window.friendQuestionUnsubscribe) window.friendQuestionUnsubscribe();
+    window.friendQuestionUnsubscribe = window.StudyRoom.listenToFriendCurrentQuestion((data) => {
+        console.log(`👥 [Presence] الصديق ${data.userName} يراجع السؤال ${data.questionIndex + 1}`);
+        highlightFriendQuestion(data.questionIndex);
     });
     
-    // تلوين إجابة الصديق
-    const targetBtn = allButtons[answerIndex];
-    targetBtn.classList.add('friend-answer');
-    targetBtn.style.background = '#bbdef5';
-    targetBtn.style.border = '2px solid #1976d2';
-    targetBtn.style.color = '#0d47a1';
-    
-    // إضافة أيقونة الصديق
-    if (!targetBtn.querySelector('.friend-icon')) {
-        const icon = document.createElement('span');
-        icon.className = 'friend-icon';
-        icon.innerHTML = ' 👤';
-        icon.style.fontSize = '11px';
-        icon.style.fontWeight = 'bold';
-        icon.style.color = '#1976d2';
-        targetBtn.appendChild(icon);
-    }
+    // مراقبة أحداث الصديق
+    if (window.friendEventsUnsubscribe) window.friendEventsUnsubscribe();
+    window.friendEventsUnsubscribe = window.StudyRoom.listenToFriendEvents((event) => {
+        console.log(`⚡ [Event] الصديق ${event.userName} ${event.action === 'answer' ? 'أجاب على' : 'يفكر في'} السؤال ${event.questionIndex + 1}`);
+        showFriendToast(event);
+    });
 }
 
-// 5️⃣ توهج السؤال الذي يراجعه الصديق
+// توهج السؤال الذي يراجعه الصديق
 function highlightFriendQuestion(questionIndex) {
-    // إزالة التوهج من جميع الأسئلة
     document.querySelectorAll('.question-card').forEach(card => {
         card.classList.remove('friend-focus');
         card.style.border = '';
         card.style.boxShadow = '';
     });
     
-    // إضافة توهج للسؤال الذي يراجعه الصديق
     const friendCard = document.getElementById(`q_${questionIndex}`);
     if (friendCard) {
         friendCard.classList.add('friend-focus');
         friendCard.style.border = '2px solid #2196f3';
         friendCard.style.boxShadow = '0 0 15px rgba(33, 150, 243, 0.3)';
-        friendCard.style.transition = 'all 0.3s ease';
     }
 }
 
-// 6️⃣ إظهار إشعار مؤقت لتفاعل الصديق
-function showFriendActivityToast(event) {
+// إظهار إشعار بتفاعل الصديق
+function showFriendToast(event) {
     const toast = document.createElement('div');
-    toast.className = 'friend-activity-toast';
-    const actionText = event.action === 'answer' ? 'اختار إجابة' : 'يفكر في';
+    toast.className = 'friend-toast';
     toast.innerHTML = `
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;background:#2196f3;color:white;border-radius:30px;font-size:13px;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+        <div style="background:#2196f3;color:white;padding:8px 16px;border-radius:30px;font-size:13px;display:flex;align-items:center;gap:8px;">
             <span>👤</span>
-            <span><strong>${event.userName}</strong> ${actionText} السؤال ${event.questionIndex + 1}</span>
+            <span><strong>${event.userName}</strong> ${event.action === 'answer' ? 'اختار إجابة' : 'يفكر في'} السؤال ${event.questionIndex + 1}</span>
         </div>
     `;
-    toast.style.cssText = `
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10000;
-        animation: fadeInOut 2s ease forwards;
-        pointer-events: none;
-    `;
+    toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10000;animation:fadeOut 2s forwards;pointer-events:none';
     document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        if (toast && toast.remove) toast.remove();
-    }, 2000);
+    setTimeout(() => toast.remove(), 2000);
 }
 
 // 7️⃣ بدء مراقبة إجابات الصديق
@@ -785,7 +757,6 @@ function displaySavedResult(skill, examId, titleSpan) {
   }
 }
 
-// ========== بناء امتحانات Teil 1 مع المزامنة الكاملة ==========
 function buildTeil1(questions) {
     const container = document.getElementById("teil1");
     if (!container) return;
@@ -795,7 +766,8 @@ function buildTeil1(questions) {
     let userAnswers = {};
     
     // إيقاف المراقبة القديمة
-    stopWatchingFriendActivity();
+    if (window.friendEventsUnsubscribe) window.friendEventsUnsubscribe();
+    if (window.friendQuestionUnsubscribe) window.friendQuestionUnsubscribe();
     
     for (let i = 0; i < questions.length; i++) {
         const q = questions[i];
@@ -803,13 +775,10 @@ function buildTeil1(questions) {
         card.className = "question-card";
         card.id = "q_" + i;
         
-        // ✅ حدث عند تمرير الماوس على السؤال (Presence)
+        // ✅ عند تمرير الماوس: إرسال السؤال الحالي
         card.onmouseenter = (function(qIdx) {
             return function() {
-                if (currentActiveQuestion !== qIdx) {
-                    currentActiveQuestion = qIdx;
-                    sendCurrentQuestionToRoom(qIdx);
-                }
+                sendCurrentQuestionToRoom(qIdx);
             };
         })(i);
         
@@ -827,12 +796,25 @@ function buildTeil1(questions) {
             const radioId = "q" + i + "_" + j;
             label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
             
-            // ✅ عند اختيار إجابة
+            // ✅ عند اختيار إجابة: إرسال حدث + حفظ الإجابة
             label.onclick = (function(qIdx, ansIdx) {
                 return async function() {
                     userAnswers[qIdx] = ansIdx;
-                    await sendAnswerToRoom(qIdx, ansIdx, ansIdx === q.correct, q.options[ansIdx]);
-                    console.log(`📝 [محلي] تم اختيار الإجابة: سؤال ${qIdx + 1} -> ${q.options[ansIdx]}`);
+                    const isCorrect = (ansIdx === q.correct);
+                    const answerText = q.options[ansIdx];
+                    
+                    // إرسال الحدث إلى الغرفة
+                    await sendAnswerEventToRoom(qIdx, answerText, isCorrect);
+                    
+                    // تغيير لون الإجابة محلياً
+                    document.querySelectorAll(`#q_${qIdx} .option-label`).forEach(btn => {
+                        btn.style.background = '';
+                        btn.style.border = '';
+                    });
+                    label.style.background = isCorrect ? '#c8e6c9' : '#ffcdd2';
+                    label.style.border = `2px solid ${isCorrect ? '#4caf50' : '#f44336'}`;
+                    
+                    console.log(`📝 [محلي] السؤال ${qIdx + 1}: ${answerText} (${isCorrect ? 'صحيح' : 'خطأ'})`);
                 };
             })(i, j);
             
@@ -857,19 +839,19 @@ function buildTeil1(questions) {
     resultDiv.style.display = "none";
     container.appendChild(resultDiv);
     
-    // بدء مراقبة نشاط الصديق
+    // ✅ بدء مراقبة أحداث الصديق
     setTimeout(() => {
-        startListeningForFriendAnswers();
-        startWatchingFriendActivity();
-    }, 200);
-    
-    // إرسال أن المستخدم بدأ في السؤال الأول
-    setTimeout(() => {
-        sendCurrentQuestionToRoom(0);
+        startWatchingFriendEvents();
     }, 500);
     
-    console.log(`✅ تم بناء ${questions.length} سؤال مع نظام Live Focus و Presence`);
+    // إرسال السؤال الأول
+    setTimeout(() => {
+        sendCurrentQuestionToRoom(0);
+    }, 1000);
+    
+    console.log(`✅ تم بناء ${questions.length} سؤال مع ربط كامل بالغرفة`);
 }
+
 
 // ========== دالة تصحيح Teil 1 ==========
 function checkTeil1(questions, answers) {
