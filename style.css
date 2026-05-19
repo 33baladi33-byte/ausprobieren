@@ -1608,7 +1608,7 @@ body:has(#exam.active) .top-bar {
 }
 
 /* ========================================
-   التعديلات الرئيسية للهواتف - تصغير كل شيء بشكل جذري
+   التعديلات المكثفة للهواتف - تصغير كل شيء مع الحفاظ على التصميم
    ======================================== */
 
 /* للشاشات التي عرضها أقل من 768px (كل الهواتف) */
@@ -1622,13 +1622,12 @@ body:has(#exam.active) .top-bar {
     
     /* تصغير الهوامش الرئيسية */
     .page {
-        padding: 15px !important;
+        padding: 10px !important;
     }
     
-    /* ===== تصغير عناصر الصفحة الرئيسية ===== */
+    /* ===== تصغير الصفحة الرئيسية (Hero) ===== */
     #home {
-        padding: 15px 12px 0 12px !important;
-        min-height: auto;
+        padding: 15px 10px 0 10px !important;
     }
     
     .hero-container {
@@ -1642,130 +1641,111 @@ body:has(#exam.active) .top-bar {
     
     .hero-image-side {
         min-width: 100% !important;
-        margin-bottom: 0;
     }
     
     .certificate-img {
-        max-width: 180px !important;
+        max-width: 200px !important;
     }
     
     .hero-title {
-        font-size: 1.4rem !important;
+        font-size: 1.6rem !important;
         text-align: center;
         margin-bottom: 12px;
     }
     
     .hero-desc {
-        font-size: 0.7rem !important;
+        font-size: 0.75rem !important;
         text-align: center;
         line-height: 1.4;
-        margin-bottom: 10px;
     }
     
     .hero-btn-primary {
-        padding: 8px 16px !important;
-        font-size: 0.7rem !important;
+        padding: 8px 18px !important;
+        font-size: 0.75rem !important;
         gap: 6px;
     }
     
     .info-glass-card {
-        padding: 8px 12px !important;
+        padding: 8px 15px !important;
         margin: 15px 0 !important;
-        gap: 8px;
     }
     
     .info-icon {
-        font-size: 1rem !important;
+        font-size: 1.1rem !important;
     }
     
     .info-text {
-        font-size: 0.65rem !important;
+        font-size: 0.7rem !important;
     }
     
-    /* ===== تصغير قسم الميزات ===== */
+    /* ===== قسم الميزات ===== */
     .features-section {
-        padding: 25px 15px !important;
-        margin-top: 20px !important;
-    }
-    
-    .features-container {
-        gap: 20px !important;
-    }
-    
-    .features-content {
-        min-width: 100% !important;
+        padding: 30px 15px !important;
+        margin-top: 30px !important;
     }
     
     .features-title {
-        font-size: 1.2rem !important;
-        margin-bottom: 12px;
+        font-size: 1.3rem !important;
+        text-align: center;
     }
     
     .features-description {
-        font-size: 0.65rem !important;
-        line-height: 1.4;
-        margin-bottom: 10px;
+        font-size: 0.7rem !important;
+        text-align: center;
     }
     
     .features-btn {
-        padding: 7px 16px !important;
+        padding: 7px 18px !important;
         font-size: 0.7rem !important;
-        gap: 6px;
-    }
-    
-    .features-images {
-        min-width: 100% !important;
+        margin: 0 auto !important;
+        display: inline-block;
     }
     
     .image-stack {
-        max-width: 220px !important;
-        min-height: 220px !important;
+        max-width: 260px !important;
+        min-height: 260px !important;
     }
     
-    .image-card-feature {
-        padding: 6px !important;
-    }
-    
-    /* ===== تصغير الشريط العلوي ===== */
+    /* ===== الشريط العلوي ===== */
     .top-bar {
-        padding: 5px 10px !important;
+        padding: 6px 12px !important;
     }
     
     .left-side {
-        gap: 5px !important;
+        gap: 6px !important;
     }
     
     .right-side {
-        gap: 5px !important;
+        gap: 6px !important;
     }
     
     .logo-icon {
-        width: 28px !important;
-        height: 28px !important;
+        width: 32px !important;
+        height: 32px !important;
     }
     
     .notification-bell {
-        font-size: 12px !important;
-        padding: 4px 8px !important;
+        font-size: 14px !important;
+        padding: 5px 8px !important;
     }
     
     .subscribe-text-btn, .btn-login-top {
         padding: 4px 10px !important;
-        font-size: 9px !important;
+        font-size: 10px !important;
     }
     
     .profile-icon {
-        width: 28px !important;
-        height: 28px !important;
-        font-size: 14px !important;
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 16px !important;
     }
     
     .settings-icon-btn {
-        font-size: 12px !important;
+        font-size: 14px !important;
         padding: 4px 8px !important;
     }
     
-    /* ===== تصغير قائمة الامتحانات والأجزاء ===== */
+    /* ===== قائمة الأجزاء (Teile) ===== */
     .teile-row {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr) !important;
@@ -1774,29 +1754,29 @@ body:has(#exam.active) .top-bar {
     }
     
     .teil-item {
-        padding: 5px 3px !important;
-        font-size: 0.55rem !important;
+        padding: 6px 4px !important;
+        font-size: 0.6rem !important;
+        border-radius: 8px;
         min-width: auto !important;
-        border-radius: 6px;
     }
     
+    /* ===== قائمة الامتحانات ===== */
     .item {
         padding: 8px 10px !important;
         margin-bottom: 6px !important;
-        border-radius: 8px;
+        border-radius: 8px !important;
     }
     
     .exam-title {
-        font-size: 0.65rem !important;
-        font-weight: 500;
+        font-size: 0.7rem !important;
     }
     
     .premium-badge {
-        font-size: 6px !important;
-        padding: 1px 4px !important;
+        font-size: 7px !important;
+        padding: 1px 5px !important;
     }
     
-    /* ===== تصغير بطاقات الأسئلة ===== */
+    /* ===== بطاقات الأسئلة ===== */
     .question-card {
         padding: 10px !important;
         margin-bottom: 12px !important;
@@ -1804,38 +1784,127 @@ body:has(#exam.active) .top-bar {
     }
     
     .question-text {
-        font-size: 0.7rem !important;
-        line-height: 1.4 !important;
+        font-size: 0.75rem !important;
         margin-bottom: 8px !important;
     }
     
     .option-label {
-        padding: 6px 8px !important;
-        font-size: 0.65rem !important;
-        margin-bottom: 5px !important;
+        padding: 8px 10px !important;
+        font-size: 0.7rem !important;
+        margin-bottom: 6px !important;
         border-radius: 8px !important;
     }
     
-    .check-btn {
-        padding: 8px 12px !important;
-        font-size: 0.7rem !important;
-        margin-top: 8px !important;
+    .option-input {
+        transform: scale(0.8) !important;
+        margin-left: 6px !important;
     }
     
-    /* ===== تصغير الأزرار العامة ===== */
+    .check-btn {
+        padding: 8px 16px !important;
+        font-size: 0.75rem !important;
+        margin-top: 10px !important;
+    }
+    
+    /* ===== أزرار التنقل ===== */
     .back-home-btn, .back-list-btn {
         padding: 6px 14px !important;
-        font-size: 0.65rem !important;
+        font-size: 0.7rem !important;
     }
     
     .arrow-back-btn {
-        font-size: 20px !important;
+        font-size: 22px !important;
     }
     
     #prevExamBtn, #nextExamBtn {
         padding: 5px 12px !important;
+        font-size: 12px !important;
+    }
+    
+    /* ===== نافذة التقييمات المنبثقة ===== */
+    .widget-bubble {
+        padding: 5px 12px !important;
+    }
+    
+    .widget-text {
+        font-size: 0.7rem !important;
+    }
+    
+    .widget-badge {
+        font-size: 0.6rem !important;
+        padding: 1px 5px !important;
+    }
+    
+    .widget-slide {
+        width: 45px !important;
+        height: 45px !important;
+    }
+    
+    /* ===== نافذة النتيجة ===== */
+    .result-box {
+        bottom: 15px !important;
+        padding: 6px 14px !important;
+        font-size: 12px !important;
+        min-width: 120px !important;
+    }
+    
+    /* ===== النوافذ المنبثقة ===== */
+    .settings-modal-content {
+        padding: 15px !important;
+        max-width: 280px !important;
+    }
+    
+    .login-popup-content {
+        padding: 20px !important;
+        width: 260px !important;
+    }
+    
+    .login-popup-content input {
+        padding: 8px !important;
+        font-size: 12px !important;
+    }
+    
+    /* ===== أزرار Mündlich tabs ===== */
+    .mündlich-tabs button {
+        padding: 5px 14px !important;
         font-size: 11px !important;
     }
+}
+
+/* للشاشات الصغيرة جداً (أقل من 480px) */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.3rem !important;
+    }
+    
+    .certificate-img {
+        max-width: 160px !important;
+    }
+    
+    .teil-item {
+        font-size: 0.55rem !important;
+        padding: 5px 3px !important;
+    }
+    
+    .exam-title {
+        font-size: 0.65rem !important;
+    }
+    
+    .question-text {
+        font-size: 0.7rem !important;
+    }
+    
+    .option-label {
+        font-size: 0.65rem !important;
+        padding: 6px 8px !important;
+    }
+    
+    .result-box {
+        font-size: 11px !important;
+        padding: 5px 12px !important;
+    }
+}
+
     
     /* ===== تصغير نافذة التقييمات ===== */
     .widget-bubble {
