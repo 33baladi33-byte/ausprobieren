@@ -612,4 +612,4 @@ if (document.readyState === 'loading') {
     setTimeout(init, 500);
 }
 
-})();  // إغلاق الـ IIFE
+)();  // إغلاق الـ IIFE
