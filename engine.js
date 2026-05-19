@@ -2502,6 +2502,237 @@ function checkTeil3Exam() {
     window.saveExamResultGlobal("lesen3", currentTeil3Data.id || 1, parseFloat(finalScore));
   }
 }
+// ============================================
+// التعديلات الخاصة بالهواتف - تصغير كل شيء مع الحفاظ على التصميم
+// ============================================
 
+function applyMobileStylesToEngine() {
+  if (window.innerWidth <= 768) {
+    
+    // تصغير جميع بطاقات الأسئلة
+    const allQuestionCards = document.querySelectorAll('.question-card');
+    allQuestionCards.forEach(card => {
+      card.style.padding = '10px';
+      card.style.marginBottom = '12px';
+      card.style.borderRadius = '10px';
+    });
+    
+    // تصغير نصوص الأسئلة
+    const allQuestionTexts = document.querySelectorAll('.question-text');
+    allQuestionTexts.forEach(text => {
+      text.style.fontSize = '0.75rem';
+      text.style.marginBottom = '8px';
+    });
+    
+    // تصغير خيارات الإجابة
+    const allOptionLabels = document.querySelectorAll('.option-label');
+    allOptionLabels.forEach(label => {
+      label.style.padding = '6px 8px';
+      label.style.fontSize = '0.7rem';
+      label.style.marginBottom = '5px';
+    });
+    
+    // تصغير أزرار التصحيح
+    const allCheckBtns = document.querySelectorAll('.check-btn');
+    allCheckBtns.forEach(btn => {
+      btn.style.padding = '8px 16px';
+      btn.style.fontSize = '0.75rem';
+    });
+    
+    // تصغير أزرار الإعادة (reset)
+    const allResetBtns = document.querySelectorAll('button:contains("↺")');
+    allResetBtns.forEach(btn => {
+      btn.style.padding = '6px 10px';
+      btn.style.fontSize = '14px';
+    });
+    
+    // تصغير أعمدة Schreiben (المقال)
+    const schreibenColumns = document.querySelectorAll('#schreiben > div[style*="display: flex"]');
+    schreibenColumns.forEach(col => {
+      col.style.gap = '15px';
+    });
+    
+    const schreibenLeftCol = document.querySelectorAll('#schreiben [style*="min-width: 350px"]');
+    schreibenLeftCol.forEach(col => {
+      col.style.minWidth = '280px';
+      col.style.padding = '12px';
+      col.style.maxHeight = '400px';
+    });
+    
+    const schreibenRightCol = document.querySelectorAll('#schreiben [style*="min-width: 350px"]');
+    schreibenRightCol.forEach(col => {
+      col.style.minWidth = '280px';
+      col.style.padding = '12px';
+      col.style.maxHeight = '400px';
+    });
+    
+    // تصغير نصوص Schreiben
+    const schreibenTexts = document.querySelectorAll('#schreiben div[style*="font-size: 14px"]');
+    schreibenTexts.forEach(text => {
+      text.style.fontSize = '12px';
+    });
+    
+    // تصغير قوائم Sprachbausteine
+    const sprachColumns = document.querySelectorAll('#sprach1 > div[style*="display: flex"], #sprach2 > div[style*="display: flex"]');
+    sprachColumns.forEach(col => {
+      col.style.gap = '15px';
+    });
+    
+    const sprachLeftCol = document.querySelectorAll('#sprach1 [style*="min-width: 400px"], #sprach2 [style*="min-width: 400px"]');
+    sprachLeftCol.forEach(col => {
+      col.style.minWidth = '280px';
+      col.style.padding = '12px';
+      col.style.maxHeight = '450px';
+    });
+    
+    const sprachRightCol = document.querySelectorAll('#sprach1 [style*="min-width: 250px"], #sprach2 [style*="min-width: 250px"]');
+    sprachRightCol.forEach(col => {
+      col.style.minWidth = '220px';
+      col.style.padding = '12px';
+      col.style.maxHeight = '450px';
+    });
+    
+    // تصغير أزرار الربط في Sprachbausteine
+    const sprachBtns = document.querySelectorAll('.sprach1-gap-btn, .sprach2-gap-btn');
+    sprachBtns.forEach(btn => {
+      btn.style.padding = '3px 8px';
+      btn.style.fontSize = '11px';
+    });
+    
+    const sprachWordCards = document.querySelectorAll('.sprach2-word-card');
+    sprachWordCards.forEach(card => {
+      card.style.padding = '5px 8px';
+      card.style.fontSize = '11px';
+    });
+    
+    // تصغير Teil 2 (Lesen Teil 2) الأعمدة
+    const teil2Columns = document.querySelectorAll('#teil2 > div[style*="display: flex"]');
+    teil2Columns.forEach(col => {
+      col.style.gap = '15px';
+    });
+    
+    const teil2TextCol = document.querySelectorAll('#teil2 [style*="min-width: 300px"]');
+    teil2TextCol.forEach(col => {
+      col.style.minWidth = '280px';
+      col.style.padding = '12px';
+      col.style.maxHeight = '400px';
+    });
+    
+    // تصغير Teil 3 (Lesen Teil 3) الشبكة
+    const teil3Grid = document.querySelectorAll('#teil3 [style*="grid-template-columns: 1fr 1fr"]');
+    teil3Grid.forEach(grid => {
+      grid.style.gridTemplateColumns = '1fr';
+      grid.style.gap = '12px';
+    });
+    
+    const teil3Cards = document.querySelectorAll('#teil3 .question-card');
+    teil3Cards.forEach(card => {
+      card.style.padding = '10px';
+    });
+    
+    const teil3Selects = document.querySelectorAll('#teil3 select');
+    teil3Selects.forEach(select => {
+      select.style.padding = '5px';
+      select.style.fontSize = '11px';
+    });
+    
+    const teil3SitItems = document.querySelectorAll('.teil3-situation-item');
+    teil3SitItems.forEach(item => {
+      item.style.padding = '6px 10px';
+      item.style.fontSize = '11px';
+    });
+    
+    // تصحيح الأزرار التي تحتوي على النص "↺" (لا يمكن استخدام :contains في CSS، نستخدم طريقة مختلفة)
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.textContent === '↺') {
+        btn.style.padding = '6px 10px';
+        btn.style.fontSize = '14px';
+      }
+    });
+    
+    // تصغير النتيجة
+    const allResultBoxes = document.querySelectorAll('.result-box');
+    allResultBoxes.forEach(box => {
+      box.style.padding = '6px 12px';
+      box.style.fontSize = '11px';
+      box.style.bottom = '15px';
+    });
+  }
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+  applyMobileStylesToEngine();
+});
+
+// استدعاء الدالة بعد كل تغيير في DOM (مثل فتح امتحان جديد)
+const originalOpenExam = window.openExam;
+if (originalOpenExam) {
+  window.openExam = async function(examId, examTitle, skill) {
+    await originalOpenExam(examId, examTitle, skill);
+    setTimeout(applyMobileStylesToEngine, 100);
+  };
+}
+
+// استدعاء الدالة عند تحميل أي امتحان آخر
+const originalLoadMatchingExam = window.loadMatchingExam;
+if (originalLoadMatchingExam) {
+  window.loadMatchingExam = function(examData) {
+    originalLoadMatchingExam(examData);
+    setTimeout(applyMobileStylesToEngine, 100);
+  };
+}
+
+const originalLoadTeil2Exam = window.loadTeil2Exam;
+if (originalLoadTeil2Exam) {
+  window.loadTeil2Exam = function(examData) {
+    originalLoadTeil2Exam(examData);
+    setTimeout(applyMobileStylesToEngine, 100);
+  };
+}
+
+const originalLoadTeil3Exam = window.loadTeil3Exam;
+if (originalLoadTeil3Exam) {
+  window.loadTeil3Exam = function(examData) {
+    originalLoadTeil3Exam(examData);
+    setTimeout(applyMobileStylesToEngine, 100);
+  };
+}
+
+const originalLoadSprach1Exam = window.loadSprach1Exam;
+if (originalLoadSprach1Exam) {
+  window.loadSprach1Exam = function(examData) {
+    originalLoadSprach1Exam(examData);
+    setTimeout(applyMobileStylesToEngine, 100);
+  };
+}
+
+const originalLoadSprach2Exam = window.loadSprach2Exam;
+if (originalLoadSprach2Exam) {
+  window.loadSprach2Exam = function(examData) {
+    originalLoadSprach2Exam(examData);
+    setTimeout(applyMobileStylesToEngine, 100);
+  };
+}
+
+const originalLoadSchreibenExam = window.loadSchreibenExam;
+if (originalLoadSchreibenExam) {
+  window.loadSchreibenExam = function(examData) {
+    originalLoadSchreibenExam(examData);
+    setTimeout(applyMobileStylesToEngine, 100);
+  };
+}
+
+const originalBuildTrueFalseExam = window.buildTrueFalseExam;
+if (originalBuildTrueFalseExam) {
+  window.buildTrueFalseExam = function(container, questions, note) {
+    originalBuildTrueFalseExam(container, questions, note);
+    setTimeout(applyMobileStylesToEngine, 100);
+  };
+}
+
+// ============================================
+// نهاية التعديلات الخاصة بالهواتف
+// ============================================
 // ========== نهاية الملف ==========
 console.log("✅ engine.js تم تحميله بالكامل");
