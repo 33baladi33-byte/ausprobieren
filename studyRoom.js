@@ -587,7 +587,7 @@ window.updateRoomScore = async function() {
             }
         }
         
-        const myScoreSpan = document.getElementById('player1Score');
+               const myScoreSpan = document.getElementById('player1Score');
         const otherScoreSpan = document.getElementById('player2Score');
         if (myScoreSpan) myScoreSpan.textContent = myScore;
         if (otherScoreSpan) otherScoreSpan.textContent = otherScore;
@@ -595,20 +595,21 @@ window.updateRoomScore = async function() {
     } catch(e) {
         console.error("خطأ في تحديث النتيجة:", e);
     }
-};
-        // تصدير الدوال
-    window.StudyRoom = {
-        syncAnswer: syncAnswer,
-        getOtherAnswer: getOtherAnswer,
-        isInRoom: () => isInRoom,
-        getRoomId: () => currentRoomId
-    };
+}
 
-    // بدء التشغيل
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        setTimeout(init, 500);
-    }
-    
+// تصدير الدوال
+window.StudyRoom = {
+    syncAnswer: syncAnswer,
+    getOtherAnswer: getOtherAnswer,
+    isInRoom: () => isInRoom,
+    getRoomId: () => currentRoomId
+};
+
+// بدء التشغيل
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    setTimeout(init, 500);
+}
+
 })();
