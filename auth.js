@@ -349,3 +349,119 @@ if (document.readyState === 'loading') {
 } else {
     initAuth();
 }
+// ============================================
+// تحسين مظهر الهواتف في auth.js
+// ============================================
+
+function applyMobileAuthStyles() {
+    if (window.innerWidth <= 768) {
+        // تصغير نافذة تسجيل الدخول
+        const loginPopupContent = document.querySelector('.login-popup-content');
+        if (loginPopupContent) {
+            loginPopupContent.style.padding = '20px';
+            loginPopupContent.style.width = '280px';
+            loginPopupContent.style.borderRadius = '20px';
+        }
+        
+        // تصغير العناوين
+        const popupTitle = document.querySelector('.login-popup-content h3');
+        if (popupTitle) popupTitle.style.fontSize = '1rem';
+        
+        const popupText = document.querySelector('.login-popup-content p');
+        if (popupText) popupText.style.fontSize = '11px';
+        
+        // تصغير حقول الإدخال
+        const inputs = document.querySelectorAll('.login-popup-content input');
+        inputs.forEach(input => {
+            input.style.padding = '8px';
+            input.style.fontSize = '12px';
+        });
+        
+        // تصغير الأزرار
+        const btns = document.querySelectorAll('.btn-popup-login, .btn-popup-close');
+        btns.forEach(btn => {
+            btn.style.padding = '8px';
+            btn.style.fontSize = '12px';
+        });
+        
+        // تصغير نافذة القفل (الامتحانات المقفلة)
+        const lockedModal = document.querySelector('#lockedModal > div');
+        if (lockedModal) {
+            lockedModal.style.padding = '20px';
+            lockedModal.style.maxWidth = '280px';
+            lockedModal.style.borderRadius = '24px';
+        }
+        
+        const lockedTitle = document.querySelector('#lockedModal h2');
+        if (lockedTitle) lockedTitle.style.fontSize = '18px';
+        
+        const lockedText = document.querySelector('#lockedModal p');
+        if (lockedText) lockedText.style.fontSize = '11px';
+        
+        const lockedButtons = document.querySelectorAll('#lockedModal button');
+        lockedButtons.forEach(btn => {
+            btn.style.padding = '8px 16px';
+            btn.style.fontSize = '12px';
+        });
+        
+        // تصغير القائمة المنسدلة للملف الشخصي
+        const profileDropdown = document.querySelector('.profile-dropdown');
+        if (profileDropdown) {
+            profileDropdown.style.minWidth = '220px';
+            profileDropdown.style.padding = '12px 15px';
+        }
+        
+        const profileEmail = document.querySelector('.profile-email');
+        if (profileEmail) profileEmail.style.fontSize = '11px';
+        
+        const profileExpiry = document.querySelector('.profile-expiry');
+        if (profileExpiry) profileExpiry.style.fontSize = '10px';
+        
+        const profileStatus = document.querySelector('.profile-status');
+        if (profileStatus) profileStatus.style.fontSize = '10px';
+        
+        const profileLogout = document.querySelector('.profile-logout');
+        if (profileLogout) {
+            profileLogout.style.padding = '6px 12px';
+            profileLogout.style.fontSize = '11px';
+        }
+        
+        const dropdownUpgradeBtn = document.getElementById('dropdownUpgradeBtn');
+        if (dropdownUpgradeBtn) {
+            dropdownUpgradeBtn.style.padding = '8px 12px';
+            dropdownUpgradeBtn.style.fontSize = '11px';
+        }
+    }
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    applyMobileAuthStyles();
+});
+
+// استدعاء الدالة بعد فتح نافذة تسجيل الدخول
+const originalShowLoginPopup = window.showLoginPopup;
+if (originalShowLoginPopup) {
+    window.showLoginPopup = function() {
+        originalShowLoginPopup();
+        setTimeout(applyMobileAuthStyles, 50);
+    };
+}
+
+// استدعاء الدالة بعد فتح نافذة القفل
+const originalShowLockedMessage = window.showLockedMessage;
+if (originalShowLockedMessage) {
+    window.showLockedMessage = function(examTitle) {
+        originalShowLockedMessage(examTitle);
+        setTimeout(applyMobileAuthStyles, 50);
+    };
+}
+
+// استدعاء الدالة بعد تحديث القائمة المنسدلة
+const originalUpdateProfileDropdown = window.updateProfileDropdown;
+if (originalUpdateProfileDropdown) {
+    window.updateProfileDropdown = async function() {
+        await originalUpdateProfileDropdown();
+        setTimeout(applyMobileAuthStyles, 50);
+    };
+}
