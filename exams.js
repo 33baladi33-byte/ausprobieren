@@ -878,10 +878,7 @@ function getTeilNameBySkill(skill) {
 }
 
 function getActualFileName(examId) {
-  if (actualFileNames[examId]) {
-    return actualFileNames[examId];
-  }
-  return `exam${examId}.json`;
+  return actualFileNames[examId] || `exam${examId}.json`;
 }
 
 function shouldHideHelpButton(skill) {
@@ -1060,29 +1057,34 @@ async function openExam(examId, examTitle, skill) {
     if (helpBtn) helpBtn.style.display = "block";
   }
   
+  const fileName = getActualFileName(examId);
+  const filePath = `data/${skill}/${fileName}`;
   
-
-const fileName = getActualFileName(examId);
-const filePath = `data/${skill}/${fileName}`;
-
-console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
-console.log("📁 اسم الملف:", fileName);
-console.log("📂 المسار الكامل:", filePath);
-
-try {
-  const response = await fetch(filePath);
-  if (!response.ok) {
-    console.error(`❌ فشل تحميل الملف: ${filePath} - Status: ${response.status}`);
-    alert(`⚠️ الامتحان "${examTitle}" غير متوفر حالياً.\nالملف المطلوب: ${filePath}`);
-    return;
-  } 
+  console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
+  console.log("📁 اسم الملف:", fileName);
+  console.log("📂 المسار الكامل:", filePath);
   
+  try {
+    const response = await fetch(filePath);
+    if (!response.ok) {
+      console.error(`❌ فشل تحميل الملف: ${filePath} - Status: ${response.status}`);
+      alert(`⚠️ الامتحان "${examTitle}" غير متوفر حالياً.\nالملف المطلوب: ${filePath}`);
+      return;
+    }
+    
     currentExamData = await response.json();
+    
+    if (!currentExamData) {
+      throw new Error("البيانات فارغة");
+    }
+    
+    console.log("✅ تم تحميل البيانات بنجاح:", currentExamData);
+    
     window.currentExamId = examId;
     document.getElementById("home").classList.remove("active");
     document.getElementById("list").classList.remove("active");
     document.getElementById("exam").classList.add("active");
-    document.getElementById("examTitle").innerHTML = currentExamData.title;
+    document.getElementById("examTitle").innerHTML = currentExamData.title || examTitle;
     
     updateExamNavButtons();
     
