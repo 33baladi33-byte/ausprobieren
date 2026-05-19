@@ -1,5 +1,6 @@
 // ============================================
 // exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
+// مع دعم المراجعة مع صديق (مزامنة الإجابات وتلوينها)
 // ============================================
 
 const teile = [
@@ -16,34 +17,93 @@ const teile = [
   { id: 11, name: "Tips", container: "tips", skill: "tips" }
 ];
 
+// ========== متغيرات المراجعة مع صديق ==========
+let otherAnswerListeners = [];
+let currentQuestionsCount = 0;
+
+// ========== دالة مزامنة الإجابة مع نظام الغرف ==========
+function syncAnswerToRoom(questionIndex, selectedAnswer, isCorrect) {
+    if (typeof StudyRoom !== 'undefined' && StudyRoom.isInRoom && StudyRoom.isInRoom()) {
+        StudyRoom.syncAnswer(questionIndex, selectedAnswer, isCorrect);
+        console.log(`📡 تم إرسال الإجابة إلى الغرفة: سؤال ${questionIndex + 1}`);
+    }
+}
+
+// ========== تلوين إجابة الصديق ==========
+function highlightOtherAnswer(questionIndex, answerIndex) {
+    const questionCard = document.getElementById(`q_${questionIndex}`);
+    if (!questionCard) return;
+    
+    const optionsContainer = questionCard.querySelector('.options-container');
+    if (!optionsContainer) return;
+    
+    const buttons = optionsContainer.querySelectorAll('.option-label');
+    if (buttons[answerIndex]) {
+        // إضافة اللون الأزرق الفاتح لإجابة الصديق
+        buttons[answerIndex].style.background = '#e3f2fd';
+        buttons[answerIndex].style.border = '1px solid #90caf9';
+        buttons[answerIndex].style.color = '#1565c0';
+        
+        // إضافة أيقونة صغيرة للصديق
+        if (!buttons[answerIndex].querySelector('.friend-icon')) {
+            const icon = document.createElement('span');
+            icon.className = 'friend-icon';
+            icon.innerHTML = ' 👥';
+            icon.style.fontSize = '11px';
+            icon.style.opacity = '0.7';
+            buttons[answerIndex].appendChild(icon);
+        }
+    }
+}
+
+// ========== إزالة تلوين إجابات الصديق ==========
+function clearOtherAnswersHighlight() {
+    for (let i = 0; i < currentQuestionsCount; i++) {
+        const questionCard = document.getElementById(`q_${i}`);
+        if (questionCard) {
+            const optionsContainer = questionCard.querySelector('.options-container');
+            if (optionsContainer) {
+                const buttons = optionsContainer.querySelectorAll('.option-label');
+                buttons.forEach(btn => {
+                    btn.style.background = '';
+                    btn.style.border = '';
+                    btn.style.color = '';
+                    const icon = btn.querySelector('.friend-icon');
+                    if (icon) icon.remove();
+                });
+            }
+        }
+    }
+}
+
+// ========== مراقبة إجابات الصديق لكل سؤال ==========
+function watchOtherAnswersForAllQuestions() {
+    if (typeof StudyRoom === 'undefined' || !StudyRoom.isInRoom || !StudyRoom.isInRoom()) return;
+    
+    // إزالة المستمعين القدامى
+    otherAnswerListeners.forEach(unsubscribe => {
+        if (typeof unsubscribe === 'function') unsubscribe();
+    });
+    otherAnswerListeners = [];
+    
+    // إضافة مستمعين لكل سؤال
+    for (let i = 0; i < currentQuestionsCount; i++) {
+        const questionIndex = i;
+        const unsubscribe = StudyRoom.getOtherAnswer(questionIndex, (otherAnswer) => {
+            if (otherAnswer !== null) {
+                highlightOtherAnswer(questionIndex, otherAnswer);
+            }
+        });
+        otherAnswerListeners.push(unsubscribe);
+    }
+}
+
 // ========== دالة حفظ آخر نتيجة ==========
 function saveExamResult(skill, examId, score) {
   try {
     const key = `exam_result_${skill}_${examId}`;
     localStorage.setItem(key, score.toString());
     console.log(`✅ تم حفظ النتيجة ${score} لـ ${skill} ${examId}`);
-    
-    // ========== تسجيل الامتحان في نظام التتبع اليومي ==========
-    const examTitle = currentExamData?.title || `Exam ${examId}`;
-    const totalQuestions = currentExamData?.questions?.length || 25;
-    
-    // حساب عدد الإجابات الصحيحة
-    let correctAnswers = 0;
-    if (currentExamData?.questions && currentExamData.questions.length > 0) {
-      const pointsPerQuestion = 25 / totalQuestions;
-      correctAnswers = Math.round(score / pointsPerQuestion);
-    } else {
-      correctAnswers = Math.round((score / 100) * totalQuestions);
-    }
-    
-    if (typeof DailyTracker !== 'undefined' && DailyTracker.registerExam) {
-      DailyTracker.registerExam(skill, examId, examTitle, score, correctAnswers, totalQuestions);
-      console.log(`📊 [DailyTracker] تم تسجيل امتحان: ${skill} - Exam ${examId} (${correctAnswers}/${totalQuestions} إجابة صحيحة، ${score}%)`);
-    } else {
-      console.warn("⚠️ DailyTracker غير متوفر");
-    }
-    // ===========================================================
-    
   } catch(e) {
     console.error("❌ خطأ في حفظ النتيجة:", e);
   }
@@ -92,7 +152,6 @@ function createResultBadge(score) {
 
 // ========== دالة عرض نافذة القفل ==========
 function showLockedMessage(examTitle) {
-    // إزالة الأرقام من اسم الامتحان (مثل " (10)" أو " (12)")
     let cleanTitle = examTitle.replace(/\s*\(\d+\)\s*$/, '').trim();
     
     let modal = document.createElement('div');
@@ -126,7 +185,6 @@ function showLockedMessage(examTitle) {
     let upgradeBtn = document.getElementById('upgradeNowBtnModal');
     let closeBtn = document.getElementById('closeModalBtn');
     
-    // تأثير hover على زر الترقية
     upgradeBtn.onmouseenter = function() {
         this.style.background = '#2563eb';
         this.style.transform = 'scale(1.02)';
@@ -136,7 +194,6 @@ function showLockedMessage(examTitle) {
         this.style.transform = 'scale(1)';
     };
     
-    // تأثير hover على زر الإغلاق
     closeBtn.onmouseenter = function() {
         this.style.background = '#e2e8f0';
         this.style.transform = 'scale(1.02)';
@@ -744,7 +801,6 @@ function renderTeileList() {
   }
 }
 
-// وظيفة عرض أزرار التنقل بين أجزاء Mündlich
 function renderMündlichPartTabs() {
   const container = document.getElementById("examsList");
   if (!container) return;
@@ -850,7 +906,6 @@ async function renderExamListForSkill(skill, teilName) {
   for (let i = 0; i < targetExams.length; i++) {
     const exam = targetExams[i];
     const examNumber = exam.id;
-    // 🔴 التعديل: أول 6 امتحانات مفتوحة في الوضع المجاني
     const isFreeExam = (examNumber <= 6);
     
     const div = document.createElement("div");
@@ -937,14 +992,12 @@ function setupLockedNextButton() {
   getUserStatusForExam().then(status => {
     const isPremium = (status === 'premium');
     
-    // احصل على الامتحان التالي
     const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
     const nextExam = currentExamsList[currentIndex + 1];
     
     if (nextExam) {
       const nextExamId = nextExam.id;
       
-      // فقط إذا كان الامتحان التالي أكبر من 6 والمستخدم ليس بريميوم
       if (!isPremium && nextExamId > 6 && nextBtn.style.display !== 'none') {
         nextBtn.style.position = "relative";
         nextBtn.style.paddingLeft = "35px";
@@ -960,7 +1013,6 @@ function setupLockedNextButton() {
         nextBtn.style.backgroundColor = "#b0bec5";
         nextBtn.style.opacity = "0.8";
         
-        // تغيير وظيفة الزر لمنع الانتقال
         nextBtn.onclick = function(e) {
           e.preventDefault();
           e.stopPropagation();
@@ -968,7 +1020,6 @@ function setupLockedNextButton() {
           return false;
         };
       } 
-      // إذا كان الامتحان التالي ضمن الـ 6 الأولى، دع الزر يعمل بشكل طبيعي
       else if (isPremium || nextExamId <= 6) {
         const lockIcon = nextBtn.querySelector('.next-lock-icon');
         if (lockIcon) lockIcon.remove();
@@ -976,7 +1027,6 @@ function setupLockedNextButton() {
         nextBtn.style.opacity = "1";
         nextBtn.style.paddingLeft = "";
         
-        // استعادة الوظيفة الأصلية للزر
         nextBtn.onclick = () => {
           openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
         };
@@ -1006,17 +1056,14 @@ function shouldHideHelpButton(skill) {
 }
 
 async function openExam(examId, examTitle, skill) {
-  // ===== فحص الوصول للامتحان =====
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
-  const maxFreeExamId = 6; // أول 6 امتحانات مجانية للمستخدمين غير المدفوعين
+  const maxFreeExamId = 6;
   
-  // إذا كان المستخدم ليس بريميوم والامتحان المطلوب أكبر من 6، اظهر القفل
   if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
     showLockedMessage(examTitle + " (" + examId + ")");
     return;
   }
-  // ===== نهاية فحص الوصول =====
   
   console.log("🔍 openExam parameters:", { examId, examTitle, skill });
   
@@ -1117,35 +1164,29 @@ async function openExam(examId, examTitle, skill) {
   }
 }
 
-// دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
   if (currentSkill) {
-    // إذا كان skill هو mündlich1
     if (currentSkill === "mündlich1") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich1", "Mündlich - Teil 1 📖");
     } 
-    // إذا كان skill هو mündlich2
     else if (currentSkill === "mündlich2") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich2", "Mündlich - Teil 2 🗣️");
     }
-    // إذا كان skill هو mündlich3
     else if (currentSkill === "mündlich3") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich3", "Mündlich - Teil 3 🎯");
     }
-    // لأي مündlich آخر (احتياطي)
     else if (currentSkill.startsWith('mündlich')) {
       renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
     }
-    // لبقية الأقسام (Hören, Lesen, Sprachbausteine, Schreiben, Tips)
     else {
       const teil = teile.find(t => t.skill === currentSkill);
       if (teil) {
@@ -1162,7 +1203,6 @@ function goBackToExamsList() {
   }
 }
 
-// وظيفة عرض الامتحانات من نوع info (Teil 1 و Teil 3)
 function renderInfoExam(examData) {
   let containerId = currentSkill;
   if (currentSkill === "mündlich1" || currentSkill === "mündlich3") {
@@ -1408,7 +1448,6 @@ function updateExamNavButtons() {
   
   if (hasNext) {
     nextBtn.style.display = "inline-block";
-    // تعيين onclick مؤقتاً، سيتم تحديثه في setupLockedNextButton
     nextBtn.onclick = () => {
       const nextExam = currentExamsList[currentIndex + 1];
       openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
@@ -1446,11 +1485,13 @@ function goList() {
   }
 }
 
+// ========== بناء وتصحيح امتحانات Teil 1 (مع دعم المزامنة) ==========
 function buildTeil1(questions) {
   const container = document.getElementById("teil1");
   if (!container) return;
   container.innerHTML = "";
   
+  currentQuestionsCount = questions.length;
   let userAnswers = {};
   
   for (let i = 0; i < questions.length; i++) {
@@ -1474,6 +1515,8 @@ function buildTeil1(questions) {
       label.onclick = (function(qIdx, ansIdx) {
         return function() {
           userAnswers[qIdx] = ansIdx;
+          // مزامنة الإجابة مع نظام الغرف
+          syncAnswerToRoom(qIdx, ansIdx, ansIdx === q.correct);
         };
       })(i, j);
       optionsDiv.appendChild(label);
@@ -1495,6 +1538,11 @@ function buildTeil1(questions) {
   resultDiv.className = "result-box";
   resultDiv.style.display = "none";
   container.appendChild(resultDiv);
+  
+  // بدء مراقبة إجابات الصديق
+  setTimeout(() => {
+    watchOtherAnswersForAllQuestions();
+  }, 100);
 }
 
 function checkTeil1(questions, answers) {
