@@ -2,7 +2,7 @@
 // rapidGame.js - لعبة التحدي السريع
 // يدعم: Hören Teil 1,2,3 | Lesen Teil 1,2,3 | Sprachbausteine Teil 1,2
 // نظام الألوان: أخضر فاتح ✅ | برتقالي فاتح ❌
-// المسار: data/games/المهارة/examX.json
+// مع تسجيل الألعاب المكتملة في DailyTracker
 // ============================================
 
 (function() {
@@ -974,6 +974,15 @@
         const total = userAnswers.length;
         const accuracy = total > 0 ? ((correct / total) * 100).toFixed(0) : 0;
         
+        // ========== تسجيل اللعبة المكتملة في DailyTracker ==========
+        if (typeof DailyTracker !== 'undefined' && DailyTracker.registerGame) {
+            DailyTracker.registerGame();
+            console.log(`🎮 [DailyTracker] تم تسجيل لعبة مكتملة!`);
+        } else {
+            console.warn("⚠️ DailyTracker غير متوفر، لم يتم تسجيل اللعبة");
+        }
+        // ===========================================================
+        
         const overlay = document.createElement('div');
         overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:10000;display:flex;justify-content:center;align-items:center;backdrop-filter:blur(2px)';
         
@@ -1010,6 +1019,7 @@
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
+    // ========== دالة إضافة زر العب ==========
     function addGameButton() {
         const nav = document.getElementById('examNavButtons');
         if (!nav) { setTimeout(addGameButton, 500); return; }
@@ -1020,14 +1030,29 @@
         btn.innerHTML = '⚡ العب';
         btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
         btn.onclick = () => {
-            const currentSkill = typeof getCurrentSkill === 'function' ? getCurrentSkill() : 'lesen1';
-            const currentExamId = typeof getCurrentExamId === 'function' ? getCurrentExamId() : 1;
-            startGame(currentSkill, currentExamId);
+            // الحصول على القسم الحالي من exams.js
+            let skill = null;
+            let examId = null;
+            
+            if (typeof currentSkill !== 'undefined') {
+                skill = currentSkill;
+            }
+            if (typeof currentExamId !== 'undefined') {
+                examId = currentExamId;
+            }
+            
+            if (!skill || !examId) {
+                alert("⚠️ الرجاء فتح امتحان أولاً");
+                return;
+            }
+            
+            startGame(skill, examId);
         };
         nav.appendChild(btn);
         console.log('🎮 زر العب جاهز');
     }
     
+    // ========== بدء التشغيل ==========
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => { setTimeout(addGameButton, 500); });
     } else {
