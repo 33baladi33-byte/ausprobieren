@@ -981,104 +981,78 @@ function setupLockedNextButton() {
     }
   });
 }
-
 async function openExam(examId, examTitle, skill) {
-  const userStatus = await getUserStatusForExam();
-  const isPremium = (userStatus === 'premium');
-  const maxFreeExamId = 6;
-  
-  if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
-    showLockedMessage(examTitle + " (" + examId + ")");
-    return;
-  }
-  
-  console.log("🔍 openExam parameters:", { examId, examTitle, skill });
-  
-  currentExamId = examId;
-  currentSkill = skill;
-  
-  if (shouldHideHelpButton(skill)) {
-    const helpBtn = document.getElementById('globalHelpButton');
-    if (helpBtn) helpBtn.style.display = "none";
-  } else {
-    const helpBtn = document.getElementById('globalHelpButton');
-    if (helpBtn) helpBtn.style.display = "block";
-  }
-  
-  const fileName = getActualFileName(examId);
-  const filePath = `data/${skill}/${fileName}`;
-  
-  console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
-  console.log("📁 اسم الملف:", fileName);
-  console.log("📂 المسار الكامل:", filePath);
-  
-  try {
-    const response = await fetch(filePath);
-    if (!response.ok) {
-      console.error(`❌ فشل تحميل الملف: ${filePath} - Status: ${response.status}`);
-      alert(`⚠️ الامتحان "${examTitle}" غير متوفر حالياً.\nالملف المطلوب: ${filePath}`);
-      return;
+    const userStatus = await getUserStatusForExam();
+    const isPremium = (userStatus === 'premium');
+    const maxFreeExamId = 6;
+    
+    if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
+        showLockedMessage(examTitle + " (" + examId + ")");
+        return;
     }
     
-    currentExamData = await response.json();
+    console.log("🔍 openExam parameters:", { examId, examTitle, skill });
     
-    if (!currentExamData) {
-      throw new Error("البيانات فارغة");
-    }
+    currentExamId = examId;
+    currentSkill = skill;
     
-    console.log("✅ تم تحميل البيانات بنجاح:", currentExamData);
-    
-    window.currentExamId = examId;
-    document.getElementById("home").classList.remove("active");
-    document.getElementById("list").classList.remove("active");
-    document.getElementById("exam").classList.add("active");
-    document.getElementById("examTitle").innerHTML = currentExamData.title || examTitle;
-    
-    updateExamNavButtons();
-    
-    if (!currentExamData.questions || currentExamData.questions.length === 0) {
-      console.warn("⚠️ لا توجد أسئلة في هذا الامتحان");
-      const container = document.getElementById("teil1");
-      if (container) {
-        container.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
-      }
-      showTeil(4);
-      return;
-    }
-    
-    // التحقق من صحة كل سؤال
-    for (let i = 0; i < currentExamData.questions.length; i++) {
-      const q = currentExamData.questions[i];
-      if (!q.options || !Array.isArray(q.options)) {
-        console.error(`❌ السؤال ${i + 1} لا يحتوي على خيارات صحيحة:`, q);
-        q.options = ["الخيار 1", "الخيار 2", "الخيار 3"];
-        q.correct = 0;
-      }
-    }
-    
-    // عرض الامتحان حسب النوع
-    if (currentExamData.type === "matching" || currentExamData.type === "truefalse" || 
-        currentExamData.type === "teil2" || currentExamData.type === "teil3" || 
-        currentExamData.type === "sprach1" || currentExamData.type === "sprach2" || 
-        currentExamData.type === "schreiben") {
-      buildTeil1(currentExamData.questions || []);
-    } else if (currentExamData.type === "mündlich") {
-      renderMündlichExam(currentExamData);
-    } else if (currentExamData.type === "info") {
-      renderInfoExam(currentExamData);
-    } else if (currentExamData.type === "tips") {
-      renderTipsExam(currentExamData);
+    if (shouldHideHelpButton(skill)) {
+        const helpBtn = document.getElementById('globalHelpButton');
+        if (helpBtn) helpBtn.style.display = "none";
     } else {
-      buildTeil1(currentExamData.questions || []);
+        const helpBtn = document.getElementById('globalHelpButton');
+        if (helpBtn) helpBtn.style.display = "block";
     }
     
-    const teilIndex = teile.findIndex(t => t.skill === skill);
-    showTeil(teilIndex !== -1 ? teilIndex + 1 : 10);
+    const fileName = getActualFileName(examId);
+    const filePath = `data/${skill}/${fileName}`;
     
-  } catch(e) {
-    console.error("❌ خطأ في تحميل الامتحان:", e);
-    alert("خطأ في تحميل الامتحان: " + e.message + "\n\nتأكد من وجود ملفات JSON في مجلد data/" + skill + "/");
-  }
+    console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
+    console.log("📁 اسم الملف:", fileName);
+    console.log("📂 المسار الكامل:", filePath);
+    
+    try {
+        const response = await fetch(filePath);
+        if (!response.ok) {
+            console.error(`❌ فشل تحميل الملف: ${filePath} - Status: ${response.status}`);
+            alert(`⚠️ الامتحان "${examTitle}" غير متوفر حالياً.\nالملف المطلوب: ${filePath}`);
+            return;
+        }
+        
+        currentExamData = await response.json();
+        
+        if (!currentExamData) {
+            throw new Error("البيانات فارغة");
+        }
+        
+        console.log("✅ تم تحميل البيانات بنجاح:", currentExamData);
+        
+        window.currentExamId = examId;
+        document.getElementById("home").classList.remove("active");
+        document.getElementById("list").classList.remove("active");
+        document.getElementById("exam").classList.add("active");
+        document.getElementById("examTitle").innerHTML = currentExamData.title || examTitle;
+        
+        updateExamNavButtons();
+        
+        // عرض الأسئلة مباشرة (بدون التحقق من النوع المعقد)
+        if (currentExamData.questions && currentExamData.questions.length > 0) {
+            buildTeil1(currentExamData.questions);
+        } else {
+            console.warn("⚠️ لا توجد أسئلة في هذا الامتحان");
+            const container = document.getElementById("teil1");
+            if (container) {
+                container.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
+            }
+        }
+        
+        const teilIndex = teile.findIndex(t => t.skill === skill);
+        showTeil(teilIndex !== -1 ? teilIndex + 1 : 4);
+        
+    } catch(e) {
+        console.error("❌ خطأ في تحميل الامتحان:", e);
+        alert("خطأ في تحميل الامتحان: " + e.message);
+    }
 }
 
 function updateExamNavButtons() {
