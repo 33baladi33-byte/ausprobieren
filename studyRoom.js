@@ -175,6 +175,24 @@
         document.getElementById('roomCodeInput').value = '';
         document.getElementById('joinError').style.display = 'none';
         document.getElementById('createdRoomCode').style.display = 'none';
+        document.getElementById('createRoomBtn').style.display = 'block';
+        
+        // إظهار التبويبات مرة أخرى
+        document.querySelector('.room-tabs').style.display = 'flex';
+        document.querySelectorAll('.room-tab-content').forEach(content => {
+            content.style.display = 'block';
+        });
+        document.getElementById('roomStatus').style.display = 'none';
+        
+        // تفعيل تبويب الإنشاء
+        const createTab = document.querySelector('.room-tab[data-tab="create"]');
+        const joinTab = document.querySelector('.room-tab[data-tab="join"]');
+        if (createTab && joinTab) {
+            createTab.classList.add('active');
+            joinTab.classList.remove('active');
+            document.getElementById('createRoomTab').classList.add('active');
+            document.getElementById('joinRoomTab').classList.remove('active');
+        }
     }
     
     // ========== إنشاء غرفة جديدة ==========
@@ -215,13 +233,24 @@
             await window.db.ref(`studyRooms/${roomCode}`).set(roomData);
             console.log(`✅ غرفة ${roomCode} تم إنشاؤها بنجاح`);
             
-            // عرض رمز الغرفة
-document.getElementById('createdRoomCode').style.display = 'block';
-document.getElementById('roomCodeValue').textContent = roomCode;
-document.getElementById('createRoomBtn').style.display = 'none';
-
-// لا تخفي التبويبات بعد، اترك رمز الغرفة ظاهراً
-// فقط أخفي أزرار الإنشاء والانضمام
+            // عرض رمز الغرفة في رسالة منبثقة (الطريقة الأسهل للمستخدم)
+            alert(`✅ تم إنشاء الغرفة بنجاح!\n\n🔑 رمز الغرفة: ${roomCode}\n\n📋 أرسل هذا الرمز لصديقك للانضمام إليك.`);
+            
+            // عرض رمز الغرفة في الواجهة
+            document.getElementById('createdRoomCode').style.display = 'block';
+            document.getElementById('roomCodeValue').textContent = roomCode;
+            document.getElementById('createRoomBtn').style.display = 'none';
+            
+            // إخفاء نموذج الإنشاء وإظهار حالة الغرفة
+            document.querySelector('.room-tabs').style.display = 'none';
+            document.querySelectorAll('.room-tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById('roomStatus').style.display = 'block';
+            
+            // تحديث اسم المستخدم في الواجهة
+            const selfNameSpan = document.getElementById('selfName');
+            if (selfNameSpan) selfNameSpan.textContent = userName;
             
             // بدء مراقبة الغرفة
             startRoomMonitor();
@@ -288,12 +317,18 @@ document.getElementById('createRoomBtn').style.display = 'none';
             
             console.log(`✅ انضممت إلى الغرفة ${roomCode}`);
             
+            alert(`✅ انضممت إلى الغرفة بنجاح!\n\n🔑 رمز الغرفة: ${roomCode}\n\n👥 الآن يمكنكما بدء المراجعة معاً.`);
+            
             // إخفاء نموذج الانضمام وإظهار حالة الغرفة
             document.querySelector('.room-tabs').style.display = 'none';
             document.querySelectorAll('.room-tab-content').forEach(content => {
                 content.style.display = 'none';
             });
             document.getElementById('roomStatus').style.display = 'block';
+            
+            // تحديث اسم المستخدم في الواجهة
+            const selfNameSpan = document.getElementById('selfName');
+            if (selfNameSpan) selfNameSpan.textContent = userName;
             
             // بدء مراقبة الغرفة
             startRoomMonitor();
@@ -341,7 +376,7 @@ document.getElementById('createRoomBtn').style.display = 'none';
         // تحديث اسمك
         const selfNameSpan = document.getElementById('selfName');
         const selfAnswersSpan = document.getElementById('selfAnswers');
-        if (selfNameSpan) selfNameSpan.textContent = self?.name || 'أنت';
+        if (selfNameSpan) selfNameSpan.textContent = self?.name || currentUserName || 'أنت';
         if (selfAnswersSpan) selfAnswersSpan.textContent = self?.answersCount || 0;
         
         // تحديث معلومات الصديق
@@ -369,7 +404,6 @@ document.getElementById('createRoomBtn').style.display = 'none';
         alert("🔚 تم حذف الغرفة لأن الطرف الآخر غادر.");
         resetRoomState();
         closeRoomModal();
-        openRoomModal();
     }
     
     // ========== مغادرة الغرفة ==========
@@ -404,6 +438,8 @@ document.getElementById('createRoomBtn').style.display = 'none';
         if (roomListener) roomListener?.off();
         currentRoomId = null;
         isInRoom = false;
+        currentUserEmail = null;
+        currentUserName = null;
     }
     
     // ========== نسخ رمز الغرفة ==========
