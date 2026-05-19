@@ -46,31 +46,33 @@ function getResultColor(score) {
   return "#adb5bd";
 }
 
-// ========== دالة عرض النتيجة بجانب عنوان الامتحان ==========
+// ========== دالة عرض النتيجة بجانب عنوان الامتحان (معدلة للهواتف) ==========
 function createResultBadge(score) {
   if (score === null) return null;
   
   const badge = document.createElement("span");
   badge.className = "exam-result-badge";
   badge.textContent = `${score} / 25`;
+  
+  // الكشف عن الهاتف وجعل الحجم أصغر
+  const isMobile = window.innerWidth <= 768;
   badge.style.cssText = `
-    font-size: 11px;
+    font-size: ${isMobile ? '8px' : '11px'};
     font-weight: bold;
-    padding: 3px 8px;
+    padding: ${isMobile ? '2px 5px' : '3px 8px'};
     border-radius: 20px;
     color: white;
     background-color: ${getResultColor(score)};
-    margin-left: 10px;
+    margin-left: 8px;
     display: inline-block;
-    min-width: 55px;
+    min-width: ${isMobile ? '40px' : '55px'};
     text-align: center;
   `;
   return badge;
 }
 
-// ========== دالة عرض نافذة القفل ==========
+// ========== دالة عرض نافذة القفل (معدلة للهواتف) ==========
 function showLockedMessage(examTitle) {
-    // إزالة الأرقام من اسم الامتحان (مثل " (10)" أو " (12)")
     let cleanTitle = examTitle.replace(/\s*\(\d+\)\s*$/, '').trim();
     
     let modal = document.createElement('div');
@@ -83,18 +85,20 @@ function showLockedMessage(examTitle) {
         direction: rtl;
     `;
     
+    const isMobile = window.innerWidth <= 768;
+    
     modal.innerHTML = `
-        <div style="background: #f8fafc; border-radius: 32px; padding: 32px; max-width: 360px; width: 85%; text-align: center; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); direction: rtl; border: 1px solid #e2e8f0;">
-            <div style="margin-bottom: 20px;">
-                <div style="font-size: 48px; margin-bottom: 8px;">⭐</div>
+        <div style="background: #f8fafc; border-radius: ${isMobile ? '24px' : '32px'}; padding: ${isMobile ? '20px' : '32px'}; max-width: ${isMobile ? '280px' : '360px'}; width: 85%; text-align: center; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); direction: rtl; border: 1px solid #e2e8f0;">
+            <div style="margin-bottom: ${isMobile ? '12px' : '20px'};">
+                <div style="font-size: ${isMobile ? '36px' : '48px'}; margin-bottom: 8px;">⭐</div>
             </div>
-            <h2 style="color: #1e293b; margin-bottom: 8px; font-size: 22px; font-weight: 600;">هذا المحتوى مخصص للمشتركين</h2>
-            <div style="background: #f1f5f9; padding: 12px; border-radius: 20px; margin: 16px 0; color: #334155; font-weight: 500; font-size: 15px;">📚 ${cleanTitle}</div>
-            <p style="color: #475569; margin-bottom: 8px; font-size: 14px;">يتطلب باقة: <strong style="color: #3b82f6;">Premium</strong></p>
-            <p style="color: #64748b; margin-bottom: 28px; font-size: 13px;">للوصول إلى هذا الامتحان، قم بترقية حسابك</p>
-            <div style="display: flex; flex-direction: column; gap: 12px; justify-content: center; align-items: center; margin-top: 0;">
-                <button id="upgradeNowBtnModal" style="background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 14px; width: 100%; transition: all 0.2s ease;">🚀 ترقية الحساب</button>
-                <button id="closeModalBtn" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 12px 24px; border-radius: 50px; cursor: pointer; font-weight: 500; font-size: 14px; color: #64748b; width: 100%; transition: all 0.2s ease;">ليس الآن</button>
+            <h2 style="color: #1e293b; margin-bottom: 8px; font-size: ${isMobile ? '18px' : '22px'}; font-weight: 600;">هذا المحتوى مخصص للمشتركين</h2>
+            <div style="background: #f1f5f9; padding: ${isMobile ? '8px' : '12px'}; border-radius: ${isMobile ? '14px' : '20px'}; margin: ${isMobile ? '12px 0' : '16px 0'}; color: #334155; font-weight: 500; font-size: ${isMobile ? '13px' : '15px'};">📚 ${cleanTitle}</div>
+            <p style="color: #475569; margin-bottom: 8px; font-size: ${isMobile ? '12px' : '14px'};">يتطلب باقة: <strong style="color: #3b82f6;">Premium</strong></p>
+            <p style="color: #64748b; margin-bottom: ${isMobile ? '20px' : '28px'}; font-size: ${isMobile ? '11px' : '13px'};">للوصول إلى هذا الامتحان، قم بترقية حسابك</p>
+            <div style="display: flex; flex-direction: column; gap: ${isMobile ? '8px' : '12px'}; justify-content: center; align-items: center; margin-top: 0;">
+                <button id="upgradeNowBtnModal" style="background: #3b82f6; color: white; border: none; padding: ${isMobile ? '10px 20px' : '12px 24px'}; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: ${isMobile ? '13px' : '14px'}; width: 100%; transition: all 0.2s ease;">🚀 ترقية الحساب</button>
+                <button id="closeModalBtn" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: ${isMobile ? '10px 20px' : '12px 24px'}; border-radius: 50px; cursor: pointer; font-weight: 500; font-size: ${isMobile ? '13px' : '14px'}; color: #64748b; width: 100%; transition: all 0.2s ease;">ليس الآن</button>
             </div>
         </div>
     `;
@@ -103,26 +107,6 @@ function showLockedMessage(examTitle) {
     
     let upgradeBtn = document.getElementById('upgradeNowBtnModal');
     let closeBtn = document.getElementById('closeModalBtn');
-    
-    // تأثير hover على زر الترقية
-    upgradeBtn.onmouseenter = function() {
-        this.style.background = '#2563eb';
-        this.style.transform = 'scale(1.02)';
-    };
-    upgradeBtn.onmouseleave = function() {
-        this.style.background = '#3b82f6';
-        this.style.transform = 'scale(1)';
-    };
-    
-    // تأثير hover على زر الإغلاق
-    closeBtn.onmouseenter = function() {
-        this.style.background = '#e2e8f0';
-        this.style.transform = 'scale(1.02)';
-    };
-    closeBtn.onmouseleave = function() {
-        this.style.background = '#f1f5f9';
-        this.style.transform = 'scale(1)';
-    };
     
     if(upgradeBtn) {
         upgradeBtn.onclick = function() {
