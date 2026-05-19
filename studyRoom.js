@@ -556,19 +556,19 @@ roomListener = window.db.ref(`studyRooms/${currentRoomId}`).on('value', (snapsho
         console.log('👥 زر المراجعة مع صديق جاهز');
     }
     
-    // ========== التهيئة ==========
     function init() {
-        if (typeof firebase === 'undefined') {
-            console.log("⏳ انتظار تحميل Firebase...");
-            setTimeout(init, 500);
-            return;
-        }
-        
-        addRoomButtons();
-        bindLeaveBarButton();
-        console.log("👥 نظام المراجعة مع صديق جاهز");
+    if (typeof firebase === 'undefined') {
+        console.log("⏳ انتظار تحميل Firebase...");
+        setTimeout(init, 500);
+        return;
     }
-    // دالة لتحديث النتيجة في الشريط (تُستدعى من exams.js)
+    
+    addRoomButtons();
+    bindLeaveBarButton();
+    console.log("👥 نظام المراجعة مع صديق جاهز");
+}
+
+// دالة لتحديث النتيجة في الشريط (تُستدعى من exams.js)
 window.updateRoomScore = async function() {
     if (!currentRoomId || !isInRoom) return;
     
@@ -587,7 +587,7 @@ window.updateRoomScore = async function() {
             }
         }
         
-               const myScoreSpan = document.getElementById('player1Score');
+        const myScoreSpan = document.getElementById('player1Score');
         const otherScoreSpan = document.getElementById('player2Score');
         if (myScoreSpan) myScoreSpan.textContent = myScore;
         if (otherScoreSpan) otherScoreSpan.textContent = otherScore;
@@ -595,7 +595,7 @@ window.updateRoomScore = async function() {
     } catch(e) {
         console.error("خطأ في تحديث النتيجة:", e);
     }
-}
+};
 
 // تصدير الدوال
 window.StudyRoom = {
@@ -612,4 +612,4 @@ if (document.readyState === 'loading') {
     setTimeout(init, 500);
 }
 
-})();
+})();  // إغلاق الـ IIFE
