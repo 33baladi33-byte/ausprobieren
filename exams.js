@@ -26,6 +26,68 @@ let liveEventsUnsubscribe = null;
 let liveQuestionUnsubscribe = null;
 
 // ============================================
+// دوال المزامنة مع الغرفة
+// ============================================
+
+// إرسال الإجابة إلى الغرفة
+async function syncAnswerToRoom(questionIndex, selectedAnswer, isCorrect) {
+    if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
+        await window.StudyRoom.syncAnswer(questionIndex, selectedAnswer, isCorrect);
+        console.log(`📡 تم إرسال الإجابة إلى الغرفة: سؤال ${questionIndex + 1}`);
+    }
+}
+
+// تلوين إجابة الصديق
+function highlightOtherAnswer(questionIndex, answerIndex) {
+    const questionCard = document.getElementById(`q_${questionIndex}`);
+    if (!questionCard) return;
+    
+    const optionsContainer = questionCard.querySelector('.options-container');
+    if (!optionsContainer) return;
+    
+    const buttons = optionsContainer.querySelectorAll('.option-label');
+    if (buttons[answerIndex]) {
+        buttons[answerIndex].style.background = '#bbdef5';
+        buttons[answerIndex].style.border = '2px solid #1976d2';
+        buttons[answerIndex].style.color = '#0d47a1';
+        
+        if (!buttons[answerIndex].querySelector('.friend-icon')) {
+            const icon = document.createElement('span');
+            icon.className = 'friend-icon';
+            icon.innerHTML = ' 👥';
+            icon.style.fontSize = '11px';
+            buttons[answerIndex].appendChild(icon);
+        }
+    }
+}
+
+// مراقبة إجابات الصديق
+function watchOtherAnswers() {
+    if (typeof window.StudyRoom === 'undefined' || !window.StudyRoom.isInRoom || !window.StudyRoom.isInRoom()) {
+        return;
+    }
+    
+    if (window._otherAnswerListeners) {
+        window._otherAnswerListeners.forEach(unsubscribe => {
+            if (typeof unsubscribe === 'function') unsubscribe();
+        });
+    }
+    window._otherAnswerListeners = [];
+    
+    for (let i = 0; i < currentQuestionsCount; i++) {
+        const unsubscribe = window.StudyRoom.getOtherAnswer(i, (otherAnswer) => {
+            if (otherAnswer !== null && otherAnswer !== undefined) {
+                console.log(`📩 إجابة الصديق للسؤال ${i + 1}: ${otherAnswer}`);
+                highlightOtherAnswer(i, otherAnswer);
+            }
+        });
+        if (unsubscribe) {
+            window._otherAnswerListeners.push(unsubscribe);
+        }
+    }
+}
+
+// ============================================
 // دوال الأحداث المباشرة (Live Events)
 // ============================================
 
@@ -44,13 +106,15 @@ async function sendLiveAnswerEvent(questionIndex, answerText, isCorrect) {
         console.log(`⚡ [Live] أرسلت: ${answerText} على السؤال ${questionIndex + 1}`);
     }
 }
-// ✅ أضف الدالة هنا (بعد sendLiveAnswerEvent وقبل glowFriendQuestion)
+
+// تحديث النتيجة في الشريط
 async function updateRoomScore() {
     if (typeof window.updateRoomScore === 'function') {
         await window.updateRoomScore();
         console.log("📊 تم تحديث النتيجة في الشريط");
     }
 }
+
 // توهج سؤال الصديق
 function glowFriendQuestion(questionIndex) {
     document.querySelectorAll('.question-card').forEach(card => {
@@ -744,6 +808,13 @@ function buildTeil1(questions) {
     resultDiv.style.display = "none";
     container.appendChild(resultDiv);
     
+    // بدء مراقبة إجابات الصديق
+    setTimeout(() => {
+        if (typeof watchOtherAnswers === 'function') {
+            watchOtherAnswers();
+        }
+    }, 500);
+    
     console.log(`✅ تم بناء ${questions.length} سؤال مع دعم المراجعة مع صديق`);
 }
 
@@ -1190,3 +1261,7 @@ document.addEventListener("DOMContentLoaded", function() {
     examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
   }
 });
+
+renderTeileList();
+
+console.log("✅ exams.js تم تحميله بنجاح مع دعم المراجعة مع صديق");
