@@ -661,37 +661,30 @@ function displaySavedResult(skill, examId, titleSpan) {
   }
 }
 
-// ========== بناء امتحانات Teil 1 مع الأحداث المباشرة ==========
 function buildTeil1(questions) {
     const container = document.getElementById("teil1");
     if (!container) return;
     container.innerHTML = "";
     
-    currentQuestionsCount = questions.length;
+    // معالجة الأسئلة التي لا تحتوي على options
+    const processedQuestions = questions.map(q => {
+        if (!q.options || !Array.isArray(q.options)) {
+            if (currentExamData && currentExamData.type === "truefalse") {
+                return { ...q, options: ["Richtig", "Falsch"], correct: q.correct === true ? 0 : (q.correct === false ? 1 : q.correct) };
+            }
+            return { ...q, options: ["الخيار 1", "الخيار 2", "الخيار 3"], correct: 0 };
+        }
+        return q;
+    });
+    
+    currentQuestionsCount = processedQuestions.length;
     let userAnswers = {};
     
-    // إيقاف المراقبة القديمة
-    if (liveEventsUnsubscribe) {
-        if (typeof liveEventsUnsubscribe === 'function') liveEventsUnsubscribe();
-        liveEventsUnsubscribe = null;
-    }
-    if (liveQuestionUnsubscribe) {
-        if (typeof liveQuestionUnsubscribe === 'function') liveQuestionUnsubscribe();
-        liveQuestionUnsubscribe = null;
-    }
-    
-    for (let i = 0; i < questions.length; i++) {
-        const q = questions[i];
+    for (let i = 0; i < processedQuestions.length; i++) {
+        const q = processedQuestions[i];
         const card = document.createElement("div");
         card.className = "question-card";
         card.id = "q_" + i;
-        
-        // ✅ عند تمرير الماوس: إرسال "أنا هنا"
-        card.onmouseenter = (function(qIdx) {
-            return function() {
-                sendLiveCurrentQuestion(qIdx);
-            };
-        })(i);
         
         const questionText = document.createElement("div");
         questionText.className = "question-text";
@@ -707,18 +700,20 @@ function buildTeil1(questions) {
             const radioId = "q" + i + "_" + j;
             label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
             
-            // ✅ عند اختيار إجابة: إرسال حدث مباشر
             label.onclick = (function(qIdx, ansIdx) {
                 return async function() {
-                    // حفظ الإجابة محلياً
                     userAnswers[qIdx] = ansIdx;
                     const isCorrect = (ansIdx === q.correct);
                     const answerText = q.options[ansIdx];
                     
-                    // ✅ إرسال الحدث المباشر إلى الغرفة
-                    await sendLiveAnswerEvent(qIdx, answerText, isCorrect);
+                    console.log(`📝 السؤال ${qIdx + 1}: ${answerText}`);
                     
-                    // تغيير لون الإجابة محلياً
+                    // فقط إذا كنا في غرفة
+                    if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
+                        await window.StudyRoom.syncAnswer(qIdx, ansIdx, isCorrect);
+                    }
+                    
+                    // تلوين الإجابة
                     const allOptions = document.querySelectorAll(`#q_${qIdx} .option-label`);
                     allOptions.forEach(btn => {
                         btn.style.background = '';
@@ -728,8 +723,6 @@ function buildTeil1(questions) {
                     label.style.background = isCorrect ? '#c8e6c9' : '#ffcdd2';
                     label.style.border = `2px solid ${isCorrect ? '#4caf50' : '#f44336'}`;
                     label.style.color = '#333';
-                    
-                    console.log(`📝 [محلي] السؤال ${qIdx + 1}: ${answerText} (${isCorrect ? 'صحيح' : 'خطأ'})`);
                 };
             })(i, j);
             
@@ -739,12 +732,11 @@ function buildTeil1(questions) {
         container.appendChild(card);
     }
     
-    // زر التصحيح
     const checkBtn = document.createElement("button");
     checkBtn.innerText = "✅ تصحيح";
     checkBtn.className = "check-btn";
     checkBtn.onclick = function() {
-        checkTeil1(questions, userAnswers);
+        checkTeil1(processedQuestions, userAnswers);
     };
     container.appendChild(checkBtn);
     
@@ -754,17 +746,7 @@ function buildTeil1(questions) {
     resultDiv.style.display = "none";
     container.appendChild(resultDiv);
     
-    // ✅ بدء مراقبة أحداث الصديق
-    setTimeout(() => {
-        startLiveFriendWatching();
-    }, 500);
-    
-    // ✅ إرسال السؤال الأول
-    setTimeout(() => {
-        sendLiveCurrentQuestion(0);
-    }, 1000);
-    
-    console.log(`✅ تم بناء ${questions.length} سؤال مع الأحداث المباشرة Live Events`);
+    console.log(`✅ تم بناء ${processedQuestions.length} سؤال`);
 }
 
 // ========== دالة تصحيح Teil 1 ==========
