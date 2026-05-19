@@ -17,12 +17,8 @@ const firebaseConfig = {
 if (typeof firebase !== 'undefined' && !firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
     console.log("✅ Firebase initialized successfully");
-    console.log("📁 Database URL:", firebaseConfig.databaseURL);
 }
 
-// الحصول على مرجع قاعدة البيانات
 const database = firebase.database();
-
-// جعل الدوال متاحة عالمياً
 window.db = database;
 window.firebaseInitialized = true;
