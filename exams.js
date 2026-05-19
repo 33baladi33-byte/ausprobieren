@@ -1200,4 +1200,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
 renderTeileList();
 
-console.log("✅ exams.js تم تحميله بنجاح مع نظام Live Events والمزامنة المباشرة"); استدعاء الامتحان ليس صحيح
+console.log("✅ exams.js تم تحميله بنجاح مع نظام Live Events والمزامنة المباشرة");
