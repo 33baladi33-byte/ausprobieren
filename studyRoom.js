@@ -1,6 +1,7 @@
 // ============================================
 // studyRoom.js - نظام المراجعة مع صديق
-// مع Presence, Live Events, والمزامنة الكاملة
+// مع Presence, Live Events والمزامنة المباشرة
+// النسخة النهائية - 2025
 // ============================================
 
 (function() {
@@ -158,7 +159,7 @@
                                 <span class="participant-answers" id="otherAnswers">0</span>
                             </div>
                         </div>
-                        <button id="roomReadyBtn" class="room-ready-btn" style="background:#2196f3;color:white;border:none;border-radius:30px;padding:10px;width:100%;margin:10px 0;cursor:pointer">✅ أنا جاهز</button>
+                        <button id="roomReadyBtn" class="room-ready-btn">✅ أنا جاهز</button>
                         <button id="leaveRoomBtn" class="room-leave-btn">🚪 مغادرة الغرفة</button>
                     </div>
                 </div>
@@ -358,7 +359,6 @@
     
     // ========== نظام المزامنة والـ Presence ==========
     
-    // مزامنة الإجابة
     async function syncAnswer(questionIndex, selectedAnswer, isCorrect) {
         if(!currentRoomId || !isInRoom) return;
         let userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
@@ -369,7 +369,6 @@
         if(typeof window.updateRoomScore === 'function') setTimeout(window.updateRoomScore, 100);
     }
     
-    // الحصول على إجابة الصديق
     function getOtherAnswer(questionIndex, callback) {
         if(!currentRoomId || !isInRoom) return () => {};
         let userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
@@ -386,110 +385,142 @@
         });
         return () => window.db.ref(`studyRooms/${currentRoomId}/participants`).off('value', listener);
     }
-
-
-    // ============================================
-// دوال إرسال الأحداث المباشرة (Live Events)
-// ============================================
-
-// إرسال أن المستخدم يراجع سؤالاً معيناً
-async function updateCurrentQuestion(questionIndex) {
-    if (!currentRoomId || !isInRoom) return;
     
-    let userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
-    userEmail = encodeEmail(userEmail);
+    async function updateCurrentQuestion(questionIndex) {
+        if (!currentRoomId || !isInRoom) return;
+        let userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+        userEmail = encodeEmail(userEmail);
+        await window.db.ref(`studyRooms/${currentRoomId}/participants/${userEmail}/currentQuestion`).set({
+            index: questionIndex,
+            timestamp: Date.now()
+        });
+        console.log(`📍 [Presence] أنا الآن في السؤال ${questionIndex + 1}`);
+    }
     
-    await window.db.ref(`studyRooms/${currentRoomId}/participants/${userEmail}/currentQuestion`).set({
-        index: questionIndex,
-        timestamp: Date.now()
-    });
+    async function sendAnswerEvent(questionIndex, answerText, isCorrect) {
+        if (!currentRoomId || !isInRoom) return;
+        const eventData = {
+            userId: currentUserEmail,
+            userName: currentUserName,
+            type: "answer",
+            questionIndex: questionIndex,
+            answer: answerText,
+            isCorrect: isCorrect,
+            timestamp: Date.now()
+        };
+        const eventRef = window.db.ref(`studyRooms/${currentRoomId}/liveEvents/${Date.now()}`);
+        await eventRef.set(eventData);
+        setTimeout(async () => { await eventRef.remove(); }, 3000);
+        console.log(`⚡ [Event] ${currentUserName} أجاب على السؤال ${questionIndex + 1}`);
+    }
     
-    console.log(`📍 [Live] ${currentUserName} الآن في السؤال ${questionIndex + 1}`);
-}
-
-// إرسال حدث اختيار إجابة
-async function sendAnswerEvent(questionIndex, answerText, isCorrect) {
-    if (!currentRoomId || !isInRoom) return;
+    function listenToFriendLiveEvents(callback) {
+        if (!currentRoomId || !isInRoom) return () => {};
+        const eventsRef = window.db.ref(`studyRooms/${currentRoomId}/liveEvents`);
+        const listener = eventsRef.on('child_added', (snapshot) => {
+            const event = snapshot.val();
+            if (event && event.userId !== currentUserEmail) callback(event);
+        });
+        return () => eventsRef.off('child_added', listener);
+    }
     
-    const eventData = {
-        userId: currentUserEmail,
-        userName: currentUserName,
-        type: "answer",
-        questionIndex: questionIndex,
-        answer: answerText,
-        isCorrect: isCorrect,
-        timestamp: Date.now()
+    function listenToFriendCurrentQuestion(callback) {
+        if (!currentRoomId || !isInRoom) return () => {};
+        const participantsRef = window.db.ref(`studyRooms/${currentRoomId}/participants`);
+        const listener = participantsRef.on('value', (snapshot) => {
+            const participants = snapshot.val() || {};
+            for (const email in participants) {
+                if (email !== currentUserEmail) {
+                    const currentQ = participants[email].currentQuestion;
+                    if (currentQ) {
+                        callback({
+                            userName: participants[email].name,
+                            questionIndex: currentQ.index
+                        });
+                    }
+                    break;
+                }
+            }
+        });
+        return () => participantsRef.off('value', listener);
+    }
+    
+    function startReview() {
+        if(roomReady && otherUserReady) {
+            closeRoomModal();
+            alert("🎉 بدء المراجعة! الآن يمكنكما البدء في حل الامتحانات معاً.");
+        } else {
+            alert("⚠️ الرجاء الانتظار حتى يصبح الطرفان جاهزين.");
+        }
+    }
+    
+    // ========== إضافة أزرار الغرفة في صفحة الامتحان ==========
+    function addRoomButtons() {
+        const nav = document.getElementById('examNavButtons');
+        if (!nav) {
+            setTimeout(addRoomButtons, 500);
+            return;
+        }
+        if (document.getElementById('roomBtn')) return;
+        
+        const roomBtn = document.createElement('button');
+        roomBtn.id = 'roomBtn';
+        roomBtn.innerHTML = '👥 مراجعة مع صديق';
+        roomBtn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
+        roomBtn.onclick = () => openRoomModal();
+        nav.appendChild(roomBtn);
+        console.log('👥 زر المراجعة مع صديق جاهز');
+    }
+    
+    // ========== ربط زر المغادرة في الشريط ==========
+    function bindLeaveBarButton() {
+        const leaveBtn = document.getElementById('leaveRoomBarBtn');
+        if (leaveBtn) {
+            leaveBtn.onclick = () => leaveRoom();
+        }
+    }
+    
+    window.updateRoomScore = async function() {
+        if(!currentRoomId || !isInRoom) return;
+        try {
+            const myScore = (await window.db.ref(`studyRooms/${currentRoomId}/participants/${currentUserEmail}/answersCount`).once('value')).val() || 0;
+            const participants = (await window.db.ref(`studyRooms/${currentRoomId}/participants`).once('value')).val() || {};
+            let otherScore = 0;
+            for(const email in participants) if(email !== currentUserEmail) otherScore = participants[email].answersCount || 0;
+            document.getElementById('player1Score') && (document.getElementById('player1Score').textContent = myScore);
+            document.getElementById('player2Score') && (document.getElementById('player2Score').textContent = otherScore);
+        } catch(e) { console.error(e); }
     };
     
-    // حفظ الحدث في مسار مؤقت
-    const eventRef = window.db.ref(`studyRooms/${currentRoomId}/liveEvents/${Date.now()}`);
-    await eventRef.set(eventData);
-    
-    // حذف الحدث بعد 3 ثواني (لتنظيف قاعدة البيانات)
-    setTimeout(async () => {
-        await eventRef.remove();
-    }, 3000);
-    
-    console.log(`⚡ [Live] ${currentUserName} أجاب على السؤال ${questionIndex + 1}`);
-}
-
-// مراقبة أحداث الصديق المباشرة
-function listenToFriendLiveEvents(callback) {
-    if (!currentRoomId || !isInRoom) return () => {};
-    
-    const eventsRef = window.db.ref(`studyRooms/${currentRoomId}/liveEvents`);
-    const listener = eventsRef.on('child_added', (snapshot) => {
-        const event = snapshot.val();
-        if (event && event.userId !== currentUserEmail) {
-            callback(event);
-        }
-    });
-    
-    return () => eventsRef.off('child_added', listener);
-}
-
-// مراقبة السؤال الحالي للصديق
-function listenToFriendCurrentQuestion(callback) {
-    if (!currentRoomId || !isInRoom) return () => {};
-    
-    const participantsRef = window.db.ref(`studyRooms/${currentRoomId}/participants`);
-    const listener = participantsRef.on('value', (snapshot) => {
-        const participants = snapshot.val() || {};
-        for (const email in participants) {
-            if (email !== currentUserEmail) {
-                const currentQ = participants[email].currentQuestion;
-                if (currentQ) {
-                    callback({
-                        userName: participants[email].name,
-                        questionIndex: currentQ.index
-                    });
-                }
-                break;
-            }
-        }
-    });
-    
-    return () => participantsRef.off('value', listener);
-}
-
-// تصدير الدوال الجديدة
-window.StudyRoom = {
-    ...window.StudyRoom,
-    updateCurrentQuestion: updateCurrentQuestion,
-    sendAnswerEvent: sendAnswerEvent,
-    listenToFriendLiveEvents: listenToFriendLiveEvents,
-    listenToFriendCurrentQuestion: listenToFriendCurrentQuestion
-};
+    window.StudyRoom = {
+        syncAnswer: syncAnswer,
+        getOtherAnswer: getOtherAnswer,
+        isInRoom: () => isInRoom,
+        getRoomId: () => currentRoomId,
+        updateCurrentQuestion: updateCurrentQuestion,
+        sendAnswerEvent: sendAnswerEvent,
+        listenToFriendLiveEvents: listenToFriendLiveEvents,
+        listenToFriendCurrentQuestion: listenToFriendCurrentQuestion,
+        startReview: startReview
+    };
     
     document.addEventListener('click', (e) => { if(e.target && e.target.id === 'startReviewBtn') startReview(); });
     
+    // ========== التهيئة ==========
     function init() {
-        if(typeof firebase === 'undefined') { setTimeout(init, 500); return; }
+        if (typeof firebase === 'undefined') {
+            setTimeout(init, 500);
+            return;
+        }
         addRoomButtons();
-        document.getElementById('leaveRoomBarBtn') && (document.getElementById('leaveRoomBarBtn').onclick = () => leaveRoom());
+        bindLeaveBarButton();
         console.log("👥 نظام المراجعة مع صديق جاهز مع Presence و Events");
     }
     
-    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-    else setTimeout(init, 500);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        setTimeout(init, 500);
+    }
+    
 })();
