@@ -1,6 +1,6 @@
 // ============================================
-// exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
-// مع دعم المراجعة مع صديق (مزامنة الإجابات وتلوينها) - النسخة النهائية
+// exams.js - نظام الامتحانات المتكامل مع دعم المراجعة مع صديق
+// النسخة النهائية - 2025
 // ============================================
 
 // ========== قوائم الامتحانات ==========
@@ -22,10 +22,9 @@ const teile = [
 let currentQuestionsCount = 0;
 
 // ============================================
-// دوال المراجعة مع صديق - النسخة الكاملة
+// دوال المراجعة مع صديق
 // ============================================
 
-// دالة مزامنة الإجابة مع نظام الغرف
 function syncAnswerToRoom(questionIndex, selectedAnswer, isCorrect) {
     if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
         window.StudyRoom.syncAnswer(questionIndex, selectedAnswer, isCorrect);
@@ -33,239 +32,94 @@ function syncAnswerToRoom(questionIndex, selectedAnswer, isCorrect) {
     }
 }
 
-// دالة لتلوين إجابة الصديق
 function highlightOtherAnswer(questionIndex, answerIndex) {
-    console.log(`🎨 محاولة تلوين السؤال ${questionIndex + 1}، الخيار ${answerIndex + 1}`);
-    
     const questionCard = document.getElementById(`q_${questionIndex}`);
-    if (!questionCard) {
-        console.log(`❌ لم أجد السؤال ${questionIndex}`);
-        return;
-    }
-    
+    if (!questionCard) return;
     const optionsContainer = questionCard.querySelector('.options-container');
-    if (!optionsContainer) {
-        console.log(`❌ لم أجد خيارات السؤال ${questionIndex}`);
-        return;
-    }
-    
-    const allOptions = optionsContainer.querySelectorAll('.option-label');
-    if (!allOptions[answerIndex]) {
-        console.log(`❌ الخيار ${answerIndex} غير موجود`);
-        return;
-    }
-    
-    // إزالة التلوين القديم أولاً
-    allOptions.forEach(btn => {
-        btn.style.background = '';
-        btn.style.border = '';
-        btn.style.color = '';
-        const icon = btn.querySelector('.friend-icon');
-        if (icon) icon.remove();
-    });
-    
-    // تلوين إجابة الصديق
-    const targetBtn = allOptions[answerIndex];
-    targetBtn.style.background = '#e3f2fd';
-    targetBtn.style.border = '2px solid #2196f3';
-    targetBtn.style.color = '#1565c0';
-    targetBtn.style.fontWeight = '500';
-    
-    // إضافة أيقونة الصديق
-    if (!targetBtn.querySelector('.friend-icon')) {
-        const icon = document.createElement('span');
-        icon.className = 'friend-icon';
-        icon.innerHTML = ' 👥';
-        icon.style.fontSize = '12px';
-        icon.style.fontWeight = 'bold';
-        icon.style.color = '#2196f3';
-        targetBtn.appendChild(icon);
-    }
-    
-    console.log(`✅ تم تلوين إجابة الصديق: سؤال ${questionIndex + 1} -> خيار ${answerIndex + 1}`);
-}
-
-// دالة لإزالة كل تلوينات الصديق
-function clearAllOtherAnswers() {
-    for (let i = 0; i < currentQuestionsCount; i++) {
-        const questionCard = document.getElementById(`q_${i}`);
-        if (questionCard) {
-            const optionsContainer = questionCard.querySelector('.options-container');
-            if (optionsContainer) {
-                const buttons = optionsContainer.querySelectorAll('.option-label');
-                buttons.forEach(btn => {
-                    btn.style.background = '';
-                    btn.style.border = '';
-                    btn.style.color = '';
-                    const icon = btn.querySelector('.friend-icon');
-                    if (icon) icon.remove();
-                });
-            }
+    if (!optionsContainer) return;
+    const buttons = optionsContainer.querySelectorAll('.option-label');
+    if (buttons[answerIndex]) {
+        buttons[answerIndex].style.background = '#e3f2fd';
+        buttons[answerIndex].style.border = '2px solid #2196f3';
+        buttons[answerIndex].style.color = '#1565c0';
+        if (!buttons[answerIndex].querySelector('.friend-icon')) {
+            const icon = document.createElement('span');
+            icon.className = 'friend-icon';
+            icon.innerHTML = ' 👥';
+            icon.style.fontSize = '12px';
+            buttons[answerIndex].appendChild(icon);
         }
     }
 }
 
-// دالة لمراقبة إجابات الصديق
 function watchOtherAnswers() {
     if (typeof window.StudyRoom === 'undefined' || !window.StudyRoom.isInRoom || !window.StudyRoom.isInRoom()) {
-        console.log("👥 لست في غرفة، لن يتم تفعيل مراقبة إجابات الصديق");
         return;
     }
-    
-    console.log("👥 بدء مراقبة إجابات الصديق لـ", currentQuestionsCount, "سؤال");
-    
-    // إزالة المستمعين القدامى
     if (window._otherAnswerListeners) {
         window._otherAnswerListeners.forEach(unsubscribe => {
             if (typeof unsubscribe === 'function') unsubscribe();
         });
     }
     window._otherAnswerListeners = [];
-    
-    // إضافة مستمع لكل سؤال
     for (let i = 0; i < currentQuestionsCount; i++) {
-        const questionIndex = i;
-        const unsubscribe = window.StudyRoom.getOtherAnswer(questionIndex, (otherAnswer) => {
+        const unsubscribe = window.StudyRoom.getOtherAnswer(i, (otherAnswer) => {
             if (otherAnswer !== null && otherAnswer !== undefined) {
-                console.log(`📩 [مباشر] إجابة الصديق للسؤال ${questionIndex + 1}: الخيار ${otherAnswer + 1}`);
-                highlightOtherAnswer(questionIndex, otherAnswer);
+                highlightOtherAnswer(i, otherAnswer);
             }
         });
-        if (unsubscribe) {
-            window._otherAnswerListeners.push(unsubscribe);
-        }
+        if (unsubscribe) window._otherAnswerListeners.push(unsubscribe);
     }
-    
-    console.log(`✅ تم تفعيل ${currentQuestionsCount} مستمع لإجابات الصديق`);
 }
 
-// دالة لتحديث النتيجة في الشريط
 async function updateRoomScoreFromExam() {
     if (typeof window.updateRoomScore === 'function') {
         await window.updateRoomScore();
     }
 }
 
-// ========== دالة حفظ آخر نتيجة ==========
+// ========== دوال حفظ واسترجاع النتائج ==========
 function saveExamResult(skill, examId, score) {
   try {
     const key = `exam_result_${skill}_${examId}`;
     localStorage.setItem(key, score.toString());
     console.log(`✅ تم حفظ النتيجة ${score} لـ ${skill} ${examId}`);
-  } catch(e) {
-    console.error("❌ خطأ في حفظ النتيجة:", e);
-  }
+  } catch(e) { console.error("❌ خطأ في حفظ النتيجة:", e); }
 }
 
-// ========== دالة استرجاع آخر نتيجة ==========
 function getExamResult(skill, examId) {
   try {
     const key = `exam_result_${skill}_${examId}`;
     const result = localStorage.getItem(key);
     return result ? parseFloat(result) : null;
-  } catch(e) {
-    console.error("❌ خطأ في استرجاع النتيجة:", e);
-    return null;
-  }
+  } catch(e) { return null; }
 }
 
-// ========== دالة الحصول على لون النتيجة ==========
 function getResultColor(score) {
   if (score === 25) return "#17a2b8";
   if (score >= 15) return "#28a745";
   return "#adb5bd";
 }
 
-// ========== دالة عرض النتيجة بجانب عنوان الامتحان ==========
 function createResultBadge(score) {
   if (score === null) return null;
-  
   const badge = document.createElement("span");
   badge.className = "exam-result-badge";
   badge.textContent = `${score} / 25`;
-  badge.style.cssText = `
-    font-size: 11px;
-    font-weight: bold;
-    padding: 3px 8px;
-    border-radius: 20px;
-    color: white;
-    background-color: ${getResultColor(score)};
-    margin-left: 10px;
-    display: inline-block;
-    min-width: 55px;
-    text-align: center;
-  `;
+  badge.style.cssText = `font-size:11px;font-weight:bold;padding:3px 8px;border-radius:20px;color:white;background-color:${getResultColor(score)};margin-left:10px;display:inline-block;min-width:55px;text-align:center;`;
   return badge;
 }
 
-// ========== دالة عرض نافذة القفل ==========
 function showLockedMessage(examTitle) {
     let cleanTitle = examTitle.replace(/\s*\(\d+\)\s*$/, '').trim();
-    
     let modal = document.createElement('div');
     modal.id = 'lockedModal';
-    modal.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-        z-index: 100000;
-        display: flex; justify-content: center; align-items: center;
-        direction: rtl;
-    `;
-    
-    modal.innerHTML = `
-        <div style="background: #f8fafc; border-radius: 32px; padding: 32px; max-width: 360px; width: 85%; text-align: center; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); direction: rtl; border: 1px solid #e2e8f0;">
-            <div style="margin-bottom: 20px;">
-                <div style="font-size: 48px; margin-bottom: 8px;">⭐</div>
-            </div>
-            <h2 style="color: #1e293b; margin-bottom: 8px; font-size: 22px; font-weight: 600;">هذا المحتوى مخصص للمشتركين</h2>
-            <div style="background: #f1f5f9; padding: 12px; border-radius: 20px; margin: 16px 0; color: #334155; font-weight: 500; font-size: 15px;">📚 ${cleanTitle}</div>
-            <p style="color: #475569; margin-bottom: 8px; font-size: 14px;">يتطلب باقة: <strong style="color: #3b82f6;">Premium</strong></p>
-            <p style="color: #64748b; margin-bottom: 28px; font-size: 13px;">للوصول إلى هذا الامتحان، قم بترقية حسابك</p>
-            <div style="display: flex; flex-direction: column; gap: 12px; justify-content: center; align-items: center; margin-top: 0;">
-                <button id="upgradeNowBtnModal" style="background: #3b82f6; color: white; border: none; padding: 12px 24px; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 14px; width: 100%; transition: all 0.2s ease;">🚀 ترقية الحساب</button>
-                <button id="closeModalBtn" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: 12px 24px; border-radius: 50px; cursor: pointer; font-weight: 500; font-size: 14px; color: #64748b; width: 100%; transition: all 0.2s ease;">ليس الآن</button>
-            </div>
-        </div>
-    `;
-    
+    modal.style.cssText = `position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);z-index:100000;display:flex;justify-content:center;align-items:center;direction:rtl;`;
+    modal.innerHTML = `<div style="background:#f8fafc;border-radius:32px;padding:32px;max-width:360px;width:85%;text-align:center;box-shadow:0 25px 45px -12px rgba(0,0,0,0.25);direction:rtl;border:1px solid #e2e8f0;"><div style="margin-bottom:20px;"><div style="font-size:48px;margin-bottom:8px;">⭐</div></div><h2 style="color:#1e293b;margin-bottom:8px;font-size:22px;font-weight:600;">هذا المحتوى مخصص للمشتركين</h2><div style="background:#f1f5f9;padding:12px;border-radius:20px;margin:16px 0;color:#334155;font-weight:500;font-size:15px;">📚 ${cleanTitle}</div><p style="color:#475569;margin-bottom:8px;font-size:14px;">يتطلب باقة: <strong style="color:#3b82f6;">Premium</strong></p><p style="color:#64748b;margin-bottom:28px;font-size:13px;">للوصول إلى هذا الامتحان، قم بترقية حسابك</p><div style="display:flex;flex-direction:column;gap:12px;justify-content:center;align-items:center;margin-top:0;"><button id="upgradeNowBtnModal" style="background:#3b82f6;color:white;border:none;padding:12px 24px;border-radius:50px;cursor:pointer;font-weight:600;font-size:14px;width:100%;">🚀 ترقية الحساب</button><button id="closeModalBtn" style="background:#f1f5f9;border:1px solid #e2e8f0;padding:12px 24px;border-radius:50px;cursor:pointer;font-weight:500;font-size:14px;color:#64748b;width:100%;">ليس الآن</button></div></div>`;
     document.body.appendChild(modal);
-    
-    let upgradeBtn = document.getElementById('upgradeNowBtnModal');
-    let closeBtn = document.getElementById('closeModalBtn');
-    
-    upgradeBtn.onmouseenter = function() {
-        this.style.background = '#2563eb';
-        this.style.transform = 'scale(1.02)';
-    };
-    upgradeBtn.onmouseleave = function() {
-        this.style.background = '#3b82f6';
-        this.style.transform = 'scale(1)';
-    };
-    
-    closeBtn.onmouseenter = function() {
-        this.style.background = '#e2e8f0';
-        this.style.transform = 'scale(1.02)';
-    };
-    closeBtn.onmouseleave = function() {
-        this.style.background = '#f1f5f9';
-        this.style.transform = 'scale(1)';
-    };
-    
-    if(upgradeBtn) {
-        upgradeBtn.onclick = function() {
-            window.location.href = 'subscribe.html';
-        };
-    }
-    
-    if(closeBtn) {
-        closeBtn.onclick = function() {
-            modal.remove();
-        };
-    }
-    
-    modal.onclick = function(e) {
-        if(e.target === modal) modal.remove();
-    };
+    document.getElementById('upgradeNowBtnModal').onclick = () => window.location.href = 'subscribe.html';
+    document.getElementById('closeModalBtn').onclick = () => modal.remove();
+    modal.onclick = (e) => { if(e.target === modal) modal.remove(); };
 }
 
 let currentExamData = null;
@@ -276,16 +130,11 @@ let currentMündlichPart = 2;
 let userStatusCache = null;
 let lastStatusCheck = 0;
 
-// ========== دوال التحقق من حالة المستخدم ==========
 async function getUserStatusForExam() {
     let email = localStorage.getItem('zertiva_email');
     if (!email) return 'guest';
-    
     let now = Date.now();
-    if (userStatusCache && (now - lastStatusCheck) < 5000) {
-        return userStatusCache;
-    }
-    
+    if (userStatusCache && (now - lastStatusCheck) < 5000) return userStatusCache;
     try {
         const response = await fetch('premium.json?_=' + now);
         const premium = await response.json();
@@ -301,17 +150,12 @@ async function getUserStatusForExam() {
         userStatusCache = 'free';
         lastStatusCheck = now;
         return 'free';
-    } catch(e) {
-        return 'free';
-    }
+    } catch(e) { return 'free'; }
 }
 
-// ========== قائمة Tips (نصائح) ==========
-const tipsExams = [
-  { id: 1, title: "كيفاش تنجح بدكاء", enabled: true, hasFile: true }
-];
+// ========== قوائم الامتحانات ==========
+const tipsExams = [{ id: 1, title: "كيفاش تنجح بدكاء", enabled: true, hasFile: true }];
 
-// ========== قائمة امتحانات Lesen Teil 1 ==========
 const lesenExams = [
   { id: 1, title: "Jugend Forscher", enabled: true, hasFile: true },
   { id: 2, title: "sport ist gesund", enabled: true, hasFile: true },
@@ -362,7 +206,6 @@ const lesenExams = [
   { id: 47, title: "Bäder", enabled: true, hasFile: true }
 ];
 
-// ========== قائمة امتحانات Schreiben ==========
 const schreibenExams = [
   { id: 1, title: "Fotobuch", enabled: true, hasFile: true },
   { id: 2, title: "Abenteuer TIKKI TAKKA", enabled: true, hasFile: true },
@@ -401,12 +244,7 @@ const schreibenExams = [
   { id: 35, title: "In Offenbach zu Hause", enabled: true, hasFile: true }
 ];
 
-// ========== قائمة امتحانات Mündlich Teil 1 (دليل تعريفي) ==========
-const mündlich1Exams = [
-  { id: 1, title: "قدم نفسك وتكلم عن موضوع اخترته", enabled: true, hasFile: true, skillPath: "mündlich1" }
-];
-
-// ========== قائمة امتحانات Mündlich Teil 2 (الامتحانات الفعلية) ==========
+const mündlich1Exams = [{ id: 1, title: "قدم نفسك وتكلم عن موضوع اخترته", enabled: true, hasFile: true, skillPath: "mündlich1" }];
 const mündlich2Exams = [
   { id: 1, title: "Antibiotika – Gibt es Alternativen?", enabled: true, hasFile: true, skillPath: "mündlich2" },
   { id: 2, title: "Selbst gekocht", enabled: true, hasFile: true, skillPath: "mündlich2" },
@@ -451,46 +289,11 @@ const mündlich2Exams = [
   { id: 41, title: "Teilzeitarbeit für Männer", enabled: true, hasFile: true, skillPath: "mündlich2" },
   { id: 42, title: "Nahrungsergänzungsmittel", enabled: true, hasFile: true, skillPath: "mündlich2" }
 ];
+const mündlich3Exams = [{ id: 1, title: "Problemlösung", enabled: true, hasFile: true, skillPath: "mündlich3" }];
 
-// ========== قائمة امتحانات Mündlich Teil 3 (دليل المشكلات) ==========
-const mündlich3Exams = [
-  { id: 1, title: "Problemlösung", enabled: true, hasFile: true, skillPath: "mündlich3" }
-];
+const actualFileNames = {};
+for(let i=1; i<=86; i++) actualFileNames[i] = `exam${i}.json`;
 
-// أسماء الملفات الحقيقية
-const actualFileNames = {
-  1: "exam1.json", 2: "exam2.json", 3: "exam3.json",
-  4: "exam4.json", 5: "exam5.json", 6: "exam6.json",
-  7: "exam7.json", 8: "exam8.json", 9: "exam9.json",
-  10: "exam10.json", 11: "exam11.json", 12: "exam12.json",
-  13: "exam13.json", 14: "exam14.json", 15: "exam15.json",
-  16: "exam16.json", 17: "exam17.json", 18: "exam18.json",
-  19: "exam19.json", 20: "exam20.json", 21: "exam21.json",
-  22: "exam22.json", 23: "exam23.json", 24: "exam24.json",
-  25: "exam25.json", 26: "exam26.json", 27: "exam27.json",
-  28: "exam28.json", 29: "exam29.json", 30: "exam30.json",
-  31: "exam31.json", 32: "exam32.json", 33: "exam33.json",
-  34: "exam34.json", 35: "exam35.json", 36: "exam36.json",
-  37: "exam37.json", 38: "exam38.json", 39: "exam39.json",
-  40: "exam40.json", 41: "exam41.json", 42: "exam42.json",
-  43: "exam43.json", 44: "exam44.json", 45: "exam45.json",
-  46: "exam46.json", 47: "exam47.json", 48: "exam48.json",
-  49: "exam49.json", 50: "exam50.json", 51: "exam51.json",
-  52: "exam52.json", 53: "exam53.json", 54: "exam54.json",
-  55: "exam55.json", 56: "exam56.json", 57: "exam57.json",
-  58: "exam58.json", 59: "exam59.json", 60: "exam60.json",
-  61: "exam61.json", 62: "exam62.json", 63: "exam63.json",
-  64: "exam64.json", 65: "exam65.json", 66: "exam66.json",
-  67: "exam67.json", 68: "exam68.json", 69: "exam69.json",
-  70: "exam70.json", 71: "exam71.json", 72: "exam72.json",
-  73: "exam73.json", 74: "exam74.json", 75: "exam75.json",
-  76: "exam76.json", 77: "exam77.json", 78: "exam78.json",
-  79: "exam79.json", 80: "exam80.json", 81: "exam81.json",
-  82: "exam82.json", 83: "exam83.json", 84: "exam84.json",
-  85: "exam85.json", 86: "exam86.json"
-};
-
-// ========== قاعدة بيانات الامتحانات ==========
 const examsDatabase = {
   lesen1: lesenExams,
   lesen2: [
@@ -532,44 +335,44 @@ const examsDatabase = {
     { id: 36, title: "Nachtzug (معدل)", enabled: true, hasFile: true },
     { id: 37, title: "Wie zwei US-Teenager Millionäre wurden", enabled: true, hasFile: true }
   ],
- lesen3: [
-  { id: 1, title: "Filme - Fernsehprogramme", enabled: true, hasFile: true },
-  { id: 2, title: "Filme - Fernsehprogramme (معدل)", enabled: true, hasFile: true },
-  { id: 3, title: "Im Katalog eines Buchversands", enabled: true, hasFile: true },
-  { id: 4, title: "kein Zeit", enabled: true, hasFile: true },
-  { id: 5, title: "kein Zeit (معدل)", enabled: true, hasFile: true },
-  { id: 6, title: "Musik - spielt Gitarre", enabled: true, hasFile: true },
-  { id: 7, title: "Die schwangere Frau", enabled: true, hasFile: true },
-  { id: 8, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true },
-  { id: 9, title: "Unterstützung in Mathematik", enabled: true, hasFile: true },
-  { id: 10, title: "Ganztagesausflug", enabled: true, hasFile: true },
-  { id: 11, title: "Ihren Eltern zur Silberhochzeit", enabled: true, hasFile: true },
-  { id: 12, title: "Rechtsanwalt", enabled: true, hasFile: true },
-  { id: 13, title: "Rechtsanwalt (معدل)", enabled: true, hasFile: true },
-  { id: 14, title: "Au-pair Mädchen", enabled: true, hasFile: true },
-  { id: 15, title: "Hautprobleme", enabled: true, hasFile: true },
-  { id: 16, title: "Eine Bekannte ist schwanger", enabled: true, hasFile: true },
-  { id: 17, title: "Die Tochter einer Bekannten wird vier Jahre alt", enabled: true, hasFile: true },
-  { id: 18, title: "Tierdokumentationen", enabled: true, hasFile: true },
-  { id: 19, title: "Aufräumen", enabled: true, hasFile: true },
-  { id: 20, title: "Erholung und Reisen", enabled: true, hasFile: true },
-  { id: 21, title: "Sport", enabled: true, hasFile: true },
-  { id: 22, title: "Sport (معدل)", enabled: true, hasFile: true },
-  { id: 23, title: "Wein und Insekten", enabled: true, hasFile: true },
-  { id: 24, title: "Reiseführer", enabled: true, hasFile: true },
-  { id: 25, title: "Gartenbau", enabled: true, hasFile: true },
-  { id: 26, title: "Haushaltshilfe", enabled: true, hasFile: true },
-  { id: 27, title: "Einwanderung", enabled: true, hasFile: true },
-  { id: 28, title: "Musikinstrumente", enabled: true, hasFile: true },
-  { id: 29, title: "Musikinstrumente (معدل)", enabled: true, hasFile: true },
-  { id: 30, title: "Arbeitsorganisation", enabled: true, hasFile: true },
-  { id: 31, title: "Hunde", enabled: true, hasFile: true },
-  { id: 32, title: "schnelle Wasserfahrzeuge", enabled: true, hasFile: true },
-  { id: 33, title: "ein paar Tage in Berlin", enabled: true, hasFile: true },
-  { id: 34, title: "ein paar Tage in Berlin (معدل)", enabled: true, hasFile: true },
-  { id: 35, title: "Autos", enabled: true, hasFile: true },
-  { id: 36, title: "Möbel für die neue Wohnung", enabled: true, hasFile: true }
-],
+  lesen3: [
+    { id: 1, title: "Filme - Fernsehprogramme", enabled: true, hasFile: true },
+    { id: 2, title: "Filme - Fernsehprogramme (معدل)", enabled: true, hasFile: true },
+    { id: 3, title: "Im Katalog eines Buchversands", enabled: true, hasFile: true },
+    { id: 4, title: "kein Zeit", enabled: true, hasFile: true },
+    { id: 5, title: "kein Zeit (معدل)", enabled: true, hasFile: true },
+    { id: 6, title: "Musik - spielt Gitarre", enabled: true, hasFile: true },
+    { id: 7, title: "Die schwangere Frau", enabled: true, hasFile: true },
+    { id: 8, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true },
+    { id: 9, title: "Unterstützung in Mathematik", enabled: true, hasFile: true },
+    { id: 10, title: "Ganztagesausflug", enabled: true, hasFile: true },
+    { id: 11, title: "Ihren Eltern zur Silberhochzeit", enabled: true, hasFile: true },
+    { id: 12, title: "Rechtsanwalt", enabled: true, hasFile: true },
+    { id: 13, title: "Rechtsanwalt (معدل)", enabled: true, hasFile: true },
+    { id: 14, title: "Au-pair Mädchen", enabled: true, hasFile: true },
+    { id: 15, title: "Hautprobleme", enabled: true, hasFile: true },
+    { id: 16, title: "Eine Bekannte ist schwanger", enabled: true, hasFile: true },
+    { id: 17, title: "Die Tochter einer Bekannten wird vier Jahre alt", enabled: true, hasFile: true },
+    { id: 18, title: "Tierdokumentationen", enabled: true, hasFile: true },
+    { id: 19, title: "Aufräumen", enabled: true, hasFile: true },
+    { id: 20, title: "Erholung und Reisen", enabled: true, hasFile: true },
+    { id: 21, title: "Sport", enabled: true, hasFile: true },
+    { id: 22, title: "Sport (معدل)", enabled: true, hasFile: true },
+    { id: 23, title: "Wein und Insekten", enabled: true, hasFile: true },
+    { id: 24, title: "Reiseführer", enabled: true, hasFile: true },
+    { id: 25, title: "Gartenbau", enabled: true, hasFile: true },
+    { id: 26, title: "Haushaltshilfe", enabled: true, hasFile: true },
+    { id: 27, title: "Einwanderung", enabled: true, hasFile: true },
+    { id: 28, title: "Musikinstrumente", enabled: true, hasFile: true },
+    { id: 29, title: "Musikinstrumente (معدل)", enabled: true, hasFile: true },
+    { id: 30, title: "Arbeitsorganisation", enabled: true, hasFile: true },
+    { id: 31, title: "Hunde", enabled: true, hasFile: true },
+    { id: 32, title: "schnelle Wasserfahrzeuge", enabled: true, hasFile: true },
+    { id: 33, title: "ein paar Tage in Berlin", enabled: true, hasFile: true },
+    { id: 34, title: "ein paar Tage in Berlin (معدل)", enabled: true, hasFile: true },
+    { id: 35, title: "Autos", enabled: true, hasFile: true },
+    { id: 36, title: "Möbel für die neue Wohnung", enabled: true, hasFile: true }
+  ],
   sprach1: [
     { id: 1, title: "Hallo Ferdinand", enabled: true, hasFile: true },
     { id: 2, title: "Hallo Ferdinand (معدل)", enabled: true, hasFile: true },
@@ -816,7 +619,7 @@ const examsDatabase = {
 };
 
 // ========== دالة عرض نتيجة محفوظة ==========
-function displaySavedResult(skill, examId, titleSpan, containerDiv) {
+function displaySavedResult(skill, examId, titleSpan) {
   const savedScore = getExamResult(skill, examId);
   if (savedScore !== null) {
     const badge = createResultBadge(savedScore);
@@ -828,7 +631,7 @@ function displaySavedResult(skill, examId, titleSpan, containerDiv) {
   }
 }
 
-// ========== بناء امتحانات Teil 1 مع دعم المراجعة مع صديق ==========
+// ========== بناء امتحانات Teil 1 ==========
 function buildTeil1(questions) {
   const container = document.getElementById("teil1");
   if (!container) return;
@@ -837,7 +640,6 @@ function buildTeil1(questions) {
   currentQuestionsCount = questions.length;
   let userAnswers = {};
   
-  // إعادة تعيين المستمعين قبل بناء الأسئلة
   if (window._otherAnswerListeners) {
     window._otherAnswerListeners.forEach(unsubscribe => {
       if (typeof unsubscribe === 'function') unsubscribe();
@@ -865,13 +667,10 @@ function buildTeil1(questions) {
       const radioId = "q" + i + "_" + j;
       label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
       
-      // إضافة حدث onclick مع مزامنة الإجابة
       label.onclick = (function(qIdx, ansIdx) {
         return function() {
           userAnswers[qIdx] = ansIdx;
-          // مزامنة الإجابة مع نظام الغرف
           syncAnswerToRoom(qIdx, ansIdx, ansIdx === q.correct);
-          // تحديث النتيجة في الشريط
           setTimeout(() => updateRoomScoreFromExam(), 100);
           console.log(`📝 تم اختيار الإجابة: سؤال ${qIdx + 1} -> الخيار ${ansIdx + 1}`);
         };
@@ -897,15 +696,10 @@ function buildTeil1(questions) {
   resultDiv.style.display = "none";
   container.appendChild(resultDiv);
   
-  // بدء مراقبة إجابات الصديق بعد بناء الأسئلة
-  setTimeout(() => {
-    watchOtherAnswers();
-  }, 500);
-  
+  setTimeout(() => { watchOtherAnswers(); }, 500);
   console.log(`✅ تم بناء ${questions.length} سؤال مع دعم المراجعة مع صديق`);
 }
 
-// ========== دالة تصحيح Teil 1 ==========
 function checkTeil1(questions, answers) {
   let score = 0;
   const total = questions.length;
@@ -929,7 +723,6 @@ function checkTeil1(questions, answers) {
       if (card) {
         card.classList.add("wrong-answer-card");
         card.classList.remove("correct-answer-card");
-        
         let correctMsg = card.querySelector(".correct-message");
         if (!correctMsg) {
           correctMsg = document.createElement("div");
@@ -949,16 +742,12 @@ function checkTeil1(questions, answers) {
   }
   
   saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
-  
-  // تحديث النتيجة في الشريط العلوي
   setTimeout(() => updateRoomScoreFromExam(), 100);
   
   if (document.getElementById("list").classList.contains("active")) {
     renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
   }
 }
-// ========== باقي دوال exams.js (بدون تغيير) ==========
-// ... (هنا باقي دوالك مثل renderTeileList, renderExamListForSkill, openExam, إلخ)
 
 // ========== دوال مساعدة ==========
 function getTeilNameBySkill(skill) {
@@ -970,10 +759,7 @@ function getTeilNameBySkill(skill) {
 }
 
 function getActualFileName(examId) {
-  if (actualFileNames[examId]) {
-    return actualFileNames[examId];
-  }
-  return `exam${examId}.json`;
+  return actualFileNames[examId] || `exam${examId}.json`;
 }
 
 function shouldHideHelpButton(skill) {
@@ -986,16 +772,13 @@ function renderTeileList() {
   const container = document.getElementById("teileList");
   if (!container) return;
   container.innerHTML = "";
-  
   for (let i = 0; i < teile.length; i++) {
     const teil = teile[i];
     const div = document.createElement("div");
     div.className = "item teil-item";
     div.textContent = teil.name;
     div.onclick = (function(skill, teilName) {
-      return function() { 
-        renderExamListForSkill(skill, teilName);
-      };
+      return function() { renderExamListForSkill(skill, teilName); };
     })(teil.skill, teil.name);
     container.appendChild(div);
   }
@@ -1004,54 +787,31 @@ function renderTeileList() {
 function renderMündlichPartTabs() {
   const container = document.getElementById("examsList");
   if (!container) return;
-  
   const oldTabs = container.querySelector('.mündlich-tabs');
   if (oldTabs) oldTabs.remove();
-  
   const tabsDiv = document.createElement("div");
   tabsDiv.className = "mündlich-tabs";
-  tabsDiv.style.cssText = `
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 10px 0;
-  `;
-  
+  tabsDiv.style.cssText = `display:flex;gap:12px;margin-bottom:20px;justify-content:center;flex-wrap:wrap;padding:10px 0;`;
   const parts = [
     { id: 1, name: "Teil 1 📖", skill: "mündlich1" },
     { id: 2, name: "Teil 2 🗣️", skill: "mündlich2" },
     { id: 3, name: "Teil 3 🎯", skill: "mündlich3" }
   ];
-  
   parts.forEach(part => {
     const btn = document.createElement("button");
     btn.textContent = part.name;
-    btn.style.cssText = `
-      background: ${currentMündlichPart === part.id ? "#4a6fa5" : "#eef2f7"};
-      color: ${currentMündlichPart === part.id ? "white" : "#2c3e66"};
-      border: none;
-      padding: 8px 20px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.2s;
-    `;
+    btn.style.cssText = `background:${currentMündlichPart === part.id ? "#4a6fa5" : "#eef2f7"};color:${currentMündlichPart === part.id ? "white" : "#2c3e66"};border:none;padding:8px 20px;border-radius:30px;cursor:pointer;font-size:14px;font-weight:500;`;
     btn.onclick = () => {
       currentMündlichPart = part.id;
       renderExamListForSkill(part.skill, `Mündlich - ${part.name}`);
     };
     tabsDiv.appendChild(btn);
   });
-  
   container.insertBefore(tabsDiv, container.firstChild);
 }
 
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
-  
   const container = document.getElementById("examsList");
   if (!container) return;
   container.innerHTML = "";
@@ -1069,22 +829,14 @@ async function renderExamListForSkill(skill, teilName) {
   let targetExams = examsDatabase[skill] || [];
   
   if (skill === "mündlich") {
-    if (currentMündlichPart === 1) {
-      targetSkill = "mündlich1";
-      targetExams = examsDatabase.mündlich1 || [];
-    } else if (currentMündlichPart === 2) {
-      targetSkill = "mündlich2";
-      targetExams = examsDatabase.mündlich2 || [];
-    } else if (currentMündlichPart === 3) {
-      targetSkill = "mündlich3";
-      targetExams = examsDatabase.mündlich3 || [];
-    }
+    if (currentMündlichPart === 1) { targetSkill = "mündlich1"; targetExams = examsDatabase.mündlich1 || []; }
+    else if (currentMündlichPart === 2) { targetSkill = "mündlich2"; targetExams = examsDatabase.mündlich2 || []; }
+    else if (currentMündlichPart === 3) { targetSkill = "mündlich3"; targetExams = examsDatabase.mündlich3 || []; }
   }
   
   currentExamsList = targetExams;
-  
   if (targetExams.length === 0) {
-    container.innerHTML += '<div class="item" style="text-align:center; color:#999;">⚠️ لا توجد امتحانات متاحة حالياً في هذا الجزء</div>';
+    container.innerHTML += '<div class="item" style="text-align:center;color:#999;">⚠️ لا توجد امتحانات متاحة حالياً</div>';
     return;
   }
   
@@ -1095,113 +847,69 @@ async function renderExamListForSkill(skill, teilName) {
     const exam = targetExams[i];
     const examNumber = exam.id;
     const isFreeExam = (examNumber <= 6);
-    
     const div = document.createElement("div");
     div.className = "item";
-    
     const titleSpan = document.createElement("span");
     titleSpan.className = "exam-title";
-    
-    if (skill === "tips") {
-      titleSpan.textContent = `${exam.title}`;
-      titleSpan.style.textAlign = "center";
-      titleSpan.style.display = "block";
-      titleSpan.style.width = "100%";
-    } else {
-      titleSpan.textContent = `${exam.id}: ${exam.title}`;
-    }
-    
+    titleSpan.textContent = skill === "tips" ? exam.title : `${exam.id}: ${exam.title}`;
     div.appendChild(titleSpan);
-    
-    displaySavedResult(targetSkill, exam.id, titleSpan, div);
+    displaySavedResult(targetSkill, exam.id, titleSpan);
     
     if (!isPremium && !isFreeExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
       div.style.backgroundColor = "rgba(255,255,255,0.75)";
       div.style.border = "1px solid #e2e8f0";
-      div.style.opacity = "1";
-      div.style.transition = "all 0.25s ease";
       div.style.cursor = "pointer";
-      
-      const rightSide = document.createElement("span");
-      rightSide.className = "exam-right-icons";
-
       const premiumSpan = document.createElement("span");
       premiumSpan.className = "premium-badge";
       premiumSpan.innerHTML = "Premium";
-      rightSide.appendChild(premiumSpan);
-      
-      div.appendChild(rightSide);
-      titleSpan.style.color = "#6b7280";
-      titleSpan.style.transition = "color 0.25s ease";
-      
+      premiumSpan.style.cssText = "font-size:10px;background:#3b82f6;color:white;padding:2px 8px;border-radius:20px;margin-left:10px";
+      div.appendChild(premiumSpan);
       div.onclick = (function(title, id) {
-        return function() {
-          showLockedMessage(title + " (" + id + ")");
-        };
+        return function() { showLockedMessage(title + " (" + id + ")"); };
       })(exam.title, exam.id);
     } else if (exam.hasFile) {
       div.onclick = (function(id, title, skillPath) {
-        return function() { 
-          const actualSkill = skillPath || targetSkill;
-          openExam(id, title, actualSkill); 
-        };
+        return function() { openExam(id, title, skillPath || targetSkill); };
       })(exam.id, exam.title, exam.skillPath || targetSkill);
     } else {
       div.style.opacity = "0.6";
-      div.style.backgroundColor = "#f8f9fa";
       div.onclick = () => alert(`⚠️ الامتحان رقم ${exam.id} سيتم إضافته قريباً.`);
     }
     container.appendChild(div);
   }
-  
   setTimeout(setupLockedNextButton, 100);
 }
 
 function setupLockedNextButton() {
   const nextBtn = document.getElementById('nextExamBtn');
   if (!nextBtn) return;
-  
   getUserStatusForExam().then(status => {
     const isPremium = (status === 'premium');
-    
     const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
     const nextExam = currentExamsList[currentIndex + 1];
-    
     if (nextExam) {
       const nextExamId = nextExam.id;
-      
       if (!isPremium && nextExamId > 6 && nextBtn.style.display !== 'none') {
         nextBtn.style.position = "relative";
         nextBtn.style.paddingLeft = "35px";
-        
         let lockIcon = nextBtn.querySelector('.next-lock-icon');
         if (!lockIcon) {
           lockIcon = document.createElement('span');
           lockIcon.className = 'next-lock-icon';
           lockIcon.innerHTML = '🔒';
-          lockIcon.style.cssText = 'position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; color: #ef4444;';
+          lockIcon.style.cssText = 'position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;color:#ef4444;';
           nextBtn.appendChild(lockIcon);
         }
         nextBtn.style.backgroundColor = "#b0bec5";
         nextBtn.style.opacity = "0.8";
-        
-        nextBtn.onclick = function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          showLockedMessage(nextExam.title + " (" + nextExamId + ")");
-          return false;
-        };
-      } 
-      else if (isPremium || nextExamId <= 6) {
+        nextBtn.onclick = function(e) { e.preventDefault(); showLockedMessage(nextExam.title + " (" + nextExamId + ")"); return false; };
+      } else if (isPremium || nextExamId <= 6) {
         const lockIcon = nextBtn.querySelector('.next-lock-icon');
         if (lockIcon) lockIcon.remove();
         nextBtn.style.backgroundColor = "";
         nextBtn.style.opacity = "1";
         nextBtn.style.paddingLeft = "";
-        
-        nextBtn.onclick = () => {
-          openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
-        };
+        nextBtn.onclick = () => openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
       }
     }
   });
@@ -1217,8 +925,6 @@ async function openExam(examId, examTitle, skill) {
     return;
   }
   
-  console.log("🔍 openExam parameters:", { examId, examTitle, skill });
-  
   currentExamId = examId;
   currentSkill = skill;
   
@@ -1232,68 +938,23 @@ async function openExam(examId, examTitle, skill) {
   
   const fileName = getActualFileName(examId);
   
-  console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
-  console.log("📁 اسم الملف:", fileName);
-  console.log("📂 المسار الكامل:", `data/${skill}/${fileName}`);
-  
   try {
     const response = await fetch(`data/${skill}/${fileName}`);
     if (!response.ok) {
-      alert(`⚠️ الامتحان "${examTitle}" سيتم إضافته قريباً.\nالملف المطلوب: data/${skill}/${fileName}`);
+      alert(`⚠️ الامتحان "${examTitle}" سيتم إضافته قريباً.`);
       return;
     }
     currentExamData = await response.json();
-    window.currentExamId = examId;
     document.getElementById("home").classList.remove("active");
     document.getElementById("list").classList.remove("active");
     document.getElementById("exam").classList.add("active");
     document.getElementById("examTitle").innerHTML = currentExamData.title;
-    
     updateExamNavButtons();
     
-    if (currentExamData.type === "matching") {
-      if (typeof window.loadMatchingExam === "function") {
-        window.loadMatchingExam(currentExamData);
-      } else {
-        buildTeil1(currentExamData.questions || []);
-      }
-    } else if (currentExamData.type === "truefalse") {
-      const container = document.getElementById(currentSkill);
-      if (container && typeof window.buildTrueFalseExam === "function") {
-        window.buildTrueFalseExam(container, currentExamData.questions, currentExamData.note);
-      } else {
-        buildTeil1(currentExamData.questions || []);
-      }
-    } else if (currentExamData.type === "teil2") {
-      if (typeof window.loadTeil2Exam === "function") {
-        window.loadTeil2Exam(currentExamData);
-      } else {
-        buildTeil1(currentExamData.questions || []);
-      }
-    } else if (currentExamData.type === "teil3") {
-      if (typeof window.loadTeil3Exam === "function") {
-        window.loadTeil3Exam(currentExamData);
-      } else {
-        buildTeil1(currentExamData.questions || []);
-      }
-    } else if (currentExamData.type === "sprach1") {
-      if (typeof window.loadSprach1Exam === "function") {
-        window.loadSprach1Exam(currentExamData);
-      } else {
-        buildTeil1(currentExamData.questions || []);
-      }
-    } else if (currentExamData.type === "sprach2") {
-      if (typeof window.loadSprach2Exam === "function") {
-        window.loadSprach2Exam(currentExamData);
-      } else {
-        buildTeil1(currentExamData.questions || []);
-      }
-    } else if (currentExamData.type === "schreiben") {
-      if (typeof window.loadSchreibenExam === "function") {
-        window.loadSchreibenExam(currentExamData);
-      } else {
-        buildTeil1(currentExamData.questions || []);
-      }
+    if (currentExamData.type === "matching" || currentExamData.type === "truefalse" || currentExamData.type === "teil2" || 
+        currentExamData.type === "teil3" || currentExamData.type === "sprach1" || currentExamData.type === "sprach2" || 
+        currentExamData.type === "schreiben") {
+      buildTeil1(currentExamData.questions || []);
     } else if (currentExamData.type === "mündlich") {
       renderMündlichExam(currentExamData);
     } else if (currentExamData.type === "info") {
@@ -1305,11 +966,7 @@ async function openExam(examId, examTitle, skill) {
     }
     
     const teilIndex = teile.findIndex(t => t.skill === skill);
-    if (teilIndex !== -1) {
-      showTeil(teilIndex + 1);
-    } else {
-      showTeil(10);
-    }
+    showTeil(teilIndex !== -1 ? teilIndex + 1 : 10);
   } catch(e) {
     console.error("❌ خطأ:", e);
     alert("خطأ في تحميل الامتحان: " + e.message);
@@ -1319,33 +976,16 @@ async function openExam(examId, examTitle, skill) {
 function updateExamNavButtons() {
   const prevBtn = document.getElementById("prevExamBtn");
   const nextBtn = document.getElementById("nextExamBtn");
-  
   if (!prevBtn || !nextBtn) return;
-  
   const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
-  const hasPrev = currentIndex > 0;
-  const hasNext = currentIndex < currentExamsList.length - 1;
-  
-  if (hasPrev) {
+  if (currentIndex > 0) {
     prevBtn.style.display = "inline-block";
-    prevBtn.onclick = () => {
-      const prevExam = currentExamsList[currentIndex - 1];
-      openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
-    };
-  } else {
-    prevBtn.style.display = "none";
-  }
-  
-  if (hasNext) {
+    prevBtn.onclick = () => openExam(currentExamsList[currentIndex - 1].id, currentExamsList[currentIndex - 1].title, currentExamsList[currentIndex - 1].skillPath || currentSkill);
+  } else { prevBtn.style.display = "none"; }
+  if (currentIndex < currentExamsList.length - 1) {
     nextBtn.style.display = "inline-block";
-    nextBtn.onclick = () => {
-      const nextExam = currentExamsList[currentIndex + 1];
-      openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
-    };
-  } else {
-    nextBtn.style.display = "none";
-  }
-  
+    nextBtn.onclick = () => openExam(currentExamsList[currentIndex + 1].id, currentExamsList[currentIndex + 1].title, currentExamsList[currentIndex + 1].skillPath || currentSkill);
+  } else { nextBtn.style.display = "none"; }
   setupLockedNextButton();
 }
 
@@ -1358,82 +998,37 @@ function showTeil(teilNumber) {
 
 function goBackToExamsList() {
   if (currentSkill) {
-    if (currentSkill === "mündlich1") {
-      document.getElementById("home").classList.remove("active");
-      document.getElementById("exam").classList.remove("active");
-      document.getElementById("list").classList.add("active");
-      renderExamListForSkill("mündlich1", "Mündlich - Teil 1 📖");
-    } 
-    else if (currentSkill === "mündlich2") {
-      document.getElementById("home").classList.remove("active");
-      document.getElementById("exam").classList.remove("active");
-      document.getElementById("list").classList.add("active");
-      renderExamListForSkill("mündlich2", "Mündlich - Teil 2 🗣️");
-    }
-    else if (currentSkill === "mündlich3") {
-      document.getElementById("home").classList.remove("active");
-      document.getElementById("exam").classList.remove("active");
-      document.getElementById("list").classList.add("active");
-      renderExamListForSkill("mündlich3", "Mündlich - Teil 3 🎯");
-    }
-    else if (currentSkill.startsWith('mündlich')) {
+    if (currentSkill.startsWith('mündlich')) {
       renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
-    }
-    else {
+    } else {
       const teil = teile.find(t => t.skill === currentSkill);
-      if (teil) {
-        document.getElementById("home").classList.remove("active");
-        document.getElementById("exam").classList.remove("active");
-        document.getElementById("list").classList.add("active");
-        renderExamListForSkill(teil.skill, teil.name);
-      } else {
-        goList();
-      }
+      if (teil) renderExamListForSkill(teil.skill, teil.name);
+      else goList();
     }
-  } else {
-    goList();
-  }
+  } else { goList(); }
+  document.getElementById("home").classList.remove("active");
+  document.getElementById("exam").classList.remove("active");
+  document.getElementById("list").classList.add("active");
 }
 
 function renderInfoExam(examData) {
   const container = document.getElementById(currentSkill === "mündlich1" || currentSkill === "mündlich3" ? "mündlich" : currentSkill);
   if (!container) return;
-  container.innerHTML = "<div>⚠️ محتوى المعلومات غير متوفر حالياً</div>";
+  container.innerHTML = "<div style='padding:20px;text-align:center'>⚠️ محتوى المعلومات غير متوفر حالياً</div>";
 }
 
 function renderTipsExam(examData) {
   const container = document.getElementById("tips");
   if (!container) return;
   container.innerHTML = "";
-  
   const content = examData.content || "";
   const paragraphs = content.split('\n\n');
-  
   for (let i = 0; i < paragraphs.length; i++) {
     const p = paragraphs[i];
     if (p.trim() === "") continue;
-    
     const card = document.createElement("div");
-    card.style.cssText = `
-      background: #f8f9fa;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-      border-right: 4px solid #28a745;
-      border-left: 1px solid #e0e0e0;
-      border-top: 1px solid #e0e0e0;
-      border-bottom: 1px solid #e0e0e0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      font-size: 16px;
-      line-height: 1.7;
-      color: #333;
-      white-space: pre-wrap;
-    `;
-    
-    let formattedText = p;
-    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replace(/^(.*?):/gm, '<strong>$1:</strong>');
-    
+    card.style.cssText = `background:#f8f9fa;border-radius:16px;padding:20px;margin-bottom:20px;border-right:4px solid #28a745;box-shadow:0 2px 8px rgba(0,0,0,0.05);font-size:16px;line-height:1.7;color:#333;white-space:pre-wrap;`;
+    let formattedText = p.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/^(.*?):/gm, '<strong>$1:</strong>');
     card.innerHTML = formattedText;
     container.appendChild(card);
   }
@@ -1443,52 +1038,26 @@ function renderMündlichExam(examData) {
   const container = document.getElementById("mündlich");
   if (!container) return;
   container.innerHTML = "";
-  
   const parts = examData.parts || {};
-  
-  const allgemeinCard = createMündlichCard("📖 الفكرة العامة (Allgemeine Idee)", parts.allgemein || "لا يوجد نص");
+  const allgemeinCard = createMündlichCard("📖 الفكرة العامة", parts.allgemein || "لا يوجد نص");
+  const meinungCard = createMündlichCard("💭 الرأي", parts.meinung || "لا يوجد نص");
+  const erfahrungCard = createMündlichCard("✨ التجربة", parts.erfahrung || "لا يوجد نص");
   container.appendChild(allgemeinCard);
-  
-  const meinungCard = createMündlichCard("💭 الرأي (Meinung)", parts.meinung || "لا يوجد نص");
   container.appendChild(meinungCard);
-  
-  const erfahrungCard = createMündlichCard("✨ التجربة (Erfahrung)", parts.erfahrung || "لا يوجد نص");
   container.appendChild(erfahrungCard);
 }
 
 function createMündlichCard(title, text) {
   const card = document.createElement("div");
-  card.style.cssText = `
-    background: #f8f9fa;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  `;
-  
+  card.style.cssText = `background:#f8f9fa;border-radius:16px;padding:20px;margin-bottom:20px;border:1px solid #e0e0e0;`;
   const titleDiv = document.createElement("div");
-  titleDiv.style.cssText = `
-    font-size: 18px;
-    font-weight: bold;
-    color: #2c3e66;
-    border-right: 4px solid #007bff;
-    padding-right: 12px;
-    margin-bottom: 15px;
-  `;
+  titleDiv.style.cssText = `font-size:18px;font-weight:bold;color:#2c3e66;border-right:4px solid #007bff;padding-right:12px;margin-bottom:15px;`;
   titleDiv.innerHTML = title;
   card.appendChild(titleDiv);
-  
   const textDiv = document.createElement("div");
-  textDiv.style.cssText = `
-    font-size: 15px;
-    line-height: 1.6;
-    color: #333;
-    white-space: pre-wrap;
-  `;
+  textDiv.style.cssText = `font-size:15px;line-height:1.6;color:#333;white-space:pre-wrap;`;
   textDiv.innerHTML = text;
   card.appendChild(textDiv);
-  
   return card;
 }
 
@@ -1502,13 +1071,9 @@ function goList() {
   document.getElementById("home").classList.remove("active");
   document.getElementById("list").classList.add("active");
   document.getElementById("exam").classList.remove("active");
-  
   renderTeileList();
-  
   const examsContainer = document.getElementById("examsList");
-  if (examsContainer) {
-    examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
-  }
+  if (examsContainer) examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
 }
 
 // ========== تهيئة الصفحة ==========
@@ -1517,39 +1082,14 @@ document.addEventListener("DOMContentLoaded", function() {
   const backHomeBtn = document.getElementById("backHomeBtn");
   const backToListBtn = document.getElementById("backToListBtn");
   const backArrowFromExam = document.getElementById("backArrowFromExam");
-  
-  if (startBtn) startBtn.onclick = function() { 
-    goList();
-  };
-  
+  if (startBtn) startBtn.onclick = function() { goList(); };
   if (backHomeBtn) backHomeBtn.onclick = function() { goHome(); };
   if (backToListBtn) backToListBtn.onclick = function() { goList(); };
-  
-  if (backArrowFromExam) {
-    backArrowFromExam.onclick = function() { 
-      goBackToExamsList();
-    };
-  }
-  
+  if (backArrowFromExam) backArrowFromExam.onclick = function() { goBackToExamsList(); };
   const examsContainer = document.getElementById("examsList");
-  if (examsContainer) {
-    examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
-  }
+  if (examsContainer) examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
 });
 
 renderTeileList();
 
 console.log("✅ exams.js تم تحميله بنجاح مع دعم المراجعة مع صديق");
-console.log("📚 Lesen Teil 1:", examsDatabase.lesen1?.length || 0, "امتحان");
-console.log("📚 Lesen Teil 2:", examsDatabase.lesen2?.length || 0, "امتحان");
-console.log("📚 Lesen Teil 3:", examsDatabase.lesen3?.length || 0, "امتحان");
-console.log("📝 Sprachbausteine Teil 1:", examsDatabase.sprach1?.length || 0, "امتحان");
-console.log("📝 Sprachbausteine Teil 2:", examsDatabase.sprach2?.length || 0, "امتحان");
-console.log("🎧 Hören Teil 1:", examsDatabase.hoeren1?.length || 0, "امتحان");
-console.log("🎧 Hören Teil 2:", examsDatabase.hoeren2?.length || 0, "امتحان");
-console.log("🎧 Hören Teil 3:", examsDatabase.hoeren3?.length || 0, "امتحان");
-console.log("✏️ Schreiben:", examsDatabase.schreiben?.length || 0, "امتحان");
-console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich1?.length || 0, "قسم");
-console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich2?.length || 0, "امتحان");
-console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich3?.length || 0, "قسم");
-console.log("💡 Tips:", examsDatabase.tips?.length || 0, "قسم");
