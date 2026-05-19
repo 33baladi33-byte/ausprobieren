@@ -24,8 +24,7 @@ let currentQuestionsCount = 0;
 let currentActiveQuestion = 0;
 let liveEventsUnsubscribe = null;
 let liveQuestionUnsubscribe = null;
-// ========== متغيرات المراجعة مع صديق ==========
-let currentQuestionsCount = 0;
+
 // ============================================
 // دوال الأحداث المباشرة (Live Events)
 // ============================================
