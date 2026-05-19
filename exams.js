@@ -1063,17 +1063,20 @@ async function openExam(examId, examTitle, skill) {
   
 
 const fileName = getActualFileName(examId);
+const filePath = `data/${skill}/${fileName}`;
+
+console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
+console.log("📁 اسم الملف:", fileName);
+console.log("📂 المسار الكامل:", filePath);
+
+try {
+  const response = await fetch(filePath);
+  if (!response.ok) {
+    console.error(`❌ فشل تحميل الملف: ${filePath} - Status: ${response.status}`);
+    alert(`⚠️ الامتحان "${examTitle}" غير متوفر حالياً.\nالملف المطلوب: ${filePath}`);
+    return;
+  } 
   
-  console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
-  console.log("📁 اسم الملف:", fileName);
-  console.log("📂 المسار الكامل:", `data/${skill}/${fileName}`);
-  
-  try {
-    const response = await fetch(`data/${skill}/${fileName}`);
-    if (!response.ok) {
-      alert(`⚠️ الامتحان "${examTitle}" سيتم إضافته قريباً.\nالملف المطلوب: data/${skill}/${fileName}`);
-      return;
-    }
     currentExamData = await response.json();
     window.currentExamId = examId;
     document.getElementById("home").classList.remove("active");
