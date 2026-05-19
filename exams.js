@@ -24,7 +24,8 @@ let currentQuestionsCount = 0;
 let currentActiveQuestion = 0;
 let liveEventsUnsubscribe = null;
 let liveQuestionUnsubscribe = null;
-
+// ========== متغيرات المراجعة مع صديق ==========
+let currentQuestionsCount = 0;
 // ============================================
 // دوال الأحداث المباشرة (Live Events)
 // ============================================
@@ -666,6 +667,8 @@ function displaySavedResult(skill, examId, titleSpan) {
     }
   }
 }
+
+// ========== بناء امتحانات Teil 1 مع دعم المراجعة مع صديق ==========
 function buildTeil1(questions) {
     const container = document.getElementById("teil1");
     if (!container) return;
@@ -674,31 +677,11 @@ function buildTeil1(questions) {
     currentQuestionsCount = questions.length;
     let userAnswers = {};
     
-    // إيقاف المراقبة القديمة
-    if (liveEventsUnsubscribe) {
-        if (typeof liveEventsUnsubscribe === 'function') liveEventsUnsubscribe();
-        liveEventsUnsubscribe = null;
-    }
-    if (liveQuestionUnsubscribe) {
-        if (typeof liveQuestionUnsubscribe === 'function') liveQuestionUnsubscribe();
-        liveQuestionUnsubscribe = null;
-    }
-    
     for (let i = 0; i < questions.length; i++) {
         const q = questions[i];
         const card = document.createElement("div");
         card.className = "question-card";
         card.id = "q_" + i;
-        
-        // ✅ عند تمرير الماوس: إرسال "أنا هنا"
-        card.onmouseenter = (function(qIdx) {
-            return function() {
-                if (typeof sendLiveCurrentQuestion === 'function') {
-                    sendLiveCurrentQuestion(qIdx);
-                }
-                console.log(`🖱️ تمرير الماوس على السؤال ${qIdx + 1}`);
-            };
-        })(i);
         
         const questionText = document.createElement("div");
         questionText.className = "question-text";
@@ -714,24 +697,19 @@ function buildTeil1(questions) {
             const radioId = "q" + i + "_" + j;
             label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
             
-            // ✅ عند اختيار إجابة
+            // ✅ إرسال الإجابة إلى الغرفة
             label.onclick = (function(qIdx, ansIdx) {
                 return async function() {
-                    // حفظ الإجابة محلياً
                     userAnswers[qIdx] = ansIdx;
                     const isCorrect = (ansIdx === q.correct);
                     const answerText = q.options[ansIdx];
                     
-                    console.log(`📝 [محلي] السؤال ${qIdx + 1}: ${answerText} (${isCorrect ? 'صحيح' : 'خطأ'})`);
+                    console.log(`📝 السؤال ${qIdx + 1}: ${answerText} (${isCorrect ? 'صحيح' : 'خطأ'})`);
                     
-                    // ✅ إرسال الحدث المباشر إلى الغرفة
-                    if (typeof sendLiveAnswerEvent === 'function') {
-                        await sendLiveAnswerEvent(qIdx, answerText, isCorrect);
-                    }
-                    
-                    // ✅ مزامنة الإجابة مع الغرفة (للحفظ)
+                    // ✅ إرسال إلى StudyRoom إذا كان موجوداً
                     if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
                         await window.StudyRoom.syncAnswer(qIdx, ansIdx, isCorrect);
+                        console.log(`📡 تم إرسال الإجابة إلى الغرفة: سؤال ${qIdx + 1}`);
                     }
                     
                     // تغيير لون الإجابة محلياً
@@ -744,11 +722,6 @@ function buildTeil1(questions) {
                     label.style.background = isCorrect ? '#c8e6c9' : '#ffcdd2';
                     label.style.border = `2px solid ${isCorrect ? '#4caf50' : '#f44336'}`;
                     label.style.color = '#333';
-                    
-                    // تحديث النتيجة في الشريط
-                    if (typeof updateRoomScore === 'function') {
-                        setTimeout(() => updateRoomScore(), 100);
-                    }
                 };
             })(i, j);
             
@@ -758,14 +731,11 @@ function buildTeil1(questions) {
         container.appendChild(card);
     }
     
-    // زر التصحيح
     const checkBtn = document.createElement("button");
     checkBtn.innerText = "✅ تصحيح";
     checkBtn.className = "check-btn";
     checkBtn.onclick = function() {
-        if (typeof checkTeil1 === 'function') {
-            checkTeil1(questions, userAnswers);
-        }
+        checkTeil1(questions, userAnswers);
     };
     container.appendChild(checkBtn);
     
@@ -775,71 +745,57 @@ function buildTeil1(questions) {
     resultDiv.style.display = "none";
     container.appendChild(resultDiv);
     
-    // ✅ بدء مراقبة أحداث الصديق
-    setTimeout(() => {
-        if (typeof startLiveFriendWatching === 'function') {
-            startLiveFriendWatching();
-        }
-        console.log("👥 بدء مراقبة أحداث الصديق");
-    }, 500);
-    
-    // ✅ إرسال السؤال الأول
-    setTimeout(() => {
-        if (typeof sendLiveCurrentQuestion === 'function') {
-            sendLiveCurrentQuestion(0);
-        }
-    }, 1000);
-    
-    console.log(`✅ تم بناء ${questions.length} سؤال مع الأحداث المباشرة Live Events`);
+    console.log(`✅ تم بناء ${questions.length} سؤال مع دعم المراجعة مع صديق`);
 }
 
 // ========== دالة تصحيح Teil 1 ==========
 function checkTeil1(questions, answers) {
-  let score = 0;
-  const total = questions.length;
-  const pointsPerQuestion = 25 / total;
-  
-  for (let i = 0; i < questions.length; i++) {
-    const q = questions[i];
-    const card = document.getElementById("q_" + i);
-    const userAnswer = answers[i];
-    const isCorrect = (userAnswer === q.correct);
+    let score = 0;
+    const total = questions.length;
+    const pointsPerQuestion = 25 / total;
     
-    if (isCorrect) {
-      score++;
-      if (card) {
-        card.classList.add("correct-answer-card");
-        card.classList.remove("wrong-answer-card");
-        const oldMsg = card.querySelector(".correct-message");
-        if (oldMsg) oldMsg.remove();
-      }
-    } else {
-      if (card) {
-        card.classList.add("wrong-answer-card");
-        card.classList.remove("correct-answer-card");
-        let correctMsg = card.querySelector(".correct-message");
-        if (!correctMsg) {
-          correctMsg = document.createElement("div");
-          correctMsg.className = "correct-message";
-          card.appendChild(correctMsg);
+    for (let i = 0; i < questions.length; i++) {
+        const q = questions[i];
+        const card = document.getElementById("q_" + i);
+        const userAnswer = answers[i];
+        const isCorrect = (userAnswer === q.correct);
+        
+        if (isCorrect) {
+            score++;
+            if (card) {
+                card.classList.add("correct-answer-card");
+                card.classList.remove("wrong-answer-card");
+                const oldMsg = card.querySelector(".correct-message");
+                if (oldMsg) oldMsg.remove();
+            }
+        } else {
+            if (card) {
+                card.classList.add("wrong-answer-card");
+                card.classList.remove("correct-answer-card");
+                
+                let correctMsg = card.querySelector(".correct-message");
+                if (!correctMsg) {
+                    correctMsg = document.createElement("div");
+                    correctMsg.className = "correct-message";
+                    card.appendChild(correctMsg);
+                }
+                correctMsg.innerHTML = "✅ الإجابة الصحيحة: " + q.options[q.correct];
+            }
         }
-        correctMsg.innerHTML = "✅ الإجابة الصحيحة: " + q.options[q.correct];
-      }
     }
-  }
-  
-  const finalScore = (score * pointsPerQuestion).toFixed(2);
-  const resultDiv = document.getElementById("teil1Result");
-  if (resultDiv) {
-    resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
-    resultDiv.style.display = "block";
-  }
-  
-  saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
-  
-  if (document.getElementById("list").classList.contains("active")) {
-    renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
-  }
+    
+    const finalScore = (score * pointsPerQuestion).toFixed(2);
+    const resultDiv = document.getElementById("teil1Result");
+    if (resultDiv) {
+        resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
+        resultDiv.style.display = "block";
+    }
+    
+    saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
+    
+    if (document.getElementById("list").classList.contains("active")) {
+        renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
+    }
 }
 
 // ========== دوال مساعدة ==========
