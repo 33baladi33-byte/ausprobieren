@@ -483,7 +483,29 @@
         </div>
     </div>
 </div>
-
+<!-- شريط الغرفة العلوي (يظهر فقط عند وجود غرفة نشطة) -->
+<div id="roomStatusBar" class="room-status-bar" style="display: none;">
+    <div class="room-status-bar-content">
+        <div class="room-status-info">
+            <span class="room-status-icon">👥</span>
+            <span class="room-status-code" id="roomStatusCode"></span>
+        </div>
+        <div class="room-players-status">
+            <div class="player-status" id="player1Status">
+                <span class="player-icon">👤</span>
+                <span class="player-name" id="player1Name">أنت</span>
+                <span class="player-score" id="player1Score">0</span>
+            </div>
+            <span class="vs-icon">⚔️</span>
+            <div class="player-status" id="player2Status">
+                <span class="player-icon">👥</span>
+                <span class="player-name" id="player2Name">في انتظار صديق</span>
+                <span class="player-score" id="player2Score">0</span>
+            </div>
+        </div>
+        <button id="leaveRoomBarBtn" class="leave-room-bar-btn">🚪 مغادرة</button>
+    </div>
+</div>
 <div id="settingsModal" class="settings-modal">
     <div class="settings-modal-content">
         <div class="settings-modal-header">
