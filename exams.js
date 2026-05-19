@@ -1,6 +1,6 @@
 // ============================================
 // exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
-// مع دعم المراجعة مع صديق (مزامنة الإجابات وتلوينها)
+// مع دعم المراجعة مع صديق (مزامنة الإجابات وتلوينها) - النسخة النهائية
 // ============================================
 
 // ========== قوائم الامتحانات ==========
@@ -55,7 +55,7 @@ function highlightOtherAnswer(questionIndex, answerIndex) {
         return;
     }
     
-    // إزالة التلوين القديم أولاً (لنفس السؤال فقط)
+    // إزالة التلوين القديم أولاً
     allOptions.forEach(btn => {
         btn.style.background = '';
         btn.style.border = '';
@@ -105,7 +105,7 @@ function clearAllOtherAnswers() {
     }
 }
 
-// دالة لمراقبة إجابات الصديق (النسخة المحسنة)
+// دالة لمراقبة إجابات الصديق
 function watchOtherAnswers() {
     if (typeof window.StudyRoom === 'undefined' || !window.StudyRoom.isInRoom || !window.StudyRoom.isInRoom()) {
         console.log("👥 لست في غرفة، لن يتم تفعيل مراقبة إجابات الصديق");
@@ -125,7 +125,6 @@ function watchOtherAnswers() {
     // إضافة مستمع لكل سؤال
     for (let i = 0; i < currentQuestionsCount; i++) {
         const questionIndex = i;
-        
         const unsubscribe = window.StudyRoom.getOtherAnswer(questionIndex, (otherAnswer) => {
             if (otherAnswer !== null && otherAnswer !== undefined) {
                 console.log(`📩 [مباشر] إجابة الصديق للسؤال ${questionIndex + 1}: الخيار ${otherAnswer + 1}`);
@@ -838,7 +837,7 @@ function buildTeil1(questions) {
   currentQuestionsCount = questions.length;
   let userAnswers = {};
   
-  // ✅ إعادة تعيين المستمعين قبل بناء الأسئلة
+  // إعادة تعيين المستمعين قبل بناء الأسئلة
   if (window._otherAnswerListeners) {
     window._otherAnswerListeners.forEach(unsubscribe => {
       if (typeof unsubscribe === 'function') unsubscribe();
@@ -866,7 +865,7 @@ function buildTeil1(questions) {
       const radioId = "q" + i + "_" + j;
       label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
       
-      // ✅ إضافة حدث onclick مع مزامنة الإجابة
+      // إضافة حدث onclick مع مزامنة الإجابة
       label.onclick = (function(qIdx, ansIdx) {
         return function() {
           userAnswers[qIdx] = ansIdx;
@@ -898,7 +897,7 @@ function buildTeil1(questions) {
   resultDiv.style.display = "none";
   container.appendChild(resultDiv);
   
-  // ✅ بدء مراقبة إجابات الصديق بعد بناء الأسئلة
+  // بدء مراقبة إجابات الصديق بعد بناء الأسئلة
   setTimeout(() => {
     watchOtherAnswers();
   }, 500);
@@ -951,18 +950,17 @@ function checkTeil1(questions, answers) {
   
   saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
   
-  // ✅ تحديث النتيجة في الشريط العلوي
+  // تحديث النتيجة في الشريط العلوي
   setTimeout(() => updateRoomScoreFromExam(), 100);
   
   if (document.getElementById("list").classList.contains("active")) {
     renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
   }
 }
-
 // ========== باقي دوال exams.js (بدون تغيير) ==========
 // ... (هنا باقي دوالك مثل renderTeileList, renderExamListForSkill, openExam, إلخ)
 
-// الدوال المساعدة
+// ========== دوال مساعدة ==========
 function getTeilNameBySkill(skill) {
   if (skill === "mündlich1") return "Mündlich - Teil 1 📖";
   if (skill === "mündlich2") return "Mündlich - Teil 2 🗣️";
@@ -1542,16 +1540,16 @@ document.addEventListener("DOMContentLoaded", function() {
 renderTeileList();
 
 console.log("✅ exams.js تم تحميله بنجاح مع دعم المراجعة مع صديق");
-console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
-console.log("📚 Lesen Teil 2:", examsDatabase.lesen2.length, "امتحان");
-console.log("📚 Lesen Teil 3:", examsDatabase.lesen3.length, "امتحان");
-console.log("📝 Sprachbausteine Teil 1:", examsDatabase.sprach1.length, "امتحان");
-console.log("📝 Sprachbausteine Teil 2:", examsDatabase.sprach2.length, "امتحان");
-console.log("🎧 Hören Teil 1:", examsDatabase.hoeren1.length, "امتحان");
-console.log("🎧 Hören Teil 2:", examsDatabase.hoeren2.length, "امتحان");
-console.log("🎧 Hören Teil 3:", examsDatabase.hoeren3.length, "امتحان");
-console.log("✏️ Schreiben:", examsDatabase.schreiben.length, "امتحان");
-console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich1.length, "قسم");
-console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich2.length, "امتحان");
-console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich3.length, "قسم");
-console.log("💡 Tips:", examsDatabase.tips.length, "قسم");
+console.log("📚 Lesen Teil 1:", examsDatabase.lesen1?.length || 0, "امتحان");
+console.log("📚 Lesen Teil 2:", examsDatabase.lesen2?.length || 0, "امتحان");
+console.log("📚 Lesen Teil 3:", examsDatabase.lesen3?.length || 0, "امتحان");
+console.log("📝 Sprachbausteine Teil 1:", examsDatabase.sprach1?.length || 0, "امتحان");
+console.log("📝 Sprachbausteine Teil 2:", examsDatabase.sprach2?.length || 0, "امتحان");
+console.log("🎧 Hören Teil 1:", examsDatabase.hoeren1?.length || 0, "امتحان");
+console.log("🎧 Hören Teil 2:", examsDatabase.hoeren2?.length || 0, "امتحان");
+console.log("🎧 Hören Teil 3:", examsDatabase.hoeren3?.length || 0, "امتحان");
+console.log("✏️ Schreiben:", examsDatabase.schreiben?.length || 0, "امتحان");
+console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich1?.length || 0, "قسم");
+console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich2?.length || 0, "امتحان");
+console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich3?.length || 0, "قسم");
+console.log("💡 Tips:", examsDatabase.tips?.length || 0, "قسم");
