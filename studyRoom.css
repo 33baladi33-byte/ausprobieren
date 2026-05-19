@@ -1,0 +1,335 @@
+/* ========================================
+   studyRoom.css - نظام المراجعة مع صديق
+   ======================================== */
+
+/* زر المراجعة مع صديق */
+#roomBtn {
+    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+    border: 1px solid rgba(100, 150, 200, 0.3);
+    border-radius: 30px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s ease;
+    margin-left: 10px;
+}
+
+#roomBtn:hover {
+    background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
+    transform: translateY(-1px);
+}
+
+/* نافذة الغرفة */
+.room-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    z-index: 10050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.room-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.room-modal-container {
+    background: linear-gradient(145deg, #1a1a2e, #0f0f1a);
+    border-radius: 28px;
+    max-width: 480px;
+    width: 90%;
+    max-height: 85vh;
+    margin: 20px;
+    border: 1px solid rgba(100, 150, 200, 0.25);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.room-modal-overlay.active .room-modal-container {
+    transform: scale(1);
+}
+
+.room-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(44, 62, 102, 0.2);
+}
+
+.room-modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.close-room-modal {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-room-modal:hover {
+    background: rgba(255, 100, 100, 0.3);
+    transform: rotate(90deg);
+}
+
+.room-modal-body {
+    padding: 20px 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.room-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.room-tab {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    color: #a0a0a0;
+    border-radius: 30px;
+    transition: all 0.2s;
+}
+
+.room-tab.active {
+    background: rgba(93, 173, 226, 0.2);
+    color: #5dade2;
+}
+
+.room-tab-content {
+    display: none;
+}
+
+.room-tab-content.active {
+    display: block;
+}
+
+.room-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.room-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.room-text {
+    color: #c0c0c0;
+    font-size: 0.85rem;
+}
+
+.room-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(100, 150, 200, 0.3);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 1rem;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.room-input:focus {
+    outline: none;
+    border-color: #5dade2;
+}
+
+.room-btn-primary {
+    width: 100%;
+    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+    border: 1px solid rgba(100, 150, 200, 0.3);
+    border-radius: 40px;
+    padding: 12px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.room-btn-primary:hover {
+    background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
+    border-color: #5dade2;
+    transform: translateY(-1px);
+}
+
+.room-code-display {
+    text-align: center;
+    padding: 15px;
+    background: rgba(93, 173, 226, 0.1);
+    border-radius: 20px;
+    border: 1px solid rgba(93, 173, 226, 0.3);
+}
+
+.room-code-label {
+    font-size: 0.8rem;
+    color: #a0a0a0;
+    margin-bottom: 5px;
+}
+
+.room-code-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #5dade2;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.room-copy-btn {
+    background: rgba(93, 173, 226, 0.2);
+    border: 1px solid #5dade2;
+    border-radius: 30px;
+    padding: 6px 12px;
+    color: #5dade2;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.room-error {
+    background: rgba(220, 53, 69, 0.2);
+    border: 1px solid #dc3545;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+
+.room-status {
+    margin-top: 10px;
+}
+
+.room-status-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    margin-bottom: 15px;
+}
+
+.room-status-icon {
+    font-size: 1rem;
+}
+
+.room-status-text {
+    color: #d0d0d0;
+    font-size: 0.85rem;
+}
+
+.room-participants {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.participant-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    border: 1px solid rgba(100, 150, 200, 0.15);
+}
+
+.participant-icon {
+    font-size: 1.2rem;
+}
+
+.participant-name {
+    flex: 1;
+    margin-left: 10px;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+.participant-answers {
+    background: rgba(93, 173, 226, 0.2);
+    padding: 4px 10px;
+    border-radius: 20px;
+    color: #5dade2;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.room-leave-btn {
+    width: 100%;
+    background: rgba(220, 53, 69, 0.2);
+    border: 1px solid #dc3545;
+    border-radius: 40px;
+    padding: 10px;
+    color: #dc3545;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.room-leave-btn:hover {
+    background: rgba(220, 53, 69, 0.3);
+    transform: translateY(-1px);
+}
+
+.room-modal-footer {
+    background: rgba(44, 62, 102, 0.2);
+    padding: 12px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    font-size: 0.7rem;
+    color: #777;
+}
+
+@media (max-width: 550px) {
+    .room-modal-container {
+        width: 95%;
+    }
+    .room-modal-body {
+        padding: 15px 18px;
+    }
+}

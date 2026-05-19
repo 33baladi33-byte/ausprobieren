@@ -1,0 +1,510 @@
+// ============================================
+// studyRoom.js - نظام المراجعة مع صديق
+// مزامنة مباشرة وخفيفة للإجابات
+// ============================================
+
+(function() {
+    "use strict";
+    
+    // ========== متغيرات الحالة ==========
+    let currentRoomId = null;
+    let currentUserName = null;
+    let currentUserEmail = null;
+    let isInRoom = false;
+    let roomListener = null;
+    let answerListener = null;
+    let lastActivityTime = Date.now();
+    let activityInterval = null;
+    
+    // ========== عناصر واجهة المستخدم ==========
+    let roomModal = null;
+    
+    // ========== إنشاء نافذة الغرفة ==========
+    function createRoomModal() {
+        if (document.getElementById('roomModal')) return;
+        
+        const modal = document.createElement('div');
+        modal.id = 'roomModal';
+        modal.className = 'room-modal-overlay';
+        modal.innerHTML = `
+            <div class="room-modal-container">
+                <div class="room-modal-header">
+                    <h3>👥 المراجعة مع صديق</h3>
+                    <button class="close-room-modal">✕</button>
+                </div>
+                <div class="room-modal-body">
+                    <div class="room-tabs">
+                        <button class="room-tab active" data-tab="create">🌟 إنشاء غرفة</button>
+                        <button class="room-tab" data-tab="join">🔗 انضم إلى غرفة</button>
+                    </div>
+                    
+                    <div class="room-tab-content active" id="createRoomTab">
+                        <div class="room-info">
+                            <div class="room-icon">🏠</div>
+                            <div class="room-text">أنشئ غرفة جديدة وادعُ صديقك للمراجعة معاً</div>
+                        </div>
+                        <button id="createRoomBtn" class="room-btn-primary">🌟 إنشاء غرفة جديدة</button>
+                        <div id="createdRoomCode" class="room-code-display" style="display: none;">
+                            <div class="room-code-label">رمز الغرفة:</div>
+                            <div class="room-code-value" id="roomCodeValue"></div>
+                            <button id="copyRoomCodeBtn" class="room-copy-btn">📋 نسخ الرمز</button>
+                        </div>
+                    </div>
+                    
+                    <div class="room-tab-content" id="joinRoomTab">
+                        <div class="room-info">
+                            <div class="room-icon">🤝</div>
+                            <div class="room-text">أدخل رمز الغرفة للانضمام إلى صديقك</div>
+                        </div>
+                        <input type="text" id="roomCodeInput" class="room-input" placeholder="مثال: B2-4721" maxlength="10">
+                        <button id="joinRoomBtn" class="room-btn-primary">🔗 انضم إلى الغرفة</button>
+                        <div id="joinError" class="room-error" style="display: none;"></div>
+                    </div>
+                    
+                    <div id="roomStatus" class="room-status" style="display: none;">
+                        <div class="room-status-header">
+                            <span class="room-status-icon">🟢</span>
+                            <span class="room-status-text">متصل</span>
+                        </div>
+                        <div class="room-participants">
+                            <div class="participant-item" id="participantSelf">
+                                <span class="participant-icon">👤</span>
+                                <span class="participant-name" id="selfName">أنت</span>
+                                <span class="participant-answers" id="selfAnswers">0</span>
+                            </div>
+                            <div class="participant-item" id="participantOther">
+                                <span class="participant-icon">👤</span>
+                                <span class="participant-name" id="otherName">في انتظار صديق...</span>
+                                <span class="participant-answers" id="otherAnswers">0</span>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <button id="leaveRoomBtn" class="room-leave-btn">🚪 مغادرة الغرفة</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="room-modal-footer">
+                    💡 سيتم حذف الغرفة تلقائياً بعد مغادرة الطرفين
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // إضافة الأحداث
+        const closeBtn = modal.querySelector('.close-room-modal');
+        closeBtn.addEventListener('click', () => closeRoomModal());
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeRoomModal();
+        });
+        
+        // تبديل التبويبات
+        const tabs = modal.querySelectorAll('.room-tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.dataset.tab;
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.room-tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`${tabId}RoomTab`).classList.add('active');
+            });
+        });
+        
+        // أزرار الإنشاء والانضمام
+        const createBtn = document.getElementById('createRoomBtn');
+        const joinBtn = document.getElementById('joinRoomBtn');
+        const copyBtn = document.getElementById('copyRoomCodeBtn');
+        const leaveBtn = document.getElementById('leaveRoomBtn');
+        
+        if (createBtn) createBtn.addEventListener('click', () => createNewRoom());
+        if (joinBtn) joinBtn.addEventListener('click', () => joinRoom());
+        if (copyBtn) copyBtn.addEventListener('click', () => copyRoomCode());
+        if (leaveBtn) leaveBtn.addEventListener('click', () => leaveRoom());
+        
+        return modal;
+    }
+    
+    function closeRoomModal() {
+        const modal = document.getElementById('roomModal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    function openRoomModal() {
+        let modal = document.getElementById('roomModal');
+        if (!modal) {
+            modal = createRoomModal();
+        }
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // إعادة تعيين الحقول
+        document.getElementById('roomCodeInput').value = '';
+        document.getElementById('joinError').style.display = 'none';
+        document.getElementById('createdRoomCode').style.display = 'none';
+    }
+    
+    // ========== توليد رمز غرفة عشوائي ==========
+    function generateRoomCode() {
+        const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+        const numbers = '0123456789';
+        const part1 = letters.charAt(Math.floor(Math.random() * letters.length));
+        const part2 = letters.charAt(Math.floor(Math.random() * letters.length));
+        const part3 = letters.charAt(Math.random() * 10);
+        const part4 = numbers.charAt(Math.floor(Math.random() * numbers.length));
+        const part5 = numbers.charAt(Math.floor(Math.random() * numbers.length));
+        const part6 = numbers.charAt(Math.floor(Math.random() * numbers.length));
+        return `${part1}${part2}-${part3}${part4}${part5}${part6}`;
+    }
+    
+    // ========== الحصول على اسم المستخدم ==========
+    function getUserName() {
+        let email = localStorage.getItem('zertiva_email');
+        if (email) {
+            return email.split('@')[0];
+        }
+        return 'زائر';
+    }
+    
+    // ========== إنشاء غرفة جديدة ==========
+    async function createNewRoom() {
+        if (!window.firebaseInitialized || !window.db) {
+            alert("⚠️ Firebase غير جاهز. الرجاء المحاولة لاحقاً.");
+            return;
+        }
+        
+        const roomCode = generateRoomCode();
+        const userName = getUserName();
+        const userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+        
+        currentUserName = userName;
+        currentUserEmail = userEmail;
+        currentRoomId = roomCode;
+        
+        const roomData = {
+            code: roomCode,
+            createdAt: Date.now(),
+            lastActivity: Date.now(),
+            participants: {
+                [userEmail]: {
+                    name: userName,
+                    email: userEmail,
+                    joinedAt: Date.now(),
+                    answers: {},
+                    answersCount: 0
+                }
+            },
+            currentExam: null,
+            currentQuestionIndex: 0,
+            isActive: true
+        };
+        
+        try {
+            await window.db.ref(`studyRooms/${roomCode}`).set(roomData);
+            console.log(`✅ غرفة ${roomCode} تم إنشاؤها بنجاح`);
+            
+            // عرض رمز الغرفة
+            document.getElementById('createdRoomCode').style.display = 'block';
+            document.getElementById('roomCodeValue').textContent = roomCode;
+            document.getElementById('createRoomBtn').style.display = 'none';
+            
+            // بدء مراقبة الغرفة
+            startRoomMonitor();
+            
+        } catch(e) {
+            console.error("❌ خطأ في إنشاء الغرفة:", e);
+            alert("حدث خطأ في إنشاء الغرفة");
+        }
+    }
+    
+    // ========== الانضمام إلى غرفة ==========
+    async function joinRoom() {
+        const roomCode = document.getElementById('roomCodeInput').value.trim().toUpperCase();
+        const errorDiv = document.getElementById('joinError');
+        
+        if (!roomCode) {
+            errorDiv.textContent = "الرجاء إدخال رمز الغرفة";
+            errorDiv.style.display = 'block';
+            return;
+        }
+        
+        if (!window.firebaseInitialized || !window.db) {
+            errorDiv.textContent = "⚠️ Firebase غير جاهز";
+            errorDiv.style.display = 'block';
+            return;
+        }
+        
+        try {
+            const snapshot = await window.db.ref(`studyRooms/${roomCode}`).once('value');
+            const room = snapshot.val();
+            
+            if (!room) {
+                errorDiv.textContent = "❌ الغرفة غير موجودة. تأكد من الرمز";
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            const participantsCount = Object.keys(room.participants || {}).length;
+            
+            if (participantsCount >= 2) {
+                errorDiv.textContent = "❌ الغرفة ممتلئة (2/2)";
+                errorDiv.style.display = 'block';
+                return;
+            }
+            
+            const userName = getUserName();
+            const userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+            
+            currentUserName = userName;
+            currentUserEmail = userEmail;
+            currentRoomId = roomCode;
+            
+            const participantData = {
+                name: userName,
+                email: userEmail,
+                joinedAt: Date.now(),
+                answers: {},
+                answersCount: 0
+            };
+            
+            await window.db.ref(`studyRooms/${roomCode}/participants/${userEmail}`).set(participantData);
+            await window.db.ref(`studyRooms/${roomCode}/lastActivity`).set(Date.now());
+            
+            console.log(`✅ انضممت إلى الغرفة ${roomCode}`);
+            
+            // إخفاء نموذج الانضمام وإظهار حالة الغرفة
+            document.querySelector('.room-tabs').style.display = 'none';
+            document.querySelectorAll('.room-tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById('roomStatus').style.display = 'block';
+            
+            // بدء مراقبة الغرفة
+            startRoomMonitor();
+            
+        } catch(e) {
+            console.error("❌ خطأ في الانضمام:", e);
+            errorDiv.textContent = "حدث خطأ، حاول مرة أخرى";
+            errorDiv.style.display = 'block';
+        }
+    }
+    
+    // ========== بدء مراقبة الغرفة ==========
+    function startRoomMonitor() {
+        if (!currentRoomId) return;
+        
+        // تحديث آخر نشاط كل 30 ثانية
+        if (activityInterval) clearInterval(activityInterval);
+        activityInterval = setInterval(() => {
+            if (currentRoomId && isInRoom) {
+                window.db.ref(`studyRooms/${currentRoomId}/lastActivity`).set(Date.now());
+            }
+        }, 30000);
+        
+        // مراقبة تغييرات الغرفة
+        if (roomListener) roomListener.off();
+        roomListener = window.db.ref(`studyRooms/${currentRoomId}`).on('value', (snapshot) => {
+            const room = snapshot.val();
+            if (!room) {
+                // الغرفة حذفت
+                handleRoomDeleted();
+                return;
+            }
+            
+            isInRoom = true;
+            updateRoomUI(room);
+        });
+    }
+    
+    // ========== تحديث واجهة الغرفة ==========
+    function updateRoomUI(room) {
+        const participants = room.participants || {};
+        const participantsList = Object.values(participants);
+        const self = participants[currentUserEmail];
+        const other = participantsList.find(p => p.email !== currentUserEmail);
+        
+        // تحديث اسمك
+        const selfNameSpan = document.getElementById('selfName');
+        const selfAnswersSpan = document.getElementById('selfAnswers');
+        if (selfNameSpan) selfNameSpan.textContent = self?.name || 'أنت';
+        if (selfAnswersSpan) selfAnswersSpan.textContent = self?.answersCount || 0;
+        
+        // تحديث معلومات الصديق
+        const otherNameSpan = document.getElementById('otherName');
+        const otherAnswersSpan = document.getElementById('otherAnswers');
+        if (other) {
+            otherNameSpan.textContent = other.name;
+            otherAnswersSpan.textContent = other.answersCount || 0;
+            document.querySelector('.room-status-icon').textContent = '🟢';
+            document.querySelector('.room-status-text').textContent = 'متصل - صديقك معك';
+        } else {
+            otherNameSpan.textContent = 'في انتظار صديق...';
+            otherAnswersSpan.textContent = '0';
+            document.querySelector('.room-status-icon').textContent = '🟡';
+            document.querySelector('.room-status-text').textContent = 'في انتظار اتصال الصديق';
+        }
+    }
+    
+    // ========== معالجة حذف الغرفة ==========
+    function handleRoomDeleted() {
+        isInRoom = false;
+        if (activityInterval) clearInterval(activityInterval);
+        if (roomListener) roomListener.off();
+        
+        alert("🔚 تم حذف الغرفة لأن الطرف الآخر غادر.");
+        resetRoomState();
+        closeRoomModal();
+        openRoomModal();
+    }
+    
+    // ========== مغادرة الغرفة ==========
+    async function leaveRoom() {
+        if (!currentRoomId) return;
+        
+        try {
+            // حذف مشاركتك من الغرفة
+            await window.db.ref(`studyRooms/${currentRoomId}/participants/${currentUserEmail}`).remove();
+            
+            // التحقق من عدد المشاركين المتبقين
+            const snapshot = await window.db.ref(`studyRooms/${currentRoomId}/participants`).once('value');
+            const remaining = snapshot.numChildren();
+            
+            if (remaining === 0) {
+                // حذف الغرفة بالكامل
+                await window.db.ref(`studyRooms/${currentRoomId}`).remove();
+                console.log(`🗑️ تم حذف الغرفة ${currentRoomId}`);
+            }
+            
+        } catch(e) {
+            console.error("خطأ في المغادرة:", e);
+        }
+        
+        resetRoomState();
+        closeRoomModal();
+    }
+    
+    // ========== إعادة تعيين حالة الغرفة ==========
+    function resetRoomState() {
+        if (activityInterval) clearInterval(activityInterval);
+        if (roomListener) roomListener?.off();
+        currentRoomId = null;
+        isInRoom = false;
+    }
+    
+    // ========== نسخ رمز الغرفة ==========
+    function copyRoomCode() {
+        const code = document.getElementById('roomCodeValue').textContent;
+        navigator.clipboard.writeText(code);
+        const copyBtn = document.getElementById('copyRoomCodeBtn');
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '✅ تم النسخ!';
+        setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+        }, 2000);
+    }
+    
+    // ========== مزامنة الإجابة (تُستدعى من exams.js) ==========
+    async function syncAnswer(questionIndex, selectedAnswer, isCorrect) {
+        if (!currentRoomId || !isInRoom) return;
+        
+        const userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+        
+        // تحديث إجابتك
+        const answerData = {
+            answer: selectedAnswer,
+            isCorrect: isCorrect,
+            timestamp: Date.now(),
+            questionIndex: questionIndex
+        };
+        
+        await window.db.ref(`studyRooms/${currentRoomId}/participants/${userEmail}/answers/${questionIndex}`).set(answerData);
+        
+        // تحديث عدد الإجابات
+        const snapshot = await window.db.ref(`studyRooms/${currentRoomId}/participants/${userEmail}/answers`).once('value');
+        const answersCount = snapshot.numChildren();
+        await window.db.ref(`studyRooms/${currentRoomId}/participants/${userEmail}/answersCount`).set(answersCount);
+        
+        console.log(`📤 تم مزامنة الإجابة: سؤال ${questionIndex + 1} -> ${selectedAnswer}`);
+    }
+    
+    // ========== الحصول على إجابة الصديق (تُستدعى من exams.js) ==========
+    function getOtherAnswer(questionIndex, callback) {
+        if (!currentRoomId || !isInRoom) return () => {};
+        
+        const userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+        
+        const listener = window.db.ref(`studyRooms/${currentRoomId}/participants`).on('value', (snapshot) => {
+            const participants = snapshot.val() || {};
+            let otherAnswer = null;
+            
+            for (const email in participants) {
+                if (email !== userEmail) {
+                    const answers = participants[email].answers || {};
+                    if (answers[questionIndex]) {
+                        otherAnswer = answers[questionIndex].answer;
+                    }
+                    break;
+                }
+            }
+            
+            if (callback) callback(otherAnswer);
+        });
+        
+        return () => {
+            window.db.ref(`studyRooms/${currentRoomId}/participants`).off('value', listener);
+        };
+    }
+    
+    // ========== إضافة أزرار الغرفة في صفحة الامتحان ==========
+    function addRoomButtons() {
+        const nav = document.getElementById('examNavButtons');
+        if (!nav) {
+            setTimeout(addRoomButtons, 500);
+            return;
+        }
+        
+        if (document.getElementById('roomBtn')) return;
+        
+        const roomBtn = document.createElement('button');
+        roomBtn.id = 'roomBtn';
+        roomBtn.innerHTML = '👥 مراجعة مع صديق';
+        roomBtn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
+        roomBtn.onclick = () => openRoomModal();
+        nav.appendChild(roomBtn);
+        console.log('👥 زر المراجعة مع صديق جاهز');
+    }
+    
+    // ========== التهيئة ==========
+    function init() {
+        // انتظار تحميل Firebase
+        if (typeof firebase === 'undefined') {
+            console.log("⏳ انتظار تحميل Firebase...");
+            setTimeout(init, 500);
+            return;
+        }
+        
+        addRoomButtons();
+        console.log("👥 نظام المراجعة مع صديق جاهز");
+    }
+    
+    // تصدير الدوال
+    window.StudyRoom = {
+        syncAnswer: syncAnswer,
+        getOtherAnswer: getOtherAnswer,
+        isInRoom: () => isInRoom,
+        getRoomId: () => currentRoomId
+    };
+    
+    // بدء التشغيل
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        setTimeout(init, 500);
+    }
+    
+})();
