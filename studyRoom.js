@@ -19,6 +19,34 @@
     // ========== عناصر واجهة المستخدم ==========
     let roomModal = null;
     
+    // ========== دالة لتشفير البريد الإلكتروني (إزالة الرموز غير المسموحة في Firebase) ==========
+    function encodeEmail(email) {
+        if (!email) return 'guest_' + Date.now();
+        return email.replace(/\./g, '_DOT_').replace(/@/g, '_AT_').replace(/#/g, '_HASH_').replace(/\$/g, '_DLR_').replace(/\//g, '_SLH_').replace(/\[/g, '_LBR_').replace(/\]/g, '_RBR_');
+    }
+    
+    // ========== توليد رمز غرفة عشوائي ==========
+    function generateRoomCode() {
+        const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+        const numbers = '0123456789';
+        const part1 = letters.charAt(Math.floor(Math.random() * letters.length));
+        const part2 = letters.charAt(Math.floor(Math.random() * letters.length));
+        const part3 = letters.charAt(Math.floor(Math.random() * letters.length));
+        const part4 = numbers.charAt(Math.floor(Math.random() * numbers.length));
+        const part5 = numbers.charAt(Math.floor(Math.random() * numbers.length));
+        const part6 = numbers.charAt(Math.floor(Math.random() * numbers.length));
+        return `${part1}${part2}-${part3}${part4}${part5}${part6}`;
+    }
+    
+    // ========== الحصول على اسم المستخدم ==========
+    function getUserName() {
+        let email = localStorage.getItem('zertiva_email');
+        if (email) {
+            return email.split('@')[0];
+        }
+        return 'زائر';
+    }
+    
     // ========== إنشاء نافذة الغرفة ==========
     function createRoomModal() {
         if (document.getElementById('roomModal')) return;
@@ -149,28 +177,6 @@
         document.getElementById('createdRoomCode').style.display = 'none';
     }
     
-    // ========== توليد رمز غرفة عشوائي ==========
-    function generateRoomCode() {
-        const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-        const numbers = '0123456789';
-        const part1 = letters.charAt(Math.floor(Math.random() * letters.length));
-        const part2 = letters.charAt(Math.floor(Math.random() * letters.length));
-        const part3 = letters.charAt(Math.random() * 10);
-        const part4 = numbers.charAt(Math.floor(Math.random() * numbers.length));
-        const part5 = numbers.charAt(Math.floor(Math.random() * numbers.length));
-        const part6 = numbers.charAt(Math.floor(Math.random() * numbers.length));
-        return `${part1}${part2}-${part3}${part4}${part5}${part6}`;
-    }
-    
-    // ========== الحصول على اسم المستخدم ==========
-    function getUserName() {
-        let email = localStorage.getItem('zertiva_email');
-        if (email) {
-            return email.split('@')[0];
-        }
-        return 'زائر';
-    }
-    
     // ========== إنشاء غرفة جديدة ==========
     async function createNewRoom() {
         if (!window.firebaseInitialized || !window.db) {
@@ -180,7 +186,8 @@
         
         const roomCode = generateRoomCode();
         const userName = getUserName();
-        const userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+        let userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+        userEmail = encodeEmail(userEmail);
         
         currentUserName = userName;
         currentUserEmail = userEmail;
@@ -213,12 +220,19 @@
             document.getElementById('roomCodeValue').textContent = roomCode;
             document.getElementById('createRoomBtn').style.display = 'none';
             
+            // إخفاء نموذج الإنشاء وإظهار حالة الغرفة
+            document.querySelector('.room-tabs').style.display = 'none';
+            document.querySelectorAll('.room-tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById('roomStatus').style.display = 'block';
+            
             // بدء مراقبة الغرفة
             startRoomMonitor();
             
         } catch(e) {
             console.error("❌ خطأ في إنشاء الغرفة:", e);
-            alert("حدث خطأ في إنشاء الغرفة");
+            alert("حدث خطأ في إنشاء الغرفة: " + e.message);
         }
     }
     
@@ -258,7 +272,8 @@
             }
             
             const userName = getUserName();
-            const userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+            let userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+            userEmail = encodeEmail(userEmail);
             
             currentUserName = userName;
             currentUserEmail = userEmail;
@@ -311,7 +326,6 @@
         roomListener = window.db.ref(`studyRooms/${currentRoomId}`).on('value', (snapshot) => {
             const room = snapshot.val();
             if (!room) {
-                // الغرفة حذفت
                 handleRoomDeleted();
                 return;
             }
@@ -412,7 +426,8 @@
     async function syncAnswer(questionIndex, selectedAnswer, isCorrect) {
         if (!currentRoomId || !isInRoom) return;
         
-        const userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+        let userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+        userEmail = encodeEmail(userEmail);
         
         // تحديث إجابتك
         const answerData = {
@@ -436,7 +451,8 @@
     function getOtherAnswer(questionIndex, callback) {
         if (!currentRoomId || !isInRoom) return () => {};
         
-        const userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+        let userEmail = localStorage.getItem('zertiva_email') || 'guest_' + Date.now();
+        userEmail = encodeEmail(userEmail);
         
         const listener = window.db.ref(`studyRooms/${currentRoomId}/participants`).on('value', (snapshot) => {
             const participants = snapshot.val() || {};
