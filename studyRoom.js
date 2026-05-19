@@ -374,19 +374,23 @@
             }
         }, 30000);
         
-        if (roomListener) roomListener.off();
-        roomListener = window.db.ref(`studyRooms/${currentRoomId}`).on('value', (snapshot) => {
-            const room = snapshot.val();
-            if (!room) {
-                handleRoomDeleted();
-                return;
-            }
-            
-            isInRoom = true;
-            updateRoomUI(room);
-            updateRoomStatusBar(room);
-        });
+       if (roomListener) roomListener.off();
+roomListener = window.db.ref(`studyRooms/${currentRoomId}`).on('value', (snapshot) => {
+    const room = snapshot.val();
+    if (!room) {
+        handleRoomDeleted();
+        return;
     }
+    
+    isInRoom = true;
+    updateRoomUI(room);
+    updateRoomStatusBar(room);
+    
+    // تحديث النتيجة في الشريط فوراً
+    if (typeof window.updateRoomScore === 'function') {
+        setTimeout(window.updateRoomScore, 50);
+    }
+});
     
     // ========== تحديث واجهة الغرفة ==========
     function updateRoomUI(room) {
@@ -564,7 +568,34 @@
         bindLeaveBarButton();
         console.log("👥 نظام المراجعة مع صديق جاهز");
     }
+    // دالة لتحديث النتيجة في الشريط (تُستدعى من exams.js)
+window.updateRoomScore = async function() {
+    if (!currentRoomId || !isInRoom) return;
     
+    try {
+        const snapshot = await window.db.ref(`studyRooms/${currentRoomId}/participants/${currentUserEmail}/answersCount`).once('value');
+        const myScore = snapshot.val() || 0;
+        
+        const participantsSnapshot = await window.db.ref(`studyRooms/${currentRoomId}/participants`).once('value');
+        const participants = participantsSnapshot.val() || {};
+        let otherScore = 0;
+        
+        for (const email in participants) {
+            if (email !== currentUserEmail) {
+                otherScore = participants[email].answersCount || 0;
+                break;
+            }
+        }
+        
+        const myScoreSpan = document.getElementById('player1Score');
+        const otherScoreSpan = document.getElementById('player2Score');
+        if (myScoreSpan) myScoreSpan.textContent = myScore;
+        if (otherScoreSpan) otherScoreSpan.textContent = otherScore;
+        
+    } catch(e) {
+        console.error("خطأ في تحديث النتيجة:", e);
+    }
+};
     // تصدير الدوال
     window.StudyRoom = {
         syncAnswer: syncAnswer,
@@ -572,7 +603,7 @@
         isInRoom: () => isInRoom,
         getRoomId: () => currentRoomId
     };
-    
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
