@@ -2840,5 +2840,140 @@ if (originalRenderSprach2Exam) {
 window.addEventListener('resize', function() {
     setTimeout(enhanceSelectsForMobile, 100);
 });
+// ============================================
+// تحسين Teil 1 - قائمة "اختر" مثل الحاسوب (تضهر أسفل الزر باللون الرمادي)
+// ============================================
 
+function enhanceTeil1Selects() {
+    if (window.innerWidth <= 768) {
+        // تحسين جميع قوائم select في Teil 1
+        const selects = document.querySelectorAll('#teil1 select');
+        selects.forEach(select => {
+            // نفس ألوان وتأثيرات الحاسوب
+            select.style.backgroundColor = '#f8f9fa';
+            select.style.color = '#212529';
+            select.style.border = '1px solid #ced4da';
+            select.style.borderRadius = '8px';
+            select.style.padding = '8px 12px';
+            select.style.fontSize = '0.7rem';
+            select.style.cursor = 'pointer';
+            select.style.transition = 'all 0.2s ease';
+            
+            // تأثير hover مثل الحاسوب
+            select.onmouseenter = function() {
+                this.style.borderColor = '#80bdff';
+                this.style.boxShadow = '0 0 0 2px rgba(0,123,255,0.25)';
+            };
+            select.onmouseleave = function() {
+                this.style.borderColor = '#ced4da';
+                this.style.boxShadow = 'none';
+            };
+            
+            // إضافة خيار فارغ افتراضي
+            if (select.options.length > 0 && select.options[0].value === "") {
+                select.options[0].textContent = "-- اختر الإجابة --";
+            }
+        });
+    }
+}
+
+// استدعاء الدالة بعد تحميل Matching Exam
+const originalLoadMatchingExam = window.loadMatchingExam;
+if (originalLoadMatchingExam) {
+    window.loadMatchingExam = function(examData) {
+        originalLoadMatchingExam(examData);
+        setTimeout(enhanceTeil1Selects, 50);
+    };
+}
+
+// ============================================
+// تحسين Teil 3 - إزالة النقر على الفقرة، فقط "اختر" مثل الحاسوب
+// ============================================
+
+function enhanceTeil3ForMobile() {
+    if (window.innerWidth <= 768) {
+        // إزالة خاصية النقر على الفقرة
+        const cards = document.querySelectorAll('#teil3 .question-card');
+        cards.forEach(card => {
+            // إزالة onclick الأصلي
+            card.onclick = null;
+            card.style.cursor = 'default';
+            
+            // إضافة حدود ومسافات مناسبة
+            card.style.padding = '12px';
+            card.style.marginBottom = '12px';
+            card.style.borderRadius = '12px';
+            card.style.backgroundColor = '#f8f9fa';
+            card.style.border = '1px solid #e0e0e0';
+        });
+        
+        // تحسين قوائم select في Teil 3
+        const selects = document.querySelectorAll('#teil3 select');
+        selects.forEach(select => {
+            select.style.backgroundColor = '#f8f9fa';
+            select.style.color = '#212529';
+            select.style.border = '1px solid #ced4da';
+            select.style.borderRadius = '8px';
+            select.style.padding = '6px 10px';
+            select.style.fontSize = '0.65rem';
+            select.style.cursor = 'pointer';
+            select.style.width = '100%';
+            select.style.marginTop = '8px';
+            
+            select.onmouseenter = function() {
+                this.style.borderColor = '#80bdff';
+                this.style.boxShadow = '0 0 0 2px rgba(0,123,255,0.25)';
+            };
+            select.onmouseleave = function() {
+                this.style.borderColor = '#ced4da';
+                this.style.boxShadow = 'none';
+            };
+        });
+        
+        // إخفاء كلمة "Situationen" في الهاتف
+        const situationTitle = document.querySelector('#teil3 h3');
+        if (situationTitle && situationTitle.textContent.includes('Situationen')) {
+            situationTitle.style.display = 'none';
+        }
+        
+        // إخفاء عمود العناوين بالكامل
+        const rightColumn = document.querySelector('#teil3 > div[style*="display: flex"] > div:last-child');
+        if (rightColumn) {
+            rightColumn.style.display = 'none';
+        }
+        
+        // جعل عمود الفقرات يأخذ العرض الكامل
+        const leftColumn = document.querySelector('#teil3 > div[style*="display: flex"] > div:first-child');
+        if (leftColumn) {
+            leftColumn.style.width = '100%';
+            leftColumn.style.maxWidth = '100%';
+        }
+        
+        // تحسين شبكة الفقرات
+        const itemsGrid = document.querySelector('#teil3 [style*="grid-template-columns: 1fr 1fr"]');
+        if (itemsGrid) {
+            itemsGrid.style.gridTemplateColumns = '1fr';
+            itemsGrid.style.gap = '12px';
+        }
+    }
+}
+
+// استدعاء الدالة بعد تحميل Teil 3
+const originalRenderTeil3Exam = window.renderTeil3Exam;
+if (originalRenderTeil3Exam) {
+    window.renderTeil3Exam = function() {
+        originalRenderTeil3Exam();
+        setTimeout(enhanceTeil3ForMobile, 100);
+    };
+}
+
+// استدعاء الدالة عند تغيير حجم الشاشة
+window.addEventListener('resize', function() {
+    setTimeout(() => {
+        enhanceTeil1Selects();
+        enhanceTeil3ForMobile();
+    }, 100);
+});
+
+console.log('✅ تحسينات Teil 1 و Teil 3 للهواتف تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
