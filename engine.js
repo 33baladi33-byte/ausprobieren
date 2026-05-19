@@ -2441,7 +2441,6 @@ if (originalOpenExamGlobal) {
 let usedAnswersInTeil1 = {};     // لتتبع الإجابات المستخدمة في Teil 1
 let answerToItemTeil1 = {};      // ربط الإجابة بالسؤال
 
-let usedAnswersInTeil3 = {};     // لتتبع الإجابات المستخدمة في Teil 3
 let answerToItemTeil3 = {};      // ربط الإجابة بالفقرة
 
 // دالة تحديث قوائم Teil 1 بناءً على الإجابات المستخدمة
