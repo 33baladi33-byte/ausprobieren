@@ -1,6 +1,6 @@
 // ============================================
 // exams.js - نظام الامتحانات المتكامل مع دعم المراجعة مع صديق
-// مع نظام Live Focus, Presence والمزامنة المباشرة
+// مع نظام Live Events, Presence والمزامنة المباشرة
 // النسخة النهائية - 2025
 // ============================================
 
@@ -22,184 +22,88 @@ const teile = [
 // ========== متغيرات المراجعة مع صديق ==========
 let currentQuestionsCount = 0;
 let currentActiveQuestion = 0;
-let friendEventsUnsubscribe = null;
-let friendQuestionUnsubscribe = null;
-let friendAnswerListeners = [];
+let liveEventsUnsubscribe = null;
+let liveQuestionUnsubscribe = null;
 
 // ============================================
-// نظام المزامنة المباشرة مع الغرفة و Presence
+// دوال الأحداث المباشرة (Live Events)
 // ============================================
 
-// 1️⃣ دالة إرسال الإجابة إلى الغرفة
-async function sendAnswerToRoom(questionIndex, selectedAnswer, isCorrect, answerText) {
-    if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
-        await window.StudyRoom.syncAnswer(questionIndex, selectedAnswer, isCorrect);
-        console.log(`📤 [إرسال] السؤال ${questionIndex + 1} -> ${answerText} (صحة: ${isCorrect})`);
-        
-        // إرسال حدث تفاعل للصديق
-        await sendActivityEvent(questionIndex, 'answer', answerText);
-        
-        // تحديث النتيجة في الشريط
-        setTimeout(() => updateRoomScore(), 50);
-    } else {
-        console.log("⚠️ لست في غرفة، لن يتم إرسال الإجابة");
-    }
-}
-
-// ============================================
-// نظام ربط الامتحان بالغرفة - أحداث مباشرة
-// ============================================
-
-// إرسال السؤال الحالي (عند التمرير أو التركيز)
-async function sendCurrentQuestionToRoom(questionIndex) {
+// إرسال السؤال الحالي
+async function sendLiveCurrentQuestion(questionIndex) {
     if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
         await window.StudyRoom.updateCurrentQuestion(questionIndex);
-        console.log(`📍 [Presence] أنا الآن في السؤال ${questionIndex + 1}`);
+        console.log(`📍 [Live] أنا الآن في السؤال ${questionIndex + 1}`);
     }
 }
 
 // إرسال حدث اختيار إجابة
-async function sendAnswerEventToRoom(questionIndex, answerText, isCorrect) {
+async function sendLiveAnswerEvent(questionIndex, answerText, isCorrect) {
     if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
-        // إرسال حدث التفاعل
-        await window.StudyRoom.sendActivityEvent(questionIndex, 'answer', answerText);
-        // حفظ الإجابة للمزامنة
-        await window.StudyRoom.syncAnswer(questionIndex, answerText, isCorrect);
-        console.log(`⚡ [Event] أرسلت: اخترت إجابة للسؤال ${questionIndex + 1}`);
+        await window.StudyRoom.sendAnswerEvent(questionIndex, answerText, isCorrect);
+        console.log(`⚡ [Live] أرسلت: ${answerText} على السؤال ${questionIndex + 1}`);
     }
 }
 
-// مراقبة أحداث الصديق
-function startWatchingFriendEvents() {
-    if (typeof window.StudyRoom === 'undefined' || !window.StudyRoom.isInRoom || !window.StudyRoom.isInRoom()) {
-        console.log("👥 لست في غرفة، لن يتم تفعيل المراقبة");
-        return;
-    }
-    
-    // مراقبة السؤال الحالي للصديق
-    if (window.friendQuestionUnsubscribe) window.friendQuestionUnsubscribe();
-    window.friendQuestionUnsubscribe = window.StudyRoom.listenToFriendCurrentQuestion((data) => {
-        console.log(`👥 [Presence] الصديق ${data.userName} يراجع السؤال ${data.questionIndex + 1}`);
-        highlightFriendQuestion(data.questionIndex);
-    });
-    
-    // مراقبة أحداث الصديق
-    if (window.friendEventsUnsubscribe) window.friendEventsUnsubscribe();
-    window.friendEventsUnsubscribe = window.StudyRoom.listenToFriendEvents((event) => {
-        console.log(`⚡ [Event] الصديق ${event.userName} ${event.action === 'answer' ? 'أجاب على' : 'يفكر في'} السؤال ${event.questionIndex + 1}`);
-        showFriendToast(event);
-    });
-}
-
-// توهج السؤال الذي يراجعه الصديق
-function highlightFriendQuestion(questionIndex) {
+// توهج سؤال الصديق
+function glowFriendQuestion(questionIndex) {
     document.querySelectorAll('.question-card').forEach(card => {
-        card.classList.remove('friend-focus');
+        card.classList.remove('friend-live-focus');
         card.style.border = '';
         card.style.boxShadow = '';
     });
     
     const friendCard = document.getElementById(`q_${questionIndex}`);
     if (friendCard) {
-        friendCard.classList.add('friend-focus');
-        friendCard.style.border = '2px solid #2196f3';
-        friendCard.style.boxShadow = '0 0 15px rgba(33, 150, 243, 0.3)';
+        friendCard.classList.add('friend-live-focus');
+        friendCard.style.border = '2px solid #ff9800';
+        friendCard.style.boxShadow = '0 0 15px rgba(255, 152, 0, 0.3)';
     }
 }
 
 // إظهار إشعار بتفاعل الصديق
-function showFriendToast(event) {
+function showLiveFriendToast(event) {
     const toast = document.createElement('div');
-    toast.className = 'friend-toast';
+    toast.className = 'live-friend-toast';
     toast.innerHTML = `
-        <div style="background:#2196f3;color:white;padding:8px 16px;border-radius:30px;font-size:13px;display:flex;align-items:center;gap:8px;">
+        <div style="background:#ff9800;color:white;padding:6px 14px;border-radius:30px;font-size:12px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
             <span>👤</span>
-            <span><strong>${event.userName}</strong> ${event.action === 'answer' ? 'اختار إجابة' : 'يفكر في'} السؤال ${event.questionIndex + 1}</span>
+            <span><strong>${event.userName}</strong> أجاب: ${event.answer}</span>
         </div>
     `;
-    toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10000;animation:fadeOut 2s forwards;pointer-events:none';
+    toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:10000;animation:liveFadeOut 2s forwards;pointer-events:none';
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 2000);
 }
 
-// 7️⃣ بدء مراقبة إجابات الصديق
-function startListeningForFriendAnswers() {
+// بدء مراقبة أحداث الصديق
+function startLiveFriendWatching() {
     if (typeof window.StudyRoom === 'undefined' || !window.StudyRoom.isInRoom || !window.StudyRoom.isInRoom()) {
-        console.log("👥 لست في غرفة، لن يتم تفعيل مراقبة الإجابات");
+        console.log("👥 لست في غرفة، لن يتم تفعيل المراقبة المباشرة");
         return;
     }
     
-    console.log("👥 [مراقبة] بدء مراقبة إجابات الصديق لـ", currentQuestionsCount, "سؤال");
+    console.log("🔥 [Live] بدء مراقبة أحداث الصديق المباشرة");
     
-    // إزالة المستمعين القدامى
-    if (friendAnswerListeners) {
-        friendAnswerListeners.forEach(unsubscribe => {
-            if (typeof unsubscribe === 'function') unsubscribe();
-        });
+    // مراقبة السؤال الحالي للصديق
+    if (liveQuestionUnsubscribe) {
+        if (typeof liveQuestionUnsubscribe === 'function') liveQuestionUnsubscribe();
+        liveQuestionUnsubscribe = null;
     }
-    friendAnswerListeners = [];
-    
-    // إضافة مستمع لكل سؤال
-    for (let i = 0; i < currentQuestionsCount; i++) {
-        const unsubscribe = window.StudyRoom.getOtherAnswer(i, (friendAnswer) => {
-            if (friendAnswer !== null && friendAnswer !== undefined) {
-                console.log(`📩 [استلام] إجابة الصديق للسؤال ${i + 1}: ${friendAnswer}`);
-                colorFriendAnswer(i, friendAnswer);
-            }
-        });
-        if (unsubscribe) {
-            friendAnswerListeners.push(unsubscribe);
-        }
-    }
-}
-
-// 8️⃣ بدء مراقبة أحداث الصديق و Presence
-function startWatchingFriendActivity() {
-    if (typeof window.StudyRoom === 'undefined' || !window.StudyRoom.isInRoom || !window.StudyRoom.isInRoom()) {
-        console.log("👥 لست في غرفة، لن يتم تفعيل مراقبة الأحداث");
-        return;
-    }
-    
-    console.log("👥 [مراقبة] بدء مراقبة أحداث و Presence الصديق");
-    
-    // مراقبة السؤال الحالي للصديق (Presence)
-    if (friendQuestionUnsubscribe) friendQuestionUnsubscribe();
-    friendQuestionUnsubscribe = window.StudyRoom.listenToFriendCurrentQuestion((data) => {
-        console.log(`👥 [Presence] الصديق ${data.userName} يراجع السؤال ${data.questionIndex + 1}`);
-        highlightFriendQuestion(data.questionIndex);
+    liveQuestionUnsubscribe = window.StudyRoom.listenToFriendCurrentQuestion((data) => {
+        console.log(`📍 [Live] الصديق ${data.userName} يراجع السؤال ${data.questionIndex + 1}`);
+        glowFriendQuestion(data.questionIndex);
     });
     
-    // مراقبة أحداث الصديق
-    if (friendEventsUnsubscribe) friendEventsUnsubscribe();
-    friendEventsUnsubscribe = window.StudyRoom.listenToFriendEvents((event) => {
-        console.log(`⚡ [Event] الصديق: ${event.action} على السؤال ${event.questionIndex + 1}`);
-        showFriendActivityToast(event);
+    // مراقبة أحداث الإجابات
+    if (liveEventsUnsubscribe) {
+        if (typeof liveEventsUnsubscribe === 'function') liveEventsUnsubscribe();
+        liveEventsUnsubscribe = null;
+    }
+    liveEventsUnsubscribe = window.StudyRoom.listenToFriendLiveEvents((event) => {
+        console.log(`⚡ [Live] الصديق ${event.userName} أجاب: ${event.answer} على السؤال ${event.questionIndex + 1}`);
+        showLiveFriendToast(event);
     });
-}
-
-// 9️⃣ إيقاف مراقبة الأحداث
-function stopWatchingFriendActivity() {
-    if (friendEventsUnsubscribe) {
-        friendEventsUnsubscribe();
-        friendEventsUnsubscribe = null;
-    }
-    if (friendQuestionUnsubscribe) {
-        friendQuestionUnsubscribe();
-        friendQuestionUnsubscribe = null;
-    }
-    if (friendAnswerListeners) {
-        friendAnswerListeners.forEach(unsubscribe => {
-            if (typeof unsubscribe === 'function') unsubscribe();
-        });
-        friendAnswerListeners = [];
-    }
-}
-
-// 🔟 دالة تحديث النتيجة في الشريط
-async function updateRoomScore() {
-    if (typeof window.updateRoomScore === 'function') {
-        await window.updateRoomScore();
-    }
 }
 
 // ========== دوال حفظ واسترجاع النتائج ==========
@@ -757,6 +661,7 @@ function displaySavedResult(skill, examId, titleSpan) {
   }
 }
 
+// ========== بناء امتحانات Teil 1 مع الأحداث المباشرة ==========
 function buildTeil1(questions) {
     const container = document.getElementById("teil1");
     if (!container) return;
@@ -766,8 +671,14 @@ function buildTeil1(questions) {
     let userAnswers = {};
     
     // إيقاف المراقبة القديمة
-    if (window.friendEventsUnsubscribe) window.friendEventsUnsubscribe();
-    if (window.friendQuestionUnsubscribe) window.friendQuestionUnsubscribe();
+    if (liveEventsUnsubscribe) {
+        if (typeof liveEventsUnsubscribe === 'function') liveEventsUnsubscribe();
+        liveEventsUnsubscribe = null;
+    }
+    if (liveQuestionUnsubscribe) {
+        if (typeof liveQuestionUnsubscribe === 'function') liveQuestionUnsubscribe();
+        liveQuestionUnsubscribe = null;
+    }
     
     for (let i = 0; i < questions.length; i++) {
         const q = questions[i];
@@ -775,10 +686,10 @@ function buildTeil1(questions) {
         card.className = "question-card";
         card.id = "q_" + i;
         
-        // ✅ عند تمرير الماوس: إرسال السؤال الحالي
+        // ✅ عند تمرير الماوس: إرسال "أنا هنا"
         card.onmouseenter = (function(qIdx) {
             return function() {
-                sendCurrentQuestionToRoom(qIdx);
+                sendLiveCurrentQuestion(qIdx);
             };
         })(i);
         
@@ -796,23 +707,27 @@ function buildTeil1(questions) {
             const radioId = "q" + i + "_" + j;
             label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
             
-            // ✅ عند اختيار إجابة: إرسال حدث + حفظ الإجابة
+            // ✅ عند اختيار إجابة: إرسال حدث مباشر
             label.onclick = (function(qIdx, ansIdx) {
                 return async function() {
+                    // حفظ الإجابة محلياً
                     userAnswers[qIdx] = ansIdx;
                     const isCorrect = (ansIdx === q.correct);
                     const answerText = q.options[ansIdx];
                     
-                    // إرسال الحدث إلى الغرفة
-                    await sendAnswerEventToRoom(qIdx, answerText, isCorrect);
+                    // ✅ إرسال الحدث المباشر إلى الغرفة
+                    await sendLiveAnswerEvent(qIdx, answerText, isCorrect);
                     
                     // تغيير لون الإجابة محلياً
-                    document.querySelectorAll(`#q_${qIdx} .option-label`).forEach(btn => {
+                    const allOptions = document.querySelectorAll(`#q_${qIdx} .option-label`);
+                    allOptions.forEach(btn => {
                         btn.style.background = '';
                         btn.style.border = '';
+                        btn.style.color = '';
                     });
                     label.style.background = isCorrect ? '#c8e6c9' : '#ffcdd2';
                     label.style.border = `2px solid ${isCorrect ? '#4caf50' : '#f44336'}`;
+                    label.style.color = '#333';
                     
                     console.log(`📝 [محلي] السؤال ${qIdx + 1}: ${answerText} (${isCorrect ? 'صحيح' : 'خطأ'})`);
                 };
@@ -841,17 +756,16 @@ function buildTeil1(questions) {
     
     // ✅ بدء مراقبة أحداث الصديق
     setTimeout(() => {
-        startWatchingFriendEvents();
+        startLiveFriendWatching();
     }, 500);
     
-    // إرسال السؤال الأول
+    // ✅ إرسال السؤال الأول
     setTimeout(() => {
-        sendCurrentQuestionToRoom(0);
+        sendLiveCurrentQuestion(0);
     }, 1000);
     
-    console.log(`✅ تم بناء ${questions.length} سؤال مع ربط كامل بالغرفة`);
+    console.log(`✅ تم بناء ${questions.length} سؤال مع الأحداث المباشرة Live Events`);
 }
-
 
 // ========== دالة تصحيح Teil 1 ==========
 function checkTeil1(questions, answers) {
@@ -896,7 +810,6 @@ function checkTeil1(questions, answers) {
   }
   
   saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
-  setTimeout(() => updateRoomScore(), 100);
   
   if (document.getElementById("list").classList.contains("active")) {
     renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
@@ -913,12 +826,7 @@ function getTeilNameBySkill(skill) {
 }
 
 function getActualFileName(examId) {
-    // إذا كان لديك mapping مخصص
-    if (actualFileNames && actualFileNames[examId]) {
-        return actualFileNames[examId];
-    }
-    // المسار الافتراضي
-    return `exam${examId}.json`;
+  return actualFileNames[examId] || `exam${examId}.json`;
 }
 
 function shouldHideHelpButton(skill) {
@@ -1073,6 +981,7 @@ function setupLockedNextButton() {
     }
   });
 }
+
 async function openExam(examId, examTitle, skill) {
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
@@ -1097,133 +1006,80 @@ async function openExam(examId, examTitle, skill) {
   }
   
   const fileName = getActualFileName(examId);
-  
-  // ✅ تجربة عدة مسارات ممكنة
-  const possiblePaths = [
-    `data/${skill}/${fileName}`,
-    `data/${skill}/exam${examId}.json`,
-    `../data/${skill}/${fileName}`,
-    `./data/${skill}/${fileName}`
-  ];
+  const filePath = `data/${skill}/${fileName}`;
   
   console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
   console.log("📁 اسم الملف:", fileName);
+  console.log("📂 المسار الكامل:", filePath);
   
-  let currentExamData = null;
-  let workingPath = null;
-  
-  // ✅ تجربة كل المسارات الممكنة
-  for (const path of possiblePaths) {
-    console.log("📂 محاولة المسار:", path);
-    try {
-      const response = await fetch(path);
-      if (response.ok) {
-        currentExamData = await response.json();
-        workingPath = path;
-        console.log("✅ تم التحميل من:", path);
-        break;
+  try {
+    const response = await fetch(filePath);
+    if (!response.ok) {
+      console.error(`❌ فشل تحميل الملف: ${filePath} - Status: ${response.status}`);
+      alert(`⚠️ الامتحان "${examTitle}" غير متوفر حالياً.\nالملف المطلوب: ${filePath}`);
+      return;
+    }
+    
+    currentExamData = await response.json();
+    
+    if (!currentExamData) {
+      throw new Error("البيانات فارغة");
+    }
+    
+    console.log("✅ تم تحميل البيانات بنجاح:", currentExamData);
+    
+    window.currentExamId = examId;
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("list").classList.remove("active");
+    document.getElementById("exam").classList.add("active");
+    document.getElementById("examTitle").innerHTML = currentExamData.title || examTitle;
+    
+    updateExamNavButtons();
+    
+    if (!currentExamData.questions || currentExamData.questions.length === 0) {
+      console.warn("⚠️ لا توجد أسئلة في هذا الامتحان");
+      const container = document.getElementById("teil1");
+      if (container) {
+        container.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
       }
-    } catch(e) {
-      console.log("❌ فشل المسار:", path);
+      showTeil(4);
+      return;
     }
+    
+    // التحقق من صحة كل سؤال
+    for (let i = 0; i < currentExamData.questions.length; i++) {
+      const q = currentExamData.questions[i];
+      if (!q.options || !Array.isArray(q.options)) {
+        console.error(`❌ السؤال ${i + 1} لا يحتوي على خيارات صحيحة:`, q);
+        q.options = ["الخيار 1", "الخيار 2", "الخيار 3"];
+        q.correct = 0;
+      }
+    }
+    
+    // عرض الامتحان حسب النوع
+    if (currentExamData.type === "matching" || currentExamData.type === "truefalse" || 
+        currentExamData.type === "teil2" || currentExamData.type === "teil3" || 
+        currentExamData.type === "sprach1" || currentExamData.type === "sprach2" || 
+        currentExamData.type === "schreiben") {
+      buildTeil1(currentExamData.questions || []);
+    } else if (currentExamData.type === "mündlich") {
+      renderMündlichExam(currentExamData);
+    } else if (currentExamData.type === "info") {
+      renderInfoExam(currentExamData);
+    } else if (currentExamData.type === "tips") {
+      renderTipsExam(currentExamData);
+    } else {
+      buildTeil1(currentExamData.questions || []);
+    }
+    
+    const teilIndex = teile.findIndex(t => t.skill === skill);
+    showTeil(teilIndex !== -1 ? teilIndex + 1 : 10);
+    
+  } catch(e) {
+    console.error("❌ خطأ في تحميل الامتحان:", e);
+    alert("خطأ في تحميل الامتحان: " + e.message + "\n\nتأكد من وجود ملفات JSON في مجلد data/" + skill + "/");
   }
-  
-  if (!currentExamData) {
-    console.error(`❌ فشل تحميل الامتحان "${examTitle}" من جميع المسارات`);
-    alert(`⚠️ الامتحان "${examTitle}" غير متوفر حالياً.\n\nيرجى التأكد من وجود الملف في:\ndata/${skill}/${fileName}\n\nإذا كنت مطوراً، تأكد من إنشاء ملفات JSON في المجلد الصحيح.`);
-    return;
-  }
-  
-  // ✅ التحقق من صحة البيانات
-  if (!currentExamData.questions || currentExamData.questions.length === 0) {
-    console.warn("⚠️ لا توجد أسئلة في هذا الامتحان");
-    const container = document.getElementById("teil1");
-    if (container) {
-      container.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
-    }
-    showTeil(4);
-    return;
-  }
-  
-  // ✅ التحقق من صحة كل سؤال
-  for (let i = 0; i < currentExamData.questions.length; i++) {
-    const q = currentExamData.questions[i];
-    if (!q.options || !Array.isArray(q.options)) {
-      console.error(`❌ السؤال ${i + 1} لا يحتوي على خيارات صحيحة:`, q);
-      q.options = ["الخيار 1", "الخيار 2", "الخيار 3"];
-      q.correct = 0;
-    }
-  }
-  
-  console.log("✅ تم تحميل البيانات بنجاح:", currentExamData);
-  console.log("📊 عدد الأسئلة:", currentExamData.questions.length);
-  
-  window.currentExamId = examId;
-  document.getElementById("home").classList.remove("active");
-  document.getElementById("list").classList.remove("active");
-  document.getElementById("exam").classList.add("active");
-  document.getElementById("examTitle").innerHTML = currentExamData.title || examTitle;
-  
-  updateExamNavButtons();
-  
-  // عرض الامتحان حسب النوع
-  if (currentExamData.type === "matching") {
-    if (typeof window.loadMatchingExam === "function") {
-      window.loadMatchingExam(currentExamData);
-    } else {
-      buildTeil1(currentExamData.questions || []);
-    }
-  } else if (currentExamData.type === "truefalse") {
-    const container = document.getElementById(currentSkill);
-    if (container && typeof window.buildTrueFalseExam === "function") {
-      window.buildTrueFalseExam(container, currentExamData.questions, currentExamData.note);
-    } else {
-      buildTeil1(currentExamData.questions || []);
-    }
-  } else if (currentExamData.type === "teil2") {
-    if (typeof window.loadTeil2Exam === "function") {
-      window.loadTeil2Exam(currentExamData);
-    } else {
-      buildTeil1(currentExamData.questions || []);
-    }
-  } else if (currentExamData.type === "teil3") {
-    if (typeof window.loadTeil3Exam === "function") {
-      window.loadTeil3Exam(currentExamData);
-    } else {
-      buildTeil1(currentExamData.questions || []);
-    }
-  } else if (currentExamData.type === "sprach1") {
-    if (typeof window.loadSprach1Exam === "function") {
-      window.loadSprach1Exam(currentExamData);
-    } else {
-      buildTeil1(currentExamData.questions || []);
-    }
-  } else if (currentExamData.type === "sprach2") {
-    if (typeof window.loadSprach2Exam === "function") {
-      window.loadSprach2Exam(currentExamData);
-    } else {
-      buildTeil1(currentExamData.questions || []);
-    }
-  } else if (currentExamData.type === "schreiben") {
-    if (typeof window.loadSchreibenExam === "function") {
-      window.loadSchreibenExam(currentExamData);
-    } else {
-      buildTeil1(currentExamData.questions || []);
-    }
-  } else if (currentExamData.type === "mündlich") {
-    renderMündlichExam(currentExamData);
-  } else if (currentExamData.type === "info") {
-    renderInfoExam(currentExamData);
-  } else if (currentExamData.type === "tips") {
-    renderTipsExam(currentExamData);
-  } else {
-    buildTeil1(currentExamData.questions || []);
-  }
-  
-  const teilIndex = teile.findIndex(t => t.skill === skill);
-  showTeil(teilIndex !== -1 ? teilIndex + 1 : 10);
 }
-
 
 function updateExamNavButtons() {
   const prevBtn = document.getElementById("prevExamBtn");
@@ -1344,4 +1200,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
 renderTeileList();
 
-console.log("✅ exams.js تم تحميله بنجاح مع نظام Live Focus, Presence والمزامنة المباشرة");
+console.log("✅ exams.js تم تحميله بنجاح مع نظام Live Events والمزامنة المباشرة");
