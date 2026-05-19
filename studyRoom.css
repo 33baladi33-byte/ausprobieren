@@ -611,3 +611,21 @@ body.dark-mode .option-label.friend-answer {
         padding: 2px 6px;
     }
 }
+/* تأثير توهج سؤال الصديق */
+.question-card.friend-live-focus {
+    border: 2px solid #ff9800 !important;
+    box-shadow: 0 0 20px rgba(255, 152, 0, 0.4) !important;
+    background: rgba(255, 152, 0, 0.05) !important;
+}
+
+/* تأثير ظهور الإشعار */
+@keyframes liveFadeOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    85% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+.live-friend-toast {
+    animation: liveFadeOut 2.5s ease forwards;
+}
