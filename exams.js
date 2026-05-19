@@ -931,7 +931,11 @@ function getTeilNameBySkill(skill) {
 }
 
 function getActualFileName(examId) {
-  return actualFileNames[examId] || `exam${examId}.json`;
+    // تأكد من أن الملفات موجودة في المسار الصحيح
+    if (actualFileNames[examId]) {
+        return actualFileNames[examId];
+    }
+    return `exam${examId}.json`;
 }
 
 function shouldHideHelpButton(skill) {
