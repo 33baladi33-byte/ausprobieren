@@ -2,7 +2,6 @@
    studyRoom.css - نظام المراجعة مع صديق
    ======================================== */
 
-/* زر المراجعة مع صديق */
 #roomBtn {
     background: linear-gradient(135deg, #2c3e66, #1a2a4a);
     border: 1px solid rgba(100, 150, 200, 0.3);
@@ -24,7 +23,6 @@
     transform: translateY(-1px);
 }
 
-/* نافذة الغرفة */
 .room-modal-overlay {
     position: fixed;
     top: 0;
@@ -53,9 +51,7 @@
     max-width: 480px;
     width: 90%;
     max-height: 85vh;
-    margin: 20px;
     border: 1px solid rgba(100, 150, 200, 0.25);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     transform: scale(0.95);
     transition: transform 0.3s ease;
     overflow: hidden;
@@ -73,17 +69,12 @@
     align-items: center;
     padding: 18px 24px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(44, 62, 102, 0.2);
 }
 
 .room-modal-header h3 {
     margin: 0;
     font-size: 1.2rem;
-    font-weight: 600;
     color: #ffffff;
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
 .close-room-modal {
@@ -95,15 +86,6 @@
     font-size: 1.3rem;
     cursor: pointer;
     color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.close-room-modal:hover {
-    background: rgba(255, 100, 100, 0.3);
-    transform: rotate(90deg);
 }
 
 .room-modal-body {
@@ -124,11 +106,9 @@
     background: transparent;
     border: none;
     padding: 8px 16px;
-    font-size: 0.9rem;
     cursor: pointer;
     color: #a0a0a0;
     border-radius: 30px;
-    transition: all 0.2s;
 }
 
 .room-tab.active {
@@ -144,21 +124,6 @@
     display: block;
 }
 
-.room-info {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.room-icon {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-.room-text {
-    color: #c0c0c0;
-    font-size: 0.85rem;
-}
-
 .room-input {
     width: 100%;
     padding: 12px;
@@ -168,14 +133,8 @@
     color: white;
     font-size: 1rem;
     text-align: center;
-    letter-spacing: 2px;
     margin-bottom: 15px;
     box-sizing: border-box;
-}
-
-.room-input:focus {
-    outline: none;
-    border-color: #5dade2;
 }
 
 .room-btn-primary {
@@ -187,14 +146,6 @@
     color: white;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
-    margin-bottom: 15px;
-}
-
-.room-btn-primary:hover {
-    background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
-    border-color: #5dade2;
-    transform: translateY(-1px);
 }
 
 .room-code-display {
@@ -202,13 +153,6 @@
     padding: 15px;
     background: rgba(93, 173, 226, 0.1);
     border-radius: 20px;
-    border: 1px solid rgba(93, 173, 226, 0.3);
-}
-
-.room-code-label {
-    font-size: 0.8rem;
-    color: #a0a0a0;
-    margin-bottom: 5px;
 }
 
 .room-code-value {
@@ -226,7 +170,6 @@
     padding: 6px 12px;
     color: #5dade2;
     cursor: pointer;
-    font-size: 0.8rem;
 }
 
 .room-error {
@@ -236,31 +179,11 @@
     padding: 10px;
     text-align: center;
     color: #dc3545;
-    font-size: 0.85rem;
     margin-top: 10px;
 }
 
 .room-status {
     margin-top: 10px;
-}
-
-.room-status-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    margin-bottom: 15px;
-}
-
-.room-status-icon {
-    font-size: 1rem;
-}
-
-.room-status-text {
-    color: #d0d0d0;
-    font-size: 0.85rem;
 }
 
 .room-participants {
@@ -277,16 +200,9 @@
     padding: 12px 15px;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 16px;
-    border: 1px solid rgba(100, 150, 200, 0.15);
-}
-
-.participant-icon {
-    font-size: 1.2rem;
 }
 
 .participant-name {
-    flex: 1;
-    margin-left: 10px;
     color: #e0e0e0;
     font-size: 0.9rem;
 }
@@ -296,7 +212,6 @@
     padding: 4px 10px;
     border-radius: 20px;
     color: #5dade2;
-    font-size: 0.8rem;
     font-weight: bold;
 }
 
@@ -308,28 +223,9 @@
     padding: 10px;
     color: #dc3545;
     cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.room-leave-btn:hover {
-    background: rgba(220, 53, 69, 0.3);
-    transform: translateY(-1px);
-}
-
-.room-modal-footer {
-    background: rgba(44, 62, 102, 0.2);
-    padding: 12px 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    text-align: center;
-    font-size: 0.7rem;
-    color: #777;
 }
 
 @media (max-width: 550px) {
-    .room-modal-container {
-        width: 95%;
-    }
-    .room-modal-body {
-        padding: 15px 18px;
-    }
+    .room-modal-container { width: 95%; }
+    .room-modal-body { padding: 15px 18px; }
 }
