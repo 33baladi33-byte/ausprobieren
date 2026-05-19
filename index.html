@@ -669,7 +669,7 @@
     </div>
 </div>
 
-<!-- ========== الـ Scripts ========== -->
+<!-- ========== الـ Scripts (الترتيب مهم جداً) ========== -->
 <script src="helpSystem.js"></script>
 <script src="engine.js"></script>
 <script src="exams.js"></script>
@@ -759,32 +759,27 @@
 })();
 
 // ============================================
-// إظهار/إخفاء زر التقرير اليومي حسب الصفحة
+// زر التقرير اليومي - ربط الحدث
 // ============================================
 (function() {
     const reportBtn = document.getElementById('dailyReportBtn');
-    if (!reportBtn) return;
-    
-    const homePage = document.getElementById('home');
-    const listPage = document.getElementById('list');
-    const examPage = document.getElementById('exam');
-    
-    function updateReportButtonVisibility() {
-        if (homePage && homePage.classList.contains('active')) {
-            reportBtn.style.display = 'none';
-        } else if ((listPage && listPage.classList.contains('active')) || (examPage && examPage.classList.contains('active'))) {
-            reportBtn.style.display = 'flex';
-        } else {
-            reportBtn.style.display = 'none';
-        }
+    if (reportBtn) {
+        reportBtn.addEventListener('click', function() {
+            if (typeof DailyTracker !== 'undefined') {
+                if (typeof openDailyReport === 'function') {
+                    openDailyReport();
+                } else if (typeof window.openReportModal === 'function') {
+                    window.openReportModal();
+                } else {
+                    console.log("📊 تم الضغط على زر التقرير");
+                    alert("📊 سيتم فتح التقرير قريباً");
+                }
+            } else {
+                console.log("📊 تم الضغط على زر التقرير");
+                alert("📊 تقرير اليوم\n\nسجل تقدمك في الامتحانات والألعاب");
+            }
+        });
     }
-    
-    const observer = new MutationObserver(updateReportButtonVisibility);
-    if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
-    if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
-    if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
-    
-    updateReportButtonVisibility();
 })();
 
 // ============================================
@@ -803,13 +798,32 @@
         
         var btn = document.createElement('button');
         btn.id = 'rapidGameBtn';
-        btn.innerHTML = '⚡ التحدي السريع';
+        btn.innerHTML = '⚡ العب';
         btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
         btn.onclick = function() {
-            alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
+            var skill = null;
+            var examId = null;
+            
+            if (typeof currentSkill !== 'undefined') {
+                skill = currentSkill;
+            }
+            if (typeof currentExamId !== 'undefined') {
+                examId = currentExamId;
+            }
+            
+            if (!skill || !examId) {
+                alert("⚠️ الرجاء فتح امتحان أولاً");
+                return;
+            }
+            
+            if (typeof startGame === 'function') {
+                startGame(skill, examId);
+            } else {
+                alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
+            }
         };
         nav.appendChild(btn);
-        console.log('🎮 زر التحدي السريع جاهز');
+        console.log('🎮 زر العب جاهز');
     }
     
     if (document.readyState === 'loading') {
