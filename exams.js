@@ -1172,14 +1172,22 @@ document.addEventListener("DOMContentLoaded", function() {
   const backHomeBtn = document.getElementById("backHomeBtn");
   const backToListBtn = document.getElementById("backToListBtn");
   const backArrowFromExam = document.getElementById("backArrowFromExam");
-  if (startBtn) startBtn.onclick = function() { goList(); };
+  
+  if (startBtn) {
+    startBtn.onclick = function() { 
+      console.log("🟢 تم الضغط على زر اكتشف الامتحانات");
+      goList();
+    };
+  } else {
+    console.log("⚠️ startBtn غير موجود في الصفحة");
+  }
+  
   if (backHomeBtn) backHomeBtn.onclick = function() { goHome(); };
   if (backToListBtn) backToListBtn.onclick = function() { goList(); };
   if (backArrowFromExam) backArrowFromExam.onclick = function() { goBackToExamsList(); };
+  
   const examsContainer = document.getElementById("examsList");
-  if (examsContainer) examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
+  if (examsContainer) {
+    examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
+  }
 });
-
-renderTeileList();
-
-console.log("✅ exams.js تم تحميله بنجاح مع نظام Live Events والمزامنة المباشرة");
