@@ -170,6 +170,7 @@ function renderSchreibenExam() {
   twoColumns.appendChild(rightColumn);
   container.appendChild(twoColumns);
 }
+
 // ========== نظام Sprachbausteine Teil 2 ==========
 let currentSprach2Data = null;
 let sprach2UserAnswers = {};
@@ -196,7 +197,6 @@ function isSprach2WordUsed(word) {
 
 function clearSprach2WordSelection() {
   document.querySelectorAll('.sprach2-word-card').forEach(card => {
-    // إذا كانت الكلمة مستخدمة، تبقى بلونها الأخضر الفاتح
     if (isSprach2WordUsed(card.textContent)) {
       card.style.backgroundColor = "#d4edda";
       card.style.border = "2px solid #28a745";
@@ -214,7 +214,6 @@ function clearSprach2ButtonSelection() {
   document.querySelectorAll('.sprach2-gap-btn').forEach(btn => {
     btn.classList.remove('selected-for-link');
     btn.style.border = "none";
-    // إذا كان الزر يحتوي على إجابة صحيحة محفوظة، لا نغير لونه
     const btnId = btn.id;
     const match = btnId.match(/sprach2_btn_(\d+)/);
     if (match) {
@@ -264,7 +263,6 @@ function renderSprach2Exam() {
     const btnText = currentAnswer || `__( ${i} )__`;
     let btnStyle = "background-color: #e0e0e0; border: none; padding: 4px 12px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: bold; margin: 0 2px;";
     
-    // إذا كان هناك إجابة محفوظة، نعطيها لونًا مختلفًا
     if (currentAnswer) {
       btnStyle = "background-color: #d4edda; border: 2px solid #28a745; padding: 4px 12px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: bold; margin: 0 2px; color: #155724;";
     }
@@ -295,7 +293,6 @@ function renderSprach2Exam() {
             
             const wordCard = document.getElementById(`sprach2_word_${oldWord}`);
             if (wordCard) {
-              // ✅ تغيير اللون إلى الأزرق الفاتح (غير مستخدم، يمكن اختياره مرة أخرى)
               wordCard.style.backgroundColor = "#e0f2fe";
               wordCard.style.border = "1px solid #7dd3fc";
               wordCard.style.color = "#4a4a4a";
@@ -319,14 +316,12 @@ function renderSprach2Exam() {
                     const targetBtn = document.getElementById(`sprach2_btn_${sprach2SelectedQuestionId}`);
                     if (targetBtn) {
                       targetBtn.textContent = w;
-                      // ✅ بعد الربط: لون أخضر فاتح مع border أخضر
                       targetBtn.style.backgroundColor = "#d4edda";
                       targetBtn.style.border = "2px solid #28a745";
                       targetBtn.style.color = "#155724";
                     }
                     const cardEl = document.getElementById(`sprach2_word_${w}`);
                     if (cardEl) {
-                      // ✅ الكلمة المستخدمة: لون أخضر فاتح مع border أخضر
                       cardEl.style.backgroundColor = "#d4edda";
                       cardEl.style.border = "2px solid #28a745";
                       cardEl.style.color = "#155724";
@@ -338,7 +333,6 @@ function renderSprach2Exam() {
                   } else {
                     clearSprach2WordSelection();
                     newCard.classList.add('selected-for-link');
-                    // ✅ العنصر المحدد حاليًا: أزرق فاتح
                     newCard.style.backgroundColor = "#e0f2fe";
                     newCard.style.border = "2px solid #7dd3fc";
                     sprach2SelectedWordForLinking = w;
@@ -382,7 +376,6 @@ function renderSprach2Exam() {
             }
             sprach2UserAnswers[qId] = word;
             btn.textContent = word;
-            // ✅ بعد الربط: لون أخضر فاتح
             btn.style.backgroundColor = "#d4edda";
             btn.style.border = "2px solid #28a745";
             btn.style.color = "#155724";
@@ -400,7 +393,6 @@ function renderSprach2Exam() {
           } else {
             clearSprach2ButtonSelection();
             btn.classList.add('selected-for-link');
-            // ✅ العنصر المحدد حاليًا: أزرق فاتح
             btn.style.border = "2px solid #7dd3fc";
             btn.style.backgroundColor = "#e0f2fe";
             sprach2SelectedQuestionId = qId;
@@ -448,14 +440,12 @@ function renderSprach2Exam() {
     wordCard.style.fontWeight = "500";
     
     if (isSprach2WordUsed(word)) {
-      // ✅ الكلمة المستخدمة: لون أخضر فاتح مع border أخضر
       wordCard.style.backgroundColor = "#d4edda";
       wordCard.style.border = "2px solid #28a745";
       wordCard.style.color = "#155724";
       wordCard.style.cursor = "default";
       wordCard.style.opacity = "0.85";
     } else {
-      // ✅ الكلمة غير المستخدمة: لون أبيض مع border أرجواني فاتح
       wordCard.style.backgroundColor = "#ffffff";
       wordCard.style.border = "1px solid #7c6ce6";
       wordCard.style.color = "#4a4a4a";
@@ -492,7 +482,6 @@ function renderSprach2Exam() {
           } else {
             clearSprach2WordSelection();
             wordCard.classList.add('selected-for-link');
-            // ✅ العنصر المحدد حاليًا: أزرق فاتح
             wordCard.style.backgroundColor = "#e0f2fe";
             wordCard.style.border = "2px solid #7dd3fc";
             sprach2SelectedWordForLinking = w;
@@ -601,7 +590,6 @@ function resetSprach2Exam() {
   console.log("✅ تم إعادة تعيين Sprachbausteine Teil 2");
 }
 
-// دالة checkSprach2Exam المعدلة مع تحسين الألوان
 function checkSprach2Exam() {
   const options = currentSprach2Data.options;
   let score = 0;
@@ -620,7 +608,6 @@ function checkSprach2Exam() {
       score++;
       if (btn) {
         btn.textContent = opt.correct;
-        // ✅ الإجابة الصحيحة: لون أخضر فاتح مع border أخضر
         btn.style.backgroundColor = "#d4edda";
         btn.style.border = "2px solid #28a745";
         btn.style.color = "#155724";
@@ -628,7 +615,6 @@ function checkSprach2Exam() {
       }
     } else {
       if (btn) {
-        // ✅ الإجابة الخاطئة: لون أحمر فاتح
         btn.style.backgroundColor = "#fee2e2";
         btn.style.color = "#dc2626";
         btn.style.border = "1px solid #dc2626";
@@ -643,18 +629,15 @@ function checkSprach2Exam() {
     }
   }
   
-  // تحديث ألوان الكلمات المستخدمة
   const usedWords = Object.values(sprach2UserAnswers);
   document.querySelectorAll('.sprach2-word-card').forEach(card => {
     const word = card.textContent;
     if (usedWords.includes(word)) {
-      // ✅ الكلمة المستخدمة: لون أخضر فاتح
       card.style.backgroundColor = "#d4edda";
       card.style.border = "2px solid #28a745";
       card.style.color = "#155724";
       card.style.opacity = "0.85";
     } else {
-      // ✅ الكلمة غير المستخدمة: لون أبيض مع border أرجواني
       card.style.backgroundColor = "#ffffff";
       card.style.border = "1px solid #7c6ce6";
       card.style.color = "#4a4a4a";
@@ -680,7 +663,6 @@ function checkSprach2Exam() {
     resultDiv.style.color = "#721c24";
   }
   
-  // حفظ النتيجة
   if (typeof window.saveExamResultGlobal === "function") {
     window.saveExamResultGlobal(currentSprach2Data.skill || "sprach2", currentSprach2Data.id || 1, parseFloat(finalScore));
   }
@@ -1073,7 +1055,6 @@ function checkSprach1Exam() {
     resultDiv.style.color = "#721c24";
   }
   
-  // حفظ النتيجة
   if (typeof window.saveExamResultGlobal === "function") {
     window.saveExamResultGlobal(currentSprach1Data.skill || "sprach1", currentSprach1Data.id || 1, parseFloat(finalScore));
   }
@@ -1279,7 +1260,6 @@ window.buildTrueFalseExam = function(container, questions, note) {
   buttonContainer.appendChild(buttonsDiv);
   container.appendChild(buttonContainer);
   
-  // ✅ إنشاء resultDiv بشكل صحيح قبل التصحيح
   let resultDiv = document.getElementById('truefalseResult');
   if (!resultDiv) {
     resultDiv = document.createElement('div');
@@ -1289,10 +1269,10 @@ window.buildTrueFalseExam = function(container, questions, note) {
     container.appendChild(resultDiv);
   }
 };
+
 function checkTrueFalseExam(container, questions, answers, correctNumbersContainer) {
   if (!questions || !Array.isArray(questions) || questions.length === 0) {
     console.error("❌ خطأ: لا توجد أسئلة للتصحيح");
-    // ✅ البحث عن resultDiv داخل container بدلاً من document
     let resultDiv = container.querySelector('#truefalseResult');
     if (!resultDiv) {
       resultDiv = document.createElement('div');
@@ -1380,7 +1360,6 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
   
   const finalScore = (score * pointsPerQuestion).toFixed(2);
   
-  // ✅ البحث عن resultDiv داخل container فقط
   let resultDiv = container.querySelector('#truefalseResult');
   if (!resultDiv) {
     resultDiv = document.createElement('div');
@@ -1405,14 +1384,12 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
     resultDiv.style.color = 'white';
   }
   
-  // حفظ النتيجة
   if (typeof window.saveExamResultGlobal === "function") {
     const skill = container.id || "hoeren";
     const examId = window.currentExamId || 1;
     window.saveExamResultGlobal(skill, examId, parseFloat(finalScore));
   }
   
-  // التمرير إلى النتيجة
   setTimeout(() => {
     resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, 100);
@@ -1480,7 +1457,6 @@ function renderMatchingQuestions() {
         } else {
           delete matchingSelectedAnswers[idx];
         }
-        // تحديث كل القوائم
         document.querySelectorAll('#teil1 select').forEach((sel, sidx) => {
           const currentVal = sel.value;
           sel.innerHTML = "";
@@ -1621,7 +1597,6 @@ function checkMatchingExam() {
     resultDiv.style.color = "#721c24";
   }
   
-  // حفظ النتيجة
   if (typeof window.saveExamResultGlobal === "function") {
     window.saveExamResultGlobal("lesen1", currentMatchingExamData.id || 1, parseFloat(finalScore));
   }
@@ -1888,17 +1863,16 @@ function checkTeil2Exam() {
     resultDiv.style.color = "#721c24";
   }
   
-  // حفظ النتيجة
   if (typeof window.saveExamResultGlobal === "function") {
     window.saveExamResultGlobal("lesen2", currentTeil2Data.id || 1, parseFloat(finalScore));
   }
 }
 
-// ========== نظام Teil 3 (Lesen Teil 3) - الطريقتان معًا ==========
+// ========== نظام Teil 3 (Lesen Teil 3) ==========
 let currentTeil3Data = null;
-let teil3UserAnswers = {};      // { itemIndex: situationIndex }
-let teil3SelectedItem = null;   // للربط: الفقرة المختارة أولاً
-let teil3SelectedSit = null;    // للربط: العنوان المختار أولاً
+let teil3UserAnswers = {};
+let teil3SelectedItem = null;
+let teil3SelectedSit = null;
 
 window.loadTeil3Exam = function(examData) {
   console.log("🟢 loadTeil3Exam", examData.title);
@@ -1909,12 +1883,10 @@ window.loadTeil3Exam = function(examData) {
   renderTeil3Exam();
 };
 
-// دالة تحديث قائمة الـ select options بناءً على الإجابات المستخدمة
 function updateTeil3SelectOptions() {
   const items = currentTeil3Data.items;
   const situations = currentTeil3Data.situations;
   
-  // جمع العناوين المستخدمة (فقط التي لها إجابة حقيقية، وليست none)
   const usedSituations = new Set();
   for (let key in teil3UserAnswers) {
     const val = teil3UserAnswers[key];
@@ -1923,7 +1895,6 @@ function updateTeil3SelectOptions() {
     }
   }
   
-  // تحديث كل select
   for (let i = 0; i < items.length; i++) {
     const select = document.getElementById(`teil3_select_${i}`);
     if (!select) continue;
@@ -1944,7 +1915,6 @@ function updateTeil3SelectOptions() {
     select.appendChild(noTitleOption);
     
     for (let s = 0; s < situations.length; s++) {
-      // إذا كان العنوان مستخدمًا بواسطة فقرة أخرى، لا نضيفه للخيارات
       if (usedSituations.has(s) && currentAnswer !== s) {
         continue;
       }
@@ -1954,7 +1924,6 @@ function updateTeil3SelectOptions() {
       select.appendChild(option);
     }
     
-    // استعادة القيمة الحالية
     if (isNoneAnswer) {
       select.value = "none";
     } else if (currentAnswer !== undefined && currentAnswer !== null && currentAnswer !== "") {
@@ -1965,7 +1934,6 @@ function updateTeil3SelectOptions() {
   }
 }
 
-// دالة تحديث ألوان القائمة اليمنى (العناوين) - لون رمادي فاتح بعد الربط
 function updateTeil3RightSideColors() {
   const items = currentTeil3Data.items;
   const situations = currentTeil3Data.situations;
@@ -1984,13 +1952,11 @@ function updateTeil3RightSideColors() {
     }
     
     if (isUsed) {
-      // بعد الربط: رمادي فاتح جدًا
       sitDiv.style.backgroundColor = "#e9ecef";
       sitDiv.style.border = "1px solid #adb5bd";
       sitDiv.style.color = "#212529";
       sitDiv.classList.add('used');
     } else {
-      // غير مستخدم
       if (teil3SelectedSit !== i) {
         sitDiv.style.backgroundColor = "white";
         sitDiv.style.border = "1px solid #ddd";
@@ -2001,21 +1967,17 @@ function updateTeil3RightSideColors() {
   }
 }
 
-// دالة تحديث حالة الفقرة (الألوان) - نفس لون العنوان بعد الربط
 function updateTeil3CardStyle(idx) {
   const card = document.getElementById(`teil3_card_${idx}`);
   const answer = teil3UserAnswers[idx];
   
   if (answer !== undefined && answer !== null && answer !== "") {
-    // بعد الربط: نفس لون العنوان (رمادي فاتح)
     card.style.backgroundColor = "#e9ecef";
     card.style.border = "1px solid #adb5bd";
   } else if (teil3SelectedItem === idx) {
-    // ✅ محددة حاليًا: أزرق فاتح جدًا (مريح للعين)
     card.style.backgroundColor = "#e0f2fe";
     card.style.border = "1px solid #7dd3fc";
   } else {
-    // افتراضي
     card.style.backgroundColor = "#fafafa";
     card.style.border = "1px solid #e0e0e0";
   }
@@ -2097,7 +2059,6 @@ function renderTeil3Exam() {
     itemText.innerHTML = item.text;
     card.appendChild(itemText);
     
-    // ✅ الطريقة الأصلية: Select dropdown
     const select = document.createElement("select");
     select.className = "teil3-original-select";
     select.style.width = "100%";
@@ -2107,7 +2068,6 @@ function renderTeil3Exam() {
     select.style.border = "1px solid #ccc";
     select.id = `teil3_select_${i}`;
     
-    // ✅ بداية فارغة تمامًا - لا اختيار مسبق
     select.innerHTML = "";
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
@@ -2139,89 +2099,16 @@ function renderTeil3Exam() {
           delete teil3UserAnswers[idx];
         }
         
-        // تحديث القوائم والألوان
         updateTeil3SelectOptions();
         updateTeil3RightSideColors();
         updateTeil3CardStyle(idx);
         
-        // إلغاء أي تحديدات نشطة
         clearTeil3ItemSelection();
         clearTeil3SituationSelection();
       };
     })(i);
     
     card.appendChild(select);
-    
-    // ✅ الطريقة الجديدة: النقر على الفقرة
-    card.onclick = (function(idx) {
-      return function(e) {
-        e.stopPropagation();
-        if (e.target.tagName === 'SELECT') return;
-        
-        const currentAnswer = teil3UserAnswers[idx];
-        
-        // إذا كانت الفقرة مرتبطة بالفعل (بأي إجابة بما فيها "none")، قم بإلغاء الربط
-        if (currentAnswer !== undefined && currentAnswer !== null && currentAnswer !== "") {
-          delete teil3UserAnswers[idx];
-          
-          // تحديث الـ select
-          const selectElem = document.getElementById(`teil3_select_${idx}`);
-          if (selectElem) selectElem.selectedIndex = 0;
-          
-          // تحديث القوائم والألوان
-          updateTeil3SelectOptions();
-          updateTeil3RightSideColors();
-          updateTeil3CardStyle(idx);
-          
-          // إلغاء التحديدات النشطة
-          clearTeil3ItemSelection();
-          clearTeil3SituationSelection();
-          return;
-        }
-        
-        // إذا كان هناك عنوان مختار مسبقًا
-        if (teil3SelectedSit !== null) {
-          teil3UserAnswers[idx] = teil3SelectedSit;
-          
-          // تحديث الـ select
-          const selectElem = document.getElementById(`teil3_select_${idx}`);
-          if (selectElem) selectElem.value = teil3SelectedSit;
-          
-          // تحديث القوائم والألوان
-          updateTeil3SelectOptions();
-          updateTeil3RightSideColors();
-          updateTeil3CardStyle(idx);
-          
-          // إلغاء التحديدات
-          clearTeil3SituationSelection();
-          return;
-        }
-        
-        // ✅ إذا كان هناك فقرة أخرى مختارة مسبقًا، قم بإلغاء تحديدها first
-        if (teil3SelectedItem !== null && teil3SelectedItem !== idx) {
-          // إزالة التحديد من الفقرة السابقة
-          const prevCard = document.getElementById(`teil3_card_${teil3SelectedItem}`);
-          if (prevCard) {
-            const prevAnswer = teil3UserAnswers[teil3SelectedItem];
-            if (prevAnswer !== undefined && prevAnswer !== null && prevAnswer !== "") {
-              prevCard.style.backgroundColor = "#e9ecef";
-              prevCard.style.border = "1px solid #adb5bd";
-            } else {
-              prevCard.style.backgroundColor = "#fafafa";
-              prevCard.style.border = "1px solid #e0e0e0";
-            }
-          }
-        }
-        
-        // تحديد الفقرة الحالية
-        if (teil3SelectedItem === idx) {
-          clearTeil3ItemSelection();
-        } else {
-          teil3SelectedItem = idx;
-          updateTeil3CardStyle(idx);
-        }
-      };
-    })(i);
     
     itemsGrid.appendChild(card);
   }
@@ -2267,7 +2154,6 @@ function renderTeil3Exam() {
       return function(e) {
         e.stopPropagation();
         
-        // التحقق إذا كان العنوان مستخدمًا بالفعل
         let isUsed = false;
         let usedByItem = null;
         for (let j = 0; j < items.length; j++) {
@@ -2279,7 +2165,6 @@ function renderTeil3Exam() {
           }
         }
         
-        // إذا كان العنوان مستخدمًا، قم بإلغاء ربطه
         if (isUsed && usedByItem !== null) {
           delete teil3UserAnswers[usedByItem];
           const selectElem = document.getElementById(`teil3_select_${usedByItem}`);
@@ -2291,25 +2176,20 @@ function renderTeil3Exam() {
           return;
         }
         
-        // إذا كان هناك فقرة مختارة مسبقًا
         if (teil3SelectedItem !== null) {
           teil3UserAnswers[teil3SelectedItem] = sitIdx;
           
-          // تحديث الـ select
           const selectElem = document.getElementById(`teil3_select_${teil3SelectedItem}`);
           if (selectElem) selectElem.value = sitIdx;
           
-          // تحديث القوائم والألوان
           updateTeil3SelectOptions();
           updateTeil3RightSideColors();
           updateTeil3CardStyle(teil3SelectedItem);
           
-          // إلغاء التحديدات
           clearTeil3ItemSelection();
           return;
         }
         
-        // ✅ إذا كان هناك عنوان آخر مختار مسبقًا، قم بإلغاء تحديده
         if (teil3SelectedSit !== null && teil3SelectedSit !== sitIdx) {
           const prevSitDiv = document.getElementById(`teil3_sit_${teil3SelectedSit}`);
           if (prevSitDiv && !prevSitDiv.classList.contains('used')) {
@@ -2318,7 +2198,6 @@ function renderTeil3Exam() {
           }
         }
         
-        // تحديد العنوان الحالي
         if (teil3SelectedSit === sitIdx) {
           clearTeil3SituationSelection();
         } else {
@@ -2381,21 +2260,17 @@ function renderTeil3Exam() {
     teil3SelectedItem = null;
     teil3SelectedSit = null;
     
-    // إعادة تعيين الـ selects إلى "-- اختر العنوان --"
     for (let i = 0; i < items.length; i++) {
       const select = document.getElementById(`teil3_select_${i}`);
       if (select) select.selectedIndex = 0;
       updateTeil3CardStyle(i);
     }
     
-    // تحديث القوائم والألوان
     updateTeil3SelectOptions();
     updateTeil3RightSideColors();
     
-    // حذف جميع رسائل التصحيح
     document.querySelectorAll('#teil3 .correct-message').forEach(msg => msg.remove());
     
-    // إخفاء نتيجة التصحيح
     const resultDiv = document.getElementById("teil3Result");
     if (resultDiv) {
       resultDiv.style.display = "none";
@@ -2412,7 +2287,6 @@ function renderTeil3Exam() {
   resultDiv.style.display = "none";
   container.appendChild(resultDiv);
   
-  // تحديث القوائم والألوان أول مرة
   updateTeil3SelectOptions();
   updateTeil3RightSideColors();
 }
@@ -2422,7 +2296,6 @@ function checkTeil3Exam() {
   let score = 0;
   let total = items.length;
   
-  // حذف رسائل التصحيح القديمة
   document.querySelectorAll('#teil3 .correct-message').forEach(msg => msg.remove());
   
   for (let i = 0; i < total; i++) {
@@ -2432,7 +2305,6 @@ function checkTeil3Exam() {
     let isCorrect = false;
     let correctText = "";
     
-    // معالجة حالة "لا يوجد عنوان"
     if (correctIndex === null || correctIndex === undefined) {
       correctText = "⚠️ هذه الفقرة لا يوجد لها عنوان";
       isCorrect = (userAnswer === "none" || userAnswer === null || userAnswer === undefined || userAnswer === "");
@@ -2463,7 +2335,6 @@ function checkTeil3Exam() {
         correctMsg.innerHTML = `✅ : ${correctText}`;
         card.appendChild(correctMsg);
       } else {
-        // لم يجب المستخدم
         card.style.backgroundColor = "#fef0e0";
         card.style.border = "2px solid #e67e22";
         
@@ -2497,19 +2368,17 @@ function checkTeil3Exam() {
     resultDiv.style.color = "#721c24";
   }
   
-  // حفظ النتيجة
   if (typeof window.saveExamResultGlobal === "function") {
     window.saveExamResultGlobal("lesen3", currentTeil3Data.id || 1, parseFloat(finalScore));
   }
 }
+
 // ============================================
-// التعديلات الخاصة بالهواتف - تصغير كل شيء مع الحفاظ على التصميم
+// التعديلات الخاصة بالهواتف
 // ============================================
 
 function applyMobileStylesToEngine() {
   if (window.innerWidth <= 768) {
-    
-    // تصغير جميع بطاقات الأسئلة
     const allQuestionCards = document.querySelectorAll('.question-card');
     allQuestionCards.forEach(card => {
       card.style.padding = '10px';
@@ -2517,14 +2386,12 @@ function applyMobileStylesToEngine() {
       card.style.borderRadius = '10px';
     });
     
-    // تصغير نصوص الأسئلة
     const allQuestionTexts = document.querySelectorAll('.question-text');
     allQuestionTexts.forEach(text => {
       text.style.fontSize = '0.75rem';
       text.style.marginBottom = '8px';
     });
     
-    // تصغير خيارات الإجابة
     const allOptionLabels = document.querySelectorAll('.option-label');
     allOptionLabels.forEach(label => {
       label.style.padding = '6px 8px';
@@ -2532,117 +2399,12 @@ function applyMobileStylesToEngine() {
       label.style.marginBottom = '5px';
     });
     
-    // تصغير أزرار التصحيح
     const allCheckBtns = document.querySelectorAll('.check-btn');
     allCheckBtns.forEach(btn => {
       btn.style.padding = '8px 16px';
       btn.style.fontSize = '0.75rem';
     });
     
-    // تصغير أزرار الإعادة (reset)
-    const allResetBtns = document.querySelectorAll('button:contains("↺")');
-    allResetBtns.forEach(btn => {
-      btn.style.padding = '6px 10px';
-      btn.style.fontSize = '14px';
-    });
-    
-    // تصغير أعمدة Schreiben (المقال)
-    const schreibenColumns = document.querySelectorAll('#schreiben > div[style*="display: flex"]');
-    schreibenColumns.forEach(col => {
-      col.style.gap = '15px';
-    });
-    
-    const schreibenLeftCol = document.querySelectorAll('#schreiben [style*="min-width: 350px"]');
-    schreibenLeftCol.forEach(col => {
-      col.style.minWidth = '280px';
-      col.style.padding = '12px';
-      col.style.maxHeight = '400px';
-    });
-    
-    const schreibenRightCol = document.querySelectorAll('#schreiben [style*="min-width: 350px"]');
-    schreibenRightCol.forEach(col => {
-      col.style.minWidth = '280px';
-      col.style.padding = '12px';
-      col.style.maxHeight = '400px';
-    });
-    
-    // تصغير نصوص Schreiben
-    const schreibenTexts = document.querySelectorAll('#schreiben div[style*="font-size: 14px"]');
-    schreibenTexts.forEach(text => {
-      text.style.fontSize = '12px';
-    });
-    
-    // تصغير قوائم Sprachbausteine
-    const sprachColumns = document.querySelectorAll('#sprach1 > div[style*="display: flex"], #sprach2 > div[style*="display: flex"]');
-    sprachColumns.forEach(col => {
-      col.style.gap = '15px';
-    });
-    
-    const sprachLeftCol = document.querySelectorAll('#sprach1 [style*="min-width: 400px"], #sprach2 [style*="min-width: 400px"]');
-    sprachLeftCol.forEach(col => {
-      col.style.minWidth = '280px';
-      col.style.padding = '12px';
-      col.style.maxHeight = '450px';
-    });
-    
-    const sprachRightCol = document.querySelectorAll('#sprach1 [style*="min-width: 250px"], #sprach2 [style*="min-width: 250px"]');
-    sprachRightCol.forEach(col => {
-      col.style.minWidth = '220px';
-      col.style.padding = '12px';
-      col.style.maxHeight = '450px';
-    });
-    
-    // تصغير أزرار الربط في Sprachbausteine
-    const sprachBtns = document.querySelectorAll('.sprach1-gap-btn, .sprach2-gap-btn');
-    sprachBtns.forEach(btn => {
-      btn.style.padding = '3px 8px';
-      btn.style.fontSize = '11px';
-    });
-    
-    const sprachWordCards = document.querySelectorAll('.sprach2-word-card');
-    sprachWordCards.forEach(card => {
-      card.style.padding = '5px 8px';
-      card.style.fontSize = '11px';
-    });
-    
-    // تصغير Teil 2 (Lesen Teil 2) الأعمدة
-    const teil2Columns = document.querySelectorAll('#teil2 > div[style*="display: flex"]');
-    teil2Columns.forEach(col => {
-      col.style.gap = '15px';
-    });
-    
-    const teil2TextCol = document.querySelectorAll('#teil2 [style*="min-width: 300px"]');
-    teil2TextCol.forEach(col => {
-      col.style.minWidth = '280px';
-      col.style.padding = '12px';
-      col.style.maxHeight = '400px';
-    });
-    
-    // تصغير Teil 3 (Lesen Teil 3) الشبكة
-    const teil3Grid = document.querySelectorAll('#teil3 [style*="grid-template-columns: 1fr 1fr"]');
-    teil3Grid.forEach(grid => {
-      grid.style.gridTemplateColumns = '1fr';
-      grid.style.gap = '12px';
-    });
-    
-    const teil3Cards = document.querySelectorAll('#teil3 .question-card');
-    teil3Cards.forEach(card => {
-      card.style.padding = '10px';
-    });
-    
-    const teil3Selects = document.querySelectorAll('#teil3 select');
-    teil3Selects.forEach(select => {
-      select.style.padding = '5px';
-      select.style.fontSize = '11px';
-    });
-    
-    const teil3SitItems = document.querySelectorAll('.teil3-situation-item');
-    teil3SitItems.forEach(item => {
-      item.style.padding = '6px 10px';
-      item.style.fontSize = '11px';
-    });
-    
-    // تصحيح الأزرار التي تحتوي على النص "↺" (لا يمكن استخدام :contains في CSS، نستخدم طريقة مختلفة)
     document.querySelectorAll('button').forEach(btn => {
       if (btn.textContent === '↺') {
         btn.style.padding = '6px 10px';
@@ -2650,7 +2412,6 @@ function applyMobileStylesToEngine() {
       }
     });
     
-    // تصغير النتيجة
     const allResultBoxes = document.querySelectorAll('.result-box');
     allResultBoxes.forEach(box => {
       box.style.padding = '6px 12px';
@@ -2660,210 +2421,129 @@ function applyMobileStylesToEngine() {
   }
 }
 
-// استدعاء الدالة عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
   applyMobileStylesToEngine();
 });
 
-// استدعاء الدالة بعد كل تغيير في DOM (مثل فتح امتحان جديد)
-const originalOpenExam = window.openExam;
-if (originalOpenExam) {
+const originalOpenExamGlobal = window.openExam;
+if (originalOpenExamGlobal) {
   window.openExam = async function(examId, examTitle, skill) {
-    await originalOpenExam(examId, examTitle, skill);
+    await originalOpenExamGlobal(examId, examTitle, skill);
     setTimeout(applyMobileStylesToEngine, 100);
   };
 }
 
-// استدعاء الدالة عند تحميل أي امتحان آخر
-const originalLoadMatchingExam = window.loadMatchingExam;
-if (originalLoadMatchingExam) {
-  window.loadMatchingExam = function(examData) {
-    originalLoadMatchingExam(examData);
-    setTimeout(applyMobileStylesToEngine, 100);
-  };
-}
-
-const originalLoadTeil2Exam = window.loadTeil2Exam;
-if (originalLoadTeil2Exam) {
-  window.loadTeil2Exam = function(examData) {
-    originalLoadTeil2Exam(examData);
-    setTimeout(applyMobileStylesToEngine, 100);
-  };
-}
-
-const originalLoadTeil3Exam = window.loadTeil3Exam;
-if (originalLoadTeil3Exam) {
-  window.loadTeil3Exam = function(examData) {
-    originalLoadTeil3Exam(examData);
-    setTimeout(applyMobileStylesToEngine, 100);
-  };
-}
-
-const originalLoadSprach1Exam = window.loadSprach1Exam;
-if (originalLoadSprach1Exam) {
-  window.loadSprach1Exam = function(examData) {
-    originalLoadSprach1Exam(examData);
-    setTimeout(applyMobileStylesToEngine, 100);
-  };
-}
-
-const originalLoadSprach2Exam = window.loadSprach2Exam;
-if (originalLoadSprach2Exam) {
-  window.loadSprach2Exam = function(examData) {
-    originalLoadSprach2Exam(examData);
-    setTimeout(applyMobileStylesToEngine, 100);
-  };
-}
-
-const originalLoadSchreibenExam = window.loadSchreibenExam;
-if (originalLoadSchreibenExam) {
-  window.loadSchreibenExam = function(examData) {
-    originalLoadSchreibenExam(examData);
-    setTimeout(applyMobileStylesToEngine, 100);
-  };
-}
-
-const originalBuildTrueFalseExam = window.buildTrueFalseExam;
-if (originalBuildTrueFalseExam) {
-  window.buildTrueFalseExam = function(container, questions, note) {
-    originalBuildTrueFalseExam(container, questions, note);
-    setTimeout(applyMobileStylesToEngine, 100);
-  };
-}
-
-// ============================================
-// تحسين Teil 1 - قائمة "اختر" مثل الحاسوب (تضهر أسفل الزر باللون الرمادي)
-// ============================================
-
+// تحسين Teil 1 للهواتف
 function enhanceTeil1Selects() {
-    if (window.innerWidth <= 768) {
-        // تحسين جميع قوائم select في Teil 1
-        const selects = document.querySelectorAll('#teil1 select');
-        selects.forEach(select => {
-            // نفس ألوان وتأثيرات الحاسوب
-            select.style.backgroundColor = '#f8f9fa';
-            select.style.color = '#212529';
-            select.style.border = '1px solid #ced4da';
-            select.style.borderRadius = '8px';
-            select.style.padding = '8px 12px';
-            select.style.fontSize = '0.7rem';
-            select.style.cursor = 'pointer';
-            select.style.transition = 'all 0.2s ease';
-            
-            // تأثير hover مثل الحاسوب
-            select.onmouseenter = function() {
-                this.style.borderColor = '#80bdff';
-                this.style.boxShadow = '0 0 0 2px rgba(0,123,255,0.25)';
-            };
-            select.onmouseleave = function() {
-                this.style.borderColor = '#ced4da';
-                this.style.boxShadow = 'none';
-            };
-            
-            // إضافة خيار فارغ افتراضي
-            if (select.options.length > 0 && select.options[0].value === "") {
-                select.options[0].textContent = "-- اختر الإجابة --";
-            }
-        });
-    }
+  if (window.innerWidth <= 768) {
+    const selects = document.querySelectorAll('#teil1 select');
+    selects.forEach(select => {
+      select.style.backgroundColor = '#f8f9fa';
+      select.style.color = '#212529';
+      select.style.border = '1px solid #ced4da';
+      select.style.borderRadius = '8px';
+      select.style.padding = '8px 12px';
+      select.style.fontSize = '0.7rem';
+      select.style.cursor = 'pointer';
+      select.style.transition = 'all 0.2s ease';
+      
+      select.onmouseenter = function() {
+        this.style.borderColor = '#80bdff';
+        this.style.boxShadow = '0 0 0 2px rgba(0,123,255,0.25)';
+      };
+      select.onmouseleave = function() {
+        this.style.borderColor = '#ced4da';
+        this.style.boxShadow = 'none';
+      };
+      
+      if (select.options.length > 0 && select.options[0].value === "") {
+        select.options[0].textContent = "-- اختر الإجابة --";
+      }
+    });
+  }
 }
 
-// استدعاء الدالة بعد تحميل Matching Exam
-const originalLoadMatchingExam = window.loadMatchingExam;
-if (originalLoadMatchingExam) {
-    window.loadMatchingExam = function(examData) {
-        originalLoadMatchingExam(examData);
-        setTimeout(enhanceTeil1Selects, 50);
-    };
+const originalLoadMatchingExamFinal = window.loadMatchingExam;
+if (originalLoadMatchingExamFinal) {
+  window.loadMatchingExam = function(examData) {
+    originalLoadMatchingExamFinal(examData);
+    setTimeout(enhanceTeil1Selects, 50);
+  };
 }
 
-// ============================================
-// تحسين Teil 3 - إزالة النقر على الفقرة، فقط "اختر" مثل الحاسوب
-// ============================================
-
+// تحسين Teil 3 للهواتف
 function enhanceTeil3ForMobile() {
-    if (window.innerWidth <= 768) {
-        // إزالة خاصية النقر على الفقرة
-        const cards = document.querySelectorAll('#teil3 .question-card');
-        cards.forEach(card => {
-            // إزالة onclick الأصلي
-            card.onclick = null;
-            card.style.cursor = 'default';
-            
-            // إضافة حدود ومسافات مناسبة
-            card.style.padding = '12px';
-            card.style.marginBottom = '12px';
-            card.style.borderRadius = '12px';
-            card.style.backgroundColor = '#f8f9fa';
-            card.style.border = '1px solid #e0e0e0';
-        });
-        
-        // تحسين قوائم select في Teil 3
-        const selects = document.querySelectorAll('#teil3 select');
-        selects.forEach(select => {
-            select.style.backgroundColor = '#f8f9fa';
-            select.style.color = '#212529';
-            select.style.border = '1px solid #ced4da';
-            select.style.borderRadius = '8px';
-            select.style.padding = '6px 10px';
-            select.style.fontSize = '0.65rem';
-            select.style.cursor = 'pointer';
-            select.style.width = '100%';
-            select.style.marginTop = '8px';
-            
-            select.onmouseenter = function() {
-                this.style.borderColor = '#80bdff';
-                this.style.boxShadow = '0 0 0 2px rgba(0,123,255,0.25)';
-            };
-            select.onmouseleave = function() {
-                this.style.borderColor = '#ced4da';
-                this.style.boxShadow = 'none';
-            };
-        });
-        
-        // إخفاء كلمة "Situationen" في الهاتف
-        const situationTitle = document.querySelector('#teil3 h3');
-        if (situationTitle && situationTitle.textContent.includes('Situationen')) {
-            situationTitle.style.display = 'none';
-        }
-        
-        // إخفاء عمود العناوين بالكامل
-        const rightColumn = document.querySelector('#teil3 > div[style*="display: flex"] > div:last-child');
-        if (rightColumn) {
-            rightColumn.style.display = 'none';
-        }
-        
-        // جعل عمود الفقرات يأخذ العرض الكامل
-        const leftColumn = document.querySelector('#teil3 > div[style*="display: flex"] > div:first-child');
-        if (leftColumn) {
-            leftColumn.style.width = '100%';
-            leftColumn.style.maxWidth = '100%';
-        }
-        
-        // تحسين شبكة الفقرات
-        const itemsGrid = document.querySelector('#teil3 [style*="grid-template-columns: 1fr 1fr"]');
-        if (itemsGrid) {
-            itemsGrid.style.gridTemplateColumns = '1fr';
-            itemsGrid.style.gap = '12px';
-        }
+  if (window.innerWidth <= 768) {
+    const cards = document.querySelectorAll('#teil3 .question-card');
+    cards.forEach(card => {
+      card.onclick = null;
+      card.style.cursor = 'default';
+      card.style.padding = '12px';
+      card.style.marginBottom = '12px';
+      card.style.borderRadius = '12px';
+      card.style.backgroundColor = '#f8f9fa';
+      card.style.border = '1px solid #e0e0e0';
+    });
+    
+    const selects = document.querySelectorAll('#teil3 select');
+    selects.forEach(select => {
+      select.style.backgroundColor = '#f8f9fa';
+      select.style.color = '#212529';
+      select.style.border = '1px solid #ced4da';
+      select.style.borderRadius = '8px';
+      select.style.padding = '6px 10px';
+      select.style.fontSize = '0.65rem';
+      select.style.cursor = 'pointer';
+      select.style.width = '100%';
+      select.style.marginTop = '8px';
+      
+      select.onmouseenter = function() {
+        this.style.borderColor = '#80bdff';
+        this.style.boxShadow = '0 0 0 2px rgba(0,123,255,0.25)';
+      };
+      select.onmouseleave = function() {
+        this.style.borderColor = '#ced4da';
+        this.style.boxShadow = 'none';
+      };
+    });
+    
+    const situationTitle = document.querySelector('#teil3 h3');
+    if (situationTitle && situationTitle.textContent.includes('Situationen')) {
+      situationTitle.style.display = 'none';
     }
+    
+    const rightColumn = document.querySelector('#teil3 > div[style*="display: flex"] > div:last-child');
+    if (rightColumn) {
+      rightColumn.style.display = 'none';
+    }
+    
+    const leftColumn = document.querySelector('#teil3 > div[style*="display: flex"] > div:first-child');
+    if (leftColumn) {
+      leftColumn.style.width = '100%';
+      leftColumn.style.maxWidth = '100%';
+    }
+    
+    const itemsGrid = document.querySelector('#teil3 [style*="grid-template-columns: 1fr 1fr"]');
+    if (itemsGrid) {
+      itemsGrid.style.gridTemplateColumns = '1fr';
+      itemsGrid.style.gap = '12px';
+    }
+  }
 }
 
-// استدعاء الدالة بعد تحميل Teil 3
-const originalRenderTeil3Exam = window.renderTeil3Exam;
-if (originalRenderTeil3Exam) {
-    window.renderTeil3Exam = function() {
-        originalRenderTeil3Exam();
-        setTimeout(enhanceTeil3ForMobile, 100);
-    };
+const originalRenderTeil3ExamFinal = window.renderTeil3Exam;
+if (originalRenderTeil3ExamFinal) {
+  window.renderTeil3Exam = function() {
+    originalRenderTeil3ExamFinal();
+    setTimeout(enhanceTeil3ForMobile, 100);
+  };
 }
 
-// استدعاء الدالة عند تغيير حجم الشاشة
 window.addEventListener('resize', function() {
-    setTimeout(() => {
-        enhanceTeil1Selects();
-        enhanceTeil3ForMobile();
-    }, 100);
+  setTimeout(() => {
+    enhanceTeil1Selects();
+    enhanceTeil3ForMobile();
+  }, 100);
 });
 
 console.log('✅ تحسينات Teil 1 و Teil 3 للهواتف تم تحميلها');
