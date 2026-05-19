@@ -26,6 +26,13 @@ function syncAnswerToRoom(questionIndex, selectedAnswer, isCorrect) {
     if (typeof StudyRoom !== 'undefined' && StudyRoom.isInRoom && StudyRoom.isInRoom()) {
         StudyRoom.syncAnswer(questionIndex, selectedAnswer, isCorrect);
         console.log(`📡 تم إرسال الإجابة إلى الغرفة: سؤال ${questionIndex + 1}`);
+        
+        // تحديث عدد الإجابات في الشريط العلوي
+        setTimeout(() => {
+            if (typeof window.updateRoomScore !== 'undefined') {
+                window.updateRoomScore();
+            }
+        }, 100);
     }
 }
 
