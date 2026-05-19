@@ -466,8 +466,7 @@
 /* ========================================
    تأثيرات Live Focus و Friend Activity
    ======================================== */
-
-/* توهج السؤال الذي يراجعه الصديق */
+/* تأثير توهج سؤال الصديق */
 .question-card.friend-focus {
     border: 2px solid #2196f3 !important;
     box-shadow: 0 0 20px rgba(33, 150, 243, 0.4) !important;
@@ -475,16 +474,15 @@
     background: rgba(33, 150, 243, 0.05) !important;
 }
 
-/* إشعار النشاط */
-@keyframes fadeInOut {
-    0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
-    15% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    85% { opacity: 1; transform: translateX(-50%) translateY(0); }
-    100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+/* تأثير اختفاء الإشعار */
+@keyframes fadeOut {
+    0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    70% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
 }
 
-.friend-activity-toast {
-    animation: fadeInOut 2s ease forwards;
+.friend-toast {
+    animation: fadeOut 2s ease forwards;
 }
 
 /* تلوين إجابة الصديق */
