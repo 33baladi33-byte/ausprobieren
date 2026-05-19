@@ -1,26 +1,31 @@
 {
-  "title": "Hörverstehen Teil 1 - Die Deutsche Lufthansa",
+  "title": "Die Deutsche Lufthansa",
   "type": "truefalse",
   "questions": [
     {
       "text": "Die Deutsche Lufthansa hat ihre Führungsposition verloren.",
-      "correct": false
+      "options": ["Richtig", "Falsch"],
+      "correct": 1
     },
     {
       "text": "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
-      "correct": true
+      "options": ["Richtig", "Falsch"],
+      "correct": 0
     },
     {
       "text": "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung.",
-      "correct": true
+      "options": ["Richtig", "Falsch"],
+      "correct": 0
     },
     {
       "text": "Durch moderne Wärmedämmung könnten die Heizkosten deutlich reduziert werden.",
-      "correct": false
+      "options": ["Richtig", "Falsch"],
+      "correct": 1
     },
     {
       "text": "Das Nationale Olympische Komitee hat die Dopingsperre für Tom Sanders aufgehoben.",
-      "correct": false
+      "options": ["Richtig", "Falsch"],
+      "correct": 1
     }
   ]
 }
