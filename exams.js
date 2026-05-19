@@ -22,61 +22,103 @@ const teile = [
 let currentQuestionsCount = 0;
 
 // ============================================
-// دوال المراجعة مع صديق
+// نظام المزامنة المباشرة مع الغرفة
 // ============================================
 
-function syncAnswerToRoom(questionIndex, selectedAnswer, isCorrect) {
+// 1️⃣ دالة إرسال الإجابة إلى الغرفة
+async function sendAnswerToRoom(questionIndex, selectedAnswer, isCorrect, answerText) {
     if (typeof window.StudyRoom !== 'undefined' && window.StudyRoom.isInRoom && window.StudyRoom.isInRoom()) {
-        window.StudyRoom.syncAnswer(questionIndex, selectedAnswer, isCorrect);
-        console.log(`📡 تم إرسال الإجابة إلى الغرفة: سؤال ${questionIndex + 1}`);
+        await window.StudyRoom.syncAnswer(questionIndex, selectedAnswer, isCorrect);
+        console.log(`📤 [إرسال] السؤال ${questionIndex + 1} -> ${answerText} (صحة: ${isCorrect})`);
+        
+        // تحديث النتيجة في الشريط
+        setTimeout(() => updateRoomScore(), 50);
+    } else {
+        console.log("⚠️ لست في غرفة، لن يتم إرسال الإجابة");
     }
 }
 
-function highlightOtherAnswer(questionIndex, answerIndex) {
+// 2️⃣ دالة تلوين إجابة الصديق (تستدعى عند استلام إجابة جديدة)
+function colorFriendAnswer(questionIndex, answerIndex) {
+    console.log(`🎨 [تلوين] السؤال ${questionIndex + 1} -> الخيار ${answerIndex + 1}`);
+    
     const questionCard = document.getElementById(`q_${questionIndex}`);
     if (!questionCard) return;
+    
     const optionsContainer = questionCard.querySelector('.options-container');
     if (!optionsContainer) return;
-    const buttons = optionsContainer.querySelectorAll('.option-label');
-    if (buttons[answerIndex]) {
-        buttons[answerIndex].style.background = '#e3f2fd';
-        buttons[answerIndex].style.border = '2px solid #2196f3';
-        buttons[answerIndex].style.color = '#1565c0';
-        if (!buttons[answerIndex].querySelector('.friend-icon')) {
-            const icon = document.createElement('span');
-            icon.className = 'friend-icon';
-            icon.innerHTML = ' 👥';
-            icon.style.fontSize = '12px';
-            buttons[answerIndex].appendChild(icon);
+    
+    const allButtons = optionsContainer.querySelectorAll('.option-label');
+    if (!allButtons[answerIndex]) return;
+    
+    // إزالة أي تلوين سابق للصديق في هذا السؤال
+    allButtons.forEach(btn => {
+        if (btn.classList.contains('friend-answer')) {
+            btn.classList.remove('friend-answer');
+            btn.style.background = '';
+            btn.style.border = '';
+            const icon = btn.querySelector('.friend-icon');
+            if (icon) icon.remove();
+        }
+    });
+    
+    // تلوين إجابة الصديق
+    const targetBtn = allButtons[answerIndex];
+    targetBtn.classList.add('friend-answer');
+    targetBtn.style.background = '#bbdef5';
+    targetBtn.style.border = '2px solid #1976d2';
+    targetBtn.style.color = '#0d47a1';
+    
+    // إضافة أيقونة الصديق
+    if (!targetBtn.querySelector('.friend-icon')) {
+        const icon = document.createElement('span');
+        icon.className = 'friend-icon';
+        icon.innerHTML = ' 👤';
+        icon.style.fontSize = '11px';
+        icon.style.fontWeight = 'bold';
+        icon.style.color = '#1976d2';
+        targetBtn.appendChild(icon);
+    }
+}
+
+// 3️⃣ دالة بدء مراقبة إجابات الصديق
+function startListeningForFriendAnswers() {
+    if (typeof window.StudyRoom === 'undefined' || !window.StudyRoom.isInRoom || !window.StudyRoom.isInRoom()) {
+        console.log("👥 لست في غرفة، لن يتم تفعيل المراقبة");
+        return;
+    }
+    
+    console.log("👥 [مراقبة] بدء مراقبة إجابات الصديق لـ", currentQuestionsCount, "سؤال");
+    
+    // إزالة المستمعين القدامى
+    if (window.friendAnswerListeners) {
+        window.friendAnswerListeners.forEach(unsubscribe => {
+            if (typeof unsubscribe === 'function') unsubscribe();
+        });
+    }
+    window.friendAnswerListeners = [];
+    
+    // إضافة مستمع لكل سؤال
+    for (let i = 0; i < currentQuestionsCount; i++) {
+        const unsubscribe = window.StudyRoom.getOtherAnswer(i, (friendAnswer) => {
+            if (friendAnswer !== null && friendAnswer !== undefined) {
+                console.log(`📩 [استلام] إجابة الصديق للسؤال ${i + 1}: ${friendAnswer}`);
+                colorFriendAnswer(i, friendAnswer);
+            }
+        });
+        if (unsubscribe) {
+            window.friendAnswerListeners.push(unsubscribe);
         }
     }
 }
 
-function watchOtherAnswers() {
-    if (typeof window.StudyRoom === 'undefined' || !window.StudyRoom.isInRoom || !window.StudyRoom.isInRoom()) {
-        return;
-    }
-    if (window._otherAnswerListeners) {
-        window._otherAnswerListeners.forEach(unsubscribe => {
-            if (typeof unsubscribe === 'function') unsubscribe();
-        });
-    }
-    window._otherAnswerListeners = [];
-    for (let i = 0; i < currentQuestionsCount; i++) {
-        const unsubscribe = window.StudyRoom.getOtherAnswer(i, (otherAnswer) => {
-            if (otherAnswer !== null && otherAnswer !== undefined) {
-                highlightOtherAnswer(i, otherAnswer);
-            }
-        });
-        if (unsubscribe) window._otherAnswerListeners.push(unsubscribe);
-    }
-}
-
-async function updateRoomScoreFromExam() {
+// 4️⃣ دالة تحديث النتيجة في الشريط
+async function updateRoomScore() {
     if (typeof window.updateRoomScore === 'function') {
         await window.updateRoomScore();
     }
 }
+
 
 // ========== دوال حفظ واسترجاع النتائج ==========
 function saveExamResult(skill, examId, score) {
@@ -631,73 +673,77 @@ function displaySavedResult(skill, examId, titleSpan) {
   }
 }
 
-// ========== بناء امتحانات Teil 1 ==========
 function buildTeil1(questions) {
-  const container = document.getElementById("teil1");
-  if (!container) return;
-  container.innerHTML = "";
-  
-  currentQuestionsCount = questions.length;
-  let userAnswers = {};
-  
-  if (window._otherAnswerListeners) {
-    window._otherAnswerListeners.forEach(unsubscribe => {
-      if (typeof unsubscribe === 'function') unsubscribe();
-    });
-    window._otherAnswerListeners = [];
-  }
-  
-  for (let i = 0; i < questions.length; i++) {
-    const q = questions[i];
-    const card = document.createElement("div");
-    card.className = "question-card";
-    card.id = "q_" + i;
+    const container = document.getElementById("teil1");
+    if (!container) return;
+    container.innerHTML = "";
     
-    const questionText = document.createElement("div");
-    questionText.className = "question-text";
-    questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
-    card.appendChild(questionText);
+    currentQuestionsCount = questions.length;
+    let userAnswers = {};
     
-    const optionsDiv = document.createElement("div");
-    optionsDiv.className = "options-container";
-    
-    for (let j = 0; j < q.options.length; j++) {
-      const label = document.createElement("label");
-      label.className = "option-label";
-      const radioId = "q" + i + "_" + j;
-      label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
-      
-      label.onclick = (function(qIdx, ansIdx) {
-        return function() {
-          userAnswers[qIdx] = ansIdx;
-          syncAnswerToRoom(qIdx, ansIdx, ansIdx === q.correct);
-          setTimeout(() => updateRoomScoreFromExam(), 100);
-          console.log(`📝 تم اختيار الإجابة: سؤال ${qIdx + 1} -> الخيار ${ansIdx + 1}`);
-        };
-      })(i, j);
-      
-      optionsDiv.appendChild(label);
+    for (let i = 0; i < questions.length; i++) {
+        const q = questions[i];
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.id = "q_" + i;
+        
+        const questionText = document.createElement("div");
+        questionText.className = "question-text";
+        questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
+        card.appendChild(questionText);
+        
+        const optionsDiv = document.createElement("div");
+        optionsDiv.className = "options-container";
+        
+        for (let j = 0; j < q.options.length; j++) {
+            const label = document.createElement("label");
+            label.className = "option-label";
+            const radioId = "q" + i + "_" + j;
+            label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
+            
+            // ✅ عند الضغط على زر الإجابة:
+            // 1. حفظ الإجابة محلياً
+            // 2. إرسالها للغرفة
+            // 3. تحديث النتيجة
+            label.onclick = (function(qIdx, ansIdx) {
+                return async function() {
+                    // حفظ الإجابة محلياً
+                    userAnswers[qIdx] = ansIdx;
+                    
+                    // إرسال الإجابة للغرفة (المزامنة)
+                    await sendAnswerToRoom(qIdx, ansIdx, ansIdx === q.correct, q.options[ansIdx]);
+                    
+                    console.log(`📝 [محلي] تم اختيار الإجابة: سؤال ${qIdx + 1} -> ${q.options[ansIdx]}`);
+                };
+            })(i, j);
+            
+            optionsDiv.appendChild(label);
+        }
+        card.appendChild(optionsDiv);
+        container.appendChild(card);
     }
-    card.appendChild(optionsDiv);
-    container.appendChild(card);
-  }
-  
-  const checkBtn = document.createElement("button");
-  checkBtn.innerText = "✅ تصحيح";
-  checkBtn.className = "check-btn";
-  checkBtn.onclick = function() {
-    checkTeil1(questions, userAnswers);
-  };
-  container.appendChild(checkBtn);
-  
-  const resultDiv = document.createElement("div");
-  resultDiv.id = "teil1Result";
-  resultDiv.className = "result-box";
-  resultDiv.style.display = "none";
-  container.appendChild(resultDiv);
-  
-  setTimeout(() => { watchOtherAnswers(); }, 500);
-  console.log(`✅ تم بناء ${questions.length} سؤال مع دعم المراجعة مع صديق`);
+    
+    // زر التصحيح
+    const checkBtn = document.createElement("button");
+    checkBtn.innerText = "✅ تصحيح";
+    checkBtn.className = "check-btn";
+    checkBtn.onclick = function() {
+        checkTeil1(questions, userAnswers);
+    };
+    container.appendChild(checkBtn);
+    
+    const resultDiv = document.createElement("div");
+    resultDiv.id = "teil1Result";
+    resultDiv.className = "result-box";
+    resultDiv.style.display = "none";
+    container.appendChild(resultDiv);
+    
+    // ✅ بدء مراقبة إجابات الصديق
+    setTimeout(() => {
+        startListeningForFriendAnswers();
+    }, 200);
+    
+    console.log(`✅ تم بناء ${questions.length} سؤال مع المزامنة المباشرة`);
 }
 
 function checkTeil1(questions, answers) {
