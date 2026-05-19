@@ -2433,114 +2433,39 @@ if (originalOpenExamGlobal) {
   };
 }
 
-
 // ============================================
-// تحسين Lesen Teil 1 - قائمة "اختر" مثل الحاسوب (تضهر أسفل الزر)
+// تحسين Lesen Teil 1 و Teil 3 للهواتف - النسخة النهائية
 // ============================================
 
-function enhanceLesenTeil1Selects() {
-    if (window.innerWidth <= 768) {
-        const selects = document.querySelectorAll('#teil1 select');
-        selects.forEach(select => {
-            // نفس ألوان وتأثيرات الحاسوب
-            select.style.backgroundColor = '#f8f9fa';
-            select.style.color = '#212529';
-            select.style.border = '1px solid #ced4da';
-            select.style.borderRadius = '8px';
-            select.style.padding = '8px 12px';
-            select.style.fontSize = '0.7rem';
-            select.style.cursor = 'pointer';
-            select.style.transition = 'all 0.2s ease';
-            select.style.width = '100%';
-            
-            // إضافة خيار فارغ افتراضي
-            if (select.options.length > 0 && select.options[0].value === "") {
-                select.options[0].textContent = "-- اختر الإجابة --";
+// المتغيرات لتتبع الإجابات المستخدمة (للهاتف فقط)
+let usedAnswersInTeil1 = {};     // لتتبع الإجابات المستخدمة في Teil 1
+let answerToItemTeil1 = {};      // ربط الإجابة بالسؤال
+
+let usedAnswersInTeil3 = {};     // لتتبع الإجابات المستخدمة في Teil 3
+let answerToItemTeil3 = {};      // ربط الإجابة بالفقرة
+
+// دالة تحديث قوائم Teil 1 بناءً على الإجابات المستخدمة
+function updateTeil1Dropdowns() {
+    if (window.innerWidth > 768) return;
+    
+    const selects = document.querySelectorAll('#teil1 select');
+    selects.forEach((select, idx) => {
+        const currentValue = select.value;
+        const options = select.querySelectorAll('option');
+        
+        options.forEach(opt => {
+            if (opt.value && opt.value !== "" && opt.value !== currentValue) {
+                if (usedAnswersInTeil1[opt.text]) {
+                    opt.style.display = 'none';
+                } else {
+                    opt.style.display = '';
+                }
             }
         });
-    }
+    });
 }
 
-// استدعاء الدالة بعد تحميل Lesen Teil 1
-const originalLoadMatchingExam = window.loadMatchingExam;
-if (originalLoadMatchingExam) {
-    window.loadMatchingExam = function(examData) {
-        originalLoadMatchingExam(examData);
-        setTimeout(enhanceLesenTeil1Selects, 100);
-    };
-}
-
-// ============================================
-// تحسين Lesen Teil 3 - قائمة "اختر" مثل الحاسوب
-// ============================================
-
-function enhanceLesenTeil3Selects() {
-    if (window.innerWidth <= 768) {
-        // تحسين قوائم select في Lesen Teil 3
-        const selects = document.querySelectorAll('#teil3 select');
-        selects.forEach(select => {
-            select.style.backgroundColor = '#f8f9fa';
-            select.style.color = '#212529';
-            select.style.border = '1px solid #ced4da';
-            select.style.borderRadius = '8px';
-            select.style.padding = '6px 10px';
-            select.style.fontSize = '0.65rem';
-            select.style.cursor = 'pointer';
-            select.style.width = '100%';
-            select.style.marginTop = '8px';
-        });
-        
-        // إخفاء كلمة "Situationen" في الهاتف
-        const situationTitle = document.querySelector('#teil3 h3');
-        if (situationTitle && situationTitle.textContent.includes('Situationen')) {
-            situationTitle.style.display = 'none';
-        }
-        
-        // إخفاء عمود العناوين بالكامل في الهاتف
-        const rightColumn = document.querySelector('#teil3 > div[style*="display: flex"] > div:last-child');
-        if (rightColumn) {
-            rightColumn.style.display = 'none';
-        }
-        
-        // جعل عمود الفقرات يأخذ العرض الكامل
-        const leftColumn = document.querySelector('#teil3 > div[style*="display: flex"] > div:first-child');
-        if (leftColumn) {
-            leftColumn.style.width = '100%';
-            leftColumn.style.maxWidth = '100%';
-        }
-        
-        // تحسين شبكة الفقرات في Lesen Teil 3
-        const itemsGrid = document.querySelector('#teil3 [style*="grid-template-columns: 1fr 1fr"]');
-        if (itemsGrid) {
-            itemsGrid.style.gridTemplateColumns = '1fr';
-            itemsGrid.style.gap = '12px';
-        }
-    }
-}
-
-// استدعاء الدالة بعد تحميل Lesen Teil 3
-const originalRenderTeil3Exam = window.renderTeil3Exam;
-if (originalRenderTeil3Exam) {
-    window.renderTeil3Exam = function() {
-        originalRenderTeil3Exam();
-        setTimeout(enhanceLesenTeil3Selects, 100);
-    };
-}
-
-// استدعاء الدالة عند تغيير حجم الشاشة
-window.addEventListener('resize', function() {
-    setTimeout(() => {
-        enhanceLesenTeil1Selects();
-        enhanceLesenTeil3Selects();
-    }, 100);
-});
-
-console.log('✅ تحسينات Lesen Teil 1 و Lesen Teil 3 تم تحميلها');
-// ============================================
-// تحسين Lesen Teil 1 و Teil 3 للهواتف - نسخة نظيفة واحدة
-// ============================================
-
-// دالة تحويل Lesen Teil 1 إلى Accordion للهاتف مع Single Choice
+// دالة تحويل Lesen Teil 1 إلى Accordion للهاتف
 function enhanceLesenTeil1ForMobile() {
     if (window.innerWidth > 768) return;
     
@@ -2549,37 +2474,37 @@ function enhanceLesenTeil1ForMobile() {
     
     const cards = container.querySelectorAll('.question-card');
     
-    cards.forEach((card) => {
+    cards.forEach((card, cardIdx) => {
         const select = card.querySelector('select');
         if (!select) return;
         
         card.style.cursor = 'default';
         card.onclick = null;
         
-        // حفظ الخيارات
         const options = [];
         let selectedValue = select.value;
+        let selectedText = "";
         
         for (let i = 0; i < select.options.length; i++) {
+            const opt = select.options[i];
             options.push({
-                value: select.options[i].value,
-                text: select.options[i].text
+                value: opt.value,
+                text: opt.text
             });
+            if (opt.value === selectedValue) {
+                selectedText = opt.text;
+            }
         }
         
-        // إزالة الزر القديم
         const oldBtn = card.querySelector('.mobile-dropdown-btn');
         if (oldBtn) oldBtn.remove();
         const oldMenu = card.querySelector('.mobile-dropdown-menu');
         if (oldMenu) oldMenu.remove();
         
-        // إنشاء الزر
         const dropdownBtn = document.createElement('button');
         dropdownBtn.className = 'mobile-dropdown-btn';
-        
-        const selectedOption = select.options[select.selectedIndex];
         dropdownBtn.innerHTML = `
-            <span class="dropdown-text">${selectedOption && selectedOption.value !== "" ? selectedOption.text : "اختر الإجابة"}</span>
+            <span class="dropdown-text">${selectedText && selectedValue !== "" ? selectedText : "اختر الإجابة"}</span>
             <span class="dropdown-arrow">▼</span>
         `;
         
@@ -2600,7 +2525,6 @@ function enhanceLesenTeil1ForMobile() {
             font-family: inherit;
         `;
         
-        // القائمة
         const dropdownMenu = document.createElement('div');
         dropdownMenu.className = 'mobile-dropdown-menu';
         dropdownMenu.style.cssText = `
@@ -2614,15 +2538,17 @@ function enhanceLesenTeil1ForMobile() {
         `;
         
         options.forEach(opt => {
+            const isUsed = usedAnswersInTeil1[opt.text] && opt.text !== selectedText;
+            if (isUsed) return;
+            
             const optionItem = document.createElement('div');
             optionItem.className = 'mobile-dropdown-item';
             optionItem.textContent = opt.text;
+            optionItem.setAttribute('data-value', opt.value);
             
             if (selectedValue === opt.value) {
                 optionItem.style.background = '#d4e0e8';
                 optionItem.style.fontWeight = '500';
-                const textSpan = dropdownBtn.querySelector('.dropdown-text');
-                textSpan.textContent = opt.text;
             }
             
             optionItem.style.cssText = `
@@ -2639,19 +2565,24 @@ function enhanceLesenTeil1ForMobile() {
             optionItem.onclick = (e) => {
                 e.stopPropagation();
                 
-                dropdownMenu.querySelectorAll('.mobile-dropdown-item').forEach(item => {
-                    item.style.background = '#eef2f5';
-                    item.style.fontWeight = 'normal';
-                });
+                // إلغاء الإجابة القديمة
+                if (selectedValue && selectedValue !== "" && selectedText) {
+                    delete usedAnswersInTeil1[selectedText];
+                    delete answerToItemTeil1[selectedText];
+                }
                 
-                optionItem.style.background = '#d4e0e8';
-                optionItem.style.fontWeight = '500';
+                // إضافة الإجابة الجديدة
+                if (opt.value !== "") {
+                    usedAnswersInTeil1[opt.text] = cardIdx;
+                    answerToItemTeil1[opt.text] = cardIdx;
+                }
                 
                 const textSpan = dropdownBtn.querySelector('.dropdown-text');
                 textSpan.textContent = opt.text;
                 
                 select.value = opt.value;
                 selectedValue = opt.value;
+                selectedText = opt.text;
                 
                 if (select.onchange) {
                     const event = new Event('change', { bubbles: true });
@@ -2662,6 +2593,9 @@ function enhanceLesenTeil1ForMobile() {
                 dropdownBtn.style.borderColor = '#dce3e8';
                 const arrow = dropdownBtn.querySelector('.dropdown-arrow');
                 arrow.style.transform = 'rotate(0deg)';
+                
+                // تحديث جميع القوائم
+                updateTeil1Dropdowns();
             };
             
             dropdownMenu.appendChild(optionItem);
@@ -2696,6 +2630,7 @@ function enhanceLesenTeil1ForMobile() {
                 const arrow = dropdownBtn.querySelector('.dropdown-arrow');
                 arrow.style.transform = 'rotate(0deg)';
             } else {
+                updateTeil1Dropdowns();
                 dropdownMenu.style.display = 'block';
                 dropdownBtn.style.borderColor = '#94a3b8';
                 const arrow = dropdownBtn.querySelector('.dropdown-arrow');
@@ -2723,7 +2658,7 @@ function enhanceLesenTeil3ForMobile() {
     
     const cards = container.querySelectorAll('.question-card');
     
-    cards.forEach((card) => {
+    cards.forEach((card, cardIdx) => {
         card.style.padding = '8px';
         card.style.marginBottom = '0';
         card.style.borderRadius = '10px';
@@ -2731,7 +2666,6 @@ function enhanceLesenTeil3ForMobile() {
         card.style.cursor = 'default';
         card.onclick = null;
         
-        // تصغير النصوص
         const itemTitle = card.querySelector('div[style*="font-weight: bold"]');
         if (itemTitle) {
             itemTitle.style.fontSize = '0.65rem';
@@ -2750,12 +2684,17 @@ function enhanceLesenTeil3ForMobile() {
         
         const options = [];
         let selectedValue = select.value;
+        let selectedText = "";
         
         for (let i = 0; i < select.options.length; i++) {
+            const opt = select.options[i];
             options.push({
-                value: select.options[i].value,
-                text: select.options[i].text
+                value: opt.value,
+                text: opt.text
             });
+            if (opt.value === selectedValue) {
+                selectedText = opt.text;
+            }
         }
         
         const oldBtn = card.querySelector('.mobile-dropdown-btn-teil3');
@@ -2765,10 +2704,8 @@ function enhanceLesenTeil3ForMobile() {
         
         const dropdownBtn = document.createElement('button');
         dropdownBtn.className = 'mobile-dropdown-btn-teil3';
-        
-        const selectedOption = select.options[select.selectedIndex];
         dropdownBtn.innerHTML = `
-            <span class="dropdown-text">${selectedOption && selectedOption.value !== "" ? selectedOption.text : "اختر"}</span>
+            <span class="dropdown-text">${selectedText && selectedValue !== "" ? selectedText : "اختر"}</span>
             <span class="dropdown-arrow">▼</span>
         `;
         
@@ -2802,15 +2739,17 @@ function enhanceLesenTeil3ForMobile() {
         `;
         
         options.forEach(opt => {
+            const isUsed = usedAnswersInTeil3[opt.text] && opt.text !== selectedText;
+            if (isUsed) return;
+            
             const optionItem = document.createElement('div');
             optionItem.className = 'mobile-dropdown-item';
             optionItem.textContent = opt.text;
+            optionItem.setAttribute('data-value', opt.value);
             
             if (selectedValue === opt.value) {
                 optionItem.style.background = '#d4e0e8';
                 optionItem.style.fontWeight = '500';
-                const textSpan = dropdownBtn.querySelector('.dropdown-text');
-                textSpan.textContent = opt.text;
             }
             
             optionItem.style.cssText = `
@@ -2827,19 +2766,22 @@ function enhanceLesenTeil3ForMobile() {
             optionItem.onclick = (e) => {
                 e.stopPropagation();
                 
-                dropdownMenu.querySelectorAll('.mobile-dropdown-item').forEach(item => {
-                    item.style.background = '#eef2f5';
-                    item.style.fontWeight = 'normal';
-                });
+                if (selectedValue && selectedValue !== "" && selectedText) {
+                    delete usedAnswersInTeil3[selectedText];
+                    delete answerToItemTeil3[selectedText];
+                }
                 
-                optionItem.style.background = '#d4e0e8';
-                optionItem.style.fontWeight = '500';
+                if (opt.value !== "") {
+                    usedAnswersInTeil3[opt.text] = cardIdx;
+                    answerToItemTeil3[opt.text] = cardIdx;
+                }
                 
                 const textSpan = dropdownBtn.querySelector('.dropdown-text');
                 textSpan.textContent = opt.text;
                 
                 select.value = opt.value;
                 selectedValue = opt.value;
+                selectedText = opt.text;
                 
                 if (select.onchange) {
                     const event = new Event('change', { bubbles: true });
@@ -2902,12 +2844,16 @@ function enhanceLesenTeil3ForMobile() {
     }
 }
 
-// استدعاء الدوال مرة واحدة فقط
+// استدعاء الدوال
 const finalLoadMatchingExam = window.loadMatchingExam;
 if (finalLoadMatchingExam) {
     window.loadMatchingExam = function(examData) {
         finalLoadMatchingExam(examData);
-        setTimeout(enhanceLesenTeil1ForMobile, 100);
+        setTimeout(() => {
+            usedAnswersInTeil1 = {};
+            answerToItemTeil1 = {};
+            enhanceLesenTeil1ForMobile();
+        }, 100);
     };
 }
 
@@ -2915,7 +2861,11 @@ const finalRenderTeil3Exam = window.renderTeil3Exam;
 if (finalRenderTeil3Exam) {
     window.renderTeil3Exam = function() {
         finalRenderTeil3Exam();
-        setTimeout(enhanceLesenTeil3ForMobile, 150);
+        setTimeout(() => {
+            usedAnswersInTeil3 = {};
+            answerToItemTeil3 = {};
+            enhanceLesenTeil3ForMobile();
+        }, 150);
     };
 }
 
@@ -2928,7 +2878,5 @@ window.addEventListener('resize', function() {
     }, 200);
 });
 
-console.log('✅ تحسين Lesen Teil 1 و Teil 3 للهواتف - النسخة النهائية');
-console.log("✅ engine.js تم تحميله بالكامل");
-
+console.log('✅ تحسين Lesen Teil 1 و Teil 3 للهواتف - النسخة النهائية مع Unique Answers');
 console.log("✅ engine.js تم تحميله بالكامل");
