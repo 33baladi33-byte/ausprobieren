@@ -2435,12 +2435,11 @@ if (originalOpenExamGlobal) {
 
 
 // ============================================
-// تحسين Lesen Teil 1 - قائمة "اختر" مثل الحاسوب
+// تحسين Lesen Teil 1 - قائمة "اختر" مثل الحاسوب (تضهر أسفل الزر)
 // ============================================
 
 function enhanceLesenTeil1Selects() {
     if (window.innerWidth <= 768) {
-        // تحسين جميع قوائم select في Lesen Teil 1
         const selects = document.querySelectorAll('#teil1 select');
         selects.forEach(select => {
             // نفس ألوان وتأثيرات الحاسوب
@@ -2452,16 +2451,7 @@ function enhanceLesenTeil1Selects() {
             select.style.fontSize = '0.7rem';
             select.style.cursor = 'pointer';
             select.style.transition = 'all 0.2s ease';
-            
-            // تأثير hover مثل الحاسوب
-            select.onmouseenter = function() {
-                this.style.borderColor = '#80bdff';
-                this.style.boxShadow = '0 0 0 2px rgba(0,123,255,0.25)';
-            };
-            select.onmouseleave = function() {
-                this.style.borderColor = '#ced4da';
-                this.style.boxShadow = 'none';
-            };
+            select.style.width = '100%';
             
             // إضافة خيار فارغ افتراضي
             if (select.options.length > 0 && select.options[0].value === "") {
@@ -2471,36 +2461,21 @@ function enhanceLesenTeil1Selects() {
     }
 }
 
-// استدعاء الدالة بعد تحميل Lesen Teil 1 (Matching Exam)
+// استدعاء الدالة بعد تحميل Lesen Teil 1
 const originalLoadMatchingExam = window.loadMatchingExam;
 if (originalLoadMatchingExam) {
     window.loadMatchingExam = function(examData) {
         originalLoadMatchingExam(examData);
-        setTimeout(enhanceLesenTeil1Selects, 50);
+        setTimeout(enhanceLesenTeil1Selects, 100);
     };
 }
 
 // ============================================
-// تحسين Lesen Teil 3 - إزالة النقر على الفقرة، فقط قائمة "اختر"
+// تحسين Lesen Teil 3 - قائمة "اختر" مثل الحاسوب
 // ============================================
 
-function enhanceLesenTeil3ForMobile() {
+function enhanceLesenTeil3Selects() {
     if (window.innerWidth <= 768) {
-        // إزالة خاصية النقر على الفقرة في Lesen Teil 3
-        const cards = document.querySelectorAll('#teil3 .question-card');
-        cards.forEach(card => {
-            // إزالة onclick الأصلي
-            card.onclick = null;
-            card.style.cursor = 'default';
-            
-            // إضافة حدود ومسافات مناسبة
-            card.style.padding = '12px';
-            card.style.marginBottom = '12px';
-            card.style.borderRadius = '12px';
-            card.style.backgroundColor = '#f8f9fa';
-            card.style.border = '1px solid #e0e0e0';
-        });
-        
         // تحسين قوائم select في Lesen Teil 3
         const selects = document.querySelectorAll('#teil3 select');
         selects.forEach(select => {
@@ -2513,15 +2488,6 @@ function enhanceLesenTeil3ForMobile() {
             select.style.cursor = 'pointer';
             select.style.width = '100%';
             select.style.marginTop = '8px';
-            
-            select.onmouseenter = function() {
-                this.style.borderColor = '#80bdff';
-                this.style.boxShadow = '0 0 0 2px rgba(0,123,255,0.25)';
-            };
-            select.onmouseleave = function() {
-                this.style.borderColor = '#ced4da';
-                this.style.boxShadow = 'none';
-            };
         });
         
         // إخفاء كلمة "Situationen" في الهاتف
@@ -2543,7 +2509,7 @@ function enhanceLesenTeil3ForMobile() {
             leftColumn.style.maxWidth = '100%';
         }
         
-        // تحسين شبكة الفقرات في Lesen Teil 3 (جعلها عمود واحد)
+        // تحسين شبكة الفقرات في Lesen Teil 3
         const itemsGrid = document.querySelector('#teil3 [style*="grid-template-columns: 1fr 1fr"]');
         if (itemsGrid) {
             itemsGrid.style.gridTemplateColumns = '1fr';
@@ -2557,7 +2523,7 @@ const originalRenderTeil3Exam = window.renderTeil3Exam;
 if (originalRenderTeil3Exam) {
     window.renderTeil3Exam = function() {
         originalRenderTeil3Exam();
-        setTimeout(enhanceLesenTeil3ForMobile, 100);
+        setTimeout(enhanceLesenTeil3Selects, 100);
     };
 }
 
@@ -2565,9 +2531,10 @@ if (originalRenderTeil3Exam) {
 window.addEventListener('resize', function() {
     setTimeout(() => {
         enhanceLesenTeil1Selects();
-        enhanceLesenTeil3ForMobile();
+        enhanceLesenTeil3Selects();
     }, 100);
 });
 
-console.log('✅ تحسينات Lesen Teil 1 و Lesen Teil 3 للهواتف تم تحميلها'); 
+console.log('✅ تحسينات Lesen Teil 1 و Lesen Teil 3 تم تحميلها');
+
 console.log("✅ engine.js تم تحميله بالكامل");
