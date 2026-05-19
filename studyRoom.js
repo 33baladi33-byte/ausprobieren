@@ -216,16 +216,12 @@
             console.log(`✅ غرفة ${roomCode} تم إنشاؤها بنجاح`);
             
             // عرض رمز الغرفة
-            document.getElementById('createdRoomCode').style.display = 'block';
-            document.getElementById('roomCodeValue').textContent = roomCode;
-            document.getElementById('createRoomBtn').style.display = 'none';
-            
-            // إخفاء نموذج الإنشاء وإظهار حالة الغرفة
-            document.querySelector('.room-tabs').style.display = 'none';
-            document.querySelectorAll('.room-tab-content').forEach(content => {
-                content.style.display = 'none';
-            });
-            document.getElementById('roomStatus').style.display = 'block';
+document.getElementById('createdRoomCode').style.display = 'block';
+document.getElementById('roomCodeValue').textContent = roomCode;
+document.getElementById('createRoomBtn').style.display = 'none';
+
+// لا تخفي التبويبات بعد، اترك رمز الغرفة ظاهراً
+// فقط أخفي أزرار الإنشاء والانضمام
             
             // بدء مراقبة الغرفة
             startRoomMonitor();
