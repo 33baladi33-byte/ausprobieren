@@ -19,6 +19,12 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="reviews.css">
 <link rel="stylesheet" href="dailyReport.css">
+<link rel="stylesheet" href="studyRoom.css">
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
 <style>
     /* تنسيق زر كفاش */
     .tips-trigger-btn {
@@ -400,6 +406,28 @@
     body:has(#exam.active) .daily-report-btn {
         display: flex !important;
     }
+
+    /* زر المراجعة مع صديق */
+    #roomBtn {
+        background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+        border: 1px solid rgba(100, 150, 200, 0.3);
+        border-radius: 30px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #ffffff;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+        margin-left: 10px;
+    }
+
+    #roomBtn:hover {
+        background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
+        transform: translateY(-1px);
+    }
 </style>
 </head>
 <body>
@@ -626,6 +654,7 @@
   <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
     <button id="prevExamBtn" class="nav-exam-btn">◀ السابق</button>
     <button id="nextExamBtn" class="nav-exam-btn">التالي ▶</button>
+    <!-- زر المراجعة مع صديق سيتم إضافته هنا بواسطة studyRoom.js -->
   </div>
   <div id="teil1" style="display:none;"></div>
   <div id="teil2" style="display:none;"></div>
@@ -670,6 +699,7 @@
 </div>
 
 <!-- ========== الـ Scripts (الترتيب مهم جداً) ========== -->
+<script src="firebase-config.js"></script>
 <script src="helpSystem.js"></script>
 <script src="engine.js"></script>
 <script src="exams.js"></script>
@@ -679,6 +709,7 @@
 <script src="dailyTracker.js"></script>
 <script src="dailyReport.js"></script>
 <script src="reviews-simple.js"></script>
+<script src="studyRoom.js"></script>
 
 <script>
 // ============================================
