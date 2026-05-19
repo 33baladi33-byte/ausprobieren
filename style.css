@@ -2272,3 +2272,119 @@ body:has(#exam.active) .top-bar {
         padding: 15px 18px;
     }
 }
+/* ========================================
+   شريط الغرفة العلوي
+   ======================================== */
+
+.room-status-bar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+    border-bottom: 1px solid rgba(100, 150, 200, 0.3);
+    z-index: 1000;
+    padding: 8px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.room-status-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.room-status-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(93, 173, 226, 0.15);
+    padding: 5px 12px;
+    border-radius: 30px;
+}
+
+.room-status-icon {
+    font-size: 1.1rem;
+}
+
+.room-status-code {
+    color: #5dade2;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.room-players-status {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.player-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 5px 12px;
+    border-radius: 30px;
+}
+
+.player-icon {
+    font-size: 1rem;
+}
+
+.player-name {
+    color: #e0e0e0;
+    font-size: 0.85rem;
+}
+
+.player-score {
+    background: #5dade2;
+    color: #0a0e1a;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    min-width: 30px;
+    text-align: center;
+}
+
+.vs-icon {
+    color: #888;
+    font-size: 0.8rem;
+}
+
+.leave-room-bar-btn {
+    background: rgba(220, 53, 69, 0.2);
+    border: 1px solid #dc3545;
+    border-radius: 30px;
+    padding: 5px 15px;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.leave-room-bar-btn:hover {
+    background: rgba(220, 53, 69, 0.4);
+}
+
+@media (max-width: 768px) {
+    .room-status-bar {
+        top: 50px;
+        padding: 6px 12px;
+    }
+    .player-name {
+        font-size: 0.7rem;
+    }
+    .player-score {
+        font-size: 0.65rem;
+        min-width: 25px;
+    }
+    .room-players-status {
+        gap: 10px;
+    }
+}
