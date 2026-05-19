@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="reviews.css">
 <link rel="stylesheet" href="studyRoom.css">
 <style>
-    /* تنسيقات إضافية سريعة */
+    /* ========== تنسيقات إضافية ========== */
     .tips-trigger-btn {
         background: linear-gradient(135deg, #2c3e66, #1a2a4a);
         border: 1px solid rgba(100, 150, 200, 0.3);
@@ -26,17 +26,35 @@
         margin-left: 10px;
         position: relative;
     }
-    .tips-trigger-btn:hover { background: linear-gradient(135deg, #3a5a8a, #2a3a5a); transform: translateY(-1px); }
+    .tips-trigger-btn:hover {
+        background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
+        transform: translateY(-1px);
+    }
     .tips-mini-card {
-        position: absolute; top: 100%; right: 0; margin-top: 12px;
-        background: #1a1a2e; border-radius: 16px; width: 320px;
-        border: 1px solid rgba(100, 150, 200, 0.3); z-index: 1000;
-        opacity: 0; visibility: hidden; transform: translateY(-10px);
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 12px;
+        background: #1a1a2e;
+        border-radius: 16px;
+        width: 320px;
+        border: 1px solid rgba(100, 150, 200, 0.3);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
         transition: all 0.2s ease;
     }
-    .tips-trigger-btn.active .tips-mini-card { opacity: 1; visibility: visible; transform: translateY(0); }
-    .home .tips-trigger-btn { display: none; }
+    .tips-trigger-btn.active .tips-mini-card {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    .home .tips-trigger-btn {
+        display: none;
+    }
     
+    /* ========== تحسينات الهاتف ========== */
     @media (max-width: 768px) {
         .question-card { padding: 12px !important; margin-bottom: 15px !important; }
         .question-text { font-size: 14px !important; line-height: 1.5 !important; }
@@ -46,15 +64,33 @@
         .option-label span { flex: 1; word-break: break-word; }
         #examNavButtons { flex-wrap: wrap !important; gap: 8px !important; }
         #examNavButtons button { font-size: 12px !important; padding: 6px 12px !important; }
+        .teile-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; padding: 5px; margin-bottom: 20px; }
+        .teile-row .teil-item, .teile-row .item { font-size: 0.55rem !important; padding: 8px 3px !important; text-align: center; }
     }
     
+    /* ========== الوضع الليلي ========== */
     body.dark-mode { background: #0a0a0f; }
-    body.dark-mode .top-bar { background: #0f0f1a; }
+    body.dark-mode .top-bar { background: #0f0f1a; border-bottom-color: rgba(255,255,255,0.05); }
     body.dark-mode .question-card { background: #0f0f1a; border-color: rgba(255,255,255,0.1); }
+    body.dark-mode .option-label { color: #c0c0c0; }
+    body.dark-mode .item { background: #0f0f1a; border-color: rgba(255,255,255,0.1); color: #e0e0e0; }
+    body.dark-mode .exam-box { background: #0f0f1a; }
+    body.dark-mode .hero-desc, body.dark-mode .features-description { color: #d0d0d0; }
+    
+    .darkmode-divider { height: 1px; background: rgba(255,255,255,0.1); margin: 20px 0 15px 0; }
+    .darkmode-control { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; }
+    .darkmode-label { font-size: 0.95rem; color: #ffffff; display: flex; align-items: center; gap: 8px; }
+    .darkmode-switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+    .darkmode-switch input { opacity: 0; width: 0; height: 0; }
+    .darkmode-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3a3a4a; transition: 0.3s; border-radius: 24px; }
+    .darkmode-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: 0.3s; border-radius: 50%; }
+    input:checked + .darkmode-slider { background-color: #5dade2; }
+    input:checked + .darkmode-slider:before { transform: translateX(26px); }
 </style>
 </head>
 <body>
 
+<!-- الشريط العلوي -->
 <div class="top-bar">
     <div class="left-side">
         <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
@@ -66,7 +102,7 @@
         <div class="tips-trigger-btn" id="tipsTriggerBtn">
             💡 كفاش؟
             <div class="tips-mini-card">
-                <div class="mini-title" style="padding:12px 16px;color:#5dade2;border-bottom:1px solid rgba(255,255,255,0.1)">💡 كفاش؟</div>
+                <div class="mini-title" style="padding:12px 16px;color:#5dade2;border-bottom:1px solid rgba(255,255,255,0.1);font-weight:bold;">💡 كفاش؟</div>
                 <div class="mini-content" style="padding:12px 16px;color:#d0d0d0;font-size:0.85rem">
                     <p>• راجع الامتحانات اللي بغيتي، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋</p>
                     <p>• من بعد ما تسالي كلشي، سير بدل الجو شوية (بين 1 و 3 ساعات)</p>
@@ -83,42 +119,50 @@
     </div>
 </div>
 
-<!-- شريط المراجعة مع صديق -->
+<!-- ========== شريط المراجعة مع صديق ========== -->
 <div id="roomStatusBar" style="display: none; background: linear-gradient(135deg, #1a1a2e, #0f0f1a); border-bottom: 2px solid #5dade2; padding: 8px 16px; position: sticky; top: 0; z-index: 1000;">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; max-width: 1200px; margin: 0 auto;">
         <div style="background: rgba(93,173,226,0.15); padding: 4px 12px; border-radius: 30px; border:1px solid #5dade2; font-size:12px; color:#5dade2">
             <span style="font-size:10px;opacity:0.7">رمز الغرفة</span><br><strong id="roomStatusCode">----</strong>
         </div>
-        <div style="display: flex; gap: 15px;">
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
             <div style="background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 30px; display:flex; align-items:center; gap:8px">
                 <span id="player1Name" style="color:white;font-size:13px">أنت</span>
-                <span id="player1Score" style="background:#5dade2;color:white;padding:2px 8px;border-radius:20px;font-size:12px">0</span>
+                <span id="player1Score" style="background:#5dade2;color:white;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:bold">0</span>
             </div>
             <div style="background: rgba(255,255,255,0.05); padding: 4px 12px; border-radius: 30px; display:flex; align-items:center; gap:8px">
                 <span id="player2Name" style="color:white;font-size:13px">صديقك</span>
-                <span id="player2Score" style="background:#5dade2;color:white;padding:2px 8px;border-radius:20px;font-size:12px">0</span>
+                <span id="player2Score" style="background:#5dade2;color:white;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:bold">0</span>
             </div>
         </div>
-        <div id="roomReadyStatus" style="font-size:11px;padding:4px 8px;border-radius:30px;background:rgba(33,150,243,0.15)">🎮 اضغط "جاهز" لبدء المراجعة</div>
-        <button id="startReviewBtn" style="display:none; background:#4caf50;color:white;border:none;border-radius:30px;padding:5px 15px;font-weight:bold;cursor:pointer">بدء المراجعة</button>
-        <button id="leaveRoomBarBtn" style="background:rgba(220,53,69,0.2);border:1px solid #dc3545;border-radius:30px;padding:4px 12px;color:#dc3545;cursor:pointer;font-size:12px">🚪 مغادرة</button>
+        <div id="roomReadyStatus" style="font-size:11px;padding:4px 8px;border-radius:30px;background:rgba(33,150,243,0.15);color:#90caf9">🎮 اضغط "جاهز" لبدء المراجعة</div>
+        <button id="startReviewBtn" style="display:none; background:#4caf50;color:white;border:none;border-radius:30px;padding:5px 15px;font-weight:bold;cursor:pointer;transition:transform 0.2s">🎮 بدء المراجعة</button>
+        <button id="leaveRoomBarBtn" style="background:rgba(220,53,69,0.2);border:1px solid #dc3545;border-radius:30px;padding:4px 12px;color:#dc3545;cursor:pointer;font-size:12px;transition:all 0.2s">🚪 مغادرة</button>
     </div>
 </div>
 
+<!-- نافذة الإعدادات -->
 <div id="settingsModal" class="settings-modal">
     <div class="settings-modal-content">
-        <div class="settings-modal-header"><h3>⚙️ إعدادات العرض</h3><button id="closeSettingsModal">✕</button></div>
+        <div class="settings-modal-header"><h3>⚙️ إعدادات العرض</h3><button id="closeSettingsModal" class="close-settings-btn">✕</button></div>
         <div class="settings-modal-body">
+            <p class="settings-desc">تحكم في حجم الموقع ليناسب راحتك</p>
             <div class="font-size-controls">
-                <button id="decreaseFontBtn">A-</button><span id="fontSizeValue">100%</span><button id="increaseFontBtn">A+</button>
+                <button id="decreaseFontBtn" class="font-size-btn" title="تصغير">A-</button>
+                <span id="fontSizeValue" class="font-size-value">100%</span>
+                <button id="increaseFontBtn" class="font-size-btn" title="تكبير">A+</button>
             </div>
-            <button id="resetFontBtn">↺ إعادة الضبط</button>
+            <button id="resetFontBtn" class="reset-font-btn" title="إعادة الحجم الطبيعي">↺ إعادة الضبط</button>
             <div class="darkmode-divider"></div>
-            <div class="darkmode-control"><span class="darkmode-label">🌙 الوضع الليلي</span><label class="darkmode-switch"><input type="checkbox" id="darkModeToggle"><span class="darkmode-slider"></span></label></div>
+            <div class="darkmode-control">
+                <span class="darkmode-label">🌙 الوضع الليلي</span>
+                <label class="darkmode-switch"><input type="checkbox" id="darkModeToggle"><span class="darkmode-slider"></span></label>
+            </div>
         </div>
     </div>
 </div>
 
+<!-- القائمة المنسدلة للملف الشخصي -->
 <div id="profileDropdown" class="profile-dropdown">
     <div id="profileEmail" class="profile-email">غير مسجل</div>
     <div id="profileExpiry" class="profile-expiry"></div>
@@ -126,57 +170,153 @@
     <button id="profileLogoutBtn" class="profile-logout">🚪 تسجيل خروج</button>
 </div>
 
+<!-- نافذة تسجيل الدخول -->
 <div id="loginPopup" class="login-popup">
     <div class="login-popup-content">
-        <h3>🔐 تسجيل الدخول</h3>
+        <h3>🔐 تسجيل الدخول / إنشاء حساب</h3>
+        <p>أدخل بريدك الإلكتروني وكلمة السر</p>
         <input type="email" id="popupEmail" placeholder="البريد الإلكتروني">
         <input type="password" id="popupPassword" placeholder="كلمة السر">
-        <button id="popupLoginBtn">دخول</button><br>
-        <button id="closePopupBtn">إغلاق</button>
+        <button id="popupLoginBtn" class="btn-popup-login">دخول / إنشاء حساب</button>
+        <br>
+        <button id="closePopupBtn" class="btn-popup-close">إغلاق</button>
     </div>
 </div>
 
-<!-- الصفحة الرئيسية -->
+<!-- ========== الصفحة الرئيسية ========== -->
 <div id="home" class="page active home">
     <div class="hero-wrapper">
         <div class="hero-container">
+            <div class="hero-image-side">
+                <div class="image-glow"></div>
+                <div class="image-card">
+                    <img src="images/certificate-sample.webp" loading="lazy" alt="telc Deutsch B2 Zertifikat" class="certificate-img">
+                </div>
+            </div>
             <div class="hero-content-side">
                 <h1 class="hero-title">فهم أسرع، حفظ أسهل، <span class="blue-text">نتائج أفضل</span></h1>
-                <p class="hero-desc">مرحبا بيك صاحبي! هنا غادي تلقى جميع امتحانات B2 مع التصحيح الكامل.</p>
-                <button id="startBtn" class="hero-btn-primary">اكتشف الامتحانات →</button>
+                <div class="hero-description-wrapper">
+                    <p class="hero-desc">
+                        مرحبا بيك <span class="blue-text">صاحبي</span> هنا غادي تلقى جميع امتحانات بي 2 مع التصحيح الكامل والإجابات الصحيحة، باش تتدرّب بطريقة واضحة ومنظمة.
+                        <br><br>
+                        ومشي غير هدشي !! كينين مميزات مغديش تلاقاهى فبلاصة اخرى:
+                        • بطاقات ذكية كتسهّل الحفظ والتذكّر
+                        • لعبة ردّ فعل سريعة باش تعقل على الأجوبة بسهولة
+                        • تدريب عملي على شكل الامتحان الحقيقي
+                        • مساعدة يومية عبر الواتساب
+                        <br><br>
+                        كل هاد الشي باش تتعلّم بسرعة وبطريقة ذكية 🚀
+                    </p>
+                    <p class="hero-desc second-desc">الاجوبة صحيحة. <span class="blue-text">100%</span></p>
+                </div>
+                <div class="info-glass-card">
+                    <div class="info-icon">💡</div>
+                    <div class="info-text">الأغلبية كيسقطو حيت عندهم مشكل فالحفظ وما كايعرفوش يخدموا بطريقة صحيحة.</div>
+                </div>
+                <button id="startBtn" class="hero-btn-primary">اكتشف الامتحانات <span class="btn-arrow-icon">→</span></button>
+                
+                <div id="reviewsWidget" class="reviews-widget collapsed">
+                    <div class="widget-bubble"><span class="widget-icon">💬</span><span class="widget-text">تجارب المشتركين</span><span class="widget-badge">+6</span></div>
+                    <div class="widget-expanded-content">
+                        <div class="widget-header"><span class="widget-header-icon">🤔</span><span class="widget-header-title">مازال كتفكر واش تشترك؟</span></div>
+                        <p class="widget-subtitle">شوف ناس سبقوك واستافدو من المنصة.</p>
+                        <div class="widget-slider-container">
+                            <div class="widget-slider" id="widgetSlider">
+                                <div class="widget-slide"><img src="images/review1.webp" loading="lazy" alt="Review 1"></div>
+                                <div class="widget-slide"><img src="images/review2.webp" loading="lazy" alt="Review 2"></div>
+                                <div class="widget-slide"><img src="images/review3.webp" loading="lazy" alt="Review 3"></div>
+                                <div class="widget-slide"><img src="images/review4.webp" loading="lazy" alt="Review 4"></div>
+                                <div class="widget-slide"><img src="images/review5.webp" loading="lazy" alt="Review 5"></div>
+                                <div class="widget-slide"><img src="images/review6.webp" loading="lazy" alt="Review 6"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <div class="bg-pattern"></div>
+
+    <section class="features-section">
+        <div class="features-container">
+            <div class="features-content">
+                <h2 class="features-title">علاش خاصك <span class="blue-text">تشترك</span> معانا ؟</h2>
+                <p class="features-description">كتتهنى من الاجوبة الخاطئة و التقلاب على التيمات، وزيد عليها كنقدمو مساعدة ذكية لمجربها أنا شخصياً واللي تخليك تعقل على الأجوبة بسهولة وهادشي فكل الأجزاء.</p>
+                <p class="features-description second">بالإضافة لمنهجية تهنيك من الامتحان الكتابي كامل، ونصائح مغاديش تسمعهم من عند حتى واحد آخر.</p>
+                <button id="featuresSubscribeBtn" class="features-btn">اشترك الآن <span class="btn-arrow">→</span></button>
+            </div>
+            <div class="features-images">
+                <div class="image-stack">
+                    <div class="image-card-feature image-top"><img src="images/f1.webp" loading="lazy" alt="Feature 1" class="feature-img"></div>
+                    <div class="image-card-feature image-bottom"><img src="images/f2.webp" loading="lazy" alt="Feature 2" class="feature-img"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
+<!-- ========== صفحة قائمة الامتحانات ========== -->
 <div id="list" class="page">
+    <div class="teile-header-section"><h3 id="teilHeaderTitle" style="display: none;">اختر القسم (Teil)</h3></div>
     <div id="teileList" class="teile-row"></div>
-    <div id="examsList" class="exams-container"></div>
+    <div id="examsList" class="exams-container"><div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div></div>
     <button id="backHomeBtn" class="back-home-btn">الرئيسية</button>
 </div>
 
+<!-- ========== صفحة الامتحان ========== -->
 <div id="exam" class="page">
     <div class="exam-box">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <button id="backArrowFromExam" class="arrow-back-btn">↰</button>
-            <h2 id="examTitle"></h2>
-            <div style="width:40px"></div>
+            <h2 id="examTitle" style="margin: 0; flex: 1; text-align: center;"></h2>
+            <div style="width: 40px;"></div>
         </div>
-        <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin: 15px 0;">
+        <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
             <button id="prevExamBtn" class="nav-exam-btn">◀ السابق</button>
             <button id="nextExamBtn" class="nav-exam-btn">التالي ▶</button>
         </div>
-        <div id="teil1"></div><div id="teil2"></div><div id="teil3"></div>
-        <div id="sprach1"></div><div id="sprach2"></div>
-        <div id="hoeren1"></div><div id="hoeren2"></div><div id="hoeren3"></div>
-        <div id="schreiben"></div><div id="mündlich"></div><div id="tips"></div>
-        <button id="backToListBtn" class="back-list-btn">عودة إلى القائمة</button>
+        <div id="teil1" style="display:none;"></div>
+        <div id="teil2" style="display:none;"></div>
+        <div id="teil3" style="display:none;"></div>
+        <div id="sprach1" style="display:none;"></div>
+        <div id="sprach2" style="display:none;"></div>
+        <div id="hoeren1" style="display:none;"></div>
+        <div id="hoeren2" style="display:none;"></div>
+        <div id="hoeren3" style="display:none;"></div>
+        <div id="schreiben" style="display:none;"></div>
+        <div id="mündlich" style="display:none;"></div>
+        <div id="tips" style="display:none;"></div>
+        <div style="display: flex; justify-content: center; margin-top: 25px;">
+            <button id="backToListBtn" class="back-list-btn">عودة إلى القائمة</button>
+        </div>
     </div>
 </div>
 
-<a href="https://wa.me/212687561491" target="_blank" id="whatsappFloat" class="whatsapp-float">📱</a>
+<!-- أيقونة الواتساب الثابتة -->
+<a href="https://wa.me/212687561491" target="_blank" id="whatsappFloat" class="whatsapp-float">
+    <img src="images/whatsapp.png" loading="lazy" alt="WhatsApp" class="whatsapp-img">
+</a>
 
-<!-- ========== الملفات بالترتيب الصحيح ========== -->
+<!-- نافذة تقييمات المشتركين -->
+<div id="reviewsModal" class="reviews-modal">
+    <div class="reviews-modal-content">
+        <div class="reviews-modal-header">
+            <h3>🤔 مازال كتفكر واش تشترك؟</h3>
+            <p>شوف ناس سبقوك واستافدو من المنصة.</p>
+            <button id="closeReviewsModal" class="close-reviews-modal">✕</button>
+        </div>
+        <div class="reviews-modal-slider-container">
+            <div class="reviews-modal-slider" id="reviewsModalSlider"></div>
+        </div>
+        <div class="reviews-modal-controls">
+            <button id="modalPrevBtn" class="modal-control-btn">❮</button>
+            <span id="modalCounter" class="modal-counter-text">1 / 6</span>
+            <button id="modalNextBtn" class="modal-control-btn">❯</button>
+        </div>
+    </div>
+</div>
+
+<!-- ========== جميع ملفات JavaScript بالترتيب الصحيح ========== -->
 <script src="firebase-config.js"></script>
 <script src="studyRoom.js"></script>
 <script src="exams.js"></script>
@@ -188,41 +328,237 @@
 <script src="reviews-simple.js"></script>
 
 <script>
-// تهيئة بسيطة
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("✅ تم تحميل جميع الملفات بالترتيب الصحيح");
-    
-    // زر العودة للرئيسية
-    const backHomeBtn = document.getElementById('backHomeBtn');
-    if(backHomeBtn) backHomeBtn.onclick = () => { document.getElementById('home').classList.add('active'); document.getElementById('list').classList.remove('active'); document.getElementById('exam').classList.remove('active'); };
-    
-    const backToListBtn = document.getElementById('backToListBtn');
-    if(backToListBtn) backToListBtn.onclick = () => { document.getElementById('list').classList.add('active'); document.getElementById('exam').classList.remove('active'); };
-    
-    const backArrow = document.getElementById('backArrowFromExam');
-    if(backArrow) backArrow.onclick = () => { document.getElementById('list').classList.add('active'); document.getElementById('exam').classList.remove('active'); };
-    
-    // زر كفاش
+// ============================================
+// الإعدادات والتهيئة العامة
+// ============================================
+
+// الوضع الليلي
+(function() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const savedDarkMode = localStorage.getItem('darkMode');
+    if (savedDarkMode === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if (darkModeToggle) darkModeToggle.checked = true;
+    }
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    }
+})();
+
+// بطاقة كفاش المنبثقة
+(function() {
     const tipsBtn = document.getElementById('tipsTriggerBtn');
-    if(tipsBtn) tipsBtn.addEventListener('click', function(e) { e.stopPropagation(); this.classList.toggle('active'); });
-    document.addEventListener('click', function(e) { if(tipsBtn && !tipsBtn.contains(e.target)) tipsBtn.classList.remove('active'); });
+    if (tipsBtn) {
+        tipsBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+        });
+        document.addEventListener('click', function(e) {
+            if (!tipsBtn.contains(e.target)) tipsBtn.classList.remove('active');
+        });
+    }
+})();
+
+// إظهار/إخفاء زر كفاش حسب الصفحة
+(function() {
+    const tipsBtn = document.getElementById('tipsTriggerBtn');
+    const homePage = document.getElementById('home');
+    const listPage = document.getElementById('list');
+    const examPage = document.getElementById('exam');
     
-    // الوضع الليلي
-    const darkToggle = document.getElementById('darkModeToggle');
-    if(darkToggle && localStorage.getItem('darkMode') === 'enabled') { document.body.classList.add('dark-mode'); darkToggle.checked = true; }
-    if(darkToggle) darkToggle.addEventListener('change', function() { document.body.classList.toggle('dark-mode'); localStorage.setItem('darkMode', this.checked ? 'enabled' : 'disabled'); });
+    function checkAndToggleTipsButton() {
+        if (!tipsBtn) return;
+        if (homePage && homePage.classList.contains('active')) {
+            tipsBtn.style.display = 'none';
+        } else if ((listPage && listPage.classList.contains('active')) || (examPage && examPage.classList.contains('active'))) {
+            tipsBtn.style.display = 'flex';
+        } else {
+            tipsBtn.style.display = 'none';
+        }
+    }
     
-    // تكبير الخط
-    let scale = parseInt(localStorage.getItem('siteFontScale') || '100');
-    document.documentElement.style.fontSize = (scale/100) + 'rem';
-    document.getElementById('fontSizeValue') && (document.getElementById('fontSizeValue').textContent = scale + '%');
-    document.getElementById('increaseFontBtn')?.addEventListener('click', () => { scale = Math.min(150, scale+5); document.documentElement.style.fontSize = (scale/100)+'rem'; document.getElementById('fontSizeValue').textContent=scale+'%'; localStorage.setItem('siteFontScale',scale); });
-    document.getElementById('decreaseFontBtn')?.addEventListener('click', () => { scale = Math.max(60, scale-5); document.documentElement.style.fontSize = (scale/100)+'rem'; document.getElementById('fontSizeValue').textContent=scale+'%'; localStorage.setItem('siteFontScale',scale); });
-    document.getElementById('resetFontBtn')?.addEventListener('click', () => { scale=100; document.documentElement.style.fontSize='1rem'; document.getElementById('fontSizeValue').textContent='100%'; localStorage.setItem('siteFontScale',100); });
+    const observer = new MutationObserver(checkAndToggleTipsButton);
+    if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
+    if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
+    if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
+    checkAndToggleTipsButton();
+})();
+
+// نظام تكبير وتصغير الموقع
+(function() {
+    let currentScale = parseInt(localStorage.getItem('siteFontScale') || '100');
+    const MIN_SCALE = 60, MAX_SCALE = 150, STEP = 5;
     
-    const settingsBtn = document.getElementById('settingsBtn'), settingsModal = document.getElementById('settingsModal'), closeSettings = document.getElementById('closeSettingsModal');
-    if(settingsBtn && settingsModal) { settingsBtn.onclick = () => settingsModal.classList.add('active'); closeSettings.onclick = () => settingsModal.classList.remove('active'); settingsModal.onclick = (e) => { if(e.target === settingsModal) settingsModal.classList.remove('active'); }; }
-});
+    function updateFontSize(scale) {
+        document.documentElement.style.fontSize = (scale / 100) + 'rem';
+        const fontSizeValue = document.getElementById('fontSizeValue');
+        if (fontSizeValue) fontSizeValue.textContent = scale + '%';
+        localStorage.setItem('siteFontScale', scale);
+    }
+    
+    function increaseFont() { if (currentScale < MAX_SCALE) { currentScale += STEP; updateFontSize(currentScale); } }
+    function decreaseFont() { if (currentScale > MIN_SCALE) { currentScale -= STEP; updateFontSize(currentScale); } }
+    function resetFont() { currentScale = 100; updateFontSize(100); }
+    
+    updateFontSize(currentScale);
+    
+    document.getElementById('increaseFontBtn')?.addEventListener('click', increaseFont);
+    document.getElementById('decreaseFontBtn')?.addEventListener('click', decreaseFont);
+    document.getElementById('resetFontBtn')?.addEventListener('click', resetFont);
+    
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettingsModal = document.getElementById('closeSettingsModal');
+    
+    if (settingsBtn && settingsModal) {
+        settingsBtn.onclick = () => settingsModal.classList.add('active');
+        closeSettingsModal.onclick = () => settingsModal.classList.remove('active');
+        settingsModal.onclick = (e) => { if (e.target === settingsModal) settingsModal.classList.remove('active'); };
+    }
+})();
+
+// أزرار الاشتراك والتسجيل
+const subscribeBtn = document.getElementById('featuresSubscribeBtn');
+if (subscribeBtn) {
+    subscribeBtn.addEventListener('click', function() {
+        const email = localStorage.getItem('zertiva_email');
+        if (email) window.location.href = 'subscribe.html';
+        else document.getElementById('loginPopup').style.display = 'flex';
+    });
+}
+
+const logoBtn = document.getElementById('logoHomeBtn');
+if (logoBtn) logoBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// شريط التقييمات المتحرك
+const widgetSliderElem = document.getElementById('widgetSlider');
+if (widgetSliderElem) {
+    const items = widgetSliderElem.innerHTML;
+    widgetSliderElem.innerHTML = items + items + items;
+    
+    let moveTimeout, pauseTimeout, isHovering = false;
+    
+    function startMoveCycle() {
+        if (isHovering) return;
+        widgetSliderElem.style.animationPlayState = 'running';
+        clearTimeout(moveTimeout);
+        moveTimeout = setTimeout(() => {
+            if (!isHovering) {
+                widgetSliderElem.style.animationPlayState = 'paused';
+                clearTimeout(pauseTimeout);
+                pauseTimeout = setTimeout(() => { if (!isHovering) startMoveCycle(); }, 5000);
+            }
+        }, 10000);
+    }
+    
+    function stopMoveCycle() {
+        clearTimeout(moveTimeout);
+        clearTimeout(pauseTimeout);
+        widgetSliderElem.style.animationPlayState = 'paused';
+    }
+    
+    widgetSliderElem.addEventListener('mouseenter', () => { isHovering = true; stopMoveCycle(); });
+    widgetSliderElem.addEventListener('mouseleave', () => { isHovering = false; startMoveCycle(); });
+    
+    const widget = document.getElementById('reviewsWidget');
+    if (widget && window.innerWidth > 768) {
+        setTimeout(() => {
+            if (widget.classList.contains('collapsed')) {
+                widget.classList.remove('collapsed');
+                widget.classList.add('expanded');
+                startMoveCycle();
+            }
+        }, 2000);
+        setTimeout(() => {
+            if (widget.classList.contains('expanded')) {
+                widget.classList.remove('expanded');
+                widget.classList.add('collapsed-keep');
+                stopMoveCycle();
+            }
+        }, 10000);
+    }
+    
+    widget?.addEventListener('click', (e) => { if (e.target.tagName !== 'IMG') openReviewsModal(); });
+}
+
+// نافذة التقييمات
+const reviewImages = ["images/review1.webp","images/review2.webp","images/review3.webp","images/review4.webp","images/review5.webp","images/review6.webp"];
+let currentModalIndex = 0;
+const reviewsModal = document.getElementById('reviewsModal');
+const modalSlider = document.getElementById('reviewsModalSlider');
+const closeReviewsModal = document.getElementById('closeReviewsModal');
+const modalPrevBtn = document.getElementById('modalPrevBtn');
+const modalNextBtn = document.getElementById('modalNextBtn');
+const modalCounterSpan = document.getElementById('modalCounter');
+
+function buildModalSlider() {
+    modalSlider.innerHTML = '';
+    reviewImages.forEach((img, index) => {
+        const item = document.createElement('div');
+        item.className = 'reviews-modal-item';
+        item.innerHTML = `<img src="${img}" loading="lazy" alt="Review ${index + 1}" style="width:100%;border-radius:16px;cursor:pointer">`;
+        item.onclick = () => window.open(img, '_blank');
+        modalSlider.appendChild(item);
+    });
+}
+
+function scrollToImage(index) {
+    const container = document.querySelector('.reviews-modal-slider-container');
+    if (container) {
+        container.scrollTo({ left: index * 300, behavior: 'smooth' });
+        currentModalIndex = index;
+        modalCounterSpan.textContent = `${currentModalIndex + 1} / ${reviewImages.length}`;
+    }
+}
+
+function openReviewsModal() {
+    reviewsModal.classList.add('active');
+    buildModalSlider();
+    setTimeout(() => scrollToImage(0), 100);
+}
+
+closeReviewsModal?.addEventListener('click', () => reviewsModal.classList.remove('active'));
+modalPrevBtn?.addEventListener('click', () => { if (currentModalIndex > 0) scrollToImage(currentModalIndex - 1); });
+modalNextBtn?.addEventListener('click', () => { if (currentModalIndex < reviewImages.length - 1) scrollToImage(currentModalIndex + 1); });
+reviewsModal?.addEventListener('click', (e) => { if (e.target === reviewsModal) reviewsModal.classList.remove('active'); });
+
+// زر البدء
+const startBtn = document.getElementById('startBtn');
+if (startBtn) {
+    startBtn.addEventListener('click', function() {
+        if (typeof goList === 'function') goList();
+        setTimeout(() => {
+            const firstTeil = document.querySelector('.teile-row .item:first-child');
+            if (firstTeil && firstTeil.click) firstTeil.click();
+        }, 100);
+    });
+}
+
+// إصلاح عرض الودجت على الهاتف
+function fixMobileWidget() {
+    const widget = document.getElementById('reviewsWidget');
+    if (!widget) return;
+    if (window.innerWidth <= 768) {
+        widget.classList.remove('expanded', 'collapsed-keep');
+        widget.classList.add('collapsed');
+        const slider = document.getElementById('widgetSlider');
+        if (slider) slider.style.animation = 'none';
+        const sliderContainer = document.querySelector('.widget-slider-container');
+        if (sliderContainer) sliderContainer.style.overflowX = 'auto';
+    }
+}
+fixMobileWidget();
+window.addEventListener('resize', fixMobileWidget);
+
+console.log("✅ جميع الملفات تم تحميلها بنجاح");
 </script>
 </body>
 </html>
