@@ -439,7 +439,30 @@
         <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
         <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
     </div>
-    
+    <!-- شريط حالة الغرفة للمراجعة مع صديق -->
+<div id="roomStatusBar" style="display: none;">
+    <div class="room-status-container">
+        <div class="room-code-box">
+            <div class="room-code-label">رمز الغرفة</div>
+            <div class="room-code-value" id="roomStatusCode">----</div>
+        </div>
+        <div class="players-scores">
+            <div class="player-card">
+                <span class="player-name" id="player1Name">أنت</span>
+                <span class="player-score" id="player1Score">0</span>
+            </div>
+            <div class="player-card">
+                <span class="player-name" id="player2Name">صديقك</span>
+                <span class="player-score" id="player2Score">0</span>
+            </div>
+        </div>
+        <div class="room-ready-status" id="roomReadyStatus">
+            🎮 اضغط "جاهز" لبدء المراجعة
+        </div>
+        <button id="startReviewBtn" style="display: none;">🎮 بدء المراجعة</button>
+        <button id="leaveRoomBarBtn" class="leave-room-bar-btn">🚪 مغادرة</button>
+    </div>
+</div>
     <div class="right-side">
         <!-- زر كفاش مع بطاقته الصغيرة -->
         <div class="tips-trigger-btn" id="tipsTriggerBtn">
