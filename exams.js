@@ -931,10 +931,11 @@ function getTeilNameBySkill(skill) {
 }
 
 function getActualFileName(examId) {
-    // تأكد من أن الملفات موجودة في المسار الصحيح
-    if (actualFileNames[examId]) {
+    // إذا كان لديك mapping مخصص
+    if (actualFileNames && actualFileNames[examId]) {
         return actualFileNames[examId];
     }
+    // المسار الافتراضي
     return `exam${examId}.json`;
 }
 
@@ -1090,7 +1091,6 @@ function setupLockedNextButton() {
     }
   });
 }
-
 async function openExam(examId, examTitle, skill) {
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
@@ -1115,79 +1115,133 @@ async function openExam(examId, examTitle, skill) {
   }
   
   const fileName = getActualFileName(examId);
-  const filePath = `data/${skill}/${fileName}`;
+  
+  // ✅ تجربة عدة مسارات ممكنة
+  const possiblePaths = [
+    `data/${skill}/${fileName}`,
+    `data/${skill}/exam${examId}.json`,
+    `../data/${skill}/${fileName}`,
+    `./data/${skill}/${fileName}`
+  ];
   
   console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
   console.log("📁 اسم الملف:", fileName);
-  console.log("📂 المسار الكامل:", filePath);
   
-  try {
-    const response = await fetch(filePath);
-    if (!response.ok) {
-      console.error(`❌ فشل تحميل الملف: ${filePath} - Status: ${response.status}`);
-      alert(`⚠️ الامتحان "${examTitle}" غير متوفر حالياً.\nالملف المطلوب: ${filePath}`);
-      return;
-    }
-    
-    currentExamData = await response.json();
-    
-    if (!currentExamData) {
-      throw new Error("البيانات فارغة");
-    }
-    
-    console.log("✅ تم تحميل البيانات بنجاح:", currentExamData);
-    
-    window.currentExamId = examId;
-    document.getElementById("home").classList.remove("active");
-    document.getElementById("list").classList.remove("active");
-    document.getElementById("exam").classList.add("active");
-    document.getElementById("examTitle").innerHTML = currentExamData.title || examTitle;
-    
-    updateExamNavButtons();
-    
-    if (!currentExamData.questions || currentExamData.questions.length === 0) {
-      console.warn("⚠️ لا توجد أسئلة في هذا الامتحان");
-      const container = document.getElementById("teil1");
-      if (container) {
-        container.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
+  let currentExamData = null;
+  let workingPath = null;
+  
+  // ✅ تجربة كل المسارات الممكنة
+  for (const path of possiblePaths) {
+    console.log("📂 محاولة المسار:", path);
+    try {
+      const response = await fetch(path);
+      if (response.ok) {
+        currentExamData = await response.json();
+        workingPath = path;
+        console.log("✅ تم التحميل من:", path);
+        break;
       }
-      showTeil(4);
-      return;
+    } catch(e) {
+      console.log("❌ فشل المسار:", path);
     }
-    
-    // التحقق من صحة كل سؤال
-    for (let i = 0; i < currentExamData.questions.length; i++) {
-      const q = currentExamData.questions[i];
-      if (!q.options || !Array.isArray(q.options)) {
-        console.error(`❌ السؤال ${i + 1} لا يحتوي على خيارات صحيحة:`, q);
-        q.options = ["الخيار 1", "الخيار 2", "الخيار 3"];
-      }
+  }
+  
+  if (!currentExamData) {
+    console.error(`❌ فشل تحميل الامتحان "${examTitle}" من جميع المسارات`);
+    alert(`⚠️ الامتحان "${examTitle}" غير متوفر حالياً.\n\nيرجى التأكد من وجود الملف في:\ndata/${skill}/${fileName}\n\nإذا كنت مطوراً، تأكد من إنشاء ملفات JSON في المجلد الصحيح.`);
+    return;
+  }
+  
+  // ✅ التحقق من صحة البيانات
+  if (!currentExamData.questions || currentExamData.questions.length === 0) {
+    console.warn("⚠️ لا توجد أسئلة في هذا الامتحان");
+    const container = document.getElementById("teil1");
+    if (container) {
+      container.innerHTML = '<div style="padding:20px;text-align:center;color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
     }
-    
-    // عرض الامتحان حسب النوع
-    if (currentExamData.type === "matching" || currentExamData.type === "truefalse" || 
-        currentExamData.type === "teil2" || currentExamData.type === "teil3" || 
-        currentExamData.type === "sprach1" || currentExamData.type === "sprach2" || 
-        currentExamData.type === "schreiben") {
-      buildTeil1(currentExamData.questions || []);
-    } else if (currentExamData.type === "mündlich") {
-      renderMündlichExam(currentExamData);
-    } else if (currentExamData.type === "info") {
-      renderInfoExam(currentExamData);
-    } else if (currentExamData.type === "tips") {
-      renderTipsExam(currentExamData);
+    showTeil(4);
+    return;
+  }
+  
+  // ✅ التحقق من صحة كل سؤال
+  for (let i = 0; i < currentExamData.questions.length; i++) {
+    const q = currentExamData.questions[i];
+    if (!q.options || !Array.isArray(q.options)) {
+      console.error(`❌ السؤال ${i + 1} لا يحتوي على خيارات صحيحة:`, q);
+      q.options = ["الخيار 1", "الخيار 2", "الخيار 3"];
+      q.correct = 0;
+    }
+  }
+  
+  console.log("✅ تم تحميل البيانات بنجاح:", currentExamData);
+  console.log("📊 عدد الأسئلة:", currentExamData.questions.length);
+  
+  window.currentExamId = examId;
+  document.getElementById("home").classList.remove("active");
+  document.getElementById("list").classList.remove("active");
+  document.getElementById("exam").classList.add("active");
+  document.getElementById("examTitle").innerHTML = currentExamData.title || examTitle;
+  
+  updateExamNavButtons();
+  
+  // عرض الامتحان حسب النوع
+  if (currentExamData.type === "matching") {
+    if (typeof window.loadMatchingExam === "function") {
+      window.loadMatchingExam(currentExamData);
     } else {
       buildTeil1(currentExamData.questions || []);
     }
-    
-    const teilIndex = teile.findIndex(t => t.skill === skill);
-    showTeil(teilIndex !== -1 ? teilIndex + 1 : 10);
-    
-  } catch(e) {
-    console.error("❌ خطأ في تحميل الامتحان:", e);
-    alert("خطأ في تحميل الامتحان: " + e.message + "\n\nتأكد من وجود ملفات JSON في مجلد data/" + skill + "/");
+  } else if (currentExamData.type === "truefalse") {
+    const container = document.getElementById(currentSkill);
+    if (container && typeof window.buildTrueFalseExam === "function") {
+      window.buildTrueFalseExam(container, currentExamData.questions, currentExamData.note);
+    } else {
+      buildTeil1(currentExamData.questions || []);
+    }
+  } else if (currentExamData.type === "teil2") {
+    if (typeof window.loadTeil2Exam === "function") {
+      window.loadTeil2Exam(currentExamData);
+    } else {
+      buildTeil1(currentExamData.questions || []);
+    }
+  } else if (currentExamData.type === "teil3") {
+    if (typeof window.loadTeil3Exam === "function") {
+      window.loadTeil3Exam(currentExamData);
+    } else {
+      buildTeil1(currentExamData.questions || []);
+    }
+  } else if (currentExamData.type === "sprach1") {
+    if (typeof window.loadSprach1Exam === "function") {
+      window.loadSprach1Exam(currentExamData);
+    } else {
+      buildTeil1(currentExamData.questions || []);
+    }
+  } else if (currentExamData.type === "sprach2") {
+    if (typeof window.loadSprach2Exam === "function") {
+      window.loadSprach2Exam(currentExamData);
+    } else {
+      buildTeil1(currentExamData.questions || []);
+    }
+  } else if (currentExamData.type === "schreiben") {
+    if (typeof window.loadSchreibenExam === "function") {
+      window.loadSchreibenExam(currentExamData);
+    } else {
+      buildTeil1(currentExamData.questions || []);
+    }
+  } else if (currentExamData.type === "mündlich") {
+    renderMündlichExam(currentExamData);
+  } else if (currentExamData.type === "info") {
+    renderInfoExam(currentExamData);
+  } else if (currentExamData.type === "tips") {
+    renderTipsExam(currentExamData);
+  } else {
+    buildTeil1(currentExamData.questions || []);
   }
+  
+  const teilIndex = teile.findIndex(t => t.skill === skill);
+  showTeil(teilIndex !== -1 ? teilIndex + 1 : 10);
 }
+
 
 function updateExamNavButtons() {
   const prevBtn = document.getElementById("prevExamBtn");
