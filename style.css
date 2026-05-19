@@ -1407,14 +1407,36 @@ body:has(#exam.active) .top-bar {
     border-color: #38bdf8;
 }
 
-.teile-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 30px;
-    justify-content: flex-start;
-    direction: ltr;
-}
+    /* ===== عناوين الأجزاء (Teile) - سطرين أو سطر ونصف ===== */
+    .teile-row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+        justify-content: center !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .teil-item {
+        padding: 6px 10px !important;
+        font-size: 0.55rem !important;
+        font-weight: 500 !important;
+        border-radius: 25px !important;
+        background: rgba(30, 41, 59, 0.95) !important;
+        backdrop-filter: blur(4px) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(56, 189, 248, 0.15) !important;
+        transition: all 0.2s ease !important;
+        min-width: auto !important;
+        max-width: calc(33.33% - 6px) !important;
+        text-align: center !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+        line-height: 1.3 !important;
+    }
+    
+    .teil-item:active {
+        transform: scale(0.97) !important;
+        background: rgba(56, 189, 248, 0.2) !important;
+    }
 
 .exam-box {
     background: white;
