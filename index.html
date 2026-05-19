@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- SEO & Open Graph - نظيف واحترافي -->
 <title>Zertiva B2</title>
@@ -18,13 +18,6 @@
 <link rel="shortcut icon" type="image/webp" href="images/favicon.webp">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="reviews.css">
-<link rel="stylesheet" href="dailyReport.css">
-<link rel="stylesheet" href="studyRoom.css">
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
 <style>
     /* تنسيق زر كفاش */
     .tips-trigger-btn {
@@ -208,7 +201,7 @@
         transform: translateX(26px);
     }
 
-    /* الوضع الليلي */
+    /* الوضع الليلي - تغيير ألوان أزرار الأجزاء (Teile) */
     body.dark-mode {
         background: #0a0a0f;
     }
@@ -228,6 +221,7 @@
         background: rgba(0, 0, 0, 0.4);
     }
 
+    /* تنسيق أزرار الأجزاء في الوضع الليلي */
     body.dark-mode .teile-row .item {
         background: #2a2a3a !important;
         border-color: rgba(255, 255, 255, 0.1);
@@ -246,6 +240,7 @@
         background: #3a3a4a !important;
     }
 
+    /* باقي تنسيقات الوضع الليلي */
     body.dark-mode .full-tips-section {
         background: #0f0f1a;
         border-color: rgba(100, 150, 200, 0.2);
@@ -326,7 +321,7 @@
         color: #c0c0c0;
     }
 
-    /* تنسيق عناوين الأجزاء في الهواتف */
+    /* تنسيق عناوين الأجزاء في الهواتف - حجم صغير جداً */
     @media (max-width: 768px) {
         .teile-row {
             display: grid;
@@ -345,51 +340,6 @@
             white-space: normal;
             word-break: break-word;
             min-height: auto;
-        }
-        
-        .question-card {
-            padding: 12px !important;
-            margin-bottom: 15px !important;
-        }
-        
-        .question-text {
-            font-size: 14px !important;
-            line-height: 1.5 !important;
-        }
-        
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 8px !important;
-        }
-        
-        .option-label {
-            display: flex !important;
-            align-items: center !important;
-            padding: 10px 12px !important;
-            border-radius: 12px !important;
-            font-size: 13px !important;
-        }
-        
-        .option-label input {
-            margin-left: 10px !important;
-            flex-shrink: 0 !important;
-        }
-        
-        .option-label span {
-            flex: 1;
-            word-break: break-word;
-        }
-        
-        #examNavButtons {
-            flex-wrap: wrap !important;
-            gap: 8px !important;
-        }
-        
-        #examNavButtons button {
-            font-size: 12px !important;
-            padding: 6px 12px !important;
-            margin: 0 !important;
         }
     }
 
@@ -414,175 +364,6 @@
             max-height: 200px;
         }
     }
-
-    /* تنسيق زر التقرير اليومي */
-    .daily-report-btn {
-        background: linear-gradient(135deg, #2c3e66, #1a2a4a);
-        border: 1px solid rgba(100, 150, 200, 0.3);
-        border-radius: 30px;
-        padding: 8px 16px;
-        font-size: 14px;
-        font-weight: 500;
-        color: #ffffff;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        transition: all 0.3s ease;
-        font-family: inherit;
-        margin-left: 10px;
-    }
-
-    .daily-report-btn:hover {
-        background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
-        border-color: rgba(100, 150, 200, 0.6);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    /* إخفاء زر التقرير في الصفحة الرئيسية */
-    body:has(#home.active) .daily-report-btn {
-        display: none !important;
-    }
-
-    body:has(#list.active) .daily-report-btn,
-    body:has(#exam.active) .daily-report-btn {
-        display: flex !important;
-    }
-
-    /* زر المراجعة مع صديق */
-    #roomBtn {
-        background: linear-gradient(135deg, #2c3e66, #1a2a4a);
-        border: 1px solid rgba(100, 150, 200, 0.3);
-        border-radius: 30px;
-        padding: 8px 16px;
-        font-size: 14px;
-        font-weight: 500;
-        color: #ffffff;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        transition: all 0.3s ease;
-        margin-left: 10px;
-    }
-
-    #roomBtn:hover {
-        background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
-        transform: translateY(-1px);
-    }
-
-    /* ========== شريط المراجعة مع صديق ========== */
-    #roomStatusBar {
-        display: none;
-        background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
-        border-bottom: 2px solid #5dade2;
-        padding: 8px 16px;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
-
-    .room-status-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 8px;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .room-code-box {
-        background: rgba(93, 173, 226, 0.15);
-        padding: 4px 12px;
-        border-radius: 30px;
-        border: 1px solid #5dade2;
-        font-size: 12px;
-        color: #5dade2;
-    }
-
-    .room-code-label {
-        font-size: 10px;
-        opacity: 0.7;
-    }
-
-    .players-scores {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
-
-    .player-card {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 4px 12px;
-        border-radius: 30px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .player-name {
-        color: white;
-        font-size: 13px;
-    }
-
-    .player-score {
-        background: #5dade2;
-        color: white;
-        padding: 2px 8px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: bold;
-    }
-
-    .room-ready-status {
-        font-size: 11px;
-        padding: 4px 8px;
-        border-radius: 30px;
-        background: rgba(33, 150, 243, 0.15);
-        color: #90caf9;
-    }
-
-    #startReviewBtn {
-        display: none;
-        background: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 30px;
-        padding: 5px 15px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: transform 0.2s;
-    }
-
-    #startReviewBtn:hover {
-        transform: scale(1.02);
-    }
-
-    .leave-room-bar-btn {
-        background: rgba(220, 53, 69, 0.2);
-        border: 1px solid #dc3545;
-        border-radius: 30px;
-        padding: 4px 12px;
-        color: #dc3545;
-        cursor: pointer;
-        font-size: 12px;
-        transition: all 0.2s;
-    }
-
-    .leave-room-bar-btn:hover {
-        background: rgba(220, 53, 69, 0.4);
-    }
-
-    @media (max-width: 768px) {
-        .room-status-container {
-            flex-direction: column;
-        }
-        .players-scores {
-            justify-content: center;
-        }
-    }
 </style>
 </head>
 <body>
@@ -600,7 +381,9 @@
         <div class="tips-trigger-btn" id="tipsTriggerBtn">
             💡 كفاش؟
             <div class="tips-mini-card" id="tipsMiniCard">
-                <div class="mini-title">💡 كفاش؟</div>
+                <div class="mini-title">
+                    💡 كفاش؟
+                </div>
                 <div class="mini-content">
                     <p>• راجع الامتحانات اللي بغيتي، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
                     <p>• و من بعد ما تسالي كلشي دكشي اللي قديتي تراجعو فداك النهار، سير بدل الجو شوية, دير اللي بغيتي المهم نسى وطلق عقلك يستراح (ما بين 1 ساعة و 3 ساعات)</p>
@@ -610,9 +393,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- زر التقرير اليومي -->
-        <button id="dailyReportBtn" class="daily-report-btn">📊 أنا أنهيت المراجعة اليوم</button>
         
         <div class="notification-container">
             <button id="notificationBell" class="notification-bell">
@@ -634,29 +414,6 @@
         <div class="logo-icon" id="logoHomeBtn">
             <img src="images/logo.webp" loading="lazy" alt="Zertiva" class="logo-img">
         </div>
-    </div>
-</div>
-
-<!-- ========== شريط المراجعة مع صديق (يظهر فقط عند الاتصال) ========== -->
-<div id="roomStatusBar">
-    <div class="room-status-container">
-        <div class="room-code-box">
-            <div class="room-code-label">رمز الغرفة</div>
-            <strong id="roomStatusCode">----</strong>
-        </div>
-        <div class="players-scores">
-            <div class="player-card">
-                <span class="player-name" id="player1Name">أنت</span>
-                <span class="player-score" id="player1Score">0</span>
-            </div>
-            <div class="player-card">
-                <span class="player-name" id="player2Name">صديقك</span>
-                <span class="player-score" id="player2Score">0</span>
-            </div>
-        </div>
-        <div class="room-ready-status" id="roomReadyStatus">🎮 اضغط "جاهز" لبدء المراجعة</div>
-        <button id="startReviewBtn">🎮 بدء المراجعة</button>
-        <button id="leaveRoomBarBtn" class="leave-room-bar-btn">🚪 مغادرة</button>
     </div>
 </div>
 
@@ -830,7 +587,6 @@
   <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
     <button id="prevExamBtn" class="nav-exam-btn">◀ السابق</button>
     <button id="nextExamBtn" class="nav-exam-btn">التالي ▶</button>
-    <!-- زر المراجعة مع صديق سيتم إضافته هنا بواسطة studyRoom.js -->
   </div>
   <div id="teil1" style="display:none;"></div>
   <div id="teil2" style="display:none;"></div>
@@ -874,18 +630,13 @@
     </div>
 </div>
 
-<!-- ========== الـ Scripts (الترتيب مهم جداً) ========== -->
-<script src="firebase-config.js"></script>
-<script src="studyRoom.js"></script>
+<!-- ========== الـ Scripts ========== -->
 <script src="helpSystem.js"></script>
 <script src="engine.js"></script>
 <script src="exams.js"></script>
 <script src="auth.js"></script>
 <script src="notifications.js"></script>
 <script src="rapidGame.js"></script>
-<script src="dailyTracker.js"></script>
-<script src="dailyReport.js"></script>
-<script src="reviews-simple.js"></script>
 
 <script>
 // ============================================
@@ -966,28 +717,6 @@
 })();
 
 // ============================================
-// زر التقرير اليومي - ربط الحدث
-// ============================================
-(function() {
-    const reportBtn = document.getElementById('dailyReportBtn');
-    if (reportBtn) {
-        reportBtn.addEventListener('click', function() {
-            if (typeof DailyTracker !== 'undefined') {
-                if (typeof openDailyReport === 'function') {
-                    openDailyReport();
-                } else if (typeof window.openReportModal === 'function') {
-                    window.openReportModal();
-                } else {
-                    alert("📊 تقرير اليوم\n\nسجل تقدمك في الامتحانات والألعاب");
-                }
-            } else {
-                alert("📊 تقرير اليوم\n\nسجل تقدمك في الامتحانات والألعاب");
-            }
-        });
-    }
-})();
-
-// ============================================
 // لعبة التحدي السريع
 // ============================================
 (function() {
@@ -1003,32 +732,13 @@
         
         var btn = document.createElement('button');
         btn.id = 'rapidGameBtn';
-        btn.innerHTML = '⚡ العب';
+        btn.innerHTML = '⚡ التحدي السريع';
         btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
         btn.onclick = function() {
-            var skill = null;
-            var examId = null;
-            
-            if (typeof currentSkill !== 'undefined') {
-                skill = currentSkill;
-            }
-            if (typeof currentExamId !== 'undefined') {
-                examId = currentExamId;
-            }
-            
-            if (!skill || !examId) {
-                alert("⚠️ الرجاء فتح امتحان أولاً");
-                return;
-            }
-            
-            if (typeof startGame === 'function') {
-                startGame(skill, examId);
-            } else {
-                alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
-            }
+            alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
         };
         nav.appendChild(btn);
-        console.log('🎮 زر العب جاهز');
+        console.log('🎮 زر التحدي السريع جاهز');
     }
     
     if (document.readyState === 'loading') {
@@ -1432,5 +1142,6 @@
     
     console.log("✅ جميع الـ Scripts تم تحميلها مرة واحدة فقط");
 </script>
+    <script src="reviews-simple.js"></script>
 </body>
 </html>
