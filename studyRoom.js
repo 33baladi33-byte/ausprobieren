@@ -596,7 +596,7 @@ window.updateRoomScore = async function() {
         console.error("خطأ في تحديث النتيجة:", e);
     }
 };
-    // تصدير الدوال
+        // تصدير الدوال
     window.StudyRoom = {
         syncAnswer: syncAnswer,
         getOtherAnswer: getOtherAnswer,
@@ -604,6 +604,7 @@ window.updateRoomScore = async function() {
         getRoomId: () => currentRoomId
     };
 
+    // بدء التشغيل
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
