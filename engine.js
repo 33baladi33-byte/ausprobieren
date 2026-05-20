@@ -2492,9 +2492,6 @@ if (originalOpenExamGlobal) {
 window.addEventListener('resize', function() {
   setTimeout(applyMobileStylesToEngine, 100);
 });
-// ============================================
-// إصلاح ألوان التصحيح في الهاتف لـ Lesen Teil 1 و Teil 3
-// ============================================
 
 // دالة تطبيق ألوان التصحيح على Select في Teil 1 (للهاتف)
 function applyTeil1CorrectionColors() {
@@ -2513,36 +2510,32 @@ function applyTeil1CorrectionColors() {
             select.style.backgroundColor = "#d4edda";
             select.style.border = "2px solid #28a745";
             select.style.color = "#155724";
+            // لا نغير قيمة الـ select، تبقى إجابة المستخدم
         } else if (isWrong) {
-            // ❌ إجابة خاطئة ← برتقالي فاتح، والنص أخضر
+            // ❌ إجابة خاطئة ← برتقالي فاتح
             select.style.backgroundColor = "#fef0e0";
             select.style.border = "2px solid #e67e22";
             select.style.color = "#155724";
             
-            // التأكد من وجود الإجابة الصحيحة مع علامة صح داخل الخانة
+            // ✅ فقط نضع الإجابة الصحيحة داخل الخانة مع علامة صح
             if (currentMatchingExamData) {
-                const index = card.id.replace('matching_q_', '');
-                const userAnswer = matchingSelectedAnswers[index];
-                const correctAnswer = currentMatchingExamData.sharedOptions[currentMatchingExamData.questions[index]?.correct];
-                const isAnswerCorrect = (userAnswer === correctAnswer);
-                
-                if (!isAnswerCorrect && correctAnswer) {
-                    select.value = correctAnswer;
-                    for (let j = 0; j < select.options.length; j++) {
-                        if (select.options[j].value === correctAnswer) {
-                            const originalText = select.options[j].textContent;
-                            const cleanText = originalText.replace(/^✅\s*/, '');
-                            select.options[j].textContent = `✅ ${cleanText}`;
-                            select.options[j].selected = true;
-                            break;
+                const index = parseInt(card.id.replace('matching_q_', ''));
+                if (!isNaN(index) && currentMatchingExamData.questions[index]) {
+                    const correctAnswer = currentMatchingExamData.sharedOptions[currentMatchingExamData.questions[index].correct];
+                    if (correctAnswer) {
+                        select.value = correctAnswer;
+                        for (let j = 0; j < select.options.length; j++) {
+                            if (select.options[j].value === correctAnswer) {
+                                const originalText = select.options[j].textContent;
+                                const cleanText = originalText.replace(/^✅\s*/, '');
+                                select.options[j].textContent = `✅ ${cleanText}`;
+                                select.options[j].selected = true;
+                                break;
+                            }
                         }
                     }
                 }
             }
-        } else {
-            select.style.backgroundColor = "#f8f9fa";
-            select.style.border = "1px solid #ced4da";
-            select.style.color = "#212529";
         }
     });
 }
@@ -2565,31 +2558,26 @@ function applyTeil3CorrectionColors() {
             select.style.border = "2px solid #28a745";
             select.style.color = "#155724";
         } else if (isWrong) {
-            // ❌ إجابة خاطئة ← برتقالي فاتح، والنص أخضر
+            // ❌ إجابة خاطئة ← برتقالي فاتح
             select.style.backgroundColor = "#fef0e0";
             select.style.border = "2px solid #e67e22";
             select.style.color = "#155724";
             
-            // التأكد من وجود الإجابة الصحيحة مع علامة صح داخل الخانة
+            // ✅ فقط نضع الإجابة الصحيحة داخل الخانة مع علامة صح
             if (currentTeil3Data) {
                 const indexMatch = card.id.match(/teil3_card_(\d+)/);
                 if (indexMatch) {
                     const index = parseInt(indexMatch[1]);
-                    const userAnswer = teil3UserAnswers[index];
                     const correctIndex = currentTeil3Data.items[index]?.correct;
                     
-                    let isAnswerCorrect = false;
                     let correctValue = null;
-                    
                     if (correctIndex === null || correctIndex === undefined) {
                         correctValue = "none";
-                        isAnswerCorrect = (userAnswer === "none" || userAnswer === null || userAnswer === undefined || userAnswer === "");
                     } else {
                         correctValue = correctIndex;
-                        isAnswerCorrect = (userAnswer === correctIndex);
                     }
                     
-                    if (!isAnswerCorrect && correctValue !== null) {
+                    if (correctValue !== null) {
                         select.value = correctValue;
                         for (let j = 0; j < select.options.length; j++) {
                             const optValue = select.options[j].value;
@@ -2604,13 +2592,13 @@ function applyTeil3CorrectionColors() {
                     }
                 }
             }
-        } else {
-            select.style.backgroundColor = "#f8f9fa";
-            select.style.border = "1px solid #ced4da";
-            select.style.color = "#212529";
         }
     });
 }
+
+
+
+
 
 // تعديل دالة checkMatchingExam الأصلية لإضافة تحديث الألوان
 const originalCheckMatchingExam = window.checkMatchingExam;
