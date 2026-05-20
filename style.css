@@ -1513,8 +1513,8 @@ body:has(#exam.active) .top-bar {
 
 .item {
     background: white;
-    padding: 15px;
-    margin-bottom: 10px;
+    padding: 8px 12px !important;
+    margin-bottom: 8px;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
@@ -1522,6 +1522,8 @@ body:has(#exam.active) .top-bar {
     align-items: center;
     transition: all 0.25s ease;
     border: 1px solid #e2e8f0;
+    min-height: 44px;
+    height: auto;
 }
 
 .item:hover {
@@ -1532,20 +1534,17 @@ body:has(#exam.active) .top-bar {
 }
 
 .premium-badge {
-    display: inline-flex;
-    align-items: center;
+    display: inline-flex !important;
+    align-items: center !important;
     background: rgba(0, 0, 0, 0.65);
     color: #f5e6a0;
-    font-size: 9px;
+    font-size: 8px !important;
     font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 999px;
+    padding: 2px 6px !important;
+    border-radius: 20px;
     margin-right: 5px;
-    line-height: 1.2;
-    letter-spacing: 0.3px;
-    backdrop-filter: blur(2px);
-    border: 0.5px solid rgba(245, 230, 160, 0.3);
-    transition: all 0.2s ease;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 .lock-icon-mini {
@@ -1561,7 +1560,13 @@ body:has(#exam.active) .top-bar {
     gap: 4px;
     margin-right: 5px;
 }
-
+.exam-right-icons {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px;
+    flex-shrink: 0;
+    line-height: 1;
+}
 .item:hover .premium-badge {
     background: rgba(0, 0, 0, 0.8);
     transform: scale(1.02);
@@ -1706,24 +1711,22 @@ body:has(#exam.active) .top-bar {
         font-size: 0.6rem;
     }
     
-/* قائمة الامتحانات */
+/* قائمة الامتحانات في الهاتف */
 .item {
     padding: 6px 8px !important;
-    margin-bottom: 6px !important;
-    border-radius: 8px !important;
+    min-height: 40px !important;
+    margin-bottom: 5px !important;
 }
 
-/* توحيد حجم جميع الامتحانات في الهاتف */
-.item .exam-title,
-.exam-title {
-    font-size: 0.4rem !important;
-    font-weight: 500 !important;
+.item .exam-title {
+    font-size: 0.55rem !important;
+    line-height: 1.2 !important;
 }
 
-/* توحيد حجم شارة Premium في الهاتف */
 .premium-badge {
-    font-size: 0.4rem !important;
+    font-size: 7px !important;
     padding: 2px 4px !important;
+    margin-right: 4px !important;
 }
     
     /* بطاقات الأسئلة */
