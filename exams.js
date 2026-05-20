@@ -70,15 +70,13 @@ function createResultBadge(score) {
   `;
   return badge;
 }
-// ========== نافذة Premium Access الاحترافية ==========
-function showLockedMessage(examTitle) {
+
+ function showLockedMessage(examTitle) {
     let cleanTitle = examTitle.replace(/\s*\(\d+\)\s*$/, '').trim();
     
-    // إزالة أي modal موجود مسبقاً
     const existingModal = document.getElementById('premiumModal');
     if (existingModal) existingModal.remove();
     
-    // إنشاء الـ Modal
     const modal = document.createElement('div');
     modal.id = 'premiumModal';
     modal.className = 'premium-modal';
@@ -138,15 +136,7 @@ function showLockedMessage(examTitle) {
         }
     };
 }
-    
-    // إغلاق عند الضغط خارج البطاقة
-    modal.onclick = (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            setTimeout(() => modal.remove(), 300);
-        }
-    };
-}
+
 
 let currentExamData = null;
 let currentSkill = "lesen1";
