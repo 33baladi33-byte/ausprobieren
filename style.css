@@ -1973,29 +1973,29 @@ body:has(#exam.active) .top-bar {
 @media (max-width: 768px) {
     /* إعادة تعيين لون خلفية الـ select في Teil 1 و Teil 3 */
     #teil1 select,
-    #teil3 select {
-        background-color: #f8f9fa !important;
-        color: #212529 !important;
-        border: 1px solid #ced4da !important;
-        border-radius: 8px !important;
-        padding: 8px 12px !important;
-        font-size: 0.7rem !important;
+    #teil3 select,
+    select, 
+    .teil3-original-select {
+        width: 100% !important;
+        padding: 6px 8px !important;
+        font-size: 0.6rem !important;
+        border-radius: 12px !important;
+        background: #eef2f5 !important;
+        color: #2d3e50 !important;
+        border: 1px solid #dce5ec !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
     }
     
-    /* عند التصحيح - إجابة صحيحة */
-    #teil1 select.correct-select,
-    #teil3 select.correct-select,
+    /* ألوان التصحيح */
     .correct-answer-card select {
-        background-color: #d4edda !important;
+        background: #d4edda !important;
         border: 2px solid #28a745 !important;
         color: #155724 !important;
     }
     
-    /* عند التصحيح - إجابة خاطئة */
-    #teil1 select.wrong-select,
-    #teil3 select.wrong-select,
     .wrong-answer-card select {
-        background-color: #fef0e0 !important;
+        background: #fef0e0 !important;
         border: 2px solid #e67e22 !important;
         color: #856404 !important;
     }
