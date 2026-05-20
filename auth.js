@@ -92,7 +92,7 @@ function showLockedMessage(examTitle) {
                     <span>PREMIUM ACCESS</span>
                 </div>
                 <h2 class="premium-title">Exclusive Content</h2>
-                <p class="premium-subtitle">هذا الامتحان متاح للأعضاء المحترفين فقط</p>
+                <p class="premium-subtitle">هذا الامتحان متاح للمشتركين</p>
             </div>
             <div class="premium-card-body">
                 <ul class="premium-features">
