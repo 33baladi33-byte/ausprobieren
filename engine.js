@@ -2528,7 +2528,6 @@ cards.forEach(card => card.style.overflow = 'hidden');
       }
     }
   }
-}
 
 document.addEventListener('DOMContentLoaded', function() {
   applyMobileStylesToEngine();
