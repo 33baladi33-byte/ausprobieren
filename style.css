@@ -1712,7 +1712,12 @@ body:has(#exam.active) .top-bar {
         margin-bottom: 6px !important;
         border-radius: 10px !important;
     }
-    
+        /* ✅ أضف هذا هنا */
+    .item .exam-title,
+    .exam-title {
+        font-size: 0.65rem !important;
+        font-weight: 500 !important;
+    }
     .exam-title {
         font-size: 0.65rem !important;
     }
