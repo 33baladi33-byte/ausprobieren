@@ -2492,7 +2492,6 @@ if (originalOpenExamGlobal) {
 window.addEventListener('resize', function() {
   setTimeout(applyMobileStylesToEngine, 100);
 });
-
 // دالة تطبيق ألوان التصحيح على Select في Teil 1 (للهاتف)
 function applyTeil1CorrectionColors() {
     if (window.innerWidth > 768) return;
@@ -2506,18 +2505,14 @@ function applyTeil1CorrectionColors() {
         const isWrong = card.classList.contains('wrong-answer-card');
         
         if (isCorrect) {
-            // ✅ إجابة صحيحة ← أخضر
             select.style.backgroundColor = "#d4edda";
             select.style.border = "2px solid #28a745";
             select.style.color = "#155724";
-            // لا نغير قيمة الـ select، تبقى إجابة المستخدم
         } else if (isWrong) {
-            // ❌ إجابة خاطئة ← برتقالي فاتح
             select.style.backgroundColor = "#fef0e0";
             select.style.border = "2px solid #e67e22";
             select.style.color = "#155724";
             
-            // ✅ فقط نضع الإجابة الصحيحة داخل الخانة مع علامة صح
             if (currentMatchingExamData) {
                 const index = parseInt(card.id.replace('matching_q_', ''));
                 if (!isNaN(index) && currentMatchingExamData.questions[index]) {
@@ -2553,17 +2548,14 @@ function applyTeil3CorrectionColors() {
         const isWrong = card.classList.contains('wrong-answer-card');
         
         if (isCorrect) {
-            // ✅ إجابة صحيحة ← أخضر
             select.style.backgroundColor = "#d4edda";
             select.style.border = "2px solid #28a745";
             select.style.color = "#155724";
         } else if (isWrong) {
-            // ❌ إجابة خاطئة ← برتقالي فاتح
             select.style.backgroundColor = "#fef0e0";
             select.style.border = "2px solid #e67e22";
             select.style.color = "#155724";
             
-            // ✅ فقط نضع الإجابة الصحيحة داخل الخانة مع علامة صح
             if (currentTeil3Data) {
                 const indexMatch = card.id.match(/teil3_card_(\d+)/);
                 if (indexMatch) {
@@ -2595,48 +2587,6 @@ function applyTeil3CorrectionColors() {
         }
     });
 }
-
-
-
-
-
-// تعديل دالة checkMatchingExam الأصلية لإضافة تحديث الألوان
-const originalCheckMatchingExam = window.checkMatchingExam;
-if (originalCheckMatchingExam) {
-    window.checkMatchingExam = function() {
-        originalCheckMatchingExam();
-        setTimeout(() => {
-            applyTeil1CorrectionColors();
-        }, 50);
-    };
-}
-
-// تعديل دالة checkTeil3Exam الأصلية لإضافة تحديث الألوان
-const originalCheckTeil3Exam = window.checkTeil3Exam;
-if (originalCheckTeil3Exam) {
-    window.checkTeil3Exam = function() {
-        originalCheckTeil3Exam();
-        setTimeout(() => {
-            applyTeil3CorrectionColors();
-        }, 50);
-    };
-}
-
-// مراقبة التغييرات في DOM لتطبيق الألوان عند ظهور رسائل التصحيح
-const correctionObserver = new MutationObserver(function(mutations) {
-    if (window.innerWidth <= 768) {
-        applyTeil1CorrectionColors();
-        applyTeil3CorrectionColors();
-    }
-});
-
-// بدء المراقبة
-correctionObserver.observe(document.body, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['class']
-});
 
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
