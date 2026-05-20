@@ -97,10 +97,11 @@ function showLockedMessage(examTitle) {
             <div class="premium-card-body">
                 <ul class="premium-features">
                     <li><span class="check">✓</span> جميع امتحانات B2</li>
-                    <li><span class="check">✓</span> تصحيح فوري وإجابات نموذجية</li>
+                    <li><span class="check">✓</span>  100% الاجابات صحيحة</li>
                     <li><span class="check">✓</span> بطاقات ذكية للحفظ السريع</li>
                     <li><span class="check">✓</span> لعبة التحدي السريع</li>
                     <li><span class="check">✓</span> مساعدة عبر الواتساب</li>
+                    <li><span class="check">✓</span> التخلص من ارهاق المراجعة من ملفات البي دي اف</li>
                 </ul>
                 <button id="premiumUpgradeBtn" class="premium-btn">
                     ✦ Join Premium
