@@ -71,57 +71,75 @@ function createResultBadge(score) {
   return badge;
 }
 
-// ========== دالة عرض نافذة القفل (معدلة للهواتف) ==========
+// ========== نافذة Premium Access الاحترافية (بدلاً من القفل التقليدي) ==========
 function showLockedMessage(examTitle) {
     let cleanTitle = examTitle.replace(/\s*\(\d+\)\s*$/, '').trim();
     
-    let modal = document.createElement('div');
-    modal.id = 'lockedModal';
-    modal.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-        z-index: 100000;
-        display: flex; justify-content: center; align-items: center;
-        direction: rtl;
-    `;
+    // إزالة أي modal موجود مسبقاً
+    const existingModal = document.getElementById('premiumModal');
+    if (existingModal) existingModal.remove();
     
-    const isMobile = window.innerWidth <= 768;
-    
+    // إنشاء الـ Modal
+    const modal = document.createElement('div');
+    modal.id = 'premiumModal';
+    modal.className = 'premium-modal';
     modal.innerHTML = `
-        <div style="background: #f8fafc; border-radius: ${isMobile ? '24px' : '32px'}; padding: ${isMobile ? '20px' : '32px'}; max-width: ${isMobile ? '280px' : '360px'}; width: 85%; text-align: center; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); direction: rtl; border: 1px solid #e2e8f0;">
-            <div style="margin-bottom: ${isMobile ? '12px' : '20px'};">
-                <div style="font-size: ${isMobile ? '36px' : '48px'}; margin-bottom: 8px;">⭐</div>
+        <div class="premium-card">
+            <div class="premium-card-header">
+                <div class="premium-badge">
+                    <span class="premium-icon">✦</span>
+                    <span>PREMIUM ACCESS</span>
+                </div>
+                <h2 class="premium-title">Exclusive Content</h2>
+                <p class="premium-subtitle">هذا الامتحان متاح للأعضاء المحترفين فقط</p>
             </div>
-            <h2 style="color: #1e293b; margin-bottom: 8px; font-size: ${isMobile ? '18px' : '22px'}; font-weight: 600;">هذا المحتوى مخصص للمشتركين</h2>
-            <div style="background: #f1f5f9; padding: ${isMobile ? '8px' : '12px'}; border-radius: ${isMobile ? '14px' : '20px'}; margin: ${isMobile ? '12px 0' : '16px 0'}; color: #334155; font-weight: 500; font-size: ${isMobile ? '13px' : '15px'};">📚 ${cleanTitle}</div>
-            <p style="color: #475569; margin-bottom: 8px; font-size: ${isMobile ? '12px' : '14px'};">يتطلب باقة: <strong style="color: #3b82f6;">Premium</strong></p>
-            <p style="color: #64748b; margin-bottom: ${isMobile ? '20px' : '28px'}; font-size: ${isMobile ? '11px' : '13px'};">للوصول إلى هذا الامتحان، قم بترقية حسابك</p>
-            <div style="display: flex; flex-direction: column; gap: ${isMobile ? '8px' : '12px'}; justify-content: center; align-items: center; margin-top: 0;">
-                <button id="upgradeNowBtnModal" style="background: #3b82f6; color: white; border: none; padding: ${isMobile ? '10px 20px' : '12px 24px'}; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: ${isMobile ? '13px' : '14px'}; width: 100%; transition: all 0.2s ease;">🚀 ترقية الحساب</button>
-                <button id="closeModalBtn" style="background: #f1f5f9; border: 1px solid #e2e8f0; padding: ${isMobile ? '10px 20px' : '12px 24px'}; border-radius: 50px; cursor: pointer; font-weight: 500; font-size: ${isMobile ? '13px' : '14px'}; color: #64748b; width: 100%; transition: all 0.2s ease;">ليس الآن</button>
+            <div class="premium-card-body">
+                <ul class="premium-features">
+                    <li><span class="check">✓</span> جميع امتحانات B2</li>
+                    <li><span class="check">✓</span> تصحيح فوري وإجابات نموذجية</li>
+                    <li><span class="check">✓</span> بطاقات ذكية للحفظ السريع</li>
+                    <li><span class="check">✓</span> لعبة التحدي السريع</li>
+                    <li><span class="check">✓</span> مساعدة عبر الواتساب</li>
+                </ul>
+                <button id="premiumUpgradeBtn" class="premium-btn">
+                    ✦ Join Premium
+                    <span>→</span>
+                </button>
+                <button id="premiumLaterBtn" class="premium-later">ليس الآن</button>
             </div>
         </div>
     `;
     
     document.body.appendChild(modal);
     
-    let upgradeBtn = document.getElementById('upgradeNowBtnModal');
-    let closeBtn = document.getElementById('closeModalBtn');
+    // إظهار الـ Modal مع تأثير
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
     
-    if(upgradeBtn) {
-        upgradeBtn.onclick = function() {
+    // أزرار الـ Modal
+    const upgradeBtn = document.getElementById('premiumUpgradeBtn');
+    const laterBtn = document.getElementById('premiumLaterBtn');
+    
+    if (upgradeBtn) {
+        upgradeBtn.onclick = () => {
             window.location.href = 'subscribe.html';
         };
     }
     
-    if(closeBtn) {
-        closeBtn.onclick = function() {
-            modal.remove();
+    if (laterBtn) {
+        laterBtn.onclick = () => {
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
         };
     }
     
-    modal.onclick = function(e) {
-        if(e.target === modal) modal.remove();
+    // إغلاق عند الضغط خارج البطاقة
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
+        }
     };
 }
 
