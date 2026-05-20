@@ -111,12 +111,10 @@ function showLockedMessage(examTitle) {
     
     document.body.appendChild(modal);
     
-    // إظهار الـ Modal مع تأثير
     setTimeout(() => {
         modal.classList.add('active');
     }, 10);
     
-    // أزرار الـ Modal
     const upgradeBtn = document.getElementById('premiumUpgradeBtn');
     const laterBtn = document.getElementById('premiumLaterBtn');
     
@@ -132,6 +130,14 @@ function showLockedMessage(examTitle) {
             setTimeout(() => modal.remove(), 300);
         };
     }
+    
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
+        }
+    };
+}
     
     // إغلاق عند الضغط خارج البطاقة
     modal.onclick = (e) => {
