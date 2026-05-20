@@ -2340,3 +2340,215 @@ body.dark-mode .premium-features li {
     color: #cbd5e1;
     border-bottom-color: #1e293b;
 }
+/* ============================================
+   تصميم Premium Access الاحترافي - Minimal & Luxury
+   ============================================ */
+
+.premium-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(6px);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.premium-modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* البطاقة الرئيسية */
+.premium-card {
+    background: #ffffff;
+    border-radius: 28px;
+    max-width: 380px;
+    width: 85%;
+    padding: 0;
+    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    transform: scale(0.95);
+    transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+.premium-modal.active .premium-card {
+    transform: scale(1);
+}
+
+/* رأس البطاقة */
+.premium-card-header {
+    text-align: center;
+    padding: 32px 24px 20px 24px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* البادج */
+.premium-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 40px;
+    padding: 6px 16px;
+    margin-bottom: 20px;
+}
+
+.premium-badge span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #475569;
+}
+
+.premium-icon {
+    font-size: 0.85rem;
+}
+
+/* العنوان */
+.premium-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.3px;
+}
+
+/* النص الثانوي */
+.premium-subtitle {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* جسم البطاقة */
+.premium-card-body {
+    padding: 24px;
+    text-align: center;
+}
+
+/* قائمة المميزات */
+.premium-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 28px 0;
+}
+
+.premium-features li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 0.85rem;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.premium-features li:last-child {
+    border-bottom: none;
+}
+
+.premium-features .check {
+    color: #10b981;
+    font-size: 0.9rem;
+}
+
+/* الزر الرئيسي */
+.premium-btn {
+    background: #60a5fa;
+    border: none;
+    border-radius: 44px;
+    padding: 14px 24px;
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-family: inherit;
+}
+
+.premium-btn:hover {
+    background: #3b82f6;
+    transform: translateY(-1px);
+}
+
+.premium-btn:active {
+    transform: translateY(0);
+}
+
+/* الزر الثانوي */
+.premium-later {
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    width: 100%;
+    font-family: inherit;
+}
+
+.premium-later:hover {
+    color: #64748b;
+}
+
+/* ============================================
+   الوضع الليلي (Dark Mode)
+   ============================================ */
+
+body.dark-mode .premium-card {
+    background: #0f172a;
+    border-color: #1e293b;
+}
+
+body.dark-mode .premium-card-header {
+    border-bottom-color: #1e293b;
+}
+
+body.dark-mode .premium-badge {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+body.dark-mode .premium-badge span {
+    color: #94a3b8;
+}
+
+body.dark-mode .premium-title {
+    color: #f1f5f9;
+}
+
+body.dark-mode .premium-subtitle {
+    color: #94a3b8;
+}
+
+body.dark-mode .premium-features li {
+    color: #cbd5e1;
+    border-bottom-color: #1e293b;
+}
+
+body.dark-mode .premium-later {
+    color: #64748b;
+}
+
+body.dark-mode .premium-later:hover {
+    color: #94a3b8;
+}
