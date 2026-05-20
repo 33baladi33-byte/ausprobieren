@@ -2341,7 +2341,7 @@ body.dark-mode .premium-features li {
     border-bottom-color: #1e293b;
 }
 /* ============================================
-   تصميم Premium Access الاحترافي - Minimal & Luxury
+   تصميم Premium Access الاحترافي
    ============================================ */
 
 .premium-modal {
@@ -2366,7 +2366,6 @@ body.dark-mode .premium-features li {
     opacity: 1;
 }
 
-/* البطاقة الرئيسية */
 .premium-card {
     background: #ffffff;
     border-radius: 28px;
@@ -2383,14 +2382,12 @@ body.dark-mode .premium-features li {
     transform: scale(1);
 }
 
-/* رأس البطاقة */
 .premium-card-header {
     text-align: center;
     padding: 32px 24px 20px 24px;
     border-bottom: 1px solid #f1f5f9;
 }
 
-/* البادج */
 .premium-badge {
     display: inline-flex;
     align-items: center;
@@ -2414,7 +2411,6 @@ body.dark-mode .premium-features li {
     font-size: 0.85rem;
 }
 
-/* العنوان */
 .premium-title {
     font-size: 1.5rem;
     font-weight: 700;
@@ -2423,7 +2419,6 @@ body.dark-mode .premium-features li {
     letter-spacing: -0.3px;
 }
 
-/* النص الثانوي */
 .premium-subtitle {
     font-size: 0.8rem;
     color: #64748b;
@@ -2431,13 +2426,11 @@ body.dark-mode .premium-features li {
     line-height: 1.5;
 }
 
-/* جسم البطاقة */
 .premium-card-body {
     padding: 24px;
     text-align: center;
 }
 
-/* قائمة المميزات */
 .premium-features {
     list-style: none;
     padding: 0;
@@ -2464,7 +2457,6 @@ body.dark-mode .premium-features li {
     font-size: 0.9rem;
 }
 
-/* الزر الرئيسي */
 .premium-btn {
     background: #60a5fa;
     border: none;
@@ -2481,7 +2473,6 @@ body.dark-mode .premium-features li {
     justify-content: center;
     gap: 8px;
     margin-bottom: 12px;
-    font-family: inherit;
 }
 
 .premium-btn:hover {
@@ -2489,11 +2480,6 @@ body.dark-mode .premium-features li {
     transform: translateY(-1px);
 }
 
-.premium-btn:active {
-    transform: translateY(0);
-}
-
-/* الزر الثانوي */
 .premium-later {
     background: transparent;
     border: none;
@@ -2503,17 +2489,13 @@ body.dark-mode .premium-features li {
     cursor: pointer;
     transition: color 0.2s ease;
     width: 100%;
-    font-family: inherit;
 }
 
 .premium-later:hover {
     color: #64748b;
 }
 
-/* ============================================
-   الوضع الليلي (Dark Mode)
-   ============================================ */
-
+/* الوضع الليلي */
 body.dark-mode .premium-card {
     background: #0f172a;
     border-color: #1e293b;
@@ -2543,12 +2525,4 @@ body.dark-mode .premium-subtitle {
 body.dark-mode .premium-features li {
     color: #cbd5e1;
     border-bottom-color: #1e293b;
-}
-
-body.dark-mode .premium-later {
-    color: #64748b;
-}
-
-body.dark-mode .premium-later:hover {
-    color: #94a3b8;
 }
