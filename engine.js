@@ -2450,7 +2450,7 @@ if (teil3Container) {
     if (itemsGrid) {
         itemsGrid.style.display = 'grid';
         itemsGrid.style.gridTemplateColumns = '1fr 1fr';
-        itemsGrid.style.gap = '6px';
+        itemsGrid.style.gap = '4px';
         itemsGrid.style.width = '100%';
     }
     
