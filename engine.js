@@ -1536,56 +1536,55 @@ function checkMatchingExam() {
   let score = 0;
   const total = questions.length;
   const pointsPerQuestion = 25 / total;
-  
+
   for (let i = 0; i < questions.length; i++) {
     const card = document.getElementById(`matching_q_${i}`);
     const userAnswer = matchingSelectedAnswers[i];
     const correctAnswer = currentMatchingExamData.sharedOptions[questions[i].correct];
     const isCorrect = (userAnswer === correctAnswer);
-    
+
     if (card) {
       card.classList.remove("correct-answer-card", "wrong-answer-card");
       const oldMsg = card.querySelector(".correct-message");
       if (oldMsg) oldMsg.remove();
+
+      const selectElem = card.querySelector('select');
       
       if (isCorrect && userAnswer) {
         score++;
         card.classList.add("correct-answer-card");
+        if (selectElem) {
+          selectElem.style.backgroundColor = "#d4edda";
+          selectElem.style.border = "2px solid #28a745";
+          selectElem.style.color = "#155724";
+        }
       } else {
         card.classList.add("wrong-answer-card");
+        if (selectElem) {
+          selectElem.style.backgroundColor = "#fef0e0";
+          selectElem.style.border = "2px solid #e67e22";
+          selectElem.style.color = "#856404";
+        }
         
         const correctMsg = document.createElement("div");
         correctMsg.className = "correct-message";
         correctMsg.style.marginTop = "10px";
         correctMsg.style.fontSize = "13px";
+        correctMsg.style.fontWeight = "bold";
         correctMsg.style.color = "#28a745";
         correctMsg.innerHTML = `✅ : ${correctAnswer}`;
         card.appendChild(correctMsg);
       }
-      
-      const selectElem = card.querySelector('select');
-      if (selectElem) {
-        if (isCorrect && userAnswer) {
-          selectElem.style.backgroundColor = "#d4edda";
-          selectElem.style.border = "2px solid #28a745";
-        } else if (userAnswer) {
-          selectElem.style.backgroundColor = "#fef0e0";
-          selectElem.style.border = "2px solid #e67e22";
-        } else {
-          selectElem.style.backgroundColor = "#fef0e0";
-          selectElem.style.border = "2px solid #e67e22";
-        }
-      }
     }
   }
-  
+
   const finalScore = (score * pointsPerQuestion).toFixed(2);
   const resultDiv = document.getElementById("matchingResult");
   if (resultDiv) {
     resultDiv.innerHTML = `النتيجة: ${finalScore} / 25`;
     resultDiv.style.display = "block";
   }
-  
+
   if (finalScore >= 20) {
     resultDiv.style.backgroundColor = "#d4edda";
     resultDiv.style.color = "#155724";
@@ -1596,7 +1595,7 @@ function checkMatchingExam() {
     resultDiv.style.backgroundColor = "#f8d7da";
     resultDiv.style.color = "#721c24";
   }
-  
+
   if (typeof window.saveExamResultGlobal === "function") {
     window.saveExamResultGlobal("lesen1", currentMatchingExamData.id || 1, parseFloat(finalScore));
   }
@@ -2290,21 +2289,20 @@ function renderTeil3Exam() {
   updateTeil3SelectOptions();
   updateTeil3RightSideColors();
 }
-
 function checkTeil3Exam() {
   const items = currentTeil3Data.items;
   let score = 0;
   let total = items.length;
-  
+
   document.querySelectorAll('#teil3 .correct-message').forEach(msg => msg.remove());
-  
+
   for (let i = 0; i < total; i++) {
     const card = document.getElementById(`teil3_card_${i}`);
     const userAnswer = teil3UserAnswers[i];
     const correctIndex = items[i].correct;
     let isCorrect = false;
     let correctText = "";
-    
+
     if (correctIndex === null || correctIndex === undefined) {
       correctText = "⚠️ هذه الفقرة لا يوجد لها عنوان";
       isCorrect = (userAnswer === "none" || userAnswer === null || userAnswer === undefined || userAnswer === "");
@@ -2312,32 +2310,31 @@ function checkTeil3Exam() {
       correctText = `${String.fromCharCode(97 + correctIndex)}. ${currentTeil3Data.situations[correctIndex]}`;
       isCorrect = (userAnswer === correctIndex);
     }
-    
+
     if (card) {
       card.classList.remove("correct-answer-card", "wrong-answer-card");
-      
+      const selectElem = card.querySelector('select');
+
       if (isCorrect && userAnswer !== undefined && userAnswer !== null && userAnswer !== "") {
         score++;
         card.classList.add("correct-answer-card");
         card.style.backgroundColor = "#d4edda";
         card.style.border = "2px solid #28a745";
-      } else if (userAnswer !== undefined && userAnswer !== null && userAnswer !== "") {
+        if (selectElem) {
+          selectElem.style.backgroundColor = "#d4edda";
+          selectElem.style.border = "2px solid #28a745";
+          selectElem.style.color = "#155724";
+        }
+      } else {
         card.classList.add("wrong-answer-card");
         card.style.backgroundColor = "#fef0e0";
         card.style.border = "2px solid #e67e22";
-        
-        const correctMsg = document.createElement("div");
-        correctMsg.className = "correct-message";
-        correctMsg.style.marginTop = "10px";
-        correctMsg.style.fontSize = "13px";
-        correctMsg.style.fontWeight = "bold";
-        correctMsg.style.color = "#28a745";
-        correctMsg.innerHTML = `✅ : ${correctText}`;
-        card.appendChild(correctMsg);
-      } else {
-        card.style.backgroundColor = "#fef0e0";
-        card.style.border = "2px solid #e67e22";
-        
+        if (selectElem) {
+          selectElem.style.backgroundColor = "#fef0e0";
+          selectElem.style.border = "2px solid #e67e22";
+          selectElem.style.color = "#856404";
+        }
+
         const correctMsg = document.createElement("div");
         correctMsg.className = "correct-message";
         correctMsg.style.marginTop = "10px";
@@ -2349,14 +2346,14 @@ function checkTeil3Exam() {
       }
     }
   }
-  
+
   const finalScore = (score * 25 / total).toFixed(2);
   const resultDiv = document.getElementById("teil3Result");
   if (resultDiv) {
     resultDiv.innerHTML = `النتيجة: ${finalScore} / 25`;
     resultDiv.style.display = "block";
   }
-  
+
   if (finalScore >= 20) {
     resultDiv.style.backgroundColor = "#d4edda";
     resultDiv.style.color = "#155724";
@@ -2367,7 +2364,7 @@ function checkTeil3Exam() {
     resultDiv.style.backgroundColor = "#f8d7da";
     resultDiv.style.color = "#721c24";
   }
-  
+
   if (typeof window.saveExamResultGlobal === "function") {
     window.saveExamResultGlobal("lesen3", currentTeil3Data.id || 1, parseFloat(finalScore));
   }
