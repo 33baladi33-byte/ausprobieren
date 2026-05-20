@@ -2476,5 +2476,111 @@ if (originalOpenExamGlobal) {
 window.addEventListener('resize', function() {
   setTimeout(applyMobileStylesToEngine, 100);
 });
+// ============================================
+// إصلاح ألوان التصحيح في الهاتف لـ Lesen Teil 1 و Teil 3
+// ============================================
 
+// دالة تطبيق ألوان التصحيح على Select في Teil 1
+function applyTeil1CorrectionColors() {
+    if (window.innerWidth > 768) return;
+    
+    // البحث عن جميع select boxes في Teil 1
+    const selects = document.querySelectorAll('#teil1 select');
+    selects.forEach(select => {
+        // الحصول على البطاقة الأم
+        const card = select.closest('.question-card');
+        if (!card) return;
+        
+        // التحقق إذا كان قد تم التصحيح (وجود رسالة correct-message)
+        const hasCorrectionMsg = card.querySelector('.correct-message');
+        const isCorrect = card.classList.contains('correct-answer-card');
+        const isWrong = card.classList.contains('wrong-answer-card');
+        
+        if (isCorrect) {
+            // إجابة صحيحة ← أخضر
+            select.style.backgroundColor = '#d4edda';
+            select.style.border = '2px solid #28a745';
+            select.style.color = '#155724';
+        } else if (isWrong || hasCorrectionMsg) {
+            // إجابة خاطئة ← رمادي فاتح
+            select.style.backgroundColor = '#fef0e0';
+            select.style.border = '2px solid #e67e22';
+            select.style.color = '#856404';
+        } else {
+            // لم يتم التصحيح بعد ← اللون العادي
+            select.style.backgroundColor = '#f8f9fa';
+            select.style.border = '1px solid #ced4da';
+            select.style.color = '#212529';
+        }
+    });
+}
+
+// دالة تطبيق ألوان التصحيح على Select في Teil 3
+function applyTeil3CorrectionColors() {
+    if (window.innerWidth > 768) return;
+    
+    const selects = document.querySelectorAll('#teil3 select');
+    selects.forEach(select => {
+        const card = select.closest('.question-card');
+        if (!card) return;
+        
+        const isCorrect = card.classList.contains('correct-answer-card');
+        const isWrong = card.classList.contains('wrong-answer-card');
+        const hasCorrectionMsg = card.querySelector('.correct-message');
+        
+        if (isCorrect) {
+            select.style.backgroundColor = '#d4edda';
+            select.style.border = '2px solid #28a745';
+            select.style.color = '#155724';
+        } else if (isWrong || hasCorrectionMsg) {
+            select.style.backgroundColor = '#fef0e0';
+            select.style.border = '2px solid #e67e22';
+            select.style.color = '#856404';
+        } else {
+            select.style.backgroundColor = '#f8f9fa';
+            select.style.border = '1px solid #ced4da';
+            select.style.color = '#212529';
+        }
+    });
+}
+
+// تعديل دالة checkMatchingExam الأصلية لإضافة تحديث الألوان
+const originalCheckMatchingExam = window.checkMatchingExam;
+if (originalCheckMatchingExam) {
+    window.checkMatchingExam = function() {
+        originalCheckMatchingExam();
+        setTimeout(() => {
+            applyTeil1CorrectionColors();
+        }, 50);
+    };
+}
+
+// تعديل دالة checkTeil3Exam الأصلية لإضافة تحديث الألوان
+const originalCheckTeil3Exam = window.checkTeil3Exam;
+if (originalCheckTeil3Exam) {
+    window.checkTeil3Exam = function() {
+        originalCheckTeil3Exam();
+        setTimeout(() => {
+            applyTeil3CorrectionColors();
+        }, 50);
+    };
+}
+
+// مراقبة التغييرات في DOM لتطبيق الألوان عند ظهور رسائل التصحيح
+const correctionObserver = new MutationObserver(function(mutations) {
+    if (window.innerWidth <= 768) {
+        applyTeil1CorrectionColors();
+        applyTeil3CorrectionColors();
+    }
+});
+
+// بدء المراقبة
+correctionObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+    attributes: true,
+    attributeFilter: ['class']
+});
+
+console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
