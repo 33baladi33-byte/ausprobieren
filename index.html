@@ -405,6 +405,94 @@
         display: none !important;
     }
 }
+    /* ============================================
+   Banner تحسين تجربة الهاتف - يظهر فقط في الهواتف
+   ============================================ */
+
+/* البانر الرئيسي */
+.mobile-banner {
+    display: none;
+    background: rgba(56, 189, 248, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: 16px;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    width: fit-content;
+    max-width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    opacity: 0;
+    transform: translateX(-8px);
+    animation: bannerFadeIn 0.4s ease forwards;
+}
+
+/* النص داخل البانر */
+.mobile-banner span {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #cbd5e1;
+    letter-spacing: 0.3px;
+}
+
+/* أيقونة صغيرة */
+.mobile-banner .banner-icon {
+    font-size: 0.8rem;
+    margin-left: 6px;
+}
+
+/* أنيميشن الظهور */
+@keyframes bannerFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* أنيميشن الاختفاء */
+.mobile-banner.hide {
+    animation: bannerFadeOut 0.4s ease forwards;
+}
+
+@keyframes bannerFadeOut {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-12px);
+        display: none;
+    }
+}
+
+/* إظهار البانر فقط في الهاتف */
+@media (max-width: 768px) {
+    .mobile-banner {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-banner {
+        display: none !important;
+    }
+}
+
+/* الوضع الليلي */
+body.dark-mode .mobile-banner {
+    background: rgba(56, 189, 248, 0.12);
+    border-color: rgba(56, 189, 248, 0.25);
+}
+
+body.dark-mode .mobile-banner span {
+    color: #94a3b8;
+}
 </style>
 </head>
 <body>
@@ -516,6 +604,11 @@
                 </div>
             </div>
             <div class="hero-content-side">
+                <!-- Banner للهاتف - تحسين تجربة المستخدم -->
+<div class="mobile-banner" id="mobileBanner">
+    <span class="banner-icon">✨</span>
+    <span>للحصول على أفضل تجربة، يُفضّل استخدام الحاسوب</span>
+</div>
                 <h1 class="hero-title">
                     فهم أسرع، حفظ أسهل، <span class="blue-text">نتائج أفضل</span>
                 </h1>
@@ -1258,6 +1351,21 @@ if (showCardsBtn) {
         });
     });
 }
+    // ============================================
+// بانر الهاتف - يظهر ثم يختفي بعد 5 ثوانٍ
+// ============================================
+(function() {
+    const banner = document.getElementById('mobileBanner');
+    if (!banner) return;
+    
+    // التأكد من أن البانر يظهر فقط في الهاتف
+    if (window.innerWidth > 768) return;
+    
+    // بعد 5 ثوانٍ، يختفي البانر بأناقة
+    setTimeout(() => {
+        banner.classList.add('hide');
+    }, 5000);
+})();
 </script>
     <script src="reviews-simple.js"></script>
 </body>
