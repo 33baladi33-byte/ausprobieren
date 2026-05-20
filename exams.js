@@ -70,8 +70,7 @@ function createResultBadge(score) {
   `;
   return badge;
 }
-
-// ========== نافذة Premium Access الاحترافية (بدلاً من القفل التقليدي) ==========
+// ========== نافذة Premium Access الاحترافية ==========
 function showLockedMessage(examTitle) {
     let cleanTitle = examTitle.replace(/\s*\(\d+\)\s*$/, '').trim();
     
