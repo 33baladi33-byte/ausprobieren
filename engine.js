@@ -2306,12 +2306,17 @@ function checkTeil3Exam() {
     const correctIndex = items[i].correct;
     let isCorrect = false;
     let correctText = "";
+    let correctValue = null;
 
+    // تحديد الإجابة الصحيحة (نص وقيمة)
     if (correctIndex === null || correctIndex === undefined) {
       correctText = "⚠️ هذه الفقرة لا يوجد لها عنوان";
+      correctValue = "none";
+      // التحقق من صحة الإجابة
       isCorrect = (userAnswer === "none" || userAnswer === null || userAnswer === undefined || userAnswer === "");
     } else {
       correctText = `${String.fromCharCode(97 + correctIndex)}. ${currentTeil3Data.situations[correctIndex]}`;
+      correctValue = correctIndex;
       isCorrect = (userAnswer === correctIndex);
     }
 
@@ -2320,6 +2325,7 @@ function checkTeil3Exam() {
       const selectElem = card.querySelector('select');
 
       if (isCorrect && userAnswer !== undefined && userAnswer !== null && userAnswer !== "") {
+        // ✅ إجابة صحيحة
         score++;
         card.classList.add("correct-answer-card");
         card.style.backgroundColor = "#d4edda";  // أخضر فاتح
@@ -2328,8 +2334,10 @@ function checkTeil3Exam() {
           selectElem.style.backgroundColor = "#d4edda";
           selectElem.style.border = "2px solid #28a745";
           selectElem.style.color = "#155724";
+          // لا نغير النص، يبقى اختيار المستخدم
         }
       } else {
+        // ❌ إجابة خاطئة أو لم يجب
         card.classList.add("wrong-answer-card");
         card.style.backgroundColor = "#fef0e0";  // برتقالي فاتح
         card.style.border = "2px solid #e67e22";
@@ -2339,16 +2347,13 @@ function checkTeil3Exam() {
           selectElem.style.color = "#155724";  // النص أخضر غامق
           
           // ✅ وضع الإجابة الصحيحة داخل الخانة مع علامة صح
-          if (correctIndex === null || correctIndex === undefined) {
-            selectElem.value = "none";
-          } else {
-            selectElem.value = correctIndex;
-          }
+          selectElem.value = correctValue;
           
           for (let j = 0; j < selectElem.options.length; j++) {
             const optValue = selectElem.options[j].value;
-            if ((correctIndex === null || correctIndex === undefined && optValue === "none") ||
-                (correctIndex !== undefined && parseInt(optValue) === correctIndex)) {
+            if (optValue === correctValue || 
+                (correctValue === "none" && optValue === "none") ||
+                (correctValue !== null && correctValue !== undefined && parseInt(optValue) === correctValue)) {
               const originalText = selectElem.options[j].textContent;
               const cleanText = originalText.replace(/^✅\s*/, '');
               selectElem.options[j].textContent = `✅ ${cleanText}`;
