@@ -1549,26 +1549,29 @@ function checkMatchingExam() {
       if (oldMsg) oldMsg.remove();
 
       const selectElem = card.querySelector('select');
-      
+
       if (isCorrect && userAnswer) {
         score++;
         card.classList.add("correct-answer-card");
         if (selectElem) {
-          selectElem.style.backgroundColor = "#d4edda";
+          selectElem.style.backgroundColor = "#d4edda";  // أخضر فاتح
           selectElem.style.border = "2px solid #28a745";
           selectElem.style.color = "#155724";
         }
       } else {
         card.classList.add("wrong-answer-card");
         if (selectElem) {
-          selectElem.style.backgroundColor = "#fef0e0";
+          selectElem.style.backgroundColor = "#fef0e0";  // برتقالي فاتح
           selectElem.style.border = "2px solid #e67e22";
-          selectElem.style.color = "#856404";
-          // ✅ التعديل: وضع الإجابة الصحيحة داخل الخانة
+          selectElem.style.color = "#155724";  // النص أخضر غامق
+          
+          // ✅ وضع الإجابة الصحيحة داخل الخانة مع علامة صح
           selectElem.value = correctAnswer;
-          // تحديث الخيار المختار ليكون الإجابة الصحيحة
           for (let j = 0; j < selectElem.options.length; j++) {
             if (selectElem.options[j].value === correctAnswer) {
+              const originalText = selectElem.options[j].textContent;
+              const cleanText = originalText.replace(/^✅\s*/, '');
+              selectElem.options[j].textContent = `✅ ${cleanText}`;
               selectElem.options[j].selected = true;
               break;
             }
@@ -2319,7 +2322,7 @@ function checkTeil3Exam() {
       if (isCorrect && userAnswer !== undefined && userAnswer !== null && userAnswer !== "") {
         score++;
         card.classList.add("correct-answer-card");
-        card.style.backgroundColor = "#d4edda";
+        card.style.backgroundColor = "#d4edda";  // أخضر فاتح
         card.style.border = "2px solid #28a745";
         if (selectElem) {
           selectElem.style.backgroundColor = "#d4edda";
@@ -2328,24 +2331,27 @@ function checkTeil3Exam() {
         }
       } else {
         card.classList.add("wrong-answer-card");
-        card.style.backgroundColor = "#fef0e0";
+        card.style.backgroundColor = "#fef0e0";  // برتقالي فاتح
         card.style.border = "2px solid #e67e22";
         if (selectElem) {
           selectElem.style.backgroundColor = "#fef0e0";
           selectElem.style.border = "2px solid #e67e22";
-          selectElem.style.color = "#856404";
+          selectElem.style.color = "#155724";  // النص أخضر غامق
           
-          // ✅ التعديل: وضع الإجابة الصحيحة داخل الخانة
+          // ✅ وضع الإجابة الصحيحة داخل الخانة مع علامة صح
           if (correctIndex === null || correctIndex === undefined) {
             selectElem.value = "none";
           } else {
             selectElem.value = correctIndex;
           }
-          // تحديث الخيار المختار
+          
           for (let j = 0; j < selectElem.options.length; j++) {
             const optValue = selectElem.options[j].value;
             if ((correctIndex === null || correctIndex === undefined && optValue === "none") ||
                 (correctIndex !== undefined && parseInt(optValue) === correctIndex)) {
+              const originalText = selectElem.options[j].textContent;
+              const cleanText = originalText.replace(/^✅\s*/, '');
+              selectElem.options[j].textContent = `✅ ${cleanText}`;
               selectElem.options[j].selected = true;
               break;
             }
