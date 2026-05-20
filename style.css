@@ -1707,25 +1707,24 @@ body:has(#exam.active) .top-bar {
     }
     
     /* قائمة الامتحانات */
-    .item {
-        padding: 8px 10px !important;
-        margin-bottom: 6px !important;
-        border-radius: 10px !important;
-    }
-        /* ✅ أضف هذا هنا */
-    .item .exam-title,
-    .exam-title {
-        font-size: 0.65rem !important;
-        font-weight: 500 !important;
-    }
-    .exam-title {
-        font-size: 0.65rem !important;
-    }
-    
-    .premium-badge {
-        font-size: 6px !important;
-        padding: 2px 4px !important;
-    }
+.item {
+    padding: 8px 10px !important;
+    margin-bottom: 6px !important;
+    border-radius: 10px !important;
+}
+
+/* توحيد حجم جميع الامتحانات في الهاتف */
+.item .exam-title,
+.exam-title {
+    font-size: 0.6rem !important;
+    font-weight: 500 !important;
+}
+
+/* توحيد حجم شارة Premium في الهاتف */
+.premium-badge {
+    font-size: 0.5rem !important;
+    padding: 2px 4px !important;
+}
     
     /* بطاقات الأسئلة */
     .question-card {
