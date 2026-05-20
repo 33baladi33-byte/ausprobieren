@@ -2509,18 +2509,18 @@ function applyTeil1CorrectionColors() {
         const isCorrect = card.classList.contains('correct-answer-card');
         const isWrong = card.classList.contains('wrong-answer-card');
         
+        // تطبيق الألوان مباشرة على الـ select
         if (isCorrect) {
-            select.style.backgroundColor = "#d4edda";
-            select.style.border = "2px solid #28a745";
-            select.style.color = "#155724";
+            select.style.setProperty('background-color', '#d4edda', 'important');
+            select.style.setProperty('border', '2px solid #28a745', 'important');
+            select.style.setProperty('color', '#155724', 'important');
         } else if (isWrong) {
-            select.style.backgroundColor = "#fef0e0";
-            select.style.border = "2px solid #e67e22";
-            select.style.color = "#155724";
+            select.style.setProperty('background-color', '#fef0e0', 'important');
+            select.style.setProperty('border', '2px solid #e67e22', 'important');
+            select.style.setProperty('color', '#155724', 'important');
         }
     });
 }
-
 // دالة تطبيق ألوان التصحيح على Select في Teil 3 (للهاتف)
 function applyTeil3CorrectionColors() {
     if (window.innerWidth > 768) return;
@@ -2533,38 +2533,42 @@ function applyTeil3CorrectionColors() {
         const isCorrect = card.classList.contains('correct-answer-card');
         const isWrong = card.classList.contains('wrong-answer-card');
         
+        // تطبيق الألوان مباشرة على الـ select
         if (isCorrect) {
-            select.style.backgroundColor = "#d4edda";
-            select.style.border = "2px solid #28a745";
-            select.style.color = "#155724";
+            select.style.setProperty('background-color', '#d4edda', 'important');
+            select.style.setProperty('border', '2px solid #28a745', 'important');
+            select.style.setProperty('color', '#155724', 'important');
         } else if (isWrong) {
-            select.style.backgroundColor = "#fef0e0";
-            select.style.border = "2px solid #e67e22";
-            select.style.color = "#155724";
+            select.style.setProperty('background-color', '#fef0e0', 'important');
+            select.style.setProperty('border', '2px solid #e67e22', 'important');
+            select.style.setProperty('color', '#155724', 'important');
         }
     });
 }
-
+// ============================================
 // استدعاء دوال الهاتف بعد التصحيح مباشرة
+// ============================================
+
+// استدعاء دوال Teil 1 بعد التصحيح
 if (typeof checkMatchingExam === 'function') {
     const originalCheckMatching = checkMatchingExam;
     window.checkMatchingExam = function() {
         originalCheckMatching();
         setTimeout(function() {
             applyTeil1CorrectionColors();
-        }, 10);
+        }, 50);
     };
 }
 
+// استدعاء دوال Teil 3 بعد التصحيح
 if (typeof checkTeil3Exam === 'function') {
     const originalCheckTeil3 = checkTeil3Exam;
     window.checkTeil3Exam = function() {
         originalCheckTeil3();
         setTimeout(function() {
             applyTeil3CorrectionColors();
-        }, 10);
+        }, 50);
     };
 }
-
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
