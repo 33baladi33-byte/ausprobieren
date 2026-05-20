@@ -2419,7 +2419,7 @@ function applyMobileStylesToEngine() {
       box.style.bottom = '15px';
     });
     
-    // تحسين Teil 3 للهاتف - فقط Grid 2x2 وتصغير الحجم
+    // تحسين Teil 3 للهاتف - Grid 2x2 وتصغير الحجم
     const teil3Container = document.getElementById('teil3');
     if (teil3Container) {
       const itemsGrid = teil3Container.querySelector('[style*="grid-template-columns: 1fr 1fr"]');
@@ -2449,6 +2449,12 @@ function applyMobileStylesToEngine() {
       if (leftColumn) {
         leftColumn.style.width = '100%';
         leftColumn.style.maxWidth = '100%';
+      }
+      
+      // ✅ إخفاء كلمة "Situationen" في الهاتف
+      const situationTitle = teil3Container.querySelector('h3');
+      if (situationTitle && situationTitle.textContent.includes('Situationen')) {
+        situationTitle.style.display = 'none';
       }
     }
   }
