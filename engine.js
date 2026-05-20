@@ -2493,6 +2493,10 @@ window.addEventListener('resize', function() {
   setTimeout(applyMobileStylesToEngine, 100);
 });
 
+// ============================================
+// تحديث ألوان التصحيح للهاتف بعد التصحيح مباشرة
+// ============================================
+
 // دالة تطبيق ألوان التصحيح على Select في Teil 1 (للهاتف)
 function applyTeil1CorrectionColors() {
     if (window.innerWidth > 768) return;
@@ -2506,38 +2510,17 @@ function applyTeil1CorrectionColors() {
         const isWrong = card.classList.contains('wrong-answer-card');
         
         if (isCorrect) {
-            // ✅ إجابة صحيحة ← أخضر فاتح
             select.style.backgroundColor = "#d4edda";
             select.style.border = "2px solid #28a745";
-            select.style.color = "#155724";  // نص أخضر غامق
+            select.style.color = "#155724";
         } else if (isWrong) {
-            // ❌ إجابة خاطئة ← برتقالي فاتح
             select.style.backgroundColor = "#fef0e0";
             select.style.border = "2px solid #e67e22";
-            select.style.color = "#155724";  // ✅ النص أخضر غامق
-            
-            // وضع الإجابة الصحيحة داخل الخانة مع علامة صح
-            if (currentMatchingExamData) {
-                const index = parseInt(card.id.replace('matching_q_', ''));
-                if (!isNaN(index) && currentMatchingExamData.questions[index]) {
-                    const correctAnswer = currentMatchingExamData.sharedOptions[currentMatchingExamData.questions[index].correct];
-                    if (correctAnswer) {
-                        select.value = correctAnswer;
-                        for (let j = 0; j < select.options.length; j++) {
-                            if (select.options[j].value === correctAnswer) {
-                                const originalText = select.options[j].textContent;
-                                const cleanText = originalText.replace(/^✅\s*/, '');
-                                select.options[j].textContent = `✅ ${cleanText}`;
-                                select.options[j].selected = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+            select.style.color = "#155724";
         }
     });
 }
+
 // دالة تطبيق ألوان التصحيح على Select في Teil 3 (للهاتف)
 function applyTeil3CorrectionColors() {
     if (window.innerWidth > 768) return;
@@ -2551,47 +2534,37 @@ function applyTeil3CorrectionColors() {
         const isWrong = card.classList.contains('wrong-answer-card');
         
         if (isCorrect) {
-            // ✅ إجابة صحيحة ← أخضر فاتح
             select.style.backgroundColor = "#d4edda";
             select.style.border = "2px solid #28a745";
-            select.style.color = "#155724";  // ✅ نص أخضر غامق
+            select.style.color = "#155724";
         } else if (isWrong) {
-            // ❌ إجابة خاطئة ← برتقالي فاتح
             select.style.backgroundColor = "#fef0e0";
             select.style.border = "2px solid #e67e22";
-            select.style.color = "#155724";  // ✅ النص أخضر غامق
-            
-            // وضع الإجابة الصحيحة داخل الخانة مع علامة صح
-            if (currentTeil3Data) {
-                const indexMatch = card.id.match(/teil3_card_(\d+)/);
-                if (indexMatch) {
-                    const index = parseInt(indexMatch[1]);
-                    const correctIndex = currentTeil3Data.items[index]?.correct;
-                    
-                    let correctValue = null;
-                    if (correctIndex === null || correctIndex === undefined) {
-                        correctValue = "none";
-                    } else {
-                        correctValue = correctIndex;
-                    }
-                    
-                    if (correctValue !== null) {
-                        select.value = correctValue;
-                        for (let j = 0; j < select.options.length; j++) {
-                            const optValue = select.options[j].value;
-                            if (optValue == correctValue || (correctValue === "none" && optValue === "none")) {
-                                const originalText = select.options[j].textContent;
-                                const cleanText = originalText.replace(/^✅\s*/, '');
-                                select.options[j].textContent = `✅ ${cleanText}`;
-                                select.options[j].selected = true;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
+            select.style.color = "#155724";
         }
     });
 }
+
+// استدعاء دوال الهاتف بعد التصحيح مباشرة
+if (typeof checkMatchingExam === 'function') {
+    const originalCheckMatching = checkMatchingExam;
+    window.checkMatchingExam = function() {
+        originalCheckMatching();
+        setTimeout(function() {
+            applyTeil1CorrectionColors();
+        }, 10);
+    };
+}
+
+if (typeof checkTeil3Exam === 'function') {
+    const originalCheckTeil3 = checkTeil3Exam;
+    window.checkTeil3Exam = function() {
+        originalCheckTeil3();
+        setTimeout(function() {
+            applyTeil3CorrectionColors();
+        }, 10);
+    };
+}
+
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
