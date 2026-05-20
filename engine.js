@@ -2438,14 +2438,63 @@ function applyMobileStylesToEngine() {
       box.style.bottom = '15px';
     });
     
-    // تحسين Teil 3 للهاتف - Grid 2x2 وتصغير الحجم
-    const teil3Container = document.getElementById('teil3');
-    if (teil3Container) {
-      const itemsGrid = teil3Container.querySelector('[style*="grid-template-columns: 1fr 1fr"]');
-      if (itemsGrid) {
+   // تحسين Teil 3 للهاتف - Grid 2x2 وتصغير الحجم
+const teil3Container = document.getElementById('teil3');
+if (teil3Container) {
+    // البحث عن grid container
+    let itemsGrid = teil3Container.querySelector('[style*="grid-template-columns: 1fr 1fr"]');
+    if (!itemsGrid) {
+        // إذا لم يوجد، ابحث عن العنصر الذي يحتوي على Anzeigen
+        itemsGrid = teil3Container.querySelector('.items-grid, [class*="grid"]');
+    }
+    if (itemsGrid) {
+        itemsGrid.style.display = 'grid';
         itemsGrid.style.gridTemplateColumns = '1fr 1fr';
-        itemsGrid.style.gap = '8px';
-      }
+        itemsGrid.style.gap = '6px';
+        itemsGrid.style.width = '100%';
+    }
+    
+    // تأكد من أن كل بطاقة تأخذ العرض المناسب
+    const cards = teil3Container.querySelectorAll('.question-card');
+    cards.forEach(card => {
+        card.style.padding = '6px';
+        card.style.marginBottom = '0';
+        card.style.borderRadius = '8px';
+        card.style.width = '100%';
+        card.style.boxSizing = 'border-box';
+        card.style.overflow = 'hidden';
+        
+        const title = card.querySelector('div[style*="font-weight: bold"]');
+        if (title) title.style.fontSize = '0.6rem';
+        
+        const text = card.querySelector('div[style*="font-size: 13px"]');
+        if (text) text.style.fontSize = '0.55rem';
+        
+        const select = card.querySelector('select');
+        if (select) {
+            select.style.fontSize = '0.5rem';
+            select.style.padding = '4px';
+        }
+    });
+    
+    // إخفاء عنوان Situationen
+    const situationTitle = teil3Container.querySelector('h3');
+    if (situationTitle && situationTitle.textContent.includes('Situationen')) {
+        situationTitle.style.display = 'none';
+    }
+    
+    // إخفاء العمود الأيمن بالكامل (Situationen)
+    const rightColumn = teil3Container.querySelector('div[style*="flex: 1"]:last-child, div[style*="min-width: 250px"]');
+    if (rightColumn) rightColumn.style.display = 'none';
+    
+    // تعديل العمود الأيسر ليملأ العرض
+    const leftColumn = teil3Container.querySelector('div[style*="flex: 2"]:first-child, div[style*="min-width: 500px"]');
+    if (leftColumn) {
+        leftColumn.style.width = '100%';
+        leftColumn.style.maxWidth = '100%';
+        leftColumn.style.flex = 'none';
+    }
+}
       
       const cards = teil3Container.querySelectorAll('.question-card');
       cards.forEach(card => {
