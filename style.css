@@ -2000,3 +2000,157 @@ body:has(#exam.active) .top-bar {
         color: #856404 !important;
     }
 }
+/* ============================================
+   تحسين قوائم الهاتف لـ Lesen Teil 1 و Teil 3
+   ============================================ */
+
+@media (max-width: 768px) {
+    
+    /* تصميم الزر الأساسي - خلفية رمادية */
+    .mobile-dropdown-btn,
+    .mobile-dropdown-btn-teil3 {
+        background: #eef2f5 !important;
+        border: 1px solid #dce3e8 !important;
+        border-radius: 14px !important;
+        padding: 12px 14px !important;
+        font-size: 0.75rem !important;
+        font-weight: 500 !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        transition: all 0.25s ease !important;
+        color: #334155 !important;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+    }
+    
+    /* تأثير الضغط على الزر */
+    .mobile-dropdown-btn:active,
+    .mobile-dropdown-btn-teil3:active {
+        background-color: #e2e8f0 !important;
+        transform: scale(0.98) !important;
+    }
+    
+    /* السهم */
+    .dropdown-arrow {
+        font-size: 0.65rem !important;
+        transition: transform 0.25s ease !important;
+        color: #94a3b8 !important;
+    }
+    
+    /* القائمة المنسدلة - خلفية رمادية فاتحة */
+    .mobile-dropdown-menu,
+    .mobile-dropdown-menu-teil3 {
+        display: none;
+        margin-top: 8px !important;
+        background: #eef2f5 !important;
+        border: 1px solid #dce3e8 !important;
+        border-radius: 14px !important;
+        overflow: hidden !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+        animation: fadeInDown 0.25s ease !important;
+    }
+    
+    /* عناصر القائمة - خلفية رمادية */
+    .mobile-dropdown-item {
+        padding: 12px 14px !important;
+        font-size: 0.7rem !important;
+        color: #334155 !important;
+        cursor: pointer !important;
+        transition: background 0.2s ease !important;
+        border-bottom: 1px solid #dce3e8 !important;
+        background: #eef2f5 !important;
+    }
+    
+    /* آخر عنصر بدون border */
+    .mobile-dropdown-item:last-child {
+        border-bottom: none !important;
+    }
+    
+    /* تأثير اللمس */
+    .mobile-dropdown-item:active {
+        background: #e2e8f0 !important;
+    }
+    
+    /* العنصر المحدد حالياً */
+    .mobile-dropdown-item.selected {
+        background: #d4e0e8 !important;
+        color: #1e293b !important;
+        font-weight: 500 !important;
+    }
+    
+    /* الأنيميشن */
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* تحسين Teil 3 - Grid 2x2 */
+    #teil3 .question-card {
+        padding: 10px !important;
+        margin-bottom: 0 !important;
+        border-radius: 14px !important;
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+    
+    /* إخفاء العمود الأيمن (Situationen) */
+    #teil3 > div[style*="display: flex"] > div:last-child {
+        display: none !important;
+    }
+    
+    /* العمود الأيسر يأخذ العرض بالكامل */
+    #teil3 > div[style*="display: flex"] > div:first-child {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: none !important;
+    }
+    
+    /* شبكة 2x2 */
+    #teil3 [style*="grid-template-columns: 1fr 1fr"] {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+    }
+    
+    /* تحسين Teil 1 */
+    #teil1 .question-card {
+        padding: 12px !important;
+        margin-bottom: 12px !important;
+        background: #ffffff !important;
+        border-radius: 16px !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+    
+    /* نص السؤال */
+    #teil1 .question-text,
+    #teil3 .question-text {
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        margin-bottom: 10px !important;
+        color: #1e293b !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* نص الفقرة في Teil 3 */
+    #teil3 div[style*="font-size: 13px"] {
+        font-size: 0.6rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 8px !important;
+        color: #475569 !important;
+    }
+    
+    /* عنوان الفقرة */
+    #teil3 div[style*="font-weight: bold"] {
+        font-size: 0.65rem !important;
+        margin-bottom: 6px !important;
+        color: #3b82f6 !important;
+    }
+}
