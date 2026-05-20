@@ -2435,7 +2435,7 @@ function applyMobileStylesToEngine() {
       box.style.bottom = '15px';
     });
     
- // تحسين Teil 3 للهاتف - Grid 2x2 وتصغير الحجم
+  // تحسين Teil 3 للهاتف - Grid 2x2 وتصغير الحجم
 const teil3Container = document.getElementById('teil3');
 if (teil3Container) {
     const itemsGrid = teil3Container.querySelector('[style*="grid-template-columns: 1fr 1fr"]');
@@ -2474,7 +2474,7 @@ if (teil3Container) {
         leftColumn.style.maxWidth = '100%';
     }
 }
-      
+
 document.addEventListener('DOMContentLoaded', function() {
   applyMobileStylesToEngine();
 });
@@ -2508,6 +2508,7 @@ function applyTeil1CorrectionColors() {
         const isCorrect = card.classList.contains('correct-answer-card');
         const isWrong = card.classList.contains('wrong-answer-card');
         
+        // تطبيق الألوان مباشرة على الـ select
         if (isCorrect) {
             select.style.setProperty('background-color', '#d4edda', 'important');
             select.style.setProperty('border', '2px solid #28a745', 'important');
@@ -2519,7 +2520,6 @@ function applyTeil1CorrectionColors() {
         }
     });
 }
-
 // دالة تطبيق ألوان التصحيح على Select في Teil 3 (للهاتف)
 function applyTeil3CorrectionColors() {
     if (window.innerWidth > 768) return;
@@ -2532,6 +2532,7 @@ function applyTeil3CorrectionColors() {
         const isCorrect = card.classList.contains('correct-answer-card');
         const isWrong = card.classList.contains('wrong-answer-card');
         
+        // تطبيق الألوان مباشرة على الـ select
         if (isCorrect) {
             select.style.setProperty('background-color', '#d4edda', 'important');
             select.style.setProperty('border', '2px solid #28a745', 'important');
@@ -2543,7 +2544,6 @@ function applyTeil3CorrectionColors() {
         }
     });
 }
-
 // ============================================
 // استدعاء دوال الهاتف بعد التصحيح مباشرة
 // ============================================
@@ -2569,6 +2569,5 @@ if (typeof checkTeil3Exam === 'function') {
         }, 50);
     };
 }
-
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
