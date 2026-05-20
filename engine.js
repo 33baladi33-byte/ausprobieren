@@ -2492,6 +2492,7 @@ if (originalOpenExamGlobal) {
 window.addEventListener('resize', function() {
   setTimeout(applyMobileStylesToEngine, 100);
 });
+
 // دالة تطبيق ألوان التصحيح على Select في Teil 1 (للهاتف)
 function applyTeil1CorrectionColors() {
     if (window.innerWidth > 768) return;
@@ -2505,14 +2506,17 @@ function applyTeil1CorrectionColors() {
         const isWrong = card.classList.contains('wrong-answer-card');
         
         if (isCorrect) {
+            // ✅ إجابة صحيحة ← أخضر فاتح
             select.style.backgroundColor = "#d4edda";
             select.style.border = "2px solid #28a745";
-            select.style.color = "#155724";
+            select.style.color = "#155724";  // نص أخضر غامق
         } else if (isWrong) {
+            // ❌ إجابة خاطئة ← برتقالي فاتح
             select.style.backgroundColor = "#fef0e0";
             select.style.border = "2px solid #e67e22";
-            select.style.color = "#155724";
+            select.style.color = "#155724";  // ✅ النص أخضر غامق
             
+            // وضع الإجابة الصحيحة داخل الخانة مع علامة صح
             if (currentMatchingExamData) {
                 const index = parseInt(card.id.replace('matching_q_', ''));
                 if (!isNaN(index) && currentMatchingExamData.questions[index]) {
@@ -2534,7 +2538,6 @@ function applyTeil1CorrectionColors() {
         }
     });
 }
-
 // دالة تطبيق ألوان التصحيح على Select في Teil 3 (للهاتف)
 function applyTeil3CorrectionColors() {
     if (window.innerWidth > 768) return;
@@ -2548,14 +2551,17 @@ function applyTeil3CorrectionColors() {
         const isWrong = card.classList.contains('wrong-answer-card');
         
         if (isCorrect) {
+            // ✅ إجابة صحيحة ← أخضر فاتح
             select.style.backgroundColor = "#d4edda";
             select.style.border = "2px solid #28a745";
-            select.style.color = "#155724";
+            select.style.color = "#155724";  // ✅ نص أخضر غامق
         } else if (isWrong) {
+            // ❌ إجابة خاطئة ← برتقالي فاتح
             select.style.backgroundColor = "#fef0e0";
             select.style.border = "2px solid #e67e22";
-            select.style.color = "#155724";
+            select.style.color = "#155724";  // ✅ النص أخضر غامق
             
+            // وضع الإجابة الصحيحة داخل الخانة مع علامة صح
             if (currentTeil3Data) {
                 const indexMatch = card.id.match(/teil3_card_(\d+)/);
                 if (indexMatch) {
@@ -2587,6 +2593,5 @@ function applyTeil3CorrectionColors() {
         }
     });
 }
-
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
