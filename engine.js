@@ -307,7 +307,7 @@ function renderSprach2Exam() {
                 return function() {
                   if (sprach2SelectedQuestionId) {
                     if (isSprach2WordUsed(w)) {
-                      alert(`⚠️ كلمة "${w}" تم استخدامها بالفعل!`);
+                      alert(` كلمة "${w}" تم استخدامها بالفعل!`);
                       sprach2SelectedQuestionId = null;
                       clearSprach2ButtonSelection();
                       return;
@@ -369,7 +369,7 @@ function renderSprach2Exam() {
           if (sprach2SelectedWordForLinking) {
             const word = sprach2SelectedWordForLinking;
             if (isSprach2WordUsed(word)) {
-              alert(`⚠️ كلمة "${word}" تم استخدامها بالفعل!`);
+              alert(` كلمة "${word}" تم استخدامها بالفعل!`);
               sprach2SelectedWordForLinking = null;
               clearSprach2WordSelection();
               return;
@@ -456,7 +456,7 @@ function renderSprach2Exam() {
         return function() {
           if (sprach2SelectedQuestionId) {
             if (isSprach2WordUsed(w)) {
-              alert(`⚠️ كلمة "${w}" تم استخدامها بالفعل!`);
+              alert(`كلمة "${w}" تم استخدامها بالفعل!`);
               sprach2SelectedQuestionId = null;
               clearSprach2ButtonSelection();
               return;
@@ -1065,7 +1065,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
   if (!questions || !Array.isArray(questions) || questions.length === 0) {
     console.error("❌ خطأ: لا توجد أسئلة في هذا الامتحان");
     if (container) {
-      container.innerHTML = '<div style="text-align:center; color:#ff6b6b; padding:30px; background:#fff; border-radius:12px;">⚠️ حدث خطأ في تحميل الامتحان. يرجى المحاولة مرة أخرى.</div>';
+      container.innerHTML = '<div style="text-align:center; color:#ff6b6b; padding:30px; background:#fff; border-radius:12px;"> حدث خطأ في تحميل الامتحان. يرجى المحاولة مرة أخرى.</div>';
     }
     return;
   }
@@ -1280,7 +1280,7 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
       resultDiv.className = 'result-box';
       container.appendChild(resultDiv);
     }
-    resultDiv.innerHTML = "⚠️ لا توجد أسئلة في هذا الامتحان";
+    resultDiv.innerHTML = " لا توجد أسئلة في هذا الامتحان";
     resultDiv.style.display = 'block';
     return;
   }
@@ -1913,7 +1913,7 @@ function updateTeil3SelectOptions() {
     
     const noTitleOption = document.createElement("option");
     noTitleOption.value = "none";
-    noTitleOption.textContent = "⚠️ هذه الفقرة لا يوجد لها عنوان";
+    noTitleOption.textContent = "✧ بدون عنوان ✧";
     select.appendChild(noTitleOption);
     
     for (let s = 0; s < situations.length; s++) {
@@ -2079,7 +2079,7 @@ function renderTeil3Exam() {
     
     const noTitleOption = document.createElement("option");
     noTitleOption.value = "none";
-    noTitleOption.textContent = "⚠️ هذه الفقرة لا يوجد لها عنوان";
+    noTitleOption.textContent = "✧ بدون عنوان ✧";
     select.appendChild(noTitleOption);
     
     for (let s = 0; s < situations.length; s++) {
@@ -2310,7 +2310,7 @@ function checkTeil3Exam() {
 
     // تحديد الإجابة الصحيحة (نص وقيمة)
     if (correctIndex === null || correctIndex === undefined) {
-      correctText = "⚠️ هذه الفقرة لا يوجد لها عنوان";
+      correctText = "✧ بدون عنوان ✧";
       correctValue = "none";
       // التحقق من صحة الإجابة
       isCorrect = (userAnswer === "none" || userAnswer === null || userAnswer === undefined || userAnswer === "");
