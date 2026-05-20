@@ -128,7 +128,10 @@ function renderSchreibenExam() {
   rightColumn.style.border = "1px solid #d0e0ff";
   rightColumn.style.maxHeight = "80vh";
   rightColumn.style.overflowY = "auto";
-  
+  // إخفاء Situationen بالكامل في الهاتف
+if (window.innerWidth <= 768) {
+    rightColumn.style.display = "none";
+}
   
   const templateTitle = document.createElement("div");
   let cleanTitle = data.template.title;
