@@ -92,16 +92,15 @@ function showLockedMessage(examTitle) {
                     <span>PREMIUM ACCESS</span>
                 </div>
                 <h2 class="premium-title">Exclusive Content</h2>
-                <p class="premium-subtitle">هذا الامتحان متاح للمشتركين</p>
+                <p class="premium-subtitle">هذا المحتوى متاح للمشتركين</p>
             </div>
             <div class="premium-card-body">
                 <ul class="premium-features">
-                    <li><span class="check">✓</span> جميع امتحانات B2</li>
+                    <li><span class="check">✓</span> وصول كامل للمحتوى B2</li>
                     <li><span class="check">✓</span>  100% الاجابات صحيحة</li>
-                    <li><span class="check">✓</span> بطاقات ذكية للحفظ السريع</li>
+                    <li><span class="check">✓</span> بطاقات ذكية </li>
                     <li><span class="check">✓</span> لعبة التحدي السريع</li>
-                    <li><span class="check">✓</span> مساعدة عبر الواتساب</li>
-                    <li><span class="check">✓</span> التخلص من ارهاق المراجعة من ملفات البي دي اف</li>
+                    <li><span class="check">✓</span> التخلص من ارهاق Pdf </li>
                 </ul>
                 <button id="premiumUpgradeBtn" class="premium-btn">
                     ✦ Join Premium
