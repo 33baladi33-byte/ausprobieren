@@ -3316,18 +3316,6 @@ function initTeil3UniqueAnswers() {
     updateTeil3Options();
 }
 
-// ربط الدوال بتحميل الامتحانات
-const originalLoadMatching = window.loadMatchingExam;
-if (originalLoadMatching) {
-    window.loadMatchingExam = function(examData) {
-        originalLoadMatching(examData);
-        setTimeout(() => {
-            window.usedAnswersTeil1 = {};
-            initTeil1UniqueAnswers();
-        }, 150);
-    };
-}
-
 const originalRenderTeil3 = window.renderTeil3Exam;
 if (originalRenderTeil3) {
     window.renderTeil3Exam = function() {
