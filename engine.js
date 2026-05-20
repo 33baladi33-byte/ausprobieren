@@ -2435,7 +2435,7 @@ function applyMobileStylesToEngine() {
       box.style.bottom = '15px';
     });
     
-  // تحسين Teil 3 للهاتف - Grid 2x2 وتصغير الحجم
+// تحسين Teil 3 للهاتف - Grid 2x2 وتصغير الحجم
 const teil3Container = document.getElementById('teil3');
 if (teil3Container) {
     const itemsGrid = teil3Container.querySelector('[style*="grid-template-columns: 1fr 1fr"]');
@@ -2474,7 +2474,14 @@ if (teil3Container) {
         leftColumn.style.maxWidth = '100%';
     }
 }
-
+      
+// إخفاء Situationen في الهاتف (Lesen Teil 3)
+const situationTitle = teil3Container.querySelector('h3');
+if (situationTitle && situationTitle.textContent.includes('Situationen')) {
+    situationTitle.style.display = 'none';
+}
+const rightColumn = teil3Container.querySelector('div[style*="flex: 1"]:last-child, div[style*="min-width: 250px"]');
+if (rightColumn) rightColumn.style.display = 'none';
 document.addEventListener('DOMContentLoaded', function() {
   applyMobileStylesToEngine();
 });
