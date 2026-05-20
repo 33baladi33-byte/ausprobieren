@@ -3118,4 +3118,264 @@ window.addEventListener('resize', function() {
 });
 
 console.log('✅ نظام الإجابات الفريدة لـ Lesen Teil 1 و Teil 3 (للهاتف فقط) تم تحميله');
+// ============================================
+// إصلاح نظام الإجابات الفريدة للهاتف - Lesen Teil 1 و Teil 3
+// ============================================
+
+// المتغيرات العامة
+if (typeof window.usedAnswersTeil1 === 'undefined') {
+    window.usedAnswersTeil1 = {};
+}
+if (typeof window.usedAnswersTeil3 === 'undefined') {
+    window.usedAnswersTeil3 = {};
+}
+
+// دالة تحديث قائمة Teil 1 - إخفاء الخيارات المستخدمة
+function updateTeil1Options() {
+    if (window.innerWidth > 768) return;
+    
+    const selects = document.querySelectorAll('#teil1 select');
+    selects.forEach((select, selectIndex) => {
+        const currentValue = select.value;
+        const currentText = select.options[select.selectedIndex]?.text || "";
+        
+        Array.from(select.options).forEach(option => {
+            const optValue = option.value;
+            const optText = option.text;
+            
+            // لا نخفي خيار "اختر الإجابة" ولا خيار "لا يوجد عنوان"
+            if (optValue === "" || optText.includes("لا يوجد")) {
+                option.style.display = '';
+                option.disabled = false;
+                return;
+            }
+            
+            // التحقق إذا كان الخيار مستخدم في مكان آخر
+            const isUsed = window.usedAnswersTeil1[optText] !== undefined && window.usedAnswersTeil1[optText] !== selectIndex;
+            
+            if (isUsed) {
+                option.style.display = 'none';
+                option.disabled = true;
+            } else {
+                option.style.display = '';
+                option.disabled = false;
+            }
+        });
+    });
+}
+
+// دالة معالجة تغيير الاختيار في Teil 1
+function onTeil1Change(event) {
+    if (window.innerWidth > 768) return;
+    
+    const select = event.target;
+    const card = select.closest('.question-card');
+    if (!card) return;
+    
+    const selectIndex = Array.from(document.querySelectorAll('#teil1 select')).indexOf(select);
+    const selectedText = select.options[select.selectedIndex]?.text || "";
+    const oldText = select.getAttribute('data-old-text') || "";
+    
+    // إزالة الخيار القديم من التتبع
+    if (oldText && window.usedAnswersTeil1[oldText] === selectIndex) {
+        delete window.usedAnswersTeil1[oldText];
+    }
+    
+    // إضافة الخيار الجديد إلى التتبع (إذا لم يكن فارغاً أو "لا يوجد")
+    if (selectedText && selectedText !== "" && !selectedText.includes("لا يوجد") && !selectedText.includes("اختر")) {
+        window.usedAnswersTeil1[selectedText] = selectIndex;
+    }
+    
+    // حفظ النص القديم
+    select.setAttribute('data-old-text', selectedText);
+    
+    // تحديث جميع القوائم
+    updateTeil1Options();
+}
+
+// دالة تحديث قائمة Teil 3 - إخفاء الخيارات المستخدمة
+function updateTeil3Options() {
+    if (window.innerWidth > 768) return;
+    
+    const selects = document.querySelectorAll('#teil3 select');
+    selects.forEach((select, selectIndex) => {
+        const currentValue = select.value;
+        
+        Array.from(select.options).forEach(option => {
+            const optValue = option.value;
+            const optText = option.text;
+            
+            // لا نخفي خيار "اختر العنوان" ولا خيار "لا يوجد عنوان"
+            if (optValue === "" || optText.includes("لا يوجد")) {
+                option.style.display = '';
+                option.disabled = false;
+                return;
+            }
+            
+            // التحقق إذا كان الخيار مستخدم في مكان آخر
+            const isUsed = window.usedAnswersTeil3[optText] !== undefined && window.usedAnswersTeil3[optText] !== selectIndex;
+            
+            if (isUsed) {
+                option.style.display = 'none';
+                option.disabled = true;
+            } else {
+                option.style.display = '';
+                option.disabled = false;
+            }
+        });
+    });
+}
+
+// دالة معالجة تغيير الاختيار في Teil 3
+function onTeil3Change(event) {
+    if (window.innerWidth > 768) return;
+    
+    const select = event.target;
+    const card = select.closest('.question-card');
+    if (!card) return;
+    
+    const selectIndex = Array.from(document.querySelectorAll('#teil3 select')).indexOf(select);
+    const selectedText = select.options[select.selectedIndex]?.text || "";
+    const oldText = select.getAttribute('data-old-text') || "";
+    
+    // إزالة الخيار القديم من التتبع
+    if (oldText && window.usedAnswersTeil3[oldText] === selectIndex) {
+        delete window.usedAnswersTeil3[oldText];
+    }
+    
+    // إضافة الخيار الجديد إلى التتبع
+    if (selectedText && selectedText !== "" && !selectedText.includes("لا يوجد") && !selectedText.includes("اختر")) {
+        window.usedAnswersTeil3[selectedText] = selectIndex;
+    }
+    
+    // حفظ النص القديم
+    select.setAttribute('data-old-text', selectedText);
+    
+    // تحديث جميع القوائم
+    updateTeil3Options();
+}
+
+// دالة تهيئة Teil 1
+function initTeil1UniqueAnswers() {
+    if (window.innerWidth > 768) return;
+    
+    const selects = document.querySelectorAll('#teil1 select');
+    selects.forEach(select => {
+        // إزالة المستمع القديم
+        select.removeEventListener('change', onTeil1Change);
+        // إضافة المستمع الجديد
+        select.addEventListener('change', onTeil1Change);
+        // حفظ النص الحالي
+        const currentText = select.options[select.selectedIndex]?.text || "";
+        select.setAttribute('data-old-text', currentText);
+    });
+    
+    updateTeil1Options();
+}
+
+// دالة تهيئة Teil 3 مع Grid 2x2
+function initTeil3UniqueAnswers() {
+    if (window.innerWidth > 768) return;
+    
+    // جعل شبكة الفقرات 2x2
+    const container = document.getElementById('teil3');
+    if (container) {
+        const itemsGrid = container.querySelector('[style*="grid-template-columns: 1fr 1fr"]');
+        if (itemsGrid) {
+            itemsGrid.style.gridTemplateColumns = '1fr 1fr';
+            itemsGrid.style.gap = '8px';
+        }
+        
+        // تصغير حجم البطاقات
+        const cards = container.querySelectorAll('.question-card');
+        cards.forEach(card => {
+            card.style.padding = '8px';
+            card.style.marginBottom = '0';
+            card.style.borderRadius = '10px';
+        });
+        
+        // إخفاء عمود Situationen
+        const rightColumn = container.querySelector('div[style*="flex: 1"]:last-child');
+        if (rightColumn) rightColumn.style.display = 'none';
+        
+        const leftColumn = container.querySelector('div[style*="flex: 2"]:first-child');
+        if (leftColumn) {
+            leftColumn.style.width = '100%';
+            leftColumn.style.maxWidth = '100%';
+        }
+    }
+    
+    const selects = document.querySelectorAll('#teil3 select');
+    selects.forEach(select => {
+        select.removeEventListener('change', onTeil3Change);
+        select.addEventListener('change', onTeil3Change);
+        const currentText = select.options[select.selectedIndex]?.text || "";
+        select.setAttribute('data-old-text', currentText);
+    });
+    
+    updateTeil3Options();
+}
+
+// ربط الدوال بتحميل الامتحانات
+const originalLoadMatching = window.loadMatchingExam;
+if (originalLoadMatching) {
+    window.loadMatchingExam = function(examData) {
+        originalLoadMatching(examData);
+        setTimeout(() => {
+            window.usedAnswersTeil1 = {};
+            initTeil1UniqueAnswers();
+        }, 150);
+    };
+}
+
+const originalRenderTeil3 = window.renderTeil3Exam;
+if (originalRenderTeil3) {
+    window.renderTeil3Exam = function() {
+        originalRenderTeil3();
+        setTimeout(() => {
+            window.usedAnswersTeil3 = {};
+            initTeil3UniqueAnswers();
+        }, 150);
+    };
+}
+
+// استدعاء عند تغيير حجم الشاشة
+window.addEventListener('resize', function() {
+    setTimeout(() => {
+        if (window.innerWidth <= 768) {
+            initTeil1UniqueAnswers();
+            initTeil3UniqueAnswers();
+        } else {
+            // عند العودة للحاسوب، نعيد تعيين كل شيء
+            window.usedAnswersTeil1 = {};
+            window.usedAnswersTeil3 = {};
+            // إعادة إظهار جميع الخيارات المخفية
+            document.querySelectorAll('#teil1 select option, #teil3 select option').forEach(opt => {
+                opt.style.display = '';
+                opt.disabled = false;
+            });
+        }
+    }, 200);
+});
+
+// تنفيذ فوري إذا كان الصفحة محملة بالفعل
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                initTeil1UniqueAnswers();
+                initTeil3UniqueAnswers();
+            }, 200);
+        }
+    });
+} else {
+    if (window.innerWidth <= 768) {
+        setTimeout(() => {
+            initTeil1UniqueAnswers();
+            initTeil3UniqueAnswers();
+        }, 200);
+    }
+}
+
+console.log('✅ نظام الإجابات الفريدة للهاتف (Teil 1 & Teil 3) تم تحميله');
 console.log("✅ engine.js تم تحميله بالكامل");
