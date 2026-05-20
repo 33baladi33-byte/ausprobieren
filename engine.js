@@ -2435,17 +2435,17 @@ function applyMobileStylesToEngine() {
       box.style.bottom = '15px';
     });
     
-    // تحسين Teil 3 للهاتف - Grid 2x2 وتصغير الحجم
-    const teil3Container = document.getElementById('teil3');
-    if (teil3Container) {
-      const itemsGrid = teil3Container.querySelector('[style*="grid-template-columns: 1fr 1fr"]');
-      if (itemsGrid) {
+ // تحسين Teil 3 للهاتف - Grid 2x2 وتصغير الحجم
+const teil3Container = document.getElementById('teil3');
+if (teil3Container) {
+    const itemsGrid = teil3Container.querySelector('[style*="grid-template-columns: 1fr 1fr"]');
+    if (itemsGrid) {
         itemsGrid.style.gridTemplateColumns = '1fr 1fr';
         itemsGrid.style.gap = '8px';
-      }
-      
-      const cards = teil3Container.querySelectorAll('.question-card');
-      cards.forEach(card => {
+    }
+    
+    const cards = teil3Container.querySelectorAll('.question-card');
+    cards.forEach(card => {
         card.style.padding = '8px';
         card.style.marginBottom = '0';
         card.style.borderRadius = '10px';
@@ -2455,27 +2455,26 @@ function applyMobileStylesToEngine() {
         
         const text = card.querySelector('div[style*="font-size: 13px"]');
         if (text) text.style.fontSize = '0.6rem';
-      });
-      
-      // إخفاء عمود Situationen في الهاتف
-      const rightColumn = teil3Container.querySelector('div[style*="flex: 1"]:last-child, div[style*="min-width: 250px"]');
-      if (rightColumn) rightColumn.style.display = 'none';
-      
-      const leftColumn = teil3Container.querySelector('div[style*="flex: 2"]:first-child, div[style*="min-width: 500px"]');
-      if (leftColumn) {
+    });
+    
+    // ✅ إخفاء عنوان "Situationen"
+    const situationTitle = teil3Container.querySelector('h3');
+    if (situationTitle && situationTitle.textContent.includes('Situationen')) {
+        situationTitle.style.display = 'none';
+    }
+    
+    // ✅ إخفاء العمود الأيمن بالكامل (Situationen)
+    const rightColumn = teil3Container.querySelector('div[style*="flex: 1"]:last-child, div[style*="min-width: 250px"]');
+    if (rightColumn) rightColumn.style.display = 'none';
+    
+    // ✅ تعديل العمود الأيسر ليملأ العرض
+    const leftColumn = teil3Container.querySelector('div[style*="flex: 2"]:first-child, div[style*="min-width: 500px"]');
+    if (leftColumn) {
         leftColumn.style.width = '100%';
         leftColumn.style.maxWidth = '100%';
-      }
-      
-      // ✅ إخفاء كلمة "Situationen" في الهاتف
-      const situationTitle = teil3Container.querySelector('h3');
-      if (situationTitle && situationTitle.textContent.includes('Situationen')) {
-        situationTitle.style.display = 'none';
-      }
     }
-  }
 }
-
+      
 document.addEventListener('DOMContentLoaded', function() {
   applyMobileStylesToEngine();
 });
@@ -2509,7 +2508,6 @@ function applyTeil1CorrectionColors() {
         const isCorrect = card.classList.contains('correct-answer-card');
         const isWrong = card.classList.contains('wrong-answer-card');
         
-        // تطبيق الألوان مباشرة على الـ select
         if (isCorrect) {
             select.style.setProperty('background-color', '#d4edda', 'important');
             select.style.setProperty('border', '2px solid #28a745', 'important');
@@ -2521,6 +2519,7 @@ function applyTeil1CorrectionColors() {
         }
     });
 }
+
 // دالة تطبيق ألوان التصحيح على Select في Teil 3 (للهاتف)
 function applyTeil3CorrectionColors() {
     if (window.innerWidth > 768) return;
@@ -2533,7 +2532,6 @@ function applyTeil3CorrectionColors() {
         const isCorrect = card.classList.contains('correct-answer-card');
         const isWrong = card.classList.contains('wrong-answer-card');
         
-        // تطبيق الألوان مباشرة على الـ select
         if (isCorrect) {
             select.style.setProperty('background-color', '#d4edda', 'important');
             select.style.setProperty('border', '2px solid #28a745', 'important');
@@ -2545,6 +2543,7 @@ function applyTeil3CorrectionColors() {
         }
     });
 }
+
 // ============================================
 // استدعاء دوال الهاتف بعد التصحيح مباشرة
 // ============================================
@@ -2570,5 +2569,6 @@ if (typeof checkTeil3Exam === 'function') {
         }, 50);
     };
 }
+
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
