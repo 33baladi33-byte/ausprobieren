@@ -2452,6 +2452,7 @@ if (teil3Container) {
         itemsGrid.style.gridTemplateColumns = '1fr 1fr';
         itemsGrid.style.gap = '4px';
         itemsGrid.style.width = '100%';
+cards.forEach(card => card.style.overflow = 'hidden');
     }
     
     // تأكد من أن كل بطاقة تأخذ العرض المناسب
