@@ -2571,3 +2571,6 @@ if (typeof checkTeil3Exam === 'function') {
 }
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
+}
+}
+}
