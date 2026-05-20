@@ -1010,31 +1010,46 @@
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
-    function addGameButton() {
-        const nav = document.getElementById('examNavButtons');
-        if (!nav) { setTimeout(addGameButton, 500); return; }
-        if (document.getElementById('rapidGameBtn')) return;
-        
-        const btn = document.createElement('button');
-        btn.id = 'rapidGameBtn';
-        btn.innerHTML = '⚡ العب';
-        function addGameButton() {
+   // ============================================
+// إضافة زر العب مع التحقق من الأقسام المسموحة
+// ============================================
+
+let currentGameButton = null;
+
+function addGameButton() {
     const nav = document.getElementById('examNavButtons');
-    if (!nav) { setTimeout(addGameButton, 500); return; }
-    if (document.getElementById('rapidGameBtn')) return;
+    if (!nav) { 
+        setTimeout(addGameButton, 500); 
+        return; 
+    }
     
-    // ✅ منع ظهور الزر في Schreiben, Mündlich, Tips
-    const schreibenDiv = document.getElementById('schreiben');
-    const mündlichDiv = document.getElementById('mündlich');
-    const tipsDiv = document.getElementById('tips');
+    // ✅ تحديد القسم الحالي
+    let shouldShowButton = false;
     
-    if ((schreibenDiv && schreibenDiv.style.display !== 'none') ||
-        (mündlichDiv && mündlichDiv.style.display !== 'none') ||
-        (tipsDiv && tipsDiv.style.display !== 'none')) {
+    // الأقسام المسموح بها (يظهر فيها الزر)
+    const allowedSections = ['teil1', 'teil2', 'teil3', 'sprach1', 'sprach2', 'hoeren1', 'hoeren2', 'hoeren3'];
+    
+    for (let i = 0; i < allowedSections.length; i++) {
+        const section = document.getElementById(allowedSections[i]);
+        if (section && section.style.display !== 'none') {
+            shouldShowButton = true;
+            break;
+        }
+    }
+    
+    // ✅ إذا كان الزر موجوداً مسبقاً، نزيله
+    if (currentGameButton) {
+        currentGameButton.remove();
+        currentGameButton = null;
+    }
+    
+    // ✅ إذا كان القسم غير مسموح، لا نضيف الزر
+    if (!shouldShowButton) {
         console.log('🎮 زر العب لا يظهر في هذا القسم');
         return;
     }
     
+    // إنشاء الزر الجديد
     const btn = document.createElement('button');
     btn.id = 'rapidGameBtn';
     btn.innerHTML = '⚡ العب';
@@ -1044,22 +1059,41 @@
         const currentExamId = typeof getCurrentExamId === 'function' ? getCurrentExamId() : 1;
         startGame(currentSkill, currentExamId);
     };
-    nav.appendChild(btn);
-    console.log('🎮 زر العب جاهز');
-}
-        btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
-        btn.onclick = () => {
-            const currentSkill = typeof getCurrentSkill === 'function' ? getCurrentSkill() : 'lesen1';
-            const currentExamId = typeof getCurrentExamId === 'function' ? getCurrentExamId() : 1;
-            startGame(currentSkill, currentExamId);
-        };
-        nav.appendChild(btn);
-        console.log('🎮 زر العب جاهز');
-    }
     
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => { setTimeout(addGameButton, 500); });
-    } else {
-        setTimeout(addGameButton, 500);
+    nav.appendChild(btn);
+    currentGameButton = btn;
+    console.log('🎮 زر العب جاهز في القسم المسموح');
+}
+
+// ✅ مراقبة تغيير القسم وإعادة إضافة الزر
+function observeSectionChanges() {
+    const observer = new MutationObserver(function() {
+        setTimeout(addGameButton, 100);
+    });
+    
+    // مراقبة تغيير display لجميع الأقسام
+    const sections = ['teil1', 'teil2', 'teil3', 'sprach1', 'sprach2', 'hoeren1', 'hoeren2', 'hoeren3', 'schreiben', 'mündlich', 'tips'];
+    sections.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+            observer.observe(element, { attributes: true, attributeFilter: ['style'] });
+        }
+    });
+    
+    // أيضاً مراقبة الصفحة النشطة
+    const examPage = document.getElementById('exam');
+    if (examPage) {
+        observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
     }
-})();
+}
+
+// تهيئة اللعبة
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => { 
+        setTimeout(addGameButton, 500);
+        setTimeout(observeSectionChanges, 600);
+    });
+} else {
+    setTimeout(addGameButton, 500);
+    setTimeout(observeSectionChanges, 600);
+}
