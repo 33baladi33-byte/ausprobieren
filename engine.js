@@ -1564,16 +1564,16 @@ function checkMatchingExam() {
           selectElem.style.backgroundColor = "#fef0e0";
           selectElem.style.border = "2px solid #e67e22";
           selectElem.style.color = "#856404";
+          // ✅ التعديل: وضع الإجابة الصحيحة داخل الخانة
+          selectElem.value = correctAnswer;
+          // تحديث الخيار المختار ليكون الإجابة الصحيحة
+          for (let j = 0; j < selectElem.options.length; j++) {
+            if (selectElem.options[j].value === correctAnswer) {
+              selectElem.options[j].selected = true;
+              break;
+            }
+          }
         }
-        
-        const correctMsg = document.createElement("div");
-        correctMsg.className = "correct-message";
-        correctMsg.style.marginTop = "10px";
-        correctMsg.style.fontSize = "13px";
-        correctMsg.style.fontWeight = "bold";
-        correctMsg.style.color = "#28a745";
-        correctMsg.innerHTML = `✅ : ${correctAnswer}`;
-        card.appendChild(correctMsg);
       }
     }
   }
@@ -2289,6 +2289,7 @@ function renderTeil3Exam() {
   updateTeil3SelectOptions();
   updateTeil3RightSideColors();
 }
+
 function checkTeil3Exam() {
   const items = currentTeil3Data.items;
   let score = 0;
@@ -2333,16 +2334,23 @@ function checkTeil3Exam() {
           selectElem.style.backgroundColor = "#fef0e0";
           selectElem.style.border = "2px solid #e67e22";
           selectElem.style.color = "#856404";
+          
+          // ✅ التعديل: وضع الإجابة الصحيحة داخل الخانة
+          if (correctIndex === null || correctIndex === undefined) {
+            selectElem.value = "none";
+          } else {
+            selectElem.value = correctIndex;
+          }
+          // تحديث الخيار المختار
+          for (let j = 0; j < selectElem.options.length; j++) {
+            const optValue = selectElem.options[j].value;
+            if ((correctIndex === null || correctIndex === undefined && optValue === "none") ||
+                (correctIndex !== undefined && parseInt(optValue) === correctIndex)) {
+              selectElem.options[j].selected = true;
+              break;
+            }
+          }
         }
-
-        const correctMsg = document.createElement("div");
-        correctMsg.className = "correct-message";
-        correctMsg.style.marginTop = "10px";
-        correctMsg.style.fontSize = "13px";
-        correctMsg.style.fontWeight = "bold";
-        correctMsg.style.color = "#28a745";
-        correctMsg.innerHTML = `✅ : ${correctText}`;
-        card.appendChild(correctMsg);
       }
     }
   }
