@@ -2395,77 +2395,34 @@ body.dark-mode .premium-features li {
     font-weight: 500 !important;
 }
 /* ========================================
-   توحيد ارتفاع جميع الامتحانات في الحاسوب
+   تنسيق أزرار الأجزاء (Teile) - الحاسوب
    ======================================== */
 
-/* توحيد ارتفاع عناصر القائمة */
-.item {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 10px 15px !important;
-    min-height: 48px !important;
-    height: auto !important;
-    margin-bottom: 8px !important;
-    border-radius: 12px !important;
-    background: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
+.teil-item {
+    background: rgba(30, 41, 59, 0.9) !important;
+    border: 1px solid rgba(56, 189, 248, 0.2) !important;
+    border-radius: 40px !important;
+    color: #e2e8f0 !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    padding: 6px 14px !important;
     transition: all 0.2s ease !important;
 }
 
-/* توحيد حجم النص */
-.item .exam-title,
-.exam-title {
-    font-size: 0.75rem !important;
-    font-weight: 500 !important;
-    line-height: 1.3 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+.teil-item:hover {
+    background: rgba(56, 189, 248, 0.2) !important;
+    border-color: #38bdf8 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px) !important;
+}
+/* أزرار الأقسام في الهاتف - الحجم الأصلي */
+.teil-item {
+    padding: 5px 12px !important;
+    font-size: 0.65rem !important;
+    background: rgba(30, 41, 59, 0.9) !important;
+    color: #e2e8f0 !important;
 }
 
-/* تنسيق شارة Premium بشكل صغير لا يؤثر على الارتفاع */
-.premium-badge {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: rgba(0, 0, 0, 0.65) !important;
-    color: #f5e6a0 !important;
-    font-size: 9px !important;
-    font-weight: 600 !important;
-    padding: 3px 8px !important;
-    border-radius: 20px !important;
-    line-height: 1.2 !important;
-    white-space: nowrap !important;
-    margin-right: 8px !important;
-    flex-shrink: 0 !important;
-}
-
-/* الأيقونات على اليمين */
-.exam-right-icons {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 4px !important;
-    flex-shrink: 0 !important;
-}
-@media (max-width: 768px) {
-    /* توحيد ارتفاع عناصر القائمة في الهاتف */
-    .item {
-        padding: 8px 10px !important;
-        min-height: 44px !important;
-        margin-bottom: 6px !important;
-    }
-    
-    /* توحيد حجم النص */
-    .item .exam-title,
-    .exam-title {
-        font-size: 0.6rem !important;
-        line-height: 1.3 !important;
-    }
-    
-    /* شارة Premium في الهاتف أصغر */
-    .premium-badge {
-        font-size: 8px !important;
-        padding: 2px 6px !important;
-        margin-right: 5px !important;
-    }
+.teil-item::before {
+    font-size: 0.6rem;
 }
