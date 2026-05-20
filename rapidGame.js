@@ -1018,6 +1018,35 @@
         const btn = document.createElement('button');
         btn.id = 'rapidGameBtn';
         btn.innerHTML = '⚡ العب';
+        function addGameButton() {
+    const nav = document.getElementById('examNavButtons');
+    if (!nav) { setTimeout(addGameButton, 500); return; }
+    if (document.getElementById('rapidGameBtn')) return;
+    
+    // ✅ منع ظهور الزر في Schreiben, Mündlich, Tips
+    const schreibenDiv = document.getElementById('schreiben');
+    const mündlichDiv = document.getElementById('mündlich');
+    const tipsDiv = document.getElementById('tips');
+    
+    if ((schreibenDiv && schreibenDiv.style.display !== 'none') ||
+        (mündlichDiv && mündlichDiv.style.display !== 'none') ||
+        (tipsDiv && tipsDiv.style.display !== 'none')) {
+        console.log('🎮 زر العب لا يظهر في هذا القسم');
+        return;
+    }
+    
+    const btn = document.createElement('button');
+    btn.id = 'rapidGameBtn';
+    btn.innerHTML = '⚡ العب';
+    btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
+    btn.onclick = () => {
+        const currentSkill = typeof getCurrentSkill === 'function' ? getCurrentSkill() : 'lesen1';
+        const currentExamId = typeof getCurrentExamId === 'function' ? getCurrentExamId() : 1;
+        startGame(currentSkill, currentExamId);
+    };
+    nav.appendChild(btn);
+    console.log('🎮 زر العب جاهز');
+}
         btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
         btn.onclick = () => {
             const currentSkill = typeof getCurrentSkill === 'function' ? getCurrentSkill() : 'lesen1';
