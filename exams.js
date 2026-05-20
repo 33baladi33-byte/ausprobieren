@@ -88,15 +88,15 @@ function createResultBadge(score) {
                     <span>PREMIUM ACCESS</span>
                 </div>
                 <h2 class="premium-title">Exclusive Content</h2>
-                <p class="premium-subtitle">هذا الامتحان متاح للأعضاء المحترفين فقط</p>
+                <p class="premium-subtitle">هذا المحتوى متاح للمشتركين  </p>
             </div>
             <div class="premium-card-body">
                 <ul class="premium-features">
                     <li><span class="check">✓</span> جميع امتحانات B2</li>
-                    <li><span class="check">✓</span> تصحيح فوري وإجابات نموذجية</li>
+                    <li><span class="check">✓</span> اجوبة صحيحة 100% </li>
                     <li><span class="check">✓</span> بطاقات ذكية للحفظ السريع</li>
                     <li><span class="check">✓</span> لعبة التحدي السريع</li>
-                    <li><span class="check">✓</span> مساعدة عبر الواتساب</li>
+                    <li><span class="check">✓</span> التخلص من ارهاق Pdf </li>
                 </ul>
                 <button id="premiumUpgradeBtn" class="premium-btn">
                     ✦ Join Premium
