@@ -705,7 +705,16 @@ function renderTeileList() {
   const container = document.getElementById("teileList");
   if (!container) return;
   container.innerHTML = "";
-  
+  // ✅ إضافة شريط المعلومات الصغير (يظهر فقط في قائمة الامتحانات)
+if (!document.querySelector('.exam-list-info-bar')) {
+    const infoBarHTML = `
+        <div class="exam-list-info-bar">
+            <span class="info-bar-icon">💡</span>
+            <span class="info-bar-text">هذا الموقع مصمم للراحة والسهولة، مع تجربة سريعة وبدون تعقيد.</span>
+        </div>
+    `;
+    container.insertAdjacentHTML('afterbegin', infoBarHTML);
+}
   for (let i = 0; i < teile.length; i++) {
     const teil = teile[i];
     const div = document.createElement("div");
