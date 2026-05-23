@@ -704,7 +704,17 @@ function renderTeileList() {
   const container = document.getElementById("teileList");
   if (!container) return;
   container.innerHTML = "";
-  
+      // ✅ إضافة Info Bar في صفحة قائمة الامتحانات
+    const existingInfoBar = document.querySelector('.info-bar-in-exams');
+    if (!existingInfoBar) {
+        const infoBarHTML = `
+            <div class="info-bar-in-exams">
+                <span class="info-bar-icon">💡</span>
+                <span class="info-bar-text">هذا الموقع مصمم ليقدم أكبر قدر ممكن من الراحة والمساعدة للمستخدم، مع تجربة سهلة، سريعة، وبدون أي تعقيد.</span>
+            </div>
+        `;
+        container.insertAdjacentHTML('afterbegin', infoBarHTML);
+    }
   for (let i = 0; i < teile.length; i++) {
     const teil = teile[i];
     const div = document.createElement("div");
