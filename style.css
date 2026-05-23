@@ -2430,63 +2430,58 @@ body.dark-mode .premium-features li {
     font-size: 0.6rem;
 }
 /* ============================================
-   Info Bar احترافية - (راحة ومساعدة للمستخدم)
+   Info Bar احترافية (في صفحة الامتحانات)
    ============================================ */
 
-.info-bar {
+.info-bar-in-exams {
     display: flex;
     align-items: center;
     gap: 12px;
     width: fit-content;
     max-width: 520px;
-    min-width: 300px;
+    min-width: 280px;
     background: rgba(20, 27, 40, 0.55);
     backdrop-filter: blur(4px);
     border: 1px solid rgba(120, 170, 255, 0.18);
     border-radius: 999px;
     padding: 10px 18px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin: 10px auto 20px auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     transition: all 0.3s ease;
 }
 
-/* الأيقونة */
-.info-bar-icon {
-    font-size: 1.1rem;
+.info-bar-in-exams .info-bar-icon {
+    font-size: 1rem;
     flex-shrink: 0;
     color: #60a5fa;
 }
 
-/* النص */
-.info-bar-text {
-    font-size: 13px;
+.info-bar-in-exams .info-bar-text {
+    font-size: 12px;
     font-weight: 500;
     color: #dbe4f0;
     line-height: 1.4;
     letter-spacing: 0.2px;
 }
 
-/* تأثير التمرير (اختياري) */
-.info-bar:hover {
+.info-bar-in-exams:hover {
     background: rgba(20, 27, 40, 0.7);
     border-color: rgba(120, 170, 255, 0.3);
 }
 
 /* للهاتف */
 @media (max-width: 768px) {
-    .info-bar {
-        max-width: 100%;
+    .info-bar-in-exams {
+        max-width: 95%;
         padding: 8px 14px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin: 5px auto 15px auto;
     }
     
-    .info-bar-text {
-        font-size: 11px;
+    .info-bar-in-exams .info-bar-text {
+        font-size: 10px;
     }
     
-    .info-bar-icon {
-        font-size: 0.9rem;
+    .info-bar-in-exams .info-bar-icon {
+        font-size: 0.85rem;
     }
 }
