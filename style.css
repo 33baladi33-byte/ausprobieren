@@ -2516,6 +2516,7 @@ body.dark-mode .premium-features li {
     visibility: visible;
     transform: translateY(0) scale(1);
 }
+
 /* إخفاء زر 💎 لماذا؟ في الصفحة الرئيسية فقط */
 .home .why-premium-btn {
     display: none !important;
@@ -2529,10 +2530,6 @@ body.dark-mode .premium-features li {
         font-size: 11px;
         margin-left: 6px;
     }
-/* إخفاء زر 💎 لماذا؟ في الصفحة الرئيسية فقط */
-.home .why-premium-btn {
-    display: none !important;
-}
     
     .premium-info-card {
         width: 290px;
