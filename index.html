@@ -1402,6 +1402,34 @@ if (whyPremiumBtn) {
         }
     });
 }
+    // إخفاء زر 💎 لماذا؟ في الصفحة الرئيسية فقط
+function toggleWhyPremiumBtn() {
+    const whyBtn = document.getElementById('whyPremiumBtn');
+    if (!whyBtn) return;
+    
+    const homePage = document.getElementById('home');
+    if (homePage && homePage.classList.contains('active')) {
+        whyBtn.style.display = 'none';
+    } else {
+        whyBtn.style.display = 'flex';
+    }
+}
+
+// استدعاء الدالة عند تحميل الصفحة
+toggleWhyPremiumBtn();
+
+// مراقبة تغيير الصفحة
+const observer = new MutationObserver(function() {
+    toggleWhyPremiumBtn();
+});
+
+const homePage = document.getElementById('home');
+const listPage = document.getElementById('list');
+const examPage = document.getElementById('exam');
+
+if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
+if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
+if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
 </script>
     <script src="reviews-simple.js"></script>
 </body>
