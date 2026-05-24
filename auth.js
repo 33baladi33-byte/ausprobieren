@@ -92,7 +92,7 @@ function showLockedMessage(examTitle) {
                     <span>PREMIUM ACCESS</span>
                 </div>
                 <h2 class="premium-title">Exclusive Content</h2>
-                <p class="premium-subtitle">هذا المحتوى متاح للمشتركين</p>
+                <p class="premium-subtitle" style="font-size: 0.75rem; line-height: 1.5;">هدفنا أن نجعل <span style="color: #8bb8ff;">نجاحك</span> أسهل وأكثر راحة… لذلك صُمم الموقع ليقدّم تجربة مفيدة فعلًا، وليس مجرد محتوى <span style="color: #6ee7b7;">مجاني</span> عشوائي.</p>
             </div>
             <div class="premium-card-body">
                 <ul class="premium-features">
