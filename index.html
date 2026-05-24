@@ -407,27 +407,40 @@
         display: none !important;
     }
 }
-/* حل مشكلة ظهور بطاقة "لماذا؟" في وسط الشاشة للهواتف الصغيرة */
+/* حل مشكلة ظهور بطاقة "علاش حنا؟" - تظهر أسفل الزر ومتصلة به */
 @media (max-width: 509px) {
+    .why-premium-btn {
+        position: relative !important;
+    }
+    
     .premium-info-card {
-        position: fixed !important;
-        top: 50% !important;
+        position: absolute !important;
+        top: 100% !important;
         left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        width: 85% !important;
-        max-width: 280px !important;
-        max-height: 80vh !important;
-        overflow-y: auto !important;
+        transform: translateX(-50%) !important;
+        width: 280px !important;
+        max-width: 85vw !important;
+        margin-top: 8px !important;
         right: auto !important;
         bottom: auto !important;
         z-index: 10000 !important;
-        margin: 0 !important;
     }
     
+    /* السهم يشير للزر */
     .premium-info-card::before {
-        display: none !important;
+        content: '' !important;
+        position: absolute !important;
+        top: -8px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 0 !important;
+        height: 0 !important;
+        border-left: 8px solid transparent !important;
+        border-right: 8px solid transparent !important;
+        border-bottom: 8px solid #1a1a2e !important;
+        display: block !important;
     }
-}    
+}
     /* ============================================
    Banner تحسين تجربة الهاتف - يظهر فقط في الهواتف
    ============================================ */
