@@ -81,30 +81,31 @@ function createResultBadge(score) {
     modal.id = 'premiumModal';
     modal.className = 'premium-modal';
     modal.innerHTML = `
-     <div class="premium-card">
-    <div class="premium-card-header">
-        <div class="premium-badge">
-            <span class="premium-icon">✦</span>
-            <span>PREMIUM ACCESS</span>
+        <div class="premium-card">
+            <div class="premium-card-header">
+                <div class="premium-badge">
+                    <span class="premium-icon">✦</span>
+                    <span>PREMIUM ACCESS</span>
+                </div>
+                <h2 class="premium-title">Exclusive Content</h2>
+                <p class="premium-subtitle" style="font-size: 0.75rem; line-height: 1.5;">هدفنا أن نجعل <span style="color: #8bb8ff;">نجاحك</span> أسهل وأكثر راحة… لذلك صُمم الموقع ليقدّم تجربة مفيدة فعلًا، وليس مجرد محتوى <span style="color: #6ee7b7;">مجاني</span> عشوائي.</p>
+            </div>
+            <div class="premium-card-body">
+                <ul class="premium-features">
+                    <li><span class="check">✓</span> جميع امتحانات B2</li>
+                    <li><span class="check">✓</span> اجوبة صحيحة 100% </li>
+                    <li><span class="check">✓</span> بطاقات ذكية للحفظ السريع</li>
+                    <li><span class="check">✓</span> لعبة التحدي السريع</li>
+                    <li><span class="check">✓</span> التخلص من ارهاق Pdf </li>
+                </ul>
+                <button id="premiumUpgradeBtn" class="premium-btn">
+                    ✦ Join Premium
+                    <span>→</span>
+                </button>
+                <button id="premiumLaterBtn" class="premium-later">ليس الآن</button>
+            </div>
         </div>
-        <h2 class="premium-title">Exclusive Content</h2>
-        <p class="premium-subtitle" style="font-size: 0.75rem; line-height: 1.5;">هدفنا أن نجعل <span style="color: #8bb8ff;">نجاحك</span> أسهل وأكثر راحة… لذلك صُمم الموقع ليقدّم تجربة مفيدة فعلًا، وليس مجرد محتوى <span style="color: #6ee7b7;">مجاني</span> عشوائي.</p>
-    </div>
-    <div class="premium-card-body">
-        <ul class="premium-features">
-            <li><span class="check">✓</span> جميع امتحانات B2</li>
-            <li><span class="check">✓</span> اجوبة صحيحة 100% </li>
-            <li><span class="check">✓</span> بطاقات ذكية للحفظ السريع</li>
-            <li><span class="check">✓</span> لعبة التحدي السريع</li>
-            <li><span class="check">✓</span> التخلص من ارهاق Pdf </li>
-        </ul>
-        <button id="premiumUpgradeBtn" class="premium-btn">
-            ✦ Join Premium
-            <span>→</span>
-        </button>
-        <button id="premiumLaterBtn" class="premium-later">ليس الآن</button>
-    </div>
-</div>
+    `;
     
     document.body.appendChild(modal);
     
@@ -704,6 +705,7 @@ function renderTeileList() {
   const container = document.getElementById("teileList");
   if (!container) return;
   container.innerHTML = "";
+  
   for (let i = 0; i < teile.length; i++) {
     const teil = teile[i];
     const div = document.createElement("div");
