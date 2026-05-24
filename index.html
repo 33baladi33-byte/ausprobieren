@@ -1408,19 +1408,18 @@ function toggleWhyPremiumBtn() {
 
 // استدعاء الدالة عند تحميل الصفحة
 toggleWhyPremiumBtn();
-
-// مراقبة تغيير الصفحة
-const observer = new MutationObserver(function() {
+// مراقبة تغيير الصفحة (لزر 💎)
+const observerPremium = new MutationObserver(function() {
     toggleWhyPremiumBtn();
 });
 
-const homePage = document.getElementById('home');
-const listPage = document.getElementById('list');
-const examPage = document.getElementById('exam');
+const homePage2 = document.getElementById('home');
+const listPage2 = document.getElementById('list');
+const examPage2 = document.getElementById('exam');
 
-if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
-if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
-if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
+if (homePage2) observerPremium.observe(homePage2, { attributes: true, attributeFilter: ['class'] });
+if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeFilter: ['class'] });
+if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeFilter: ['class'] });
 </script>
     <script src="reviews-simple.js"></script>
 </body>
