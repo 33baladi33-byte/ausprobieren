@@ -2430,7 +2430,7 @@ body.dark-mode .premium-features li {
     font-size: 0.6rem;
 }
 /* ============================================
-   زر 💎 لماذا؟ - نسخة خفيفة من زر كفاش
+   زر 💎 لماذا؟ - مع بطاقة منبثقة أنيقة
    ============================================ */
 
 .why-premium-btn {
@@ -2449,16 +2449,72 @@ body.dark-mode .premium-features li {
     transition: all 0.2s ease;
     font-family: inherit;
     margin-left: 10px;
+    position: relative;
 }
 
 .why-premium-btn:hover {
     background: rgba(45, 65, 102, 0.95);
-    transform: none;
-    box-shadow: none;
 }
 
 .why-premium-btn:active {
     transform: scale(0.97);
+}
+
+/* البطاقة المنبثقة */
+.premium-info-card {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 340px;
+    background: rgba(15, 23, 42, 0.96);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(120, 170, 255, 0.16);
+    border-radius: 18px;
+    padding: 14px 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.98);
+    transition: all 0.22s ease;
+    z-index: 1001;
+    cursor: default;
+}
+
+/* السهم الصغير */
+.premium-info-card::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 20px;
+    width: 12px;
+    height: 12px;
+    background: rgba(15, 23, 42, 0.96);
+    border-left: 1px solid rgba(120, 170, 255, 0.16);
+    border-top: 1px solid rgba(120, 170, 255, 0.16);
+    transform: rotate(45deg);
+    backdrop-filter: blur(10px);
+}
+
+/* أيقونة البطاقة */
+.premium-info-card .card-icon {
+    font-size: 1rem;
+    margin-left: 6px;
+    color: #60a5fa;
+}
+
+/* نص البطاقة */
+.premium-info-card .card-text {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.7;
+    color: #d7e1ee;
+}
+
+/* حالة الظهور */
+.why-premium-btn.active .premium-info-card {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
 }
 
 /* للهواتف */
@@ -2468,5 +2524,15 @@ body.dark-mode .premium-features li {
         padding: 0 10px;
         font-size: 11px;
         margin-left: 6px;
+    }
+    
+    .premium-info-card {
+        width: 290px;
+        right: -10px;
+        padding: 12px 14px;
+    }
+    
+    .premium-info-card .card-text {
+        font-size: 11px;
     }
 }
