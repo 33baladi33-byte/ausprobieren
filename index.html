@@ -441,6 +441,39 @@
         display: block !important;
     }
 }
+    /* تصغير نافذة الإشعارات في الهواتف */
+@media (max-width: 768px) {
+    .notification-dropdown {
+        width: 280px !important;
+        max-width: 85vw !important;
+        right: -20px !important;
+        left: auto !important;
+    }
+    
+    .notification-dropdown::before {
+        right: 30px !important;
+        left: auto !important;
+    }
+    
+    .notification-header {
+        font-size: 0.8rem !important;
+        padding: 10px 12px !important;
+    }
+    
+    .notification-list {
+        max-height: 300px !important;
+    }
+    
+    .notification-item {
+        padding: 10px 12px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .mark-all-read {
+        font-size: 0.65rem !important;
+        padding: 4px 8px !important;
+    }
+}
     /* ============================================
    Banner تحسين تجربة الهاتف - يظهر فقط في الهواتف
    ============================================ */
