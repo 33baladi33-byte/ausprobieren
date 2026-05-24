@@ -2517,6 +2517,11 @@ body.dark-mode .premium-features li {
     transform: translateY(0) scale(1);
 }
 
+/* إخفاء زر 💎 لماذا؟ في الصفحة الرئيسية فقط */
+.home .why-premium-btn {
+    display: none !important;
+}
+
 /* للهواتف */
 @media (max-width: 768px) {
     .why-premium-btn {
