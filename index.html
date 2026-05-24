@@ -514,7 +514,13 @@ body.dark-mode .mobile-banner span {
     </div>
     <div class="right-side">
     <!-- زر جديد: 💎 لماذا؟ -->
-    <button id="whyPremiumBtn" class="why-premium-btn">💎 لماذا؟</button>
+    <button id="whyPremiumBtn" class="why-premium-btn">
+    💎 لماذا؟
+    <div class="premium-info-card">
+        <span class="card-icon">💡</span>
+        <span class="card-text">هذا الموقع مصمم ليقدم أكبر قدر ممكن من الراحة والمساعدة للمستخدم، مع تجربة سهلة، سريعة، وبدون أي تعقيد.</span>
+    </div>
+</button>
     
     <!-- زر كفاش مع بطاقته الصغيرة -->
     <div class="tips-trigger-btn" id="tipsTriggerBtn">
@@ -1380,12 +1386,20 @@ if (showCardsBtn) {
 })();
 
 // ============================================
-// زر 💎 لماذا؟
+// زر 💎 لماذا؟ - بطاقة منبثقة أنيقة
 // ============================================
 const whyPremiumBtn = document.getElementById('whyPremiumBtn');
 if (whyPremiumBtn) {
-    whyPremiumBtn.addEventListener('click', function() {
-        alert("💎 منصة Zertiva B2 مصممة لتوفير:\n\n✅ راحة وسهولة في الاستخدام\n✅ تدريب ذكي بدون تعقيد\n✅ جميع التيمات في مكان واحد\n✅ أول 6 امتحانات مجانية\n\nهدفنا مساعدتك تجتاز B2 بثقة وسلاسة 🚀");
+    whyPremiumBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('active');
+    });
+    
+    // إغلاق البطاقة عند الضغط خارجها
+    document.addEventListener('click', function(e) {
+        if (!whyPremiumBtn.contains(e.target)) {
+            whyPremiumBtn.classList.remove('active');
+        }
     });
 }
 </script>
