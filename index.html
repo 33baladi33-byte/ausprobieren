@@ -512,46 +512,48 @@ body.dark-mode .mobile-banner span {
         <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
         <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
     </div>
-    
     <div class="right-side">
-        <!-- زر كفاش مع بطاقته الصغيرة -->
-        <div class="tips-trigger-btn" id="tipsTriggerBtn">
-            💡 كفاش؟
-            <div class="tips-mini-card" id="tipsMiniCard">
-                <div class="mini-title">
-                    💡 كفاش؟
-                </div>
-                <div class="mini-content">
-                    <p>• راجع الامتحانات اللي بغيتي، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
-                    <p>• و من بعد ما تسالي كلشي دكشي اللي قديتي تراجعو فداك النهار، سير بدل الجو شوية, دير اللي بغيتي المهم نسى وطلق عقلك يستراح (ما بين 1 ساعة و 3 ساعات)</p>
-                    <p>• من بعد عاود دخل للامتحانات اللي راجعتي و لعب فيهم لكل امتحان لعب وعاود مبين 3 ل5 المرات</p>
-                    <p>• غدا تاني نفس الحاجة و لاكن حاول تلعب فشي امتحانات درتيهم لبارح هدشي مهيخدش منك الوقت.</p>
-                    <p style="margin-top: 8px; color: #5dade2;">🫡 راك ناجح</p>
-                </div>
+    <!-- زر جديد: 💎 لماذا؟ -->
+    <button id="whyPremiumBtn" class="why-premium-btn">💎 لماذا؟</button>
+    
+    <!-- زر كفاش مع بطاقته الصغيرة -->
+    <div class="tips-trigger-btn" id="tipsTriggerBtn">
+        💡 كفاش؟
+        <div class="tips-mini-card" id="tipsMiniCard">
+            <div class="mini-title">
+                💡 كفاش؟
             </div>
-        </div>
-        
-        <div class="notification-container">
-            <button id="notificationBell" class="notification-bell">
-                🔔
-                <span id="notificationBadge" class="notification-badge" style="display: none;">0</span>
-            </button>
-            <div id="notificationDropdown" class="notification-dropdown">
-                <div class="notification-header">
-                    <span>📬 الإشعارات</span>
-                    <button id="markAllReadBtn" class="mark-all-read">تحديد الكل كمقروء</button>
-                </div>
-                <div id="notificationsList" class="notification-list">
-                    <div class="notification-empty">
-                        <span>📭 لا توجد إشعارات جديدة</span>
-                    </div>
-                </div>
+            <div class="mini-content">
+                <p>• راجع الامتحانات اللي بغيتي، وبعد كل ساعة ونصف سير كول شي حاجة كتعجبك 😋 ولا شرب شي كاس ديال اتاي ☕</p>
+                <p>• و من بعد ما تسالي كلشي دكشي اللي قديتي تراجعو فداك النهار، سير بدل الجو شوية, دير اللي بغيتي المهم نسى وطلق عقلك يستراح (ما بين 1 ساعة و 3 ساعات)</p>
+                <p>• من بعد عاود دخل للامتحانات اللي راجعتي و لعب فيهم لكل امتحان لعب وعاود مبين 3 ل5 المرات</p>
+                <p>• غدا تاني نفس الحاجة و لاكن حاول تلعب فشي امتحانات درتيهم لبارح هدشي مهيخدش منك الوقت.</p>
+                <p style="margin-top: 8px; color: #5dade2;">🫡 راك ناجح</p>
             </div>
-        </div>
-        <div class="logo-icon" id="logoHomeBtn">
-            <img src="images/logo.webp" loading="lazy" alt="Zertiva" class="logo-img">
         </div>
     </div>
+    
+    <div class="notification-container">
+        <button id="notificationBell" class="notification-bell">
+            🔔
+            <span id="notificationBadge" class="notification-badge" style="display: none;">0</span>
+        </button>
+        <div id="notificationDropdown" class="notification-dropdown">
+            <div class="notification-header">
+                <span>📬 الإشعارات</span>
+                <button id="markAllReadBtn" class="mark-all-read">تحديد الكل كمقروء</button>
+            </div>
+            <div id="notificationsList" class="notification-list">
+                <div class="notification-empty">
+                    <span>📭 لا توجد إشعارات جديدة</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="logo-icon" id="logoHomeBtn">
+        <img src="images/logo.webp" loading="lazy" alt="Zertiva" class="logo-img">
+    </div>
+</div>
 </div>
 
 <div id="settingsModal" class="settings-modal">
