@@ -123,15 +123,18 @@
         if (modal) modal.classList.remove('active');
     }
     
-    // تحديث العداد (دقائق فقط، بدون ثواني)
-    function updateTimerDisplay() {
-        const { timerMinutes, timerSeconds } = getElements();
-        if (!timerMinutes) return;
-        const mins = Math.floor(remainingSeconds / 60);
-        timerMinutes.textContent = mins.toString().padStart(2, '0');
-        // الثواني مخفية تماماً
-        if (timerSeconds) timerSeconds.style.display = 'none';
+    // تحديث العداد (دقائق وثواني)
+function updateTimerDisplay() {
+    const { timerMinutes, timerSeconds } = getElements();
+    if (!timerMinutes) return;
+    const mins = Math.floor(remainingSeconds / 60);
+    const secs = remainingSeconds % 60;
+    timerMinutes.textContent = mins.toString().padStart(2, '0');
+    if (timerSeconds) {
+        timerSeconds.textContent = secs.toString().padStart(2, '0');
+        timerSeconds.style.display = 'inline'; // إظهار الثواني
     }
+}
     
     // Bubble الـ 20%
     function showBubble() {
