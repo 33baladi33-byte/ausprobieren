@@ -1521,7 +1521,10 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 
 <!-- عداد ثابت أعلى اليمين -->
 <div id="sessionTimerBar" class="session-timer-bar" style="display: none;">
-    <div class="timer-display">⏳ <span id="timerMinutes">00</span>:<span id="timerSeconds">00</span></div>
+    <div class="timer-display">
+        <span class="timer-icon">⏳</span>
+        <span id="timerMinutes">00</span>:<span id="timerSeconds">00</span>
+    </div>
     <button id="cancelSessionBtn" class="cancel-session-btn" title="إنهاء الجلسة">✕</button>
 </div>
 
