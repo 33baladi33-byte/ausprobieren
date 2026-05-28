@@ -68,7 +68,6 @@
     function addTodayReviewedMinutes(minutes) {
         const newTotal = getTodayReviewedMinutes() + minutes;
         localStorage.setItem(getTodayKey(), newTotal);
-        // تم إخفاء updateTodayDisplay
         if (newTotal >= 120 && newTotal - minutes < 120) {
             showMessage("🔥 اليوم كنت مركز بزاف!");
         } else if (newTotal >= 60 && newTotal - minutes < 60) {
@@ -76,13 +75,14 @@
         }
     }
     
+    // دالة showMessage المعدلة - اللون رمادي مسود
     function showMessage(msg) {
         let bubble = document.getElementById('tempMsg');
         if (bubble) bubble.remove();
         bubble = document.createElement('div');
         bubble.id = 'tempMsg';
         bubble.textContent = msg;
-        bubble.style.cssText = `position:fixed;bottom:80px;right:20px;background:#4ade80;color:#1a1a2e;padding:5px 12px;border-radius:40px;font-size:0.7rem;z-index:13999;`;
+        bubble.style.cssText = `position:fixed;bottom:80px;right:20px;background:#2d2f36;color:#e0e0e0;padding:5px 12px;border-radius:40px;font-size:0.7rem;z-index:13999;opacity:0.9;`;
         document.body.appendChild(bubble);
         setTimeout(() => bubble.remove(), 3000);
     }
@@ -119,7 +119,7 @@
         const { modal } = getElements();
         if (!modal) return;
         if (activeSession) { 
-            showMessage("العداد شغال");
+            showMessage("⚡ المراجعة شغالة");
             return; 
         }
         modal.classList.add('active');
@@ -166,8 +166,6 @@
         closeModal();
         updateTimerDisplay();
         
-        // تم إخفاء showActiveMessage();
-        
         const { timerBar } = getElements();
         if (timerBar) {
             timerBar.style.display = 'flex';
@@ -197,8 +195,6 @@
         addTodayReviewedMinutes(minutesSpent);
         activeSession = false;
         
-        // تم إخفاء hideActiveMessage();
-        
         const { timerBar, endOverlay } = getElements();
         if (timerBar) timerBar.style.display = 'none';
         if (endOverlay) endOverlay.style.display = 'flex';
@@ -216,8 +212,6 @@
     function cancelSession() {
         if (sessionTimer) clearInterval(sessionTimer);
         activeSession = false;
-        
-        // تم إخفاء hideActiveMessage();
         
         const { timerBar } = getElements();
         if (timerBar) timerBar.style.display = 'none';
