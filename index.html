@@ -568,12 +568,13 @@ body.dark-mode .mobile-banner span {
 
 <div class="top-bar">
     <div class="left-side">
-    <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
-    <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
-    <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
-    <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
     <button id="studySessionBtn" class="study-session-btn" title="جلسة مراجعة">⏰</button>
+    <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
+    <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
+    <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
+    <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
 </div>
+
     
     <div class="right-side">
         <button id="whyPremiumBtn" class="why-premium-btn">
@@ -1502,6 +1503,13 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 .top-bar .left-side #navLoginBtn { order: 3 !important; }
 .top-bar .left-side #settingsBtn { order: 4 !important; }
 .top-bar .left-side #studySessionBtn { order: 5 !important; }
+    .top-bar .left-side {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+}
 </script>
 
 <!-- ========== عناصر جلسة المراجعة (يجب أن تكون قبل الـ Scripts التي تحتاجها) ========== -->
