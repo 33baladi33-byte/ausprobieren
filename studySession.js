@@ -1,5 +1,5 @@
 // ============================================
-// studySession.js - عداد صغير بدون أيقونات
+// studySession.js - نظام جلسات المراجعة (النسخة النهائية)
 // ============================================
 
 (function() {
@@ -9,7 +9,9 @@
     let sessionTimer = null;
     let remainingSeconds = 0;
     let totalSeconds = 0;
+    let activeMessage = null;
     
+    // ====== الحصول على العناصر ======
     function getElements() {
         return {
             modal: document.getElementById('studySessionModal'),
@@ -23,7 +25,23 @@
         };
     }
     
-    // صوت النهاية
+    // ====== إظهار رسالة "المراجعة شغالة" ======
+    function showActiveMessage() {
+        if (activeMessage) activeMessage.remove();
+        activeMessage = document.createElement('div');
+        activeMessage.className = 'session-active-message';
+        activeMessage.textContent = '⚡ المراجعة شغالة';
+        document.body.appendChild(activeMessage);
+    }
+    
+    function hideActiveMessage() {
+        if (activeMessage) {
+            activeMessage.remove();
+            activeMessage = null;
+        }
+    }
+    
+    // ====== تشغيل صوت نهاية الجلسة ======
     let audioContext = null;
     function playEndSound() {
         try {
@@ -46,7 +64,7 @@
         } catch(e) {}
     }
     
-    // وقت المراجعة اليومي
+    // ====== إدارة وقت المراجعة اليومي ======
     function getTodayKey() {
         return `session_total_${new Date().toISOString().split('T')[0]}`;
     }
@@ -87,13 +105,13 @@
         if (!display && btn) {
             display = document.createElement('div');
             display.id = 'todayReviewedDisplay';
-            display.style.cssText = `font-size:0.6rem;color:#a0a0b0;margin-left:8px;background:rgba(100,150,200,0.1);padding:2px 8px;border-radius:30px;`;
+            display.style.cssText = `font-size:0.55rem;color:#8a8a9e;margin-left:6px;background:transparent;padding:2px 6px;border-radius:30px;white-space:nowrap;`;
             btn.insertAdjacentElement('afterend', display);
         }
-        if (display) display.innerHTML = `🇩🇪 راجعت اليوم: ${text}`;
+        if (display) display.innerHTML = `📖 ${text}`;
     }
     
-    // إظهار/إخفاء الزر
+    // ====== إظهار/إخفاء الزر حسب الصفحة ======
     function toggleSessionButton() {
         const { btn, timerBar } = getElements();
         if (!btn) return;
@@ -104,6 +122,7 @@
         if (home && home.classList.contains('active')) {
             btn.style.display = 'none';
             if (timerBar) timerBar.style.display = 'none';
+            hideActiveMessage();
         } else if ((list && list.classList.contains('active')) || (exam && exam.classList.contains('active'))) {
             btn.style.display = 'flex';
         } else {
@@ -111,10 +130,14 @@
         }
     }
     
+    // ====== فتح/إغلاق النافذة ======
     function openModal() {
         const { modal } = getElements();
         if (!modal) return;
-        if (activeSession) { showMessage("⚠️ جلسة نشطة حالياً"); return; }
+        if (activeSession) { 
+            showMessage("⚠️ المراجعة شغالة حالياً");
+            return; 
+        }
         modal.classList.add('active');
     }
     
@@ -123,20 +146,20 @@
         if (modal) modal.classList.remove('active');
     }
     
-    // تحديث العداد (دقائق وثواني)
-function updateTimerDisplay() {
-    const { timerMinutes, timerSeconds } = getElements();
-    if (!timerMinutes) return;
-    const mins = Math.floor(remainingSeconds / 60);
-    const secs = remainingSeconds % 60;
-    timerMinutes.textContent = mins.toString().padStart(2, '0');
-    if (timerSeconds) {
-        timerSeconds.textContent = secs.toString().padStart(2, '0');
-        timerSeconds.style.display = 'inline'; // إظهار الثواني
+    // ====== تحديث العداد (دقائق وثواني) ======
+    function updateTimerDisplay() {
+        const { timerMinutes, timerSeconds } = getElements();
+        if (!timerMinutes) return;
+        const mins = Math.floor(remainingSeconds / 60);
+        const secs = remainingSeconds % 60;
+        timerMinutes.textContent = mins.toString().padStart(2, '0');
+        if (timerSeconds) {
+            timerSeconds.textContent = secs.toString().padStart(2, '0');
+            timerSeconds.style.display = 'inline';
+        }
     }
-}
     
-    // Bubble الـ 20%
+    // ====== Bubble الـ 20% ======
     function showBubble() {
         let bubble = document.getElementById('timeBubble');
         if (bubble) bubble.remove();
@@ -149,7 +172,7 @@ function updateTimerDisplay() {
         setTimeout(() => bubble.remove(), 3500);
     }
     
-    // بدء الجلسة - العداد يظهر فوراً
+    // ====== بدء الجلسة ======
     function startSession(minutes) {
         if (activeSession) return;
         
@@ -158,6 +181,9 @@ function updateTimerDisplay() {
         activeSession = true;
         closeModal();
         updateTimerDisplay();
+        
+        // إظهار رسالة "المراجعة شغالة"
+        showActiveMessage();
         
         const { timerBar } = getElements();
         if (timerBar) {
@@ -180,81 +206,110 @@ function updateTimerDisplay() {
         }, 1000);
     }
     
+    // ====== إنهاء الجلسة ======
     function endSession() {
         if (sessionTimer) clearInterval(sessionTimer);
         playEndSound();
         const minutesSpent = Math.floor(totalSeconds / 60);
         addTodayReviewedMinutes(minutesSpent);
         activeSession = false;
+        
+        // إخفاء رسالة "المراجعة شغالة"
+        hideActiveMessage();
+        
         const { timerBar, endOverlay } = getElements();
         if (timerBar) timerBar.style.display = 'none';
         if (endOverlay) endOverlay.style.display = 'flex';
+        
         window._bubbleShown = false;
         const bubble = document.getElementById('timeBubble');
         if (bubble) bubble.remove();
-        setTimeout(() => { if (endOverlay) endOverlay.style.display = 'none'; }, 5000);
+        
+        setTimeout(() => { 
+            if (endOverlay) endOverlay.style.display = 'none'; 
+        }, 5000);
     }
     
+    // ====== إلغاء الجلسة ======
     function cancelSession() {
         if (sessionTimer) clearInterval(sessionTimer);
         activeSession = false;
+        
+        // إخفاء رسالة "المراجعة شغالة"
+        hideActiveMessage();
+        
         const { timerBar } = getElements();
         if (timerBar) timerBar.style.display = 'none';
+        
         window._bubbleShown = false;
         const bubble = document.getElementById('timeBubble');
         if (bubble) bubble.remove();
     }
     
+    // ====== ربط الأحداث ======
     function bindEvents() {
         const { btn, cancelBtn, closeEndBtn, modal } = getElements();
+        
         if (btn) {
             btn.removeEventListener('click', openModal);
             btn.addEventListener('click', openModal);
         }
+        
         const closeBtn = document.querySelector('.close-session-modal');
         if (closeBtn) {
             closeBtn.removeEventListener('click', closeModal);
             closeBtn.addEventListener('click', closeModal);
         }
+        
         if (cancelBtn) {
             cancelBtn.removeEventListener('click', cancelSession);
             cancelBtn.addEventListener('click', cancelSession);
         }
+        
         if (closeEndBtn) {
+            closeEndBtn.removeEventListener('click', () => {});
             closeEndBtn.addEventListener('click', () => {
                 const { endOverlay } = getElements();
                 if (endOverlay) endOverlay.style.display = 'none';
             });
         }
+        
         document.querySelectorAll('.time-option').forEach(opt => {
+            opt.removeEventListener('click', () => {});
             opt.addEventListener('click', () => {
                 startSession(parseInt(opt.dataset.minutes));
             });
         });
+        
         if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) closeModal();
+            modal.removeEventListener('click', (e) => {});
+            modal.addEventListener('click', (e) => { 
+                if (e.target === modal) closeModal(); 
             });
         }
     }
     
+    // ====== مراقبة تغيير الصفحات ======
     function setupObserver() {
         const home = document.getElementById('home');
         const list = document.getElementById('list');
         const exam = document.getElementById('exam');
+        
         const observer = new MutationObserver(() => toggleSessionButton());
         if (home) observer.observe(home, { attributes: true, attributeFilter: ['class'] });
         if (list) observer.observe(list, { attributes: true, attributeFilter: ['class'] });
         if (exam) observer.observe(exam, { attributes: true, attributeFilter: ['class'] });
+        
         toggleSessionButton();
     }
     
+    // ====== التهيئة ======
     function init() {
         setTimeout(() => {
             bindEvents();
             setupObserver();
             updateTodayDisplay();
-            console.log("✅ studySession.js جاهز - عداد صغير بدون أيقونات");
+            console.log("✅ studySession.js جاهز - النسخة النهائية");
         }, 200);
     }
     
