@@ -1490,10 +1490,9 @@ const examPage2 = document.getElementById('exam');
 if (homePage2) observerPremium.observe(homePage2, { attributes: true, attributeFilter: ['class'] });
 if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeFilter: ['class'] });
 if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeFilter: ['class'] });
+<!-- ========== أولاً: عناصر جلسة المراجعة (يجب أن تكون قبل الـ Scripts) ========== -->
 </script>
-    <script src="studySession.js"></script>
-    <script src="reviews-simple.js"></script>
-    <!-- نافذة جلسة المراجعة -->
+<!-- نافذة جلسة المراجعة -->
 <div id="studySessionModal" class="session-modal">
     <div class="session-modal-content">
         <div class="session-modal-header">
@@ -1533,5 +1532,16 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         <button id="closeEndOverlayBtn" class="end-overlay-btn">حسناً</button>
     </div>
 </div>
+
+<!-- ========== ثم الـ Scripts ========== -->
+<script src="helpSystem.js"></script>
+<script src="engine.js"></script>
+<script src="exams.js"></script>
+<script src="auth.js"></script>
+<script src="notifications.js"></script>
+<script src="rapidGame.js"></script>
+<script src="studySession.js"></script>
+<script src="reviews-simple.js"></script>
+
 </body>
 </html>
