@@ -1,5 +1,5 @@
 // ============================================
-// studySession.js - نظام جلسات المراجعة
+// studySession.js - نظام جلسات المراجعة (نسخة مصححة)
 // ============================================
 
 (function() {
@@ -10,22 +10,28 @@
     let sessionTimer = null;
     let remainingSeconds = 0;
     let totalSeconds = 0;
-    let bubbleTimeout = null;
     
-    // عناصر DOM
-    const sessionModal = document.getElementById('studySessionModal');
-    const sessionBtn = document.getElementById('studySessionBtn');
-    const closeModalBtn = document.querySelector('.close-session-modal');
-    const timeOptions = document.querySelectorAll('.time-option');
-    const timerBar = document.getElementById('sessionTimerBar');
-    const timerMinutesSpan = document.getElementById('timerMinutes');
-    const timerSecondsSpan = document.getElementById('timerSeconds');
-    const cancelBtn = document.getElementById('cancelSessionBtn');
-    const endOverlay = document.getElementById('sessionEndOverlay');
-    const closeEndBtn = document.getElementById('closeEndOverlayBtn');
+    // عناصر DOM - مع التحقق من وجودها
+    let sessionModal = document.getElementById('studySessionModal');
+    let sessionBtn = document.getElementById('studySessionBtn');
+    let timerBar = document.getElementById('sessionTimerBar');
+    let timerMinutesSpan = document.getElementById('timerMinutes');
+    let timerSecondsSpan = document.getElementById('timerSeconds');
+    let cancelBtn = document.getElementById('cancelSessionBtn');
+    let endOverlay = document.getElementById('sessionEndOverlay');
+    let closeEndBtn = document.getElementById('closeEndOverlayBtn');
     
-    // عناصر اليوم
-    const todayReviewedSpan = document.getElementById('todayReviewedSpan');
+    // ==== دالة للبحث عن العناصر مرة أخرى (لأنها قد تضاف بعد التحميل) ====
+    function refreshElements() {
+        sessionModal = document.getElementById('studySessionModal');
+        sessionBtn = document.getElementById('studySessionBtn');
+        timerBar = document.getElementById('sessionTimerBar');
+        timerMinutesSpan = document.getElementById('timerMinutes');
+        timerSecondsSpan = document.getElementById('timerSeconds');
+        cancelBtn = document.getElementById('cancelSessionBtn');
+        endOverlay = document.getElementById('sessionEndOverlay');
+        closeEndBtn = document.getElementById('closeEndOverlayBtn');
+    }
     
     // ==== تخزين وقت المراجعة اليومي ====
     function getTodayKey() {
@@ -45,7 +51,6 @@
         localStorage.setItem(getTodayKey(), newTotal);
         updateTodayDisplay();
         
-        // رسالة تشجيعية إذا تجاوز ساعة أو ساعتين
         if (newTotal >= 120 && newTotal - minutes < 120) {
             showEncouragementMessage("🔥 اليوم كنت مركز بزاف!");
         } else if (newTotal >= 60 && newTotal - minutes < 60) {
@@ -65,33 +70,23 @@
             displayText = `${mins}m`;
         }
         
-        // تحديث العرض إذا كان موجوداً
         let displayDiv = document.getElementById('todayReviewedDisplay');
-        if (!displayDiv) {
-            // إضافة العرض أسفل زر الجلسة
-            const leftSide = document.querySelector('.left-side');
-            if (leftSide && sessionBtn) {
-                const existing = document.getElementById('todayReviewedDisplay');
-                if (existing) existing.remove();
-                
-                displayDiv = document.createElement('div');
-                displayDiv.id = 'todayReviewedDisplay';
-                displayDiv.className = 'today-reviewed-display';
-                displayDiv.innerHTML = `🇩🇪 راجعت اليوم: ${displayText}`;
-                sessionBtn.insertAdjacentElement('afterend', displayDiv);
-                
-                // تنسيقه
-                displayDiv.style.cssText = `
-                    font-size: 0.7rem;
-                    color: #a0a0b0;
-                    margin-left: 8px;
-                    background: rgba(100,150,200,0.1);
-                    padding: 4px 10px;
-                    border-radius: 30px;
-                    white-space: nowrap;
-                `;
-            }
-        } else {
+        if (!displayDiv && sessionBtn) {
+            displayDiv = document.createElement('div');
+            displayDiv.id = 'todayReviewedDisplay';
+            displayDiv.className = 'today-reviewed-display';
+            displayDiv.innerHTML = `🇩🇪 راجعت اليوم: ${displayText}`;
+            displayDiv.style.cssText = `
+                font-size: 0.7rem;
+                color: #a0a0b0;
+                margin-left: 8px;
+                background: rgba(100,150,200,0.1);
+                padding: 4px 10px;
+                border-radius: 30px;
+                white-space: nowrap;
+            `;
+            sessionBtn.insertAdjacentElement('afterend', displayDiv);
+        } else if (displayDiv) {
             displayDiv.innerHTML = `🇩🇪 راجعت اليوم: ${displayText}`;
         }
     }
@@ -118,40 +113,54 @@
             animation: bubblePulse 0.4s ease;
         `;
         document.body.appendChild(bubble);
-        
-        setTimeout(() => {
-            if (bubble) bubble.remove();
-        }, 3000);
+        setTimeout(() => bubble.remove(), 3000);
     }
     
-    // ==== عرض/إخفاء الزر حسب الصفحة ====
+    // ==== عرض/إخفاء الزر حسب الصفحة (المشكلة الأساسية) ====
     function toggleSessionButton() {
+        refreshElements();
         if (!sessionBtn) return;
+        
         const homePage = document.getElementById('home');
         const listPage = document.getElementById('list');
         const examPage = document.getElementById('exam');
         
-        if (homePage && homePage.classList.contains('active')) {
+        // التحقق من وجود الصفحات و active
+        if (homePage && homePage.classList && homePage.classList.contains('active')) {
             sessionBtn.style.display = 'none';
             if (timerBar) timerBar.style.display = 'none';
-        } else if ((listPage && listPage.classList.contains('active')) || (examPage && examPage.classList.contains('active'))) {
+        } 
+        else if ((listPage && listPage.classList && listPage.classList.contains('active')) || 
+                 (examPage && examPage.classList && examPage.classList.contains('active'))) {
             sessionBtn.style.display = 'flex';
-        } else {
+        } 
+        else {
             sessionBtn.style.display = 'none';
         }
     }
     
-    // ==== فتح/إغلاق النافذة ====
+    // ==== فتح/إغلاق النافذة (المشكلة الثانية) ====
     function openModal() {
+        refreshElements(); // تأكد من وجود العنصر
+        
+        if (!sessionModal) {
+            console.error("❌ sessionModal غير موجود في DOM");
+            return;
+        }
+        
         if (activeSession) {
             alert("يوجد جلسة نشطة حالياً. أنهِها أولاً.");
             return;
         }
+        
         sessionModal.classList.add('active');
     }
     
     function closeModal() {
-        sessionModal.classList.remove('active');
+        refreshElements();
+        if (sessionModal) {
+            sessionModal.classList.remove('active');
+        }
     }
     
     // ==== بدء الجلسة ====
@@ -164,7 +173,7 @@
         
         closeModal();
         updateTimerDisplay();
-        timerBar.style.display = 'flex';
+        if (timerBar) timerBar.style.display = 'flex';
         
         sessionTimer = setInterval(() => {
             if (remainingSeconds <= 0) {
@@ -173,7 +182,6 @@
                 remainingSeconds--;
                 updateTimerDisplay();
                 
-                // إظهار Bubble عند 20% المتبقية
                 const percentLeft = (remainingSeconds / totalSeconds) * 100;
                 if (percentLeft <= 20 && percentLeft > 19.5 && !window._bubbleShown) {
                     showTimeRemainingBubble();
@@ -184,10 +192,11 @@
     }
     
     function updateTimerDisplay() {
+        if (!timerMinutesSpan || !timerSecondsSpan) return;
         const mins = Math.floor(remainingSeconds / 60);
         const secs = remainingSeconds % 60;
-        if (timerMinutesSpan) timerMinutesSpan.textContent = mins.toString().padStart(2, '0');
-        if (timerSecondsSpan) timerSecondsSpan.textContent = secs.toString().padStart(2, '0');
+        timerMinutesSpan.textContent = mins.toString().padStart(2, '0');
+        timerSecondsSpan.textContent = secs.toString().padStart(2, '0');
     }
     
     function showTimeRemainingBubble() {
@@ -208,9 +217,7 @@
         bubble.textContent = randomMsg;
         document.body.appendChild(bubble);
         
-        setTimeout(() => {
-            if (bubble) bubble.remove();
-        }, 4000);
+        setTimeout(() => bubble.remove(), 4000);
     }
     
     function endSession() {
@@ -223,28 +230,17 @@
         addTodayReviewedMinutes(minutesSpent);
         
         activeSession = false;
-        timerBar.style.display = 'none';
+        if (timerBar) timerBar.style.display = 'none';
         window._bubbleShown = false;
         
-        // إزالة أي bubble متبقية
         const existingBubble = document.getElementById('timeRemainingBubble');
         if (existingBubble) existingBubble.remove();
         
-        // تشغيل صوت خفيف (اختياري)
-        try {
-            const audio = new Audio('data:audio/wav;base64,U3RlYWx0aCBzb3VuZCBub3QgYXZhaWxhYmxl');
-            audio.volume = 0.3;
-            audio.play().catch(() => {});
-        } catch(e) {}
-        
         // عرض نافذة النهاية
-        endOverlay.style.display = 'flex';
+        if (endOverlay) endOverlay.style.display = 'flex';
         
-        // إخفاؤها بعد 5 ثوانٍ أو بالضغط على الزر
         setTimeout(() => {
-            if (endOverlay.style.display === 'flex') {
-                endOverlay.style.display = 'none';
-            }
+            if (endOverlay) endOverlay.style.display = 'none';
         }, 5000);
     }
     
@@ -254,49 +250,86 @@
             sessionTimer = null;
         }
         activeSession = false;
-        timerBar.style.display = 'none';
+        if (timerBar) timerBar.style.display = 'none';
         window._bubbleShown = false;
         
         const existingBubble = document.getElementById('timeRemainingBubble');
         if (existingBubble) existingBubble.remove();
     }
     
-    // ==== ربط الأحداث ====
-    if (sessionBtn) sessionBtn.addEventListener('click', openModal);
-    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
-    if (cancelBtn) cancelBtn.addEventListener('click', cancelSession);
-    if (closeEndBtn) closeEndBtn.addEventListener('click', () => {
-        endOverlay.style.display = 'none';
-    });
-    
-    timeOptions.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const minutes = parseInt(btn.dataset.minutes);
-            startSession(minutes);
+    // ==== ربط الأحداث مع تأخير صغير لضمان وجود العناصر ====
+    function bindEvents() {
+        refreshElements();
+        
+        if (sessionBtn) {
+            sessionBtn.removeEventListener('click', openModal);
+            sessionBtn.addEventListener('click', openModal);
+        }
+        
+        const closeModalBtn = document.querySelector('.close-session-modal');
+        if (closeModalBtn) {
+            closeModalBtn.removeEventListener('click', closeModal);
+            closeModalBtn.addEventListener('click', closeModal);
+        }
+        
+        if (cancelBtn) {
+            cancelBtn.removeEventListener('click', cancelSession);
+            cancelBtn.addEventListener('click', cancelSession);
+        }
+        
+        if (closeEndBtn) {
+            closeEndBtn.removeEventListener('click', () => {});
+            closeEndBtn.addEventListener('click', () => {
+                if (endOverlay) endOverlay.style.display = 'none';
+            });
+        }
+        
+        // أزرار الوقت
+        const timeOptions = document.querySelectorAll('.time-option');
+        timeOptions.forEach(btn => {
+            btn.removeEventListener('click', () => {});
+            btn.addEventListener('click', () => {
+                const minutes = parseInt(btn.dataset.minutes);
+                startSession(minutes);
+            });
         });
-    });
-    
-    // إغلاق النافذة بالضغط خارجها
-    if (sessionModal) {
-        sessionModal.addEventListener('click', (e) => {
-            if (e.target === sessionModal) closeModal();
-        });
+        
+        // إغلاق النافذة بالضغط خارجها
+        if (sessionModal) {
+            sessionModal.removeEventListener('click', (e) => {});
+            sessionModal.addEventListener('click', (e) => {
+                if (e.target === sessionModal) closeModal();
+            });
+        }
     }
     
-    // مراقبة تغيير الصفحات
-    const homePage = document.getElementById('home');
-    const listPage = document.getElementById('list');
-    const examPage = document.getElementById('exam');
+    // ==== مراقبة تغيير الصفحات ====
+    function setupPageObserver() {
+        const homePage = document.getElementById('home');
+        const listPage = document.getElementById('list');
+        const examPage = document.getElementById('exam');
+        
+        const observer = new MutationObserver(() => {
+            toggleSessionButton();
+        });
+        
+        if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
+        if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
+        if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
+        
+        toggleSessionButton();
+    }
     
-    const observer = new MutationObserver(toggleSessionButton);
-    if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
-    if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
-    if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
+    // ==== التهيئة ====
+    function init() {
+        setTimeout(() => {
+            refreshElements();
+            bindEvents();
+            setupPageObserver();
+            updateTodayDisplay();
+            console.log("✅ studySession.js جاهز ومصَحَّح");
+        }, 500);
+    }
     
-    // تهيئة العرض
-    toggleSessionButton();
-    updateTodayDisplay();
-    
-    // تصفير اليوم عند منتصف الليل (عند إعادة تحميل الصفحة فقط - كافٍ)
-    console.log("✅ studySession.js جاهز");
+    init();
 })();
