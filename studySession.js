@@ -119,7 +119,7 @@
         const { modal } = getElements();
         if (!modal) return;
         if (activeSession) { 
-            showMessage("⚠️ المراجعة شغالة حالياً");
+            showMessage("العداد شغال");
             return; 
         }
         modal.classList.add('active');
