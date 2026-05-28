@@ -1,5 +1,5 @@
 /* ============================================
-   studySession.css - جلسة المراجعة
+   studySession.css - جلسة مراجعة (نسخة بسيطة)
    ============================================ */
 
 /* زر جلسة المراجعة */
@@ -22,12 +22,10 @@
 
 .study-session-btn:hover {
     background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
-    border-color: rgba(100, 150, 200, 0.6);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* نافذة الجلسة */
+/* نافذة اختيار المدة */
 .session-modal {
     display: none;
     position: fixed;
@@ -49,22 +47,10 @@
 .session-modal-content {
     background: #ffffff;
     border-radius: 28px;
-    max-width: 450px;
+    max-width: 400px;
     width: 90%;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     overflow: hidden;
-    animation: modalPop 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-}
-
-@keyframes modalPop {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
 }
 
 .session-modal-header {
@@ -78,8 +64,7 @@
 
 .session-modal-header h3 {
     margin: 0;
-    font-size: 1.3rem;
-    font-weight: 600;
+    font-size: 1.2rem;
 }
 
 .close-session-modal {
@@ -89,11 +74,6 @@
     cursor: pointer;
     color: white;
     opacity: 0.7;
-    transition: opacity 0.2s;
-}
-
-.close-session-modal:hover {
-    opacity: 1;
 }
 
 .session-modal-body {
@@ -102,7 +82,7 @@
 
 .session-question {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
     color: #1e293b;
     margin-bottom: 24px;
@@ -117,14 +97,14 @@
 
 .time-option {
     background: #f1f5f9;
-    border: 1px solid #e2e8f0;
+    border: none;
     border-radius: 60px;
     padding: 12px 8px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 500;
     color: #1e293b;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s;
     text-align: center;
 }
 
@@ -133,127 +113,107 @@
     transform: translateY(-2px);
 }
 
-.time-option:active {
-    transform: translateY(0);
-}
-
-/* تنسيق نص التحفيز الجديد */
+/* نص التحفيز */
 .session-motivation {
     background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-    border-radius: 24px;
-    padding: 20px;
+    border-radius: 20px;
+    padding: 16px;
     text-align: center;
-    border: 1px solid rgba(100, 150, 200, 0.2);
-    margin-top: 20px;
 }
 
-.session-motivation .motivation-icon {
-    font-size: 2rem;
-    margin-bottom: 8px;
+.motivation-icon {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
 }
 
-.session-motivation .motivation-text {
-    font-size: 1rem;
+.motivation-text {
+    font-size: 0.9rem;
     color: #1e293b;
-    line-height: 1.6;
-    font-weight: 500;
+    line-height: 1.5;
 }
 
-.session-motivation .motivation-small {
-    font-size: 0.8rem;
+.motivation-small {
+    font-size: 0.75rem;
     color: #5dade2;
-    font-weight: normal;
     display: block;
-    margin-top: 6px;
+    margin-top: 5px;
 }
 
-.session-motivation .motivation-coffee {
-    font-size: 1.4rem;
-    margin-top: 10px;
+.motivation-coffee {
+    font-size: 1.2rem;
+    margin-top: 8px;
 }
 
-/* العداد العلوي - نسخة صغيرة جداً واحترافية */
+/* ====== العداد الصغير جداً ====== */
 .session-timer-bar {
     position: fixed;
     top: 70px;
     right: 20px;
-    background: rgba(51, 66, 91, 0.92);
-    backdrop-filter: blur(8px);
-    border-radius: 999px;
-    padding: 4px 12px 4px 10px;
+    background: rgba(51, 66, 91, 0.94);
+    backdrop-filter: blur(6px);
+    border-radius: 40px;
+    padding: 5px 12px 5px 16px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
     z-index: 14000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .timer-display {
-    font-family: monospace;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 1px;
-    color: #f5f7fa;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.timer-display span {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     color: #f5f7fa;
 }
 
-/* أيقونة الساعة */
-.timer-icon {
-    font-size: 0.7rem;
-    color: #f6c768;
-}
-
+/* زر الإلغاء - شبه مخفي */
 .cancel-session-btn {
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;
     border: none;
-    border-radius: 40px;
+    border-radius: 30px;
     width: 22px;
     height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
     transition: all 0.2s;
+    opacity: 0.6;
 }
 
 .cancel-session-btn:hover {
-    background: rgba(255, 100, 100, 0.7);
-    color: white;
+    opacity: 1;
+    color: rgba(255, 150, 150, 0.9);
 }
 
-/* Bubble صغيرة تحت العداد */
+/* Bubble صغيرة */
 .session-timer-bubble {
     position: fixed;
     top: 115px;
     right: 20px;
     background: #f59e0b;
     color: #1a1a2e;
-    padding: 5px 12px;
+    padding: 4px 12px;
     border-radius: 40px;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 500;
     z-index: 13999;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    animation: bubblePulse 0.5s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    animation: bubblePulse 0.4s ease;
     white-space: nowrap;
 }
 
 @keyframes bubblePulse {
     0% { transform: scale(0.8); opacity: 0; }
-    80% { transform: scale(1.05); }
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* نافذة نهاية الجلسة */
+/* نافذة النهاية */
 .session-end-overlay {
     position: fixed;
     top: 0;
@@ -266,12 +226,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
 }
 
 .session-end-card {
@@ -279,44 +233,31 @@
     border-radius: 48px;
     padding: 32px 28px;
     text-align: center;
-    max-width: 300px;
+    max-width: 280px;
     width: 85%;
-    animation: scaleIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
-}
-
-@keyframes scaleIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
 }
 
 .session-end-icon {
-    font-size: 3.5rem;
-    margin-bottom: 12px;
+    font-size: 3rem;
+    margin-bottom: 10px;
 }
 
 .session-end-title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #1e293b;
-    margin-bottom: 6px;
 }
 
 .session-end-sub {
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: #2c3e66;
-    margin-bottom: 12px;
+    margin: 8px 0;
 }
 
 .session-end-message {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #475569;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .end-overlay-btn {
@@ -325,14 +266,8 @@
     border-radius: 60px;
     padding: 10px 24px;
     color: white;
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 0.9rem;
     cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.end-overlay-btn:hover {
-    transform: scale(1.02);
 }
 
 /* الوضع الليلي */
@@ -346,7 +281,6 @@ body.dark-mode .session-question {
 
 body.dark-mode .time-option {
     background: #1a1a2e;
-    border-color: #2a2a3a;
     color: #c0c0c0;
 }
 
@@ -358,12 +292,12 @@ body.dark-mode .session-motivation {
     background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
 }
 
-body.dark-mode .session-motivation .motivation-text {
+body.dark-mode .motivation-text {
     color: #e0e0e0;
 }
 
 body.dark-mode .session-timer-bar {
-    background: rgba(26, 26, 46, 0.92);
+    background: rgba(26, 26, 46, 0.94);
 }
 
 body.dark-mode .session-end-card {
@@ -378,36 +312,30 @@ body.dark-mode .session-end-sub {
     color: #5dade2;
 }
 
-body.dark-mode .session-end-message {
-    color: #a0a0a0;
-}
-
 /* للهواتف */
 @media (max-width: 768px) {
-    .session-times-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-    
-    .time-option {
-        padding: 10px 6px;
-        font-size: 0.85rem;
-    }
-    
     .session-timer-bar {
         top: 10px;
         right: 10px;
-        padding: 3px 10px 3px 8px;
+        padding: 3px 10px 3px 14px;
     }
     
     .timer-display {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
     }
     
     .session-timer-bubble {
-        top: 52px;
+        top: 55px;
         right: 10px;
         font-size: 0.6rem;
-        white-space: nowrap;
+    }
+    
+    .session-times-grid {
+        gap: 8px;
+    }
+    
+    .time-option {
+        padding: 8px 6px;
+        font-size: 0.85rem;
     }
 }
