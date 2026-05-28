@@ -1460,7 +1460,6 @@ if (whyPremiumBtn) {
         }
     });
 }
-
 // ============================================
 // إخفاء زر 💎 لماذا؟ في الصفحة الرئيسية فقط
 // ============================================
@@ -1476,9 +1475,8 @@ function toggleWhyPremiumBtn() {
     }
 }
 
-// استدعاء الدالة عند تحميل الصفحة
 toggleWhyPremiumBtn();
-// مراقبة تغيير الصفحة (لزر 💎)
+
 const observerPremium = new MutationObserver(function() {
     toggleWhyPremiumBtn();
 });
@@ -1490,8 +1488,10 @@ const examPage2 = document.getElementById('exam');
 if (homePage2) observerPremium.observe(homePage2, { attributes: true, attributeFilter: ['class'] });
 if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeFilter: ['class'] });
 if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeFilter: ['class'] });
-<!-- ========== أولاً: عناصر جلسة المراجعة (يجب أن تكون قبل الـ Scripts) ========== -->
 </script>
+
+<!-- ========== عناصر جلسة المراجعة (يجب أن تكون قبل الـ Scripts التي تحتاجها) ========== -->
+
 <!-- نافذة جلسة المراجعة -->
 <div id="studySessionModal" class="session-modal">
     <div class="session-modal-content">
@@ -1509,20 +1509,23 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
                 <button class="time-option" data-minutes="105">105 دقيقة</button>
                 <button class="time-option" data-minutes="120">120 دقيقة</button>
             </div>
-           <div class="session-motivation" id="sessionMotivation">
-    <div class="motivation-icon">✨</div>
-    <div class="motivation-text">
-        ممتاز<br>
-        …راجع غير واحد الشوية وسير رتاح مع راسك 😅<br>
-        <span class="motivation-small">من بعد امكن ليك تشرب شي كاس ديال اتاي بالنعناع 🤣🤣🤣</span>
+            <div class="session-motivation" id="sessionMotivation">
+                <div class="motivation-icon">✨</div>
+                <div class="motivation-text">
+                    ممتاز<br>
+                    …راجع غير واحد الشوية وسير رتاح مع راسك 😅<br>
+                    <span class="motivation-small">من بعد امكن ليك تشرب شي كاس ديال اتاي بالنعناع 🤣🤣🤣</span>
+                </div>
+                <div class="motivation-coffee">☕🇩🇪</div>
+            </div>
+        </div>
     </div>
-    <div class="motivation-coffee">☕🇩🇪</div>
 </div>
 
 <!-- عداد صغير جداً أعلى اليمين -->
 <div id="sessionTimerBar" class="session-timer-bar" style="display: none;">
     <div class="timer-display">
-        <span id="timerMinutes">00</span><!-- لا تظهر الثواني -->
+        <span id="timerMinutes">00</span>
         <span id="timerSeconds" style="display: none;">00</span>
     </div>
     <button id="cancelSessionBtn" class="cancel-session-btn" title="إنهاء">✕</button>
@@ -1539,7 +1542,7 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
     </div>
 </div>
 
-<!-- ========== ثم الـ Scripts ========== -->
+<!-- ========== الـ Scripts ========== -->
 <script src="helpSystem.js"></script>
 <script src="engine.js"></script>
 <script src="exams.js"></script>
