@@ -9,7 +9,6 @@
     let sessionTimer = null;
     let remainingSeconds = 0;
     let totalSeconds = 0;
-    let activeMessage = null;
     
     // ====== الحصول على العناصر ======
     function getElements() {
@@ -25,20 +24,13 @@
         };
     }
     
-    // ====== إظهار رسالة "المراجعة شغالة" ======
+    // ====== إخفاء رسالة "المراجعة شغالة" تماماً ======
     function showActiveMessage() {
-        if (activeMessage) activeMessage.remove();
-        activeMessage = document.createElement('div');
-        activeMessage.className = 'session-active-message';
-        activeMessage.textContent = '⚡ المراجعة شغالة';
-        document.body.appendChild(activeMessage);
+        // لا تفعل شيء - العبارة مخفية
     }
     
     function hideActiveMessage() {
-        if (activeMessage) {
-            activeMessage.remove();
-            activeMessage = null;
-        }
+        // لا تفعل شيء
     }
     
     // ====== تشغيل صوت نهاية الجلسة ======
@@ -64,7 +56,7 @@
         } catch(e) {}
     }
     
-    // ====== إدارة وقت المراجعة اليومي ======
+    // ====== إدارة وقت المراجعة اليومي (مخفي تماماً) ======
     function getTodayKey() {
         return `session_total_${new Date().toISOString().split('T')[0]}`;
     }
@@ -76,7 +68,7 @@
     function addTodayReviewedMinutes(minutes) {
         const newTotal = getTodayReviewedMinutes() + minutes;
         localStorage.setItem(getTodayKey(), newTotal);
-        updateTodayDisplay();
+        // تم إخفاء updateTodayDisplay
         if (newTotal >= 120 && newTotal - minutes < 120) {
             showMessage("🔥 اليوم كنت مركز بزاف!");
         } else if (newTotal >= 60 && newTotal - minutes < 60) {
@@ -95,20 +87,13 @@
         setTimeout(() => bubble.remove(), 3000);
     }
     
+    // تم إخفاء عرض وقت المراجعة اليومي نهائياً
     function updateTodayDisplay() {
-        const minutes = getTodayReviewedMinutes();
-        const hours = Math.floor(minutes / 60);
-        const mins = minutes % 60;
-        const text = hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
         let display = document.getElementById('todayReviewedDisplay');
-        const { btn } = getElements();
-        if (!display && btn) {
-            display = document.createElement('div');
-            display.id = 'todayReviewedDisplay';
-            display.style.cssText = `font-size:0.55rem;color:#8a8a9e;margin-left:6px;background:transparent;padding:2px 6px;border-radius:30px;white-space:nowrap;`;
-            btn.insertAdjacentElement('afterend', display);
+        if (display) {
+            display.style.display = 'none';
+            display.remove();
         }
-        if (display) display.innerHTML = `📖 ${text}`;
     }
     
     // ====== إظهار/إخفاء الزر حسب الصفحة ======
@@ -122,7 +107,6 @@
         if (home && home.classList.contains('active')) {
             btn.style.display = 'none';
             if (timerBar) timerBar.style.display = 'none';
-            hideActiveMessage();
         } else if ((list && list.classList.contains('active')) || (exam && exam.classList.contains('active'))) {
             btn.style.display = 'flex';
         } else {
@@ -182,8 +166,7 @@
         closeModal();
         updateTimerDisplay();
         
-        // إظهار رسالة "المراجعة شغالة"
-        showActiveMessage();
+        // تم إخفاء showActiveMessage();
         
         const { timerBar } = getElements();
         if (timerBar) {
@@ -214,8 +197,7 @@
         addTodayReviewedMinutes(minutesSpent);
         activeSession = false;
         
-        // إخفاء رسالة "المراجعة شغالة"
-        hideActiveMessage();
+        // تم إخفاء hideActiveMessage();
         
         const { timerBar, endOverlay } = getElements();
         if (timerBar) timerBar.style.display = 'none';
@@ -235,8 +217,7 @@
         if (sessionTimer) clearInterval(sessionTimer);
         activeSession = false;
         
-        // إخفاء رسالة "المراجعة شغالة"
-        hideActiveMessage();
+        // تم إخفاء hideActiveMessage();
         
         const { timerBar } = getElements();
         if (timerBar) timerBar.style.display = 'none';
