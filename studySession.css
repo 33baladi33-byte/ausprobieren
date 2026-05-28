@@ -3,7 +3,7 @@
    ============================================ */
 
 /* زر جلسة المراجعة - بنفس شكل زر الإشعارات 🔔 */
-/* زر جلسة المراجعة - مطابق تماماً لزر الإشعارات */
+/* زر جلسة المراجعة - بنفس شكل زر الإشعارات 🔔 */
 .study-session-btn {
     background: transparent;
     border: none;
@@ -20,10 +20,11 @@
     font-family: inherit;
     width: 40px;
     height: 40px;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .study-session-btn:hover {
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(255, 255, 255, 0.2);
     transform: scale(1.05);
 }
 
