@@ -33,27 +33,21 @@
         // لا تفعل شيء
     }
     
-    // ====== تشغيل صوت نهاية الجلسة ======
-    let audioContext = null;
+    // ====== تشغيل صوت نهاية الجلسة (من ملف خارجي) ======
+    let endSound = null;
+    
     function playEndSound() {
         try {
-            if (audioContext) audioContext.close();
-            const AudioCtx = window.AudioContext || window.webkitAudioContext;
-            audioContext = new AudioCtx();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            oscillator.type = 'sine';
-            oscillator.frequency.value = 880;
-            gainNode.gain.value = 0.2;
-            oscillator.start();
-            setTimeout(() => {
-                gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.4);
-                oscillator.stop(audioContext.currentTime + 0.4);
-            }, 500);
-            audioContext.resume();
-        } catch(e) {}
+            if (endSound) {
+                endSound.pause();
+                endSound.currentTime = 0;
+            }
+            endSound = new Audio('sounds/end-sound.mp3');
+            endSound.volume = 0.25;
+            endSound.play().catch(e => console.log("⚠️ الصوت لم يتم تشغيله"));
+        } catch(e) {
+            console.log("❌ خطأ في تشغيل الصوت:", e);
+        }
     }
     
     // ====== إدارة وقت المراجعة اليومي (مخفي تماماً) ======
@@ -284,7 +278,7 @@
             bindEvents();
             setupObserver();
             updateTodayDisplay();
-            console.log("✅ studySession.js جاهز - النسخة النهائية");
+            console.log("✅ studySession.js جاهز - النسخة النهائية مع الصوت");
         }, 200);
     }
     
