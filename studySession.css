@@ -137,72 +137,109 @@
     transform: translateY(0);
 }
 
+/* تنسيق نص التحفيز الجديد */
 .session-motivation {
-    background: #f8fafc;
-    border-radius: 20px;
-    padding: 16px 20px;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border-radius: 24px;
+    padding: 20px;
     text-align: center;
-    font-size: 0.95rem;
-    color: #334155;
-    line-height: 1.6;
-    border: 1px solid #e2e8f0;
+    border: 1px solid rgba(100, 150, 200, 0.2);
+    margin-top: 20px;
 }
 
-/* العداد العلوي */
+.session-motivation .motivation-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.session-motivation .motivation-text {
+    font-size: 1rem;
+    color: #1e293b;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.session-motivation .motivation-small {
+    font-size: 0.8rem;
+    color: #5dade2;
+    font-weight: normal;
+    display: block;
+    margin-top: 6px;
+}
+
+.session-motivation .motivation-coffee {
+    font-size: 1.4rem;
+    margin-top: 10px;
+}
+
+/* العداد العلوي - نسخة صغيرة جداً واحترافية */
 .session-timer-bar {
     position: fixed;
     top: 70px;
     right: 20px;
-    background: rgba(30, 41, 59, 0.95);
-    backdrop-filter: blur(12px);
-    border-radius: 60px;
-    padding: 8px 16px 8px 20px;
+    background: rgba(51, 66, 91, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 999px;
+    padding: 4px 12px 4px 10px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
     z-index: 14000;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(100, 150, 200, 0.3);
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .timer-display {
     font-family: monospace;
-    font-size: 1.3rem;
-    letter-spacing: 2px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #f5f7fa;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.timer-display span {
+    color: #f5f7fa;
+}
+
+/* أيقونة الساعة */
+.timer-icon {
+    font-size: 0.7rem;
+    color: #f6c768;
 }
 
 .cancel-session-btn {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.1);
     border: none;
     border-radius: 40px;
-    width: 30px;
-    height: 30px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: white;
-    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
     transition: all 0.2s;
 }
 
 .cancel-session-btn:hover {
-    background: rgba(255, 100, 100, 0.8);
+    background: rgba(255, 100, 100, 0.7);
+    color: white;
 }
 
 /* Bubble صغيرة تحت العداد */
 .session-timer-bubble {
     position: fixed;
-    top: 125px;
+    top: 115px;
     right: 20px;
     background: #f59e0b;
     color: #1a1a2e;
-    padding: 6px 14px;
+    padding: 5px 12px;
     border-radius: 40px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 500;
     z-index: 13999;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
@@ -240,9 +277,9 @@
 .session-end-card {
     background: #ffffff;
     border-radius: 48px;
-    padding: 40px 32px;
+    padding: 32px 28px;
     text-align: center;
-    max-width: 320px;
+    max-width: 300px;
     width: 85%;
     animation: scaleIn 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
 }
@@ -259,36 +296,36 @@
 }
 
 .session-end-icon {
-    font-size: 4rem;
+    font-size: 3.5rem;
     margin-bottom: 12px;
 }
 
 .session-end-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: #1e293b;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .session-end-sub {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #2c3e66;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .session-end-message {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #475569;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 }
 
 .end-overlay-btn {
     background: linear-gradient(135deg, #2c3e66, #1a2a4a);
     border: none;
     border-radius: 60px;
-    padding: 12px 28px;
+    padding: 10px 24px;
     color: white;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
     transition: transform 0.2s;
@@ -318,13 +355,15 @@ body.dark-mode .time-option:hover {
 }
 
 body.dark-mode .session-motivation {
-    background: #1a1a2e;
-    border-color: #2a2a3a;
-    color: #b0b0b0;
+    background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+}
+
+body.dark-mode .session-motivation .motivation-text {
+    color: #e0e0e0;
 }
 
 body.dark-mode .session-timer-bar {
-    background: rgba(15, 15, 26, 0.95);
+    background: rgba(26, 26, 46, 0.92);
 }
 
 body.dark-mode .session-end-card {
@@ -358,18 +397,17 @@ body.dark-mode .session-end-message {
     .session-timer-bar {
         top: 10px;
         right: 10px;
-        font-size: 0.9rem;
-        padding: 5px 12px 5px 15px;
+        padding: 3px 10px 3px 8px;
     }
     
     .timer-display {
-        font-size: 1rem;
+        font-size: 0.75rem;
     }
     
     .session-timer-bubble {
-        top: 60px;
+        top: 52px;
         right: 10px;
-        font-size: 0.65rem;
+        font-size: 0.6rem;
         white-space: nowrap;
     }
 }
