@@ -1488,6 +1488,20 @@ const examPage2 = document.getElementById('exam');
 if (homePage2) observerPremium.observe(homePage2, { attributes: true, attributeFilter: ['class'] });
 if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeFilter: ['class'] });
 if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeFilter: ['class'] });
+    /*强制 ترتيب الأزرار من اليسار إلى اليمين */
+.top-bar .left-side {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+/* ترتيب محدد لكل زر */
+.top-bar .left-side .profile-icon { order: 1 !important; }
+.top-bar .left-side #navSubscribeBtn { order: 2 !important; }
+.top-bar .left-side #navLoginBtn { order: 3 !important; }
+.top-bar .left-side #settingsBtn { order: 4 !important; }
+.top-bar .left-side #studySessionBtn { order: 5 !important; }
 </script>
 
 <!-- ========== عناصر جلسة المراجعة (يجب أن تكون قبل الـ Scripts التي تحتاجها) ========== -->
