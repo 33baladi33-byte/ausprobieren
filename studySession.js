@@ -1,5 +1,5 @@
 // ============================================
-// studySession.js - نظام جلسات المراجعة (نسخة نهائية)
+// studySession.js - نظام جلسات المراجعة (نسخة مصححة)
 // ============================================
 
 (function() {
@@ -109,18 +109,22 @@
     
     // ====== إظهار/إخفاء الزر حسب الصفحة ======
     function toggleSessionButton() {
-        const { btn } = getElements();
+        const { btn, timerBar } = getElements();
         if (!btn) return;
+        
         const home = document.getElementById('home');
         const list = document.getElementById('list');
         const exam = document.getElementById('exam');
         
         if (home && home.classList.contains('active')) {
             btn.style.display = 'none';
+            if (timerBar) timerBar.style.display = 'none';
         } else if ((list && list.classList.contains('active')) || (exam && exam.classList.contains('active'))) {
             btn.style.display = 'flex';
+            // لا نلمس timerBar هنا، يتحكم فيه startSession
         } else {
             btn.style.display = 'none';
+            if (timerBar) timerBar.style.display = 'none';
         }
     }
     
@@ -148,6 +152,7 @@
         const secs = remainingSeconds % 60;
         timerMinutes.textContent = mins.toString().padStart(2, '0');
         timerSeconds.textContent = secs.toString().padStart(2, '0');
+        console.log(`⏱️ Timer updated: ${mins}:${secs}`); // للتأكد من التحديث
     }
     
     // ====== إظهار Bubble عند 20% المتبقية ======
@@ -167,6 +172,8 @@
     function startSession(minutes) {
         if (activeSession) return;
         
+        console.log(`🚀 بدء الجلسة: ${minutes} دقيقة`);
+        
         totalSeconds = minutes * 60;
         remainingSeconds = totalSeconds;
         activeSession = true;
@@ -174,7 +181,15 @@
         updateTimerDisplay();
         
         const { timerBar } = getElements();
-        if (timerBar) timerBar.style.display = 'flex';
+        if (timerBar) {
+            timerBar.style.display = 'flex';
+            console.log("✅ العداد ظاهر الآن");
+        } else {
+            console.error("❌ timerBar غير موجود!");
+        }
+        
+        // مسح أي timer سابق
+        if (sessionTimer) clearInterval(sessionTimer);
         
         sessionTimer = setInterval(() => {
             if (remainingSeconds <= 0) {
@@ -194,9 +209,13 @@
     
     // ====== إنهاء الجلسة ======
     function endSession() {
-        if (sessionTimer) clearInterval(sessionTimer);
+        console.log("🏁 انتهاء الجلسة");
         
-        // تشغيل الصوت
+        if (sessionTimer) {
+            clearInterval(sessionTimer);
+            sessionTimer = null;
+        }
+        
         playEndSound();
         
         const minutesSpent = Math.floor(totalSeconds / 60);
@@ -211,7 +230,6 @@
         const bubble = document.getElementById('timeBubble');
         if (bubble) bubble.remove();
         
-        // إغلاق النافذة تلقائياً بعد 5 ثوانٍ
         setTimeout(() => { 
             if (endOverlay) endOverlay.style.display = 'none'; 
         }, 5000);
@@ -219,7 +237,12 @@
     
     // ====== إلغاء الجلسة ======
     function cancelSession() {
-        if (sessionTimer) clearInterval(sessionTimer);
+        console.log("❌ إلغاء الجلسة");
+        
+        if (sessionTimer) {
+            clearInterval(sessionTimer);
+            sessionTimer = null;
+        }
         activeSession = false;
         
         const { timerBar } = getElements();
@@ -234,9 +257,14 @@
     function bindEvents() {
         const { btn, cancelBtn, closeEndBtn, modal } = getElements();
         
+        console.log("🔄 ربط الأحداث...");
+        
         if (btn) {
             btn.removeEventListener('click', openModal);
             btn.addEventListener('click', openModal);
+            console.log("✅ زر الجلسة مرتبط");
+        } else {
+            console.error("❌ زر الجلسة غير موجود");
         }
         
         const closeBtn = document.querySelector('.close-session-modal');
@@ -258,9 +286,15 @@
             });
         }
         
-        document.querySelectorAll('.time-option').forEach(opt => {
+        const timeOptions = document.querySelectorAll('.time-option');
+        console.log(`⏰ عدد أزرار الوقت: ${timeOptions.length}`);
+        timeOptions.forEach(opt => {
             opt.removeEventListener('click', () => {});
-            opt.addEventListener('click', () => startSession(parseInt(opt.dataset.minutes)));
+            opt.addEventListener('click', () => {
+                const minutes = parseInt(opt.dataset.minutes);
+                console.log(`🖱️ تم اختيار ${minutes} دقيقة`);
+                startSession(minutes);
+            });
         });
         
         if (modal) {
@@ -287,12 +321,13 @@
     
     // ====== التهيئة ======
     function init() {
+        console.log("🟢 تهيئة studySession.js...");
         setTimeout(() => {
             bindEvents();
             setupObserver();
             updateTodayDisplay();
             console.log("✅ studySession.js جاهز");
-        }, 100);
+        }, 500);
     }
     
     init();
