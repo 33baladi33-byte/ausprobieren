@@ -1,5 +1,5 @@
 /* ============================================
-   studySession.css - جلسة مراجعة (نسخة بسيطة)
+   studySession.css - جلسة مراجعة (نسخة صغيرة جداً)
    ============================================ */
 
 /* زر جلسة المراجعة */
@@ -144,63 +144,64 @@
     margin-top: 8px;
 }
 
-/* ====== العداد الصغير جداً ====== */
+/* ====== العداد الصغير جداً - اللون الرمادي المزرق ====== */
 .session-timer-bar {
     position: fixed;
     top: 70px;
     right: 20px;
-    background: rgba(51, 66, 91, 0.94);
-    backdrop-filter: blur(6px);
-    border-radius: 40px;
-    padding: 5px 12px 5px 16px;
+    background: #3b475c;
+    backdrop-filter: blur(4px);
+    border-radius: 32px;
+    padding: 3px 10px 3px 14px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 6px;
     z-index: 14000;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .timer-display {
     font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     color: #f5f7fa;
 }
 
-/* زر الإلغاء - شبه مخفي */
+/* زر الإلغاء - صغير وشبه مخفي */
 .cancel-session-btn {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.12);
     border: none;
     border-radius: 30px;
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
     transition: all 0.2s;
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
 .cancel-session-btn:hover {
     opacity: 1;
     color: rgba(255, 150, 150, 0.9);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 /* Bubble صغيرة */
 .session-timer-bubble {
     position: fixed;
-    top: 115px;
+    top: 110px;
     right: 20px;
     background: #f59e0b;
     color: #1a1a2e;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: 40px;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 500;
     z-index: 13999;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -297,7 +298,7 @@ body.dark-mode .motivation-text {
 }
 
 body.dark-mode .session-timer-bar {
-    background: rgba(26, 26, 46, 0.94);
+    background: #2a3a4a;
 }
 
 body.dark-mode .session-end-card {
@@ -312,22 +313,29 @@ body.dark-mode .session-end-sub {
     color: #5dade2;
 }
 
-/* للهواتف */
+/* للهواتف - أصغر */
 @media (max-width: 768px) {
     .session-timer-bar {
         top: 10px;
         right: 10px;
-        padding: 3px 10px 3px 14px;
+        padding: 2px 8px 2px 12px;
     }
     
     .timer-display {
-        font-size: 0.8rem;
+        font-size: 0.6rem;
+    }
+    
+    .cancel-session-btn {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
     }
     
     .session-timer-bubble {
-        top: 55px;
+        top: 52px;
         right: 10px;
-        font-size: 0.6rem;
+        font-size: 0.55rem;
+        padding: 2px 8px;
     }
     
     .session-times-grid {
