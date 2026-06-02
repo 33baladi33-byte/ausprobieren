@@ -562,6 +562,266 @@ body.dark-mode .mobile-banner {
 body.dark-mode .mobile-banner span {
     color: #94a3b8;
 }
+    /* ============================================
+   زر طريقة الاشتراك العائم 💡
+   ============================================ */
+
+.subscribe-guide-float {
+    position: fixed;
+    bottom: 90px;
+    left: 25px;
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 998;
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    text-decoration: none;
+    font-size: 22px;
+}
+
+.subscribe-guide-float:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #3a5a8a, #2a3a5a);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    border-color: #38bdf8;
+}
+
+/* نافذة خطوات الاشتراك */
+.subscribe-guide-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 14, 26, 0.92);
+    backdrop-filter: blur(12px);
+    z-index: 20001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.subscribe-guide-modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.subscribe-guide-modal .modal-container {
+    background: rgba(15, 23, 42, 0.95);
+    border-radius: 32px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+.subscribe-guide-modal.active .modal-container {
+    transform: scale(1);
+}
+
+.subscribe-guide-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.subscribe-guide-modal .modal-header h3 {
+    margin: 0;
+    color: #38bdf8;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.subscribe-guide-modal .close-modal-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 28px;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+    line-height: 1;
+}
+
+.subscribe-guide-modal .close-modal-btn:hover {
+    color: #38bdf8;
+    transform: scale(1.1);
+}
+
+/* سلايدر الصور */
+.subscribe-slider-container {
+    position: relative;
+    padding: 30px 20px;
+}
+
+.subscribe-slider {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    white-space: nowrap;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    padding: 10px 0;
+}
+
+.subscribe-slider::-webkit-scrollbar {
+    height: 6px;
+}
+
+.subscribe-slider::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.subscribe-slider::-webkit-scrollbar-thumb {
+    background: #38bdf8;
+    border-radius: 10px;
+}
+
+.subscribe-slide {
+    display: inline-block;
+    width: 280px;
+    margin-right: 20px;
+    vertical-align: top;
+    white-space: normal;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.subscribe-slide:hover {
+    transform: translateY(-5px);
+}
+
+.subscribe-slide img {
+    width: 100%;
+    border-radius: 20px;
+    border: 2px solid rgba(56, 189, 248, 0.3);
+    background: #1e293b;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.subscribe-slide-caption {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: #cbd5e1;
+}
+
+/* أزرار التنقل */
+.slider-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(56, 189, 248, 0.2);
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.slider-nav-btn:hover {
+    background: #38bdf8;
+    color: #0a0e1a;
+}
+
+.slider-nav-prev {
+    left: 5px;
+}
+
+.slider-nav-next {
+    right: 5px;
+}
+
+/* تكبير الصورة */
+.image-lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 20002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.image-lightbox.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.image-lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* للهواتف */
+@media (max-width: 768px) {
+    .subscribe-guide-float {
+        bottom: 80px;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .subscribe-slide {
+        width: 220px;
+        margin-right: 15px;
+    }
+    
+    .slider-nav-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .subscribe-guide-modal .modal-header h3 {
+        font-size: 1rem;
+    }
+}
+
+/* الوضع الليلي */
+body.dark-mode .subscribe-guide-float {
+    background: linear-gradient(135deg, #1a2a4a, #0f1a2e);
+}
+
+body.dark-mode .subscribe-guide-modal .modal-container {
+    background: rgba(15, 23, 42, 0.98);
+}
 </style>
 </head>
 <body>
@@ -1494,7 +1754,147 @@ const examPage2 = document.getElementById('exam');
 if (homePage2) observerPremium.observe(homePage2, { attributes: true, attributeFilter: ['class'] });
 if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeFilter: ['class'] });
 if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeFilter: ['class'] });
+    // ============================================
+// نظام طريقة الاشتراك - زر 💡 العائم
+// ============================================
+(function() {
+    const guideFloat = document.getElementById('subscribeGuideFloat');
+    const guideModal = document.getElementById('subscribeGuideModal');
+    const closeModalBtn = document.getElementById('closeGuideModal');
+    const slider = document.getElementById('subscribeSlider');
+    const prevBtn = document.getElementById('sliderPrevBtn');
+    const nextBtn = document.getElementById('sliderNextBtn');
+    const lightbox = document.getElementById('imageLightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    
+    let isSubscribed = false;
+    
+    // التحقق من حالة الاشتراك
+    function checkSubscriptionStatus() {
+        const email = localStorage.getItem('zertiva_email');
+        const expiry = localStorage.getItem('zertiva_subscription_expiry');
+        
+        if (email && expiry) {
+            const expiryDate = new Date(expiry);
+            const today = new Date();
+            if (expiryDate > today) {
+                isSubscribed = true;
+            } else {
+                isSubscribed = false;
+            }
+        } else {
+            isSubscribed = false;
+        }
+        
+        // إظهار الزر فقط إذا كان المستخدم غير مشترك
+        if (guideFloat) {
+            guideFloat.style.display = isSubscribed ? 'none' : 'flex';
+        }
+    }
+    
+    // فتح النافذة
+    function openModal() {
+        if (guideModal) {
+            guideModal.classList.add('active');
+            // إعادة تعيين موضع السلايدر إلى البداية
+            if (slider) slider.scrollLeft = 0;
+        }
+    }
+    
+    // إغلاق النافذة
+    function closeModal() {
+        if (guideModal) {
+            guideModal.classList.remove('active');
+        }
+    }
+    
+    // التنقل في السلايدر
+    function scrollSlider(direction) {
+        if (!slider) return;
+        const slideWidth = document.querySelector('.subscribe-slide')?.offsetWidth || 280;
+        const gap = 20;
+        const scrollAmount = slideWidth + gap;
+        
+        if (direction === 'next') {
+            slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        } else {
+            slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
+    }
+    
+    // تكبير الصورة عند النقر عليها
+    function setupLightbox() {
+        if (!slider) return;
+        const slides = slider.querySelectorAll('.subscribe-slide');
+        slides.forEach(slide => {
+            const img = slide.querySelector('img');
+            if (img) {
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (lightbox && lightboxImg) {
+                        lightboxImg.src = img.src;
+                        lightbox.classList.add('active');
+                    }
+                });
+            }
+        });
+    }
+    
+    // إغلاق الـ Lightbox
+    function closeLightbox() {
+        if (lightbox) {
+            lightbox.classList.remove('active');
+        }
+    }
+    
+    // مراقبة تغييرات السلايدر لإعادة ربط أحداث التكبير
+    const sliderObserver = new MutationObserver(() => {
+        setupLightbox();
+    });
+    
+    if (slider) {
+        sliderObserver.observe(slider, { childList: true, subtree: true });
+    }
+    
+    // ربط الأحداث
+    if (guideFloat) guideFloat.addEventListener('click', openModal);
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+    if (prevBtn) prevBtn.addEventListener('click', () => scrollSlider('prev'));
+    if (nextBtn) nextBtn.addEventListener('click', () => scrollSlider('next'));
+    if (lightbox) lightbox.addEventListener('click', closeLightbox);
+    
+    // إغلاق النافذة بالضغط خارج المحتوى
+    if (guideModal) {
+        guideModal.addEventListener('click', (e) => {
+            if (e.target === guideModal) closeModal();
+        });
+    }
+    
+    // إغلاق النافذة بزر Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeModal();
+            closeLightbox();
+        }
+    });
+    
+    // التحقق من حالة الاشتراك عند تحميل الصفحة وعند تغييرها
+    checkSubscriptionStatus();
+    
+    // مراقبة تغيير حالة الاشتراك (مثلاً بعد تسجيل الدخول)
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'zertiva_email' || e.key === 'zertiva_subscription_expiry') {
+            checkSubscriptionStatus();
+        }
+    });
+    
+    // إعادة التحقق بعد 1 ثانية (للتأكد)
+    setTimeout(checkSubscriptionStatus, 1000);
+    
+    console.log("✅ زر طريقة الاشتراك 💡 جاهز");
+})();
 </script>
+    
 
 <!-- ========== عناصر جلسة المراجعة (يجب أن تكون قبل الـ Scripts التي تحتاجها) ========== -->
 
@@ -1556,6 +1956,50 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <script src="rapidGame.js"></script>
 <script src="studySession.js"></script>
 <script src="reviews-simple.js"></script>
+<!-- زر طريقة الاشتراك العائم 💡 -->
+<div id="subscribeGuideFloat" class="subscribe-guide-float" style="display: none;">
+    💡
+</div>
 
+<!-- نافذة خطوات الاشتراك -->
+<div id="subscribeGuideModal" class="subscribe-guide-modal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3>💡 طريقة الاشتراك</h3>
+            <button class="close-modal-btn" id="closeGuideModal">✕</button>
+        </div>
+        <div class="subscribe-slider-container">
+            <button class="slider-nav-btn slider-nav-prev" id="sliderPrevBtn">❮</button>
+            <button class="slider-nav-btn slider-nav-next" id="sliderNextBtn">❯</button>
+            <div class="subscribe-slider" id="subscribeSlider">
+                <div class="subscribe-slide">
+                    <img src="images/step1.webp" loading="lazy" alt="الخطوة 1">
+                    <div class="subscribe-slide-caption">📝 1. إنشاء حساب</div>
+                </div>
+                <div class="subscribe-slide">
+                    <img src="images/step2.webp" loading="lazy" alt="الخطوة 2">
+                    <div class="subscribe-slide-caption">💳 2. اختيار الباقة</div>
+                </div>
+                <div class="subscribe-slide">
+                    <img src="images/step3.webp" loading="lazy" alt="الخطوة 3">
+                    <div class="subscribe-slide-caption">🔐 3. إتمام الدفع</div>
+                </div>
+                <div class="subscribe-slide">
+                    <img src="images/step4.webp" loading="lazy" alt="الخطوة 4">
+                    <div class="subscribe-slide-caption">✅ 4. تفعيل الاشتراك</div>
+                </div>
+                <div class="subscribe-slide">
+                    <img src="images/step5.webp" loading="lazy" alt="الخطوة 5">
+                    <div class="subscribe-slide-caption">🚀 5. بدء المراجعة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة تكبير الصورة -->
+<div id="imageLightbox" class="image-lightbox">
+    <img id="lightboxImg" src="" alt="صورة مكبرة">
+</div>
 </body>
 </html>
