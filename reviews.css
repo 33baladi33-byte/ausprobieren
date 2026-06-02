@@ -349,6 +349,7 @@ body.dark-mode .review-item {
         padding: 15px 18px;
     }
 }
+
 /* تنسيق زر معلومات إضافية */
 .extra-info-section {
     margin-top: 20px;
@@ -397,5 +398,26 @@ body.dark-mode .review-item {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ============================================
+   تنسيق الهواتف - تصغير زر التقييمات
+   ============================================ */
+@media (max-width: 768px) {
+    .reviews-stats-btn {
+        padding: 5px 8px !important;
+        font-size: 11px !important;
+        gap: 4px !important;
+        margin-left: 5px !important;
+        min-width: auto !important;
+    }
+}
+
+/* للشاشات الصغيرة جداً */
+@media (max-width: 480px) {
+    .reviews-stats-btn {
+        padding: 4px 6px !important;
+        font-size: 10px !important;
     }
 }
