@@ -1,0 +1,16 @@
+{
+  "title": "Hörverstehen Teil 2 - Influencerin im Interview",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 46, "text": "Maria war am Anfang überrascht, wie schnell ihre Beiträge im Internet Aufmerksamkeit bekamen.", "correct": true },
+    { "id": 47, "text": "Ihre Familie stand ihrer Tätigkeit als Influencerin von Beginn an ohne Zweifel positiv gegenüber.", "correct": false },
+    { "id": 48, "text": "Maria prüft Werbeangebote genau, bevor sie eine Zusammenarbeit annimmt.", "correct": true },
+    { "id": 49, "text": "Für Maria ist es wichtiger, authentisch zu bleiben, als möglichst viele Produkte zu präsentieren.", "correct": true },
+    { "id": 50, "text": "Negative Kommentare belasten Maria nie, weil sie diese grundsätzlich nicht liest.", "correct": false },
+    { "id": 51, "text": "Maria sieht soziale Medien nicht nur als Unterhaltung, sondern auch als berufliche Möglichkeit.", "correct": true },
+    { "id": 52, "text": "Große Treffen mit Followern empfindet Maria immer als völlig entspannt.", "correct": false },
+    { "id": 53, "text": "Künstliche Intelligenz nutzt Maria bereits gezielt, um ihre Arbeit effizienter zu organisieren.", "correct": false },
+    { "id": 54, "text": "Maria möchte jungen Menschen zeigen, dass Erfolg im Internet auch mit Verantwortung verbunden ist.", "correct": true },
+    { "id": 55, "text": "In Zukunft plant Maria, ihre Tätigkeit in den sozialen Medien vollständig aufzugeben.", "correct": false }
+  ]
+}
