@@ -1,16 +1,16 @@
 {
   "title": "Hörverstehen Teil 2 - Bio-Essen: Obst, Gemüse und Lieferung",
-  "type": "reflex_truefalse",
-  "sentences": [
-    { "id": 46, "text": "Die Nachfrage nach regionalem Bio-Obst und Bio-Gemüse hat sich in den letzten Jahren spürbar verändert.", "correct": false },
-    { "id": 47, "text": "Viele Kundinnen und Kunden legen bei Bio-Produkten inzwischen mehr Wert auf Herkunft und Frische als auf einen möglichst niedrigen Preis.", "correct": false },
-    { "id": 48, "text": "Die Lieferung frischer Lebensmittel verursacht für kleinere Betriebe zusätzliche organisatorische und finanzielle Belastungen.", "correct": false },
-    { "id": 49, "text": "Nicht alle angebotenen Bio-Produkte stammen direkt aus der eigenen Produktion.", "correct": false },
-    { "id": 50, "text": "Digitale Bestellsysteme spielen beim Verkauf von Obst und Gemüse mittlerweile eine wichtige Rolle.", "correct": false },
-    { "id": 51, "text": "Die Qualität der Produkte hängt nach Ansicht des Sprechers vor allem von einer schnellen Lieferung ab.", "correct": false },
-    { "id": 52, "text": "Der persönliche Kontakt zu den Kundinnen und Kunden bleibt trotz Online-Bestellungen ein wichtiger Bestandteil des Geschäfts.", "correct": false },
-    { "id": 53, "text": "Durch den Lieferdienst können auch Menschen erreicht werden, die nicht regelmäßig auf den Wochenmarkt gehen können.", "correct": false },
-    { "id": 54, "text": "Für kleinere Bio-Betriebe ist es schwierig, gleichzeitig nachhaltig und preislich konkurrenzfähig zu bleiben.", "correct": false },
-    { "id": 55, "text": "Der Sprecher geht davon aus, dass regionale Lieferangebote für Bio-Lebensmittel in Zukunft weiter an Bedeutung gewinnen werden.", "correct": false }
+  "type": "truefalse",
+  "questions": [
+    { "text": "Die Nachfrage nach regionalem Bio-Obst und Bio-Gemüse hat sich in den letzten Jahren spürbar verändert.", "correct": false },
+    { "text": "Viele Kundinnen und Kunden legen bei Bio-Produkten inzwischen mehr Wert auf Herkunft und Frische als auf einen möglichst niedrigen Preis.", "correct": false },
+    { "text": "Die Lieferung frischer Lebensmittel verursacht für kleinere Betriebe zusätzliche organisatorische und finanzielle Belastungen.", "correct": false },
+    { "text": "Nicht alle angebotenen Bio-Produkte stammen direkt aus der eigenen Produktion.", "correct": false },
+    { "text": "Digitale Bestellsysteme spielen beim Verkauf von Obst und Gemüse mittlerweile eine wichtige Rolle.", "correct": false },
+    { "text": "Die Qualität der Produkte hängt nach Ansicht des Sprechers vor allem von einer schnellen Lieferung ab.", "correct": false },
+    { "text": "Der persönliche Kontakt zu den Kundinnen und Kunden bleibt trotz Online-Bestellungen ein wichtiger Bestandteil des Geschäfts.", "correct": false },
+    { "text": "Durch den Lieferdienst können auch Menschen erreicht werden, die nicht regelmäßig auf den Wochenmarkt gehen können.", "correct": false },
+    { "text": "Für kleinere Bio-Betriebe ist es schwierig, gleichzeitig nachhaltig und preislich konkurrenzfähig zu bleiben.", "correct": false },
+    { "text": "Der Sprecher geht davon aus, dass regionale Lieferangebote für Bio-Lebensmittel in Zukunft weiter an Bedeutung gewinnen werden.", "correct": false }
   ]
 }
