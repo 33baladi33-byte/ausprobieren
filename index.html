@@ -1795,8 +1795,12 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         <button id="closeEndOverlayBtn" class="end-overlay-btn">حسناً</button>
     </div>
 </div>
+<!-- ========== عناصر جلسة المراجعة ========== -->
+<div id="studySessionModal" class="session-modal">...</div>
+<div id="sessionTimerBar" class="session-timer-bar" style="display: none;">...</div>
+<div id="sessionEndOverlay" class="session-end-overlay" style="display: none;">...</div>
 
-<!-- ========== الـ Scripts ========== -->
+<!-- ========== الـ Scripts (مرة واحدة فقط) ========== -->
 <script src="helpSystem.js"></script>
 <script src="engine.js"></script>
 <script src="exams.js"></script>
@@ -1805,7 +1809,11 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <script src="rapidGame.js"></script>
 <script src="studySession.js"></script>
 <script src="reviews-simple.js"></script>
-<script>
+
+<!-- نافذة طريقة الاشتراك -->
+<div id="subscribeGuideModal" class="subscribe-guide-modal">...</div>
+<div id="imageLightbox" class="image-lightbox">...</div>
+    <script>
 // ============================================
 // زر 💡 طريقة الاشتراك الجديد
 // ============================================
