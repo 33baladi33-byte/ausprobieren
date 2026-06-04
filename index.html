@@ -819,7 +819,7 @@ body.dark-mode .mobile-banner span {
 <div class="top-bar">
     <div class="left-side">
     <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
-    <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
+    <a href="https://zertivab2.youcan.store/" id="navSubscribeBtn" class="subscribe-text-btn" style="text-decoration: none; display: inline-block;">اشترك</a>
     <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
     <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
 </div>
@@ -1016,10 +1016,10 @@ body.dark-mode .mobile-banner span {
                     بالإضافة لمنهجية جيدة، ونصائح يومية عبر الواتساب.
                 </p>
                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-    <button id="featuresSubscribeBtn" class="features-btn">
-        اشترك الآن
-        <span class="btn-arrow">→</span>
-    </button>
+    <a href="https://zertivab2.youcan.store/" id="featuresSubscribeBtn" class="features-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+    اشترك الآن
+    <span class="btn-arrow">→</span>
+</a>
     
     <!-- زر 💡 طريقة الاشتراك الجديد -->
     <button id="subscribeGuideBtn" class="subscribe-guide-btn" title="طريقة الاشتراك">
@@ -1296,17 +1296,6 @@ body.dark-mode .mobile-banner span {
         if (resetBtn) resetBtn.addEventListener('click', resetFont);
     })();
 
-    const subscribeBtn = document.getElementById('featuresSubscribeBtn');
-    if(subscribeBtn) {
-        subscribeBtn.addEventListener('click', function() {
-            const email = localStorage.getItem('zertiva_email');
-            if(email) {
-                window.location.href = 'subscribe.html';
-            } else {
-                document.getElementById('loginPopup').style.display = 'flex';
-            }
-        });
-    }
     
     const logoBtn = document.getElementById('logoHomeBtn');
     if(logoBtn) {
