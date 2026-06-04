@@ -118,10 +118,12 @@ function showLockedMessage(examTitle) {
     }, 10);
     
     const upgradeBtn = document.getElementById('premiumUpgradeBtn');
-    const laterBtn = document.getElementById('premiumLaterBtn');
-    
-    if (upgradeBtn) {
-    upgradeBtn.onclick = () => {
+const laterBtn = document.getElementById('premiumLaterBtn');
+
+if (upgradeBtn) {
+    upgradeBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         window.location.href = 'https://zertivab2.youcan.store/';
     };
 }
