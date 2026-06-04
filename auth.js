@@ -121,10 +121,10 @@ function showLockedMessage(examTitle) {
     const laterBtn = document.getElementById('premiumLaterBtn');
     
     if (upgradeBtn) {
-        upgradeBtn.onclick = () => {
-            window.location.href = 'subscribe.html';
-        };
-    }
+    upgradeBtn.onclick = () => {
+        window.location.href = 'https://zertivab2.youcan.store/';
+    };
+}
     
     if (laterBtn) {
         laterBtn.onclick = () => {
@@ -275,8 +275,8 @@ async function handleLogin() {
     
     // إذا كان المستخدم مسجل (مجاني أو منتهي) نوجهه لصفحة الاشتراك
     if (status !== 'premium') {
-        window.location.href = 'subscribe.html';
-    } else {
+    window.location.href = 'https://zertivab2.youcan.store/';
+} else {
         location.reload();
     }
 }
@@ -289,11 +289,11 @@ async function setupLockedNextButton() {
         nextBtn.classList.add('locked-nav');
         let oldClick = nextBtn.onclick;
         nextBtn.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            showLockedMessage("الامتحان التالي (يتطلب ترقية)");
-            return false;
-        };
+    e.preventDefault();
+    e.stopPropagation();
+    window.location.href = 'https://zertivab2.youcan.store/';
+    return false;
+};
     }
 }
 
