@@ -118,15 +118,13 @@ function showLockedMessage(examTitle) {
     }, 10);
     
     const upgradeBtn = document.getElementById('premiumUpgradeBtn');
-const laterBtn = document.getElementById('premiumLaterBtn');
-
-if (upgradeBtn) {
-    upgradeBtn.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        window.location.href = 'https://zertivab2.youcan.store/';
-    };
-}
+    const laterBtn = document.getElementById('premiumLaterBtn');
+    
+    if (upgradeBtn) {
+        upgradeBtn.onclick = () => {
+            window.location.href = 'subscribe.html';
+        };
+    }
     
     if (laterBtn) {
         laterBtn.onclick = () => {
@@ -277,8 +275,8 @@ async function handleLogin() {
     
     // إذا كان المستخدم مسجل (مجاني أو منتهي) نوجهه لصفحة الاشتراك
     if (status !== 'premium') {
-    window.location.href = 'https://zertivab2.youcan.store/';
-} else {
+        window.location.href = 'subscribe.html';
+    } else {
         location.reload();
     }
 }
@@ -291,11 +289,11 @@ async function setupLockedNextButton() {
         nextBtn.classList.add('locked-nav');
         let oldClick = nextBtn.onclick;
         nextBtn.onclick = function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    window.location.href = 'https://zertivab2.youcan.store/';
-    return false;
-};
+            e.preventDefault();
+            e.stopPropagation();
+            showLockedMessage("الامتحان التالي (يتطلب ترقية)");
+            return false;
+        };
     }
 }
 
@@ -303,7 +301,14 @@ function bindAuthEvents() {
     let navLoginBtn = document.getElementById('navLoginBtn');
     if(navLoginBtn) navLoginBtn.addEventListener('click', showLoginPopup);
     
-
+    let navSubscribeBtn = document.getElementById('navSubscribeBtn');
+    if(navSubscribeBtn) navSubscribeBtn.addEventListener('click', () => {
+        if(isUserLoggedIn()) {
+            window.location.href = 'subscribe.html';
+        } else {
+            showLoginPopup();
+        }
+    });
     
     let popupLoginBtn = document.getElementById('popupLoginBtn');
     if(popupLoginBtn) popupLoginBtn.addEventListener('click', handleLogin);
