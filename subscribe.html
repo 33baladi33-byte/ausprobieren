@@ -267,17 +267,17 @@
 
 <script>
     <script>
-    // روابط منتجات YouCan
+    // روابط منتجات YouCan المباشرة
     const YOUCAN_LINKS = {
         "1month": "https://zertivab2.youcan.store/products/bagat-shahr-wahid",
         "2months": "https://zertivab2.youcan.store/products/bagat-shahrain"
     };
     
+    // عند الضغط على أي بطاقة أو زر → يروح مباشرة للموقع
     document.querySelectorAll('.plan-card').forEach(card => {
-        let btn = card.querySelector('.btn-select');
         let plan = card.getAttribute('data-plan');
         
-        function redirectToYouCan() {
+        function goToYouCan() {
             let link = YOUCAN_LINKS[plan];
             if(link) {
                 window.location.href = link;
@@ -286,15 +286,21 @@
             }
         }
         
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            redirectToYouCan();
-        });
+        // عند الضغط على الزر
+        let btn = card.querySelector('.btn-select');
+        if(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                goToYouCan();
+            });
+        }
         
+        // عند الضغط على البطاقة نفسها
         card.addEventListener('click', function(e) {
             if(e.target !== btn) {
-                redirectToYouCan();
+                goToYouCan();
             }
         });
     });
 </script>
+  
