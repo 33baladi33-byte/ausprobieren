@@ -266,50 +266,35 @@
 </div>
 
 <script>
-    const WA_NUMBER = "212687561491";
-    
-    function getLoggedInEmail() {
-        return localStorage.getItem('zertiva_email');
-    }
-    
-    function sendWhatsApp(plan, duration, price) {
-        let email = getLoggedInEmail();
-        
-        if(!email) {
-            alert("⚠️ يجب تسجيل الدخول أولاً!\nسيتم توجيهك إلى صفحة تسجيل الدخول.");
-            window.location.href = "index.html";
-            return;
-        }
-        
-        let message = `[NEW] Neue Abonnementanfrage – Zertiva B2%0A%0A`;
-        message += `[USR] E-Mail: ${encodeURIComponent(email)}%0A`;
-        message += `[PLN] Paket: ${plan === '2months' ? '2 Monate (VIP)' : '1 Monat'}%0A`;
-        message += `[PRC] Preis: ${price} DH%0A`;
-        message += `[TM] Dauer: ${duration}%0A%0A`;
-        message += `[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang.`;
-        
-        window.open(`https://wa.me/${WA_NUMBER}?text=${message}`, '_blank');
-        
-        alert(`✅ تم إرسال طلب الاشتراك إلى الواتساب\n📧 بريدك: ${email}\n📆 المدة: ${duration}\n💰 المبلغ: ${price} درهم\n\nسأتصل بك لإتمام الدفع.`);
-    }
+    <script>
+    // روابط منتجات YouCan
+    const YOUCAN_LINKS = {
+        "1month": "https://zertivab2.youcan.store/products/bagat-shahr-wahid",
+        "2months": "https://zertivab2.youcan.store/products/bagat-shahrain"
+    };
     
     document.querySelectorAll('.plan-card').forEach(card => {
         let btn = card.querySelector('.btn-select');
         let plan = card.getAttribute('data-plan');
-        let price = card.getAttribute('data-price');
-        let duration = card.getAttribute('data-duration');
+        
+        function redirectToYouCan() {
+            let link = YOUCAN_LINKS[plan];
+            if(link) {
+                window.location.href = link;
+            } else {
+                alert("عذراً، رابط الدفع غير متوفر حالياً.");
+            }
+        }
         
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
-            sendWhatsApp(plan, duration, price);
+            redirectToYouCan();
         });
         
         card.addEventListener('click', function(e) {
             if(e.target !== btn) {
-                sendWhatsApp(plan, duration, price);
+                redirectToYouCan();
             }
         });
     });
 </script>
-</body>
-</html>
