@@ -301,19 +301,7 @@ function bindAuthEvents() {
     let navLoginBtn = document.getElementById('navLoginBtn');
     if(navLoginBtn) navLoginBtn.addEventListener('click', showLoginPopup);
     
-   let navSubscribeBtn = document.getElementById('navSubscribeBtn');
-if(navSubscribeBtn) {
-    // تم تعطيل الكود القديم لأن الزر أصبح رابطاً مباشراً لـ YouCan
-    /*
-    navSubscribeBtn.addEventListener('click', () => {
-        if(isUserLoggedIn()) {
-            window.location.href = 'subscribe.html';
-        } else {
-            showLoginPopup();
-        }
-    });
-    */
-}
+
     
     let popupLoginBtn = document.getElementById('popupLoginBtn');
     if(popupLoginBtn) popupLoginBtn.addEventListener('click', handleLogin);
