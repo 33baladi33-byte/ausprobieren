@@ -1390,9 +1390,11 @@ function updateExamNavButtons() {
   if (hasPrev) {
     prevBtn.style.display = "inline-block";
     prevBtn.onclick = () => {
-      const prevExam = currentExamsList[currentIndex - 1];
-      openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
-    };
+    const prevExam = currentExamsList[currentIndex - 1];
+    openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
+    // مزامنة السؤال الجديد (السؤال 0)
+    if(window.goToQuestion) window.goToQuestion(0);
+};
   } else {
     prevBtn.style.display = "none";
   }
@@ -1438,56 +1440,78 @@ function goList() {
 }
 
 function buildTeil1(questions) {
-  const container = document.getElementById("teil1");
-  if (!container) return;
-  container.innerHTML = "";
-  
-  let userAnswers = {};
-  
-  for (let i = 0; i < questions.length; i++) {
-    const q = questions[i];
-    const card = document.createElement("div");
-    card.className = "question-card";
-    card.id = "q_" + i;
-    
-    const questionText = document.createElement("div");
-    questionText.className = "question-text";
-    questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
-    card.appendChild(questionText);
-    
-    const optionsDiv = document.createElement("div");
-    optionsDiv.className = "options-container";
-    for (let j = 0; j < q.options.length; j++) {
-      const label = document.createElement("label");
-      label.className = "option-label";
-      const radioId = "q" + i + "_" + j;
-      label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
-      label.onclick = (function(qIdx, ansIdx) {
-        return function() {
-          userAnswers[qIdx] = ansIdx;
-        };
-      })(i, j);
-      optionsDiv.appendChild(label);
+    // مزامنة الإجابات عند تحميل الامتحان
+    let userAnswers = {};
+    if (teamSyncEnabled && isTeamSessionActive()) {
+        const sessionState = TeamSession.getSessionState();
+        if(sessionState.selectedAnswers) {
+            userAnswers = sessionState.selectedAnswers;
+            setTimeout(() => {
+                for(let qIdx in userAnswers) {
+                    let answer = userAnswers[qIdx];
+                    let radio = document.querySelector(`input[name="q${qIdx}"][value="${answer}"]`);
+                    if(radio) radio.checked = true;
+                }
+            }, 100);
+        }
+        if(sessionState.currentQuestion !== undefined && sessionState.currentQuestion !== 0) {
+            window.currentQuestionIndex = sessionState.currentQuestion;
+        }
     }
-    card.appendChild(optionsDiv);
-    container.appendChild(card);
-  }
-  
-  const checkBtn = document.createElement("button");
-  checkBtn.innerText = "✅ تصحيح";
-  checkBtn.className = "check-btn";
-  checkBtn.onclick = function() {
-    checkTeil1(questions, userAnswers);
-  };
-  container.appendChild(checkBtn);
-  
-  const resultDiv = document.createElement("div");
-  resultDiv.id = "teil1Result";
-  resultDiv.className = "result-box";
-  resultDiv.style.display = "none";
-  container.appendChild(resultDiv);
+    
+    const container = document.getElementById("teil1");
+    if (!container) return;
+    container.innerHTML = "";
+    
+    // إزالة السطر المكرر: let userAnswers = {}; (محذوف لأننا عرفناها أعلاه)
+    
+    for (let i = 0; i < questions.length; i++) {
+        const q = questions[i];
+        const card = document.createElement("div");
+        card.className = "question-card";
+        card.id = "q_" + i;
+        
+        const questionText = document.createElement("div");
+        questionText.className = "question-text";
+        questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
+        card.appendChild(questionText);
+        
+        const optionsDiv = document.createElement("div");
+        optionsDiv.className = "options-container";
+        for (let j = 0; j < q.options.length; j++) {
+            const label = document.createElement("label");
+            label.className = "option-label";
+            const radioId = "q" + i + "_" + j;
+            label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
+            label.onclick = (function(qIdx, ansIdx) {
+                return function() {
+                    userAnswers[qIdx] = ansIdx;
+                    // مزامنة الإجابة مع الفريق
+                    if (window.selectAnswerAndSync) {
+                        window.selectAnswerAndSync(qIdx, ansIdx);
+                    }
+                };
+            })(i, j);
+            optionsDiv.appendChild(label);
+        }
+        card.appendChild(optionsDiv);
+        container.appendChild(card);
+    }
+    
+    const checkBtn = document.createElement("button");
+    checkBtn.innerText = "✅ تصحيح";
+    checkBtn.className = "check-btn";
+    checkBtn.onclick = function() {
+        checkTeil1(questions, userAnswers);
+    };
+    container.appendChild(checkBtn);
+    
+    const resultDiv = document.createElement("div");
+    resultDiv.id = "teil1Result";
+    resultDiv.className = "result-box";
+    resultDiv.style.display = "none";
+    container.appendChild(resultDiv);
 }
-
 async function checkTeil1(questions, answers) {
   let score = 0;
   const total = questions.length;
@@ -1622,7 +1646,23 @@ window.selectAnswerAndSync = async function(questionIndex, answer) {
         await syncTeamState('answer-selected', { questionIndex, answer });
     }
 };
+// ========== دوال تحديث واجهة المستخدم من Firebase ==========
+window.restoreAnswersUI = function() {
+    if(!window.userAnswers) return;
+    for(let qIdx in window.userAnswers) {
+        let answer = window.userAnswers[qIdx];
+        let radio = document.querySelector(`input[name="q${qIdx}"][value="${answer}"]`);
+        if(radio) radio.checked = true;
+    }
+};
 
+window.renderCurrentQuestion = function() {
+    // إخفاء جميع الأسئلة
+    let cards = document.querySelectorAll('.question-card');
+    cards.forEach((card, idx) => {
+        card.style.display = idx === window.currentQuestionIndex ? 'block' : 'none';
+    });
+};
 console.log("✅ exams.js تم تحميله بنجاح");
 console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
 console.log("📚 Lesen Teil 2:", examsDatabase.lesen2.length, "امتحان");
