@@ -1000,6 +1000,13 @@ async function openExam(examId, examTitle, skill) {
     showLockedMessage(examTitle + " (" + examId + ")");
     return;
   }
+      // مزامنة الامتحان مع الفريق
+    if (isTeamSessionActive()) {
+        await syncTeamState('exam-loaded');
+        teamSyncEnabled = true;
+    } else {
+        teamSyncEnabled = false;
+    }
   // ===== نهاية فحص الوصول =====
   
   console.log("🔍 openExam parameters:", { examId, examTitle, skill });
@@ -1481,7 +1488,7 @@ function buildTeil1(questions) {
   container.appendChild(resultDiv);
 }
 
-function checkTeil1(questions, answers) {
+async function checkTeil1(questions, answers) {
   let score = 0;
   const total = questions.length;
   const pointsPerQuestion = 25 / total;
@@ -1522,7 +1529,10 @@ function checkTeil1(questions, answers) {
     resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
     resultDiv.style.display = "block";
   }
-  
+      // مزامنة التصحيح مع الفريق
+    if (teamSyncEnabled && isTeamSessionActive()) {
+        await syncTeamState('correction-shown', finalScore);
+    }
   saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
   
   if (document.getElementById("list").classList.contains("active")) {
@@ -1563,6 +1573,55 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 renderTeileList();
+// ========== نظام الفريق الجماعي ==========
+let teamSyncEnabled = false;
+
+function isTeamSessionActive() {
+    return window.TeamSession && window.TeamSession.isInSession && window.TeamSession.isInSession();
+}
+
+async function syncTeamState(action, data) {
+    if (!isTeamSessionActive()) return;
+    const sessionState = window.TeamSession.getSessionState();
+    if (action === 'exam-loaded') {
+        await window.TeamSession.updateTeamState({
+            currentExam: currentExamId,
+            currentQuestion: 0,
+            selectedAnswers: {},
+            showCorrection: false,
+            finalScore: null
+        });
+    }
+    if (action === 'question-change') {
+        await window.TeamSession.updateTeamState({ currentQuestion: data });
+    }
+    if (action === 'answer-selected') {
+        let selectedAnswers = { ...sessionState.selectedAnswers };
+        selectedAnswers[data.questionIndex] = data.answer;
+        await window.TeamSession.updateTeamState({ selectedAnswers: selectedAnswers });
+    }
+    if (action === 'correction-shown') {
+        await window.TeamSession.updateTeamState({ showCorrection: true, finalScore: data });
+    }
+}
+
+// ========== دوال المزامنة مع الفريق ==========
+window.goToQuestion = async function(questionIndex) {
+    if (typeof currentQuestionIndex !== 'undefined') {
+        currentQuestionIndex = questionIndex;
+    }
+    if (teamSyncEnabled && isTeamSessionActive()) {
+        await syncTeamState('question-change', questionIndex);
+    }
+};
+
+window.selectAnswerAndSync = async function(questionIndex, answer) {
+    if (!window.userAnswers) window.userAnswers = {};
+    window.userAnswers[questionIndex] = answer;
+    if (teamSyncEnabled && isTeamSessionActive()) {
+        await syncTeamState('answer-selected', { questionIndex, answer });
+    }
+};
 
 console.log("✅ exams.js تم تحميله بنجاح");
 console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
