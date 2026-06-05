@@ -812,6 +812,71 @@ body.dark-mode .mobile-banner span {
             font-size: 1rem;
         }
     }
+    /* Team Session Styles */
+.team-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #173B6C, #1e4a7a);
+    color: white;
+    padding: 8px 20px;
+    z-index: 1000;
+    border-bottom: 2px solid #FFD54F;
+    direction: rtl;
+}
+.team-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.team-icon { font-size: 1.2rem; }
+.team-title { font-weight: 600; font-size: 0.85rem; }
+.team-code {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-family: monospace;
+}
+.team-members {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+.team-member {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    background: rgba(255,255,255,0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+.team-member.online { border-right: 2px solid #4ADE80; }
+.member-badge, .leader-badge { font-size: 0.65rem; }
+.leave-session-btn {
+    background: #dc2626;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+.leave-session-btn:hover { background: #b91c1c; }
+body.has-team-session { padding-top: 60px; }
+.team-study-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
 </style>
 </head>
 <body>
@@ -1020,7 +1085,9 @@ body.dark-mode .mobile-banner span {
     اشترك الآن
     <span class="btn-arrow">→</span>
 </a>
-    
+    <button id="teamStudyBtn" class="team-study-btn" style="background: linear-gradient(135deg, #8B5CF6, #6D28D9); border: none; padding: 12px 24px; border-radius: 50px; color: white; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+    👥 مراجعة مع صديق
+</button>
     <!-- زر 💡 طريقة الاشتراك الجديد -->
     <button id="subscribeGuideBtn" class="subscribe-guide-btn" title="طريقة الاشتراك">
         💡
@@ -1076,6 +1143,7 @@ body.dark-mode .mobile-banner span {
   <div id="hoeren2" style="display:none;"></div>
   <div id="hoeren3" style="display:none;"></div>
   <div id="schreiben" style="display:none;"></div>
+    
   <div id="mündlich1" style="display:none;"></div>
   <div id="mündlich2" style="display:none;"></div>
   <div id="mündlich3" style="display:none;"></div>
@@ -1798,6 +1866,30 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <script src="rapidGame.js"></script>
 <script src="studySession.js"></script>
 <script src="reviews-simple.js"></script>
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
+<script>
+    // إعدادات Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyABp_TfYLzX76ddo0nE08R7T0N8UEGbjIc",
+        authDomain: "zertivab22.firebaseapp.com",
+        databaseURL: "https://zertivab22-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "zertivab22",
+        storageBucket: "zertivab22.firebasestorage.app",
+        messagingSenderId: "510978830489",
+        appId: "1:510978830489:web:754fc4ebc02a7ab40a4808",
+        measurementId: "G-57CPE84S84"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    window.firebaseDB = database;
+    console.log("✅ Firebase initialized");
+    <script src="teamSession.js"></script>
+</script>
 ر<!-- نافذة خطوات الاشتراك -->
 <div id="subscribeGuideModal" class="subscribe-guide-modal">
     <div class="modal-container">
@@ -1922,6 +2014,32 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
     
     console.log("✅ زر 💡 طريقة الاشتراك الجديد جاهز");
 })();
+        // ============================================
+// زر مراجعة مع صديق
+// ============================================
+const teamStudyBtn = document.getElementById('teamStudyBtn');
+if(teamStudyBtn) {
+    teamStudyBtn.addEventListener('click', async () => {
+        if(typeof TeamSession === 'undefined') {
+            alert("⚠️ نظام الجلسات الجماعية لم يتم تحميله بعد. أعد تحميل الصفحة.");
+            return;
+        }
+        
+        const action = confirm("هل تريد إنشاء غرفة جديدة أم الانضمام إلى غرفة موجودة؟\n\n✅ OK = إنشاء غرفة\n❌ إلغاء = الانضمام");
+        
+        if(action) {
+            const roomCode = await TeamSession.createTeamRoom();
+            alert(`✅ تم إنشاء الغرفة!\n\n🔑 رمز الغرفة: ${roomCode}\n\n📤 أرسل هذا الرمز لصديقك للانضمام إليك.`);
+            if(typeof goList === 'function') goList();
+        } else {
+            const roomCode = prompt("🔑 أدخل رمز الغرفة (مثال: ZB2-8421):");
+            if(roomCode && roomCode.trim()) {
+                await TeamSession.joinTeamRoom(roomCode.trim());
+                if(typeof goList === 'function') goList();
+            }
+        }
+    });
+}
 </script>
     <!-- نافذة خطوات الاشتراك -->
 <div id="subscribeGuideModal" class="subscribe-guide-modal">
@@ -1963,5 +2081,6 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <div id="imageLightbox" class="image-lightbox">
     <img id="lightboxImg" src="" alt="صورة مكبرة">
 </div>
+    
 </body>
 </html>
