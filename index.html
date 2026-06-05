@@ -1837,8 +1837,8 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <!-- عداد صغير جداً أعلى اليمين -->
 <div id="sessionTimerBar" class="session-timer-bar" style="display: none;">
     <div class="timer-display">
-    <span id="timerMinutes">00</span>:<span id="timerSeconds">00</span>
-</div>
+        <span id="timerMinutes">00</span>:<span id="timerSeconds">00</span>
+    </div>
     <button id="cancelSessionBtn" class="cancel-session-btn" title="إنهاء">✕</button>
 </div>
 
@@ -1852,10 +1852,6 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         <button id="closeEndOverlayBtn" class="end-overlay-btn">حسناً</button>
     </div>
 </div>
-<!-- ========== عناصر جلسة المراجعة ========== -->
-<div id="studySessionModal" class="session-modal">...</div>
-<div id="sessionTimerBar" class="session-timer-bar" style="display: none;">...</div>
-<div id="sessionEndOverlay" class="session-end-overlay" style="display: none;">...</div>
 
 <!-- ========== الـ Scripts (مرة واحدة فقط) ========== -->
 <script src="helpSystem.js"></script>
@@ -1866,7 +1862,8 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <script src="rapidGame.js"></script>
 <script src="studySession.js"></script>
 <script src="reviews-simple.js"></script>
-    <!-- Firebase SDK -->
+
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
@@ -1888,8 +1885,11 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
     const database = firebase.database();
     window.firebaseDB = database;
     console.log("✅ Firebase initialized");
-    <script src="teamSession.js"></script>
 </script>
+
+<!-- Team Session System -->
+<script src="teamSession.js"></script>
+
 ر<!-- نافذة خطوات الاشتراك -->
 <div id="subscribeGuideModal" class="subscribe-guide-modal">
     <div class="modal-container">
