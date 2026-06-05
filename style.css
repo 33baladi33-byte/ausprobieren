@@ -2541,3 +2541,102 @@ body.dark-mode .premium-features li {
         font-size: 11px;
     }
 }
+/* teamSession.css */
+.team-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #173B6C, #1e4a7a);
+    color: white;
+    padding: 8px 20px;
+    z-index: 1000;
+    border-bottom: 2px solid #FFD54F;
+    direction: rtl;
+}
+
+.team-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.team-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.team-icon {
+    font-size: 1.2rem;
+}
+
+.team-title {
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.team-code {
+    background: rgba(255,255,255,0.15);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-family: monospace;
+}
+
+.team-members {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.team-member {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    background: rgba(255,255,255,0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.team-member.online {
+    border-right: 2px solid #4ADE80;
+}
+
+.member-badge, .leader-badge {
+    font-size: 0.65rem;
+}
+
+.leave-session-btn {
+    background: #dc2626;
+    border: none;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.leave-session-btn:hover {
+    background: #b91c1c;
+}
+
+body.has-team-session {
+    padding-top: 60px;
+}
+
+.team-study-btn {
+    background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
