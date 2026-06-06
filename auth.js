@@ -73,88 +73,30 @@ async function getExpiryDate(email) {
         return null;
     }
 }
-
-// ========== نافذة الاشتراك المنبثقة ==========
+// دالة showLockedMessage - تفتح النافذة عند الضغط على امتحان مقفل
 function showLockedMessage(examTitle) {
-    // فتح النافذة المنبثقة بدلاً من التوجيه المباشر
     const modal = document.getElementById('subscriptionModal');
-    if (modal) {
-        modal.classList.add('active');
-    } else {
-        alert("يرجى الاشتراك للوصول إلى هذا المحتوى");
+    if (modal) modal.classList.add('active');
+}
+
+// دالة setupLockedNextButton - تفتح النافذة عند الضغط على زر "التالي" لامتحان مقفل
+async function setupLockedNextButton() {
+    let status = await getUserStatus();
+    let nextBtn = document.getElementById('nextExamBtn');
+    
+    if(nextBtn && status !== 'premium') {
+        nextBtn.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const modal = document.getElementById('subscriptionModal');
+            if (modal) modal.classList.add('active');
+            return false;
+        };
     }
 }
 
-async function updateProfileDropdown() {
-    let email = getLoggedInEmail();
-    let profileEmail = document.getElementById('profileEmail');
-    let profileExpiry = document.getElementById('profileExpiry');
-    let profileStatus = document.getElementById('profileStatus');
-    let profileLogoutBtn = document.getElementById('profileLogoutBtn');
-    let profileIcon = document.getElementById('profileIcon');
-    let navLoginBtn = document.getElementById('navLoginBtn');
-    let navSubscribeBtn = document.getElementById('navSubscribeBtn');
-    
-    if(!profileEmail) return;
-    
-    if(email) {
-        // حذف زر الترقية إذا كان موجوداً (للمستخدم المسجل)
-        const oldUpgradeBtn = document.getElementById('dropdownUpgradeBtn');
-        if (oldUpgradeBtn) oldUpgradeBtn.remove();
-        
-        let status = await getUserStatus();
-        let expiry = currentExpiry;
-        
-        profileEmail.innerHTML = `📧 ${email}`;
-        
-        if(status === 'premium' && expiry) {
-            let expiryDate = new Date(expiry);
-            let formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
-            profileExpiry.innerHTML = `📅 الصلاحية: حتى ${formattedExpiry}`;
-            profileStatus.innerHTML = `✅ الحالة: <span class="status-premium">مشترك (Pro)</span>`;
-            if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
-        } else if(status === 'expired') {
-            profileExpiry.innerHTML = `⏰ انتهت الصلاحية`;
-            profileStatus.innerHTML = `⚠️ الحالة: <span class="status-free">منتهي</span>`;
-            if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-        } else {
-            profileExpiry.innerHTML = `📖 الوضع المجاني`;
-            profileStatus.innerHTML = `⭐ الحالة: <span class="status-free">مجاني</span>`;
-            if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-        }
-        
-        if(profileLogoutBtn) profileLogoutBtn.style.display = 'block';
-        if(profileIcon) profileIcon.style.display = 'flex';
-        if(navLoginBtn) navLoginBtn.style.display = 'none';
-    } else {
-        profileEmail.innerHTML = '👤 غير مسجل';
-        profileExpiry.innerHTML = 'الوصول محدود لبعض الامتحانات';
-        profileStatus.innerHTML = '';
-        
-        // إضافة زر الترقية للمستخدم غير المسجل (لون رمادي مزرق)
-        const upgradeBtn = document.createElement('button');
-        upgradeBtn.id = 'dropdownUpgradeBtn';
-        upgradeBtn.innerHTML = 'الترقية إلى الحساب الكامل →';
-        upgradeBtn.style.cssText = `
-            margin-top: 12px;
-            background: #64748B;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 25px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 13px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        `;
-        upgradeBtn.onmouseenter = function() {
-            this.style.background = '#475569';
-        };
-        upgradeBtn.onmouseleave = function() {
-            this.style.background = '#64748B';
-        };
-    upgradeBtn.onclick = function() {
+// زر الترقية في القائمة المنسدلة
+upgradeBtn.onclick = function() {
     const modal = document.getElementById('subscriptionModal');
     if (modal) modal.classList.add('active');
 };
