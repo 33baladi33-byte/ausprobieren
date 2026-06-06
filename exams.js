@@ -2,20 +2,30 @@
 // exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
 // ============================================
 
-const teile = [
-  { id: 1, name: "Hören Teil 1", container: "hoeren1", skill: "hoeren1" },
-  { id: 2, name: "Hören Teil 2", container: "hoeren2", skill: "hoeren2" },
-  { id: 3, name: "Hören Teil 3", container: "hoeren3", skill: "hoeren3" },
-  { id: 4, name: "Lesen Teil 1", container: "teil1", skill: "lesen1" },
-  { id: 5, name: "Lesen Teil 2", container: "teil2", skill: "lesen2" },
-  { id: 6, name: "Lesen Teil 3", container: "teil3", skill: "lesen3" },
-  { id: 7, name: "Sprachbausteine Teil 1", container: "sprach1", skill: "sprach1" },
-  { id: 8, name: "Sprachbausteine Teil 2", container: "sprach2", skill: "sprach2" },
-  { id: 9, name: "Schreiben", container: "schreiben", skill: "schreiben" },
-  { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" },
-  { id: 11, name: "Tips", container: "tips", skill: "tips" }
+// ========== الأقسام الرئيسية (Tabs) ==========
+const mainCategories = [
+    { id: "schriftlich", name: "Schriftlich" },
+    { id: "mündlich", name: "Mündlich" },
+    { id: "tips", name: "Tipps" }
 ];
 
+// ========== المحتوى تحت كل تبويب ==========
+const categoryContent = {
+    schriftlich: [
+        { section: "Hören", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["hoeren1", "hoeren2", "hoeren3"] },
+        { section: "Lesen", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["lesen1", "lesen2", "lesen3"] },
+        { section: "Sprachbausteine", parts: ["Teil 1", "Teil 2"], skills: ["sprach1", "sprach2"] },
+        { section: "Schreiben", parts: ["Schreiben"], skills: ["schreiben"] }
+    ],
+    mündlich: [
+        { section: "Mündlich", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["mündlich1", "mündlich2", "mündlich3"] }
+    ],
+    tips: [
+        { section: "Tipps", parts: ["نصائح"], skills: ["tips"] }
+    ]
+};
+
+let activeTab = "schriftlich";
 // ========== دالة حفظ آخر نتيجة ==========
 function saveExamResult(skill, examId, score) {
   try {
@@ -229,7 +239,8 @@ const lesenExams = [
   { id: 44, title: "Fisch", enabled: true, hasFile: true },
   { id: 45, title: "Frauen im Arbeitsmarkt", enabled: true, hasFile: true },
   { id: 46, title: "Baby TV", enabled: true, hasFile: true },
-  { id: 47, title: "Bäder", enabled: true, hasFile: true }
+  { id: 47, title: "Bäder", enabled: true, hasFile: true },
+  { id: 48, title: "Farben", enabled: true, hasFile: true }
 ];
 
 // ========== قائمة امتحانات Schreiben ==========
@@ -630,8 +641,8 @@ const examsDatabase = {
     { id: 48, title: "Eisschwimmen (مواضيع تركيا)", enabled: true, hasFile: true },
     { id: 49, title: "Die Ausbildung (مواضيع تركيا)", enabled: true, hasFile: true },
     { id: 50, title: "Thomas", enabled: true, hasFile: true },
-      { id: 51, title: "Frau Kiddar 3", enabled: true, hasFile: true },
-  { id: 52, title: "Bio-Essen: Obst, Gemüse und Lieferung", enabled: true, hasFile: true },
+    { id: 51, title: "Frau Kiddar 3", enabled: true, hasFile: true },
+    { id: 52, title: "Bio-Essen: Obst, Gemüse und Lieferung", enabled: true, hasFile: true },
   { id: 53, title: "Influencerin - Maria im Interview", enabled: true, hasFile: true },
   { id: 54, title: "Vom Marktstand zum eigenen Geschäft", enabled: true, hasFile: true },
   { id: 55, title: "Interview mit Bauingenieur - Herr Böhm", enabled: true, hasFile: true }
@@ -707,25 +718,146 @@ function displaySavedResult(skill, examId, titleSpan, containerDiv) {
   }
 }
 
-// ========== الدوال الرئيسية ==========
 
 function renderTeileList() {
-  const container = document.getElementById("teileList");
-  if (!container) return;
-  container.innerHTML = "";
-  
-  for (let i = 0; i < teile.length; i++) {
-    const teil = teile[i];
-    const div = document.createElement("div");
-    div.className = "item teil-item";
-    div.textContent = teil.name;
-    div.onclick = (function(skill, teilName) {
-      return function() { 
-        renderExamListForSkill(skill, teilName);
-      };
-    })(teil.skill, teil.name);
-    container.appendChild(div);
-  }
+    const container = document.getElementById("teileList");
+    if (!container) return;
+    container.innerHTML = "";
+    
+    // إنشاء أزرار التبويبات
+    const tabsContainer = document.createElement("div");
+    tabsContainer.className = "main-tabs";
+    tabsContainer.style.cssText = `
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+    `;
+    
+    mainCategories.forEach(cat => {
+        const btn = document.createElement("button");
+        btn.textContent = cat.name;
+        btn.style.cssText = `
+            background: ${activeTab === cat.id ? '#095BBB' : '#FFFFFF'};
+            color: ${activeTab === cat.id ? '#FFFFFF' : '#3B6596'};
+            border: 1px solid ${activeTab === cat.id ? '#095BBB' : '#DCE6F2'};
+            border-radius: 14px;
+            padding: 10px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        `;
+        btn.onmouseenter = () => {
+            if (activeTab !== cat.id) {
+                btn.style.background = '#F0F4FA';
+            }
+        };
+        btn.onmouseleave = () => {
+            if (activeTab !== cat.id) {
+                btn.style.background = '#FFFFFF';
+            }
+        };
+        btn.onclick = () => {
+            activeTab = cat.id;
+            renderTeileList();
+            renderCategoryContent();
+        };
+        tabsContainer.appendChild(btn);
+    });
+    
+    container.appendChild(tabsContainer);
+    
+    // عرض المحتوى تحت التبويب النشط
+    renderCategoryContent();
+}
+
+function renderCategoryContent() {
+    const examsContainer = document.getElementById("examsList");
+    if (!examsContainer) return;
+    
+    examsContainer.innerHTML = "";
+    
+    const content = categoryContent[activeTab];
+    if (!content) return;
+    
+    // إنشاء البطاقة الرئيسية
+    const card = document.createElement("div");
+    card.className = "category-card";
+    card.style.cssText = `
+        background: #FFFFFF;
+        border: 1px solid #E7EEF7;
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    `;
+    
+    content.forEach(section => {
+        const sectionDiv = document.createElement("div");
+        sectionDiv.style.cssText = `
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E7EEF7;
+        `;
+        if (section === content[content.length - 1]) {
+            sectionDiv.style.borderBottom = "none";
+            sectionDiv.style.marginBottom = "0";
+            sectionDiv.style.paddingBottom = "0";
+        }
+        
+        const sectionTitle = document.createElement("div");
+        sectionTitle.style.cssText = `
+            font-size: 16px;
+            font-weight: 600;
+            color: #3B6596;
+            margin-bottom: 12px;
+        `;
+        sectionTitle.textContent = section.section;
+        sectionDiv.appendChild(sectionTitle);
+        
+        const chipsContainer = document.createElement("div");
+        chipsContainer.style.cssText = `
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        `;
+        
+        section.parts.forEach((part, idx) => {
+            const skill = section.skills[idx];
+            const chip = document.createElement("button");
+            chip.textContent = part;
+            chip.style.cssText = `
+                background: #F5F7FA;
+                border: 1px solid #E2E8F0;
+                border-radius: 30px;
+                padding: 8px 18px;
+                font-size: 13px;
+                font-weight: 500;
+                color: #3B6596;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            `;
+            chip.onmouseenter = () => {
+                chip.style.background = '#E8EEF5';
+                chip.style.transform = 'translateY(-1px)';
+            };
+            chip.onmouseleave = () => {
+                chip.style.background = '#F5F7FA';
+                chip.style.transform = 'translateY(0)';
+            };
+            chip.onclick = () => {
+                renderExamListForSkill(skill, `${section.section} - ${part}`);
+            };
+            chipsContainer.appendChild(chip);
+        });
+        
+        sectionDiv.appendChild(chipsContainer);
+        card.appendChild(sectionDiv);
+    });
+    
+    examsContainer.appendChild(card);
 }
 
 // وظيفة عرض أزرار التنقل بين أجزاء Mündlich
@@ -1000,13 +1132,6 @@ async function openExam(examId, examTitle, skill) {
     showLockedMessage(examTitle + " (" + examId + ")");
     return;
   }
-      // مزامنة الامتحان مع الفريق
-    if (isTeamSessionActive()) {
-        await syncTeamState('exam-loaded');
-        teamSyncEnabled = true;
-    } else {
-        teamSyncEnabled = false;
-    }
   // ===== نهاية فحص الوصول =====
   
   console.log("🔍 openExam parameters:", { examId, examTitle, skill });
@@ -1390,11 +1515,9 @@ function updateExamNavButtons() {
   if (hasPrev) {
     prevBtn.style.display = "inline-block";
     prevBtn.onclick = () => {
-    const prevExam = currentExamsList[currentIndex - 1];
-    openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
-    // مزامنة السؤال الجديد (السؤال 0)
-    if(window.goToQuestion) window.goToQuestion(0);
-};
+      const prevExam = currentExamsList[currentIndex - 1];
+      openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
+    };
   } else {
     prevBtn.style.display = "none";
   }
@@ -1440,79 +1563,57 @@ function goList() {
 }
 
 function buildTeil1(questions) {
-    // مزامنة الإجابات عند تحميل الامتحان
-    let userAnswers = {};
-    if (teamSyncEnabled && isTeamSessionActive()) {
-        const sessionState = TeamSession.getSessionState();
-        if(sessionState.selectedAnswers) {
-            userAnswers = sessionState.selectedAnswers;
-            setTimeout(() => {
-                for(let qIdx in userAnswers) {
-                    let answer = userAnswers[qIdx];
-                    let radio = document.querySelector(`input[name="q${qIdx}"][value="${answer}"]`);
-                    if(radio) radio.checked = true;
-                }
-            }, 100);
-        }
-        if(sessionState.currentQuestion !== undefined && sessionState.currentQuestion !== 0) {
-            window.currentQuestionIndex = sessionState.currentQuestion;
-        }
+  const container = document.getElementById("teil1");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  let userAnswers = {};
+  
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const card = document.createElement("div");
+    card.className = "question-card";
+    card.id = "q_" + i;
+    
+    const questionText = document.createElement("div");
+    questionText.className = "question-text";
+    questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
+    card.appendChild(questionText);
+    
+    const optionsDiv = document.createElement("div");
+    optionsDiv.className = "options-container";
+    for (let j = 0; j < q.options.length; j++) {
+      const label = document.createElement("label");
+      label.className = "option-label";
+      const radioId = "q" + i + "_" + j;
+      label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
+      label.onclick = (function(qIdx, ansIdx) {
+        return function() {
+          userAnswers[qIdx] = ansIdx;
+        };
+      })(i, j);
+      optionsDiv.appendChild(label);
     }
-    
-    const container = document.getElementById("teil1");
-    if (!container) return;
-    container.innerHTML = "";
-    
-    // إزالة السطر المكرر: let userAnswers = {}; (محذوف لأننا عرفناها أعلاه)
-    
-    for (let i = 0; i < questions.length; i++) {
-        const q = questions[i];
-        const card = document.createElement("div");
-        card.className = "question-card";
-        card.id = "q_" + i;
-        
-        const questionText = document.createElement("div");
-        questionText.className = "question-text";
-        questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
-        card.appendChild(questionText);
-        
-        const optionsDiv = document.createElement("div");
-        optionsDiv.className = "options-container";
-        for (let j = 0; j < q.options.length; j++) {
-            const label = document.createElement("label");
-            label.className = "option-label";
-            const radioId = "q" + i + "_" + j;
-            label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
-            label.onclick = (function(qIdx, ansIdx) {
-                return function() {
-                    userAnswers[qIdx] = ansIdx;
-                    // مزامنة الإجابة مع الفريق
-                    if (window.selectAnswerAndSync) {
-                        window.selectAnswerAndSync(qIdx, ansIdx);
-                    }
-                };
-            })(i, j);
-            optionsDiv.appendChild(label);
-        }
-        card.appendChild(optionsDiv);
-        container.appendChild(card);
-    }
-    
-    const checkBtn = document.createElement("button");
-    checkBtn.innerText = "✅ تصحيح";
-    checkBtn.className = "check-btn";
-    checkBtn.onclick = function() {
-        checkTeil1(questions, userAnswers);
-    };
-    container.appendChild(checkBtn);
-    
-    const resultDiv = document.createElement("div");
-    resultDiv.id = "teil1Result";
-    resultDiv.className = "result-box";
-    resultDiv.style.display = "none";
-    container.appendChild(resultDiv);
+    card.appendChild(optionsDiv);
+    container.appendChild(card);
+  }
+  
+  const checkBtn = document.createElement("button");
+  checkBtn.innerText = "✅ تصحيح";
+  checkBtn.className = "check-btn";
+  checkBtn.onclick = function() {
+    checkTeil1(questions, userAnswers);
+  };
+  container.appendChild(checkBtn);
+  
+  const resultDiv = document.createElement("div");
+  resultDiv.id = "teil1Result";
+  resultDiv.className = "result-box";
+  resultDiv.style.display = "none";
+  container.appendChild(resultDiv);
 }
-async function checkTeil1(questions, answers) {
+
+function checkTeil1(questions, answers) {
   let score = 0;
   const total = questions.length;
   const pointsPerQuestion = 25 / total;
@@ -1553,10 +1654,7 @@ async function checkTeil1(questions, answers) {
     resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
     resultDiv.style.display = "block";
   }
-      // مزامنة التصحيح مع الفريق
-    if (teamSyncEnabled && isTeamSessionActive()) {
-        await syncTeamState('correction-shown', finalScore);
-    }
+  
   saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
   
   if (document.getElementById("list").classList.contains("active")) {
@@ -1597,72 +1695,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 renderTeileList();
-// ========== نظام الفريق الجماعي ==========
-let teamSyncEnabled = false;
 
-function isTeamSessionActive() {
-    return window.TeamSession && window.TeamSession.isInSession && window.TeamSession.isInSession();
-}
-
-async function syncTeamState(action, data) {
-    if (!isTeamSessionActive()) return;
-    const sessionState = window.TeamSession.getSessionState();
-    if (action === 'exam-loaded') {
-        await window.TeamSession.updateTeamState({
-            currentExam: currentExamId,
-            currentQuestion: 0,
-            selectedAnswers: {},
-            showCorrection: false,
-            finalScore: null
-        });
-    }
-    if (action === 'question-change') {
-        await window.TeamSession.updateTeamState({ currentQuestion: data });
-    }
-    if (action === 'answer-selected') {
-        let selectedAnswers = { ...sessionState.selectedAnswers };
-        selectedAnswers[data.questionIndex] = data.answer;
-        await window.TeamSession.updateTeamState({ selectedAnswers: selectedAnswers });
-    }
-    if (action === 'correction-shown') {
-        await window.TeamSession.updateTeamState({ showCorrection: true, finalScore: data });
-    }
-}
-
-// ========== دوال المزامنة مع الفريق ==========
-window.goToQuestion = async function(questionIndex) {
-    if (typeof currentQuestionIndex !== 'undefined') {
-        currentQuestionIndex = questionIndex;
-    }
-    if (teamSyncEnabled && isTeamSessionActive()) {
-        await syncTeamState('question-change', questionIndex);
-    }
-};
-
-window.selectAnswerAndSync = async function(questionIndex, answer) {
-    if (!window.userAnswers) window.userAnswers = {};
-    window.userAnswers[questionIndex] = answer;
-    if (teamSyncEnabled && isTeamSessionActive()) {
-        await syncTeamState('answer-selected', { questionIndex, answer });
-    }
-};
-// ========== دوال تحديث واجهة المستخدم من Firebase ==========
-window.restoreAnswersUI = function() {
-    if(!window.userAnswers) return;
-    for(let qIdx in window.userAnswers) {
-        let answer = window.userAnswers[qIdx];
-        let radio = document.querySelector(`input[name="q${qIdx}"][value="${answer}"]`);
-        if(radio) radio.checked = true;
-    }
-};
-
-window.renderCurrentQuestion = function() {
-    // إخفاء جميع الأسئلة
-    let cards = document.querySelectorAll('.question-card');
-    cards.forEach((card, idx) => {
-        card.style.display = idx === window.currentQuestionIndex ? 'block' : 'none';
-    });
-};
 console.log("✅ exams.js تم تحميله بنجاح");
 console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
 console.log("📚 Lesen Teil 2:", examsDatabase.lesen2.length, "امتحان");
