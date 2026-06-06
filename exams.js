@@ -791,20 +791,22 @@ function renderCategoryContent() {
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     `;
     
-sectionsRow.style.cssText = `
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    align-items: start;
-`;
-
-content.forEach(section => {
-    const sectionDiv = document.createElement("div");
-    sectionDiv.style.cssText = `
-        background: #FFFFFF;
-        border-radius: 12px;
-        padding: 0;
+    // تعريف sectionsRow أولاً
+    const sectionsRow = document.createElement("div");
+    sectionsRow.style.cssText = `
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        align-items: start;
     `;
+    
+    content.forEach(section => {
+        const sectionDiv = document.createElement("div");
+        sectionDiv.style.cssText = `
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 0;
+        `;
         
         const sectionTitle = document.createElement("div");
         sectionTitle.style.cssText = `
