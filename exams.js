@@ -857,15 +857,13 @@ content.forEach(section => {
             chipsContainer.appendChild(chip);
         });
         
-        sectionDiv.appendChild(chipsContainer);
-            sectionsRow.appendChild(sectionDiv);
-});
+              sectionDiv.appendChild(chipsContainer);
+        sectionsRow.appendChild(sectionDiv);
+    });   // <-- هذا القوس يغلق content.forEach
 
-card.appendChild(sectionsRow);
-    });
-    
+    card.appendChild(sectionsRow);
     examsContainer.appendChild(card);
-}
+}   // <-- هذا القوس يغلق الدالة
 
 // وظيفة عرض أزرار التنقل بين أجزاء Mündlich
 function renderMündlichPartTabs() {
