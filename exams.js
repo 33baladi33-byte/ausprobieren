@@ -733,13 +733,13 @@ function renderTeileList() {
     btn.style.cssText = `
       height: 42px;
       padding: 0 18px;
-      background: ${isActive ? '#095BBB' : '#1A1D27'};
-      border: 1px solid ${isActive ? '#095BBB' : '#2A3040'};
+      background: ${isActive ? '#FFFFFF' : '#161922'};
+      border: ${isActive ? '1px solid #E2E8F0' : 'none'};
       border-radius: 14px;
       font-size: 15px;
       font-weight: 600;
       font-family: inherit;
-      color: ${isActive ? '#FFFFFF' : '#D8DCE5'};
+      color: ${isActive ? '#161922' : '#BFC6D4'};
       cursor: pointer;
       transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
       white-space: nowrap;
@@ -748,17 +748,15 @@ function renderTeileList() {
     // Hover effect
     btn.onmouseenter = () => {
       if (!isActive) {
-        btn.style.background = '#232838';
-        btn.style.borderColor = '#3A4257';
+        btn.style.background = '#202534';
         btn.style.color = '#FFFFFF';
       }
     };
     
     btn.onmouseleave = () => {
       if (!isActive) {
-        btn.style.background = '#1A1D27';
-        btn.style.borderColor = '#2A3040';
-        btn.style.color = '#D8DCE5';
+        btn.style.background = '#161922';
+        btn.style.color = '#BFC6D4';
       }
     };
     
