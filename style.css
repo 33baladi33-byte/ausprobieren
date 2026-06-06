@@ -2696,3 +2696,18 @@ body.has-team-session {
         font-size: 10px !important;
     }
 }
+/* للهواتف - جعل أزرار التنقل قابلة للتمرير */
+@media (max-width: 768px) {
+    .category-card > div:first-child {
+        gap: 8px !important;
+        overflow-x: auto !important;
+        flex-wrap: nowrap !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .category-card > div:first-child button {
+        padding: 5px 12px !important;
+        font-size: 11px !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+}
