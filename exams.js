@@ -2,30 +2,27 @@
 // exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
 // ============================================
 
-// ========== الأقسام الرئيسية (Tabs) ==========
 const mainCategories = [
-    { id: "schriftlich", name: "Schriftlich" },
-    { id: "mündlich", name: "Mündlich" },
-    { id: "tips", name: "Tipps" }
+    { id: "hoerenLesen", name: " Hören / Lesen" },
+    { id: "sprachSchreiben", name: " Sprach / Schreiben" },
+    { id: "mündlichTips", name: " Mündlich /  Tipps" }
 ];
 
-// ========== المحتوى تحت كل تبويب ==========
 const categoryContent = {
-    schriftlich: [
+    hoerenLesen: [
         { section: "Hören", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["hoeren1", "hoeren2", "hoeren3"] },
-        { section: "Lesen", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["lesen1", "lesen2", "lesen3"] },
+        { section: "Lesen", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["lesen1", "lesen2", "lesen3"] }
+    ],
+    sprachSchreiben: [
         { section: "Sprachbausteine", parts: ["Teil 1", "Teil 2"], skills: ["sprach1", "sprach2"] },
         { section: "Schreiben", parts: ["Schreiben"], skills: ["schreiben"] }
     ],
-    mündlich: [
-        { section: "Mündlich", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["mündlich1", "mündlich2", "mündlich3"] }
-    ],
-    tips: [
+    mündlichTips: [
+        { section: "Mündlich", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["mündlich1", "mündlich2", "mündlich3"] },
         { section: "Tipps", parts: ["نصائح"], skills: ["tips"] }
     ]
 };
-
-let activeTab = "schriftlich";
+let activeTab = "hoerenLesen";
 // ========== دالة حفظ آخر نتيجة ==========
 function saveExamResult(skill, examId, score) {
   try {
@@ -794,11 +791,9 @@ function renderCategoryContent() {
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     `;
     
- // إنشاء صف أفقي للأقسام
-const sectionsRow = document.createElement("div");
 sectionsRow.style.cssText = `
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     align-items: start;
 `;
