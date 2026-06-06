@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
-    background: #f5f5f5;
+    background: #F8FAFC;
 }
 
 .page {
@@ -341,18 +341,8 @@ body {
    TOP BAR
    ======================================== */
 
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 30px;
-    background: #0a0e1a;
-    border-bottom: 1px solid rgba(56, 189, 248, 0.15);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    transition: all 0.3s ease;
-}
+background: linear-gradient(135deg, #161922 0%, #202534 50%, #262D40 100%);
+box-shadow: 0 1px 0 rgba(255,255,255,0.03), 0 8px 25px rgba(0,0,0,0.15);
 
 .left-side {
     display: flex;
@@ -669,14 +659,7 @@ body:has(#exam.active) .profile-icon {
     border-color: #38bdf8;
 }
 
-body:has(#list.active) .top-bar,
-body:has(#exam.active) .top-bar {
-    background: rgba(45, 58, 82, 0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08), 0 1px 0 rgba(255, 255, 255, 0.03) inset;
-    transition: all 0.3s ease;
-}
+background: rgba(22, 25, 34, 0.95);
 
 /* ========================================
    Settings Modal
