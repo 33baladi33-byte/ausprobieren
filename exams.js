@@ -22,7 +22,7 @@ const categoryContent = {
         { section: "Tipps", parts: ["نصائح"], skills: ["tips"] }
     ]
 };
-let activeTab = "hoerenLesen";
+let currentSubTab = "hoeren1"; // القسم الفرعي الحالي
 // ========== دالة حفظ آخر نتيجة ==========
 function saveExamResult(skill, examId, score) {
   try {
@@ -791,15 +791,130 @@ function renderCategoryContent() {
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     `;
     
-    // تعريف sectionsRow أولاً
-    const sectionsRow = document.createElement("div");
-    sectionsRow.style.cssText = `
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        align-items: start;
+    // أزرار التنقل بين الأقسام الفرعية (Chips)
+    const chipsRow = document.createElement("div");
+    chipsRow.style.cssText = `
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #E7EEF7;
     `;
     
+    // تعريف الأزرار الفرعية
+    const subTabs = [];
+    if (activeTab === "hoerenLesen") {
+        subTabs.push(
+            { id: "hoeren1", name: "Hören 1", skill: "hoeren1" },
+            { id: "hoeren2", name: "Hören 2", skill: "hoeren2" },
+            { id: "hoeren3", name: "Hören 3", skill: "hoeren3" },
+            { id: "lesen1", name: "Lesen 1", skill: "lesen1" },
+            { id: "lesen2", name: "Lesen 2", skill: "lesen2" },
+            { id: "lesen3", name: "Lesen 3", skill: "lesen3" }
+        );
+    } else if (activeTab === "sprachSchreiben") {
+        subTabs.push(
+            { id: "sprach1", name: "Sprachbausteine 1", skill: "sprach1" },
+            { id: "sprach2", name: "Sprachbausteine 2", skill: "sprach2" },
+            { id: "schreiben", name: "Schreiben", skill: "schreiben" }
+        );
+    } else if (activeTab === "mündlichTips") {
+        subTabs.push(
+            { id: "mündlich1", name: "Mündlich 1", skill: "mündlich1" },
+            { id: "mündlich2", name: "Mündlich 2", skill: "mündlich2" },
+            { id: "mündlich3", name: "Mündlich 3", skill: "mündlich3" },
+            { id: "tips", name: "Tipps", skill: "tips" }
+        );
+    }
+    
+    // إنشاء أزرار التنقل
+    subTabs.forEach(sub => {
+        const chip = document.createElement("button");
+        chip.textContent = sub.name;
+        chip.style.cssText = `
+            background: ${currentSubTab === sub.id ? '#095BBB' : '#F5F7FA'};
+            color: ${currentSubTab === sub.id ? '#FFFFFF' : '#3B6596'};
+            border: 1px solid ${currentSubTab === sub.id ? '#095BBB' : '#E2E8F0'};
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        `;
+        chip.onmouseenter = () => {
+            if (currentSubTab !== sub.id) {
+                chip.style.background = '#E8EEF5';
+            }
+        };
+        chip.onmouseleave = () => {
+            if (currentSubTab !== sub.id) {
+                chip.style.background = '#F5F7FA';
+            }
+        };
+        chip.onclick = () => {
+            currentSubTab = sub.id;
+            renderExamListForSkill(sub.skill, sub.name);
+        };
+        chipsRow.appendChild(chip);
+    });
+    
+    card.appendChild(chipsRow);
+    
+    // عرض الامتحانات للقسم الفرعي الحالي
+    const currentSub = subTabs.find(s => s.id === currentSubTab);
+    if (currentSub) {
+        renderExamListForSkill(currentSub.skill, currentSub.name);
+    } else if (subTabs.length > 0) {
+        renderExamListForSkill(subTabs[0].skill, subTabs[0].name);
+    }
+    
+    examsContainer.appendChild(card);
+    
+    // للهواتف: جعل الأزرار قابلة للتمرير
+    if (window.innerWidth <= 768) {
+        const chipsRowDiv = card.querySelector('div:first-child');
+        if (chipsRowDiv) {
+            chipsRowDiv.style.cssText = `
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                gap: 8px !important;
+                padding-bottom: 8px !important;
+                -webkit-overflow-scrolling: touch !important;
+            `;
+        }
+    }
+}
+    const examsContainer = document.getElementById("examsList");
+    if (!examsContainer) return;
+    
+    examsContainer.innerHTML = "";
+    
+    const content = categoryContent[activeTab];
+    if (!content) return;
+    
+    // إنشاء البطاقة الرئيسية
+    const card = document.createElement("div");
+    card.className = "category-card";
+    card.style.cssText = `
+        background: #FFFFFF;
+        border: 1px solid #E7EEF7;
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    `;
+    
+// تعريف sectionsRow أولاً
+const sectionsRow = document.createElement("div");
+sectionsRow.style.cssText = `
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    align-items: start;
+`;
+
     content.forEach(section => {
         const sectionDiv = document.createElement("div");
         sectionDiv.style.cssText = `
