@@ -73,37 +73,88 @@ async function getExpiryDate(email) {
         return null;
     }
 }
-// دالة showLockedMessage - تفتح النافذة عند الضغط على امتحان مقفل
+
+// ========== نافذة الاشتراك المنبثقة ==========
 function showLockedMessage(examTitle) {
     const modal = document.getElementById('subscriptionModal');
     if (modal) modal.classList.add('active');
 }
 
-// دالة setupLockedNextButton - تفتح النافذة عند الضغط على زر "التالي" لامتحان مقفل
-async function setupLockedNextButton() {
-    let status = await getUserStatus();
-    let nextBtn = document.getElementById('nextExamBtn');
+async function updateProfileDropdown() {
+    let email = getLoggedInEmail();
+    let profileEmail = document.getElementById('profileEmail');
+    let profileExpiry = document.getElementById('profileExpiry');
+    let profileStatus = document.getElementById('profileStatus');
+    let profileLogoutBtn = document.getElementById('profileLogoutBtn');
+    let profileIcon = document.getElementById('profileIcon');
+    let navLoginBtn = document.getElementById('navLoginBtn');
+    let navSubscribeBtn = document.getElementById('navSubscribeBtn');
     
-    if(nextBtn && status !== 'premium') {
-        nextBtn.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
+    if(!profileEmail) return;
+    
+    if(email) {
+        const oldUpgradeBtn = document.getElementById('dropdownUpgradeBtn');
+        if (oldUpgradeBtn) oldUpgradeBtn.remove();
+        
+        let status = await getUserStatus();
+        let expiry = currentExpiry;
+        
+        profileEmail.innerHTML = `📧 ${email}`;
+        
+        if(status === 'premium' && expiry) {
+            let expiryDate = new Date(expiry);
+            let formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
+            profileExpiry.innerHTML = `📅 الصلاحية: حتى ${formattedExpiry}`;
+            profileStatus.innerHTML = `✅ الحالة: <span class="status-premium">مشترك (Pro)</span>`;
+            if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
+        } else if(status === 'expired') {
+            profileExpiry.innerHTML = `⏰ انتهت الصلاحية`;
+            profileStatus.innerHTML = `⚠️ الحالة: <span class="status-free">منتهي</span>`;
+            if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+        } else {
+            profileExpiry.innerHTML = `📖 الوضع المجاني`;
+            profileStatus.innerHTML = `⭐ الحالة: <span class="status-free">مجاني</span>`;
+            if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+        }
+        
+        if(profileLogoutBtn) profileLogoutBtn.style.display = 'block';
+        if(profileIcon) profileIcon.style.display = 'flex';
+        if(navLoginBtn) navLoginBtn.style.display = 'none';
+    } else {
+        profileEmail.innerHTML = '👤 غير مسجل';
+        profileExpiry.innerHTML = 'الوصول محدود لبعض الامتحانات';
+        profileStatus.innerHTML = '';
+        
+        // إضافة زر الترقية للمستخدم غير المسجل
+        const upgradeBtn = document.createElement('button');
+        upgradeBtn.id = 'dropdownUpgradeBtn';
+        upgradeBtn.innerHTML = 'الترقية إلى الحساب الكامل →';
+        upgradeBtn.style.cssText = `
+            margin-top: 12px;
+            background: #64748B;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        `;
+        upgradeBtn.onmouseenter = function() {
+            this.style.background = '#475569';
+        };
+        upgradeBtn.onmouseleave = function() {
+            this.style.background = '#64748B';
+        };
+        upgradeBtn.onclick = function() {
             const modal = document.getElementById('subscriptionModal');
             if (modal) modal.classList.add('active');
-            return false;
         };
-    }
-}
-
-// زر الترقية في القائمة المنسدلة
-upgradeBtn.onclick = function() {
-    const modal = document.getElementById('subscriptionModal');
-    if (modal) modal.classList.add('active');
-};
         
         const dropdown = document.getElementById('profileDropdown');
         if (dropdown) {
-            // حذف الزر القديم إذا كان موجوداً
             const oldBtn = document.getElementById('dropdownUpgradeBtn');
             if (oldBtn) oldBtn.remove();
             dropdown.appendChild(upgradeBtn);
@@ -250,7 +301,6 @@ if (document.readyState === 'loading') {
 
 function applyMobileAuthStyles() {
     if (window.innerWidth <= 768) {
-        // تصغير نافذة تسجيل الدخول
         const loginPopupContent = document.querySelector('.login-popup-content');
         if (loginPopupContent) {
             loginPopupContent.style.padding = '20px';
@@ -258,48 +308,24 @@ function applyMobileAuthStyles() {
             loginPopupContent.style.borderRadius = '20px';
         }
         
-        // تصغير العناوين
         const popupTitle = document.querySelector('.login-popup-content h3');
         if (popupTitle) popupTitle.style.fontSize = '1rem';
         
         const popupText = document.querySelector('.login-popup-content p');
         if (popupText) popupText.style.fontSize = '11px';
         
-        // تصغير حقول الإدخال
         const inputs = document.querySelectorAll('.login-popup-content input');
         inputs.forEach(input => {
             input.style.padding = '8px';
             input.style.fontSize = '12px';
         });
         
-        // تصغير الأزرار
         const btns = document.querySelectorAll('.btn-popup-login, .btn-popup-close');
         btns.forEach(btn => {
             btn.style.padding = '8px';
             btn.style.fontSize = '12px';
         });
         
-        // تصغير نافذة القفل (الامتحانات المقفلة)
-        const lockedModal = document.querySelector('#lockedModal > div');
-        if (lockedModal) {
-            lockedModal.style.padding = '20px';
-            lockedModal.style.maxWidth = '280px';
-            lockedModal.style.borderRadius = '24px';
-        }
-        
-        const lockedTitle = document.querySelector('#lockedModal h2');
-        if (lockedTitle) lockedTitle.style.fontSize = '18px';
-        
-        const lockedText = document.querySelector('#lockedModal p');
-        if (lockedText) lockedText.style.fontSize = '11px';
-        
-        const lockedButtons = document.querySelectorAll('#lockedModal button');
-        lockedButtons.forEach(btn => {
-            btn.style.padding = '8px 16px';
-            btn.style.fontSize = '12px';
-        });
-        
-        // تصغير القائمة المنسدلة للملف الشخصي
         const profileDropdown = document.querySelector('.profile-dropdown');
         if (profileDropdown) {
             profileDropdown.style.minWidth = '220px';
@@ -329,12 +355,10 @@ function applyMobileAuthStyles() {
     }
 }
 
-// استدعاء الدالة عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
     applyMobileAuthStyles();
 });
 
-// استدعاء الدالة بعد فتح نافذة تسجيل الدخول
 const originalShowLoginPopup = window.showLoginPopup;
 if (originalShowLoginPopup) {
     window.showLoginPopup = function() {
@@ -343,7 +367,6 @@ if (originalShowLoginPopup) {
     };
 }
 
-// استدعاء الدالة بعد فتح نافذة القفل
 const originalShowLockedMessage = window.showLockedMessage;
 if (originalShowLockedMessage) {
     window.showLockedMessage = function(examTitle) {
@@ -352,7 +375,6 @@ if (originalShowLockedMessage) {
     };
 }
 
-// استدعاء الدالة بعد تحديث القائمة المنسدلة
 const originalUpdateProfileDropdown = window.updateProfileDropdown;
 if (originalUpdateProfileDropdown) {
     window.updateProfileDropdown = async function() {
