@@ -1,19 +1,18 @@
 // ============================================
 // exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
 // ============================================
-
 const teile = [
-  { id: 1, name: "Hören Teil 1", container: "hoeren1", skill: "hoeren1" },
-  { id: 2, name: "Hören Teil 2", container: "hoeren2", skill: "hoeren2" },
-  { id: 3, name: "Hören Teil 3", container: "hoeren3", skill: "hoeren3" },
-  { id: 4, name: "Lesen Teil 1", container: "teil1", skill: "lesen1" },
-  { id: 5, name: "Lesen Teil 2", container: "teil2", skill: "lesen2" },
-  { id: 6, name: "Lesen Teil 3", container: "teil3", skill: "lesen3" },
-  { id: 7, name: "Sprachbausteine Teil 1", container: "sprach1", skill: "sprach1" },
-  { id: 8, name: "Sprachbausteine Teil 2", container: "sprach2", skill: "sprach2" },
+  { id: 1, name: "Hören 1", container: "hoeren1", skill: "hoeren1" },
+  { id: 2, name: "Hören 2", container: "hoeren2", skill: "hoeren2" },
+  { id: 3, name: "Hören 3", container: "hoeren3", skill: "hoeren3" },
+  { id: 4, name: "Lesen 1", container: "teil1", skill: "lesen1" },
+  { id: 5, name: "Lesen 2", container: "teil2", skill: "lesen2" },
+  { id: 6, name: "Lesen 3", container: "teil3", skill: "lesen3" },
+  { id: 7, name: "Sprach 1", container: "sprach1", skill: "sprach1" },
+  { id: 8, name: "Sprach 2", container: "sprach2", skill: "sprach2" },
   { id: 9, name: "Schreiben", container: "schreiben", skill: "schreiben" },
   { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" },
-  { id: 11, name: "Tips", container: "tips", skill: "tips" }
+  { id: 11, name: "Tipps", container: "tips", skill: "tips" }
 ];
 
 // ========== دالة حفظ آخر نتيجة ==========
@@ -709,77 +708,70 @@ function displaySavedResult(skill, examId, titleSpan, containerDiv) {
 }
 
 // ========== الدوال الرئيسية ==========
-
-let activeTeilId = null; // متغير لتخزين الزر النشط
+let activeTeilId = null;
 
 function renderTeileList() {
   const container = document.getElementById("teileList");
   if (!container) return;
   container.innerHTML = "";
   
-  // جعل الأزرار أفقية
+  // حاوية الأزرار (Tabs)
   container.style.cssText = `
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
     justify-content: center;
+    align-items: center;
     margin-bottom: 30px;
   `;
   
   for (let i = 0; i < teile.length; i++) {
     const teil = teile[i];
-    const div = document.createElement("div");
-    div.className = "item teil-item";
-    div.textContent = teil.name;
-    
-    // التحقق إذا كان هذا الزر هو النشط
     const isActive = (activeTeilId === i);
     
-    // شكل الزر حسب الحالة (عادي أو نشط)
-    div.style.cssText = `
+    const btn = document.createElement("button");
+    btn.textContent = teil.name;
+    btn.style.cssText = `
+      height: 42px;
+      padding: 0 18px;
       background: ${isActive ? '#095BBB' : '#FFFFFF'};
       border: 1px solid ${isActive ? '#095BBB' : '#DCE6F2'};
       border-radius: 14px;
-      padding: 10px 24px;
       font-size: 15px;
       font-weight: 600;
       font-family: inherit;
       color: ${isActive ? '#FFFFFF' : '#3B6596'};
       cursor: pointer;
-      transition: all 0.25s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-      display: inline-block;
-      text-align: center;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
     `;
     
-    // تأثير hover (فقط للزر غير النشط)
-    div.onmouseenter = () => {
-      if (activeTeilId !== i) {
-        div.style.background = '#F0F4FA';
-        div.style.borderColor = '#095BBB';
-        div.style.transform = 'translateY(-1px)';
-        div.style.boxShadow = '0 6px 12px rgba(0,0,0,0.05)';
+    // Hover effect (بدون transform)
+    btn.onmouseenter = () => {
+      if (!isActive) {
+        btn.style.background = '#F5F9FF';
+        btn.style.borderColor = '#BFD4EE';
+        btn.style.color = '#095BBB';
       }
     };
     
-    div.onmouseleave = () => {
-      if (activeTeilId !== i) {
-        div.style.background = '#FFFFFF';
-        div.style.borderColor = '#DCE6F2';
-        div.style.transform = 'translateY(0)';
-        div.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
+    btn.onmouseleave = () => {
+      if (!isActive) {
+        btn.style.background = '#FFFFFF';
+        btn.style.borderColor = '#DCE6F2';
+        btn.style.color = '#3B6596';
       }
     };
     
-    div.onclick = (function(skill, teilName, index) {
-      return function() { 
+    btn.onclick = (function(skill, teilName, index) {
+      return function() {
         activeTeilId = index;
         renderTeileList();
         renderExamListForSkill(skill, teilName);
       };
     })(teil.skill, teil.name, i);
     
-    container.appendChild(div);
+    container.appendChild(btn);
   }
 }
 
