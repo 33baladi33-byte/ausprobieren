@@ -841,10 +841,21 @@ async function renderExamListForSkill(skill, teilName) {
     renderMündlichPartTabs();
   }
   
-  const headerDiv = document.createElement("div");
-  headerDiv.className = "teil-header";
-  headerDiv.innerHTML = `<strong>📚 ${teilName || getTeilNameBySkill(skill)}</strong>`;
-  container.appendChild(headerDiv);
+const headerDiv = document.createElement("div");
+headerDiv.className = "teil-header";
+headerDiv.style.cssText = `
+    background: #FFFFFF;
+    border: 1px solid #E7EEF7;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #3B6596;
+`;
+headerDiv.innerHTML = `📚 ${teilName || getTeilNameBySkill(skill)}`;
+container.appendChild(headerDiv);
   
   let targetSkill = skill;
   let targetExams = examsDatabase[skill] || [];
