@@ -2627,3 +2627,72 @@ body.has-team-session {
     align-items: center;
     gap: 8px;
 }
+/* ============================================
+   تحسين عرض أزرار التنقل (Chips) في الهاتف
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* جعل أزرار التنقل قابلة للتمرير الأفقي */
+    .category-card > div:first-child {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        gap: 8px !important;
+        padding-bottom: 8px !important;
+        margin-bottom: 16px !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: thin !important;
+    }
+    
+    .category-card > div:first-child::-webkit-scrollbar {
+        height: 3px !important;
+    }
+    
+    .category-card > div:first-child::-webkit-scrollbar-track {
+        background: #E2E8F0 !important;
+        border-radius: 10px !important;
+    }
+    
+    .category-card > div:first-child::-webkit-scrollbar-thumb {
+        background: #095BBB !important;
+        border-radius: 10px !important;
+    }
+    
+    /* تصغير حجم أزرار التنقل */
+    .category-card button {
+        padding: 5px 12px !important;
+        font-size: 11px !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* تصغير حجم البطاقة الرئيسية */
+    .category-card {
+        padding: 12px !important;
+    }
+    
+    /* جعل الأقسام (Hören, Lesen) تتكدس عمودياً في الهاتف */
+    .category-card > div:last-child {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+    
+    /* كل قسم يأخذ عرض كامل */
+    .category-card > div:last-child > div {
+        width: 100% !important;
+    }
+    
+    /* تصغير حجم عنوان القسم */
+    .category-card div[style*="font-size: 16px"] {
+        font-size: 13px !important;
+        margin-bottom: 8px !important;
+    }
+    
+    /* تصغير حجم أزرار Teil */
+    .category-card button {
+        padding: 4px 10px !important;
+        font-size: 10px !important;
+    }
+}
