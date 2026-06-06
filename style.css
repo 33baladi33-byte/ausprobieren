@@ -1396,39 +1396,12 @@ background: rgba(22, 25, 34, 0.95);
     border-radius: 10px !important;
 }
 
-.teil-item {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    padding: 6px 14px !important;
-    background: rgba(30, 41, 59, 0.9) !important;
-    backdrop-filter: blur(4px) !important;
-    border: 1px solid rgba(56, 189, 248, 0.2) !important;
-    border-radius: 40px !important;
-    color: #e2e8f0 !important;
-    font-size: 0.75rem !important;
-    font-weight: 500 !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
-}
-
-.teil-item::before {
-    content: "📚";
-    font-size: 0.7rem;
-    opacity: 0.8;
-}
-
-.teil-item:hover {
-    background: rgba(56, 189, 248, 0.2) !important;
-    border-color: #38bdf8 !important;
-    transform: translateY(-2px) !important;
-    color: #ffffff !important;
-}
-
+/* Active (المضغوط) - يظهر عند الضغط */
 .teil-item:active {
-    transform: scale(0.97) !important;
+    background: #FFFFFF !important;
+    color: #161922 !important;
+    border: 1px solid #E2E8F0 !important;
+    transform: none !important;
 }
 
 .exam-box {
@@ -1679,20 +1652,15 @@ background: rgba(22, 25, 34, 0.95);
         padding: 4px 8px !important;
     }
     
-    /* أزرار الأقسام في الهاتف */
-    .teile-row {
-        gap: 6px !important;
-        overflow-x: auto !important;
-    }
-    
-    .teil-item {
-        padding: 5px 12px !important;
-        font-size: 0.65rem !important;
-    }
-    
-    .teil-item::before {
-        font-size: 0.6rem;
-    }
+   .teile-row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin-bottom: 30px !important;
+}
+
     
 /* قائمة الامتحانات في الهاتف */
 .item {
@@ -2401,17 +2369,7 @@ body.dark-mode .premium-features li {
     color: #ffffff !important;
     transform: translateY(-2px) !important;
 }
-/* أزرار الأقسام في الهاتف - الحجم الأصلي */
-.teil-item {
-    padding: 5px 12px !important;
-    font-size: 0.65rem !important;
-    background: rgba(30, 41, 59, 0.9) !important;
-    color: #e2e8f0 !important;
-}
 
-.teil-item::before {
-    font-size: 0.6rem;
-}
 /* ============================================
    زر 💎 لماذا؟ - مع بطاقة منبثقة أنيقة
    ============================================ */
