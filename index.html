@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WKHB13HC13"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WKHB13HC13');
-</script>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- SEO & Open Graph - نظيف واحترافي -->
@@ -1550,16 +1541,20 @@ body.dark-mode .mobile-banner span {
         if (e.key === 'ArrowLeft') prevImageModal();
     });
 
- const startBtn = document.getElementById('startBtn');
-if(startBtn) {
-    startBtn.addEventListener('click', function() {
-        activeTab = "hoerenLesen";
-        currentSubTab = "hoeren1";
-        renderTeileList();
-        renderCategoryContent();
-        goList();
-    });
-}
+    const startBtn = document.getElementById('startBtn');
+    if(startBtn) {
+        startBtn.addEventListener('click', function() {
+            if (typeof goList === 'function') {
+                goList();
+            }
+            setTimeout(() => {
+                const hoerenTeil1 = document.querySelector('.teile-row .item:first-child');
+                if(hoerenTeil1 && hoerenTeil1.click) {
+                    hoerenTeil1.click();
+                }
+            }, 100);
+        });
+    }
     
     function fixMobileWidget() {
         const widget = document.getElementById('reviewsWidget');
@@ -1789,6 +1784,7 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <script src="notifications.js"></script>
 <script src="rapidGame.js"></script>
 <script src="studySession.js"></script>
+
 ر<!-- نافذة خطوات الاشتراك -->
 <div id="subscribeGuideModal" class="subscribe-guide-modal">
     <div class="modal-container">
