@@ -1468,10 +1468,18 @@ function goList() {
   
   renderTeileList();
   
-  const examsContainer = document.getElementById("examsList");
-  if (examsContainer) {
-    examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
-  }
+  // عرض امتحانات Hören Teil 1 مباشرة
+  setTimeout(() => {
+    const examsContainer = document.getElementById("examsList");
+    if (examsContainer) {
+      const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+      if (hoeren1Teil) {
+        renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+      } else {
+        examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
+      }
+    }
+  }, 50);
 }
 
 function buildTeil1(questions) {
