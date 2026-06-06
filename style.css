@@ -2395,37 +2395,48 @@ body.dark-mode .premium-features li {
     font-size: 0.65rem !important;
     font-weight: 500 !important;
 }
+
 /* ========================================
-   تنسيق أزرار الأجزاء (Teile) - الحاسوب
+   تنسيق أزرار الأجزاء (Teile) - التصميم الجديد
    ======================================== */
 
 .teil-item {
-    background: rgba(30, 41, 59, 0.9) !important;
-    border: 1px solid rgba(56, 189, 248, 0.2) !important;
-    border-radius: 40px !important;
-    color: #e2e8f0 !important;
-    font-size: 0.75rem !important;
-    font-weight: 500 !important;
-    padding: 6px 14px !important;
-    transition: all 0.2s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 18px !important;
+    height: 42px !important;
+    background: #161922 !important;
+    border: none !important;
+    border-radius: 14px !important;
+    color: #98A2B3 !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
 }
 
-.teil-item:hover {
-    background: rgba(56, 189, 248, 0.2) !important;
-    border-color: #38bdf8 !important;
-    color: #ffffff !important;
-    transform: translateY(-2px) !important;
-}
-/* أزرار الأقسام في الهاتف - الحجم الأصلي */
-.teil-item {
-    padding: 5px 12px !important;
-    font-size: 0.65rem !important;
-    background: rgba(30, 41, 59, 0.9) !important;
-    color: #e2e8f0 !important;
-}
-
+/* إزالة الأيقونة */
 .teil-item::before {
-    font-size: 0.6rem;
+    content: none !important;
+    display: none !important;
+}
+
+/* Hover effect */
+.teil-item:hover {
+    background: #202534 !important;
+    color: #C7CDD8 !important;
+    transform: none !important;
+}
+
+/* Active (المضغوط) */
+.teil-item:active {
+    background: #2A3040 !important;
+    color: #E5E7EB !important;
+    border: 1px solid #3A4257 !important;
+    transform: none !important;
 }
 /* ============================================
    زر 💎 لماذا؟ - مع بطاقة منبثقة أنيقة
