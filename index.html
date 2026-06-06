@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WKHB13HC13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-WKHB13HC13');
+</script>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- SEO & Open Graph - نظيف واحترافي -->
@@ -1910,52 +1919,6 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
     
     console.log("✅ زر 💡 طريقة الاشتراك الجديد جاهز");
 })();
-        // ============================================
-// نظام الاشتراك المنبثق (Subscription Modal)
-// ============================================
-(function() {
-    const modal = document.getElementById('subscriptionModal');
-    const closeBtn = document.getElementById('closeSubscriptionBtn');
-    
-    function closeModal() {
-        if (modal) modal.classList.remove('active');
-    }
-    
-    function openModal() {
-        if (modal) modal.classList.add('active');
-    }
-    
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) closeModal();
-        });
-    }
-    
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-            closeModal();
-        }
-    });
-    
-    const navSubscribeBtn = document.getElementById('navSubscribeBtn');
-    const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
-    
-    if (navSubscribeBtn) {
-        navSubscribeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal();
-        });
-    }
-    
-    if (featuresSubscribeBtn) {
-        featuresSubscribeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal();
-        });
-    }
-})();
 </script>
     <!-- نافذة خطوات الاشتراك -->
 <div id="subscribeGuideModal" class="subscribe-guide-modal">
@@ -1997,22 +1960,6 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <!-- نافذة تكبير الصورة -->
 <div id="imageLightbox" class="image-lightbox">
     <img id="lightboxImg" src="" alt="صورة مكبرة">
-</div>
-    <!-- نافذة الاشتراك المنبثقة -->
-<div id="subscriptionModal" class="subscription-modal">
-    <div class="subscription-card">
-        <div class="subscription-title">اختر طريقة الاشتراك</div>
-        <div class="subscription-subtitle">يمكنك الاشتراك عبر المنصة أو التواصل مباشرة عبر واتساب</div>
-        <div class="subscription-buttons">
-            <a href="https://zertivab2.youcan.store/" id="subscriptionPlatformBtn" class="subscription-btn primary" target="_blank">
-                🛒 الاشتراك عبر المنصة
-            </a>
-            <a href="https://wa.me/212687561491?text=مرحباً، أنا مهتم بالاشتراك في منصة التحضير لامتحان B2 وأرغب في معرفة الباقات المتاحة." id="subscriptionWhatsappBtn" class="subscription-btn whatsapp" target="_blank">
-                💬 التواصل عبر واتساب
-            </a>
-        </div>
-        <button id="closeSubscriptionBtn" class="close-subscription-btn">✕ إغلاق</button>
-    </div>
 </div>
 </body>
 </html>
