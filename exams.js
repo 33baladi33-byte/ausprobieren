@@ -4,7 +4,6 @@
 let activeTeilId = null; // متغير لتخزين الزر النشط
 
 const teile = [
-const teile = [
   { id: 1, name: "Hören Teil 1", container: "hoeren1", skill: "hoeren1" },
   { id: 2, name: "Hören Teil 2", container: "hoeren2", skill: "hoeren2" },
   { id: 3, name: "Hören Teil 3", container: "hoeren3", skill: "hoeren3" },
