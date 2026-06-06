@@ -1550,20 +1550,16 @@ body.dark-mode .mobile-banner span {
         if (e.key === 'ArrowLeft') prevImageModal();
     });
 
-    const startBtn = document.getElementById('startBtn');
-    if(startBtn) {
-        startBtn.addEventListener('click', function() {
-            if (typeof goList === 'function') {
-                goList();
-            }
-            setTimeout(() => {
-                const hoerenTeil1 = document.querySelector('.teile-row .item:first-child');
-                if(hoerenTeil1 && hoerenTeil1.click) {
-                    hoerenTeil1.click();
-                }
-            }, 100);
-        });
-    }
+ const startBtn = document.getElementById('startBtn');
+if(startBtn) {
+    startBtn.addEventListener('click', function() {
+        activeTab = "hoerenLesen";
+        currentSubTab = "hoeren1";
+        renderTeileList();
+        renderCategoryContent();
+        goList();
+    });
+}
     
     function fixMobileWidget() {
         const widget = document.getElementById('reviewsWidget');
