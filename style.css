@@ -1414,17 +1414,17 @@ body:has(#exam.active) .top-bar {
 .teil-item {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 6px !important;
-    padding: 6px 14px !important;
-    background: rgba(30, 41, 59, 0.9) !important;
-    backdrop-filter: blur(4px) !important;
-    border: 1px solid rgba(56, 189, 248, 0.2) !important;
-    border-radius: 40px !important;
-    color: #e2e8f0 !important;
-    font-size: 0.75rem !important;
-    font-weight: 500 !important;
+    justify-content: center !important;
+    padding: 0 18px !important;
+    height: 42px !important;
+    background: #3B414C !important;
+    border: none !important;
+    border-radius: 14px !important;
+    color: #BFC6D4 !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
     cursor: pointer !important;
-    transition: all 0.2s ease !important;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
 }
