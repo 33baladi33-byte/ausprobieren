@@ -74,14 +74,13 @@ async function getExpiryDate(email) {
     }
 }
 
-// ========== نافذة الاشتراك المنبثقة (النسخة الجديدة) ==========
+// ========== نافذة الاشتراك المنبثقة ==========
 function showLockedMessage(examTitle) {
     // فتح النافذة المنبثقة بدلاً من التوجيه المباشر
     const modal = document.getElementById('subscriptionModal');
     if (modal) {
         modal.classList.add('active');
     } else {
-        // إذا لم توجد النافذة، نستخدم التنبيه القديم
         alert("يرجى الاشتراك للوصول إلى هذا المحتوى");
     }
 }
@@ -155,11 +154,10 @@ async function updateProfileDropdown() {
         upgradeBtn.onmouseleave = function() {
             this.style.background = '#64748B';
         };
-        upgradeBtn.onclick = function() {
-            // فتح النافذة المنبثقة بدلاً من التوجيه المباشر
-            const modal = document.getElementById('subscriptionModal');
-            if (modal) modal.classList.add('active');
-        };
+    upgradeBtn.onclick = function() {
+    const modal = document.getElementById('subscriptionModal');
+    if (modal) modal.classList.add('active');
+};
         
         const dropdown = document.getElementById('profileDropdown');
         if (dropdown) {
@@ -230,7 +228,6 @@ async function setupLockedNextButton() {
         nextBtn.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            // فتح النافذة المنبثقة بدلاً من التوجيه المباشر
             const modal = document.getElementById('subscriptionModal');
             if (modal) modal.classList.add('active');
             return false;
