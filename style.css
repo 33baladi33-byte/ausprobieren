@@ -2406,14 +2406,14 @@ body.dark-mode .premium-features li {
     justify-content: center !important;
     padding: 0 18px !important;
     height: 42px !important;
-    background: #2D333D !important;
-    border: none !important;
+    background: linear-gradient(90deg, #161922 0%, #2D3138 50%, #161922 100%) !important;
+    border: 1px solid #D5E0EC !important;
     border-radius: 14px !important;
-    color: #D0D6E0 !important;
+    color: #4F6F94 !important;
     font-size: 15px !important;
     font-weight: 600 !important;
     cursor: pointer !important;
-    transition: background-color 0.2s ease, color 0.2s ease !important;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
 }
@@ -2426,16 +2426,17 @@ body.dark-mode .premium-features li {
 
 /* Hover effect */
 .teil-item:hover {
-    background: #343B47 !important;
-    color: #E5E7EB !important;
+    background: #E3EDF8 !important;
+    border-color: #BFD3E8 !important;
+    color: #4F6F94 !important;
     transform: none !important;
 }
 
 /* Active (المضغوط) - عند الضغط */
 .teil-item:active {
-    background: #FFFFFF !important;
-    color: #161922 !important;
-    border: 1px solid #E2E8F0 !important;
+    background: #095BBB !important;
+    border-color: #095BBB !important;
+    color: #FFFFFF !important;
     transform: none !important;
 }
 /* ============================================
