@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- SEO & Open Graph - نظيف واحترافي -->
@@ -812,71 +813,6 @@ body.dark-mode .mobile-banner span {
             font-size: 1rem;
         }
     }
-    /* Team Session Styles */
-.team-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(135deg, #173B6C, #1e4a7a);
-    color: white;
-    padding: 8px 20px;
-    z-index: 1000;
-    border-bottom: 2px solid #FFD54F;
-    direction: rtl;
-}
-.team-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-.team-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-.team-icon { font-size: 1.2rem; }
-.team-title { font-weight: 600; font-size: 0.85rem; }
-.team-code {
-    background: rgba(255,255,255,0.15);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-family: monospace;
-}
-.team-members {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-.team-member {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.75rem;
-    background: rgba(255,255,255,0.1);
-    padding: 4px 10px;
-    border-radius: 20px;
-}
-.team-member.online { border-right: 2px solid #4ADE80; }
-.member-badge, .leader-badge { font-size: 0.65rem; }
-.leave-session-btn {
-    background: #dc2626;
-    border: none;
-    color: white;
-    padding: 5px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.7rem;
-}
-.leave-session-btn:hover { background: #b91c1c; }
-body.has-team-session { padding-top: 60px; }
-.team-study-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
-}
 </style>
 </head>
 <body>
@@ -1046,10 +982,10 @@ body.has-team-session { padding-top: 60px; }
                     </div>
                     <div class="widget-expanded-content">
                         <div class="widget-header">
-                            <span class="widget-header-icon">🤔</span>
-                            <span class="widget-header-title">مازال كتفكر واش تشترك؟</span>
+                            <span class="widget-header-icon">🏆</span>
+                            <span class="widget-header-title">جزء من المستفيدين من المنصة</span>
                         </div>
-                        <p class="widget-subtitle">شوف ناس سبقوك واستافدو من المنصة.</p>
+                       
                         <div class="widget-slider-container">
                             <div class="widget-slider" id="widgetSlider">
                                 <div class="widget-slide"><img src="images/review1.webp" loading="lazy" alt="Review 1"></div>
@@ -1081,13 +1017,11 @@ body.has-team-session { padding-top: 60px; }
                     بالإضافة لمنهجية جيدة، ونصائح يومية عبر الواتساب.
                 </p>
                <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-    <a href="https://zertivab2.youcan.store/" id="featuresSubscribeBtn" class="features-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+        <a href="https://zertivab2.youcan.store/" id="featuresSubscribeBtn" class="features-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
     اشترك الآن
     <span class="btn-arrow">→</span>
 </a>
-    <button id="teamStudyBtn" class="team-study-btn" style="background: linear-gradient(135deg, #8B5CF6, #6D28D9); border: none; padding: 12px 24px; border-radius: 50px; color: white; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
-    👥 مراجعة مع صديق
-</button>
+    
     <!-- زر 💡 طريقة الاشتراك الجديد -->
     <button id="subscribeGuideBtn" class="subscribe-guide-btn" title="طريقة الاشتراك">
         💡
@@ -1143,7 +1077,6 @@ body.has-team-session { padding-top: 60px; }
   <div id="hoeren2" style="display:none;"></div>
   <div id="hoeren3" style="display:none;"></div>
   <div id="schreiben" style="display:none;"></div>
-    
   <div id="mündlich1" style="display:none;"></div>
   <div id="mündlich2" style="display:none;"></div>
   <div id="mündlich3" style="display:none;"></div>
@@ -1364,6 +1297,7 @@ body.has-team-session { padding-top: 60px; }
         if (resetBtn) resetBtn.addEventListener('click', resetFont);
     })();
 
+
     
     const logoBtn = document.getElementById('logoHomeBtn');
     if(logoBtn) {
@@ -1384,23 +1318,11 @@ body.has-team-session { padding-top: 60px; }
     let isHovering = false;
 
     function startMoveCycle() {
-        if (isHovering) return;
-        if (widgetSliderElem) {
-            widgetSliderElem.style.animationPlayState = 'running';
-            if (moveTimeout) clearTimeout(moveTimeout);
-            moveTimeout = setTimeout(() => {
-                if (!isHovering && widgetSliderElem) {
-                    widgetSliderElem.style.animationPlayState = 'paused';
-                    if (pauseTimeout) clearTimeout(pauseTimeout);
-                    pauseTimeout = setTimeout(() => {
-                        if (!isHovering && widgetSliderElem) {
-                            startMoveCycle();
-                        }
-                    }, 5000);
-                }
-            }, 10000);
-        }
+    // تم إيقاف التمرير التلقائي للصور
+    if (widgetSliderElem) {
+        widgetSliderElem.style.animationPlayState = 'paused';
     }
+}
 
     function stopMoveCycle() {
         if (moveTimeout) clearTimeout(moveTimeout);
@@ -1837,8 +1759,8 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <!-- عداد صغير جداً أعلى اليمين -->
 <div id="sessionTimerBar" class="session-timer-bar" style="display: none;">
     <div class="timer-display">
-        <span id="timerMinutes">00</span>:<span id="timerSeconds">00</span>
-    </div>
+    <span id="timerMinutes">00</span>:<span id="timerSeconds">00</span>
+</div>
     <button id="cancelSessionBtn" class="cancel-session-btn" title="إنهاء">✕</button>
 </div>
 
@@ -1852,6 +1774,10 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         <button id="closeEndOverlayBtn" class="end-overlay-btn">حسناً</button>
     </div>
 </div>
+<!-- ========== عناصر جلسة المراجعة ========== -->
+<div id="studySessionModal" class="session-modal">...</div>
+<div id="sessionTimerBar" class="session-timer-bar" style="display: none;">...</div>
+<div id="sessionEndOverlay" class="session-end-overlay" style="display: none;">...</div>
 
 <!-- ========== الـ Scripts (مرة واحدة فقط) ========== -->
 <script src="helpSystem.js"></script>
@@ -1862,34 +1788,6 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <script src="rapidGame.js"></script>
 <script src="studySession.js"></script>
 <script src="reviews-simple.js"></script>
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-
-<script>
-    // إعدادات Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyABp_TfYLzX76ddo0nE08R7T0N8UEGbjIc",
-        authDomain: "zertivab22.firebaseapp.com",
-        databaseURL: "https://zertivab22-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "zertivab22",
-        storageBucket: "zertivab22.firebasestorage.app",
-        messagingSenderId: "510978830489",
-        appId: "1:510978830489:web:754fc4ebc02a7ab40a4808",
-        measurementId: "G-57CPE84S84"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-    window.firebaseDB = database;
-    console.log("✅ Firebase initialized");
-</script>
-
-<!-- Team Session System -->
-<script src="teamSession.js"></script>
-
 ر<!-- نافذة خطوات الاشتراك -->
 <div id="subscribeGuideModal" class="subscribe-guide-modal">
     <div class="modal-container">
@@ -1902,24 +1800,25 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
             <button class="slider-nav-btn slider-nav-next" id="sliderNextBtn">❯</button>
             <div class="subscribe-slider" id="subscribeSlider">
                 <div class="subscribe-slide">
-                    <img src="images/step1.webp" loading="lazy" alt="الخطوة 1" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+1'">
-                    <div class="subscribe-slide-caption">📝 1. إنشاء حساب</div>
-                </div>
-                <div class="subscribe-slide">
-                    <img src="images/step2.webp" loading="lazy" alt="الخطوة 2" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+2'">
-                    <div class="subscribe-slide-caption">💳 2. اختيار الباقة</div>
-                </div>
-                <div class="subscribe-slide">
-                    <img src="images/step3.webp" loading="lazy" alt="الخطوة 3" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+3'">
-                    <div class="subscribe-slide-caption">🔐 3. إتمام الدفع</div>
-                </div>
-                <div class="subscribe-slide">
-                    <img src="images/step4.webp" loading="lazy" alt="الخطوة 4" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+4'">
-                    <div class="subscribe-slide-caption">✅ 4. تفعيل الاشتراك</div>
-                </div>
-                <div class="subscribe-slide">
-                    <img src="images/step5.webp" loading="lazy" alt="الخطوة 5" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+5'">
-                    <div class="subscribe-slide-caption">🚀 5. بدء المراجعة</div>
+    <img src="images/step1.webp" loading="lazy" alt="الخطوة 1" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+1'">
+    <div class="subscribe-slide-caption">1. اضغط هنا</div>
+</div>
+<div class="subscribe-slide">
+    <img src="images/step2.webp" loading="lazy" alt="الخطوة 2" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+2'">
+    <div class="subscribe-slide-caption">📝 2. انشاء حساب</div>
+</div>
+<div class="subscribe-slide">
+    <img src="images/step3.webp" loading="lazy" alt="الخطوة 3" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+3'">
+    <div class="subscribe-slide-caption">💳 3. اختيار الباقة</div>
+</div>
+<div class="subscribe-slide">
+    <img src="images/step4.webp" loading="lazy" alt="الخطوة 4" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+4'">
+    <div class="subscribe-slide-caption">💰 4. إتمام الدفع</div>
+</div>
+<div class="subscribe-slide">
+    <img src="images/step5.webp" loading="lazy" alt="الخطوة 5" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+5'">
+    <div class="subscribe-slide-caption">🚀 5. بدء المراجعة</div>
+</div>
                 </div>
             </div>
         </div>
@@ -2014,98 +1913,6 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
     
     console.log("✅ زر 💡 طريقة الاشتراك الجديد جاهز");
 })();
- // ============================================
-// زر مراجعة مع صديق - مع نافذة منبثقة جميلة
-// ============================================
-const teamStudyBtn = document.getElementById('teamStudyBtn');
-if(teamStudyBtn) {
-    teamStudyBtn.addEventListener('click', () => {
-        // إنشاء نافذة منبثقة
-        const modal = document.createElement('div');
-        modal.id = 'teamCodeModal';
-        modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            z-index: 20001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: all 0.3s ease;
-        `;
-        
-        modal.innerHTML = `
-            <div style="background: linear-gradient(135deg, #173B6C, #1e4a7a); border-radius: 24px; padding: 24px; width: 320px; text-align: center; direction: rtl; box-shadow: 0 20px 40px rgba(0,0,0,0.3); border: 1px solid #FFD54F;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h3 style="color: #FFD54F; margin: 0; font-size: 1.2rem;">👥 مراجعة مع صديق</h3>
-                    <button id="closeTeamModal" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer;">✕</button>
-                </div>
-                <div style="display: flex; gap: 15px; flex-direction: column;">
-                    <button id="createRoomBtn" style="background: #FFD54F; border: none; padding: 12px; border-radius: 40px; font-weight: bold; color: #173B6C; cursor: pointer;">✨ إنشاء غرفة جديدة</button>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <input type="text" id="roomCodeInput" placeholder="أدخل رمز الغرفة" style="flex: 1; padding: 10px; border-radius: 40px; border: none; text-align: center; font-size: 14px;">
-                        <button id="joinRoomBtn" style="background: #38bdf8; border: none; padding: 10px 20px; border-radius: 40px; font-weight: bold; color: white; cursor: pointer;">دخول</button>
-                    </div>
-                </div>
-                <div style="margin-top: 15px; font-size: 11px; color: rgba(255,255,255,0.6);">
-                    شارك الرمز مع صديقك للمراجعة معاً
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modal);
-        
-        setTimeout(() => {
-            modal.style.visibility = 'visible';
-            modal.style.opacity = '1';
-        }, 10);
-        
-        const closeModal = () => {
-            modal.style.visibility = 'hidden';
-            modal.style.opacity = '0';
-            setTimeout(() => modal.remove(), 300);
-        };
-        
-        modal.querySelector('#closeTeamModal').onclick = closeModal;
-        modal.onclick = (e) => { if(e.target === modal) closeModal(); };
-        
-        // إنشاء غرفة
-        modal.querySelector('#createRoomBtn').onclick = async () => {
-            if(typeof TeamSession === 'undefined') {
-                alert("⚠️ النظام لم يتم تحميله بعد. أعد تحميل الصفحة.");
-                closeModal();
-                return;
-            }
-            const roomCode = await TeamSession.createTeamRoom();
-            alert(`✅ تم إنشاء الغرفة!\n\n🔑 رمز الغرفة: ${roomCode}\n\n📤 أرسل هذا الرمز لصديقك للانضمام إليك.`);
-            closeModal();
-            if(typeof goList === 'function') goList();
-        };
-        
-        // الانضمام إلى غرفة
-        modal.querySelector('#joinRoomBtn').onclick = async () => {
-            const roomCode = modal.querySelector('#roomCodeInput').value.trim();
-            if(!roomCode) {
-                alert("⚠️ يرجى إدخال رمز الغرفة");
-                return;
-            }
-            if(typeof TeamSession === 'undefined') {
-                alert("⚠️ النظام لم يتم تحميله بعد. أعد تحميل الصفحة.");
-                closeModal();
-                return;
-            }
-            await TeamSession.joinTeamRoom(roomCode);
-            closeModal();
-            if(typeof goList === 'function') goList();
-        };
-    });
-}
 </script>
     <!-- نافذة خطوات الاشتراك -->
 <div id="subscribeGuideModal" class="subscribe-guide-modal">
@@ -2115,7 +1922,8 @@ if(teamStudyBtn) {
             <button class="close-modal-btn" id="closeGuideModal">✕</button>
         </div>
         <div class="subscribe-slider-container">
-            <button class="slider-nav-btn slider-nav-prev" id="sliderPrevBtn">❮</button>
+            <button class="slider-nav-btn slider-nav-prev" id="sliderPrevB
+                tn">❮</button>
             <button class="slider-nav-btn slider-nav-next" id="sliderNextBtn">❯</button>
             <div class="subscribe-slider" id="subscribeSlider">
                 <div class="subscribe-slide">
@@ -2147,6 +1955,5 @@ if(teamStudyBtn) {
 <div id="imageLightbox" class="image-lightbox">
     <img id="lightboxImg" src="" alt="صورة مكبرة">
 </div>
-    
 </body>
 </html>
