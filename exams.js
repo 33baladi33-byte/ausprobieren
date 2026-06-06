@@ -1616,6 +1616,32 @@ document.addEventListener("DOMContentLoaded", function() {
 
 renderTeileList();
 
+// ========== إظهار امتحانات Hören 1 تلقائياً ==========
+(function() {
+    const originalGoList = goList;
+    
+    goList = function() {
+        originalGoList();
+        
+        setTimeout(function() {
+            const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+            if (hoeren1Teil && document.getElementById("list").classList.contains("active")) {
+                renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+            }
+        }, 150);
+    };
+    
+    if (document.getElementById("list").classList.contains("active")) {
+        setTimeout(function() {
+            const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+            if (hoeren1Teil) {
+                renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+            }
+        }, 100);
+    }
+})();
+
+
 console.log("✅ exams.js تم تحميله بنجاح");
 console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
 console.log("📚 Lesen Teil 2:", examsDatabase.lesen2.length, "امتحان");
