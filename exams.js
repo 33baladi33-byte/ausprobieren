@@ -794,18 +794,22 @@ function renderCategoryContent() {
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     `;
     
-    content.forEach(section => {
-        const sectionDiv = document.createElement("div");
-        sectionDiv.style.cssText = `
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid #E7EEF7;
-        `;
-        if (section === content[content.length - 1]) {
-            sectionDiv.style.borderBottom = "none";
-            sectionDiv.style.marginBottom = "0";
-            sectionDiv.style.paddingBottom = "0";
-        }
+ // إنشاء صف أفقي للأقسام
+const sectionsRow = document.createElement("div");
+sectionsRow.style.cssText = `
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: start;
+`;
+
+content.forEach(section => {
+    const sectionDiv = document.createElement("div");
+    sectionDiv.style.cssText = `
+        background: #FFFFFF;
+        border-radius: 12px;
+        padding: 0;
+    `;
         
         const sectionTitle = document.createElement("div");
         sectionTitle.style.cssText = `
@@ -854,7 +858,10 @@ function renderCategoryContent() {
         });
         
         sectionDiv.appendChild(chipsContainer);
-        card.appendChild(sectionDiv);
+            sectionsRow.appendChild(sectionDiv);
+});
+
+card.appendChild(sectionsRow);
     });
     
     examsContainer.appendChild(card);
