@@ -1,7 +1,9 @@
 // ============================================
 // exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
 // ============================================
+let activeTeilId = null; // متغير لتخزين الزر النشط
 
+const teile = [
 const teile = [
   { id: 1, name: "Hören Teil 1", container: "hoeren1", skill: "hoeren1" },
   { id: 2, name: "Hören Teil 2", container: "hoeren2", skill: "hoeren2" },
@@ -708,8 +710,6 @@ function displaySavedResult(skill, examId, titleSpan, containerDiv) {
   }
 }
 
-// ========== الدوال الرئيسية ==========
-
 function renderTeileList() {
   const container = document.getElementById("teileList");
   if (!container) return;
@@ -730,16 +730,19 @@ function renderTeileList() {
     div.className = "item teil-item";
     div.textContent = teil.name;
     
-    // شكل الزر الجديد
+    // التحقق إذا كان هذا الزر هو النشط
+    const isActive = (activeTeilId === i);
+    
+    // شكل الزر حسب الحالة (عادي أو نشط)
     div.style.cssText = `
-      background: #FFFFFF;
-      border: 1px solid #DCE6F2;
+      background: ${isActive ? '#095BBB' : '#FFFFFF'};
+      border: 1px solid ${isActive ? '#095BBB' : '#DCE6F2'};
       border-radius: 14px;
       padding: 10px 24px;
       font-size: 15px;
       font-weight: 600;
       font-family: inherit;
-      color: #3B6596;
+      color: ${isActive ? '#FFFFFF' : '#3B6596'};
       cursor: pointer;
       transition: all 0.25s ease;
       box-shadow: 0 2px 4px rgba(0,0,0,0.02);
@@ -747,26 +750,32 @@ function renderTeileList() {
       text-align: center;
     `;
     
-    // تأثير المرور بالماوس
+    // تأثير hover (فقط للزر غير النشط)
     div.onmouseenter = () => {
-      div.style.background = '#F0F4FA';
-      div.style.borderColor = '#095BBB';
-      div.style.transform = 'translateY(-1px)';
-      div.style.boxShadow = '0 6px 12px rgba(0,0,0,0.05)';
+      if (activeTeilId !== i) {
+        div.style.background = '#F0F4FA';
+        div.style.borderColor = '#095BBB';
+        div.style.transform = 'translateY(-1px)';
+        div.style.boxShadow = '0 6px 12px rgba(0,0,0,0.05)';
+      }
     };
     
     div.onmouseleave = () => {
-      div.style.background = '#FFFFFF';
-      div.style.borderColor = '#DCE6F2';
-      div.style.transform = 'translateY(0)';
-      div.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
+      if (activeTeilId !== i) {
+        div.style.background = '#FFFFFF';
+        div.style.borderColor = '#DCE6F2';
+        div.style.transform = 'translateY(0)';
+        div.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
+      }
     };
     
-    div.onclick = (function(skill, teilName) {
+    div.onclick = (function(skill, teilName, index) {
       return function() { 
+        activeTeilId = index;
+        renderTeileList();
         renderExamListForSkill(skill, teilName);
       };
-    })(teil.skill, teil.name);
+    })(teil.skill, teil.name, i);
     
     container.appendChild(div);
   }
@@ -842,11 +851,19 @@ async function renderExamListForSkill(skill, teilName) {
   if (skill === "mündlich1" || skill === "mündlich2" || skill === "mündlich3" || skill === "mündlich") {
     renderMündlichPartTabs();
   }
-  
+
   const headerDiv = document.createElement("div");
-  headerDiv.className = "teil-header";
-  headerDiv.innerHTML = `<strong>📚 ${teilName || getTeilNameBySkill(skill)}</strong>`;
-  container.appendChild(headerDiv);
+headerDiv.className = "teil-header";
+headerDiv.style.cssText = `
+  background: #FFFFFF;
+  border: 1px solid #E7EEF7;
+  border-radius: 18px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+`;
+headerDiv.innerHTML = `<strong>📚 ${teilName || getTeilNameBySkill(skill)}</strong>`;
+container.appendChild(headerDiv);
   
   let targetSkill = skill;
   let targetExams = examsDatabase[skill] || [];
