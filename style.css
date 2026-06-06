@@ -1909,20 +1909,7 @@ body:has(#exam.active) .top-bar {
         max-width: 280px !important;
     }
     
-    /* نافذة التقييمات */
-    .widget-bubble {
-        padding: 4px 10px !important;
-    }
-    
-    .widget-text {
-        font-size: 0.6rem !important;
-    }
-    
-    .widget-slide {
-        width: 40px !important;
-        height: 40px !important;
-    }
-    
+
     /* ========================================
        إصلاح ألوان الـ Select في الهاتف لـ Lesen Teil 1 و Teil 3
     ======================================== */
