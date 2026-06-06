@@ -770,7 +770,7 @@ function renderTeileList() {
     // عرض المحتوى تحت التبويب النشط
     renderCategoryContent();
 }
-
+1111
 function renderCategoryContent() {
     const examsContainer = document.getElementById("examsList");
     if (!examsContainer) return;
@@ -887,96 +887,7 @@ function renderCategoryContent() {
         }
     }
 }
-    const examsContainer = document.getElementById("examsList");
-    if (!examsContainer) return;
-    
-    examsContainer.innerHTML = "";
-    
-    const content = categoryContent[activeTab];
-    if (!content) return;
-    
-    // إنشاء البطاقة الرئيسية
-    const card = document.createElement("div");
-    card.className = "category-card";
-    card.style.cssText = `
-        background: #FFFFFF;
-        border: 1px solid #E7EEF7;
-        border-radius: 18px;
-        padding: 24px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    `;
-    
-// تعريف sectionsRow أولاً
-const sectionsRow = document.createElement("div");
-sectionsRow.style.cssText = `
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    align-items: start;
-`;
-
-    content.forEach(section => {
-        const sectionDiv = document.createElement("div");
-        sectionDiv.style.cssText = `
-            background: #FFFFFF;
-            border-radius: 12px;
-            padding: 0;
-        `;
-        
-        const sectionTitle = document.createElement("div");
-        sectionTitle.style.cssText = `
-            font-size: 16px;
-            font-weight: 600;
-            color: #3B6596;
-            margin-bottom: 12px;
-        `;
-        sectionTitle.textContent = section.section;
-        sectionDiv.appendChild(sectionTitle);
-        
-        const chipsContainer = document.createElement("div");
-        chipsContainer.style.cssText = `
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        `;
-        
-        section.parts.forEach((part, idx) => {
-            const skill = section.skills[idx];
-            const chip = document.createElement("button");
-            chip.textContent = part;
-            chip.style.cssText = `
-                background: #F5F7FA;
-                border: 1px solid #E2E8F0;
-                border-radius: 30px;
-                padding: 8px 18px;
-                font-size: 13px;
-                font-weight: 500;
-                color: #3B6596;
-                cursor: pointer;
-                transition: all 0.2s ease;
-            `;
-            chip.onmouseenter = () => {
-                chip.style.background = '#E8EEF5';
-                chip.style.transform = 'translateY(-1px)';
-            };
-            chip.onmouseleave = () => {
-                chip.style.background = '#F5F7FA';
-                chip.style.transform = 'translateY(0)';
-            };
-            chip.onclick = () => {
-                renderExamListForSkill(skill, `${section.section} - ${part}`);
-            };
-            chipsContainer.appendChild(chip);
-        });
-        
-              sectionDiv.appendChild(chipsContainer);
-        sectionsRow.appendChild(sectionDiv);
-    });   // <-- هذا القوس يغلق content.forEach
-
-    card.appendChild(sectionsRow);
-    examsContainer.appendChild(card);
-}   // <-- هذا القوس يغلق الدالة
-
+   
 // وظيفة عرض أزرار التنقل بين أجزاء Mündlich
 function renderMündlichPartTabs() {
   const container = document.getElementById("examsList");
