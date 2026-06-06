@@ -8,6 +8,8 @@ const WA_URL = `https://wa.me/${WA_NUMBER}`;
 let currentUserStatus = 'guest';
 let currentExpiry = null;
 
+const YOUCAN_STORE_URL = 'https://zertivab2.youcan.store/';
+
 function getLoggedInEmail() {
     return localStorage.getItem('zertiva_email');
 }
@@ -72,73 +74,16 @@ async function getExpiryDate(email) {
     }
 }
 
-// ========== نافذة Premium Access الاحترافية ==========
+// ========== نافذة الاشتراك المنبثقة (النسخة الجديدة) ==========
 function showLockedMessage(examTitle) {
-    let cleanTitle = examTitle.replace(/\s*\(\d+\)\s*$/, '').trim();
-    
-    // إزالة أي modal موجود مسبقاً
-    const existingModal = document.getElementById('premiumModal');
-    if (existingModal) existingModal.remove();
-    
-    // إنشاء الـ Modal
-    const modal = document.createElement('div');
-    modal.id = 'premiumModal';
-    modal.className = 'premium-modal';
-    modal.innerHTML = `
-        <div class="premium-card">
-            <div class="premium-card-header">
-                <div class="premium-badge">
-                    <span class="premium-icon">✦</span>
-                    <span>PREMIUM ACCESS</span>
-                </div>
-                <h2 class="premium-title">Exclusive Content</h2>
-                <p class="premium-subtitle" style="font-size: 0.75rem; line-height: 1.5;">هدفنا أن نجعل <span style="color: #8bb8ff;">نجاحك</span> أسهل وأكثر راحة… لذلك صُمم الموقع ليقدّم تجربة مفيدة فعلًا، وليس مجرد محتوى <span style="color: #6ee7b7;">مجاني</span> عشوائي.</p>
-            </div>
-            <div class="premium-card-body">
-                <ul class="premium-features">
-                    <li><span class="check">✓</span> وصول كامل للمحتوى B2</li>
-                    <li><span class="check">✓</span>  100% الاجابات صحيحة</li>
-                    <li><span class="check">✓</span> بطاقات ذكية </li>
-                    <li><span class="check">✓</span> لعبة التحدي السريع</li>
-                    <li><span class="check">✓</span> التخلص من ارهاق Pdf </li>
-                </ul>
-                <button id="premiumUpgradeBtn" class="premium-btn">
-                    ✦ Join Premium
-                    <span>→</span>
-                </button>
-                <button id="premiumLaterBtn" class="premium-later">ليس الآن</button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    setTimeout(() => {
+    // فتح النافذة المنبثقة بدلاً من التوجيه المباشر
+    const modal = document.getElementById('subscriptionModal');
+    if (modal) {
         modal.classList.add('active');
-    }, 10);
-    
-    const upgradeBtn = document.getElementById('premiumUpgradeBtn');
-    const laterBtn = document.getElementById('premiumLaterBtn');
-    
-    if (upgradeBtn) {
-        upgradeBtn.onclick = () => {
-            window.location.href = 'subscribe.html';
-        };
+    } else {
+        // إذا لم توجد النافذة، نستخدم التنبيه القديم
+        alert("يرجى الاشتراك للوصول إلى هذا المحتوى");
     }
-    
-    if (laterBtn) {
-        laterBtn.onclick = () => {
-            modal.classList.remove('active');
-            setTimeout(() => modal.remove(), 300);
-        };
-    }
-    
-    modal.onclick = (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            setTimeout(() => modal.remove(), 300);
-        }
-    };
 }
 
 async function updateProfileDropdown() {
@@ -211,8 +156,9 @@ async function updateProfileDropdown() {
             this.style.background = '#64748B';
         };
         upgradeBtn.onclick = function() {
-            // فتح نافذة تسجيل الدخول أولاً
-            showLoginPopup();
+            // فتح النافذة المنبثقة بدلاً من التوجيه المباشر
+            const modal = document.getElementById('subscriptionModal');
+            if (modal) modal.classList.add('active');
         };
         
         const dropdown = document.getElementById('profileDropdown');
@@ -272,13 +218,7 @@ async function handleLogin() {
     
     hideLoginPopup();
     await updateProfileDropdown();
-    
-    // إذا كان المستخدم مسجل (مجاني أو منتهي) نوجهه لصفحة الاشتراك
-    if (status !== 'premium') {
-        window.location.href = 'subscribe.html';
-    } else {
-        location.reload();
-    }
+    location.reload();
 }
 
 async function setupLockedNextButton() {
@@ -287,11 +227,12 @@ async function setupLockedNextButton() {
     
     if(nextBtn && status !== 'premium') {
         nextBtn.classList.add('locked-nav');
-        let oldClick = nextBtn.onclick;
         nextBtn.onclick = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            showLockedMessage("الامتحان التالي (يتطلب ترقية)");
+            // فتح النافذة المنبثقة بدلاً من التوجيه المباشر
+            const modal = document.getElementById('subscriptionModal');
+            if (modal) modal.classList.add('active');
             return false;
         };
     }
@@ -300,15 +241,6 @@ async function setupLockedNextButton() {
 function bindAuthEvents() {
     let navLoginBtn = document.getElementById('navLoginBtn');
     if(navLoginBtn) navLoginBtn.addEventListener('click', showLoginPopup);
-    
-    let navSubscribeBtn = document.getElementById('navSubscribeBtn');
-    if(navSubscribeBtn) navSubscribeBtn.addEventListener('click', () => {
-        if(isUserLoggedIn()) {
-            window.location.href = 'subscribe.html';
-        } else {
-            showLoginPopup();
-        }
-    });
     
     let popupLoginBtn = document.getElementById('popupLoginBtn');
     if(popupLoginBtn) popupLoginBtn.addEventListener('click', handleLogin);
@@ -372,6 +304,7 @@ if (document.readyState === 'loading') {
 } else {
     initAuth();
 }
+
 // ============================================
 // تحسين مظهر الهواتف في auth.js
 // ============================================
