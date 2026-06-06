@@ -1411,40 +1411,6 @@ body:has(#exam.active) .top-bar {
     border-radius: 10px !important;
 }
 
-.teil-item {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    padding: 6px 14px !important;
-    background: rgba(30, 41, 59, 0.9) !important;
-    backdrop-filter: blur(4px) !important;
-    border: 1px solid rgba(56, 189, 248, 0.2) !important;
-    border-radius: 40px !important;
-    color: #e2e8f0 !important;
-    font-size: 0.75rem !important;
-    font-weight: 500 !important;
-    cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    white-space: nowrap !important;
-    flex-shrink: 0 !important;
-}
-
-.teil-item::before {
-    content: "📚";
-    font-size: 0.7rem;
-    opacity: 0.8;
-}
-
-.teil-item:hover {
-    background: rgba(56, 189, 248, 0.2) !important;
-    border-color: #38bdf8 !important;
-    transform: translateY(-2px) !important;
-    color: #ffffff !important;
-}
-
-.teil-item:active {
-    transform: scale(0.97) !important;
-}
 
 .exam-box {
     background: white;
@@ -2406,14 +2372,14 @@ body.dark-mode .premium-features li {
     justify-content: center !important;
     padding: 0 18px !important;
     height: 42px !important;
-    background: #2D333D !important;
-    border: none !important;
+    background: #EEF3F8 !important;
+    border: 1px solid #D5E0EC !important;
     border-radius: 14px !important;
-    color: #D0D6E0 !important;
+    color: #4F6F94 !important;
     font-size: 15px !important;
     font-weight: 600 !important;
     cursor: pointer !important;
-    transition: background-color 0.2s ease, color 0.2s ease !important;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease !important;
     white-space: nowrap !important;
     flex-shrink: 0 !important;
 }
@@ -2426,16 +2392,17 @@ body.dark-mode .premium-features li {
 
 /* Hover effect */
 .teil-item:hover {
-    background: #343B47 !important;
-    color: #E5E7EB !important;
+    background: #E3EDF8 !important;
+    border-color: #BFD3E8 !important;
+    color: #4F6F94 !important;
     transform: none !important;
 }
 
 /* Active (المضغوط) - عند الضغط */
 .teil-item:active {
-    background: #FFFFFF !important;
-    color: #161922 !important;
-    border: 1px solid #E2E8F0 !important;
+    background: #095BBB !important;
+    border-color: #095BBB !important;
+    color: #FFFFFF !important;
     transform: none !important;
 }
 /* ============================================
