@@ -2,27 +2,20 @@
 // exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
 // ============================================
 
-const mainCategories = [
-    { id: "hoerenLesen", name: " Hören / Lesen" },
-    { id: "sprachSchreiben", name: " Sprach / Schreiben" },
-    { id: "mündlichTips", name: " Mündlich /  Tipps" }
+const teile = [
+  { id: 1, name: "Hören Teil 1", container: "hoeren1", skill: "hoeren1" },
+  { id: 2, name: "Hören Teil 2", container: "hoeren2", skill: "hoeren2" },
+  { id: 3, name: "Hören Teil 3", container: "hoeren3", skill: "hoeren3" },
+  { id: 4, name: "Lesen Teil 1", container: "teil1", skill: "lesen1" },
+  { id: 5, name: "Lesen Teil 2", container: "teil2", skill: "lesen2" },
+  { id: 6, name: "Lesen Teil 3", container: "teil3", skill: "lesen3" },
+  { id: 7, name: "Sprachbausteine Teil 1", container: "sprach1", skill: "sprach1" },
+  { id: 8, name: "Sprachbausteine Teil 2", container: "sprach2", skill: "sprach2" },
+  { id: 9, name: "Schreiben", container: "schreiben", skill: "schreiben" },
+  { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" },
+  { id: 11, name: "Tips", container: "tips", skill: "tips" }
 ];
 
-const categoryContent = {
-    hoerenLesen: [
-        { section: "Hören", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["hoeren1", "hoeren2", "hoeren3"] },
-        { section: "Lesen", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["lesen1", "lesen2", "lesen3"] }
-    ],
-    sprachSchreiben: [
-        { section: "Sprachbausteine", parts: ["Teil 1", "Teil 2"], skills: ["sprach1", "sprach2"] },
-        { section: "Schreiben", parts: ["Schreiben"], skills: ["schreiben"] }
-    ],
-    mündlichTips: [
-        { section: "Mündlich", parts: ["Teil 1", "Teil 2", "Teil 3"], skills: ["mündlich1", "mündlich2", "mündlich3"] },
-        { section: "Tipps", parts: ["نصائح"], skills: ["tips"] }
-    ]
-};
-let currentSubTab = "hoeren1"; // القسم الفرعي الحالي
 // ========== دالة حفظ آخر نتيجة ==========
 function saveExamResult(skill, examId, score) {
   try {
@@ -715,179 +708,69 @@ function displaySavedResult(skill, examId, titleSpan, containerDiv) {
   }
 }
 
+// ========== الدوال الرئيسية ==========
 
 function renderTeileList() {
-    const container = document.getElementById("teileList");
-    if (!container) return;
-    container.innerHTML = "";
+  const container = document.getElementById("teileList");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  // جعل الأزرار أفقية
+  container.style.cssText = `
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 30px;
+  `;
+  
+  for (let i = 0; i < teile.length; i++) {
+    const teil = teile[i];
+    const div = document.createElement("div");
+    div.className = "item teil-item";
+    div.textContent = teil.name;
     
-    // إنشاء أزرار التبويبات
-    const tabsContainer = document.createElement("div");
-    tabsContainer.className = "main-tabs";
-    tabsContainer.style.cssText = `
-        display: flex;
-        gap: 12px;
-        justify-content: center;
-        margin-bottom: 30px;
-        flex-wrap: wrap;
+    // شكل الزر الجديد
+    div.style.cssText = `
+      background: #FFFFFF;
+      border: 1px solid #DCE6F2;
+      border-radius: 14px;
+      padding: 10px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      color: #3B6596;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      display: inline-block;
+      text-align: center;
     `;
     
-    mainCategories.forEach(cat => {
-        const btn = document.createElement("button");
-        btn.textContent = cat.name;
-        btn.style.cssText = `
-            background: ${activeTab === cat.id ? '#095BBB' : '#FFFFFF'};
-            color: ${activeTab === cat.id ? '#FFFFFF' : '#3B6596'};
-            border: 1px solid ${activeTab === cat.id ? '#095BBB' : '#DCE6F2'};
-            border-radius: 14px;
-            padding: 10px 24px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: inherit;
-        `;
-        btn.onmouseenter = () => {
-            if (activeTab !== cat.id) {
-                btn.style.background = '#F0F4FA';
-            }
-        };
-        btn.onmouseleave = () => {
-            if (activeTab !== cat.id) {
-                btn.style.background = '#FFFFFF';
-            }
-        };
-        btn.onclick = () => {
-            activeTab = cat.id;
-            renderTeileList();
-            renderCategoryContent();
-        };
-        tabsContainer.appendChild(btn);
-    });
+    // تأثير المرور بالماوس
+    div.onmouseenter = () => {
+      div.style.background = '#F0F4FA';
+      div.style.borderColor = '#095BBB';
+      div.style.transform = 'translateY(-1px)';
+      div.style.boxShadow = '0 6px 12px rgba(0,0,0,0.05)';
+    };
     
-    container.appendChild(tabsContainer);
+    div.onmouseleave = () => {
+      div.style.background = '#FFFFFF';
+      div.style.borderColor = '#DCE6F2';
+      div.style.transform = 'translateY(0)';
+      div.style.boxShadow = '0 2px 4px rgba(0,0,0,0.02)';
+    };
     
-    // عرض المحتوى تحت التبويب النشط
-    renderCategoryContent();
+    div.onclick = (function(skill, teilName) {
+      return function() { 
+        renderExamListForSkill(skill, teilName);
+      };
+    })(teil.skill, teil.name);
+    
+    container.appendChild(div);
+  }
 }
-1111
-function renderCategoryContent() {
-    const examsContainer = document.getElementById("examsList");
-    if (!examsContainer) return;
-    
-    examsContainer.innerHTML = "";
-    
-    const content = categoryContent[activeTab];
-    if (!content) return;
-    
-    // إنشاء البطاقة الرئيسية
-    const card = document.createElement("div");
-    card.className = "category-card";
-    card.style.cssText = `
-        background: #FFFFFF;
-        border: 1px solid #E7EEF7;
-        border-radius: 18px;
-        padding: 24px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    `;
-    
-    // أزرار التنقل بين الأقسام الفرعية (Chips)
-    const chipsRow = document.createElement("div");
-    chipsRow.style.cssText = `
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid #E7EEF7;
-    `;
-    
-    // تعريف الأزرار الفرعية
-    const subTabs = [];
-    if (activeTab === "hoerenLesen") {
-        subTabs.push(
-            { id: "hoeren1", name: "Hören 1", skill: "hoeren1" },
-            { id: "hoeren2", name: "Hören 2", skill: "hoeren2" },
-            { id: "hoeren3", name: "Hören 3", skill: "hoeren3" },
-            { id: "lesen1", name: "Lesen 1", skill: "lesen1" },
-            { id: "lesen2", name: "Lesen 2", skill: "lesen2" },
-            { id: "lesen3", name: "Lesen 3", skill: "lesen3" }
-        );
-    } else if (activeTab === "sprachSchreiben") {
-        subTabs.push(
-            { id: "sprach1", name: "Sprachbausteine 1", skill: "sprach1" },
-            { id: "sprach2", name: "Sprachbausteine 2", skill: "sprach2" },
-            { id: "schreiben", name: "Schreiben", skill: "schreiben" }
-        );
-    } else if (activeTab === "mündlichTips") {
-        subTabs.push(
-            { id: "mündlich1", name: "Mündlich 1", skill: "mündlich1" },
-            { id: "mündlich2", name: "Mündlich 2", skill: "mündlich2" },
-            { id: "mündlich3", name: "Mündlich 3", skill: "mündlich3" },
-            { id: "tips", name: "Tipps", skill: "tips" }
-        );
-    }
-    
-    // إنشاء أزرار التنقل
-    subTabs.forEach(sub => {
-        const chip = document.createElement("button");
-        chip.textContent = sub.name;
-        chip.style.cssText = `
-            background: ${currentSubTab === sub.id ? '#095BBB' : '#F5F7FA'};
-            color: ${currentSubTab === sub.id ? '#FFFFFF' : '#3B6596'};
-            border: 1px solid ${currentSubTab === sub.id ? '#095BBB' : '#E2E8F0'};
-            border-radius: 30px;
-            padding: 8px 18px;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        `;
-        chip.onmouseenter = () => {
-            if (currentSubTab !== sub.id) {
-                chip.style.background = '#E8EEF5';
-            }
-        };
-        chip.onmouseleave = () => {
-            if (currentSubTab !== sub.id) {
-                chip.style.background = '#F5F7FA';
-            }
-        };
-        chip.onclick = () => {
-            currentSubTab = sub.id;
-            renderExamListForSkill(sub.skill, sub.name);
-        };
-        chipsRow.appendChild(chip);
-    });
-    
-    card.appendChild(chipsRow);
-    
-    // عرض الامتحانات للقسم الفرعي الحالي
-    const currentSub = subTabs.find(s => s.id === currentSubTab);
-    if (currentSub) {
-        renderExamListForSkill(currentSub.skill, currentSub.name);
-    } else if (subTabs.length > 0) {
-        renderExamListForSkill(subTabs[0].skill, subTabs[0].name);
-    }
-    
-    examsContainer.appendChild(card);
-    
-    // للهواتف: جعل الأزرار قابلة للتمرير
-    if (window.innerWidth <= 768) {
-        const chipsRowDiv = card.querySelector('div:first-child');
-        if (chipsRowDiv) {
-            chipsRowDiv.style.cssText = `
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                overflow-x: auto !important;
-                gap: 8px !important;
-                padding-bottom: 8px !important;
-                -webkit-overflow-scrolling: touch !important;
-            `;
-        }
-    }
-}
-   
 // وظيفة عرض أزرار التنقل بين أجزاء Mündlich
 function renderMündlichPartTabs() {
   const container = document.getElementById("examsList");
