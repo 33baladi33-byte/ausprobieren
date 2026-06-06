@@ -707,7 +707,6 @@ function displaySavedResult(skill, examId, titleSpan, containerDiv) {
   }
 }
 
-// ========== الدوال الرئيسية ==========
 let activeTeilId = null;
 
 function renderTeileList() {
@@ -715,12 +714,12 @@ function renderTeileList() {
   if (!container) return;
   container.innerHTML = "";
   
-  // حاوية الأزرار (Tabs)
+  // حاوية الأزرار (Tabs) - محاذاة لليسار
   container.style.cssText = `
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     margin-bottom: 30px;
   `;
@@ -734,32 +733,32 @@ function renderTeileList() {
     btn.style.cssText = `
       height: 42px;
       padding: 0 18px;
-      background: ${isActive ? '#095BBB' : '#FFFFFF'};
-      border: 1px solid ${isActive ? '#095BBB' : '#DCE6F2'};
+      background: ${isActive ? '#095BBB' : '#1A1D27'};
+      border: 1px solid ${isActive ? '#095BBB' : '#2A3040'};
       border-radius: 14px;
       font-size: 15px;
       font-weight: 600;
       font-family: inherit;
-      color: ${isActive ? '#FFFFFF' : '#3B6596'};
+      color: ${isActive ? '#FFFFFF' : '#D8DCE5'};
       cursor: pointer;
       transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
       white-space: nowrap;
     `;
     
-    // Hover effect (بدون transform)
+    // Hover effect
     btn.onmouseenter = () => {
       if (!isActive) {
-        btn.style.background = '#F5F9FF';
-        btn.style.borderColor = '#BFD4EE';
-        btn.style.color = '#095BBB';
+        btn.style.background = '#232838';
+        btn.style.borderColor = '#3A4257';
+        btn.style.color = '#FFFFFF';
       }
     };
     
     btn.onmouseleave = () => {
       if (!isActive) {
-        btn.style.background = '#FFFFFF';
-        btn.style.borderColor = '#DCE6F2';
-        btn.style.color = '#3B6596';
+        btn.style.background = '#1A1D27';
+        btn.style.borderColor = '#2A3040';
+        btn.style.color = '#D8DCE5';
       }
     };
     
