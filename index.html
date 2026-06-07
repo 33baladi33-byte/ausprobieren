@@ -1919,55 +1919,77 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
     console.log("✅ زر 💡 طريقة الاشتراك الجديد جاهز");
 })();
  // ============================================
-// نظام الاشتراك المنبثق (Subscription Modal)
+// نظام الاشتراك المنبثق (Subscription Modal) - النسخة القوية
 // ============================================
 (function() {
-    const modal = document.getElementById('subscriptionModal');
-    const closeBtn = document.getElementById('closeSubscriptionBtn');
-    
-    if (!modal) {
-        console.error("Modal not found!");
-        return;
-    }
-    
-    function closeModal() {
-        modal.classList.remove('active');
-    }
-    
-    function openModal() {
-        modal.classList.add('active');
-    }
-    
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) closeModal();
-    });
-    
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
+    function initSubscriptionModal() {
+        const modal = document.getElementById('subscriptionModal');
+        const closeBtn = document.getElementById('closeSubscriptionBtn');
+        
+        if (!modal) {
+            console.log("⏳ Modal not found yet, waiting...");
+            setTimeout(initSubscriptionModal, 500);
+            return;
         }
-    });
-    
-    const navSubscribeBtn = document.getElementById('navSubscribeBtn');
-    const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
-    
-    if (navSubscribeBtn) {
-        navSubscribeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal();
+        
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+        
+        function openModal() {
+            modal.classList.add('active');
+        }
+        
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) closeModal();
         });
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        } else {
+            console.log("⚠️ closeSubscriptionBtn not found");
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+        
+        const navSubscribeBtn = document.getElementById('navSubscribeBtn');
+        const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
+        
+        if (navSubscribeBtn) {
+            navSubscribeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+                console.log("✅ navSubscribeBtn clicked, modal opened");
+            });
+        } else {
+            console.log("⚠️ navSubscribeBtn not found");
+        }
+        
+        if (featuresSubscribeBtn) {
+            featuresSubscribeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal();
+                console.log("✅ featuresSubscribeBtn clicked, modal opened");
+            });
+        } else {
+            console.log("⚠️ featuresSubscribeBtn not found");
+        }
+        
+        console.log("✅ نظام الاشتراك المنبثق جاهز");
     }
     
-    if (featuresSubscribeBtn) {
-        featuresSubscribeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            openModal();
+    // تأخير التنفيذ للتأكد من تحميل جميع العناصر
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initSubscriptionModal, 300);
         });
+    } else {
+        setTimeout(initSubscriptionModal, 300);
     }
-    
-    console.log("✅ نظام الاشتراك المنبثق جاهز");
 })();
 </script>
 <!-- نافذة الاشتراك المنبثقة -->
