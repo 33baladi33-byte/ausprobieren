@@ -1925,26 +1925,27 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
     const modal = document.getElementById('subscriptionModal');
     const closeBtn = document.getElementById('closeSubscriptionBtn');
     
+    if (!modal) {
+        console.error("Modal not found!");
+        return;
+    }
+    
     function closeModal() {
-        if (modal) modal.classList.remove('active');
+        modal.classList.remove('active');
     }
     
     function openModal() {
-        if (modal) modal.classList.add('active');
+        modal.classList.add('active');
     }
     
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) closeModal();
-        });
-    }
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+    });
     
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
-    }
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
     
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
         }
     });
@@ -1965,6 +1966,8 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
             openModal();
         });
     }
+    
+    console.log("✅ نظام الاشتراك المنبثق جاهز");
 })();
 </script>
 <!-- نافذة الاشتراك المنبثقة -->
@@ -1973,10 +1976,10 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         <div class="subscription-title">اختر طريقة الاشتراك</div>
         <div class="subscription-subtitle">يمكنك الاشتراك عبر المنصة أو التواصل مباشرة عبر واتساب</div>
         <div class="subscription-buttons">
-            <a href="https://zertivab2.youcan.store/" id="subscriptionPlatformBtn" class="subscription-btn primary" target="_blank">
+            <a href="subscribe.html" id="subscriptionPlatformBtn" class="subscription-btn primary">
                 🛒 الاشتراك عبر المنصة
             </a>
-            <a href="https://wa.me/212687561491?text=مرحباً، أنا مهتم بمنصة التحضير لامتحان B2 وأرغب في معرفة الباقات المتاحة." id="subscriptionWhatsappBtn" class="subscription-btn whatsapp" target="_blank">
+            <a href="https://wa.me/212687561491?text=مرحباً، أنا مهتم بالاشتراك في منصة التحضير لامتحان B2 وأرغب في معرفة الباقات المتاحة." id="subscriptionWhatsappBtn" class="subscription-btn whatsapp" target="_blank">
                 💬 التواصل عبر واتساب
             </a>
         </div>
