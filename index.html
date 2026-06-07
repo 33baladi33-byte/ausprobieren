@@ -1918,7 +1918,7 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
     
     console.log("✅ زر 💡 طريقة الاشتراك الجديد جاهز");
 })();
-        // ============================================
+ // ============================================
 // نظام الاشتراك المنبثق (Subscription Modal)
 // ============================================
 (function() {
@@ -1939,7 +1939,9 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         });
     }
     
-    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
     
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
@@ -1947,7 +1949,6 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         }
     });
     
-    // تعطيل السلوك الافتراضي لأزرار الاشتراك الحالية
     const navSubscribeBtn = document.getElementById('navSubscribeBtn');
     const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
     
