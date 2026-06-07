@@ -1010,23 +1010,78 @@
         overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
     }
     
-    function addGameButton() {
-        const nav = document.getElementById('examNavButtons');
-        if (!nav) { setTimeout(addGameButton, 500); return; }
-        if (document.getElementById('rapidGameBtn')) return;
+function addGameButton() {
+    const nav = document.getElementById('examNavButtons');
+    if (!nav) { setTimeout(addGameButton, 500); return; }
+    if (document.getElementById('rapidGameBtn')) return;
+    
+    const btn = document.createElement('button');
+    btn.id = 'rapidGameBtn';
+    btn.innerHTML = '⚡ العب';
+    btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
+    
+    function checkAndToggleGameButton() {
+        const currentSkill = typeof getCurrentSkill === 'function' ? getCurrentSkill() : 
+                             (window.currentSkill || document.querySelector('#examTitle')?.getAttribute('data-skill') || '');
         
-        const btn = document.createElement('button');
-        btn.id = 'rapidGameBtn';
-        btn.innerHTML = '⚡ العب';
-        btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
-        btn.onclick = () => {
-            const currentSkill = typeof getCurrentSkill === 'function' ? getCurrentSkill() : 'lesen1';
-            const currentExamId = typeof getCurrentExamId === 'function' ? getCurrentExamId() : 1;
-            startGame(currentSkill, currentExamId);
-        };
-        nav.appendChild(btn);
-        console.log('🎮 زر العب جاهز');
+        const allowedSkills = ['hoeren1', 'hoeren2', 'hoeren3', 'lesen1', 'lesen2', 'lesen3', 'sprach1', 'sprach2'];
+        const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3', 'tips'];
+        
+        if (forbiddenSkills.includes(currentSkill) || (!allowedSkills.includes(currentSkill) && currentSkill !== '')) {
+            btn.style.display = 'none';
+        } else if (allowedSkills.includes(currentSkill) || currentSkill === '') {
+            btn.style.display = 'inline-block';
+        } else {
+            btn.style.display = 'none';
+        }
     }
+    
+    btn.onclick = () => {
+        const currentSkill = typeof getCurrentSkill === 'function' ? getCurrentSkill() : 
+                             (window.currentSkill || document.querySelector('#examTitle')?.getAttribute('data-skill') || 'lesen1');
+        const currentExamId = typeof getCurrentExamId === 'function' ? getCurrentExamId() : 
+                              (window.currentExamId || 1);
+        
+        const allowedSkills = ['hoeren1', 'hoeren2', 'hoeren3', 'lesen1', 'lesen2', 'lesen3', 'sprach1', 'sprach2'];
+        const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3', 'tips'];
+        
+        if (forbiddenSkills.includes(currentSkill)) {
+            alert("🎮 لعبة التحدي السريع غير متاحة في هذا القسم حالياً.");
+            return;
+        }
+        
+        if (!allowedSkills.includes(currentSkill)) {
+            alert("🎮 لعبة التحدي السريع غير متاحة في هذا القسم.");
+            return;
+        }
+        
+        startGame(currentSkill, currentExamId);
+    };
+    
+    nav.appendChild(btn);
+    
+    const observer = new MutationObserver(function() {
+        checkAndToggleGameButton();
+    });
+    
+    const examPage = document.getElementById('exam');
+    if (examPage) {
+        observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
+    }
+    
+    Object.defineProperty(window, 'currentSkill', {
+        set: function(val) {
+            window._currentSkill = val;
+            checkAndToggleGameButton();
+        },
+        get: function() {
+            return window._currentSkill;
+        }
+    });
+    
+    checkAndToggleGameButton();
+    console.log('🎮 زر العب جاهز (يظهر فقط في الأقسام المدعومة)');
+}
     
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => { setTimeout(addGameButton, 500); });
