@@ -1,6 +1,7 @@
 /**
  * auth.js - نظام إدارة تسجيل الدخول والاشتراك لموقع Zertiva B2
  * ✅ يستخدم Google Sheets + Apps Script
+ * ⚠️ يعتمد على auth_google.js (يجب تحميله قبله)
  */
 
 const WA_NUMBER = "212687561491";
@@ -11,84 +12,7 @@ let currentExpiry = null;
 
 const YOUCAN_STORE_URL = 'https://zertivab2.youcan.store/';
 
-
-// ============================================
-// دوال إدارة الجهاز (Device ID)
-// ============================================
-
-function getDeviceId() {
-    let deviceId = localStorage.getItem('zertiva_device_id');
-    if (!deviceId) {
-        deviceId = 'DEV_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        localStorage.setItem('zertiva_device_id', deviceId);
-    }
-    return deviceId;
-}
-
-// ============================================
-// دوال API للتواصل مع Google Sheets
-// ============================================
-
-async function loginWithGoogleSheets(email) {
-    const deviceId = getDeviceId();
-    
-    try {
-        const response = await fetch(`${API_URL}?action=login&email=${encodeURIComponent(email)}&deviceId=${deviceId}`);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        return {
-            success: false,
-            message: 'خطأ في الاتصال: ' + error.message
-        };
-    }
-}
-
-async function transferAccount(email) {
-    const deviceId = getDeviceId();
-    
-    try {
-        const response = await fetch(`${API_URL}?action=transfer&email=${encodeURIComponent(email)}&deviceId=${deviceId}`);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        return {
-            success: false,
-            message: 'خطأ في الاتصال: ' + error.message
-        };
-    }
-}
-
-async function logoutWithGoogleSheets(email) {
-    try {
-        const response = await fetch(`${API_URL}?action=logout&email=${encodeURIComponent(email)}`);
-        return await response.json();
-    } catch (error) {
-        return { success: false };
-    }
-}
-
-async function checkUser(email) {
-    try {
-        const response = await fetch(`${API_URL}?action=check&email=${encodeURIComponent(email)}`);
-        return await response.json();
-    } catch (error) {
-        return { success: false };
-    }
-}
-
-async function getAllUsersFromSheets() {
-    try {
-        const response = await fetch(`${API_URL}?action=getAllUsers`);
-        const data = await response.json();
-        if (data.success) {
-            return data.users || {};
-        }
-        return {};
-    } catch (error) {
-        return {};
-    }
-}
+// ❌ تم حذف تعريف API_URL (موجود في auth_google.js)
 
 // ============================================
 // دوال تسجيل الدخول الأساسية
@@ -128,12 +52,10 @@ function isUserLoggedIn() {
 
 async function getPremiumUsers() {
     try {
-        // محاولة جلب البيانات من Google Sheets
         const users = await getAllUsersFromSheets();
         if (Object.keys(users).length > 0) {
             return users;
         }
-        // في حالة الفشل، محاولة جلب من premium.json كنسخة احتياطية
         const response = await fetch('premium.json?_=' + Date.now());
         return await response.json();
     } catch(e) {
@@ -236,7 +158,6 @@ async function updateProfileDropdown() {
         profileExpiry.innerHTML = 'الوصول محدود لبعض الامتحانات';
         profileStatus.innerHTML = '';
         
-        // إضافة زر الترقية للمستخدم غير المسجل
         const upgradeBtn = document.createElement('button');
         upgradeBtn.id = 'dropdownUpgradeBtn';
         upgradeBtn.innerHTML = 'الترقية إلى الحساب الكامل →';
@@ -308,12 +229,10 @@ async function handleLogin() {
         return;
     }
     
-    // ✅ استخدام نظام Google Sheets
     const result = await loginWithGoogleSheets(email);
     
     if (!result.success) {
         if (result.status === 'wrong_device') {
-            // عرض رسالة ونقل الحساب
             const confirmTransfer = confirm(
                 `${result.message}\n\nإذا ضغطت "موافق"، سيتم نقل الحساب إلى هذا الجهاز.\nوسيتم إلغاء صلاحية الجهاز القديم.`
             );
@@ -323,7 +242,6 @@ async function handleLogin() {
                 if (transferResult.success) {
                     alert('✅ تم نقل الحساب بنجاح!');
                     setLoggedInUser(email, password);
-                    // متابعة تسجيل الدخول
                     hideLoginPopup();
                     await updateProfileDropdown();
                     location.reload();
@@ -336,14 +254,11 @@ async function handleLogin() {
                 return;
             }
         } else if (result.status === 'not_found') {
-            // المستخدم غير موجود - إنشاء حساب جديد
             const createAccount = confirm(
                 `❌ البريد الإلكتروني "${email}" غير مسجل.\n\nهل تريد إنشاء حساب جديد؟`
             );
             if (createAccount) {
-                // تسجيل الدخول وإنشاء الحساب تلقائياً
                 setLoggedInUser(email, password);
-                // محاولة تسجيل الدخول مرة أخرى
                 const newResult = await loginWithGoogleSheets(email);
                 if (newResult.success) {
                     alert(`✅ تم إنشاء حساب جديد لـ ${email}\n📅 الصلاحية حتى: ${newResult.expiry || 'غير محددة'}`);
@@ -364,10 +279,8 @@ async function handleLogin() {
         }
     }
     
-    // حفظ البيانات
     setLoggedInUser(email, password);
     
-    // عرض رسالة النجاح
     if (result.status === 'new_device') {
         alert(`✅ مرحباً ${email}\n📱 تم تسجيل جهازك الجديد بنجاح\n📅 الصلاحية حتى: ${result.expiry}`);
     } else {
@@ -471,7 +384,7 @@ if (document.readyState === 'loading') {
 }
 
 // ============================================
-// تحسين مظهر الهواتف في auth.js
+// تحسين مظهر الهواتف
 // ============================================
 
 function applyMobileAuthStyles() {
