@@ -1,6 +1,6 @@
 /**
  * auth.js - نظام إدارة تسجيل الدخول والاشتراك لموقع Zertiva B2
- * ✅ مع إضافة نظام منع الدخول المتعدد (جلسة واحدة لكل حساب)
+ * ✅ يستخدم Google Sheets + Apps Script
  */
 
 const WA_NUMBER = "212687561491";
@@ -12,72 +12,87 @@ let currentExpiry = null;
 const YOUCAN_STORE_URL = 'https://zertivab2.youcan.store/';
 
 // ============================================
-// 🔒 نظام الجلسات النشطة (منع الدخول المتعدد)
+// Google Sheets API Configuration
 // ============================================
 
-// تخزين الجلسات النشطة في localStorage مؤقتاً
-// في حالة وجود خادم، يفضل تخزينها في قاعدة البيانات
-const ACTIVE_SESSIONS_KEY = 'zertiva_active_sessions';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzA0x_aLc_mmvvOKAFHm5fraB8TxIWrk6UBRwVu9ckinBMO5OaIEz8xerzTMogExpIWaQ/exec';
 
-function getActiveSessions() {
+// ============================================
+// دوال إدارة الجهاز (Device ID)
+// ============================================
+
+function getDeviceId() {
+    let deviceId = localStorage.getItem('zertiva_device_id');
+    if (!deviceId) {
+        deviceId = 'DEV_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('zertiva_device_id', deviceId);
+    }
+    return deviceId;
+}
+
+// ============================================
+// دوال API للتواصل مع Google Sheets
+// ============================================
+
+async function loginWithGoogleSheets(email) {
+    const deviceId = getDeviceId();
+    
     try {
-        const data = localStorage.getItem(ACTIVE_SESSIONS_KEY);
-        return data ? JSON.parse(data) : {};
-    } catch {
+        const response = await fetch(`${API_URL}?action=login&email=${encodeURIComponent(email)}&deviceId=${deviceId}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return {
+            success: false,
+            message: 'خطأ في الاتصال: ' + error.message
+        };
+    }
+}
+
+async function transferAccount(email) {
+    const deviceId = getDeviceId();
+    
+    try {
+        const response = await fetch(`${API_URL}?action=transfer&email=${encodeURIComponent(email)}&deviceId=${deviceId}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        return {
+            success: false,
+            message: 'خطأ في الاتصال: ' + error.message
+        };
+    }
+}
+
+async function logoutWithGoogleSheets(email) {
+    try {
+        const response = await fetch(`${API_URL}?action=logout&email=${encodeURIComponent(email)}`);
+        return await response.json();
+    } catch (error) {
+        return { success: false };
+    }
+}
+
+async function checkUser(email) {
+    try {
+        const response = await fetch(`${API_URL}?action=check&email=${encodeURIComponent(email)}`);
+        return await response.json();
+    } catch (error) {
+        return { success: false };
+    }
+}
+
+async function getAllUsersFromSheets() {
+    try {
+        const response = await fetch(`${API_URL}?action=getAllUsers`);
+        const data = await response.json();
+        if (data.success) {
+            return data.users || {};
+        }
+        return {};
+    } catch (error) {
         return {};
     }
-}
-
-function saveActiveSessions(sessions) {
-    localStorage.setItem(ACTIVE_SESSIONS_KEY, JSON.stringify(sessions));
-}
-
-function isSessionActive(email) {
-    const sessions = getActiveSessions();
-    const sessionData = sessions[email];
-    
-    if (!sessionData) return false;
-    
-    // التحقق من انتهاء الصلاحية (5 دقائق من آخر نشاط)
-    const now = Date.now();
-    const inactiveTime = now - sessionData.lastActivity;
-    
-    // إذا كان غير نشط لأكثر من 5 دقائق، نعتبر الجلسة منتهية
-    if (inactiveTime > 5 * 60 * 1000) {
-        delete sessions[email];
-        saveActiveSessions(sessions);
-        return false;
-    }
-    
-    return true;
-}
-
-function activateSession(email) {
-    const sessions = getActiveSessions();
-    sessions[email] = {
-        sessionId: generateSessionId(),
-        lastActivity: Date.now(),
-        createdAt: Date.now()
-    };
-    saveActiveSessions(sessions);
-}
-
-function terminateSession(email) {
-    const sessions = getActiveSessions();
-    delete sessions[email];
-    saveActiveSessions(sessions);
-}
-
-function updateSessionActivity(email) {
-    const sessions = getActiveSessions();
-    if (sessions[email]) {
-        sessions[email].lastActivity = Date.now();
-        saveActiveSessions(sessions);
-    }
-}
-
-function generateSessionId() {
-    return 'sid_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 }
 
 // ============================================
@@ -100,7 +115,7 @@ function setLoggedInUser(email, password) {
 function logoutUser() {
     const email = getLoggedInEmail();
     if (email) {
-        terminateSession(email);
+        logoutWithGoogleSheets(email);
     }
     localStorage.removeItem('zertiva_email');
     localStorage.removeItem('zertiva_password');
@@ -112,29 +127,37 @@ function isUserLoggedIn() {
     return getLoggedInEmail() !== null;
 }
 
+// ============================================
+// جلب المستخدمين من Google Sheets
+// ============================================
+
 async function getPremiumUsers() {
     try {
+        // محاولة جلب البيانات من Google Sheets
+        const users = await getAllUsersFromSheets();
+        if (Object.keys(users).length > 0) {
+            return users;
+        }
+        // في حالة الفشل، محاولة جلب من premium.json كنسخة احتياطية
         const response = await fetch('premium.json?_=' + Date.now());
         return await response.json();
     } catch(e) {
-        return {};
+        try {
+            const response = await fetch('premium.json?_=' + Date.now());
+            return await response.json();
+        } catch(err) {
+            return {};
+        }
     }
 }
+
+// ============================================
+// الحصول على حالة المستخدم
+// ============================================
 
 async function getUserStatus() {
     let email = getLoggedInEmail();
     if(!email) return 'guest';
-    
-    // التحقق من الجلسة النشطة
-    if (!isSessionActive(email)) {
-        // الجلسة غير نشطة - تسجيل الخروج التلقائي
-        localStorage.removeItem('zertiva_email');
-        localStorage.removeItem('zertiva_password');
-        return 'guest';
-    }
-    
-    // تحديث وقت النشاط
-    updateSessionActivity(email);
     
     try {
         const premium = await getPremiumUsers();
@@ -168,6 +191,10 @@ function showLockedMessage(examTitle) {
     const modal = document.getElementById('subscriptionModal');
     if (modal) modal.classList.add('active');
 }
+
+// ============================================
+// تحديث القائمة المنسدلة للمستخدم
+// ============================================
 
 async function updateProfileDropdown() {
     let email = getLoggedInEmail();
@@ -273,6 +300,10 @@ function hideLoginPopup() {
     if(popup) popup.style.display = 'none';
 }
 
+// ============================================
+// معالجة تسجيل الدخول - مع نظام Google Sheets
+// ============================================
+
 async function handleLogin() {
     let email = document.getElementById('popupEmail').value.trim();
     let password = document.getElementById('popupPassword').value.trim();
@@ -282,44 +313,80 @@ async function handleLogin() {
         return;
     }
     
-    // ✅ التحقق من وجود جلسة نشطة لنفس البريد
-    if (isSessionActive(email)) {
-        const confirmTerminate = confirm(
-            `⚠️ هذا الحساب (${email}) مستخدم حالياً من قبل شخص آخر.\n\n` +
-            `هل تريد طرد الجلسة القديمة والدخول؟`
-        );
-        
-        if (!confirmTerminate) {
-            return; // المستخدم رفض الدخول
+    // ✅ استخدام نظام Google Sheets
+    const result = await loginWithGoogleSheets(email);
+    
+    if (!result.success) {
+        if (result.status === 'wrong_device') {
+            // عرض رسالة ونقل الحساب
+            const confirmTransfer = confirm(
+                `${result.message}\n\nإذا ضغطت "موافق"، سيتم نقل الحساب إلى هذا الجهاز.\nوسيتم إلغاء صلاحية الجهاز القديم.`
+            );
+            
+            if (confirmTransfer) {
+                const transferResult = await transferAccount(email);
+                if (transferResult.success) {
+                    alert('✅ تم نقل الحساب بنجاح!');
+                    setLoggedInUser(email, password);
+                    // متابعة تسجيل الدخول
+                    hideLoginPopup();
+                    await updateProfileDropdown();
+                    location.reload();
+                    return;
+                } else {
+                    alert(transferResult.message);
+                    return;
+                }
+            } else {
+                return;
+            }
+        } else if (result.status === 'not_found') {
+            // المستخدم غير موجود - إنشاء حساب جديد
+            const createAccount = confirm(
+                `❌ البريد الإلكتروني "${email}" غير مسجل.\n\nهل تريد إنشاء حساب جديد؟`
+            );
+            if (createAccount) {
+                // تسجيل الدخول وإنشاء الحساب تلقائياً
+                setLoggedInUser(email, password);
+                // محاولة تسجيل الدخول مرة أخرى
+                const newResult = await loginWithGoogleSheets(email);
+                if (newResult.success) {
+                    alert(`✅ تم إنشاء حساب جديد لـ ${email}\n📅 الصلاحية حتى: ${newResult.expiry || 'غير محددة'}`);
+                    hideLoginPopup();
+                    await updateProfileDropdown();
+                    location.reload();
+                    return;
+                } else {
+                    alert('حدث خطأ أثناء إنشاء الحساب. يرجى المحاولة مرة أخرى.');
+                    return;
+                }
+            } else {
+                return;
+            }
+        } else {
+            alert(result.message);
+            return;
         }
-        
-        // إنهاء الجلسة القديمة
-        terminateSession(email);
-        alert(`✅ تم طرد الجلسة القديمة. يمكنك الدخول الآن.`);
     }
     
-    // تسجيل الدخول
+    // حفظ البيانات
     setLoggedInUser(email, password);
     
-    // تفعيل الجلسة الجديدة
-    activateSession(email);
-    
-    let status = await getUserStatus();
-    if(status === 'premium') {
-        let expiry = currentExpiry;
-        let expiryDate = new Date(expiry);
-        let formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
-        alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}\nجميع الامتحانات متاحة لك.`);
-    } else if(status === 'expired') {
-        alert(`⚠️ مرحباً ${email}\n⏰ انتهت صلاحية اشتراكك.\n✨ يرجى الاشتراك مرة أخرى.`);
+    // عرض رسالة النجاح
+    if (result.status === 'new_device') {
+        alert(`✅ مرحباً ${email}\n📱 تم تسجيل جهازك الجديد بنجاح\n📅 الصلاحية حتى: ${result.expiry}`);
     } else {
-        alert(`✅ مرحباً ${email}\n📖 حسابك مجاني حالياً.\n✨ متاح لك فقط الامتحان الأول من كل قسم.\nللوصول إلى كل الامتحانات، اضغط "اشتراك" ثم ادفع.`);
+        alert(`✅ مرحباً ${email}\n📅 الصلاحية حتى: ${result.expiry}`);
     }
     
     hideLoginPopup();
     await updateProfileDropdown();
     location.reload();
 }
+
+// ============================================
+// إعداد زر التالي المقفل
+// ============================================
 
 async function setupLockedNextButton() {
     let status = await getUserStatus();
@@ -336,6 +403,10 @@ async function setupLockedNextButton() {
         };
     }
 }
+
+// ============================================
+// ربط الأحداث
+// ============================================
 
 function bindAuthEvents() {
     let navLoginBtn = document.getElementById('navLoginBtn');
@@ -403,29 +474,6 @@ if (document.readyState === 'loading') {
 } else {
     initAuth();
 }
-
-// ============================================
-// تحديث النشاط كل دقيقة (للحفاظ على الجلسة)
-// ============================================
-
-setInterval(() => {
-    const email = getLoggedInEmail();
-    if (email && isSessionActive(email)) {
-        updateSessionActivity(email);
-    }
-}, 60000); // كل 60 ثانية
-
-// ============================================
-// عند إغلاق المتصفح أو المغادرة
-// ============================================
-
-window.addEventListener('beforeunload', function() {
-    const email = getLoggedInEmail();
-    if (email) {
-        // لا نحذف الجلسة فوراً، بل تبقى 5 دقائق
-        // حتى يتمكن المستخدم من العودة بسرعة
-    }
-});
 
 // ============================================
 // تحسين مظهر الهواتف في auth.js
