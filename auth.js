@@ -11,11 +11,6 @@ let currentExpiry = null;
 
 const YOUCAN_STORE_URL = 'https://zertivab2.youcan.store/';
 
-// ============================================
-// Google Sheets API Configuration
-// ============================================
-
-const API_URL = 'https://script.google.com/macros/s/AKfycbzA0x_aLc_mmvvOKAFHm5fraB8TxIWrk6UBRwVu9ckinBMO5OaIEz8xerzTMogExpIWaQ/exec';
 
 // ============================================
 // دوال إدارة الجهاز (Device ID)
