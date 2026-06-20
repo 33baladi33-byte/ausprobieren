@@ -820,18 +820,7 @@ body.dark-mode .mobile-banner span {
             font-size: 1rem;
         }
     }
-    
 </style>
-<script>
-// التحقق من الجلسات النشطة عند فتح صفحة تسجيل الدخول
-(function() {
-    const email = localStorage.getItem('zertiva_email');
-    if (email) {
-        // المستخدم مسجل دخول بالفعل
-        window.location.href = 'index.html';
-    }
-})();
-</script>    
 </head>
 <body>
 
@@ -1767,6 +1756,7 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <script src="helpSystem.js"></script>
 <script src="engine.js"></script>
 <script src="exams.js"></script>
+<script src="auth_google.js"></script>  <!-- ✅ جديد -->
 <script src="auth.js"></script>
 <script src="notifications.js"></script>
 <script src="rapidGame.js"></script>
