@@ -1,5 +1,5 @@
 // ============================================
-// Google Sheets API Configuration
+// Google Sheets API Configuration - JSONP Version
 // ============================================
 
 const API_URL = 'https://script.google.com/macros/s/AKfycbx3BgPLioUR14CYALT_Eiv5DTOb-_t4OvGtuG5OtJEzMeJdV_k0E8JBTeVlmq0J5D1Fbg/exec';
@@ -18,23 +18,75 @@ function getDeviceId() {
 }
 
 // ============================================
-// دوال API مع Proxy
+// دالة JSONP للاتصال بالـ API
+// ============================================
+
+function callJSONP(action, email, deviceId) {
+    return new Promise((resolve, reject) => {
+        const callbackName = 'jsonp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+        const script = document.createElement('script');
+        
+        // بناء الـ URL
+        let url = `${API_URL}?action=${action}&callback=${callbackName}`;
+        if (email) url += `&email=${encodeURIComponent(email)}`;
+        if (deviceId) url += `&deviceId=${encodeURIComponent(deviceId)}`;
+        
+        // تعريف الدالة التي سيتم استدعاؤها
+        window[callbackName] = function(data) {
+            delete window[callbackName];
+            if (script.parentNode) {
+                script.parentNode.removeChild(script);
+            }
+            resolve(data);
+        };
+        
+        script.src = url;
+        script.onerror = function() {
+            delete window[callbackName];
+            if (script.parentNode) {
+                script.parentNode.removeChild(script);
+            }
+            reject(new Error('فشل الاتصال بالخادم'));
+        };
+        
+        // مهلة في حالة عدم الاستجابة (10 ثوان)
+        const timeout = setTimeout(() => {
+            if (window[callbackName]) {
+                delete window[callbackName];
+                if (script.parentNode) {
+                    script.parentNode.removeChild(script);
+                }
+                reject(new Error('انتهت مهلة الاتصال'));
+            }
+        }, 10000);
+        
+        // ربط المهلة بالدالة
+        const originalCallback = window[callbackName];
+        window[callbackName] = function(data) {
+            clearTimeout(timeout);
+            originalCallback(data);
+        };
+        
+        document.body.appendChild(script);
+    });
+}
+
+// ============================================
+// دوال API
 // ============================================
 
 // 1. تسجيل الدخول
 async function loginWithGoogleSheets(email) {
     const deviceId = getDeviceId();
-    const fullUrl = `${API_URL}?action=login&email=${encodeURIComponent(email)}&deviceId=${deviceId}`;
     
     try {
-        // ✅ استخدام Proxy لتجاوز CORS
-        const response = await fetch(`${PROXY_URL}${encodeURIComponent(fullUrl)}`);
-        const data = await response.json();
+        const data = await callJSONP('login', email, deviceId);
         return data;
     } catch (error) {
         return {
             success: false,
-            message: 'خطأ في الاتصال: ' + error.message
+            message: 'خطأ في الاتصال: ' + error.message,
+            status: 'connection_error'
         };
     }
 }
@@ -42,11 +94,9 @@ async function loginWithGoogleSheets(email) {
 // 2. نقل الحساب
 async function transferAccount(email) {
     const deviceId = getDeviceId();
-    const fullUrl = `${API_URL}?action=transfer&email=${encodeURIComponent(email)}&deviceId=${deviceId}`;
     
     try {
-        const response = await fetch(`${PROXY_URL}${encodeURIComponent(fullUrl)}`);
-        const data = await response.json();
+        const data = await callJSONP('transfer', email, deviceId);
         return data;
     } catch (error) {
         return {
@@ -59,9 +109,8 @@ async function transferAccount(email) {
 // 3. تسجيل الخروج
 async function logoutWithGoogleSheets(email) {
     try {
-        const fullUrl = `${API_URL}?action=logout&email=${encodeURIComponent(email)}`;
-        const response = await fetch(`${PROXY_URL}${encodeURIComponent(fullUrl)}`);
-        return await response.json();
+        const data = await callJSONP('logout', email);
+        return data;
     } catch (error) {
         return { success: false };
     }
@@ -70,9 +119,8 @@ async function logoutWithGoogleSheets(email) {
 // 4. التحقق من المستخدم
 async function checkUser(email) {
     try {
-        const fullUrl = `${API_URL}?action=check&email=${encodeURIComponent(email)}`;
-        const response = await fetch(`${PROXY_URL}${encodeURIComponent(fullUrl)}`);
-        return await response.json();
+        const data = await callJSONP('check', email);
+        return data;
     } catch (error) {
         return { success: false };
     }
@@ -81,14 +129,13 @@ async function checkUser(email) {
 // 5. جلب جميع المستخدمين
 async function getAllUsersFromSheets() {
     try {
-        const fullUrl = `${API_URL}?action=getAllUsers`;
-        const response = await fetch(`${PROXY_URL}${encodeURIComponent(fullUrl)}`);
-        const data = await response.json();
-        if (data.success) {
+        const data = await callJSONP('getAllUsers');
+        if (data && data.success) {
             return data.users || {};
         }
         return {};
     } catch (error) {
+        console.error('Error fetching users:', error);
         return {};
     }
 }
