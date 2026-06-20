@@ -1,10 +1,13 @@
 // ============================================
-// نظام Google Sheets + Apps Script
+// Google Sheets API Configuration
 // ============================================
 
 const API_URL = 'https://script.google.com/macros/s/AKfycbzA0x_aLc_mmvvOKAFHm5fraB8TxIWrk6UBRwVu9ckinBMO5OaIEz8xerzTMogExpIWaQ/exec';
 
+// ============================================
 // إنشاء معرف فريد للجهاز
+// ============================================
+
 function getDeviceId() {
     let deviceId = localStorage.getItem('zertiva_device_id');
     if (!deviceId) {
@@ -14,7 +17,11 @@ function getDeviceId() {
     return deviceId;
 }
 
-// تسجيل الدخول عبر Google Sheets
+// ============================================
+// دوال API للتواصل مع Google Sheets
+// ============================================
+
+// 1. تسجيل الدخول
 async function loginWithGoogleSheets(email) {
     const deviceId = getDeviceId();
     
@@ -30,7 +37,7 @@ async function loginWithGoogleSheets(email) {
     }
 }
 
-// نقل الحساب إلى جهاز جديد
+// 2. نقل الحساب إلى جهاز جديد
 async function transferAccount(email) {
     const deviceId = getDeviceId();
     
@@ -46,7 +53,7 @@ async function transferAccount(email) {
     }
 }
 
-// تسجيل الخروج
+// 3. تسجيل الخروج
 async function logoutWithGoogleSheets(email) {
     try {
         const response = await fetch(`${API_URL}?action=logout&email=${encodeURIComponent(email)}`);
@@ -56,12 +63,26 @@ async function logoutWithGoogleSheets(email) {
     }
 }
 
-// التحقق من المستخدم
+// 4. التحقق من المستخدم
 async function checkUser(email) {
     try {
         const response = await fetch(`${API_URL}?action=check&email=${encodeURIComponent(email)}`);
         return await response.json();
     } catch (error) {
         return { success: false };
+    }
+}
+
+// 5. جلب جميع المستخدمين ✅ هذه الدالة كانت ناقصة!
+async function getAllUsersFromSheets() {
+    try {
+        const response = await fetch(`${API_URL}?action=getAllUsers`);
+        const data = await response.json();
+        if (data.success) {
+            return data.users || {};
+        }
+        return {};
+    } catch (error) {
+        return {};
     }
 }
