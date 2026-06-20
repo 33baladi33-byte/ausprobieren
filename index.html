@@ -971,17 +971,12 @@ body.dark-mode .mobile-banner span {
                         الاجوبة صحيحة. <span class="blue-text">100%</span>
                     </p>
                 </div>
-                
-                <div class="info-glass-card">
-                    <div class="info-icon">🎯</div>
-                    <p class="hero-desc">
-    الامتحانات راه موجودة من قبل فالانترنت، ولكن هنا 
-    <span style="color: #38bdf8; font-weight: 600;">جمعناها ليك</span>، 
-    تأكدنا من 
-    <span style="color: #38bdf8; font-weight: 600;">الأجوبة الصحيحة</span>، 
-    ونظّمناها، وزدنا مميزات كاتسهّل عليك المراجعة وتوفّر عليك 
-    <span style="color: #ffd54f; font-weight: 600;">الوقت والصداع</span>.
-</p>
+            <div class="info-glass-card">
+    <div class="info-icon">🎯</div>
+    <p class="hero-desc" style="font-size: 0.95rem;">
+        <span style="color: #b0b8c9; font-weight: 500;">كلشي منظم وواجد، معليك غير تبدا من دابا</span>
+    </p>
+
                 </div>  
                 <button id="startBtn" class="hero-btn-primary">
                     اكتشف الامتحانات
@@ -1198,40 +1193,6 @@ body.dark-mode .mobile-banner span {
     if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
     
     checkAndToggleTipsButton();
-})();
-
-// ============================================
-// لعبة التحدي السريع
-// ============================================
-(function() {
-    "use strict";
-    
-    function addGameButton() {
-        var nav = document.getElementById('examNavButtons');
-        if (!nav) {
-            setTimeout(addGameButton, 500);
-            return;
-        }
-        if (document.getElementById('rapidGameBtn')) return;
-        
-        var btn = document.createElement('button');
-        btn.id = 'rapidGameBtn';
-        btn.innerHTML = '⚡ التحدي السريع';
-        btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
-        btn.onclick = function() {
-            alert("🎮 لعبة التحدي السريع\nسيتم إطلاقها قريباً إن شاء الله!");
-        };
-        nav.appendChild(btn);
-        console.log('🎮 زر التحدي السريع جاهز');
-    }
-    
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(addGameButton, 500);
-        });
-    } else {
-        setTimeout(addGameButton, 500);
-    }
 })();
 </script>
 
@@ -2002,14 +1963,11 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <!-- نافذة الاشتراك المنبثقة -->
 <div id="subscriptionModal" class="subscription-modal">
     <div class="subscription-card">
-        <div class="subscription-title">اختر طريقة الاشتراك</div>
-        <div class="subscription-subtitle">يمكنك الاشتراك عبر المنصة أو التواصل مباشرة عبر واتساب</div>
+        <div class="subscription-title">💬 تواصل معنا عبر واتساب</div>
+        <div class="subscription-subtitle">للاشتراك أو الاستفسار، يمكنك التواصل معنا مباشرة</div>
         <div class="subscription-buttons">
-            <a href="subscribe.html" id="subscriptionPlatformBtn" class="subscription-btn primary">
-                🛒 الاشتراك عبر المنصة
-            </a>
-            <a href="https://wa.me/212687561491?text=مرحباً، أنا مهتم بالاشتراك في منصة التحضير لامتحان B2 وأرغب في معرفة الباقات المتاحة." id="subscriptionWhatsappBtn" class="subscription-btn whatsapp" target="_blank">
-                💬 التواصل عبر واتساب
+            <a href="https://wa.me/212687561491?text=سلام، بغيت نشتارك في الموقع." id="subscriptionWhatsappBtn" class="subscription-btn whatsapp" target="_blank">
+                💬 تواصل عبر واتساب
             </a>
         </div>
         <button id="closeSubscriptionBtn" class="close-subscription-btn">✕ إغلاق</button>
