@@ -1,5 +1,6 @@
 /**
  * auth.js - نظام إدارة تسجيل الدخول والاشتراك لموقع Zertiva B2
+ * ✅ مع إضافة نظام منع الدخول المتعدد (جلسة واحدة لكل حساب)
  */
 
 const WA_NUMBER = "212687561491";
@@ -9,6 +10,79 @@ let currentUserStatus = 'guest';
 let currentExpiry = null;
 
 const YOUCAN_STORE_URL = 'https://zertivab2.youcan.store/';
+
+// ============================================
+// 🔒 نظام الجلسات النشطة (منع الدخول المتعدد)
+// ============================================
+
+// تخزين الجلسات النشطة في localStorage مؤقتاً
+// في حالة وجود خادم، يفضل تخزينها في قاعدة البيانات
+const ACTIVE_SESSIONS_KEY = 'zertiva_active_sessions';
+
+function getActiveSessions() {
+    try {
+        const data = localStorage.getItem(ACTIVE_SESSIONS_KEY);
+        return data ? JSON.parse(data) : {};
+    } catch {
+        return {};
+    }
+}
+
+function saveActiveSessions(sessions) {
+    localStorage.setItem(ACTIVE_SESSIONS_KEY, JSON.stringify(sessions));
+}
+
+function isSessionActive(email) {
+    const sessions = getActiveSessions();
+    const sessionData = sessions[email];
+    
+    if (!sessionData) return false;
+    
+    // التحقق من انتهاء الصلاحية (5 دقائق من آخر نشاط)
+    const now = Date.now();
+    const inactiveTime = now - sessionData.lastActivity;
+    
+    // إذا كان غير نشط لأكثر من 5 دقائق، نعتبر الجلسة منتهية
+    if (inactiveTime > 5 * 60 * 1000) {
+        delete sessions[email];
+        saveActiveSessions(sessions);
+        return false;
+    }
+    
+    return true;
+}
+
+function activateSession(email) {
+    const sessions = getActiveSessions();
+    sessions[email] = {
+        sessionId: generateSessionId(),
+        lastActivity: Date.now(),
+        createdAt: Date.now()
+    };
+    saveActiveSessions(sessions);
+}
+
+function terminateSession(email) {
+    const sessions = getActiveSessions();
+    delete sessions[email];
+    saveActiveSessions(sessions);
+}
+
+function updateSessionActivity(email) {
+    const sessions = getActiveSessions();
+    if (sessions[email]) {
+        sessions[email].lastActivity = Date.now();
+        saveActiveSessions(sessions);
+    }
+}
+
+function generateSessionId() {
+    return 'sid_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+}
+
+// ============================================
+// دوال تسجيل الدخول الأساسية
+// ============================================
 
 function getLoggedInEmail() {
     return localStorage.getItem('zertiva_email');
@@ -24,6 +98,10 @@ function setLoggedInUser(email, password) {
 }
 
 function logoutUser() {
+    const email = getLoggedInEmail();
+    if (email) {
+        terminateSession(email);
+    }
     localStorage.removeItem('zertiva_email');
     localStorage.removeItem('zertiva_password');
     alert("تم تسجيل الخروج بنجاح");
@@ -46,6 +124,17 @@ async function getPremiumUsers() {
 async function getUserStatus() {
     let email = getLoggedInEmail();
     if(!email) return 'guest';
+    
+    // التحقق من الجلسة النشطة
+    if (!isSessionActive(email)) {
+        // الجلسة غير نشطة - تسجيل الخروج التلقائي
+        localStorage.removeItem('zertiva_email');
+        localStorage.removeItem('zertiva_password');
+        return 'guest';
+    }
+    
+    // تحديث وقت النشاط
+    updateSessionActivity(email);
     
     try {
         const premium = await getPremiumUsers();
@@ -193,7 +282,27 @@ async function handleLogin() {
         return;
     }
     
+    // ✅ التحقق من وجود جلسة نشطة لنفس البريد
+    if (isSessionActive(email)) {
+        const confirmTerminate = confirm(
+            `⚠️ هذا الحساب (${email}) مستخدم حالياً من قبل شخص آخر.\n\n` +
+            `هل تريد طرد الجلسة القديمة والدخول؟`
+        );
+        
+        if (!confirmTerminate) {
+            return; // المستخدم رفض الدخول
+        }
+        
+        // إنهاء الجلسة القديمة
+        terminateSession(email);
+        alert(`✅ تم طرد الجلسة القديمة. يمكنك الدخول الآن.`);
+    }
+    
+    // تسجيل الدخول
     setLoggedInUser(email, password);
+    
+    // تفعيل الجلسة الجديدة
+    activateSession(email);
     
     let status = await getUserStatus();
     if(status === 'premium') {
@@ -294,6 +403,29 @@ if (document.readyState === 'loading') {
 } else {
     initAuth();
 }
+
+// ============================================
+// تحديث النشاط كل دقيقة (للحفاظ على الجلسة)
+// ============================================
+
+setInterval(() => {
+    const email = getLoggedInEmail();
+    if (email && isSessionActive(email)) {
+        updateSessionActivity(email);
+    }
+}, 60000); // كل 60 ثانية
+
+// ============================================
+// عند إغلاق المتصفح أو المغادرة
+// ============================================
+
+window.addEventListener('beforeunload', function() {
+    const email = getLoggedInEmail();
+    if (email) {
+        // لا نحذف الجلسة فوراً، بل تبقى 5 دقائق
+        // حتى يتمكن المستخدم من العودة بسرعة
+    }
+});
 
 // ============================================
 // تحسين مظهر الهواتف في auth.js
