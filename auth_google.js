@@ -2,8 +2,7 @@
 // Google Sheets API Configuration
 // ============================================
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbzA0x_aLc_mmvvOKAFHm5fraB8TxIWrk6UBRwVu9ckinBMO5OaIEz8xerzTMogExpIWaQ/exec';
-const PROXY_URL = 'https://api.allorigins.win/raw?url=';
+const API_URL = 'https://script.google.com/macros/s/AKfycbx3BgPLioUR14CYALT_Eiv5DTOb-_t4OvGtuG5OtJEzMeJdV_k0E8JBTeVlmq0J5D1Fbg/exec';
 
 // ============================================
 // إنشاء معرف فريد للجهاز
