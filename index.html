@@ -822,132 +822,174 @@ body.dark-mode .mobile-banner span {
     }
 
     /* ============================================
-       Toast Notifications & Modal Transfer
+       Welcome Card Styles - بطاقة الترحيب
        ============================================ */
-    .zertiva-toast {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #1a1d27;
-        color: #f1f5f9;
-        padding: 16px 24px;
-        border-radius: 16px;
-        border-left: 4px solid #38bdf8;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        z-index: 99999;
-        max-width: 400px;
-        font-size: 14px;
-        line-height: 1.6;
-        animation: slideInRight 0.3s ease;
-        direction: rtl;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    @keyframes slideInRight {
-        from { opacity: 0; transform: translateX(50px); }
-        to { opacity: 1; transform: translateX(0); }
-    }
-
-    @keyframes slideOutRight {
-        from { opacity: 1; transform: translateX(0); }
-        to { opacity: 0; transform: translateX(50px); }
-    }
-
-    .zertiva-modal {
+    .welcome-overlay {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(10, 14, 26, 0.7);
-        backdrop-filter: blur(8px);
-        z-index: 99998;
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(4px);
+        z-index: 99999;
         display: flex;
         align-items: center;
         justify-content: center;
         visibility: hidden;
         opacity: 0;
-        transition: all 0.3s ease;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
     }
 
-    .zertiva-modal.active {
+    .welcome-overlay.active {
         visibility: visible;
         opacity: 1;
     }
 
-    .zertiva-modal-content {
-        background: #1a1d27;
-        border-radius: 24px;
-        padding: 32px 28px;
-        max-width: 420px;
+    .welcome-card {
+        background: #111827;
+        border-radius: 18px;
+        padding: 28px 24px;
         width: 90%;
-        border: 1px solid rgba(56, 189, 248, 0.2);
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-        transform: scale(0.95) translateY(10px);
+        max-width: 380px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        transform: scale(0.92) translateY(10px);
         transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         text-align: center;
+        direction: rtl;
+        position: relative;
     }
 
-    .zertiva-modal.active .zertiva-modal-content {
+    .welcome-overlay.active .welcome-card {
         transform: scale(1) translateY(0);
     }
 
-    .zertiva-modal .modal-icon {
-        font-size: 3rem;
-        margin-bottom: 12px;
-    }
-
-    .zertiva-modal .modal-title {
-        color: #f1f5f9;
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin-bottom: 12px;
-    }
-
-    .zertiva-modal .modal-text {
-        color: #94a3b8;
-        font-size: 0.9rem;
-        line-height: 1.7;
-        margin-bottom: 28px;
-    }
-
-    .zertiva-modal .modal-buttons {
+    .welcome-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
         display: flex;
-        gap: 12px;
+        align-items: center;
         justify-content: center;
-        flex-wrap: wrap;
+        margin: 0 auto 14px auto;
+        font-size: 24px;
+        background: rgba(34, 197, 94, 0.15);
+        border: 2px solid #22c55e;
     }
 
-    .zertiva-modal .modal-btn {
-        padding: 12px 28px;
-        border-radius: 40px;
+    .welcome-icon.premium {
+        background: rgba(34, 197, 94, 0.15);
+        border-color: #22c55e;
+    }
+
+    .welcome-icon.free {
+        background: rgba(251, 191, 36, 0.15);
+        border-color: #fbbf24;
+    }
+
+    .welcome-title {
+        color: #ffffff;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    .welcome-email {
+        color: #d1d5db;
+        font-size: 0.85rem;
+        font-weight: 400;
+        margin-bottom: 16px;
+        word-break: break-all;
+    }
+
+    .welcome-divider {
+        height: 1px;
+        background: rgba(255, 255, 255, 0.06);
+        margin: 12px 0 16px 0;
+    }
+
+    .welcome-status {
         font-size: 0.9rem;
+        font-weight: 500;
+        color: #d1d5db;
+        margin-bottom: 6px;
+    }
+
+    .welcome-status .highlight {
+        color: #38bdf8;
+        font-weight: 600;
+    }
+
+    .welcome-status .premium-date {
+        color: #38bdf8;
+        font-weight: 600;
+    }
+
+    .welcome-message {
+        font-size: 0.8rem;
+        color: #9ca3af;
+        line-height: 1.6;
+        margin-top: 4px;
+    }
+
+    .welcome-subscribe-btn {
+        margin-top: 14px;
+        background: #38bdf8;
+        color: #0a0e1a;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 40px;
+        font-size: 0.8rem;
         font-weight: 600;
         cursor: pointer;
-        transition: all 0.25s ease;
-        border: none;
-        min-width: 120px;
+        transition: all 0.2s ease;
+        display: inline-block;
     }
 
-    .zertiva-modal .modal-btn.primary {
-        background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-        color: #0a0e1a;
+    .welcome-subscribe-btn:hover {
+        background: #0ea5e9;
+        transform: translateY(-1px);
     }
 
-    .zertiva-modal .modal-btn.primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
-    }
-
-    .zertiva-modal .modal-btn.secondary {
-        background: rgba(255, 255, 255, 0.06);
-        color: #94a3b8;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .zertiva-modal .modal-btn.secondary:hover {
-        background: rgba(255, 255, 255, 0.12);
-        color: #e2e8f0;
+    /* للهواتف */
+    @media (max-width: 768px) {
+        .welcome-card {
+            padding: 22px 18px;
+            max-width: 340px;
+            width: 90%;
+            border-radius: 16px;
+        }
+        
+        .welcome-icon {
+            width: 44px;
+            height: 44px;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .welcome-title {
+            font-size: 0.95rem;
+        }
+        
+        .welcome-email {
+            font-size: 0.75rem;
+            margin-bottom: 12px;
+        }
+        
+        .welcome-status {
+            font-size: 0.8rem;
+        }
+        
+        .welcome-message {
+            font-size: 0.7rem;
+        }
+        
+        .welcome-subscribe-btn {
+            padding: 6px 16px;
+            font-size: 0.7rem;
+        }
     }
 
 </style>
@@ -2018,265 +2060,9 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
     console.log("✅ زر 💡 طريقة الاشتراك الجديد جاهز");
 })();
  // ============================================
-// نظام الاشتراك المنبثق (Subscription Modal) - النسخة القوية
+// نظام الاشتراك المنبثق (Subscription Modal) - تم إلغاؤه
 // ============================================
-(function() {
-    function initSubscriptionModal() {
-        const modal = document.getElementById('subscriptionModal');
-        const closeBtn = document.getElementById('closeSubscriptionBtn');
-        
-        if (!modal) {
-            console.log("⏳ Modal not found yet, waiting...");
-            setTimeout(initSubscriptionModal, 500);
-            return;
-        }
-        
-        function closeModal() {
-            modal.classList.remove('active');
-        }
-        
-        function openModal() {
-            modal.classList.add('active');
-        }
-        
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) closeModal();
-        });
-        
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeModal);
-        } else {
-            console.log("⚠️ closeSubscriptionBtn not found");
-        }
-        
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                closeModal();
-            }
-        });
-        
-        const navSubscribeBtn = document.getElementById('navSubscribeBtn');
-        const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
-        
-        if (navSubscribeBtn) {
-            navSubscribeBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal();
-                console.log("✅ navSubscribeBtn clicked, modal opened");
-            });
-        } else {
-            console.log("⚠️ navSubscribeBtn not found");
-        }
-        
-        if (featuresSubscribeBtn) {
-            featuresSubscribeBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                openModal();
-                console.log("✅ featuresSubscribeBtn clicked, modal opened");
-            });
-        } else {
-            console.log("⚠️ featuresSubscribeBtn not found");
-        }
-        
-        console.log("✅ نظام الاشتراك المنبثق جاهز");
-    }
-    
-    // تأخير التنفيذ للتأكد من تحميل جميع العناصر
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(initSubscriptionModal, 300);
-        });
-    } else {
-        setTimeout(initSubscriptionModal, 300);
-    }
-})();
-</script>
-<!-- نافذة الاشتراك المنبثقة -->
-<div id="subscriptionModal" class="subscription-modal">
-    <div class="subscription-card">
-        <div class="subscription-title">💬 تواصل معنا عبر واتساب</div>
-        <div class="subscription-subtitle">للاشتراك أو الاستفسار، يمكنك التواصل معنا مباشرة</div>
-        <div class="subscription-buttons">
-            <a href="https://wa.me/212687561491?text=سلام، بغيت نشتارك في الموقع." id="subscriptionWhatsappBtn" class="subscription-btn whatsapp" target="_blank">
-                💬 تواصل عبر واتساب
-            </a>
-        </div>
-        <button id="closeSubscriptionBtn" class="close-subscription-btn">✕ إغلاق</button>
-    </div>
-</div>
-
-<!-- ============================================
-     إصلاح الأزرار العلوية - حل نهائي
-     ============================================ -->
-<script>
-(function() {
-    console.log('🔧 جاري تهيئة الأزرار العلوية...');
-    
-    // التأكد من تحميل الصفحة
-    function initButtons() {
-        // 1. زر الشعار - العودة للرئيسية
-        const logoBtn = document.getElementById('logoHomeBtn');
-        if (logoBtn) {
-            logoBtn.onclick = function(e) {
-                e.preventDefault();
-                window.location.href = 'index.html';
-                console.log('✅ تم الضغط على الشعار');
-            };
-            console.log('✅ زر الشعار جاهز');
-        }
-        
-        // 2. زر تسجيل الدخول
-        const loginBtn = document.getElementById('navLoginBtn');
-        if (loginBtn) {
-            loginBtn.onclick = function(e) {
-                e.preventDefault();
-                const popup = document.getElementById('loginPopup');
-                if (popup) {
-                    popup.style.display = 'flex';
-                    console.log('✅ تم فتح نافذة تسجيل الدخول');
-                }
-            };
-            console.log('✅ زر تسجيل الدخول جاهز');
-        }
-        
-        // 3. زر الإشعارات
-        const bellBtn = document.getElementById('notificationBell');
-        if (bellBtn) {
-            bellBtn.onclick = function(e) {
-                e.preventDefault();
-                const dropdown = document.getElementById('notificationDropdown');
-                if (dropdown) {
-                    dropdown.classList.toggle('active');
-                    console.log('✅ تم تبديل نافذة الإشعارات');
-                }
-            };
-            console.log('✅ زر الإشعارات جاهز');
-        }
-        
-        // 4. زر الإعدادات
-        const settingsBtn = document.getElementById('settingsBtn');
-        if (settingsBtn) {
-            settingsBtn.onclick = function(e) {
-                e.preventDefault();
-                const modal = document.getElementById('settingsModal');
-                if (modal) {
-                    modal.classList.add('active');
-                    console.log('✅ تم فتح نافذة الإعدادات');
-                }
-            };
-            console.log('✅ زر الإعدادات جاهز');
-        }
-        
-        // 5. زر الملف الشخصي
-        const profileIcon = document.getElementById('profileIcon');
-        if (profileIcon) {
-            profileIcon.onclick = function(e) {
-                e.preventDefault();
-                const dropdown = document.getElementById('profileDropdown');
-                if (dropdown) {
-                    dropdown.classList.toggle('show');
-                    console.log('✅ تم تبديل قائمة الملف الشخصي');
-                }
-            };
-            console.log('✅ زر الملف الشخصي جاهز');
-        }
-        
-        // 6. زر تسجيل الخروج
-        const logoutBtn = document.getElementById('profileLogoutBtn');
-        if (logoutBtn) {
-            logoutBtn.onclick = function(e) {
-                e.preventDefault();
-                if (typeof logoutUser === 'function') {
-                    logoutUser(true);
-                } else {
-                    localStorage.removeItem('zertiva_email');
-                    localStorage.removeItem('zertiva_session_token');
-                    localStorage.removeItem('zertiva_device_id');
-                    alert('تم تسجيل الخروج');
-                    location.reload();
-                }
-            };
-            console.log('✅ زر تسجيل الخروج جاهز');
-        }
-        
-        // 7. زر إغلاق نافذة تسجيل الدخول
-        const closePopupBtn = document.getElementById('closePopupBtn');
-        if (closePopupBtn) {
-            closePopupBtn.onclick = function(e) {
-                e.preventDefault();
-                const popup = document.getElementById('loginPopup');
-                if (popup) popup.style.display = 'none';
-                console.log('✅ تم إغلاق نافذة تسجيل الدخول');
-            };
-        }
-        
-        // 8. زر تسجيل الدخول داخل النافذة
-        const popupLoginBtn = document.getElementById('popupLoginBtn');
-        if (popupLoginBtn) {
-            popupLoginBtn.onclick = function() {
-                const email = document.getElementById('popupEmail').value.trim();
-                const password = document.getElementById('popupPassword').value.trim();
-                
-                if (!email || !password) {
-                    alert('يرجى إدخال البريد الإلكتروني وكلمة السر');
-                    return;
-                }
-                
-                if (typeof handleLogin === 'function') {
-                    handleLogin();
-                } else {
-                    localStorage.setItem('zertiva_email', email);
-                    localStorage.setItem('zertiva_password', password);
-                    alert('✅ تم تسجيل الدخول بنجاح');
-                    location.reload();
-                }
-            };
-            console.log('✅ زر تسجيل الدخول في النافذة جاهز');
-        }
-        
-        console.log('✅ جميع الأزرار العلوية جاهزة!');
-    }
-    
-    // تنفيذ التهيئة
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initButtons);
-    } else {
-        initButtons();
-    }
-})();
-</script>
-
-<!-- ============================================
-     إغلاق النوافذ عند الضغط خارجها
-     ============================================ -->
-<script>
-document.addEventListener('click', function(e) {
-    // إغلاق نافذة تسجيل الدخول
-    const popup = document.getElementById('loginPopup');
-    if (popup && popup.style.display === 'flex') {
-        if (!popup.contains(e.target) && e.target.id !== 'navLoginBtn') {
-            popup.style.display = 'none';
-        }
-    }
-    
-    // إغلاق قائمة الملف الشخصي
-    const dropdown = document.getElementById('profileDropdown');
-    const profileIcon = document.getElementById('profileIcon');
-    if (dropdown && dropdown.classList.contains('show')) {
-        if (profileIcon && !profileIcon.contains(e.target) && !dropdown.contains(e.target)) {
-            dropdown.classList.remove('show');
-        }
-    }
-    
-    // إغلاق نافذة الإشعارات
-    const notifDropdown = document.getElementById('notificationDropdown');
-    const notifBell = document.getElementById('notificationBell');
-    if (notifDropdown && notifDropdown.classList.contains('active')) {
-        if (notifBell && !notifBell.contains(e.target) && !notifDropdown.contains(e.target)) {
-            notifDropdown.classList.remove('active');
-        }
-    }
-});
+// جميع أزرار الاشتراك تذهب الآن إلى subscribe.html
 </script>
 
 </body>
