@@ -2,7 +2,7 @@
 // Google Sheets API Configuration - JSONP Version
 // ============================================
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbwvxmRTgwUclize_zRym79MI3dgykdqE1W8jSPTDut6bhso9okvzu2HGzY3qdgdljnr1A/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwg3b8XrV8hERJOS3seQHrWsTK3LEtbqgLZPQIyvjTs3CHEqMrXik5Jf6b_G7xFMr1ajg/exec';
 
 // ============================================
 // إنشاء معرف فريد للجهاز
@@ -21,7 +21,7 @@ function getDeviceId() {
 // دالة JSONP للاتصال بالـ API
 // ============================================
 
-function callJSONP(action, email, deviceId) {
+function callJSONP(action, email, deviceId, sessionToken) {
     return new Promise((resolve, reject) => {
         const callbackName = 'jsonp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
         const script = document.createElement('script');
@@ -29,6 +29,7 @@ function callJSONP(action, email, deviceId) {
         let url = `${API_URL}?action=${action}&callback=${callbackName}`;
         if (email) url += `&email=${encodeURIComponent(email)}`;
         if (deviceId) url += `&deviceId=${encodeURIComponent(deviceId)}`;
+        if (sessionToken) url += `&sessionToken=${encodeURIComponent(sessionToken)}`;
         
         window[callbackName] = function(data) {
             delete window[callbackName];
@@ -65,7 +66,7 @@ function callJSONP(action, email, deviceId) {
 // دوال API
 // ============================================
 
-// 1. تسجيل الدخول - يتم استخدامها مرة واحدة فقط
+// 1. تسجيل الدخول
 async function loginWithGoogleSheets(email) {
     const deviceId = getDeviceId();
     
@@ -81,16 +82,14 @@ async function loginWithGoogleSheets(email) {
     }
 }
 
-// 2. نقل الحساب
-async function transferAccount(email) {
-    const deviceId = getDeviceId();
-    
+// 2. التحقق من الجلسة - فقط عند فتح الموقع
+async function checkSession(email, sessionToken) {
     try {
-        const data = await callJSONP('transfer', email, deviceId);
+        const data = await callJSONP('checkSession', email, null, sessionToken);
         return data;
     } catch (error) {
         return {
-            success: false,
+            valid: false,
             message: 'خطأ في الاتصال: ' + error.message
         };
     }
@@ -106,7 +105,7 @@ async function logoutWithGoogleSheets(email) {
     }
 }
 
-// 4. التحقق من المستخدم - فقط هذا يستخدم للتحقق
+// 4. التحقق من المستخدم (للحالة فقط)
 async function checkUser(email) {
     try {
         const data = await callJSONP('check', email);
