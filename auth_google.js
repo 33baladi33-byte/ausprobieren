@@ -2,7 +2,7 @@
 // Google Sheets API Configuration - JSONP Version
 // ============================================
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbxB_y0e6Esws5i-Pl9lhvrQgeZVo_lGcpkpT3opXLKGKGTn9oNar7d01JJjIBcTuAgMLA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxGhMNEyKp9Gv5b6viQpMpQHffUNnfJ6j4gM7LpihBAh06af7-2gjwsqoSfDIMd04H8XQ/exec';
 
 // ============================================
 // إنشاء معرف فريد للجهاز
