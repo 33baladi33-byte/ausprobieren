@@ -1,7 +1,7 @@
 /**
- * auth.js - نظام إدارة تسجيل الدخول والجلسات - SessionToken
- * ✅ يعتمد فقط على Google Sheets
- * ✅ التحقق من الجلسة فقط عند فتح الموقع
+ * auth.js - نظام إدارة تسجيل الدخول والجلسات
+ * ✅ سريع - لا يستخدم setTimeout
+ * ✅ يعرض بطاقة الملف الشخصي فوراً
  */
 
 const WA_NUMBER = "212687561491";
@@ -45,10 +45,10 @@ function isUserLoggedIn() {
 }
 
 // ============================================
-// Toast Notifications (بديل alert)
+// Toast Notifications
 // ============================================
 
-function showToast(message, type = 'info', duration = 4000) {
+function showToast(message, type = 'info', duration = 3000) {
     const existing = document.querySelector('.zertiva-toast');
     if (existing) existing.remove();
     
@@ -68,30 +68,31 @@ function showToast(message, type = 'info', duration = 4000) {
         right: 20px;
         background: #1a1d27;
         color: #f1f5f9;
-        padding: 16px 24px;
-        border-radius: 16px;
+        padding: 14px 20px;
+        border-radius: 14px;
         border-left: 4px solid ${colors[type] || colors.info};
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         z-index: 99999;
-        max-width: 400px;
-        font-size: 14px;
-        line-height: 1.6;
-        animation: slideInRight 0.3s ease;
+        max-width: 380px;
+        font-size: 13px;
+        line-height: 1.5;
+        animation: slideInRight 0.25s ease;
         direction: rtl;
-        border: 1px solid rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.08);
+        pointer-events: none;
     `;
     
     toast.innerHTML = message;
     document.body.appendChild(toast);
     
     setTimeout(() => {
-        toast.style.animation = 'slideOutRight 0.3s ease';
-        setTimeout(() => toast.remove(), 300);
+        toast.style.animation = 'slideOutRight 0.25s ease';
+        setTimeout(() => toast.remove(), 250);
     }, duration);
 }
 
 // ============================================
-// نافذة انتهاء الجلسة (بديل alert)
+// نافذة انتهاء الجلسة
 // ============================================
 
 function showSessionExpiredModal() {
@@ -107,10 +108,10 @@ function showSessionExpiredModal() {
             <h3 class="modal-title">تم تسجيل الدخول من جهاز آخر</h3>
             <p class="modal-text">
                 تم تسجيل الدخول إلى هذا الحساب من جهاز آخر.<br>
-                يرجى إدخال البريد الإلكتروني مرة أخرى للدخول.
+                يرجى إدخال البريد الإلكتروني مرة أخرى.
             </p>
             <div class="modal-buttons">
-                <button class="modal-btn primary" id="sessionExpiredOkBtn">حسناً، أعيد المحاولة</button>
+                <button class="modal-btn primary" id="sessionExpiredOkBtn">حسناً</button>
             </div>
         </div>
     `;
@@ -129,57 +130,7 @@ function showSessionExpiredModal() {
 }
 
 // ============================================
-// نافذة نقل الحساب (عند تسجيل الدخول من جهاز جديد)
-// ============================================
-
-function showTransferModal(onConfirm, onCancel) {
-    const existing = document.getElementById('transferModal');
-    if (existing) existing.remove();
-    
-    const modal = document.createElement('div');
-    modal.id = 'transferModal';
-    modal.className = 'zertiva-modal';
-    modal.innerHTML = `
-        <div class="zertiva-modal-content">
-            <div class="modal-icon">🔄</div>
-            <h3 class="modal-title">جلسة جديدة</h3>
-            <p class="modal-text">
-                سيتم تسجيل الدخول من هذا الجهاز.<br>
-                سيتم إلغاء الجلسة السابقة تلقائياً.
-            </p>
-            <div class="modal-buttons">
-                <button class="modal-btn primary" id="transferConfirmBtn">تسجيل الدخول</button>
-                <button class="modal-btn secondary" id="transferCancelBtn">إلغاء</button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    setTimeout(() => modal.classList.add('active'), 10);
-    
-    document.getElementById('transferConfirmBtn').onclick = () => {
-        modal.classList.remove('active');
-        setTimeout(() => modal.remove(), 300);
-        if (onConfirm) onConfirm();
-    };
-    
-    document.getElementById('transferCancelBtn').onclick = () => {
-        modal.classList.remove('active');
-        setTimeout(() => modal.remove(), 300);
-        if (onCancel) onCancel();
-    };
-    
-    modal.onclick = (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            setTimeout(() => modal.remove(), 300);
-            if (onCancel) onCancel();
-        }
-    };
-}
-
-// ============================================
-// الحصول على حالة المستخدم
+// الحصول على حالة المستخدم - سريع
 // ============================================
 
 async function getUserStatus() {
@@ -231,42 +182,7 @@ function formatDate(dateString) {
 }
 
 // ============================================
-// التحقق من الجلسة - فقط عند فتح الموقع
-// ============================================
-
-async function validateSession() {
-    const email = getLoggedInEmail();
-    const sessionToken = getSessionToken();
-    
-    // إذا لم يكن هناك جلسة، نسمح بالدخول
-    if (!email || !sessionToken) {
-        return true;
-    }
-    
-    // إذا تم التحقق بالفعل في هذه الجلسة، لا نكرر
-    if (sessionChecked) {
-        return true;
-    }
-    
-    try {
-        const result = await checkSession(email, sessionToken);
-        sessionChecked = true;
-        
-        if (result && result.valid) {
-            return true;
-        } else {
-            // الجلسة غير صالحة - تم تسجيل الدخول من جهاز آخر
-            showSessionExpiredModal();
-            return false;
-        }
-    } catch (error) {
-        console.error('Error validating session:', error);
-        return true; // في حالة الخطأ، نسمح بالدخول
-    }
-}
-
-// ============================================
-// تحديث القائمة المنسدلة للمستخدم
+// تحديث القائمة المنسدلة للمستخدم (تعمل فوراً)
 // ============================================
 
 async function updateProfileDropdown() {
@@ -378,11 +294,11 @@ function logoutUser(showMessage = true) {
     if (showMessage) {
         showToast('تم تسجيل الخروج بنجاح', 'success');
     }
-    setTimeout(() => location.reload(), 500);
+    setTimeout(() => location.reload(), 300);
 }
 
 // ============================================
-// معالجة تسجيل الدخول
+// معالجة تسجيل الدخول - سريع جداً
 // ============================================
 
 async function handleLogin() {
@@ -398,50 +314,59 @@ async function handleLogin() {
     
     isLoggingIn = true;
     const loginBtn = document.getElementById('popupLoginBtn');
-    const originalText = loginBtn ? loginBtn.textContent : '';
     if (loginBtn) {
         loginBtn.textContent = '⏳ جاري التحميل...';
         loginBtn.disabled = true;
     }
     
     try {
+        // تسجيل الدخول
         const result = await loginWithGoogleSheets(email);
+        
+        // إعادة الزر فوراً بعد الاستجابة
+        if (loginBtn) {
+            loginBtn.textContent = 'دخول / إنشاء حساب';
+            loginBtn.disabled = false;
+        }
         
         if (!result.success) {
             if (result.status === 'expired') {
-                showToast('⏰ انتهت صلاحية اشتراكك. يرجى التواصل مع الدعم.', 'warning');
+                showToast('⏰ انتهت صلاحية اشتراكك.', 'warning');
                 return;
             } else if (result.status === 'connection_error') {
-                showToast('⚠️ خطأ في الاتصال. يرجى المحاولة مرة أخرى.', 'error');
+                showToast('⚠️ خطأ في الاتصال. حاول مرة أخرى.', 'error');
                 return;
             } else {
-                showToast(result.message || 'حدث خطأ غير متوقع', 'error');
+                showToast(result.message || 'حدث خطأ', 'error');
                 return;
             }
         }
         
-        // ✅ تسجيل الدخول الناجح - حفظ SessionToken
+        // ✅ حفظ الجلسة
         if (result.sessionToken) {
             setSessionData(email, result.sessionToken, getDeviceId());
         } else {
             setSessionData(email, result.sessionToken || 'temp', getDeviceId());
         }
         
-        // إعادة تعيين حالة التحقق
         sessionChecked = false;
         
+        // ✅ تحديث الملف الشخصي فوراً
+        await updateProfileDropdown();
+        
+        // ✅ إغلاق نافذة تسجيل الدخول
+        hideLoginPopup();
+        
+        // ✅ عرض رسالة سريعة حسب حالة المستخدم
         const status = await getUserStatus();
         if (status === 'premium') {
             const formattedExpiry = formatDate(result.expiry);
-            showToast(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}`, 'success', 5000);
-        } else if (status === 'expired') {
-            showToast(`⏰ مرحباً ${email}\nانتهت صلاحية اشتراكك.`, 'warning');
+            showToast(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}`, 'success', 4000);
         } else {
-            showToast(`✅ مرحباً ${email}\n📖 حسابك مجاني حالياً.\n📚 متاح لك أول 6 امتحانات من كل قسم.`, 'info', 5000);
+            showToast(`✅ مرحباً ${email}\n📖 حسابك مجاني (أول 6 امتحانات)`, 'info', 4000);
         }
         
-        hideLoginPopup();
-        await updateProfileDropdown();
+        // ✅ إعادة تحميل الصفحة لعرض التغييرات
         setTimeout(() => location.reload(), 500);
         
     } catch (error) {
@@ -449,29 +374,9 @@ async function handleLogin() {
     } finally {
         isLoggingIn = false;
         if (loginBtn) {
-            loginBtn.textContent = originalText || 'دخول / إنشاء حساب';
+            loginBtn.textContent = 'دخول / إنشاء حساب';
             loginBtn.disabled = false;
         }
-    }
-}
-
-// ============================================
-// إعداد زر التالي المقفل
-// ============================================
-
-async function setupLockedNextButton() {
-    const status = await getUserStatus();
-    const nextBtn = document.getElementById('nextExamBtn');
-    
-    if (nextBtn && status !== 'premium' && status !== 'guest') {
-        nextBtn.classList.add('locked-nav');
-        nextBtn.onclick = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            const modal = document.getElementById('subscriptionModal');
-            if (modal) modal.classList.add('active');
-            return false;
-        };
     }
 }
 
@@ -480,35 +385,78 @@ async function setupLockedNextButton() {
 // ============================================
 
 function bindAuthEvents() {
+    // زر تسجيل الدخول في الشريط العلوي
     const navLoginBtn = document.getElementById('navLoginBtn');
-    if (navLoginBtn) navLoginBtn.addEventListener('click', showLoginPopup);
+    if (navLoginBtn) {
+        navLoginBtn.onclick = showLoginPopup;
+    }
     
+    // زر تسجيل الدخول في النافذة
     const popupLoginBtn = document.getElementById('popupLoginBtn');
-    if (popupLoginBtn) popupLoginBtn.addEventListener('click', handleLogin);
+    if (popupLoginBtn) {
+        popupLoginBtn.onclick = handleLogin;
+    }
     
+    // زر إغلاق النافذة
     const closePopupBtn = document.getElementById('closePopupBtn');
-    if (closePopupBtn) closePopupBtn.addEventListener('click', hideLoginPopup);
+    if (closePopupBtn) {
+        closePopupBtn.onclick = hideLoginPopup;
+    }
     
+    // إغلاق النافذة عند الضغط خارجها
     const loginPopup = document.getElementById('loginPopup');
     if (loginPopup) {
-        loginPopup.addEventListener('click', function(e) {
+        loginPopup.onclick = function(e) {
             if (e.target === loginPopup) hideLoginPopup();
-        });
+        };
     }
     
+    // زر الملف الشخصي
     const profileIcon = document.getElementById('profileIcon');
-    if (profileIcon) profileIcon.addEventListener('click', toggleProfileDropdown);
-    
-    const profileLogoutBtn = document.getElementById('profileLogoutBtn');
-    if (profileLogoutBtn) profileLogoutBtn.addEventListener('click', () => logoutUser(true));
-    
-    const logoHomeBtn = document.getElementById('logoHomeBtn');
-    if (logoHomeBtn) {
-        logoHomeBtn.addEventListener('click', function() {
-            window.location.href = 'index.html';
-        });
+    if (profileIcon) {
+        profileIcon.onclick = toggleProfileDropdown;
     }
     
+    // زر تسجيل الخروج
+    const profileLogoutBtn = document.getElementById('profileLogoutBtn');
+    if (profileLogoutBtn) {
+        profileLogoutBtn.onclick = () => logoutUser(true);
+    }
+    
+    // زر الشعار - العودة للرئيسية
+    const logoBtn = document.getElementById('logoHomeBtn');
+    if (logoBtn) {
+        logoBtn.onclick = function(e) {
+            e.preventDefault();
+            window.location.href = 'index.html';
+        };
+    }
+    
+    // زر الإشعارات
+    const notificationBell = document.getElementById('notificationBell');
+    if (notificationBell) {
+        notificationBell.onclick = function(e) {
+            e.preventDefault();
+            const dropdown = document.getElementById('notificationDropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('active');
+            }
+        };
+    }
+    
+    // زر الإعدادات
+    const settingsBtn = document.getElementById('settingsBtn');
+    if (settingsBtn) {
+        settingsBtn.onclick = function(e) {
+            e.preventDefault();
+            const modal = document.getElementById('settingsModal');
+            if (modal) {
+                modal.classList.add('active');
+            }
+        };
+    }
+    
+    // إغلاق القائمة المنسدلة عند الضغط خارجها
     document.addEventListener('click', function(e) {
         const dropdown = document.getElementById('profileDropdown');
         const profileIconElem = document.getElementById('profileIcon');
@@ -518,37 +466,49 @@ function bindAuthEvents() {
     });
 }
 
-function observePageChanges() {
-    const observer = new MutationObserver(() => {
-        const listPage = document.getElementById('list');
-        if (listPage && listPage.classList.contains('active')) {
-            setTimeout(setupLockedNextButton, 300);
-        }
-        const examPage = document.getElementById('exam');
-        if (examPage && examPage.classList.contains('active')) {
-            setTimeout(setupLockedNextButton, 300);
-        }
-    });
-    
-    observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['class'] });
-}
-
 // ============================================
 // تهيئة النظام
 // ============================================
 
 async function initAuth() {
+    // ربط الأحداث
     bindAuthEvents();
-    await updateProfileDropdown();
-    observePageChanges();
-    setTimeout(setupLockedNextButton, 800);
     
-    // ✅ التحقق من الجلسة فقط عند فتح الموقع
-    // يتم استدعاؤها مرة واحدة فقط
-    const isValid = await validateSession();
-    if (!isValid) {
-        // الجلسة غير صالحة - تم تسجيل الخروج بالفعل في validateSession
-        // لا نقوم بأي إجراء إضافي
+    // تحديث الملف الشخصي
+    await updateProfileDropdown();
+    
+    // التحقق من صحة الجهاز
+    await validateDevice();
+}
+
+// ============================================
+// التحقق من صحة الجهاز
+// ============================================
+
+async function validateDevice() {
+    const email = getLoggedInEmail();
+    const sessionToken = getSessionToken();
+    
+    if (!email || !sessionToken) {
+        return true;
+    }
+    
+    if (sessionChecked) {
+        return true;
+    }
+    
+    try {
+        const result = await checkSession(email, sessionToken);
+        sessionChecked = true;
+        
+        if (result && result.valid) {
+            return true;
+        } else {
+            showSessionExpiredModal();
+            return false;
+        }
+    } catch (error) {
+        return true;
     }
 }
 
@@ -563,16 +523,6 @@ if (document.readyState === 'loading') {
 }
 
 // ============================================
-// التحقق من الجلسة عند إعادة تحميل الصفحة (Ctrl+R)
-// ============================================
-
-// نستخدم beforeunload لإعادة تعيين حالة التحقق
-// حتى يتم إعادة التحقق عند إعادة التحميل
-window.addEventListener('beforeunload', function() {
-    sessionChecked = false;
-});
-
-// ============================================
 // تحسين مظهر الهواتف
 // ============================================
 
@@ -580,9 +530,9 @@ function applyMobileAuthStyles() {
     if (window.innerWidth <= 768) {
         const loginPopupContent = document.querySelector('.login-popup-content');
         if (loginPopupContent) {
-            loginPopupContent.style.padding = '20px';
-            loginPopupContent.style.width = '280px';
-            loginPopupContent.style.borderRadius = '20px';
+            loginPopupContent.style.padding = '18px';
+            loginPopupContent.style.width = '260px';
+            loginPopupContent.style.borderRadius = '18px';
         }
         
         const inputs = document.querySelectorAll('.login-popup-content input');
@@ -597,10 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
     applyMobileAuthStyles();
 });
 
-// ============================================
-// دوال عامة للاستخدام من أي مكان
-// ============================================
-
+// دوال عامة
 window.getUserStatusGlobal = getUserStatus;
 window.getLoggedInEmailGlobal = getLoggedInEmail;
 window.logoutUserGlobal = logoutUser;
