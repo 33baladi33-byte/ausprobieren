@@ -2,8 +2,7 @@
 // Google Sheets API Configuration - JSONP Version
 // ============================================
 
-// ✅ تم تحديث رابط API
-const API_URL = 'https://script.google.com/macros/s/AKfycbyGZtCchqpeOoCGjS38EZkej1kOnRFDagEeQlRVT5Le5MGLJvMsGtGzT-Y30tPZHUwCnw/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyJFLUJDne49b_PT-oc18FcruitaRCU-mBYgTWMEUz8mrPgMlzZzl1Wx8ejIzzDUQqg4A/exec';
 
 // ============================================
 // إنشاء معرف فريد للجهاز
@@ -19,7 +18,7 @@ function getDeviceId() {
 }
 
 // ============================================
-// دالة JSONP للاتصال بالـ API - محسنة
+// دالة JSONP للاتصال بالـ API
 // ============================================
 
 function callJSONP(action, email, deviceId, sessionToken) {
@@ -32,42 +31,31 @@ function callJSONP(action, email, deviceId, sessionToken) {
         if (deviceId) url += `&deviceId=${encodeURIComponent(deviceId)}`;
         if (sessionToken) url += `&sessionToken=${encodeURIComponent(sessionToken)}`;
         
-        // ✅ إضافة طابع زمني لمنع التخزين المؤقت
-        url += `&_=${Date.now()}`;
-        
-        console.log(`📡 [${action}] Calling API:`, url);
-        
-        // ✅ تحديد مهلة زمنية
-        let isResolved = false;
-        const timeout = setTimeout(() => {
-            if (!isResolved) {
-                isResolved = true;
-                delete window[callbackName];
-                if (script.parentNode) script.parentNode.removeChild(script);
-                reject(new Error('⏰ انتهت مهلة الاتصال بالخادم'));
-            }
-        }, 15000); // 15 ثانية
-        
-        // ✅ دالة الاستجابة
         window[callbackName] = function(data) {
-            if (isResolved) return;
-            isResolved = true;
-            clearTimeout(timeout);
             delete window[callbackName];
             if (script.parentNode) script.parentNode.removeChild(script);
-            
-            console.log(`📥 [${action}] Response:`, data);
             resolve(data);
         };
         
-        // ✅ معالجة الأخطاء
+        script.src = url;
         script.onerror = function() {
-            if (isResolved) return;
-            isResolved = true;
-            clearTimeout(timeout);
             delete window[callbackName];
             if (script.parentNode) script.parentNode.removeChild(script);
-            reject(new Error('🌐 فشل الاتصال بالخادم'));
+            reject(new Error('فشل الاتصال بالخادم'));
+        };
+        
+        const timeout = setTimeout(() => {
+            if (window[callbackName]) {
+                delete window[callbackName];
+                if (script.parentNode) script.parentNode.removeChild(script);
+                reject(new Error('انتهت مهلة الاتصال'));
+            }
+        }, 10000);
+        
+        const originalCallback = window[callbackName];
+        window[callbackName] = function(data) {
+            clearTimeout(timeout);
+            originalCallback(data);
         };
         
         document.body.appendChild(script);
@@ -75,42 +63,17 @@ function callJSONP(action, email, deviceId, sessionToken) {
 }
 
 // ============================================
-// دوال API - مع تحسينات
+// دوال API
 // ============================================
 
-// 1. تسجيل الدخول ✅ محسنة
+// 1. تسجيل الدخول
 async function loginWithGoogleSheets(email) {
     const deviceId = getDeviceId();
     
     try {
-        console.log('🔑 Attempting login for:', email);
         const data = await callJSONP('login', email, deviceId);
-        
-        // ✅ التحقق من البيانات المستلمة
-        if (!data) {
-            console.error('❌ No data received from server');
-            return {
-                success: false,
-                message: 'لم يتم استلام بيانات من الخادم',
-                status: 'connection_error'
-            };
-        }
-        
-        console.log('✅ Login response:', data);
-        
-        // ✅ إذا كان هناك خطأ من الخادم
-        if (data.error) {
-            console.error('❌ Server error:', data.error);
-            return {
-                success: false,
-                message: data.error,
-                status: data.status || 'error'
-            };
-        }
-        
         return data;
     } catch (error) {
-        console.error('❌ Login error:', error.message);
         return {
             success: false,
             message: 'خطأ في الاتصال: ' + error.message,
@@ -119,59 +82,35 @@ async function loginWithGoogleSheets(email) {
     }
 }
 
-// 2. التحقق من الجلسة ✅ محسنة
+// 2. التحقق من الجلسة - فقط عند فتح الموقع
 async function checkSession(email, sessionToken) {
     try {
-        console.log('🔍 Checking session for:', email);
         const data = await callJSONP('checkSession', email, null, sessionToken);
-        
-        if (!data) {
-            return {
-                valid: false,
-                message: 'لم يتم استلام بيانات',
-                status: 'no_data'
-            };
-        }
-        
-        console.log('✅ Session check result:', data);
         return data;
     } catch (error) {
-        console.error('❌ Session check error:', error.message);
         return {
             valid: false,
-            message: 'خطأ في الاتصال: ' + error.message,
-            status: 'connection_error'
+            message: 'خطأ في الاتصال: ' + error.message
         };
     }
 }
 
-// 3. تسجيل الخروج ✅ محسنة
+// 3. تسجيل الخروج
 async function logoutWithGoogleSheets(email) {
     try {
-        console.log('🚪 Logging out:', email);
         const data = await callJSONP('logout', email);
-        console.log('✅ Logout result:', data);
-        return data || { success: true };
+        return data;
     } catch (error) {
-        console.error('❌ Logout error:', error.message);
-        return { success: false, message: error.message };
+        return { success: false };
     }
 }
 
-// 4. التحقق من المستخدم ✅ محسنة
+// 4. التحقق من المستخدم (للحالة فقط)
 async function checkUser(email) {
     try {
-        console.log('👤 Checking user:', email);
         const data = await callJSONP('check', email);
-        
-        if (!data) {
-            return { success: false, exists: false };
-        }
-        
-        console.log('✅ User check result:', data);
         return data;
     } catch (error) {
-        console.error('❌ User check error:', error.message);
         return { success: false, exists: false };
     }
-}
+} 
