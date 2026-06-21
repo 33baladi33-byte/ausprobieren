@@ -553,16 +553,48 @@ async function handleLogin() {
     try {
         const result = await loginWithGoogleSheets(email);
         
-        if (!result.success) {
-            if (result.status === 'expired') {
-                showToast('⏰ انتهت صلاحية اشتراكك.', 'warning', 3000);
-            } else if (result.status === 'connection_error') {
-                showToast('⚠️ خطأ في الاتصال. حاول مرة أخرى.', 'error', 3000);
-            } else {
-                showToast(result.message || 'حدث خطأ', 'error', 3000);
-            }
+       if (!result.success) {
+
+    // إذا كان الحساب مسجلاً من قبل أو تم تسجيل الخروج ثم عاد لنفس الجهاز
+    if (
+        result.status === 'already_logged_in' ||
+        result.status === 'session_expired' ||
+        result.status === 'already_exists'
+    ) {
+
+        // نحاول تسجيل الدخول مرة أخرى بشكل طبيعي
+        const retryResult = await loginWithGoogleSheets(email);
+
+        if (retryResult.success) {
+            result = retryResult;
+        } else {
+            showToast(retryResult.message || 'تعذر تسجيل الدخول', 'error', 3000);
             return;
         }
+
+    } else if (result.status === 'expired') {
+
+        showToast('⏰ انتهت صلاحية اشتراكك.', 'warning', 3000);
+        return;
+
+    } else if (result.status === 'connection_error') {
+
+        showToast('⚠️ خطأ في الاتصال. حاول مرة أخرى.', 'error', 3000);
+        return;
+
+    } else {
+
+        console.log("LOGIN ERROR:", result);
+
+        showToast(
+            result.message || 'حدث خطأ غير متوقع',
+            'error',
+            3000
+        );
+
+        return;
+    }
+}
         
         if (result.sessionToken) {
             setSessionData(email, result.sessionToken, getDeviceId());
