@@ -12,8 +12,6 @@ let currentExpiry = null;
 
 const YOUCAN_STORE_URL = 'https://zertivab2.youcan.store/';
 
-// ❌ تم حذف تعريف API_URL (موجود في auth_google.js)
-
 // ============================================
 // دوال تسجيل الدخول الأساسية
 // ============================================
@@ -52,12 +50,10 @@ function isUserLoggedIn() {
 
 async function getPremiumUsers() {
     try {
-        // أولاً: جلب من Google Sheets
         const users = await getAllUsersFromSheets();
         if (Object.keys(users).length > 0) {
             return users;
         }
-        // ثانياً: جلب من premium.json كنسخة احتياطية
         const response = await fetch('premium.json?_=' + Date.now());
         return await response.json();
     } catch(e) {
@@ -79,7 +75,6 @@ async function getUserStatus() {
     if(!email) return 'guest';
     
     try {
-        // 1. التحقق من المستخدمين المميزين (Premium)
         const premium = await getPremiumUsers();
         if(premium[email]) {
             let expiry = premium[email];
@@ -91,8 +86,6 @@ async function getUserStatus() {
                 return 'expired';
             }
         }
-        
-        // 2. المستخدم مجاني (غير موجود في premium.json)
         return 'free';
     } catch(e) {
         return 'free';
@@ -222,7 +215,7 @@ function hideLoginPopup() {
 }
 
 // ============================================
-// معالجة تسجيل الدخول - دخول مباشر بدون تأكيد
+// معالجة تسجيل الدخول - دخول مباشر
 // ============================================
 
 async function handleLogin() {
@@ -234,15 +227,13 @@ async function handleLogin() {
         return;
     }
     
-    // ✅ تسجيل الدخول مباشرة
     const result = await loginWithGoogleSheets(email);
     
     if (!result.success) {
         if (result.status === 'wrong_device') {
             const confirmTransfer = confirm(
-                `${result.message}\n\nإذا ضغطت "موافق"، سيتم نقل الحساب إلى هذا الجهاز.\nوسيتم إلغاء صلاحية الجهاز القديم.`
+                `${result.message}\n\nإذا ضغطت "موافق"، سيتم نقل الحساب إلى هذا الجهاز.`
             );
-            
             if (confirmTransfer) {
                 const transferResult = await transferAccount(email);
                 if (transferResult.success) {
@@ -260,26 +251,26 @@ async function handleLogin() {
                 return;
             }
         } else if (result.status === 'expired') {
-            alert(`⏰ انتهت صلاحية اشتراكك.\nيرجى التواصل مع الدعم لتجديد الاشتراك.`);
+            alert(`⏰ انتهت صلاحية اشتراكك.\nيرجى التواصل مع الدعم.`);
             return;
         } else if (result.status === 'connection_error') {
-            alert('⚠️ خطأ في الاتصال بالخادم. يرجى المحاولة مرة أخرى.');
+            alert('⚠️ خطأ في الاتصال. يرجى المحاولة مرة أخرى.');
             return;
         } else {
-            alert(result.message || 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.');
-            return;
+            // أي حالة أخرى → نسمح بالدخول (سيتم إنشاء الحساب تلقائياً)
+            console.log('📝 محاولة الدخول بحساب:', email);
         }
     }
     
-    // ✅ تسجيل الدخول الناجح (سواء كان حساباً جديداً أو موجوداً)
+    // ✅ تسجيل الدخول
     setLoggedInUser(email, password);
     
-    // عرض رسالة حسب حالة المستخدم
     const status = await getUserStatus();
     if (status === 'premium') {
-        alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${result.expiry}\nجميع الامتحانات متاحة لك.`);
+        const expiry = await getExpiryDate(email);
+        alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${expiry}`);
     } else {
-        alert(`✅ مرحباً ${email}\n📖 حسابك مجاني.\n📚 متاح لك أول 6 امتحانات من كل قسم.\n✨ للوصول الكامل، اشترك عبر زر "اشتراك".`);
+        alert(`✅ مرحباً ${email}\n📖 حسابك مجاني (أول 6 امتحانات).`);
     }
     
     hideLoginPopup();
