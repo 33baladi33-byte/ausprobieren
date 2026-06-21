@@ -1,6 +1,6 @@
 /**
  * auth.js - نظام إدارة تسجيل الدخول والجلسات
- * ✅ بطاقة ترحيب أنيقة
+ * ✅ بطاقة ترحيب بسيطة وحديثة
  * ✅ Loading Spinner داخل الزر
  * ✅ Toast Notifications حديثة (أعلى الشاشة)
  */
@@ -142,12 +142,28 @@ function removeToast(toast) {
 }
 
 // ============================================
-// بطاقة ترحيب مصغرة وأنيقة ✅ معدلة
+// بطاقة ترحيب بسيطة وحديثة ✅
 // ============================================
 
 function showWelcomeCard(email, isPremium, expiryDate) {
+    // إزالة البطاقة القديمة إن وجدت
     const existing = document.querySelector('.welcome-overlay');
     if (existing) existing.remove();
+    
+    // تنسيق التاريخ بالصيغة المطلوبة: DD-MM-YYYY
+    function formatDateSimple(dateString) {
+        if (!dateString) return 'غير محدد';
+        try {
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString;
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}-${month}-${year}`;
+        } catch(e) {
+            return dateString;
+        }
+    }
     
     const overlay = document.createElement('div');
     overlay.className = 'welcome-overlay';
@@ -156,56 +172,55 @@ function showWelcomeCard(email, isPremium, expiryDate) {
     card.className = 'welcome-card';
     
     // ===== بناء المحتوى =====
-    let statusHtml = '';
-    let messageHtml = '';
-    let buttonHtml = '';
+    let statusText = '';
+    let statusColor = '';
+    let expiryText = '';
     
-    if (isPremium) {
-        const formattedExpiry = formatDate(expiryDate);
-        statusHtml = `
-            <div class="welcome-status">
-                🎉 حسابك <span style="color: #38bdf8;">مفعل</span> حتى
-            </div>
-        `;
-        messageHtml = `
-            <div style="font-size: 1.1rem; font-weight: 700; color: #38bdf8; margin: 4px 0;">${formattedExpiry}</div>
-            <div style="color: #9ca3af; font-size: 0.7rem;">استمتع بجميع الامتحانات والمميزات</div>
-        `;
+    if (isPremium && expiryDate) {
+        statusText = '🎉 Konto aktiviert';
+        statusColor = '#22c55e'; // أخضر
+        expiryText = formatDateSimple(expiryDate);
     } else {
-        statusHtml = `
-            <div class="welcome-status">
-                📖 حساب <span style="color: #38bdf8;">مجاني</span>
-            </div>
-        `;
-        messageHtml = `
-            <div style="color: #d1d5db; font-size: 0.7rem; margin-top: 4px;">
-                📚 متاح <span style="color: #ffd54f;">بعض الامتحانات</span> من كل قسم
-            </div>
-            <div style="color: #9ca3af; font-size: 0.65rem; margin-top: 2px;">
-                ✨ للوصول الكامل اضغط <span style="color: #38bdf8;">"اشتراك"</span>
-            </div>
-        `;
-        buttonHtml = `
-            <button class="welcome-subscribe-btn" id="welcomeSubscribeBtn">
-                ✨ اشترك الآن
-            </button>
-        `;
+        statusText = '📖 Konto kostenlos';
+        statusColor = '#f59e0b'; // أصفر
+        expiryText = '—';
     }
     
-    // ===== بناء البطاقة =====
+    // ===== بناء البطاقة الجديدة =====
     card.innerHTML = `
-        <div class="welcome-title">مرحباً 👋</div>
-        <div class="welcome-email">${email}</div>
-        <div class="welcome-divider"></div>
-        ${statusHtml}
-        ${messageHtml}
-        ${buttonHtml}
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+            <div style="color: #38bdf8; font-size: 0.85rem; font-weight: 500; word-break: break-all; direction: ltr; text-align: left;">
+                📧 ${email}
+            </div>
+            <div style="color: ${statusColor}; font-size: 0.95rem; font-weight: 600;">
+                ${statusText}
+            </div>
+            <div style="color: #d1d5db; font-size: 0.8rem; font-weight: 400;">
+                📅 ${expiryText}
+            </div>
+            <button class="welcome-subscribe-btn" id="welcomeSubscribeBtn" style="
+                margin-top: 10px;
+                background: #38bdf8;
+                color: #0a0e1a;
+                border: none;
+                border-radius: 12px;
+                padding: 10px 0;
+                width: 100%;
+                font-size: 0.85rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                font-family: inherit;
+            ">
+                🚀 Jetzt lernen
+            </button>
+        </div>
     `;
     
     overlay.appendChild(card);
     document.body.appendChild(overlay);
     
-    // إظهار البطاقة مع أنيميشن
+    // إظهار البطاقة مع Animation
     requestAnimationFrame(() => {
         overlay.classList.add('active');
     });
@@ -217,13 +232,12 @@ function showWelcomeCard(email, isPremium, expiryDate) {
         }
     });
     
-    // زر الاشتراك
+    // زر "Jetzt lernen" - يفتح واتساب
     const subscribeBtn = document.getElementById('welcomeSubscribeBtn');
     if (subscribeBtn) {
         subscribeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             closeWelcomeCard(overlay);
-            // فتح واتساب مباشرة بدلاً من subscribe.html
             window.open(WA_URL, '_blank');
         });
     }
