@@ -560,7 +560,7 @@ async function handleLogin() {
         }
         
         // ✅ طباعة النتيجة في Console للمساعدة في التصحيح
-        console.log('Login Result:', result);
+        console.log('LOGIN RESULT:', result);
         
         // ✅ التحقق من نجاح العملية
         if (!result.success) {
@@ -575,6 +575,10 @@ async function handleLogin() {
                 showToast('❌ كلمة السر غير صحيحة.', 'error', 3000);
             } else if (result.status === 'already_logged_in') {
                 showToast('ℹ️ هذا الحساب مسجل الدخول من جهاز آخر.', 'info', 3000);
+            } else if (result.status === 'no_data') {
+                showToast('⚠️ لا توجد بيانات في الورقة.', 'error', 3000);
+            } else if (result.status === 'invalid_expiry') {
+                showToast('⚠️ تاريخ الصلاحية غير صحيح.', 'error', 3000);
             } else {
                 // ✅ رسالة عامة مع إظهار رسالة الخطأ من الخادم إن وجدت
                 const errorMsg = result.message || 'حدث خطأ غير متوقع';
