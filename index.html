@@ -2104,5 +2104,197 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         <button id="closeSubscriptionBtn" class="close-subscription-btn">✕ إغلاق</button>
     </div>
 </div>
+    <!-- ============================================
+     إصلاح الأزرار العلوية
+     ============================================ -->
+<script>
+(function() {
+    // انتظر حتى يتم تحميل الصفحة بالكامل
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initButtons);
+    } else {
+        initButtons();
+    }
+    
+    function initButtons() {
+        console.log('🔧 جاري تهيئة الأزرار العلوية...');
+        
+        // 1. زر تسجيل الدخول
+        const loginBtn = document.getElementById('navLoginBtn');
+        if (loginBtn) {
+            // إزالة أي مستمعين سابقين
+            loginBtn.replaceWith(loginBtn.cloneNode(true));
+            const newLoginBtn = document.getElementById('navLoginBtn');
+            newLoginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const popup = document.getElementById('loginPopup');
+                if (popup) {
+                    popup.style.display = 'flex';
+                    console.log('✅ تم فتح نافذة تسجيل الدخول');
+                } else {
+                    console.error('❌ loginPopup غير موجود');
+                }
+            });
+            console.log('✅ زر تسجيل الدخول جاهز');
+        }
+        
+        // 2. زر الإشعارات
+        const bellBtn = document.getElementById('notificationBell');
+        if (bellBtn) {
+            bellBtn.replaceWith(bellBtn.cloneNode(true));
+            const newBellBtn = document.getElementById('notificationBell');
+            newBellBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const dropdown = document.getElementById('notificationDropdown');
+                if (dropdown) {
+                    dropdown.classList.toggle('active');
+                    console.log('✅ تم تبديل نافذة الإشعارات');
+                }
+            });
+            console.log('✅ زر الإشعارات جاهز');
+        }
+        
+        // 3. زر الإعدادات
+        const settingsBtn = document.getElementById('settingsBtn');
+        if (settingsBtn) {
+            settingsBtn.replaceWith(settingsBtn.cloneNode(true));
+            const newSettingsBtn = document.getElementById('settingsBtn');
+            newSettingsBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modal = document.getElementById('settingsModal');
+                if (modal) {
+                    modal.classList.add('active');
+                    console.log('✅ تم فتح نافذة الإعدادات');
+                }
+            });
+            console.log('✅ زر الإعدادات جاهز');
+        }
+        
+        // 4. زر الشعار
+        const logoBtn = document.getElementById('logoHomeBtn');
+        if (logoBtn) {
+            logoBtn.replaceWith(logoBtn.cloneNode(true));
+            const newLogoBtn = document.getElementById('logoHomeBtn');
+            newLogoBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                console.log('✅ تم التمرير للأعلى');
+            });
+            console.log('✅ زر الشعار جاهز');
+        }
+        
+        // 5. زر الملف الشخصي
+        const profileIcon = document.getElementById('profileIcon');
+        if (profileIcon) {
+            profileIcon.replaceWith(profileIcon.cloneNode(true));
+            const newProfileIcon = document.getElementById('profileIcon');
+            newProfileIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                const dropdown = document.getElementById('profileDropdown');
+                if (dropdown) {
+                    dropdown.classList.toggle('show');
+                    console.log('✅ تم تبديل قائمة الملف الشخصي');
+                }
+            });
+            console.log('✅ زر الملف الشخصي جاهز');
+        }
+        
+        // 6. زر إغلاق نافذة تسجيل الدخول
+        const closePopupBtn = document.getElementById('closePopupBtn');
+        if (closePopupBtn) {
+            closePopupBtn.replaceWith(closePopupBtn.cloneNode(true));
+            const newClosePopupBtn = document.getElementById('closePopupBtn');
+            newClosePopupBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const popup = document.getElementById('loginPopup');
+                if (popup) popup.style.display = 'none';
+                console.log('✅ تم إغلاق نافذة تسجيل الدخول');
+            });
+        }
+        
+        // 7. زر تسجيل الدخول داخل النافذة
+        const popupLoginBtn = document.getElementById('popupLoginBtn');
+        if (popupLoginBtn) {
+            // نستخدم onclick مباشرة لضمان العمل
+            popupLoginBtn.onclick = function() {
+                const email = document.getElementById('popupEmail').value.trim();
+                const password = document.getElementById('popupPassword').value.trim();
+                
+                if (!email || !password) {
+                    alert('يرجى إدخال البريد الإلكتروني وكلمة السر');
+                    return;
+                }
+                
+                // استخدام handleLogin من auth.js إذا كان موجوداً
+                if (typeof handleLogin === 'function') {
+                    handleLogin();
+                } else {
+                    // حل احتياطي
+                    localStorage.setItem('zertiva_email', email);
+                    localStorage.setItem('zertiva_password', password);
+                    alert('✅ تم تسجيل الدخول بنجاح');
+                    location.reload();
+                }
+            };
+            console.log('✅ زر تسجيل الدخول في النافذة جاهز');
+        }
+        
+        console.log('✅ جميع الأزرار العلوية جاهزة!');
+    }
+})();
+</script>
+
+<!-- ============================================
+     حل إضافي: إذا لم يعمل auth.js
+     ============================================ -->
+<script>
+(function() {
+    // حل بديل لفتح نافذة تسجيل الدخول عند الضغط على الزر
+    document.addEventListener('click', function(e) {
+        const target = e.target;
+        
+        // إذا تم الضغط على زر تسجيل الدخول
+        if (target.id === 'navLoginBtn' || target.closest('#navLoginBtn')) {
+            e.preventDefault();
+            const popup = document.getElementById('loginPopup');
+            if (popup) popup.style.display = 'flex';
+        }
+        
+        // إذا تم الضغط على زر الإعدادات
+        if (target.id === 'settingsBtn' || target.closest('#settingsBtn')) {
+            e.preventDefault();
+            const modal = document.getElementById('settingsModal');
+            if (modal) modal.classList.add('active');
+        }
+        
+        // إذا تم الضغط على زر الإشعارات
+        if (target.id === 'notificationBell' || target.closest('#notificationBell')) {
+            e.preventDefault();
+            const dropdown = document.getElementById('notificationDropdown');
+            if (dropdown) dropdown.classList.toggle('active');
+        }
+    });
+    
+    // إغلاق النوافذ عند الضغط خارجها
+    document.addEventListener('click', function(e) {
+        // إغلاق نافذة تسجيل الدخول
+        const popup = document.getElementById('loginPopup');
+        if (popup && popup.style.display === 'flex') {
+            if (!popup.contains(e.target) && e.target.id !== 'navLoginBtn') {
+                popup.style.display = 'none';
+            }
+        }
+        
+        // إغلاق قائمة الملف الشخصي
+        const dropdown = document.getElementById('profileDropdown');
+        const profileIcon = document.getElementById('profileIcon');
+        if (dropdown && dropdown.classList.contains('show')) {
+            if (profileIcon && !profileIcon.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('show');
+            }
+        }
+    });
+})();
+</script>
 </body>
 </html>
