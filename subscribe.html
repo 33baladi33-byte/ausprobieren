@@ -248,10 +248,10 @@
     // ✅ رابط الواتساب
     const WA_URL = 'https://wa.me/212687561491';
     
-    // ✅ رسائل الباقات المخصصة
+    // ✅ رسائل الباقات - الصيغة المطلوبة
     const PLAN_MESSAGES = {
-        "1month": "📢 طلب اشتراك - شهر واحد\n📧 البريد الإلكتروني: [EMAIL]\n⏳ المدة: شهر واحد\n💰 السعر: 99 درهم\n\n🔓 يرجى تفعيل حسابي بعد الدفع.",
-        "2months": "📢 طلب اشتراك - شهرين\n📧 البريد الإلكتروني: [EMAIL]\n⏳ المدة: شهرين\n💰 السعر: 149 درهم\n\n🔓 يرجى تفعيل حسابي بعد الدفع."
+        "1month": "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]\n[PLN] Paket: 1 Monat\n[PRC] Preis: 89 DH\n[TM] Dauer: 1 Monat\n\n[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang.",
+        "2months": "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]\n[PLN] Paket: 2 Monate\n[PRC] Preis: 149 DH\n[TM] Dauer: 2 Monate\n\n[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang."
     };
     
     function getLoggedInEmail() {
@@ -263,7 +263,7 @@
         
         function goToWhatsApp() {
             const email = getLoggedInEmail();
-            let message = PLAN_MESSAGES[plan] || "📢 طلب اشتراك جديد\n📧 البريد الإلكتروني: [EMAIL]";
+            let message = PLAN_MESSAGES[plan] || "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]";
             message = message.replace('[EMAIL]', email);
             
             const encodedMessage = encodeURIComponent(message);
