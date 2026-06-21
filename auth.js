@@ -1,7 +1,7 @@
 /**
  * auth.js - نظام إدارة تسجيل الدخول والجلسات
  * ✅ سريع
- * ✅ يعرض بطاقة صغيرة في وسط الشاشة
+ * ✅ يعرض بطاقة ترحيب أنيقة في وسط الشاشة
  */
 
 const WA_NUMBER = "212687561491";
@@ -45,7 +45,95 @@ function isUserLoggedIn() {
 }
 
 // ============================================
-// بطاقة صغيرة في وسط الشاشة
+// بطاقة ترحيب أنيقة (بديل Toast)
+// ============================================
+
+function showWelcomeCard(email, isPremium, expiryDate) {
+    // إزالة أي بطاقة موجودة
+    const existing = document.querySelector('.welcome-overlay');
+    if (existing) existing.remove();
+    
+    // إنشاء الخلفية
+    const overlay = document.createElement('div');
+    overlay.className = 'welcome-overlay';
+    
+    // إنشاء البطاقة
+    const card = document.createElement('div');
+    card.className = 'welcome-card';
+    
+    let icon, iconClass, statusText, message, buttonHtml = '';
+    
+    if (isPremium) {
+        // ✅ حساب مفعل
+        icon = '🎉';
+        iconClass = 'premium';
+        const formattedExpiry = formatDate(expiryDate);
+        statusText = `حسابك <span class="premium-date">مفعل</span> حتى`;
+        message = `
+            <div style="font-size: 1.3rem; font-weight: 700; color: #38bdf8; margin: 4px 0;">${formattedExpiry}</div>
+            <div style="color: #9ca3af; font-size: 0.8rem;">استمتع بجميع الامتحانات والمميزات</div>
+        `;
+    } else {
+        // ✅ حساب مجاني
+        icon = '✅';
+        iconClass = 'free';
+        statusText = 'حسابك <span class="highlight">مجاني</span> حالياً';
+        message = `
+            <div style="color: #d1d5db; font-size: 0.85rem; margin-top: 2px;">📚 متاح <span style="color: #ffd54f;">بعض الامتحانات</span> من كل قسم</div>
+            <div style="color: #9ca3af; font-size: 0.8rem; margin-top: 6px;">✨ للوصول الكامل، اضغط <span style="color: #38bdf8;">"اشتراك"</span></div>
+        `;
+        buttonHtml = `<button class="welcome-subscribe-btn" id="welcomeSubscribeBtn">✨ اشترك الآن</button>`;
+    }
+    
+    // بناء البطاقة
+    card.innerHTML = `
+        <div class="welcome-icon ${iconClass}">${icon}</div>
+        <div class="welcome-title">مرحباً 👋</div>
+        <div class="welcome-email">${email}</div>
+        <div class="welcome-divider"></div>
+        <div class="welcome-status">${statusText}</div>
+        ${isPremium ? `<div style="font-size: 1.3rem; font-weight: 700; color: #38bdf8; margin: 4px 0;">${formatDate(expiryDate)}</div>` : ''}
+        <div class="welcome-message">${isPremium ? 'استمتع بجميع الامتحانات والمميزات' : '📚 متاح بعض الامتحانات من كل قسم<br>✨ للوصول الكامل، اضغط "اشتراك"'}</div>
+        ${buttonHtml}
+    `;
+    
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+    
+    // ظهور البطاقة
+    requestAnimationFrame(() => {
+        overlay.classList.add('active');
+    });
+    
+    // إغلاق البطاقة بالضغط خارجها
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            closeWelcomeCard(overlay);
+        }
+    });
+    
+    // زر الاشتراك
+    const subscribeBtn = document.getElementById('welcomeSubscribeBtn');
+    if (subscribeBtn) {
+        subscribeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeWelcomeCard(overlay);
+            const modal = document.getElementById('subscriptionModal');
+            if (modal) modal.classList.add('active');
+        });
+    }
+}
+
+function closeWelcomeCard(overlay) {
+    if (!overlay) return;
+    overlay.classList.remove('active');
+    setTimeout(() => {
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    }, 300);
+}
+
+// ============================================
+// بطاقة صغيرة (للحالات السريعة)
 // ============================================
 
 function showCenterToast(message, type = 'info', duration = 500) {
@@ -383,16 +471,12 @@ async function handleLogin() {
         await updateProfileDropdown();
         hideLoginPopup();
         
+        // ✅ عرض بطاقة الترحيب الأنيقة
         const status = await getUserStatus();
         if (status === 'premium') {
-            const formattedExpiry = formatDate(result.expiry);
-            showCenterToast(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}`, 'info', 500);
+            showWelcomeCard(email, true, result.expiry);
         } else {
-            showCenterToast(
-                `✅ مرحباً ${email}\n📖 حسابك مجاني حالياً.\n📚 متاح بعض الامتحانات.\n✨ للوصول الكامل، اضغط "اشتراك"`,
-                'info',
-                500
-            );
+            showWelcomeCard(email, false, null);
         }
         
         setTimeout(() => location.reload(), 300);
@@ -502,11 +586,19 @@ async function validateDevice() {
     }
 }
 
+// ============================================
+// بدء التشغيل
+// ============================================
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAuth);
 } else {
     initAuth();
 }
+
+// ============================================
+// تحسين مظهر الهواتف
+// ============================================
 
 function applyMobileAuthStyles() {
     if (window.innerWidth <= 768) {
@@ -529,6 +621,11 @@ document.addEventListener('DOMContentLoaded', function() {
     applyMobileAuthStyles();
 });
 
+// ============================================
+// دوال عامة للاستخدام من أي مكان
+// ============================================
+
 window.getUserStatusGlobal = getUserStatus;
 window.getLoggedInEmailGlobal = getLoggedInEmail;
 window.logoutUserGlobal = logoutUser;
+window.showWelcomeCard = showWelcomeCard;
