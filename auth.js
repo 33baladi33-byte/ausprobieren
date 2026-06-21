@@ -112,14 +112,13 @@ function showWelcomeCard(email, isPremium, expiryDate) {
         }
     });
     
-    // زر الاشتراك
+    // ✅ زر الاشتراك - يذهب إلى subscribe.html
     const subscribeBtn = document.getElementById('welcomeSubscribeBtn');
     if (subscribeBtn) {
         subscribeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             closeWelcomeCard(overlay);
-            const modal = document.getElementById('subscriptionModal');
-            if (modal) modal.classList.add('active');
+            window.location.href = 'subscribe.html';
         });
     }
 }
@@ -368,8 +367,7 @@ async function updateProfileDropdown() {
             transition: all 0.3s ease;
         `;
         upgradeBtn.onclick = () => {
-            const modal = document.getElementById('subscriptionModal');
-            if (modal) modal.classList.add('active');
+            window.location.href = 'subscribe.html';
         };
         
         const dropdown = document.getElementById('profileDropdown');
@@ -416,6 +414,14 @@ function logoutUser(showMessage = true) {
         showCenterToast('تم تسجيل الخروج بنجاح', 'info', 500);
     }
     setTimeout(() => location.reload(), 300);
+}
+
+// ============================================
+// نافذة الاشتراك - توجيه إلى subscribe.html
+// ============================================
+
+function showLockedMessage(examTitle) {
+    window.location.href = 'subscribe.html';
 }
 
 // ============================================
@@ -545,6 +551,24 @@ function bindAuthEvents() {
         };
     }
     
+    // ✅ زر اشتراك في الشريط العلوي
+    const navSubscribeBtn = document.getElementById('navSubscribeBtn');
+    if (navSubscribeBtn) {
+        navSubscribeBtn.onclick = function(e) {
+            e.preventDefault();
+            window.location.href = 'subscribe.html';
+        };
+    }
+    
+    // ✅ زر اشتراك في الصفحة الرئيسية
+    const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
+    if (featuresSubscribeBtn) {
+        featuresSubscribeBtn.onclick = function(e) {
+            e.preventDefault();
+            window.location.href = 'subscribe.html';
+        };
+    }
+    
     document.addEventListener('click', function(e) {
         const dropdown = document.getElementById('profileDropdown');
         const profileIconElem = document.getElementById('profileIcon');
@@ -629,3 +653,4 @@ window.getUserStatusGlobal = getUserStatus;
 window.getLoggedInEmailGlobal = getLoggedInEmail;
 window.logoutUserGlobal = logoutUser;
 window.showWelcomeCard = showWelcomeCard;
+window.showLockedMessage = showLockedMessage;
