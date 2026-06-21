@@ -54,7 +54,6 @@
             transform: translateY(-6px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.12);
         }
-        /* الباقة المميزة (شهرين) */
         .plan-card.vip {
             transform: translateY(-5px);
             border: 2px solid #38bdf8;
@@ -64,7 +63,6 @@
         .plan-card.vip:hover {
             transform: translateY(-10px);
         }
-        /* Badge الباقة المميزة */
         .vip-badge {
             position: absolute;
             top: -12px;
@@ -83,14 +81,12 @@
             color: #1a1a2e;
             margin-bottom: 20px;
         }
-        /* السعر القديم (مشطوب) */
         .old-price {
             font-size: 18px;
             color: #999;
             text-decoration: line-through;
             margin-bottom: 5px;
         }
-        /* السعر الجديد */
         .new-price {
             font-size: 52px;
             font-weight: 700;
@@ -103,13 +99,11 @@
             font-weight: 400;
             color: #666;
         }
-        /* نص العرض الصغير */
         .offer-small {
             font-size: 11px;
             color: #888;
             margin-top: 6px;
         }
-        /* نص التوفير */
         .saving-text {
             font-size: 12px;
             color: #10b981;
@@ -218,11 +212,11 @@
             <div class="plan-name">🌙 شهر واحد</div>
             <div class="old-price">149 درهم</div>
             <div class="new-price">99 <small>درهم</small></div>
-            <div class="offer-small">صالح لمدة 10 أيام</div>
+            <div class="offer-small">اسرع قبل نفاد العرض</div>
             <div class="divider"></div>
             <ul class="features">
                 <li><span>✅</span> الوصول الكامل إلى جميع الامتحانات</li>
-                <li><span>✅</span> أكثر من 150 امتحان تدريبي</li>
+                <li><span>✅</span> جميع التيمات القديمة والجديدة متوفرة لديك</li>
                 <li><span>✅</span> بطاقات المساعدة الذكية لجميع الأجزاء</li>
                 <li><span>✅</span> نصائح وإرشادات حصرية للنجاح</li>
                 <li><span>✅</span> تصحيح فوري للامتحانات</li>
@@ -242,11 +236,11 @@
             <div class="old-price">249 درهم</div>
             <div class="new-price">149 <small>درهم</small></div>
             <div class="saving-text">وفر 100 درهم</div>
-            <div class="offer-small">صالح لمدة 10 أيام</div>
+            <div class="offer-small">اسرع قبل نفاد العرض</div>
             <div class="divider"></div>
             <ul class="features">
                 <li><span>✅</span> الوصول الكامل إلى جميع الامتحانات</li>
-                <li><span>✅</span> أكثر من 150 امتحان تدريبي</li>
+                <li><span>✅</span> جميع التيمات القديمة والجديدة متوفرة لديك</li>
                 <li><span>✅</span> بطاقات المساعدة الذكية لجميع الأجزاء</li>
                 <li><span>✅</span> نصائح وإرشادات حصرية للنجاح</li>
                 <li><span>✅</span> تصحيح فوري للامتحانات</li>
@@ -266,38 +260,42 @@
 </div>
 
 <script>
-    // روابط منتجات YouCan المباشرة
-    const YOUCAN_LINKS = {
-        "1month": "https://zertivab2.youcan.store/products/bagat-shahr-wahid",
-        "2months": "https://zertivab2.youcan.store/products/bagat-shahrain"
+    // ✅ رابط الواتساب
+    const WA_URL = 'https://wa.me/212687561491';
+    
+    // ✅ رسائل الباقات
+    const PLAN_MESSAGES = {
+        "1month": "📢 طلب اشتراك - شهر واحد\n📧 البريد الإلكتروني: [EMAIL]\n⏳ المدة: شهر واحد\n💰 السعر: 99 درهم\n\n🔓 يرجى تفعيل حسابي بعد الدفع.",
+        "2months": "📢 طلب اشتراك - شهرين\n📧 البريد الإلكتروني: [EMAIL]\n⏳ المدة: شهرين\n💰 السعر: 149 درهم\n\n🔓 يرجى تفعيل حسابي بعد الدفع."
     };
     
-    // عند الضغط على أي بطاقة أو زر → يروح مباشرة للموقع
+    function getLoggedInEmail() {
+        return localStorage.getItem('zertiva_email') || 'غير مسجل';
+    }
+    
     document.querySelectorAll('.plan-card').forEach(card => {
         let plan = card.getAttribute('data-plan');
         
-        function goToYouCan() {
-            let link = YOUCAN_LINKS[plan];
-            if(link) {
-                window.location.href = link;
-            } else {
-                alert("عذراً، رابط الدفع غير متوفر حالياً.");
-            }
+        function goToWhatsApp() {
+            const email = getLoggedInEmail();
+            let message = PLAN_MESSAGES[plan] || "📢 طلب اشتراك جديد\n📧 البريد الإلكتروني: [EMAIL]";
+            message = message.replace('[EMAIL]', email);
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.location.href = `${WA_URL}?text=${encodedMessage}`;
         }
         
-        // عند الضغط على الزر
         let btn = card.querySelector('.btn-select');
         if(btn) {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                goToYouCan();
+                goToWhatsApp();
             });
         }
         
-        // عند الضغط على البطاقة نفسها
         card.addEventListener('click', function(e) {
             if(e.target !== btn) {
-                goToYouCan();
+                goToWhatsApp();
             }
         });
     });
