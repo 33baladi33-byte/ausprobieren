@@ -105,7 +105,7 @@ function showWelcomeCard(email, isPremium, expiryDate) {
         overlay.classList.add('active');
     });
     
-    // إغلاق البطاقة بالضغط خارجها
+    // إغلاق البطاقة بالضغط خارجها فقط (لا تختفي تلقائياً)
     overlay.addEventListener('click', function(e) {
         if (e.target === overlay) {
             closeWelcomeCard(overlay);
@@ -255,6 +255,15 @@ function showSessionExpiredModal() {
             location.reload();
         }, 300);
     };
+}
+
+// ============================================
+// نافذة الاشتراك - توجيه إلى subscribe.html
+// ============================================
+
+function showLockedMessage(examTitle) {
+    // ✅ توجيه مباشر إلى صفحة الاشتراك
+    window.location.href = 'subscribe.html';
 }
 
 // ============================================
@@ -417,14 +426,6 @@ function logoutUser(showMessage = true) {
 }
 
 // ============================================
-// نافذة الاشتراك - توجيه إلى subscribe.html
-// ============================================
-
-function showLockedMessage(examTitle) {
-    window.location.href = 'subscribe.html';
-}
-
-// ============================================
 // معالجة تسجيل الدخول
 // ============================================
 
@@ -477,7 +478,7 @@ async function handleLogin() {
         await updateProfileDropdown();
         hideLoginPopup();
         
-        // ✅ عرض بطاقة الترحيب الأنيقة
+        // ✅ عرض بطاقة الترحيب (لا تختفي تلقائياً)
         const status = await getUserStatus();
         if (status === 'premium') {
             showWelcomeCard(email, true, result.expiry);
@@ -485,7 +486,8 @@ async function handleLogin() {
             showWelcomeCard(email, false, null);
         }
         
-        setTimeout(() => location.reload(), 300);
+        // ✅ لا نعيد تحميل الصفحة حتى لا تغلق البطاقة
+        // setTimeout(() => location.reload(), 300); // ❌ تم إزالتها
         
     } catch (error) {
         showCenterToast('حدث خطأ: ' + error.message, 'info', 500);
