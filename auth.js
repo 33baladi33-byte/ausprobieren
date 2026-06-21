@@ -175,31 +175,37 @@ function showWelcomeCard(email, isPremium, expiryDate) {
     let statusText = '';
     let statusColor = '';
     let expiryText = '';
+    let buttonText = '';
+    let buttonAction = '';
     
     if (isPremium && expiryDate) {
-        statusText = '🎉 Konto aktiviert';
+        statusText = '✅ الحساب مفعل';
         statusColor = '#22c55e'; // أخضر
-        expiryText = formatDateSimple(expiryDate);
+        expiryText = `📅 صالح حتى ${formatDateSimple(expiryDate)}`;
+        buttonText = '🚀 ابدأ المراجعة';
+        buttonAction = 'review';
     } else {
-        statusText = '📖 Konto kostenlos';
-        statusColor = '#f59e0b'; // أصفر
-        expiryText = '—';
+        statusText = '📖 حساب مجاني';
+        statusColor = '#38bdf8'; // أزرق
+        expiryText = '📚 متاح بعض الامتحانات';
+        buttonText = '✨ اشترك للوصول الكامل';
+        buttonAction = 'subscribe';
     }
     
     // ===== بناء البطاقة الجديدة =====
     card.innerHTML = `
-        <div style="display: flex; flex-direction: column; gap: 6px;">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
             <div style="color: #38bdf8; font-size: 0.85rem; font-weight: 500; word-break: break-all; direction: ltr; text-align: left;">
                 📧 ${email}
             </div>
-            <div style="color: ${statusColor}; font-size: 0.95rem; font-weight: 600;">
+            <div style="color: ${statusColor}; font-size: 0.9rem; font-weight: 600;">
                 ${statusText}
             </div>
             <div style="color: #d1d5db; font-size: 0.8rem; font-weight: 400;">
-                📅 ${expiryText}
+                ${expiryText}
             </div>
             <button class="welcome-subscribe-btn" id="welcomeSubscribeBtn" style="
-                margin-top: 10px;
+                margin-top: 6px;
                 background: #38bdf8;
                 color: #0a0e1a;
                 border: none;
@@ -212,7 +218,7 @@ function showWelcomeCard(email, isPremium, expiryDate) {
                 transition: all 0.2s ease;
                 font-family: inherit;
             ">
-                🚀 Jetzt lernen
+                ${buttonText}
             </button>
         </div>
     `;
@@ -232,13 +238,20 @@ function showWelcomeCard(email, isPremium, expiryDate) {
         }
     });
     
-    // زر "Jetzt lernen" - يفتح subscribe.html
+    // زر البطاقة
     const subscribeBtn = document.getElementById('welcomeSubscribeBtn');
     if (subscribeBtn) {
         subscribeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             closeWelcomeCard(overlay);
-            window.location.href = 'subscribe.html';
+            
+            if (buttonAction === 'review') {
+                // المستخدم Premium -> يذهب إلى قائمة الامتحانات
+                window.location.href = 'index.html#list';
+            } else {
+                // المستخدم مجاني -> يذهب إلى صفحة الاشتراك
+                window.location.href = 'subscribe.html';
+            }
         });
     }
 }
