@@ -72,6 +72,25 @@ async function loginWithGoogleSheets(email) {
     
     try {
         const data = await callJSONP('login', email, deviceId);
+        
+        // ✅ التحقق من البيانات المستلمة
+        if (!data) {
+            return {
+                success: false,
+                message: 'لم يتم استلام بيانات من الخادم',
+                status: 'connection_error'
+            };
+        }
+        
+        // ✅ إذا كان هناك خطأ من الخادم
+        if (data.error) {
+            return {
+                success: false,
+                message: data.error,
+                status: data.status || 'error'
+            };
+        }
+        
         return data;
     } catch (error) {
         return {
