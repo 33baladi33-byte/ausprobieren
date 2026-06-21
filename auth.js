@@ -47,15 +47,17 @@ function isUserLoggedIn() {
 }
 
 // ============================================
-// جلب المستخدمين من Google Sheets
+// جلب المستخدمين المميزين
 // ============================================
 
 async function getPremiumUsers() {
     try {
+        // أولاً: جلب من Google Sheets
         const users = await getAllUsersFromSheets();
         if (Object.keys(users).length > 0) {
             return users;
         }
+        // ثانياً: جلب من premium.json كنسخة احتياطية
         const response = await fetch('premium.json?_=' + Date.now());
         return await response.json();
     } catch(e) {
@@ -77,6 +79,7 @@ async function getUserStatus() {
     if(!email) return 'guest';
     
     try {
+        // 1. التحقق من المستخدمين المميزين (Premium)
         const premium = await getPremiumUsers();
         if(premium[email]) {
             let expiry = premium[email];
@@ -88,6 +91,8 @@ async function getUserStatus() {
                 return 'expired';
             }
         }
+        
+        // 2. المستخدم مجاني (غير موجود في premium.json)
         return 'free';
     } catch(e) {
         return 'free';
@@ -253,15 +258,17 @@ async function handleLogin() {
             } else {
                 return;
             }
-        } else if (result.status === 'not_found') {
+        } else if (result.status === 'not_found' || result.status === 'new_account') {
+            // ✅ المستخدم غير موجود → إنشاء حساب مجاني
             const createAccount = confirm(
-                `❌ البريد الإلكتروني "${email}" غير مسجل.\n\nهل تريد إنشاء حساب جديد؟`
+                `📝 البريد الإلكتروني "${email}" غير مسجل.\n\nهل تريد إنشاء حساب مجاني؟\n\n📖 سيتاح لك أول 6 امتحانات فقط.\n✨ للوصول الكامل، اشترك عبر زر "اشتراك".`
             );
+            
             if (createAccount) {
                 setLoggedInUser(email, password);
-                const newResult = await loginWithGoogleSheets(email);
-                if (newResult.success) {
-                    alert(`✅ تم إنشاء حساب جديد لـ ${email}\n📅 الصلاحية حتى: ${newResult.expiry || 'غير محددة'}`);
+                const freeResult = await loginWithGoogleSheets(email);
+                if (freeResult.success) {
+                    alert(`✅ مرحباً ${email}\n📖 حسابك مجاني.\n📚 متاح لك أول 6 امتحانات من كل قسم.\n✨ للوصول الكامل، اضغط "اشتراك".`);
                     hideLoginPopup();
                     await updateProfileDropdown();
                     location.reload();
@@ -273,18 +280,24 @@ async function handleLogin() {
             } else {
                 return;
             }
+        } else if (result.status === 'expired') {
+            alert(`⏰ انتهت صلاحية اشتراكك.\nيرجى التواصل مع الدعم لتجديد الاشتراك.`);
+            return;
         } else {
             alert(result.message);
             return;
         }
     }
     
+    // ✅ تسجيل الدخول الناجح
     setLoggedInUser(email, password);
     
-    if (result.status === 'new_device') {
-        alert(`✅ مرحباً ${email}\n📱 تم تسجيل جهازك الجديد بنجاح\n📅 الصلاحية حتى: ${result.expiry}`);
+    // التحقق من نوع المستخدم
+    const status = await getUserStatus();
+    if (status === 'premium') {
+        alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${result.expiry}\nجميع الامتحانات متاحة لك.`);
     } else {
-        alert(`✅ مرحباً ${email}\n📅 الصلاحية حتى: ${result.expiry}`);
+        alert(`✅ مرحباً ${email}\n📖 حسابك مجاني.\n📚 متاح لك أول 6 امتحانات من كل قسم.\n✨ للوصول الكامل، اضغط "اشتراك".`);
     }
     
     hideLoginPopup();
