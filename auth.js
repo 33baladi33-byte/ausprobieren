@@ -525,7 +525,7 @@ function showLockedMessage(examTitle) {
 }
 
 // ============================================
-// معالجة تسجيل الدخول - مع Loading Spinner ✅ معدل
+// معالجة تسجيل الدخول - مع Loading Spinner
 // ============================================
 
 async function handleLogin() {
@@ -553,54 +553,27 @@ async function handleLogin() {
     try {
         const result = await loginWithGoogleSheets(email);
         
-        // ✅ التحقق من وجود result
-        if (!result) {
-            showToast('⚠️ لم يتم استلام رد من الخادم', 'error', 3000);
-            return;
-        }
-        
-        // ✅ طباعة النتيجة في Console للمساعدة في التصحيح
-        console.log('LOGIN RESULT:', result);
-        
-        // ✅ التحقق من نجاح العملية
         if (!result.success) {
-            // ✅ رسائل خطأ محددة حسب الحالة
             if (result.status === 'expired') {
                 showToast('⏰ انتهت صلاحية اشتراكك.', 'warning', 3000);
             } else if (result.status === 'connection_error') {
                 showToast('⚠️ خطأ في الاتصال. حاول مرة أخرى.', 'error', 3000);
-            } else if (result.status === 'user_not_found') {
-                showToast('❌ البريد الإلكتروني غير مسجل.', 'error', 3000);
-            } else if (result.status === 'wrong_password') {
-                showToast('❌ كلمة السر غير صحيحة.', 'error', 3000);
-            } else if (result.status === 'already_logged_in') {
-                showToast('ℹ️ هذا الحساب مسجل الدخول من جهاز آخر.', 'info', 3000);
-            } else if (result.status === 'no_data') {
-                showToast('⚠️ لا توجد بيانات في الورقة.', 'error', 3000);
-            } else if (result.status === 'invalid_expiry') {
-                showToast('⚠️ تاريخ الصلاحية غير صحيح.', 'error', 3000);
             } else {
-                // ✅ رسالة عامة مع إظهار رسالة الخطأ من الخادم إن وجدت
-                const errorMsg = result.message || 'حدث خطأ غير متوقع';
-                showToast(`⚠️ ${errorMsg}`, 'error', 3000);
+                showToast(result.message || 'حدث خطأ', 'error', 3000);
             }
             return;
         }
         
-        // ✅ تخزين بيانات الجلسة
         if (result.sessionToken) {
             setSessionData(email, result.sessionToken, getDeviceId());
         } else {
-            // ✅ إنشاء sessionToken مؤقت إذا لم يأت من الخادم
-            const tempToken = 'temp-' + Date.now() + '-' + Math.random().toString(36).substr(2, 8);
-            setSessionData(email, tempToken, getDeviceId());
+            setSessionData(email, result.sessionToken || 'temp', getDeviceId());
         }
         
         sessionChecked = false;
         await updateProfileDropdown();
         hideLoginPopup();
         
-        // ✅ عرض البطاقة المناسبة
         const status = await getUserStatus();
         if (status === 'premium') {
             showWelcomeCard(email, true, result.expiry);
@@ -608,12 +581,8 @@ async function handleLogin() {
             showWelcomeCard(email, false, null);
         }
         
-        // ✅ رسالة نجاح
-        showToast(`✅ مرحباً ${email}`, 'success', 3000);
-        
     } catch (error) {
-        console.error('Login Error:', error);
-        showToast('⚠️ خطأ في الاتصال: ' + error.message, 'error', 3000);
+        showToast('حدث خطأ: ' + error.message, 'error', 3000);
     } finally {
         isLoggingIn = false;
         if (loginBtn) {
@@ -767,4 +736,4 @@ window.getLoggedInEmailGlobal = getLoggedInEmail;
 window.logoutUserGlobal = logoutUser;
 window.showWelcomeCard = showWelcomeCard;
 window.showLockedMessage = showLockedMessage;
-window.showPremiumModal = showPremiumModal;
+window.showPremiumModal = showPremiumModal; 
