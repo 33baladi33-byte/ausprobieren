@@ -525,7 +525,7 @@ function showLockedMessage(examTitle) {
 }
 
 // ============================================
-// معالجة تسجيل الدخول - مع Loading Spinner
+// معالجة تسجيل الدخول - مع Loading Spinner ✅ معدل
 // ============================================
 
 async function handleLogin() {
@@ -551,61 +551,80 @@ async function handleLogin() {
     }
     
     try {
-        const result = await loginWithGoogleSheets(email);
+        let result = await loginWithGoogleSheets(email);
         
-       if (!result.success) {
-
-    // إذا كان الحساب مسجلاً من قبل أو تم تسجيل الخروج ثم عاد لنفس الجهاز
-    if (
-        result.status === 'already_logged_in' ||
-        result.status === 'session_expired' ||
-        result.status === 'already_exists'
-    ) {
-
-        // نحاول تسجيل الدخول مرة أخرى بشكل طبيعي
-        const retryResult = await loginWithGoogleSheets(email);
-
-        if (retryResult.success) {
-            result = retryResult;
-        } else {
-            showToast(retryResult.message || 'تعذر تسجيل الدخول', 'error', 3000);
+        // ✅ التحقق من وجود result
+        if (!result) {
+            showToast('⚠️ لم يتم استلام رد من الخادم', 'error', 3000);
+            restoreLoginButton(loginBtn, originalText);
             return;
         }
-
-    } else if (result.status === 'expired') {
-
-        showToast('⏰ انتهت صلاحية اشتراكك.', 'warning', 3000);
-        return;
-
-    } else if (result.status === 'connection_error') {
-
-        showToast('⚠️ خطأ في الاتصال. حاول مرة أخرى.', 'error', 3000);
-        return;
-
-    } else {
-
-        console.log("LOGIN ERROR:", result);
-
-        showToast(
-            result.message || 'حدث خطأ غير متوقع',
-            'error',
-            3000
-        );
-
-        return;
-    }
-}
         
+        console.log('LOGIN RESULT:', result);
+        
+        // ✅ معالجة الأخطاء
+        if (!result.success) {
+            // ✅ إذا كان الخطأ متعلق بالجلسة، حاول مرة أخرى
+            if (result.status === 'already_logged_in' || 
+                result.status === 'session_expired' || 
+                result.status === 'already_exists') {
+                
+                // ✅ محاولة تسجيل الدخول مرة أخرى
+                const retryResult = await loginWithGoogleSheets(email);
+                
+                if (retryResult && retryResult.success) {
+                    result = retryResult;
+                } else {
+                    const errorMsg = retryResult?.message || 'تعذر تسجيل الدخول';
+                    showToast('⚠️ ' + errorMsg, 'error', 3000);
+                    restoreLoginButton(loginBtn, originalText);
+                    return;
+                }
+            } else if (result.status === 'expired') {
+                showToast('⏰ انتهت صلاحية اشتراكك.', 'warning', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else if (result.status === 'connection_error') {
+                showToast('⚠️ خطأ في الاتصال. حاول مرة أخرى.', 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else if (result.status === 'user_not_found') {
+                showToast('❌ البريد الإلكتروني غير مسجل.', 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else if (result.status === 'wrong_password') {
+                showToast('❌ كلمة السر غير صحيحة.', 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else if (result.status === 'no_data') {
+                showToast('⚠️ لا توجد بيانات في الورقة.', 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else if (result.status === 'invalid_expiry') {
+                showToast('⚠️ تاريخ الصلاحية غير صحيح.', 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else {
+                const errorMsg = result.message || 'حدث خطأ غير متوقع';
+                showToast('⚠️ ' + errorMsg, 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            }
+        }
+        
+        // ✅ تخزين بيانات الجلسة
         if (result.sessionToken) {
             setSessionData(email, result.sessionToken, getDeviceId());
         } else {
-            setSessionData(email, result.sessionToken || 'temp', getDeviceId());
+            const tempToken = 'temp-' + Date.now() + '-' + Math.random().toString(36).substr(2, 8);
+            setSessionData(email, tempToken, getDeviceId());
         }
         
         sessionChecked = false;
         await updateProfileDropdown();
         hideLoginPopup();
         
+        // ✅ عرض البطاقة المناسبة
         const status = await getUserStatus();
         if (status === 'premium') {
             showWelcomeCard(email, true, result.expiry);
@@ -613,16 +632,33 @@ async function handleLogin() {
             showWelcomeCard(email, false, null);
         }
         
+        // ✅ رسالة نجاح
+        showToast(`✅ مرحباً ${email}`, 'success', 3000);
+        
+        // ✅ إعادة الزر بعد ظهور الرسالة
+        setTimeout(() => {
+            restoreLoginButton(loginBtn, originalText);
+        }, 500);
+        
     } catch (error) {
-        showToast('حدث خطأ: ' + error.message, 'error', 3000);
+        console.error('Login Error:', error);
+        showToast('⚠️ خطأ في الاتصال: ' + error.message, 'error', 3000);
+        restoreLoginButton(loginBtn, originalText);
     } finally {
         isLoggingIn = false;
-        if (loginBtn) {
-            loginBtn.innerHTML = originalText;
-            loginBtn.disabled = false;
-            loginBtn.style.opacity = '1';
-            loginBtn.style.cursor = 'pointer';
-        }
+    }
+}
+
+// ============================================
+// دالة مساعدة لإعادة زر تسجيل الدخول
+// ============================================
+
+function restoreLoginButton(loginBtn, originalText) {
+    if (loginBtn) {
+        loginBtn.innerHTML = originalText;
+        loginBtn.disabled = false;
+        loginBtn.style.opacity = '1';
+        loginBtn.style.cursor = 'pointer';
     }
 }
 
@@ -768,4 +804,4 @@ window.getLoggedInEmailGlobal = getLoggedInEmail;
 window.logoutUserGlobal = logoutUser;
 window.showWelcomeCard = showWelcomeCard;
 window.showLockedMessage = showLockedMessage;
-window.showPremiumModal = showPremiumModal; 
+window.showPremiumModal = showPremiumModal;
