@@ -55,12 +55,12 @@ function isUserLoggedIn() {
 }
 
 // ============================================
-// جلب المستخدمين المميزين - الأولوية لـ Google Sheets
+// جلب المستخدمين المميزين
 // ============================================
 
 async function getPremiumUsers() {
     try {
-        // ✅ أولاً: جلب من Google Sheets (المصدر الرئيسي)
+        // ✅ أولاً: جلب من Google Sheets
         const users = await getAllUsersFromSheets();
         if (Object.keys(users).length > 0) {
             return users;
@@ -304,7 +304,21 @@ async function handleLogin() {
         return;
     }
     
+    // ✅ إظهار رسالة "جاري التحميل"
+    const loginBtn = document.getElementById('popupLoginBtn');
+    const originalText = loginBtn ? loginBtn.textContent : '';
+    if (loginBtn) {
+        loginBtn.textContent = '⏳ جاري التحميل...';
+        loginBtn.disabled = true;
+    }
+    
     const result = await loginWithGoogleSheets(email);
+    
+    // ✅ إعادة الزر إلى حالته الطبيعية
+    if (loginBtn) {
+        loginBtn.textContent = originalText || 'دخول / إنشاء حساب';
+        loginBtn.disabled = false;
+    }
     
     if (!result.success) {
         if (result.status === 'wrong_device') {
@@ -334,7 +348,6 @@ async function handleLogin() {
             alert('⚠️ خطأ في الاتصال. يرجى المحاولة مرة أخرى.');
             return;
         } else {
-            // أي حالة أخرى → نسمح بالدخول (سيتم إنشاء الحساب تلقائياً)
             console.log('📝 محاولة الدخول بحساب:', email);
         }
     }
@@ -342,20 +355,25 @@ async function handleLogin() {
     // ✅ تسجيل الدخول
     setLoggedInUser(email, password);
     
-    const status = await getUserStatus();
-    if (status === 'premium') {
+    // ✅ تأخير بسيط لضمان تحميل البيانات
+    setTimeout(async () => {
+        const status = await getUserStatus();
         const expiry = await getExpiryDate(email);
-        const formattedExpiry = formatDate(expiry);
-        alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}`);
-    } else if (status === 'expired') {
-        alert(`⏰ انتهت صلاحية اشتراكك.\nيرجى التواصل مع الدعم لتجديد الاشتراك.`);
-    } else {
-        alert(`✅ مرحباً ${email}\n📖 حسابك مجاني (أول 6 امتحانات).`);
-    }
-    
-    hideLoginPopup();
-    await updateProfileDropdown();
-    location.reload();
+        
+        if (status === 'premium' && expiry) {
+            const formattedExpiry = formatDate(expiry);
+            alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}`);
+        } else if (status === 'expired') {
+            alert(`⏰ انتهت صلاحية اشتراكك.\nيرجى التواصل مع الدعم.`);
+        } else {
+            // ✅ المستخدم مجاني
+            alert(`✅ مرحباً ${email}\n📖 حسابك مجاني حالياً.\n📚 متاح لك أول 6 امتحانات من كل قسم.\n✨ للوصول الكامل، اضغط "اشتراك" ثم ادفع.`);
+        }
+        
+        hideLoginPopup();
+        await updateProfileDropdown();
+        location.reload();
+    }, 400);
 }
 
 // ============================================
