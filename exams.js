@@ -156,6 +156,19 @@ async function getUserStatusForExam() {
     }
     
     try {
+        // ✅ أولاً: التحقق من Google Sheets
+        const users = await getAllUsersFromSheets();
+        if (users && users[email]) {
+            let expiry = users[email];
+            let today = new Date().toISOString().slice(0,10);
+            if (today <= expiry) {
+                userStatusCache = 'premium';
+                lastStatusCheck = now;
+                return 'premium';
+            }
+        }
+        
+        // ✅ ثانياً: التحقق من premium.json كنسخة احتياطية
         const response = await fetch('premium.json?_=' + now);
         const premium = await response.json();
         if (premium[email]) {
@@ -167,10 +180,13 @@ async function getUserStatusForExam() {
                 return 'premium';
             }
         }
+        
         userStatusCache = 'free';
         lastStatusCheck = now;
         return 'free';
     } catch(e) {
+        userStatusCache = 'free';
+        lastStatusCheck = now;
         return 'free';
     }
 }
@@ -482,7 +498,8 @@ const examsDatabase = {
     { id: 37, title: "Liebe Autorinnen und Autoren", enabled: true, hasFile: true },
     { id: 38, title: "Liebe Clara", enabled: true, hasFile: true },
     { id: 39, title: "Sehr geehrte Frau Melchior", enabled: true, hasFile: true },
-    { id: 40, title: "Liebe Sandra", enabled: true, hasFile: true }
+    { id: 40, title: "Liebe Sandra", enabled: true, hasFile: true },
+    { id: 41, title: "Liebe Anna(الجديد)", enabled: true, hasFile: true }
   ],
   sprach2: [
     { id: 1, title: "Das Fahrrad", enabled: true, hasFile: true },
@@ -530,7 +547,8 @@ const examsDatabase = {
     { id: 43, title: "Es ist erst 6 Uhr morgens", enabled: true, hasFile: true },
     { id: 44, title: "Die Katzen", enabled: true, hasFile: true },
     { id: 45, title: "Teleshopping – nicht immer gut und günstig", enabled: true, hasFile: true },
-    { id: 46, title: "Die Rückkehr des Nachtzugs", enabled: true, hasFile: true }
+    { id: 46, title: "Die Rückkehr des Nachtzugs", enabled: true, hasFile: true },
+    { id: 47, title: "Die Reise im Schlafwagen", enabled: true, hasFile: true }
   ],
   hoeren1: [
     { id: 1, title: "Die Deutsche Lufthansa", enabled: true, hasFile: true },
@@ -1050,7 +1068,7 @@ async function openExam(examId, examTitle, skill) {
   
   currentExamId = examId;
   currentSkill = skill;
-  window.currentSkill = skill; 
+  
   if (shouldHideHelpButton(skill)) {
     const helpBtn = document.getElementById('globalHelpButton');
     if (helpBtn) helpBtn.style.display = "none";
