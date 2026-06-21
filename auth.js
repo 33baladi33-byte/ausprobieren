@@ -49,6 +49,10 @@ function isUserLoggedIn() {
 // بطاقة ترحيب مصغرة وأنيقة (بدون أيقونة كبيرة)
 // ============================================
 
+// ============================================
+// بطاقة ترحيب مصغرة وأنيقة (بدون أيقونة كبيرة)
+// ============================================
+
 function showWelcomeCard(email, isPremium, expiryDate) {
     const existing = document.querySelector('.welcome-overlay');
     if (existing) existing.remove();
@@ -69,6 +73,7 @@ function showWelcomeCard(email, isPremium, expiryDate) {
             <div style="color: #9ca3af; font-size: 0.7rem;">استمتع بجميع الامتحانات والمميزات</div>
         `;
     } else {
+        // ✅ الرسالة للمستخدم المجاني
         statusText = `📖 حساب <span style="color: #38bdf8;">مجاني</span>`;
         message = `
             <div style="color: #d1d5db; font-size: 0.7rem; margin-top: 2px;">📚 متاح <span style="color: #ffd54f;">بعض الامتحانات</span> من كل قسم</div>
