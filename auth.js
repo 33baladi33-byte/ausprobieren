@@ -55,27 +55,23 @@ function isUserLoggedIn() {
 }
 
 // ============================================
-// جلب المستخدمين المميزين
+// جلب المستخدمين المميزين - الأولوية لـ Google Sheets
 // ============================================
 
 async function getPremiumUsers() {
     try {
-        // ✅ أولاً: جلب من premium.json (الأولوية القصوى)
-        const response = await fetch('premium.json?_=' + Date.now());
-        const premiumData = await response.json();
-        if (Object.keys(premiumData).length > 0) {
-            return premiumData;
-        }
-        // ثانياً: جلب من Google Sheets
+        // ✅ أولاً: جلب من Google Sheets (المصدر الرئيسي)
         const users = await getAllUsersFromSheets();
         if (Object.keys(users).length > 0) {
             return users;
         }
-        return {};
+        // ثانياً: جلب من premium.json كنسخة احتياطية
+        const response = await fetch('premium.json?_=' + Date.now());
+        return await response.json();
     } catch(e) {
         try {
-            const users = await getAllUsersFromSheets();
-            return users;
+            const response = await fetch('premium.json?_=' + Date.now());
+            return await response.json();
         } catch(err) {
             return {};
         }
@@ -281,6 +277,21 @@ function hideLoginPopup() {
 }
 
 // ============================================
+// تنسيق التاريخ بشكل مقروء
+// ============================================
+
+function formatDate(dateString) {
+    if (!dateString) return 'غير محدد';
+    try {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return dateString;
+        return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+    } catch(e) {
+        return dateString;
+    }
+}
+
+// ============================================
 // معالجة تسجيل الدخول - دخول مباشر
 // ============================================
 
@@ -334,10 +345,10 @@ async function handleLogin() {
     const status = await getUserStatus();
     if (status === 'premium') {
         const expiry = await getExpiryDate(email);
-        // تنسيق التاريخ بشكل مقروء
-        const expiryDate = new Date(expiry);
-        const formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
+        const formattedExpiry = formatDate(expiry);
         alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}`);
+    } else if (status === 'expired') {
+        alert(`⏰ انتهت صلاحية اشتراكك.\nيرجى التواصل مع الدعم لتجديد الاشتراك.`);
     } else {
         alert(`✅ مرحباً ${email}\n📖 حسابك مجاني (أول 6 امتحانات).`);
     }
@@ -355,7 +366,7 @@ async function setupLockedNextButton() {
     let status = await getUserStatus();
     let nextBtn = document.getElementById('nextExamBtn');
     
-    if(nextBtn && status !== 'premium') {
+    if(nextBtn && status !== 'premium' && status !== 'guest') {
         nextBtn.classList.add('locked-nav');
         nextBtn.onclick = function(e) {
             e.preventDefault();
