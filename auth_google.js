@@ -26,41 +26,31 @@ function callJSONP(action, email, deviceId) {
         const callbackName = 'jsonp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
         const script = document.createElement('script');
         
-        // بناء الـ URL
         let url = `${API_URL}?action=${action}&callback=${callbackName}`;
         if (email) url += `&email=${encodeURIComponent(email)}`;
         if (deviceId) url += `&deviceId=${encodeURIComponent(deviceId)}`;
         
-        // تعريف الدالة التي سيتم استدعاؤها
         window[callbackName] = function(data) {
             delete window[callbackName];
-            if (script.parentNode) {
-                script.parentNode.removeChild(script);
-            }
+            if (script.parentNode) script.parentNode.removeChild(script);
             resolve(data);
         };
         
         script.src = url;
         script.onerror = function() {
             delete window[callbackName];
-            if (script.parentNode) {
-                script.parentNode.removeChild(script);
-            }
+            if (script.parentNode) script.parentNode.removeChild(script);
             reject(new Error('فشل الاتصال بالخادم'));
         };
         
-        // مهلة في حالة عدم الاستجابة (10 ثوان)
         const timeout = setTimeout(() => {
             if (window[callbackName]) {
                 delete window[callbackName];
-                if (script.parentNode) {
-                    script.parentNode.removeChild(script);
-                }
+                if (script.parentNode) script.parentNode.removeChild(script);
                 reject(new Error('انتهت مهلة الاتصال'));
             }
         }, 10000);
         
-        // ربط المهلة بالدالة
         const originalCallback = window[callbackName];
         window[callbackName] = function(data) {
             clearTimeout(timeout);
@@ -75,7 +65,7 @@ function callJSONP(action, email, deviceId) {
 // دوال API
 // ============================================
 
-// 1. تسجيل الدخول
+// 1. تسجيل الدخول - يتم استخدامها مرة واحدة فقط
 async function loginWithGoogleSheets(email) {
     const deviceId = getDeviceId();
     
@@ -116,26 +106,12 @@ async function logoutWithGoogleSheets(email) {
     }
 }
 
-// 4. التحقق من المستخدم
+// 4. التحقق من المستخدم - فقط هذا يستخدم للتحقق
 async function checkUser(email) {
     try {
         const data = await callJSONP('check', email);
         return data;
     } catch (error) {
-        return { success: false };
-    }
-}
-
-// 5. جلب جميع المستخدمين
-async function getAllUsersFromSheets() {
-    try {
-        const data = await callJSONP('getAllUsers');
-        if (data && data.success) {
-            return data.users || {};
-        }
-        return {};
-    } catch (error) {
-        console.error('Error fetching users:', error);
-        return {};
+        return { success: false, exists: false };
     }
 }
