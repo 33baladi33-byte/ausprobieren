@@ -320,10 +320,8 @@ async function handleLogin() {
     }
     
     try {
-        // تسجيل الدخول
         const result = await loginWithGoogleSheets(email);
         
-        // إعادة الزر فوراً بعد الاستجابة
         if (loginBtn) {
             loginBtn.textContent = 'دخول / إنشاء حساب';
             loginBtn.disabled = false;
@@ -357,13 +355,18 @@ async function handleLogin() {
         // ✅ إغلاق نافذة تسجيل الدخول
         hideLoginPopup();
         
-        // ✅ عرض رسالة سريعة حسب حالة المستخدم
+        // ✅ عرض رسالة حسب حالة المستخدم
         const status = await getUserStatus();
         if (status === 'premium') {
             const formattedExpiry = formatDate(result.expiry);
-            showToast(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}`, 'success', 4000);
+            showToast(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}`, 'success', 5000);
         } else {
-            showToast(`✅ مرحباً ${email}\n📖 حسابك مجاني (أول 6 امتحانات)`, 'info', 4000);
+            // ✅ الرسالة المطلوبة للحساب المجاني
+            showToast(
+                `✅ مرحباً ${email}\n📖 حسابك مجاني حالياً.\n📚 متاح بعض الامتحانات من كل قسم.\n✨ للوصول الكامل، اضغط "اشتراك" ثم ادفع.`,
+                'info',
+                6000
+            );
         }
         
         // ✅ إعادة تحميل الصفحة لعرض التغييرات
