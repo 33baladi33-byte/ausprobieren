@@ -38,7 +38,7 @@
             flex-wrap: wrap;
             gap: 40px;
             justify-content: center;
-            align-items: center;
+            align-items: stretch;
         }
         .plan-card {
             background: #ffffff;
@@ -49,6 +49,8 @@
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             border: 1px solid #e8e8e8;
+            display: flex;
+            flex-direction: column;
         }
         .plan-card:hover {
             transform: translateY(-6px);
@@ -63,11 +65,30 @@
         .plan-card.vip:hover {
             transform: translateY(-10px);
         }
+        .plan-card.popular {
+            border: 2px solid #f59e0b;
+            box-shadow: 0 15px 35px rgba(245,158,11,0.12);
+        }
+        .plan-card.popular:hover {
+            transform: translateY(-10px);
+        }
         .vip-badge {
             position: absolute;
             top: -12px;
             right: 20px;
             background: #38bdf8;
+            color: #0a0e1a;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 16px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: #f59e0b;
             color: #0a0e1a;
             font-size: 12px;
             font-weight: 600;
@@ -118,6 +139,7 @@
         .features {
             text-align: right;
             margin-bottom: 30px;
+            flex: 1;
         }
         .features li {
             list-style: none;
@@ -129,10 +151,21 @@
             gap: 8px;
         }
         .features li span {
-            color: #10b981;
             font-weight: bold;
             font-size: 15px;
             min-width: 22px;
+        }
+        .features li .check {
+            color: #10b981;
+        }
+        .features li .star {
+            color: #f59e0b;
+        }
+        .features li .brain {
+            color: #8b5cf6;
+        }
+        .features li .diamond {
+            color: #38bdf8;
         }
         .btn-select {
             background: #38bdf8;
@@ -145,11 +178,19 @@
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
+            margin-top: auto;
         }
         .btn-select:hover {
             transform: scale(1.02);
             background: #0ea5e9;
             box-shadow: 0 4px 12px rgba(56,189,248,0.3);
+        }
+        .btn-select.gold {
+            background: #f59e0b;
+        }
+        .btn-select.gold:hover {
+            background: #d97706;
+            box-shadow: 0 4px 12px rgba(245,158,11,0.3);
         }
         .back-link {
             text-align: center;
@@ -192,7 +233,9 @@
     <h1>💰 اختر الباقة المناسبة لك</h1>
     <div class="plans">
 
-        <!-- الباقة الشهرية -->
+        <!-- ========================================= -->
+        <!-- الباقة 1: شهر واحد                        -->
+        <!-- ========================================= -->
         <div class="plan-card" data-plan="1month">
             <div class="plan-name">🌙 شهر واحد</div>
             <div class="old-price">149 درهم</div>
@@ -200,44 +243,75 @@
             <div class="offer-small">أسرع قبل نفاد العرض</div>
             <div class="divider"></div>
             <ul class="features">
-                <li><span>✅</span> الوصول الكامل إلى جميع الامتحانات</li>
-                <li><span>✅</span> جميع التيمات القديمة والجديدة متوفرة لديك</li>
-                <li><span>✅</span> بطاقات المساعدة الذكية لجميع الأجزاء</li>
-                <li><span>✅</span> نصائح وإرشادات حصرية للنجاح</li>
-                <li><span>✅</span> تصحيح فوري للامتحانات</li>
-                <li><span>✅</span> إمكانية تتبع تقدمك</li>
-                <li><span>✅</span> بدون إعلانات مزعجة</li>
-                <li><span>✅</span> دعم فني عبر واتساب</li>
-                <li><span>✅</span> محاكاة حقيقية لامتحان Telc B2</li>
-                <li><span>✅</span> تحديثات مستمرة للمحتوى</li>
+                <li><span class="check">✅</span> الوصول الكامل إلى جميع الامتحانات</li>
+                <li><span class="check">✅</span> جميع التيمات القديمة والجديدة متوفرة لديك</li>
+                <li><span class="check">✅</span> بطاقات المساعدة الذكية لجميع الأجزاء</li>
+                <li><span class="check">✅</span> نصائح وإرشادات حصرية للنجاح</li>
+                <li><span class="check">✅</span> تصحيح فوري للامتحانات</li>
+                <li><span class="check">✅</span> إمكانية تتبع تقدمك</li>
+                <li><span class="check">✅</span> بدون إعلانات مزعجة</li>
+                <li><span class="check">✅</span> دعم فني عبر واتساب</li>
+                <li><span class="check">✅</span> محاكاة حقيقية لامتحان Telc B2</li>
+                <li><span class="check">✅</span> تحديثات مستمرة للمحتوى</li>
             </ul>
             <button class="btn-select">اشترك الآن</button>
         </div>
 
-        <!-- الباقة المميزة (شهرين) -->
+        <!-- ========================================= -->
+        <!-- الباقة 2: شهرين (VIP)                     -->
+        <!-- ========================================= -->
         <div class="plan-card vip" data-plan="2months">
-            <div class="vip-badge">الأكثر اختياراً</div>
+            <div class="vip-badge">✨ الأكثر اختياراً</div>
             <div class="plan-name">✨ شهرين</div>
-            <div class="old-price">249 درهم</div>
-            <div class="new-price">149 <small>درهم</small></div>
-            <div class="saving-text">وفر 100 درهم</div>
-            <div class="offer-small">أسرع قبل نفاد العرض</div>
+            <div class="old-price">298 درهم</div>
+            <div class="new-price">199 <small>درهم</small></div>
+            <div class="saving-text">💰 وفر 99 درهم</div>
+            <div class="offer-small">⚡ أسرع قبل نفاد العرض</div>
             <div class="divider"></div>
             <ul class="features">
-                <li><span>✅</span> الوصول الكامل إلى جميع الامتحانات</li>
-                <li><span>✅</span> جميع التيمات القديمة والجديدة متوفرة لديك</li>
-                <li><span>✅</span> بطاقات المساعدة الذكية لجميع الأجزاء</li>
-                <li><span>✅</span> نصائح وإرشادات حصرية للنجاح</li>
-                <li><span>✅</span> تصحيح فوري للامتحانات</li>
-                <li><span>✅</span> إمكانية تتبع تقدمك</li>
-                <li><span>✅</span> بدون إعلانات مزعجة</li>
-                <li><span>✅</span> دعم فني عبر واتساب</li>
-                <li><span>✅</span> محاكاة حقيقية لامتحان Telc B2</li>
-                <li><span>✅</span> تحديثات مستمرة للمحتوى</li>
-                <li><span>🧠</span> استعداد أفضل للامتحان مع وقت كافي للمراجعة</li>
+                <li><span class="check">✅</span> الوصول الكامل إلى جميع الامتحانات</li>
+                <li><span class="check">✅</span> جميع التيمات القديمة والجديدة متوفرة لديك</li>
+                <li><span class="check">✅</span> بطاقات المساعدة الذكية لجميع الأجزاء</li>
+                <li><span class="check">✅</span> نصائح وإرشادات حصرية للنجاح</li>
+                <li><span class="check">✅</span> تصحيح فوري للامتحانات</li>
+                <li><span class="check">✅</span> إمكانية تتبع تقدمك</li>
+                <li><span class="check">✅</span> بدون إعلانات مزعجة</li>
+                <li><span class="check">✅</span> دعم فني عبر واتساب</li>
+                <li><span class="check">✅</span> محاكاة حقيقية لامتحان Telc B2</li>
+                <li><span class="check">✅</span> تحديثات مستمرة للمحتوى</li>
+                <!-- 🧠 تم نقل هذه الميزة إلى باقة 3 أشهر -->
             </ul>
             <button class="btn-select">اشترك الآن</button>
         </div>
+
+        <!-- ========================================= -->
+        <!-- الباقة 3: 3 أشهر (NEW)                    -->
+        <!-- ========================================= -->
+        <div class="plan-card popular" data-plan="3months">
+            <div class="popular-badge">⭐ أفضل قيمة</div>
+            <div class="plan-name">⭐ 3 أشهر</div>
+            <div class="old-price">398 درهم</div>
+            <div class="new-price">249 <small>درهم</small></div>
+            <div class="saving-text">💰 وفر 149 درهم</div>
+            <div class="offer-small">⚡ أسرع قبل نفاد العرض</div>
+            <div class="divider"></div>
+            <ul class="features">
+                <li><span class="check">✅</span> الوصول الكامل إلى جميع الامتحانات</li>
+                <li><span class="check">✅</span> جميع التيمات القديمة والجديدة متوفرة لديك</li>
+                <li><span class="check">✅</span> بطاقات المساعدة الذكية لجميع الأجزاء</li>
+                <li><span class="check">✅</span> نصائح وإرشادات حصرية للنجاح</li>
+                <li><span class="check">✅</span> تصحيح فوري للامتحانات</li>
+                <li><span class="check">✅</span> إمكانية تتبع تقدمك</li>
+                <li><span class="check">✅</span> بدون إعلانات مزعجة</li>
+                <li><span class="check">✅</span> دعم فني عبر واتساب</li>
+                <li><span class="check">✅</span> محاكاة حقيقية لامتحان Telc B2</li>
+                <li><span class="check">✅</span> تحديثات مستمرة للمحتوى</li>
+                <li><span class="diamond">💎</span> أفضل قيمة مقابل السعر</li>
+                <li><span class="brain">🧠</span> استعداد أفضل للامتحان مع وقت كافي للمراجعة</li>
+            </ul>
+            <button class="btn-select gold">🔥 اشترك الآن</button>
+        </div>
+
     </div>
     <div class="back-link">
         <a href="index.html">← العودة إلى الرئيسية</a>
@@ -250,8 +324,9 @@
     
     // ✅ رسائل الباقات - الصيغة المطلوبة
     const PLAN_MESSAGES = {
-        "1month": "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]\n[PLN] Paket: 1 Monat\n[PRC] Preis: 89 DH\n[TM] Dauer: 1 Monat\n\n[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang.",
-        "2months": "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]\n[PLN] Paket: 2 Monate\n[PRC] Preis: 149 DH\n[TM] Dauer: 2 Monate\n\n[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang."
+        "1month": "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]\n[PLN] Paket: 1 Monat\n[PRC] Preis: 99 DH\n[TM] Dauer: 1 Monat\n\n[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang.",
+        "2months": "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]\n[PLN] Paket: 2 Monate\n[PRC] Preis: 199 DH\n[TM] Dauer: 2 Monate\n\n[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang.",
+        "3months": "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]\n[PLN] Paket: 3 Monate\n[PRC] Preis: 249 DH\n[TM] Dauer: 3 Monate\n\n[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang."
     };
     
     function getLoggedInEmail() {
