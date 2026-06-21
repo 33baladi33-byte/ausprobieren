@@ -3108,3 +3108,494 @@ body.dark-mode .premium-features li {
         font-size: 0.7rem;
     }
 }
+/* ============================================
+   Loading Spinner داخل الزر
+   ============================================ */
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top: 2px solid #ffffff;
+    animation: spin 0.8s linear infinite;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ============================================
+   Welcome Card - بطاقة ترحيب مصغرة وأنيقة
+   ============================================ */
+
+.welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.welcome-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.welcome-card {
+    background: #111827;
+    border-radius: 18px;
+    padding: 20px 22px;
+    width: 90%;
+    max-width: 340px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0.92) translateY(10px);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    text-align: center;
+    direction: rtl;
+    position: relative;
+}
+
+.welcome-overlay.active .welcome-card {
+    transform: scale(1) translateY(0);
+}
+
+.welcome-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px auto;
+    font-size: 18px;
+    background: rgba(34, 197, 94, 0.12);
+    border: 2px solid #22c55e;
+}
+
+.welcome-icon.premium {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: #22c55e;
+}
+
+.welcome-icon.free {
+    background: rgba(56, 189, 248, 0.12);
+    border-color: #38bdf8;
+}
+
+.welcome-title {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+    line-height: 1.3;
+}
+
+.welcome-email {
+    color: #d1d5db;
+    font-size: 0.7rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+    word-break: break-all;
+}
+
+.welcome-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 8px 0 12px 0;
+}
+
+.welcome-status {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #d1d5db;
+    margin-bottom: 4px;
+}
+
+.welcome-status .highlight {
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+.welcome-status .premium-date {
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+.welcome-message {
+    font-size: 0.7rem;
+    color: #9ca3af;
+    line-height: 1.5;
+    margin-top: 2px;
+}
+
+.welcome-subscribe-btn {
+    margin-top: 10px;
+    background: #38bdf8;
+    color: #0a0e1a;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 40px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-block;
+}
+
+.welcome-subscribe-btn:hover {
+    background: #0ea5e9;
+    transform: translateY(-1px);
+}
+
+/* للهواتف */
+@media (max-width: 768px) {
+    .welcome-card {
+        padding: 16px 16px;
+        max-width: 300px;
+        width: 92%;
+        border-radius: 16px;
+    }
+    
+    .welcome-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+    
+    .welcome-title {
+        font-size: 0.85rem;
+    }
+    
+    .welcome-email {
+        font-size: 0.6rem;
+        margin-bottom: 8px;
+    }
+    
+    .welcome-status {
+        font-size: 0.7rem;
+    }
+    
+    .welcome-message {
+        font-size: 0.6rem;
+    }
+    
+    .welcome-subscribe-btn {
+        padding: 5px 12px;
+        font-size: 0.6rem;
+        margin-top: 8px;
+    }
+}
+
+/* ============================================
+   Premium Modal
+   ============================================ */
+
+.premium-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(6px);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.premium-modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.premium-card {
+    background: #ffffff;
+    border-radius: 28px;
+    max-width: 380px;
+    width: 85%;
+    padding: 0;
+    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
+    transform: scale(0.95);
+    transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+.premium-modal.active .premium-card {
+    transform: scale(1);
+}
+
+.premium-card-header {
+    text-align: center;
+    padding: 28px 24px 16px 24px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.premium-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 40px;
+    padding: 4px 14px;
+    margin-bottom: 16px;
+}
+
+.premium-badge span {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #475569;
+}
+
+.premium-icon {
+    font-size: 0.8rem;
+}
+
+.premium-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+    letter-spacing: -0.3px;
+}
+
+.premium-subtitle {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.premium-card-body {
+    padding: 20px 24px 24px 24px;
+    text-align: center;
+}
+
+.premium-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.premium-features li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 6px 0;
+    font-size: 0.8rem;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.premium-features li:last-child {
+    border-bottom: none;
+}
+
+.premium-features .check {
+    color: #10b981;
+    font-size: 0.85rem;
+}
+
+.premium-btn {
+    background: #60a5fa;
+    border: none;
+    border-radius: 44px;
+    padding: 12px 20px;
+    width: 100%;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.premium-btn:hover {
+    background: #3b82f6;
+    transform: translateY(-1px);
+}
+
+.premium-later {
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    font-size: 0.7rem;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    width: 100%;
+}
+
+.premium-later:hover {
+    color: #64748b;
+}
+
+/* ============================================
+   Zertiva Modal (عام)
+   ============================================ */
+
+.zertiva-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 14, 26, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 99998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.zertiva-modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.zertiva-modal-content {
+    background: #1a1d27;
+    border-radius: 24px;
+    padding: 28px 24px;
+    max-width: 400px;
+    width: 90%;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    text-align: center;
+}
+
+.zertiva-modal.active .zertiva-modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.zertiva-modal .modal-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.zertiva-modal .modal-title {
+    color: #f1f5f9;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.zertiva-modal .modal-text {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.zertiva-modal .modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.zertiva-modal .modal-btn {
+    padding: 10px 24px;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: none;
+    min-width: 100px;
+}
+
+.zertiva-modal .modal-btn.primary {
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: #0a0e1a;
+}
+
+.zertiva-modal .modal-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
+}
+
+.zertiva-modal .modal-btn.secondary {
+    background: rgba(255, 255, 255, 0.06);
+    color: #94a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.zertiva-modal .modal-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #e2e8f0;
+}
+
+/* ============================================
+   Toast
+   ============================================ */
+
+.zertiva-center-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(56, 189, 248, 0.92);
+    color: #0a0e1a;
+    padding: 10px 20px;
+    border-radius: 14px;
+    z-index: 99999;
+    max-width: 90%;
+    width: auto;
+    min-width: 160px;
+    max-width: 360px;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    font-weight: 500;
+    opacity: 0;
+    transition: all 0.15s ease;
+    pointer-events: auto;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.2);
+    direction: rtl;
+    word-break: break-word;
+}
+
+@media (max-width: 768px) {
+    .zertiva-center-toast {
+        padding: 6px 14px;
+        font-size: 10px;
+        min-width: 120px;
+        max-width: 85%;
+        border-radius: 12px;
+    }
+}
