@@ -40,6 +40,16 @@ function logoutUser() {
     location.reload();
 }
 
+function forceLogout() {
+    const email = getLoggedInEmail();
+    if (email) {
+        logoutWithGoogleSheets(email);
+    }
+    localStorage.removeItem('zertiva_email');
+    localStorage.removeItem('zertiva_password');
+    location.reload();
+}
+
 function isUserLoggedIn() {
     return getLoggedInEmail() !== null;
 }
@@ -50,16 +60,22 @@ function isUserLoggedIn() {
 
 async function getPremiumUsers() {
     try {
+        // ✅ أولاً: جلب من premium.json (الأولوية القصوى)
+        const response = await fetch('premium.json?_=' + Date.now());
+        const premiumData = await response.json();
+        if (Object.keys(premiumData).length > 0) {
+            return premiumData;
+        }
+        // ثانياً: جلب من Google Sheets
         const users = await getAllUsersFromSheets();
         if (Object.keys(users).length > 0) {
             return users;
         }
-        const response = await fetch('premium.json?_=' + Date.now());
-        return await response.json();
+        return {};
     } catch(e) {
         try {
-            const response = await fetch('premium.json?_=' + Date.now());
-            return await response.json();
+            const users = await getAllUsersFromSheets();
+            return users;
         } catch(err) {
             return {};
         }
@@ -105,6 +121,56 @@ async function getExpiryDate(email) {
 function showLockedMessage(examTitle) {
     const modal = document.getElementById('subscriptionModal');
     if (modal) modal.classList.add('active');
+}
+
+// ============================================
+// نافذة نقل الحساب الأنيقة
+// ============================================
+
+function showTransferModal(message, onConfirm, onCancel) {
+    const existingModal = document.getElementById('transferModal');
+    if (existingModal) existingModal.remove();
+    
+    const modal = document.createElement('div');
+    modal.id = 'transferModal';
+    modal.className = 'transfer-modal';
+    modal.innerHTML = `
+        <div class="transfer-card">
+            <div class="transfer-icon">🔄</div>
+            <div class="transfer-title">نقل الحساب</div>
+            <div class="transfer-subtitle">${message}</div>
+            <div class="transfer-buttons">
+                <button class="transfer-btn confirm" id="transferConfirmBtn">موافق، نقل</button>
+                <button class="transfer-btn cancel" id="transferCancelBtn">إلغاء</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+    
+    document.getElementById('transferConfirmBtn').onclick = () => {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+        if (onConfirm) onConfirm();
+    };
+    
+    document.getElementById('transferCancelBtn').onclick = () => {
+        modal.classList.remove('active');
+        setTimeout(() => modal.remove(), 300);
+        if (onCancel) onCancel();
+    };
+    
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
+            if (onCancel) onCancel();
+        }
+    };
 }
 
 // ============================================
@@ -231,25 +297,25 @@ async function handleLogin() {
     
     if (!result.success) {
         if (result.status === 'wrong_device') {
-            const confirmTransfer = confirm(
-                `${result.message}\n\nإذا ضغطت "موافق"، سيتم نقل الحساب إلى هذا الجهاز.`
-            );
-            if (confirmTransfer) {
-                const transferResult = await transferAccount(email);
-                if (transferResult.success) {
-                    alert('✅ تم نقل الحساب بنجاح!');
-                    setLoggedInUser(email, password);
-                    hideLoginPopup();
-                    await updateProfileDropdown();
-                    location.reload();
-                    return;
-                } else {
-                    alert(transferResult.message);
-                    return;
+            showTransferModal(
+                `هذا الحساب قيد الاستخدام على جهاز آخر.<br><br>إذا تابعت، سيتم تسجيل الخروج من الجهاز القديم تلقائياً.`,
+                async () => {
+                    const transferResult = await transferAccount(email);
+                    if (transferResult.success) {
+                        alert('✅ تم نقل الحساب بنجاح!');
+                        setLoggedInUser(email, password);
+                        hideLoginPopup();
+                        await updateProfileDropdown();
+                        location.reload();
+                    } else {
+                        alert(transferResult.message);
+                    }
+                },
+                () => {
+                    // إلغاء
                 }
-            } else {
-                return;
-            }
+            );
+            return;
         } else if (result.status === 'expired') {
             alert(`⏰ انتهت صلاحية اشتراكك.\nيرجى التواصل مع الدعم.`);
             return;
@@ -268,7 +334,10 @@ async function handleLogin() {
     const status = await getUserStatus();
     if (status === 'premium') {
         const expiry = await getExpiryDate(email);
-        alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${expiry}`);
+        // تنسيق التاريخ بشكل مقروء
+        const expiryDate = new Date(expiry);
+        const formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
+        alert(`✅ مرحباً ${email}\n🎉 حسابك مفعل حتى ${formattedExpiry}`);
     } else {
         alert(`✅ مرحباً ${email}\n📖 حسابك مجاني (أول 6 امتحانات).`);
     }
