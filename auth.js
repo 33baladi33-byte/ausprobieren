@@ -1,8 +1,7 @@
 /**
  * auth.js - نظام إدارة تسجيل الدخول والجلسات
- * ✅ بطاقة ترحيب بسيطة وحديثة
- * ✅ Loading Spinner داخل الزر
- * ✅ Toast Notifications حديثة (أعلى الشاشة)
+ * ✅ سريع
+ * ✅ يعرض بطاقة ترحيب أنيقة في وسط الشاشة
  */
 
 const WA_NUMBER = "212687561491";
@@ -46,199 +45,80 @@ function isUserLoggedIn() {
 }
 
 // ============================================
-// Toast Notifications - نظام حديث
-// ============================================
-
-function showToast(message, type = 'info', duration = 3000) {
-    // إزالة Toast القديم
-    const existing = document.querySelector('.zertiva-center-toast');
-    if (existing) existing.remove();
-    
-    // إنشاء الحاوية إذا لم تكن موجودة
-    let container = document.querySelector('.toast-container');
-    if (!container) {
-        container = document.createElement('div');
-        container.className = 'toast-container';
-        document.body.appendChild(container);
-    }
-    
-    // إنشاء عنصر Toast
-    const toast = document.createElement('div');
-    toast.className = `toast-item ${type}`;
-    
-    // الأيقونات حسب النوع
-    const icons = {
-        success: '✅',
-        warning: '⚠️',
-        error: '❌',
-        info: 'ℹ️'
-    };
-    
-    const titles = {
-        success: 'نجاح',
-        warning: 'تنبيه',
-        error: 'خطأ',
-        info: 'معلومات'
-    };
-    
-    // تقسيم الرسالة إلى عنوان ونص
-    let titleText = titles[type] || 'معلومات';
-    let messageText = message;
-    
-    // إذا كانت الرسالة تحتوي على سطرين، استخدم الأول كعنوان
-    const lines = message.split('\n');
-    if (lines.length > 1) {
-        titleText = lines[0];
-        messageText = lines.slice(1).join('\n');
-    }
-    
-    toast.innerHTML = `
-        <span class="toast-icon">${icons[type] || 'ℹ️'}</span>
-        <div class="toast-content">
-            <div class="toast-title">${titleText}</div>
-            ${messageText ? `<div class="toast-message">${messageText}</div>` : ''}
-        </div>
-        <button class="toast-close">✕</button>
-    `;
-    
-    container.appendChild(toast);
-    
-    // إغلاق بالضغط على ×
-    const closeBtn = toast.querySelector('.toast-close');
-    closeBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        removeToast(toast);
-    });
-    
-    // إغلاق بالضغط على Toast نفسه
-    toast.addEventListener('click', function(e) {
-        if (e.target !== closeBtn) {
-            removeToast(toast);
-        }
-    });
-    
-    // إغلاق تلقائي
-    const timeout = setTimeout(() => {
-        removeToast(toast);
-    }, duration);
-    
-    // حفظ timeout للإلغاء
-    toast._timeout = timeout;
-}
-
-function removeToast(toast) {
-    if (toast._removing) return;
-    toast._removing = true;
-    clearTimeout(toast._timeout);
-    toast.classList.add('removing');
-    setTimeout(() => {
-        if (toast.parentNode) toast.parentNode.removeChild(toast);
-        // حذف الحاوية إذا كانت فارغة
-        const container = document.querySelector('.toast-container');
-        if (container && container.children.length === 0) {
-            container.remove();
-        }
-    }, 250);
-}
-
-// ============================================
-// بطاقة ترحيب بسيطة وحديثة ✅
+// بطاقة ترحيب أنيقة (بديل Toast)
 // ============================================
 
 function showWelcomeCard(email, isPremium, expiryDate) {
-    // إزالة البطاقة القديمة إن وجدت
+    // إزالة أي بطاقة موجودة
     const existing = document.querySelector('.welcome-overlay');
     if (existing) existing.remove();
     
-    // تنسيق التاريخ بالصيغة المطلوبة: DD-MM-YYYY
-    function formatDateSimple(dateString) {
-        if (!dateString) return 'غير محدد';
-        try {
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) return dateString;
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}-${month}-${year}`;
-        } catch(e) {
-            return dateString;
-        }
-    }
-    
+    // إنشاء الخلفية
     const overlay = document.createElement('div');
     overlay.className = 'welcome-overlay';
     
+    // إنشاء البطاقة
     const card = document.createElement('div');
     card.className = 'welcome-card';
     
-    // ===== بناء المحتوى =====
-    let statusText = '';
-    let statusColor = '';
-    let expiryText = '';
+    let icon, iconClass, statusText, message, buttonHtml = '';
     
-    if (isPremium && expiryDate) {
-        statusText = '🎉 Konto aktiviert';
-        statusColor = '#22c55e'; // أخضر
-        expiryText = formatDateSimple(expiryDate);
+    if (isPremium) {
+        // ✅ حساب مفعل
+        icon = '🎉';
+        iconClass = 'premium';
+        const formattedExpiry = formatDate(expiryDate);
+        statusText = `حسابك <span class="premium-date">مفعل</span> حتى`;
+        message = `
+            <div style="font-size: 1.3rem; font-weight: 700; color: #38bdf8; margin: 4px 0;">${formattedExpiry}</div>
+            <div style="color: #9ca3af; font-size: 0.8rem;">استمتع بجميع الامتحانات والمميزات</div>
+        `;
     } else {
-        statusText = '📖 Konto kostenlos';
-        statusColor = '#f59e0b'; // أصفر
-        expiryText = '—';
+        // ✅ حساب مجاني
+        icon = '✅';
+        iconClass = 'free';
+        statusText = 'حسابك <span class="highlight">مجاني</span> حالياً';
+        message = `
+            <div style="color: #d1d5db; font-size: 0.85rem; margin-top: 2px;">📚 متاح <span style="color: #ffd54f;">بعض الامتحانات</span> من كل قسم</div>
+            <div style="color: #9ca3af; font-size: 0.8rem; margin-top: 6px;">✨ للوصول الكامل، اضغط <span style="color: #38bdf8;">"اشتراك"</span></div>
+        `;
+        buttonHtml = `<button class="welcome-subscribe-btn" id="welcomeSubscribeBtn">✨ اشترك الآن</button>`;
     }
     
-    // ===== بناء البطاقة الجديدة =====
+    // بناء البطاقة
     card.innerHTML = `
-        <div style="display: flex; flex-direction: column; gap: 6px;">
-            <div style="color: #38bdf8; font-size: 0.85rem; font-weight: 500; word-break: break-all; direction: ltr; text-align: left;">
-                📧 ${email}
-            </div>
-            <div style="color: ${statusColor}; font-size: 0.95rem; font-weight: 600;">
-                ${statusText}
-            </div>
-            <div style="color: #d1d5db; font-size: 0.8rem; font-weight: 400;">
-                📅 ${expiryText}
-            </div>
-            <button class="welcome-subscribe-btn" id="welcomeSubscribeBtn" style="
-                margin-top: 10px;
-                background: #38bdf8;
-                color: #0a0e1a;
-                border: none;
-                border-radius: 12px;
-                padding: 10px 0;
-                width: 100%;
-                font-size: 0.85rem;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                font-family: inherit;
-            ">
-                🚀 Jetzt lernen
-            </button>
-        </div>
+        <div class="welcome-icon ${iconClass}">${icon}</div>
+        <div class="welcome-title">مرحباً 👋</div>
+        <div class="welcome-email">${email}</div>
+        <div class="welcome-divider"></div>
+        <div class="welcome-status">${statusText}</div>
+        ${isPremium ? `<div style="font-size: 1.3rem; font-weight: 700; color: #38bdf8; margin: 4px 0;">${formatDate(expiryDate)}</div>` : ''}
+        <div class="welcome-message">${isPremium ? 'استمتع بجميع الامتحانات والمميزات' : '📚 متاح بعض الامتحانات من كل قسم<br>✨ للوصول الكامل، اضغط "اشتراك"'}</div>
+        ${buttonHtml}
     `;
     
     overlay.appendChild(card);
     document.body.appendChild(overlay);
     
-    // إظهار البطاقة مع Animation
+    // ظهور البطاقة
     requestAnimationFrame(() => {
         overlay.classList.add('active');
     });
     
-    // إغلاق عند النقر خارج البطاقة
+    // إغلاق البطاقة بالضغط خارجها فقط (لا تختفي تلقائياً)
     overlay.addEventListener('click', function(e) {
         if (e.target === overlay) {
             closeWelcomeCard(overlay);
         }
     });
     
-    // زر "Jetzt lernen" - يفتح واتساب
+    // ✅ زر الاشتراك - يذهب إلى subscribe.html
     const subscribeBtn = document.getElementById('welcomeSubscribeBtn');
     if (subscribeBtn) {
         subscribeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             closeWelcomeCard(overlay);
-            window.open(WA_URL, '_blank');
+            window.location.href = 'subscribe.html';
         });
     }
 }
@@ -248,65 +128,95 @@ function closeWelcomeCard(overlay) {
     overlay.classList.remove('active');
     setTimeout(() => {
         if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-    }, 250);
+    }, 300);
 }
 
 // ============================================
-// نافذة Premium Access
+// بطاقة صغيرة (للحالات السريعة)
 // ============================================
 
-function showPremiumModal(examTitle) {
-    const existing = document.getElementById('premiumModal');
+function showCenterToast(message, type = 'info', duration = 500) {
+    const existing = document.querySelector('.zertiva-center-toast');
     if (existing) existing.remove();
     
-    const modal = document.createElement('div');
-    modal.id = 'premiumModal';
-    modal.className = 'premium-modal';
-    modal.innerHTML = `
-        <div class="premium-card">
-            <div class="premium-card-header">
-                <div class="premium-badge">
-                    <span class="premium-icon">✦</span>
-                    <span>PREMIUM ACCESS</span>
-                </div>
-                <h2 class="premium-title">Exclusive Content</h2>
-                <p class="premium-subtitle">هذا المحتوى متاح للمشتركين</p>
-            </div>
-            <div class="premium-card-body">
-                <ul class="premium-features">
-                    <li><span class="check">✓</span> جميع امتحانات B2</li>
-                    <li><span class="check">✓</span> اجوبة صحيحة 100%</li>
-                    <li><span class="check">✓</span> بطاقات ذكية للحفظ السريع</li>
-                    <li><span class="check">✓</span> لعبة التحدي السريع</li>
-                    <li><span class="check">✓</span> التخلص من ارهاق Pdf</li>
-                </ul>
-                <button id="premiumUpgradeBtn" class="premium-btn">
-                    ✦ Join Premium
-                    <span>→</span>
-                </button>
-                <button id="premiumLaterBtn" class="premium-later">ليس الآن</button>
-            </div>
-        </div>
+    const toast = document.createElement('div');
+    toast.className = 'zertiva-center-toast';
+    
+    const bgColor = 'rgba(56, 189, 248, 0.92)';
+    
+    toast.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.8);
+        background: ${bgColor};
+        color: #0a0e1a;
+        padding: 12px 24px;
+        border-radius: 16px;
+        z-index: 99999;
+        max-width: 90%;
+        width: auto;
+        min-width: 200px;
+        max-width: 400px;
+        font-size: 13px;
+        line-height: 1.6;
+        text-align: center;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        font-weight: 500;
+        opacity: 0;
+        transition: all 0.15s ease;
+        pointer-events: auto;
+        cursor: pointer;
+        border: 1px solid rgba(255,255,255,0.2);
+        direction: rtl;
+        word-break: break-word;
     `;
     
-    document.body.appendChild(modal);
-    setTimeout(() => modal.classList.add('active'), 10);
+    if (window.innerWidth <= 768) {
+        toast.style.padding = '8px 16px';
+        toast.style.fontSize = '11px';
+        toast.style.minWidth = '150px';
+        toast.style.maxWidth = '85%';
+        toast.style.borderRadius = '12px';
+    }
     
-    document.getElementById('premiumUpgradeBtn').onclick = () => {
-        window.open(WA_URL, '_blank');
+    toast.innerHTML = message.replace(/\n/g, '<br>');
+    document.body.appendChild(toast);
+    
+    requestAnimationFrame(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+    
+    toast.onclick = function(e) {
+        e.stopPropagation();
+        closeCenterToast(toast);
     };
     
-    document.getElementById('premiumLaterBtn').onclick = () => {
-        modal.classList.remove('active');
-        setTimeout(() => modal.remove(), 300);
-    };
-    
-    modal.onclick = (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            setTimeout(() => modal.remove(), 300);
+    const closeHandler = function(e) {
+        if (!toast.contains(e.target)) {
+            closeCenterToast(toast);
+            document.removeEventListener('click', closeHandler);
         }
     };
+    
+    setTimeout(() => {
+        document.addEventListener('click', closeHandler);
+    }, 100);
+    
+    setTimeout(() => {
+        closeCenterToast(toast);
+        document.removeEventListener('click', closeHandler);
+    }, duration);
+}
+
+function closeCenterToast(toast) {
+    if (!toast || !toast.parentNode) return;
+    toast.style.opacity = '0';
+    toast.style.transform = 'translate(-50%, -50%) scale(0.9)';
+    setTimeout(() => {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 150);
 }
 
 // ============================================
@@ -324,7 +234,10 @@ function showSessionExpiredModal() {
         <div class="zertiva-modal-content">
             <div class="modal-icon">🔐</div>
             <h3 class="modal-title">تم تسجيل الدخول من جهاز آخر</h3>
-            <p class="modal-text">تم تسجيل الدخول إلى هذا الحساب من جهاز آخر.<br>يرجى إدخال البريد الإلكتروني مرة أخرى.</p>
+            <p class="modal-text">
+                تم تسجيل الدخول إلى هذا الحساب من جهاز آخر.<br>
+                يرجى إدخال البريد الإلكتروني مرة أخرى.
+            </p>
             <div class="modal-buttons">
                 <button class="modal-btn primary" id="sessionExpiredOkBtn">حسناً</button>
             </div>
@@ -342,6 +255,15 @@ function showSessionExpiredModal() {
             location.reload();
         }, 300);
     };
+}
+
+// ============================================
+// نافذة الاشتراك - توجيه إلى subscribe.html
+// ============================================
+
+function showLockedMessage(examTitle) {
+    // ✅ توجيه مباشر إلى صفحة الاشتراك
+    window.location.href = 'subscribe.html';
 }
 
 // ============================================
@@ -454,7 +376,7 @@ async function updateProfileDropdown() {
             transition: all 0.3s ease;
         `;
         upgradeBtn.onclick = () => {
-            window.open(WA_URL, '_blank');
+            window.location.href = 'subscribe.html';
         };
         
         const dropdown = document.getElementById('profileDropdown');
@@ -498,21 +420,13 @@ function logoutUser(showMessage = true) {
     clearSessionData();
     sessionChecked = false;
     if (showMessage) {
-        showToast('تم تسجيل الخروج بنجاح', 'success', 3000);
+        showCenterToast('تم تسجيل الخروج بنجاح', 'info', 500);
     }
     setTimeout(() => location.reload(), 300);
 }
 
 // ============================================
-// نافذة الاشتراك - توجيه إلى واتساب
-// ============================================
-
-function showLockedMessage(examTitle) {
-    showPremiumModal(examTitle);
-}
-
-// ============================================
-// معالجة تسجيل الدخول - مع Loading Spinner
+// معالجة تسجيل الدخول
 // ============================================
 
 async function handleLogin() {
@@ -522,33 +436,36 @@ async function handleLogin() {
     const password = document.getElementById('popupPassword').value.trim();
     
     if (!email || !password) {
-        showToast('يرجى إدخال البريد الإلكتروني وكلمة السر', 'info', 3000);
+        showCenterToast('يرجى إدخال البريد الإلكتروني وكلمة السر', 'info', 500);
         return;
     }
     
     isLoggingIn = true;
     const loginBtn = document.getElementById('popupLoginBtn');
-    const originalText = loginBtn ? loginBtn.textContent : 'دخول / إنشاء حساب';
-    
     if (loginBtn) {
-        loginBtn.innerHTML = `<span class="spinner"></span> جاري التحميل...`;
+        loginBtn.textContent = '⏳ جاري التحميل...';
         loginBtn.disabled = true;
-        loginBtn.style.opacity = '0.7';
-        loginBtn.style.cursor = 'wait';
     }
     
     try {
         const result = await loginWithGoogleSheets(email);
         
+        if (loginBtn) {
+            loginBtn.textContent = 'دخول / إنشاء حساب';
+            loginBtn.disabled = false;
+        }
+        
         if (!result.success) {
             if (result.status === 'expired') {
-                showToast('⏰ انتهت صلاحية اشتراكك.', 'warning', 3000);
+                showCenterToast('⏰ انتهت صلاحية اشتراكك.', 'info', 500);
+                return;
             } else if (result.status === 'connection_error') {
-                showToast('⚠️ خطأ في الاتصال. حاول مرة أخرى.', 'error', 3000);
+                showCenterToast('⚠️ خطأ في الاتصال. حاول مرة أخرى.', 'info', 500);
+                return;
             } else {
-                showToast(result.message || 'حدث خطأ', 'error', 3000);
+                showCenterToast(result.message || 'حدث خطأ', 'info', 500);
+                return;
             }
-            return;
         }
         
         if (result.sessionToken) {
@@ -561,6 +478,7 @@ async function handleLogin() {
         await updateProfileDropdown();
         hideLoginPopup();
         
+        // ✅ عرض بطاقة الترحيب (لا تختفي تلقائياً)
         const status = await getUserStatus();
         if (status === 'premium') {
             showWelcomeCard(email, true, result.expiry);
@@ -568,15 +486,16 @@ async function handleLogin() {
             showWelcomeCard(email, false, null);
         }
         
+        // ✅ لا نعيد تحميل الصفحة حتى لا تغلق البطاقة
+        // setTimeout(() => location.reload(), 300); // ❌ تم إزالتها
+        
     } catch (error) {
-        showToast('حدث خطأ: ' + error.message, 'error', 3000);
+        showCenterToast('حدث خطأ: ' + error.message, 'info', 500);
     } finally {
         isLoggingIn = false;
         if (loginBtn) {
-            loginBtn.innerHTML = originalText;
+            loginBtn.textContent = 'دخول / إنشاء حساب';
             loginBtn.disabled = false;
-            loginBtn.style.opacity = '1';
-            loginBtn.style.cursor = 'pointer';
         }
     }
 }
@@ -634,19 +553,21 @@ function bindAuthEvents() {
         };
     }
     
+    // ✅ زر اشتراك في الشريط العلوي
     const navSubscribeBtn = document.getElementById('navSubscribeBtn');
     if (navSubscribeBtn) {
         navSubscribeBtn.onclick = function(e) {
             e.preventDefault();
-            window.open(WA_URL, '_blank');
+            window.location.href = 'subscribe.html';
         };
     }
     
+    // ✅ زر اشتراك في الصفحة الرئيسية
     const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
     if (featuresSubscribeBtn) {
         featuresSubscribeBtn.onclick = function(e) {
             e.preventDefault();
-            window.open(WA_URL, '_blank');
+            window.location.href = 'subscribe.html';
         };
     }
     
@@ -691,11 +612,19 @@ async function validateDevice() {
     }
 }
 
+// ============================================
+// بدء التشغيل
+// ============================================
+
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initAuth);
 } else {
     initAuth();
 }
+
+// ============================================
+// تحسين مظهر الهواتف
+// ============================================
 
 function applyMobileAuthStyles() {
     if (window.innerWidth <= 768) {
@@ -718,9 +647,12 @@ document.addEventListener('DOMContentLoaded', function() {
     applyMobileAuthStyles();
 });
 
+// ============================================
+// دوال عامة للاستخدام من أي مكان
+// ============================================
+
 window.getUserStatusGlobal = getUserStatus;
 window.getLoggedInEmailGlobal = getLoggedInEmail;
 window.logoutUserGlobal = logoutUser;
 window.showWelcomeCard = showWelcomeCard;
 window.showLockedMessage = showLockedMessage;
-window.showPremiumModal = showPremiumModal;
