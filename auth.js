@@ -142,7 +142,7 @@ function removeToast(toast) {
 }
 
 // ============================================
-// بطاقة ترحيب مصغرة وأنيقة (بدون أيقونة كبيرة)
+// بطاقة ترحيب مصغرة وأنيقة ✅ معدلة
 // ============================================
 
 function showWelcomeCard(email, isPremium, expiryDate) {
@@ -155,53 +155,76 @@ function showWelcomeCard(email, isPremium, expiryDate) {
     const card = document.createElement('div');
     card.className = 'welcome-card';
     
-    let statusText, message, buttonHtml = '';
+    // ===== بناء المحتوى =====
+    let statusHtml = '';
+    let messageHtml = '';
+    let buttonHtml = '';
     
     if (isPremium) {
         const formattedExpiry = formatDate(expiryDate);
-        statusText = `🎉 حسابك <span style="color: #38bdf8;">مفعل</span> حتى`;
-        message = `
-            <div style="font-size: 1.1rem; font-weight: 700; color: #38bdf8; margin: 2px 0;">${formattedExpiry}</div>
+        statusHtml = `
+            <div class="welcome-status">
+                🎉 حسابك <span style="color: #38bdf8;">مفعل</span> حتى
+            </div>
+        `;
+        messageHtml = `
+            <div style="font-size: 1.1rem; font-weight: 700; color: #38bdf8; margin: 4px 0;">${formattedExpiry}</div>
             <div style="color: #9ca3af; font-size: 0.7rem;">استمتع بجميع الامتحانات والمميزات</div>
         `;
     } else {
-        statusText = `📖 حساب <span style="color: #38bdf8;">مجاني</span>`;
-        message = `
-            <div style="color: #d1d5db; font-size: 0.7rem; margin-top: 2px;">📚 متاح <span style="color: #ffd54f;">بعض الامتحانات</span> من كل قسم</div>
-            <div style="color: #9ca3af; font-size: 0.65rem; margin-top: 3px;">✨ للوصول الكامل اضغط <span style="color: #38bdf8;">"اشتراك"</span></div>
+        statusHtml = `
+            <div class="welcome-status">
+                📖 حساب <span style="color: #38bdf8;">مجاني</span>
+            </div>
         `;
-        buttonHtml = `<button class="welcome-subscribe-btn" id="welcomeSubscribeBtn">✨ اشترك الآن</button>`;
+        messageHtml = `
+            <div style="color: #d1d5db; font-size: 0.7rem; margin-top: 4px;">
+                📚 متاح <span style="color: #ffd54f;">بعض الامتحانات</span> من كل قسم
+            </div>
+            <div style="color: #9ca3af; font-size: 0.65rem; margin-top: 2px;">
+                ✨ للوصول الكامل اضغط <span style="color: #38bdf8;">"اشتراك"</span>
+            </div>
+        `;
+        buttonHtml = `
+            <button class="welcome-subscribe-btn" id="welcomeSubscribeBtn">
+                ✨ اشترك الآن
+            </button>
+        `;
     }
     
+    // ===== بناء البطاقة =====
     card.innerHTML = `
         <div class="welcome-title">مرحباً 👋</div>
         <div class="welcome-email">${email}</div>
         <div class="welcome-divider"></div>
-        <div class="welcome-status">${statusText}</div>
-        ${isPremium ? `<div style="font-size: 1.1rem; font-weight: 700; color: #38bdf8; margin: 2px 0;">${formatDate(expiryDate)}</div>` : ''}
-        <div class="welcome-message">${isPremium ? 'استمتع بجميع الامتحانات والمميزات' : ''}</div>
+        ${statusHtml}
+        ${messageHtml}
         ${buttonHtml}
     `;
     
     overlay.appendChild(card);
     document.body.appendChild(overlay);
     
+    // إظهار البطاقة مع أنيميشن
     requestAnimationFrame(() => {
         overlay.classList.add('active');
     });
     
+    // إغلاق عند النقر خارج البطاقة
     overlay.addEventListener('click', function(e) {
         if (e.target === overlay) {
             closeWelcomeCard(overlay);
         }
     });
     
+    // زر الاشتراك
     const subscribeBtn = document.getElementById('welcomeSubscribeBtn');
     if (subscribeBtn) {
         subscribeBtn.addEventListener('click', function(e) {
             e.stopPropagation();
             closeWelcomeCard(overlay);
-            window.location.href = 'subscribe.html';
+            // فتح واتساب مباشرة بدلاً من subscribe.html
+            window.open(WA_URL, '_blank');
         });
     }
 }
@@ -256,7 +279,7 @@ function showPremiumModal(examTitle) {
     setTimeout(() => modal.classList.add('active'), 10);
     
     document.getElementById('premiumUpgradeBtn').onclick = () => {
-        window.location.href = 'subscribe.html';
+        window.open(WA_URL, '_blank');
     };
     
     document.getElementById('premiumLaterBtn').onclick = () => {
@@ -417,7 +440,7 @@ async function updateProfileDropdown() {
             transition: all 0.3s ease;
         `;
         upgradeBtn.onclick = () => {
-            window.location.href = 'subscribe.html';
+            window.open(WA_URL, '_blank');
         };
         
         const dropdown = document.getElementById('profileDropdown');
@@ -467,7 +490,7 @@ function logoutUser(showMessage = true) {
 }
 
 // ============================================
-// نافذة الاشتراك - توجيه إلى subscribe.html
+// نافذة الاشتراك - توجيه إلى واتساب
 // ============================================
 
 function showLockedMessage(examTitle) {
@@ -601,7 +624,7 @@ function bindAuthEvents() {
     if (navSubscribeBtn) {
         navSubscribeBtn.onclick = function(e) {
             e.preventDefault();
-            window.location.href = 'subscribe.html';
+            window.open(WA_URL, '_blank');
         };
     }
     
@@ -609,7 +632,7 @@ function bindAuthEvents() {
     if (featuresSubscribeBtn) {
         featuresSubscribeBtn.onclick = function(e) {
             e.preventDefault();
-            window.location.href = 'subscribe.html';
+            window.open(WA_URL, '_blank');
         };
     }
     
