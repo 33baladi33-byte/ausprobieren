@@ -74,7 +74,7 @@ function showWelcomeCard(email, isPremium, expiryDate) {
         `;
     } else {
         // ✅ الرسالة للمستخدم المجاني
-        statusText = `📖 حساب <span style="color: #38bdf8;">مجاني</span>`;
+        statusText = `✨ حساب <span style="color: #38bdf8;">مجاني</span>`;
         message = `
             <div style="color: #d1d5db; font-size: 0.7rem; margin-top: 2px;">📚 متاح <span style="color: #ffd54f;">بعض الامتحانات</span> من كل قسم</div>
             <div style="color: #9ca3af; font-size: 0.65rem; margin-top: 3px;">✨ للوصول الكامل اضغط <span style="color: #38bdf8;">"اشتراك"</span></div>
@@ -297,7 +297,7 @@ async function updateProfileDropdown() {
             if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
         } else {
             profileExpiry.innerHTML = `⏰ انتهت الصلاحية`;
-            profileStatus.innerHTML = `📖 <span style="color: #94a3b8;">مجاني</span>`;
+            profileStatus.innerHTML = `✨ <span style="color: #94a3b8;">مجاني</span>`;
             if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         }
         
