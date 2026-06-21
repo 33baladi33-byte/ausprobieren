@@ -70,70 +70,15 @@ function createResultBadge(score) {
   return badge;
 }
 
- function showLockedMessage(examTitle) {
-    let cleanTitle = examTitle.replace(/\s*\(\d+\)\s*$/, '').trim();
-    
-    const existingModal = document.getElementById('premiumModal');
-    if (existingModal) existingModal.remove();
-    
-    const modal = document.createElement('div');
-    modal.id = 'premiumModal';
-    modal.className = 'premium-modal';
-    modal.innerHTML = `
-        <div class="premium-card">
-            <div class="premium-card-header">
-                <div class="premium-badge">
-                    <span class="premium-icon">✦</span>
-                    <span>PREMIUM ACCESS</span>
-                </div>
-                <h2 class="premium-title">Exclusive Content</h2>
-                <p class="premium-subtitle">هذا المحتوى متاح للمشتركين  </p>
-            </div>
-            <div class="premium-card-body">
-                <ul class="premium-features">
-                    <li><span class="check">✓</span> جميع امتحانات B2</li>
-                    <li><span class="check">✓</span> اجوبة صحيحة 100% </li>
-                    <li><span class="check">✓</span> بطاقات ذكية للحفظ السريع</li>
-                    <li><span class="check">✓</span> لعبة التحدي السريع</li>
-                    <li><span class="check">✓</span> التخلص من ارهاق Pdf </li>
-                </ul>
-                <button id="premiumUpgradeBtn" class="premium-btn">
-                    ✦ Join Premium
-                    <span>→</span>
-                </button>
-                <button id="premiumLaterBtn" class="premium-later">ليس الآن</button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 10);
-    
-    const upgradeBtn = document.getElementById('premiumUpgradeBtn');
-    const laterBtn = document.getElementById('premiumLaterBtn');
-    
-    if (upgradeBtn) {
-        upgradeBtn.onclick = () => {
-            window.location.href = 'subscribe.html';
-        };
+// ========== عرض بطاقة Premium Access ==========
+function showLockedMessage(examTitle) {
+    // ✅ استخدام showPremiumModal من auth.js
+    if (typeof window.showPremiumModal === 'function') {
+        window.showPremiumModal(examTitle);
+    } else {
+        // حل احتياطي: توجيه إلى صفحة الاشتراك
+        window.location.href = 'subscribe.html';
     }
-    
-    if (laterBtn) {
-        laterBtn.onclick = () => {
-            modal.classList.remove('active');
-            setTimeout(() => modal.remove(), 300);
-        };
-    }
-    
-    modal.onclick = (e) => {
-        if (e.target === modal) {
-            modal.classList.remove('active');
-            setTimeout(() => modal.remove(), 300);
-        }
-    };
 }
 
 
@@ -938,10 +883,14 @@ async function renderExamListForSkill(skill, teilName) {
       };
       
       div.onclick = (function(title, id) {
-        return function() {
-          showLockedMessage(title + " (" + id + ")");
-        };
-      })(exam.title, exam.id);
+    return function() {
+        if (typeof window.showPremiumModal === 'function') {
+            window.showPremiumModal(title + " (" + id + ")");
+        } else {
+            window.location.href = 'subscribe.html';
+        }
+    };
+})(exam.title, exam.id);
     } else if (exam.hasFile) {
       div.onclick = (function(id, title, skillPath) {
         return function() { 
@@ -992,11 +941,15 @@ function setupLockedNextButton() {
         
         // تغيير وظيفة الزر لمنع الانتقال
         nextBtn.onclick = function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          showLockedMessage(nextExam.title + " (" + nextExamId + ")");
-          return false;
-        };
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof window.showPremiumModal === 'function') {
+        window.showPremiumModal(nextExam.title + " (" + nextExamId + ")");
+    } else {
+        window.location.href = 'subscribe.html';
+    }
+    return false;
+};
       } 
       // إذا كان الامتحان التالي ضمن الـ 6 الأولى، دع الزر يعمل بشكل طبيعي
       else if (isPremium || nextExamId <= 6) {
@@ -1042,10 +995,14 @@ async function openExam(examId, examTitle, skill) {
   const maxFreeExamId = 6; // أول 6 امتحانات مجانية للمستخدمين غير المدفوعين
   
   // إذا كان المستخدم ليس بريميوم والامتحان المطلوب أكبر من 6، اظهر القفل
-  if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
-    showLockedMessage(examTitle + " (" + examId + ")");
+ if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
+    if (typeof window.showPremiumModal === 'function') {
+        window.showPremiumModal(examTitle + " (" + examId + ")");
+    } else {
+        window.location.href = 'subscribe.html';
+    }
     return;
-  }
+}
   // ===== نهاية فحص الوصول =====
   
   console.log("🔍 openExam parameters:", { examId, examTitle, skill });
