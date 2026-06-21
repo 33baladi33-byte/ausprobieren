@@ -144,7 +144,6 @@ let currentExamsList = [];
 let currentMündlichPart = 2;
 let userStatusCache = null;
 let lastStatusCheck = 0;
-
 // ========== دوال التحقق من حالة المستخدم ==========
 async function getUserStatusForExam() {
     let email = localStorage.getItem('zertiva_email');
@@ -156,31 +155,16 @@ async function getUserStatusForExam() {
     }
     
     try {
-        // ✅ أولاً: التحقق من Google Sheets
-        const users = await getAllUsersFromSheets();
-        if (users && users[email]) {
-            let expiry = users[email];
+        // ✅ فقط من Google Sheets
+        const result = await checkUser(email);
+        if (result && result.exists && result.expiry) {
             let today = new Date().toISOString().slice(0,10);
-            if (today <= expiry) {
+            if (today <= result.expiry) {
                 userStatusCache = 'premium';
                 lastStatusCheck = now;
                 return 'premium';
             }
         }
-        
-        // ✅ ثانياً: التحقق من premium.json كنسخة احتياطية
-        const response = await fetch('premium.json?_=' + now);
-        const premium = await response.json();
-        if (premium[email]) {
-            let expiry = premium[email];
-            let today = new Date().toISOString().slice(0,10);
-            if (today <= expiry) {
-                userStatusCache = 'premium';
-                lastStatusCheck = now;
-                return 'premium';
-            }
-        }
-        
         userStatusCache = 'free';
         lastStatusCheck = now;
         return 'free';
