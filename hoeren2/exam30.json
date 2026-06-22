@@ -1,0 +1,47 @@
+{
+  "title": "Hörverstehen Teil 2 - Frau Kedar Malta",
+  "type": "truefalse",
+  "note": "عندما تجد جروند شولا Grundschule في LESEN",
+  "questions": [
+    {
+      "text": "Frau Kedar kommt aus Düsseldorf.",
+      "correct": false
+    },
+    {
+      "text": "Sie lebt jetzt in Malta.",
+      "correct": true
+    },
+    {
+      "text": "Sie ist effektiv und tätig in Malta.",
+      "correct": true
+    },
+    {
+      "text": "Sie möchte zu Van... umziehen.",
+      "correct": false
+    },
+    {
+      "text": "Sie genießt das ganze Jahr im Mittelmeer zu baden.",
+      "correct": false
+    },
+    {
+      "text": "Der Moderator kennt die Temperatur des Mittelmeers im Winter nicht.",
+      "correct": true
+    },
+    {
+      "text": "Der Moderator denkt, in Malta gibt es drei Amtssprachen.",
+      "correct": true
+    },
+    {
+      "text": "Die Malteser waren konservativ und zurückhaltend.",
+      "correct": false
+    },
+    {
+      "text": "Sie plante, die maltesische Sprache zu lernen.",
+      "correct": false
+    },
+    {
+      "text": "Malteser kommen aus verschiedenen Religionen.",
+      "correct": true
+    }
+  ]
+}

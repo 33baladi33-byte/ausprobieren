@@ -1,0 +1,46 @@
+{
+  "title": "Hörverstehen Teil 2 - Franz Schumacher",
+  "type": "truefalse",
+  "questions": [
+    {
+      "text": "Franz Schumacher handelt nicht nur mit Produkten aus eigenem Anbau.",
+      "correct": true
+    },
+    {
+      "text": "Herr Schumacher lässt sich auch von anderen Bauern Produkte liefern.",
+      "correct": true
+    },
+    {
+      "text": "Auf dem Markt sind schon viele Besucher unterwegs.",
+      "correct": false
+    },
+    {
+      "text": "Die große Mehrheit der Kunden von Herrn Schumacher sind Stammkunden.",
+      "correct": true
+    },
+    {
+      "text": "Herr Schumacher ist auf die Pfälzer Kartoffeln besonders stolz.",
+      "correct": false
+    },
+    {
+      "text": "Franz Schumacher hat keine hohe Meinung vom 'Fachhändlerverein vom Rathausplatz'.",
+      "correct": true
+    },
+    {
+      "text": "Herr Schumacher kommt morgens sehr früh auf den Markt, um sich einen guten Platz für seinen Stand zu sichern.",
+      "correct": false
+    },
+    {
+      "text": "Herr Schumacher hat seit über 20 Jahren einen Stand auf dem Landauer Markt.",
+      "correct": true
+    },
+    {
+      "text": "Herr Schumacher trägt eine Mütze, um sich vor Kälte zu schützen.",
+      "correct": false
+    },
+    {
+      "text": "Herr Schumacher möchte in Zukunft einen Verkaufsstand in einer Markthalle eröffnen.",
+      "correct": true
+    }
+  ]
+}
