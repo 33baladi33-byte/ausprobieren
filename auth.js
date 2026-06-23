@@ -1,40 +1,48 @@
 /**
- * auth.js - نظام إدارة تسجيل الدخول والجلسات (مبسط ومستقر)
- * ✅ بدون Device ID
- * ✅ بدون Session Token
- * ✅ Google Sheet هو المصدر الوحيد
+ * auth.js - نظام إدارة تسجيل الدخول والجلسات
  * ✅ بطاقة ترحيب بسيطة وحديثة
  * ✅ Loading Spinner داخل الزر
- * ✅ Toast Notifications حديثة
+ * ✅ Toast Notifications حديثة (أعلى الشاشة)
  */
 
 const WA_NUMBER = "212687561491";
 const WA_URL = `https://wa.me/${WA_NUMBER}`;
 
+let currentUserStatus = 'guest';
+let currentExpiry = null;
 let isLoggingIn = false;
+let sessionChecked = false;
 
 // ============================================
-// دوال الجلسة (localStorage) - مبسطة
+// دوال الجلسة (localStorage)
 // ============================================
 
 function getLoggedInEmail() {
     return localStorage.getItem('zertiva_email');
 }
 
-function setLoggedInEmail(email) {
-    if (email) {
-        localStorage.setItem('zertiva_email', email);
-    } else {
-        localStorage.removeItem('zertiva_email');
-    }
+function getSessionToken() {
+    return localStorage.getItem('zertiva_session_token');
+}
+
+function getDeviceId() {
+    return localStorage.getItem('zertiva_device_id');
+}
+
+function setSessionData(email, sessionToken, deviceId) {
+    localStorage.setItem('zertiva_email', email);
+    localStorage.setItem('zertiva_session_token', sessionToken);
+    localStorage.setItem('zertiva_device_id', deviceId);
 }
 
 function clearSessionData() {
     localStorage.removeItem('zertiva_email');
+    localStorage.removeItem('zertiva_session_token');
+    localStorage.removeItem('zertiva_device_id');
 }
 
 function isUserLoggedIn() {
-    return getLoggedInEmail() !== null;
+    return getLoggedInEmail() !== null && getSessionToken() !== null;
 }
 
 // ============================================
@@ -114,6 +122,7 @@ function showToast(message, type = 'info', duration = 3000) {
         removeToast(toast);
     }, duration);
     
+    // حفظ timeout للإلغاء
     toast._timeout = timeout;
 }
 
@@ -314,6 +323,89 @@ function showPremiumModal(examTitle) {
 }
 
 // ============================================
+// نافذة انتهاء الجلسة
+// ============================================
+
+function showSessionExpiredModal() {
+    const existing = document.getElementById('sessionExpiredModal');
+    if (existing) existing.remove();
+    
+    const modal = document.createElement('div');
+    modal.id = 'sessionExpiredModal';
+    modal.className = 'zertiva-modal';
+    modal.innerHTML = `
+        <div class="zertiva-modal-content">
+            <div class="modal-icon">🔐</div>
+            <h3 class="modal-title">تم تسجيل الدخول من جهاز آخر</h3>
+            <p class="modal-text">تم تسجيل الدخول إلى هذا الحساب من جهاز آخر.<br>يرجى إدخال البريد الإلكتروني مرة أخرى.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" id="sessionExpiredOkBtn">حسناً</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    setTimeout(() => modal.classList.add('active'), 10);
+    
+    document.getElementById('sessionExpiredOkBtn').onclick = () => {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.remove();
+            clearSessionData();
+            location.reload();
+        }, 300);
+    };
+}
+
+// ============================================
+// الحصول على حالة المستخدم
+// ============================================
+
+async function getUserStatus() {
+    const email = getLoggedInEmail();
+    if (!email) return 'guest';
+    
+    try {
+        const result = await checkUser(email);
+        if (result && result.exists && result.expiry) {
+            const today = new Date().toISOString().slice(0, 10);
+            if (today <= result.expiry) {
+                currentExpiry = result.expiry;
+                return 'premium';
+            } else {
+                return 'free';
+            }
+        }
+        return 'free';
+    } catch (e) {
+        return 'free';
+    }
+}
+
+async function getExpiryDate(email) {
+    try {
+        const result = await checkUser(email);
+        if (result && result.exists && result.expiry) {
+            return result.expiry;
+        }
+        return null;
+    } catch (e) {
+        return null;
+    }
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'غير محدد';
+    try {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return dateString;
+        return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+    } catch(e) {
+        return dateString;
+    }
+}
+
+// ============================================
 // تحديث القائمة المنسدلة للمستخدم
 // ============================================
 
@@ -333,31 +425,26 @@ async function updateProfileDropdown() {
         const oldUpgradeBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldUpgradeBtn) oldUpgradeBtn.remove();
         
-        try {
-            const result = await checkUser(email);
-            const isPremium = result && result.exists && result.isPremium;
-            const expiry = result && result.exists ? result.expiry : null;
-            
-            profileEmail.innerHTML = `📧 ${email}`;
-            
-            if (isPremium && expiry) {
-                const expiryDate = new Date(expiry);
-                const formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
-                profileExpiry.innerHTML = `📅 الصلاحية: حتى ${formattedExpiry}`;
-                profileStatus.innerHTML = `✅ <span style="color: #10b981;">مشترك (Pro)</span>`;
-                if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
-            } else {
-                profileExpiry.innerHTML = `⏰ انتهت الصلاحية`;
-                profileStatus.innerHTML = `📖 <span style="color: #94a3b8;">مجاني</span>`;
-                if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-            }
-            
-            if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
-            if (profileIcon) profileIcon.style.display = 'flex';
-            if (navLoginBtn) navLoginBtn.style.display = 'none';
-        } catch (e) {
-            console.error('Error updating profile:', e);
+        const status = await getUserStatus();
+        const expiry = currentExpiry;
+        
+        profileEmail.innerHTML = `📧 ${email}`;
+        
+        if (status === 'premium' && expiry) {
+            const expiryDate = new Date(expiry);
+            const formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
+            profileExpiry.innerHTML = `📅 الصلاحية: حتى ${formattedExpiry}`;
+            profileStatus.innerHTML = `✅ <span style="color: #10b981;">مشترك (Pro)</span>`;
+            if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
+        } else {
+            profileExpiry.innerHTML = `⏰ انتهت الصلاحية`;
+            profileStatus.innerHTML = `📖 <span style="color: #94a3b8;">مجاني</span>`;
+            if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         }
+        
+        if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
+        if (profileIcon) profileIcon.style.display = 'flex';
+        if (navLoginBtn) navLoginBtn.style.display = 'none';
     } else {
         profileEmail.innerHTML = '👤 غير مسجل';
         profileExpiry.innerHTML = 'الوصول محدود لبعض الامتحانات';
@@ -413,23 +500,32 @@ function hideLoginPopup() {
 }
 
 // ============================================
-// تسجيل الخروج - مبسط
+// تسجيل الخروج
 // ============================================
 
 function logoutUser(showMessage = true) {
+    const email = getLoggedInEmail();
+    if (email) {
+        logoutWithGoogleSheets(email);
+    }
     clearSessionData();
+    sessionChecked = false;
     if (showMessage) {
         showToast('تم تسجيل الخروج بنجاح', 'success', 3000);
     }
     setTimeout(() => location.reload(), 300);
 }
 
+// ============================================
+// نافذة الاشتراك - توجيه إلى subscribe.html
+// ============================================
+
 function showLockedMessage(examTitle) {
     showPremiumModal(examTitle);
 }
 
 // ============================================
-// معالجة تسجيل الدخول - مبسطة جداً ✅
+// معالجة تسجيل الدخول - مع Loading Spinner ✅ معدل
 // ============================================
 
 async function handleLogin() {
@@ -455,45 +551,107 @@ async function handleLogin() {
     }
     
     try {
-        // ✅ تسجيل الدخول
-        const result = await loginWithGoogleSheets(email);
+        let result = await loginWithGoogleSheets(email);
         
-        // ✅ إذا فشل الاتصال
-        if (!result || !result.success) {
-            const errorMsg = result?.message || '⚠️ حدث خطأ غير متوقع';
-            showToast(errorMsg, 'error', 3000);
+        // ✅ التحقق من وجود result
+        if (!result) {
+            showToast('⚠️ لم يتم استلام رد من الخادم', 'error', 3000);
             restoreLoginButton(loginBtn, originalText);
             return;
         }
         
-        // ✅ حفظ البريد الإلكتروني
-        setLoggedInEmail(email);
+        console.log('LOGIN RESULT:', result);
         
-        // ✅ تحديث الواجهة
+        // ✅ معالجة الأخطاء
+        if (!result.success) {
+            // ✅ إذا كان الخطأ متعلق بالجلسة، حاول مرة أخرى
+            if (result.status === 'already_logged_in' || 
+                result.status === 'session_expired' || 
+                result.status === 'already_exists') {
+                
+                // ✅ محاولة تسجيل الدخول مرة أخرى
+                const retryResult = await loginWithGoogleSheets(email);
+                
+                if (retryResult && retryResult.success) {
+                    result = retryResult;
+                } else {
+                    const errorMsg = retryResult?.message || 'تعذر تسجيل الدخول';
+                    showToast('⚠️ ' + errorMsg, 'error', 3000);
+                    restoreLoginButton(loginBtn, originalText);
+                    return;
+                }
+            } else if (result.status === 'expired') {
+                showToast('⏰ انتهت صلاحية اشتراكك.', 'warning', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else if (result.status === 'connection_error') {
+                showToast('⚠️ خطأ في الاتصال. حاول مرة أخرى.', 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else if (result.status === 'user_not_found') {
+                showToast('❌ البريد الإلكتروني غير مسجل.', 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else if (result.status === 'wrong_password') {
+                showToast('❌ كلمة السر غير صحيحة.', 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else if (result.status === 'no_data') {
+                showToast('⚠️ لا توجد بيانات في الورقة.', 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else if (result.status === 'invalid_expiry') {
+                showToast('⚠️ تاريخ الصلاحية غير صحيح.', 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            } else {
+                const errorMsg = result.message || 'حدث خطأ غير متوقع';
+                showToast('⚠️ ' + errorMsg, 'error', 3000);
+                restoreLoginButton(loginBtn, originalText);
+                return;
+            }
+        }
+        
+        // ✅ تخزين بيانات الجلسة
+        if (result.sessionToken) {
+            setSessionData(email, result.sessionToken, getDeviceId());
+        } else {
+            const tempToken = 'temp-' + Date.now() + '-' + Math.random().toString(36).substr(2, 8);
+            setSessionData(email, tempToken, getDeviceId());
+        }
+        
+        sessionChecked = false;
         await updateProfileDropdown();
         hideLoginPopup();
         
-        // ✅ عرض البطاقة
-        const isPremium = result.isPremium || false;
-        const expiry = result.expiry || null;
-        showWelcomeCard(email, isPremium, expiry);
+        // ✅ عرض البطاقة المناسبة
+        const status = await getUserStatus();
+        if (status === 'premium') {
+            showWelcomeCard(email, true, result.expiry);
+        } else {
+            showWelcomeCard(email, false, null);
+        }
         
         // ✅ رسالة نجاح
         showToast(`✅ مرحباً ${email}`, 'success', 3000);
         
-        // ✅ إعادة الزر
+        // ✅ إعادة الزر بعد ظهور الرسالة
         setTimeout(() => {
             restoreLoginButton(loginBtn, originalText);
         }, 500);
         
     } catch (error) {
         console.error('Login Error:', error);
-        showToast('⚠️ حدث خطأ غير متوقع', 'error', 3000);
+        showToast('⚠️ خطأ في الاتصال: ' + error.message, 'error', 3000);
         restoreLoginButton(loginBtn, originalText);
     } finally {
         isLoggingIn = false;
     }
 }
+
+// ============================================
+// دالة مساعدة لإعادة زر تسجيل الدخول
+// ============================================
 
 function restoreLoginButton(loginBtn, originalText) {
     if (loginBtn) {
@@ -583,12 +741,35 @@ function bindAuthEvents() {
 }
 
 // ============================================
-// تهيئة النظام - مبسطة
+// تهيئة النظام
 // ============================================
 
 async function initAuth() {
     bindAuthEvents();
     await updateProfileDropdown();
+    await validateDevice();
+}
+
+async function validateDevice() {
+    const email = getLoggedInEmail();
+    const sessionToken = getSessionToken();
+    
+    if (!email || !sessionToken) return true;
+    if (sessionChecked) return true;
+    
+    try {
+        const result = await checkSession(email, sessionToken);
+        sessionChecked = true;
+        
+        if (result && result.valid) {
+            return true;
+        } else {
+            showSessionExpiredModal();
+            return false;
+        }
+    } catch (error) {
+        return true;
+    }
 }
 
 if (document.readyState === 'loading') {
@@ -618,6 +799,7 @@ document.addEventListener('DOMContentLoaded', function() {
     applyMobileAuthStyles();
 });
 
+window.getUserStatusGlobal = getUserStatus;
 window.getLoggedInEmailGlobal = getLoggedInEmail;
 window.logoutUserGlobal = logoutUser;
 window.showWelcomeCard = showWelcomeCard;
