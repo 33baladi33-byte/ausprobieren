@@ -2,7 +2,7 @@
 // Google Sheets API - نسخة سريعة
 // ============================================
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbyEsS2HpHjdJ9JU5XVXeNcL7cV9zQt0LBhnTpBYzRIu_8Wo2aZMJ65n8PEiQVMIb103GQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzX21B3mii0KemUgNMcPdOk8h2qodT4iUKvfFwP34vuSIyicygddD44FvgzGJx005NN4A/exec';
 
 // ============================================
 // إنشاء معرف فريد للجهاز
