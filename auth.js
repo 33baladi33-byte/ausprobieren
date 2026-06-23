@@ -1,19 +1,17 @@
 /**
- * auth.js - نظام إدارة تسجيل الدخول والجلسات (مبسط ومستقر)
- * ✅ بطاقة ترحيب بسيطة وحديثة
- * ✅ Loading Spinner داخل الزر
- * ✅ Toast Notifications حديثة
+ * auth.js - نظام تسجيل دخول مبسط ومستقر
+ * ✅ بدون Device ID
+ * ✅ بدون Session Token
+ * ✅ Google Sheet هو المصدر الوحيد
  */
 
 const WA_NUMBER = "212687561491";
 const WA_URL = `https://wa.me/${WA_NUMBER}`;
 
-let currentUserStatus = 'guest';
-let currentExpiry = null;
 let isLoggingIn = false;
 
 // ============================================
-// دوال الجلسة (localStorage) - مبسطة
+// دوال الجلسة - مبسطة
 // ============================================
 
 function getLoggedInEmail() {
@@ -37,7 +35,7 @@ function isUserLoggedIn() {
 }
 
 // ============================================
-// Toast Notifications - نظام حديث
+// Toast Notifications
 // ============================================
 
 function showToast(message, type = 'info', duration = 3000) {
@@ -122,7 +120,7 @@ function removeToast(toast) {
 }
 
 // ============================================
-// بطاقة ترحيب بسيطة وحديثة
+// بطاقة ترحيب
 // ============================================
 
 function showWelcomeCard(email, isPremium, expiryDate) {
@@ -294,44 +292,7 @@ function showPremiumModal(examTitle) {
 }
 
 // ============================================
-// الحصول على حالة المستخدم
-// ============================================
-
-async function getUserStatus() {
-    const email = getLoggedInEmail();
-    if (!email) return 'guest';
-    
-    try {
-        const result = await checkUser(email);
-        if (result && result.exists && result.expiry) {
-            const today = new Date().toISOString().slice(0, 10);
-            if (today <= result.expiry) {
-                currentExpiry = result.expiry;
-                return 'premium';
-            } else {
-                return 'free';
-            }
-        }
-        return 'free';
-    } catch (e) {
-        console.error('Error checking user status:', e);
-        return 'free';
-    }
-}
-
-function formatDate(dateString) {
-    if (!dateString) return 'غير محدد';
-    try {
-        const date = new Date(dateString);
-        if (isNaN(date.getTime())) return dateString;
-        return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
-    } catch(e) {
-        return dateString;
-    }
-}
-
-// ============================================
-// تحديث القائمة المنسدلة للمستخدم
+// تحديث القائمة المنسدلة
 // ============================================
 
 async function updateProfileDropdown() {
@@ -350,12 +311,13 @@ async function updateProfileDropdown() {
         const oldUpgradeBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldUpgradeBtn) oldUpgradeBtn.remove();
         
-        const status = await getUserStatus();
-        const expiry = currentExpiry;
+        const result = await checkUser(email);
+        const isPremium = result && result.exists && result.isPremium;
+        const expiry = result && result.exists ? result.expiry : null;
         
         profileEmail.innerHTML = `📧 ${email}`;
         
-        if (status === 'premium' && expiry) {
+        if (isPremium && expiry) {
             const expiryDate = new Date(expiry);
             const formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
             profileExpiry.innerHTML = `📅 الصلاحية: حتى ${formattedExpiry}`;
@@ -425,14 +387,10 @@ function hideLoginPopup() {
 }
 
 // ============================================
-// تسجيل الخروج
+// تسجيل الخروج - مبسط
 // ============================================
 
 function logoutUser(showMessage = true) {
-    const email = getLoggedInEmail();
-    if (email) {
-        logoutWithGoogleSheets(email);
-    }
     clearSessionData();
     if (showMessage) {
         showToast('تم تسجيل الخروج بنجاح', 'success', 3000);
@@ -445,7 +403,7 @@ function showLockedMessage(examTitle) {
 }
 
 // ============================================
-// معالجة تسجيل الدخول - مبسطة ومستقرة ✅
+// معالجة تسجيل الدخول - مبسطة جداً ✅
 // ============================================
 
 async function handleLogin() {
@@ -474,46 +432,25 @@ async function handleLogin() {
         // ✅ تسجيل الدخول
         const result = await loginWithGoogleSheets(email);
         
-        if (!result) {
-            showToast('⚠️ لم يتم استلام رد من الخادم', 'error', 3000);
-            restoreLoginButton(loginBtn, originalText);
-            return;
-        }
-        
-        console.log('LOGIN RESULT:', result);
-        
-        // ✅ معالجة الأخطاء
-        if (!result.success) {
-            // ✅ رسائل خطأ محددة
-            const errorMessages = {
-                'expired': '⏰ انتهت صلاحية اشتراكك.',
-                'connection_error': '⚠️ خطأ في الاتصال. حاول مرة أخرى.',
-                'no_response': '⚠️ لم يتم استلام رد من الخادم.',
-                'server_error': '⚠️ حدث خطأ في الخادم.'
-            };
-            
-            const errorMsg = errorMessages[result.status] || (result.message || '⚠️ حدث خطأ غير متوقع');
+        // ✅ إذا فشل الاتصال
+        if (!result || !result.success) {
+            const errorMsg = result?.message || '⚠️ حدث خطأ غير متوقع';
             showToast(errorMsg, 'error', 3000);
             restoreLoginButton(loginBtn, originalText);
             return;
         }
         
-        // ✅ حفظ البريد الإلكتروني فقط
+        // ✅ حفظ البريد الإلكتروني
         setLoggedInEmail(email);
         
         // ✅ تحديث الواجهة
         await updateProfileDropdown();
         hideLoginPopup();
         
-        // ✅ عرض البطاقة المناسبة
+        // ✅ عرض البطاقة
         const isPremium = result.isPremium || false;
         const expiry = result.expiry || null;
-        
-        if (isPremium) {
-            showWelcomeCard(email, true, expiry);
-        } else {
-            showWelcomeCard(email, false, null);
-        }
+        showWelcomeCard(email, isPremium, expiry);
         
         // ✅ رسالة نجاح
         showToast(`✅ مرحباً ${email}`, 'success', 3000);
@@ -525,7 +462,7 @@ async function handleLogin() {
         
     } catch (error) {
         console.error('Login Error:', error);
-        showToast('⚠️ خطأ في الاتصال: ' + error.message, 'error', 3000);
+        showToast('⚠️ حدث خطأ غير متوقع', 'error', 3000);
         restoreLoginButton(loginBtn, originalText);
     } finally {
         isLoggingIn = false;
@@ -626,7 +563,6 @@ function bindAuthEvents() {
 async function initAuth() {
     bindAuthEvents();
     await updateProfileDropdown();
-    // ✅ تم إزالة validateDevice() تماماً
 }
 
 if (document.readyState === 'loading') {
@@ -656,7 +592,6 @@ document.addEventListener('DOMContentLoaded', function() {
     applyMobileAuthStyles();
 });
 
-window.getUserStatusGlobal = getUserStatus;
 window.getLoggedInEmailGlobal = getLoggedInEmail;
 window.logoutUserGlobal = logoutUser;
 window.showWelcomeCard = showWelcomeCard;
