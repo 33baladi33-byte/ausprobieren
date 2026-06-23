@@ -1,8 +1,8 @@
 // ============================================
-// Google Sheets API Configuration - JSONP Version
+// Google Sheets API - نسخة مبسطة
 // ============================================
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbx5ujTv8GNV1MqISb-zzwa-60CtgramrAaQ-DfyTHS37IAJ7wjYvnI0vpoNLqf9aWoyfw/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwp14kvkAzTvmYEyUzD92AVb4SrzD0os7pl85Ka8ZD_OTLVREl0JGAKrfUX7ANyE3hBOA/exec';
 
 // ============================================
 // دالة JSONP للاتصال بالـ API
@@ -15,23 +15,18 @@ function callJSONP(action, email) {
         
         let url = `${API_URL}?action=${action}&callback=${callbackName}`;
         if (email) url += `&email=${encodeURIComponent(email)}`;
-        
-        // ✅ منع التخزين المؤقت
         url += `&_=${Date.now()}`;
-        
-        console.log(`📡 [${action}] Calling API:`, url);
         
         let isResolved = false;
         
-        // ✅ مهلة 15 ثانية
         const timeout = setTimeout(() => {
             if (!isResolved) {
                 isResolved = true;
                 delete window[callbackName];
                 if (script.parentNode) script.parentNode.removeChild(script);
-                reject(new Error('انتهت مهلة الاتصال بالخادم'));
+                reject(new Error('NETWORK_TIMEOUT'));
             }
-        }, 15000);
+        }, 10000);
         
         window[callbackName] = function(data) {
             if (isResolved) return;
@@ -39,8 +34,6 @@ function callJSONP(action, email) {
             clearTimeout(timeout);
             delete window[callbackName];
             if (script.parentNode) script.parentNode.removeChild(script);
-            
-            console.log(`📥 [${action}] Response:`, data);
             resolve(data);
         };
         
@@ -50,7 +43,7 @@ function callJSONP(action, email) {
             clearTimeout(timeout);
             delete window[callbackName];
             if (script.parentNode) script.parentNode.removeChild(script);
-            reject(new Error('فشل الاتصال بالخادم'));
+            reject(new Error('NETWORK_ERROR'));
         };
         
         document.body.appendChild(script);
@@ -58,13 +51,12 @@ function callJSONP(action, email) {
 }
 
 // ============================================
-// دوال API (مبسطة)
+// دوال API - مبسطة جداً
 // ============================================
 
 // 1. تسجيل الدخول
 async function loginWithGoogleSheets(email) {
     try {
-        console.log('🔑 محاولة تسجيل الدخول:', email);
         const data = await callJSONP('login', email);
         
         if (!data) {
@@ -75,14 +67,20 @@ async function loginWithGoogleSheets(email) {
             };
         }
         
-        console.log('✅ رد تسجيل الدخول:', data);
         return data;
         
     } catch (error) {
-        console.error('❌ خطأ في تسجيل الدخول:', error.message);
+        // ✅ رسالة خطأ واضحة
+        let message = '⚠️ خطأ في الاتصال. تأكد من اتصالك بالإنترنت.';
+        if (error.message === 'NETWORK_TIMEOUT') {
+            message = '⏰ انتهت مهلة الاتصال. حاول مرة أخرى.';
+        } else if (error.message === 'NETWORK_ERROR') {
+            message = '🌐 لا يمكن الاتصال بالخادم. تأكد من اتصالك بالإنترنت.';
+        }
+        
         return {
             success: false,
-            message: 'خطأ في الاتصال: ' + error.message,
+            message: message,
             status: 'connection_error'
         };
     }
@@ -91,43 +89,21 @@ async function loginWithGoogleSheets(email) {
 // 2. التحقق من المستخدم
 async function checkUser(email) {
     try {
-        console.log('👤 التحقق من المستخدم:', email);
         const data = await callJSONP('check', email);
         
         if (!data) {
             return { 
                 success: false, 
-                exists: false,
-                message: 'لم يتم استلام رد من الخادم'
+                exists: false
             };
         }
         
-        console.log('✅ نتيجة التحقق:', data);
         return data;
         
     } catch (error) {
-        console.error('❌ خطأ في التحقق:', error.message);
         return { 
             success: false, 
-            exists: false,
-            message: 'خطأ في الاتصال: ' + error.message
-        };
-    }
-}
-
-// 3. تسجيل الخروج
-async function logoutWithGoogleSheets(email) {
-    try {
-        console.log('🚪 تسجيل الخروج:', email);
-        const data = await callJSONP('logout', email);
-        console.log('✅ نتيجة تسجيل الخروج:', data);
-        return data || { success: true };
-        
-    } catch (error) {
-        console.error('❌ خطأ في تسجيل الخروج:', error.message);
-        return { 
-            success: false, 
-            message: 'خطأ في الاتصال: ' + error.message
+            exists: false
         };
     }
 }
