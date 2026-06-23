@@ -3,7 +3,7 @@
 // ============================================
 
 // ✅ استخدم الرابط الجديد بعد النشر
-const API_URL = 'https://script.google.com/macros/s/AKfycbyIYR9TRgfmRHZXPrWzweCj_LH2nu-RkhgnR_g-EbVEgVHC4iayju9iyly5sT10ZPSwmQ/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbxl6vk9_43SQyGCKOs8aWXCnWhkgRVFxfQs7bxXDQpcXo69zJDW71Wh4nHqCJXIdAjH0g/exec';
 
 // ============================================
 // دالة JSONP - مبسطة
