@@ -1,8 +1,11 @@
 /**
- * auth.js - نظام تسجيل دخول مبسط ومستقر
+ * auth.js - نظام إدارة تسجيل الدخول والجلسات (مبسط ومستقر)
  * ✅ بدون Device ID
  * ✅ بدون Session Token
  * ✅ Google Sheet هو المصدر الوحيد
+ * ✅ بطاقة ترحيب بسيطة وحديثة
+ * ✅ Loading Spinner داخل الزر
+ * ✅ Toast Notifications حديثة
  */
 
 const WA_NUMBER = "212687561491";
@@ -11,7 +14,7 @@ const WA_URL = `https://wa.me/${WA_NUMBER}`;
 let isLoggingIn = false;
 
 // ============================================
-// دوال الجلسة - مبسطة
+// دوال الجلسة (localStorage) - مبسطة
 // ============================================
 
 function getLoggedInEmail() {
@@ -35,13 +38,15 @@ function isUserLoggedIn() {
 }
 
 // ============================================
-// Toast Notifications
+// Toast Notifications - نظام حديث
 // ============================================
 
 function showToast(message, type = 'info', duration = 3000) {
+    // إزالة Toast القديم
     const existing = document.querySelector('.zertiva-center-toast');
     if (existing) existing.remove();
     
+    // إنشاء الحاوية إذا لم تكن موجودة
     let container = document.querySelector('.toast-container');
     if (!container) {
         container = document.createElement('div');
@@ -49,9 +54,11 @@ function showToast(message, type = 'info', duration = 3000) {
         document.body.appendChild(container);
     }
     
+    // إنشاء عنصر Toast
     const toast = document.createElement('div');
     toast.className = `toast-item ${type}`;
     
+    // الأيقونات حسب النوع
     const icons = {
         success: '✅',
         warning: '⚠️',
@@ -66,9 +73,11 @@ function showToast(message, type = 'info', duration = 3000) {
         info: 'معلومات'
     };
     
+    // تقسيم الرسالة إلى عنوان ونص
     let titleText = titles[type] || 'معلومات';
     let messageText = message;
     
+    // إذا كانت الرسالة تحتوي على سطرين، استخدم الأول كعنوان
     const lines = message.split('\n');
     if (lines.length > 1) {
         titleText = lines[0];
@@ -86,18 +95,21 @@ function showToast(message, type = 'info', duration = 3000) {
     
     container.appendChild(toast);
     
+    // إغلاق بالضغط على ×
     const closeBtn = toast.querySelector('.toast-close');
     closeBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         removeToast(toast);
     });
     
+    // إغلاق بالضغط على Toast نفسه
     toast.addEventListener('click', function(e) {
         if (e.target !== closeBtn) {
             removeToast(toast);
         }
     });
     
+    // إغلاق تلقائي
     const timeout = setTimeout(() => {
         removeToast(toast);
     }, duration);
@@ -112,6 +124,7 @@ function removeToast(toast) {
     toast.classList.add('removing');
     setTimeout(() => {
         if (toast.parentNode) toast.parentNode.removeChild(toast);
+        // حذف الحاوية إذا كانت فارغة
         const container = document.querySelector('.toast-container');
         if (container && container.children.length === 0) {
             container.remove();
@@ -120,13 +133,15 @@ function removeToast(toast) {
 }
 
 // ============================================
-// بطاقة ترحيب
+// بطاقة ترحيب بسيطة وحديثة ✅
 // ============================================
 
 function showWelcomeCard(email, isPremium, expiryDate) {
+    // إزالة البطاقة القديمة إن وجدت
     const existing = document.querySelector('.welcome-overlay');
     if (existing) existing.remove();
     
+    // تنسيق التاريخ بالصيغة المطلوبة: DD-MM-YYYY
     function formatDateSimple(dateString) {
         if (!dateString) return 'غير محدد';
         try {
@@ -147,6 +162,7 @@ function showWelcomeCard(email, isPremium, expiryDate) {
     const card = document.createElement('div');
     card.className = 'welcome-card';
     
+    // ===== بناء المحتوى =====
     let statusText = '';
     let statusColor = '';
     let expiryText = '';
@@ -155,18 +171,19 @@ function showWelcomeCard(email, isPremium, expiryDate) {
     
     if (isPremium && expiryDate) {
         statusText = '✅ الحساب مفعل';
-        statusColor = '#22c55e';
+        statusColor = '#22c55e'; // أخضر
         expiryText = `📅 صالح حتى ${formatDateSimple(expiryDate)}`;
         buttonText = '🚀 ابدأ المراجعة';
         buttonAction = 'review';
     } else {
         statusText = '📖 حساب مجاني';
-        statusColor = '#38bdf8';
+        statusColor = '#38bdf8'; // أزرق
         expiryText = '📚 متاح بعض الامتحانات';
         buttonText = '✨ اشترك للوصول الكامل';
         buttonAction = 'subscribe';
     }
     
+    // ===== بناء البطاقة الجديدة =====
     card.innerHTML = `
         <div style="display: flex; flex-direction: column; gap: 8px;">
             <div style="color: #38bdf8; font-size: 0.85rem; font-weight: 500; word-break: break-all; direction: ltr; text-align: left;">
@@ -200,16 +217,19 @@ function showWelcomeCard(email, isPremium, expiryDate) {
     overlay.appendChild(card);
     document.body.appendChild(overlay);
     
+    // إظهار البطاقة مع Animation
     requestAnimationFrame(() => {
         overlay.classList.add('active');
     });
     
+    // إغلاق عند النقر خارج البطاقة
     overlay.addEventListener('click', function(e) {
         if (e.target === overlay) {
             closeWelcomeCard(overlay);
         }
     });
     
+    // زر البطاقة
     const subscribeBtn = document.getElementById('welcomeSubscribeBtn');
     if (subscribeBtn) {
         subscribeBtn.addEventListener('click', function(e) {
@@ -217,8 +237,10 @@ function showWelcomeCard(email, isPremium, expiryDate) {
             closeWelcomeCard(overlay);
             
             if (buttonAction === 'review') {
+                // المستخدم Premium -> يذهب إلى قائمة الامتحانات
                 window.location.href = 'index.html#list';
             } else {
+                // المستخدم مجاني -> يذهب إلى صفحة الاشتراك
                 window.location.href = 'subscribe.html';
             }
         });
@@ -292,7 +314,7 @@ function showPremiumModal(examTitle) {
 }
 
 // ============================================
-// تحديث القائمة المنسدلة
+// تحديث القائمة المنسدلة للمستخدم
 // ============================================
 
 async function updateProfileDropdown() {
@@ -311,27 +333,31 @@ async function updateProfileDropdown() {
         const oldUpgradeBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldUpgradeBtn) oldUpgradeBtn.remove();
         
-        const result = await checkUser(email);
-        const isPremium = result && result.exists && result.isPremium;
-        const expiry = result && result.exists ? result.expiry : null;
-        
-        profileEmail.innerHTML = `📧 ${email}`;
-        
-        if (isPremium && expiry) {
-            const expiryDate = new Date(expiry);
-            const formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
-            profileExpiry.innerHTML = `📅 الصلاحية: حتى ${formattedExpiry}`;
-            profileStatus.innerHTML = `✅ <span style="color: #10b981;">مشترك (Pro)</span>`;
-            if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
-        } else {
-            profileExpiry.innerHTML = `⏰ انتهت الصلاحية`;
-            profileStatus.innerHTML = `📖 <span style="color: #94a3b8;">مجاني</span>`;
-            if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+        try {
+            const result = await checkUser(email);
+            const isPremium = result && result.exists && result.isPremium;
+            const expiry = result && result.exists ? result.expiry : null;
+            
+            profileEmail.innerHTML = `📧 ${email}`;
+            
+            if (isPremium && expiry) {
+                const expiryDate = new Date(expiry);
+                const formattedExpiry = `${expiryDate.getDate()}/${expiryDate.getMonth()+1}/${expiryDate.getFullYear()}`;
+                profileExpiry.innerHTML = `📅 الصلاحية: حتى ${formattedExpiry}`;
+                profileStatus.innerHTML = `✅ <span style="color: #10b981;">مشترك (Pro)</span>`;
+                if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
+            } else {
+                profileExpiry.innerHTML = `⏰ انتهت الصلاحية`;
+                profileStatus.innerHTML = `📖 <span style="color: #94a3b8;">مجاني</span>`;
+                if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+            }
+            
+            if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
+            if (profileIcon) profileIcon.style.display = 'flex';
+            if (navLoginBtn) navLoginBtn.style.display = 'none';
+        } catch (e) {
+            console.error('Error updating profile:', e);
         }
-        
-        if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
-        if (profileIcon) profileIcon.style.display = 'flex';
-        if (navLoginBtn) navLoginBtn.style.display = 'none';
     } else {
         profileEmail.innerHTML = '👤 غير مسجل';
         profileExpiry.innerHTML = 'الوصول محدود لبعض الامتحانات';
