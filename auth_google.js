@@ -2,7 +2,7 @@
 // Google Sheets API - نسخة مبسطة
 // ============================================
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbwp14kvkAzTvmYEyUzD92AVb4SrzD0os7pl85Ka8ZD_OTLVREl0JGAKrfUX7ANyE3hBOA/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbz7MYOR4XG_6lFQSEWMC6nfPv8JYGNtouNV-GXK5QPiu0-FzJ6vtieDMEFVWOakJmOs3w/exec';
 
 // ============================================
 // دالة JSONP للاتصال بالـ API
