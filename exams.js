@@ -1,1 +1,1617 @@
-const a3_0x2b8255=a3_0x5499;(function(_0x3450af,_0x1402a0){const _0x33ed98=a3_0x5499,_0xe6da4c=_0x3450af();while(!![]){try{const _0x9d893=parseInt(_0x33ed98(0x289))/0x1*(-parseInt(_0x33ed98(0x15c))/0x2)+-parseInt(_0x33ed98(0x17b))/0x3+parseInt(_0x33ed98(0x30f))/0x4*(parseInt(_0x33ed98(0x385))/0x5)+-parseInt(_0x33ed98(0x2fd))/0x6*(-parseInt(_0x33ed98(0x155))/0x7)+-parseInt(_0x33ed98(0x98))/0x8*(parseInt(_0x33ed98(0x4f4))/0x9)+parseInt(_0x33ed98(0x4ff))/0xa+parseInt(_0x33ed98(0x478))/0xb*(-parseInt(_0x33ed98(0x363))/0xc);if(_0x9d893===_0x1402a0)break;else _0xe6da4c['push'](_0xe6da4c['shift']());}catch(_0x570c83){_0xe6da4c['push'](_0xe6da4c['shift']());}}}(a3_0x40ea,0x64f10));const teile=[{'id':0x1,'name':'Hören\x201','container':a3_0x2b8255(0x2d2),'skill':'hoeren1'},{'id':0x2,'name':a3_0x2b8255(0x305),'container':a3_0x2b8255(0x1a5),'skill':a3_0x2b8255(0x1a5)},{'id':0x3,'name':'Hören\x203','container':a3_0x2b8255(0x409),'skill':a3_0x2b8255(0x409)},{'id':0x4,'name':a3_0x2b8255(0x36c),'container':a3_0x2b8255(0x1a6),'skill':'lesen1'},{'id':0x5,'name':a3_0x2b8255(0x2a5),'container':a3_0x2b8255(0x1bd),'skill':a3_0x2b8255(0x18a)},{'id':0x6,'name':'Lesen\x203','container':'teil3','skill':a3_0x2b8255(0x345)},{'id':0x7,'name':a3_0x2b8255(0x491),'container':a3_0x2b8255(0x35b),'skill':a3_0x2b8255(0x35b)},{'id':0x8,'name':'Sprach\x202','container':'sprach2','skill':a3_0x2b8255(0x344)},{'id':0x9,'name':a3_0x2b8255(0x1d0),'container':a3_0x2b8255(0x390),'skill':a3_0x2b8255(0x390)},{'id':0xa,'name':a3_0x2b8255(0x2e8),'container':'mündlich','skill':'mündlich'},{'id':0xb,'name':'Tipps','container':a3_0x2b8255(0x109),'skill':a3_0x2b8255(0x109)}];function saveExamResult(_0x1d3650,_0x3edc36,_0x57835b){const _0xa92d2d=a3_0x2b8255,_0x583cb8={'cRxjU':function(_0x4695ed,_0x2c4564,_0xbbb0ad){return _0x4695ed(_0x2c4564,_0xbbb0ad);},'iLjDs':_0xa92d2d(0xfc),'tRZFs':function(_0x254f97,_0x4995e5){return _0x254f97(_0x4995e5);},'BQCzv':function(_0x437c8b,_0x5023c9){return _0x437c8b===_0x5023c9;},'bFGcy':_0xa92d2d(0x1c3),'ScPDF':'iVASu','aTmOW':_0xa92d2d(0x119)};try{if(_0x583cb8['BQCzv'](_0x583cb8[_0xa92d2d(0x1d9)],_0x583cb8[_0xa92d2d(0x4d8)])){const _0x39a0b8=_0x17d338[_0xa92d2d(0xd1)](_0x295a22=>_0x295a22[_0xa92d2d(0x108)]===_0xa92d2d(0x2d2));_0x39a0b8?_0x583cb8[_0xa92d2d(0x280)](_0xd53ebc,_0x39a0b8['skill'],_0x39a0b8['name']):_0x7a329e['innerHTML']=_0x583cb8[_0xa92d2d(0x2a8)];}else{const _0x5c44cc=_0xa92d2d(0xf8)+_0x1d3650+'_'+_0x3edc36;localStorage['setItem'](_0x5c44cc,_0x57835b[_0xa92d2d(0x3c2)]()),console['log'](_0xa92d2d(0xbd)+_0x57835b+_0xa92d2d(0x4c5)+_0x1d3650+'\x20'+_0x3edc36);}}catch(_0x408f1c){_0x583cb8[_0xa92d2d(0x33c)](_0xa92d2d(0x90),_0x583cb8[_0xa92d2d(0x1ec)])?_0x583cb8[_0xa92d2d(0xec)](_0x4fd6af,_0x232f8b[_0xa92d2d(0x215)]||[]):console[_0xa92d2d(0x1da)](_0xa92d2d(0x2bc),_0x408f1c);}}function getExamResult(_0x5587b5,_0x403dd4){const _0x4a6b9b=a3_0x2b8255,_0xf69b16={'jHUFU':function(_0x52e74f,_0x4898c9){return _0x52e74f(_0x4898c9);},'mfBTx':_0x4a6b9b(0x311)};try{const _0x204f45='exam_result_'+_0x5587b5+'_'+_0x403dd4,_0x10d8eb=localStorage[_0x4a6b9b(0x335)](_0x204f45);return _0x10d8eb?_0xf69b16['jHUFU'](parseFloat,_0x10d8eb):null;}catch(_0xdca525){return console['error'](_0xf69b16[_0x4a6b9b(0x2b6)],_0xdca525),null;}}function getResultColor(_0x1ba89d){const _0x2fb1be=a3_0x2b8255,_0x279d3c={'gBfTh':function(_0x61d458,_0x4976ad){return _0x61d458===_0x4976ad;},'FAtlC':_0x2fb1be(0x2d8),'RYkFm':function(_0x1c858d,_0x4cc7d9){return _0x1c858d>=_0x4cc7d9;},'XeZNH':_0x2fb1be(0x495),'eMcwD':'#adb5bd'};if(_0x279d3c[_0x2fb1be(0x24d)](_0x1ba89d,0x19))return _0x279d3c['FAtlC'];if(_0x279d3c['RYkFm'](_0x1ba89d,0xf))return _0x279d3c[_0x2fb1be(0x487)];return _0x279d3c[_0x2fb1be(0x111)];}function createResultBadge(_0x16788d){const _0x1ef044=a3_0x2b8255,_0xa30dcb={'PbACf':function(_0x3947f,_0x5bb302){return _0x3947f===_0x5bb302;},'mjZvy':_0x1ef044(0x3ea),'AMxWu':function(_0x2e1aec,_0x27de18){return _0x2e1aec<=_0x27de18;},'RYgtd':'11px','BNQqv':_0x1ef044(0x1ea),'AQFze':'3px\x208px','YktbN':function(_0x1243a1,_0x12ad42){return _0x1243a1(_0x12ad42);},'EtNaL':_0x1ef044(0x2a4),'ODWtg':_0x1ef044(0x521)};if(_0xa30dcb[_0x1ef044(0xad)](_0x16788d,null))return null;const _0x3bb98e=document[_0x1ef044(0xfd)](_0xa30dcb['mjZvy']);_0x3bb98e[_0x1ef044(0x51f)]='exam-result-badge',_0x3bb98e[_0x1ef044(0x17e)]=_0x16788d+'\x20/\x2025';const _0x547746=_0xa30dcb['AMxWu'](window[_0x1ef044(0x19c)],0x300);return _0x3bb98e['style']['cssText']=_0x1ef044(0x2c9)+(_0x547746?_0x1ef044(0xe9):_0xa30dcb[_0x1ef044(0x249)])+_0x1ef044(0x283)+(_0x547746?_0xa30dcb['BNQqv']:_0xa30dcb[_0x1ef044(0x28f)])+';\x0a\x20\x20\x20\x20border-radius:\x2020px;\x0a\x20\x20\x20\x20color:\x20white;\x0a\x20\x20\x20\x20background-color:\x20'+_0xa30dcb[_0x1ef044(0x4fd)](getResultColor,_0x16788d)+';\x0a\x20\x20\x20\x20margin-left:\x208px;\x0a\x20\x20\x20\x20display:\x20inline-block;\x0a\x20\x20\x20\x20min-width:\x20'+(_0x547746?_0xa30dcb['EtNaL']:_0xa30dcb[_0x1ef044(0x16c)])+_0x1ef044(0xf6),_0x3bb98e;}function showLockedMessage(_0x5ba45b){const _0x4841ae=a3_0x2b8255,_0x22a340={'xBvBQ':'list','xWWYE':_0x4841ae(0xea),'vJQNz':function(_0x2d9f07){return _0x2d9f07();},'ZepZz':function(_0x20b653,_0xa859f9,_0xea5cdd){return _0x20b653(_0xa859f9,_0xea5cdd);},'pAyaY':_0x4841ae(0x4f3),'PFKeM':function(_0x1426b8,_0x243319){return _0x1426b8===_0x243319;},'bjiKu':'JWNld','nujCq':_0x4841ae(0x228)};if(typeof window[_0x4841ae(0x317)]===_0x22a340[_0x4841ae(0x36e)]){if(_0x22a340[_0x4841ae(0x2c1)](_0x22a340[_0x4841ae(0x1d6)],_0x4841ae(0x1b2))){const _0x3f2f58={'ITYaf':_0x22a340[_0x4841ae(0x2bb)],'dWgke':_0x22a340[_0x4841ae(0x352)]};_0x22a340[_0x4841ae(0x436)](_0x2c57a8),_0x22a340[_0x4841ae(0x469)](_0xb9dafd,function(){const _0x259995=_0x4841ae,_0x7b6cb2=_0x4f1064[_0x259995(0xd1)](_0x15810e=>_0x15810e[_0x259995(0x108)]===_0x259995(0x2d2));_0x7b6cb2&&_0x5b87dd[_0x259995(0x19d)](_0x3f2f58[_0x259995(0xa3)])[_0x259995(0x421)]['contains'](_0x3f2f58['dWgke'])&&_0x2029a3(_0x7b6cb2['skill'],_0x7b6cb2[_0x259995(0x47a)]);},0x96);}else window['showPremiumModal'](_0x5ba45b);}else window[_0x4841ae(0x243)][_0x4841ae(0x3fb)]=_0x22a340[_0x4841ae(0xc2)];}let currentExamData=null,currentSkill=a3_0x2b8255(0xd0),currentExamId=null,currentExamsList=[],currentMündlichPart=0x2,userStatusCache=null,lastStatusCheck=0x0;function a3_0x40ea(){const _0x4070b7=['rgLLifjLAxnLigLTifnJAgXHzNDHz2vU','CMDIysGYntuSmJu1ldi1nsWWlJK1kq','EfDxwuu','y1n6BvG','BwnjBwu','qxnsr2m','tgfJAgvUihvUzcbhzxn1BMrOzwL0','zurZrhO','qM9UyM9UCW','cIaGicbIywnRz3jVDw5KoIaJzJHMowzHoWOGicaGyM9YzgvYlxjHzgL1CZOGmtzWEdSkicaGihbHzgrPBMC6idiWChG7cIaGicbTyxjNAw4TyM90Dg9ToIaYmhb4oWOGicaGyM9YzgvYoIaXChGGC29SAwqGi2uWztbLmdSkicaGigjVEc1ZAgfKB3C6idaGmNb4idHWEcbYz2jHkdaSmcWWldaUmduPoWOGia','C2TPBgXqyxrO','C3bYywnOmq','sw0Gs2f0ywXVzYbLAw5LCYbcDwnODMvYC2fUzhm','y29YCMvJDc1HBNn3zxiTy2fYza','phn0CM9UzZ4','zxHHBtC1lMPZB24','Cfj3AKO','AK96vKG','uhjVzMvZC29Yifn0zwLUzxi','otK5mdyWquHMChzt','vKDTDwy','EeDtyKm','uxnOvgy','BgLZDa','rNjHDsbkW7XYz2vUCW','qw50AwjPB3rPA2eG4OctieDPyNqGzxmGqwX0zxjUyxrPDMvUpW','zxHHBtCWlMPZB24','yNv0Dg9U','tgvZzw4Gmq','mxb4ihnVBgLKicnLmMu4zJa','Cef5yvK','z2XOsNi','vMvYCgfJA3vUz2vUigLTifn1CgvYBwfYA3q','zKzAtgm','zxHHBte0lMPZB24','D2PLC0y','D3DTt24','s29ZBwv0AwSTu2HVCa','u3r1zgvUDgvUCgfYDhKGAw4GrNjHBMTYzwLJAcaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','ChjLBwL1Bs1IywrNzq','ywrKrxzLBNrmAxn0zw5LCG','z2v0qxr0CMLIDxrL','mxb4ihnVBgLKicnfmKu4rJa','u2vOCIbNzwvOCNrLCIbizxjYierYlIbnB29ZyMvYz2vYicJzHDI52k/zHcK','shLmswm','s0rNEem','r2vSza','zgzLvgO','zLntCg4','A2vLs3a','twfUkg4PigTVy2H0ihnLBgjZDa','qMLIBgLVDgHLAYaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','wu9Kuum','nvLQyMnbAq','zxHHBtm1lMPZB24','CNbby1O','Bhn3Bvi','uhjVzMvZC29Yifn0zwLUzxiGke1PDhrLBcK','2ytyPYdzITMi2kZyRYdzHTI1','yujACei','rgfZieDLC2nOW6rMDa','r2fUENrHz2vZyxvZzMX1zW','zM9YrwfJAa','2ylyR9MfinMg2yhyS9MdinMi2kRzG9Me2yuG2lNzHIdzHDMi2lBzInI5inIN2k7yQTIX2kRzHW','C2nOCMvPyMvU','rgfZiezHAhjYywqGknMf2lNyR9Mekq','D0LNrfu','BhHXzMq','s3jPC3rHicJzHDI52k/zHcK','4PQG77IpinIN2ytyP9Mf2kRyRDIN2yyGiG','zxHHBtC5lMPZB24','s3v0zgS','yMfJA2DYB3vUzenVBg9Y','swHYzw4GrwX0zxjUihP1CIbtAwXIzxjOB2nOEMvPDa','rxHdwxK','uMvUB3zPzxj1BMDZA3vYCW','serlqLm','D3jVBMCTyw5ZD2vYlwnHCMq','BLzrAMi','u1PSzKW','rgvYiejHDq','m3W0Fdf8mNWW','yxbWzw5Kq2HPBgq','t3jLwva','uMvPC2vIW7XYBYbtB25Uzw5Zy2HLAw4','rMLZy2HLihnPBMqGC2nOBgf1zxiSigfSCYb3AxiGzgvUA2vU','8j+tMIbmzxnLBIbuzwLSide6','rxbeu2i','y3L4t1a','z25WDgq','mtaWjq','BvHeuuu','tgjgvK0','zxHHBti3lMPZB24','vu1iwxm','rNbzBKe','vM9Tie1HCMT0C3rHBMqGENvTigvPz2vUzw4Gr2vZy2JdPgz0','u2vOCIbNzwvOCNrLiezYyxuGtwvSy2HPB3i','rgLLifldVgnRA2vOCIbKzxmGtMfJAhr6DwDZ','B3blDw0','zuvOr0u','wNDLAxnWCMfJAgLNA2vPDcbIzwKGs2LUzgvYBG','rMvYBNnLAgvUig1Hy2H0ieTPBMrLCIbKDw1T','BM93','swPirLa','tgLTB25Hzgu','zxHHBtiXlMPZB24','q2TWC0O','rfrmELq','qxvZyMLSzhvUzYbTAxqGW7XIzxiGmZa','BwHstfO','u2vOCIbNzwvOCNrLiezYyxuGr29YB25ZA2e','ugHXBNi','rgLLifDLDhrLCMXHz2uGAw4GzgvUiefSCgvU','Dg9tDhjPBMC','zgf0ys8','i0jgqZzena','zxHHBteUANnVBG','ANLUqxm','yKDwruW','AMDtD1m','zxHHBtG2lMPZB24','pc9KAxy+cIaGicaGicaGica8zgL2ihn0EwXLpsjMB250lxnPEMu6idaUodvYzw07ignVBg9YoIaJnMm3ytG5oYbTyxjNAw46ideYChGGmdSIpG','rwHYzw5HBxrZicHnAxr0zwWP','sgvYCIbty2HLCMvY','shjJyMi','qwXWzw4GknIN2ytyQTI52k/zITMeideP','B0T4Auu','sNvNzw5KiezVCNnJAgvY','v3HLAuG','AwLYs28','vw50zxjZDmo8DhP1BMCGAw4Gtwf0AgvTyxrPAW','u2nOW7zUAgvPDhnVCgvYyxrPB25LBIbIzwKGtwLUzgvYASoKAhjPz2vU','rw5NywDLBwvUDcbMW7XYieP1z2vUzgXPy2HL','uePKvLm','zxHHBtmUANnVBG','yufcqvy','yMXVy2S','r2fYDgvUyMf1','v29OBM1VyMLSicJzHDMi2kFyTTMk2lKG2kRySDMd2yRyPYK','2ypzITMb2kFyTcdyQTMg2kZyRsdyQnIV2ypyP9IH','B3bHy2L0Eq','CgfYDhm','u3rYyCoFzw5RAw5KzxiGlsbeAwuGs2LUzgvYicHlAwrZksaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','yufjB0e','BLbVzvi','tgLLyMvYieLNB3i','yNvQrKW','r0juBeG','zxHHBty4lMPZB24','Bg9N','uhzJz1O','txvZAwTMzxn0AxzHBhm','B25TB3vZzwvUDgvY','C3bHBG','qxbHCNrTzw50luHHDxm','sgfSBg8GtwfYAwe','rgvYieH1BMqGywXZigLUDgvSBgLNzw50zxmGv2vZzw4','BCo8BMrSAwnOmG','A0f2z0C','zxHHBtqZlMPZB24','oWOGicaGicbIB3jKzxi6ig5VBMu7cIaGicaGihbHzgrPBMC6idHWEcaYmhb4oWOGicaGicbIB3jKzxiTCMfKAxvZoIaZmhb4oWOGicaGicbJDxjZB3i6ihbVAw50zxi7cIaGicaGigzVBNqTC2L6ztOGmtrWEdSkicaGicaGzM9UDc13zwLNAhq6iduWmdSkicaGicaGDhjHBNnPDgLVBJOGywXSidaUmNm7cIaGica','Dgv4Da','rSo8CIbLAw4Gs29UEMvYDcaOAw4GzgvYigDHBNPLBIbtDgfKDcK','yM9YzgvY','B0H5Ew8','tKj4CM0','zgLHBg9Nq29UDgvUDa','txvZAwTPBNn0CNvTzw50zsaO2yxyUDIV2yqP','zxHHBtq0lMPZB24','zKrOvKy','AhjLzG','v2v0DgvYigLUigrLBIbbBhbLBIaOtwL0DgvSkq','u2vOCIbNzwvOCNrLCIbizxjYie1HCNrPBMKGknMf2lNyR9Mekq','twvLCMvZA8o8C3rLBIaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','rLnXD2C','cIaGicaGigjHy2TNCM91BMq6ia','zxHHBtiWlMPZB24','shD0AwC','DgXvB3y','sw5ZzwT0zw4','zxHHBtu0lMPZB24','rxjKyMvIzw4','s2LUzgvYihvUzcbty2H1BgvU','zxHHBtyWlMPZB24','Ag9LCMvUmW','sgvYCIbhyxnZzxiGDw5KiezYyxuGsMfUA2u','C3bSAxq','rgv1DhnJAgXHBMqG4OctigvPBIbqyxjHzgLLCYbMW7XYieTPBMrLCJ8GknMf2lNyR9MeidiP','sw4GuMf1BsbdmJm','rNjHDsbqzxnPBMeGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','EvbfAfy','iZjJm2u2nG','r3jVW59YyxvTySo8CM9Z','s1HzufK','ufn2zuW','t01MAM0','AMLMrK4','i0zgrKzgrG','pc9KAxy+cIaGicaGicaGica8zgL2ihn0EwXLpsjIywnRz3jVDw5KoIaJzJHMywzJoYbWywrKAw5NoIaXmNb4oYbIB3jKzxiTCMfKAxvZoIaXmNb4oYbMB250lxnPEMu6idaUohjLBtSGy29SB3i6icmYyZnLnJy7igXPBMuTAgvPz2H0oIaXlJu7iJ4kicaGicaGicaGicaGpgrPDIbZDhLSzt0IzM9UDc13zwLNAhq6idyWmdSGy29SB3i6icm0ytzMytu7ig1HCMDPBI1IB3r0B206idzWEdSGzM9UDc1ZAxPLoIaWlJC1CMvToYi+8j+tIYdzHDIR2kFzHdO8l2rPDJ4kicaGicaGicaGicaGpgrPDJ4','u2nOBgfMENvN','DgL0Bgu','ugfYDhLZzxj2AwnL','CNDWrgq','rgLLifrVy2H0zxiGzwLUzxiGqMvRyw5UDgvUihDPCMqGDMLLCIbkywHYzsbHBhq','Bg9Hze1HDgnOAw5NrxHHBq','cIaGicaGicaGica8l2rPDJ4kicaGicaGica8l2rPDJ4kicaGicaG','qMfKzxPPBw1LCIbYzw5VDMLLCMvU','zxHHBti0lMPZB24','y2XHC3nmAxn0','vwDJA0G','zxHHBteZlMPZB24','zxHHBtiUANnVBG','r2fUENrHz3nZy2H1BguG4OctifbYBYb1BMqGq29UDhjH','txLUs2u','sNL5zu4','yLLyC3K','tgLLyMuGq2XHCMe','tCo8BMrSAwnOic0GvgvPBcaYipcFL6pVUi8','r2Lrzgq','CfbVsxq','sM1uCKO','mZvWEa','sMP0BwC','sw0GqxvNDxn0','rMfYyMvU','qKDctwe','AuHTvgS','zLbrEKS','z1LyDNq','DKPrtNO','8j+sRsdyP9Me2lhyO9MkicHnzwLUDw5Nkq','uhjVyMXLBwZdTNn1BMC','8j+xO++4JYbnW7XUzgXPy2GGvgvPBcaXoG','AMHtEee','vgvPBcaZia','DLL1Du8','CgfYDg5LCLf1zxn0Aw9UCW','BNDZDeW','rM9Zq0C','wKfAvvu','ufrltuu','rgLLifrvierYzxnKzw4','sw0Gu8o8zgvUierLDxrZy2HSyw5KCYaOCMvNBMvUkq','u2LUzcblBgfZC2vUzMfOCNrLBIbZAw5UDM9SBd8','Cwz4uvG','C3bLywTLCG','rgLLiezHAhjYywr0B3vYzw4GDM9UiejLCMXPBIaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','svzes2K','rNjHDsblAwrKyxiGmW','tgLLyMvZz3ldVmoFzsbHDxmGzgvYieVdVgHSDhj1AguGknMf2lNyR9Mekq','zxHHBtu2lMPZB24','8j+sOsbuAxbZoG','inIZ2yRyQTMfinIL2lByP9Mb2kRzHYdzGTIX2yRyQnIN2ySU','twfUAxb1BgLLCNrLiejPBgrLCG','BCo8BMrSAwnOmq','BCo8BMrSAwnOmW','tMfKAw5L','Dg9gAxHLza','pgrPDIbJBgfZCZ0IAxrLBsiGC3r5Bgu9iNrLEhqTywXPz246y2vUDgvYoYbJB2XVCJOJotK5oYi+4PQG77IpinMe2kCG2kRzInIS2k8G2kFzHDIQ2k3yP9Mg2kFyQIdzHDIQ2kFyRDIPinIT2kFzHnMk2kFzIYdzGDMkinMh2ldyPYdyP9Me2kZySTIHpc9KAxy+','uMfKAw8Gs29UEMvYDa','s3jPC3rH','vhjHDw1MCMf1ihvUzcbuCMf1Bw1HBM4Gz2vZDwnODa','zgL2','rgPcsem','BMTLAe8','r2fYDgvUyxvZC3rLBgX1BMCGs8o2r2eGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','y29UDgfPBNm','suL3ueu','C2f2zuv4yw1szxn1BhrhBg9IywW','rgLLief1C2jPBgr1BMCGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','zxjMywHYDw5N','wKflAeK','u1nss28','twnIEfC','sw0GuMvZDgf1CMfUDa','qNzfANq','uML0y3y','vgvHBwfYyMvPDcbHBhmGu2nOBmo8C3nLBcb6Dw0GrxjMB2XNicJzHDI52k/zHcK','rgLLierLDxrZy2HLBIbTywnOzw4','v0Pnrxi','wMvWwNO','D1b6zLG','Aw0GrNjHBMTMDxj0zxiGwM9VicJzHDMi2kFyTTMk2lKG2kRySDMd2yRyPYK','i2rLztjLoa','yMfJA1rVtgLZDej0BG','v2LLieHHBMrZy2HYAwz0ihDPzwrLCIbJB29SihDPCMqGknMf2lNyR9Mekq','y2HLy2STyNrU','zxHHBs10AxrSzq','pgrPDIbZDhLSzt0IzM9UDc1ZAxPLoIaWlJC1CMvToYbJB2XVCJOGiZjJm2u2nJSGBwfYz2LUlwjVDhrVBtOGnNb4oYi+8j+tJca','thvdD0S','wgvvBfa','AKjytuq','svvRzNy','Bwv0Ag9KB2XVz3K','uwrhr2u','mZndy2PSqvm','twhdN2DLC2nOBMvPzgvYDcbUywnOiejVzhLZy2fUBMLUzYaO2yxyUDIV2yqP','BMfTzq','tCo8BMrSAwnOic0GvgvPBcaXipcFK5y','CxvLC3rPB24TDgv4Da','u3bPzwXL','qxv0BYbNzxDPBM5LBIaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','iZrHnMzHnq','ExP1sgO','v2vYihbHCMT0lcbTDxnZihPHAgXLBIaO2yxyUDIV2yqP','EfPMAfi','DuzxExC','ueHMq3a','wKjtuum','CgHHC2uX','wgvAtKG','twzrAhu','D2TdELK','v3Hqy1i','rvLszw8','zM9VDgvYtwvZC2fNzq','pgXPihn0EwXLpsjIywnRz3jVDw5KoIaJzMzMzMzMoYbWywrKAw5NoIaXmhb4ide0ChG7ig1HCMDPBI1IB3r0B206idHWEdSGyM9YzgvYlxjHzgL1CZOGmtjWEdSGyM9YzgvYlxjPz2H0oIaYChGGC29SAwqGi2nIzdvLmtSIpJXZCgfUihn0EwXLpsjMB250lxDLAwDODdOGnJaWoYbJB2XVCJOGiZrHnMzHntSIpG','rMfOCNnJAhvSzq','vgHVBwfZ','r0Xkvwi','u3bYywnOide','rgfZifnJAgLJA3nHBcbKzxmGqNjHDw5IW6rYzw4','A2zNyuy','zxHHBtyYlMPZB24','iZi4ytC0nq','pgXPihn0EwXLpsjMB250lxnPEMu6idaUohjLBtSGy29SB3i6icm1yty4nZq7ig1HCMDPBI1IB3r0B206idzWEdSGCgfKzgLUzY1YAwDODdOGmtjWEdSGCg9ZAxrPB246ihjLBgf0AxzLoYi+4OcIia','D1P1zeO','rfrSBhC','zxHHBtmYlMPZB24','zxHHBtmXlMPZB24','zxHHBte1lMPZB24','twvYB24GtwfRzwjH','v2LLihP3zwKGvvmTvgvLBMfNzxiGtwLSBgLVBSoKCMuGD3vYzgvU','rSo8CIbLAw4Gs29UEMvYDcaOqNvZigDYyxrPCYK','zxHHBteWlMPZB24','wuz2qvO','svfQzxy','rLjfsvPfsvrcquqGtuvfuKvtuKfvu0niru4','z3nYwxa','rgLLihrZy2HLy2HPC2nOzsbtDgfKDcbqAwXZzw4GknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','zxHHBtyUANnVBG','yvvdzg0','sg9JAgjLz2fIDguGs2LUzgvYiokaKYbtCgv6AwfSC2nODwXLBIbVzgvYieLUDgvNCMf0Aw9U','DhjHBNnMB3jT','qwXWzw4GknIN2ytyQTI52k/zITMeidiP','DxfhCve','cIaGicaGigjHy2TNCM91BMq6icnMogy5zMe7cIaGicaGigjVCMrLCI1YywrPDxm6ide2ChG7cIaGicaGihbHzgrPBMC6idiWChG7cIaGicaGig1HCMDPBI1IB3r0B206idiWChG7cIaGicaGigjVCMrLCI1YAwDODdOGnhb4ihnVBgLKicmYoge3ndu7cIaGicaGigjVCMrLCI1Szwz0oIaXChGGC29SAwqGi2uWztbLmdSkicaGicaGyM9YzgvYlxrVCdOGmxb4ihnVBgLKicnLmguWzta7cIaGicaGigjVCMrLCI1IB3r0B206idfWEcbZB2XPzcaJztbLmguWoWOGicaGicbIB3GTC2HHzg93oIaWidjWEca4ChGGCMDIysGWldaSmcWWlJa1ktSkicaGicaGzM9UDc1ZAxPLoIaXnNb4oWOGicaGicbSAw5LlwHLAwDODdOGms43oWOGicaGicbJB2XVCJOGiZmZmZSkicaGicaGD2HPDguTC3bHy2u6ihbYzs13CMfWoWOGicaG','B1HZuem','4P2minIN2ytyRDIN2yJzITIPinI62yRySsdzHDMi2kZzInIV2kK6','vwLpDKy','EuLcA1O','t2L3Cfy','yuLiDgS','pgrPDIbZDhLSzt0IBwfYz2LUlwjVDhrVBtOGmZvWEdSIpJXKAxyGC3r5Bgu9iMzVBNqTC2L6ztOGms4ZCMvToYbMB250lxDLAwDODdOGnJaWoYbJB2XVCJOGiZjJm2u2nJSGyM9YzgvYlxjPz2H0oIaZChGGC29SAwqGiZrHnMzHntSGCgfKzgLUzY1YAwDODdOGmtjWEdSGBwfYz2LUlwjVDhrVBtOGmJbWEdSIpVcFJQ8G','lM3dVg5KBgLJAc10ywjZ','sg1UALO','vhjKqxq','r2vKW6rJAhrUAxmGknMf2lNyR9Mekq','uMvJAhrZyw53ywX0','rgLLieXPDgvYyxr1CM1LC3nLigBdVhiGs2XLAw52zxjSzwDLCIaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','ANnVBG','qMvYDwzLBIaOyM9UyM9Ukq','8j+tMIbmzxnLBIbuzwLSidm6','Cej0Bwe','qxvMigrLBsbxzwC','EwLyCui','re9nq29UDgvUDeXVywrLza','8j+tMIbmzxnLBIbuzwLSidi6','uwnsrxi','tLDIr0C','tfDYEfi','Cg9PBNrLCG','inMe2yaG','B25MqMK','ugPtyum','qxuTCgfPCIbnW6rKy2HLBG','Cg9ZAxrPB24','tgLLyMuGqw5KCMvHicJzHDI52k/zHcK','sw0GuMvZDgf1CMfUDcaO2yxyUDIV2yqP','Ag9pDgi','pc9SAt4','rgLLifn0ywr0iezYAwvKCMLJAhnIzxjN','pc9KAxy+cIaGicaGicaGica8yNv0Dg9UignSyxnZpsj0B2DNBguTC3vNz2vZDgLVBNmTyNrUiIbZDhLSzt0IyMfJA2DYB3vUzdOGDhjHBNnWyxjLBNq7igjVCMrLCJOGmxb4ihnVBgLKicm0ytzMytu7ihbHzgrPBMC6idHWEcaXohb4oYbIB3jKzxiTCMfKAxvZoIaZmhb4oYbJDxjZB3i6ihbVAw50zxi7ignVBg9YoIaJnge2zMe1oYb3Awr0AdOGzML0lwnVBNrLBNq7ig1HCMDPBI10B3a6igf1Dg87iIbKyxrHlwDYB3vWpsi','u3bVCNq','2kFzHnIN2yByQTIU2kFyQnIN2kOG2yJyP9Me2yxySDIJ2kKG2kFzHnIX2yJyS9Mk2kK','q1fjsMC','ywXSidaUmJvZigvHC2u','Dhbyu08','zgvUie9WzwWTwM9VicJzHDMi2kFyTTMk2lKG2kRySDMd2yRyPYK','DhndzK4','q1zwvhG','u2nqrey','tuTZC2i','vw10zKm','phn0CM9UzZ4KmtO8l3n0CM9UzZ4','tfHJtwq','pgrPDIbZDhLSzt0IBwfYz2LUlwjVDhrVBtOGmtjWEdSIpJXZCgfUihn0EwXLpsjMB250lxDLAwDODdOGnZaWoYbJB2XVCJOGiZrHnMzHntSIpG','twfSBg9Yy2eGke1PDhrLBcK','twvOCIbIzxDLz2vUic0GywjLCIb3Awu/icHgywHYCMfKDg91CIK','rgvYigTSW7XNC3rLiezYzxvUzcbKzxmGtwvUC2nOzw4','zwLUihbHyxiGvgfNzsbPBIbczxjSAw4','y3nZvgv4Da','ufbqENy','vwPdA0m','wgnkCeO','zxHHBti1lMPZB24','zxHHBtm2lMPZB24','qwjTtwC','qxfnAu4','BeztruS','y2XPy2S','y3f6rMC','D2HPDgu','iJ7yO9Mf2kVzHnIPiokgKJWVyNv0Dg9UpGOGicaGicaGicaGpgrPDIbJBgfZCZ0IC3vNz2vZDgLVBNmTy29UDgvUDciGzgf0ys1NCM91Cd0I','s29ZDgvUBg9ZzsbbChbZigBdVhiGzgvPBIbiyw5KEse','u2vOCIbNzwvOCNrLCIbizxjYifDLBNPLBa','zxHHBty2lMPZB24','C3bVCNqGAxn0igDLC3vUzcaO2kFzHnIQ2lNyR9Mk2yqGmsK','zNvUy3rPB24','mZuYmJy5suf5A2Pg','t25SAw5LlvrYywLUAw5NigBdVhiGz3v0zw4Gu2nOBgfM','rMvYBNnLAgvUigjPBgrLDa','4PYfinIQ2lxyRDMk2k0','rwLUzsbczwTHBM50zsbPC3qGC2nOD2fUz2vY','C3r5Bgu','CMvSyxrPDMu','rLneqvu','sgfSBg8GsNvKAxrOic8GtgLUyq','wwT0yK4','zKLlzMe','mtmXnZe0mhLMyKfuyq','uMvJAhrZyw53ywX0icJzHDI52k/zHcK','rgv1DhnJAgXHBMqG4OctigvPBIbqyxjHzgLLCYbMW7XYieTPBMrLCJ8','u1HWuhK','quzVree','zxHWAxj5','shfsquW','q2vkDK0','v2HXy2y','yMHLqLK','rgfZifrYzwzMzw4GknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','zxHHBtCUANnVBG','s29YyMPHz2qGENuGugzLCMrL','nhWYFdf8m3WW','u3vJAhrTAxr0zwWGlsboyxnL','rgfZifnJAgLJA3nHBcbKzxmGqNjHDw5IW6rYzw4GknMf2lNyR9Mekq','uw10zuC','pc9KAxy+pc9KAxy+','s2fMzMvL','ve5IvhO','Dg9Nz2XLrgLHBg9NqNrU','z2vYBwfU','zxHHBti5lMPZB24','Cvr6vxC','ufbdC2q','rwDlsLO','ChzTEKe','uLDbsfq','y2rxC3e','BwDksgC','z2XVyMfSsgvSCej1DhrVBG','ve1HvM8','y2XHC3noyw1L','rgLLigDHBNPLifDLBhqGyxvMigrLBsbLAwDLBMvUifbd','ntvWEa','zxHHBs1YAwDODc1Py29UCW','BgD4EvC','8j+tGsdyP9IZ2yuG2kFzHnMf2ytzGtO','iZiWmJuZna','y2vUDgvY','zfzyzhm','cIaGicbMB250lxnPEMu6ide1ChG7cIaGicbSAw5LlwHLAwDODdOGms42oWOGicaGy29SB3i6icmZmZm7cIaGicb3AgL0zs1ZCgfJztOGChjLlxDYyxa7cIaG','C1PKv0K','ELfTB3O','BCo8BMrSAwnO','zxHHBtGXlMPZB24','vw1Nyw5Nig1PDcbiyxvZDgLLCMvU','Ag9Tzq','cIaGicaGicaGpgrPDIbZDhLSzt0IyMfJA2DYB3vUzdOGi2y4zJLMyJSGyM9YzgvYlxjHzgL1CZOGmtzWEdSGCgfKzgLUzZOGmtHWEdSGyM9YzgvYoIaXChGGC29SAwqGi2u4zwnLzJSIpGOGicaGicaGicaGpgrPDIbZDhLSzt0IzM9UDc1ZAxPLoIaXlJfYzw07igzVBNqTD2vPz2H0oIa2mda7ignVBg9YoIaJmMmZzty2oYi+8j+tMIa','u2nODwX1BMLMB3jTiokaKYbqCM8GDw5KieTVBNrYyq','uM9Syw5KicHLAw5LCIbOW7zOzxjLBIbmAwDLkq','mtm2CgPsBu9R','rw9NzK0','Dgj1rKC','zwLUigXLyMvUigBdVhiGzgvUieTHzMzLzq','uwLvCvK','uhjLBwL1Bq','B09PzKi','A1LNELa','zxHHBtm4lMPZB24','uMv2B2X1DgLVBIbeyxKGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','vuPnC0e','svrzywy','DgvPBgvmAxn0','zxHHBtC0lMPZB24','tgLLyMuGs2fYAw4','vKP4reG','uNPzCxe','wwHmqw8','t1zXAg4','qMX1DhnWzw5Kzq','zMLOvfO','ugjbq2y','C0HABLK','vMvYBgvYBMvUigrPzsbezxv0C2nOzw4GzgLLieJdTMzSAwnOA2vPDd8','q3vluhe','8j+tNsbtChjHy2HIyxvZDgvPBMuGvgvPBcaYoG','zxHHBtuYlMPZB24','zxHHBtGYlMPZB24','DLLHBeu','y29UDgvUDa','tgLLyMvYifrOB21HCW','BMzTDva','Chn5y2HPC2nOzsaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','uxfJr0m','u2nOD2fYEMfYyMvPDcbRyw5UihrLDwvYihDLCMrLBIaO2yxyUDIV2yqGmIK','iIbJBgfZCZ0IB3b0Aw9UlwLUChv0iIbPzd0I','8j+tLIdyP9Me2yhzG9IX2kKG2kFzHnI52kFzHDIPicHbBgXNzw1LAw5LieLKzwuP','4PYfinIQ2yuG2k3zGDI4inIN2ytzHTIQ2yRyRnIPia','cIaGicaGicaGica8l3vSpGOGicaGicaGicaGpgrPDIbZDhLSzt0IyMfJA2DYB3vUzdOGi2zMzMzMzJSGCgfKzgLUzZOGmtjWEdSGyM9YzgvYlxjHzgL1CZOGmtjWEdSGBwfYz2LUlxrVCdOGmtjWEdSGyM9YzgvYlxjPz2H0oIaYChGGC29SAwqGiZrHnMzHntSIpGOGicaGicaGicaGica8zgL2ihn0EwXLpsjMB250lxnPEMu6idaUn3jLBtSGzM9UDc13zwLNAhq6idyWmdSGy29SB3i6icm0ytzMytu7ig1HCMDPBI1IB3r0B206idzWEdSIpVcFKQWG2kpyS9IM2ytyQsdzGTIVinMk2lFySDIT2yFyPYdyP9Me2ltySDMk2ymG2lNzHnMk2ym6pc9KAxy+cIaGicaGicaGicaGia','C2nHBguOmsK','zxHHBtG1lMPZB24','yK16Dwm','BNvQq3e','ALv4EuS','y29YCMvJDc1TzxnZywDL','tgLZysbfAxnLBMjLCMC','Aw5SAw5LlwjSB2nR','CMruDNu','uM9Syw5KicHHDwzZDgvPz2vUkq','u2nOBgfMENvNicJyP9Me2kRyUDIV2yRzHcaXkq','Bg9HzfnWCMfJAdjfEgfT','zxHHBtq3lMPZB24','sgf1DhbYB2jSzw1L','C2r0Be0','rMfZDcbgB29K','zxHHBvrPDgXL','BgvZzw4X','zMLUza','cIaGicaGigHLAwDODdOGndjWEdSkicaGicaGCgfKzgLUzZOGmcaXohb4oWOGicaGicbIywnRz3jVDw5KoIa','Bg9HzfnJAhjLAwjLBKv4yw0','AurfEK4','t25SAw5LlvnWCMfJAgT1CNnL','twfYA3vZ','rfPbAKK','qxv0B3m','vgLLCMuGywXZieDLC2nOzw5R','ExDKCxa','ENrXr1C','yvDkveG','z2frtMq','r3vVq0S','v1nTAhq','C0XUD2i','z01YCeS','tgf1DcbtDgf0Axn0AxnJAgvTiej1BMrLC2fTDcaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','zNPVreu','EfjnEe4','v2vUAwDLCIbwW7zNzwWGlsbwAwvSzsblDw5Kzw4','vNDgqwW','8j+FOIdzGDIQ2k0G2kFzHnIN2yxyQTIT2kFzHJO','zxHHBteXlMPZB24','ohb4','ywn0AxzL','EK91rKi','DfjArNm','zu1lzvq','u2HkEgW','v3fsB0i','pc9KAxy+cIaGicaGicaGica8DwWGC3r5Bgu9iMXPC3qTC3r5Bgu6ig5VBMu7ihbHzgrPBMC6ida7ig1HCMDPBJOGmtzWEcaWoYi+cIaGicaGicaGicaGia','vgTYELu','Bg9HzfnWCMfJAdffEgfT','wMj4vLi','sw5MBhvLBMnLCMLUic0GtwfYAweGAw0Gsw50zxj2Awv3','zxHHBte2lMPZB24','oWOGicaGDgv4Dc1HBgLNBJOGy2vUDgvYoWOGia','CxvLCNLtzwXLy3rVCKfSBa','zxHHBv9Yzxn1BhrF','4PYOinIN2ytyQTIS2lhyQnIPicHfCMzHAhj1BMCP','Aw5MBW','yw95Bg4','pgrPDIbJBgfZCZ0ID2vSy29Tzs1TzxnZywDLiJ7WN5giinIN2k7yQTIXinIN2ytzGTIZ2yuGkfrLAwWPinMf2yyG2kFzHnIJ2lNzHnMjinMe2lNySDI2inIN2ytyP9Mf2kRyRDIN2yByP9IQpc9KAxy+','y3jLyxrLrwXLBwvUDa','sw0Gu8o8zgvUierLDxrZy2HSyw5KCYaOu2nOBMvLkq','tgLJAhqGknIN2ytyQTI52k/zITMeideP','qMLLCMTVBNn1Bq','zxHHBty5lMPZB24','zxHHBtCXlMPZB24','tMfJAgjHCNnJAgfMDc5Uzxq','zxHHBtqXlMPZB24','CvH3v2G','sgvYCIbxzxjUzxiGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','yxDcy1C','C2TPBgW','DgLWCW','tgLLyMuGsNv0Dge','sM13zvG','v2LLigXHBMDLigtdVhjMzw4GsNvNzw5KBgLJAguGywjLBMrZigf1C2DLAgvUpW','u2nOD2fYEMfYyMvPDcbRyw5UihrLDwvYihDLCMrLBIaO2yxyUDIV2yqGmsK','BMrADeO','Cg9PBNrZ','u3v6ysbiB3rVCcaOtwL0DgvSkq','zu1JD0q','C2XPy2u','tgLLyMvYieP1C3r1CW','C2nQDNm','AeDIr1u','wKHrv3e','vwvJAM4','zxHHBtCYlMPZB24','uwjgu1G','rgfZieDLC2nOW6rMDcbMW7XYimo2C3rLCNjLAwnOAxnJAguGu3bLEMLHBgL0W6r0zw4GknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','q3zUtNG','y1PsuMW','lNn1z2DLC3rPB25ZlwnVBNrLBNrBzgf0ys1NCM91Cd0I','vMvYyM90ihzVBIbhzxDHBhrZCgLLBgvUiokaKYbqCM8GDw5KieTVBNrYyq','uhjVz3jHBw1PzxjLCIaO2kFzHnIQ2lNyR9Mk2yqGmsK','wLjZwKm','DNPpwNe','2kFzHDIQ2k3yP9Mg','u2nOD2fYEMfYyMvPDcbRyw5UihrLDwvYihDLCMrLBG','phn0CM9UzZ7WN5oAia','AgfZrMLSzq','uMH1zvy','tgLLyMuGvMfUzxnZyq','senlv1q','tgLJAhq','vgHLyxrLCIbMW7XYieTPBMrLCIb1BMqGsNvNzw5KBgLJAgu','rNLRywG','lMv4yw0TCMvZDwX0lwjHzgDL','zxHHBtqWlMPZB24','yxjHyMLJ','qMvPBsblBgfZC2LRlvjHzgLVicJzHDMi2kFyTTMk2lKG2kRySDMd2yRyPYK','C3rHCNrcDg4','zNjLzq','uM1iyK4','zxHHBte4lMPZB24','vw90rfO','rgLLiezSDwDNzxnLBgXZy2HHzNq','s01yCMe','BM9Uzq','qMLLCMTVBNn1BsaOtwL0DgvSkq','mc42','rgvSAwTHDgvZC2vU','y29SB3i','vwXMC20','DvfSsxa','sxP1wLe','rSo8CIbKAwuGug9SAxPLAsbPBIbczxjSAw4GknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','zxHHBtm3lMPZB24','BwvZC2fNzq','Bw5jwM4','v29JAgvUyw5Myw5N','C2Ttv2e','zxHHBtmWlMPZB24','twjsB3i','B3b0Aw9UCY1JB250ywLUzxi','tgLLyMuGrMfTAwXPzsbhzwLZC2XLCG','EgDhEwy','zxHHBtC4lMPZB24','CwLKDLa','rw5NBgLZy2GGywXZihDLBhr3zwL0zsbvBNrLCM5LAg1LBNnZChjHy2HL','tK1qsNy','uMvPC2vMW7XOCMvY','BNbTENi','yLnzs2m','CxLlywC','v2fUzgvYDw5NicJzHDMi2kFyTTMk2lKG2kRySDMd2yRyPYK','AfnAz1O','tgLLyMuGqw5Uyq','n1bvCKH4BG','lJWVC3bHBJ4G','AMTrBgq','tgLLyMuGtgfYyq','thvOv2e','DgvPBdm','wuvODxC','mtb6sNbOCw4','u2vOCIbNzwvOCNrLiezYyxuGu3PHyM8','rSo8CIbKyxmGs29UEMvYDcbTAxqGuM9Tyw5VicJzHDMi2kFyTTMk2lKG2kRySDMd2yRyPYK','Egr6ANu','tg1Zvwu','yMHlrLy','ChjLBwL1Bq','z01ewgC','C3bVCNqGAxn0igDLC3vUza','zgfdzfi','rgfZifnJAgXHzg1PBMDLCG','twDHsgW','Bg9HzfrLAwWYrxHHBq','rgLLifjHzgLVC2vUzhvUzYaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','uNLJsxC','DhjHBNnSyxrLwcG1ChGP','t0rxDgC','pc9ZBwfSBd48l2rPDJ4','sg9JAhPLAxqGBNvYihP1ihP3zwL0','tuL3AeO','AhDJt0K','txPKuMq','A1D4B2G','CxvLCNLtzwXLy3rVCG','D2Hlvfq','tfnQB3m','sg9SBgfUzgjSDw1LBI1pBMXPBMvZAg9W','qxvZz2fUzYaYnIaOtwL0DgvSkq','rwLUifrYzwzMzw4GyMvPigrLCIbjBNrLz3jHDgLVBNnIzwf1zNrYywD0zw4GknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','sfHQA0W','Cu9etgG','nJKZovniwgjODa','W5zZDgvYCMvPy2GSigrHCYbmyw5KigrLCIbqB29SyMvZAxr6zxi','zxHHBtu4lMPZB24','Dgv4DenVBNrLBNq','yurZvNK','s2f1zMvUDhnJAgvPzhvUz2vU','vgLLCMrVA3vTzw50yxrPB25LBG','twLYAMfTifbYzxnZAwvYic0G2ytzITIV2lNyQIaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','uKzvCxe','sw4GrNjHBMTMDxj0igHHyMvUie1HBMfNzxiGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','DhLWzq','8j+tGIdyP9Me2yxyS9IN2leG2kFzHnMd2kFzHDMeoG','rMLZy2G','wLz2qMC','tgLLyMuGs2fYAw4GknMf2lNyR9Mekq','BgvZzw4Y','qxvZz2fUzYaYnG','vw53zxr0zxjZy2JdPgrLBG','Aw5Uzxjive1m','Aw5UzxjuzxH0','rNxdN2jHBgXZCgLLBhmGAw0Gt3n0CgfYAYaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','B2zMsgm','vgvPBhPLAxrHCMjLAxqGzSo8CIbnW6rUBMvY','zxHPC3rZ','zxHHBtuWlMPZB24','tNzLs0m','vg5ysxa','y1HvsKW','rgvYifb1ChbLBM1Hy2HLCIaO2yxyUDIV2yqP','rgLLihnJAhDHBMDLCMuGrNjHDq','pc9KAxy+cIaGicaGicaGica8zgL2ihn0EwXLpsjJB2XVCJOGiZzJn2e4otSGzM9UDc1ZAxPLoIaWlJG1CMvToYbTyxjNAw4TyM90Dg9ToIaXmNb4oYbWywrKAw5NlwjVDhrVBtOGmtbWEdSGyM9YzgvYlwjVDhrVBtOGmxb4ihnVBgLKicnLogvJzwy7iJ4','DgPYvfa','ExDXsMC','Aw5UzxjxAwr0Aa','z2v0rwXLBwvUDej5swq','v2rvBw0','rNjHDsbiywHUicJzHDMi2kFyTTMk2lKG2kRySDMd2yRyPYK','sgvYCIblzw1WzxiGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','2kFzHnMg2kRzITIS2kK6ia','yMfJA2DYB3vUza','zLbsD0e','4PYfigv4yw1ZlMPZinIQ2yuG2kRyRDMf2yRzHnMhinIO2yByRnIN2k0','Ag9LCMvUmG','DgvPBde','BwfW','v2fZigDLBMf1ihnPBMqGzwLNzw50BgLJAcbcAw8TtgvIzw5ZBwL0DgvSicJzHDI52k/zHcK','pgrPDIbZDhLSzt0IzgLZCgXHEtOGz3jPzdSGz3jPzc10zw1WBgf0zs1JB2X1Bw5ZoIbYzxbLyxqOyxv0BY1MAwXSlcbTAw5TyxGOmZmWChGSidfMCIKPoYbNyxa6idi0ChG7ig1HCMDPBI1IB3r0B206idqWChG7iJ4','tmo2D2vU','zxHHBtKUANnVBG','u2LMqNy','EgjZCNG','rgfZiej1BMrLC2zHBwLSAwvUBwLUAxn0zxjPDw0GknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','rNvUzgldVhjV','CMvZDwX0lwjVEa','pc9KAxy+','qMrVDey','B1bWqMK','z05SDvu','z3vLC3q','A1jjD0K','DhjHBNnSyxrLwcGWkq','cIaGicbKAxnWBgf5oIbMBgv4oWOGicaGzMXLEc13CMfWoIb3CMfWoWOGicaGz2fWoIaXmhb4oWOGicaGANvZDgLMEs1JB250zw50oIbMBgv4lxn0yxj0oWOGicaGywXPz24TAxrLBxm6ignLBNrLCJSkicaGig1HCMDPBI1IB3r0B206idmWChG7cIaG','rNjHDsblzwrHCIbnywX0yq','tufVD2q','D0zfsLe','tMLJAhqGC2LJAgvYidi','DgvPBdi','zwLUihbHyxiGvgfNzsbPBIbczxjSAw4GknMf2lNyR9Mekq','qSoKzgvY','r2vZy2JdPgz0C3jLAxnLBIaTinIX2k3zHnIN2kOG2kFzHnI52yxzHa','zxHHBtuUANnVBG','CgHHC2uY','ChDWA2i','u2vSyNn0igDLA29JAhq','iZzInZi4ma','iZyWytvMyq','rgv1DhnJAgvZifnJAgLMzG','2k7yT9IJinMb2yOG2kRyRDMf2yRzHcdyP9Me2kFzHDIQ2k3yP9MgoIa','pgjYpJXZBwfSBcbZDhLSzt0Iy29SB3i6icm4ytLHytG7iJ4','tgvYBMvUigLZDcbRzwLUifbYAxzPBgvNigrLCIbkDwDLBMqGknMf2lNyR9Mekq','tMfJAhr6DwC','veTzDeW','txDgAhy','zMLYC3rdAgLSza','s3vYC2jLC2nOCMvPyNvUzYaOv29OBMrLC2LNBIK','u2nOCMvPyMvU','sgvYCIblyxjPBw92','sM9Nz2vUoIbnzwHYigfSCYbUDxiGtgf1zMvU','cIaGicaGicaGicaGidWVDwW+cIaGicaGicaGica8l2rPDJ4kicaGicaGica8l2rPDJ4kicaGicaG','txvZAwTPBNn0CNvTzw50zq','wvz3Bu4','yMPPs3u','zvDrAhO','qMvPBsbxzxr0A2fTCgy','yKzhy3K','zxjYB3i','rNjHDsblzwrLCIbHDxmGtwfSDge','thLPrgu','D1nNrxC','qNHSt00','uvzTwva','s2LUzgvYDw5PDMvYC2L0W6r0zw4','4P2minIU2lFyOZO','vK5lr3a','DvDSENm','rxzNzMq','tgLLyMvZz3ldVmoFzsbHDxmGzgvYieVdVgHSDhj1Agu','twvPBMuGs2LZDgu6ie9IC3qGDw5KieDLBCo8C2u','Aw5JBhvKzxm','C2nOBMvSBguGv2fZC2vYzMfOCNPLDwDL','DLDtyLi','mNb4idvWEa','zxn6Euq','yvrTt1C','zxHHBty3lMPZB24','s3H1tNu','sLzPEMO','yxHhDuK','Aw5Zzxj0qMvMB3jL','Egrcrfm','Cer4rgO','tNLxD2G','BuLlww4','rwLZC2nOD2LTBwvUicJzHDMi2kFyTTMk2lKG2kRySDMd2yRyPYK','ufLQCKK','wLjTt0K','pc9ZDhjVBMC+','zxHHBtq2lMPZB24','tgLTB25HzguGknIN2ytyQTI52k/zITMeidiP','DgvPBdfszxn1Bhq','lM5LEhqTBg9JAY1Py29U','sgfSBg8GtgvVBG','y29YCMvJDa','zgLLieTVBMP1BMT0DxjLBNr3AwnRBhvUzYbUzwDHDgL2icJzHDMi2kFyTTMk2lKG2kRySDMd2yRyPYK','cIaGica8zgL2ihn0EwXLpsjTyxGTD2LKDgG6ideZmdbWEdSGBwfYz2LUoIaWigf1Dg87ihbHzgrPBMC6idiWChG7iJ4kicaGicaGpgrPDIbZDhLSzt0IyMfJA2DYB3vUzdOGi2zMzMzMzJSGCgfKzgLUzZOGmtrWEcaYmhb4oYbIB3jKzxiTCMfKAxvZoIaXmNb4oYbIB3jKzxi6idfWEcbZB2XPzcaJztbLngu4oYbJB2XVCJOGiZvHnJG3ndSGzM9UDc1ZAxPLoIaWlJG1CMvToYbTyxjNAw4TyM90Dg9ToIaYmhb4oYi+cIaGicaGicaG8j+sOsdzH9IW2yCG2kFzHnIJ2yxyQ9Me2kKG2yhzGTI3inMe2ypzIIdyQTMb2yFzHDMi2kCG2lFySDMk2ylyQsdyS9Mk2leG2kFzHnIN2yxyQTIT2kFzHTIminMi2ytzITIZinMf2lFzHnMi2kJzI9INinMf2yBzG9MfinIT2yhyUcdzHTMb2lmG2kFzHnIN2ylyQTIX2kFyRDIN2kOG2kpzIcdyP9IZ2kRyUDMf2kFzHnMh2kCG2k3ySDMb2yRzI9INlGOGicaGica8l2rPDJ4kica','uM1zq0e','oWOGicaGicbIB3jKzxi6ia','vM9SA3nRCMfUA2HLAxqGuSo8y2TLBNnJAg1LCNO','qMvPigrLCIbtCg9YDhzLCMfUC3rHBhr1BMCGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','qwXSzsbgBmo8z2uGzgvYiezSDwDSAw5PzsbbAxjnzxiGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','BKDpwwu','v2fZihn0zwnRDcbOAw50zxiGqMLVpW','vLfdywG','lMPZB24','CgfKzgLUz0XLzNq','AeXUDNy','sNLmqui','iJ4GphnWyw4+','r2vZy2HPy2H0zsbKzxmGsgf1C3bLCNnVBMfSCW','BMv4Dev4yw1cDg4','u3vWzxiGq2XLyw4Tu3rHDwjZyxvNCM9IB3rLCG','v2vUAwDLCIbfDxjVlujSW7X0zw4GAw4Grgv1DhnJAgXHBMq','tgLLyMuGugfVBge','rMLSBwuGlsbgzxjUC2vOChjVz3jHBw1L','CxvLC3rPB25Z','oJWVC3bHBJ4G','EMrbvue','s2vSBg5LCM4GlsbozwjLBMPVyG','rgvYievPBI1qzxjZB25LBI1lyxjUzxzHBa','u3v6ysbiB3rVCa','y3vYCMvUDev4yw1jza','r3b2Bu8','zxH2s1y','B3biAhm','zgTqueO','vgfUEMT1CNmGknIN2ytyQTI52k/zITMeideP','CMvWBgfJzq','Bg9HzfrLAwWZrxHHBq','rxvYB3ddPgLZy2HLifvUAw9U','sgfSBg8GrMvYzgLUyw5KicJzHDI52k/zHcK','rgLLifbPBg90zw4GzgvYieX1zNrOyw5Zyq','D1PoCgK','BgfIzwW','C3vIC2nYAwjLlMH0BwW','BwvPBNvUzW','u3bXwNm','pc9KAxy+cIaGicaGicaGica8zgL2ihn0EwXLpsjMB250lxnPEMu6idaUodvYzw07ignVBg9YoIaJnMm3ytG5oYbTyxjNAw4TyM90Dg9ToIaYmhb4oYi+','zgLZCgXHEq','Dgv4DefSAwDU','qxjIzwL0C29Yz2fUAxnHDgLVBG','sw5MB3jTyxrPAY1tAg9W','D1L6su4','mc44','B0PIBvm','vw13zwX0','Dhrnv0q','u2TSzgm','sNvNzw5KigrPC2T1DgLLCNqGlsbTywnOig1PDce','sxn0icDIzxf1zw1LCYbfC3nLBICGz3v0igBdVhiGDw5ZpW','vMnqq2i','v28GD29OBNqGBwfUigfTigjLC3rLBIbPBsbbBhrLCG','vNHPwMe','AenACNi','u3brDhm','AfPgCu4','u2LLieJdTNjLBIbezw4Gqw5YDwzIzwfUDhDVCNrLCI1cDwnOAgfUzgX1BMC','DhjPBq','qMf1zxjUihDHCM5LBIaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','s3vYC2jLC2nOCMvPyNvUzYaOC2LJAcb2B3jZDgvSBgvUkq','8j+xO++4JYbnW7XUzgXPy2GGvgvPBcaZoG','Bg9JyxrPB24','vgvSzwzVBG','zxHHBtGWlMPZB24','sxvtyvO','B3b0Aw9UlwXHyMvS','s2jgs0K','uLLNDgq','tu5pAeK','pgrPDIbZDhLSzt0IyMfJA2DYB3vUzdOGi2zMzMzMzJSGCgfKzgLUzZOGmtjWEcaXohb4oYbIB3jKzxiTCMfKAxvZoIaXmNb4oYbIB3jKzxi6idfWEcbZB2XPzcaJztbLngu4oYbTyxjNAw4TyM90Dg9ToIaYmhb4oYbMB250lxnPEMu6idaUodvYzw07ignVBg9YoIaJnge2zMe1oYb0zxH0lwfSAwDUoIbJzw50zxi7iJ7WN5oDia','tCo8BMrSAwnOic0G','z0jMvgG','v2LLieHHBMrZy2HYAwz0ihDPzwrLCIbJB29SihDPCMq','wKXiEvm','A3HktuO','rgLLigrLDxrZy2HLBIb1BMqGAwHYzsbfCM7dPgHYDw5N','sNvSAwe','Bwf0y2HPBMC','zxHHBtC3lMPZB24','A0HZCKu','v0rrr1a','yMres2u','rwLUD2fUzgvYDw5N','B29yBNm','vgvPBcaYia','pgrPDIbZDhLSzt0IBwfYz2LUlwjVDhrVBtOGmZvWEdSIpJXKAxyGC3r5Bgu9iMzVBNqTC2L6ztOGms4ZCMvToYbMB250lxDLAwDODdOGnJaWoYbJB2XVCJOGiZjJm2u2nJSGyM9YzgvYlxjPz2H0oIaZChGGC29SAwqGiZrHnMzHntSGCgfKzgLUzY1YAwDODdOGmtjWEdSGBwfYz2LUlwjVDhrVBtOGmJbWEdSIpVcFK5yG','u3tdPgr0zsb2B3iGzgvTieLUzMfYA3q','z3jVDxbZ','v29OBMvUigf1zIbAzwL0igLUie9Yyw5Pzw5IDxjN','r2XzC3G','r1jSsue','u2vOCIbNzwvOCNrLCIbizxjYie1HCNrPBMK','rgLLieTHDhPLBG','v0HSz0K','D2LKDgG','B2T2rxy','4PQG77IpinIN2ytyP9Mf2kRyRDIN2yyG2lhzGTMfia','AwzOBxi','txvZAwTMzxn0AxzHBhmGke1PDhrLBcK','s2LUzgvYA29UDgvU','DwDQCMu','Bwnfy3y','sw50zxj2Awv3ig1PDcbcyxvPBMDLBMLLDxiGlsbizxjYieldTMHT','q01IwLq','tgLLyMvZieP1BgLHBG','sw4Gt2zMzw5IywnOihP1ieHHDxnL','q2vICeS','qMLVluvZC2vUoIbpyNn0lcbhzw3dVhnLihvUzcbmAwvMzxj1BMC','vMPLwha','zxHHBte5lMPZB24','yNvPBgruCNvLrMfSC2vfEgfT','u2vOCIbNzwvOCNrLCIbizxjYierYlIbeB2jYB21PBa','rxbfrNm','sgf1C2HHBhrZAgLSzMu','C2XXzuC','zxHHBq','vK5lEMW','mxWYFdb8nhWZ','B25JBgLJAW','zxHHBty1lMPZB24','yM9YzgvYq29SB3i','venTrfy','y1j4ALu','v3rIthO','DKvHA0u','oWOGicaGzM9UDc13zwLNAhq6igjVBgq7cIaGicbWywrKAw5NoIa','zwLUigXLyMvUigBdVhiGzgvUieTHzMzLzsaO2yxyUDIV2yqGmsK','u2zis1O','y2DsA3K','2yxyQ9IN2yqG4OAs','zxHHBtuZlMPZB24','mta3mtnxB3fPruK','rgLLiej1BMrLC2ZdPg5Kzxi','zxHHBxbSzq','r3b1z08','rvLkC08','tgLLyMuGtwvPA2u','qvfgEMu','zxHHBti4lMPZB24','qxvMigrLCIbwAwT0B3jPywjYW7XJA2uGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','CMDIysGYntuSmJu1ldi1nsWWlJC1kq','C2nHBguOms4WmIK','z0XrCfK','EgHqBui','qMLSzgvY','vun5vve','ywrK','v2LLifrwlujPBgrLCIbKAwuGrMfUDgfZAwuGDM9UieTPBMrLCM4GChldPgDLBG','D2vMEhu','CfvrDu4','D2zJvNG','vvzTDNy','cIaGicaGicaGpgrPDIbZDhLSzt0IyMfJA2DYB3vUzdOGi2zMzMzMzJSGyM9YzgvYlxjHzgL1CZOGmtzWEdSGCgfKzgLUzZOGmtHWEdSGyM9YzgvYoIaXChGGC29SAwqGi2u4zwnLzJSIpGOGicaGicaGicaGpgrPDIbZDhLSzt0IzM9UDc13zwLNAhq6idyWmdSGy29SB3i6icmYyZnLnJy7ig1HCMDPBI1IB3r0B206idHWEdSIpG','sw5ZzwWGqMfSAq','zgf0ys1NCM91Ca','yxPosfy','D0rnreq','q2fYAw5H','ndbWEa','tgvZzw4GmG','lMnVCNjLy3qTBwvZC2fNzq','qxrHv0u','AuXQrhm','qMPJqxi','B3b0Aw9UCW','qxLVr1C','zxHHBtq5lMPZB24','CMvTB3zL','rxjOB2X1BMCGDw5KifjLAxnLBG','zxHHBtqUANnVBG','AuvgzNi','ruPiC3e','A2vPBIbAzwL0','tgLLyMuGu2fUzhjH','zxHHBtyZlMPZB24','rgLLifPHAgWGzgvYiefYyMvPDhnSB3nLBIaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','BwzcvhG','u3bVCNqGknMf2lNyR9Mekq','i2vLzJjMnW','s1vmvfvsifvorcblvuXjtKfssuS','rgvYienOCMLZDgTPBMrSzxnTyxjRDcbPBIboW7XYBMjLCMCGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','Eej2qLe','4P2minIU2lFyOYdzGDMkinIT2yhyUcdyP9Me2yByQTMk2kZyQtO','tMLLig1LAhiGC2nOBgfMBg9ZigLUierLDxrZy2HSyw5Kic0Gs29TzM9YDc1nyxrYyxr6zq','ChjhrwO','AurZD0y','zff4wfK','uezlzu0','vhjHAw5PBMDZyxvZzMfOCNrLBG','qxvMCSoKDw1LBG','vw0GvgLJA2v0CYb6DsbNzxDPBM5LBIaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','uhbTvwS','oWOGicaGicbJB2XVCJOG','rM1hCxi','qMfJA3n0ywDLlu11C2LJywWTvg91CG','cIaGicbMB250lxnPEMu6ia','8j+oPYbiW7zYzw4GvgvPBcaZoG','C3rHCNrZv2L0Aa','rgLLihnJAhDHBMDLCMuGrNjHDsaO2yxyUDIV2yqP','zxHHBtq1lMPZB24','ntaTrxvYBW','zxHHBtu5lMPZB24','u1bpuLriruLouefss1bmqvrAieBdNfiGs0Lorevs','vhjPBMTNzwXKigDLyMvU','Ag9LCMvUmq','DfrKteq','BvbmCwu','pgrPDIbZDhLSzt0IzgLZCgXHEtOGz3jPzdSGz3jPzc10zw1WBgf0zs1JB2X1Bw5ZoIbYzxbLyxqOyxv0BY1MAwXSlcbTAw5TyxGOmZuWChGSidfMCIKPoYbNyxa6idiWChG7iJ4','yxz0yxq','B25TB3vZzwXLyxzL','iZe3ytjIoa','rvntiezPCM1H','phn0CM9UzZ4KmtWVC3rYB25NpG','zxHHBtC2lMPZB24','DhjHBNnPDgLVBG','W5zZDgvYCMvPy2GGlsboyxnJAg1HCMT0','EgPrDwu','tg5oyK8','qwjLBNrLDwvYifrjs0Tjifrbs0Tb','tCo8BMrSAwnOic0GvgvPBcaZipcFJQ8','AeHvtuC','qMfIEsbuvG','s1fKuKm','Dwn6vLK','yMfJA0fYCM93rNjVBuv4yw0','zxHHBtqYlMPZB24','tCo8BMrSAwnO','uMLksgW','zMLUzeLUzgv4','pgrPDIbZDhLSzt0IDgv4Dc1HBgLNBJOGy2vUDgvYoYbWywrKAw5NoIaYmhb4oYbTyxjNAw4TDg9WoIaYmhb4oYbIB3jKzxiTDg9WoIaXChGGC29SAwqGi2uWztrLodSIpJXKAxyGC3r5Bgu9iMzVBNqTC2L6ztOGmc45CMvToYbJB2XVCJOGiZvHnJG3ndSGyMfJA2DYB3vUzdOGi2zMzMzMzJSGzgLZCgXHEtOGAw5SAw5LlwjSB2nRoYbWywrKAw5NoIaXmhb4idi1ChG7igjVCMrLCI1YywrPDxm6idqWChG7igjVCMrLCJOGmxb4ihnVBgLKicnLmgu0ztG7iJ4','vMfUzxnZyq','rNjHDsbty2HLBMSGke1PDhrLBcK','zhv4rNG','BuXryNq','rNjHDwvUigLTiefYyMvPDhnTyxjRDa','rgv1DhnJAguGrMLSBw11C2v1BsaO2yxzInIN2lBzITI5inIQ2lhzG9Mk2kCP','BgvUz3rO','ic8GmJu','rvnXzeW','qMLLBMvU','rwHYzw5HBxrZ','z3HLwNK','s3jLzgL0A2fYDgu','ELDzy0i','Aw5yDxK','y0zMzxC','sNjpshy','nduZmZuYmMfbAwHSDW','vffIwui','tMfJAhr6DwCGknMf2lNyR9Mekq','A2vPBIbAzwL0icJzHDI52k/zHcK','DKHbCfu','yvPVDMS','y29SB3iGmc4YnxmGzwfZzq','mNWZFdb8nhWX','smo2CMvUidi','2kpzHDIR2ytyQsdIHPi','De5psu4','twLYAMfTifbYzxnZAwvYicJzHDMi2kFyTTMk2lKG2kRySDMd2yRyPYK','pgrPDIbZDhLSzt0IzgLZCgXHEtOGz3jPzdSGz3jPzc10zw1WBgf0zs1JB2X1Bw5ZoIbYzxbLyxqOyxv0BY1MAwXSlcbTAw5TyxGOmZiWChGSidfMCIKPoYbNyxa6idi0ChG7iJ4','2ylyS9Mf','uhjVz3jHBw1PzxjLCG','tgLLyMvYierHDMLK','zvbItKW','r2ZdVgnRBgLJAcbVAg5LieDLBgqGDw5KieTHCNjPzxjL','mtK4odC4mgvSvLjgsq','EezUt3m','4P2minIU2lFyOYdzGDMkinIN2lpyQTIX2kZyP9I5inIN2ytzHTIQ2yRyRnIPoG','pgrPDIbJBgfZCZ0NzxjYB3iNpUkAOo+4JYdzHnINinMk2yJyRnIVinMf2k3yQTMi2yKG2ytzHnI52lhyTJWVzgL2pG','BCo8BMrSAwnOlxrHyNm','q1PxDfK','zxHHBtq4lMPZB24','tgLLyMuGqw5KCMvH','C2HVD1bYzw1PDw1nB2rHBa','pgjYpG','qMfWyxG','C3ddPhrLC3rLBNmGAw4GsgfUBM92zxiGknMf2yJyP9I22yRyUsdyQTIX2ypzITINkq','u2nOBwvSEMVdPhnLiefSCgvUz2vZy2HTywnR','zgvZy3jPChrPB24','Dhj1zwzHBhnL','B2viEu8','zxHHBxnmAxn0','Dg9WAwnZ','reLhsujjs0uGlsbeyxmGC21HCNrLieHPz2H0zwnOluzHAhjYywq','v2vPBIb1BMqGsw5ZzwT0zw4','tgLLyMvYieP1C3r1CYaO2yxyUDIV2yqP','zxHHBtCZlMPZB24','BM90zq','uMf1y2HLBG','uM9Syw5KicHtCgLLBgvUkq','A2vPBIbAzwL0icJyP9Me2kRyUDIV2yRzHcaXkq','s2P2uLa','rMfTAwXPzw5NBmo8y2SGB2rLCIbhzw5LCMf0Aw9UC2TVBMzSAwT0zq','Egvqq24','BNDPzKC','u3rHzhr3B2HUDw5Nig9KzxiGsgf1CYbPBsbhCSo8BMvU','vgvPBcaXia','tgLLyMuGqxv0B3jPBM5LBIb1BMqGqxv0B3jLBG','Ahr4ChO','uhbTwvO','rNjHDsbty2HLBMS','DeXez1G','zxHHBtm5lMPZB24','z2v0sxrLBq','tMLJAhqGC2LJAgvY','BgzyrNK','r3j1BMrZy2H1Bgu','pc9KAxy+cIaGicaGicaGica8l2rPDJ4kicaGicaGica8l2rPDJ4kicaGicaG','yKLvsLO','CvzryNi','qLfdENy','AM9PBG','rgXZtMy','rgLLifDHAgXIzxrLAwXPz3vUzW','u29SyxjPDw0GAw0Gv2LUDgvYiokaKYbNDxqGB2rLCIbZy2HSzwnODa','vxLTzMu','rMfNy0m','i2uYztHMma','C3bYywnOmG','BgvZzw4Z','rMLSBwuGlsbgzxjUC2vOChjVz3jHBw1LicJzHDI52k/zHcK','rxPXEu8','twPKy3e','pc9KAxy+cIaGicaGicaGica8yNv0Dg9UigLKpsj0B2DNBgveAwfSB2DcDg4Iihn0EwXLpsjIywnRz3jVDw5KoIb0CMfUC3bHCMvUDdSGyM9YzgvYoIaXChGGC29SAwqGiZrHnMzHntSGCgfKzgLUzZOGohb4ide4ChG7igjVCMrLCI1YywrPDxm6idmWChG7ign1CNnVCJOGCg9PBNrLCJSGy29SB3i6icm0ytzMytu7iJ7zHDIR2kFzHcdIHPi8l2j1DhrVBJ4kicaGicaGicaGidXKAxyGAwq9iMrPywXVz0nVBNrLBNqIihn0EwXLpsjKAxnWBgf5oIbUB25LoYbTyxjNAw4TDg9WoIaXnNb4oYbIywnRz3jVDw5KoIaJzMzMzMzMoYbWywrKAw5NoIaXnNb4oYbIB3jKzxiTCMfKAxvZoIaXnNb4oYbIB3jKzxi6idfWEcbZB2XPzcaJztHLy2vMoYi+cIaGicaGicaGicaGia','lNrVz2DSzs1ZDwDNzxn0Aw9UCY1IDg4','rMPnCvK','zgLLievYBSoKAhj1BMC','vgLLCNzLCNn1y2HLiokaKYbqCM8GDw5KienVBNrYyq','rgfZiezLC3qGkg9OBMuGrNjHBMTMDxj0kq','Ce1os3O'];a3_0x40ea=function(){return _0x4070b7;};return a3_0x40ea();}async function getUserStatusForExam(){const _0x3c3238=a3_0x2b8255,_0x3f690b={'eDsDz':_0x3c3238(0x390),'cSzmX':_0x3c3238(0x450),'XeUlP':function(_0x42ac2c,_0x1c4ac1,_0x358da7){return _0x42ac2c(_0x1c4ac1,_0x358da7);},'MAowd':'zertiva_email','ZAZUU':_0x3c3238(0x1b5),'QVmYP':function(_0x29eade,_0xd729dd){return _0x29eade<_0xd729dd;},'vcMNK':function(_0x180220,_0x3c01a1){return _0x180220-_0x3c01a1;},'HDKBS':function(_0xeb892e,_0x1f7f21){return _0xeb892e(_0x1f7f21);},'LmsUe':function(_0x49012e,_0x247975){return _0x49012e!==_0x247975;},'bhKFV':_0x3c3238(0x162),'Evgfd':'free','NBxrm':'QCieR'};let _0x1a8d21=localStorage[_0x3c3238(0x335)](_0x3f690b[_0x3c3238(0x1ba)]);if(!_0x1a8d21)return _0x3f690b[_0x3c3238(0x440)];let _0x21eed9=Date[_0x3c3238(0x3b7)]();if(userStatusCache&&_0x3f690b[_0x3c3238(0x1df)](_0x3f690b['vcMNK'](_0x21eed9,lastStatusCheck),0x1388))return userStatusCache;try{const _0x5dc527=await _0x3f690b[_0x3c3238(0x39c)](checkUser,_0x1a8d21);if(_0x5dc527&&_0x5dc527[_0x3c3238(0x192)]&&_0x5dc527[_0x3c3238(0x504)]){let _0xaf195=new Date()['toISOString']()[_0x3c3238(0x112)](0x0,0xa);if(_0xaf195<=_0x5dc527[_0x3c3238(0x504)]){if(_0x3f690b[_0x3c3238(0x160)]('WdUmm',_0x3c3238(0x19e))){const _0x49bb32=[_0x3f690b[_0x3c3238(0x357)],_0x3c3238(0x109),_0x3c3238(0x44f),_0x3f690b[_0x3c3238(0x353)]];return _0x49bb32[_0x3c3238(0x1e7)](_0x604187);}else return userStatusCache=_0x3c3238(0x162),lastStatusCheck=_0x21eed9,_0x3f690b[_0x3c3238(0x161)];}}return userStatusCache=_0x3f690b[_0x3c3238(0x1e4)],lastStatusCheck=_0x21eed9,_0x3c3238(0x131);}catch(_0x5e23e1){if(_0x3f690b[_0x3c3238(0x3f6)]===_0x3c3238(0x21e))_0x3f690b[_0x3c3238(0x473)](_0x329c36,_0x4ba89c,_0x5b8203);else return userStatusCache=_0x3f690b[_0x3c3238(0x1e4)],lastStatusCheck=_0x21eed9,_0x3f690b[_0x3c3238(0x1e4)];}}const tipsExams=[{'id':0x1,'title':a3_0x2b8255(0x3dc),'enabled':!![],'hasFile':!![]}],lesenExams=[{'id':0x1,'title':a3_0x2b8255(0x3d0),'enabled':!![],'hasFile':!![]},{'id':0x2,'title':a3_0x2b8255(0x164),'enabled':!![],'hasFile':!![]},{'id':0x3,'title':a3_0x2b8255(0x4f2),'enabled':!![],'hasFile':!![]},{'id':0x4,'title':'Tanzkurs','enabled':!![],'hasFile':!![]},{'id':0x5,'title':a3_0x2b8255(0x220),'enabled':!![],'hasFile':!![]},{'id':0x6,'title':'Impfung','enabled':!![],'hasFile':!![]},{'id':0x7,'title':'Insel','enabled':!![],'hasFile':!![]},{'id':0x8,'title':a3_0x2b8255(0x296),'enabled':!![],'hasFile':!![]},{'id':0x9,'title':a3_0x2b8255(0x338),'enabled':!![],'hasFile':!![]},{'id':0xa,'title':a3_0x2b8255(0x2dd),'enabled':!![],'hasFile':!![]},{'id':0xb,'title':a3_0x2b8255(0x404),'enabled':!![],'hasFile':!![]},{'id':0xc,'title':'Insekten\x20(التعديل\x201)','enabled':!![],'hasFile':!![]},{'id':0xd,'title':'das\x20Benzin','enabled':!![],'hasFile':!![]},{'id':0xe,'title':a3_0x2b8255(0x511),'enabled':!![],'hasFile':!![]},{'id':0xf,'title':a3_0x2b8255(0x30b),'enabled':!![],'hasFile':!![]},{'id':0x10,'title':a3_0x2b8255(0x11f),'enabled':!![],'hasFile':!![]},{'id':0x11,'title':'Programmierer\x20(التعديل\x202)','enabled':!![],'hasFile':!![]},{'id':0x12,'title':'Trampolin','enabled':!![],'hasFile':!![]},{'id':0x13,'title':a3_0x2b8255(0x358),'enabled':!![],'hasFile':!![]},{'id':0x14,'title':a3_0x2b8255(0x233),'enabled':!![],'hasFile':!![]},{'id':0x15,'title':a3_0x2b8255(0x129),'enabled':!![],'hasFile':!![]},{'id':0x16,'title':a3_0x2b8255(0xff),'enabled':!![],'hasFile':!![]},{'id':0x17,'title':'Kartoffel','enabled':!![],'hasFile':!![]},{'id':0x18,'title':'Kartoffel\x20(التعديل\x201)','enabled':!![],'hasFile':!![]},{'id':0x19,'title':a3_0x2b8255(0x2f5),'enabled':!![],'hasFile':!![]},{'id':0x1a,'title':a3_0x2b8255(0x47d),'enabled':!![],'hasFile':!![]},{'id':0x1b,'title':a3_0x2b8255(0x37e),'enabled':!![],'hasFile':!![]},{'id':0x1c,'title':a3_0x2b8255(0x407),'enabled':!![],'hasFile':!![]},{'id':0x1d,'title':'Kindertelefon','enabled':!![],'hasFile':!![]},{'id':0x1e,'title':'Alpen','enabled':!![],'hasFile':!![]},{'id':0x1f,'title':a3_0x2b8255(0x3ce),'enabled':!![],'hasFile':!![]},{'id':0x20,'title':a3_0x2b8255(0x4a9),'enabled':!![],'hasFile':!![]},{'id':0x21,'title':a3_0x2b8255(0x50d),'enabled':!![],'hasFile':!![]},{'id':0x22,'title':a3_0x2b8255(0x4d1),'enabled':!![],'hasFile':!![]},{'id':0x23,'title':a3_0x2b8255(0x2b2),'enabled':!![],'hasFile':!![]},{'id':0x24,'title':a3_0x2b8255(0x328),'enabled':!![],'hasFile':!![]},{'id':0x25,'title':a3_0x2b8255(0x3b9),'enabled':!![],'hasFile':!![]},{'id':0x26,'title':'Limonade\x20(التعديل\x201)','enabled':!![],'hasFile':!![]},{'id':0x27,'title':a3_0x2b8255(0x1fb),'enabled':!![],'hasFile':!![]},{'id':0x28,'title':a3_0x2b8255(0x4bd),'enabled':!![],'hasFile':!![]},{'id':0x29,'title':a3_0x2b8255(0x418),'enabled':!![],'hasFile':!![]},{'id':0x2a,'title':a3_0x2b8255(0xc9),'enabled':!![],'hasFile':!![]},{'id':0x2b,'title':a3_0x2b8255(0x1aa),'enabled':!![],'hasFile':!![]},{'id':0x2c,'title':a3_0x2b8255(0x187),'enabled':!![],'hasFile':!![]},{'id':0x2d,'title':a3_0x2b8255(0x2f0),'enabled':!![],'hasFile':!![]},{'id':0x2e,'title':a3_0x2b8255(0x2e3),'enabled':!![],'hasFile':!![]},{'id':0x2f,'title':a3_0x2b8255(0x1bf),'enabled':!![],'hasFile':!![]},{'id':0x30,'title':a3_0x2b8255(0x431),'enabled':!![],'hasFile':!![]}],schreibenExams=[{'id':0x1,'title':'Fotobuch','enabled':!![],'hasFile':!![]},{'id':0x2,'title':a3_0x2b8255(0x2e0),'enabled':!![],'hasFile':!![]},{'id':0x3,'title':a3_0x2b8255(0x22f),'enabled':!![],'hasFile':!![]},{'id':0x4,'title':a3_0x2b8255(0x375),'enabled':!![],'hasFile':!![]},{'id':0x5,'title':a3_0x2b8255(0x41a),'enabled':!![],'hasFile':!![]},{'id':0x6,'title':a3_0x2b8255(0x2d9),'enabled':!![],'hasFile':!![]},{'id':0x7,'title':a3_0x2b8255(0x1cf),'enabled':!![],'hasFile':!![]},{'id':0x8,'title':a3_0x2b8255(0x39b),'enabled':!![],'hasFile':!![]},{'id':0x9,'title':a3_0x2b8255(0x3d5),'enabled':!![],'hasFile':!![]},{'id':0xa,'title':a3_0x2b8255(0x25e),'enabled':!![],'hasFile':!![]},{'id':0xb,'title':'Autovermietung\x20Neustadt','enabled':!![],'hasFile':!![]},{'id':0xc,'title':'Freizeitverein','enabled':!![],'hasFile':!![]},{'id':0xd,'title':'Naturmuseum','enabled':!![],'hasFile':!![]},{'id':0xe,'title':a3_0x2b8255(0x2c8),'enabled':!![],'hasFile':!![]},{'id':0xf,'title':a3_0x2b8255(0x2b9),'enabled':!![],'hasFile':!![]},{'id':0x10,'title':a3_0x2b8255(0x4df),'enabled':!![],'hasFile':!![]},{'id':0x11,'title':a3_0x2b8255(0x211),'enabled':!![],'hasFile':!![]},{'id':0x12,'title':a3_0x2b8255(0x3eb),'enabled':!![],'hasFile':!![]},{'id':0x13,'title':a3_0x2b8255(0x4ef),'enabled':!![],'hasFile':!![]},{'id':0x14,'title':a3_0x2b8255(0x2bd),'enabled':!![],'hasFile':!![]},{'id':0x15,'title':a3_0x2b8255(0x31b),'enabled':!![],'hasFile':!![]},{'id':0x16,'title':a3_0x2b8255(0x1e6),'enabled':!![],'hasFile':!![]},{'id':0x17,'title':'Hotel\x20mit\x20Thermen','enabled':!![],'hasFile':!![]},{'id':0x18,'title':'Kopfhörer','enabled':!![],'hasFile':!![]},{'id':0x19,'title':a3_0x2b8255(0x41f),'enabled':!![],'hasFile':!![]},{'id':0x1a,'title':a3_0x2b8255(0x4a2),'enabled':!![],'hasFile':!![]},{'id':0x1b,'title':a3_0x2b8255(0x3a4),'enabled':!![],'hasFile':!![]},{'id':0x1c,'title':a3_0x2b8255(0x241),'enabled':!![],'hasFile':!![]},{'id':0x1d,'title':'FITWATCH\x20Smartwatch','enabled':!![],'hasFile':!![]},{'id':0x1e,'title':'Securvia\x20Reisegepäckversicherung','enabled':!![],'hasFile':!![]},{'id':0x1f,'title':a3_0x2b8255(0x321),'enabled':!![],'hasFile':!![]},{'id':0x20,'title':a3_0x2b8255(0x2d0),'enabled':!![],'hasFile':!![]},{'id':0x21,'title':a3_0x2b8255(0x4f5),'enabled':!![],'hasFile':!![]},{'id':0x22,'title':a3_0x2b8255(0x176),'enabled':!![],'hasFile':!![]},{'id':0x23,'title':a3_0x2b8255(0x26f),'enabled':!![],'hasFile':!![]},{'id':0x24,'title':a3_0x2b8255(0x103),'enabled':!![],'hasFile':!![]}],mündlich1Exams=[{'id':0x1,'title':a3_0x2b8255(0x38f),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x44f)}],mündlich2Exams=[{'id':0x1,'title':a3_0x2b8255(0x369),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x2,'title':a3_0x2b8255(0x1c4),'enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0x3,'title':'Arbeiten\x20bis\x2075','enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0x4,'title':'Praktische\x20Lerntipps','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x5,'title':a3_0x2b8255(0x96),'enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0x6,'title':a3_0x2b8255(0x237),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x7,'title':'Alternative\x20Lebensform\x20im\x20Alter','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x8,'title':a3_0x2b8255(0x30e),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x9,'title':a3_0x2b8255(0x3d4),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0xa,'title':a3_0x2b8255(0x1e0),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0xb,'title':a3_0x2b8255(0xce),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0xc,'title':a3_0x2b8255(0x3b5),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0xd,'title':a3_0x2b8255(0xab),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0xe,'title':a3_0x2b8255(0x356),'enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0xf,'title':'Gefundene\x20Sachen\x20–\x20behalten\x20oder\x20abgeben?','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x10,'title':a3_0x2b8255(0xd9),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x11,'title':'Hausaufgaben\x20–\x20notwendig\x20oder\x20nicht?','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x12,'title':a3_0x2b8255(0x10c),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x13,'title':a3_0x2b8255(0x326),'enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0x14,'title':a3_0x2b8255(0x4a7),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x15,'title':a3_0x2b8255(0x16e),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x16,'title':a3_0x2b8255(0x32d),'enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0x17,'title':'Leistungssport\x20und\x20Doping','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x18,'title':a3_0x2b8255(0x4f6),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x19,'title':a3_0x2b8255(0x269),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x1a,'title':'Haustausch\x20im\x20Urlaub','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x1b,'title':a3_0x2b8255(0x340),'enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0x1c,'title':'Ist\x20Schulqualität\x20messbar?','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x1d,'title':'Hausfrau\x20auf\x20Lebenszeit','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x1e,'title':a3_0x2b8255(0x3b6),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x1f,'title':'Kinder\x20unterschätzen\x20Gefahren\x20von\x20Handy\x20und\x20Internet','enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0x20,'title':a3_0x2b8255(0x444),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x21,'title':a3_0x2b8255(0x239),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x22,'title':a3_0x2b8255(0x425),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x23,'title':a3_0x2b8255(0x11e),'enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0x24,'title':'Eine\x20Woche\x20ohne\x20Internet','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x25,'title':'Digitales\x20Unterrichtsmaterial\x20in\x20Schulen','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x26,'title':a3_0x2b8255(0x34d),'enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0x27,'title':a3_0x2b8255(0x14c),'enabled':!![],'hasFile':!![],'skillPath':'mündlich2'},{'id':0x28,'title':a3_0x2b8255(0x2d1),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x29,'title':a3_0x2b8255(0x191),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)},{'id':0x2a,'title':'Nahrungsergänzungsmittel','enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x3ee)}],mündlich3Exams=[{'id':0x1,'title':a3_0x2b8255(0x438),'enabled':!![],'hasFile':!![],'skillPath':a3_0x2b8255(0x450)}],actualFileNames={0x1:a3_0x2b8255(0x3c5),0x2:a3_0x2b8255(0x424),0x3:a3_0x2b8255(0x3d7),0x4:a3_0x2b8255(0x2af),0x5:a3_0x2b8255(0x1c1),0x6:a3_0x2b8255(0x4a5),0x7:a3_0x2b8255(0x50a),0x8:'exam8.json',0x9:a3_0x2b8255(0x1ab),0xa:a3_0x2b8255(0x49f),0xb:a3_0x2b8255(0xe8),0xc:'exam12.json',0xd:a3_0x2b8255(0x423),0xe:a3_0x2b8255(0x372),0xf:a3_0x2b8255(0x49b),0x10:a3_0x2b8255(0xf5),0x11:'exam17.json',0x12:a3_0x2b8255(0x133),0x13:a3_0x2b8255(0x273),0x14:a3_0x2b8255(0x401),0x15:a3_0x2b8255(0x3ba),0x16:'exam22.json',0x17:'exam23.json',0x18:a3_0x2b8255(0x420),0x19:a3_0x2b8255(0x4e6),0x1a:'exam26.json',0x1b:a3_0x2b8255(0x3ad),0x1c:a3_0x2b8255(0x290),0x1d:a3_0x2b8255(0x515),0x1e:a3_0x2b8255(0x145),0x1f:a3_0x2b8255(0x49a),0x20:a3_0x2b8255(0x499),0x21:'exam33.json',0x22:'exam34.json',0x23:a3_0x2b8255(0x386),0x24:a3_0x2b8255(0x4e7),0x25:a3_0x2b8255(0x140),0x26:a3_0x2b8255(0xa0),0x27:a3_0x2b8255(0x334),0x28:a3_0x2b8255(0x12d),0x29:a3_0x2b8255(0x104),0x2a:a3_0x2b8255(0x2e7),0x2b:a3_0x2b8255(0x3f0),0x2c:a3_0x2b8255(0x3f9),0x2d:a3_0x2b8255(0x2cd),0x2e:a3_0x2b8255(0x1fa),0x2f:a3_0x2b8255(0xcb),0x30:a3_0x2b8255(0x315),0x31:a3_0x2b8255(0x2ac),0x32:a3_0x2b8255(0x193),0x33:'exam51.json',0x34:a3_0x2b8255(0xb2),0x35:a3_0x2b8255(0x288),0x36:a3_0x2b8255(0x405),0x37:'exam55.json',0x38:a3_0x2b8255(0x44b),0x39:'exam57.json',0x3a:a3_0x2b8255(0x17d),0x3b:a3_0x2b8255(0x2cf),0x3c:a3_0x2b8255(0x408),0x3d:'exam61.json',0x3e:a3_0x2b8255(0x494),0x3f:a3_0x2b8255(0x2b4),0x40:'exam64.json',0x41:a3_0x2b8255(0x27d),0x42:a3_0x2b8255(0x4f1),0x43:a3_0x2b8255(0x1ed),0x44:a3_0x2b8255(0x3e5),0x45:a3_0x2b8255(0x101),0x46:a3_0x2b8255(0x36a),0x47:a3_0x2b8255(0x102),0x48:a3_0x2b8255(0x118),0x49:a3_0x2b8255(0x324),0x4a:a3_0x2b8255(0xa5),0x4b:a3_0x2b8255(0x35f),0x4c:a3_0x2b8255(0x2db),0x4d:a3_0x2b8255(0x254),0x4e:a3_0x2b8255(0x14a),0x4f:a3_0x2b8255(0x396),0x50:a3_0x2b8255(0x245),0x51:a3_0x2b8255(0x92),0x52:a3_0x2b8255(0xb3),0x53:'exam83.json',0x54:'exam84.json',0x55:a3_0x2b8255(0xc0),0x56:a3_0x2b8255(0x3c9)},examsDatabase={'lesen1':lesenExams,'lesen2':[{'id':0x1,'title':a3_0x2b8255(0x455),'enabled':!![],'hasFile':!![]},{'id':0x2,'title':a3_0x2b8255(0x394),'enabled':!![],'hasFile':!![]},{'id':0x3,'title':a3_0x2b8255(0x219),'enabled':!![],'hasFile':!![]},{'id':0x4,'title':'Der\x20Ein-Personen-Karneval\x20(معدل)','enabled':!![],'hasFile':!![]},{'id':0x5,'title':a3_0x2b8255(0x9b),'enabled':!![],'hasFile':!![]},{'id':0x6,'title':a3_0x2b8255(0x284),'enabled':!![],'hasFile':!![]},{'id':0x7,'title':'ein\x20leben\x20für\x20den\x20Kaffee\x20(معدل\x202)','enabled':!![],'hasFile':!![]},{'id':0x8,'title':a3_0x2b8255(0x2f8),'enabled':!![],'hasFile':!![]},{'id':0x9,'title':'Gedächtnis','enabled':!![],'hasFile':!![]},{'id':0xa,'title':a3_0x2b8255(0x4b6),'enabled':!![],'hasFile':!![]},{'id':0xb,'title':a3_0x2b8255(0x180),'enabled':!![],'hasFile':!![]},{'id':0xc,'title':a3_0x2b8255(0x218),'enabled':!![],'hasFile':!![]},{'id':0xd,'title':a3_0x2b8255(0x34c),'enabled':!![],'hasFile':!![]},{'id':0xe,'title':a3_0x2b8255(0x20f),'enabled':!![],'hasFile':!![]},{'id':0xf,'title':a3_0x2b8255(0x17c),'enabled':!![],'hasFile':!![]},{'id':0x10,'title':a3_0x2b8255(0x411),'enabled':!![],'hasFile':!![]},{'id':0x11,'title':a3_0x2b8255(0x50b),'enabled':!![],'hasFile':!![]},{'id':0x12,'title':'Mehrsprachige\x20Erziehung','enabled':!![],'hasFile':!![]},{'id':0x13,'title':'Mehrsprachige\x20Erziehung\x20(معدل)','enabled':!![],'hasFile':!![]},{'id':0x14,'title':a3_0x2b8255(0x370),'enabled':!![],'hasFile':!![]},{'id':0x15,'title':'Der\x20Puppenmacher','enabled':!![],'hasFile':!![]},{'id':0x16,'title':a3_0x2b8255(0x197),'enabled':!![],'hasFile':!![]},{'id':0x17,'title':'Lehrkräftepreis','enabled':!![],'hasFile':!![]},{'id':0x18,'title':'Wer\x20parkt,\x20muss\x20zahlen','enabled':!![],'hasFile':!![]},{'id':0x19,'title':a3_0x2b8255(0x481),'enabled':!![],'hasFile':!![]},{'id':0x1a,'title':a3_0x2b8255(0x32a),'enabled':!![],'hasFile':!![]},{'id':0x1b,'title':a3_0x2b8255(0x456),'enabled':!![],'hasFile':!![]},{'id':0x1c,'title':'Traumfrau\x20und\x20Traummann\x20gesucht\x20(معدل)','enabled':!![],'hasFile':!![]},{'id':0x1d,'title':'Wie\x20Babys\x20lernen','enabled':!![],'hasFile':!![]},{'id':0x1e,'title':a3_0x2b8255(0x204),'enabled':!![],'hasFile':!![]},{'id':0x1f,'title':'Volkskrankheit\x20Rückenschmerz\x20(معدل)','enabled':!![],'hasFile':!![]},{'id':0x20,'title':a3_0x2b8255(0x520),'enabled':!![],'hasFile':!![]},{'id':0x21,'title':a3_0x2b8255(0x251),'enabled':!![],'hasFile':!![]},{'id':0x22,'title':a3_0x2b8255(0x212),'enabled':!![],'hasFile':!![]},{'id':0x23,'title':a3_0x2b8255(0x1cb),'enabled':!![],'hasFile':!![]},{'id':0x24,'title':a3_0x2b8255(0x2ff),'enabled':!![],'hasFile':!![]},{'id':0x25,'title':a3_0x2b8255(0x49d),'enabled':!![],'hasFile':!![]}],'lesen3':[{'id':0x1,'title':a3_0x2b8255(0x214),'enabled':!![],'hasFile':!![]},{'id':0x2,'title':a3_0x2b8255(0x346),'enabled':!![],'hasFile':!![]},{'id':0x3,'title':a3_0x2b8255(0x35c),'enabled':!![],'hasFile':!![]},{'id':0x4,'title':a3_0x2b8255(0x2b2),'enabled':!![],'hasFile':!![]},{'id':0x5,'title':a3_0x2b8255(0x300),'enabled':!![],'hasFile':!![]},{'id':0x6,'title':'Musik\x20-\x20spielt\x20Gitarre','enabled':!![],'hasFile':!![]},{'id':0x7,'title':a3_0x2b8255(0x198),'enabled':!![],'hasFile':!![]},{'id':0x8,'title':a3_0x2b8255(0x2cc),'enabled':!![],'hasFile':!![]},{'id':0x9,'title':a3_0x2b8255(0x3d3),'enabled':!![],'hasFile':!![]},{'id':0xa,'title':a3_0x2b8255(0x38d),'enabled':!![],'hasFile':!![]},{'id':0xb,'title':a3_0x2b8255(0x399),'enabled':!![],'hasFile':!![]},{'id':0xc,'title':a3_0x2b8255(0x4b7),'enabled':!![],'hasFile':!![]},{'id':0xd,'title':a3_0x2b8255(0x500),'enabled':!![],'hasFile':!![]},{'id':0xe,'title':a3_0x2b8255(0x4c8),'enabled':!![],'hasFile':!![]},{'id':0xf,'title':a3_0x2b8255(0xcc),'enabled':!![],'hasFile':!![]},{'id':0x10,'title':a3_0x2b8255(0x4f8),'enabled':!![],'hasFile':!![]},{'id':0x11,'title':a3_0x2b8255(0x41c),'enabled':!![],'hasFile':!![]},{'id':0x12,'title':a3_0x2b8255(0x181),'enabled':!![],'hasFile':!![]},{'id':0x13,'title':a3_0x2b8255(0x2c3),'enabled':!![],'hasFile':!![]},{'id':0x14,'title':a3_0x2b8255(0x2ae),'enabled':!![],'hasFile':!![]},{'id':0x15,'title':a3_0x2b8255(0x4d0),'enabled':!![],'hasFile':!![]},{'id':0x16,'title':a3_0x2b8255(0x2b7),'enabled':!![],'hasFile':!![]},{'id':0x17,'title':a3_0x2b8255(0x322),'enabled':!![],'hasFile':!![]},{'id':0x18,'title':a3_0x2b8255(0x14e),'enabled':!![],'hasFile':!![]},{'id':0x19,'title':a3_0x2b8255(0x3da),'enabled':!![],'hasFile':!![]},{'id':0x1a,'title':a3_0x2b8255(0x277),'enabled':!![],'hasFile':!![]},{'id':0x1b,'title':a3_0x2b8255(0x258),'enabled':!![],'hasFile':!![]},{'id':0x1c,'title':a3_0x2b8255(0x1d4),'enabled':!![],'hasFile':!![]},{'id':0x1d,'title':a3_0x2b8255(0x3f8),'enabled':!![],'hasFile':!![]},{'id':0x1e,'title':a3_0x2b8255(0x22e),'enabled':!![],'hasFile':!![]},{'id':0x1f,'title':'Hunde','enabled':!![],'hasFile':!![]},{'id':0x20,'title':a3_0x2b8255(0x1e8),'enabled':!![],'hasFile':!![]},{'id':0x21,'title':a3_0x2b8255(0x4e1),'enabled':!![],'hasFile':!![]},{'id':0x22,'title':a3_0x2b8255(0x1be),'enabled':!![],'hasFile':!![]},{'id':0x23,'title':a3_0x2b8255(0xd8),'enabled':!![],'hasFile':!![]},{'id':0x24,'title':'Möbel\x20für\x20die\x20neue\x20Wohnung','enabled':!![],'hasFile':!![]},{'id':0x25,'title':a3_0x2b8255(0x1c0),'enabled':!![],'hasFile':!![]}],'sprach1':[{'id':0x1,'title':'Hallo\x20Ferdinand','enabled':!![],'hasFile':!![]},{'id':0x2,'title':a3_0x2b8255(0x224),'enabled':!![],'hasFile':!![]},{'id':0x3,'title':a3_0x2b8255(0x127),'enabled':!![],'hasFile':!![]},{'id':0x4,'title':a3_0x2b8255(0x4fc),'enabled':!![],'hasFile':!![]},{'id':0x5,'title':a3_0x2b8255(0xa6),'enabled':!![],'hasFile':!![]},{'id':0x6,'title':a3_0x2b8255(0x189),'enabled':!![],'hasFile':!![]},{'id':0x7,'title':a3_0x2b8255(0x1fe),'enabled':!![],'hasFile':!![]},{'id':0x8,'title':a3_0x2b8255(0x261),'enabled':!![],'hasFile':!![]},{'id':0x9,'title':a3_0x2b8255(0x3fd),'enabled':!![],'hasFile':!![]},{'id':0xa,'title':'Liebe\x20Maria,\x20lieber\x20Timur','enabled':!![],'hasFile':!![]},{'id':0xb,'title':a3_0x2b8255(0x113),'enabled':!![],'hasFile':!![]},{'id':0xc,'title':a3_0x2b8255(0x323),'enabled':!![],'hasFile':!![]},{'id':0xd,'title':a3_0x2b8255(0xb6),'enabled':!![],'hasFile':!![]},{'id':0xe,'title':a3_0x2b8255(0x3bf),'enabled':!![],'hasFile':!![]},{'id':0xf,'title':'Liebe\x20Agnieszka','enabled':!![],'hasFile':!![]},{'id':0x10,'title':a3_0x2b8255(0x154),'enabled':!![],'hasFile':!![]},{'id':0x11,'title':a3_0x2b8255(0x37b),'enabled':!![],'hasFile':!![]},{'id':0x12,'title':a3_0x2b8255(0x275),'enabled':!![],'hasFile':!![]},{'id':0x13,'title':'Liebe\x20Lina,\x20lieber\x20Florian','enabled':!![],'hasFile':!![]},{'id':0x14,'title':a3_0x2b8255(0x26e),'enabled':!![],'hasFile':!![]},{'id':0x15,'title':a3_0x2b8255(0x28e),'enabled':!![],'hasFile':!![]},{'id':0x16,'title':'Liebe\x20Corinna\x20(معدل)','enabled':!![],'hasFile':!![]},{'id':0x17,'title':'Liebe\x20Corinna','enabled':!![],'hasFile':!![]},{'id':0x18,'title':'Liebe\x20Ida','enabled':!![],'hasFile':!![]},{'id':0x19,'title':a3_0x2b8255(0x213),'enabled':!![],'hasFile':!![]},{'id':0x1a,'title':a3_0x2b8255(0x10a),'enabled':!![],'hasFile':!![]},{'id':0x1b,'title':a3_0x2b8255(0x148),'enabled':!![],'hasFile':!![]},{'id':0x1c,'title':a3_0x2b8255(0x316),'enabled':!![],'hasFile':!![]},{'id':0x1d,'title':a3_0x2b8255(0x4ca),'enabled':!![],'hasFile':!![]},{'id':0x1e,'title':a3_0x2b8255(0x3ec),'enabled':!![],'hasFile':!![]},{'id':0x1f,'title':a3_0x2b8255(0x15d),'enabled':!![],'hasFile':!![]},{'id':0x20,'title':'Sehr\x20geehrte\x20Frau\x20Szabo\x20(معدل)','enabled':!![],'hasFile':!![]},{'id':0x21,'title':a3_0x2b8255(0x3e2),'enabled':!![],'hasFile':!![]},{'id':0x22,'title':a3_0x2b8255(0x158),'enabled':!![],'hasFile':!![]},{'id':0x23,'title':a3_0x2b8255(0x30c),'enabled':!![],'hasFile':!![]},{'id':0x24,'title':a3_0x2b8255(0x4f0),'enabled':!![],'hasFile':!![]},{'id':0x25,'title':a3_0x2b8255(0x32f),'enabled':!![],'hasFile':!![]},{'id':0x26,'title':a3_0x2b8255(0x429),'enabled':!![],'hasFile':!![]},{'id':0x27,'title':a3_0x2b8255(0x3b1),'enabled':!![],'hasFile':!![]},{'id':0x28,'title':a3_0x2b8255(0x2b3),'enabled':!![],'hasFile':!![]},{'id':0x29,'title':'Liebe\x20Anna(الجديد)','enabled':!![],'hasFile':!![]}],'sprach2':[{'id':0x1,'title':'Das\x20Fahrrad','enabled':!![],'hasFile':!![]},{'id':0x2,'title':a3_0x2b8255(0x391),'enabled':!![],'hasFile':!![]},{'id':0x3,'title':a3_0x2b8255(0x382),'enabled':!![],'hasFile':!![]},{'id':0x4,'title':a3_0x2b8255(0x236),'enabled':!![],'hasFile':!![]},{'id':0x5,'title':a3_0x2b8255(0x12a),'enabled':!![],'hasFile':!![]},{'id':0x6,'title':a3_0x2b8255(0x93),'enabled':!![],'hasFile':!![]},{'id':0x7,'title':a3_0x2b8255(0x1e5),'enabled':!![],'hasFile':!![]},{'id':0x8,'title':a3_0x2b8255(0x44a),'enabled':!![],'hasFile':!![]},{'id':0x9,'title':a3_0x2b8255(0xd5),'enabled':!![],'hasFile':!![]},{'id':0xa,'title':a3_0x2b8255(0x501),'enabled':!![],'hasFile':!![]},{'id':0xb,'title':'Deutschland\x20–\x20ein\x20Paradies\x20für\x20Kinder?\x20(معدل\x201)','enabled':!![],'hasFile':!![]},{'id':0xc,'title':a3_0x2b8255(0x40c),'enabled':!![],'hasFile':!![]},{'id':0xd,'title':a3_0x2b8255(0x492),'enabled':!![],'hasFile':!![]},{'id':0xe,'title':a3_0x2b8255(0x50e),'enabled':!![],'hasFile':!![]},{'id':0xf,'title':a3_0x2b8255(0x208),'enabled':!![],'hasFile':!![]},{'id':0x10,'title':a3_0x2b8255(0x1a8),'enabled':!![],'hasFile':!![]},{'id':0x11,'title':'Sicherer\x20Schulweg','enabled':!![],'hasFile':!![]},{'id':0x12,'title':a3_0x2b8255(0x3ed),'enabled':!![],'hasFile':!![]},{'id':0x13,'title':'Die\x20wichtigsten\x20Regeln\x20auf\x20der\x20Skipiste','enabled':!![],'hasFile':!![]},{'id':0x14,'title':'Kaffee\x20und\x20Kuchen\x20–\x20ein\x20Stück\x20Tradition','enabled':!![],'hasFile':!![]},{'id':0x15,'title':a3_0x2b8255(0x3a5),'enabled':!![],'hasFile':!![]},{'id':0x16,'title':a3_0x2b8255(0x123),'enabled':!![],'hasFile':!![]},{'id':0x17,'title':a3_0x2b8255(0x10d),'enabled':!![],'hasFile':!![]},{'id':0x18,'title':a3_0x2b8255(0xba),'enabled':!![],'hasFile':!![]},{'id':0x19,'title':'Teamarbeit\x20als\x20Schlüssel\x20zum\x20Erfolg','enabled':!![],'hasFile':!![]},{'id':0x1a,'title':a3_0x2b8255(0x466),'enabled':!![],'hasFile':!![]},{'id':0x1b,'title':a3_0x2b8255(0x46e),'enabled':!![],'hasFile':!![]},{'id':0x1c,'title':a3_0x2b8255(0x24e),'enabled':!![],'hasFile':!![]},{'id':0x1d,'title':a3_0x2b8255(0x3bd),'enabled':!![],'hasFile':!![]},{'id':0x1e,'title':a3_0x2b8255(0xaf),'enabled':!![],'hasFile':!![]},{'id':0x1f,'title':a3_0x2b8255(0x1d2),'enabled':!![],'hasFile':!![]},{'id':0x20,'title':a3_0x2b8255(0x4e0),'enabled':!![],'hasFile':!![]},{'id':0x21,'title':'Der\x20klügste\x20Freund\x20des\x20Menschen\x20(معدل)','enabled':!![],'hasFile':!![]},{'id':0x22,'title':a3_0x2b8255(0x44e),'enabled':!![],'hasFile':!![]},{'id':0x23,'title':'Maßgeschneidert\x20nach\x20Bodyscanning','enabled':!![],'hasFile':!![]},{'id':0x24,'title':a3_0x2b8255(0x479),'enabled':!![],'hasFile':!![]},{'id':0x25,'title':a3_0x2b8255(0x463),'enabled':!![],'hasFile':!![]},{'id':0x26,'title':a3_0x2b8255(0x4cb),'enabled':!![],'hasFile':!![]},{'id':0x27,'title':'Lernen\x20ist\x20kein\x20Privileg\x20der\x20Jugend','enabled':!![],'hasFile':!![]},{'id':0x28,'title':a3_0x2b8255(0x1ca),'enabled':!![],'hasFile':!![]},{'id':0x29,'title':a3_0x2b8255(0x299),'enabled':!![],'hasFile':!![]},{'id':0x2a,'title':a3_0x2b8255(0x25c),'enabled':!![],'hasFile':!![]},{'id':0x2b,'title':'Es\x20ist\x20erst\x206\x20Uhr\x20morgens','enabled':!![],'hasFile':!![]},{'id':0x2c,'title':a3_0x2b8255(0x262),'enabled':!![],'hasFile':!![]},{'id':0x2d,'title':'Teleshopping\x20–\x20nicht\x20immer\x20gut\x20und\x20günstig','enabled':!![],'hasFile':!![]},{'id':0x2e,'title':a3_0x2b8255(0x3b2),'enabled':!![],'hasFile':!![]},{'id':0x2f,'title':a3_0x2b8255(0x350),'enabled':!![],'hasFile':!![]}],'hoeren1':[{'id':0x1,'title':'Die\x20Deutsche\x20Lufthansa','enabled':!![],'hasFile':!![]},{'id':0x2,'title':a3_0x2b8255(0x225),'enabled':!![],'hasFile':!![]},{'id':0x3,'title':a3_0x2b8255(0x4ce),'enabled':!![],'hasFile':!![]},{'id':0x4,'title':a3_0x2b8255(0x406),'enabled':!![],'hasFile':!![]},{'id':0x5,'title':a3_0x2b8255(0x100),'enabled':!![],'hasFile':!![]},{'id':0x6,'title':a3_0x2b8255(0x138),'enabled':!![],'hasFile':!![]},{'id':0x7,'title':a3_0x2b8255(0x1c7),'enabled':!![],'hasFile':!![]},{'id':0x8,'title':a3_0x2b8255(0xe5),'enabled':!![],'hasFile':!![]},{'id':0x9,'title':a3_0x2b8255(0x223),'enabled':!![],'hasFile':!![]},{'id':0xa,'title':a3_0x2b8255(0x18c),'enabled':!![],'hasFile':!![]},{'id':0xb,'title':a3_0x2b8255(0x336),'enabled':!![],'hasFile':!![]},{'id':0xc,'title':a3_0x2b8255(0x1bc),'enabled':!![],'hasFile':!![]},{'id':0xd,'title':a3_0x2b8255(0x368),'enabled':!![],'hasFile':!![]},{'id':0xe,'title':a3_0x2b8255(0x33f),'enabled':!![],'hasFile':!![]},{'id':0xf,'title':a3_0x2b8255(0x3c1),'enabled':!![],'hasFile':!![]},{'id':0x10,'title':a3_0x2b8255(0x3fc),'enabled':!![],'hasFile':!![]},{'id':0x11,'title':a3_0x2b8255(0x29f),'enabled':!![],'hasFile':!![]},{'id':0x12,'title':a3_0x2b8255(0x135),'enabled':!![],'hasFile':!![]},{'id':0x13,'title':'Der\x20Fluggesellschaft\x20(Mittel)','enabled':!![],'hasFile':!![]},{'id':0x14,'title':a3_0x2b8255(0x3a0),'enabled':!![],'hasFile':!![]},{'id':0x15,'title':a3_0x2b8255(0x2ce),'enabled':!![],'hasFile':!![]},{'id':0x16,'title':a3_0x2b8255(0x166),'enabled':!![],'hasFile':!![]},{'id':0x17,'title':'Bei\x20den\x20Europawahlen\x20(Linksparteien)','enabled':!![],'hasFile':!![]},{'id':0x18,'title':'Bei\x20den\x20Europawahlen\x20(CDU/CSU)','enabled':!![],'hasFile':!![]},{'id':0x19,'title':a3_0x2b8255(0x28a),'enabled':!![],'hasFile':!![]},{'id':0x1a,'title':'Bio-Siegels','enabled':!![],'hasFile':!![]},{'id':0x1b,'title':a3_0x2b8255(0x4ba),'enabled':!![],'hasFile':!![]},{'id':0x1c,'title':a3_0x2b8255(0x2b5),'enabled':!![],'hasFile':!![]},{'id':0x1d,'title':'BILD\x20AM\x20SONNTAG\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x1e,'title':a3_0x2b8255(0x376),'enabled':!![],'hasFile':!![]},{'id':0x1f,'title':a3_0x2b8255(0x2f1),'enabled':!![],'hasFile':!![]},{'id':0x20,'title':a3_0x2b8255(0x178),'enabled':!![],'hasFile':!![]},{'id':0x21,'title':a3_0x2b8255(0x200),'enabled':!![],'hasFile':!![]},{'id':0x22,'title':'internationalen\x20Konferenz\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x23,'title':a3_0x2b8255(0x2c4),'enabled':!![],'hasFile':!![]},{'id':0x24,'title':a3_0x2b8255(0x4a4),'enabled':!![],'hasFile':!![]},{'id':0x25,'title':a3_0x2b8255(0xe2),'enabled':!![],'hasFile':!![]},{'id':0x26,'title':a3_0x2b8255(0x184),'enabled':!![],'hasFile':!![]},{'id':0x27,'title':a3_0x2b8255(0x13f),'enabled':!![],'hasFile':!![]},{'id':0x28,'title':'Die\x20Sprecherin\x20ist\x20verheiratet\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x29,'title':a3_0x2b8255(0x205),'enabled':!![],'hasFile':!![]},{'id':0x2a,'title':a3_0x2b8255(0x1ae),'enabled':!![],'hasFile':!![]},{'id':0x2b,'title':a3_0x2b8255(0x3fe),'enabled':!![],'hasFile':!![]},{'id':0x2c,'title':a3_0x2b8255(0x240),'enabled':!![],'hasFile':!![]},{'id':0x2d,'title':'Nach\x20Ansicht\x20mancher\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]}],'hoeren2':[{'id':0x1,'title':a3_0x2b8255(0x40a),'enabled':!![],'hasFile':!![]},{'id':0x2,'title':a3_0x2b8255(0x21a),'enabled':!![],'hasFile':!![]},{'id':0x3,'title':a3_0x2b8255(0x110),'enabled':!![],'hasFile':!![]},{'id':0x4,'title':a3_0x2b8255(0x362),'enabled':!![],'hasFile':!![]},{'id':0x5,'title':a3_0x2b8255(0x389),'enabled':!![],'hasFile':!![]},{'id':0x6,'title':'Mallorca','enabled':!![],'hasFile':!![]},{'id':0x7,'title':a3_0x2b8255(0x4de),'enabled':!![],'hasFile':!![]},{'id':0x8,'title':'In\x20dem\x20Restaurant','enabled':!![],'hasFile':!![]},{'id':0x9,'title':a3_0x2b8255(0x252),'enabled':!![],'hasFile':!![]},{'id':0xa,'title':a3_0x2b8255(0x2a3),'enabled':!![],'hasFile':!![]},{'id':0xb,'title':'Carina\x20(Mittel)','enabled':!![],'hasFile':!![]},{'id':0xc,'title':a3_0x2b8255(0x332),'enabled':!![],'hasFile':!![]},{'id':0xd,'title':a3_0x2b8255(0x2ed),'enabled':!![],'hasFile':!![]},{'id':0xe,'title':a3_0x2b8255(0x1d1),'enabled':!![],'hasFile':!![]},{'id':0xf,'title':a3_0x2b8255(0x451),'enabled':!![],'hasFile':!![]},{'id':0x10,'title':a3_0x2b8255(0xd6),'enabled':!![],'hasFile':!![]},{'id':0x11,'title':'Markus\x20(Mittel)','enabled':!![],'hasFile':!![]},{'id':0x12,'title':a3_0x2b8255(0x327),'enabled':!![],'hasFile':!![]},{'id':0x13,'title':a3_0x2b8255(0xc8),'enabled':!![],'hasFile':!![]},{'id':0x14,'title':a3_0x2b8255(0x97),'enabled':!![],'hasFile':!![]},{'id':0x15,'title':a3_0x2b8255(0x467),'enabled':!![],'hasFile':!![]},{'id':0x16,'title':a3_0x2b8255(0x3cc),'enabled':!![],'hasFile':!![]},{'id':0x17,'title':a3_0x2b8255(0x1d8),'enabled':!![],'hasFile':!![]},{'id':0x18,'title':a3_0x2b8255(0x2ec),'enabled':!![],'hasFile':!![]},{'id':0x19,'title':'Zu\x20Beginn','enabled':!![],'hasFile':!![]},{'id':0x1a,'title':a3_0x2b8255(0x442),'enabled':!![],'hasFile':!![]},{'id':0x1b,'title':a3_0x2b8255(0xc5),'enabled':!![],'hasFile':!![]},{'id':0x1c,'title':'Franz\x20Schumacher','enabled':!![],'hasFile':!![]},{'id':0x1d,'title':a3_0x2b8255(0x49c),'enabled':!![],'hasFile':!![]},{'id':0x1e,'title':a3_0x2b8255(0x1b9),'enabled':!![],'hasFile':!![]},{'id':0x1f,'title':a3_0x2b8255(0x1db),'enabled':!![],'hasFile':!![]},{'id':0x20,'title':'Nadine\x20Wagner\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x21,'title':a3_0x2b8255(0x308),'enabled':!![],'hasFile':!![]},{'id':0x22,'title':a3_0x2b8255(0x182),'enabled':!![],'hasFile':!![]},{'id':0x23,'title':a3_0x2b8255(0x40e),'enabled':!![],'hasFile':!![]},{'id':0x24,'title':a3_0x2b8255(0x106),'enabled':!![],'hasFile':!![]},{'id':0x25,'title':a3_0x2b8255(0x3db),'enabled':!![],'hasFile':!![]},{'id':0x26,'title':a3_0x2b8255(0x3df),'enabled':!![],'hasFile':!![]},{'id':0x27,'title':'Familie\x20-\x20Eltern\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x28,'title':a3_0x2b8255(0xa1),'enabled':!![],'hasFile':!![]},{'id':0x29,'title':'Bicycle\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x2a,'title':a3_0x2b8255(0x169),'enabled':!![],'hasFile':!![]},{'id':0x2b,'title':a3_0x2b8255(0xb8),'enabled':!![],'hasFile':!![]},{'id':0x2c,'title':a3_0x2b8255(0x1a0),'enabled':!![],'hasFile':!![]},{'id':0x2d,'title':a3_0x2b8255(0x19f),'enabled':!![],'hasFile':!![]},{'id':0x2e,'title':'Wohnmobilen\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x2f,'title':a3_0x2b8255(0x383),'enabled':!![],'hasFile':!![]},{'id':0x30,'title':a3_0x2b8255(0x1f6),'enabled':!![],'hasFile':!![]},{'id':0x31,'title':a3_0x2b8255(0x45e),'enabled':!![],'hasFile':!![]},{'id':0x32,'title':a3_0x2b8255(0x48f),'enabled':!![],'hasFile':!![]},{'id':0x33,'title':a3_0x2b8255(0x449),'enabled':!![],'hasFile':!![]},{'id':0x34,'title':a3_0x2b8255(0x271),'enabled':!![],'hasFile':!![]},{'id':0x35,'title':a3_0x2b8255(0xf4),'enabled':!![],'hasFile':!![]},{'id':0x36,'title':a3_0x2b8255(0x3b0),'enabled':!![],'hasFile':!![]},{'id':0x37,'title':a3_0x2b8255(0x26c),'enabled':!![],'hasFile':!![]}],'hoeren3':[{'id':0x1,'title':a3_0x2b8255(0x244),'enabled':!![],'hasFile':!![]},{'id':0x2,'title':a3_0x2b8255(0x3e8),'enabled':!![],'hasFile':!![]},{'id':0x3,'title':a3_0x2b8255(0x268),'enabled':!![],'hasFile':!![]},{'id':0x4,'title':a3_0x2b8255(0x48e),'enabled':!![],'hasFile':!![]},{'id':0x5,'title':a3_0x2b8255(0x443),'enabled':!![],'hasFile':!![]},{'id':0x6,'title':a3_0x2b8255(0xfe),'enabled':!![],'hasFile':!![]},{'id':0x7,'title':'Internet\x20prüfen','enabled':!![],'hasFile':!![]},{'id':0x8,'title':a3_0x2b8255(0x2f6),'enabled':!![],'hasFile':!![]},{'id':0x9,'title':a3_0x2b8255(0x3cb),'enabled':!![],'hasFile':!![]},{'id':0xa,'title':'Demonstration','enabled':!![],'hasFile':!![]},{'id':0xb,'title':a3_0x2b8255(0x143),'enabled':!![],'hasFile':!![]},{'id':0xc,'title':a3_0x2b8255(0x430),'enabled':!![],'hasFile':!![]},{'id':0xd,'title':a3_0x2b8255(0x1af),'enabled':!![],'hasFile':!![]},{'id':0xe,'title':a3_0x2b8255(0x18b),'enabled':!![],'hasFile':!![]},{'id':0xf,'title':a3_0x2b8255(0x177),'enabled':!![],'hasFile':!![]},{'id':0x10,'title':'Blutspenden','enabled':!![],'hasFile':!![]},{'id':0x11,'title':'Reitturnier','enabled':!![],'hasFile':!![]},{'id':0x12,'title':a3_0x2b8255(0x13a),'enabled':!![],'hasFile':!![]},{'id':0x13,'title':a3_0x2b8255(0x49e),'enabled':!![],'hasFile':!![]},{'id':0x14,'title':a3_0x2b8255(0x3f3),'enabled':!![],'hasFile':!![]},{'id':0x15,'title':a3_0x2b8255(0x40d),'enabled':!![],'hasFile':!![]},{'id':0x16,'title':a3_0x2b8255(0x2c2),'enabled':!![],'hasFile':!![]},{'id':0x17,'title':a3_0x2b8255(0x38c),'enabled':!![],'hasFile':!![]},{'id':0x18,'title':'Nach\x20einer\x20Großdemonstration','enabled':!![],'hasFile':!![]},{'id':0x19,'title':a3_0x2b8255(0x34e),'enabled':!![],'hasFile':!![]},{'id':0x1a,'title':'Das\x20Fest\x20(mit\x20Frankfurt)','enabled':!![],'hasFile':!![]},{'id':0x1b,'title':a3_0x2b8255(0x454),'enabled':!![],'hasFile':!![]},{'id':0x1c,'title':a3_0x2b8255(0x152),'enabled':!![],'hasFile':!![]},{'id':0x1d,'title':'Bayern\x20Radio\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x1e,'title':'Die\x20Gruppe\x20Die\x20Prinzen\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x1f,'title':a3_0x2b8255(0x31a),'enabled':!![],'hasFile':!![]},{'id':0x20,'title':a3_0x2b8255(0x15e),'enabled':!![],'hasFile':!![]},{'id':0x21,'title':a3_0x2b8255(0x45a),'enabled':!![],'hasFile':!![]},{'id':0x22,'title':a3_0x2b8255(0x4d5),'enabled':!![],'hasFile':!![]},{'id':0x23,'title':a3_0x2b8255(0x2ba),'enabled':!![],'hasFile':!![]},{'id':0x24,'title':a3_0x2b8255(0x11a),'enabled':!![],'hasFile':!![]},{'id':0x25,'title':a3_0x2b8255(0x206),'enabled':!![],'hasFile':!![]},{'id':0x26,'title':a3_0x2b8255(0x47e),'enabled':!![],'hasFile':!![]},{'id':0x27,'title':a3_0x2b8255(0x447),'enabled':!![],'hasFile':!![]},{'id':0x28,'title':a3_0x2b8255(0x4b8),'enabled':!![],'hasFile':!![]},{'id':0x29,'title':a3_0x2b8255(0x18f),'enabled':!![],'hasFile':!![]},{'id':0x2a,'title':a3_0x2b8255(0x509),'enabled':!![],'hasFile':!![]},{'id':0x2b,'title':a3_0x2b8255(0x46b),'enabled':!![],'hasFile':!![]},{'id':0x2c,'title':'Ein\x20Teil\x20der\x20kostenlosen\x20Veranstaltungen\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x2d,'title':a3_0x2b8255(0x291),'enabled':!![],'hasFile':!![]},{'id':0x2e,'title':'Die\x20Buchpräsentation\x20(مواضيع\x20تركيا)','enabled':!![],'hasFile':!![]},{'id':0x2f,'title':a3_0x2b8255(0x12f),'enabled':!![],'hasFile':!![]},{'id':0x30,'title':a3_0x2b8255(0x23e),'enabled':!![],'hasFile':!![]}],'schreiben':schreibenExams,'mündlich':mündlich2Exams,'mündlich1':mündlich1Exams,'mündlich2':mündlich2Exams,'mündlich3':mündlich3Exams,'tips':tipsExams};function displaySavedResult(_0x51efc6,_0x1003e4,_0x108cb4,_0x4c58cf){const _0x491d6c=a3_0x2b8255,_0x445bf2={'hZFqN':function(_0x3a1857,_0xf802a6){return _0x3a1857(_0xf802a6);},'DYgjv':function(_0x220b17,_0x1c4898){return _0x220b17!==_0x1c4898;},'UgckH':_0x491d6c(0x48a),'xjQue':'OtAiR','CvnNx':function(_0x3f210f,_0x249318){return _0x3f210f(_0x249318);},'sLnwb':_0x491d6c(0x12c)},_0x220a5d=getExamResult(_0x51efc6,_0x1003e4);if(_0x445bf2['DYgjv'](_0x220a5d,null)){if(_0x445bf2[_0x491d6c(0x422)]===_0x445bf2[_0x491d6c(0x2de)])_0x445bf2[_0x491d6c(0x23d)](_0x29e602,_0x3f0d3b[_0x491d6c(0x215)]||[]);else{const _0x3ffb2c=_0x445bf2[_0x491d6c(0x11b)](createResultBadge,_0x220a5d);if(_0x3ffb2c){const _0x459456=_0x108cb4[_0x491d6c(0x173)](_0x445bf2[_0x491d6c(0xe0)]);if(_0x459456)_0x459456[_0x491d6c(0x2ad)]();_0x108cb4[_0x491d6c(0x3a2)](_0x3ffb2c);}}}}function a3_0x5499(_0x5c5356,_0x3f8eb8){_0x5c5356=_0x5c5356-0x89;const _0x40eaa7=a3_0x40ea();let _0x549908=_0x40eaa7[_0x5c5356];if(a3_0x5499['tKXypa']===undefined){var _0xf10b8f=function(_0x4304b4){const _0x3c037a='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x26eed6='',_0xcf046b='';for(let _0x2bce2b=0x0,_0x36cfe8,_0x9aeaf4,_0x2c6ad9=0x0;_0x9aeaf4=_0x4304b4['charAt'](_0x2c6ad9++);~_0x9aeaf4&&(_0x36cfe8=_0x2bce2b%0x4?_0x36cfe8*0x40+_0x9aeaf4:_0x9aeaf4,_0x2bce2b++%0x4)?_0x26eed6+=String['fromCharCode'](0xff&_0x36cfe8>>(-0x2*_0x2bce2b&0x6)):0x0){_0x9aeaf4=_0x3c037a['indexOf'](_0x9aeaf4);}for(let _0x4f1317=0x0,_0x4813ae=_0x26eed6['length'];_0x4f1317<_0x4813ae;_0x4f1317++){_0xcf046b+='%'+('00'+_0x26eed6['charCodeAt'](_0x4f1317)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0xcf046b);};a3_0x5499['zswxMi']=_0xf10b8f,a3_0x5499['vfBgrS']={},a3_0x5499['tKXypa']=!![];}const _0x56e448=_0x40eaa7[0x0],_0x8f4f54=_0x5c5356+_0x56e448,_0xb0dd78=a3_0x5499['vfBgrS'][_0x8f4f54];return!_0xb0dd78?(_0x549908=a3_0x5499['zswxMi'](_0x549908),a3_0x5499['vfBgrS'][_0x8f4f54]=_0x549908):_0x549908=_0xb0dd78,_0x549908;}let activeTeilId=null;function renderTeileList(){const _0x407fc7=a3_0x2b8255,_0x136d51={'cyxOP':'2|0|4|1|3','KMXra':_0x407fc7(0x137),'duxFx':function(_0x4fdb21,_0x1e0858){return _0x4fdb21===_0x1e0858;},'jifFN':_0x407fc7(0x4c3),'MzdRd':_0x407fc7(0x8b),'iDswF':_0x407fc7(0x416),'aIHtk':function(_0x7453cd,_0x3c5e45){return _0x7453cd!==_0x3c5e45;},'opKum':'jOnwT','xRMxN':'#161922','jBXMD':_0x407fc7(0x26a),'PTKME':function(_0x473609){return _0x473609();},'hOYSF':function(_0x101a05,_0x656829,_0x1aa4e8){return _0x101a05(_0x656829,_0x1aa4e8);},'PpmUk':_0x407fc7(0xa4),'wPzfX':function(_0xf6fa56,_0x1f79e9){return _0xf6fa56<_0x1f79e9;},'bdDKe':function(_0x3119e0,_0x19008e){return _0x3119e0===_0x19008e;},'gCxNs':_0x407fc7(0x42d),'qODLh':_0x407fc7(0x2fe),'xZfhR':function(_0x490eaa,_0x49a377){return _0x490eaa===_0x49a377;},'LuhWa':_0x407fc7(0x37a)},_0x20dfa0=document[_0x407fc7(0x19d)](_0x136d51[_0x407fc7(0x2c5)]);if(!_0x20dfa0)return;_0x20dfa0['innerHTML']='',_0x20dfa0[_0x407fc7(0x4f9)][_0x407fc7(0x4e2)]=_0x407fc7(0x1b8);for(let _0x245ce6=0x0;_0x136d51[_0x407fc7(0x46a)](_0x245ce6,teile['length']);_0x245ce6++){if(_0x136d51[_0x407fc7(0x257)](_0x136d51['gCxNs'],_0x136d51[_0x407fc7(0x17a)])){const _0x243533=_0x136d51[_0x407fc7(0x3a8)]['split']('|');let _0x4ed33b=0x0;while(!![]){switch(_0x243533[_0x4ed33b++]){case'0':_0x454ac4[_0x407fc7(0x1c2)][_0x407fc7(0x325)]&&(_0x1e2fb5+=_0x407fc7(0x24b)+_0x2a585e[_0x407fc7(0x1c2)][_0x407fc7(0x325)]+_0x407fc7(0x1b1));continue;case'1':_0x5fd3b8['phase2'][_0x407fc7(0x320)][_0x407fc7(0x38e)](_0xfdfed0=>{const _0x3b7479=_0x407fc7;_0x5b5f6f+=_0x3b7479(0x95)+_0xfdfed0[_0x3b7479(0x419)]+_0x3b7479(0xf0)+_0xfdfed0[_0x3b7479(0x10f)]['map'](_0x2b00ba=>_0x3b7479(0x496)+_0x2b00ba+_0x3b7479(0x4cd))['join']('')+_0x3b7479(0xbe)+_0xfdfed0[_0x3b7479(0x43d)][_0x3b7479(0x1a7)](_0x5b5612=>'<div\x20style=\x22font-size:\x200.75rem;\x20color:\x20#2c3e66;\x20margin-bottom:\x206px;\x22>📌\x20'+_0x5b5612[_0x3b7479(0x514)]+_0x3b7479(0x1c9)+_0x5b5612[_0x3b7479(0x12e)]+_0x3b7479(0x16d))['join']('')+_0x3b7479(0x41e);});continue;case'2':_0x544053+=_0x407fc7(0x4b2)+_0x4b2cf6[_0x407fc7(0x1c2)][_0x407fc7(0x419)]+_0x407fc7(0x1b1);continue;case'3':_0x28b3bb+='</div></div>';continue;case'4':_0x37ff05+=_0x407fc7(0x309);continue;}break;}}else{const _0x3357b9=teile[_0x245ce6],_0x51d22b=_0x136d51[_0x407fc7(0x482)](activeTeilId,_0x245ce6),_0x4d25be=document['createElement'](_0x407fc7(0x36b));_0x4d25be['textContent']=_0x3357b9['name'],_0x4d25be[_0x407fc7(0x4f9)][_0x407fc7(0x4e2)]=_0x407fc7(0xd2)+(_0x51d22b?_0x407fc7(0x416):_0x136d51[_0x407fc7(0xe4)])+_0x407fc7(0x203)+(_0x51d22b?_0x136d51[_0x407fc7(0x159)]:_0x136d51[_0x407fc7(0x136)])+';\x0a\x20\x20\x20\x20\x20\x20border-radius:\x2014px;\x0a\x20\x20\x20\x20\x20\x20font-size:\x2015px;\x0a\x20\x20\x20\x20\x20\x20font-weight:\x20600;\x0a\x20\x20\x20\x20\x20\x20font-family:\x20inherit;\x0a\x20\x20\x20\x20\x20\x20color:\x20'+(_0x51d22b?_0x136d51[_0x407fc7(0xe4)]:_0x407fc7(0x3c4))+';\x0a\x20\x20\x20\x20\x20\x20cursor:\x20pointer;\x0a\x20\x20\x20\x20\x20\x20transition:\x20background-color\x200.2s\x20ease,\x20color\x200.2s\x20ease,\x20border-color\x200.2s\x20ease;\x0a\x20\x20\x20\x20\x20\x20white-space:\x20nowrap;\x0a\x20\x20\x20\x20',_0x4d25be[_0x407fc7(0x3e9)]=()=>{const _0x3b21f1=_0x407fc7,_0x542a6d={'wYzIN':_0x136d51[_0x3b21f1(0x136)]};_0x136d51[_0x3b21f1(0x2ee)](_0x136d51[_0x3b21f1(0x415)],_0x136d51['jifFN'])?!_0x51d22b&&(_0x4d25be[_0x3b21f1(0x4f9)][_0x3b21f1(0x1a2)]=_0x136d51[_0x3b21f1(0x171)],_0x4d25be['style'][_0x3b21f1(0x13b)]=_0x136d51[_0x3b21f1(0x2bf)]):_0x1974d5[_0x3b21f1(0x4f9)][_0x3b21f1(0x22c)]=_0x542a6d[_0x3b21f1(0x230)];},_0x4d25be[_0x407fc7(0x2d7)]=()=>{const _0xed0b7f=_0x407fc7;_0x136d51[_0xed0b7f(0x4b1)](_0x136d51[_0xed0b7f(0x3b3)],_0xed0b7f(0x4b5))?!_0x51d22b&&(_0x4d25be[_0xed0b7f(0x4f9)][_0xed0b7f(0x1a2)]=_0x136d51[_0xed0b7f(0xe4)],_0x4d25be['style'][_0xed0b7f(0x13b)]=_0xed0b7f(0x3c4)):_0x3e9b74(_0x19ed6b[_0xed0b7f(0x215)]||[]);},_0x4d25be['onclick']=function(_0x24244b,_0x4a2122,_0x57bd10){const _0x25d06c={'HwUhz':function(_0x341a7e,_0x44d041){return _0x341a7e+_0x44d041;},'PvcgZ':function(_0x430416,_0x2cc710){return _0x430416+_0x2cc710;}};return function(){const _0x1fb360=a3_0x5499;_0x136d51[_0x1fb360(0x2ee)](_0x136d51[_0x1fb360(0x474)],_0x136d51['jBXMD'])?(activeTeilId=_0x57bd10,_0x136d51[_0x1fb360(0x441)](renderTeileList),_0x136d51['hOYSF'](renderExamListForSkill,_0x24244b,_0x4a2122)):_0x416af8[_0x1fb360(0x317)](_0x25d06c['HwUhz'](_0x25d06c[_0x1fb360(0x3e7)](_0x5a5f2b,'\x20('),_0x1720cc)+')');};}(_0x3357b9[_0x407fc7(0x108)],_0x3357b9[_0x407fc7(0x47a)],_0x245ce6),_0x20dfa0[_0x407fc7(0x3a2)](_0x4d25be);}}}function renderMündlichPartTabs(){const _0x3832ec=a3_0x2b8255,_0xb8f798={'hSZgZ':function(_0xf295b,_0x4710f9){return _0xf295b!==_0x4710f9;},'VcPCb':_0x3832ec(0x46c),'awBcW':_0x3832ec(0x2b8),'lHcUq':function(_0x1ff4a3,_0x501287,_0x997ef7){return _0x1ff4a3(_0x501287,_0x997ef7);},'RzYqq':_0x3832ec(0x47f),'ShJxl':function(_0x391669,_0x4645fe){return _0x391669===_0x4645fe;},'sZdWI':_0x3832ec(0x31f),'nPoeR':_0x3832ec(0x4b3),'ZUmLd':_0x3832ec(0x457),'jgSwS':_0x3832ec(0x313),'MoLxe':_0x3832ec(0x32e),'mnIZn':_0x3832ec(0x44f),'UVmvv':_0x3832ec(0x25a),'hGbGU':_0x3832ec(0x3ee),'SpqZs':_0x3832ec(0x43b)},_0x48c8a9=document[_0x3832ec(0x19d)](_0xb8f798[_0x3832ec(0x8f)]);if(!_0x48c8a9)return;const _0x40d6ab=_0x48c8a9[_0x3832ec(0x173)](_0xb8f798[_0x3832ec(0x3e1)]);if(_0x40d6ab)_0x40d6ab['remove']();const _0x307349=document[_0x3832ec(0xfd)](_0xb8f798['ZUmLd']);_0x307349['className']=_0xb8f798[_0x3832ec(0x3c8)],_0x307349[_0x3832ec(0x4f9)][_0x3832ec(0x4e2)]='\x0a\x20\x20\x20\x20display:\x20flex;\x0a\x20\x20\x20\x20gap:\x2012px;\x0a\x20\x20\x20\x20margin-bottom:\x2020px;\x0a\x20\x20\x20\x20justify-content:\x20center;\x0a\x20\x20\x20\x20flex-wrap:\x20wrap;\x0a\x20\x20\x20\x20padding:\x2010px\x200;\x0a\x20\x20';const _0xeb646b=[{'id':0x1,'name':_0xb8f798['MoLxe'],'skill':_0xb8f798[_0x3832ec(0x142)]},{'id':0x2,'name':_0xb8f798[_0x3832ec(0x29d)],'skill':_0xb8f798[_0x3832ec(0x115)]},{'id':0x3,'name':_0xb8f798[_0x3832ec(0x22a)],'skill':'mündlich3'}];_0xeb646b[_0x3832ec(0x38e)](_0x2243fb=>{const _0x19c8b9=_0x3832ec,_0x2fc5a4={'ZRsZC':function(_0x5b15b7,_0x16ae53){const _0x4ff183=a3_0x5499;return _0xb8f798[_0x4ff183(0x153)](_0x5b15b7,_0x16ae53);},'uqGqQ':_0xb8f798[_0x19c8b9(0x238)],'WJMEr':function(_0x555328,_0x44ce9c){return _0xb8f798['hSZgZ'](_0x555328,_0x44ce9c);},'RmHbN':_0xb8f798[_0x19c8b9(0x107)],'TnXIp':function(_0x16b6f1,_0x465a2b,_0x3abee6){return _0xb8f798['lHcUq'](_0x16b6f1,_0x465a2b,_0x3abee6);}},_0x119299=document[_0x19c8b9(0xfd)](_0x19c8b9(0x36b));_0x119299[_0x19c8b9(0x17e)]=_0x2243fb[_0x19c8b9(0x47a)],_0x119299[_0x19c8b9(0x4f9)][_0x19c8b9(0x4e2)]=_0x19c8b9(0x400)+(currentMündlichPart===_0x2243fb['id']?_0xb8f798[_0x19c8b9(0xa8)]:_0xb8f798['awBcW'])+_0x19c8b9(0x2c6)+(_0xb8f798[_0x19c8b9(0xee)](currentMündlichPart,_0x2243fb['id'])?_0x19c8b9(0x4ed):_0x19c8b9(0x410))+_0x19c8b9(0x3f1),_0x119299['onmouseenter']=()=>{const _0x4376e9=_0x19c8b9;_0x2fc5a4[_0x4376e9(0x120)](currentMündlichPart,_0x2243fb['id'])&&(_0x119299['style']['background']=_0x2fc5a4[_0x4376e9(0x4aa)]);},_0x119299[_0x19c8b9(0x2d7)]=()=>{const _0x2cb019=_0x19c8b9;_0x2fc5a4[_0x2cb019(0x468)](currentMündlichPart,_0x2243fb['id'])&&(_0x119299[_0x2cb019(0x4f9)][_0x2cb019(0x1a2)]=_0x2fc5a4[_0x2cb019(0x132)]);},_0x119299[_0x19c8b9(0x27c)]=()=>{const _0x1dc024=_0x19c8b9;currentMündlichPart=_0x2243fb['id'];const _0x405046=_0x2243fb[_0x1dc024(0x108)],_0x3bae83=_0x1dc024(0x24c)+_0x2243fb[_0x1dc024(0x47a)];_0x2fc5a4[_0x1dc024(0x195)](renderExamListForSkill,_0x405046,_0x3bae83);},_0x307349[_0x19c8b9(0x3a2)](_0x119299);}),_0x48c8a9[_0x3832ec(0x1f1)](_0x307349,_0x48c8a9[_0x3832ec(0x1ce)]);}async function renderExamListForSkill(_0x50ce92,_0x159ae8){const _0x8a8ce4=a3_0x2b8255,_0x574507={'CMbZT':_0x8a8ce4(0x2bc),'oXsPC':function(_0x185592,_0x395e61){return _0x185592+_0x395e61;},'wefxu':function(_0x37f355,_0xeb9d51){return _0x37f355===_0xeb9d51;},'bIUJZ':'wDbDj','kxJMJ':_0x8a8ce4(0x50c),'LnNbO':_0x8a8ce4(0x293),'AtaWE':_0x8a8ce4(0x1c6),'TxkOg':'#4b5563','hLnvv':_0x8a8ce4(0x351),'mcIme':_0x8a8ce4(0x139),'yiXqB':'#f8f9fa','MIwhJ':_0x8a8ce4(0x1f0),'okvEv':_0x8a8ce4(0x27b),'lMkfU':'translateX(0)','DjBHC':_0x8a8ce4(0x1c5),'VjeXp':function(_0x2aa287,_0x434524){return _0x2aa287===_0x434524;},'TKYtL':_0x8a8ce4(0x3a7),'kRIwI':_0x8a8ce4(0x2a2),'KWoVb':_0x8a8ce4(0x4f3),'UJMsA':function(_0x503073,_0x6b81e7){return _0x503073!==_0x6b81e7;},'QqcGC':_0x8a8ce4(0x3d6),'erQec':'subscribe.html','CQuSL':function(_0x51b347,_0x3d2f0f){return _0x51b347||_0x3d2f0f;},'ePbNL':function(_0x3b3106,_0x1684f3,_0x46a2d5,_0x2a581e){return _0x3b3106(_0x1684f3,_0x46a2d5,_0x2a581e);},'HdQZt':function(_0x135c78,_0x224578){return _0x135c78-_0x224578;},'BvEjt':_0x8a8ce4(0x31f),'xGSbC':function(_0x30d17b,_0x553eac){return _0x30d17b===_0x553eac;},'WDQGP':_0x8a8ce4(0x450),'SmvdA':function(_0x1eb5ae,_0x375dd6){return _0x1eb5ae===_0x375dd6;},'zOuFB':_0x8a8ce4(0x91),'gLQpY':function(_0x2b192b,_0x215f4f){return _0x2b192b!==_0x215f4f;},'GpvmO':'eAXGy','DZAjI':_0x8a8ce4(0x45c),'ttMWD':_0x8a8ce4(0x457),'ztqGW':function(_0x54632b,_0x44acc6){return _0x54632b(_0x44acc6);},'GBTlH':'mündlich2','FosCG':function(_0x3e2230,_0x77285c){return _0x3e2230===_0x77285c;},'OreYP':function(_0x1eaa4f,_0x2dd281){return _0x1eaa4f===_0x2dd281;},'zwIKg':_0x8a8ce4(0x453),'lfXFy':function(_0x1c6661){return _0x1c6661();},'wHXeq':function(_0x2bcf49,_0x23dc04){return _0x2bcf49===_0x23dc04;},'uFWyw':_0x8a8ce4(0x162),'KQdRC':function(_0x4e8177,_0xc5ac79){return _0x4e8177<_0xc5ac79;},'jkrJg':function(_0x498f43,_0x2f4f4f){return _0x498f43<=_0x2f4f4f;},'LXcMd':_0x8a8ce4(0x3ea),'cgRky':_0x8a8ce4(0x470),'slqeG':_0x8a8ce4(0x109),'ZHkgt':_0x8a8ce4(0x8c),'eszyD':'block','kfgaF':_0x8a8ce4(0x3aa),'qXwWh':function(_0x5cb2ec,_0x4b3c67,_0x49b698,_0x24c9df,_0x43ed08){return _0x5cb2ec(_0x4b3c67,_0x49b698,_0x24c9df,_0x43ed08);},'aBZpB':function(_0x12c6b5,_0x58330e){return _0x12c6b5&&_0x58330e;},'KxuNu':_0x8a8ce4(0x36d),'fDhVF':_0x8a8ce4(0x4d3),'SWieG':_0x8a8ce4(0x4c4),'WqRoB':_0x8a8ce4(0x522),'TCmDV':_0x8a8ce4(0x377),'pRwjJ':_0x8a8ce4(0x9d),'UmtfC':_0x8a8ce4(0x303),'VotyI':_0x8a8ce4(0x32c),'rPHPK':function(_0x376c04,_0x5c4f2c,_0x46d6e8){return _0x376c04(_0x5c4f2c,_0x46d6e8);}};currentSkill=_0x50ce92;const _0x553e87=document['getElementById'](_0x574507[_0x8a8ce4(0x464)]);if(!_0x553e87)return;_0x553e87[_0x8a8ce4(0x18d)]='';(_0x50ce92===_0x8a8ce4(0x44f)||_0x574507[_0x8a8ce4(0x272)](_0x50ce92,_0x8a8ce4(0x3ee))||_0x574507[_0x8a8ce4(0x365)](_0x50ce92,_0x574507[_0x8a8ce4(0x256)])||_0x574507['SmvdA'](_0x50ce92,_0x574507[_0x8a8ce4(0xeb)]))&&(_0x574507[_0x8a8ce4(0x294)](_0x574507[_0x8a8ce4(0x21c)],_0x574507[_0x8a8ce4(0xd7)])?renderMündlichPartTabs():_0x46db1c[_0x8a8ce4(0x1da)](dqOmWr[_0x8a8ce4(0x26d)],_0x325d83));const _0x1f9d9c=document['createElement'](_0x574507[_0x8a8ce4(0x234)]);_0x1f9d9c[_0x8a8ce4(0x51f)]='teil-header',_0x1f9d9c[_0x8a8ce4(0x18d)]=_0x8a8ce4(0x124)+(_0x159ae8||_0x574507[_0x8a8ce4(0xdb)](getTeilNameBySkill,_0x50ce92))+_0x8a8ce4(0x1f9),_0x553e87['appendChild'](_0x1f9d9c);let _0x51226f=_0x50ce92,_0x5548e1=examsDatabase[_0x50ce92]||[];if(_0x50ce92==='mündlich'){if(_0x574507[_0x8a8ce4(0x365)](currentMündlichPart,0x1))_0x51226f=_0x8a8ce4(0x44f),_0x5548e1=examsDatabase[_0x8a8ce4(0x44f)]||[];else{if(_0x574507['SmvdA'](currentMündlichPart,0x2))_0x51226f=_0x574507[_0x8a8ce4(0x3e4)],_0x5548e1=examsDatabase[_0x8a8ce4(0x3ee)]||[];else _0x574507[_0x8a8ce4(0x43f)](currentMündlichPart,0x3)&&(_0x51226f=_0x574507[_0x8a8ce4(0x256)],_0x5548e1=examsDatabase[_0x8a8ce4(0x450)]||[]);}}currentExamsList=_0x5548e1;if(_0x574507[_0x8a8ce4(0x3a3)](_0x5548e1[_0x8a8ce4(0x2f2)],0x0)){_0x553e87[_0x8a8ce4(0x18d)]+=_0x574507['zwIKg'];return;}const _0x11145a=await _0x574507[_0x8a8ce4(0x337)](getUserStatusForExam),_0x23f598=_0x574507['wHXeq'](_0x11145a,_0x574507[_0x8a8ce4(0x483)]);for(let _0x163aed=0x0;_0x574507[_0x8a8ce4(0x2e4)](_0x163aed,_0x5548e1[_0x8a8ce4(0x2f2)]);_0x163aed++){const _0x8c48f2=_0x5548e1[_0x163aed],_0x55868c=_0x8c48f2['id'],_0x409db9=_0x574507['jkrJg'](_0x55868c,0x6),_0x1a4077=document['createElement'](_0x574507[_0x8a8ce4(0x234)]);_0x1a4077[_0x8a8ce4(0x51f)]='item';const _0x1dff5d=document[_0x8a8ce4(0xfd)](_0x574507[_0x8a8ce4(0x4dc)]);_0x1dff5d[_0x8a8ce4(0x51f)]=_0x574507[_0x8a8ce4(0x286)];_0x574507[_0x8a8ce4(0x29a)](_0x50ce92,_0x574507[_0x8a8ce4(0x278)])?(_0x1dff5d['textContent']=''+_0x8c48f2[_0x8a8ce4(0x419)],_0x1dff5d[_0x8a8ce4(0x4f9)][_0x8a8ce4(0x22d)]=_0x574507['ZHkgt'],_0x1dff5d[_0x8a8ce4(0x4f9)]['display']=_0x574507[_0x8a8ce4(0x1eb)],_0x1dff5d[_0x8a8ce4(0x4f9)][_0x8a8ce4(0x264)]=_0x574507[_0x8a8ce4(0x493)]):_0x1dff5d[_0x8a8ce4(0x17e)]=_0x8c48f2['id']+':\x20'+_0x8c48f2[_0x8a8ce4(0x419)];_0x1a4077[_0x8a8ce4(0x3a2)](_0x1dff5d),_0x574507[_0x8a8ce4(0x105)](displaySavedResult,_0x51226f,_0x8c48f2['id'],_0x1dff5d,_0x1a4077);if(_0x574507[_0x8a8ce4(0x38b)](!_0x23f598,!_0x409db9)&&_0x574507[_0x8a8ce4(0xa2)](_0x51226f,_0x8a8ce4(0x44f))&&_0x574507[_0x8a8ce4(0xa2)](_0x51226f,_0x8a8ce4(0x450))){_0x1a4077[_0x8a8ce4(0x4f9)]['backgroundColor']=_0x8a8ce4(0x292),_0x1a4077[_0x8a8ce4(0x4f9)][_0x8a8ce4(0x3f4)]=_0x574507[_0x8a8ce4(0x1ee)],_0x1a4077[_0x8a8ce4(0x4f9)][_0x8a8ce4(0x3dd)]='1',_0x1a4077[_0x8a8ce4(0x4f9)][_0x8a8ce4(0x2dc)]=_0x574507[_0x8a8ce4(0x3fa)],_0x1a4077[_0x8a8ce4(0x4f9)]['cursor']=_0x574507['SWieG'];const _0x2057fe=document[_0x8a8ce4(0xfd)](_0x574507[_0x8a8ce4(0x4dc)]);_0x2057fe[_0x8a8ce4(0x51f)]=_0x574507[_0x8a8ce4(0xef)];const _0x3186ea=document[_0x8a8ce4(0xfd)](_0x574507[_0x8a8ce4(0x4dc)]);_0x3186ea['className']=_0x574507[_0x8a8ce4(0x27f)],_0x3186ea[_0x8a8ce4(0x18d)]=_0x574507[_0x8a8ce4(0x360)],_0x2057fe['appendChild'](_0x3186ea),_0x1a4077['appendChild'](_0x2057fe),_0x1dff5d[_0x8a8ce4(0x4f9)][_0x8a8ce4(0x13b)]=_0x574507[_0x8a8ce4(0x458)],_0x1dff5d['style'][_0x8a8ce4(0x2dc)]=_0x574507[_0x8a8ce4(0x4da)],_0x1a4077[_0x8a8ce4(0x3e9)]=function(){const _0x40e19e=_0x8a8ce4,_0x25c191={'Ulfsm':function(_0x2ccc15,_0x4bc30f){const _0xebaa2a=a3_0x5499;return _0x574507[_0xebaa2a(0x4ac)](_0x2ccc15,_0x4bc30f);}};if(_0x574507[_0x40e19e(0x29a)](_0x574507[_0x40e19e(0x33a)],'wDbDj')){const _0x269b3f=_0x574507[_0x40e19e(0x250)][_0x40e19e(0x40b)]('|');let _0x49df65=0x0;while(!![]){switch(_0x269b3f[_0x49df65++]){case'0':if(_0x3186ea)_0x3186ea[_0x40e19e(0x4f9)]['transform']=_0x574507[_0x40e19e(0x2df)];continue;case'1':this['style']['borderColor']=_0x574507[_0x40e19e(0x2a7)];continue;case'2':this[_0x40e19e(0x4f9)][_0x40e19e(0x4a8)]=_0x40e19e(0x16b);continue;case'3':_0x1dff5d[_0x40e19e(0x4f9)][_0x40e19e(0x13b)]=_0x574507['TxkOg'];continue;case'4':this[_0x40e19e(0x4f9)][_0x40e19e(0x398)]=_0x574507[_0x40e19e(0x20c)];continue;}break;}}else _0x23a4eb['showPremiumModal'](_0x25c191[_0x40e19e(0x13c)](_0x25c191[_0x40e19e(0x13c)](_0x3cd920+'\x20(',_0x2bc1a1),')'));},_0x1a4077['onmouseleave']=function(){const _0x59bc59=_0x8a8ce4;if(_0x574507[_0x59bc59(0x16f)]!==_0x574507[_0x59bc59(0x16f)])_0x25c202['style'][_0x59bc59(0x3dd)]=_0x574507[_0x59bc59(0x354)],_0x52cae0[_0x59bc59(0x4f9)][_0x59bc59(0x398)]=_0x574507[_0x59bc59(0x4be)],_0x2df1a1[_0x59bc59(0x27c)]=()=>_0x478205(_0x59bc59(0x266)+_0x1e478c['id']+_0x59bc59(0x44d));else{const _0x36b1a1=_0x574507[_0x59bc59(0x265)][_0x59bc59(0x40b)]('|');let _0x408884=0x0;while(!![]){switch(_0x36b1a1[_0x408884++]){case'0':this[_0x59bc59(0x4f9)][_0x59bc59(0x27e)]=_0x59bc59(0x343);continue;case'1':this[_0x59bc59(0x4f9)][_0x59bc59(0x398)]=_0x59bc59(0x292);continue;case'2':this[_0x59bc59(0x4f9)][_0x59bc59(0x4a8)]=_0x574507['lMkfU'];continue;case'3':if(_0x3186ea)_0x3186ea['style'][_0x59bc59(0x4a8)]=_0x59bc59(0xbf);continue;case'4':_0x1dff5d[_0x59bc59(0x4f9)][_0x59bc59(0x13b)]=_0x574507[_0x59bc59(0x458)];continue;}break;}}},_0x1a4077[_0x8a8ce4(0x27c)]=function(_0x282336,_0x2f1131){return function(){const _0x3d2a6c=a3_0x5499;_0x574507[_0x3d2a6c(0x272)](_0x574507[_0x3d2a6c(0x1cc)],_0x574507[_0x3d2a6c(0x1b6)])?_0x5cef7e+=_0x3d2a6c(0x2eb)+_0x16cfe2['footerMessage']+_0x3d2a6c(0x510):_0x574507[_0x3d2a6c(0x272)](typeof window[_0x3d2a6c(0x317)],_0x574507['KWoVb'])?window['showPremiumModal'](_0x574507['oXsPC'](_0x574507[_0x3d2a6c(0x4ac)](_0x574507[_0x3d2a6c(0x4ac)](_0x282336,'\x20('),_0x2f1131),')')):_0x574507[_0x3d2a6c(0xa2)](_0x574507[_0x3d2a6c(0xb9)],_0x574507['QqcGC'])?_0x4e2d28+=_0x3d2a6c(0x24b)+_0x252133['phase2']['note']+'</div>':window[_0x3d2a6c(0x243)][_0x3d2a6c(0x3fb)]=_0x574507['erQec'];};}(_0x8c48f2[_0x8a8ce4(0x419)],_0x8c48f2['id']);}else{if(_0x8c48f2[_0x8a8ce4(0x125)])_0x1a4077[_0x8a8ce4(0x27c)]=function(_0x3f70e5,_0x4d5646,_0x4d71e3){return function(){const _0x2790ac=a3_0x5499,_0x311c6a=_0x574507['CQuSL'](_0x4d71e3,_0x51226f);_0x574507[_0x2790ac(0x30d)](openExam,_0x3f70e5,_0x4d5646,_0x311c6a);};}(_0x8c48f2['id'],_0x8c48f2[_0x8a8ce4(0x419)],_0x8c48f2['skillPath']||_0x51226f);else{if(_0x574507['VotyI']!==_0x8a8ce4(0x32c)){const _0x5d14e0=_0x23f13e[_0x574507['HdQZt'](_0x5cd3ad,0x1)];_0x574507[_0x8a8ce4(0x30d)](_0x1764c4,_0x5d14e0['id'],_0x5d14e0['title'],_0x5d14e0[_0x8a8ce4(0x35a)]||_0x29a40f);}else _0x1a4077[_0x8a8ce4(0x4f9)][_0x8a8ce4(0x3dd)]=_0x574507[_0x8a8ce4(0x354)],_0x1a4077[_0x8a8ce4(0x4f9)][_0x8a8ce4(0x398)]=_0x574507[_0x8a8ce4(0x4be)],_0x1a4077[_0x8a8ce4(0x27c)]=()=>alert('⚠️\x20الامتحان\x20رقم\x20'+_0x8c48f2['id']+_0x8a8ce4(0x44d));}}_0x553e87[_0x8a8ce4(0x3a2)](_0x1a4077);}_0x574507['rPHPK'](setTimeout,setupLockedNextButton,0x64);}function setupLockedNextButton(){const _0x221c74=a3_0x2b8255,_0x49a6e7={'keeKp':function(_0x282929,_0x49bd0a){return _0x282929===_0x49bd0a;},'AqMiN':_0x221c74(0x1e9),'ZRmOI':_0x221c74(0x4f3),'eWQhz':function(_0x23fa35,_0xe53c5b){return _0x23fa35+_0xe53c5b;},'EYReo':function(_0x2d5f39,_0x3194fd){return _0x2d5f39+_0x3194fd;},'QLEjx':_0x221c74(0x3f7),'SZlfL':_0x221c74(0x287),'pDxDj':'إخفاء\x20←','epueB':_0x221c74(0x162),'gMDXg':function(_0x1c1257,_0x3fd56f){return _0x1c1257>_0x3fd56f;},'SifBv':function(_0x3e10f8,_0x24030f){return _0x3e10f8!==_0x24030f;},'gaQNd':_0x221c74(0x4fa),'QcREr':_0x221c74(0x42e),'eEhGE':_0x221c74(0x1fd),'cdWsq':_0x221c74(0x3ea),'KbFKI':'next-lock-icon','CVVTx':'#b0bec5','psBNl':_0x221c74(0x231),'vzOZq':function(_0xa383e4,_0x305c75){return _0xa383e4<=_0x305c75;},'yPEhV':function(_0x2c2bb2,_0x1b6aa2){return _0x2c2bb2===_0x1b6aa2;},'QiUqY':'guyiX','SlXha':function(_0x231df1){return _0x231df1();}},_0x103abc=document['getElementById'](_0x221c74(0x210));if(!_0x103abc)return;_0x49a6e7['SlXha'](getUserStatusForExam)['then'](_0x3b6af7=>{const _0x4748e1=_0x221c74,_0x1db233={'kAvgG':_0x49a6e7['QLEjx'],'VNKGp':_0x4748e1(0x3d9),'UiOvF':_0x4748e1(0x137),'yzuHj':_0x49a6e7[_0x4748e1(0x39f)],'Fykah':_0x49a6e7[_0x4748e1(0x1f3)],'MNOhI':_0x4748e1(0x4eb)},_0x506788=_0x49a6e7['keeKp'](_0x3b6af7,_0x49a6e7['epueB']),_0xf8bfc0=currentExamsList[_0x4748e1(0x2ea)](_0x12c732=>_0x12c732['id']===currentExamId),_0x5f5095=currentExamsList[_0x49a6e7[_0x4748e1(0x48b)](_0xf8bfc0,0x1)];if(_0x5f5095){const _0x1a8687=_0x5f5095['id'];if(!_0x506788&&_0x49a6e7[_0x4748e1(0x163)](_0x1a8687,0x6)&&_0x49a6e7[_0x4748e1(0x1ac)](_0x103abc['style'][_0x4748e1(0x22c)],_0x4748e1(0x137))){_0x103abc['style'][_0x4748e1(0x4c9)]=_0x49a6e7[_0x4748e1(0xdd)],_0x103abc[_0x4748e1(0x4f9)][_0x4748e1(0x20b)]=_0x49a6e7[_0x4748e1(0x4c1)];let _0x31a124=_0x103abc['querySelector'](_0x49a6e7[_0x4748e1(0x3b4)]);if(!_0x31a124){const _0x5cd833=_0x4748e1(0x304)[_0x4748e1(0x40b)]('|');let _0x20d3cd=0x0;while(!![]){switch(_0x5cd833[_0x20d3cd++]){case'0':_0x31a124[_0x4748e1(0x18d)]='🔒';continue;case'1':_0x103abc[_0x4748e1(0x3a2)](_0x31a124);continue;case'2':_0x31a124=document[_0x4748e1(0xfd)](_0x49a6e7[_0x4748e1(0x51b)]);continue;case'3':_0x31a124[_0x4748e1(0x51f)]=_0x49a6e7[_0x4748e1(0x248)];continue;case'4':_0x31a124[_0x4748e1(0x4f9)][_0x4748e1(0x4e2)]='position:\x20absolute;\x20left:\x2012px;\x20top:\x2050%;\x20transform:\x20translateY(-50%);\x20font-size:\x2014px;\x20color:\x20#ef4444;';continue;}break;}}_0x103abc['style'][_0x4748e1(0x398)]=_0x49a6e7[_0x4748e1(0x4d7)],_0x103abc['style'][_0x4748e1(0x3dd)]=_0x49a6e7['psBNl'],_0x103abc[_0x4748e1(0x27c)]=function(_0x2b0189){const _0x2cb4cb=_0x4748e1;if(_0x49a6e7[_0x2cb4cb(0x381)](_0x49a6e7[_0x2cb4cb(0x4e9)],_0x49a6e7[_0x2cb4cb(0x4e9)]))return _0x2b0189['preventDefault'](),_0x2b0189['stopPropagation'](),_0x49a6e7['keeKp'](typeof window[_0x2cb4cb(0x317)],_0x49a6e7[_0x2cb4cb(0x1f8)])?window['showPremiumModal'](_0x49a6e7[_0x2cb4cb(0x1d7)](_0x49a6e7[_0x2cb4cb(0x48b)](_0x49a6e7[_0x2cb4cb(0x1d7)](_0x5f5095['title'],'\x20('),_0x1a8687),')')):window[_0x2cb4cb(0x243)][_0x2cb4cb(0x3fb)]=_0x2cb4cb(0x228),![];else{const _0xc46cea={'PjSaC':_0x1db233[_0x2cb4cb(0x3ef)],'kYgzP':_0x1db233[_0x2cb4cb(0x1e2)],'jEHQz':_0x1db233[_0x2cb4cb(0x4ae)],'lNuEo':_0x1db233[_0x2cb4cb(0x480)],'McbxW':_0x1db233[_0x2cb4cb(0x12b)]};_0xc3c526[_0x2cb4cb(0x378)](_0x1db233[_0x2cb4cb(0x24a)],()=>{const _0x6b0687=_0x2cb4cb,_0x1bdda9=_0x3d27eb['getElementById'](_0xc46cea[_0x6b0687(0x4c7)]);if(_0x1bdda9){const _0x57517a=_0x1bdda9['style'][_0x6b0687(0x22c)]===_0xc46cea[_0x6b0687(0x9f)];_0x1bdda9[_0x6b0687(0x4f9)][_0x6b0687(0x22c)]=_0x57517a?_0xc46cea['jEHQz']:'block',_0x4a2904['textContent']=_0x57517a?_0xc46cea['lNuEo']:_0xc46cea[_0x6b0687(0x462)];}});}};}else{if(_0x506788||_0x49a6e7[_0x4748e1(0x121)](_0x1a8687,0x6)){if(_0x49a6e7[_0x4748e1(0x40f)](_0x49a6e7[_0x4748e1(0x9c)],_0x4748e1(0x14d)))_0x265a14='mündlich';else{const _0x4cf3c4=_0x103abc['querySelector'](_0x49a6e7[_0x4748e1(0x3b4)]);if(_0x4cf3c4)_0x4cf3c4[_0x4748e1(0x2ad)]();_0x103abc[_0x4748e1(0x4f9)]['backgroundColor']='',_0x103abc[_0x4748e1(0x4f9)][_0x4748e1(0x3dd)]='1',_0x103abc[_0x4748e1(0x4f9)]['paddingLeft']='',_0x103abc[_0x4748e1(0x27c)]=()=>{const _0x48deb5=_0x4748e1;openExam(_0x5f5095['id'],_0x5f5095[_0x48deb5(0x419)],_0x5f5095[_0x48deb5(0x35a)]||currentSkill);};}}}}});}function getTeilNameBySkill(_0x106702){const _0x146309=a3_0x2b8255,_0x130375={'avtat':function(_0x3f4768,_0x55ee7b){return _0x3f4768===_0x55ee7b;},'PHfCp':_0x146309(0x47b),'ddmkw':_0x146309(0x3ee),'PSveL':'mündlich3','gMrpK':_0x146309(0x2e1)};if(_0x130375['avtat'](_0x106702,_0x146309(0x44f)))return _0x130375[_0x146309(0x484)];if(_0x130375[_0x146309(0x2d6)](_0x106702,_0x130375['ddmkw']))return _0x146309(0x42a);if(_0x130375[_0x146309(0x2d6)](_0x106702,_0x130375[_0x146309(0x413)]))return _0x130375[_0x146309(0xe1)];const _0x6b5a44=teile['find'](_0x32752c=>_0x32752c[_0x146309(0x108)]===_0x106702);return _0x6b5a44?_0x6b5a44['name']:_0x106702;}function getActualFileName(_0x5c3703){const _0x5dcaee=a3_0x2b8255;if(actualFileNames[_0x5c3703])return actualFileNames[_0x5c3703];return _0x5dcaee(0x279)+_0x5c3703+_0x5dcaee(0x20a);}function shouldHideHelpButton(_0x3f86b3){const _0x5351f6=a3_0x2b8255,_0x42dfe3={'oKxiE':'schreiben','VwFAl':_0x5351f6(0x44f),'RiJHl':_0x5351f6(0x450)},_0x141c75=[_0x42dfe3[_0x5351f6(0x3cf)],'tips',_0x42dfe3[_0x5351f6(0xe6)],_0x42dfe3[_0x5351f6(0x2e9)]];return _0x141c75[_0x5351f6(0x1e7)](_0x3f86b3);}async function openExam(_0x213a8c,_0x3978d9,_0x4221f6){const _0x8fadf6=a3_0x2b8255,_0x44a6f9={'yIBkZ':_0x8fadf6(0x94),'ywdqp':_0x8fadf6(0xea),'AsRGc':_0x8fadf6(0x367),'JmweX':function(_0x2d4edc,_0x224cb4){return _0x2d4edc===_0x224cb4;},'NveKC':_0x8fadf6(0x44f),'JrOHv':'mündlich2','qidvP':_0x8fadf6(0x450),'fRiYv':function(_0x535efc){return _0x535efc();},'rwpDd':_0x8fadf6(0x318),'saZRc':_0x8fadf6(0x2bc),'onfBi':_0x8fadf6(0x39d),'EJHsq':_0x8fadf6(0x35d),'wjesF':_0x8fadf6(0x2a6),'EYJsO':_0x8fadf6(0x457),'RhueV':_0x8fadf6(0xc4),'KDgxC':'✅\x20الإجابة\x20الصحيحة:\x20','CZWtY':function(_0x404292,_0x5ae902){return _0x404292(_0x5ae902);},'QmteG':function(_0x1e09a1){return _0x1e09a1();},'fIKfa':function(_0x32979c,_0x3fa6dd,_0x477d0d){return _0x32979c(_0x3fa6dd,_0x477d0d);},'aWJTH':_0x8fadf6(0x279),'pPoIt':function(_0x43cb2f,_0x17b18f,_0x3fe017){return _0x43cb2f(_0x17b18f,_0x3fe017);},'Uecjn':'Mündlich\x20-\x20Teil\x202\x20🗣️','VJxDH':function(_0x55396c,_0x1c5eba){return _0x55396c===_0x1c5eba;},'SfHKZ':'premium','bGVEL':function(_0x430f37,_0x1adc85){return _0x430f37>_0x1adc85;},'nkehO':function(_0xa307d2,_0x151dcb){return _0xa307d2!==_0x151dcb;},'nfmuP':function(_0x299acc,_0xf65d9c){return _0x299acc!==_0xf65d9c;},'WHlgI':_0x8fadf6(0x4f3),'UMHYs':_0x8fadf6(0x165),'RWAHT':function(_0x59f07c,_0x4e31e4){return _0x59f07c+_0x4e31e4;},'OaBHf':'🔍\x20openExam\x20parameters:','LyiDe':function(_0x12d991,_0x51e281){return _0x12d991===_0x51e281;},'MwFhv':_0x8fadf6(0x33b),'VxiZa':_0x8fadf6(0x51d),'jPAzU':'none','BjcAr':_0x8fadf6(0x4d4),'WxeiH':_0x8fadf6(0x3d9),'hwcOI':_0x8fadf6(0x8a),'HCKWT':_0x8fadf6(0x186),'oPpBi':function(_0x1eabd5,_0x3bbb02){return _0x1eabd5(_0x3bbb02);},'tTdLD':function(_0xddb82f){return _0xddb82f();},'WRzIR':function(_0x1b19b6,_0xf28cc9){return _0x1b19b6===_0xf28cc9;},'hCZrr':_0x8fadf6(0x253),'bSYKc':'aUCdm','pMNKz':function(_0x521a3e,_0x1ead38){return _0x521a3e===_0x1ead38;},'AyoGW':'KInkX','skSWa':function(_0x3fcf4c,_0x146db7){return _0x3fcf4c===_0x146db7;},'lgxyW':function(_0x130879,_0x1a1c38){return _0x130879!==_0x1a1c38;},'Whqcf':_0x8fadf6(0x3c6),'xgGyf':_0x8fadf6(0x246),'CkpsJ':'teil2','IUkfv':function(_0x67d639,_0x38b233){return _0x67d639===_0x38b233;},'tsCfN':_0x8fadf6(0x25f),'ZBSQC':function(_0x135dc0,_0x318e8c){return _0x135dc0===_0x318e8c;},'xFnOs':_0x8fadf6(0x15a),'cYppy':'vHApU','Hrcbb':_0x8fadf6(0x31e),'GLJUb':function(_0x51e886,_0x339394){return _0x51e886===_0x339394;},'Jjtmg':_0x8fadf6(0x9a),'dkPPJ':'UbKAC','MPRBM':function(_0x2fb6f1,_0x380dce){return _0x2fb6f1(_0x380dce);},'QsAAV':function(_0x47ebe8,_0x1da150){return _0x47ebe8===_0x1da150;},'tNOIN':'schreiben','NyWwh':function(_0x464b0b,_0x5f8d9c){return _0x464b0b===_0x5f8d9c;},'LuCwK':function(_0x1324bc,_0x3e1867){return _0x1324bc===_0x3e1867;},'FagcC':_0x8fadf6(0x508),'aoyln':function(_0x3ef031,_0x5f2ab2){return _0x3ef031===_0x5f2ab2;},'fFZLc':function(_0x230b22,_0x1cf1c0){return _0x230b22(_0x1cf1c0);},'HqRAL':function(_0x328023,_0x41860b){return _0x328023===_0x41860b;},'VGmuf':'tips','dOsWV':_0x8fadf6(0x34b),'zdAUA':function(_0x270fc4,_0x290fb4){return _0x270fc4!==_0x290fb4;},'vEakE':'ovNaQ','LbFVM':_0x8fadf6(0x27a),'JVizj':function(_0x216679,_0x1ee86d){return _0x216679+_0x1ee86d;},'RmYCA':function(_0x1b653f,_0x17f85b){return _0x1b653f(_0x17f85b);},'mXDQE':function(_0x37a428,_0x1a809f){return _0x37a428===_0x1a809f;},'gnptd':_0x8fadf6(0x347),'mIKYn':_0x8fadf6(0x37f),'eMKeT':_0x8fadf6(0x1e1),'OHheI':function(_0xfad691,_0x4c849c){return _0xfad691(_0x4c849c);},'UotDZ':_0x8fadf6(0x1c8)},_0x32525d=await _0x44a6f9[_0x8fadf6(0x50f)](getUserStatusForExam),_0x74c62c=_0x44a6f9[_0x8fadf6(0xa7)](_0x32525d,_0x44a6f9[_0x8fadf6(0x285)]),_0x355112=0x6;if(!_0x74c62c&&_0x44a6f9[_0x8fadf6(0x3c7)](_0x213a8c,_0x355112)&&_0x44a6f9['nkehO'](_0x4221f6,_0x44a6f9[_0x8fadf6(0x194)])&&_0x44a6f9[_0x8fadf6(0xb7)](_0x4221f6,'mündlich3')){typeof window[_0x8fadf6(0x317)]===_0x44a6f9[_0x8fadf6(0x263)]?_0x44a6f9[_0x8fadf6(0x3ae)]===_0x44a6f9[_0x8fadf6(0x3ae)]?window[_0x8fadf6(0x317)](_0x44a6f9['RWAHT'](_0x3978d9,'\x20(')+_0x213a8c+')'):(_0x1ce5a9[_0x8fadf6(0x19d)](_0x44a6f9['yIBkZ'])[_0x8fadf6(0x421)][_0x8fadf6(0x298)](_0x44a6f9[_0x8fadf6(0xda)]),_0x18a528[_0x8fadf6(0x19d)](_0x44a6f9[_0x8fadf6(0x355)])[_0x8fadf6(0x421)][_0x8fadf6(0x2ad)](_0x44a6f9[_0x8fadf6(0xda)]),_0x227a49[_0x8fadf6(0x19d)](_0x8fadf6(0x279))['classList'][_0x8fadf6(0x2ad)](_0x44a6f9[_0x8fadf6(0xda)])):window['location'][_0x8fadf6(0x3fb)]=_0x8fadf6(0x228);return;}console[_0x8fadf6(0x3e6)](_0x44a6f9['OaBHf'],{'examId':_0x213a8c,'examTitle':_0x3978d9,'skill':_0x4221f6}),currentExamId=_0x213a8c,currentSkill=_0x4221f6;if(shouldHideHelpButton(_0x4221f6)){if(_0x44a6f9[_0x8fadf6(0x1dc)](_0x44a6f9[_0x8fadf6(0x1cd)],_0x8fadf6(0x19b)))return _0x2689ef;else{const _0x5eb762=document[_0x8fadf6(0x19d)](_0x44a6f9[_0x8fadf6(0x23a)]);if(_0x5eb762)_0x5eb762[_0x8fadf6(0x4f9)][_0x8fadf6(0x22c)]=_0x44a6f9['jPAzU'];}}else{if(_0x44a6f9['BjcAr']!==_0x44a6f9[_0x8fadf6(0x2a9)]){if(GXOJDE[_0x8fadf6(0x10b)](_0x5a1879,0x1))_0x1e0fe9=GXOJDE[_0x8fadf6(0x194)],_0x38eeca=_0x4815bc[_0x8fadf6(0x44f)]||[];else{if(_0x3cf9a3===0x2)_0x3c307d=GXOJDE['JrOHv'],_0x5502a8=_0x1df203[_0x8fadf6(0x3ee)]||[];else _0x30ce45===0x3&&(_0x4d1305=GXOJDE[_0x8fadf6(0x14b)],_0x139d48=_0x306e67['mündlich3']||[]);}}else{const _0x29b64c=document['getElementById'](_0x44a6f9[_0x8fadf6(0x23a)]);if(_0x29b64c)_0x29b64c['style'][_0x8fadf6(0x22c)]=_0x44a6f9[_0x8fadf6(0x3d1)];}}const _0x39064f=getActualFileName(_0x213a8c);console[_0x8fadf6(0x3e6)](_0x8fadf6(0xe7),_0x213a8c,_0x3978d9,_0x4221f6),console[_0x8fadf6(0x3e6)](_0x44a6f9[_0x8fadf6(0x170)],_0x39064f),console[_0x8fadf6(0x3e6)](_0x44a6f9[_0x8fadf6(0x128)],_0x8fadf6(0x3c3)+_0x4221f6+'/'+_0x39064f);try{const _0x265896=await _0x44a6f9[_0x8fadf6(0x1b3)](fetch,_0x8fadf6(0x3c3)+_0x4221f6+'/'+_0x39064f);if(!_0x265896['ok']){_0x44a6f9[_0x8fadf6(0x1b3)](alert,_0x8fadf6(0x395)+_0x3978d9+'\x22\x20سيتم\x20إضافته\x20قريباً.\x0aالملف\x20المطلوب:\x20data/'+_0x4221f6+'/'+_0x39064f);return;}currentExamData=await _0x265896[_0x8fadf6(0x4b9)](),window[_0x8fadf6(0x21b)]=_0x213a8c,document[_0x8fadf6(0x19d)](_0x44a6f9[_0x8fadf6(0x4af)])[_0x8fadf6(0x421)][_0x8fadf6(0x2ad)](_0x44a6f9[_0x8fadf6(0xda)]),document[_0x8fadf6(0x19d)](_0x44a6f9[_0x8fadf6(0x355)])['classList'][_0x8fadf6(0x2ad)](_0x44a6f9['ywdqp']),document[_0x8fadf6(0x19d)](_0x44a6f9['aWJTH'])['classList'][_0x8fadf6(0x298)](_0x44a6f9[_0x8fadf6(0xda)]),document[_0x8fadf6(0x19d)](_0x8fadf6(0xcf))[_0x8fadf6(0x18d)]=currentExamData[_0x8fadf6(0x419)],_0x44a6f9[_0x8fadf6(0x2d3)](updateExamNavButtons);if(_0x44a6f9['WRzIR'](currentExamData['type'],_0x44a6f9[_0x8fadf6(0x23b)]))_0x44a6f9['VJxDH'](typeof window[_0x8fadf6(0x41d)],_0x44a6f9[_0x8fadf6(0x263)])?_0x44a6f9[_0x8fadf6(0xb7)](_0x44a6f9[_0x8fadf6(0x150)],_0x8fadf6(0x4a6))?_0x44a6f9['fRiYv'](_0x116f79):window[_0x8fadf6(0x41d)](currentExamData):buildTeil1(currentExamData[_0x8fadf6(0x215)]||[]);else{if(_0x44a6f9[_0x8fadf6(0x34f)](currentExamData[_0x8fadf6(0x185)],_0x8fadf6(0x31d))){if(_0x44a6f9[_0x8fadf6(0x34f)](_0x44a6f9[_0x8fadf6(0x2ab)],'gkQiS'))_0x8be080+=_0x8fadf6(0x29e)+_0x6b616f['german']+'</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22color:\x20#6c7a89;\x20font-size:\x200.85rem;\x20margin-bottom:\x2012px;\x20padding-bottom:\x2010px;\x20border-bottom:\x201px\x20solid\x20#e8ecef;\x22>'+_0x2851a0[_0x8fadf6(0x12e)]+'</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22background:\x20#f8fafc;\x20padding:\x2012px;\x20border-radius:\x2012px;\x20font-size:\x200.8rem;\x20color:\x20#2c3e66;\x20line-height:\x201.5;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22font-weight:\x20600;\x20color:\x20#4a6fa5;\x20margin-bottom:\x206px;\x20font-size:\x200.75rem;\x22>📋\x20مثال:</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div>'+_0xc72840['example']['replace'](/\n/g,_0x44a6f9[_0x8fadf6(0x41b)])+'</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20';else{const _0x487939=document['getElementById'](currentSkill);if(_0x487939&&_0x44a6f9[_0x8fadf6(0x144)](typeof window[_0x8fadf6(0x274)],_0x44a6f9[_0x8fadf6(0x263)]))window[_0x8fadf6(0x274)](_0x487939,currentExamData[_0x8fadf6(0x215)],currentExamData[_0x8fadf6(0x325)]);else{if(_0x44a6f9[_0x8fadf6(0x89)](_0x44a6f9[_0x8fadf6(0x507)],_0x44a6f9[_0x8fadf6(0x149)]))buildTeil1(currentExamData['questions']||[]);else try{const _0x291db3=_0x8fadf6(0xf8)+_0x2308c8+'_'+_0x2d626b;_0x2a3616['setItem'](_0x291db3,_0x52eee6[_0x8fadf6(0x3c2)]()),_0x571d18[_0x8fadf6(0x3e6)](_0x8fadf6(0xbd)+_0x21a88b+_0x8fadf6(0x4c5)+_0x2593b0+'\x20'+_0x2a1ac5);}catch(_0x397395){_0xb90c24[_0x8fadf6(0x1da)](GXOJDE['saZRc'],_0x397395);}}}}else{if(_0x44a6f9[_0x8fadf6(0xa7)](currentExamData[_0x8fadf6(0x185)],_0x44a6f9[_0x8fadf6(0x3bb)])){if(typeof window['loadTeil2Exam']===_0x44a6f9[_0x8fadf6(0x263)])window[_0x8fadf6(0x168)](currentExamData);else{if(_0x44a6f9[_0x8fadf6(0x475)](_0x44a6f9[_0x8fadf6(0x4d6)],_0x44a6f9[_0x8fadf6(0x4d6)]))buildTeil1(currentExamData[_0x8fadf6(0x215)]||[]);else{if(_0x1c5471){_0x4d6864[_0x8fadf6(0x421)]['add'](_0x44a6f9[_0x8fadf6(0x4c6)]),_0x3d21d5['classList']['remove'](_0x44a6f9[_0x8fadf6(0x2b1)]);let _0x512c0=_0x3ddcf5[_0x8fadf6(0x173)](_0x44a6f9[_0x8fadf6(0x373)]);!_0x512c0&&(_0x512c0=_0xd8a4e4['createElement'](_0x44a6f9[_0x8fadf6(0x28d)]),_0x512c0[_0x8fadf6(0x51f)]=_0x44a6f9[_0x8fadf6(0x126)],_0x247ea7['appendChild'](_0x512c0)),_0x512c0[_0x8fadf6(0x18d)]=_0x44a6f9[_0x8fadf6(0x37d)]+_0x5ba9a7[_0x8fadf6(0x2aa)][_0x379271[_0x8fadf6(0x1ff)]];}}}}else{if(_0x44a6f9[_0x8fadf6(0x485)](currentExamData[_0x8fadf6(0x185)],_0x44a6f9[_0x8fadf6(0x310)]))_0x8fadf6(0x301)===_0x44a6f9['cYppy']?_0x44a6f9[_0x8fadf6(0x485)](typeof window['loadTeil3Exam'],_0x44a6f9['WHlgI'])?window[_0x8fadf6(0x222)](currentExamData):_0x44a6f9[_0x8fadf6(0x1b3)](buildTeil1,currentExamData[_0x8fadf6(0x215)]||[]):_0x44a6f9[_0x8fadf6(0x314)](_0x4becbb,_0x5c8b40);else{if(_0x44a6f9[_0x8fadf6(0x10b)](currentExamData[_0x8fadf6(0x185)],_0x8fadf6(0x35b))){if(_0x44a6f9[_0x8fadf6(0x485)](typeof window[_0x8fadf6(0xf2)],_0x8fadf6(0x4f3)))window['loadSprach1Exam'](currentExamData);else{if(_0x44a6f9[_0x8fadf6(0x89)](_0x8fadf6(0xac),_0x44a6f9[_0x8fadf6(0x3cd)]))buildTeil1(currentExamData[_0x8fadf6(0x215)]||[]);else return function(){const _0x3146de=_0x8fadf6;_0x4fc641=_0x3fe400,GXOJDE[_0x3146de(0x50f)](_0xd7c3ae),GXOJDE[_0x3146de(0x4fe)](_0xffe273,_0x198e99,_0x56f6ae);};}}else{if(_0x44a6f9[_0x8fadf6(0x490)](currentExamData[_0x8fadf6(0x185)],_0x8fadf6(0x344))){if(_0x44a6f9[_0x8fadf6(0x459)](_0x44a6f9[_0x8fadf6(0x42f)],_0x44a6f9[_0x8fadf6(0x21f)]))typeof window[_0x8fadf6(0xca)]===_0x44a6f9[_0x8fadf6(0x263)]?window[_0x8fadf6(0xca)](currentExamData):_0x44a6f9['MPRBM'](buildTeil1,currentExamData[_0x8fadf6(0x215)]||[]);else{_0x1b7b58[_0x8fadf6(0x18d)]=_0x8fadf6(0x312);return;}}else{if(_0x44a6f9['QsAAV'](currentExamData[_0x8fadf6(0x185)],_0x44a6f9[_0x8fadf6(0x307)]))_0x44a6f9[_0x8fadf6(0x1f4)](typeof window[_0x8fadf6(0xd3)],_0x44a6f9[_0x8fadf6(0x263)])?window[_0x8fadf6(0xd3)](currentExamData):_0x44a6f9[_0x8fadf6(0x472)](_0x44a6f9[_0x8fadf6(0x342)],_0x44a6f9[_0x8fadf6(0x342)])?_0x44a6f9['CZWtY'](buildTeil1,currentExamData[_0x8fadf6(0x215)]||[]):(_0x19de3c=GXOJDE[_0x8fadf6(0x14b)],_0x392166=_0x2f290d[_0x8fadf6(0x450)]||[]);else{if(_0x44a6f9[_0x8fadf6(0x34f)](currentExamData[_0x8fadf6(0x185)],_0x8fadf6(0x91)))renderMündlichExam(currentExamData);else{if(_0x44a6f9[_0x8fadf6(0xfb)](currentExamData[_0x8fadf6(0x185)],_0x8fadf6(0xfa)))_0x44a6f9[_0x8fadf6(0x371)](renderInfoExam,currentExamData);else _0x44a6f9[_0x8fadf6(0x505)](currentExamData[_0x8fadf6(0x185)],_0x44a6f9[_0x8fadf6(0x364)])?_0x44a6f9[_0x8fadf6(0x1b3)](renderTipsExam,currentExamData):_0x44a6f9['dOsWV']===_0x44a6f9['dOsWV']?_0x44a6f9[_0x8fadf6(0x314)](buildTeil1,currentExamData[_0x8fadf6(0x215)]||[]):_0x22ac9c['style'][_0x8fadf6(0x1a2)]='#dee2e8';}}}}}}}}const _0x3fce1e=teile[_0x8fadf6(0x2ea)](_0x599054=>_0x599054[_0x8fadf6(0x108)]===_0x4221f6);_0x44a6f9[_0x8fadf6(0x217)](_0x3fce1e,-0x1)?_0x44a6f9[_0x8fadf6(0xb7)](_0x44a6f9[_0x8fadf6(0x282)],_0x44a6f9[_0x8fadf6(0x3ac)])?_0x44a6f9['MPRBM'](showTeil,_0x44a6f9[_0x8fadf6(0x1ef)](_0x3fce1e,0x1)):_0x5ba6c4['location']['href']=_0x8fadf6(0x228):_0x44a6f9[_0x8fadf6(0x202)](showTeil,0xa);}catch(_0x37244c){_0x44a6f9[_0x8fadf6(0x3ab)](_0x44a6f9[_0x8fadf6(0x3a9)],_0x44a6f9[_0x8fadf6(0x1f5)])?(_0x3cbecc[_0x8fadf6(0x19d)](_0x44a6f9['yIBkZ'])[_0x8fadf6(0x421)]['remove'](_0x8fadf6(0xea)),_0x18304a[_0x8fadf6(0x19d)](_0x44a6f9[_0x8fadf6(0xdc)])[_0x8fadf6(0x421)][_0x8fadf6(0x2ad)](_0x44a6f9['ywdqp']),_0x2758bc[_0x8fadf6(0x19d)](_0x44a6f9[_0x8fadf6(0x355)])['classList'][_0x8fadf6(0x298)](_0x44a6f9[_0x8fadf6(0xda)]),_0x44a6f9[_0x8fadf6(0x42c)](_0x49d121,_0x44a6f9[_0x8fadf6(0x2fc)],_0x44a6f9[_0x8fadf6(0x117)])):(console[_0x8fadf6(0x1da)](_0x44a6f9[_0x8fadf6(0xed)],_0x37244c),_0x44a6f9['OHheI'](alert,_0x44a6f9[_0x8fadf6(0x51a)](_0x44a6f9[_0x8fadf6(0x134)],_0x37244c[_0x8fadf6(0x141)])));}}function goBackToExamsList(){const _0x234911=a3_0x2b8255,_0x4d4052={'fSSpn':'active','YOdQC':_0x234911(0x279),'tlUov':_0x234911(0x367),'ZAKhI':function(_0x1b6a63,_0xc62d70,_0x3964e2){return _0x1b6a63(_0xc62d70,_0x3964e2);},'xdBDS':'mündlich3','iJaaI':'Mündlich\x20-\x20Teil\x203\x20🎯','WtbLz':function(_0x11f23a,_0x2bb852,_0x294a73){return _0x11f23a(_0x2bb852,_0x294a73);},'xePCn':function(_0x574bd3,_0x53bc3b){return _0x574bd3!==_0x53bc3b;},'lFSEK':function(_0x35b2fe,_0x1cb779){return _0x35b2fe(_0x1cb779);},'qyKag':_0x234911(0x12c),'pLrlD':function(_0x354be6,_0x15454d){return _0x354be6===_0x15454d;},'SpQts':_0x234911(0x435),'KvLYT':'mündlich1','iirKo':'home','YVwmN':function(_0x5f2b28,_0x1da428,_0x3eb27f){return _0x5f2b28(_0x1da428,_0x3eb27f);},'Phqnr':_0x234911(0x47b),'qQMJv':_0x234911(0x3ee),'prGEj':_0x234911(0x42a),'LTsMI':function(_0x55993d,_0x414864){return _0x55993d===_0x414864;},'TNbTz':_0x234911(0x91),'vivCa':function(_0xf4efdb,_0xd1532f){return _0xf4efdb(_0xd1532f);},'sjcJk':function(_0x93573e,_0xad33f9){return _0x93573e===_0xad33f9;},'YEhuw':_0x234911(0x361),'xdzju':function(_0x4098be){return _0x4098be();}};if(currentSkill){if(_0x4d4052['pLrlD'](_0x4d4052[_0x234911(0x23c)],_0x4d4052['SpQts'])){if(currentSkill===_0x4d4052['KvLYT'])document[_0x234911(0x19d)](_0x4d4052[_0x234911(0x3d2)])[_0x234911(0x421)]['remove'](_0x4d4052[_0x234911(0x380)]),document[_0x234911(0x19d)](_0x4d4052['YOdQC'])[_0x234911(0x421)][_0x234911(0x2ad)]('active'),document[_0x234911(0x19d)](_0x4d4052[_0x234911(0x403)])['classList']['add'](_0x4d4052['fSSpn']),_0x4d4052[_0x234911(0x1d5)](renderExamListForSkill,_0x4d4052['KvLYT'],_0x4d4052[_0x234911(0x3c0)]);else{if(_0x4d4052['pLrlD'](currentSkill,_0x4d4052['qQMJv']))document[_0x234911(0x19d)](_0x4d4052[_0x234911(0x3d2)])[_0x234911(0x421)]['remove'](_0x4d4052[_0x234911(0x380)]),document[_0x234911(0x19d)](_0x4d4052[_0x234911(0x384)])[_0x234911(0x421)][_0x234911(0x2ad)](_0x234911(0xea)),document['getElementById'](_0x4d4052[_0x234911(0x403)])[_0x234911(0x421)][_0x234911(0x298)](_0x4d4052[_0x234911(0x380)]),_0x4d4052['YVwmN'](renderExamListForSkill,_0x234911(0x3ee),_0x4d4052[_0x234911(0x2be)]);else{if(_0x4d4052['LTsMI'](currentSkill,_0x4d4052['xdBDS']))document[_0x234911(0x19d)]('home')[_0x234911(0x421)][_0x234911(0x2ad)](_0x4d4052[_0x234911(0x380)]),document[_0x234911(0x19d)](_0x234911(0x279))[_0x234911(0x421)]['remove'](_0x4d4052[_0x234911(0x380)]),document[_0x234911(0x19d)](_0x4d4052[_0x234911(0x403)])[_0x234911(0x421)]['add'](_0x4d4052[_0x234911(0x380)]),renderExamListForSkill('mündlich3','Mündlich\x20-\x20Teil\x203\x20🎯');else{if(currentSkill[_0x234911(0x2cb)](_0x234911(0x91)))_0x4d4052[_0x234911(0x281)](renderExamListForSkill,_0x4d4052['TNbTz'],_0x4d4052['vivCa'](getTeilNameBySkill,_0x4d4052[_0x234911(0x512)]));else{if(_0x4d4052['pLrlD']('GpugO',_0x234911(0x28c))){const _0x29705d=teile['find'](_0x498aa3=>_0x498aa3[_0x234911(0x108)]===currentSkill);_0x29705d?(document[_0x234911(0x19d)](_0x4d4052[_0x234911(0x3d2)])[_0x234911(0x421)][_0x234911(0x2ad)](_0x4d4052['fSSpn']),document[_0x234911(0x19d)](_0x4d4052[_0x234911(0x384)])[_0x234911(0x421)]['remove'](_0x4d4052[_0x234911(0x380)]),document['getElementById'](_0x4d4052[_0x234911(0x403)])['classList'][_0x234911(0x298)](_0x4d4052['fSSpn']),renderExamListForSkill(_0x29705d['skill'],_0x29705d[_0x234911(0x47a)])):_0x4d4052['sjcJk'](_0x4d4052[_0x234911(0x15b)],_0x4d4052[_0x234911(0x15b)])?_0x4d4052[_0x234911(0x15f)](goList):(_0x366cc7['getElementById'](_0x234911(0x94))[_0x234911(0x421)][_0x234911(0x2ad)](_0x4d4052[_0x234911(0x380)]),_0x35e7a0[_0x234911(0x19d)](_0x4d4052[_0x234911(0x384)])['classList']['remove'](_0x4d4052['fSSpn']),_0x1c7fb7['getElementById'](_0x4d4052[_0x234911(0x403)])[_0x234911(0x421)][_0x234911(0x298)](_0x234911(0xea)),_0x4d4052[_0x234911(0x460)](_0xbbfc66,_0x4d4052[_0x234911(0x1f2)],_0x4d4052['iJaaI']));}else _0x56111c[_0xdc0e66]=_0x536469;}}}}}else{const _0x1b4137=LgNWrW[_0x234911(0x281)](_0x340ce8,_0x3d4241,_0x4aa4c1);if(LgNWrW[_0x234911(0x32b)](_0x1b4137,null)){const _0x49be20=LgNWrW[_0x234911(0x4ea)](_0x3bc455,_0x1b4137);if(_0x49be20){const _0x3b9fb7=_0x491c34[_0x234911(0x173)](LgNWrW[_0x234911(0x151)]);if(_0x3b9fb7)_0x3b9fb7[_0x234911(0x2ad)]();_0x28b9f8['appendChild'](_0x49be20);}}}}else goList();}function renderInfoExam(_0x1423cb){const _0x37b454=a3_0x2b8255,_0x1196e={'OMfjm':_0x37b454(0x3ee),'htxpz':'4|1|3|0|2','IKDyV':_0x37b454(0x1c5),'PpmYZ':_0x37b454(0x1b7),'NCyWZ':_0x37b454(0xbf),'KjvRP':_0x37b454(0x292),'Uymfe':function(_0x6ae830,_0x3fdbbc){return _0x6ae830===_0x3fdbbc;},'wkCzY':_0x37b454(0x3d9),'WSmht':'none','mcEcv':_0x37b454(0x306),'DlsNf':'إخفاء\x20←','iHmTk':_0x37b454(0x4e3),'UjCkC':_0x37b454(0x51d),'DHZiE':_0x37b454(0x2a0),'ODUfj':function(_0xb8a4e6,_0x1ed631){return _0xb8a4e6===_0x1ed631;},'QrsfO':'click','BhMGQ':_0x37b454(0x453),'ZVvBg':'ZTohr','TMaVo':_0x37b454(0x3f7),'Skldc':function(_0x2c0089,_0x2f959e){return _0x2c0089===_0x2f959e;},'rdTvu':_0x37b454(0x287),'bMzuc':function(_0xf306fe,_0x43e28d){return _0xf306fe===_0x43e28d;},'ORgiA':_0x37b454(0x44f),'oHyyo':_0x37b454(0x450),'KXYPY':_0x37b454(0x157),'brBpM':_0x37b454(0x91),'XcJpJ':_0x37b454(0x312),'SWELD':function(_0x40ff96,_0x1726d0){return _0x40ff96!==_0x1726d0;},'assmj':_0x37b454(0x183),'Kutdk':_0x37b454(0x3a1),'HIIrO':function(_0xe7c505,_0x185401){return _0xe7c505!==_0x185401;},'vzqkd':_0x37b454(0x51c),'MynKe':_0x37b454(0xb0),'RApSM':_0x37b454(0x513),'AbmMg':_0x37b454(0x295)};let _0x3c2847=currentSkill;(_0x1196e['bMzuc'](currentSkill,_0x1196e['ORgiA'])||_0x1196e[_0x37b454(0xc1)](currentSkill,_0x1196e[_0x37b454(0x3f5)]))&&(_0x1196e['bMzuc'](_0x1196e[_0x37b454(0x412)],'jkQld')?_0x3c2847=_0x1196e['brBpM']:(_0x4626b0=ISEbzV[_0x37b454(0x414)],_0x53297d=_0x20f2b3['mündlich2']||[]));const _0x2084f8=document[_0x37b454(0x19d)](_0x3c2847);if(!_0x2084f8){console[_0x37b454(0x1da)](_0x37b454(0x4ad),_0x3c2847);return;}_0x2084f8[_0x37b454(0x18d)]='';const _0x42d8a7=_0x1423cb['content'];if(!_0x42d8a7){_0x2084f8['innerHTML']=_0x1196e[_0x37b454(0x4e5)];return;}let _0x2d47be=_0x37b454(0x201);if(_0x42d8a7[_0x37b454(0x486)]){if(_0x1196e['SWELD'](_0x1196e['assmj'],_0x1196e['assmj'])){const _0x128924=_0x1196e[_0x37b454(0x330)][_0x37b454(0x40b)]('|');let _0x133d02=0x0;while(!![]){switch(_0x128924[_0x133d02++]){case'0':_0x25b4c4[_0x37b454(0x4f9)][_0x37b454(0x13b)]=ISEbzV['IKDyV'];continue;case'1':this[_0x37b454(0x4f9)][_0x37b454(0x4a8)]=ISEbzV[_0x37b454(0x331)];continue;case'2':if(_0x277189)_0x11206a[_0x37b454(0x4f9)][_0x37b454(0x4a8)]=ISEbzV['NCyWZ'];continue;case'3':this[_0x37b454(0x4f9)][_0x37b454(0x27e)]='#e2e8f0';continue;case'4':this[_0x37b454(0x4f9)]['backgroundColor']=ISEbzV[_0x37b454(0x329)];continue;}break;}}else _0x2d47be+=_0x37b454(0x25b)+_0x42d8a7[_0x37b454(0x486)][_0x37b454(0x419)]+_0x37b454(0x1b1),_0x2d47be+=_0x37b454(0x2d5),_0x42d8a7[_0x37b454(0x486)]['questions']['forEach'](_0x450b32=>{const _0x4475e4=_0x37b454;_0x2d47be+='\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22background:\x20#ffffff;\x20border-radius:\x2016px;\x20padding:\x2018px;\x20border:\x201px\x20solid\x20#e8ecef;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22font-weight:\x20600;\x20color:\x20#2c3e66;\x20margin-bottom:\x208px;\x22>'+_0x450b32[_0x4475e4(0x514)]+_0x4475e4(0x199)+_0x450b32['arabic']+_0x4475e4(0x417)+_0x450b32[_0x4475e4(0x28b)][_0x4475e4(0x221)](/\n/g,_0x4475e4(0x318))+_0x4475e4(0x339);}),_0x2d47be+=_0x37b454(0x510);}if(_0x42d8a7[_0x37b454(0x1c2)]){const _0x55ab9e=_0x1196e[_0x37b454(0x397)][_0x37b454(0x40b)]('|');let _0x41ca44=0x0;while(!![]){switch(_0x55ab9e[_0x41ca44++]){case'0':_0x2d47be+=_0x37b454(0x510);continue;case'1':_0x2d47be+=_0x37b454(0x309);continue;case'2':_0x42d8a7[_0x37b454(0x1c2)]['topics'][_0x37b454(0x38e)](_0x3a8c11=>{const _0x3b6728=_0x37b454;_0x2d47be+=_0x3b6728(0x95)+_0x3a8c11[_0x3b6728(0x419)]+_0x3b6728(0xf0)+_0x3a8c11[_0x3b6728(0x10f)][_0x3b6728(0x1a7)](_0x29317f=>_0x3b6728(0x496)+_0x29317f+_0x3b6728(0x4cd))[_0x3b6728(0x33d)]('')+_0x3b6728(0xbe)+_0x3a8c11[_0x3b6728(0x43d)][_0x3b6728(0x1a7)](_0x16dfd0=>_0x3b6728(0x471)+_0x16dfd0['german']+_0x3b6728(0x1c9)+_0x16dfd0[_0x3b6728(0x12e)]+_0x3b6728(0x16d))[_0x3b6728(0x33d)]('')+_0x3b6728(0x41e);});continue;case'3':_0x2d47be+=_0x37b454(0x4b2)+_0x42d8a7['phase2'][_0x37b454(0x419)]+_0x37b454(0x1b1);continue;case'4':_0x42d8a7['phase2'][_0x37b454(0x325)]&&(_0x2d47be+=_0x37b454(0x24b)+_0x42d8a7[_0x37b454(0x1c2)][_0x37b454(0x325)]+'</div>');continue;}break;}}if(_0x42d8a7[_0x37b454(0x25d)]){_0x2d47be+=_0x37b454(0x1a9),_0x42d8a7['groups'][_0x37b454(0x38e)](_0x1d96c6=>{const _0x13caf5=_0x37b454;if(_0x13caf5(0x43e)!==_0x1196e[_0x13caf5(0x433)])_0x2d47be+='\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22background:\x20#f8f9fb;\x20border-radius:\x2016px;\x20padding:\x2020px;\x20border:\x201px\x20solid\x20#e8ecef;\x20display:\x20flex;\x20flex-direction:\x20column;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22font-size:\x201.2rem;\x20font-weight:\x20600;\x20color:\x20#2c3e66;\x20margin-bottom:\x2012px;\x22>'+_0x1d96c6[_0x13caf5(0x419)]+_0x13caf5(0x22b)+_0x1d96c6[_0x13caf5(0x320)]+_0x13caf5(0x4cf)+_0x1d96c6['id']+_0x13caf5(0x4ee)+_0x1d96c6['id']+'\x22\x20style=\x22display:\x20none;\x20margin-top:\x2020px;\x20padding-top:\x2020px;\x20border-top:\x201px\x20solid\x20#e8ecef;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<ul\x20style=\x22list-style:\x20none;\x20padding:\x200;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'+_0x1d96c6['suggestions'][_0x13caf5(0x1a7)]((_0x3ca63a,_0x15a285)=>_0x13caf5(0x48d)+(_0x15a285+0x1)+_0x13caf5(0x156)+_0x3ca63a+'</li>')[_0x13caf5(0x33d)]('')+_0x13caf5(0x1d3);else{const _0x25aa8f=_0x1196e[_0x13caf5(0x341)](_0x49a191['style'][_0x13caf5(0x22c)],_0x1196e[_0x13caf5(0x489)]);_0x57e9a3['style']['display']=_0x25aa8f?_0x1196e['WSmht']:_0x1196e['wkCzY'],_0x3c654e['textContent']=_0x25aa8f?_0x1196e[_0x13caf5(0x26b)]:_0x1196e[_0x13caf5(0x33e)];}}),_0x2d47be+=_0x37b454(0x1b1);if(_0x42d8a7[_0x37b454(0x476)]){if(_0x1196e['HIIrO'](_0x1196e['vzqkd'],_0x1196e[_0x37b454(0x426)]))_0x2d47be+='\x0a\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22background:\x20#f8f9fb;\x20border-radius:\x2016px;\x20padding:\x2020px;\x20border:\x201px\x20solid\x20#e8ecef;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22font-size:\x201.2rem;\x20font-weight:\x20600;\x20color:\x20#2c3e66;\x22>📌\x20'+_0x42d8a7[_0x37b454(0x476)][_0x37b454(0x419)]+_0x37b454(0x3ca)+_0x42d8a7[_0x37b454(0x476)][_0x37b454(0x31c)]+_0x37b454(0x349)+_0x42d8a7[_0x37b454(0x476)]['dialog'][_0x37b454(0x1a7)](_0x5e2118=>_0x37b454(0x4dd)+_0x5e2118[_0x37b454(0x446)]+_0x37b454(0x216)+_0x5e2118[_0x37b454(0x3f2)]+'</div>')[_0x37b454(0x33d)]('')+_0x37b454(0x41e);else{const _0x211a6e=_0x166a21[_0x37b454(0x19d)](ISEbzV[_0x37b454(0x4e4)]);if(_0x211a6e)_0x211a6e[_0x37b454(0x4f9)][_0x37b454(0x22c)]='none';}}}_0x42d8a7[_0x37b454(0x48c)]&&(_0x2d47be+='<div\x20style=\x22text-align:\x20center;\x20padding:\x2020px;\x20margin-top:\x2020px;\x20border-top:\x201px\x20solid\x20#e0e4e8;\x22><div\x20style=\x22font-size:\x200.9rem;\x20color:\x20#5a6874;\x20background:\x20#ffffff;\x20display:\x20inline-block;\x20padding:\x2010px\x2025px;\x20border-radius:\x2040px;\x20border:\x201px\x20solid\x20#e0e4e8;\x22>'+_0x42d8a7['footerMessage']+_0x37b454(0x510));_0x2d47be+=_0x37b454(0x1b1),_0x2084f8[_0x37b454(0x18d)]=_0x2d47be,document[_0x37b454(0xf7)](_0x37b454(0x34a))[_0x37b454(0x38e)](_0x97d333=>{const _0x2cedca=_0x37b454;_0x97d333[_0x2cedca(0x378)](_0x1196e['QrsfO'],()=>{const _0xc54f7f=_0x2cedca,_0x25afcf=_0x97d333[_0xc54f7f(0x379)](_0x1196e['DHZiE']),_0x4a1089=document[_0xc54f7f(0x173)](_0xc54f7f(0x11d)+_0x25afcf+'\x22]');if(_0x4a1089){const _0x2122b6=_0x1196e['ODUfj'](_0x4a1089[_0xc54f7f(0x4f9)]['display'],_0x1196e[_0xc54f7f(0x489)]);_0x4a1089[_0xc54f7f(0x4f9)][_0xc54f7f(0x22c)]=_0x2122b6?_0xc54f7f(0x137):_0x1196e[_0xc54f7f(0x489)],_0x97d333[_0xc54f7f(0x17e)]=_0x2122b6?_0x1196e[_0xc54f7f(0x26b)]:'إخفاء\x20←';}});});const _0x3ea9b6=document['getElementById'](_0x1196e['RApSM']);_0x3ea9b6&&(_0x1196e['HIIrO'](_0x1196e[_0x37b454(0x4e8)],_0x1196e[_0x37b454(0x4e8)])?_0x517e39[_0x37b454(0x27c)]=function(){_0x3e91fa();}:_0x3ea9b6[_0x37b454(0x378)](_0x1196e['QrsfO'],()=>{const _0x396c4a=_0x37b454,_0x1a1665={'zWYcB':_0x1196e['BhMGQ']};if(_0x396c4a(0x11c)!==_0x1196e[_0x396c4a(0x188)]){const _0x340bc0=document[_0x396c4a(0x19d)](_0x1196e[_0x396c4a(0x51e)]);if(_0x340bc0){const _0x5589c2=_0x1196e[_0x396c4a(0x235)](_0x340bc0[_0x396c4a(0x4f9)][_0x396c4a(0x22c)],_0x1196e['wkCzY']);_0x340bc0[_0x396c4a(0x4f9)]['display']=_0x5589c2?_0x1196e[_0x396c4a(0xdf)]:_0x1196e[_0x396c4a(0x489)],_0x3ea9b6[_0x396c4a(0x17e)]=_0x5589c2?_0x1196e[_0x396c4a(0xc7)]:_0x1196e[_0x396c4a(0x33e)];}}else{_0x43e0cf[_0x396c4a(0x18d)]+=ThhpsE[_0x396c4a(0x2f9)];return;}}));}function renderTipsExam(_0x29caec){const _0x29b246=a3_0x2b8255,_0x5816c6={'ESqdL':function(_0x3e6b56,_0xf21005){return _0x3e6b56===_0xf21005;},'sHZnY':_0x29b246(0x4f3),'lxqfd':function(_0x3e2fb5,_0x16d84c){return _0x3e2fb5+_0x16d84c;},'pBtma':'subscribe.html','FzDIz':function(_0x3a2f27,_0x1647d6){return _0x3a2f27<_0x1647d6;},'LjbiT':function(_0x17278a,_0xc09ca){return _0x17278a!==_0xc09ca;},'MfQhu':_0x29b246(0x502),'qTzUw':'FZKki','pUQuN':_0x29b246(0x457)},_0xe868b4=document[_0x29b246(0x19d)](_0x29b246(0x109));if(!_0xe868b4)return;_0xe868b4['innerHTML']='';const _0x1cb717=_0x29caec[_0x29b246(0xb5)]||'',_0x3c9ead=_0x1cb717[_0x29b246(0x40b)]('\x0a\x0a');for(let _0x3e7f11=0x0;_0x5816c6['FzDIz'](_0x3e7f11,_0x3c9ead[_0x29b246(0x2f2)]);_0x3e7f11++){if(_0x5816c6['LjbiT'](_0x5816c6[_0x29b246(0x488)],_0x5816c6[_0x29b246(0x516)])){const _0x19eefd=_0x3c9ead[_0x3e7f11];if(_0x5816c6[_0x29b246(0x2f4)](_0x19eefd[_0x29b246(0x23f)](),''))continue;const _0x5519a4=document[_0x29b246(0xfd)](_0x5816c6[_0x29b246(0x29b)]);_0x5519a4[_0x29b246(0x4f9)]['cssText']=_0x29b246(0x4ab);let _0x1600ed=_0x19eefd;_0x1600ed=_0x1600ed[_0x29b246(0x221)](/\*\*(.*?)\*\*/g,_0x29b246(0x2da)),_0x1600ed=_0x1600ed[_0x29b246(0x221)](/^(.*?):/gm,_0x29b246(0x4db)),_0x5519a4['innerHTML']=_0x1600ed,_0xe868b4[_0x29b246(0x3a2)](_0x5519a4);}else return function(){const _0x3842e0=_0x29b246;KukdZQ[_0x3842e0(0x2f4)](typeof _0xf36701[_0x3842e0(0x317)],KukdZQ[_0x3842e0(0xae)])?_0x239293[_0x3842e0(0x317)](KukdZQ[_0x3842e0(0x393)](_0x30c8e4+'\x20(',_0x24e6a7)+')'):_0x54e028[_0x3842e0(0x243)][_0x3842e0(0x3fb)]=KukdZQ[_0x3842e0(0x4bc)];};}}function renderMündlichExam(_0x2d8bb3){const _0x4bb2f9=a3_0x2b8255,_0x398561={'wcyvG':'mündlich','EpEFs':function(_0x2cdaf5,_0x27be9c,_0x1b0a53){return _0x2cdaf5(_0x27be9c,_0x1b0a53);},'aAIoA':_0x4bb2f9(0x38a),'kWxoh':_0x4bb2f9(0x437),'mLQbt':function(_0x426594,_0x341a75,_0xb20615){return _0x426594(_0x341a75,_0xb20615);},'MbRor':_0x4bb2f9(0xf9)},_0x2c3732=document['getElementById'](_0x398561['wcyvG']);if(!_0x2c3732)return;_0x2c3732['innerHTML']='';const _0x4b1ccc=_0x2d8bb3[_0x4bb2f9(0x3de)]||{},_0x4cbc67=_0x398561[_0x4bb2f9(0x276)](createMündlichCard,_0x4bb2f9(0xbc),_0x4b1ccc['allgemein']||_0x398561[_0x4bb2f9(0x3e0)]);_0x2c3732['appendChild'](_0x4cbc67);const _0x160bf6=createMündlichCard(_0x398561[_0x4bb2f9(0x172)],_0x4b1ccc[_0x4bb2f9(0x229)]||_0x398561[_0x4bb2f9(0x3e0)]);_0x2c3732['appendChild'](_0x160bf6);const _0x7a43fc=_0x398561[_0x4bb2f9(0x2ef)](createMündlichCard,_0x398561[_0x4bb2f9(0x146)],_0x4b1ccc[_0x4bb2f9(0x45f)]||_0x398561[_0x4bb2f9(0x3e0)]);_0x2c3732['appendChild'](_0x7a43fc);}function createMündlichCard(_0x16b15c,_0x130573){const _0x4a34eb=a3_0x2b8255,_0x3adacc={'IzuZQ':'div'},_0x4f0683=document['createElement'](_0x3adacc[_0x4a34eb(0x13e)]);_0x4f0683[_0x4a34eb(0x4f9)][_0x4a34eb(0x4e2)]=_0x4a34eb(0x359);const _0x38b55e=document['createElement'](_0x3adacc[_0x4a34eb(0x13e)]);_0x38b55e[_0x4a34eb(0x4f9)][_0x4a34eb(0x4e2)]='\x0a\x20\x20\x20\x20font-size:\x2018px;\x0a\x20\x20\x20\x20font-weight:\x20bold;\x0a\x20\x20\x20\x20color:\x20#2c3e66;\x0a\x20\x20\x20\x20border-right:\x204px\x20solid\x20#007bff;\x0a\x20\x20\x20\x20padding-right:\x2012px;\x0a\x20\x20\x20\x20margin-bottom:\x2015px;\x0a\x20\x20',_0x38b55e[_0x4a34eb(0x18d)]=_0x16b15c,_0x4f0683[_0x4a34eb(0x3a2)](_0x38b55e);const _0x26dadf=document[_0x4a34eb(0xfd)](_0x3adacc['IzuZQ']);return _0x26dadf[_0x4a34eb(0x4f9)][_0x4a34eb(0x4e2)]=_0x4a34eb(0x8e),_0x26dadf[_0x4a34eb(0x18d)]=_0x130573,_0x4f0683[_0x4a34eb(0x3a2)](_0x26dadf),_0x4f0683;}function updateExamNavButtons(){const _0x4c2906=a3_0x2b8255,_0xbd673e={'offHc':function(_0x4c26bc,_0x4f0ba9,_0x590e5d){return _0x4c26bc(_0x4f0ba9,_0x590e5d);},'dQxXY':'DgpFe','iMdLJ':_0x4c2906(0xe3),'oJbmS':function(_0x505ab3,_0x47a65d,_0x44fcea,_0xf7da88){return _0x505ab3(_0x47a65d,_0x44fcea,_0xf7da88);},'vYalE':function(_0x5f1f08,_0x60d5b1){return _0x5f1f08>_0x60d5b1;},'wSgEw':function(_0x123f35,_0x200aec){return _0x123f35-_0x200aec;},'VQCah':function(_0x1d05dd,_0x2695d6){return _0x1d05dd===_0x2695d6;},'qfxQX':_0x4c2906(0x116),'IVDKi':_0x4c2906(0xc6),'ywPgh':_0x4c2906(0x137)},_0x2790df=document['getElementById']('prevExamBtn'),_0x2f9cc7=document[_0x4c2906(0x19d)]('nextExamBtn');if(!_0x2790df||!_0x2f9cc7)return;const _0x5c23b3=currentExamsList[_0x4c2906(0x2ea)](_0x14f4c1=>_0x14f4c1['id']===currentExamId),_0x4e1e26=_0xbd673e[_0x4c2906(0xb4)](_0x5c23b3,0x0),_0x1e80d6=_0x5c23b3<_0xbd673e[_0x4c2906(0x1dd)](currentExamsList[_0x4c2906(0x2f2)],0x1);_0x4e1e26?_0xbd673e[_0x4c2906(0x209)](_0xbd673e[_0x4c2906(0x445)],_0x4c2906(0x116))?(_0x2790df[_0x4c2906(0x4f9)][_0x4c2906(0x22c)]=_0xbd673e[_0x4c2906(0x448)],_0x2790df[_0x4c2906(0x27c)]=()=>{const _0x246368=_0x4c2906;if(_0xbd673e[_0x246368(0x2c0)]!==_0xbd673e['iMdLJ']){const _0x26a7f3=currentExamsList[_0x5c23b3-0x1];openExam(_0x26a7f3['id'],_0x26a7f3[_0x246368(0x419)],_0x26a7f3['skillPath']||currentSkill);}else _0xbd673e[_0x246368(0x190)](_0x523242,_0x4785cc[_0x246368(0x108)],_0x5f4e85[_0x246368(0x47a)]);}):_0x751fd6[_0x4c2906(0x274)](_0x31e524,_0x19394a['questions'],_0x173ee3[_0x4c2906(0x325)]):_0x2790df['style'][_0x4c2906(0x22c)]=_0xbd673e['ywPgh'],_0x1e80d6?(_0x2f9cc7[_0x4c2906(0x4f9)][_0x4c2906(0x22c)]='inline-block',_0x2f9cc7['onclick']=()=>{const _0xffe4c8=_0x4c2906,_0xe8d0bd=currentExamsList[_0x5c23b3+0x1];_0xbd673e[_0xffe4c8(0x232)](openExam,_0xe8d0bd['id'],_0xe8d0bd[_0xffe4c8(0x419)],_0xe8d0bd['skillPath']||currentSkill);}):_0x2f9cc7['style'][_0x4c2906(0x22c)]=_0xbd673e['ywPgh'],setupLockedNextButton();}function showTeil(_0x36bbda){const _0x1d5832=a3_0x2b8255,_0xfdd5f0={'tLDgX':function(_0x3a5c1f,_0xb2ad2f){return _0x3a5c1f===_0xb2ad2f;},'Kvmjk':_0x1d5832(0x3d9),'sdtlM':_0x1d5832(0x137)};teile[_0x1d5832(0x38e)]((_0x2fb281,_0x2b8c7d)=>{const _0x1d9c58=_0x1d5832,_0x5b6d76=document[_0x1d9c58(0x19d)](_0x2fb281['container']);if(_0x5b6d76)_0x5b6d76[_0x1d9c58(0x4f9)][_0x1d9c58(0x22c)]=_0xfdd5f0[_0x1d9c58(0x333)](_0x2b8c7d+0x1,_0x36bbda)?_0xfdd5f0['Kvmjk']:_0xfdd5f0[_0x1d9c58(0xcd)];});}function goHome(){const _0x312e29=a3_0x2b8255,_0x5d39b5={'ZbxVR':_0x312e29(0x94),'ooXns':_0x312e29(0xea)};document['getElementById'](_0x5d39b5[_0x312e29(0xf3)])[_0x312e29(0x421)]['add'](_0x5d39b5['ooXns']),document['getElementById'](_0x312e29(0x367))['classList']['remove'](_0x312e29(0xea)),document[_0x312e29(0x19d)]('exam')[_0x312e29(0x421)][_0x312e29(0x2ad)](_0x5d39b5[_0x312e29(0x259)]);}function goList(){const _0x33e2fb=a3_0x2b8255,_0x2f6904={'tjrTP':function(_0x41e59a){return _0x41e59a();},'pvmzA':'#eef2f7','hoOtb':function(_0x45d41f,_0x133cb5){return _0x45d41f===_0x133cb5;},'jyxSq':_0x33e2fb(0x498),'EgKJZ':_0x33e2fb(0x39a),'JyyeN':function(_0x387570,_0xee50df,_0x1758c9){return _0x387570(_0xee50df,_0x1758c9);},'gNluU':function(_0x502f2f,_0xcf8816){return _0x502f2f===_0xcf8816;},'aZovk':_0x33e2fb(0x1ad),'QkueE':_0x33e2fb(0x94),'vYuuO':_0x33e2fb(0xea),'lswmR':_0x33e2fb(0x367),'oOifB':'exam','ZLHyS':function(_0x4f3f80){return _0x4f3f80();}};document[_0x33e2fb(0x19d)](_0x2f6904['QkueE'])['classList'][_0x33e2fb(0x2ad)](_0x2f6904[_0x33e2fb(0x43c)]),document[_0x33e2fb(0x19d)](_0x2f6904[_0x33e2fb(0x388)])[_0x33e2fb(0x421)][_0x33e2fb(0x298)](_0x2f6904[_0x33e2fb(0x43c)]),document['getElementById'](_0x2f6904[_0x33e2fb(0x9e)])[_0x33e2fb(0x421)]['remove'](_0x2f6904[_0x33e2fb(0x43c)]),_0x2f6904[_0x33e2fb(0x24f)](renderTeileList),setTimeout(()=>{const _0x54665c=_0x33e2fb;if(_0x2f6904[_0x54665c(0x4cc)](_0x2f6904['jyxSq'],_0x2f6904[_0x54665c(0x518)]))_0x2f6904[_0x54665c(0x19a)](_0x24debd);else{const _0x521f67=document[_0x54665c(0x19d)](_0x54665c(0x31f));if(_0x521f67){const _0x37e5f7=teile['find'](_0x3e7c0c=>_0x3e7c0c[_0x54665c(0x108)]===_0x54665c(0x2d2));_0x37e5f7?_0x2f6904[_0x54665c(0x427)](renderExamListForSkill,_0x37e5f7[_0x54665c(0x108)],_0x37e5f7['name']):_0x2f6904[_0x54665c(0x1b4)](_0x2f6904[_0x54665c(0x302)],_0x2f6904[_0x54665c(0x302)])?_0x521f67[_0x54665c(0x18d)]='<div\x20class=\x22welcome-message\x22>👈\x20اختر\x20القسم\x20(Teil)\x20من\x20الأعلى\x20لعرض\x20الامتحانات</div>':_0x2ea6ea[_0x54665c(0x4f9)][_0x54665c(0x1a2)]=cNFXgD[_0x54665c(0x519)];}}},0x32);}function buildTeil1(_0x2c5abe){const _0x269541=a3_0x2b8255,_0x26e9c4={'FmGqr':function(_0x39d3f8,_0x134a58,_0x3a4ab5){return _0x39d3f8(_0x134a58,_0x3a4ab5);},'FpYnA':function(_0xa63c0d,_0x31f8c5){return _0xa63c0d(_0x31f8c5);},'DTLzT':_0x269541(0x1a6),'PCPMR':function(_0x3ab7b5,_0x55c64d){return _0x3ab7b5<_0x55c64d;},'mPLqe':'div','AFZNq':'question-card','kHsrE':function(_0x406937,_0x1b5e47){return _0x406937+_0x1b5e47;},'wIgDU':_0x269541(0x47c),'wZNpi':function(_0x262559,_0x1c1f5f){return _0x262559+_0x1c1f5f;},'OVqhn':_0x269541(0x35e),'HXjkL':'</strong>','ueUqy':function(_0x5335e7,_0x5c7dd9){return _0x5335e7<_0x5c7dd9;},'Bapax':function(_0x2e4b64,_0x526ead){return _0x2e4b64===_0x526ead;},'azNHV':'eXAfa','GRlIA':_0x269541(0x4b0),'QPzUN':_0x269541(0x247),'JyLAB':function(_0x24745c,_0x512fe3){return _0x24745c+_0x512fe3;},'wZudJ':function(_0x4635bc,_0xdd2e94){return _0x4635bc+_0xdd2e94;},'cFfew':function(_0x4ac6f6,_0x3d4eb7){return _0x4ac6f6+_0x3d4eb7;},'HyLIc':function(_0x12d415,_0x136be7){return _0x12d415+_0x136be7;},'Cgmiq':'<input\x20type=\x22radio\x22\x20name=\x22q','BxlOM':'\x22\x20value=\x22','cXUJL':_0x269541(0xbb),'jhSxA':_0x269541(0x20e),'RcSot':'</span>','uczVY':'button','hHUMG':_0x269541(0x46f),'jNxqc':_0x269541(0x1fc),'gbEKV':_0x269541(0x1b0),'oJLiP':'none'},_0x19f729=document[_0x269541(0x19d)](_0x26e9c4[_0x269541(0x3bc)]);if(!_0x19f729)return;_0x19f729[_0x269541(0x18d)]='';let _0x5dbf2d={};for(let _0x13f488=0x0;_0x26e9c4['PCPMR'](_0x13f488,_0x2c5abe[_0x269541(0x2f2)]);_0x13f488++){const _0x3c102b=_0x2c5abe[_0x13f488],_0x3a7075=document[_0x269541(0xfd)](_0x26e9c4['mPLqe']);_0x3a7075[_0x269541(0x51f)]=_0x26e9c4['AFZNq'],_0x3a7075['id']=_0x26e9c4[_0x269541(0x255)]('q_',_0x13f488);const _0x20038=document[_0x269541(0xfd)](_0x26e9c4['mPLqe']);_0x20038[_0x269541(0x51f)]=_0x26e9c4[_0x269541(0x392)],_0x20038[_0x269541(0x18d)]=_0x26e9c4[_0x269541(0x255)](_0x26e9c4[_0x269541(0x226)](_0x26e9c4[_0x269541(0x226)](_0x26e9c4[_0x269541(0x226)](_0x26e9c4[_0x269541(0xaa)],_0x26e9c4['kHsrE'](_0x13f488,0x1)),'.\x20'),_0x3c102b[_0x269541(0x3f2)]),_0x26e9c4[_0x269541(0x179)]),_0x3a7075[_0x269541(0x3a2)](_0x20038);const _0x9af38d=document[_0x269541(0xfd)](_0x26e9c4['mPLqe']);_0x9af38d[_0x269541(0x51f)]=_0x269541(0x147);for(let _0x2325e7=0x0;_0x26e9c4['ueUqy'](_0x2325e7,_0x3c102b['options'][_0x269541(0x2f2)]);_0x2325e7++){if(_0x26e9c4[_0x269541(0x319)](_0x26e9c4[_0x269541(0x2a1)],_0x26e9c4[_0x269541(0x260)]))_0x26e9c4[_0x269541(0x2c7)](_0x16669c,_0x546f1e,_0x26e9c4[_0x269541(0x3af)](_0x1ec53f,_0x2521b3));else{const _0x1d3b3a=document[_0x269541(0xfd)](_0x269541(0x227));_0x1d3b3a[_0x269541(0x51f)]=_0x26e9c4['QPzUN'];const _0x5f4f5a=_0x26e9c4[_0x269541(0x20d)](_0x26e9c4['wZudJ']('q'+_0x13f488,'_'),_0x2325e7);_0x1d3b3a[_0x269541(0x18d)]=_0x26e9c4[_0x269541(0x2fb)](_0x26e9c4[_0x269541(0x226)](_0x26e9c4[_0x269541(0x37c)](_0x26e9c4[_0x269541(0x2fb)](_0x26e9c4[_0x269541(0x2fb)](_0x26e9c4[_0x269541(0x497)](_0x26e9c4[_0x269541(0x226)](_0x26e9c4['Cgmiq'],_0x13f488),_0x26e9c4[_0x269541(0x1de)]),_0x2325e7),_0x26e9c4[_0x269541(0x196)]),_0x5f4f5a)+_0x26e9c4[_0x269541(0x43a)],_0x3c102b[_0x269541(0x2aa)][_0x2325e7]),_0x26e9c4['RcSot']),_0x1d3b3a[_0x269541(0x27c)]=function(_0x504262,_0x238739){return function(){_0x5dbf2d[_0x504262]=_0x238739;};}(_0x13f488,_0x2325e7),_0x9af38d[_0x269541(0x3a2)](_0x1d3b3a);}}_0x3a7075['appendChild'](_0x9af38d),_0x19f729[_0x269541(0x3a2)](_0x3a7075);}const _0x171965=document[_0x269541(0xfd)](_0x26e9c4[_0x269541(0x2e5)]);_0x171965[_0x269541(0x18e)]=_0x269541(0x4f7),_0x171965[_0x269541(0x51f)]=_0x26e9c4[_0x269541(0x2e2)],_0x171965['onclick']=function(){checkTeil1(_0x2c5abe,_0x5dbf2d);},_0x19f729[_0x269541(0x3a2)](_0x171965);const _0x439c88=document[_0x269541(0xfd)](_0x26e9c4[_0x269541(0x2d4)]);_0x439c88['id']=_0x26e9c4['jNxqc'],_0x439c88[_0x269541(0x51f)]=_0x26e9c4['gbEKV'],_0x439c88[_0x269541(0x4f9)][_0x269541(0x22c)]=_0x26e9c4['oJLiP'],_0x19f729[_0x269541(0x3a2)](_0x439c88);}function checkTeil1(_0x15dec3,_0x385457){const _0x485cb0=a3_0x2b8255,_0x6b0a97={'scjvs':function(_0x34395c,_0x26be2c){return _0x34395c(_0x26be2c);},'QdGGe':function(_0x35c69b,_0x143c50){return _0x35c69b/_0x143c50;},'QshTf':function(_0x3dcd1e,_0x34d889){return _0x3dcd1e+_0x34d889;},'LSjos':function(_0x4fdb4a,_0x4ac000){return _0x4fdb4a===_0x4ac000;},'YFvAZ':function(_0x83a57d,_0x1722cb){return _0x83a57d!==_0x1722cb;},'IjHFP':'krfMl','whKTT':_0x485cb0(0x4d9),'AVXYR':'correct-answer-card','FSqwg':_0x485cb0(0x39d),'Hwtig':'.correct-message','rUTFs':_0x485cb0(0x457),'aABAV':_0x485cb0(0xc4),'cqzFg':'✅\x20الإجابة\x20الصحيحة:\x20','GuoCK':function(_0x53e0f7,_0x23fb41){return _0x53e0f7*_0x23fb41;},'iEFfr':_0x485cb0(0x1fc),'MgaHl':function(_0x349040,_0x322ab7){return _0x349040!==_0x322ab7;},'iDEzN':_0x485cb0(0x17f),'GiQdd':function(_0x407afb,_0x55fb29){return _0x407afb+_0x55fb29;},'dVXds':_0x485cb0(0x1a1),'NWbGG':_0x485cb0(0x2f3),'YegAl':_0x485cb0(0x3d9),'CebpK':function(_0x53ec82,_0x317af2,_0x347615,_0x4a1514){return _0x53ec82(_0x317af2,_0x347615,_0x4a1514);},'nVQjb':function(_0x4647ee,_0x29b6f5){return _0x4647ee(_0x29b6f5);},'Ritcv':_0x485cb0(0x367),'uQlIp':_0x485cb0(0xea),'SSRKo':function(_0x2228c4,_0x3fad68,_0x82bf10){return _0x2228c4(_0x3fad68,_0x82bf10);}};let _0x2e2078=0x0;const _0x45fa50=_0x15dec3[_0x485cb0(0x2f2)],_0x4c58cb=_0x6b0a97[_0x485cb0(0x477)](0x19,_0x45fa50);for(let _0x596ec8=0x0;_0x596ec8<_0x15dec3['length'];_0x596ec8++){const _0x6d2fc4=_0x15dec3[_0x596ec8],_0x4e86b6=document[_0x485cb0(0x19d)](_0x6b0a97[_0x485cb0(0x366)]('q_',_0x596ec8)),_0x3289ca=_0x385457[_0x596ec8],_0x3cbb9e=_0x6b0a97[_0x485cb0(0x175)](_0x3289ca,_0x6d2fc4[_0x485cb0(0x1ff)]);if(_0x3cbb9e){if(_0x6b0a97[_0x485cb0(0x4a0)](_0x6b0a97[_0x485cb0(0x3b8)],_0x6b0a97[_0x485cb0(0x174)])){_0x2e2078++;if(_0x4e86b6){_0x4e86b6[_0x485cb0(0x421)][_0x485cb0(0x298)](_0x6b0a97['AVXYR']),_0x4e86b6[_0x485cb0(0x421)][_0x485cb0(0x2ad)](_0x6b0a97[_0x485cb0(0x3ff)]);const _0x393485=_0x4e86b6[_0x485cb0(0x173)](_0x6b0a97[_0x485cb0(0x402)]);if(_0x393485)_0x393485[_0x485cb0(0x2ad)]();}}else _0x5343c3(_0x4eccbe['id'],_0x4f8ac6[_0x485cb0(0x419)],_0x459015[_0x485cb0(0x35a)]||_0x1f2c7e);}else{if(_0x4e86b6){_0x4e86b6['classList']['add'](_0x6b0a97[_0x485cb0(0x3ff)]),_0x4e86b6[_0x485cb0(0x421)]['remove'](_0x485cb0(0x35d));let _0x311d27=_0x4e86b6[_0x485cb0(0x173)](_0x485cb0(0x2a6));!_0x311d27&&(_0x311d27=document[_0x485cb0(0xfd)](_0x6b0a97['rUTFs']),_0x311d27['className']=_0x6b0a97[_0x485cb0(0x3d8)],_0x4e86b6[_0x485cb0(0x3a2)](_0x311d27)),_0x311d27['innerHTML']=_0x6b0a97[_0x485cb0(0x4ec)]+_0x6d2fc4[_0x485cb0(0x2aa)][_0x6d2fc4[_0x485cb0(0x1ff)]];}}}const _0x5d6002=_0x6b0a97[_0x485cb0(0xde)](_0x2e2078,_0x4c58cb)[_0x485cb0(0x452)](0x2),_0xe05950=document[_0x485cb0(0x19d)](_0x6b0a97[_0x485cb0(0x2b0)]);_0xe05950&&(_0x6b0a97[_0x485cb0(0x167)](_0x6b0a97[_0x485cb0(0xd4)],_0x6b0a97[_0x485cb0(0xd4)])?aZTyrc[_0x485cb0(0x114)](_0x5ee292,0xa):(_0xe05950[_0x485cb0(0x18d)]=_0x6b0a97[_0x485cb0(0x42b)](_0x6b0a97[_0x485cb0(0x366)](_0x6b0a97[_0x485cb0(0x8d)],_0x5d6002),_0x6b0a97[_0x485cb0(0x4c2)]),_0xe05950[_0x485cb0(0x4f9)][_0x485cb0(0x22c)]=_0x6b0a97['YegAl'])),_0x6b0a97[_0x485cb0(0x270)](saveExamResult,currentSkill,currentExamId,_0x6b0a97[_0x485cb0(0x39e)](parseFloat,_0x5d6002)),document['getElementById'](_0x6b0a97[_0x485cb0(0x465)])[_0x485cb0(0x421)][_0x485cb0(0x45b)](_0x6b0a97[_0x485cb0(0x13d)])&&_0x6b0a97[_0x485cb0(0x461)](renderExamListForSkill,currentSkill,getTeilNameBySkill(currentSkill));}window[a3_0x2b8255(0x45d)]=function(_0x224e29,_0x54cb8a,_0x24c8ed){const _0x55cf05=a3_0x2b8255,_0x355c5e={'fPRwA':function(_0x1089b9,_0x18541c,_0x421ed2,_0x18c1b3){return _0x1089b9(_0x18541c,_0x421ed2,_0x18c1b3);},'bYXsy':_0x55cf05(0xea),'RycIw':function(_0x2fb41b,_0x25e5b8,_0x29dd77){return _0x2fb41b(_0x25e5b8,_0x29dd77);},'wwmOn':function(_0x32d1ed,_0x5e60e6){return _0x32d1ed(_0x5e60e6);}};_0x355c5e[_0x55cf05(0x1a3)](saveExamResult,_0x224e29,_0x54cb8a,_0x24c8ed),document[_0x55cf05(0x19d)]('list')['classList'][_0x55cf05(0x45b)](_0x355c5e[_0x55cf05(0x428)])&&currentSkill===_0x224e29&&_0x355c5e[_0x55cf05(0x16a)](renderExamListForSkill,currentSkill,_0x355c5e[_0x55cf05(0x374)](getTeilNameBySkill,currentSkill));},document[a3_0x2b8255(0x378)](a3_0x2b8255(0x4bf),function(){const _0x59b0c2=a3_0x2b8255,_0x15b541={'glhJr':function(_0x1f8891){return _0x1f8891();},'rpAcZ':'inline-block','nbsmL':function(_0x11d312,_0x2db29d){return _0x11d312!==_0x2db29d;},'FSDAU':'YfdyC','UCyUQ':function(_0x2438ea,_0x47d36a){return _0x2438ea(_0x47d36a);},'CQIJg':function(_0x599480,_0x101a12){return _0x599480+_0x101a12;},'ifhmr':_0x59b0c2(0x4a3),'gxeZy':function(_0x3c644e){return _0x3c644e();},'fPQzK':_0x59b0c2(0x51d),'iTcBH':_0x59b0c2(0x3d9),'inXuy':_0x59b0c2(0x130),'yDsas':'backHomeBtn','JtwJV':_0x59b0c2(0x46d),'nGOYe':_0x59b0c2(0x2e6),'PYjrI':_0x59b0c2(0x10e),'Mjdcq':_0x59b0c2(0x31f),'EogfM':_0x59b0c2(0xfc)},_0x32abc5=document[_0x59b0c2(0x19d)](_0x15b541[_0x59b0c2(0x2fa)]),_0x5b765d=document['getElementById'](_0x15b541['yDsas']),_0x327640=document[_0x59b0c2(0x19d)](_0x15b541['JtwJV']),_0x5c9140=document[_0x59b0c2(0x19d)](_0x15b541[_0x59b0c2(0x207)]);if(_0x32abc5)_0x32abc5['onclick']=function(){const _0xf87252=_0x59b0c2;_0x15b541[_0xf87252(0x36f)](goList);};if(_0x5b765d)_0x5b765d[_0x59b0c2(0x27c)]=function(){const _0x9c2794=_0x59b0c2,_0x576f16={'HmnjZ':function(_0x3bcbed,_0x5674a3,_0x17d8a0,_0x306b){return _0x3bcbed(_0x5674a3,_0x17d8a0,_0x306b);},'mhRLZ':_0x15b541[_0x9c2794(0x387)]};_0x15b541['nbsmL'](_0x15b541[_0x9c2794(0x4fb)],_0x15b541['FSDAU'])?(_0x270173[_0x9c2794(0x4f9)][_0x9c2794(0x22c)]=SyUYjs[_0x9c2794(0x3be)],_0x237cc9[_0x9c2794(0x27c)]=()=>{const _0x111857=_0x9c2794,_0x116275=_0x4599ac[_0x558db0+0x1];SyUYjs[_0x111857(0x4b4)](_0x46e297,_0x116275['id'],_0x116275['title'],_0x116275[_0x111857(0x35a)]||_0x361f9b);}):_0x15b541['glhJr'](goHome);};if(_0x327640)_0x327640['onclick']=function(){const _0x9f0ac0=_0x59b0c2,_0x1fb37c={'CNSBV':function(_0x5dde92,_0x337427){const _0xa51df7=a3_0x5499;return _0x15b541[_0xa51df7(0x297)](_0x5dde92,_0x337427);},'exvKV':function(_0x1efe60,_0xed0fd2){const _0x3a9809=a3_0x5499;return _0x15b541[_0x3a9809(0x4d2)](_0x1efe60,_0xed0fd2);}};_0x15b541[_0x9f0ac0(0x267)]===_0x15b541[_0x9f0ac0(0x267)]?_0x15b541[_0x9f0ac0(0x2f7)](goList):XxSizb['CNSBV'](_0x418269,XxSizb[_0x9f0ac0(0x21d)](_0x3e7d83,0x1));};if(_0x5c9140){if(_0x15b541['nbsmL'](_0x15b541[_0x59b0c2(0x1f7)],_0x15b541[_0x59b0c2(0x1f7)])){const _0xbc27ca=_0xed7d8b[_0x59b0c2(0x19d)](egjChO[_0x59b0c2(0x434)]);if(_0xbc27ca)_0xbc27ca[_0x59b0c2(0x4f9)][_0x59b0c2(0x22c)]=egjChO['iTcBH'];}else _0x5c9140[_0x59b0c2(0x27c)]=function(){goBackToExamsList();};}const _0x5467e1=document[_0x59b0c2(0x19d)](_0x15b541[_0x59b0c2(0x348)]);_0x5467e1&&(_0x5467e1[_0x59b0c2(0x18d)]=_0x15b541[_0x59b0c2(0x99)]);}),renderTeileList(),(function(){const _0x34cc20=a3_0x2b8255,_0x5c96a9={'CeJvM':_0x34cc20(0x2a0),'waSvS':'none','isnoO':_0x34cc20(0x4eb),'bujFL':'list','BOrBv':_0x34cc20(0xea),'kIslA':_0x34cc20(0x517),'YhLAo':function(_0x1991a6){return _0x1991a6();},'uWlzs':function(_0x37f969,_0xa0bf76,_0x48269a){return _0x37f969(_0xa0bf76,_0x48269a);},'npmzr':function(_0x1b8259,_0x2f58d6,_0x4cbdd4){return _0x1b8259(_0x2f58d6,_0x4cbdd4);}},_0x3c29fa=goList;goList=function(){const _0x4d11fd=_0x34cc20,_0x1fe896={'wFEJQ':_0x5c96a9[_0x4d11fd(0x3e3)],'TkrzU':_0x5c96a9['BOrBv']};if(_0x4d11fd(0x4a1)===_0x5c96a9['kIslA']){const _0x1cbe85={'AFoDA':eFoFDf[_0x4d11fd(0x506)],'jUxyK':function(_0x5470c0,_0x4c4d47){return _0x5470c0===_0x4c4d47;},'wfcVx':_0x4d11fd(0x3d9),'vARhz':eFoFDf['waSvS'],'IlQYj':_0x4d11fd(0x306),'BGBMa':'إخفاء\x20←'};_0x309bce[_0x4d11fd(0x378)](eFoFDf['isnoO'],()=>{const _0x25be1b=_0x4d11fd,_0x3762df=_0x4b68e9[_0x25be1b(0x379)](_0x1cbe85[_0x25be1b(0x503)]),_0x3c49d7=_0x22815e[_0x25be1b(0x173)](_0x25be1b(0x11d)+_0x3762df+'\x22]');if(_0x3c49d7){const _0x100ddc=_0x1cbe85[_0x25be1b(0xc3)](_0x3c49d7[_0x25be1b(0x4f9)][_0x25be1b(0x22c)],_0x1cbe85['wfcVx']);_0x3c49d7[_0x25be1b(0x4f9)][_0x25be1b(0x22c)]=_0x100ddc?_0x1cbe85['vARhz']:_0x1cbe85[_0x25be1b(0x29c)],_0x50844d[_0x25be1b(0x17e)]=_0x100ddc?_0x1cbe85['IlQYj']:_0x1cbe85[_0x25be1b(0x432)];}});}else _0x5c96a9[_0x4d11fd(0xa9)](_0x3c29fa),_0x5c96a9[_0x4d11fd(0x1e3)](setTimeout,function(){const _0x45ceeb=_0x4d11fd,_0x1fdda5=teile[_0x45ceeb(0xd1)](_0x48c462=>_0x48c462[_0x45ceeb(0x108)]==='hoeren1');_0x1fdda5&&document['getElementById'](_0x1fe896[_0x45ceeb(0x1bb)])[_0x45ceeb(0x421)]['contains'](_0x1fe896[_0x45ceeb(0xf1)])&&renderExamListForSkill(_0x1fdda5[_0x45ceeb(0x108)],_0x1fdda5[_0x45ceeb(0x47a)]);},0x96);},document['getElementById'](_0x5c96a9['bujFL'])[_0x34cc20(0x421)][_0x34cc20(0x45b)](_0x34cc20(0xea))&&_0x5c96a9[_0x34cc20(0x14f)](setTimeout,function(){const _0x188a62=_0x34cc20,_0x53504a=teile[_0x188a62(0xd1)](_0x3cf229=>_0x3cf229[_0x188a62(0x108)]===_0x188a62(0x2d2));_0x53504a&&renderExamListForSkill(_0x53504a[_0x188a62(0x108)],_0x53504a['name']);},0x64);}()),console[a3_0x2b8255(0x3e6)](a3_0x2b8255(0x1a4)),console[a3_0x2b8255(0x3e6)](a3_0x2b8255(0x3a6),examsDatabase['lesen1'][a3_0x2b8255(0x2f2)],'امتحان'),console[a3_0x2b8255(0x3e6)](a3_0x2b8255(0x4c0),examsDatabase[a3_0x2b8255(0x18a)][a3_0x2b8255(0x2f2)],'امتحان'),console[a3_0x2b8255(0x3e6)](a3_0x2b8255(0x4bb),examsDatabase[a3_0x2b8255(0x345)][a3_0x2b8255(0x2f2)],a3_0x2b8255(0x122)),console[a3_0x2b8255(0x3e6)]('📝\x20Sprachbausteine\x20Teil\x201:',examsDatabase['sprach1'][a3_0x2b8255(0x2f2)],a3_0x2b8255(0x122)),console['log'](a3_0x2b8255(0xb1),examsDatabase[a3_0x2b8255(0x344)]['length'],a3_0x2b8255(0x122)),console[a3_0x2b8255(0x3e6)]('🎧\x20Hören\x20Teil\x201:',examsDatabase[a3_0x2b8255(0x2d2)]['length'],a3_0x2b8255(0x122)),console['log']('🎧\x20Hören\x20Teil\x202:',examsDatabase['hoeren2'][a3_0x2b8255(0x2f2)],a3_0x2b8255(0x122)),console['log'](a3_0x2b8255(0x2ca),examsDatabase[a3_0x2b8255(0x409)][a3_0x2b8255(0x2f2)],a3_0x2b8255(0x122)),console[a3_0x2b8255(0x3e6)]('✏️\x20Schreiben:',examsDatabase[a3_0x2b8255(0x390)]['length'],a3_0x2b8255(0x122)),console[a3_0x2b8255(0x3e6)](a3_0x2b8255(0x439),examsDatabase['mündlich1']['length'],a3_0x2b8255(0x30a)),console['log']('🗣️\x20Mündlich\x20Teil\x202:',examsDatabase[a3_0x2b8255(0x3ee)][a3_0x2b8255(0x2f2)],a3_0x2b8255(0x122)),console[a3_0x2b8255(0x3e6)](a3_0x2b8255(0x242),examsDatabase[a3_0x2b8255(0x450)]['length'],'قسم'),console[a3_0x2b8255(0x3e6)](a3_0x2b8255(0x44c),examsDatabase[a3_0x2b8255(0x109)][a3_0x2b8255(0x2f2)],a3_0x2b8255(0x30a));
+// ============================================
+// exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
+// ============================================
+const teile = [
+  { id: 1, name: "Hören 1", container: "hoeren1", skill: "hoeren1" },
+  { id: 2, name: "Hören 2", container: "hoeren2", skill: "hoeren2" },
+  { id: 3, name: "Hören 3", container: "hoeren3", skill: "hoeren3" },
+  { id: 4, name: "Lesen 1", container: "teil1", skill: "lesen1" },
+  { id: 5, name: "Lesen 2", container: "teil2", skill: "lesen2" },
+  { id: 6, name: "Lesen 3", container: "teil3", skill: "lesen3" },
+  { id: 7, name: "Sprach 1", container: "sprach1", skill: "sprach1" },
+  { id: 8, name: "Sprach 2", container: "sprach2", skill: "sprach2" },
+  { id: 9, name: "Schreiben", container: "schreiben", skill: "schreiben" },
+  { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" },
+  { id: 11, name: "Tipps", container: "tips", skill: "tips" }
+];
+
+// ========== دالة حفظ آخر نتيجة ==========
+function saveExamResult(skill, examId, score) {
+  try {
+    const key = `exam_result_${skill}_${examId}`;
+    localStorage.setItem(key, score.toString());
+    console.log(`✅ تم حفظ النتيجة ${score} لـ ${skill} ${examId}`);
+  } catch(e) {
+    console.error("❌ خطأ في حفظ النتيجة:", e);
+  }
+}
+
+// ========== دالة استرجاع آخر نتيجة ==========
+function getExamResult(skill, examId) {
+  try {
+    const key = `exam_result_${skill}_${examId}`;
+    const result = localStorage.getItem(key);
+    return result ? parseFloat(result) : null;
+  } catch(e) {
+    console.error("❌ خطأ في استرجاع النتيجة:", e);
+    return null;
+  }
+}
+
+// ========== دالة الحصول على لون النتيجة ==========
+function getResultColor(score) {
+  if (score === 25) return "#17a2b8";
+  if (score >= 15) return "#28a745";
+  return "#adb5bd";
+}
+
+// ========== دالة عرض النتيجة بجانب عنوان الامتحان (معدلة للهواتف) ==========
+function createResultBadge(score) {
+  if (score === null) return null;
+  
+  const badge = document.createElement("span");
+  badge.className = "exam-result-badge";
+  badge.textContent = `${score} / 25`;
+  
+  // الكشف عن الهاتف وجعل الحجم أصغر
+  const isMobile = window.innerWidth <= 768;
+  badge.style.cssText = `
+    font-size: ${isMobile ? '8px' : '11px'};
+    font-weight: bold;
+    padding: ${isMobile ? '2px 5px' : '3px 8px'};
+    border-radius: 20px;
+    color: white;
+    background-color: ${getResultColor(score)};
+    margin-left: 8px;
+    display: inline-block;
+    min-width: ${isMobile ? '40px' : '55px'};
+    text-align: center;
+  `;
+  return badge;
+}
+
+// ========== عرض بطاقة Premium Access ==========
+function showLockedMessage(examTitle) {
+    // ✅ استخدام showPremiumModal من auth.js
+    if (typeof window.showPremiumModal === 'function') {
+        window.showPremiumModal(examTitle);
+    } else {
+        // حل احتياطي: توجيه إلى صفحة الاشتراك
+        window.location.href = 'subscribe.html';
+    }
+}
+
+
+let currentExamData = null;
+let currentSkill = "lesen1";
+let currentExamId = null;
+let currentExamsList = [];
+let currentMündlichPart = 2;
+let userStatusCache = null;
+let lastStatusCheck = 0;
+// ========== دوال التحقق من حالة المستخدم ==========
+async function getUserStatusForExam() {
+    let email = localStorage.getItem('zertiva_email');
+    if (!email) return 'guest';
+    
+    let now = Date.now();
+    if (userStatusCache && (now - lastStatusCheck) < 5000) {
+        return userStatusCache;
+    }
+    
+    try {
+        // ✅ فقط من Google Sheets
+        const result = await checkUser(email);
+        if (result && result.exists && result.expiry) {
+            let today = new Date().toISOString().slice(0,10);
+            if (today <= result.expiry) {
+                userStatusCache = 'premium';
+                lastStatusCheck = now;
+                return 'premium';
+            }
+        }
+        userStatusCache = 'free';
+        lastStatusCheck = now;
+        return 'free';
+    } catch(e) {
+        userStatusCache = 'free';
+        lastStatusCheck = now;
+        return 'free';
+    }
+}
+
+// ========== قائمة Tips (نصائح) ==========
+const tipsExams = [
+  { id: 1, title: "كيفاش تنجح بدكاء", enabled: true, hasFile: true }
+];
+
+// ========== قائمة امتحانات Lesen Teil 1 ==========
+const lesenExams = [
+  { id: 1, title: "Jugend Forscher", enabled: true, hasFile: true },
+  { id: 2, title: "sport ist gesund", enabled: true, hasFile: true },
+  { id: 3, title: "sport ist gesund (التعديل 1)", enabled: true, hasFile: true },
+  { id: 4, title: "Tanzkurs", enabled: true, hasFile: true },
+  { id: 5, title: "Tanzkurs (التعديل 1)", enabled: true, hasFile: true },
+  { id: 6, title: "Impfung", enabled: true, hasFile: true },
+  { id: 7, title: "Insel", enabled: true, hasFile: true },
+  { id: 8, title: "Bilder", enabled: true, hasFile: true },
+  { id: 9, title: "Grundschule", enabled: true, hasFile: true },
+  { id: 10, title: "Österreich - Naschmarkt", enabled: true, hasFile: true },
+  { id: 11, title: "Insekten", enabled: true, hasFile: true },
+  { id: 12, title: "Insekten (التعديل 1)", enabled: true, hasFile: true },
+  { id: 13, title: "das Benzin", enabled: true, hasFile: true },
+  { id: 14, title: "Kaffee", enabled: true, hasFile: true },
+  { id: 15, title: "Programmierer", enabled: true, hasFile: true },
+  { id: 16, title: "Programmierer (التعديل 1)", enabled: true, hasFile: true },
+  { id: 17, title: "Programmierer (التعديل 2)", enabled: true, hasFile: true },
+  { id: 18, title: "Trampolin", enabled: true, hasFile: true },
+  { id: 19, title: "Bonbons", enabled: true, hasFile: true },
+  { id: 20, title: "Umwelt", enabled: true, hasFile: true },
+  { id: 21, title: "Licht", enabled: true, hasFile: true },
+  { id: 22, title: "Licht (التعديل 1)", enabled: true, hasFile: true },
+  { id: 23, title: "Kartoffel", enabled: true, hasFile: true },
+  { id: 24, title: "Kartoffel (التعديل 1)", enabled: true, hasFile: true },
+  { id: 25, title: "Bienen", enabled: true, hasFile: true },
+  { id: 26, title: "Spiele", enabled: true, hasFile: true },
+  { id: 27, title: "Geld", enabled: true, hasFile: true },
+  { id: 28, title: "Kinder und Schulen", enabled: true, hasFile: true },
+  { id: 29, title: "Kindertelefon", enabled: true, hasFile: true },
+  { id: 30, title: "Alpen", enabled: true, hasFile: true },
+  { id: 31, title: "Alpen (التعديل 1)", enabled: true, hasFile: true },
+  { id: 32, title: "Alpen (التعديل 2)", enabled: true, hasFile: true },
+  { id: 33, title: "Suchtmittel - Nase", enabled: true, hasFile: true },
+  { id: 34, title: "الانتخابات والمرأة الروسية", enabled: true, hasFile: true },
+  { id: 35, title: "kein Zeit", enabled: true, hasFile: true },
+  { id: 36, title: "kein Zeit (التعديل 1)", enabled: true, hasFile: true },
+  { id: 37, title: "Limonade", enabled: true, hasFile: true },
+  { id: 38, title: "Limonade (التعديل 1)", enabled: true, hasFile: true },
+  { id: 39, title: "Limonade (التعديل 2)", enabled: true, hasFile: true },
+  { id: 40, title: "Auf dem Weg", enabled: true, hasFile: true },
+  { id: 41, title: "Schlafzug", enabled: true, hasFile: true },
+  { id: 42, title: "Schlafzug (التعديل 1)", enabled: true, hasFile: true },
+  { id: 43, title: "Löwen", enabled: true, hasFile: true },
+  { id: 44, title: "Fisch", enabled: true, hasFile: true },
+  { id: 45, title: "Frauen im Arbeitsmarkt", enabled: true, hasFile: true },
+  { id: 46, title: "Baby TV", enabled: true, hasFile: true },
+  { id: 47, title: "Bäder", enabled: true, hasFile: true },
+  { id: 48, title: "Farben", enabled: true, hasFile: true }
+];
+
+// ========== قائمة امتحانات Schreiben ==========
+const schreibenExams = [
+  { id: 1, title: "Fotobuch", enabled: true, hasFile: true },
+  { id: 2, title: "Abenteuer TIKKI TAKKA", enabled: true, hasFile: true },
+  { id: 3, title: "Informatik-Shop", enabled: true, hasFile: true },
+  { id: 4, title: "Kosmetik-Shop", enabled: true, hasFile: true },
+  { id: 5, title: "Partyservice", enabled: true, hasFile: true },
+  { id: 6, title: "ESS Firma", enabled: true, hasFile: true },
+  { id: 7, title: "Kursbeschreibung (Wohndesign)", enabled: true, hasFile: true },
+  { id: 8, title: "Renovierungskurs", enabled: true, hasFile: true },
+  { id: 9, title: "Engagement für Jugendliche", enabled: true, hasFile: true },
+  { id: 10, title: "Wohnen auf Zeit in Oranienburg", enabled: true, hasFile: true },
+  { id: 11, title: "Autovermietung Neustadt", enabled: true, hasFile: true },
+  { id: 12, title: "Freizeitverein", enabled: true, hasFile: true },
+  { id: 13, title: "Naturmuseum", enabled: true, hasFile: true },
+  { id: 14, title: "Backstage-Musical-Tour", enabled: true, hasFile: true },
+  { id: 15, title: "KULTUR UND KULINARIK", enabled: true, hasFile: true },
+  { id: 16, title: "Mehr bewegen - aber wie? (Fahrradtour)", enabled: true, hasFile: true },
+  { id: 17, title: "Super Clean-Staubsaugroboter", enabled: true, hasFile: true },
+  { id: 18, title: "Apartment-Haus", enabled: true, hasFile: true },
+  { id: 19, title: "Kostenlose Apps für dein Handy!", enabled: true, hasFile: true },
+  { id: 20, title: "Nie mehr schlaflos in Deutschland - Komfort-Matratze", enabled: true, hasFile: true },
+  { id: 21, title: "Schmelzkäse Alpengeschmack", enabled: true, hasFile: true },
+  { id: 22, title: "Meine Kiste: Obst und Gemüse", enabled: true, hasFile: true },
+  { id: 23, title: "Hotel mit Thermen", enabled: true, hasFile: true },
+  { id: 24, title: "Kopfhörer", enabled: true, hasFile: true },
+  { id: 25, title: "Badezimmer renovieren", enabled: true, hasFile: true },
+  { id: 26, title: "FREIZEITBAD MEERESRAUSCHEN", enabled: true, hasFile: true },
+  { id: 27, title: "Reisebüro Sonnenschein", enabled: true, hasFile: true },
+  { id: 28, title: "Kursbeschreibung (sich vorstellen)", enabled: true, hasFile: true },
+  { id: 29, title: "FITWATCH Smartwatch", enabled: true, hasFile: true },
+  { id: 30, title: "Securvia Reisegepäckversicherung", enabled: true, hasFile: true },
+  { id: 31, title: "DIGIBIKE - Das smarte Hightech-Fahrrad", enabled: true, hasFile: true },
+  { id: 32, title: "SPORTHEINPARKPLATZ FÜR KINDER", enabled: true, hasFile: true },
+  { id: 33, title: "Online-Training für guten Schlaf", enabled: true, hasFile: true },
+  { id: 34, title: "Hollandblumen-Onlineshop", enabled: true, hasFile: true },
+  { id: 35, title: "In Offenbach zu Hause", enabled: true, hasFile: true },
+  { id: 36, title: "Nachbarschaft.net", enabled: true, hasFile: true }
+];
+
+// ========== قائمة امتحانات Mündlich Teil 1 (دليل تعريفي) ==========
+const mündlich1Exams = [
+  { id: 1, title: "قدم نفسك وتكلم عن موضوع اخترته", enabled: true, hasFile: true, skillPath: "mündlich1" }
+];
+
+// ========== قائمة امتحانات Mündlich Teil 2 (الامتحانات الفعلية) ==========
+const mündlich2Exams = [
+  { id: 1, title: "Antibiotika – Gibt es Alternativen?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 2, title: "Selbst gekocht", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 3, title: "Arbeiten bis 75", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 4, title: "Praktische Lerntipps", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 5, title: "Schuluniform – Pro und Kontra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 6, title: "Ist 'bequemes Essen' gut für uns?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 7, title: "Alternative Lebensform im Alter", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 8, title: "Glücklich ohne Geld und Karriere", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 9, title: "Schönheitsoperationen bei Minderjährigen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 10, title: "Kinderuniversitäten", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 11, title: "Fast Food", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 12, title: "Zweisprachigkeit bei Kindern", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 13, title: "Blutspende", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 14, title: "Lachen und Gesundheit", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 15, title: "Gefundene Sachen – behalten oder abgeben?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 16, title: "Tiere als Geschenk", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 17, title: "Hausaufgaben – notwendig oder nicht?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 18, title: "Wie lange dürfen Jugendliche abends ausgehen?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 19, title: "Rauchen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 20, title: "Hochbegabte Kinder – Spezialschulen oder Integration", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 21, title: "Hochzeit nur zu zweit", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 22, title: "Stadtwohnung oder Haus im Grünen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 23, title: "Leistungssport und Doping", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 24, title: "Fernsehen bildet", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 25, title: "Kinderkonten", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 26, title: "Haustausch im Urlaub", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 27, title: "Solarium im Winter – gut oder schlecht", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 28, title: "Ist Schulqualität messbar?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 29, title: "Hausfrau auf Lebenszeit", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 30, title: "Fernsehen macht Kinder dumm", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 31, title: "Kinder unterschätzen Gefahren von Handy und Internet", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 32, title: "Sind Klassenfahrten sinnvoll?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 33, title: "Wo wohnt man am besten im Alter", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 34, title: "Ganztagsschule – Pro und Contra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 35, title: "Verbot von Gewaltspielen – Pro und Kontra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 36, title: "Eine Woche ohne Internet", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 37, title: "Digitales Unterrichtsmaterial in Schulen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 38, title: "Tierversuche – Pro und Contra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 39, title: "Englisch als weltweite Unternehmenssprache", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 40, title: "Trinkgeld geben", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 41, title: "Teilzeitarbeit für Männer", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 42, title: "Nahrungsergänzungsmittel", enabled: true, hasFile: true, skillPath: "mündlich2" }
+];
+
+// ========== قائمة امتحانات Mündlich Teil 3 (دليل المشكلات) ==========
+const mündlich3Exams = [
+  { id: 1, title: "Problemlösung", enabled: true, hasFile: true, skillPath: "mündlich3" }
+];
+
+// أسماء الملفات الحقيقية
+const actualFileNames = {
+  1: "exam1.json", 2: "exam2.json", 3: "exam3.json",
+  4: "exam4.json", 5: "exam5.json", 6: "exam6.json",
+  7: "exam7.json", 8: "exam8.json", 9: "exam9.json",
+  10: "exam10.json", 11: "exam11.json", 12: "exam12.json",
+  13: "exam13.json", 14: "exam14.json", 15: "exam15.json",
+  16: "exam16.json", 17: "exam17.json", 18: "exam18.json",
+  19: "exam19.json", 20: "exam20.json", 21: "exam21.json",
+  22: "exam22.json", 23: "exam23.json", 24: "exam24.json",
+  25: "exam25.json", 26: "exam26.json", 27: "exam27.json",
+  28: "exam28.json", 29: "exam29.json", 30: "exam30.json",
+  31: "exam31.json", 32: "exam32.json", 33: "exam33.json",
+  34: "exam34.json", 35: "exam35.json", 36: "exam36.json",
+  37: "exam37.json", 38: "exam38.json", 39: "exam39.json",
+  40: "exam40.json", 41: "exam41.json", 42: "exam42.json",
+  43: "exam43.json", 44: "exam44.json", 45: "exam45.json",
+  46: "exam46.json", 47: "exam47.json", 48: "exam48.json",
+  49: "exam49.json", 50: "exam50.json", 51: "exam51.json",
+  52: "exam52.json", 53: "exam53.json", 54: "exam54.json",
+  55: "exam55.json", 56: "exam56.json", 57: "exam57.json",
+  58: "exam58.json", 59: "exam59.json", 60: "exam60.json",
+  61: "exam61.json", 62: "exam62.json", 63: "exam63.json",
+  64: "exam64.json", 65: "exam65.json", 66: "exam66.json",
+  67: "exam67.json", 68: "exam68.json", 69: "exam69.json",
+  70: "exam70.json", 71: "exam71.json", 72: "exam72.json",
+  73: "exam73.json", 74: "exam74.json", 75: "exam75.json",
+  76: "exam76.json", 77: "exam77.json", 78: "exam78.json",
+  79: "exam79.json", 80: "exam80.json", 81: "exam81.json",
+  82: "exam82.json", 83: "exam83.json", 84: "exam84.json",
+  85: "exam85.json", 86: "exam86.json"
+};
+
+// ========== قاعدة بيانات الامتحانات ==========
+const examsDatabase = {
+  lesen1: lesenExams,
+  lesen2: [
+    { id: 1, title: "Krista", enabled: true, hasFile: true },
+    { id: 2, title: "Krista (معدل)", enabled: true, hasFile: true },
+    { id: 3, title: "Der Ein-Personen-Karneval", enabled: true, hasFile: true },
+    { id: 4, title: "Der Ein-Personen-Karneval (معدل)", enabled: true, hasFile: true },
+    { id: 5, title: "ein leben für den Kaffee", enabled: true, hasFile: true },
+    { id: 6, title: "ein leben für den Kaffee (معدل 1)", enabled: true, hasFile: true },
+    { id: 7, title: "ein leben für den Kaffee (معدل 2)", enabled: true, hasFile: true },
+    { id: 8, title: "Kreditkarte", enabled: true, hasFile: true },
+    { id: 9, title: "Gedächtnis", enabled: true, hasFile: true },
+    { id: 10, title: "Gedächtnis (معدل)", enabled: true, hasFile: true },
+    { id: 11, title: "Kaufentscheidungen", enabled: true, hasFile: true },
+    { id: 12, title: "Kellnern - Nebenjob", enabled: true, hasFile: true },
+    { id: 13, title: "die Ernährung", enabled: true, hasFile: true },
+    { id: 14, title: "Geschichte des Hauspersonals", enabled: true, hasFile: true },
+    { id: 15, title: "Österreich, das Land der Poolbesitzer", enabled: true, hasFile: true },
+    { id: 16, title: "Großraumbüros", enabled: true, hasFile: true },
+    { id: 17, title: "Korbjagd zu Pferde", enabled: true, hasFile: true },
+    { id: 18, title: "Mehrsprachige Erziehung", enabled: true, hasFile: true },
+    { id: 19, title: "Mehrsprachige Erziehung (معدل)", enabled: true, hasFile: true },
+    { id: 20, title: "Verpackungen im Supermarkt", enabled: true, hasFile: true },
+    { id: 21, title: "Der Puppenmacher", enabled: true, hasFile: true },
+    { id: 22, title: "Der Puppenmacher (معدل)", enabled: true, hasFile: true },
+    { id: 23, title: "Lehrkräftepreis", enabled: true, hasFile: true },
+    { id: 24, title: "Wer parkt, muss zahlen", enabled: true, hasFile: true },
+    { id: 25, title: "Wer parkt, muss zahlen (معدل)", enabled: true, hasFile: true },
+    { id: 26, title: "Familienglück oder Generationskonflikte", enabled: true, hasFile: true },
+    { id: 27, title: "Traumfrau und Traummann gesucht", enabled: true, hasFile: true },
+    { id: 28, title: "Traumfrau und Traummann gesucht (معدل)", enabled: true, hasFile: true },
+    { id: 29, title: "Wie Babys lernen", enabled: true, hasFile: true },
+    { id: 30, title: "Volkskrankheit Rückenschmerz", enabled: true, hasFile: true },
+    { id: 31, title: "Volkskrankheit Rückenschmerz (معدل)", enabled: true, hasFile: true },
+    { id: 32, title: "Die ganze Welt auf dem eigenen PC", enabled: true, hasFile: true },
+    { id: 33, title: "Die deutschen und ihre Ernährung", enabled: true, hasFile: true },
+    { id: 34, title: "Weniger Euro-Blüten in Deutschland", enabled: true, hasFile: true },
+    { id: 35, title: "Nachtzug", enabled: true, hasFile: true },
+    { id: 36, title: "Nachtzug (معدل)", enabled: true, hasFile: true },
+    { id: 37, title: "Wie zwei US-Teenager Millionäre wurden", enabled: true, hasFile: true }
+  ],
+ lesen3: [
+  { id: 1, title: "Filme - Fernsehprogramme", enabled: true, hasFile: true },
+  { id: 2, title: "Filme - Fernsehprogramme (معدل)", enabled: true, hasFile: true },
+  { id: 3, title: "Im Katalog eines Buchversands", enabled: true, hasFile: true },
+  { id: 4, title: "kein Zeit", enabled: true, hasFile: true },
+  { id: 5, title: "kein Zeit (معدل)", enabled: true, hasFile: true },
+  { id: 6, title: "Musik - spielt Gitarre", enabled: true, hasFile: true },
+  { id: 7, title: "Die schwangere Frau", enabled: true, hasFile: true },
+  { id: 8, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true },
+  { id: 9, title: "Unterstützung in Mathematik", enabled: true, hasFile: true },
+  { id: 10, title: "Ganztagesausflug", enabled: true, hasFile: true },
+  { id: 11, title: "Ihren Eltern zur Silberhochzeit", enabled: true, hasFile: true },
+  { id: 12, title: "Rechtsanwalt", enabled: true, hasFile: true },
+  { id: 13, title: "Rechtsanwalt (معدل)", enabled: true, hasFile: true },
+  { id: 14, title: "Au-pair Mädchen", enabled: true, hasFile: true },
+  { id: 15, title: "Hautprobleme", enabled: true, hasFile: true },
+  { id: 16, title: "Eine Bekannte ist schwanger", enabled: true, hasFile: true },
+  { id: 17, title: "Die Tochter einer Bekannten wird vier Jahre alt", enabled: true, hasFile: true },
+  { id: 18, title: "Tierdokumentationen", enabled: true, hasFile: true },
+  { id: 19, title: "Aufräumen", enabled: true, hasFile: true },
+  { id: 20, title: "Erholung und Reisen", enabled: true, hasFile: true },
+  { id: 21, title: "Sport", enabled: true, hasFile: true },
+  { id: 22, title: "Sport (معدل)", enabled: true, hasFile: true },
+  { id: 23, title: "Wein und Insekten", enabled: true, hasFile: true },
+  { id: 24, title: "Reiseführer", enabled: true, hasFile: true },
+  { id: 25, title: "Gartenbau", enabled: true, hasFile: true },
+  { id: 26, title: "Haushaltshilfe", enabled: true, hasFile: true },
+  { id: 27, title: "Einwanderung", enabled: true, hasFile: true },
+  { id: 28, title: "Musikinstrumente", enabled: true, hasFile: true },
+  { id: 29, title: "Musikinstrumente (معدل)", enabled: true, hasFile: true },
+  { id: 30, title: "Arbeitsorganisation", enabled: true, hasFile: true },
+  { id: 31, title: "Hunde", enabled: true, hasFile: true },
+  { id: 32, title: "schnelle Wasserfahrzeuge", enabled: true, hasFile: true },
+  { id: 33, title: "ein paar Tage in Berlin", enabled: true, hasFile: true },
+  { id: 34, title: "ein paar Tage in Berlin (معدل)", enabled: true, hasFile: true },
+  { id: 35, title: "Autos", enabled: true, hasFile: true },
+  { id: 36, title: "Möbel für die neue Wohnung", enabled: true, hasFile: true },
+  { id: 37, title: "Geschäftsreisen - رحلات العمل", enabled: true, hasFile: true }
+],
+  sprach1: [
+    { id: 1, title: "Hallo Ferdinand", enabled: true, hasFile: true },
+    { id: 2, title: "Hallo Ferdinand (معدل)", enabled: true, hasFile: true },
+    { id: 3, title: "Liebe Vanessa", enabled: true, hasFile: true },
+    { id: 4, title: "Hallo Judith / Lina", enabled: true, hasFile: true },
+    { id: 5, title: "Liebe Karin", enabled: true, hasFile: true },
+    { id: 6, title: "Liebe Karin (معدل)", enabled: true, hasFile: true },
+    { id: 7, title: "Hallo Leon", enabled: true, hasFile: true },
+    { id: 8, title: "Sehr geehrter Herr Martini", enabled: true, hasFile: true },
+    { id: 9, title: "Sehr geehrter Herr Martini (معدل)", enabled: true, hasFile: true },
+    { id: 10, title: "Liebe Maria, lieber Timur", enabled: true, hasFile: true },
+    { id: 11, title: "Lieber Justus", enabled: true, hasFile: true },
+    { id: 12, title: "Lieber Justus (معدل)", enabled: true, hasFile: true },
+    { id: 13, title: "Lieber Thomas", enabled: true, hasFile: true },
+    { id: 14, title: "Sehr geehrte Frau Goronska", enabled: true, hasFile: true },
+    { id: 15, title: "Liebe Agnieszka", enabled: true, hasFile: true },
+    { id: 16, title: "Liebe Anna", enabled: true, hasFile: true },
+    { id: 17, title: "Sehr geehrter Herr Dr. Moosberger (معدل)", enabled: true, hasFile: true },
+    { id: 18, title: "Sehr geehrter Herr Dr. Dobromil", enabled: true, hasFile: true },
+    { id: 19, title: "Liebe Lina, lieber Florian", enabled: true, hasFile: true },
+    { id: 20, title: "Liebes Julian", enabled: true, hasFile: true },
+    { id: 21, title: "Liebe Meike", enabled: true, hasFile: true },
+    { id: 22, title: "Liebe Corinna (معدل)", enabled: true, hasFile: true },
+    { id: 23, title: "Liebe Corinna", enabled: true, hasFile: true },
+    { id: 24, title: "Liebe Ida", enabled: true, hasFile: true },
+    { id: 25, title: "Liebe Paola", enabled: true, hasFile: true },
+    { id: 26, title: "Liebe Jutta", enabled: true, hasFile: true },
+    { id: 27, title: "Liebe Familie Geissler", enabled: true, hasFile: true },
+    { id: 28, title: "Liebe Andrea", enabled: true, hasFile: true },
+    { id: 29, title: "Liebe Andrea (معدل)", enabled: true, hasFile: true },
+    { id: 30, title: "Hallo Maria", enabled: true, hasFile: true },
+    { id: 31, title: "Sehr geehrte Frau Szabo", enabled: true, hasFile: true },
+    { id: 32, title: "Sehr geehrte Frau Szabo (معدل)", enabled: true, hasFile: true },
+    { id: 33, title: "Lieber Igor", enabled: true, hasFile: true },
+    { id: 34, title: "Liebe Lara", enabled: true, hasFile: true },
+    { id: 35, title: "Lieber David", enabled: true, hasFile: true },
+    { id: 36, title: "Sehr geehrter Herr Wenzel", enabled: true, hasFile: true },
+    { id: 37, title: "Liebe Autorinnen und Autoren", enabled: true, hasFile: true },
+    { id: 38, title: "Liebe Clara", enabled: true, hasFile: true },
+    { id: 39, title: "Sehr geehrte Frau Melchior", enabled: true, hasFile: true },
+    { id: 40, title: "Liebe Sandra", enabled: true, hasFile: true },
+    { id: 41, title: "Liebe Anna(الجديد)", enabled: true, hasFile: true }
+  ],
+  sprach2: [
+    { id: 1, title: "Das Fahrrad", enabled: true, hasFile: true },
+    { id: 2, title: "Das Fahrrad (معدل)", enabled: true, hasFile: true },
+    { id: 3, title: "Man(n) kocht selbst", enabled: true, hasFile: true },
+    { id: 4, title: "Jugend diskutiert - mach mit!", enabled: true, hasFile: true },
+    { id: 5, title: "Theater für Kinder und Jugendliche", enabled: true, hasFile: true },
+    { id: 6, title: "Umgang mit Haustieren", enabled: true, hasFile: true },
+    { id: 7, title: "Liebesgrüße aus der Kühltruhe", enabled: true, hasFile: true },
+    { id: 8, title: "Liebesgrüße aus der Kühltruhe (معدل)", enabled: true, hasFile: true },
+    { id: 9, title: "Online-Sprachkurse", enabled: true, hasFile: true },
+    { id: 10, title: "Deutschland – ein Paradies für Kinder?", enabled: true, hasFile: true },
+    { id: 11, title: "Deutschland – ein Paradies für Kinder? (معدل 1)", enabled: true, hasFile: true },
+    { id: 12, title: "Deutschland – ein Paradies für Kinder? (معدل 2)", enabled: true, hasFile: true },
+    { id: 13, title: "Das Schicksal des Braunbären", enabled: true, hasFile: true },
+    { id: 14, title: "Das Schicksal des Braunbären (معدل)", enabled: true, hasFile: true },
+    { id: 15, title: "Was steckt hinter Bio?", enabled: true, hasFile: true },
+    { id: 16, title: "Was genau sind eigentlich Bio-Lebensmittel (معدل)", enabled: true, hasFile: true },
+    { id: 17, title: "Sicherer Schulweg", enabled: true, hasFile: true },
+    { id: 18, title: "Der Hund als intelligentes Wesen", enabled: true, hasFile: true },
+    { id: 19, title: "Die wichtigsten Regeln auf der Skipiste", enabled: true, hasFile: true },
+    { id: 20, title: "Kaffee und Kuchen – ein Stück Tradition", enabled: true, hasFile: true },
+    { id: 21, title: "Fische sind schlauer, als wir denken", enabled: true, hasFile: true },
+    { id: 22, title: "Schwarzarbeit kann teuer werden", enabled: true, hasFile: true },
+    { id: 23, title: "Schwarzarbeit kann teuer werden (معدل 1)", enabled: true, hasFile: true },
+    { id: 24, title: "Schwarzarbeit kann teuer werden (معدل 2)", enabled: true, hasFile: true },
+    { id: 25, title: "Teamarbeit als Schlüssel zum Erfolg", enabled: true, hasFile: true },
+    { id: 26, title: "Teamarbeit als Schlüssel zum Erfolg (معدل)", enabled: true, hasFile: true },
+    { id: 27, title: "Wie Handschrift wieder cool wird (معدل)", enabled: true, hasFile: true },
+    { id: 28, title: "Wie Handschrift wieder cool wird", enabled: true, hasFile: true },
+    { id: 29, title: "Ausbildung mit über 30", enabled: true, hasFile: true },
+    { id: 30, title: "Verlernen die Deutschen die Höflichkeit?", enabled: true, hasFile: true },
+    { id: 31, title: "Joggen: Mehr als nur Laufen", enabled: true, hasFile: true },
+    { id: 32, title: "Der klügste Freund des Menschen", enabled: true, hasFile: true },
+    { id: 33, title: "Der klügste Freund des Menschen (معدل)", enabled: true, hasFile: true },
+    { id: 34, title: "Manipulierte Bilder", enabled: true, hasFile: true },
+    { id: 35, title: "Maßgeschneidert nach Bodyscanning", enabled: true, hasFile: true },
+    { id: 36, title: "Maßgeschneidert nach Bodyscanning (معدل)", enabled: true, hasFile: true },
+    { id: 37, title: "Im Restaurant", enabled: true, hasFile: true },
+    { id: 38, title: "Im Restaurant (معدل)", enabled: true, hasFile: true },
+    { id: 39, title: "Lernen ist kein Privileg der Jugend", enabled: true, hasFile: true },
+    { id: 40, title: "Lernen ist kein Privileg der Jugend (معدل)", enabled: true, hasFile: true },
+    { id: 41, title: "Wie TV-Bilder die Fantasie von Kindern prägen", enabled: true, hasFile: true },
+    { id: 42, title: "Städte vor dem Infarkt", enabled: true, hasFile: true },
+    { id: 43, title: "Es ist erst 6 Uhr morgens", enabled: true, hasFile: true },
+    { id: 44, title: "Die Katzen", enabled: true, hasFile: true },
+    { id: 45, title: "Teleshopping – nicht immer gut und günstig", enabled: true, hasFile: true },
+    { id: 46, title: "Die Rückkehr des Nachtzugs", enabled: true, hasFile: true },
+    { id: 47, title: "Die Reise im Schlafwagen", enabled: true, hasFile: true }
+  ],
+  hoeren1: [
+    { id: 1, title: "Die Deutsche Lufthansa", enabled: true, hasFile: true },
+    { id: 2, title: "Die Piloten der Lufthansa", enabled: true, hasFile: true },
+    { id: 3, title: "Die Stadt Friedrichsberg", enabled: true, hasFile: true },
+    { id: 4, title: "Erdbeben", enabled: true, hasFile: true },
+    { id: 5, title: "Bierkonsum", enabled: true, hasFile: true },
+    { id: 6, title: "Bierkonsum (Mittel)", enabled: true, hasFile: true },
+    { id: 7, title: "Deutsches Schiff", enabled: true, hasFile: true },
+    { id: 8, title: "Weniger Vögel - Viele Kunden", enabled: true, hasFile: true },
+    { id: 9, title: "Europäische Union", enabled: true, hasFile: true },
+    { id: 10, title: "Unwetterschäden", enabled: true, hasFile: true },
+    { id: 11, title: "Nicht sicher", enabled: true, hasFile: true },
+    { id: 12, title: "Nicht sicher 2", enabled: true, hasFile: true },
+    { id: 13, title: "Frau Jürgens", enabled: true, hasFile: true },
+    { id: 14, title: "Die Wahlbeteiligung", enabled: true, hasFile: true },
+    { id: 15, title: "Die Wetterlage in den Alpen", enabled: true, hasFile: true },
+    { id: 16, title: "Wetter in den Alpen (Mittel)", enabled: true, hasFile: true },
+    { id: 17, title: "Insel Bali", enabled: true, hasFile: true },
+    { id: 18, title: "Die Fluggesellschaft", enabled: true, hasFile: true },
+    { id: 19, title: "Der Fluggesellschaft (Mittel)", enabled: true, hasFile: true },
+    { id: 20, title: "Der Bau", enabled: true, hasFile: true },
+    { id: 21, title: "50-Euro", enabled: true, hasFile: true },
+    { id: 22, title: "Das Schladminger", enabled: true, hasFile: true },
+    { id: 23, title: "Bei den Europawahlen (Linksparteien)", enabled: true, hasFile: true },
+    { id: 24, title: "Bei den Europawahlen (CDU/CSU)", enabled: true, hasFile: true },
+    { id: 25, title: "Die Bundesländer", enabled: true, hasFile: true },
+    { id: 26, title: "Bio-Siegels", enabled: true, hasFile: true },
+    { id: 27, title: "Berufen (bonbon)", enabled: true, hasFile: true },
+    { id: 28, title: "Die Zahl der Arbeitslosen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 29, title: "BILD AM SONNTAG (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 30, title: "Studentenparty in Frankreich (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 31, title: "Deutsche Filmmuseum (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 32, title: "Ein Treffen bei der Integrationsbeauftragten (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 33, title: "die Konjunkturentwicklung negativ (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 34, title: "internationalen Konferenz (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 35, title: "Um Tickets zu gewinnen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 36, title: "Die tschechische Stadt Pilsen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 37, title: "Laut Statistischem Bundesamt (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 38, title: "In Frankfurt haben Manager (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 39, title: "Für die Polizei in Berlin (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 40, title: "Die Sprecherin ist verheiratet (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 41, title: "Bei der Sportveranstaltung (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 42, title: "Das Bundesfamilienministerium (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 43, title: "Meeresküsten (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 44, title: "Bauern warnen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 45, title: "Nach Ansicht mancher (مواضيع تركيا)", enabled: true, hasFile: true }
+  ],
+  hoeren2: [
+    { id: 1, title: "Herr Gasser und Frau Janke", enabled: true, hasFile: true },
+    { id: 2, title: "Suza Hotop", enabled: true, hasFile: true },
+    { id: 3, title: "Suza Hotop (Mittel)", enabled: true, hasFile: true },
+    { id: 4, title: "Professor Steiner", enabled: true, hasFile: true },
+    { id: 5, title: "Professor Steiner (Mittel)", enabled: true, hasFile: true },
+    { id: 6, title: "Mallorca", enabled: true, hasFile: true },
+    { id: 7, title: "Mallorca (Mittel)", enabled: true, hasFile: true },
+    { id: 8, title: "In dem Restaurant", enabled: true, hasFile: true },
+    { id: 9, title: "Julia", enabled: true, hasFile: true },
+    { id: 10, title: "Carina", enabled: true, hasFile: true },
+    { id: 11, title: "Carina (Mittel)", enabled: true, hasFile: true },
+    { id: 12, title: "Frau Schenk", enabled: true, hasFile: true },
+    { id: 13, title: "Frau Schenk (Mittel)", enabled: true, hasFile: true },
+    { id: 14, title: "Herr Karimov", enabled: true, hasFile: true },
+    { id: 15, title: "Nadine", enabled: true, hasFile: true },
+    { id: 16, title: "Markus", enabled: true, hasFile: true },
+    { id: 17, title: "Markus (Mittel)", enabled: true, hasFile: true },
+    { id: 18, title: "Roland (Spielen)", enabled: true, hasFile: true },
+    { id: 19, title: "Roland (aufsteigen)", enabled: true, hasFile: true },
+    { id: 20, title: "Roland (einer höheren Lige)", enabled: true, hasFile: true },
+    { id: 21, title: "Die Deutschen machen", enabled: true, hasFile: true },
+    { id: 22, title: "Herr Scherer", enabled: true, hasFile: true },
+    { id: 23, title: "Beim Wettkampf", enabled: true, hasFile: true },
+    { id: 24, title: "Vanessa", enabled: true, hasFile: true },
+    { id: 25, title: "Zu Beginn", enabled: true, hasFile: true },
+    { id: 26, title: "Die TU Dresden", enabled: true, hasFile: true },
+    { id: 27, title: "Lisa Eisenberg", enabled: true, hasFile: true },
+    { id: 28, title: "Franz Schumacher", enabled: true, hasFile: true },
+    { id: 29, title: "Meron Makeba", enabled: true, hasFile: true },
+    { id: 30, title: "Frau Kedar Malta", enabled: true, hasFile: true },
+    { id: 31, title: "Frau Keder aus Malta", enabled: true, hasFile: true },
+    { id: 32, title: "Nadine Wagner (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 33, title: "Mirjam Pressier (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 34, title: "Mirjam Pressier - ليدعت (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 35, title: "Frau Pesina (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 36, title: "Herr Werner (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 37, title: "Wohnmobil (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 38, title: "Straßenkinder - Die Kinder (Kids) (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 39, title: "Familie - Eltern (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 40, title: "Revolution Day (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 41, title: "Bicycle (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 42, title: "Die Radiosendung (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 43, title: "psychische (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 44, title: "Herr Kemper (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 45, title: "Frau Hahn (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 46, title: "Wohnmobilen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 47, title: "Bibliothek (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 48, title: "Eisschwimmen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 49, title: "Die Ausbildung (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 50, title: "Thomas", enabled: true, hasFile: true },
+    { id: 51, title: "Frau Kiddar 3", enabled: true, hasFile: true },
+    { id: 52, title: "Bio-Essen: Obst, Gemüse und Lieferung", enabled: true, hasFile: true },
+  { id: 53, title: "Influencerin - Maria im Interview", enabled: true, hasFile: true },
+  { id: 54, title: "Vom Marktstand zum eigenen Geschäft", enabled: true, hasFile: true },
+  { id: 55, title: "Interview mit Bauingenieur - Herr Böhm", enabled: true, hasFile: true }
+  ],
+  hoeren3: [
+    { id: 1, title: "Telefon", enabled: true, hasFile: true },
+    { id: 2, title: "Musikfestivals", enabled: true, hasFile: true },
+    { id: 3, title: "Musikfestivals (Mittel)", enabled: true, hasFile: true },
+    { id: 4, title: "Fahrschule", enabled: true, hasFile: true },
+    { id: 5, title: "Im Süden Deutschlands (regnen)", enabled: true, hasFile: true },
+    { id: 6, title: "Im Süden Deutschlands (Schnee)", enabled: true, hasFile: true },
+    { id: 7, title: "Internet prüfen", enabled: true, hasFile: true },
+    { id: 8, title: "Ehrenamts", enabled: true, hasFile: true },
+    { id: 9, title: "Ehrenamts (Mittel)", enabled: true, hasFile: true },
+    { id: 10, title: "Demonstration", enabled: true, hasFile: true },
+    { id: 11, title: "Wochenanfang", enabled: true, hasFile: true },
+    { id: 12, title: "Im August", enabled: true, hasFile: true },
+    { id: 13, title: "Fundbüro", enabled: true, hasFile: true },
+    { id: 14, title: "Ausgang 26", enabled: true, hasFile: true },
+    { id: 15, title: "Ausgang 26 (Mittel)", enabled: true, hasFile: true },
+    { id: 16, title: "Blutspenden", enabled: true, hasFile: true },
+    { id: 17, title: "Reitturnier", enabled: true, hasFile: true },
+    { id: 18, title: "Delikatessen", enabled: true, hasFile: true },
+    { id: 19, title: "Für ein Konzert (Bus gratis)", enabled: true, hasFile: true },
+    { id: 20, title: "Für ein Konzert (in der ganzen Stadt)", enabled: true, hasFile: true },
+    { id: 21, title: "In Raum C23", enabled: true, hasFile: true },
+    { id: 22, title: "Trainingsausfahrten", enabled: true, hasFile: true },
+    { id: 23, title: "Das Geschäft", enabled: true, hasFile: true },
+    { id: 24, title: "Nach einer Großdemonstration", enabled: true, hasFile: true },
+    { id: 25, title: "Das Fest (ohne Frankfurt)", enabled: true, hasFile: true },
+    { id: 26, title: "Das Fest (mit Frankfurt)", enabled: true, hasFile: true },
+    { id: 27, title: "Radio Konzert", enabled: true, hasFile: true },
+    { id: 28, title: "Wanderung (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 29, title: "Bayern Radio (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 30, title: "Die Gruppe Die Prinzen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 31, title: "spätestens in Hannover (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 32, title: "Für das Konzert mit Romano (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 33, title: "Gartenausstellung KöGa (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 34, title: "den Opel-Zoo (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 35, title: "Der Christkindlesmarkt in Nürnberg (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 36, title: "Das Geschäft für österreichische Spezialitäten (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 37, title: "Alle Flüge der Fluglinie AirMer (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 38, title: "Auto gewinnen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 39, title: "Die Fahrradtouren von Berlin (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 40, title: "Die Literaturmesse für Kleinverleger (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 41, title: "Fußballspiels im Ostpark (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 42, title: "Das Treffen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 43, title: "im Frankfurter Zoo (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 44, title: "Ein Teil der kostenlosen Veranstaltungen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 45, title: "Auf der Viktoriabrücke (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 46, title: "Die Buchpräsentation (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 47, title: "Beim Klassik-Radio (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 48, title: "Sie Hören Den Anrufbeantworter-Buchhandlung", enabled: true, hasFile: true }
+  ],
+  schreiben: schreibenExams,
+  mündlich: mündlich2Exams,
+  mündlich1: mündlich1Exams,
+  mündlich2: mündlich2Exams,
+  mündlich3: mündlich3Exams,
+  tips: tipsExams
+};
+
+// ========== دالة عرض نتيجة محفوظة ==========
+function displaySavedResult(skill, examId, titleSpan, containerDiv) {
+  const savedScore = getExamResult(skill, examId);
+  if (savedScore !== null) {
+    const badge = createResultBadge(savedScore);
+    if (badge) {
+      const existingBadge = titleSpan.querySelector('.exam-result-badge');
+      if (existingBadge) existingBadge.remove();
+      titleSpan.appendChild(badge);
+    }
+  }
+}
+
+let activeTeilId = null;
+
+function renderTeileList() {
+  const container = document.getElementById("teileList");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  // حاوية الأزرار (Tabs) - محاذاة لليسار
+  container.style.cssText = `
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 30px;
+  `;
+  
+  for (let i = 0; i < teile.length; i++) {
+    const teil = teile[i];
+    const isActive = (activeTeilId === i);
+    
+    const btn = document.createElement("button");
+    btn.textContent = teil.name;
+    btn.style.cssText = `
+      height: 42px;
+      padding: 0 18px;
+      background: ${isActive ? '#FFFFFF' : '#161922'};
+      border: ${isActive ? '1px solid #E2E8F0' : 'none'};
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      color: ${isActive ? '#161922' : '#BFC6D4'};
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
+    `;
+    
+    // Hover effect
+    btn.onmouseenter = () => {
+      if (!isActive) {
+        btn.style.background = '#202534';
+        btn.style.color = '#FFFFFF';
+      }
+    };
+    
+    btn.onmouseleave = () => {
+      if (!isActive) {
+        btn.style.background = '#161922';
+        btn.style.color = '#BFC6D4';
+      }
+    };
+    
+    btn.onclick = (function(skill, teilName, index) {
+      return function() {
+        activeTeilId = index;
+        renderTeileList();
+        renderExamListForSkill(skill, teilName);
+      };
+    })(teil.skill, teil.name, i);
+    
+    container.appendChild(btn);
+  }
+}
+
+// وظيفة عرض أزرار التنقل بين أجزاء Mündlich
+function renderMündlichPartTabs() {
+  const container = document.getElementById("examsList");
+  if (!container) return;
+  
+  const oldTabs = container.querySelector('.mündlich-tabs');
+  if (oldTabs) oldTabs.remove();
+  
+  const tabsDiv = document.createElement("div");
+  tabsDiv.className = "mündlich-tabs";
+  tabsDiv.style.cssText = `
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px 0;
+  `;
+  
+  const parts = [
+    { id: 1, name: "Teil 1 ", skill: "mündlich1" },
+    { id: 2, name: "Teil 2 ", skill: "mündlich2" },
+    { id: 3, name: "Teil 3 ", skill: "mündlich3" }
+  ];
+  
+  parts.forEach(part => {
+    const btn = document.createElement("button");
+    btn.textContent = part.name;
+    btn.style.cssText = `
+      background: ${currentMündlichPart === part.id ? "#4a6fa5" : "#eef2f7"};
+      color: ${currentMündlichPart === part.id ? "white" : "#2c3e66"};
+      border: none;
+      padding: 8px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    `;
+    btn.onmouseenter = () => {
+      if (currentMündlichPart !== part.id) {
+        btn.style.background = "#dee2e8";
+      }
+    };
+    btn.onmouseleave = () => {
+      if (currentMündlichPart !== part.id) {
+        btn.style.background = "#eef2f7";
+      }
+    };
+    btn.onclick = () => {
+      currentMündlichPart = part.id;
+      const skillToRender = part.skill;
+      const displayName = `Mündlich - ${part.name}`;
+      renderExamListForSkill(skillToRender, displayName);
+    };
+    tabsDiv.appendChild(btn);
+  });
+  
+  container.insertBefore(tabsDiv, container.firstChild);
+}
+
+async function renderExamListForSkill(skill, teilName) {
+  currentSkill = skill;
+  
+  const container = document.getElementById("examsList");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  if (skill === "mündlich1" || skill === "mündlich2" || skill === "mündlich3" || skill === "mündlich") {
+    renderMündlichPartTabs();
+  }
+  
+  const headerDiv = document.createElement("div");
+  headerDiv.className = "teil-header";
+  headerDiv.innerHTML = `<strong>📚 ${teilName || getTeilNameBySkill(skill)}</strong>`;
+  container.appendChild(headerDiv);
+  
+  let targetSkill = skill;
+  let targetExams = examsDatabase[skill] || [];
+  
+  if (skill === "mündlich") {
+    if (currentMündlichPart === 1) {
+      targetSkill = "mündlich1";
+      targetExams = examsDatabase.mündlich1 || [];
+    } else if (currentMündlichPart === 2) {
+      targetSkill = "mündlich2";
+      targetExams = examsDatabase.mündlich2 || [];
+    } else if (currentMündlichPart === 3) {
+      targetSkill = "mündlich3";
+      targetExams = examsDatabase.mündlich3 || [];
+    }
+  }
+  
+  currentExamsList = targetExams;
+  
+  if (targetExams.length === 0) {
+    container.innerHTML += '<div class="item" style="text-align:center; color:#999;">⚠️ لا توجد امتحانات متاحة حالياً في هذا الجزء</div>';
+    return;
+  }
+  
+  const userStatus = await getUserStatusForExam();
+  const isPremium = (userStatus === 'premium');
+  
+  for (let i = 0; i < targetExams.length; i++) {
+    const exam = targetExams[i];
+    const examNumber = exam.id;
+    // 🔴 التعديل: أول 6 امتحانات مفتوحة في الوضع المجاني
+    const isFreeExam = (examNumber <= 6);
+    
+    const div = document.createElement("div");
+    div.className = "item";
+    
+    const titleSpan = document.createElement("span");
+    titleSpan.className = "exam-title";
+    
+    if (skill === "tips") {
+      titleSpan.textContent = `${exam.title}`;
+      titleSpan.style.textAlign = "center";
+      titleSpan.style.display = "block";
+      titleSpan.style.width = "100%";
+    } else {
+      titleSpan.textContent = `${exam.id}: ${exam.title}`;
+    }
+    
+    div.appendChild(titleSpan);
+    
+    displaySavedResult(targetSkill, exam.id, titleSpan, div);
+    
+    if (!isPremium && !isFreeExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
+      div.style.backgroundColor = "rgba(255,255,255,0.75)";
+      div.style.border = "1px solid #e2e8f0";
+      div.style.opacity = "1";
+      div.style.transition = "all 0.25s ease";
+      div.style.cursor = "pointer";
+      
+      const rightSide = document.createElement("span");
+      rightSide.className = "exam-right-icons";
+
+      const premiumSpan = document.createElement("span");
+      premiumSpan.className = "premium-badge";
+      premiumSpan.innerHTML = "Premium";
+      rightSide.appendChild(premiumSpan);
+      
+      div.appendChild(rightSide);
+      titleSpan.style.color = "#6b7280";
+      titleSpan.style.transition = "color 0.25s ease";
+      
+      div.onmouseenter = function() {
+        this.style.backgroundColor = "rgba(255,255,255,0.95)";
+        this.style.transform = "translateX(5px)";
+        this.style.borderColor = "#60a5fa";
+        titleSpan.style.color = "#4b5563";
+        if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+      };
+
+      div.onmouseleave = function() {
+        this.style.backgroundColor = "rgba(255,255,255,0.75)";
+        this.style.transform = "translateX(0)";
+        this.style.borderColor = "#e2e8f0";
+        titleSpan.style.color = "#6b7280";
+        if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+      };
+      
+      div.onclick = (function(title, id) {
+    return function() {
+        if (typeof window.showPremiumModal === 'function') {
+            window.showPremiumModal(title + " (" + id + ")");
+        } else {
+            window.location.href = 'subscribe.html';
+        }
+    };
+})(exam.title, exam.id);
+    } else if (exam.hasFile) {
+      div.onclick = (function(id, title, skillPath) {
+        return function() { 
+          const actualSkill = skillPath || targetSkill;
+          openExam(id, title, actualSkill); 
+        };
+      })(exam.id, exam.title, exam.skillPath || targetSkill);
+    } else {
+      div.style.opacity = "0.6";
+      div.style.backgroundColor = "#f8f9fa";
+      div.onclick = () => alert(`⚠️ الامتحان رقم ${exam.id} سيتم إضافته قريباً.`);
+    }
+    container.appendChild(div);
+  }
+  
+  setTimeout(setupLockedNextButton, 100);
+}
+
+function setupLockedNextButton() {
+  const nextBtn = document.getElementById('nextExamBtn');
+  if (!nextBtn) return;
+  
+  getUserStatusForExam().then(status => {
+    const isPremium = (status === 'premium');
+    
+    // احصل على الامتحان التالي
+    const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
+    const nextExam = currentExamsList[currentIndex + 1];
+    
+    if (nextExam) {
+      const nextExamId = nextExam.id;
+      
+      // فقط إذا كان الامتحان التالي أكبر من 6 والمستخدم ليس بريميوم
+      if (!isPremium && nextExamId > 6 && nextBtn.style.display !== 'none') {
+        nextBtn.style.position = "relative";
+        nextBtn.style.paddingLeft = "35px";
+        
+        let lockIcon = nextBtn.querySelector('.next-lock-icon');
+        if (!lockIcon) {
+          lockIcon = document.createElement('span');
+          lockIcon.className = 'next-lock-icon';
+          lockIcon.innerHTML = '🔒';
+          lockIcon.style.cssText = 'position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; color: #ef4444;';
+          nextBtn.appendChild(lockIcon);
+        }
+        nextBtn.style.backgroundColor = "#b0bec5";
+        nextBtn.style.opacity = "0.8";
+        
+        // تغيير وظيفة الزر لمنع الانتقال
+        nextBtn.onclick = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof window.showPremiumModal === 'function') {
+        window.showPremiumModal(nextExam.title + " (" + nextExamId + ")");
+    } else {
+        window.location.href = 'subscribe.html';
+    }
+    return false;
+};
+      } 
+      // إذا كان الامتحان التالي ضمن الـ 6 الأولى، دع الزر يعمل بشكل طبيعي
+      else if (isPremium || nextExamId <= 6) {
+        const lockIcon = nextBtn.querySelector('.next-lock-icon');
+        if (lockIcon) lockIcon.remove();
+        nextBtn.style.backgroundColor = "";
+        nextBtn.style.opacity = "1";
+        nextBtn.style.paddingLeft = "";
+        
+        // استعادة الوظيفة الأصلية للزر
+        nextBtn.onclick = () => {
+          openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
+        };
+      }
+    }
+  });
+}
+
+function getTeilNameBySkill(skill) {
+  if (skill === "mündlich1") return "Mündlich - Teil 1 📖";
+  if (skill === "mündlich2") return "Mündlich - Teil 2 🗣️";
+  if (skill === "mündlich3") return "Mündlich - Teil 3 🎯";
+  const teil = teile.find(t => t.skill === skill);
+  return teil ? teil.name : skill;
+}
+
+function getActualFileName(examId) {
+  if (actualFileNames[examId]) {
+    return actualFileNames[examId];
+  }
+  return `exam${examId}.json`;
+}
+
+function shouldHideHelpButton(skill) {
+  const hiddenSkills = ["schreiben", "tips", "mündlich1", "mündlich3"];
+  return hiddenSkills.includes(skill);
+}
+
+async function openExam(examId, examTitle, skill) {
+  // ===== فحص الوصول للامتحان =====
+  const userStatus = await getUserStatusForExam();
+  const isPremium = (userStatus === 'premium');
+  const maxFreeExamId = 6; // أول 6 امتحانات مجانية للمستخدمين غير المدفوعين
+  
+  // إذا كان المستخدم ليس بريميوم والامتحان المطلوب أكبر من 6، اظهر القفل
+ if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
+    if (typeof window.showPremiumModal === 'function') {
+        window.showPremiumModal(examTitle + " (" + examId + ")");
+    } else {
+        window.location.href = 'subscribe.html';
+    }
+    return;
+}
+  // ===== نهاية فحص الوصول =====
+  
+  console.log("🔍 openExam parameters:", { examId, examTitle, skill });
+  
+  currentExamId = examId;
+  currentSkill = skill;
+  
+  if (shouldHideHelpButton(skill)) {
+    const helpBtn = document.getElementById('globalHelpButton');
+    if (helpBtn) helpBtn.style.display = "none";
+  } else {
+    const helpBtn = document.getElementById('globalHelpButton');
+    if (helpBtn) helpBtn.style.display = "block";
+  }
+  
+  const fileName = getActualFileName(examId);
+  
+  console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
+  console.log("📁 اسم الملف:", fileName);
+  console.log("📂 المسار الكامل:", `data/${skill}/${fileName}`);
+  
+  try {
+    const response = await fetch(`data/${skill}/${fileName}`);
+    if (!response.ok) {
+      alert(`⚠️ الامتحان "${examTitle}" سيتم إضافته قريباً.\nالملف المطلوب: data/${skill}/${fileName}`);
+      return;
+    }
+    currentExamData = await response.json();
+    window.currentExamId = examId;
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("list").classList.remove("active");
+    document.getElementById("exam").classList.add("active");
+    document.getElementById("examTitle").innerHTML = currentExamData.title;
+    
+    updateExamNavButtons();
+    
+    if (currentExamData.type === "matching") {
+      if (typeof window.loadMatchingExam === "function") {
+        window.loadMatchingExam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "truefalse") {
+      const container = document.getElementById(currentSkill);
+      if (container && typeof window.buildTrueFalseExam === "function") {
+        window.buildTrueFalseExam(container, currentExamData.questions, currentExamData.note);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "teil2") {
+      if (typeof window.loadTeil2Exam === "function") {
+        window.loadTeil2Exam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "teil3") {
+      if (typeof window.loadTeil3Exam === "function") {
+        window.loadTeil3Exam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "sprach1") {
+      if (typeof window.loadSprach1Exam === "function") {
+        window.loadSprach1Exam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "sprach2") {
+      if (typeof window.loadSprach2Exam === "function") {
+        window.loadSprach2Exam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "schreiben") {
+      if (typeof window.loadSchreibenExam === "function") {
+        window.loadSchreibenExam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "mündlich") {
+      renderMündlichExam(currentExamData);
+    } else if (currentExamData.type === "info") {
+      renderInfoExam(currentExamData);
+    } else if (currentExamData.type === "tips") {
+      renderTipsExam(currentExamData);
+    } else {
+      buildTeil1(currentExamData.questions || []);
+    }
+    
+    const teilIndex = teile.findIndex(t => t.skill === skill);
+    if (teilIndex !== -1) {
+      showTeil(teilIndex + 1);
+    } else {
+      showTeil(10);
+    }
+  } catch(e) {
+    console.error("❌ خطأ:", e);
+    alert("خطأ في تحميل الامتحان: " + e.message);
+  }
+}
+
+// دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
+function goBackToExamsList() {
+  if (currentSkill) {
+    // إذا كان skill هو mündlich1
+    if (currentSkill === "mündlich1") {
+      document.getElementById("home").classList.remove("active");
+      document.getElementById("exam").classList.remove("active");
+      document.getElementById("list").classList.add("active");
+      renderExamListForSkill("mündlich1", "Mündlich - Teil 1 📖");
+    } 
+    // إذا كان skill هو mündlich2
+    else if (currentSkill === "mündlich2") {
+      document.getElementById("home").classList.remove("active");
+      document.getElementById("exam").classList.remove("active");
+      document.getElementById("list").classList.add("active");
+      renderExamListForSkill("mündlich2", "Mündlich - Teil 2 🗣️");
+    }
+    // إذا كان skill هو mündlich3
+    else if (currentSkill === "mündlich3") {
+      document.getElementById("home").classList.remove("active");
+      document.getElementById("exam").classList.remove("active");
+      document.getElementById("list").classList.add("active");
+      renderExamListForSkill("mündlich3", "Mündlich - Teil 3 🎯");
+    }
+    // لأي مündlich آخر (احتياطي)
+    else if (currentSkill.startsWith('mündlich')) {
+      renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
+    }
+    // لبقية الأقسام (Hören, Lesen, Sprachbausteine, Schreiben, Tips)
+    else {
+      const teil = teile.find(t => t.skill === currentSkill);
+      if (teil) {
+        document.getElementById("home").classList.remove("active");
+        document.getElementById("exam").classList.remove("active");
+        document.getElementById("list").classList.add("active");
+        renderExamListForSkill(teil.skill, teil.name);
+      } else {
+        goList();
+      }
+    }
+  } else {
+    goList();
+  }
+}
+
+// وظيفة عرض الامتحانات من نوع info (Teil 1 و Teil 3)
+function renderInfoExam(examData) {
+  let containerId = currentSkill;
+  if (currentSkill === "mündlich1" || currentSkill === "mündlich3") {
+    containerId = "mündlich";
+  }
+  
+  const container = document.getElementById(containerId);
+  if (!container) {
+    console.error("❌ الحاوية غير موجودة:", containerId);
+    return;
+  }
+  
+  container.innerHTML = "";
+  
+  const content = examData.content;
+  if (!content) {
+    container.innerHTML = "<div class='error'>⚠️ لا يوجد محتوى للعرض</div>";
+    return;
+  }
+  
+  let html = `
+    <div style="max-width: 1300px; margin: 0 auto; padding: 20px;">
+      <div style="background: #ffffff; padding: 14px 20px; border-radius: 12px; border: 1px solid #e0e4e8; color: #5a6874; font-size: 0.85rem; margin-bottom: 20px;">
+        💡 هذه الأمثلة فقط لكي تفهموا طريقة سير الامتحان، وليس مطلوبًا منكم حفظ نفس الاقتراحات أو استعمالها حرفيًا.
+      </div>
+  `;
+  
+  if (content.phase1) {
+    html += `<div style="margin-bottom: 35px;"><div style="font-size: 1.3rem; font-weight: 600; color: #2c3e66; border-right: 3px solid #4a6fa5; padding-right: 12px; margin-bottom: 20px;">📖 ${content.phase1.title}</div>`;
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">`;
+    content.phase1.questions.forEach(q => {
+      html += `
+        <div style="background: #ffffff; border-radius: 16px; padding: 18px; border: 1px solid #e8ecef;">
+          <div style="font-weight: 600; color: #2c3e66; margin-bottom: 8px;">${q.german}</div>
+          <div style="color: #6c7a89; font-size: 0.85rem; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #e8ecef;">${q.arabic}</div>
+          <div style="background: #f8fafc; padding: 12px; border-radius: 12px; font-size: 0.8rem; color: #2c3e66; line-height: 1.5;">
+            <div style="font-weight: 600; color: #4a6fa5; margin-bottom: 6px; font-size: 0.75rem;">📋 مثال:</div>
+            <div>${q.example.replace(/\n/g, '<br>')}</div>
+          </div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+  
+  if (content.phase2) {
+    html += `<div style="margin-bottom: 35px;"><div style="font-size: 1.3rem; font-weight: 600; color: #2c3e66; border-right: 3px solid #4a6fa5; padding-right: 12px; margin-bottom: 20px;">🎯 ${content.phase2.title}</div>`;
+    if (content.phase2.note) {
+      html += `<div style="background: #ffffff; padding: 12px 18px; border-radius: 12px; border: 1px solid #e0e4e8; margin-bottom: 20px; font-size: 0.85rem; color: #4a6fa5; text-align: center;">📝 ${content.phase2.note}</div>`;
+    }
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">`;
+    content.phase2.topics.forEach(topic => {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 18px; border: 1px solid #e8ecef;">
+          <div style="font-size: 1.1rem; font-weight: 600; color: #2c3e66;">📚 ${topic.title}</div>
+          <ul style="list-style: none; padding: 0; margin: 16px 0;">
+            ${topic.points.map(p => `<li style="font-size: 0.8rem; color: #5a6874; margin-bottom: 6px; padding-right: 12px; position: relative;">• ${p}</li>`).join('')}
+          </ul>
+          <div style="background: #ffffff; padding: 12px; border-radius: 12px; margin-top: 12px; border-right: 2px solid #4a6fa5;">
+            <div style="font-size: 0.7rem; font-weight: 600; color: #4a6fa5; margin-bottom: 6px;">💬 أسئلة قد يطرحها الشريك عليك:</div>
+            ${topic.partnerQuestions.map(q => `<div style="font-size: 0.75rem; color: #2c3e66; margin-bottom: 6px;">📌 ${q.german}<br><small style="color: #8a9aa8;">${q.arabic}</small></div>`).join('')}
+          </div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+  
+  if (content.groups) {
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 24px; margin-bottom: 40px;">`;
+    content.groups.forEach(group => {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef; display: flex; flex-direction: column;">
+          <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e66; margin-bottom: 12px;">${group.title}</div>
+          <div style="font-size: 0.85rem; color: #6c7a89; margin-bottom: 20px;">${group.topics}</div>
+          <button class="toggle-suggestions-btn" style="background: transparent; border: 1px solid #4a6fa5; padding: 8px 18px; border-radius: 30px; cursor: pointer; color: #4a6fa5; width: fit-content; margin-top: auto;" data-group="${group.id}">أمثلة →</button>
+          <div class="suggestions-content" data-group="${group.id}" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e8ecef;">
+            <ul style="list-style: none; padding: 0;">
+              ${group.suggestions.map((s, idx) => `<li style="background: #ffffff; padding: 10px 14px; margin-bottom: 8px; border-radius: 12px; border-right: 2px solid #cbd5e1;"><span style="font-weight: 600; color: #4a6fa5;">${idx+1}.</span> ${s}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+    
+    if (content.methodology) {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef;">
+          <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e66;">📌 ${content.methodology.title}</div>
+          <div style="font-size: 0.85rem; color: #6c7a89; margin: 12px 0;">${content.methodology.description}</div>
+          <button id="toggleDialogBtn" style="background: transparent; border: 1px solid #4a6fa5; padding: 8px 18px; border-radius: 30px; cursor: pointer; color: #4a6fa5;">مثال →</button>
+          <div id="dialogContent" style="display: none; margin-top: 16px; background: #ffffff; padding: 16px; border-radius: 16px; border: 1px solid #e8ecef;">
+            ${content.methodology.dialog.map(line => `<div style="margin-bottom: 12px;"><span style="font-weight: 700; color: #4a6fa5;">${line.speaker}:</span> ${line.text}</div>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+  }
+  
+  if (content.footerMessage) {
+    html += `<div style="text-align: center; padding: 20px; margin-top: 20px; border-top: 1px solid #e0e4e8;"><div style="font-size: 0.9rem; color: #5a6874; background: #ffffff; display: inline-block; padding: 10px 25px; border-radius: 40px; border: 1px solid #e0e4e8;">${content.footerMessage}</div></div>`;
+  }
+  
+  html += `</div>`;
+  container.innerHTML = html;
+  
+  document.querySelectorAll('.toggle-suggestions-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const groupId = btn.getAttribute('data-group');
+      const contentDiv = document.querySelector(`.suggestions-content[data-group="${groupId}"]`);
+      if (contentDiv) {
+        const isOpen = contentDiv.style.display === 'block';
+        contentDiv.style.display = isOpen ? 'none' : 'block';
+        btn.textContent = isOpen ? 'أمثلة →' : 'إخفاء ←';
+      }
+    });
+  });
+  
+  const dialogBtn = document.getElementById('toggleDialogBtn');
+  if (dialogBtn) {
+    dialogBtn.addEventListener('click', () => {
+      const dialogDiv = document.getElementById('dialogContent');
+      if (dialogDiv) {
+        const isOpen = dialogDiv.style.display === 'block';
+        dialogDiv.style.display = isOpen ? 'none' : 'block';
+        dialogBtn.textContent = isOpen ? 'مثال →' : 'إخفاء ←';
+      }
+    });
+  }
+}
+
+function renderTipsExam(examData) {
+  const container = document.getElementById("tips");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  const content = examData.content || "";
+  const paragraphs = content.split('\n\n');
+  
+  for (let i = 0; i < paragraphs.length; i++) {
+    const p = paragraphs[i];
+    if (p.trim() === "") continue;
+    
+    const card = document.createElement("div");
+    card.style.cssText = `
+      background: #f8f9fa;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-right: 4px solid #28a745;
+      border-left: 1px solid #e0e0e0;
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      font-size: 16px;
+      line-height: 1.7;
+      color: #333;
+      white-space: pre-wrap;
+    `;
+    
+    let formattedText = p;
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formattedText = formattedText.replace(/^(.*?):/gm, '<strong>$1:</strong>');
+    
+    card.innerHTML = formattedText;
+    container.appendChild(card);
+  }
+}
+
+function renderMündlichExam(examData) {
+  const container = document.getElementById("mündlich");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  const parts = examData.parts || {};
+  
+  const allgemeinCard = createMündlichCard("📖 الفكرة العامة (Allgemeine Idee)", parts.allgemein || "لا يوجد نص");
+  container.appendChild(allgemeinCard);
+  
+  const meinungCard = createMündlichCard("💭 الرأي (Meinung)", parts.meinung || "لا يوجد نص");
+  container.appendChild(meinungCard);
+  
+  const erfahrungCard = createMündlichCard("✨ التجربة (Erfahrung)", parts.erfahrung || "لا يوجد نص");
+  container.appendChild(erfahrungCard);
+}
+
+function createMündlichCard(title, text) {
+  const card = document.createElement("div");
+  card.style.cssText = `
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  `;
+  
+  const titleDiv = document.createElement("div");
+  titleDiv.style.cssText = `
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e66;
+    border-right: 4px solid #007bff;
+    padding-right: 12px;
+    margin-bottom: 15px;
+  `;
+  titleDiv.innerHTML = title;
+  card.appendChild(titleDiv);
+  
+  const textDiv = document.createElement("div");
+  textDiv.style.cssText = `
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    white-space: pre-wrap;
+  `;
+  textDiv.innerHTML = text;
+  card.appendChild(textDiv);
+  
+  return card;
+}
+
+function updateExamNavButtons() {
+  const prevBtn = document.getElementById("prevExamBtn");
+  const nextBtn = document.getElementById("nextExamBtn");
+  
+  if (!prevBtn || !nextBtn) return;
+  
+  const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
+  const hasPrev = currentIndex > 0;
+  const hasNext = currentIndex < currentExamsList.length - 1;
+  
+  if (hasPrev) {
+    prevBtn.style.display = "inline-block";
+    prevBtn.onclick = () => {
+      const prevExam = currentExamsList[currentIndex - 1];
+      openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
+    };
+  } else {
+    prevBtn.style.display = "none";
+  }
+  
+  if (hasNext) {
+    nextBtn.style.display = "inline-block";
+    // تعيين onclick مؤقتاً، سيتم تحديثه في setupLockedNextButton
+    nextBtn.onclick = () => {
+      const nextExam = currentExamsList[currentIndex + 1];
+      openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
+    };
+  } else {
+    nextBtn.style.display = "none";
+  }
+  
+  setupLockedNextButton();
+}
+
+function showTeil(teilNumber) {
+  teile.forEach((teil, idx) => {
+    const container = document.getElementById(teil.container);
+    if (container) container.style.display = (idx + 1 === teilNumber) ? "block" : "none";
+  });
+}
+
+function goHome() {
+  document.getElementById("home").classList.add("active");
+  document.getElementById("list").classList.remove("active");
+  document.getElementById("exam").classList.remove("active");
+}
+
+function goList() {
+  document.getElementById("home").classList.remove("active");
+  document.getElementById("list").classList.add("active");
+  document.getElementById("exam").classList.remove("active");
+  
+  renderTeileList();
+  
+  // عرض امتحانات Hören Teil 1 مباشرة
+  setTimeout(() => {
+    const examsContainer = document.getElementById("examsList");
+    if (examsContainer) {
+      const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+      if (hoeren1Teil) {
+        renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+      } else {
+        examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
+      }
+    }
+  }, 50);
+}
+
+function buildTeil1(questions) {
+  const container = document.getElementById("teil1");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  let userAnswers = {};
+  
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const card = document.createElement("div");
+    card.className = "question-card";
+    card.id = "q_" + i;
+    
+    const questionText = document.createElement("div");
+    questionText.className = "question-text";
+    questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
+    card.appendChild(questionText);
+    
+    const optionsDiv = document.createElement("div");
+    optionsDiv.className = "options-container";
+    for (let j = 0; j < q.options.length; j++) {
+      const label = document.createElement("label");
+      label.className = "option-label";
+      const radioId = "q" + i + "_" + j;
+      label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
+      label.onclick = (function(qIdx, ansIdx) {
+        return function() {
+          userAnswers[qIdx] = ansIdx;
+        };
+      })(i, j);
+      optionsDiv.appendChild(label);
+    }
+    card.appendChild(optionsDiv);
+    container.appendChild(card);
+  }
+  
+  const checkBtn = document.createElement("button");
+  checkBtn.innerText = "✅ تصحيح";
+  checkBtn.className = "check-btn";
+  checkBtn.onclick = function() {
+    checkTeil1(questions, userAnswers);
+  };
+  container.appendChild(checkBtn);
+  
+  const resultDiv = document.createElement("div");
+  resultDiv.id = "teil1Result";
+  resultDiv.className = "result-box";
+  resultDiv.style.display = "none";
+  container.appendChild(resultDiv);
+}
+
+function checkTeil1(questions, answers) {
+  let score = 0;
+  const total = questions.length;
+  const pointsPerQuestion = 25 / total;
+  
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const card = document.getElementById("q_" + i);
+    const userAnswer = answers[i];
+    const isCorrect = (userAnswer === q.correct);
+    
+    if (isCorrect) {
+      score++;
+      if (card) {
+        card.classList.add("correct-answer-card");
+        card.classList.remove("wrong-answer-card");
+        const oldMsg = card.querySelector(".correct-message");
+        if (oldMsg) oldMsg.remove();
+      }
+    } else {
+      if (card) {
+        card.classList.add("wrong-answer-card");
+        card.classList.remove("correct-answer-card");
+        
+        let correctMsg = card.querySelector(".correct-message");
+        if (!correctMsg) {
+          correctMsg = document.createElement("div");
+          correctMsg.className = "correct-message";
+          card.appendChild(correctMsg);
+        }
+        correctMsg.innerHTML = "✅ الإجابة الصحيحة: " + q.options[q.correct];
+      }
+    }
+  }
+  
+  const finalScore = (score * pointsPerQuestion).toFixed(2);
+  const resultDiv = document.getElementById("teil1Result");
+  if (resultDiv) {
+    resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
+    resultDiv.style.display = "block";
+  }
+  
+  saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
+  
+  if (document.getElementById("list").classList.contains("active")) {
+    renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
+  }
+}
+
+window.saveExamResultGlobal = function(skill, examId, score) {
+  saveExamResult(skill, examId, score);
+  if (document.getElementById("list").classList.contains("active") && currentSkill === skill) {
+    renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
+  }
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+  const startBtn = document.getElementById("startBtn");
+  const backHomeBtn = document.getElementById("backHomeBtn");
+  const backToListBtn = document.getElementById("backToListBtn");
+  const backArrowFromExam = document.getElementById("backArrowFromExam");
+  
+  if (startBtn) startBtn.onclick = function() { 
+    goList();
+  };
+  
+  if (backHomeBtn) backHomeBtn.onclick = function() { goHome(); };
+  if (backToListBtn) backToListBtn.onclick = function() { goList(); };
+  
+  if (backArrowFromExam) {
+    backArrowFromExam.onclick = function() { 
+      goBackToExamsList();
+    };
+  }
+  
+  const examsContainer = document.getElementById("examsList");
+  if (examsContainer) {
+    examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
+  }
+});
+
+renderTeileList();
+
+// ========== إظهار امتحانات Hören 1 تلقائياً ==========
+(function() {
+    const originalGoList = goList;
+    
+    goList = function() {
+        originalGoList();
+        
+        setTimeout(function() {
+            const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+            if (hoeren1Teil && document.getElementById("list").classList.contains("active")) {
+                renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+            }
+        }, 150);
+    };
+    
+    if (document.getElementById("list").classList.contains("active")) {
+        setTimeout(function() {
+            const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+            if (hoeren1Teil) {
+                renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+            }
+        }, 100);
+    }
+})();
+
+
+console.log("✅ exams.js تم تحميله بنجاح");
+console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
+console.log("📚 Lesen Teil 2:", examsDatabase.lesen2.length, "امتحان");
+console.log("📚 Lesen Teil 3:", examsDatabase.lesen3.length, "امتحان");
+console.log("📝 Sprachbausteine Teil 1:", examsDatabase.sprach1.length, "امتحان");
+console.log("📝 Sprachbausteine Teil 2:", examsDatabase.sprach2.length, "امتحان");
+console.log("🎧 Hören Teil 1:", examsDatabase.hoeren1.length, "امتحان");
+console.log("🎧 Hören Teil 2:", examsDatabase.hoeren2.length, "امتحان");
+console.log("🎧 Hören Teil 3:", examsDatabase.hoeren3.length, "امتحان");
+console.log("✏️ Schreiben:", examsDatabase.schreiben.length, "امتحان");
+console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich1.length, "قسم");
+console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich2.length, "امتحان");
+console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich3.length, "قسم");
+console.log("💡 Tips:", examsDatabase.tips.length, "قسم");
