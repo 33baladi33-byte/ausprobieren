@@ -1,11 +1,11 @@
 // ============================================
-// Google Sheets API - نسخة مبسطة
+// Google Sheets API - نسخة سريعة
 // ============================================
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbz7MYOR4XG_6lFQSEWMC6nfPv8JYGNtouNV-GXK5QPiu0-FzJ6vtieDMEFVWOakJmOs3w/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyEsS2HpHjdJ9JU5XVXeNcL7cV9zQt0LBhnTpBYzRIu_8Wo2aZMJ65n8PEiQVMIb103GQ/exec';
 
 // ============================================
-// دالة JSONP للاتصال بالـ API
+// دالة JSONP - محسنة
 // ============================================
 
 function callJSONP(action, email) {
@@ -17,8 +17,11 @@ function callJSONP(action, email) {
         if (email) url += `&email=${encodeURIComponent(email)}`;
         url += `&_=${Date.now()}`;
         
+        console.log(`📡 [${action}] Calling API:`, url);
+        
         let isResolved = false;
         
+        // ✅ مهلة 8 ثوانٍ فقط
         const timeout = setTimeout(() => {
             if (!isResolved) {
                 isResolved = true;
@@ -26,7 +29,7 @@ function callJSONP(action, email) {
                 if (script.parentNode) script.parentNode.removeChild(script);
                 reject(new Error('NETWORK_TIMEOUT'));
             }
-        }, 10000);
+        }, 8000);
         
         window[callbackName] = function(data) {
             if (isResolved) return;
@@ -34,6 +37,8 @@ function callJSONP(action, email) {
             clearTimeout(timeout);
             delete window[callbackName];
             if (script.parentNode) script.parentNode.removeChild(script);
+            
+            console.log(`📥 [${action}] Response:`, data);
             resolve(data);
         };
         
@@ -51,13 +56,15 @@ function callJSONP(action, email) {
 }
 
 // ============================================
-// دوال API - مبسطة جداً
+// دوال API - سريعة
 // ============================================
 
-// 1. تسجيل الدخول
 async function loginWithGoogleSheets(email) {
     try {
+        const startTime = Date.now();
         const data = await callJSONP('login', email);
+        const endTime = Date.now();
+        console.log(`⏱️ Login took ${endTime - startTime}ms`);
         
         if (!data) {
             return {
@@ -70,8 +77,9 @@ async function loginWithGoogleSheets(email) {
         return data;
         
     } catch (error) {
-        // ✅ رسالة خطأ واضحة
-        let message = '⚠️ خطأ في الاتصال. تأكد من اتصالك بالإنترنت.';
+        console.error('❌ Login error:', error.message);
+        
+        let message = '⚠️ خطأ في الاتصال. حاول مرة أخرى.';
         if (error.message === 'NETWORK_TIMEOUT') {
             message = '⏰ انتهت مهلة الاتصال. حاول مرة أخرى.';
         } else if (error.message === 'NETWORK_ERROR') {
@@ -86,7 +94,6 @@ async function loginWithGoogleSheets(email) {
     }
 }
 
-// 2. التحقق من المستخدم
 async function checkUser(email) {
     try {
         const data = await callJSONP('check', email);
