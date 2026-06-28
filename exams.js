@@ -1,6 +1,8 @@
 // ============================================
 // exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
+// نسخة محسنة مع تجميع النسخ المتعددة في بطاقة منبثقة
 // ============================================
+
 const teile = [
   { id: 1, name: "Hören 1", container: "hoeren1", skill: "hoeren1" },
   { id: 2, name: "Hören 2", container: "hoeren2", skill: "hoeren2" },
@@ -20,7 +22,6 @@ function saveExamResult(skill, examId, score) {
   try {
     const key = `exam_result_${skill}_${examId}`;
     localStorage.setItem(key, score.toString());
-    console.log(`✅ تم حفظ النتيجة ${score} لـ ${skill} ${examId}`);
   } catch(e) {
     console.error("❌ خطأ في حفظ النتيجة:", e);
   }
@@ -33,7 +34,6 @@ function getExamResult(skill, examId) {
     const result = localStorage.getItem(key);
     return result ? parseFloat(result) : null;
   } catch(e) {
-    console.error("❌ خطأ في استرجاع النتيجة:", e);
     return null;
   }
 }
@@ -45,7 +45,7 @@ function getResultColor(score) {
   return "#adb5bd";
 }
 
-// ========== دالة عرض النتيجة بجانب عنوان الامتحان (معدلة للهواتف) ==========
+// ========== دالة عرض النتيجة بجانب عنوان الامتحان ==========
 function createResultBadge(score) {
   if (score === null) return null;
   
@@ -53,7 +53,6 @@ function createResultBadge(score) {
   badge.className = "exam-result-badge";
   badge.textContent = `${score} / 25`;
   
-  // الكشف عن الهاتف وجعل الحجم أصغر
   const isMobile = window.innerWidth <= 768;
   badge.style.cssText = `
     font-size: ${isMobile ? '8px' : '11px'};
@@ -72,35 +71,35 @@ function createResultBadge(score) {
 
 // ========== عرض بطاقة Premium Access ==========
 function showLockedMessage(examTitle) {
-    // ✅ استخدام showPremiumModal من auth.js
     if (typeof window.showPremiumModal === 'function') {
         window.showPremiumModal(examTitle);
     } else {
-        // حل احتياطي: توجيه إلى صفحة الاشتراك
         window.location.href = 'subscribe.html';
     }
 }
-
 
 let currentExamData = null;
 let currentSkill = "lesen1";
 let currentExamId = null;
 let currentExamsList = [];
 let currentMündlichPart = 2;
+
+// ✅ تخزين مؤقت لحالة المستخدم
 let userStatusCache = null;
 let lastStatusCheck = 0;
-// ========== دوال التحقق من حالة المستخدم ==========
+const CACHE_DURATION = 30000; // 30 ثانية
+
+// ========== دوال التحقق من حالة المستخدم (محسنة مع تخزين مؤقت) ==========
 async function getUserStatusForExam() {
     let email = localStorage.getItem('zertiva_email');
     if (!email) return 'guest';
     
     let now = Date.now();
-    if (userStatusCache && (now - lastStatusCheck) < 5000) {
+    if (userStatusCache && (now - lastStatusCheck) < CACHE_DURATION) {
         return userStatusCache;
     }
     
     try {
-        // ✅ فقط من Google Sheets
         const result = await checkUser(email);
         if (result && result.exists && result.expiry) {
             let today = new Date().toISOString().slice(0,10);
@@ -128,53 +127,40 @@ const tipsExams = [
 // ========== قائمة امتحانات Lesen Teil 1 ==========
 const lesenExams = [
   { id: 1, title: "Jugend Forscher", enabled: true, hasFile: true },
-  { id: 2, title: "sport ist gesund", enabled: true, hasFile: true },
-  { id: 3, title: "sport ist gesund (التعديل 1)", enabled: true, hasFile: true },
-  { id: 4, title: "Tanzkurs", enabled: true, hasFile: true },
-  { id: 5, title: "Tanzkurs (التعديل 1)", enabled: true, hasFile: true },
-  { id: 6, title: "Impfung", enabled: true, hasFile: true },
-  { id: 7, title: "Insel", enabled: true, hasFile: true },
-  { id: 8, title: "Bilder", enabled: true, hasFile: true },
-  { id: 9, title: "Grundschule", enabled: true, hasFile: true },
-  { id: 10, title: "Österreich - Naschmarkt", enabled: true, hasFile: true },
-  { id: 11, title: "Insekten", enabled: true, hasFile: true },
-  { id: 12, title: "Insekten (التعديل 1)", enabled: true, hasFile: true },
-  { id: 13, title: "das Benzin", enabled: true, hasFile: true },
-  { id: 14, title: "Kaffee", enabled: true, hasFile: true },
-  { id: 15, title: "Programmierer", enabled: true, hasFile: true },
-  { id: 16, title: "Programmierer (التعديل 1)", enabled: true, hasFile: true },
-  { id: 17, title: "Programmierer (التعديل 2)", enabled: true, hasFile: true },
-  { id: 18, title: "Trampolin", enabled: true, hasFile: true },
-  { id: 19, title: "Bonbons", enabled: true, hasFile: true },
-  { id: 20, title: "Umwelt", enabled: true, hasFile: true },
-  { id: 21, title: "Licht", enabled: true, hasFile: true },
-  { id: 22, title: "Licht (التعديل 1)", enabled: true, hasFile: true },
-  { id: 23, title: "Kartoffel", enabled: true, hasFile: true },
-  { id: 24, title: "Kartoffel (التعديل 1)", enabled: true, hasFile: true },
-  { id: 25, title: "Bienen", enabled: true, hasFile: true },
-  { id: 26, title: "Spiele", enabled: true, hasFile: true },
-  { id: 27, title: "Geld", enabled: true, hasFile: true },
-  { id: 28, title: "Kinder und Schulen", enabled: true, hasFile: true },
-  { id: 29, title: "Kindertelefon", enabled: true, hasFile: true },
-  { id: 30, title: "Alpen", enabled: true, hasFile: true },
-  { id: 31, title: "Alpen (التعديل 1)", enabled: true, hasFile: true },
-  { id: 32, title: "Alpen (التعديل 2)", enabled: true, hasFile: true },
-  { id: 33, title: "Suchtmittel - Nase", enabled: true, hasFile: true },
-  { id: 34, title: "الانتخابات والمرأة الروسية", enabled: true, hasFile: true },
-  { id: 35, title: "kein Zeit", enabled: true, hasFile: true },
-  { id: 36, title: "kein Zeit (التعديل 1)", enabled: true, hasFile: true },
-  { id: 37, title: "Limonade", enabled: true, hasFile: true },
-  { id: 38, title: "Limonade (التعديل 1)", enabled: true, hasFile: true },
-  { id: 39, title: "Limonade (التعديل 2)", enabled: true, hasFile: true },
-  { id: 40, title: "Auf dem Weg", enabled: true, hasFile: true },
-  { id: 41, title: "Schlafzug", enabled: true, hasFile: true },
-  { id: 42, title: "Schlafzug (التعديل 1)", enabled: true, hasFile: true },
-  { id: 43, title: "Löwen", enabled: true, hasFile: true },
-  { id: 44, title: "Fisch", enabled: true, hasFile: true },
-  { id: 45, title: "Frauen im Arbeitsmarkt", enabled: true, hasFile: true },
-  { id: 46, title: "Baby TV", enabled: true, hasFile: true },
-  { id: 47, title: "Bäder", enabled: true, hasFile: true },
-  { id: 48, title: "Farben", enabled: true, hasFile: true }
+  { id: 2, title: "Sport ist gesund", enabled: true, hasFile: true },
+  { id: 3, title: "Tanzkurs", enabled: true, hasFile: true },
+  { id: 4, title: "Impfung", enabled: true, hasFile: true },
+  { id: 5, title: "Insel", enabled: true, hasFile: true },
+  { id: 6, title: "Bilder", enabled: true, hasFile: true },
+  { id: 7, title: "Grundschule", enabled: true, hasFile: true },
+  { id: 8, title: "Österreich - Naschmarkt", enabled: true, hasFile: true },
+  { id: 9, title: "Insekten", enabled: true, hasFile: true },
+  { id: 10, title: "das Benzin", enabled: true, hasFile: true },
+  { id: 11, title: "Kaffee", enabled: true, hasFile: true },
+  { id: 12, title: "Programmierer", enabled: true, hasFile: true },
+  { id: 13, title: "Trampolin", enabled: true, hasFile: true },
+  { id: 14, title: "Bonbons", enabled: true, hasFile: true },
+  { id: 15, title: "Umwelt", enabled: true, hasFile: true },
+  { id: 16, title: "Licht", enabled: true, hasFile: true },
+  { id: 17, title: "Kartoffel", enabled: true, hasFile: true },
+  { id: 18, title: "Bienen", enabled: true, hasFile: true },
+  { id: 19, title: "Spiele", enabled: true, hasFile: true },
+  { id: 20, title: "Geld", enabled: true, hasFile: true },
+  { id: 21, title: "Kinder und Schulen", enabled: true, hasFile: true },
+  { id: 22, title: "Kindertelefon", enabled: true, hasFile: true },
+  { id: 23, title: "Alpen", enabled: true, hasFile: true },
+  { id: 24, title: "Suchtmittel - Nase", enabled: true, hasFile: true },
+  { id: 25, title: "الانتخابات والمرأة الروسية", enabled: true, hasFile: true },
+  { id: 26, title: "kein Zeit", enabled: true, hasFile: true },
+  { id: 27, title: "Limonade", enabled: true, hasFile: true },
+  { id: 28, title: "Auf dem Weg", enabled: true, hasFile: true },
+  { id: 29, title: "Schlafzug", enabled: true, hasFile: true },
+  { id: 30, title: "Löwen", enabled: true, hasFile: true },
+  { id: 31, title: "Fisch", enabled: true, hasFile: true },
+  { id: 32, title: "Frauen im Arbeitsmarkt", enabled: true, hasFile: true },
+  { id: 33, title: "Baby TV", enabled: true, hasFile: true },
+  { id: 34, title: "Bäder", enabled: true, hasFile: true },
+  { id: 35, title: "Farben", enabled: true, hasFile: true }
 ];
 
 // ========== قائمة امتحانات Schreiben ==========
@@ -217,12 +203,11 @@ const schreibenExams = [
   { id: 36, title: "Nachbarschaft.net", enabled: true, hasFile: true }
 ];
 
-// ========== قائمة امتحانات Mündlich Teil 1 (دليل تعريفي) ==========
+// ========== قائمة امتحانات Mündlich ==========
 const mündlich1Exams = [
   { id: 1, title: "قدم نفسك وتكلم عن موضوع اخترته", enabled: true, hasFile: true, skillPath: "mündlich1" }
 ];
 
-// ========== قائمة امتحانات Mündlich Teil 2 (الامتحانات الفعلية) ==========
 const mündlich2Exams = [
   { id: 1, title: "Antibiotika – Gibt es Alternativen?", enabled: true, hasFile: true, skillPath: "mündlich2" },
   { id: 2, title: "Selbst gekocht", enabled: true, hasFile: true, skillPath: "mündlich2" },
@@ -268,12 +253,239 @@ const mündlich2Exams = [
   { id: 42, title: "Nahrungsergänzungsmittel", enabled: true, hasFile: true, skillPath: "mündlich2" }
 ];
 
-// ========== قائمة امتحانات Mündlich Teil 3 (دليل المشكلات) ==========
 const mündlich3Exams = [
   { id: 1, title: "Problemlösung", enabled: true, hasFile: true, skillPath: "mündlich3" }
 ];
 
-// أسماء الملفات الحقيقية
+// ============================================
+// 📦 تجميع الامتحانات حسب الاسم الأساسي
+// ============================================
+
+function groupExamsByTitle(exams) {
+  const groups = {};
+  
+  exams.forEach(exam => {
+    // ✅ استخراج الاسم الأساسي (إزالة الكلمات المفتاحية)
+    let baseTitle = exam.title;
+    baseTitle = baseTitle.replace(/\s*\([^)]*\)\s*/g, '').trim();
+    baseTitle = baseTitle.replace(/\s*معدل\s*/g, '').trim();
+    baseTitle = baseTitle.replace(/\s*Modified\s*/g, '').trim();
+    baseTitle = baseTitle.replace(/\s*التعديل\s*\d*\s*/g, '').trim();
+    baseTitle = baseTitle.replace(/\s*-\s*.*$/, '').trim();
+    
+    // ✅ إزالة الأرقام في البداية
+    baseTitle = baseTitle.replace(/^\d+\s*[.:-]\s*/, '').trim();
+    
+    // ✅ إذا كان العنوان فارغاً، استخدم الأصل
+    if (!baseTitle) baseTitle = exam.title;
+    
+    if (!groups[baseTitle]) {
+      groups[baseTitle] = [];
+    }
+    groups[baseTitle].push(exam);
+  });
+  
+  // ✅ فرز النسخ حسب رقم التعديل
+  for (let key in groups) {
+    groups[key].sort((a, b) => {
+      const getVersion = (title) => {
+        if (title.includes('معدل 2') || title.includes('Modified 2')) return 2;
+        if (title.includes('معدل 1') || title.includes('Modified 1')) return 1;
+        if (title.includes('معدل') || title.includes('Modified')) return 1;
+        return 0;
+      };
+      return getVersion(a.title) - getVersion(b.title);
+    });
+  }
+  
+  return groups;
+}
+
+// ============================================
+// 🎯 عرض بطاقة اختيار النسخة
+// ============================================
+
+function showVersionModal(groupKey, versions, skill, isPremium) {
+  // ✅ إزالة البطاقة القديمة إن وجدت
+  const existing = document.querySelector('.version-modal-overlay');
+  if (existing) existing.remove();
+  
+  const overlay = document.createElement('div');
+  overlay.className = 'version-modal-overlay';
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  `;
+  
+  const modal = document.createElement('div');
+  modal.className = 'version-modal';
+  modal.style.cssText = `
+    background: #111827;
+    border-radius: 20px;
+    padding: 24px 28px;
+    max-width: 400px;
+    width: 90%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95) translateY(10px);
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    text-align: center;
+    direction: rtl;
+    max-height: 80vh;
+    overflow-y: auto;
+  `;
+  
+  // ✅ عنوان البطاقة
+  const title = document.createElement('div');
+  title.style.cssText = `
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+  `;
+  title.textContent = `📚 ${groupKey}`;
+  modal.appendChild(title);
+  
+  // ✅ خط فاصل
+  const divider = document.createElement('div');
+  divider.style.cssText = `
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 12px 0 16px 0;
+  `;
+  modal.appendChild(divider);
+  
+  // ✅ قائمة النسخ
+  const listContainer = document.createElement('div');
+  listContainer.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  `;
+  
+  versions.forEach((exam, index) => {
+    const isOriginal = index === 0;
+    const versionName = isOriginal ? 'النسخة الأصلية' : `النسخة المعدلة ${index}`;
+    
+    const btn = document.createElement('button');
+    btn.style.cssText = `
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #d1d5db;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      font-family: inherit;
+    `;
+    
+    // ✅ إضافة أيقونة للنسخة الأصلية والمعدلة
+    const icon = isOriginal ? '📖' : '✏️';
+    btn.innerHTML = `${icon} ${versionName}`;
+    
+    // ✅ تأثير hover
+    btn.onmouseenter = () => {
+      btn.style.background = 'rgba(56, 189, 248, 0.15)';
+      btn.style.borderColor = 'rgba(56, 189, 248, 0.3)';
+      btn.style.color = '#ffffff';
+    };
+    btn.onmouseleave = () => {
+      btn.style.background = 'rgba(255, 255, 255, 0.05)';
+      btn.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+      btn.style.color = '#d1d5db';
+    };
+    
+    // ✅ فتح الامتحان عند الضغط
+    btn.onclick = () => {
+      closeVersionModal(overlay);
+      // ✅ فتح الامتحان المحدد
+      const actualSkill = exam.skillPath || skill;
+      openExam(exam.id, exam.title, actualSkill);
+    };
+    
+    listContainer.appendChild(btn);
+  });
+  
+  modal.appendChild(listContainer);
+  
+  // ✅ زر الإغلاق
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = '✕ إغلاق';
+  closeBtn.style.cssText = `
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 40px;
+    padding: 8px 16px;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+    font-family: inherit;
+  `;
+  closeBtn.onmouseenter = () => {
+    closeBtn.style.background = 'rgba(255, 255, 255, 0.12)';
+    closeBtn.style.color = '#e2e8f0';
+  };
+  closeBtn.onmouseleave = () => {
+    closeBtn.style.background = 'rgba(255, 255, 255, 0.06)';
+    closeBtn.style.color = '#94a3b8';
+  };
+  closeBtn.onclick = () => closeVersionModal(overlay);
+  modal.appendChild(closeBtn);
+  
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+  
+  // ✅ تأثير الظهور
+  requestAnimationFrame(() => {
+    overlay.style.visibility = 'visible';
+    overlay.style.opacity = '1';
+    modal.style.transform = 'scale(1) translateY(0)';
+  });
+  
+  // ✅ إغلاق عند الضغط خارج البطاقة
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      closeVersionModal(overlay);
+    }
+  });
+  
+  // ✅ إغلاق عند الضغط على Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeVersionModal(overlay);
+    }
+  });
+}
+
+function closeVersionModal(overlay) {
+  if (!overlay) return;
+  overlay.style.opacity = '0';
+  overlay.style.visibility = 'hidden';
+  setTimeout(() => {
+    if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+  }, 300);
+}
+
+// ========== أسماء الملفات الحقيقية ==========
 const actualFileNames = {
   1: "exam1.json", 2: "exam2.json", 3: "exam3.json",
   4: "exam4.json", 5: "exam5.json", 6: "exam6.json",
@@ -329,13 +541,13 @@ const examsDatabase = {
     { id: 17, title: "Korbjagd zu Pferde", enabled: true, hasFile: true },
     { id: 18, title: "Mehrsprachige Erziehung", enabled: true, hasFile: true },
     { id: 19, title: "Mehrsprachige Erziehung (معدل)", enabled: true, hasFile: true },
-    { id: 20, title: "Verpackungen im Supermarkt", enabled: true, hasFile: true },
+    { id: 20, title: "Verpackungen im Supermarkt: Geht's auch ohne?", enabled: true, hasFile: true },
     { id: 21, title: "Der Puppenmacher", enabled: true, hasFile: true },
     { id: 22, title: "Der Puppenmacher (معدل)", enabled: true, hasFile: true },
     { id: 23, title: "Lehrkräftepreis", enabled: true, hasFile: true },
     { id: 24, title: "Wer parkt, muss zahlen", enabled: true, hasFile: true },
     { id: 25, title: "Wer parkt, muss zahlen (معدل)", enabled: true, hasFile: true },
-    { id: 26, title: "Familienglück oder Generationskonflikte", enabled: true, hasFile: true },
+    { id: 26, title: "Familienglück oder Generationskonflikte?", enabled: true, hasFile: true },
     { id: 27, title: "Traumfrau und Traummann gesucht", enabled: true, hasFile: true },
     { id: 28, title: "Traumfrau und Traummann gesucht (معدل)", enabled: true, hasFile: true },
     { id: 29, title: "Wie Babys lernen", enabled: true, hasFile: true },
@@ -348,45 +560,49 @@ const examsDatabase = {
     { id: 36, title: "Nachtzug (معدل)", enabled: true, hasFile: true },
     { id: 37, title: "Wie zwei US-Teenager Millionäre wurden", enabled: true, hasFile: true }
   ],
- lesen3: [
-  { id: 1, title: "Filme - Fernsehprogramme", enabled: true, hasFile: true },
-  { id: 2, title: "Filme - Fernsehprogramme (معدل)", enabled: true, hasFile: true },
-  { id: 3, title: "Im Katalog eines Buchversands", enabled: true, hasFile: true },
-  { id: 4, title: "kein Zeit", enabled: true, hasFile: true },
-  { id: 5, title: "kein Zeit (معدل)", enabled: true, hasFile: true },
-  { id: 6, title: "Musik - spielt Gitarre", enabled: true, hasFile: true },
-  { id: 7, title: "Die schwangere Frau", enabled: true, hasFile: true },
-  { id: 8, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true },
-  { id: 9, title: "Unterstützung in Mathematik", enabled: true, hasFile: true },
-  { id: 10, title: "Ganztagesausflug", enabled: true, hasFile: true },
-  { id: 11, title: "Ihren Eltern zur Silberhochzeit", enabled: true, hasFile: true },
-  { id: 12, title: "Rechtsanwalt", enabled: true, hasFile: true },
-  { id: 13, title: "Rechtsanwalt (معدل)", enabled: true, hasFile: true },
-  { id: 14, title: "Au-pair Mädchen", enabled: true, hasFile: true },
-  { id: 15, title: "Hautprobleme", enabled: true, hasFile: true },
-  { id: 16, title: "Eine Bekannte ist schwanger", enabled: true, hasFile: true },
-  { id: 17, title: "Die Tochter einer Bekannten wird vier Jahre alt", enabled: true, hasFile: true },
-  { id: 18, title: "Tierdokumentationen", enabled: true, hasFile: true },
-  { id: 19, title: "Aufräumen", enabled: true, hasFile: true },
-  { id: 20, title: "Erholung und Reisen", enabled: true, hasFile: true },
-  { id: 21, title: "Sport", enabled: true, hasFile: true },
-  { id: 22, title: "Sport (معدل)", enabled: true, hasFile: true },
-  { id: 23, title: "Wein und Insekten", enabled: true, hasFile: true },
-  { id: 24, title: "Reiseführer", enabled: true, hasFile: true },
-  { id: 25, title: "Gartenbau", enabled: true, hasFile: true },
-  { id: 26, title: "Haushaltshilfe", enabled: true, hasFile: true },
-  { id: 27, title: "Einwanderung", enabled: true, hasFile: true },
-  { id: 28, title: "Musikinstrumente", enabled: true, hasFile: true },
-  { id: 29, title: "Musikinstrumente (معدل)", enabled: true, hasFile: true },
-  { id: 30, title: "Arbeitsorganisation", enabled: true, hasFile: true },
-  { id: 31, title: "Hunde", enabled: true, hasFile: true },
-  { id: 32, title: "schnelle Wasserfahrzeuge", enabled: true, hasFile: true },
-  { id: 33, title: "ein paar Tage in Berlin", enabled: true, hasFile: true },
-  { id: 34, title: "ein paar Tage in Berlin (معدل)", enabled: true, hasFile: true },
-  { id: 35, title: "Autos", enabled: true, hasFile: true },
-  { id: 36, title: "Möbel für die neue Wohnung", enabled: true, hasFile: true },
-  { id: 37, title: "Geschäftsreisen - رحلات العمل", enabled: true, hasFile: true }
-],
+  lesen3: [
+    { id: 1, title: "Filme - Fernsehprogramme", enabled: true, hasFile: true },
+    { id: 2, title: "Filme - Fernsehprogramme (معدل)", enabled: true, hasFile: true },
+    { id: 3, title: "Sport ist Gesund - Anzeigen", enabled: true, hasFile: true },
+    { id: 4, title: "Sport ist Gesund - Anzeigen (معدل)", enabled: true, hasFile: true },
+    { id: 5, title: "kein Zeit - Anzeigen", enabled: true, hasFile: true },
+    { id: 6, title: "kein Zeit - Anzeigen (معدل)", enabled: true, hasFile: true },
+    { id: 7, title: "Musik und Gitarre", enabled: true, hasFile: true },
+    { id: 8, title: "Musik und Gitarre (معدل)", enabled: true, hasFile: true },
+    { id: 9, title: "Die schwangere Frau", enabled: true, hasFile: true },
+    { id: 10, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true },
+    { id: 11, title: "Ünterstützung in Mathematik", enabled: true, hasFile: true },
+    { id: 12, title: "Ganztagesausflug", enabled: true, hasFile: true },
+    { id: 13, title: "Ganztagesausflug (معدل)", enabled: true, hasFile: true },
+    { id: 14, title: "Ihren Eltern zur Silberhochzeit", enabled: true, hasFile: true },
+    { id: 15, title: "Rechtsanwalt", enabled: true, hasFile: true },
+    { id: 16, title: "Rechtsanwalt (معدل)", enabled: true, hasFile: true },
+    { id: 17, title: "Au-pair Mädchen", enabled: true, hasFile: true },
+    { id: 18, title: "Hautprobleme", enabled: true, hasFile: true },
+    { id: 19, title: "Eine Bekannte ist schwanger", enabled: true, hasFile: true },
+    { id: 20, title: "Die Tochter einer Bekannten wird vier Jahre alt", enabled: true, hasFile: true },
+    { id: 21, title: "Bekannter interessiert sich für Tierdokumentationen", enabled: true, hasFile: true },
+    { id: 22, title: "Ihre Schränke sind voll mit Sachen", enabled: true, hasFile: true },
+    { id: 23, title: "Freizeit und Ausflüge", enabled: true, hasFile: true },
+    { id: 24, title: "Sport", enabled: true, hasFile: true },
+    { id: 25, title: "Sport (معدل)", enabled: true, hasFile: true },
+    { id: 26, title: "Wein und Insekten", enabled: true, hasFile: true },
+    { id: 27, title: "المرشد السياحي", enabled: true, hasFile: true },
+    { id: 28, title: "المرشد السياحي (معدل)", enabled: true, hasFile: true },
+    { id: 29, title: "Gartenbau", enabled: true, hasFile: true },
+    { id: 30, title: "Haushaltshilfe", enabled: true, hasFile: true },
+    { id: 31, title: "einen Dokumentarfilm über die Einwanderung", enabled: true, hasFile: true },
+    { id: 32, title: "Auf dem Weg - Anzeigen", enabled: true, hasFile: true },
+    { id: 33, title: "Auf dem Weg - Anzeigen (معدل)", enabled: true, hasFile: true },
+    { id: 34, title: "Kollegin kann ihren Arbeitsbereich nicht gut strukturieren", enabled: true, hasFile: true },
+    { id: 35, title: "Hunde", enabled: true, hasFile: true },
+    { id: 36, title: "schnelle Wasserfahrzeuge", enabled: true, hasFile: true },
+    { id: 37, title: "ein paar Tage in Berlin", enabled: true, hasFile: true },
+    { id: 38, title: "ein paar Tage in Berlin (معدل)", enabled: true, hasFile: true },
+    { id: 39, title: "Autos", enabled: true, hasFile: true },
+    { id: 40, title: "Möbel", enabled: true, hasFile: true },
+    { id: 41, title: "Geschäftsreisen", enabled: true, hasFile: true }
+  ],
   sprach1: [
     { id: 1, title: "Hallo Ferdinand", enabled: true, hasFile: true },
     { id: 2, title: "Hallo Ferdinand (معدل)", enabled: true, hasFile: true },
@@ -408,76 +624,83 @@ const examsDatabase = {
     { id: 18, title: "Sehr geehrter Herr Dr. Dobromil", enabled: true, hasFile: true },
     { id: 19, title: "Liebe Lina, lieber Florian", enabled: true, hasFile: true },
     { id: 20, title: "Liebes Julian", enabled: true, hasFile: true },
-    { id: 21, title: "Liebe Meike", enabled: true, hasFile: true },
-    { id: 22, title: "Liebe Corinna (معدل)", enabled: true, hasFile: true },
+    { id: 21, title: "Liebes Julian (معدل)", enabled: true, hasFile: true },
+    { id: 22, title: "Liebe Meike", enabled: true, hasFile: true },
     { id: 23, title: "Liebe Corinna", enabled: true, hasFile: true },
-    { id: 24, title: "Liebe Ida", enabled: true, hasFile: true },
-    { id: 25, title: "Liebe Paola", enabled: true, hasFile: true },
-    { id: 26, title: "Liebe Jutta", enabled: true, hasFile: true },
-    { id: 27, title: "Liebe Familie Geissler", enabled: true, hasFile: true },
-    { id: 28, title: "Liebe Andrea", enabled: true, hasFile: true },
-    { id: 29, title: "Liebe Andrea (معدل)", enabled: true, hasFile: true },
-    { id: 30, title: "Hallo Maria", enabled: true, hasFile: true },
-    { id: 31, title: "Sehr geehrte Frau Szabo", enabled: true, hasFile: true },
-    { id: 32, title: "Sehr geehrte Frau Szabo (معدل)", enabled: true, hasFile: true },
-    { id: 33, title: "Lieber Igor", enabled: true, hasFile: true },
-    { id: 34, title: "Liebe Lara", enabled: true, hasFile: true },
-    { id: 35, title: "Lieber David", enabled: true, hasFile: true },
-    { id: 36, title: "Sehr geehrter Herr Wenzel", enabled: true, hasFile: true },
-    { id: 37, title: "Liebe Autorinnen und Autoren", enabled: true, hasFile: true },
-    { id: 38, title: "Liebe Clara", enabled: true, hasFile: true },
-    { id: 39, title: "Sehr geehrte Frau Melchior", enabled: true, hasFile: true },
-    { id: 40, title: "Liebe Sandra", enabled: true, hasFile: true },
-    { id: 41, title: "Liebe Anna(الجديد)", enabled: true, hasFile: true }
+    { id: 24, title: "Liebe Corinna (معدل)", enabled: true, hasFile: true },
+    { id: 25, title: "Liebe Ida", enabled: true, hasFile: true },
+    { id: 26, title: "Liebe Paola", enabled: true, hasFile: true },
+    { id: 27, title: "Liebe Jutta", enabled: true, hasFile: true },
+    { id: 28, title: "Liebe Familie Geissler", enabled: true, hasFile: true },
+    { id: 29, title: "Liebe Andrea", enabled: true, hasFile: true },
+    { id: 30, title: "Liebe Andrea (معدل)", enabled: true, hasFile: true },
+    { id: 31, title: "Hallo Maria", enabled: true, hasFile: true },
+    { id: 32, title: "Sehr geehrte Frau Szabo", enabled: true, hasFile: true },
+    { id: 33, title: "Sehr geehrte Frau Szabo (معدل)", enabled: true, hasFile: true },
+    { id: 34, title: "Lieber Igor", enabled: true, hasFile: true },
+    { id: 35, title: "Liebe Lara", enabled: true, hasFile: true },
+    { id: 36, title: "Lieber David", enabled: true, hasFile: true },
+    { id: 37, title: "Sehr geehrter Herr Wenzel", enabled: true, hasFile: true },
+    { id: 38, title: "Liebe Autorinnen und Autoren", enabled: true, hasFile: true },
+    { id: 39, title: "Liebe Clara", enabled: true, hasFile: true },
+    { id: 40, title: "Sehr geehrte Frau Melchior", enabled: true, hasFile: true },
+    { id: 41, title: "Liebe Sandra", enabled: true, hasFile: true },
+    { id: 42, title: "Liebe Sandra (معدل)", enabled: true, hasFile: true },
+    { id: 43, title: "Liebe Anna (الجديد)", enabled: true, hasFile: true },
+    { id: 44, title: "Hi Jens", enabled: true, hasFile: true }
   ],
   sprach2: [
     { id: 1, title: "Das Fahrrad", enabled: true, hasFile: true },
     { id: 2, title: "Das Fahrrad (معدل)", enabled: true, hasFile: true },
     { id: 3, title: "Man(n) kocht selbst", enabled: true, hasFile: true },
-    { id: 4, title: "Jugend diskutiert - mach mit!", enabled: true, hasFile: true },
-    { id: 5, title: "Theater für Kinder und Jugendliche", enabled: true, hasFile: true },
-    { id: 6, title: "Umgang mit Haustieren", enabled: true, hasFile: true },
-    { id: 7, title: "Liebesgrüße aus der Kühltruhe", enabled: true, hasFile: true },
-    { id: 8, title: "Liebesgrüße aus der Kühltruhe (معدل)", enabled: true, hasFile: true },
-    { id: 9, title: "Online-Sprachkurse", enabled: true, hasFile: true },
-    { id: 10, title: "Deutschland – ein Paradies für Kinder?", enabled: true, hasFile: true },
-    { id: 11, title: "Deutschland – ein Paradies für Kinder? (معدل 1)", enabled: true, hasFile: true },
-    { id: 12, title: "Deutschland – ein Paradies für Kinder? (معدل 2)", enabled: true, hasFile: true },
-    { id: 13, title: "Das Schicksal des Braunbären", enabled: true, hasFile: true },
-    { id: 14, title: "Das Schicksal des Braunbären (معدل)", enabled: true, hasFile: true },
-    { id: 15, title: "Was steckt hinter Bio?", enabled: true, hasFile: true },
-    { id: 16, title: "Was genau sind eigentlich Bio-Lebensmittel (معدل)", enabled: true, hasFile: true },
-    { id: 17, title: "Sicherer Schulweg", enabled: true, hasFile: true },
-    { id: 18, title: "Der Hund als intelligentes Wesen", enabled: true, hasFile: true },
-    { id: 19, title: "Die wichtigsten Regeln auf der Skipiste", enabled: true, hasFile: true },
-    { id: 20, title: "Kaffee und Kuchen – ein Stück Tradition", enabled: true, hasFile: true },
-    { id: 21, title: "Fische sind schlauer, als wir denken", enabled: true, hasFile: true },
-    { id: 22, title: "Schwarzarbeit kann teuer werden", enabled: true, hasFile: true },
-    { id: 23, title: "Schwarzarbeit kann teuer werden (معدل 1)", enabled: true, hasFile: true },
-    { id: 24, title: "Schwarzarbeit kann teuer werden (معدل 2)", enabled: true, hasFile: true },
-    { id: 25, title: "Teamarbeit als Schlüssel zum Erfolg", enabled: true, hasFile: true },
-    { id: 26, title: "Teamarbeit als Schlüssel zum Erfolg (معدل)", enabled: true, hasFile: true },
-    { id: 27, title: "Wie Handschrift wieder cool wird (معدل)", enabled: true, hasFile: true },
-    { id: 28, title: "Wie Handschrift wieder cool wird", enabled: true, hasFile: true },
-    { id: 29, title: "Ausbildung mit über 30", enabled: true, hasFile: true },
-    { id: 30, title: "Verlernen die Deutschen die Höflichkeit?", enabled: true, hasFile: true },
-    { id: 31, title: "Joggen: Mehr als nur Laufen", enabled: true, hasFile: true },
-    { id: 32, title: "Der klügste Freund des Menschen", enabled: true, hasFile: true },
-    { id: 33, title: "Der klügste Freund des Menschen (معدل)", enabled: true, hasFile: true },
-    { id: 34, title: "Manipulierte Bilder", enabled: true, hasFile: true },
-    { id: 35, title: "Maßgeschneidert nach Bodyscanning", enabled: true, hasFile: true },
-    { id: 36, title: "Maßgeschneidert nach Bodyscanning (معدل)", enabled: true, hasFile: true },
-    { id: 37, title: "Im Restaurant", enabled: true, hasFile: true },
-    { id: 38, title: "Im Restaurant (معدل)", enabled: true, hasFile: true },
-    { id: 39, title: "Lernen ist kein Privileg der Jugend", enabled: true, hasFile: true },
-    { id: 40, title: "Lernen ist kein Privileg der Jugend (معدل)", enabled: true, hasFile: true },
-    { id: 41, title: "Wie TV-Bilder die Fantasie von Kindern prägen", enabled: true, hasFile: true },
-    { id: 42, title: "Städte vor dem Infarkt", enabled: true, hasFile: true },
-    { id: 43, title: "Es ist erst 6 Uhr morgens", enabled: true, hasFile: true },
-    { id: 44, title: "Die Katzen", enabled: true, hasFile: true },
-    { id: 45, title: "Teleshopping – nicht immer gut und günstig", enabled: true, hasFile: true },
-    { id: 46, title: "Die Rückkehr des Nachtzugs", enabled: true, hasFile: true },
-    { id: 47, title: "Die Reise im Schlafwagen", enabled: true, hasFile: true }
+    { id: 4, title: "Man(n) kocht selbst (معدل)", enabled: true, hasFile: true },
+    { id: 5, title: "Jugend diskutiert - mach mit!", enabled: true, hasFile: true },
+    { id: 6, title: "Jugend diskutiert - mach mit! (معدل)", enabled: true, hasFile: true },
+    { id: 7, title: "Jugend diskutiert - mach mit! (معدل 2)", enabled: true, hasFile: true },
+    { id: 8, title: "Theater für Kinder und Jugendliche", enabled: true, hasFile: true },
+    { id: 9, title: "Theater für Kinder und Jugendliche (معدل)", enabled: true, hasFile: true },
+    { id: 10, title: "Umgang mit Haustieren", enabled: true, hasFile: true },
+    { id: 11, title: "Liebesgrüße aus der Kühltruhe", enabled: true, hasFile: true },
+    { id: 12, title: "Liebesgrüße aus der Kühltruhe (معدل)", enabled: true, hasFile: true },
+    { id: 13, title: "Online-Sprachkurse", enabled: true, hasFile: true },
+    { id: 14, title: "Deutschland – ein Paradies für Kinder?", enabled: true, hasFile: true },
+    { id: 15, title: "Deutschland – ein Paradies für Kinder? (معدل 1)", enabled: true, hasFile: true },
+    { id: 16, title: "Deutschland – ein Paradies für Kinder? (معدل 2)", enabled: true, hasFile: true },
+    { id: 17, title: "Das Schicksal des Braunbären", enabled: true, hasFile: true },
+    { id: 18, title: "Das Schicksal des Braunbären (معدل)", enabled: true, hasFile: true },
+    { id: 19, title: "Was steckt hinter Bio?", enabled: true, hasFile: true },
+    { id: 20, title: "Was steckt hinter Bio? (معدل)", enabled: true, hasFile: true },
+    { id: 21, title: "Sicherer Schulweg", enabled: true, hasFile: true },
+    { id: 22, title: "Der Hund als intelligentes Wesen", enabled: true, hasFile: true },
+    { id: 23, title: "Die wichtigsten Regeln auf der Skipiste", enabled: true, hasFile: true },
+    { id: 24, title: "Kaffee und Kuchen – ein Stück Tradition", enabled: true, hasFile: true },
+    { id: 25, title: "Fische sind schlauer, als wir denken", enabled: true, hasFile: true },
+    { id: 26, title: "Schwarzarbeit kann teuer werden", enabled: true, hasFile: true },
+    { id: 27, title: "Schwarzarbeit kann teuer werden (معدل 1)", enabled: true, hasFile: true },
+    { id: 28, title: "Schwarzarbeit kann teuer werden (معدل 2)", enabled: true, hasFile: true },
+    { id: 29, title: "Teamarbeit als Schlüssel zum Erfolg", enabled: true, hasFile: true },
+    { id: 30, title: "Wie Handschrift wieder cool wird", enabled: true, hasFile: true },
+    { id: 31, title: "Wie Handschrift wieder cool wird (معدل)", enabled: true, hasFile: true },
+    { id: 32, title: "Ausbildung mit über 30", enabled: true, hasFile: true },
+    { id: 33, title: "Verlernen die Deutschen die Höflichkeit?", enabled: true, hasFile: true },
+    { id: 34, title: "Joggen: Mehr als nur Laufen", enabled: true, hasFile: true },
+    { id: 35, title: "Der klügste Freund des Menschen", enabled: true, hasFile: true },
+    { id: 36, title: "Der klügste Freund des Menschen (معدل)", enabled: true, hasFile: true },
+    { id: 37, title: "Manipulierte Bilder", enabled: true, hasFile: true },
+    { id: 38, title: "Maßgeschneidert nach Bodyscanning", enabled: true, hasFile: true },
+    { id: 39, title: "Maßgeschneidert nach Bodyscanning (معدل)", enabled: true, hasFile: true },
+    { id: 40, title: "Im Restaurant", enabled: true, hasFile: true },
+    { id: 41, title: "Im Restaurant (معدل)", enabled: true, hasFile: true },
+    { id: 42, title: "Lernen ist kein Privileg der Jugend", enabled: true, hasFile: true },
+    { id: 43, title: "Lernen ist kein Privileg der Jugend (معدل)", enabled: true, hasFile: true },
+    { id: 44, title: "Wie TV-Bilder die Fantasie von Kindern prägen", enabled: true, hasFile: true },
+    { id: 45, title: "Städte vor dem Infarkt", enabled: true, hasFile: true },
+    { id: 46, title: "Obst und Gemüse", enabled: true, hasFile: true },
+    { id: 47, title: "Die Katzen", enabled: true, hasFile: true },
+    { id: 48, title: "Teleshopping", enabled: true, hasFile: true },
+    { id: 49, title: "Die Rückkehr des Nachtzugs", enabled: true, hasFile: true },
+    { id: 50, title: "Die Reise im Schlafwagen", enabled: true, hasFile: true },
+    { id: 51, title: "Garten in der Stadt", enabled: true, hasFile: true }
   ],
   hoeren1: [
     { id: 1, title: "Die Deutsche Lufthansa", enabled: true, hasFile: true },
@@ -579,9 +802,9 @@ const examsDatabase = {
     { id: 50, title: "Thomas", enabled: true, hasFile: true },
     { id: 51, title: "Frau Kiddar 3", enabled: true, hasFile: true },
     { id: 52, title: "Bio-Essen: Obst, Gemüse und Lieferung", enabled: true, hasFile: true },
-  { id: 53, title: "Influencerin - Maria im Interview", enabled: true, hasFile: true },
-  { id: 54, title: "Vom Marktstand zum eigenen Geschäft", enabled: true, hasFile: true },
-  { id: 55, title: "Interview mit Bauingenieur - Herr Böhm", enabled: true, hasFile: true }
+    { id: 53, title: "Influencerin - Maria im Interview", enabled: true, hasFile: true },
+    { id: 54, title: "Vom Marktstand zum eigenen Geschäft", enabled: true, hasFile: true },
+    { id: 55, title: "Interview mit Bauingenieur - Herr Böhm", enabled: true, hasFile: true }
   ],
   hoeren3: [
     { id: 1, title: "Telefon", enabled: true, hasFile: true },
@@ -661,7 +884,6 @@ function renderTeileList() {
   if (!container) return;
   container.innerHTML = "";
   
-  // حاوية الأزرار (Tabs) - محاذاة لليسار
   container.style.cssText = `
     display: flex;
     flex-wrap: wrap;
@@ -692,14 +914,12 @@ function renderTeileList() {
       white-space: nowrap;
     `;
     
-    // Hover effect
     btn.onmouseenter = () => {
       if (!isActive) {
         btn.style.background = '#202534';
         btn.style.color = '#FFFFFF';
       }
     };
-    
     btn.onmouseleave = () => {
       if (!isActive) {
         btn.style.background = '#161922';
@@ -812,9 +1032,11 @@ async function renderExamListForSkill(skill, teilName) {
     }
   }
   
+  // ✅ تجميع الامتحانات حسب الاسم الأساسي
+  const groupedExams = groupExamsByTitle(targetExams);
   currentExamsList = targetExams;
   
-  if (targetExams.length === 0) {
+  if (Object.keys(groupedExams).length === 0) {
     container.innerHTML += '<div class="item" style="text-align:center; color:#999;">⚠️ لا توجد امتحانات متاحة حالياً في هذا الجزء</div>';
     return;
   }
@@ -822,46 +1044,51 @@ async function renderExamListForSkill(skill, teilName) {
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
   
-  for (let i = 0; i < targetExams.length; i++) {
-    const exam = targetExams[i];
-    const examNumber = exam.id;
-    // 🔴 التعديل: أول 6 امتحانات مفتوحة في الوضع المجاني
+  // ✅ عرض الامتحانات المجمعة
+  let groupIndex = 0;
+  for (let groupKey in groupedExams) {
+    const versions = groupedExams[groupKey];
+    const firstExam = versions[0];
+    const examNumber = firstExam.id;
     const isFreeExam = (examNumber <= 6);
+    const hasMultipleVersions = versions.length > 1;
     
     const div = document.createElement("div");
     div.className = "item";
+    div.style.cursor = "pointer";
     
     const titleSpan = document.createElement("span");
     titleSpan.className = "exam-title";
     
     if (skill === "tips") {
-      titleSpan.textContent = `${exam.title}`;
+      titleSpan.textContent = groupKey;
       titleSpan.style.textAlign = "center";
       titleSpan.style.display = "block";
       titleSpan.style.width = "100%";
     } else {
-      titleSpan.textContent = `${exam.id}: ${exam.title}`;
+      // ✅ عرض الاسم الأساسي فقط مع عدد النسخ
+      const versionCount = versions.length;
+      const versionText = versionCount > 1 ? ` (${versionCount} نسخ)` : '';
+      titleSpan.textContent = `${groupKey}${versionText}`;
     }
     
     div.appendChild(titleSpan);
     
-    displaySavedResult(targetSkill, exam.id, titleSpan, div);
+    // ✅ عرض النتيجة (من أول نسخة)
+    displaySavedResult(targetSkill, firstExam.id, titleSpan, div);
     
     if (!isPremium && !isFreeExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
       div.style.backgroundColor = "rgba(255,255,255,0.75)";
       div.style.border = "1px solid #e2e8f0";
       div.style.opacity = "1";
       div.style.transition = "all 0.25s ease";
-      div.style.cursor = "pointer";
       
       const rightSide = document.createElement("span");
       rightSide.className = "exam-right-icons";
-
       const premiumSpan = document.createElement("span");
       premiumSpan.className = "premium-badge";
       premiumSpan.innerHTML = "Premium";
       rightSide.appendChild(premiumSpan);
-      
       div.appendChild(rightSide);
       titleSpan.style.color = "#6b7280";
       titleSpan.style.transition = "color 0.25s ease";
@@ -871,39 +1098,47 @@ async function renderExamListForSkill(skill, teilName) {
         this.style.transform = "translateX(5px)";
         this.style.borderColor = "#60a5fa";
         titleSpan.style.color = "#4b5563";
-        if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
       };
-
       div.onmouseleave = function() {
         this.style.backgroundColor = "rgba(255,255,255,0.75)";
         this.style.transform = "translateX(0)";
         this.style.borderColor = "#e2e8f0";
         titleSpan.style.color = "#6b7280";
-        if (premiumSpan) premiumSpan.style.transform = "scale(1)";
       };
       
-      div.onclick = (function(title, id) {
-    return function() {
-        if (typeof window.showPremiumModal === 'function') {
-            window.showPremiumModal(title + " (" + id + ")");
-        } else {
+      div.onclick = (function(title) {
+        return function() {
+          if (typeof window.showPremiumModal === 'function') {
+            window.showPremiumModal(title);
+          } else {
             window.location.href = 'subscribe.html';
-        }
-    };
-})(exam.title, exam.id);
-    } else if (exam.hasFile) {
-      div.onclick = (function(id, title, skillPath) {
-        return function() { 
-          const actualSkill = skillPath || targetSkill;
-          openExam(id, title, actualSkill); 
+          }
         };
-      })(exam.id, exam.title, exam.skillPath || targetSkill);
+      })(groupKey);
+      
+    } else if (firstExam.hasFile) {
+      // ✅ عند الضغط - فتح النسخ أو الامتحان مباشرة
+      div.onclick = (function(versions, groupKey, targetSkill) {
+        return function() {
+          if (versions.length > 1) {
+            // ✅ عرض بطاقة اختيار النسخة
+            showVersionModal(groupKey, versions, targetSkill, isPremium);
+          } else {
+            // ✅ فتح الامتحان مباشرة
+            const exam = versions[0];
+            const actualSkill = exam.skillPath || targetSkill;
+            openExam(exam.id, exam.title, actualSkill);
+          }
+        };
+      })(versions, groupKey, targetSkill);
     } else {
       div.style.opacity = "0.6";
       div.style.backgroundColor = "#f8f9fa";
-      div.onclick = () => alert(`⚠️ الامتحان رقم ${exam.id} سيتم إضافته قريباً.`);
+      div.onclick = () => alert(`⚠️ الامتحان "${groupKey}" سيتم إضافته قريباً.`);
     }
+    
     container.appendChild(div);
+    groupIndex++;
   }
   
   setTimeout(setupLockedNextButton, 100);
@@ -916,14 +1151,12 @@ function setupLockedNextButton() {
   getUserStatusForExam().then(status => {
     const isPremium = (status === 'premium');
     
-    // احصل على الامتحان التالي
     const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
     const nextExam = currentExamsList[currentIndex + 1];
     
     if (nextExam) {
       const nextExamId = nextExam.id;
       
-      // فقط إذا كان الامتحان التالي أكبر من 6 والمستخدم ليس بريميوم
       if (!isPremium && nextExamId > 6 && nextBtn.style.display !== 'none') {
         nextBtn.style.position = "relative";
         nextBtn.style.paddingLeft = "35px";
@@ -939,27 +1172,23 @@ function setupLockedNextButton() {
         nextBtn.style.backgroundColor = "#b0bec5";
         nextBtn.style.opacity = "0.8";
         
-        // تغيير وظيفة الزر لمنع الانتقال
         nextBtn.onclick = function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (typeof window.showPremiumModal === 'function') {
-        window.showPremiumModal(nextExam.title + " (" + nextExamId + ")");
-    } else {
-        window.location.href = 'subscribe.html';
-    }
-    return false;
-};
-      } 
-      // إذا كان الامتحان التالي ضمن الـ 6 الأولى، دع الزر يعمل بشكل طبيعي
-      else if (isPremium || nextExamId <= 6) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof window.showPremiumModal === 'function') {
+            window.showPremiumModal(nextExam.title + " (" + nextExamId + ")");
+          } else {
+            window.location.href = 'subscribe.html';
+          }
+          return false;
+        };
+      } else if (isPremium || nextExamId <= 6) {
         const lockIcon = nextBtn.querySelector('.next-lock-icon');
         if (lockIcon) lockIcon.remove();
         nextBtn.style.backgroundColor = "";
         nextBtn.style.opacity = "1";
         nextBtn.style.paddingLeft = "";
         
-        // استعادة الوظيفة الأصلية للزر
         nextBtn.onclick = () => {
           openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
         };
@@ -992,18 +1221,16 @@ async function openExam(examId, examTitle, skill) {
   // ===== فحص الوصول للامتحان =====
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
-  const maxFreeExamId = 6; // أول 6 امتحانات مجانية للمستخدمين غير المدفوعين
+  const maxFreeExamId = 6;
   
-  // إذا كان المستخدم ليس بريميوم والامتحان المطلوب أكبر من 6، اظهر القفل
- if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
+  if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
     if (typeof window.showPremiumModal === 'function') {
-        window.showPremiumModal(examTitle + " (" + examId + ")");
+      window.showPremiumModal(examTitle + " (" + examId + ")");
     } else {
-        window.location.href = 'subscribe.html';
+      window.location.href = 'subscribe.html';
     }
     return;
-}
-  // ===== نهاية فحص الوصول =====
+  }
   
   console.log("🔍 openExam parameters:", { examId, examTitle, skill });
   
@@ -1107,33 +1334,24 @@ async function openExam(examId, examTitle, skill) {
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
   if (currentSkill) {
-    // إذا كان skill هو mündlich1
     if (currentSkill === "mündlich1") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich1", "Mündlich - Teil 1 📖");
-    } 
-    // إذا كان skill هو mündlich2
-    else if (currentSkill === "mündlich2") {
+    } else if (currentSkill === "mündlich2") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich2", "Mündlich - Teil 2 🗣️");
-    }
-    // إذا كان skill هو mündlich3
-    else if (currentSkill === "mündlich3") {
+    } else if (currentSkill === "mündlich3") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich3", "Mündlich - Teil 3 🎯");
-    }
-    // لأي مündlich آخر (احتياطي)
-    else if (currentSkill.startsWith('mündlich')) {
+    } else if (currentSkill.startsWith('mündlich')) {
       renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
-    }
-    // لبقية الأقسام (Hören, Lesen, Sprachbausteine, Schreiben, Tips)
-    else {
+    } else {
       const teil = teile.find(t => t.skill === currentSkill);
       if (teil) {
         document.getElementById("home").classList.remove("active");
@@ -1395,7 +1613,6 @@ function updateExamNavButtons() {
   
   if (hasNext) {
     nextBtn.style.display = "inline-block";
-    // تعيين onclick مؤقتاً، سيتم تحديثه في setupLockedNextButton
     nextBtn.onclick = () => {
       const nextExam = currentExamsList[currentIndex + 1];
       openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
@@ -1427,7 +1644,6 @@ function goList() {
   
   renderTeileList();
   
-  // عرض امتحانات Hören Teil 1 مباشرة
   setTimeout(() => {
     const examsContainer = document.getElementById("examsList");
     if (examsContainer) {
@@ -1599,7 +1815,6 @@ renderTeileList();
         }, 100);
     }
 })();
-
 
 console.log("✅ exams.js تم تحميله بنجاح");
 console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
