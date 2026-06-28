@@ -666,9 +666,10 @@ function checkSprach2Exam() {
     resultDiv.style.color = "#721c24";
   }
   
-  // ✅ حفظ النتيجة في localStorage
+  // ✅ حفظ النتيجة مع examId الصحيح
   if (typeof window.saveExamResultGlobal === "function") {
-    window.saveExamResultGlobal("sprach2", currentSprach2Data.id || 1, parseFloat(finalScore));
+    const examId = currentSprach2Data.id || window.currentExamId || 1;
+    window.saveExamResultGlobal("sprach2", examId, parseFloat(finalScore));
   }
 }
 
@@ -1059,9 +1060,10 @@ function checkSprach1Exam() {
     resultDiv.style.color = "#721c24";
   }
   
-  // ✅ حفظ النتيجة في localStorage
+  // ✅ حفظ النتيجة مع examId الصحيح
   if (typeof window.saveExamResultGlobal === "function") {
-    window.saveExamResultGlobal("sprach1", currentSprach1Data.id || 1, parseFloat(finalScore));
+    const examId = currentSprach1Data.id || window.currentExamId || 1;
+    window.saveExamResultGlobal("sprach1", examId, parseFloat(finalScore));
   }
 }
 
@@ -1603,9 +1605,10 @@ function checkMatchingExam() {
     resultDiv.style.color = "#721c24";
   }
 
-  // ✅ حفظ النتيجة في localStorage
+  // ✅ حفظ النتيجة مع examId الصحيح
   if (typeof window.saveExamResultGlobal === "function") {
-    window.saveExamResultGlobal("lesen1", currentMatchingExamData.id || 1, parseFloat(finalScore));
+    const examId = currentMatchingExamData.id || window.currentExamId || 1;
+    window.saveExamResultGlobal("lesen1", examId, parseFloat(finalScore));
   }
 }
 
@@ -1870,9 +1873,10 @@ function checkTeil2Exam() {
     resultDiv.style.color = "#721c24";
   }
   
-  // ✅ حفظ النتيجة في localStorage
+  // ✅ حفظ النتيجة مع examId الصحيح
   if (typeof window.saveExamResultGlobal === "function") {
-    window.saveExamResultGlobal("lesen2", currentTeil2Data.id || 1, parseFloat(finalScore));
+    const examId = currentTeil2Data.id || window.currentExamId || 1;
+    window.saveExamResultGlobal("lesen2", examId, parseFloat(finalScore));
   }
 }
 
@@ -2388,9 +2392,10 @@ function checkTeil3Exam() {
     resultDiv.style.color = "#721c24";
   }
 
-  // ✅ حفظ النتيجة في localStorage
+  // ✅ حفظ النتيجة مع examId الصحيح
   if (typeof window.saveExamResultGlobal === "function") {
-    window.saveExamResultGlobal("lesen3", currentTeil3Data.id || 1, parseFloat(finalScore));
+    const examId = currentTeil3Data.id || window.currentExamId || 1;
+    window.saveExamResultGlobal("lesen3", examId, parseFloat(finalScore));
   }
 }
 
