@@ -1,7 +1,6 @@
 // ============================================
-// exams.js - نظام الامتحانات المتكامل (نسخة محسنة وسريعة)
+// exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
 // ============================================
-
 const teile = [
   { id: 1, name: "Hören 1", container: "hoeren1", skill: "hoeren1" },
   { id: 2, name: "Hören 2", container: "hoeren2", skill: "hoeren2" },
@@ -16,44 +15,46 @@ const teile = [
   { id: 11, name: "Tipps", container: "tips", skill: "tips" }
 ];
 
-// ========== التخزين المؤقت للنتائج ==========
-const resultCache = {};
-
+// ========== دالة حفظ آخر نتيجة ==========
 function saveExamResult(skill, examId, score) {
   try {
     const key = `exam_result_${skill}_${examId}`;
     localStorage.setItem(key, score.toString());
-    resultCache[key] = score;
+    console.log(`✅ تم حفظ النتيجة ${score} لـ ${skill} ${examId}`);
   } catch(e) {
     console.error("❌ خطأ في حفظ النتيجة:", e);
   }
 }
 
+// ========== دالة استرجاع آخر نتيجة ==========
 function getExamResult(skill, examId) {
   try {
     const key = `exam_result_${skill}_${examId}`;
-    if (resultCache[key] !== undefined) return resultCache[key];
     const result = localStorage.getItem(key);
-    const score = result ? parseFloat(result) : null;
-    resultCache[key] = score;
-    return score;
+    return result ? parseFloat(result) : null;
   } catch(e) {
+    console.error("❌ خطأ في استرجاع النتيجة:", e);
     return null;
   }
 }
 
+// ========== دالة الحصول على لون النتيجة ==========
 function getResultColor(score) {
   if (score === 25) return "#17a2b8";
   if (score >= 15) return "#28a745";
   return "#adb5bd";
 }
 
+// ========== دالة عرض النتيجة بجانب عنوان الامتحان (معدلة للهواتف) ==========
 function createResultBadge(score) {
   if (score === null) return null;
-  const isMobile = window.innerWidth <= 768;
+  
   const badge = document.createElement("span");
   badge.className = "exam-result-badge";
   badge.textContent = `${score} / 25`;
+  
+  // الكشف عن الهاتف وجعل الحجم أصغر
+  const isMobile = window.innerWidth <= 768;
   badge.style.cssText = `
     font-size: ${isMobile ? '8px' : '11px'};
     font-weight: bold;
@@ -65,18 +66,21 @@ function createResultBadge(score) {
     display: inline-block;
     min-width: ${isMobile ? '40px' : '55px'};
     text-align: center;
-    flex-shrink: 0;
   `;
   return badge;
 }
 
+// ========== عرض بطاقة Premium Access ==========
 function showLockedMessage(examTitle) {
-  if (typeof window.showPremiumModal === 'function') {
-    window.showPremiumModal(examTitle);
-  } else {
-    window.location.href = 'subscribe.html';
-  }
+    // ✅ استخدام showPremiumModal من auth.js
+    if (typeof window.showPremiumModal === 'function') {
+        window.showPremiumModal(examTitle);
+    } else {
+        // حل احتياطي: توجيه إلى صفحة الاشتراك
+        window.location.href = 'subscribe.html';
+    }
 }
+
 
 let currentExamData = null;
 let currentSkill = "lesen1";
@@ -85,42 +89,43 @@ let currentExamsList = [];
 let currentMündlichPart = 2;
 let userStatusCache = null;
 let lastStatusCheck = 0;
-let examsListCache = {};
-let isRendering = false;
-
-// ========== التحقق من حالة المستخدم مع تخزين مؤقت ==========
+// ========== دوال التحقق من حالة المستخدم ==========
 async function getUserStatusForExam() {
-  const email = localStorage.getItem('zertiva_email');
-  if (!email) return 'guest';
-  
-  const now = Date.now();
-  if (userStatusCache && (now - lastStatusCheck) < 5000) {
-    return userStatusCache;
-  }
-  
-  try {
-    const result = await checkUser(email);
-    if (result && result.exists && result.expiry) {
-      const today = new Date().toISOString().slice(0,10);
-      if (today <= result.expiry) {
-        userStatusCache = 'premium';
-        lastStatusCheck = now;
-        return 'premium';
-      }
+    let email = localStorage.getItem('zertiva_email');
+    if (!email) return 'guest';
+    
+    let now = Date.now();
+    if (userStatusCache && (now - lastStatusCheck) < 5000) {
+        return userStatusCache;
     }
-    userStatusCache = 'free';
-    lastStatusCheck = now;
-    return 'free';
-  } catch(e) {
-    userStatusCache = 'free';
-    lastStatusCheck = now;
-    return 'free';
-  }
+    
+    try {
+        // ✅ فقط من Google Sheets
+        const result = await checkUser(email);
+        if (result && result.exists && result.expiry) {
+            let today = new Date().toISOString().slice(0,10);
+            if (today <= result.expiry) {
+                userStatusCache = 'premium';
+                lastStatusCheck = now;
+                return 'premium';
+            }
+        }
+        userStatusCache = 'free';
+        lastStatusCheck = now;
+        return 'free';
+    } catch(e) {
+        userStatusCache = 'free';
+        lastStatusCheck = now;
+        return 'free';
+    }
 }
 
-// ========== تعريفات الامتحانات ==========
-const tipsExams = [{ id: 1, title: "كيفاش تنجح بدكاء", enabled: true, hasFile: true }];
+// ========== قائمة Tips (نصائح) ==========
+const tipsExams = [
+  { id: 1, title: "كيفاش تنجح بدكاء", enabled: true, hasFile: true }
+];
 
+// ========== قائمة امتحانات Lesen Teil 1 ==========
 const lesenExams = [
   { id: 1, title: "Jugend Forscher", enabled: true, hasFile: true },
   { id: 2, title: "sport ist gesund", enabled: true, hasFile: true },
@@ -169,9 +174,17 @@ const lesenExams = [
   { id: 45, title: "Frauen im Arbeitsmarkt", enabled: true, hasFile: true },
   { id: 46, title: "Baby TV", enabled: true, hasFile: true },
   { id: 47, title: "Bäder", enabled: true, hasFile: true },
-  { id: 48, title: "Farben", enabled: true, hasFile: true }
+  { id: 48, title: "Farben", enabled: true, hasFile: true },
+  { id: 49, title: "Wetter", enabled: true, hasFile: true },
+  { id: 50, title: "Computer", enabled: true, hasFile: true },
+  { id: 51, title: "Nordsee", enabled: true, hasFile: true },
+  { id: 52, title: "Autos", enabled: true, hasFile: true },
+  { id: 53, title: "Evolution", enabled: true, hasFile: true },
+  { id: 54, title: "Gedächtnis", enabled: true, hasFile: true },
+  { id: 55, title: "Wohnen", enabled: true, hasFile: true }
 ];
 
+// ========== قائمة امتحانات Schreiben ==========
 const schreibenExams = [
   { id: 1, title: "Fotobuch", enabled: true, hasFile: true },
   { id: 2, title: "Abenteuer TIKKI TAKKA", enabled: true, hasFile: true },
@@ -211,7 +224,12 @@ const schreibenExams = [
   { id: 36, title: "Nachbarschaft.net", enabled: true, hasFile: true }
 ];
 
-const mündlich1Exams = [{ id: 1, title: "قدم نفسك وتكلم عن موضوع اخترته", enabled: true, hasFile: true, skillPath: "mündlich1" }];
+// ========== قائمة امتحانات Mündlich Teil 1 (دليل تعريفي) ==========
+const mündlich1Exams = [
+  { id: 1, title: "قدم نفسك وتكلم عن موضوع اخترته", enabled: true, hasFile: true, skillPath: "mündlich1" }
+];
+
+// ========== قائمة امتحانات Mündlich Teil 2 (الامتحانات الفعلية) ==========
 const mündlich2Exams = [
   { id: 1, title: "Antibiotika – Gibt es Alternativen?", enabled: true, hasFile: true, skillPath: "mündlich2" },
   { id: 2, title: "Selbst gekocht", enabled: true, hasFile: true, skillPath: "mündlich2" },
@@ -256,8 +274,13 @@ const mündlich2Exams = [
   { id: 41, title: "Teilzeitarbeit für Männer", enabled: true, hasFile: true, skillPath: "mündlich2" },
   { id: 42, title: "Nahrungsergänzungsmittel", enabled: true, hasFile: true, skillPath: "mündlich2" }
 ];
-const mündlich3Exams = [{ id: 1, title: "Problemlösung", enabled: true, hasFile: true, skillPath: "mündlich3" }];
 
+// ========== قائمة امتحانات Mündlich Teil 3 (دليل المشكلات) ==========
+const mündlich3Exams = [
+  { id: 1, title: "Problemlösung", enabled: true, hasFile: true, skillPath: "mündlich3" }
+];
+
+// أسماء الملفات الحقيقية
 const actualFileNames = {
   1: "exam1.json", 2: "exam2.json", 3: "exam3.json",
   4: "exam4.json", 5: "exam5.json", 6: "exam6.json",
@@ -290,6 +313,7 @@ const actualFileNames = {
   85: "exam85.json", 86: "exam86.json"
 };
 
+// ========== قاعدة بيانات الامتحانات ==========
 const examsDatabase = {
   lesen1: lesenExams,
   lesen2: [
@@ -331,45 +355,45 @@ const examsDatabase = {
     { id: 36, title: "Nachtzug (معدل)", enabled: true, hasFile: true },
     { id: 37, title: "Wie zwei US-Teenager Millionäre wurden", enabled: true, hasFile: true }
   ],
-  lesen3: [
-    { id: 1, title: "Filme - Fernsehprogramme", enabled: true, hasFile: true },
-    { id: 2, title: "Filme - Fernsehprogramme (معدل)", enabled: true, hasFile: true },
-    { id: 3, title: "Im Katalog eines Buchversands", enabled: true, hasFile: true },
-    { id: 4, title: "kein Zeit", enabled: true, hasFile: true },
-    { id: 5, title: "kein Zeit (معدل)", enabled: true, hasFile: true },
-    { id: 6, title: "Musik - spielt Gitarre", enabled: true, hasFile: true },
-    { id: 7, title: "Die schwangere Frau", enabled: true, hasFile: true },
-    { id: 8, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true },
-    { id: 9, title: "Unterstützung in Mathematik", enabled: true, hasFile: true },
-    { id: 10, title: "Ganztagesausflug", enabled: true, hasFile: true },
-    { id: 11, title: "Ihren Eltern zur Silberhochzeit", enabled: true, hasFile: true },
-    { id: 12, title: "Rechtsanwalt", enabled: true, hasFile: true },
-    { id: 13, title: "Rechtsanwalt (معدل)", enabled: true, hasFile: true },
-    { id: 14, title: "Au-pair Mädchen", enabled: true, hasFile: true },
-    { id: 15, title: "Hautprobleme", enabled: true, hasFile: true },
-    { id: 16, title: "Eine Bekannte ist schwanger", enabled: true, hasFile: true },
-    { id: 17, title: "Die Tochter einer Bekannten wird vier Jahre alt", enabled: true, hasFile: true },
-    { id: 18, title: "Tierdokumentationen", enabled: true, hasFile: true },
-    { id: 19, title: "Aufräumen", enabled: true, hasFile: true },
-    { id: 20, title: "Erholung und Reisen", enabled: true, hasFile: true },
-    { id: 21, title: "Sport", enabled: true, hasFile: true },
-    { id: 22, title: "Sport (معدل)", enabled: true, hasFile: true },
-    { id: 23, title: "Wein und Insekten", enabled: true, hasFile: true },
-    { id: 24, title: "Reiseführer", enabled: true, hasFile: true },
-    { id: 25, title: "Gartenbau", enabled: true, hasFile: true },
-    { id: 26, title: "Haushaltshilfe", enabled: true, hasFile: true },
-    { id: 27, title: "Einwanderung", enabled: true, hasFile: true },
-    { id: 28, title: "Musikinstrumente", enabled: true, hasFile: true },
-    { id: 29, title: "Musikinstrumente (معدل)", enabled: true, hasFile: true },
-    { id: 30, title: "Arbeitsorganisation", enabled: true, hasFile: true },
-    { id: 31, title: "Hunde", enabled: true, hasFile: true },
-    { id: 32, title: "schnelle Wasserfahrzeuge", enabled: true, hasFile: true },
-    { id: 33, title: "ein paar Tage in Berlin", enabled: true, hasFile: true },
-    { id: 34, title: "ein paar Tage in Berlin (معدل)", enabled: true, hasFile: true },
-    { id: 35, title: "Autos", enabled: true, hasFile: true },
-    { id: 36, title: "Möbel für die neue Wohnung", enabled: true, hasFile: true },
-    { id: 37, title: "Geschäftsreisen - رحلات العمل", enabled: true, hasFile: true }
-  ],
+ lesen3: [
+  { id: 1, title: "Filme - Fernsehprogramme", enabled: true, hasFile: true },
+  { id: 2, title: "Filme - Fernsehprogramme (معدل)", enabled: true, hasFile: true },
+  { id: 3, title: "Im Katalog eines Buchversands", enabled: true, hasFile: true },
+  { id: 4, title: "kein Zeit", enabled: true, hasFile: true },
+  { id: 5, title: "kein Zeit (معدل)", enabled: true, hasFile: true },
+  { id: 6, title: "Musik - spielt Gitarre", enabled: true, hasFile: true },
+  { id: 7, title: "Die schwangere Frau", enabled: true, hasFile: true },
+  { id: 8, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true },
+  { id: 9, title: "Unterstützung in Mathematik", enabled: true, hasFile: true },
+  { id: 10, title: "Ganztagesausflug", enabled: true, hasFile: true },
+  { id: 11, title: "Ihren Eltern zur Silberhochzeit", enabled: true, hasFile: true },
+  { id: 12, title: "Rechtsanwalt", enabled: true, hasFile: true },
+  { id: 13, title: "Rechtsanwalt (معدل)", enabled: true, hasFile: true },
+  { id: 14, title: "Au-pair Mädchen", enabled: true, hasFile: true },
+  { id: 15, title: "Hautprobleme", enabled: true, hasFile: true },
+  { id: 16, title: "Eine Bekannte ist schwanger", enabled: true, hasFile: true },
+  { id: 17, title: "Die Tochter einer Bekannten wird vier Jahre alt", enabled: true, hasFile: true },
+  { id: 18, title: "Tierdokumentationen", enabled: true, hasFile: true },
+  { id: 19, title: "Aufräumen", enabled: true, hasFile: true },
+  { id: 20, title: "Erholung und Reisen", enabled: true, hasFile: true },
+  { id: 21, title: "Sport", enabled: true, hasFile: true },
+  { id: 22, title: "Sport (معدل)", enabled: true, hasFile: true },
+  { id: 23, title: "Wein und Insekten", enabled: true, hasFile: true },
+  { id: 24, title: "Reiseführer", enabled: true, hasFile: true },
+  { id: 25, title: "Gartenbau", enabled: true, hasFile: true },
+  { id: 26, title: "Haushaltshilfe", enabled: true, hasFile: true },
+  { id: 27, title: "Einwanderung", enabled: true, hasFile: true },
+  { id: 28, title: "Musikinstrumente", enabled: true, hasFile: true },
+  { id: 29, title: "Musikinstrumente (معدل)", enabled: true, hasFile: true },
+  { id: 30, title: "Arbeitsorganisation", enabled: true, hasFile: true },
+  { id: 31, title: "Hunde", enabled: true, hasFile: true },
+  { id: 32, title: "schnelle Wasserfahrzeuge", enabled: true, hasFile: true },
+  { id: 33, title: "ein paar Tage in Berlin", enabled: true, hasFile: true },
+  { id: 34, title: "ein paar Tage in Berlin (معدل)", enabled: true, hasFile: true },
+  { id: 35, title: "Autos", enabled: true, hasFile: true },
+  { id: 36, title: "Möbel für die neue Wohnung", enabled: true, hasFile: true },
+  { id: 37, title: "Geschäftsreisen - رحلات العمل", enabled: true, hasFile: true }
+],
   sprach1: [
     { id: 1, title: "Hallo Ferdinand", enabled: true, hasFile: true },
     { id: 2, title: "Hallo Ferdinand (معدل)", enabled: true, hasFile: true },
@@ -562,9 +586,9 @@ const examsDatabase = {
     { id: 50, title: "Thomas", enabled: true, hasFile: true },
     { id: 51, title: "Frau Kiddar 3", enabled: true, hasFile: true },
     { id: 52, title: "Bio-Essen: Obst, Gemüse und Lieferung", enabled: true, hasFile: true },
-    { id: 53, title: "Influencerin - Maria im Interview", enabled: true, hasFile: true },
-    { id: 54, title: "Vom Marktstand zum eigenen Geschäft", enabled: true, hasFile: true },
-    { id: 55, title: "Interview mit Bauingenieur - Herr Böhm", enabled: true, hasFile: true }
+  { id: 53, title: "Influencerin - Maria im Interview", enabled: true, hasFile: true },
+  { id: 54, title: "Vom Marktstand zum eigenen Geschäft", enabled: true, hasFile: true },
+  { id: 55, title: "Interview mit Bauingenieur - Herr Böhm", enabled: true, hasFile: true }
   ],
   hoeren3: [
     { id: 1, title: "Telefon", enabled: true, hasFile: true },
@@ -624,8 +648,8 @@ const examsDatabase = {
   tips: tipsExams
 };
 
-// ========== عرض النتيجة المحفوظة ==========
-function displaySavedResult(skill, examId, titleSpan) {
+// ========== دالة عرض نتيجة محفوظة ==========
+function displaySavedResult(skill, examId, titleSpan, containerDiv) {
   const savedScore = getExamResult(skill, examId);
   if (savedScore !== null) {
     const badge = createResultBadge(savedScore);
@@ -639,12 +663,12 @@ function displaySavedResult(skill, examId, titleSpan) {
 
 let activeTeilId = null;
 
-// ========== عرض قائمة الأجزاء (Teile) - محسنة ==========
 function renderTeileList() {
   const container = document.getElementById("teileList");
   if (!container) return;
   container.innerHTML = "";
   
+  // حاوية الأزرار (Tabs) - محاذاة لليسار
   container.style.cssText = `
     display: flex;
     flex-wrap: wrap;
@@ -675,12 +699,14 @@ function renderTeileList() {
       white-space: nowrap;
     `;
     
+    // Hover effect
     btn.onmouseenter = () => {
       if (!isActive) {
         btn.style.background = '#202534';
         btn.style.color = '#FFFFFF';
       }
     };
+    
     btn.onmouseleave = () => {
       if (!isActive) {
         btn.style.background = '#161922';
@@ -700,7 +726,7 @@ function renderTeileList() {
   }
 }
 
-// ========== عرض أزرار التنقل بين أجزاء Mündlich ==========
+// وظيفة عرض أزرار التنقل بين أجزاء Mündlich
 function renderMündlichPartTabs() {
   const container = document.getElementById("examsList");
   if (!container) return;
@@ -761,26 +787,11 @@ function renderMündlichPartTabs() {
   container.insertBefore(tabsDiv, container.firstChild);
 }
 
-// ========== عرض قائمة الامتحانات - محسنة وسريعة ==========
 async function renderExamListForSkill(skill, teilName) {
-  if (isRendering) return;
-  isRendering = true;
-  
   currentSkill = skill;
+  
   const container = document.getElementById("examsList");
-  if (!container) {
-    isRendering = false;
-    return;
-  }
-  
-  // ✅ استخدام التخزين المؤقت
-  const cacheKey = `${skill}_${currentMündlichPart}`;
-  if (examsListCache[cacheKey]) {
-    container.innerHTML = examsListCache[cacheKey];
-    isRendering = false;
-    return;
-  }
-  
+  if (!container) return;
   container.innerHTML = "";
   
   if (skill === "mündlich1" || skill === "mündlich2" || skill === "mündlich3" || skill === "mündlich") {
@@ -812,19 +823,16 @@ async function renderExamListForSkill(skill, teilName) {
   
   if (targetExams.length === 0) {
     container.innerHTML += '<div class="item" style="text-align:center; color:#999;">⚠️ لا توجد امتحانات متاحة حالياً في هذا الجزء</div>';
-    isRendering = false;
     return;
   }
   
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
   
-  // ✅ إنشاء DocumentFragment لتجميع العناصر
-  const fragment = document.createDocumentFragment();
-  
   for (let i = 0; i < targetExams.length; i++) {
     const exam = targetExams[i];
     const examNumber = exam.id;
+    // 🔴 التعديل: أول 6 امتحانات مفتوحة في الوضع المجاني
     const isFreeExam = (examNumber <= 6);
     
     const div = document.createElement("div");
@@ -844,8 +852,7 @@ async function renderExamListForSkill(skill, teilName) {
     
     div.appendChild(titleSpan);
     
-    // ✅ عرض النتيجة المحفوظة
-    displaySavedResult(targetSkill, exam.id, titleSpan);
+    displaySavedResult(targetSkill, exam.id, titleSpan, div);
     
     if (!isPremium && !isFreeExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
       div.style.backgroundColor = "rgba(255,255,255,0.75)";
@@ -856,12 +863,15 @@ async function renderExamListForSkill(skill, teilName) {
       
       const rightSide = document.createElement("span");
       rightSide.className = "exam-right-icons";
+
       const premiumSpan = document.createElement("span");
       premiumSpan.className = "premium-badge";
       premiumSpan.innerHTML = "Premium";
       rightSide.appendChild(premiumSpan);
+      
       div.appendChild(rightSide);
       titleSpan.style.color = "#6b7280";
+      titleSpan.style.transition = "color 0.25s ease";
       
       div.onmouseenter = function() {
         this.style.backgroundColor = "rgba(255,255,255,0.95)";
@@ -870,6 +880,7 @@ async function renderExamListForSkill(skill, teilName) {
         titleSpan.style.color = "#4b5563";
         if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
       };
+
       div.onmouseleave = function() {
         this.style.backgroundColor = "rgba(255,255,255,0.75)";
         this.style.transform = "translateX(0)";
@@ -879,14 +890,14 @@ async function renderExamListForSkill(skill, teilName) {
       };
       
       div.onclick = (function(title, id) {
-        return function() {
-          if (typeof window.showPremiumModal === 'function') {
+    return function() {
+        if (typeof window.showPremiumModal === 'function') {
             window.showPremiumModal(title + " (" + id + ")");
-          } else {
+        } else {
             window.location.href = 'subscribe.html';
-          }
-        };
-      })(exam.title, exam.id);
+        }
+    };
+})(exam.title, exam.id);
     } else if (exam.hasFile) {
       div.onclick = (function(id, title, skillPath) {
         return function() { 
@@ -899,30 +910,27 @@ async function renderExamListForSkill(skill, teilName) {
       div.style.backgroundColor = "#f8f9fa";
       div.onclick = () => alert(`⚠️ الامتحان رقم ${exam.id} سيتم إضافته قريباً.`);
     }
-    fragment.appendChild(div);
+    container.appendChild(div);
   }
   
-  container.appendChild(fragment);
-  
-  // ✅ تخزين القائمة في الكاش
-  examsListCache[cacheKey] = container.innerHTML;
-  
-  isRendering = false;
-  setTimeout(setupLockedNextButton, 50);
+  setTimeout(setupLockedNextButton, 100);
 }
 
-// ========== باقي الدوال ==========
 function setupLockedNextButton() {
   const nextBtn = document.getElementById('nextExamBtn');
   if (!nextBtn) return;
   
   getUserStatusForExam().then(status => {
     const isPremium = (status === 'premium');
+    
+    // احصل على الامتحان التالي
     const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
     const nextExam = currentExamsList[currentIndex + 1];
     
     if (nextExam) {
       const nextExamId = nextExam.id;
+      
+      // فقط إذا كان الامتحان التالي أكبر من 6 والمستخدم ليس بريميوم
       if (!isPremium && nextExamId > 6 && nextBtn.style.display !== 'none') {
         nextBtn.style.position = "relative";
         nextBtn.style.paddingLeft = "35px";
@@ -938,22 +946,27 @@ function setupLockedNextButton() {
         nextBtn.style.backgroundColor = "#b0bec5";
         nextBtn.style.opacity = "0.8";
         
+        // تغيير وظيفة الزر لمنع الانتقال
         nextBtn.onclick = function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          if (typeof window.showPremiumModal === 'function') {
-            window.showPremiumModal(nextExam.title + " (" + nextExamId + ")");
-          } else {
-            window.location.href = 'subscribe.html';
-          }
-          return false;
-        };
-      } else if (isPremium || nextExamId <= 6) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof window.showPremiumModal === 'function') {
+        window.showPremiumModal(nextExam.title + " (" + nextExamId + ")");
+    } else {
+        window.location.href = 'subscribe.html';
+    }
+    return false;
+};
+      } 
+      // إذا كان الامتحان التالي ضمن الـ 6 الأولى، دع الزر يعمل بشكل طبيعي
+      else if (isPremium || nextExamId <= 6) {
         const lockIcon = nextBtn.querySelector('.next-lock-icon');
         if (lockIcon) lockIcon.remove();
         nextBtn.style.backgroundColor = "";
         nextBtn.style.opacity = "1";
         nextBtn.style.paddingLeft = "";
+        
+        // استعادة الوظيفة الأصلية للزر
         nextBtn.onclick = () => {
           openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
         };
@@ -971,7 +984,10 @@ function getTeilNameBySkill(skill) {
 }
 
 function getActualFileName(examId) {
-  return actualFileNames[examId] || `exam${examId}.json`;
+  if (actualFileNames[examId]) {
+    return actualFileNames[examId];
+  }
+  return `exam${examId}.json`;
 }
 
 function shouldHideHelpButton(skill) {
@@ -979,20 +995,22 @@ function shouldHideHelpButton(skill) {
   return hiddenSkills.includes(skill);
 }
 
-// ========== فتح الامتحان ==========
 async function openExam(examId, examTitle, skill) {
+  // ===== فحص الوصول للامتحان =====
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
-  const maxFreeExamId = 6;
+  const maxFreeExamId = 6; // أول 6 امتحانات مجانية للمستخدمين غير المدفوعين
   
-  if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
+  // إذا كان المستخدم ليس بريميوم والامتحان المطلوب أكبر من 6، اظهر القفل
+ if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
     if (typeof window.showPremiumModal === 'function') {
-      window.showPremiumModal(examTitle + " (" + examId + ")");
+        window.showPremiumModal(examTitle + " (" + examId + ")");
     } else {
-      window.location.href = 'subscribe.html';
+        window.location.href = 'subscribe.html';
     }
     return;
-  }
+}
+  // ===== نهاية فحص الوصول =====
   
   console.log("🔍 openExam parameters:", { examId, examTitle, skill });
   
@@ -1008,6 +1026,7 @@ async function openExam(examId, examTitle, skill) {
   }
   
   const fileName = getActualFileName(examId);
+  
   console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
   console.log("📁 اسم الملف:", fileName);
   console.log("📂 المسار الكامل:", `data/${skill}/${fileName}`);
@@ -1092,27 +1111,36 @@ async function openExam(examId, examTitle, skill) {
   }
 }
 
-// ========== العودة إلى قائمة الامتحانات ==========
+// دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
   if (currentSkill) {
+    // إذا كان skill هو mündlich1
     if (currentSkill === "mündlich1") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich1", "Mündlich - Teil 1 📖");
-    } else if (currentSkill === "mündlich2") {
+    } 
+    // إذا كان skill هو mündlich2
+    else if (currentSkill === "mündlich2") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich2", "Mündlich - Teil 2 🗣️");
-    } else if (currentSkill === "mündlich3") {
+    }
+    // إذا كان skill هو mündlich3
+    else if (currentSkill === "mündlich3") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich3", "Mündlich - Teil 3 🎯");
-    } else if (currentSkill.startsWith('mündlich')) {
+    }
+    // لأي مündlich آخر (احتياطي)
+    else if (currentSkill.startsWith('mündlich')) {
       renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
-    } else {
+    }
+    // لبقية الأقسام (Hören, Lesen, Sprachbausteine, Schreiben, Tips)
+    else {
       const teil = teile.find(t => t.skill === currentSkill);
       if (teil) {
         document.getElementById("home").classList.remove("active");
@@ -1128,7 +1156,7 @@ function goBackToExamsList() {
   }
 }
 
-// ========== عرض الامتحانات من نوع info ==========
+// وظيفة عرض الامتحانات من نوع info (Teil 1 و Teil 3)
 function renderInfoExam(examData) {
   let containerId = currentSkill;
   if (currentSkill === "mündlich1" || currentSkill === "mündlich3") {
@@ -1142,6 +1170,7 @@ function renderInfoExam(examData) {
   }
   
   container.innerHTML = "";
+  
   const content = examData.content;
   if (!content) {
     container.innerHTML = "<div class='error'>⚠️ لا يوجد محتوى للعرض</div>";
@@ -1196,13 +1225,45 @@ function renderInfoExam(examData) {
     html += `</div></div>`;
   }
   
-  // ... باقي الكود كما هو (groups, methodology, footerMessage)
-  // (تم اختصاره للطول، لكنه موجود في النسخة الكاملة)
+  if (content.groups) {
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 24px; margin-bottom: 40px;">`;
+    content.groups.forEach(group => {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef; display: flex; flex-direction: column;">
+          <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e66; margin-bottom: 12px;">${group.title}</div>
+          <div style="font-size: 0.85rem; color: #6c7a89; margin-bottom: 20px;">${group.topics}</div>
+          <button class="toggle-suggestions-btn" style="background: transparent; border: 1px solid #4a6fa5; padding: 8px 18px; border-radius: 30px; cursor: pointer; color: #4a6fa5; width: fit-content; margin-top: auto;" data-group="${group.id}">أمثلة →</button>
+          <div class="suggestions-content" data-group="${group.id}" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e8ecef;">
+            <ul style="list-style: none; padding: 0;">
+              ${group.suggestions.map((s, idx) => `<li style="background: #ffffff; padding: 10px 14px; margin-bottom: 8px; border-radius: 12px; border-right: 2px solid #cbd5e1;"><span style="font-weight: 600; color: #4a6fa5;">${idx+1}.</span> ${s}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+    
+    if (content.methodology) {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef;">
+          <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e66;">📌 ${content.methodology.title}</div>
+          <div style="font-size: 0.85rem; color: #6c7a89; margin: 12px 0;">${content.methodology.description}</div>
+          <button id="toggleDialogBtn" style="background: transparent; border: 1px solid #4a6fa5; padding: 8px 18px; border-radius: 30px; cursor: pointer; color: #4a6fa5;">مثال →</button>
+          <div id="dialogContent" style="display: none; margin-top: 16px; background: #ffffff; padding: 16px; border-radius: 16px; border: 1px solid #e8ecef;">
+            ${content.methodology.dialog.map(line => `<div style="margin-bottom: 12px;"><span style="font-weight: 700; color: #4a6fa5;">${line.speaker}:</span> ${line.text}</div>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+  }
+  
+  if (content.footerMessage) {
+    html += `<div style="text-align: center; padding: 20px; margin-top: 20px; border-top: 1px solid #e0e4e8;"><div style="font-size: 0.9rem; color: #5a6874; background: #ffffff; display: inline-block; padding: 10px 25px; border-radius: 40px; border: 1px solid #e0e4e8;">${content.footerMessage}</div></div>`;
+  }
   
   html += `</div>`;
   container.innerHTML = html;
   
-  // تفعيل أزرار toggle
   document.querySelectorAll('.toggle-suggestions-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const groupId = btn.getAttribute('data-group');
@@ -1228,7 +1289,6 @@ function renderInfoExam(examData) {
   }
 }
 
-// ========== عرض Tips ==========
 function renderTipsExam(examData) {
   const container = document.getElementById("tips");
   if (!container) return;
@@ -1267,7 +1327,6 @@ function renderTipsExam(examData) {
   }
 }
 
-// ========== عرض Mündlich ==========
 function renderMündlichExam(examData) {
   const container = document.getElementById("mündlich");
   if (!container) return;
@@ -1321,7 +1380,6 @@ function createMündlichCard(title, text) {
   return card;
 }
 
-// ========== تحديث أزرار التنقل ==========
 function updateExamNavButtons() {
   const prevBtn = document.getElementById("prevExamBtn");
   const nextBtn = document.getElementById("nextExamBtn");
@@ -1344,6 +1402,7 @@ function updateExamNavButtons() {
   
   if (hasNext) {
     nextBtn.style.display = "inline-block";
+    // تعيين onclick مؤقتاً، سيتم تحديثه في setupLockedNextButton
     nextBtn.onclick = () => {
       const nextExam = currentExamsList[currentIndex + 1];
       openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
@@ -1375,6 +1434,7 @@ function goList() {
   
   renderTeileList();
   
+  // عرض امتحانات Hören Teil 1 مباشرة
   setTimeout(() => {
     const examsContainer = document.getElementById("examsList");
     if (examsContainer) {
@@ -1385,10 +1445,9 @@ function goList() {
         examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
       }
     }
-  }, 30);
+  }, 50);
 }
 
-// ========== buildTeil1 و checkTeil1 ==========
 function buildTeil1(questions) {
   const container = document.getElementById("teil1");
   if (!container) return;
@@ -1496,19 +1555,23 @@ window.saveExamResultGlobal = function(skill, examId, score) {
   }
 };
 
-// ========== تهيئة الصفحة ==========
 document.addEventListener("DOMContentLoaded", function() {
   const startBtn = document.getElementById("startBtn");
   const backHomeBtn = document.getElementById("backHomeBtn");
   const backToListBtn = document.getElementById("backToListBtn");
   const backArrowFromExam = document.getElementById("backArrowFromExam");
   
-  if (startBtn) startBtn.onclick = function() { goList(); };
+  if (startBtn) startBtn.onclick = function() { 
+    goList();
+  };
+  
   if (backHomeBtn) backHomeBtn.onclick = function() { goHome(); };
   if (backToListBtn) backToListBtn.onclick = function() { goList(); };
   
   if (backArrowFromExam) {
-    backArrowFromExam.onclick = function() { goBackToExamsList(); };
+    backArrowFromExam.onclick = function() { 
+      goBackToExamsList();
+    };
   }
   
   const examsContainer = document.getElementById("examsList");
@@ -1521,30 +1584,31 @@ renderTeileList();
 
 // ========== إظهار امتحانات Hören 1 تلقائياً ==========
 (function() {
-  const originalGoList = goList;
-  
-  goList = function() {
-    originalGoList();
+    const originalGoList = goList;
     
-    setTimeout(function() {
-      const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
-      if (hoeren1Teil && document.getElementById("list").classList.contains("active")) {
-        renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
-      }
-    }, 100);
-  };
-  
-  if (document.getElementById("list").classList.contains("active")) {
-    setTimeout(function() {
-      const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
-      if (hoeren1Teil) {
-        renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
-      }
-    }, 50);
-  }
+    goList = function() {
+        originalGoList();
+        
+        setTimeout(function() {
+            const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+            if (hoeren1Teil && document.getElementById("list").classList.contains("active")) {
+                renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+            }
+        }, 150);
+    };
+    
+    if (document.getElementById("list").classList.contains("active")) {
+        setTimeout(function() {
+            const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+            if (hoeren1Teil) {
+                renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+            }
+        }, 100);
+    }
 })();
 
-console.log("✅ exams.js تم تحميله بنجاح (نسخة محسنة)");
+
+console.log("✅ exams.js تم تحميله بنجاح");
 console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
 console.log("📚 Lesen Teil 2:", examsDatabase.lesen2.length, "امتحان");
 console.log("📚 Lesen Teil 3:", examsDatabase.lesen3.length, "امتحان");
