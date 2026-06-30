@@ -4,6 +4,7 @@
  * ✅ Loading Spinner داخل الزر
  * ✅ Toast Notifications حديثة (أعلى الشاشة)
  * ✅ نظام Caching لتقليل طلبات API
+ * ✅ التحقق فقط عند فتح الموقع أو تحديثه
  */
 
 const WA_NUMBER = "212687561491";
@@ -800,28 +801,24 @@ function bindAuthEvents() {
 }
 
 // ============================================
-// تهيئة النظام - مع تحسين الأداء
+// تهيئة النظام - التحقق عند فتح الموقع فقط
 // ============================================
 
 async function initAuth() {
     bindAuthEvents();
     
-    // ✅ تحقق من الجلسة عند فتح الموقع فقط
-    await updateProfileDropdown();
+    // ✅ التحقق عند فتح الموقع فقط (مع forceRefresh)
+    await getUserStatus(true);
+    await updateProfileDropdown(true);
     await validateDevice(true);
     
-    // ✅ جدولة التحقق الدوري كل 10 دقائق
-    setInterval(async () => {
-        // تحقق من الجلسة بشكل دوري
-        await validateDevice(true);
-        // تحديث حالة المستخدم إذا تغيرت
-        const oldStatus = userStatusCache;
-        await getUserStatus(true);
-        if (oldStatus !== userStatusCache) {
-            await updateProfileDropdown(true);
-        }
-    }, 10 * 60 * 1000); // 10 دقائق
+    // ❌ تم إزالة setInterval - لا نريد تحقق دوري
+    // يتم التحقق فقط عند فتح الموقع أو تحديثه
 }
+
+// ============================================
+// التحقق من الجلسة
+// ============================================
 
 async function validateDevice(forceCheck = false) {
     const email = getLoggedInEmail();
@@ -832,7 +829,7 @@ async function validateDevice(forceCheck = false) {
     // ✅ إذا تم التحقق مسبقاً وليس هناك طلب قسري، استخدم الكاش
     if (sessionChecked && !forceCheck) return true;
     
-    // ✅ لا تتحقق أكثر من مرة كل 5 دقائق
+    // ✅ لا تتحقق أكثر من مرة كل 5 دقائق (فقط إذا كان هناك طلب قسري)
     const lastCheck = parseInt(localStorage.getItem('zertiva_last_session_check') || '0');
     const now = Date.now();
     if (!forceCheck && (now - lastCheck) < 5 * 60 * 1000) {
@@ -855,6 +852,30 @@ async function validateDevice(forceCheck = false) {
         return true;
     }
 }
+
+// ============================================
+// ✅ التحقق عند العودة للمتصفح (بعد تصغيره)
+// ============================================
+
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+        // المستخدم عاد للمتصفح - تحقق من الحالة
+        getUserStatus(true);
+        updateProfileDropdown(true);
+    }
+});
+
+// ============================================
+// ✅ التحقق عند إعادة فتح المتصفح (pageshow)
+// ============================================
+
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        // الصفحة تم تحميلها من Cache المتصفح
+        getUserStatus(true);
+        updateProfileDropdown(true);
+    }
+});
 
 // ============================================
 // بدء التشغيل
