@@ -6374,387 +6374,380 @@ HELP_DATA["lesen1_exam47_q5"] = {
     correct: "i"
 };
 
-// ========== Exam 48: Farben in der Wohnung (صحيح: h, b, g, d, j) ==========
 
 HELP_DATA["lesen1_exam48_q1"] = {
     text: "Wohnen in Harmonie mit den Kräften der Natur - Wohnen in Harmonie mit den Kräften der Natur. Feng Shui",
-    meaning: "فن الفينغ شوي الصيني لترتيب المنزل وتنظيم تدفق الطاقة الإيجابية",
-    keywords: ["Feng Shui = فنغ شوي", "Energiefluss = تدفق الطاقة", "Möbel = أثاث", "Innenarchitekten = مصممي داخلي"],
-    simplified: "ترتيب المنزل حسب فنغ شوي يجلب الطاقة الإيجابية",
-    imagine: "رجل صيني يحاول دفع أريكة ثقيلة بظهره في غرفة مليئة بالأثاث، والطاقة تتدفق كالنهر بين الأثاث 🧘🪑",
+    meaning: "العيش في انسجام مع قوى الطبيعة من خلال فلسفة فنغ شوي",
+    keywords: ["Wohnen = السكن", "Harmonie = انسجام", "Kräften der Natur = قوى الطبيعة", "Feng Shui = فنغ شوي"],
+    simplified: "انسجام مع الطبيعة حسب تعاليم فنغ شوي",
+    imagine: "رجل يجلس في غرفة مرتبة، والطاقة تتدفق كالنهر بين الأثاث، ووردة تطفو في الهواء 🧘🌸",
     correct: "h"
 };
 
 HELP_DATA["lesen1_exam48_q2"] = {
     text: "Farben in der Wohnung als Therapie - Farben haben eine stärkere Wirkung auf Menschen, als viele vermuten",
-    meaning: "الألوان تؤثر على النفسية ويمكن استخدامها كعلاج، مع تجنب الألوان الصاخبة",
-    keywords: ["Farben = ألوان", "therapeutische Zwecke = أغراض علاجية", "Atmosphäre = جو", "Weiß gestrichene Wände = جدران مطلية بالبياض"],
-    simplified: "الألوان تؤثر على النفس، الأبيض مريح والألوان الصاخبة متعبة",
-    imagine: "رجل يجلس في غرفة حمراء بالكامل ويصرخ، ثم ينتقل لغرفة بيضاء ويهدأ فجأة ويبتسم 🎨😌",
+    meaning: "الألوان في المنزل لها تأثير علاجي قوي على النفس",
+    keywords: ["Farben = ألوان", "Therapie = علاج", "Wirkung = تأثير", "Menschen = الناس"],
+    simplified: "الألوان في المنزل تؤثر على الصحة النفسية",
+    imagine: "رجل يجلس في غرفة ملونة بالكامل، وألوان مختلفة تخرج من الحائط وتدخل إلى جسمه 🎨🌈",
     correct: "b"
 };
 
 HELP_DATA["lesen1_exam48_q3"] = {
     text: "Pflanzen machen den Wohnraum gesünder - Pflanzen machen den Wohnraum gesünder. Wert so hohen natürlichen Schwankungen",
-    meaning: "النباتات المنزلية ترطب الجو وتنقي الهواء وتقي من أمراض الجهاز التنفسي",
-    keywords: ["Pflanzen = نباتات", "Luftfeuchtigkeit = رطوبة الهواء", "trockene Luft = هواء جاف", "Raumklima = مناخ الغرفة"],
-    simplified: "النباتات ترطب الهواء وتنقي الجو في المنزل",
-    imagine: "نبات عملاق يرش قطرات ماء على رجل جالس في غرفة جافة، والرجل يتنفس بعمق ويرتاح 🌿💧",
+    meaning: "النباتات تجعل المنزل أكثر صحة ونقاءً",
+    keywords: ["Pflanzen = نباتات", "Wohnraum = مسكن", "gesünder = أكثر صحة", "natürlichen = طبيعي"],
+    simplified: "النباتات المنزلية تحسن صحة المكان",
+    imagine: "نباتات كثيرة في غرفة، وكلما دخلت أوراق جديدة، يخرج الهواء النقي 🌿🌱",
     correct: "g"
 };
 
 HELP_DATA["lesen1_exam48_q4"] = {
     text: "Kräuter als Zimmerpflanzen - Frische Kräuter machen jedes Essen zum Genuss",
-    meaning: "زراعة الأعشاب الطازجة في المنزل على النافذة أو البلكونة سهلة ومفيدة للطبخ",
-    keywords: ["Kräuter = أعشاب", "Blumentopf = أصيص", "Fensterbank = عتبة النافذة", "aromatisch = عطري"],
-    simplified: "ازرع أعشابك الطازجة على النافذة وطبخك يتحسن",
+    meaning: "زراعة الأعشاب كنباتات منزلية تجعل الأكل أكثر متعة",
+    keywords: ["Kräuter = أعشاب", "Zimmerpflanzen = نباتات منزلية", "frisch = طازج", "Essen = طعام", "Genuss = متعة"],
+    simplified: "الأعشاب الطازجة في المنزل تجعل الأكل ألذ",
     imagine: "امرأة تنتزع ريحاناً من أصيص على النافذة وتضعه في الطبق، والريحان يضحك وهو يطير في الهواء 🌿😄",
     correct: "d"
 };
 
 HELP_DATA["lesen1_exam48_q5"] = {
     text: "Zimmerpflanzen sorgen für gute Stimmung bei Menschen - Bei der Wohnraumgestaltung lässt sich viel erreichen",
-    meaning: "النباتات المنزلية تحسن المزاج وتضفي بهجة وألواناً على الغرفة",
-    keywords: ["Zimmerpflanzen = نباتات منزلية", "Blühpflanzen = نباتات مزهرة", "gute Laune = مزاج جيد", "Grünpflanzen = نباتات خضراء"],
-    simplified: "النباتات المنزلية تحسن المزاج وتضفي بهجة",
+    meaning: "النباتات المنزلية تحسن المزاج وتجلب السعادة للناس",
+    keywords: ["Zimmerpflanzen = نباتات منزلية", "gute Stimmung = مزاج جيد", "Menschen = الناس", "Wohnraumgestaltung = تصميم المسكن"],
+    simplified: "النباتات المنزلية تجعل الناس في مزاج جيد",
     imagine: "نبات يتمايل ويغني داخل الغرفة، وبجانبه شخص يضحك ويصفق للنبات وهو يزهر فجأة 🌸🎵",
     correct: "j"
 };
-// ============================================
-// HELP_DATA - Lesen Teil 1 (Exam 49-55)
-// روابط ذهنية قوية للامتحان
-// ============================================
 
-// ========== Exam 49: Wetter (صحيح: a, d, c, b, i) ==========
+// ========== Exam 49: Wetter ==========
 
 HELP_DATA["lesen1_exam49_q1"] = {
     text: "Eine ungewöhnliche Geschenkidee - Kyrill, Friederike, Lothar oder Xaver – all dies",
-    meaning: "يمكن شراء اسم إعصار وهديته لأي شخص كفكرة غريبة",
-    keywords: ["Stürme mit Namen = أعاصير بأسماء", "kaufen = يشتري", "verschenken = يهدي", "Wetterbericht = نشرة جوية"],
-    simplified: "تقدر تشتري إسم إعصار وتهديه لصديقك كهدية",
-    imagine: "راجل يلف إعصار بورق هدايا حمراء ويسلمه لصاحبو وعليه شريطة ذهبية 🎁💨",
+    meaning: "أسماء مميزة مرتبطة بفكرة هدية غير عادية",
+    keywords: ["ungewöhnlich = غير عادي", "Geschenk = هدية", "Namen = أسماء", "Kyrill/Friederike/Lothar/Xaver = أسماء"],
+    simplified: "هدية غير عادية مرتبطة بأسماء مميزة",
+    imagine: "صندوق هدية كبير تخرج منه الأسماء Kyrill وFriederike وLothar وXaver وهي تطير حوله 🎁📛",
     correct: "a"
 };
 
 HELP_DATA["lesen1_exam49_q2"] = {
-    text: "Junge Erfinder zeigen ihr Können - Jugendwettbewerb Naturwissenschaft & Technik geht in",
-    meaning: "طلاب يخترعون تطبيق طقس ويفوزون بمسابقة علمية",
-    keywords: ["Jugendwettbewerb = مسابقة شباب", "Erfindungen = اختراعات", "Wetter-App = تطبيق طقس", "Schülerteams = فرق طلابية"],
-    simplified: "شبان اخترعو تطبيق طقس وفازو بالجائزة",
-    imagine: "ولد صغير واقف على منصة التتويج وفرقعة تطبيق الطقس على جواله والجمهور يصفق 😄📱",
+    text: "Junge Erfinder zeigen ihr Können - Der Jugendwettbewerb ‚Naturwissenschaft & Technik‘ geht in die nächste Runde",
+    meaning: "شباب مبدعون يعرضون قدراتهم في مسابقة علمية وتقنية",
+    keywords: ["Junge = شباب", "Erfinder = مخترعين", "Können = قدرات", "Jugendwettbewerb = مسابقة شباب", "Naturwissenschaft = علوم", "Technik = تقنية"],
+    simplified: "مسابقة للشباب المبدعين في العلوم والتقنية",
+    imagine: "شاب واقف على منصة وعيناه تلمعان، وبيده نموذج اختراع، والجمهور يصفق له 🧑‍🔬🏆",
     correct: "d"
 };
 
 HELP_DATA["lesen1_exam49_q3"] = {
-    text: "Heftiger Sturm sorgt für Verkehrschaos in Deutschland - Am gestrigen Abend fegte Sturmtief Charlotte",
-    meaning: "إعصار قوي تسبب في شلل حركة القطارات والطائرات في ألمانيا",
-    keywords: ["Sturmtief = منخفض جوي", "Bahnstrecken = خطوط قطار", "Flughäfen = مطارات", "blockiert = معطل"],
-    simplified: "إعصار أوقف كل وسائل النقل في ألمانيا",
-    imagine: "سيدة في المطار تنظر للساعة وهي متوترة ورجال يركضون مع حقائبهم وطفل يبكي 🏃💨",
+    text: "Heftiger Sturm sorgt für Verkehrschaos in Deutschland - Am gestrigen Abend fegte Sturmtief Charlotte über Deutschland hinweg",
+    meaning: "عاصفة قوية تسبب فوضى مرورية في ألمانيا",
+    keywords: ["heftiger = قوي", "Sturm = عاصفة", "Verkehrschaos = فوضى مرورية", "Deutschland = ألمانيا"],
+    simplified: "إعصار قوي سبب زحمة في شوارع ألمانيا",
+    imagine: "رياح قوية تحلق بالسيارات في الهواء، والناس تركض في كل اتجاه 🌪️🚗💨",
     correct: "c"
 };
 
 HELP_DATA["lesen1_exam49_q4"] = {
-    text: "Gut informiert mit neuer Wetter-App - Soll ich einen Pullover anziehen oder",
-    meaning: "تطبيق طقس جديد يعطيك توقعات دقيقة مع خيارات مدفوعة",
-    keywords: ["Wetter-App = تطبيق طقس", "Regenradar = رادار المطر", "Premium-Abo = اشتراك مميز", "werbefrei = بدون إعلانات"],
-    simplified: "تطبيق طقس بمواصفات خرافية واشتراك ب 1.99 يورو",
-    imagine: "واحد لابس تي شيرت في عاصفة قوية وواقف قدام التلفون يقرا التطبيق ويضحك 😅🌧️",
+    text: "Gut informiert mit neuer Wetter-App - Soll ich einen Pullover anziehen oder reicht ein T-Shirt?",
+    meaning: "تطبيق طقس جديد يخبرك ماذا ترتدي وماذا تأخذ معك",
+    keywords: ["Wetter-App = تطبيق طقس", "Pullover = سترة", "T-Shirt = تي شيرت", "informiert = مطلع"],
+    simplified: "تطبيق يساعدك في اختيار ملابسك حسب الطقس",
+    imagine: "رجل واقف أمام الدولاب حائر بين سترة وتي شيرت، والهاتف يظهر له أيقونة شمس ومطر معاً 📱🌦️🤔",
     correct: "b"
 };
 
 HELP_DATA["lesen1_exam49_q5"] = {
-    text: "Vorhersage von Stürmen ist schwierig - Zehn Jahre ist es her, dass",
-    meaning: "توقع الأعاصير صعب رغم التقدم التكنولوجي ونسبة الخطأ عالية",
-    keywords: ["Sturm = إعصار", "Vorhersage = توقع", "Messinstrumente = أدوات قياس", "Trefferquote = نسبة صواب"],
-    simplified: "التنبؤ بالأعاصير صعب وما زالت النسبة 80٪ فقط",
-    imagine: "متنبئ طقس يحطم التلفاز بعد ما أخطأ في التوقع ويصرخ 'غداً مشمس' والعاصفة تهب 📺💥",
+    text: "Vorhersage von Stürmen ist schwierig - Zehn Jahre ist es her, dass sich aus einem scheinbar harmlosen Tiefdruckgebiet",
+    meaning: "توقع العواصف والظواهر الجوية أمر صعب",
+    keywords: ["Vorhersage = توقع", "Stürmen = عواصف", "schwierig = صعب", "Tiefdruckgebiet = منخفض جوي"],
+    simplified: "من الصعب توقع العواصف بدقة",
+    imagine: "متنبئ طقس ينظر إلى شاشات كثيرة، لكن العاصفة تضربه من الخلف 🌪️📺😱",
     correct: "i"
 };
 
-// ========== Exam 50: Computer (صحيح: h, e, j, a, d) ==========
+// ========== Exam 50: Computer ==========
 
 HELP_DATA["lesen1_exam50_q1"] = {
-    text: "Elektronischer Weg aus dem Steuerlabyrinth - Auf meinen elektronischen Steuerberater kann ich",
-    meaning: "برامج الكمبيوتر ساعدت الناس على تقديم إقراراتهم الضريبية بسهولة",
-    keywords: ["Steuerberater = مستشار ضريبي", "Steuersparprogramm = برنامج توفير الضرائب", "Finanzamt = مصلحة الضرائب", "Computerprogramme = برامج كمبيوتر"],
-    simplified: "الناس استغنت عن المحاسبين وسوت الضرايب بالكمبيوتر",
-    imagine: "راجل يحط فلوس في الكمبيوتر ويطلع له إيصال ضريبي وهو يرقص فرحاً 💰🖥️",
+    text: "Elektronischer Weg aus dem Steuerlabyrinth - Auf meinen elektronischen Steuerberater kann ich mich hundertprozentig verlassen",
+    meaning: "برنامج كمبيوتر يساعد في حل مشاكل الضرائب بسهولة",
+    keywords: ["elektronisch = إلكتروني", "Weg = طريق", "Steuerlabyrinth = متاهة الضرائب", "Steuerberater = مستشار ضريبي", "verlassen = يثق"],
+    simplified: "طريق إلكتروني للخروج من متاهة الضرائب",
+    imagine: "رجل يضع فلوساً في الكمبيوتر، فتظهر له فقاعة تقول 'تم حل مشكلتك الضريبية!' 💰💻✅",
     correct: "h"
 };
 
 HELP_DATA["lesen1_exam50_q2"] = {
-    text: "Neues Hotelangebot spart Geschäftsleuten Zeit - Kundenberaterin Sabine E. ist ständig",
-    meaning: "الفنادق توفر خدمات مكتبية كاملة لرجال الأعمال المسافرين",
-    keywords: ["Geschäftsnomadin = مسافر أعمال", "Büroservice = خدمة مكتبية", "Notebook = كمبيوتر محمول", "Abrechnungen = فواتير"],
-    simplified: "الفنادق صارت مكتب متنقل للمسافرين",
-    imagine: "سيدة أعمال في الفندق قاعدة تكتب على الكمبيوتر وعليها بيجامة وتطلب قهوة 🛏️💻☕",
+    text: "Neues Hotelangebot spart Geschäftsleuten Zeit - Kundenberaterin Sabine E. ist ständig auf Achse",
+    meaning: "عرض فندقي جديد يوفر وقت رجال الأعمال المسافرين",
+    keywords: ["Hotelangebot = عرض فندقي", "spart Zeit = يوفر وقت", "Geschäftsleuten = رجال أعمال", "auf Achse = في تنقل دائم"],
+    simplified: "فنادق توفر خدمات لرجال الأعمال وتوفر وقتهم",
+    imagine: "رجل أعمال يجلس في الفندق ويشرب قهوة، بينما الكمبيوتر يطبع له كل أوراقه 📋☕💻",
     correct: "e"
 };
 
 HELP_DATA["lesen1_exam50_q3"] = {
-    text: "Pädagogen gegen Internetdienste - Ein Referat für den Geschichtsunterricht über",
-    meaning: "طلاب يشترون بحوثاً جاهزة من الإنترنت والمعلمون يرفضون ذلك",
-    keywords: ["Referate = بحوث مدرسية", "kaufen = يشتري", "Lehrer = معلمون", "Internet = إنترنت"],
-    simplified: "طلاب بيشتروا أبحاث جاهزة والمدرسين غضبانين",
-    imagine: "طالب نايم في الدرس والمعلم واقف فوقه وماسك ورقة ويصرخ 'هذا من النت!' 😡😴",
+    text: "Pädagogen gegen Internetdienste - Ein Referat für den Geschichtsunterricht über Karl den Großen zur nächsten Woche",
+    meaning: "المعلمون يرفضون خدمات الإنترنت التي تقدم بحوثاً جاهزة للطلاب",
+    keywords: ["Pädagogen = معلمون", "gegen = ضد", "Internetdienste = خدمات إنترنت", "Referat = بحث مدرسي", "Geschichtsunterricht = درس تاريخ"],
+    simplified: "المعلمون ضد شراء الأبحاث الجاهزة من الإنترنت",
+    imagine: "معلم غاضب يمسك ورقة ويصرخ 'هذا من النت!'، والطالب نائم على المكتب 😡📝😴",
     correct: "j"
 };
 
 HELP_DATA["lesen1_exam50_q4"] = {
-    text: "Jeder kann Netzreporter werden - Wer könnte interessantere Meldungen aus",
-    meaning: "أي مستخدم للإنترنت يمكنه أن يصبح مراسلاً إخبارياً",
-    keywords: ["Nachrichtenportale = منصات أخبار", "Surfer = مستخدمون", "Meldungen = تقارير", "Falschmeldungen = أخبار كاذبة"],
-    simplified: "أي واحد يقدر يصير مراسل أخبار",
-    imagine: "قطة قاعدة تكتب خبر على الكمبيوتر وتنشر وتقول 'أول خبر لي' 🐱📰",
+    text: "Jeder kann Netzreporter werden - Wer könnte interessantere Meldungen aus allen Ecken des World Wide Web liefern",
+    meaning: "أي شخص عادي يمكنه أن يصبح مراسلاً إخبارياً على الإنترنت",
+    keywords: ["Jeder = كل شخص", "Netzreporter = مراسل إنترنت", "Meldungen = تقارير", "World Wide Web = شبكة الإنترنت"],
+    simplified: "الكل يقدر يصير مراسل أخبار على الإنترنت",
+    imagine: "رجل عادي يجلس على حاسوبه، وفجأة يصبح مذيع أخبار في التلفاز 🧑‍💻📺🎤",
     correct: "a"
 };
 
 HELP_DATA["lesen1_exam50_q5"] = {
-    text: "Sprachen lernen per Computer - Zu Beginn des Englischkurses fragt Verena",
-    meaning: "تعلم اللغات عبر الكمبيوتر مع لقاءات كل شهرين",
-    keywords: ["Pilotprojekt = مشروع تجريبي", "Computerprogramm = برنامج كمبيوتر", "Dialog = حوار", "Austausch = تبادل"],
-    simplified: "تعلم الإنجليزية أونلاين مع لقاءات كل شهرين",
-    imagine: "واحد قاعد على الكمبيوتر وبيتكلم مع صورة على الشاشة والشاشة ترد عليه 🖥️🗣️",
+    text: "Sprachen lernen per Computer - Zu Beginn des Englischkurses fragt Verena Baum ihre Mitlernenden nach ihren Namen",
+    meaning: "تعلم اللغات عن طريق الكمبيوتر",
+    keywords: ["Sprachen = لغات", "lernen = تعلم", "Computer = كمبيوتر", "Englischkurs = دورة إنجليزية", "Mitlernenden = زملاء التعلم"],
+    simplified: "تعلم اللغات عبر الكمبيوتر مع زملاء",
+    imagine: "طالب يجلس أمام الكمبيوتر ويتحدث مع صورة على الشاشة باللغة الإنجليزية 🖥️🗣️🌍",
     correct: "d"
 };
 
-// ========== Exam 51: Nordsee (صحيح: i, j, a, g, f) ==========
+// ========== Exam 51: Nordsee ==========
 
 HELP_DATA["lesen1_exam51_q1"] = {
-    text: "Sport-Empfehlung: Schwimmen, Gehen, Radfahren - Wer sportlich aktiv sein möchte, fragt",
-    meaning: "توصيات رياضية: رياضتان جافتان (دراجة، مشي) وواحدة مائية (سباحة)",
-    keywords: ["Sporttherapeuten = معالجون رياضيون", "Training = تدريب", "Walking = مشي سريع", "Radfahren = ركوب دراجة"],
-    simplified: "الرياضة المثالية: مشي، دراجة، وسباحة",
-    imagine: "راجل بيحاول يسبح في الشارع بعد المطر والناس تصوره وتضحك 🌊😂",
+    text: "Sport-Empfehlung: Schwimmen, Gehen, Radfahren - Wer sportlich aktiv sein möchte, fragt sich zu Beginn oft, welche Sportart",
+    meaning: "توصية بأفضل الرياضات: السباحة والمشي وركوب الدراجة",
+    keywords: ["Sport-Empfehlung = توصية رياضية", "Schwimmen = سباحة", "Gehen = مشي", "Radfahren = ركوب دراجة"],
+    simplified: "أنسب الرياضات هي السباحة والمشي وركوب الدراجة",
+    imagine: "شخص يحاول السباحة في الشارع والناس تصوره وتضحك 🏊🌊😂",
     correct: "i"
 };
 
 HELP_DATA["lesen1_exam51_q2"] = {
-    text: "Kochen und Reisen in Deutschland - Köstliches Deutschland – ein Buch, das",
-    meaning: "كتاب يجمع بين الطبخ والسفر عبر المناطق الألمانية",
-    keywords: ["Kochbuch = كتاب طبخ", "Reisen = سفر", "Gourmetführer = دليل طهي", "kulinarisch = طهوي"],
-    simplified: "كتاب يجمع بين الطبخ والسفر",
-    imagine: "واحد ياكل من كتاب (حرفياً) ويقول 'لذيذ' والناس مصدومين 📖🍔",
+    text: "Kochen und Reisen in Deutschland - Köstliches Deutschland (Südwest, 192 S., 19,50 Euro) – ein Buch, das zum Kochen und zum Reisen animieren will",
+    meaning: "كتاب يجمع بين فن الطبخ والسياحة في ألمانيا",
+    keywords: ["Kochen = طبخ", "Reisen = سفر", "Deutschland = ألمانيا", "Buch = كتاب", "animieren = يحفز"],
+    simplified: "كتاب يشجعك على الطبخ والسفر في ألمانيا",
+    imagine: "شخص ياكل من كتاب ويقول 'لذيذ!' والناس مصدومين 📖🍔😮",
     correct: "j"
 };
 
 HELP_DATA["lesen1_exam51_q3"] = {
-    text: "Beispiel Rhön: Das Land nutzen und die Natur erhalten - Behutsame Landnutzung im Einklang",
-    meaning: "منطقة رون الألمانية نموذج للتعايش مع الطبيعة",
-    keywords: ["Landnutzung = استخدام الأراضي", "Natur = طبيعة", "Rhön = منطقة رون", "Lebensraum = موطن"],
-    simplified: "منطقة رون نموذج للتعايش مع الطبيعة",
-    imagine: "خروف واقف قدام لافتة مكتوب عليها 'الطبيعة ملك الجميع' ووراها جبال خضراء 🐑🌿",
+    text: "Beispiel Rhön: Das Land nutzen und die Natur erhalten - Behutsame Landnutzung im Einklang mit der Natur hat die einmalige Landschaft der Rhön geschaffen",
+    meaning: "منطقة رون مثال للاستفادة من الأرض والحفاظ على الطبيعة معاً",
+    keywords: ["Beispiel = مثال", "Rhön = رون", "Land nutzen = استخدام الأرض", "Natur erhalten = الحفاظ على الطبيعة", "Landnutzung = استخدام الأراضي"],
+    simplified: "منطقة رون نموذج للتعايش بين الزراعة والطبيعة",
+    imagine: "فلاح يزرع أرضه، وفي نفس الوقت شجرة تنمو بجانبه وتظلله 🌾🌳🧑‍🌾",
     correct: "a"
 };
 
 HELP_DATA["lesen1_exam51_q4"] = {
-    text: "Unser Gesundheits-Tipp: Nordsee! - Allein in Salzluft, Sonne und Seewind",
-    meaning: "بحر الشمال وجهة صحية ومناخ علاجي فريد",
-    keywords: ["Salzluft = هواء مالح", "Seewind = رياح بحرية", "Kur = علاج", "Nordsee = بحر الشمال"],
-    simplified: "بحر الشمال منتجع صحي طبيعي",
-    imagine: "واحد جالس على كرسي تحت المطر وهو يضحك ويقول 'هذا علاج' 🌧️😄",
+    text: "Unser Gesundheits-Tipp: Nordsee! - Allein in Salzluft, Sonne und Seewind bekommen Körper und Seele Aufwind",
+    meaning: "بحر الشمال وجهة صحية للاسترخاء والعلاج الطبيعي",
+    keywords: ["Gesundheits-Tipp = نصيحة صحية", "Nordsee = بحر الشمال", "Salzluft = هواء مالح", "Sonne = شمس", "Seewind = رياح بحرية"],
+    simplified: "نصيحة صحية: اذهب إلى بحر الشمال",
+    imagine: "شخص جالس على كرسي على الشاطئ، والملح والهواء ينعشانه وهو يبتسم 🪑🌊😊",
     correct: "g"
 };
 
 HELP_DATA["lesen1_exam51_q5"] = {
-    text: "Andere Stimme ab 70? - Dass die Stimme – vornehmlich von Männern",
-    meaning: "صوت الرجال يخشن ويتغير بعد عمر السبعين بسبب تغيرات الحنجرة",
-    keywords: ["Stimme = صوت", "rau = خشن", "Kehlkopf = حنجرة", "altersbedingt = مرتبط بالعمر"],
-    simplified: "صوت الرجال يخشن بعد السبعين",
-    imagine: "جد يصرخ في حفلة وغناءه يخوف الجيران والكل يغطي أذنيه 🧓🎤",
+    text: "Andere Stimme ab 70? - Dass die Stimme – vornehmlich von Männern – im Alter oft rauer klingt",
+    meaning: "صوت الرجال يصبح أكثر خشونة بعد سن السبعين",
+    keywords: ["Andere Stimme = صوت مختلف", "ab 70 = من 70 سنة", "Männern = رجال", "Alter = عمر", "rauer = أكثر خشونة"],
+    simplified: "بعد 70 سنة، يصبح صوت الرجال خشن",
+    imagine: "جد يغني في حفلة، وصوته يخيف الجيران وكلهم يغطون آذانهم 🧓🎤😱",
     correct: "f"
 };
 
-// ========== Exam 52: Autos (صحيح: i, f, c, e, a) ==========
+// ========== Exam 52: Autos ==========
 
 HELP_DATA["lesen1_exam52_q1"] = {
-    text: "Urlaub zu Hause, Urlaub bei Fremden? Oder: Auf dem Sofa durch die Welt - Wie wäre es, bei wildfremden Menschen",
-    meaning: "السفر والإقامة المجانية عند الغرباء عبر منصة Couchsurfing",
-    keywords: ["Couchsurfing = سفر على الأرائك", "Übernachtung = إقامة", "Gastgeber = مضيف", "Freunde = أصدقاء"],
-    simplified: "سافر وعيش مجاناً عند ناس ما تعرفهم",
-    imagine: "راجل نايم على كنبة في بيت غريب ومرتاح وصاحب البيت يسلم عليه 🛋️😴",
+    text: "Urlaub zu Hause, Urlaub bei Fremden? Oder: Auf dem Sofa durch die Welt - Wie wäre es, bei wildfremden Menschen einzuziehen und während der eigenen Reise dort zu übernachten?",
+    meaning: "فكرة السفر والإقامة المجانية عند الغرباء عبر الإنترنت",
+    keywords: ["Urlaub = عطلة", "Fremden = غرباء", "Sofa = أريكة", "wildfremden = غرباء تماماً", "übernachten = المبيت"],
+    simplified: "سافر ونم في بيوت الغرباء مجاناً",
+    imagine: "رجل نائم على أريكة في بيت غريب، وصاحب البيت يسلم عليه 🛋️😴🏠",
     correct: "i"
 };
 
 HELP_DATA["lesen1_exam52_q2"] = {
-    text: "Mein rechter Platz ist frei... Wie berechenbar sind Mitfahrgelegenheiten? - Darauf, zu einem Wildfremden ins Auto",
-    meaning: "منصات مشاركة السيارات لتقليل تكاليف البنزين",
-    keywords: ["Mitfahrplattformen = منصات مشاركة السيارات", "Benzinkosten = تكاليف الوقود", "Mitfahrzentrale = مركز مشاركة", "offline = غير متصل"],
-    simplified: "شارك سيارتك مع الآخرين ووفر في البنزين",
-    imagine: "سيارة مليانة ناس وكل واحد يحاسب السائق وهم يضحكون 🚗💰",
+    text: "Mein rechter Platz ist frei... Wie berechenbar sind Mitfahrgelegenheiten? - Darauf, zu einem Wildfremden ins Auto zu steigen, basiert die Geschäftsidee von Mitfahrplattformen im Internet",
+    meaning: "منصات مشاركة السيارات عبر الإنترنت لتقاسم تكاليف الرحلة",
+    keywords: ["Platz = مقعد", "frei = شاغر", "Mitfahrgelegenheiten = مشاركة سيارة", "Wildfremden = غرباء", "Internet = إنترنت"],
+    simplified: "شارك سيارتك مع الآخرين عبر الإنترنت",
+    imagine: "سيارة مليانة ناس، وكل واحد يحاسب السائق وهم يضحكون 🚗💰😄",
     correct: "f"
 };
 
 HELP_DATA["lesen1_exam52_q3"] = {
-    text: "Was rastet, das rostet: Tipps für Stillstand und Bewegung - Langes Stehen tut selten gut, das",
+    text: "Was rastet, das rostet: Tipps für Stillstand und Bewegung - Langes Stehen tut selten gut, das gilt auch für Autos",
     meaning: "نصائح للحفاظ على السيارة من الصدأ عند عدم استخدامها",
-    keywords: ["Rost = صدأ", "Bremsen = فرامل", "Unterstellmöglichkeit = مكان للركن", "Reifen = إطارات"],
-    simplified: "السيارة تصدأ إذا وقفت مدة طويلة",
-    imagine: "سيارة مغطاة بالصدأ وورود نابتة حولها وعلبة بنزين قديمة 🌹🚗",
+    keywords: ["rastet = يصدأ", "rostet = يصدأ", "Stillstand = توقف", "Bewegung = حركة", "Autos = سيارات"],
+    simplified: "السيارة تصدأ إذا بقيت واقفة فترة طويلة",
+    imagine: "سيارة مغطاة بالصدأ، وورود نابتة حولها كأنها أصبحت حديقة 🌹🚗🌿",
     correct: "c"
 };
 
 HELP_DATA["lesen1_exam52_q4"] = {
-    text: "Tausch dich aus! Autos, Werkzeuge, Geräte & Co gemeinsam benützen - Es gibt einen neuen Trend, der",
-    meaning: "اتجاه عالمي للاستخدام المشترك بدلاً من التملك الفردي",
-    keywords: ["Nutzen statt Besitzen = استخدام بدل امتلاك", "Tauschplattformen = منصات للمبادلة", "Vertrauen = ثقة", "Wohnungstausch = مبادلة شقق"],
-    simplified: "شارك كل شيء بدل ما تشتريه",
-    imagine: "راجل بيتبادل بيته مع واحد تاني والاتنين فرحانين وماسكين مفاتيح 🏠🤝",
+    text: "Tausch dich aus! Autos, Werkzeuge, Geräte & Co gemeinsam benützen - Es gibt einen neuen Trend, der nicht nur in Deutschland, sondern weltweit Einzug hält",
+    meaning: "اتجاه عالمي للمشاركة والاستخدام المشترك بدلاً من التملك الفردي",
+    keywords: ["Tausch = مبادلة", "Werkzeuge = أدوات", "Geräte = أجهزة", "gemeinsam = مشترك", "Trend = اتجاه"],
+    simplified: "شارك واستخدم الأشياء مع الآخرين بدل الشراء",
+    imagine: "شخصان يتبادلان مفاتيح بيوتهما وكلاهما سعيد 🏠🤝🔑",
     correct: "e"
 };
 
 HELP_DATA["lesen1_exam52_q5"] = {
-    text: "Daumen hoch - aber gewusst wie! - Warum den teuren Zug oder Flieger",
-    meaning: "قوانين التوقف للركوب (الأصابع) تختلف من بلد لآخر",
-    keywords: ["Autostoppen = التوقف للركوب", "Trampen = تنقل بالمجان", "verboten = ممنوع", "Bezahlung = دفع"],
-    simplified: "التنقل بالأصابع له قوانين مختلفة في كل بلد",
-    imagine: "واحد واقف على الطريق ويرفع صباعه وسيارة توقف وهو يبتسم 👍🚗",
+    text: "Daumen hoch - aber gewusst wie! - Warum den teuren Zug oder Flieger nehmen, wenn es doch per Anhalter viel günstiger geht?",
+    meaning: "للتنقل المجاني بالأصابع قوانين تختلف حسب البلد",
+    keywords: ["Daumen = إبهام", "Autostoppen = التوقف للركوب", "Zug = قطار", "Flieger = طائرة", "günstiger = أرخص"],
+    simplified: "التنقل بالأصابع أرخص لكن له قوانين",
+    imagine: "رجل واقف على الطريق يرفع إبهامه، وسيارة تتوقف وهو يبتسم 👍🚗😊",
     correct: "a"
 };
 
-// ========== Exam 53: Evolution (صحيح: f, i, c, g, a) ==========
+// ========== Exam 53: Evolution ==========
 
 HELP_DATA["lesen1_exam53_q1"] = {
-    text: "Veränderte Wanderwege von Zugvögeln - Die zunehmende Klimaveränderung macht sich",
-    meaning: "تغير المناخ يؤثر على هجرة الطيور وتوقيت وضع البيض",
-    keywords: ["Klimaveränderung = تغير مناخ", "Zugvögel = طيور مهاجرة", "Eiablage = وضع بيض", "Temperatur = درجة حرارة"],
-    simplified: "الطيور تتأثر بالتغيرات المناخية وتغير مواعيد هجرتها",
-    imagine: "طائر يحمل شنطة سفر صغيرة فوق ظهره ويطير عكس الاتجاه 🐦🧳",
+    text: "Veränderte Wanderwege von Zugvögeln - Die zunehmende Klimaveränderung macht sich bereits in der Tierwelt bemerkbar",
+    meaning: "تغير المناخ يؤثر على مسارات هجرة الطيور",
+    keywords: ["Wanderwege = مسارات هجرة", "Zugvögeln = طيور مهاجرة", "Klimaveränderung = تغير مناخ", "Tierwelt = عالم الحيوان"],
+    simplified: "الطيور تغير طرق هجرتها بسبب المناخ",
+    imagine: "طائر يحمل شنطة سفر صغيرة ويطير عكس الطريق المعتاد 🐦🧳🌍",
     correct: "f"
 };
 
 HELP_DATA["lesen1_exam53_q2"] = {
-    text: "Evolution durch klimatische Veränderungen begünstigt - Das Klima hatte einen entscheidenden",
-    meaning: "التغيرات المناخية ساعدت في تطور الإنسان وظهوره",
-    keywords: ["Klima = مناخ", "Entwicklung = تطور", "Evolution = تطور", "Gehirn = دماغ"],
-    simplified: "التغيرات المناخية ساعدت في ظهور الإنسان",
-    imagine: "إنسان بدائي يتأقلم مع الطقس المتغير ويلبس معطف فرو ويشرب قهوة ساخنة 🧔❄️",
+    text: "Evolution durch klimatische Veränderungen begünstigt - Das Klima hatte einen entscheidenden Einfluss auf die Entwicklung des Menschen",
+    meaning: "التغيرات المناخية ساعدت في تطور الإنسان",
+    keywords: ["Evolution = تطور", "klimatische = مناخية", "Veränderungen = تغيرات", "Entwicklung = تطور", "Menschen = إنسان"],
+    simplified: "المناخ ساعد في ظهور الإنسان وتطوره",
+    imagine: "إنسان بدائي يحاول التكيف مع الطقس، فيلبس معطف فرو ويشرب قهوة ساخنة 🧔❄️☕",
     correct: "i"
 };
 
 HELP_DATA["lesen1_exam53_q3"] = {
-    text: "Wetterbedingungen könnten den Zerfall von Hochkulturen beschleunigt haben - Fast dreizehn Jahrhunderte lang blühte",
-    meaning: "الجفاف المستمر قد يكون سبب انهيار حضارة المايا القديمة",
-    keywords: ["Maya = المايا", "Kollaps = انهيار", "Trockenheit = جفاف", "Hochkultur = حضارة عريقة"],
-    simplified: "الجفاف دمر حضارة المايا",
-    imagine: "مدينة أثرية تحت الرمال وتماثيل منهكة ونخلة يابسة 🏛️🏜️",
+    text: "Wetterbedingungen könnten den Zerfall von Hochkulturen beschleunigt haben - Fast dreizehn Jahrhunderte lang blühte die Hochkultur der Maya",
+    meaning: "ظروف الطقس قد تكون سبباً في انهيار الحضارات العريقة",
+    keywords: ["Wetterbedingungen = ظروف جوية", "Zerfall = انهيار", "Hochkulturen = حضارات عريقة", "beschleunigt = متسارع"],
+    simplified: "تغير المناخ قد يدمر الحضارات القديمة",
+    imagine: "مدينة أثرية تحت الرمال، ونخلة يابسة وتماثيل منهكة 🏛️🏜️🌵",
     correct: "c"
 };
 
 HELP_DATA["lesen1_exam53_q4"] = {
-    text: "Der Mensch ist am Aussterben von Tierarten schuld - Experten nehmen an, dass Tag",
-    meaning: "الأنشطة البشرية تسبب انقراض مئات الأنواع يومياً",
-    keywords: ["aussterben = انقراض", "Arten = أنواع", "Lebensraum = موطن", "Umweltverschmutzung = تلوث بيئي"],
-    simplified: "البشر يسببون انقراض مئات الحيوانات يومياً",
-    imagine: "حيوانات في قارب صغير يحاولون النجاة من فيضان وواحد يحمل لافتة 'أنقذونا' 🐘🚣",
+    text: "Der Mensch ist am Aussterben von Tierarten schuld - Experten nehmen an, dass Tag für Tag rund 100 Tierarten aussterben",
+    meaning: "البشر مسؤولون عن انقراض مئات الأنواع الحيوانية يومياً",
+    keywords: ["Mensch = إنسان", "schuld = مسؤول", "Aussterben = انقراض", "Tierarten = أنواع حيوانات", "Tag für Tag = يومياً"],
+    simplified: "البشر يسببون انقراض الحيوانات كل يوم",
+    imagine: "حيوانات كثيرة في قارب صغير، واحد منهم يحمل لافتة 'أنقذونا' 🐘🦁🐼🚣",
     correct: "g"
 };
 
 HELP_DATA["lesen1_exam53_q5"] = {
-    text: "Anzahl und Rolle der Arten noch unklar - Wie eng eine Art mit ihrem Lebensraum",
-    meaning: "معظم الكائنات الحية لم تُكتشف بعد والانقراض مستمر",
-    keywords: ["Arten = أنواع", "entdeckt = مكتشف", "Ökosystem = نظام بيئي", "aussterben = انقراض"],
-    simplified: "ما زلنا لا نعرف معظم الكائنات الحية",
-    imagine: "عالم ينظر من ميكروسكوب ويرى مخلوقاً غريباً يضحك له ويقول 'جديد!' 🔬👽",
+    text: "Anzahl und Rolle der Arten noch unklar - Wie eng eine Art mit ihrem Lebensraum verbunden ist, zeigt sich oft erst, wenn sie nicht mehr da ist",
+    meaning: "عدد وأدوار الكائنات الحية ما زالت غير معروفة",
+    keywords: ["Anzahl = عدد", "Rolle = دور", "Arten = أنواع", "unklar = غير واضح", "Lebensraum = موطن"],
+    simplified: "ما زلنا نجهل الكثير عن الكائنات الحية",
+    imagine: "عالم ينظر من ميكروسكوب، فيرى مخلوقاً غريباً يضحك له 🔬👽😮",
     correct: "a"
 };
 
-// ========== Exam 54: Gedächtnis (صحيح: a, f, c, h, e) ==========
+// ========== Exam 54: Gedächtnis ==========
 
 HELP_DATA["lesen1_exam54_q1"] = {
-    text: "Mehr Aufnahmefähigkeit durch Mnemotechnik - Das Kunstwort ‚Mnemo‘-Technik tritt seit",
-    meaning: "تقنيات فن الذاكرة باستخدام الصور الذهنية والقصص المضحكة",
-    keywords: ["Mnemo-Technik = تقنية منيمو", "Gedächtniskunst = فن الذاكرة", "Eselsbrücken = جسور الحمار", "Assoziation = ارتباط"],
-    simplified: "تقنيات مضحكة لتقوية الذاكرة",
-    imagine: "رجل يحاول تذكر شيء ويضع أصبعه على ذقنه وله سحابة فوق رأسه مكتوب فيها 'تذكر!' 🤔☁️",
+    text: "Mehr Aufnahmefähigkeit durch Mnemotechnik - Das Kunstwort ‚Mnemo‘-Technik tritt seit dem 19. Jahrhundert an die Stelle des Begriffes ‚Gedächtniskunst‘",
+    meaning: "تقنيات الذاكرة تزيد قدرة الاستيعاب والفهم",
+    keywords: ["Aufnahmefähigkeit = قدرة استيعاب", "Mnemo-Technik = تقنية منيمو", "Gedächtniskunst = فن الذاكرة", "Kunstwort = مصطلح فني"],
+    simplified: "تقنيات الذاكرة تزيد قدرتك على الاستيعاب",
+    imagine: "رجل يضع أصبعه على ذقنه، وسحابة فوق رأسه مكتوب فيها 'تذكر!' 🤔☁️💡",
     correct: "a"
 };
 
 HELP_DATA["lesen1_exam54_q2"] = {
-    text: "Durch Faulenzen leichter lernen - Stundenlanges Strebern? Das ist Geschichte",
-    meaning: "التعلم الفعال يحتاج مفاجأة ومشاعر إيجابية وليس ساعات طويلة",
-    keywords: ["Lernen = تعلم", "Überraschungseffekt = تأثير المفاجأة", "Glücksgefühl = شعور بالسعادة", "Gehirn = دماغ"],
-    simplified: "التعلم بالكسل يعمل!",
-    imagine: "طالب نايم على المكتب وكتاب على وجهه وساعة منبه بجانبه 📚😴",
+    text: "Durch Faulenzen leichter lernen - Stundenlanges Strebern? Das ist Geschichte. Lernen geht schneller und leichter",
+    meaning: "التعلم بالكسل أسرع وأسهل من الساعات الطويلة",
+    keywords: ["Faulenzen = كسل", "leichter lernen = تعلم أسهل", "Stundenlanges = لساعات طويلة", "Strebern = مذاكرة", "Geschichte = من الماضي"],
+    simplified: "تعلم بشكل أسهل وأسرع دون إرهاق",
+    imagine: "طالب نائم على المكتب، وكتاب مفتوح على وجهه وساعة منبه بجانبه 📚😴⏰",
     correct: "f"
 };
 
 HELP_DATA["lesen1_exam54_q3"] = {
-    text: "Leichter lernen mit selbst gemachten Apps - Wer ein digitales Quiz zusammenstellen wollte",
-    meaning: "منصة مجانية لصنع تمارين تعليمية تفاعلية بسهولة",
-    keywords: ["Learningapps.org = موقع تطبيقات تعليمية", "Lerneinheiten = وحدات تعلم", "Onlinequiz = اختبار إلكتروني", "E-Learning = تعلم إلكتروني"],
-    simplified: "اصنع تمارين تعليمية بنفسك مجاناً",
-    imagine: "طفل يصنع لعبة تعليمية على الكمبيوتر ويضحك وهو يضغط على الأزرار 🧒💻",
+    text: "Leichter lernen mit selbst gemachten Apps - Wer ein digitales Quiz zusammenstellen wollte, brauchte noch vor kurzem viel Zeit und technisches Know-how",
+    meaning: "صنع تطبيقات تعليمية بنفسك أصبح سهلاً ومجاناً",
+    keywords: ["leichter lernen = تعلم أسهل", "selbst gemachte = صنع ذاتي", "Apps = تطبيقات", "digitales Quiz = اختبار رقمي", "Know-how = خبرة تقنية"],
+    simplified: "اصنع تمارينك التعليمية بنفسك بسهولة",
+    imagine: "طفل يضغط على أزرار الكمبيوتر ويصنع لعبة تعليمية وهو يضحك 🧒💻🎮",
     correct: "c"
 };
 
 HELP_DATA["lesen1_exam54_q4"] = {
-    text: "Wie Sie Ihr Gedächtnis richtig trainieren - Es ist eine Schwäche unseres Gehirns",
-    meaning: "تمارين بسيطة يومية أفضل من منتجات تدريب الدماغ الغالية",
-    keywords: ["Hirnjogging = تدريب الدماغ", "Gedächtnisleistung = أداء الذاكرة", "Übungen = تمارين", "trainieren = يدرب"],
-    simplified: "حرك عقلك بتمارين يومية بسيطة",
-    imagine: "رجل يفرش أسنانه باليد اليسرى وينظر في المرآة متعجباً من نفسه 🪥🤪",
+    text: "Wie Sie Ihr Gedächtnis richtig trainieren - Es ist eine Schwäche unseres Gehirns: Je älter man wird, desto schwerer wird es, sich Dinge zu merken",
+    meaning: "تمارين بسيطة يومية تحسن أداء الذاكرة",
+    keywords: ["Gedächtnis = ذاكرة", "trainieren = تدريب", "richtig = صحيح", "Schwäche = ضعف", "Gehirns = الدماغ", "älter = أكبر سناً"],
+    simplified: "درب ذاكرتك بتمارين يومية بسيطة",
+    imagine: "رجل يفرش أسنانه باليد اليسرى وينظر في المرآة متعجباً 🪥🤪🪞",
     correct: "h"
 };
 
 HELP_DATA["lesen1_exam54_q5"] = {
-    text: "Brainfood: Power für Kopf und Körper - Mit der richtigen Ernährung werden Sie",
-    meaning: "أطعمة معينة تحسن التركيز والأداء العقلي مثل التوت والمكسرات",
-    keywords: ["Brainfood = طعام الدماغ", "Konzentration = تركيز", "Leistungsfähigkeit = أداء", "Vitamine = فيتامينات"],
-    simplified: "أكلات محددة تخلي المخ يشتغل أفضل",
-    imagine: "سمكة لابسة نظارة وتقرأ كتاباً وتأكل توتاً أزرق 🐟📖",
+    text: "Brainfood: Power für Kopf und Körper - Mit der richtigen Ernährung werden Sie zwar nicht schlauer, doch der Verzehr bestimmter Lebensmitteln",
+    meaning: "أطعمة معينة تمد الدماغ والجسم بالطاقة والتركيز",
+    keywords: ["Brainfood = طعام الدماغ", "Power = طاقة", "Kopf = رأس", "Körper = جسم", "Ernährung = تغذية", "Lebensmitteln = أطعمة"],
+    simplified: "أطعمة تمنح الدماغ والجسم طاقة",
+    imagine: "سمكة ترتدي نظارة، وتقرأ كتاباً وهي تأكل توتاً أزرق 🐟📖🫐",
     correct: "e"
 };
 
-// ========== Exam 55: Wohnen (صحيح: b, j, e, g, f) ==========
+// ========== Exam 55: Wohnen ==========
 
 HELP_DATA["lesen1_exam55_q1"] = {
-    text: "Selbstbestimmtes Leben im Alter für viele zu teuer - Wer im Alter nicht mehr alleine",
-    meaning: "مشاريع سكنية جديدة لكبار السن بأسعار معقولة وبحرية أكبر",
-    keywords: ["Seniorenresidenzen = دور كبار السن", "Wohnprojekt = مشروع سكني", "Kooperation = تعاون", "günstig = مناسب سعرياً"],
-    simplified: "مشاريع سكنية جديدة لكبار السن بأسعار معقولة",
-    imagine: "جدّان يلعبان الشطرنج ويضحكان في بيت جديد عصري ووراهم حديقة ♟️🏠",
+    text: "Selbstbestimmtes Leben im Alter für viele zu teuer - Wer im Alter nicht mehr alleine ein eigenständiges und selbstbestimmtes Leben führen möchte",
+    meaning: "الحياة المستقلة لكبار السن مكلفة للكثيرين",
+    keywords: ["selbstbestimmtes Leben = حياة مستقلة", "Alter = سن متقدم", "teuer = مكلف", "alleine = بمفرده", "eigenständiges = مستقل"],
+    simplified: "كبار السن يجدون صعوبة في العيش المستقل بسبب التكلفة",
+    imagine: "رجل عجوز يحمل محفظته، وينظر إلى منزل جميل لكن السعر مرتفع جداً 👴💰🏠",
     correct: "b"
 };
 
 HELP_DATA["lesen1_exam55_q2"] = {
-    text: "Wohnbedürfnisse der Jugend bisher vernachlässigt - Als junger Mensch in Wien auf",
-    meaning: "صعوبة السكن للشباب في فيينا بسبب ارتفاع الإيجارات والرسوم",
-    keywords: ["Wohnungssuche = البحث عن سكن", "Kaution = إيداع", "Maklergebühren = رسوم سمسار", "Vertragsbedingungen = شروط عقد"],
-    simplified: "الشباب في فيينا يعانون من غلاء السكن",
-    imagine: "شاب يحمل شنطة وينظر إلى لوحة إيجار مرتفع ويحزن ووراه ناطحات سحاب 😢🏢",
+    text: "Wohnbedürfnisse der Jugend bisher vernachlässigt - Als junger Mensch in Wien auf Wohnungssuche zu sein, ist allenfalls eine große Herausforderung",
+    meaning: "احتياجات الشباب السكنية في فيينا مهملة",
+    keywords: ["Wohnbedürfnisse = احتياجات سكنية", "Jugend = شباب", "vernachlässigt = مهملة", "Wohnungssuche = البحث عن سكن", "Herausforderung = تحدٍ"],
+    simplified: "الشباب يجدون صعوبة في العثور على سكن في فيينا",
+    imagine: "شاب يحمل حقيبة وينظر إلى لوحة إيجار مرتفع ويحزن 😢🏢📋",
     correct: "j"
 };
 
 HELP_DATA["lesen1_exam55_q3"] = {
-    text: "Wohnentwürfe so divers wie die Menschen - Wohnen wie immer? Laut Ansicht des",
-    meaning: "تغيرات مستقبلية في السكن بسبب الكثافة السكانية في المدن",
-    keywords: ["Zukunftsforscher = عالم مستقبل", "Wohnkultur = ثقافة السكن", "Bevölkerungszunahme = زيادة سكانية", "Ressourcen = موارد"],
-    simplified: "المستقبل: سكن جماعي بيئي في المدن",
-    imagine: "مدينة مستقبلية بدون سيارات وفيها حدائق على الأسطح وناس تمشي بمرح 🌿🏙️",
+    text: "Wohnentwürfe so divers wie die Menschen - Wohnen wie immer? Laut Ansicht des renommierten Zukunftsforschers Adrian Gregorius",
+    meaning: "تصاميم سكنية متنوعة مثل تنوع الناس أنفسهم",
+    keywords: ["Wohnentwürfe = تصاميم سكنية", "divers = متنوعة", "Menschen = ناس", "Zukunftsforscher = عالم مستقبل"],
+    simplified: "السكن المستقبلي متنوع مثل الناس",
+    imagine: "مدينة مستقبلية، كل بيت بشكل مختلف، وناس تمشي بينهم 🌿🏙️🚶",
     correct: "e"
 };
 
 HELP_DATA["lesen1_exam55_q4"] = {
-    text: "Neuer Trend könnte für Steigerung der Einwohnerzahl sorgen - Dass sich die Menschen einmal",
-    meaning: "البيوت الصغيرة جداً حل سكني مرن وبأسعار معقولة",
-    keywords: ["Tiny Houses = بيوت صغيرة", "mobil = متنقل", "ländliche Gemeinden = مجتمعات ريفية", "Abwanderung = هجرة"],
-    simplified: "بيوت صغيرة جداً بيئة ومتنقلة",
-    imagine: "بيت صغير على عجلات وجار يطل من النافذة ويبتسم 🚐🏠",
+    text: "Neuer Trend könnte für Steigerung der Einwohnerzahl sorgen - Dass sich die Menschen einmal danach sehnen würden, möglichst wenig Wohnfläche zur Verfügung zu haben",
+    meaning: "اتجاه جديد قد يزيد عدد السكان في المناطق الريفية",
+    keywords: ["Trend = اتجاه", "Steigerung = زيادة", "Einwohnerzahl = عدد السكان", "wenig Wohnfläche = مساحة سكنية صغيرة"],
+    simplified: "بيوت صغيرة قد تزيد عدد السكان في الريف",
+    imagine: "بيت صغير جداً على عجلات، وجار يطل من النافذة ويبتسم 🚐🏠😊",
     correct: "g"
 };
 
 HELP_DATA["lesen1_exam55_q5"] = {
-    text: "Ansprüche an Wohnfläche altersabhängig - Wer hat insgeheim nicht jenen Tag",
-    meaning: "بعد مغادرة الأبناء، يبيع الآباء البيت الكبير ويبحثون عن مسكن أصغر",
-    keywords: ["ausziehen = يغادر المنزل", "Umorientierung = إعادة توجيه", "Einsamkeit = وحدة", "veräußern = يبيع"],
-    simplified: "الأهل يبيعون البيت الكبير بعد ما يطلع الأبناء",
-    imagine: "زوجان جالسان في بيت صغير ويشربان القهوة بسلام ووراهم صورة لأولادهم ☕😌",
+    text: "Ansprüche an Wohnfläche altersabhängig - Wer hat insgeheim nicht jenen Tag herbeigesehnt, an dem die Kinder endlich selbstständig werden",
+    meaning: "متطلبات المساحة السكنية تتغير حسب العمر",
+    keywords: ["Ansprüche = متطلبات", "Wohnfläche = مساحة سكنية", "altersabhängig = حسب العمر", "Kinder = أطفال", "selbstständig = مستقل"],
+    simplified: "احتياجات السكن تختلف حسب عمر الإنسان",
+    imagine: "زوجان جالسان في بيت صغير، ووراهم صورة لأولادهم الكبار ☕😌🏠",
     correct: "f"
 };
-
-
 
 
 
