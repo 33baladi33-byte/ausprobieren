@@ -18797,7 +18797,9 @@ function getCorrectQuestions(skill, examId) {
         'lesen1_exam37': [1,2,3,4,5], 'lesen1_exam38': [1,2,3,4,5], 'lesen1_exam39': [1,2,3,4,5],
         'lesen1_exam40': [1,2,3,4,5], 'lesen1_exam41': [1,2,3,4,5], 'lesen1_exam42': [1,2,3,4,5],
         'lesen1_exam43': [1,2,3,4,5], 'lesen1_exam44': [1,2,3,4,5], 'lesen1_exam45': [1,2,3,4,5],
-        'lesen1_exam46': [1,2,3,4,5], 'lesen1_exam47': [1,2,3,4,5],
+        'lesen1_exam46': [1,2,3,4,5], 'lesen1_exam47': [1,2,3,4,5], 'lesen1_exam48': [1,2,3,4,5], 'lesen1_exam49': [1,2,3,4,5], 'lesen1_exam50': [1,2,3,4,5],
+'lesen1_exam51': [1,2,3,4,5], 'lesen1_exam52': [1,2,3,4,5], 'lesen1_exam53': [1,2,3,4,5],
+'lesen1_exam54': [1,2,3,4,5], 'lesen1_exam55': [1,2,3,4,5],
         
         // Lesen Teil 2 (37 امتحان)
         'lesen2_exam1': [1,2,3,4,5], 'lesen2_exam2': [1,2,3,4,5], 'lesen2_exam3': [1,2,3,4,5],
