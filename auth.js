@@ -361,9 +361,19 @@ function showSessionExpiredModal() {
 // الحصول على حالة المستخدم
 // ============================================
 
+// ✅ متغيرات Cache (ضعها خارج الدالة)
+let userStatusCacheAuth = null;
+let userStatusCacheTimeAuth = 0;
+const CACHE_DURATION_AUTH = 60000; // 60 ثانية
+
 async function getUserStatus() {
     const email = getLoggedInEmail();
     if (!email) return 'guest';
+    
+    const now = Date.now();
+    if (userStatusCacheAuth && (now - userStatusCacheTimeAuth) < CACHE_DURATION_AUTH) {
+        return userStatusCacheAuth;
+    }
     
     try {
         const result = await checkUser(email);
@@ -371,13 +381,17 @@ async function getUserStatus() {
             const today = new Date().toISOString().slice(0, 10);
             if (today <= result.expiry) {
                 currentExpiry = result.expiry;
+                userStatusCacheAuth = 'premium';
+                userStatusCacheTimeAuth = now;
                 return 'premium';
-            } else {
-                return 'free';
             }
         }
+        userStatusCacheAuth = 'free';
+        userStatusCacheTimeAuth = now;
         return 'free';
     } catch (e) {
+        userStatusCacheAuth = 'free';
+        userStatusCacheTimeAuth = now;
         return 'free';
     }
 }
