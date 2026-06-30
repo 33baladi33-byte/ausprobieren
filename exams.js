@@ -89,18 +89,27 @@ let currentExamsList = [];
 let currentMündlichPart = 2;
 let userStatusCache = null;
 let lastStatusCheck = 0;
-// ========== دوال التحقق من حالة المستخدم ==========
+// ========== دوال التحقق من حالة المستخدم - مع تحسين Cache ==========
 async function getUserStatusForExam() {
     let email = localStorage.getItem('zertiva_email');
     if (!email) return 'guest';
     
     let now = Date.now();
-    if (userStatusCache && (now - lastStatusCheck) < 5000) {
+    // ✅ زيادة مدة Cache إلى 60 ثانية بدلاً من 5 ثوانٍ
+    if (userStatusCache && (now - lastStatusCheck) < 60000) {
         return userStatusCache;
     }
     
     try {
-        // ✅ فقط من Google Sheets
+        // ✅ استخدام getUserStatus من auth.js مع Cache مدمج
+        if (typeof window.getUserStatusGlobal === 'function') {
+            const status = await window.getUserStatusGlobal();
+            userStatusCache = status;
+            lastStatusCheck = now;
+            return status;
+        }
+        
+        // ✅ حل احتياطي: استخدام checkUser مباشرة
         const result = await checkUser(email);
         if (result && result.exists && result.expiry) {
             let today = new Date().toISOString().slice(0,10);
@@ -484,7 +493,9 @@ const examsDatabase = {
     { id: 44, title: "Die Katzen", enabled: true, hasFile: true },
     { id: 45, title: "Teleshopping – nicht immer gut und günstig", enabled: true, hasFile: true },
     { id: 46, title: "Die Rückkehr des Nachtzugs", enabled: true, hasFile: true },
-    { id: 47, title: "Die Reise im Schlafwagen", enabled: true, hasFile: true }
+    { id: 47, title: "Die Reise im Schlafwagen", enabled: true, hasFile: true },
+    { id: 48, title: "Theaterprojekt für Kinder (المعدل 1)", enabled: true, hasFile: true },
+{ id: 49, title: "Theater für Kinder und Jugendliche (المعدل 2)", enabled: true, hasFile: true }
   ],
   hoeren1: [
     { id: 1, title: "Die Deutsche Lufthansa", enabled: true, hasFile: true },
