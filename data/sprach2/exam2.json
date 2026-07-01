@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 2: Das Fahrrad (معدل)",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Sollte man nicht doch besser aufs Fahrrad umsteigen?\n\nWelches Fortbewegungsmittel, denken Sie, wird in Deutschland am häufigsten benutzt? Natürlich das Automobil. Volkswagen, Porsche, Mercedes Benz, BMW, Audi: In .......(1)....... einem anderen Land gibt es so viele Automobilfabriken wie in Deutschland, spielt die Automobilindustrie eine so große Rolle. Nahezu jeder Haushalt verfügt über mindestens ein Auto. Das Auto hat im Leben der Deutschen eine große Bedeutung, sowohl als Fortbewegungsmittel, mit dem man zum Arbeitsplatz kommt oder in den Urlaub fährt, als auch als Statussymbol: Zeig mir dein Auto und ich weiß, wer du bist.\n\nDoch hat das Autofahren auch Schattenseiten. Mangelnde Bewegungsmöglichkeiten, gesundheitliche Probleme und Stress bringen zumindest in den Großstädten immer mehr Autofahrer dazu, sich vom Automobil freizumachen und .......(2)....... ein anderes Verkehrsmittel umzusteigen, das in dem Ruf steht, gesünder zu sein als das Auto: das Fahrrad. Nicht nur in der Freizeit, sondern auch auf dem Weg zum Arbeitsplatz wird das Rad benutzt. \"Ich habe keine Lust, Morgen für Morgen im Stau zu stehen und Zeit zu verlieren\", sagt Bettina Meier 25. \"Da ist es viel entspannender, auf den .......(3)....... gut ausgebauten Fahrradwegen an den im Stau wartenden Fahrzeugen vorbeizufahren und ausgeruht am Arbeitsplatz anzukommen.\"\n\nDass Fahrradfahren um einiges gesünder ist, als hinter dem Lenkrad zu sitzen, bestätigen auch die Mediziner. Wer Fahrrad fährt .......(4)....... zu sitzen, bringt seinen Blutkreislauf in Schwung, trainiert seinen Körper und stärkt dessen Abwehrkräfte. Auch die Bewegung an der frischen Luft tut Menschen gut, die sich sonst die meiste Zeit .......(5)....... geschlossener Räume in Büros, Schulen oder Fabriken aufhalten .......(6)........\n\nAuch die Geschäftswelt hat die Fahrradfahrer als Kunden entdeckt. Ein breites Angebot .......(7)....... Zubehör für Fahrräder von schicken Radfelgen über sportliche Mehrganggetriebe, mit denen Berge kein Problem mehr darstellen, bis zur Designer-Trinkflasche machen aus dem einfachen Fahrrad ein exklusives Fahrzeug. Und natürlich darf bei keinem Fahrradfahrer eine aufwändige Sicherheitsausstattung mehr fehlen: Schutzhelme, Ellenbogen- und Knieschützer, die das Fahrrad im Falle eines Unfalls fast so sicher wie einen Panzer machen .......(8)........\n\nNur wenn es regnet – und das passiert in Deutschland leider nicht so selten –, .......(9)....... sind die Autoschlangen wieder länger. .......(10)....... einen praktischen Wetterschutz für Radfahrer haben die Geschäfte noch nicht im Angebot.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"],
+      "correct": "kaum"
+    },
+    {
+      "id": 2,
+      "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"],
+      "correct": "auf"
+    },
+    {
+      "id": 3,
+      "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"],
+      "correct": "zumeist"
+    },
+    {
+      "id": 4,
+      "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"],
+      "correct": "statt"
+    },
+    {
+      "id": 5,
+      "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"],
+      "correct": "innerhalb"
+    },
+    {
+      "id": 6,
+      "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"],
+      "correct": "müssen"
+    },
+    {
+      "id": 7,
+      "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"],
+      "correct": "an"
+    },
+    {
+      "id": 8,
+      "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"],
+      "correct": "sollen"
+    },
+    {
+      "id": 9,
+      "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"],
+      "correct": "dann"
+    },
+    {
+      "id": 10,
+      "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"],
+      "correct": "denn"
+    }
+  ],
+  "allOptions": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "zumeist"]
+}

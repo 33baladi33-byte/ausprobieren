@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 31: Joggen: Mehr als nur Laufen",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Auto, Rolltreppe, Fahrstuhl - das moderne Leben ist ......(1)....... geworden. Ein Großteil der Bevölkerung verbringt den Tag sitzend. Zum Leidwesen unseres Körpers, denn das geht zu Lasten der Gesundheit. Herz-Kreislauf-Erkrankungen ......(2)....... in den westlichen Industrieländern mittlerweile die Todesursache Nummer Eins. Dennoch: Rund zehn Millionen Menschen in Deutschland joggen, etwa acht Millionen gehen Inline-Skaten oder Rad fahren, jeder Dritte schwimmt. Wer regelmäßig, richtig und vor allem in Maßen trainiert, fördert Gesundheit, Körper- und Selbstbewusstsein.\nZahlreiche Sportarten bieten einen einfachen und abwechslungsreichen Einstieg auch für Ungeübte. Vom Klassiker Jogging bis hin zu Walking, Radfahren, Schwimmen, Aerobic, Inline-Skating und Langlauf im Winter. Wichtig ist ......(3)....... richtig zu trainieren, den Körper nicht zu überfordern - vor allem nach einer längeren 'Sportpause'! Empfehlenswert ist aerobes Herz-Kreislauf-Training, das bedeutet Ausdauertraining ......(4)....... Verbrennung von Sauerstoff. Dreimal in der Woche 30 bis 40 Minuten genügen. Dabei ......(5)....... der Puls kontrolliert werden. Der Richtwert ist hier 180 minus Lebensalter. Dann wird auch Fett verbrannt, der Körper nicht überfordert.\n......(6)....... mehr Menschen den Schritt in ein aktiveres Leben wagen sollten, machen zahlreiche Studien deutlich: Rund 40 Prozent ......(7)....... Deutschen bringen zu viel auf die Waage, jeder zehnte ist sogar stark fettleibig - Tendenz steigend. Auch vor Kindern und Jugendlichen macht diese Entwicklung nicht halt. Oft fehlt die Zeit für regelmäßiges Essen, Sport und Entspannung. Der Körper quittiert dies meist mit Herz-Kreislauf-Erkrankungen, nicht selten mit ......(8)....... Herzinfarkt - auch, und immer häufiger ......(9)....... Frauen.\nAusdauersport hingegen wirkt auf Herz, Gefäße, Muskeln, Körpergewicht, Hormone und Stimmungen. Stress wird wegtrainiert, Krankheiten geheilt und vorgebeugt. Zusammen mit der richtigen Ernährung minimiert sich das Risiko, einen Herzinfarkt oder Schlaganfall zu erleiden, ......(10)....... Milch und Milchprodukte, pflanzliche Lebensmittel wie Vollkornprodukte, Obst, Gemüse, Salat, magere Wurst und Käsesorten unterstützen das richtige Training.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
+      "correct": "bequem"
+    },
+    {
+      "id": 2,
+      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
+      "correct": "sind"
+    },
+    {
+      "id": 3,
+      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
+      "correct": "immer"
+    },
+    {
+      "id": 4,
+      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
+      "correct": "unter"
+    },
+    {
+      "id": 5,
+      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
+      "correct": "sollte"
+    },
+    {
+      "id": 6,
+      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
+      "correct": "dass"
+    },
+    {
+      "id": 7,
+      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
+      "correct": "aller"
+    },
+    {
+      "id": 8,
+      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
+      "correct": "einem"
+    },
+    {
+      "id": 9,
+      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
+      "correct": "bei"
+    },
+    {
+      "id": 10,
+      "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
+      "correct": "wie"
+    }
+  ],
+  "allOptions": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"]
+}

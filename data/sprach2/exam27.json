@@ -1,0 +1,59 @@
+{
+  "title": "Sprachbausteine Teil 2 - Exam 27: Wie Handschrift wieder cool wird (معدل)",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Mit dem sogenannten SMS-Daumen erbringen Kinder heutzutage Höchstleistungen. Das Handgelenk hingegen schmerzt schnell, ......(1)...... Schreiben mit der Hand ungewohnt ist. Kinder haben damit in der Schule ......(2)...... mehr Probleme.\nDennoch gibt es einen neuen Trend, der mit Handschrift zu ......(3)...... hat: Unter dem Hashtag Lettering finden sich auf Instagram über zwölf Millionen Beiträge.\nBeim Lettering werden Buchstaben auf kunstvolle Weise gezeichnet und danach dekoriert. Vom klassischen Schönschreiben, wie es früher unterrichtet und von einigen auch gefürchtet ......(4)......, ist das alles weit entfernt. Die Verbindung ......(5)...... Schrift und Bild lässt sich auch im Alltag anwenden.\nErfahrungen ......(6)...... hat auch die Wiener Designerin Nina Holler gemacht, die Schrift-Workshops für Kinder und Erwachsene anbietet. Auf ......(7)...... Weise vermittelt die Künstlerin das Thema Schrift aus unterschiedlichen Zeitepochen bis hin zum handgezeichneten modernen Alphabet. So will sie dem persönlichen sprachlichen Ausdruck wieder mehr Tiefe verleihen. Der Künstlerin ist es ein Anliegen, ......(8)...... Kinder die Freude am Schreiben wieder entdecken. Die Schülerinnen und Schüler lernen durch Lettering nebenbei auch, coole Einladungen und Logos zu ......(9)...... Der Rhythmus mache den individuellen Ausdruck beim Schreiben mit der Hand aus. Es nütze wenig, an einzelnen Elementen von Buchstaben zu schreiben, bis ihnen das flüssig von der Hand ......(10)...... So wird die Feinmotorik wieder gestärkt, die vielen Kindern abhandengekommen ist.\nGerade Jugendlichen im Alter zwischen 13 und 15 Jahren bietet die Auseinandersetzung mit Schrift eine Möglichkeit, die eigene Handschrift zu beurteilen und zu entwickeln. So sollen sie neue Wege finden, um sich auszudrücken.",
+  "options": [
+    {
+      "id": 1,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "weil"
+    },
+    {
+      "id": 2,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "immer"
+    },
+    {
+      "id": 3,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "tun"
+    },
+    {
+      "id": 4,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "wurde"
+    },
+    {
+      "id": 5,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "von"
+    },
+    {
+      "id": 6,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "damit"
+    },
+    {
+      "id": 7,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "spielerische"
+    },
+    {
+      "id": 8,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "dass"
+    },
+    {
+      "id": 9,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "gestalten"
+    },
+    {
+      "id": 10,
+      "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
+      "correct": "geht"
+    }
+  ],
+  "allOptions": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"]
+}
