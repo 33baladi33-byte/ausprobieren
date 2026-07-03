@@ -2632,4 +2632,201 @@ if (typeof checkTeil3Exam === 'function') {
 }
 
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
+// ============================================
+// MEMORY HIGHLIGHT SYSTEM - التلوين الذكي
+// ============================================
+
+class MemoryHighlightEngine {
+    constructor() {
+        this.isActive = false;
+        this.originalTexts = new Map();
+        this.container = document.querySelector('.exam-box');
+        this.toggleBtn = document.getElementById('memoryToggleBtn');
+        this.currentExamData = null;
+        
+        this.init();
+    }
+
+    init() {
+        if (this.toggleBtn) {
+            this.toggleBtn.addEventListener('click', () => this.toggle());
+        }
+        
+        // مراقبة تغيير الامتحان
+        this.observer = new MutationObserver(() => {
+            if (this.isActive) {
+                this.removeHighlights();
+                this.applyHighlights();
+            }
+        });
+        
+        if (this.container) {
+            this.observer.observe(this.container, { childList: true, subtree: true });
+        }
+    }
+
+    toggle() {
+        if (this.isActive) {
+            this.removeHighlights();
+            this.toggleBtn.classList.remove('active');
+            this.toggleBtn.textContent = '🎨';
+        } else {
+            this.applyHighlights();
+            this.toggleBtn.classList.add('active');
+            this.toggleBtn.textContent = '🧠';
+        }
+        this.isActive = !this.isActive;
+    }
+
+    setExamData(data) {
+        this.currentExamData = data;
+        if (this.isActive) {
+            this.removeHighlights();
+            this.applyHighlights();
+        }
+    }
+
+    applyHighlights() {
+        const examData = this.currentExamData || window.currentExamData || {};
+        const memoryHighlights = examData.memoryHighlights || [];
+
+        if (memoryHighlights.length === 0) {
+            console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
+            return;
+        }
+
+        memoryHighlights.forEach(highlight => {
+            const color = highlight.color || 0;
+            const parts = highlight.parts || [];
+
+            parts.forEach(partText => {
+                if (!partText || partText.trim() === '') return;
+                this.highlightText(partText, color);
+            });
+        });
+        
+        console.log(`✅ تم تطبيق التلوين (${memoryHighlights.length} مجموعة)`);
+    }
+
+    highlightText(searchText, colorIndex) {
+        if (!this.container) return;
+
+        const walker = document.createTreeWalker(
+            this.container,
+            NodeFilter.SHOW_TEXT,
+            {
+                acceptNode: function(node) {
+                    if (node.parentElement && 
+                        node.parentElement.classList && 
+                        node.parentElement.classList.contains('memory-highlight')) {
+                        return NodeFilter.FILTER_REJECT;
+                    }
+                    if (node.parentElement && 
+                        node.parentElement.tagName === 'SCRIPT') {
+                        return NodeFilter.FILTER_REJECT;
+                    }
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+            }
+        );
+
+        const textNodes = [];
+        let currentNode = walker.nextNode();
+        while (currentNode) {
+            textNodes.push(currentNode);
+            currentNode = walker.nextNode();
+        }
+
+        textNodes.forEach(node => {
+            const text = node.textContent;
+            if (text.includes(searchText)) {
+                if (!this.originalTexts.has(node)) {
+                    this.originalTexts.set(node, text);
+                }
+
+                const parts = text.split(searchText);
+                const fragment = document.createDocumentFragment();
+                
+                parts.forEach((part, index) => {
+                    if (index > 0) {
+                        const span = document.createElement('span');
+                        span.className = `memory-highlight color${colorIndex}`;
+                        span.textContent = searchText;
+                        fragment.appendChild(span);
+                    }
+                    if (part) {
+                        const textNode = document.createTextNode(part);
+                        fragment.appendChild(textNode);
+                    }
+                });
+
+                node.parentNode.replaceChild(fragment, node);
+            }
+        });
+    }
+
+    removeHighlights() {
+        if (!this.container) return;
+
+        const highlights = this.container.querySelectorAll('.memory-highlight');
+        
+        highlights.forEach(span => {
+            const parent = span.parentNode;
+            const textNode = document.createTextNode(span.textContent);
+            parent.replaceChild(textNode, span);
+            parent.normalize();
+        });
+
+        this.originalTexts.clear();
+    }
+
+    // دالة مساعدة لتحديث البيانات عند تحميل امتحان جديد
+    updateExamData(data) {
+        this.currentExamData = data;
+        if (this.isActive) {
+            this.removeHighlights();
+            setTimeout(() => this.applyHighlights(), 100);
+        }
+    }
+}
+
+// ============================================
+// تهيئة نظام التلوين
+// ============================================
+
+let memoryEngine = null;
+
+// تهيئة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    memoryEngine = new MemoryHighlightEngine();
+    console.log('🧠 نظام التلوين الذكي جاهز');
+});
+
+// دالة مساعدة لتحديث بيانات الامتحان من أي مكان
+window.updateMemoryHighlights = function(examData) {
+    if (memoryEngine) {
+        memoryEngine.updateExamData(examData);
+    }
+};
+
+// ربط مع نظام تحميل الامتحانات الحالي
+const originalLoadExam = window.loadExamFromFile;
+if (originalLoadExam) {
+    window.loadExamFromFile = async function(skill, examId) {
+        const data = await originalLoadExam(skill, examId);
+        if (data && memoryEngine) {
+            memoryEngine.setExamData(data);
+        }
+        return data;
+    };
+}
+
+// تحديث عند تحميل أي امتحان
+document.addEventListener('examLoaded', function(e) {
+    if (e.detail && e.detail.data && memoryEngine) {
+        memoryEngine.setExamData(e.detail.data);
+    }
+});
+
+console.log('✅ نظام التلوين الذكي تم تحميله');
 console.log("✅ engine.js تم تحميله بالكامل");
