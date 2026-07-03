@@ -12,7 +12,12 @@
     },
     {
       "text": "Immer mehr Menschen besuchen den Tag des offenen Denkmals.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Immer mehr Menschen besuchen den Tag",
+        "color": "#4CAF50",
+        "helpKey": "hoeren1_exam2_q3"
+      }
     },
     {
       "text": "Die Mehrheit der deutschen Arbeitnehmer würde auch im Ausland arbeiten.",
@@ -20,7 +25,12 @@
     },
     {
       "text": "Bei den Fußballspielen gab es keinen Sieger.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Bei den Fußballspielen gab es keinen",
+        "color": "#FF9800",
+        "helpKey": "hoeren1_exam2_q5"
+      }
     }
   ]
 }

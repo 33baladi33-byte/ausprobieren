@@ -8,11 +8,21 @@
     },
     {
       "text": "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Ein Bonner Sportverein zeigt der Öffentlichkeit",
+        "color": "#4CAF50",
+        "helpKey": "hoeren1_exam1_q2"
+      }
     },
     {
       "text": "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen",
+        "color": "#FF9800",
+        "helpKey": "hoeren1_exam1_q3"
+      }
     },
     {
       "text": "Durch moderne Wärmedämmung könnten die Heizkosten deutlich reduziert werden.",
