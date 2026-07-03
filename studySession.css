@@ -1,0 +1,361 @@
+/* ============================================
+   studySession.css - جلسة مراجعة
+   ============================================ */
+
+/* زر العداد - مثل زر الإشعارات */
+.study-session-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #38bdf8;
+    font-size: 20px;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+/* تأثير hover */
+.study-session-btn:hover {
+    background: rgba(56, 189, 248, 0.18);
+    border-color: #38bdf8;
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+}
+
+/* نافذة اختيار المدة */
+.session-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 15000;
+    justify-content: center;
+    align-items: center;
+}
+
+.session-modal.active {
+    display: flex;
+}
+
+.session-modal-content {
+    background: #ffffff;
+    border-radius: 28px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.session-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+    color: white;
+}
+
+.session-modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.close-session-modal {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: white;
+    opacity: 0.7;
+}
+
+.session-modal-body {
+    padding: 28px 24px 32px;
+}
+
+.session-question {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1e293b;
+    margin-bottom: 24px;
+}
+
+.session-times-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.time-option {
+    background: #f1f5f9;
+    border: none;
+    border-radius: 60px;
+    padding: 12px 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.time-option:hover {
+    background: #e2e8f0;
+    transform: translateY(-2px);
+}
+
+/* نص التحفيز */
+.session-motivation {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border-radius: 20px;
+    padding: 16px;
+    text-align: center;
+}
+
+.motivation-icon {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+}
+
+.motivation-text {
+    font-size: 0.9rem;
+    color: #1e293b;
+    line-height: 1.5;
+}
+
+.motivation-small {
+    font-size: 0.75rem;
+    color: #5dade2;
+    display: block;
+    margin-top: 5px;
+}
+
+.motivation-coffee {
+    font-size: 1.2rem;
+    margin-top: 8px;
+}
+
+/* ====== العداد الصغير - رمادي مسود ====== */
+.session-timer-bar {
+    position: fixed;
+    top: 85px;
+    right: 20px;
+    background: #2d2f36;
+    backdrop-filter: blur(4px);
+    border-radius: 32px;
+    padding: 3px 10px 3px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 14000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.timer-display {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #f5f7fa;
+}
+
+/* زر الإلغاء */
+.cancel-session-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    border-radius: 30px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
+    transition: all 0.2s;
+    opacity: 0.7;
+}
+
+.cancel-session-btn:hover {
+    opacity: 1;
+    color: rgba(255, 150, 150, 0.9);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Bubble صغيرة */
+.session-timer-bubble {
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    background: #f59e0b;
+    color: #1a1a2e;
+    padding: 3px 10px;
+    border-radius: 40px;
+    font-size: 0.6rem;
+    font-weight: 500;
+    z-index: 13999;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    animation: bubblePulse 0.4s ease;
+    white-space: nowrap;
+}
+
+@keyframes bubblePulse {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* نافذة النهاية */
+.session-end-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 20000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.session-end-card {
+    background: #ffffff;
+    border-radius: 48px;
+    padding: 32px 28px;
+    text-align: center;
+    max-width: 280px;
+    width: 85%;
+}
+
+.session-end-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.session-end-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.session-end-sub {
+    font-size: 0.95rem;
+    color: #2c3e66;
+    margin: 8px 0;
+}
+
+.session-end-message {
+    font-size: 0.85rem;
+    color: #475569;
+    margin-bottom: 20px;
+}
+
+.end-overlay-btn {
+    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+    border: none;
+    border-radius: 60px;
+    padding: 10px 24px;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* الوضع الليلي */
+body.dark-mode .session-modal-content {
+    background: #0f0f1a;
+}
+
+body.dark-mode .session-question {
+    color: #e0e0e0;
+}
+
+body.dark-mode .time-option {
+    background: #1a1a2e;
+    color: #c0c0c0;
+}
+
+body.dark-mode .time-option:hover {
+    background: #2a2a3a;
+}
+
+body.dark-mode .session-motivation {
+    background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+}
+
+body.dark-mode .motivation-text {
+    color: #e0e0e0;
+}
+
+body.dark-mode .session-timer-bar {
+    background: #2a3a4a;
+}
+
+body.dark-mode .session-end-card {
+    background: #0f0f1a;
+}
+
+body.dark-mode .session-end-title {
+    color: #ffffff;
+}
+
+body.dark-mode .session-end-sub {
+    color: #5dade2;
+}
+
+/* للهواتف */
+@media (max-width: 768px) {
+    .study-session-btn {
+        width: 34px;
+        height: 34px;
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+    
+    .session-timer-bar {
+        top: 60px;
+        right: 10px;
+        padding: 2px 8px 2px 12px;
+    }
+    
+    .timer-display {
+        font-size: 0.6rem;
+    }
+    
+    .cancel-session-btn {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+    }
+    
+    .session-timer-bubble {
+        top: 95px;
+        right: 10px;
+        font-size: 0.55rem;
+        padding: 2px 8px;
+    }
+    
+    .session-times-grid {
+        gap: 8px;
+    }
+    
+    .time-option {
+        padding: 8px 6px;
+        font-size: 0.85rem;
+    }
+}
