@@ -2,7 +2,11 @@
 // engine.js - محرك الامتحانات المتكامل (النسخة النهائية الشغالة)
 // يدعم: Matching + True/False + Teil 2 + Teil 3 + Sprachbausteine Teil 1 + Sprachbausteine Teil 2 + Schreiben
 // ============================================
-
+// التأكد من أن HELP_DATA متاحة عالمياً
+if (typeof window.HELP_DATA === 'undefined') {
+    window.HELP_DATA = HELP_DATA;
+}
+console.log('✅ HELP_DATA متاحة عالمياً');
 console.log("✅ engine.js تم تحميله (النسخة النهائية الشغالة)");
 
 window.loadExamFromFile = async function(skill, examId) {
@@ -2909,3 +2913,8 @@ window.getCurrentSkill = getCurrentSkill;
 
 console.log('🎨 نظام التلوين الذكي جاهز! (يستخدم HELP_DATA)');
 console.log(`🎨 حالة التلوين: ${highlightEnabled ? 'مفعل ✅' : 'معطل ❌'}`);
+// التأكد من أن HELP_DATA متاحة عالمياً
+if (typeof window.HELP_DATA === 'undefined') {
+    window.HELP_DATA = HELP_DATA;
+}
+console.log('✅ HELP_DATA متاحة عالمياً');
