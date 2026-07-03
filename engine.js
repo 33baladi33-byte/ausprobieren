@@ -2896,6 +2896,13 @@ window.HIGHLIGHT_COLORS = HIGHLIGHT_COLORS;
 // 🚀 تشغيل نظام التلوين
 // ============================================
 
+
+console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
+console.log("✅ engine.js تم تحميله بالكامل");
+// ============================================
+// 🚀 تشغيل نظام التلوين
+// ============================================
+
 // دالة للحصول على المهارة الحالية
 function getCurrentSkill() {
     if (document.getElementById('hoeren1')?.style.display === 'block') return 'hoeren1';
@@ -2954,5 +2961,3 @@ window.getCurrentSkill = getCurrentSkill;
 
 console.log('✅ نظام التلوين جاهز!');
 console.log(`🎨 حالة التلوين: ${highlightEnabled ? 'مفعل' : 'معطل'}`);
-console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
-console.log("✅ engine.js تم تحميله بالكامل");
