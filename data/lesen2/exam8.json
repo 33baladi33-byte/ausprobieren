@@ -11,7 +11,12 @@
         "b. können Jugendliche zusammen mit einer Handy-Prepaidkarte bekommen.",
         "c. macht es möglich, mit dem Handy zu bezahlen."
       ],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "text": "gibt es für Jugendliche schon bei zahlreichen Geldinstituten.",
+        "color": "#4CAF50",
+        "helpKey": "lesen2_exam8_q1"
+      }
     },
     {
       "text": "Man hat Kontrolle über die Kosten",
@@ -20,7 +25,12 @@
         "b. denn die Eltern werden bei einer Aufladung benachrichtigt",
         "c. weil die Ausgaben durch das Guthaben begrenzt sind"
       ],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "text": "weil die Ausgaben durch das Guthaben begrenzt sind",
+        "color": "#FF9800",
+        "helpKey": "lesen2_exam8_q2"
+      }
     },
     {
       "text": "Die Prepaid-Kreditkarte ist besonders geeignet für",
@@ -29,7 +39,12 @@
         "b. Jugendliche ohne festes Einkommen",
         "c. Menschen mit einem eigenen Bankkonto"
       ],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "text": "Jugendliche ohne festes Einkommen",
+        "color": "#2196F3",
+        "helpKey": "lesen2_exam8_q3"
+      }
     },
     {
       "text": "Prepaid-Karten",
@@ -38,7 +53,12 @@
         "b. verursachen keine unerwarteten Kosten",
         "c. werden als Zahlungsmittel ebenso akzeptiert wie klassische"
       ],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "text": "kosten ähnlich viel wie klassische Kreditkarten",
+        "color": "#9C27B0",
+        "helpKey": "lesen2_exam8_q4"
+      }
     },
     {
       "text": "Bei Prepaid-Karten zahlen",
@@ -47,7 +67,12 @@
         "b. Jugendliche unter 18 Jahren nur die Nutzungsgebühr am Geldautomaten",
         "c. Kunden zwischen 18 und 21 Jahren noch nichts"
       ],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "text": "Erwachsene ab 21 Jahren eine höhere Jahresgebühr als Jugendliche",
+        "color": "#F44336",
+        "helpKey": "lesen2_exam8_q5"
+      }
     }
   ]
 }

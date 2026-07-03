@@ -11,7 +11,12 @@
         "b. junge und alte Menschen gleichermaßen",
         "c. überwiegend alte Menschen"
       ],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "text": "junge und alte Menschen gleichermaßen",
+        "color": "#4CAF50",
+        "helpKey": "lesen2_exam9_q1"
+      }
     },
     {
       "text": "Die Teilnehmer besuchen Frau Hoffmanns Seminar, weil sie",
@@ -20,7 +25,12 @@
         "b. immer mehr vergessen",
         "c. sich von den vielen Informationen überfordert fühlen"
       ],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "text": "sich von den vielen Informationen überfordert fühlen",
+        "color": "#FF9800",
+        "helpKey": "lesen2_exam9_q2"
+      }
     },
     {
       "text": "Jeder Mensch",
@@ -29,7 +39,12 @@
         "b. kann über einen Zeitraum von 20 Minuten alles behalten",
         "c. vergisst die meisten Informationen innerhalb kürzester Zeit"
       ],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "text": "vergisst die meisten Informationen innerhalb kürzester Zeit",
+        "color": "#2196F3",
+        "helpKey": "lesen2_exam9_q3"
+      }
     },
     {
       "text": "Besonders gut kann man sich",
@@ -38,7 +53,12 @@
         "b. an Daten und Begriffe erinnern",
         "c. emotional aufgeladene Situationen merken"
       ],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "text": "emotional aufgeladene Situationen merken",
+        "color": "#9C27B0",
+        "helpKey": "lesen2_exam9_q4"
+      }
     },
     {
       "text": "Suma Hartmann",
@@ -47,7 +67,12 @@
         "b. verbindet Informationen mit Bildern",
         "c. verwendet für ihre Aktenablage nur Tiersymbole"
       ],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "text": "verbindet Informationen mit Bildern",
+        "color": "#F44336",
+        "helpKey": "lesen2_exam9_q5"
+      }
     }
   ]
 }

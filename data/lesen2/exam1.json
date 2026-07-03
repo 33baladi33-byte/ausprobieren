@@ -11,7 +11,12 @@
         "b. spielen in der Milchproduktion kaum eine Rolle.",
         "c. stammen aus Norddeutschland."
       ],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "text": "sind in der Milchproduktion beliebter als andere Rinderrassen.",
+        "color": "#4CAF50",
+        "helpKey": "lesen2_exam1_q1"
+      }
     },
     {
       "text": "Die Kuh Krista",
@@ -20,7 +25,12 @@
         "b. war Siegerin bei einer Veranstaltung in Italien.",
         "c. wurde als schönste Kuh Europas ausgezeichnet."
       ],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "text": "hat bereits einige Preise gewonnen.",
+        "color": "#FF9800",
+        "helpKey": "lesen2_exam1_q2"
+      }
     },
     {
       "text": "Während der Filmaufnahmen",
@@ -29,7 +39,12 @@
         "b. wäre Krista fast gestorben.",
         "c. wurde Krista operiert."
       ],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "text": "wurde Krista operiert.",
+        "color": "#2196F3",
+        "helpKey": "lesen2_exam1_q3"
+      }
     },
     {
       "text": "Die wirtschaftlichen Probleme von Milchbetrieben",
@@ -38,7 +53,12 @@
         "b. sind eine Folge des Verbraucherverhaltens.",
         "c. werden im Film ausführlich behandelt."
       ],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "text": "sind eine Folge des Verbraucherverhaltens.",
+        "color": "#9C27B0",
+        "helpKey": "lesen2_exam1_q4"
+      }
     },
     {
       "text": "Die schöne Krista",
@@ -47,7 +67,12 @@
         "b. könnte die Kritiker nicht überzeugen.",
         "c. wurde als beste Dokumentation ausgezeichnet."
       ],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "text": "begeistert Kinobetreiber bislang nicht.",
+        "color": "#F44336",
+        "helpKey": "lesen2_exam1_q5"
+      }
     }
   ]
 }
