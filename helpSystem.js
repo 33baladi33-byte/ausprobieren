@@ -3,6 +3,7 @@
 // جميع البيانات (HELP_DATA)
 // ============================================
 const HELP_DATA = {};
+window.HELP_DATA = HELP_DATA;
 
 // ============================================
 // Hören Teil 1
@@ -19191,7 +19192,10 @@ if (document.readyState === 'loading') {
     addHelpButton();
     setupExamChangeListener();
 }
-
+// التأكد من أن HELP_DATA متاحة عالمياً
+window.HELP_DATA = HELP_DATA;
+console.log('✅ HELP_DATA متاحة عالمياً');
+console.log('📊 عدد العناصر في HELP_DATA:', Object.keys(HELP_DATA).length);
 console.log('✅ helpSystem.js تم التحميل بنجاح');
 console.log('📊 Hören Teil 1: 45 امتحان (1-27 أساسي + 28-45 تركيا)');
 console.log('📊 Hören Teil 2: 49 امتحان (1-31 أساسي + 32-49 تركيا)');
