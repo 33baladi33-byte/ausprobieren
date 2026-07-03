@@ -1,6 +1,9 @@
 {
   "title": "Hörverstehen Teil 1 - Die Deutsche Lufthansa",
   "type": "truefalse",
+  "highlightData": {
+    "text": "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot."
+  },
   "questions": [
     {
       "text": "Die Deutsche Lufthansa hat ihre Führungsposition verloren.",
