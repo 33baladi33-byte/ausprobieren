@@ -6,17 +6,35 @@
     {
       "id": "a",
       "text": "Die Nachfrage nach individueller Farb- und Stilberatung ist groß. Denn wer heute im Geschäfts- wie auch im Privatleben erfolgreich sein möchte, muss sich in Outfit und Benehmen vorteilhaft präsentieren können. Der Leitfaden zeigt Ihnen, wie Sie sich selbst am besten in Szene setzen. Von der passenden und farblich stimmigen Garderobe über Make-up und Accessoires bis zu modernen Umgangsformen. Nutzen Sie also diesen 'Kurs' als Eintrittskarte in diese reizvolle Welt der Selbstdarstellung. Sie werden garantiert mit einem überzeugenden und gewinnenden persönlichen Auftritt davon profitieren.",
-      "correct": 5
+      "correct": 5,
+      "highlight": {
+        "textStart": "Die Nachfrage nach individueller Farb- und Stilberatung",
+        "situationStart": "Eine Bekannte möchte ihr äußeres Erscheinungsbild optimieren.",
+        "color": "#4CAF50",
+        "helpKey": "lesen3_exam3_q1"
+      }
     },
     {
       "id": "b",
       "text": "Die meisten Menschen kennen keine Strategien, wie sie ihr Lernverhalten und die Fähigkeit, sich Informationen zu merken, gezielt trainieren können. Dieses Buch gibt zunächst einen Überblick, wie das menschliche Gedächtnis funktioniert, und bietet dann eine Fülle von Techniken an, mit denen auch Ungeübte sich das Lernen und Arbeiten leichter machen können.",
-      "correct": 3
+      "correct": 3,
+      "highlight": {
+        "textStart": "Die meisten Menschen kennen keine Strategien",
+        "situationStart": "Eine Studentin sucht Informationen, wie sie besser und systematischer lernen kann.",
+        "color": "#FF9800",
+        "helpKey": "lesen3_exam3_q2"
+      }
     },
     {
       "id": "c",
       "text": "Dieses erstmals 1788 erschienene Buch handelt von dem Umgang der Menschen miteinander und gibt Ratschläge, wie man sich im Umgang mit Menschen verschiedenster Alters- und Rangstufen richtig verhält. Es definiert, was Gutes und was schlechtes Verhalten ist, und galt so lange Zeit als ein Leitfaden für 'richtiges' Benehmen.",
-      "correct": 7
+      "correct": 7,
+      "highlight": {
+        "textStart": "Dieses erstmals 1788 erschienene Buch",
+        "situationStart": "Ein Bekannter schreibt an einer Hausarbeit über gesellschaftliche Normen und Verhaltensregeln.",
+        "color": "#2196F3",
+        "helpKey": "lesen3_exam3_q3"
+      }
     },
     {
       "id": "d",
@@ -26,7 +44,13 @@
     {
       "id": "e",
       "text": "Jeder Mensch kann seine kommunikativen Möglichkeiten entdecken und damit sein Leben bereichern. Die Themen des Buches sind: Die Grundlagen der Kommunikation, Rede und Vortrag, Gespräche erfolgreich führen, Sicherheit gewinnen und Redeängste überwinden, Zeitmanagement für Redner und Konferenzleiter und vieles mehr. Ein ausführlicher Praxisteil mit zahlreichen Übungen ermöglicht es dem Leser, seine rhetorischen Fähigkeiten zu trainieren.",
-      "correct": 9
+      "correct": 9,
+      "highlight": {
+        "textStart": "Jeder Mensch kann seine kommunikativen Möglichkeiten entdecken",
+        "situationStart": "Eine Bekannte ist sehr verunsichert wegen ihrer Angst vor Reden auf Konferenzen.",
+        "color": "#9C27B0",
+        "helpKey": "lesen3_exam3_q4"
+      }
     },
     {
       "id": "f",
@@ -41,12 +65,24 @@
     {
       "id": "h",
       "text": "Der Körper lügt nicht, Gesten und Gebärden decken die Ebene des Unbewusstsein auf: Wer einen erhobenen Zeigefinger oder eine gerümpfte Nase sieht, versteht sofort, was der Gesprächspartner meint, auch wenn der mit Worten etwas anderes sagt. Dieses Buch gibt einen anschaulichen Überblick über die Signale, die wir ständig mit unserem Körper senden, und hilft uns zu verstehen, was jemand in Wahrheit gerade denkt und meint.",
-      "correct": 4
+      "correct": 4,
+      "highlight": {
+        "textStart": "Der Körper lügt nicht, Gesten und Gebärden",
+        "situationStart": "Ein Bekannter möchte wissen, welche Botschaften durch Gestik und Mimik transportiert werden.",
+        "color": "#F44336",
+        "helpKey": "lesen3_exam3_q5"
+      }
     },
     {
       "id": "i",
       "text": "Rolph Barth 'Basiswissen: Bewerbungstraining' Die Konkurrenz auf dem Arbeitsmarkt um immer knapper werdende freie Stellen ist groß. Umso wichtiger ist es zu wissen, wie man sich richtig bewirbt. Dieses Buch gibt Arbeitsuchenden umfassende Informationen zur erfolgreichen Bewerbung und bereitet optimal auf das Vorstellungsgespräch vor. Im Übungsteil werden gute Formulierungen für das Anschreiben und das sichere Auftreten des Bewerbers im Gespräch trainiert.",
-      "correct": 6
+      "correct": 6,
+      "highlight": {
+        "textStart": "Rolph Barth 'Basiswissen: Bewerbungstraining'",
+        "situationStart": "Ein Bekannter ist sich unsicher, wie er sich bei einem Vorstellungsgespräch am besten präsentiert.",
+        "color": "#00BCD4",
+        "helpKey": "lesen3_exam3_q6"
+      }
     },
     {
       "id": "j",
@@ -61,7 +97,13 @@
     {
       "id": "l",
       "text": "Viele Menschen wissen nicht mehr, wo Ihnen der Kopf steht. Zu viele Termine und Aufgaben stellen Sie unter ständigen Zeitdruck. Mit Zeitmanagement lernen Sie, wie Sie Ihre Zeit so einteilen können, dass Sie wieder Zeit zum Leben haben. Sie erkennen Ihre persönlichen Zeitdiebe, Sie lernen, Prioritäten und erreichbare Ziele zu setzen. Durch das Führen eines Zeitplanbuchs lernen Sie wieder (und dauerhaft), aus der Zeitfalle herauszukommen.",
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "textStart": "Viele Menschen wissen nicht mehr, wo Ihnen der Kopf steht",
+        "situationStart": "Ein befreundetes Ehepaar steht andauernd unter Stress und möchte wieder Zeit für sich haben.",
+        "color": "#8BC34A",
+        "helpKey": "lesen3_exam3_q7"
+      }
     }
   ],
   "situations": [

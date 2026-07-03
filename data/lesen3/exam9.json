@@ -11,7 +11,13 @@
     {
       "id": "b",
       "text": "Neues Ziel, neues Glück! Du bist gerade 'auf dem Sprung', willst umziehen und suchst noch eine passende Bleibe? Dann haben wir das Richtige für dich: In unserem Internetportal findest du günstige Wohnungen oder WG-Zimmer in zahlreichen Städten Deutschlands - und sogar über die Grenzen Deutschlands hinaus. Unsere Suchfunktion erlaubt es dir, Details einzugeben wie 'maximale Miete', 'zentrale Lage' usw. Schau einfach mal vorbei, die Suche ist natürlich kostenlos! Und noch etwas: Du kannst auch gerne ein Wohnungsangebot bei uns einstellen, wenn du einen Nachmieter oder einen Mitbewohner suchst - für nur 0,49 Euro. Du findest uns unter www.ueberallwohnen.eu",
-      "correct": 3
+      "correct": 3,
+      "highlight": {
+        "textStart": "Neues Ziel, neues Glück!",
+        "situationStart": "Sie möchten in einer anderen Stadt eine Ausbildung machen und suchen dort eine Wohnung.",
+        "color": "#FF9800",
+        "helpKey": "lesen3_exam9_q1"
+      }
     },
     {
       "id": "c",
@@ -21,12 +27,24 @@
     {
       "id": "d",
       "text": "Andere Länder, ... ... andere Sprachen. Und wo lernt man eine Sprache am besten? Genau - in dem Land, in dem sie gesprochen wird. Wir bieten Ihnen die Möglichkeit, Sprachen auf der ganzen Welt zu lernen. Vom Einzelunterricht bis hin zu einem Kurs für eine ganze Gruppe, von A wie Arabisch bis Z wie Zulu. Entdecken Sie die Welt und die Welt der Sprachen. Wir gehen flexibel auf Ihre Wünsche ein. Sprechen Sie uns an. Egal welche Sprache Sie lernen möchten, wir haben bestimmt auch für Sie das passende Angebot! Weitere Informationen unter: info@sprachenderwelt.eu",
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "textStart": "Andere Länder, andere Sprachen",
+        "situationStart": "Sie möchten einen Sprachkurs in einem anderen Land machen.",
+        "color": "#2196F3",
+        "helpKey": "lesen3_exam9_q2"
+      }
     },
     {
       "id": "e",
       "text": "Was bedeutet 'Tandemlernen'? Zwei Menschen mit verschiedenen Muttersprachen treffen sich und helfen sich gegenseitig beim Lernen der jeweiligen Fremdsprache. Tandemlernen hat keine festgelegten Strukturen, sondern kann ganz nach Lust und Laune ablaufen. Was, wann, wo und wie du lernst, hängt von dir und deinem Tandempartner ab. Außerdem hast du die Chance, durch Tandemlernen einen interessanten Einblick in eine andere Kultur zu bekommen. Und das Beste: es kostet nichts. Schau nach unter www.tandemboerse.de",
-      "correct": 7
+      "correct": 7,
+      "highlight": {
+        "textStart": "Was bedeutet 'Tandemlernen'?",
+        "situationStart": "Sie wollen gerne noch eine Sprache lernen und suchen einen festen Lernpartner.",
+        "color": "#9C27B0",
+        "helpKey": "lesen3_exam9_q3"
+      }
     },
     {
       "id": "f",
@@ -36,22 +54,46 @@
     {
       "id": "g",
       "text": "Umzug mal anders Wer kennt das nicht: Wenn man umziehen will oder muss, gibt es viel zu erledigen. Man muss den Umzug organisieren, sich um Papiere kümmern, die neue Adresse bekanntgeben und vieles mehr. Dabei hat man auch gar keine Zeit, denn arbeiten oder studieren muss man ja auch noch. Deshalb bieten wir einen kompletten Umzugs-Service an. Sie müssen nur noch von einer Stadt in die nächste fahren - und den Rest erledigen wir. Das alles zu einem fairen Preis. Sprechen Sie uns an! E-Mail: info@umzugmalanders.eu",
-      "correct": 8
+      "correct": 8,
+      "highlight": {
+        "textStart": "Umzug mal anders",
+        "situationStart": "Sie wollen umziehen, haben aber eigentlich gar keine Zeit, sich darum zu kümmern.",
+        "color": "#F44336",
+        "helpKey": "lesen3_exam9_q4"
+      }
     },
     {
       "id": "h",
       "text": "Alle Informationen auf einer Seite Die neue Internetseite www.studium.de bietet Ihnen alles rund um das Thema 'Studium'. So finden Sie neben Informationen zu allen deutschen Hochschulen auch genaue Beschreibungen aller Studiengänge und -fächer auf unserer Webseite. Ob Sie etwas Naturwissenschaftliches studieren möchten, etwas Wirtschaftswissenschaftliches, ein Fach mit Bezug zu Kultur oder eine Sprache - bei uns finden Sie alles und erfahren natürlich auch, wo Sie was studieren können. Und als besonderen Service bieten wir Ihnen auch einen BAföG-Rechner an: Ermitteln Sie gleich, ob Ihnen Unterstützung während des Studiums zusteht.",
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "textStart": "Alle Informationen auf einer Seite",
+        "situationStart": "Sie möchten Physik studieren und möchten sich zunächst informieren.",
+        "color": "#00BCD4",
+        "helpKey": "lesen3_exam9_q5"
+      }
     },
     {
       "id": "i",
       "text": "Hilfe gesucht? Studierende und Auszubildende müssen oft umziehen, ohne dass sie viel Geld dafür hätten. Deshalb haben wir unser Netzwerk 'Studis und Azubis ziehen um' gegründet. Bei uns sind viele fleißige Helfer registriert, die gerne beim Umzug helfen: Kisten packen, Möbel abbauen, die Sachen zur neuen Wohnung bringen und so weiter. Und das Beste daran: Es kostet keinen Cent! Wie das funktioniert? Ganz einfach. Registriert euch bei uns - natürlich ebenfalls kostenfrei -, und wenn jemand anders Hilfe braucht, tragt ihr eben auch mal Kartons und baut Möbel auf. Wir helfen uns gegenseitig! Weitere Infos unter: www.umzugshelferlein.eu",
-      "correct": 4
+      "correct": 4,
+      "highlight": {
+        "textStart": "Hilfe gesucht? Studierende und Auszubildende",
+        "situationStart": "Sie ziehen wegen einer Ausbildung um und suchen so günstig wie möglich Umzugshelfer.",
+        "color": "#8BC34A",
+        "helpKey": "lesen3_exam9_q6"
+      }
     },
     {
       "id": "j",
       "text": "Neu in der Stadt? Ihr seid umgezogen und habt eine Ausbildung oder ein Studium hier in der Stadt begonnen? Ihr sucht neue Kontakte, Leute, mit denen ihr die Freizeit verbringen könnt? Der Verein 'Triff dich!' organisiert einmal pro Woche einen Stammtisch für alle, die neue Leute treffen wollen. Kommt einfach vorbei - und wenn es euch nicht gefällt, könnt ihr ja jederzeit wieder gehen! Weitere Informationen sowie den Ort und das genaue Datum für unser nächstes Treffen erhaltet ihr unter: info@triffdich.eu",
-      "correct": 5
+      "correct": 5,
+      "highlight": {
+        "textStart": "Neu in der Stadt?",
+        "situationStart": "Sie sind gerade umgezogen und möchten neue Leute kennenlernen.",
+        "color": "#FF5722",
+        "helpKey": "lesen3_exam9_q7"
+      }
     },
     {
       "id": "k",
@@ -61,7 +103,13 @@
     {
       "id": "l",
       "text": "Aller Anfang ist schwer. Einige Fächer sind schon in der Schule nicht beliebt, und das ändert sich auch später in der Berufsschule oder an der Universität nicht. Für viele sind Naturwissenschaften oder Mathematik echte 'Problemfächer'. Bei uns wird das anders. Unsere Lehrkräfte sind nicht nur fachlich gut ausgebildet, sondern sie haben auch eine spezielle pädagogische Ausbildung. Probieren Sie es einfach aus! Egal, ob in der Schule, in der Ausbildung, im Studium oder 'einfach nur so' - bei uns finden Sie, was Sie brauchen. Bei uns lernen Sie in Lerngruppen von drei bis fünf Teilnehmenden, so können Sie sich auch gegenseitig unterstützen. Weitere Informationen unter info@lernenmachtspass.eu",
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "textStart": "Aller Anfang ist schwer",
+        "situationStart": "Sie brauchen Unterstützung in Mathematik und möchten in einer kleinen Gruppe lernen.",
+        "color": "#3F51B5",
+        "helpKey": "lesen3_exam9_q8"
+      }
     }
   ],
   "situations": [
