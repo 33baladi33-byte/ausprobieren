@@ -2961,3 +2961,320 @@ window.getCurrentSkill = getCurrentSkill;
 
 console.log('✅ نظام التلوين جاهز!');
 console.log(`🎨 حالة التلوين: ${highlightEnabled ? 'مفعل' : 'معطل'}`);
+// ============================================
+// 🎨 نظام التلوين الذكي (المطور حسب رؤيتك)
+// ============================================
+
+// ألوان هادئة وجميلة
+const HIGHLIGHT_COLORS = [
+    { bg: '#E8F1FF', color: '#1456A0' },  // أزرق فاتح
+    { bg: '#EAF8EF', color: '#1F7A46' },  // أخضر فاتح
+    { bg: '#FFF5E5', color: '#A86400' },  // برتقالي فاتح
+    { bg: '#F7ECFF', color: '#6A3FA0' },  // بنفسجي فاتح
+    { bg: '#FFECEC', color: '#B33A3A' },  // أحمر فاتح
+    { bg: '#EAF7F7', color: '#0D7377' }   // تركواز فاتح
+];
+
+let highlightEnabled = true;
+
+// تحميل حالة التلوين من localStorage
+try {
+    const saved = localStorage.getItem('zertiva_highlight');
+    if (saved !== null) {
+        highlightEnabled = saved === 'true';
+    }
+} catch(e) {}
+
+// دالة تلوين النص
+function applyHighlightToText(element, textToHighlight, colorIndex) {
+    if (!element || !textToHighlight || !highlightEnabled) return;
+    
+    const color = HIGHLIGHT_COLORS[colorIndex % HIGHLIGHT_COLORS.length];
+    if (!color) return;
+    
+    const escapedText = textToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedText})`, 'g');
+    
+    element.innerHTML = element.innerHTML.replace(regex, (match) => {
+        return `<span class="hl" style="background:${color.bg};color:${color.color};border-radius:4px;padding:2px 4px;font-weight:600;">${match}</span>`;
+    });
+}
+
+// تطبيق التلوين على الامتحان
+function applyHighlights() {
+    // إزالة التلوين القديم أولاً
+    removeAllHighlights();
+    
+    if (!highlightEnabled) return;
+    
+    const skill = getCurrentSkill();
+    const examId = window.currentExamId || 1;
+    
+    if (!skill) return;
+    
+    // البحث عن بيانات التلوين في الامتحان الحالي
+    let highlightData = null;
+    
+    // 1. التحقق من وجود highlightData في الامتحان المحمل
+    if (window.currentExamData && window.currentExamData.highlightData) {
+        highlightData = window.currentExamData.highlightData;
+    }
+    
+    // 2. التحقق من HIGHLIGHT_DATA (للتوافق مع النظام القديم)
+    if (!highlightData && typeof HIGHLIGHT_DATA !== 'undefined') {
+        const prefix = `${skill}_exam${examId}`;
+        for (let key in HIGHLIGHT_DATA) {
+            if (key.startsWith(prefix)) {
+                highlightData = HIGHLIGHT_DATA[key];
+                break;
+            }
+        }
+    }
+    
+    if (!highlightData) {
+        console.log(`ℹ️ لا توجد بيانات تلوين للامتحان: ${skill}_exam${examId}`);
+        return;
+    }
+    
+    const container = document.getElementById(skill);
+    if (!container) return;
+    
+    let colorIndex = 0;
+    
+    // تلوين حسب نوع البيانات
+    if (highlightData.text) {
+        // Hören أو Lesen Teil 2
+        const cards = container.querySelectorAll('.question-card');
+        cards.forEach(card => {
+            const textEl = card.querySelector('.question-text, .text-content, div[style*="line-height"]');
+            if (textEl) {
+                applyHighlightToText(textEl, highlightData.text, colorIndex);
+                colorIndex++;
+            }
+        });
+    }
+    
+    if (highlightData.paragraph && highlightData.title) {
+        // Lesen Teil 1 أو 3
+        const cards = container.querySelectorAll('.question-card');
+        cards.forEach(card => {
+            const textEl = card.querySelector('.question-text, .text-content, div[style*="line-height"]');
+            if (textEl) {
+                applyHighlightToText(textEl, highlightData.paragraph, colorIndex);
+                colorIndex++;
+                applyHighlightToText(textEl, highlightData.title, colorIndex);
+                colorIndex++;
+            }
+        });
+    }
+    
+    if (highlightData.before || highlightData.answer || highlightData.after) {
+        // Sprachbausteine
+        const textElements = container.querySelectorAll('div[style*="line-height"], div[style*="text-align"]');
+        textElements.forEach(el => {
+            if (highlightData.before) {
+                applyHighlightToText(el, highlightData.before, colorIndex);
+                colorIndex++;
+            }
+            if (highlightData.answer) {
+                applyHighlightToText(el, highlightData.answer, colorIndex);
+                colorIndex++;
+            }
+            if (highlightData.after) {
+                applyHighlightToText(el, highlightData.after, colorIndex);
+                colorIndex++;
+            }
+        });
+    }
+    
+    console.log('✅ تم تطبيق التلوين بنجاح');
+}
+
+// إزالة جميع التلوينات
+function removeAllHighlights() {
+    document.querySelectorAll('.hl').forEach(el => {
+        const parent = el.parentNode;
+        if (parent) {
+            const text = document.createTextNode(el.textContent);
+            parent.replaceChild(text, el);
+            parent.normalize();
+        }
+    });
+}
+
+// تبديل حالة التلوين
+function toggleHighlights() {
+    highlightEnabled = !highlightEnabled;
+    try {
+        localStorage.setItem('zertiva_highlight', highlightEnabled.toString());
+    } catch(e) {}
+    
+    if (highlightEnabled) {
+        applyHighlights();
+    } else {
+        removeAllHighlights();
+    }
+    
+    updateHighlightButton();
+}
+
+// تحديث زر التلوين
+function updateHighlightButton() {
+    const btn = document.getElementById('highlightToggleBtn');
+    if (!btn) return;
+    
+    if (highlightEnabled) {
+        btn.innerHTML = '🎨';
+        btn.title = 'إخفاء الألوان';
+        btn.style.opacity = '1';
+        btn.style.borderColor = '#38bdf8';
+    } else {
+        btn.innerHTML = '🎨';
+        btn.title = 'إظهار الألوان';
+        btn.style.opacity = '0.4';
+        btn.style.borderColor = 'rgba(255,255,255,0.1)';
+    }
+}
+
+// إضافة زر التلوين
+function addHighlightButton() {
+    // إزالة الزر القديم إن وجد
+    const oldBtn = document.getElementById('highlightToggleBtn');
+    if (oldBtn) oldBtn.remove();
+    
+    // العثور على حاوية الأزرار
+    const nav = document.getElementById('examNavButtons');
+    if (!nav) {
+        // إنشاء حاوية إذا لم توجد
+        const container = document.querySelector('.top-bar .right-side');
+        if (!container) return;
+        
+        const newNav = document.createElement('div');
+        newNav.id = 'examNavButtons';
+        newNav.style.display = 'flex';
+        newNav.style.alignItems = 'center';
+        newNav.style.gap = '10px';
+        container.appendChild(newNav);
+    }
+    
+    const navElement = document.getElementById('examNavButtons');
+    if (!navElement) return;
+    
+    const btn = document.createElement('button');
+    btn.id = 'highlightToggleBtn';
+    btn.innerHTML = '🎨';
+    btn.title = highlightEnabled ? 'إخفاء الألوان' : 'إظهار الألوان';
+    btn.style.cssText = `
+        background: transparent;
+        border: 1px solid ${highlightEnabled ? '#38bdf8' : 'rgba(255,255,255,0.1)'};
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: ${highlightEnabled ? '#38bdf8' : '#94a3b8'};
+        opacity: ${highlightEnabled ? '1' : '0.4'};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    `;
+    
+    btn.onmouseenter = () => {
+        btn.style.transform = 'scale(1.1)';
+        btn.style.borderColor = '#38bdf8';
+    };
+    btn.onmouseleave = () => {
+        btn.style.transform = 'scale(1)';
+        if (!highlightEnabled) {
+            btn.style.borderColor = 'rgba(255,255,255,0.1)';
+        } else {
+            btn.style.borderColor = '#38bdf8';
+        }
+    };
+    
+    btn.onclick = (e) => {
+        e.stopPropagation();
+        toggleHighlights();
+    };
+    
+    navElement.appendChild(btn);
+}
+
+// الحصول على نوع المهارة الحالي
+function getCurrentSkill() {
+    if (document.getElementById('hoeren1')?.style.display === 'block') return 'hoeren1';
+    if (document.getElementById('hoeren2')?.style.display === 'block') return 'hoeren2';
+    if (document.getElementById('hoeren3')?.style.display === 'block') return 'hoeren3';
+    if (document.getElementById('teil1')?.style.display === 'block') return 'lesen1';
+    if (document.getElementById('teil2')?.style.display === 'block') return 'lesen2';
+    if (document.getElementById('teil3')?.style.display === 'block') return 'lesen3';
+    if (document.getElementById('sprach1')?.style.display === 'block') return 'sprach1';
+    if (document.getElementById('sprach2')?.style.display === 'block') return 'sprach2';
+    if (document.getElementById('schreiben')?.style.display === 'block') return 'schreiben';
+    return null;
+}
+
+// تهيئة النظام
+function initHighlightSystem() {
+    console.log('🎨 تهيئة نظام التلوين...');
+    addHighlightButton();
+    
+    // انتظر قليلاً ثم طبق التلوين
+    setTimeout(() => {
+        if (highlightEnabled) {
+            console.log('✅ تطبيق التلوين...');
+            applyHighlights();
+        } else {
+            console.log('⏸️ التلوين معطل');
+        }
+    }, 500);
+}
+
+// مراقبة تغيير الامتحان
+const originalLoadExam = window.loadExamFromFile;
+if (originalLoadExam) {
+    window.loadExamFromFile = async function(skill, examId) {
+        const result = await originalLoadExam(skill, examId);
+        if (result) {
+            window.currentExamData = result;
+            window.currentExamId = examId;
+            setTimeout(() => {
+                if (highlightEnabled) {
+                    applyHighlights();
+                }
+            }, 300);
+        }
+        return result;
+    };
+}
+
+// تشغيل التلوين عند تغيير الأجزاء
+const originalShowTeil = window.showTeil;
+if (originalShowTeil) {
+    window.showTeil = function(teilNumber) {
+        originalShowTeil(teilNumber);
+        setTimeout(() => {
+            if (highlightEnabled) {
+                applyHighlights();
+            }
+        }, 300);
+    };
+}
+
+// تشغيل التلوين عند تحميل الصفحة
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHighlightSystem);
+} else {
+    initHighlightSystem();
+}
+
+// جعل الدوال متاحة عالمياً
+window.toggleHighlights = toggleHighlights;
+window.applyHighlights = applyHighlights;
+window.removeAllHighlights = removeAllHighlights;
+window.getCurrentSkill = getCurrentSkill;
+
+console.log('✅ نظام التلوين الذكي جاهز!');
+console.log(`🎨 حالة التلوين: ${highlightEnabled ? 'مفعل' : 'معطل'}`);
