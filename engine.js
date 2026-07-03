@@ -3278,3 +3278,165 @@ window.getCurrentSkill = getCurrentSkill;
 
 console.log('✅ نظام التلوين الذكي جاهز!');
 console.log(`🎨 حالة التلوين: ${highlightEnabled ? 'مفعل' : 'معطل'}`);
+// ============================================
+// 🎨 نظام التلوين الذكي
+// ============================================
+
+// ألوان هادئة
+const HIGHLIGHT_COLORS = [
+    { bg: '#E8F1FF', color: '#1456A0' },
+    { bg: '#EAF8EF', color: '#1F7A46' },
+    { bg: '#FFF5E5', color: '#A86400' },
+    { bg: '#F7ECFF', color: '#6A3FA0' },
+    { bg: '#FFECEC', color: '#B33A3A' },
+    { bg: '#EAF7F7', color: '#0D7377' }
+];
+
+let highlightEnabled = true;
+
+// تحميل الحالة من localStorage
+try {
+    const saved = localStorage.getItem('zertiva_highlight');
+    if (saved !== null) {
+        highlightEnabled = saved === 'true';
+    }
+} catch(e) {}
+
+// دالة تلوين النص
+function applyHighlightToText(element, textToHighlight, colorIndex) {
+    if (!element || !textToHighlight || !highlightEnabled) return;
+    
+    const color = HIGHLIGHT_COLORS[colorIndex % HIGHLIGHT_COLORS.length];
+    if (!color) return;
+    
+    const escapedText = textToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedText})`, 'g');
+    
+    element.innerHTML = element.innerHTML.replace(regex, (match) => {
+        return `<span class="hl" style="background:${color.bg};color:${color.color};border-radius:4px;padding:2px 4px;font-weight:600;">${match}</span>`;
+    });
+}
+
+// تطبيق التلوين على الامتحان
+function applyHighlights() {
+    removeAllHighlights();
+    if (!highlightEnabled) return;
+    
+    const container = document.querySelector('.page.active');
+    if (!container) return;
+    
+    // البحث عن بيانات التلوين في الامتحان
+    if (window.currentExamData && window.currentExamData.highlightData) {
+        const data = window.currentExamData.highlightData;
+        let colorIndex = 0;
+        
+        if (data.text) {
+            const cards = container.querySelectorAll('.question-card');
+            cards.forEach(card => {
+                const textEl = card.querySelector('.question-text, .text-content');
+                if (textEl) {
+                    applyHighlightToText(textEl, data.text, colorIndex);
+                    colorIndex++;
+                }
+            });
+        }
+    }
+}
+
+// إزالة جميع التلوينات
+function removeAllHighlights() {
+    document.querySelectorAll('.hl').forEach(el => {
+        const parent = el.parentNode;
+        if (parent) {
+            const text = document.createTextNode(el.textContent);
+            parent.replaceChild(text, el);
+            parent.normalize();
+        }
+    });
+}
+
+// تبديل حالة التلوين
+function toggleHighlights() {
+    highlightEnabled = !highlightEnabled;
+    try {
+        localStorage.setItem('zertiva_highlight', highlightEnabled.toString());
+    } catch(e) {}
+    
+    if (highlightEnabled) {
+        applyHighlights();
+    } else {
+        removeAllHighlights();
+    }
+    
+    updateHighlightButton();
+}
+
+// تحديث زر التلوين
+function updateHighlightButton() {
+    const btn = document.getElementById('highlightToggleBtn');
+    if (!btn) return;
+    
+    btn.innerHTML = '🎨';
+    btn.title = highlightEnabled ? 'إخفاء الألوان' : 'إظهار الألوان';
+    btn.style.opacity = highlightEnabled ? '1' : '0.4';
+}
+
+// إضافة زر التلوين
+function addHighlightButton() {
+    const nav = document.getElementById('examNavButtons');
+    if (!nav) return;
+    
+    const btn = document.createElement('button');
+    btn.id = 'highlightToggleBtn';
+    btn.innerHTML = '🎨';
+    btn.title = highlightEnabled ? 'إخفاء الألوان' : 'إظهار الألوان';
+    btn.style.cssText = `
+        background: transparent;
+        border: 1px solid ${highlightEnabled ? '#38bdf8' : 'rgba(255,255,255,0.1)'};
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: ${highlightEnabled ? '#38bdf8' : '#94a3b8'};
+        opacity: ${highlightEnabled ? '1' : '0.4'};
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    `;
+    
+    btn.onclick = toggleHighlights;
+    nav.appendChild(btn);
+}
+
+// دالة للحصول على المهارة الحالية
+function getCurrentSkill() {
+    const active = document.querySelector('.page.active');
+    if (!active) return null;
+    return active.id;
+}
+
+// تهيئة النظام
+function initHighlightSystem() {
+    addHighlightButton();
+    setTimeout(() => {
+        if (highlightEnabled) applyHighlights();
+    }, 500);
+}
+
+// تشغيل عند تحميل الصفحة
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHighlightSystem);
+} else {
+    initHighlightSystem();
+}
+
+// جعل الدوال متاحة عالمياً
+window.toggleHighlights = toggleHighlights;
+window.applyHighlights = applyHighlights;
+window.removeAllHighlights = removeAllHighlights;
+window.getCurrentSkill = getCurrentSkill;
+
+console.log('🎨 نظام التلوين الذكي جاهز!');
