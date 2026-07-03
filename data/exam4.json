@@ -1,78 +1,139 @@
 {
-  "title": "Lesen Teil 2 - Exam 4: Der Ein-Personen-Karneval (معدل)",
-  "skill": "lesen2",
-  "type": "teil2",
-  "text": "Als Helmut Scherer vor genau 50 Jahren zum ersten Mal mit seinem Bollerwagen durch die westfälische Kleinstadt Unna zog, wurde er von den Leuten ausgelacht. Heute aber ist er eine städtische Berühmtheit und sogar weit über die Grenzen seiner Heimatstadt hinaus bekannt. Der 71-Jährige ist der einzige Teilnehmer des weltweit kleinsten Karnevalsumzugs. An Weiberfastnacht, dem letzten Donnerstag der Karnevalsperiode eines Jahres, zieht er mit seinem Handwagen los: Er selbst ist dann - dieses Jahr als blondes Schulmädchen - verkleidet und auf seinem Bollerwagen hat er aus Pappe und Gips Figuren aufgebaut, die humoristisch ein aktuelles gesellschaftliches Thema - diesmal die Schulreform - aufgreifen. So macht er sich nach alter karnevalistischer Tradition über Missstände lustig. Helmut Scherer legt natürlich Wert darauf, dass er von Karnevalsmusik begleitet wird, die jedoch nicht von einer Musikgruppe, sondern von einem Radiorekorder gespielt wird. Vor 50 Jahren kam Helmut Scherer aus dem katholisch geprägten Paderborn, wo er seine Kindheit und Jugend verbracht hatte, nach Unna, dessen überwiegend evangelische Bevölkerung sich recht kühl und nüchtern gibt und deshalb anfangs auch wenig Verständnis für den katholischen Karnevalsbrauch zeigte. \"Die Leute haben mir einen Vogel gezeigt und den Kopf geschüttelt\", beschreibt der \"Narr aus Überzeugung\" die Anfänge. Auch bei der Stadtverwaltung, wo Scherer für Weiberfastnacht seinen Umzug ordnungsgemäß anmeldete, stieß er zunächst auf Unverständnis. Aber da sein Karnevalszug niemanden behinderte und auch nicht zu befürchten war, dass Unnas öffentliche Ordnung gestört würde, bekam er die Erlaubnis, mit seinem humoristischen Handwagen loszumarschieren. Über 10 Jahre lang zog Scherer einsam, belächelt und verspottet durch Unna, weder eisige Kälte noch Schnee konnten ihn davon abhalten. Doch der Karneval blieb für lange Zeit sein Privatvergnügen. Als dann die lokale Presse anfing, ihn zu unterstützen, wandelte sich die Meinung der Öffentlichkeit. Der einst verspottete Karnevalist stieg langsam zum närrischen Wahrzeichen einer Stadt ohne Karneval auf. Für die Stadtoberen ist heute die \"Ein-Mann-Show\" die beste Werbung für Unna. Scherers Beharrlichkeit hat sich also ausgezahlt: Anlässlich seines fünfzigsten Karnevalsjubiläums wurde er sogar offiziell im Rathaus empfangen, um ihm - so wie es auch in den Karnevalshochburgen Köln, Düsseldorf und Mainz üblich ist - den goldenen Schlüssel des Rathauses zu übergeben. Obwohl er keinem Karnevalsverein angehört, wurde ihm die Ehre zuteil, als Karnevalsprinz in den Bund Deutscher Karneval aufgenommen zu werden; somit wurde es ihm möglich, auch bei den Rosenmontagszügen in den närrischen Hochburgen im Rheinland mitzuwirken. Weit über hundert Fans des standhaften Narren haben sich zu einem Fan-Club zusammengeschlossen, und etliche stehen beim jährlichen Umzug in Unna am Straßenrand und rufen statt \"Spinner\" den rheinischen Karnevalsgruß \"Helau\". Bei aller Fortschrittlichkeit soll aber eines so bleiben, wie es immer war - einen weiteren Teilnehmer am Zug duldet der Karnevalsprinz nicht: \"Die Tradition soll aufrechterhalten bleiben\", sagt er schmunzelnd. \"Aber nur solange mich die Füße tragen!\"",
-  "questions": [
+  "title": "Sprachbausteine Teil 2 - Exam 4: Jugend diskutiert - mach mit!",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Den Wettbewerb \"Jugend diskutiert\" gibt es bereits  .__( 1 )__. Herbst 2002. Für das kommende Jahr werden nun wieder Schülerinnen und Schüler gesucht, die an dem Wettbewerb teilnehmen möchten.  .__( 2 )__. immer bereiten sich die Teilnehmer dann im Unterricht auf \"Jugend diskutiert\" vor.\nDu fragst dich,  .__( 3 )__. du teilnehmen solltest? Ganz einfach: \"Jugend diskutiert\" bringt dich weiter! Sich einmischen, mitreden, überzeugen - bei der Vorbereitung im Unterricht trainierst du viele Fähigkeiten, die dir in der Schule und im Alltag helfen. Im Austausch mit den anderen entwickelst du deine Persönlichkeit weiter und profitierst langfristig.  .__( 4 )__. bietet dir \"Jugend diskutiert\" die Chance, im Wettstreit mit anderen weiterzukommen. Zuerst werden die besten einer Schule ermittelt, die dann  .__( 5 )__. Regionalwettbewerben teilnehmen. Die Sieger der Regionalwettbewerbe treten im Bundesfinale an.  .__( 6 )__. Preise kann man professionelle Trainings gewinnen.\n .__( 7 )__. \"Jugend diskutiert\" kannst du viel lernen. Du hast bessere Chancen im Unterricht und bei Referaten, denn du trainierst, frei zu sprechen und Dinge anschaulich und verständlich zu beschreiben. Du gewinnst mehr Selbstbewusstsein,  .__( 8 )__. du lernst, wie man das Wort ergreift und auf sich aufmerksam macht. Du kannst überzeugen, da du eigene Argumente finden und die Argumente anderer genau prüfen kannst. Die Sichtweisen der anderen zeigen dir darüber hinaus,  .__( 9 )__. du vielleicht selbst noch nicht gesehen hast. Du überzeugst bei Auftritten, Prüfungen und Bewerbungen, da du sicher auftrittst.\n .__( 10 )__. das alles im Unterricht gelernt hat, kann gemeinsam mit anderen viel bewegen! Schließlich ist der Wettbewerb \"Jugend diskutiert\" auch eine Chance, Jugendliche aus ganz Deutschland kennenzulernen und neue Freundschaften zu knüpfen.\nWeitere Informationen zu Anmeldung und Teilnahme gibt es im Internet.",
+  "options": [
     {
-      "text": "Helmut Scherer",
-      "options": [
-        "a. ist nur in Unna eine bekannte Persönlichkeit",
-        "b. veranstaltet an Karneval allein einen Umzug",
-        "c. veranstaltet den einzigen Karnevalsumzug der Welt"
-      ],
-      "correct": 1,
+      "id": 1,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "seit",
       "highlight": {
-        "text": "veranstaltet an Karneval allein einen Umzug.",
+        "connector": "seit",
+        "before": "bereits",
+        "after": "Herbst 2002",
+        "highlightWords": ["bereits", "seit", "Herbst", "2002"],
         "color": "#4CAF50",
-        "helpKey": "lesen2_exam4_q1"
+        "helpKey": "sprach2_exam4_q1"
       }
     },
     {
-      "text": "Auf seinem Handwagen",
-      "options": [
-        "a. fährt traditionell ein blondes Schulmädchen mit",
-        "b. präsentiert er kleine Szenen, die auf den Alltag Bezug nehmen",
-        "c. stellt er sozialkritische Themen auf witzige Art und Weise dar"
-      ],
-      "correct": 2,
+      "id": 2,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "wie",
       "highlight": {
-        "text": "stellt er sozialkritische Themen auf witzige Art und Weise dar.",
+        "connector": "wie",
+        "before": "vor.",
+        "after": "immer bereiten",
+        "highlightWords": ["vor", ".", "wie", "immer", "bereiten"],
         "color": "#FF9800",
-        "helpKey": "lesen2_exam4_q2"
+        "helpKey": "sprach2_exam4_q2"
       }
     },
     {
-      "text": "Die Bevölkerung von Unna",
-      "options": [
-        "a. hatte zunächst wenig Verständnis für Helmut Scherer",
-        "b. hielt anfangs Helmut Scherer für kühl und nüchtern",
-        "c. verhinderte Helmut Scherers ersten Karnevalsumzug"
-      ],
-      "correct": 0,
+      "id": 3,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "warum",
       "highlight": {
-        "text": "hatte zunächst wenig Verständnis für Helmut Scherer.",
+        "connector": "warum",
+        "before": "dich,",
+        "after": "du teilnehmen",
+        "highlightWords": ["dich", ",", "warum", "du", "teilnehmen"],
         "color": "#2196F3",
-        "helpKey": "lesen2_exam4_q3"
+        "helpKey": "sprach2_exam4_q3"
       }
     },
     {
-      "text": "Der kleinste Karnevalsumzug der Welt",
-      "options": [
-        "a. hat Helmut Scherer sogar Geld eingebracht",
-        "b. ist heute eine gute Reklame für die Stadt Unna",
-        "c. wird in Zukunft von einer ganzen Gruppe von Leuten durchgeführt"
-      ],
-      "correct": 1,
+      "id": 4,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "ausserdem",
       "highlight": {
-        "text": "ist heute eine gute Reklame für die Stadt Unna.",
+        "connector": "ausserdem",
+        "before": "langfristig.",
+        "after": "bietet dir",
+        "highlightWords": ["langfristig", ".", "ausserdem", "bietet", "dir"],
         "color": "#9C27B0",
-        "helpKey": "lesen2_exam4_q4"
+        "helpKey": "sprach2_exam4_q4"
       }
     },
     {
-      "text": "Helmut Scherer",
-      "options": [
-        "a. hat an Karnevalsumzügen in mehreren Städten teilgenommen",
-        "b. hat inzwischen in ganz Deutschland Fan-Clubs",
-        "c. sucht einen Nachfolger"
-      ],
-      "correct": 0,
+      "id": 5,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "an",
       "highlight": {
-        "text": "hat an Karnevalsumzügen in mehreren Städten teilgenommen.",
+        "connector": "an",
+        "before": "dann",
+        "after": "Regionalwettbewerben teilnehmen",
+        "highlightWords": ["dann", "an", "Regionalwettbewerben", "teilnehmen"],
         "color": "#F44336",
-        "helpKey": "lesen2_exam4_q5"
+        "helpKey": "sprach2_exam4_q5"
+      }
+    },
+    {
+      "id": 6,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "als",
+      "highlight": {
+        "connector": "als",
+        "before": "an.",
+        "after": "Preise kann",
+        "highlightWords": ["an", ".", "als", "Preise", "kann"],
+        "color": "#00BCD4",
+        "helpKey": "sprach2_exam4_q6"
+      }
+    },
+    {
+      "id": 7,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "bei",
+      "highlight": {
+        "connector": "bei",
+        "before": "gewinnen.",
+        "after": "\"Jugend diskutiert\"",
+        "highlightWords": ["gewinnen", ".", "bei", "\"Jugend", "diskutiert\""],
+        "color": "#8BC34A",
+        "helpKey": "sprach2_exam4_q7"
+      }
+    },
+    {
+      "id": 8,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "weil",
+      "highlight": {
+        "connector": "weil",
+        "before": "Selbstbewusstsein,",
+        "after": "du lernst",
+        "highlightWords": ["Selbstbewusstsein", ",", "weil", "du", "lernst"],
+        "color": "#FF5722",
+        "helpKey": "sprach2_exam4_q8"
+      }
+    },
+    {
+      "id": 9,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "was",
+      "highlight": {
+        "connector": "was",
+        "before": "hinaus,",
+        "after": "du vielleicht",
+        "highlightWords": ["hinaus", ",", "was", "du", "vielleicht"],
+        "color": "#3F51B5",
+        "helpKey": "sprach2_exam4_q9"
+      }
+    },
+    {
+      "id": 10,
+      "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
+      "correct": "wer",
+      "highlight": {
+        "connector": "wer",
+        "before": "auftrittst.",
+        "after": "das alles",
+        "highlightWords": ["auftrittst", ".", "wer", "das", "alles"],
+        "color": "#E91E63",
+        "helpKey": "sprach2_exam4_q10"
       }
     }
-  ]
+  ],
+  "allOptions": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"]
 }

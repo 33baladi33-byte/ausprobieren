@@ -1,78 +1,139 @@
 {
-  "title": "Lesen Teil 2 - Exam 6: ein leben für den Kaffee (معدل 1)",
-  "skill": "lesen2",
-  "type": "teil2",
-  "text": "Vor 50 Jahren gab es in der Hansestadt Bremen ungefähr 300 traditionelle Kaffeeröstereien. Diese importierten die Kaffeebohnen selbst, stellten den Kaffee tagefrisch her und verkauften ihn im eigenen Geschäft. Heute, da der Kaffee zumeist von internationalen Kaffeegesellschaften produziert und in Supermärkten verkauft wird, sind in Deutschland nur noch eine Handvoll Kleinröstereien übrig geblieben. Eine davon ist die Kaffeerösterei Münchhausen. Münchhausen importiert seinen Kaffee direkt von Kleinbauern in Lateinamerika. Dabei wird streng auf fairen Handel geachtet, das heißt, die Kaffeebauern werden für ihre anstrengende Arbeit angemessen entlohnt. Damit unterstützt der Importeur zugleich den Kaffeeanbau nach ökologischen Gesichtspunkten. Kaffee aus Großplantagen, oft mit Pestiziden und Insektiziden belastet, ist zwar billiger, aber Qualität und Reinheit des Kaffees werden bei der Kaffeerösterei Münchhausen ganz großgeschrieben. Der Kaffee wird nach alter Familientradition hergestellt. Die Rezeptur ist die gleiche wie vor einem halben Jahrhundert: Täglich werden die Kaffeebohnen in kleinen Mengen frisch geröstet, gerade so viele, wie an einem Tag verkauft werden. Denn nur so behalten sie ihr Aroma und der Kaffee verliert nicht an Geschmack. Zuerst werden die Kaffeebohnen in der in den 50er Jahren angeschafften Rösttrommel ungefähr zehn Minuten lang bei Temperaturen von über 200 Grad Celsius geröstet. Dabei verlieren die Kaffeebohnen zwar ein Sechstel ihres Gewichts, ihr Volumen vergrößert sich aber gleichzeitig um etwa ein Drittel. Sind die Bohnen dunkel genug - sie dürfen genauso wenig zu dunkel sein, werden sie auf den Verlesetisch geschüttet, wo von Hand die guten von den schlechten Kaffeebohnen getrennt werden. Danach erst werden aus den gerösteten Kaffeebohnen verschiedene Mischungen hergestellt, die dann im Kontor, dem Geschäftsraum der Rösterei, fast ausschließlich an langjährige Stammkunden verkauft werden. Aber auch über das Internet vertreibt die Kaffeerösterei Münchhausen ihr Kaffeeangebot deutschlandweit. Bis zu seinem Tod kurz vor seinem dreiundneunzigsten Geburtstag führte August Münchhausen seinen Familienbetrieb, dann übernahm seine Tochter die Firma, inzwischen ist auch die Enkelin beteiligt. Die Frauen planen, aus der Kaffeerösterei ein Museum zu machen, um der Nachwelt die traditionelle Kunst des Kaffeeröstens zeigen zu können. Dann hätte diese Institution eine reelle Chance, in Zukunft fortzubestehen und zukünftigen Generationen den Charme und die Technik der traditionellen Kaffeeherstellung zu erhalten. Selbstverständlich wird es auch in Zukunft möglich sein, im Museums-Bistro den Kaffee zu genießen oder für den häuslichen Bedarf zu erwerben.",
-  "questions": [
+  "title": "Sprachbausteine Teil 2 - Exam 6: Umgang mit Haustieren",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Ist der Umgang mit Haustieren gesund für Kleinkinder?\n\nKleine Kinder, die in der Gesellschaft von Haustieren wie Hund und Katze leben, sind einer Studie aus Finnland zufolge seltener krank  .__( 1 )__. Kinder in Haushalten ohne Tiere.\nDie Studie wurde in der  .__( 2 )__. Woche in einem amerikanischen Fachmagazin veröffentlicht. Es wurden  .__( 3 )__. keine Erklärungen für diese Tatsache geliefert, aber die Vermutung wurde geäußert, dass der Kontakt zu Hunden das Immunsystem der Kleinkinder stärke. Hunde haben nämlich  .__( 4 )__. die täglichen Spaziergänge draußen viel Kontakt zu möglichen Krankheitserregern und trainieren vielleicht so das Immunsystem der Kinder. Auch Katzen, die die Möglichkeit haben, nach draußen zu gehen, haben demnach  .__( 5 )__. Wirkung auf die Gesundheit der Kinder, wenngleich in geringerem Maße.\nFür die Studie  .__( 6 )__. in Finnland 397 Babys über den Zeitraum von der neunten Lebenswoche bis zu ihrem ersten Geburtstag beobachtet. Dabei hatten die mit Hund oder Katze aufwachsenden Kinder ein um 30 %  .__( 7 )__. Risiko für Erkrankungen der Atemwege. Es fiel auf, dass bei diesen Kindern Ohrenentzündungen  .__( 8 )__. auftraten.\nDie Studie kommt daher zu dem Schluss, dass die Gesundheit von Kindern in Gesellschaft von Tieren  .__( 9 )__. besser sei. Frühere Untersuchungen aus den USA hatten das genaue  .__( 10 )__. der jetzigen Ergebnisse ergeben. Ob diese Unterschiede mit den unterschiedlichen Lebens- und Umweltbedingungen der beiden Länder zusammenhängen, ist noch unklar.",
+  "options": [
     {
-      "text": "In Deutschland gibt es",
-      "options": [
-        "a. eine Vielzahl von Kaffeeröstereien.",
-        "b. nur noch eine geringe Zahl von Kaffeeröstereien.",
-        "c. nur noch Kaffee, der von internationalen Gesellschaften vermarktet wird."
-      ],
-      "correct": 1,
+      "id": 1,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "als",
       "highlight": {
-        "text": "nur noch eine geringe Zahl von Kaffeeröstereien.",
+        "connector": "als",
+        "before": "krank",
+        "after": "Kinder in",
+        "highlightWords": ["krank", "als", "Kinder", "in"],
         "color": "#4CAF50",
-        "helpKey": "lesen2_exam6_q1"
+        "helpKey": "sprach2_exam6_q1"
       }
     },
     {
-      "text": "Für die Kaffeerösterei Münchhausen",
-      "options": [
-        "a. ist es nicht von Bedeutung, ob der Kaffee von Kleinbauern oder Großplantagen kommt.",
-        "b. spielt der günstige Einkaufspreis eine wichtige Rolle",
-        "c. steht eher die Qualität des Kaffees als der Preis im Vordergrund"
-      ],
-      "correct": 2,
+      "id": 2,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "vergangenen",
       "highlight": {
-        "text": "steht eher die Qualität des Kaffees als der Preis im Vordergrund.",
+        "connector": "vergangenen",
+        "before": "in der",
+        "after": "Woche in",
+        "highlightWords": ["in", "der", "vergangenen", "Woche", "in"],
         "color": "#FF9800",
-        "helpKey": "lesen2_exam6_q2"
+        "helpKey": "sprach2_exam6_q2"
       }
     },
     {
-      "text": "Kaffeebohnen",
-      "options": [
-        "a. dürfen nach dem Rösten zwar zu dunkel sein, aber nicht zu hell",
-        "b. können nach der Röstung ohne Geschmacksverlust lange Zeit gelagert werden",
-        "c. müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten."
-      ],
-      "correct": 2,
+      "id": 3,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "zwar",
       "highlight": {
-        "text": "müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten.",
+        "connector": "zwar",
+        "before": "wurden",
+        "after": "keine Erklärungen",
+        "highlightWords": ["wurden", "zwar", "keine", "Erklärungen"],
         "color": "#2196F3",
-        "helpKey": "lesen2_exam6_q3"
+        "helpKey": "sprach2_exam6_q3"
       }
     },
     {
-      "text": "Die gerösteten Kaffeebohnen werden",
-      "options": [
-        "a. in unterschiedlichen Geschmacksrichtungen verkauft",
-        "b. im Kontor nur an Stammkunden abgegeben",
-        "c. über das Internet in der ganzen Welt verkauft"
-      ],
-      "correct": 0,
+      "id": 4,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "durch",
       "highlight": {
-        "text": "in unterschiedlichen Geschmacksrichtungen verkauft",
+        "connector": "durch",
+        "before": "nämlich",
+        "after": "die täglichen",
+        "highlightWords": ["nämlich", "durch", "die", "täglichen"],
         "color": "#9C27B0",
-        "helpKey": "lesen2_exam6_q4"
+        "helpKey": "sprach2_exam6_q4"
       }
     },
     {
-      "text": "In Zukunft wollen die Besitzer",
-      "options": [
-        "a. die Kaffeerösterei in ein Museum umwandeln",
-        "b. ein Museum über den Kaffeeanbau eröffnen",
-        "c. keinen Röstkaffee mehr verkaufen."
-      ],
-      "correct": 0,
+      "id": 5,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "dieselbe",
       "highlight": {
-        "text": "die Kaffeerösterei in ein Museum umwandeln.",
+        "connector": "dieselbe",
+        "before": "demnach",
+        "after": "Wirkung auf",
+        "highlightWords": ["demnach", "dieselbe", "Wirkung", "auf"],
         "color": "#F44336",
-        "helpKey": "lesen2_exam6_q5"
+        "helpKey": "sprach2_exam6_q5"
+      }
+    },
+    {
+      "id": 6,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "wurden",
+      "highlight": {
+        "connector": "wurden",
+        "before": "Studie",
+        "after": "in Finnland",
+        "highlightWords": ["Studie", "wurden", "in", "Finnland"],
+        "color": "#00BCD4",
+        "helpKey": "sprach2_exam6_q6"
+      }
+    },
+    {
+      "id": 7,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "geringeres",
+      "highlight": {
+        "connector": "geringeres",
+        "before": "um 30 %",
+        "after": "Risiko für",
+        "highlightWords": ["um", "30", "%", "geringeres", "Risiko", "für"],
+        "color": "#8BC34A",
+        "helpKey": "sprach2_exam6_q7"
+      }
+    },
+    {
+      "id": 8,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "weniger",
+      "highlight": {
+        "connector": "weniger",
+        "before": "Ohrenentzündungen",
+        "after": "auftraten. Die",
+        "highlightWords": ["Ohrenentzündungen", "weniger", "auftraten", ".", "Die"],
+        "color": "#FF5722",
+        "helpKey": "sprach2_exam6_q8"
+      }
+    },
+    {
+      "id": 9,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "deutlich",
+      "highlight": {
+        "connector": "deutlich",
+        "before": "Tieren",
+        "after": "besser sei",
+        "highlightWords": ["Tieren", "deutlich", "besser", "sei"],
+        "color": "#3F51B5",
+        "helpKey": "sprach2_exam6_q9"
+      }
+    },
+    {
+      "id": 10,
+      "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
+      "correct": "gegenteil",
+      "highlight": {
+        "connector": "gegenteil",
+        "before": "genaue",
+        "after": "der jetzigen",
+        "highlightWords": ["genaue", "gegenteil", "der", "jetzigen"],
+        "color": "#E91E63",
+        "helpKey": "sprach2_exam6_q10"
       }
     }
-  ]
+  ],
+  "allOptions": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"]
 }

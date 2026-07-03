@@ -1,78 +1,139 @@
 {
-  "title": "Lesen Teil 2 - Exam 5: ein leben für den Kaffee",
-  "skill": "lesen2",
-  "type": "teil2",
-  "text": "Vor 50 Jahren gab es in der Hansestadt Bremen ungefähr 300 traditionelle Kaffeeröstereien. Diese importierten die Kaffeebohnen selbst, stellten den Kaffee tagefrisch her und verkauften ihn im eigenen Geschäft. Heute, da der Kaffee zumeist von internationalen Kaffeegesellschaften produziert und in Supermärkten verkauft wird, sind in Deutschland nur noch eine Handvoll Kleinröstereien übrig geblieben. Eine davon ist die Kaffeerösterei Münchhausen. Münchhausen importiert seinen Kaffee direkt von Kleinbauern in Lateinamerika. Dabei wird streng auf fairen Handel geachtet, das heißt, die Kaffeebauern werden für ihre anstrengende Arbeit angemessen entlohnt. Damit unterstützt der Importeur zugleich den Kaffeeanbau nach ökologischen Gesichtspunkten. Kaffee aus Großplantagen, oft mit Pestiziden und Insektiziden belastet, ist zwar billiger, aber Qualität und Reinheit des Kaffees werden bei der Kaffeerösterei Münchhausen ganz großgeschrieben. Der Kaffee wird nach alter Familientradition hergestellt. Die Rezeptur ist die gleiche wie vor einem halben Jahrhundert: Täglich werden die Kaffeebohnen in kleinen Mengen frisch geröstet, gerade so viele, wie an einem Tag verkauft werden. Denn nur so behalten sie ihr Aroma und der Kaffee verliert nicht an Geschmack. Zuerst werden die Kaffeebohnen in der in den 50er Jahren angeschafften Rösttrommel ungefähr zehn Minuten lang bei Temperaturen von über 200 Grad Celsius geröstet. Dabei verlieren die Kaffeebohnen zwar ein Sechstel ihres Gewichts, ihr Volumen vergrößert sich aber gleichzeitig um etwa ein Drittel. Sind die Bohnen dunkel genug - sie dürfen genauso wenig zu dunkel sein, werden sie auf den Verlesetisch geschüttet, wo von Hand die guten von den schlechten Kaffeebohnen getrennt werden. Danach erst werden aus den gerösteten Kaffeebohnen verschiedene Mischungen hergestellt, die dann im Kontor, dem Geschäftsraum der Rösterei, fast ausschließlich an langjährige Stammkunden verkauft werden. Aber auch über das Internet vertreibt die Kaffeerösterei Münchhausen ihr Kaffeeangebot deutschlandweit. Bis zu seinem Tod kurz vor seinem dreiundneunzigsten Geburtstag führte August Münchhausen seinen Familienbetrieb, dann übernahm seine Tochter die Firma, inzwischen ist auch die Enkelin beteiligt. Die Frauen planen, aus der Kaffeerösterei ein Museum zu machen, um der Nachwelt die traditionelle Kunst des Kaffeeröstens zeigen zu können. Dann hätte diese Institution eine reelle Chance, in Zukunft fortzubestehen und zukünftigen Generationen den Charme und die Technik der traditionellen Kaffeeherstellung zu erhalten. Selbstverständlich wird es auch in Zukunft möglich sein, im Museums-Bistro den Kaffee zu genießen oder für den häuslichen Bedarf zu erwerben.",
-  "questions": [
+  "title": "Sprachbausteine Teil 2 - Exam 5: Theater für Kinder und Jugendliche",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Theater fördert nicht nur die Kreativität,  .__( 1 )__. auch die Körpererfahrung von Kindern. Der Verein \"Jugendhilfe Düsseldorf e. V.\" arbeitet  .__( 2 )__. vielen Jahren in der Jugendförderung, und deshalb unterstützt er auch ein neues Theaterprojekt für Kinder. Üben und spielen werden die Teilnehmer im Jugendzentrum. Das Jugendzentrum ist eine Einrichtung des städtischen Jugendamtes und kümmert sich um Kinder, Jugendliche und junge Volljährige, die  .__( 3 )__. familiärer und anderer Probleme Hilfe benötigen.\nBis zu zwanzig Mädchen und Jungen werden  .__( 4 )__. dem kommenden Jahr die Welt des Theaters kennenlernen.  .__( 5 )__. Ende des Projekts werden die Nachwuchsschauspieler bei einem Theaterfestival auftreten, was sicher ein Höhepunkt für alle Teilnehmer sein wird.\nGeleitet wird die Gruppe vom Schauspieler Wolfgang Neuhausen. Er arbeitet mit dem Jugendzentrum zusammen und wird von zwei Theaterpädagogen unterstützt. Allen Mitarbeitern ist  .__( 6 )__. wichtig, dass die Kinder auf der Bühne Anerkennung für ihre Leistung bekommen. Ohne die finanzielle Unterstützung wäre das Vorhaben unmöglich,  .__( 7 )__. bei der Stadt keine Gelder vorhanden waren.\nDieses Theaterprojekt ist nicht das erste, das gefördert wird. Im vergangenen Jahr erhielt das Theaterprojekt \"Schiller - das wilde, freie Leben\" finanzielle Unterstützung. Allerdings ist nicht nur Geld wichtig: Der Verein kümmert sich auch  .__( 8 )__., die Projekte bekannt zu machen. In verschiedenen Theaterhäusern der Stadt werden Plakate aufgehängt, mit denen der Verein für das Jugendtheater wirbt. Man hofft,  .__( 9 )__. diese Weise noch mehr Unterstützer zu finden.\nAuch unsere Leser können die Jugendlichen unterstützen: Aktuell sammelt das Jugendzentrum Spenden,  .__( 10 )__. weitere Projekte finanzieren zu können. Außerdem werden für die Theaterproben und die Aufführungen noch ehrenamtliche Helfer gesucht.",
+  "options": [
     {
-      "text": "In Deutschland",
-      "options": [
-        "a. existiert eine Vielzahl von Kaffeeröstereien.",
-        "b. gibt es nur noch wenige traditionelle Kaffeeröstereien.",
-        "c. handeln nur noch internationale Gesellschaften mit Kaffee."
-      ],
-      "correct": 1,
+      "id": 1,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "sondern",
       "highlight": {
-        "text": "gibt es nur noch wenige traditionelle Kaffeeröstereien.",
+        "connector": "sondern",
+        "before": "nur die",
+        "after": "auch die",
+        "highlightWords": ["nur", "die", "sondern", "auch", "die"],
         "color": "#4CAF50",
-        "helpKey": "lesen2_exam5_q1"
+        "helpKey": "sprach2_exam5_q1"
       }
     },
     {
-      "text": "Für die Kaffeerösterei Münchhausen",
-      "options": [
-        "a. ist es nicht von Bedeutung, ob der Kaffee von Kleinbauern oder Großplantagen kommt.",
-        "b. spielt der günstige Einkaufspreis eine wichtige Rolle",
-        "c. steht eher die Qualität des Kaffees als der Preis im Vordergrund"
-      ],
-      "correct": 2,
+      "id": 2,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "seit",
       "highlight": {
-        "text": "steht eher die Qualität des Kaffees als der Preis im Vordergrund.",
+        "connector": "seit",
+        "before": "arbeitet",
+        "after": "vielen Jahren",
+        "highlightWords": ["arbeitet", "seit", "vielen", "Jahren"],
         "color": "#FF9800",
-        "helpKey": "lesen2_exam5_q2"
+        "helpKey": "sprach2_exam5_q2"
       }
     },
     {
-      "text": "Kaffeebohnen",
-      "options": [
-        "a. dürfen nach dem Rösten zwar zu dunkel sein, aber nicht zu hell",
-        "b. können nach der Röstung ohne Geschmacksverlust lange Zeit gelagert werden",
-        "c. müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten."
-      ],
-      "correct": 2,
+      "id": 3,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "wegen",
       "highlight": {
-        "text": "müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten.",
+        "connector": "wegen",
+        "before": "die",
+        "after": "familiärer und",
+        "highlightWords": ["die", "wegen", "familiärer", "und"],
         "color": "#2196F3",
-        "helpKey": "lesen2_exam5_q3"
+        "helpKey": "sprach2_exam5_q3"
       }
     },
     {
-      "text": "Die gerösteten Kaffeebohnen werden",
-      "options": [
-        "a. im Kontor nur an Stammkunden abgegeben",
-        "b. in Handarbeit gemischt",
-        "c. zusätzlich online vermarktet"
-      ],
-      "correct": 2,
+      "id": 4,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "ab",
       "highlight": {
-        "text": "zusätzlich online vermarktet.",
+        "connector": "ab",
+        "before": "werden",
+        "after": "dem kommenden",
+        "highlightWords": ["werden", "ab", "dem", "kommenden"],
         "color": "#9C27B0",
-        "helpKey": "lesen2_exam5_q4"
+        "helpKey": "sprach2_exam5_q4"
       }
     },
     {
-      "text": "In Zukunft wollen die Besitzer",
-      "options": [
-        "a. die Kaffeerösterei in ein Museum umwandeln",
-        "b. ein Museum über den Kaffeeanbau eröffnen",
-        "c. keinen Röstkaffee mehr verkaufen."
-      ],
-      "correct": 0,
+      "id": 5,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "am",
       "highlight": {
-        "text": "die Kaffeerösterei in ein Museum umwandeln.",
+        "connector": "am",
+        "before": "kennenlernen.",
+        "after": "Ende des",
+        "highlightWords": ["kennenlernen", ".", "am", "Ende", "des"],
         "color": "#F44336",
-        "helpKey": "lesen2_exam5_q5"
+        "helpKey": "sprach2_exam5_q5"
+      }
+    },
+    {
+      "id": 6,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "es",
+      "highlight": {
+        "connector": "es",
+        "before": "ist",
+        "after": "wichtig, dass",
+        "highlightWords": ["ist", "es", "wichtig", ",", "dass"],
+        "color": "#00BCD4",
+        "helpKey": "sprach2_exam5_q6"
+      }
+    },
+    {
+      "id": 7,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "da",
+      "highlight": {
+        "connector": "da",
+        "before": "unmöglich,",
+        "after": "bei der",
+        "highlightWords": ["unmöglich", ",", "da", "bei", "der"],
+        "color": "#8BC34A",
+        "helpKey": "sprach2_exam5_q7"
+      }
+    },
+    {
+      "id": 8,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "darum",
+      "highlight": {
+        "connector": "darum",
+        "before": "auch",
+        "after": ", die Projekte",
+        "highlightWords": ["auch", "darum", ",", "die", "Projekte"],
+        "color": "#FF5722",
+        "helpKey": "sprach2_exam5_q8"
+      }
+    },
+    {
+      "id": 9,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "auf",
+      "highlight": {
+        "connector": "auf",
+        "before": "hofft,",
+        "after": "diese Weise",
+        "highlightWords": ["hofft", ",", "auf", "diese", "Weise"],
+        "color": "#3F51B5",
+        "helpKey": "sprach2_exam5_q9"
+      }
+    },
+    {
+      "id": 10,
+      "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
+      "correct": "um",
+      "highlight": {
+        "connector": "um",
+        "before": "Spenden,",
+        "after": "weitere Projekte",
+        "highlightWords": ["Spenden", ",", "um", "weitere", "Projekte"],
+        "color": "#E91E63",
+        "helpKey": "sprach2_exam5_q10"
       }
     }
-  ]
+  ],
+  "allOptions": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"]
 }

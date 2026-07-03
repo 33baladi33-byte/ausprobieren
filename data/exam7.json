@@ -1,78 +1,139 @@
 {
-  "title": "Lesen Teil 2 - Exam 7: ein leben für den Kaffee (معدل 2)",
-  "skill": "lesen2",
-  "type": "teil2",
-  "text": "Vor 50 Jahren gab es in der Hansestadt Bremen ungefähr 300 traditionelle Kaffeeröstereien. Diese importierten die Kaffeebohnen selbst, stellten den Kaffee tagefrisch her und verkauften ihn im eigenen Geschäft. Heute, da der Kaffee zumeist von internationalen Kaffeegesellschaften produziert und in Supermärkten verkauft wird, sind in Deutschland nur noch eine Handvoll Kleinröstereien übrig geblieben. Eine davon ist die Kaffeerösterei Münchhausen. Münchhausen importiert seinen Kaffee direkt von Kleinbauern in Lateinamerika. Dabei wird streng auf fairen Handel geachtet, das heißt, die Kaffeebauern werden für ihre anstrengende Arbeit angemessen entlohnt. Damit unterstützt der Importeur zugleich den Kaffeeanbau nach ökologischen Gesichtspunkten. Kaffee aus Großplantagen, oft mit Pestiziden und Insektiziden belastet, ist zwar billiger, aber Qualität und Reinheit des Kaffees werden bei der Kaffeerösterei Münchhausen ganz großgeschrieben. Der Kaffee wird nach alter Familientradition hergestellt. Die Rezeptur ist die gleiche wie vor einem halben Jahrhundert: Täglich werden die Kaffeebohnen in kleinen Mengen frisch geröstet, gerade so viele, wie an einem Tag verkauft werden. Denn nur so behalten sie ihr Aroma und der Kaffee verliert nicht an Geschmack. Zuerst werden die Kaffeebohnen in der in den 50er Jahren angeschafften Rösttrommel ungefähr zehn Minuten lang bei Temperaturen von über 200 Grad Celsius geröstet. Dabei verlieren die Kaffeebohnen zwar ein Sechstel ihres Gewichts, ihr Volumen vergrößert sich aber gleichzeitig um etwa ein Drittel. Sind die Bohnen dunkel genug - sie dürfen genauso wenig zu dunkel sein, werden sie auf den Verlesetisch geschüttet, wo von Hand die guten von den schlechten Kaffeebohnen getrennt werden. Danach erst werden aus den gerösteten Kaffeebohnen verschiedene Mischungen hergestellt, die dann im Kontor, dem Geschäftsraum der Rösterei, fast ausschließlich an langjährige Stammkunden verkauft werden. Aber auch über das Internet vertreibt die Kaffeerösterei Münchhausen ihr Kaffeeangebot deutschlandweit. Bis zu seinem Tod kurz vor seinem dreiundneunzigsten Geburtstag führte August Münchhausen seinen Familienbetrieb, dann übernahm seine Tochter die Firma, inzwischen ist auch die Enkelin beteiligt. Die Frauen planen, aus der Kaffeerösterei ein Museum zu machen, um der Nachwelt die traditionelle Kunst des Kaffeeröstens zeigen zu können. Dann hätte diese Institution eine reelle Chance, in Zukunft fortzubestehen und zukünftigen Generationen den Charme und die Technik der traditionellen Kaffeeherstellung zu erhalten. Selbstverständlich wird es auch in Zukunft möglich sein, im Museums-Bistro den Kaffee zu genießen oder für den häuslichen Bedarf zu erwerben.",
-  "questions": [
+  "title": "Sprachbausteine Teil 2 - Exam 7: Liebesgrüße aus der Kühltruhe",
+  "skill": "sprach2",
+  "type": "sprach2",
+  "text": "Wer sich einen Mann angeln will, sollte einen Blick in dessen Tiefkühlfach werfen. Einer Studie zufolge kann man ......(1)....... des Inhalts des Tiefkühlfachs den Charakter seines Besitzers erkennen. Die Meinungsforscher unterscheiden fünf Kategorien ......(2)....... Single-Männern: den spontanen Typ, den Bequemen, den Kreativen, ......(3)....... den Cocktail- und den Gourmet-Typen. Am häufigsten gibt es in Deutschland den spontanen Typ. Er hat neben kompletten Gerichten auch tiefgekühlte Produkte wie Brokkoligemüse oder Putenfilet in der Truhe, ......(4)....... denen er eine Mahlzeit zusammenstellen kann. Dieser Typ liebt die Abwechslung auf dem Teller und auch sonst im Leben. Da wird es vermutlich auch in der Liebe nicht langweilig.\nHauptgewinn für jede Frau ist aber der Gourmet-Typ. In seinem Tiefkühlfach liegen Produkte wie Garnelen, Muscheln oder Ente. Dieser Typ liebt es, Frauen zu verwöhnen. Der Nachteil liegt ......(5)....... der Hand: Dieser Typ Single-Mann ist selten.\nWas man in der Teifkühltruhe von bequemen Single-Männern findet, kann man leicht erraten, denn diese Männer haben gar keine Lust zu kochen. Ihnen ist es sogar zu ......(6)......., zwei Tüten zu öffnen statt nur einer. ......(7)....... kaufen diese Männer am häufigsten komplette Gerichte, die sie nur noch in die Mikrowelle oder den Backofen stellen müssen. Aber ob sie so das Herz einer Frau erobern können? Zumindest Frauen sehen das wohl ......(8)....... skeptisch.\nDoch egal, ......(9)....... welcher Kategorie ein Mann gehört – eines haben alle gemeinsam: Sie kaufen immer mehr Tiefkühlkost. Warum das so ist, kann die Studie nicht beantworten – da kann man nur raten: Einige haben vermutlich wenig Zeit zum Kochen, andere ......(10)....... eher keine Lust. Dabei wäre das doch der beste Weg, um eine Frau zu erobern.",
+  "options": [
     {
-      "text": "In Deutschland",
-      "options": [
-        "a. existiert eine Vielzahl von Kaffeeröstereien.",
-        "b. gibt es nur noch wenige traditionelle Kaffeeröstereien.",
-        "c. handeln nur noch internationale Gesellschaften mit Kaffee."
-      ],
-      "correct": 1,
+      "id": 1,
+      "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
+      "correct": "Anhand",
       "highlight": {
-        "text": "gibt es nur noch wenige traditionelle Kaffeeröstereien.",
+        "connector": "Anhand",
+        "before": "man",
+        "after": "des Inhalts",
+        "highlightWords": ["man", "Anhand", "des", "Inhalts"],
         "color": "#4CAF50",
-        "helpKey": "lesen2_exam7_q1"
+        "helpKey": "sprach2_exam7_q1"
       }
     },
     {
-      "text": "Für die Kaffeerösterei Münchhausen",
-      "options": [
-        "a. sind die Anbaubedingungen der Kaffeebohnen im Vordergrund.",
-        "b. spielt der günstige Einkaufspreis eine wichtige Rolle",
-        "c. stehen die Güte und Beschaffenheit des Kaffees im Vordergrund"
-      ],
-      "correct": 2,
+      "id": 2,
+      "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
+      "correct": "von",
       "highlight": {
-        "text": "stehen die Güte und Beschaffenheit des Kaffees im Vordergrund",
+        "connector": "von",
+        "before": "Kategorien",
+        "after": "Single-Männern:",
+        "highlightWords": ["Kategorien", "von", "Single-Männern", ":"],
         "color": "#FF9800",
-        "helpKey": "lesen2_exam7_q2"
+        "helpKey": "sprach2_exam7_q2"
       }
     },
     {
-      "text": "Kaffeebohnen",
-      "options": [
-        "a. dürfen nach dem Rösten zwar zu dunkel sein, aber nicht zu hell",
-        "b. können nach der Röstung ohne Geschmacksverlust lange Zeit gelagert werden",
-        "c. müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten."
-      ],
-      "correct": 2,
+      "id": 3,
+      "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
+      "correct": "sowie",
       "highlight": {
-        "text": "müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten.",
+        "connector": "sowie",
+        "before": "Kreativen,",
+        "after": "den Cocktail-",
+        "highlightWords": ["Kreativen", ",", "sowie", "den", "Cocktail-"],
         "color": "#2196F3",
-        "helpKey": "lesen2_exam7_q3"
+        "helpKey": "sprach2_exam7_q3"
       }
     },
     {
-      "text": "Die gerösteten Kaffeebohnen werden",
-      "options": [
-        "a. im Kontor nur an Stammkunden abgegeben",
-        "b. in Handarbeit gemischt",
-        "c. zusätzlich online vermarktet"
-      ],
-      "correct": 2,
+      "id": 4,
+      "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
+      "correct": "aus",
       "highlight": {
-        "text": "zusätzlich online vermarktet.",
+        "connector": "aus",
+        "before": "Truhe,",
+        "after": "denen er",
+        "highlightWords": ["Truhe", ",", "aus", "denen", "er"],
         "color": "#9C27B0",
-        "helpKey": "lesen2_exam7_q4"
+        "helpKey": "sprach2_exam7_q4"
       }
     },
     {
-      "text": "In Zukunft wollen die Besitzer",
-      "options": [
-        "a. die Kaffeerösterei zu Bildungszwecken zur Verfügung stellen",
-        "b. ein Museum über den Kaffeeanbau eröffnen",
-        "c. keinen Röstkaffee mehr verkaufen."
-      ],
-      "correct": 0,
+      "id": 5,
+      "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
+      "correct": "auf",
       "highlight": {
-        "text": "die Kaffeerösterei zu Bildungszwecken zur Verfügung stellen",
+        "connector": "auf",
+        "before": "liegt",
+        "after": "der Hand:",
+        "highlightWords": ["liegt", "auf", "der", "Hand", ":"],
         "color": "#F44336",
-        "helpKey": "lesen2_exam7_q5"
+        "helpKey": "sprach2_exam7_q5"
+      }
+    },
+    {
+      "id": 6,
+      "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
+      "correct": "anstrengend",
+      "highlight": {
+        "connector": "anstrengend",
+        "before": "sogar zu",
+        "after": ", zwei Tüten",
+        "highlightWords": ["sogar", "zu", "anstrengend", ",", "zwei", "Tüten"],
+        "color": "#00BCD4",
+        "helpKey": "sprach2_exam7_q6"
+      }
+    },
+    {
+      "id": 7,
+      "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
+      "correct": "folglich",
+      "highlight": {
+        "connector": "folglich",
+        "before": "einer.",
+        "after": "kaufen diese",
+        "highlightWords": ["einer", ".", "folglich", "kaufen", "diese"],
+        "color": "#8BC34A",
+        "helpKey": "sprach2_exam7_q7"
+      }
+    },
+    {
+      "id": 8,
+      "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
+      "correct": "eher",
+      "highlight": {
+        "connector": "eher",
+        "before": "wohl",
+        "after": "skeptisch. Doch",
+        "highlightWords": ["wohl", "eher", "skeptisch", ".", "Doch"],
+        "color": "#FF5722",
+        "helpKey": "sprach2_exam7_q8"
+      }
+    },
+    {
+      "id": 9,
+      "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
+      "correct": "zu",
+      "highlight": {
+        "connector": "zu",
+        "before": "egal,",
+        "after": "welcher Kategorie",
+        "highlightWords": ["egal", ",", "zu", "welcher", "Kategorie"],
+        "color": "#3F51B5",
+        "helpKey": "sprach2_exam7_q9"
+      }
+    },
+    {
+      "id": 10,
+      "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
+      "correct": "wohl",
+      "highlight": {
+        "connector": "wohl",
+        "before": "andere",
+        "after": "eher keine",
+        "highlightWords": ["andere", "wohl", "eher", "keine"],
+        "color": "#E91E63",
+        "helpKey": "sprach2_exam7_q10"
       }
     }
-  ]
+  ],
+  "allOptions": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"]
 }
