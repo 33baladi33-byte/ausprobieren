@@ -7,3 +7,7 @@ const HIGHLIGHT_DATA = {
         q5: { text: "Dopingsperre", color: 5 }
     }
 };
+
+console.log('✅ highlightData.js تم تحميله بنجاح');
+console.log(`📊 إجمالي بيانات التلوين: ${Object.keys(HIGHLIGHT_DATA).length}`);
+window.HIGHLIGHT_DATA = HIGHLIGHT_DATA;
