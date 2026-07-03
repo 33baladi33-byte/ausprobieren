@@ -2730,10 +2730,20 @@ function applyHighlights() {
         return;
     }
     
-    if (typeof HELP_DATA === 'undefined') {
-        console.log('ℹ️ HELP_DATA غير موجود');
+   if (typeof HELP_DATA === 'undefined' || Object.keys(HELP_DATA).length === 0) {
+    console.log('ℹ️ HELP_DATA غير موجود أو فارغ');
+    // محاولة استخدام window.HELP_DATA
+    if (typeof window.HELP_DATA !== 'undefined' && Object.keys(window.HELP_DATA).length > 0) {
+        console.log('✅ استخدام window.HELP_DATA');
+        // نسخ البيانات إلى HELP_DATA المحلي
+        for (let key in window.HELP_DATA) {
+            HELP_DATA[key] = window.HELP_DATA[key];
+        }
+    } else {
+        console.log('⚠️ لا توجد بيانات للاستيراد');
         return;
     }
+}
     
     const container = document.querySelector('.page.active');
     if (!container) return;
