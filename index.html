@@ -1924,16 +1924,14 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <div id="sessionTimerBar" class="session-timer-bar" style="display: none;">...</div>
 <div id="sessionEndOverlay" class="session-end-overlay" style="display: none;">...</div>
 
-<!-- ========== الـ Scripts (مرة واحدة فقط) ========== -->
-<script src="helpSystem.js"></script>
-<script src="highlightData.js"></script>
-<script src="engine.js"></script>
-<script src="exams.js"></script>
-<script src="auth_google.js"></script>
-<script src="auth.js"></script>
-<script src="notifications.js"></script>
-<script src="rapidGame.js"></script>
-<script src="studySession.js"></script>
+<script type="module" src="./helpSystem.js"></script>
+<script type="module" src="./engine.js"></script>
+<script type="module" src="./exams.js"></script>
+<script type="module" src="./auth_google.js"></script>
+<script type="module" src="./auth.js"></script>
+<script type="module" src="./notifications.js"></script>
+<script type="module" src="./rapidGame.js"></script>
+<script type="module" src="./studySession.js"></script>
 
 <!-- نافذة خطوات الاشتراك -->
 <div id="subscribeGuideModal" class="subscribe-guide-modal">
@@ -1966,15 +1964,13 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
     <img src="images/step5.webp" loading="lazy" alt="الخطوة 5" onerror="this.src='https://placehold.co/280x200/1e293b/38bdf8?text=Step+5'">
     <div class="subscribe-slide-caption">🚀 5. بدء المراجعة</div>
 </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-// ============================================
-// زر 💡 طريقة الاشتراك الجديد
-// ============================================
+    <script>
+/* ============================================ */
 (function() {
     const guideBtn = document.getElementById('subscribeGuideBtn');
     const guideModal = document.getElementById('subscribeGuideModal');
