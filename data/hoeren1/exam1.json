@@ -22,5 +22,19 @@
       "text": "Das Nationale Olympische Komitee hat die Dopingsperre für Tom Sanders aufgehoben.",
       "correct": false
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 0,
+      "parts": [
+        "Ein Bonner Sportverein zeigt der Öffentlichkeit"
+      ]
+    },
+    {
+      "color": 1,
+      "parts": [
+        "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen"
+      ]
+    }
   ]
 }
