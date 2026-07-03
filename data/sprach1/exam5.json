@@ -7,52 +7,132 @@
     {
       "id": 1,
       "options": ["das", "was", "welches"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "was",
+        "before": "das studieren,",
+        "after": "du möchtest",
+        "highlightWords": ["das", "studieren", ",", "was", "du", "möchtest"],
+        "color": "#4CAF50",
+        "helpKey": "sprach1_exam5_q1"
+      }
     },
     {
       "id": 2,
       "options": ["denn", "doch", "mal"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "denn",
+        "before": "Wie ist es",
+        "after": "so an",
+        "highlightWords": ["Wie", "ist", "es", "denn", "so", "an"],
+        "color": "#FF9800",
+        "helpKey": "sprach1_exam5_q2"
+      }
     },
     {
       "id": 3,
       "options": ["dazu", "noch", "sogar"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "noch",
+        "before": "zuhause auch",
+        "after": "viel lernen",
+        "highlightWords": ["zuhause", "auch", "noch", "viel", "lernen"],
+        "color": "#2196F3",
+        "helpKey": "sprach1_exam5_q3"
+      }
     },
     {
       "id": 4,
       "options": ["abnehmen", "annehmen", "nehmen"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "annehmen",
+        "before": "Einladung wirklich gerne",
+        "after": "und dich",
+        "highlightWords": ["Einladung", "wirklich", "gerne", "annehmen", "und", "dich"],
+        "color": "#9C27B0",
+        "helpKey": "sprach1_exam5_q4"
+      }
     },
     {
       "id": 5,
       "options": ["für", "über", "um"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "um",
+        "before": "mich viel",
+        "after": "Jonas kümmern",
+        "highlightWords": ["mich", "viel", "um", "Jonas", "kümmern"],
+        "color": "#F44336",
+        "helpKey": "sprach1_exam5_q5"
+      }
     },
     {
       "id": 6,
       "options": ["bevor", "bis", "sobald"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "sobald",
+        "before": "Aber",
+        "after": "frei hat",
+        "highlightWords": ["Aber", "sobald", "frei", "hat"],
+        "color": "#00BCD4",
+        "helpKey": "sprach1_exam5_q6"
+      }
     },
     {
       "id": 7,
       "options": ["wenn", "auch wenn", "wenn auch"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "auch wenn",
+        "before": "toll,",
+        "after": "es mal",
+        "highlightWords": ["toll", ",", "auch", "wenn", "es", "mal"],
+        "color": "#8BC34A",
+        "helpKey": "sprach1_exam5_q7"
+      }
     },
     {
       "id": 8,
       "options": ["an", "für", "über"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "für",
+        "before": "wirklich",
+        "after": "dich! Bei",
+        "highlightWords": ["wirklich", "für", "dich", "!", "Bei"],
+        "color": "#FF5722",
+        "helpKey": "sprach1_exam5_q8"
+      }
     },
     {
       "id": 9,
       "options": ["demnächst", "neulich", "noch nicht"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "neulich",
+        "before": "hatten",
+        "after": "mal überlegt",
+        "highlightWords": ["hatten", "neulich", "mal", "überlegt"],
+        "color": "#3F51B5",
+        "helpKey": "sprach1_exam5_q9"
+      }
     },
     {
       "id": 10,
       "options": ["müssen", "sollen", "wollen"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "wollen",
+        "before": "und wir",
+        "after": "uns nicht",
+        "highlightWords": ["und", "wir", "wollen", "uns", "nicht"],
+        "color": "#E91E63",
+        "helpKey": "sprach1_exam5_q10"
+      }
     }
   ]
 }

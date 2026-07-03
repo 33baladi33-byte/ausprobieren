@@ -7,52 +7,132 @@
     {
       "id": 1,
       "options": ["Zuversichtlich", "Möglichst", "Hoffentlich"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "Hoffentlich",
+        "before": "September Urlaub.",
+        "after": "rufst du",
+        "highlightWords": ["September", "Urlaub", ".", "Hoffentlich", "rufst", "du"],
+        "color": "#4CAF50",
+        "helpKey": "sprach1_exam4_q1"
+      }
     },
     {
       "id": 2,
       "options": ["vermutlich", "nämlich", "bestimmt"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "nämlich",
+        "before": "möchten",
+        "after": "unserer Kollegin",
+        "highlightWords": ["möchten", "nämlich", "unserer", "Kollegin"],
+        "color": "#FF9800",
+        "helpKey": "sprach1_exam4_q2"
+      }
     },
     {
       "id": 3,
       "options": ["schon", "fast", "beinahe"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "schon",
+        "before": "ist ja",
+        "after": "übermorgen abends",
+        "highlightWords": ["ist", "ja", "schon", "übermorgen", "abends"],
+        "color": "#2196F3",
+        "helpKey": "sprach1_exam4_q3"
+      }
     },
     {
       "id": 4,
       "options": ["damit", "dafür", "dadurch"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "damit",
+        "before": "Bist du",
+        "after": "einverstanden, dass",
+        "highlightWords": ["Bist", "du", "damit", "einverstanden", ",", "dass"],
+        "color": "#9C27B0",
+        "helpKey": "sprach1_exam4_q4"
+      }
     },
     {
       "id": 5,
       "options": ["Wenn", "Wann", "Als"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "Als",
+        "before": "erinnerst dich",
+        "after": "wir das",
+        "highlightWords": ["erinnerst", "dich", "Als", "wir", "das"],
+        "color": "#F44336",
+        "helpKey": "sprach1_exam4_q5"
+      }
     },
     {
       "id": 6,
       "options": ["zueinander", "voneinander", "miteinander"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "miteinander",
+        "before": "nachmittags",
+        "after": "in der",
+        "highlightWords": ["nachmittags", "miteinander", "in", "der"],
+        "color": "#00BCD4",
+        "helpKey": "sprach1_exam4_q6"
+      }
     },
     {
       "id": 7,
       "options": ["vor Kurzem", "kürzlich", "kurz"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "kurz",
+        "before": "übermorgen noch",
+        "after": "vor der",
+        "highlightWords": ["übermorgen", "noch", "kurz", "vor", "der"],
+        "color": "#8BC34A",
+        "helpKey": "sprach1_exam4_q7"
+      }
     },
     {
       "id": 8,
       "options": ["weshalb", "insofern", "deshalb"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "weshalb",
+        "before": "Urlaub,",
+        "after": "ich sehr",
+        "highlightWords": ["Urlaub", ",", "weshalb", "ich", "sehr"],
+        "color": "#FF5722",
+        "helpKey": "sprach1_exam4_q8"
+      }
     },
     {
       "id": 9,
       "options": ["vollkommen", "sämtlich", "erschöpfend"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "vollkommen",
+        "before": "auch",
+        "after": "neue Entwicklungen",
+        "highlightWords": ["auch", "vollkommen", "neue", "Entwicklungen"],
+        "color": "#3F51B5",
+        "helpKey": "sprach1_exam4_q9"
+      }
     },
     {
       "id": 10,
       "options": ["passenden", "bequemen", "angenehmen"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "angenehmen",
+        "before": "einen",
+        "after": "Tag...",
+        "highlightWords": ["einen", "angenehmen", "Tag", "..."],
+        "color": "#E91E63",
+        "helpKey": "sprach1_exam4_q10"
+      }
     }
   ]
 }

@@ -7,52 +7,132 @@
     {
       "id": 1,
       "options": ["Seiner", "Deiner", "Ihrer"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "Ihrer",
+        "before": "Studienreise",
+        "after": "Schulklasse nach",
+        "highlightWords": ["Studienreise", "Ihrer", "Schulklasse", "nach"],
+        "color": "#4CAF50",
+        "helpKey": "sprach1_exam9_q1"
+      }
     },
     {
       "id": 2,
       "options": ["ankommenden", "gekommenden", "kommenden"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "kommenden",
+        "before": "im",
+        "after": "Oktober.",
+        "highlightWords": ["im", "kommenden", "Oktober", "."],
+        "color": "#FF9800",
+        "helpKey": "sprach1_exam9_q2"
+      }
     },
     {
       "id": 3,
       "options": ["aus", "mit", "nach"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "nach",
+        "before": "sorgfältig",
+        "after": "strengen Kriterien",
+        "highlightWords": ["sorgfältig", "nach", "strengen", "Kriterien"],
+        "color": "#2196F3",
+        "helpKey": "sprach1_exam9_q3"
+      }
     },
     {
       "id": 4,
       "options": ["bieten", "fordern", "behmen"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "bieten",
+        "before": "Gastfamilien",
+        "after": "Halbpension, d.",
+        "highlightWords": ["Gastfamilien", "bieten", "Halbpension", ",", "d."],
+        "color": "#9C27B0",
+        "helpKey": "sprach1_exam9_q4"
+      }
     },
     {
       "id": 5,
       "options": ["so dass", "weil", "wenn"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "so dass",
+        "before": "Schule,",
+        "after": "der Weg",
+        "highlightWords": ["Schule", ",", "so", "dass", "der", "Weg"],
+        "color": "#F44336",
+        "helpKey": "sprach1_exam9_q5"
+      }
     },
     {
       "id": 6,
       "options": ["gemeinsam mit", "verbunden von", "zusammen neben"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "gemeinsam mit",
+        "before": "ist Deutsch.",
+        "after": "Schülerinnen und",
+        "highlightWords": ["ist", "Deutsch", ".", "gemeinsam", "mit", "Schülerinnen", "und"],
+        "color": "#00BCD4",
+        "helpKey": "sprach1_exam9_q6"
+      }
     },
     {
       "id": 7,
       "options": ["die", "der Besuch", "das Betrachten"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "der Besuch",
+        "before": "z. B.",
+        "after": "der Gemäldegalerie",
+        "highlightWords": ["z.", "B.", "der", "Besuch", "der", "Gemäldegalerie"],
+        "color": "#8BC34A",
+        "helpKey": "sprach1_exam9_q7"
+      }
     },
     {
       "id": 8,
       "options": ["hat geplant", "ist geplant", "wird geplant haben"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "ist geplant",
+        "before": "Rundfunk",
+        "after": ". Jeweils dienstags",
+        "highlightWords": ["Rundfunk", "ist", "geplant", ".", "Jeweils", "dienstags"],
+        "color": "#FF5722",
+        "helpKey": "sprach1_exam9_q8"
+      }
     },
     {
       "id": 9,
       "options": ["besprochen", "gesprochen", "versprochen"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "besprochen",
+        "before": "Kultur",
+        "after": "werden sollen",
+        "highlightWords": ["Kultur", "besprochen", "werden", "sollen"],
+        "color": "#3F51B5",
+        "helpKey": "sprach1_exam9_q9"
+      }
     },
     {
       "id": 10,
       "options": ["haben", "hatten", "hätten"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "haben",
+        "before": "Frankfurt",
+        "after": "werden. Bei",
+        "highlightWords": ["Frankfurt", "haben", "werden", ".", "Bei"],
+        "color": "#E91E63",
+        "helpKey": "sprach1_exam9_q10"
+      }
     }
   ]
 }

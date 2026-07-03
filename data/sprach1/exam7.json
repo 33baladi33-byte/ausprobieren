@@ -7,52 +7,132 @@
     {
       "id": 1,
       "options": ["ab", "aus", "von"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "aus",
+        "before": "Grüße",
+        "after": "Berlin",
+        "highlightWords": ["Grüße", "aus", "Berlin"],
+        "color": "#4CAF50",
+        "helpKey": "sprach1_exam7_q1"
+      }
     },
     {
       "id": 2,
       "options": ["wann", "was", "wie"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "was",
+        "before": "berichte ich dir,",
+        "after": "alles los",
+        "highlightWords": ["berichte", "ich", "dir", ",", "was", "alles", "los"],
+        "color": "#FF9800",
+        "helpKey": "sprach1_exam7_q2"
+      }
     },
     {
       "id": 3,
       "options": ["da", "indem", "obwohl"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "da",
+        "before": "Stress,",
+        "after": "drei Kollegen",
+        "highlightWords": ["Stress", ",", "da", "drei", "Kollegen"],
+        "color": "#2196F3",
+        "helpKey": "sprach1_exam7_q3"
+      }
     },
     {
       "id": 4,
       "options": ["ist", "wird", "würde"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "wird",
+        "before": "Hoffentlich",
+        "after": "das in",
+        "highlightWords": ["Hoffentlich", "wird", "das", "in"],
+        "color": "#9C27B0",
+        "helpKey": "sprach1_exam7_q4"
+      }
     },
     {
       "id": 5,
       "options": ["bin", "war", "wäre"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "wäre",
+        "before": "und",
+        "after": "am liebsten",
+        "highlightWords": ["und", "wäre", "am", "liebsten"],
+        "color": "#F44336",
+        "helpKey": "sprach1_exam7_q5"
+      }
     },
     {
       "id": 6,
       "options": ["konnte", "musste", "sollte"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "konnte",
+        "before": "Da",
+        "after": "ich ja",
+        "highlightWords": ["Da", "konnte", "ich", "ja"],
+        "color": "#00BCD4",
+        "helpKey": "sprach1_exam7_q6"
+      }
     },
     {
       "id": 7,
       "options": ["aber", "denn", "sondern"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "denn",
+        "before": "gegangen sind,",
+        "after": "es war",
+        "highlightWords": ["gegangen", "sind", ",", "denn", "es", "war"],
+        "color": "#8BC34A",
+        "helpKey": "sprach1_exam7_q7"
+      }
     },
     {
       "id": 8,
       "options": ["Beide", "Beiden", "Beides"],
-      "correct": 2
+      "correct": 2,
+      "highlight": {
+        "connector": "Beides",
+        "before": "eingeladen,",
+        "after": "war zwar",
+        "highlightWords": ["eingeladen", ",", "Beides", "war", "zwar"],
+        "color": "#FF5722",
+        "helpKey": "sprach1_exam7_q8"
+      }
     },
     {
       "id": 9,
       "options": ["erst", "noch", "schon"],
-      "correct": 1
+      "correct": 1,
+      "highlight": {
+        "connector": "noch",
+        "before": "Wochenenden",
+        "after": "keine Pläne",
+        "highlightWords": ["Wochenenden", "noch", "keine", "Pläne"],
+        "color": "#3F51B5",
+        "helpKey": "sprach1_exam7_q9"
+      }
     },
     {
       "id": 10,
       "options": ["auf", "für", "über"],
-      "correct": 0
+      "correct": 0,
+      "highlight": {
+        "connector": "auf",
+        "before": "freue mich",
+        "after": "deine nächste",
+        "highlightWords": ["freue", "mich", "auf", "deine", "nächste"],
+        "color": "#E91E63",
+        "helpKey": "sprach1_exam7_q10"
+      }
     }
   ]
 }
