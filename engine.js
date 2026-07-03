@@ -2892,6 +2892,67 @@ window.toggleHighlights = toggleHighlights;
 window.applyHighlights = applyHighlights;
 window.removeAllHighlights = removeAllHighlights;
 window.HIGHLIGHT_COLORS = HIGHLIGHT_COLORS;
+// ============================================
+// 🚀 تشغيل نظام التلوين
+// ============================================
 
+// دالة للحصول على المهارة الحالية
+function getCurrentSkill() {
+    if (document.getElementById('hoeren1')?.style.display === 'block') return 'hoeren1';
+    if (document.getElementById('hoeren2')?.style.display === 'block') return 'hoeren2';
+    if (document.getElementById('hoeren3')?.style.display === 'block') return 'hoeren3';
+    if (document.getElementById('teil1')?.style.display === 'block') return 'lesen1';
+    if (document.getElementById('teil2')?.style.display === 'block') return 'lesen2';
+    if (document.getElementById('teil3')?.style.display === 'block') return 'lesen3';
+    if (document.getElementById('sprach1')?.style.display === 'block') return 'sprach1';
+    if (document.getElementById('sprach2')?.style.display === 'block') return 'sprach2';
+    return 'hoeren1';
+}
+
+// تهيئة نظام التلوين
+function initHighlightSystem() {
+    console.log('🎨 تهيئة نظام التلوين...');
+    addHighlightButton();
+    
+    // انتظر قليلاً ثم طبق التلوين
+    setTimeout(() => {
+        if (highlightEnabled) {
+            console.log('✅ تطبيق التلوين...');
+            applyHighlights();
+        } else {
+            console.log('⏸️ التلوين معطل');
+        }
+    }, 500);
+}
+
+// تشغيل التلوين عند تحميل الصفحة
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHighlightSystem);
+} else {
+    initHighlightSystem();
+}
+
+// تشغيل التلوين عند فتح امتحان جديد
+const originalOpenExam = window.openExam;
+if (originalOpenExam) {
+    window.openExam = async function(examId, examTitle, skill) {
+        await originalOpenExam(examId, examTitle, skill);
+        setTimeout(() => {
+            if (highlightEnabled) {
+                console.log('🔄 إعادة تطبيق التلوين بعد تغيير الامتحان');
+                applyHighlights();
+            }
+        }, 400);
+    };
+}
+
+// جعل الدوال متاحة عالمياً
+window.toggleHighlights = toggleHighlights;
+window.applyHighlights = applyHighlights;
+window.removeAllHighlights = removeAllHighlights;
+window.getCurrentSkill = getCurrentSkill;
+
+console.log('✅ نظام التلوين جاهز!');
+console.log(`🎨 حالة التلوين: ${highlightEnabled ? 'مفعل' : 'معطل'}`);
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
