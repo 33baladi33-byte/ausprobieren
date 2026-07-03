@@ -7,52 +7,132 @@
     {
       "id": 1,
       "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
-      "correct": "Anhand"
+      "correct": "Anhand",
+      "highlight": {
+        "connector": "Anhand",
+        "before": "man",
+        "after": "des Inhalts",
+        "highlightWords": ["man", "Anhand", "des", "Inhalts"],
+        "color": "#4CAF50",
+        "helpKey": "sprach2_exam7_q1"
+      }
     },
     {
       "id": 2,
       "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
-      "correct": "von"
+      "correct": "von",
+      "highlight": {
+        "connector": "von",
+        "before": "Kategorien",
+        "after": "Single-Männern:",
+        "highlightWords": ["Kategorien", "von", "Single-Männern", ":"],
+        "color": "#FF9800",
+        "helpKey": "sprach2_exam7_q2"
+      }
     },
     {
       "id": 3,
       "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
-      "correct": "sowie"
+      "correct": "sowie",
+      "highlight": {
+        "connector": "sowie",
+        "before": "Kreativen,",
+        "after": "den Cocktail-",
+        "highlightWords": ["Kreativen", ",", "sowie", "den", "Cocktail-"],
+        "color": "#2196F3",
+        "helpKey": "sprach2_exam7_q3"
+      }
     },
     {
       "id": 4,
       "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
-      "correct": "aus"
+      "correct": "aus",
+      "highlight": {
+        "connector": "aus",
+        "before": "Truhe,",
+        "after": "denen er",
+        "highlightWords": ["Truhe", ",", "aus", "denen", "er"],
+        "color": "#9C27B0",
+        "helpKey": "sprach2_exam7_q4"
+      }
     },
     {
       "id": 5,
       "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
-      "correct": "auf"
+      "correct": "auf",
+      "highlight": {
+        "connector": "auf",
+        "before": "liegt",
+        "after": "der Hand:",
+        "highlightWords": ["liegt", "auf", "der", "Hand", ":"],
+        "color": "#F44336",
+        "helpKey": "sprach2_exam7_q5"
+      }
     },
     {
       "id": 6,
       "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
-      "correct": "anstrengend"
+      "correct": "anstrengend",
+      "highlight": {
+        "connector": "anstrengend",
+        "before": "sogar zu",
+        "after": ", zwei Tüten",
+        "highlightWords": ["sogar", "zu", "anstrengend", ",", "zwei", "Tüten"],
+        "color": "#00BCD4",
+        "helpKey": "sprach2_exam7_q6"
+      }
     },
     {
       "id": 7,
       "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
-      "correct": "folglich"
+      "correct": "folglich",
+      "highlight": {
+        "connector": "folglich",
+        "before": "einer.",
+        "after": "kaufen diese",
+        "highlightWords": ["einer", ".", "folglich", "kaufen", "diese"],
+        "color": "#8BC34A",
+        "helpKey": "sprach2_exam7_q7"
+      }
     },
     {
       "id": 8,
       "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
-      "correct": "eher"
+      "correct": "eher",
+      "highlight": {
+        "connector": "eher",
+        "before": "wohl",
+        "after": "skeptisch. Doch",
+        "highlightWords": ["wohl", "eher", "skeptisch", ".", "Doch"],
+        "color": "#FF5722",
+        "helpKey": "sprach2_exam7_q8"
+      }
     },
     {
       "id": 9,
       "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
-      "correct": "zu"
+      "correct": "zu",
+      "highlight": {
+        "connector": "zu",
+        "before": "egal,",
+        "after": "welcher Kategorie",
+        "highlightWords": ["egal", ",", "zu", "welcher", "Kategorie"],
+        "color": "#3F51B5",
+        "helpKey": "sprach2_exam7_q9"
+      }
     },
     {
       "id": 10,
       "options": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"],
-      "correct": "wohl"
+      "correct": "wohl",
+      "highlight": {
+        "connector": "wohl",
+        "before": "andere",
+        "after": "eher keine",
+        "highlightWords": ["andere", "wohl", "eher", "keine"],
+        "color": "#E91E63",
+        "helpKey": "sprach2_exam7_q10"
+      }
     }
   ],
   "allOptions": ["Anhand", "Anstrengend", "Auf", "Aus", "Eher", "Fast", "Folglich", "in", "kaum", "Langweilig", "Sowie", "von", "wegen", "Wohl", "Zu"]

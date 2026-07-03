@@ -7,52 +7,132 @@
     {
       "id": 1,
       "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
-      "correct": "als"
+      "correct": "als",
+      "highlight": {
+        "connector": "als",
+        "before": "krank",
+        "after": "Kinder in",
+        "highlightWords": ["krank", "als", "Kinder", "in"],
+        "color": "#4CAF50",
+        "helpKey": "sprach2_exam6_q1"
+      }
     },
     {
       "id": 2,
       "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
-      "correct": "vergangenen"
+      "correct": "vergangenen",
+      "highlight": {
+        "connector": "vergangenen",
+        "before": "in der",
+        "after": "Woche in",
+        "highlightWords": ["in", "der", "vergangenen", "Woche", "in"],
+        "color": "#FF9800",
+        "helpKey": "sprach2_exam6_q2"
+      }
     },
     {
       "id": 3,
       "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
-      "correct": "zwar"
+      "correct": "zwar",
+      "highlight": {
+        "connector": "zwar",
+        "before": "wurden",
+        "after": "keine Erklärungen",
+        "highlightWords": ["wurden", "zwar", "keine", "Erklärungen"],
+        "color": "#2196F3",
+        "helpKey": "sprach2_exam6_q3"
+      }
     },
     {
       "id": 4,
       "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
-      "correct": "durch"
+      "correct": "durch",
+      "highlight": {
+        "connector": "durch",
+        "before": "nämlich",
+        "after": "die täglichen",
+        "highlightWords": ["nämlich", "durch", "die", "täglichen"],
+        "color": "#9C27B0",
+        "helpKey": "sprach2_exam6_q4"
+      }
     },
     {
       "id": 5,
       "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
-      "correct": "dieselbe"
+      "correct": "dieselbe",
+      "highlight": {
+        "connector": "dieselbe",
+        "before": "demnach",
+        "after": "Wirkung auf",
+        "highlightWords": ["demnach", "dieselbe", "Wirkung", "auf"],
+        "color": "#F44336",
+        "helpKey": "sprach2_exam6_q5"
+      }
     },
     {
       "id": 6,
       "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
-      "correct": "wurden"
+      "correct": "wurden",
+      "highlight": {
+        "connector": "wurden",
+        "before": "Studie",
+        "after": "in Finnland",
+        "highlightWords": ["Studie", "wurden", "in", "Finnland"],
+        "color": "#00BCD4",
+        "helpKey": "sprach2_exam6_q6"
+      }
     },
     {
       "id": 7,
       "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
-      "correct": "geringeres"
+      "correct": "geringeres",
+      "highlight": {
+        "connector": "geringeres",
+        "before": "um 30 %",
+        "after": "Risiko für",
+        "highlightWords": ["um", "30", "%", "geringeres", "Risiko", "für"],
+        "color": "#8BC34A",
+        "helpKey": "sprach2_exam6_q7"
+      }
     },
     {
       "id": 8,
       "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
-      "correct": "weniger"
+      "correct": "weniger",
+      "highlight": {
+        "connector": "weniger",
+        "before": "Ohrenentzündungen",
+        "after": "auftraten. Die",
+        "highlightWords": ["Ohrenentzündungen", "weniger", "auftraten", ".", "Die"],
+        "color": "#FF5722",
+        "helpKey": "sprach2_exam6_q8"
+      }
     },
     {
       "id": 9,
       "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
-      "correct": "deutlich"
+      "correct": "deutlich",
+      "highlight": {
+        "connector": "deutlich",
+        "before": "Tieren",
+        "after": "besser sei",
+        "highlightWords": ["Tieren", "deutlich", "besser", "sei"],
+        "color": "#3F51B5",
+        "helpKey": "sprach2_exam6_q9"
+      }
     },
     {
       "id": 10,
       "options": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"],
-      "correct": "gegenteil"
+      "correct": "gegenteil",
+      "highlight": {
+        "connector": "gegenteil",
+        "before": "genaue",
+        "after": "der jetzigen",
+        "highlightWords": ["genaue", "gegenteil", "der", "jetzigen"],
+        "color": "#E91E63",
+        "helpKey": "sprach2_exam6_q10"
+      }
     }
   ],
   "allOptions": ["zwar", "wurden", "wie", "weniger", "waren", "vergangenen", "um", "geringeres", "gegenteil", "gegensatz", "früheren", "durch", "dieselbe", "deutlich", "als"]

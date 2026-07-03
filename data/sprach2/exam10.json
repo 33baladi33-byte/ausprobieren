@@ -7,52 +7,132 @@
     {
       "id": 1,
       "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
-      "correct": "mit"
+      "correct": "mit",
+      "highlight": {
+        "connector": "mit",
+        "before": "Verglichen",
+        "after": "der Bevölkerungszahl",
+        "highlightWords": ["Verglichen", "mit", "der", "Bevölkerungszahl"],
+        "color": "#4CAF50",
+        "helpKey": "sprach2_exam10_q1"
+      }
     },
     {
       "id": 2,
       "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
-      "correct": "bei"
+      "correct": "bei",
+      "highlight": {
+        "connector": "bei",
+        "before": "Jahre",
+        "after": "dem Kind",
+        "highlightWords": ["Jahre", "bei", "dem", "Kind"],
+        "color": "#FF9800",
+        "helpKey": "sprach2_exam10_q2"
+      }
     },
     {
       "id": 3,
       "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
-      "correct": "das"
+      "correct": "das",
+      "highlight": {
+        "connector": "das",
+        "before": "bleiben,",
+        "after": "hat den",
+        "highlightWords": ["bleiben", ",", "das", "hat", "den"],
+        "color": "#2196F3",
+        "helpKey": "sprach2_exam10_q3"
+      }
     },
     {
       "id": 4,
       "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
-      "correct": "dafür"
+      "correct": "dafür",
+      "highlight": {
+        "connector": "dafür",
+        "before": "Gründe",
+        "after": "zu sein",
+        "highlightWords": ["Gründe", "dafür", "zu", "sein"],
+        "color": "#9C27B0",
+        "helpKey": "sprach2_exam10_q4"
+      }
     },
     {
       "id": 5,
       "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
-      "correct": "sondern"
+      "correct": "sondern",
+      "highlight": {
+        "connector": "sondern",
+        "before": "still am",
+        "after": "stören mit",
+        "highlightWords": ["still", "am", "sondern", "stören", "mit"],
+        "color": "#F44336",
+        "helpKey": "sprach2_exam10_q5"
+      }
     },
     {
       "id": 6,
       "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
-      "correct": "obwohl"
+      "correct": "obwohl",
+      "highlight": {
+        "connector": "obwohl",
+        "before": "gelegt.",
+        "after": "diese selbst",
+        "highlightWords": ["gelegt", ".", "obwohl", "diese", "selbst"],
+        "color": "#00BCD4",
+        "helpKey": "sprach2_exam10_q6"
+      }
     },
     {
       "id": 7,
       "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
-      "correct": "weil"
+      "correct": "weil",
+      "highlight": {
+        "connector": "weil",
+        "before": "an,",
+        "after": "die Kinder",
+        "highlightWords": ["an", ",", "weil", "die", "Kinder"],
+        "color": "#8BC34A",
+        "helpKey": "sprach2_exam10_q7"
+      }
     },
     {
       "id": 8,
       "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
-      "correct": "dass"
+      "correct": "dass",
+      "highlight": {
+        "connector": "dass",
+        "before": "angeordnet,",
+        "after": "mit einem",
+        "highlightWords": ["angeordnet", ",", "dass", "mit", "einem"],
+        "color": "#FF5722",
+        "helpKey": "sprach2_exam10_q8"
+      }
     },
     {
       "id": 9,
       "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
-      "correct": "auf"
+      "correct": "auf",
+      "highlight": {
+        "connector": "auf",
+        "before": "Anspruch",
+        "after": "einen Platz",
+        "highlightWords": ["Anspruch", "auf", "einen", "Platz"],
+        "color": "#3F51B5",
+        "helpKey": "sprach2_exam10_q9"
+      }
     },
     {
       "id": 10,
       "options": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"],
-      "correct": "von"
+      "correct": "von",
+      "highlight": {
+        "connector": "von",
+        "before": "gerne",
+        "after": "\"Problemen\".",
+        "highlightWords": ["gerne", "von", "\"Problemen\"", "."],
+        "color": "#E91E63",
+        "helpKey": "sprach2_exam10_q10"
+      }
     }
   ],
   "allOptions": ["auf", "bei", "dabei", "dafür", "das", "dass", "davon", "dennoch", "doch", "jedoch", "mit", "obwohl", "sondern", "von", "weil"]

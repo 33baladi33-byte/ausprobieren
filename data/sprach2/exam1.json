@@ -7,52 +7,132 @@
     {
       "id": 1,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "kaum"
+      "correct": "kaum",
+      "highlight": {
+        "connector": "kaum",
+        "before": "in",
+        "after": "einem anderen",
+        "highlightWords": ["in", "kaum", "einem", "anderen"],
+        "color": "#4CAF50",
+        "helpKey": "sprach2_exam1_q1"
+      }
     },
     {
       "id": 2,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "auf"
+      "correct": "auf",
+      "highlight": {
+        "connector": "auf",
+        "before": "und",
+        "after": "ein anderes",
+        "highlightWords": ["und", "auf", "ein", "anderes"],
+        "color": "#FF9800",
+        "helpKey": "sprach2_exam1_q2"
+      }
     },
     {
       "id": 3,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "vorbei"
+      "correct": "vorbei",
+      "highlight": {
+        "connector": "vorbei",
+        "before": "Fahrzeugen",
+        "after": "und ausgeruht",
+        "highlightWords": ["Fahrzeugen", "vorbei", "und", "ausgeruht"],
+        "color": "#2196F3",
+        "helpKey": "sprach2_exam1_q3"
+      }
     },
     {
       "id": 4,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "statt"
+      "correct": "statt",
+      "highlight": {
+        "connector": "statt",
+        "before": "fährt",
+        "after": "zu sitzen",
+        "highlightWords": ["fährt", "statt", "zu", "sitzen"],
+        "color": "#9C27B0",
+        "helpKey": "sprach2_exam1_q4"
+      }
     },
     {
       "id": 5,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "innerhalb"
+      "correct": "innerhalb",
+      "highlight": {
+        "connector": "innerhalb",
+        "before": "Zeit",
+        "after": "geschlossener Räume",
+        "highlightWords": ["Zeit", "innerhalb", "geschlossener", "Räume"],
+        "color": "#F44336",
+        "helpKey": "sprach2_exam1_q5"
+      }
     },
     {
       "id": 6,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "müssen"
+      "correct": "müssen",
+      "highlight": {
+        "connector": "müssen",
+        "before": "aufhalten",
+        "after": ". Auch die",
+        "highlightWords": ["aufhalten", "müssen", ".", "Auch", "die"],
+        "color": "#00BCD4",
+        "helpKey": "sprach2_exam1_q6"
+      }
     },
     {
       "id": 7,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "an"
+      "correct": "an",
+      "highlight": {
+        "connector": "an",
+        "before": "Angebot",
+        "after": "Zubehör für",
+        "highlightWords": ["Angebot", "an", "Zubehör", "für"],
+        "color": "#8BC34A",
+        "helpKey": "sprach2_exam1_q7"
+      }
     },
     {
       "id": 8,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "sollen"
+      "correct": "sollen",
+      "highlight": {
+        "connector": "sollen",
+        "before": "machen",
+        "after": ". Nur wenn",
+        "highlightWords": ["machen", "sollen", ".", "Nur", "wenn"],
+        "color": "#FF5722",
+        "helpKey": "sprach2_exam1_q8"
+      }
     },
     {
       "id": 9,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "dann"
+      "correct": "dann",
+      "highlight": {
+        "connector": "dann",
+        "before": "selten",
+        "after": "sind die",
+        "highlightWords": ["selten", "dann", "sind", "die"],
+        "color": "#3F51B5",
+        "helpKey": "sprach2_exam1_q9"
+      }
     },
     {
       "id": 10,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "denn"
+      "correct": "denn",
+      "highlight": {
+        "connector": "denn",
+        "before": "länger.",
+        "after": "einen praktischen",
+        "highlightWords": ["länger", ".", "denn", "einen", "praktischen"],
+        "color": "#E91E63",
+        "helpKey": "sprach2_exam1_q10"
+      }
     }
   ],
   "allOptions": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],

@@ -7,52 +7,132 @@
     {
       "id": 1,
       "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
-      "correct": "sondern"
+      "correct": "sondern",
+      "highlight": {
+        "connector": "sondern",
+        "before": "nur die",
+        "after": "auch die",
+        "highlightWords": ["nur", "die", "sondern", "auch", "die"],
+        "color": "#4CAF50",
+        "helpKey": "sprach2_exam5_q1"
+      }
     },
     {
       "id": 2,
       "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
-      "correct": "seit"
+      "correct": "seit",
+      "highlight": {
+        "connector": "seit",
+        "before": "arbeitet",
+        "after": "vielen Jahren",
+        "highlightWords": ["arbeitet", "seit", "vielen", "Jahren"],
+        "color": "#FF9800",
+        "helpKey": "sprach2_exam5_q2"
+      }
     },
     {
       "id": 3,
       "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
-      "correct": "wegen"
+      "correct": "wegen",
+      "highlight": {
+        "connector": "wegen",
+        "before": "die",
+        "after": "familiärer und",
+        "highlightWords": ["die", "wegen", "familiärer", "und"],
+        "color": "#2196F3",
+        "helpKey": "sprach2_exam5_q3"
+      }
     },
     {
       "id": 4,
       "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
-      "correct": "ab"
+      "correct": "ab",
+      "highlight": {
+        "connector": "ab",
+        "before": "werden",
+        "after": "dem kommenden",
+        "highlightWords": ["werden", "ab", "dem", "kommenden"],
+        "color": "#9C27B0",
+        "helpKey": "sprach2_exam5_q4"
+      }
     },
     {
       "id": 5,
       "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
-      "correct": "am"
+      "correct": "am",
+      "highlight": {
+        "connector": "am",
+        "before": "kennenlernen.",
+        "after": "Ende des",
+        "highlightWords": ["kennenlernen", ".", "am", "Ende", "des"],
+        "color": "#F44336",
+        "helpKey": "sprach2_exam5_q5"
+      }
     },
     {
       "id": 6,
       "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
-      "correct": "es"
+      "correct": "es",
+      "highlight": {
+        "connector": "es",
+        "before": "ist",
+        "after": "wichtig, dass",
+        "highlightWords": ["ist", "es", "wichtig", ",", "dass"],
+        "color": "#00BCD4",
+        "helpKey": "sprach2_exam5_q6"
+      }
     },
     {
       "id": 7,
       "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
-      "correct": "da"
+      "correct": "da",
+      "highlight": {
+        "connector": "da",
+        "before": "unmöglich,",
+        "after": "bei der",
+        "highlightWords": ["unmöglich", ",", "da", "bei", "der"],
+        "color": "#8BC34A",
+        "helpKey": "sprach2_exam5_q7"
+      }
     },
     {
       "id": 8,
       "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
-      "correct": "darum"
+      "correct": "darum",
+      "highlight": {
+        "connector": "darum",
+        "before": "auch",
+        "after": ", die Projekte",
+        "highlightWords": ["auch", "darum", ",", "die", "Projekte"],
+        "color": "#FF5722",
+        "helpKey": "sprach2_exam5_q8"
+      }
     },
     {
       "id": 9,
       "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
-      "correct": "auf"
+      "correct": "auf",
+      "highlight": {
+        "connector": "auf",
+        "before": "hofft,",
+        "after": "diese Weise",
+        "highlightWords": ["hofft", ",", "auf", "diese", "Weise"],
+        "color": "#3F51B5",
+        "helpKey": "sprach2_exam5_q9"
+      }
     },
     {
       "id": 10,
       "options": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"],
-      "correct": "um"
+      "correct": "um",
+      "highlight": {
+        "connector": "um",
+        "before": "Spenden,",
+        "after": "weitere Projekte",
+        "highlightWords": ["Spenden", ",", "um", "weitere", "Projekte"],
+        "color": "#E91E63",
+        "helpKey": "sprach2_exam5_q10"
+      }
     }
   ],
   "allOptions": ["ab", "aber", "am", "auf", "da", "darum", "dazu", "es", "ohne", "seit", "sondern", "trotz", "um", "vor", "wegen"]
