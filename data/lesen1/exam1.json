@@ -35,5 +35,40 @@
       "text": "Text 5: Mobbing ist kein neues Phänomen. Es ist auch in Schulen weitverbreitet. Da spricht zum Beispiel eine Lehrerin vor der Klasse negativ über eine Schülerin, weil sie etwas nicht versteht oder immer wieder krank ist. Oder die Mitschüler lachen oder lassen beleidigende Bemerkungen fallen, wenn ein bestimmter Schüler sich zu Wort meldet. Da lauern Jungen einer 4. Klasse einem schüchternen Mitschüler auf dem Schulweg auf und erpressen von ihm Geld oder Kleidung. Häufig sind die Erwachsenen ratlos oder schauen weg, während die Opfer die Schuld bei sich selbst suchen und zunehmend in eine soziale Isolation geraten. Lehrkräfte sind meist überrascht, wenn man sie auf Mobbing in einer Klasse anspricht. Denn die Schikanen geschehen oft zu subtil und meist außerhalb des Unterrichts, während der Pausen oder auf dem Schulweg.",
       "correct": 4
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 0,
+      "parts": [
+        "Die Zahlen wirken auf dem ersten Blick dramatisch",
+        "Wenn aus Erdbeeren Tomaten werden"
+      ]
+    },
+    {
+      "color": 1,
+      "parts": [
+        "Von der Diät zur Krankheit",
+        "Mädchen abnehmen krankheiten"
+      ]
+    },
+    {
+      "color": 2,
+      "parts": [
+        "Jugend engagiert sich für den Umweltschutz",
+        "schülerwettbewerb Umweltschutz"
+      ]
+    },
+    {
+      "color": 3,
+      "parts": [
+        "Jugend forscht - auch auf dem Meer"
+      ]
+    },
+    {
+      "color": 4,
+      "parts": [
+        "Psychoterror an der Schule"
+      ]
+    }
   ]
 }
