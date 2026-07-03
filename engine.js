@@ -1167,6 +1167,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
     labelFalse.appendChild(document.createTextNode(' Falsch'));
     
     const textSpan = document.createElement('span');
+    textSpan.className = 'question-text';
     textSpan.innerHTML = `<strong>${i + 1}</strong> ${q.text}`;
     textSpan.style.flex = '1';
     textSpan.style.minWidth = '200px';
@@ -2726,9 +2727,28 @@ function applyHighlights() {
         
         if (!data) return;
         
-        // الحصول على عنصر النص في البطاقة
-        const textElement = card.querySelector('.question-text, .text-content, div[style*="line-height"]');
-        if (!textElement) return;
+       // الحصول على عنصر النص في البطاقة
+let textElement = card.querySelector('.question-text, .text-content, div[style*="line-height"]');
+
+// إذا لم نجد، نبحث عن أي span يحتوي على النص (حالة Hören)
+if (!textElement) {
+    const spans = card.querySelectorAll('span');
+    for (let span of spans) {
+        // نبحث عن span يحتوي على أرقام (مثل "1. ...")
+        if (span.innerHTML.match(/^\s*<strong>\d+<\/strong>/)) {
+            textElement = span;
+            break;
+        }
+    }
+}
+
+// إذا لم نجد، نستخدم آخر span في البطاقة
+if (!textElement) {
+    const lastSpan = card.querySelector('span:last-child');
+    if (lastSpan) textElement = lastSpan;
+}
+
+if (!textElement) return;
         
         // تطبيق التلوين حسب نوع البيانات
         const color = HIGHLIGHT_COLORS[data.color] || HIGHLIGHT_COLORS[1];
