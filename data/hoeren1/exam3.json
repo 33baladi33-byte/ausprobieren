@@ -8,21 +8,11 @@
     },
     {
       "text": "Die Alte Brücke ist zum Jahresbeginn wieder befahrbar.",
-      "correct": true,
-      "highlight": {
-        "text": "Die Alte Brücke ist zum Jahresbeginn",
-        "color": "#4CAF50",
-        "helpKey": "hoeren1_exam3_q2"
-      }
+      "correct": true
     },
     {
       "text": "Der Wanderer wurde verarztet und in Sicherheit gebracht.",
-      "correct": true,
-      "highlight": {
-        "text": "Der Wanderer wurde verarztet und in",
-        "color": "#FF9800",
-        "helpKey": "hoeren1_exam3_q3"
-      }
+      "correct": true
     },
     {
       "text": "In dem Unternehmen kommt es zu Kündigungen.",
@@ -30,12 +20,7 @@
     },
     {
       "text": "Man kann nach einer Registrierung an einem Gruppenlauf teilnehmen.",
-      "correct": true,
-      "highlight": {
-        "text": "Man kann nach einer Registrierung an",
-        "color": "#2196F3",
-        "helpKey": "hoeren1_exam3_q5"
-      }
+      "correct": true
     }
   ]
 }

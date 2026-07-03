@@ -4,12 +4,7 @@
   "questions": [
     {
       "text": "Nach dem Erdbeben meldeten viele Bürger Schäden bei Polizei und Feuerwehr.",
-      "correct": true,
-      "highlight": {
-        "text": "Nach dem Erdbeben meldeten viele Bürger",
-        "color": "#4CAF50",
-        "helpKey": "hoeren1_exam4_q1"
-      }
+      "correct": true
     },
     {
       "text": "Eltern müssen sich neuerdings über den Impfschutz für ihre Kinder beraten lassen.",
@@ -25,12 +20,7 @@
     },
     {
       "text": "Anfang nächster Woche ist mit einer erhöhten Ozonbelastung zu rechnen.",
-      "correct": true,
-      "highlight": {
-        "text": "Anfang nächster Woche ist mit einer",
-        "color": "#FF9800",
-        "helpKey": "hoeren1_exam4_q5"
-      }
+      "correct": true
     }
   ]
 }

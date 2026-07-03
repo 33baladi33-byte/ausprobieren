@@ -8,12 +8,7 @@
     },
     {
       "text": "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
-      "correct": true,
-      "highlight": {
-        "text": "Deutsche Einkommen liegen im europäischen",
-        "color": "#4CAF50",
-        "helpKey": "hoeren1_exam5_q2"
-      }
+      "correct": true
     },
     {
       "text": "Es ist ein Ende des Bahnstreiks in Sicht.",
@@ -21,12 +16,7 @@
     },
     {
       "text": "Es wird Gewalt von Fußballfans auch in Deutschland befürchtet.",
-      "correct": true,
-      "highlight": {
-        "text": "Es wird Gewalt von Fußballfans auch",
-        "color": "#FF9800",
-        "helpKey": "hoeren1_exam5_q4"
-      }
+      "correct": true
     },
     {
       "text": "Die Leopoldina soll internationale Akademie werden.",

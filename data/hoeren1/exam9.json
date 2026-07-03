@@ -4,21 +4,11 @@
   "questions": [
     {
       "text": "In der Europäischen Union verzeichnet man weniger jugendliche Arbeitslose.",
-      "correct": true,
-      "highlight": {
-        "text": "In der Europäischen Union verzeichnet man",
-        "color": "#4CAF50",
-        "helpKey": "hoeren1_exam9_q1"
-      }
+      "correct": true
     },
     {
       "text": "Das Bundesarbeitsministerium bemüht sich um ausländische Arbeitnehmer bestimmter Berufsgruppen.",
-      "correct": true,
-      "highlight": {
-        "text": "Das Bundesarbeitsministerium bemüht sich",
-        "color": "#FF9800",
-        "helpKey": "hoeren1_exam9_q2"
-      }
+      "correct": true
     },
     {
       "text": "Die 'Lange Nacht der Musik' findet am Odeonsplatz in München statt.",

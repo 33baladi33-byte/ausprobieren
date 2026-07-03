@@ -4,12 +4,7 @@
   "questions": [
     {
       "text": "Wegen Unwetterschäden wurden Urlauber in einer Notunterkunft untergebracht.",
-      "correct": true,
-      "highlight": {
-        "text": "Wegen Unwetterschäden wurden Urlauber",
-        "color": "#4CAF50",
-        "helpKey": "hoeren1_exam10_q1"
-      }
+      "correct": true
     },
     {
       "text": "Sämtliche Waren der Firma Mirella wurden aus den Läden entfernt.",
@@ -21,12 +16,7 @@
     },
     {
       "text": "Am 21. Mai ist der Besuch der Sonderausstellung kostenlos.",
-      "correct": true,
-      "highlight": {
-        "text": "Am 21. Mai ist der Besuch der",
-        "color": "#FF9800",
-        "helpKey": "hoeren1_exam10_q4"
-      }
+      "correct": true
     },
     {
       "text": "Entlaufene Tiere verursachten einen Unfall auf der Autobahn.",

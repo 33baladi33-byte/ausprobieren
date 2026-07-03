@@ -4,21 +4,11 @@
   "questions": [
     {
       "text": "Ein deutsches Schiff ist am Südpol eingefroren, aber Menschen kamen nicht zu Schaden.",
-      "correct": true,
-      "highlight": {
-        "text": "Ein deutsches Schiff ist am Südpol",
-        "color": "#4CAF50",
-        "helpKey": "hoeren1_exam7_q1"
-      }
+      "correct": true
     },
     {
       "text": "Die Firma Brain International ist in wirtschaftliche Schwierigkeiten geraten.",
-      "correct": true,
-      "highlight": {
-        "text": "Die Firma Brain International ist in",
-        "color": "#FF9800",
-        "helpKey": "hoeren1_exam7_q2"
-      }
+      "correct": true
     },
     {
       "text": "Die Europäische Union will Gesetze zur Kontrolle sozialer Netzwerke erlassen.",
@@ -30,12 +20,7 @@
     },
     {
       "text": "Nach den Bürgermeisterwahlen in Bensheim bleibt die CDU weiterhin an der Regierung.",
-      "correct": true,
-      "highlight": {
-        "text": "Nach den Bürgermeisterwahlen in Bensheim",
-        "color": "#2196F3",
-        "helpKey": "hoeren1_exam7_q5"
-      }
+      "correct": true
     }
   ]
 }
