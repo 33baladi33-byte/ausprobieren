@@ -2848,8 +2848,29 @@ function addHighlightButton() {
 }
 
 function getCurrentSkill() {
+    // 1. أولاً: استخدام المهارة المخزنة من exams.js
+    if (window.currentSkill) {
+        return window.currentSkill;
+    }
+    
+    // 2. ثانياً: البحث عن الصفحة النشطة
     const activePage = document.querySelector('.page.active');
     if (!activePage) return null;
+    
+    // 3. إذا كانت الصفحة 'exam'، نحاول استنتاج المهارة
+    if (activePage.id === 'exam') {
+        // البحث عن أي حاوية مهارة ظاهرة
+        const skills = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3', 'sprach1', 'sprach2', 'schreiben'];
+        for (let skill of skills) {
+            const el = document.getElementById(skill);
+            if (el && el.style.display !== 'none') {
+                return skill;
+            }
+        }
+        // قيمة افتراضية
+        return 'hoeren1';
+    }
+    
     return activePage.id;
 }
 
