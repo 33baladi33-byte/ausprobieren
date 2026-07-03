@@ -4,7 +4,26 @@
 // ============================================
 
 console.log("✅ engine.js تم تحميله (النسخة النهائية الشغالة)");
+// ============================================
+// 🎨 بيانات التلوين - مدمجة في engine.js
+// ============================================
 
+window.HIGHLIGHT_DATA = {
+    "hoeren1_exam1": {
+        q1: { text: "Lufthansa", color: 1 },
+        q2: { text: "Sportverein", color: 2 },
+        q3: { text: "Pflegeheimen", color: 3 },
+        q4: { text: "Heizkosten", color: 4 },
+        q5: { text: "Dopingsperre", color: 5 }
+    },
+    "hoeren1_exam2": {
+        q1: { text: "Piloten", color: 1 }
+        // أضف المزيد حسب الحاجة
+    }
+};
+
+console.log('✅ HIGHLIGHT_DATA تم تحميلها في engine.js');
+console.log(`📊 إجمالي بيانات التلوين: ${Object.keys(window.HIGHLIGHT_DATA).length}`);
 window.loadExamFromFile = async function(skill, examId) {
   try {
     const response = await fetch(`data/${skill}/exam${examId}.json`);
