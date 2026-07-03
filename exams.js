@@ -1055,61 +1055,59 @@ async function openExam(examId, examTitle, skill) {
     document.getElementById("examTitle").innerHTML = currentExamData.title;
     
     updateExamNavButtons();
-   // ✅ الحصول على الأسئلة من data.questions أو data.items
-const questions = currentExamData.questions || currentExamData.items || [];
-
-if (currentExamData.type === "matching") {
-  if (typeof window.loadMatchingExam === "function") {
-    window.loadMatchingExam(currentExamData);
-  } else {
-    buildTeil1(questions);
-  }
-} else if (currentExamData.type === "truefalse") {
-  const container = document.getElementById(currentSkill);
-  if (container && typeof window.buildTrueFalseExam === "function") {
-    window.buildTrueFalseExam(container, questions, currentExamData.note);
-  } else {
-    buildTeil1(questions);
-  }
-} else if (currentExamData.type === "teil2") {
-  if (typeof window.loadTeil2Exam === "function") {
-    window.loadTeil2Exam(currentExamData);
-  } else {
-    buildTeil1(questions);
-  }
-} else if (currentExamData.type === "teil3") {
-  if (typeof window.loadTeil3Exam === "function") {
-    window.loadTeil3Exam(currentExamData);
-  } else {
-    buildTeil1(questions);
-  }
-} else if (currentExamData.type === "sprach1") {
-  if (typeof window.loadSprach1Exam === "function") {
-    window.loadSprach1Exam(currentExamData);
-  } else {
-    buildTeil1(questions);
-  }
-} else if (currentExamData.type === "sprach2") {
-  if (typeof window.loadSprach2Exam === "function") {
-    window.loadSprach2Exam(currentExamData);
-  } else {
-    buildTeil1(questions);
-  }
-} else if (currentExamData.type === "schreiben") {
-  if (typeof window.loadSchreibenExam === "function") {
-    window.loadSchreibenExam(currentExamData);
-  } else {
-    buildTeil1(questions);
-  }
-} else if (currentExamData.type === "mündlich") {
-  renderMündlichExam(currentExamData);
-} else if (currentExamData.type === "info") {
-  renderInfoExam(currentExamData);
-} else if (currentExamData.type === "tips") {
-  renderTipsExam(currentExamData);
-} else {
-  buildTeil1(questions);
-}
+    
+    if (currentExamData.type === "matching") {
+      if (typeof window.loadMatchingExam === "function") {
+        window.loadMatchingExam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "truefalse") {
+      const container = document.getElementById(currentSkill);
+      if (container && typeof window.buildTrueFalseExam === "function") {
+        window.buildTrueFalseExam(container, currentExamData.questions, currentExamData.note);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "teil2") {
+      if (typeof window.loadTeil2Exam === "function") {
+        window.loadTeil2Exam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "teil3") {
+      if (typeof window.loadTeil3Exam === "function") {
+        window.loadTeil3Exam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "sprach1") {
+      if (typeof window.loadSprach1Exam === "function") {
+        window.loadSprach1Exam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "sprach2") {
+      if (typeof window.loadSprach2Exam === "function") {
+        window.loadSprach2Exam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "schreiben") {
+      if (typeof window.loadSchreibenExam === "function") {
+        window.loadSchreibenExam(currentExamData);
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
+    } else if (currentExamData.type === "mündlich") {
+      renderMündlichExam(currentExamData);
+    } else if (currentExamData.type === "info") {
+      renderInfoExam(currentExamData);
+    } else if (currentExamData.type === "tips") {
+      renderTipsExam(currentExamData);
+    } else {
+      buildTeil1(currentExamData.questions || []);
+    }
     
     const teilIndex = teile.findIndex(t => t.skill === skill);
     if (teilIndex !== -1) {
@@ -1117,23 +1115,10 @@ if (currentExamData.type === "matching") {
     } else {
       showTeil(10);
     }
- } catch(e) {
-  console.error("❌ خطأ:", e);
-  // ✅ عرض رسالة خطأ واضحة في الصفحة
-  const container = document.getElementById("teil1") || document.getElementById("examContent");
-  if (container) {
-    container.innerHTML = `
-      <div style="text-align: center; padding: 40px; color: #721c24; background: #f8d7da; border-radius: 12px; border: 1px solid #f5c6cb; margin: 20px;">
-        ❌ حدث خطأ في تحميل الامتحان
-        <br><small style="color: #666;">${e.message}</small>
-        <br><br>
-        <button onclick="location.reload()" style="padding: 8px 20px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer;">إعادة تحميل</button>
-      </div>
-    `;
-  } else {
+  } catch(e) {
+    console.error("❌ خطأ:", e);
     alert("خطأ في تحميل الامتحان: " + e.message);
   }
-}
 }
 
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
@@ -1478,34 +1463,17 @@ function buildTeil1(questions) {
   if (!container) return;
   container.innerHTML = "";
   
-  // ✅ التحقق من وجود أسئلة
-  if (!questions || !Array.isArray(questions) || questions.length === 0) {
-    container.innerHTML = `
-      <div style="text-align: center; padding: 40px; color: #666; background: #f8f9fa; border-radius: 12px;">
-        ⚠️ لا توجد أسئلة في هذا الامتحان
-        <br><small>يرجى التحقق من ملف البيانات</small>
-      </div>
-    `;
-    return;
-  }
-  
   let userAnswers = {};
   
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
-    // ✅ التحقق من وجود q.options
-    if (!q.options || !Array.isArray(q.options)) {
-      console.warn(`⚠️ السؤال ${i+1} لا يحتوي على خيارات`);
-      continue;
-    }
-    
     const card = document.createElement("div");
     card.className = "question-card";
     card.id = "q_" + i;
     
     const questionText = document.createElement("div");
     questionText.className = "question-text";
-    questionText.innerHTML = "<strong>" + (i + 1) + ". " + (q.text || q.question || "سؤال") + "</strong>";
+    questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
     card.appendChild(questionText);
     
     const optionsDiv = document.createElement("div");
@@ -1526,22 +1494,19 @@ function buildTeil1(questions) {
     container.appendChild(card);
   }
   
-  // ✅ التحقق من وجود أسئلة قبل إضافة زر التصحيح
-  if (questions.length > 0) {
-    const checkBtn = document.createElement("button");
-    checkBtn.innerText = "✅ تصحيح";
-    checkBtn.className = "check-btn";
-    checkBtn.onclick = function() {
-      checkTeil1(questions, userAnswers);
-    };
-    container.appendChild(checkBtn);
-    
-    const resultDiv = document.createElement("div");
-    resultDiv.id = "teil1Result";
-    resultDiv.className = "result-box";
-    resultDiv.style.display = "none";
-    container.appendChild(resultDiv);
-  }
+  const checkBtn = document.createElement("button");
+  checkBtn.innerText = "✅ تصحيح";
+  checkBtn.className = "check-btn";
+  checkBtn.onclick = function() {
+    checkTeil1(questions, userAnswers);
+  };
+  container.appendChild(checkBtn);
+  
+  const resultDiv = document.createElement("div");
+  resultDiv.id = "teil1Result";
+  resultDiv.className = "result-box";
+  resultDiv.style.display = "none";
+  container.appendChild(resultDiv);
 }
 
 function checkTeil1(questions, answers) {
