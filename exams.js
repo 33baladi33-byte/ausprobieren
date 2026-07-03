@@ -1062,13 +1062,24 @@ async function openExam(examId, examTitle, skill) {
       } else {
         buildTeil1(currentExamData.questions || []);
       }
-    } else if (currentExamData.type === "truefalse") {
-      const container = document.getElementById(currentSkill);
-      if (container && typeof window.buildTrueFalseExam === "function") {
-        window.buildTrueFalseExam(container, currentExamData.questions, currentExamData.note);
-      } else {
-        buildTeil1(currentExamData.questions || []);
+   } else if (currentExamData.type === "truefalse") {
+  const container = document.getElementById(currentSkill);
+  if (container && typeof window.buildTrueFalseExam === "function") {
+    window.buildTrueFalseExam(container, currentExamData.questions, currentExamData.note);
+  } else {
+    // ✅ التحقق من وجود الأسئلة قبل العرض
+    if (currentExamData.questions && Array.isArray(currentExamData.questions) && currentExamData.questions.length > 0) {
+      buildTeil1(currentExamData.questions);
+    } else {
+      console.warn("⚠️ لا توجد أسئلة في هذا الامتحان:", currentExamData.title);
+      if (container) {
+        container.innerHTML = `<div style="text-align:center;padding:40px;color:#999;font-size:1.1rem;">
+          ⚠️ لا توجد أسئلة في هذا الامتحان<br>
+          <small style="color:#bbb;">${currentExamData.title}</small>
+        </div>`;
       }
+    }
+  }
     } else if (currentExamData.type === "teil2") {
       if (typeof window.loadTeil2Exam === "function") {
         window.loadTeil2Exam(currentExamData);
