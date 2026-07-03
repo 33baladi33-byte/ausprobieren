@@ -1618,6 +1618,40 @@ renderTeileList();
 })();
 
 
+// ============================================
+// 🎯 تخزين المهارة الحالية للتلوين
+// ============================================
+
+// حفظ المهارة الحالية في متغير عام
+window.currentSkill = null;
+
+// تعديل دالة openExam لتخزين المهارة
+const originalOpenExam = window.openExam;
+if (originalOpenExam) {
+    window.openExam = async function(examId, examTitle, skill) {
+        // حفظ المهارة في المتغير العام
+        window.currentSkill = skill;
+        window.currentExamId = examId;
+        
+        // استدعاء الدالة الأصلية
+        await originalOpenExam(examId, examTitle, skill);
+    };
+}
+
+// تعديل دالة renderExamListForSkill لتخزين المهارة
+const originalRenderExamList = renderExamListForSkill;
+if (originalRenderExamList) {
+    renderExamListForSkill = function(skill, teilName) {
+        window.currentSkill = skill;
+        originalRenderExamList(skill, teilName);
+    };
+}
+
+console.log('✅ نظام تخزين المهارة للتلوين جاهز');
+
+// ============================================
+// 📊 إحصائيات الامتحانات
+// ============================================
 console.log("✅ exams.js تم تحميله بنجاح");
 console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
 console.log("📚 Lesen Teil 2:", examsDatabase.lesen2.length, "امتحان");
