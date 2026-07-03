@@ -2060,15 +2060,24 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 // نظام الاشتراك المنبثق (Subscription Modal) - تم إلغاؤه
 // ============================================
 // جميع أزرار الاشتراك تذهب الآن إلى subscribe.html
+
+    </script>
+<script>
 // ============================================
-// 🎨 إضافة زر التلوين يدوياً
+// 🎨 زر التلوين - يعمل مع engine.js
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
-    // الانتظار حتى يتم تحميل examNavButtons
-    setTimeout(function() {
+    // الانتظار حتى يتم تحميل engine.js
+    let attempts = 0;
+    const maxAttempts = 20;
+    
+    function addHighlightButton() {
         const nav = document.getElementById('examNavButtons');
         if (!nav) {
-            console.log('⚠️ examNavButtons غير موجود');
+            if (attempts < maxAttempts) {
+                attempts++;
+                setTimeout(addHighlightButton, 300);
+            }
             return;
         }
         
@@ -2076,20 +2085,30 @@ document.addEventListener('DOMContentLoaded', function() {
         const oldBtn = document.getElementById('highlightToggleBtn');
         if (oldBtn) oldBtn.remove();
         
+        // التحقق من وجود highlightEnabled
+        let isEnabled = true;
+        try {
+            const saved = localStorage.getItem('zertiva_highlight');
+            if (saved !== null) {
+                isEnabled = saved === 'true';
+            }
+        } catch(e) {}
+        
         const btn = document.createElement('button');
         btn.id = 'highlightToggleBtn';
         btn.innerHTML = '🎨';
-        btn.title = 'إظهار/إخفاء التلوين';
+        btn.title = isEnabled ? 'إخفاء الألوان' : 'إظهار الألوان';
         btn.style.cssText = `
             background: transparent;
-            border: 1px solid #38bdf8;
+            border: 1px solid ${isEnabled ? '#38bdf8' : 'rgba(255,255,255,0.2)'};
             border-radius: 50%;
             width: 36px;
             height: 36px;
             font-size: 18px;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: #38bdf8;
+            color: ${isEnabled ? '#38bdf8' : '#94a3b8'};
+            opacity: ${isEnabled ? '1' : '0.4'};
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2104,32 +2123,64 @@ document.addEventListener('DOMContentLoaded', function() {
             btn.style.transform = 'scale(1)';
         };
         
-        btn.onclick = function() {
-            // محاولة استخدام الدالة من engine.js
+        btn.onclick = function(e) {
+            e.stopPropagation();
+            
+            // محاولة استدعاء الدوال من engine.js
+            let toggled = false;
+            
             if (typeof window.toggleHighlights === 'function') {
                 window.toggleHighlights();
+                toggled = true;
             } else if (typeof toggleHighlights === 'function') {
                 toggleHighlights();
+                toggled = true;
             } else {
-                console.log('⚠️ toggleHighlights غير معرفة');
-                // حل بديل
-                if (typeof window.highlightEnabled !== 'undefined') {
-                    window.highlightEnabled = !window.highlightEnabled;
-                    localStorage.setItem('zertiva_highlight', window.highlightEnabled.toString());
-                    if (window.highlightEnabled && typeof applyHighlights === 'function') {
+                // حل بديل: تغيير الحالة مباشرة
+                try {
+                    const saved = localStorage.getItem('zertiva_highlight');
+                    const current = saved === 'true' || saved === null;
+                    const newState = !current;
+                    localStorage.setItem('zertiva_highlight', newState.toString());
+                    
+                    // تحديث الزر
+                    btn.style.opacity = newState ? '1' : '0.4';
+                    btn.style.borderColor = newState ? '#38bdf8' : 'rgba(255,255,255,0.2)';
+                    btn.style.color = newState ? '#38bdf8' : '#94a3b8';
+                    btn.title = newState ? 'إخفاء الألوان' : 'إظهار الألوان';
+                    
+                    // تطبيق أو إزالة التلوين
+                    if (newState && typeof applyHighlights === 'function') {
                         applyHighlights();
                     } else if (typeof removeAllHighlights === 'function') {
                         removeAllHighlights();
                     }
+                    toggled = true;
+                } catch(err) {
+                    console.warn('⚠️ فشل تبديل التلوين:', err);
                 }
+            }
+            
+            // تحديث الزر إذا تم التبديل
+            if (toggled) {
+                setTimeout(() => {
+                    const saved = localStorage.getItem('zertiva_highlight');
+                    const isEnabled = saved === 'true' || saved === null;
+                    btn.style.opacity = isEnabled ? '1' : '0.4';
+                    btn.style.borderColor = isEnabled ? '#38bdf8' : 'rgba(255,255,255,0.2)';
+                    btn.style.color = isEnabled ? '#38bdf8' : '#94a3b8';
+                    btn.title = isEnabled ? 'إخفاء الألوان' : 'إظهار الألوان';
+                }, 100);
             }
         };
         
         nav.appendChild(btn);
-        console.log('✅ زر التلوين تم إضافته');
-    }, 1500);
+        console.log('✅ زر التلوين تم إضافته بنجاح');
+    }
+    
+    // بدء الإضافة
+    addHighlightButton();
 });
-    </script>
-
+</script>
 </body>
 </html>
