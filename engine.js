@@ -2594,7 +2594,7 @@ function checkTeil3Exam() {
 }
 
 // ============================================
-// التعديلات الخاصة بالهواتف
+// التعديلات الخاصة بالهواتف - مكتملة
 // ============================================
 
 function applyMobileStylesToEngine() {
@@ -2663,115 +2663,39 @@ function applyMobileStylesToEngine() {
             if (situationTitle && situationTitle.textContent.includes('Situationen')) {
                 situationTitle.style.display = 'none';
             }
-            const rightColumn = teil3Container.querySelector('div[style*="flex:
-      
-      // ✅ إخفاء العمود الأيمن بالكامل (Situationen)
-      const rightColumn = teil3Container.querySelector('div[style*="flex: 1"]:last-child, div[style*="min-width: 250px"]');
-      if (rightColumn) rightColumn.style.display = 'none';
-      
-      // ✅ تعديل العمود الأيسر ليملأ العرض
-      const leftColumn = teil3Container.querySelector('div[style*="flex: 2"]:first-child, div[style*="min-width: 500px"]');
-      if (leftColumn) {
-        leftColumn.style.width = '100%';
-        leftColumn.style.maxWidth = '100%';
-      }
+            const rightColumn = teil3Container.querySelector('div[style*="flex: 1"]:last-child, div[style*="min-width: 250px"]');
+            if (rightColumn) rightColumn.style.display = 'none';
+            const leftColumn = teil3Container.querySelector('div[style*="flex: 2"]:first-child, div[style*="min-width: 500px"]');
+            if (leftColumn) {
+                leftColumn.style.width = '100%';
+                leftColumn.style.maxWidth = '100%';
+                leftColumn.style.flex = 'none';
+            }
+        }
     }
-  }
+}
 
+// استدعاء التعديلات عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
-  applyMobileStylesToEngine();
+    applyMobileStylesToEngine();
 });
 
-const originalOpenExamGlobal = window.openExam;
-if (originalOpenExamGlobal) {
-  window.openExam = async function(examId, examTitle, skill) {
-    await originalOpenExamGlobal(examId, examTitle, skill);
-    setTimeout(applyMobileStylesToEngine, 100);
-  };
-}
-
-// إعادة تحميل التنسيقات عند تغيير الحجم
+// استدعاء التعديلات عند تغيير حجم النافذة
 window.addEventListener('resize', function() {
-  setTimeout(applyMobileStylesToEngine, 100);
+    setTimeout(applyMobileStylesToEngine, 100);
 });
 
 // ============================================
-// تحديث ألوان التصحيح للهاتف بعد التصحيح مباشرة
+// تهيئة النظام
 // ============================================
 
-// دالة تطبيق ألوان التصحيح على Select في Teil 1 (للهاتف)
-function applyTeil1CorrectionColors() {
-    if (window.innerWidth > 768) return;
-    
-    const selects = document.querySelectorAll('#teil1 select');
-    selects.forEach(select => {
-        const card = select.closest('.question-card');
-        if (!card) return;
-        
-        const isCorrect = card.classList.contains('correct-answer-card');
-        const isWrong = card.classList.contains('wrong-answer-card');
-        
-        if (isCorrect) {
-            select.style.setProperty('background-color', '#d4edda', 'important');
-            select.style.setProperty('border', '2px solid #28a745', 'important');
-            select.style.setProperty('color', '#155724', 'important');
-        } else if (isWrong) {
-            select.style.setProperty('background-color', '#fef0e0', 'important');
-            select.style.setProperty('border', '2px solid #e67e22', 'important');
-            select.style.setProperty('color', '#155724', 'important');
-        }
-    });
-}
+// إنشاء زر التلوين عند التحميل
+setTimeout(() => {
+    createColoringButton();
+    setupColoringListener();
+    if (coloringActive) {
+        setTimeout(applyColoring, 500);
+    }
+}, 200);
 
-// دالة تطبيق ألوان التصحيح على Select في Teil 3 (للهاتف)
-function applyTeil3CorrectionColors() {
-    if (window.innerWidth > 768) return;
-    
-    const selects = document.querySelectorAll('#teil3 select');
-    selects.forEach(select => {
-        const card = select.closest('.question-card');
-        if (!card) return;
-        
-        const isCorrect = card.classList.contains('correct-answer-card');
-        const isWrong = card.classList.contains('wrong-answer-card');
-        
-        if (isCorrect) {
-            select.style.setProperty('background-color', '#d4edda', 'important');
-            select.style.setProperty('border', '2px solid #28a745', 'important');
-            select.style.setProperty('color', '#155724', 'important');
-        } else if (isWrong) {
-            select.style.setProperty('background-color', '#fef0e0', 'important');
-            select.style.setProperty('border', '2px solid #e67e22', 'important');
-            select.style.setProperty('color', '#155724', 'important');
-        }
-    });
-}
-
-// ============================================
-// استدعاء دوال الهاتف بعد التصحيح مباشرة
-// ============================================
-
-// استدعاء دوال Teil 1 بعد التصحيح
-if (typeof checkMatchingExam === 'function') {
-    const originalCheckMatching = checkMatchingExam;
-    window.checkMatchingExam = function() {
-        originalCheckMatching();
-        setTimeout(function() {
-            applyTeil1CorrectionColors();
-        }, 50);
-    };
-}
-
-// استدعاء دوال Teil 3 بعد التصحيح
-if (typeof checkTeil3Exam === 'function') {
-    const originalCheckTeil3 = checkTeil3Exam;
-    window.checkTeil3Exam = function() {
-        originalCheckTeil3();
-        setTimeout(function() {
-            applyTeil3CorrectionColors();
-        }, 50);
-    };
-}
-
-console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
