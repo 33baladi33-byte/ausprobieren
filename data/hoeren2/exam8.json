@@ -5,7 +5,12 @@
   "questions": [
     {
       "text": "In dem Restaurant gab es einen Wasserschaden.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "In dem Restaurant gab es einen Wasserschaden.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren2_exam8_q1"
+      }
     },
     {
       "text": "Anton Laurito ist bei seinen Großeltern aufgewachsen.",
@@ -13,11 +18,21 @@
     },
     {
       "text": "Im Haus der Großeltern lebten auch andere Kinder.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Im Haus der Großeltern lebten auch andere Kinder.",
+        "color": "#FF9800",
+        "helpKey": "hoeren2_exam8_q3"
+      }
     },
     {
       "text": "Der Stress störte den Studiogast während der Ausbildung nicht.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Der Stress störte den Studiogast während der Ausbildung nicht.",
+        "color": "#2196F3",
+        "helpKey": "hoeren2_exam8_q4"
+      }
     },
     {
       "text": "Bei neuen Mitarbeitern legt Anton Laurito am meisten Wert auf viel Erfahrung.",
@@ -29,15 +44,30 @@
     },
     {
       "text": "In der Essschule können Kinder kochen lernen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "In der Essschule können Kinder kochen lernen.",
+        "color": "#9C27B0",
+        "helpKey": "hoeren2_exam8_q7"
+      }
     },
     {
       "text": "Anton Laurito lehnt Fastfood nicht grundsätzlich ab.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Anton Laurito lehnt Fastfood nicht grundsätzlich ab.",
+        "color": "#F44336",
+        "helpKey": "hoeren2_exam8_q8"
+      }
     },
     {
       "text": "Der Koch hat eine gesunde Einstellung zum Thema Wettbewerb.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Der Koch hat eine gesunde Einstellung zum Thema Wettbewerb.",
+        "color": "#00BCD4",
+        "helpKey": "hoeren2_exam8_q9"
+      }
     },
     {
       "text": "Zuhause probiert er gerne komplizierte Gerichte aus.",

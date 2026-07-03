@@ -4,7 +4,12 @@
   "questions": [
     {
       "text": "Julia hatte an einem Schüleraustausch kein Interesse.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Julia hatte an einem Schüleraustausch kein Interesse.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren2_exam9_q1"
+      }
     },
     {
       "text": "Die Lehrer in Julias Schule weigerten sich, mit dem Austauschschüler Englisch zu sprechen.",
@@ -12,15 +17,30 @@
     },
     {
       "text": "Frankreich ist als Aufenthaltsland bei Au-pairs nicht sehr gefragt.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Frankreich ist als Aufenthaltsland bei Au-pairs nicht sehr gefragt.",
+        "color": "#FF9800",
+        "helpKey": "hoeren2_exam9_q3"
+      }
     },
     {
       "text": "Julia hatte auch darüber nachgedacht, in die Schweiz zu fahren.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Julia hatte auch darüber nachgedacht, in die Schweiz zu fahren.",
+        "color": "#2196F3",
+        "helpKey": "hoeren2_exam9_q4"
+      }
     },
     {
       "text": "Julia empfiehlt, mit der Gastfamilie einen Vertrag zu schließen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Julia empfiehlt, mit der Gastfamilie einen Vertrag zu schließen.",
+        "color": "#9C27B0",
+        "helpKey": "hoeren2_exam9_q5"
+      }
     },
     {
       "text": "Zu Beginn der Au-pair-Bewegung schickten Familien ihre Kinder zum Sprachunterricht in die Schweiz.",
@@ -32,7 +52,12 @@
     },
     {
       "text": "Julia verbrachte mit den Kindern auch Zeit in Paris.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Julia verbrachte mit den Kindern auch Zeit in Paris.",
+        "color": "#F44336",
+        "helpKey": "hoeren2_exam9_q8"
+      }
     },
     {
       "text": "Es gab am Anfang Momente, in denen sich Julia der Gastfamilie nicht zugehörig fühlte.",

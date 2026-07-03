@@ -4,7 +4,12 @@
   "questions": [
     {
       "text": "Für die Autorin Suza Hotop ist Schreiben Freude und Anstrengung zugleich.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Für die Autorin Suza Hotop ist Schreiben Freude und Anstrengung zugleich.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren2_exam2_q1"
+      }
     },
     {
       "text": "Suza begann im Alter von zwölf Jahren mit ihrem Buch Jenseits von.",
@@ -12,11 +17,21 @@
     },
     {
       "text": "Am Anfang dachte Suza nicht daran, ihre Geschichte zu veröffentlichen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Am Anfang dachte Suza nicht daran, ihre Geschichte zu veröffentlichen.",
+        "color": "#FF9800",
+        "helpKey": "hoeren2_exam2_q3"
+      }
     },
     {
       "text": "Zuerst stellte Suza Auszüge ihrer Geschichte ins Internet.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Zuerst stellte Suza Auszüge ihrer Geschichte ins Internet.",
+        "color": "#2196F3",
+        "helpKey": "hoeren2_exam2_q4"
+      }
     },
     {
       "text": "Begeisterte Nutzer stellten den Kontakt zu einem Verlag her.",
@@ -32,7 +47,12 @@
     },
     {
       "text": "Suza folgt beim Schreiben keinen besonderen Vorbildern.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Suza folgt beim Schreiben keinen besonderen Vorbildern.",
+        "color": "#9C27B0",
+        "helpKey": "hoeren2_exam2_q8"
+      }
     },
     {
       "text": "Die junge Frau gab während des Radiointerviews eine Leseprobe.",

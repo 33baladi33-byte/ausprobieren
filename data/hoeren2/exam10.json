@@ -4,7 +4,12 @@
   "questions": [
     {
       "text": "Der Berufseinstieg ist in anderen Ländern nicht leicht.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Der Berufseinstieg ist in anderen Ländern nicht leicht.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren2_exam10_q1"
+      }
     },
     {
       "text": "Carina ist ihr Beruf wichtiger als ihr Privatleben.",
@@ -12,11 +17,21 @@
     },
     {
       "text": "Carina hat sich der Agentur mit einem Film präsentiert.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Carina hat sich der Agentur mit einem Film präsentiert.",
+        "color": "#FF9800",
+        "helpKey": "hoeren2_exam10_q3"
+      }
     },
     {
       "text": "Carina musste für einen Film ihr Gewicht stark verändern.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Carina musste für einen Film ihr Gewicht stark verändern.",
+        "color": "#2196F3",
+        "helpKey": "hoeren2_exam10_q4"
+      }
     },
     {
       "text": "Carina macht lieber gefühlvolle Filme als Action-Filme.",
@@ -32,15 +47,30 @@
     },
     {
       "text": "Carina findet den Wechsel zwischen Schule und Drehterminen nicht leicht.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Carina findet den Wechsel zwischen Schule und Drehterminen nicht leicht.",
+        "color": "#9C27B0",
+        "helpKey": "hoeren2_exam10_q8"
+      }
     },
     {
       "text": "Bei Dialogen darf man auch selbst etwas erfinden.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Bei Dialogen darf man auch selbst etwas erfinden.",
+        "color": "#F44336",
+        "helpKey": "hoeren2_exam10_q9"
+      }
     },
     {
       "text": "Carina empfiehlt, sich andere Schauspieler im Theater und in Filmen anzusehen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Carina empfiehlt, sich andere Schauspieler im Theater und in Filmen anzusehen.",
+        "color": "#00BCD4",
+        "helpKey": "hoeren2_exam10_q10"
+      }
     }
   ]
 }

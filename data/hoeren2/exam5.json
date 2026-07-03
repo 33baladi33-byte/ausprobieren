@@ -9,7 +9,12 @@
     },
     {
       "text": "Steiner möchte, dass die Studierenden das Gelernte auch in der Praxis anwenden können.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Steiner möchte, dass die Studierenden das Gelernte auch in der Praxis anwenden können.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren2_exam5_q2"
+      }
     },
     {
       "text": "Steiners Hobby ist es, experimentelle Filme zu machen.",
@@ -37,11 +42,21 @@
     },
     {
       "text": "Steiner ist es wichtig, als Moderator den Sportlern gegenüber neutral zu bleiben.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Steiner ist es wichtig, als Moderator den Sportlern gegenüber neutral zu bleiben.",
+        "color": "#FF9800",
+        "helpKey": "hoeren2_exam5_q9"
+      }
     },
     {
       "text": "Steiner rät Abiturienten dazu, verschiedene Tests zu machen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Steiner rät Abiturienten dazu, verschiedene Tests zu machen.",
+        "color": "#2196F3",
+        "helpKey": "hoeren2_exam5_q10"
+      }
     }
   ]
 }

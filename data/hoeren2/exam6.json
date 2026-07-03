@@ -12,11 +12,21 @@
     },
     {
       "text": "Einige Einheimische in Mallorca haben begonnen, sich gegen das Vordringen der deutschen Sprache zu wehren.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Einige Einheimische in Mallorca haben begonnen, sich gegen das Vordringen der deutschen Sprache zu wehren.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren2_exam6_q3"
+      }
     },
     {
       "text": "In Mallorca wird der Staat wegen der Umweltbelastungen zur Kasse gebeten.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "In Mallorca wird der Staat wegen der Umweltbelastungen zur Kasse gebeten.",
+        "color": "#FF9800",
+        "helpKey": "hoeren2_exam6_q4"
+      }
     },
     {
       "text": "Viele Deutsche haben jetzt Rumänien und Ungarn als Reiseziel entdeckt.",
@@ -28,7 +38,12 @@
     },
     {
       "text": "Bulgarien hat sich als Urlaubsland sehr positiv entwickelt.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Bulgarien hat sich als Urlaubsland sehr positiv entwickelt.",
+        "color": "#2196F3",
+        "helpKey": "hoeren2_exam6_q7"
+      }
     },
     {
       "text": "Viele Westdeutsche meiden Bulgarien, weil die Einreisemodalitäten abschreckend sind.",
