@@ -4,7 +4,12 @@
   "questions": [
     {
       "text": "Im Süden Deutschlands wird es nachmittags regnen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Im Süden Deutschlands wird es nachmittags regnen.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren3_exam5_q1"
+      }
     },
     {
       "text": "Die Busse verkehren zu anderen Zeiten als die Regionalzüge.",
@@ -16,7 +21,12 @@
     },
     {
       "text": "Wenn Sie über Ihre Autoversicherung sprechen wollen, müssen Sie die 1 wählen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Wenn Sie über Ihre Autoversicherung sprechen wollen, müssen Sie die 1 wählen.",
+        "color": "#FF9800",
+        "helpKey": "hoeren3_exam5_q4"
+      }
     },
     {
       "text": "Ihr Bekannter ist jederzeit telefonisch erreichbar.",

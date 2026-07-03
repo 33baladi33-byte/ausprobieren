@@ -4,7 +4,12 @@
   "questions": [
     {
       "text": "Morgen muss man im Süden Deutschlands mit Schnee rechnen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Morgen muss man im Süden Deutschlands mit Schnee rechnen.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren3_exam6_q1"
+      }
     },
     {
       "text": "Die zwei Jungen sind von zu Hause weggelaufen.",
@@ -20,7 +25,12 @@
     },
     {
       "text": "Die historische elektrische Eisenbahn wird im Dezember wie gewohnt fahren.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Die historische elektrische Eisenbahn wird im Dezember wie gewohnt fahren.",
+        "color": "#FF9800",
+        "helpKey": "hoeren3_exam6_q5"
+      }
     }
   ]
 }

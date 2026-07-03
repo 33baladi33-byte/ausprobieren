@@ -4,7 +4,12 @@
   "questions": [
     {
       "text": "Man kann am 'Tag des Ehrenamts' probeweise mithelfen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Man kann am 'Tag des Ehrenamts' probeweise mithelfen.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren3_exam9_q1"
+      }
     },
     {
       "text": "Die Skateboard-Vorführung fällt dieses Mal aus.",
@@ -20,7 +25,12 @@
     },
     {
       "text": "Wenn man das Training ausprobieren möchte, sollte man vorher Bescheid sagen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Wenn man das Training ausprobieren möchte, sollte man vorher Bescheid sagen.",
+        "color": "#FF9800",
+        "helpKey": "hoeren3_exam9_q5"
+      }
     }
   ]
 }

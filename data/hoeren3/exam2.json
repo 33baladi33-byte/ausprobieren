@@ -4,7 +4,12 @@
   "questions": [
     {
       "text": "Während des Musikfestivals 'Sound of Frankfurt' gibt es verbilligte Fahrkarten für alle öffentlichen Verkehrsmittel.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Während des Musikfestivals 'Sound of Frankfurt' gibt es verbilligte Fahrkarten für alle öffentlichen Verkehrsmittel.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren3_exam2_q1"
+      }
     },
     {
       "text": "Sie gehen am 3. Juli ins Konzert, weil Sie die beiden Leipziger Klaviervirtuosen hören möchten.",
@@ -12,7 +17,12 @@
     },
     {
       "text": "Am Wochenende können Sie sich in Naumburg über die Bekämpfung von Krankheiten bei Apfelbäumen informieren.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Am Wochenende können Sie sich in Naumburg über die Bekämpfung von Krankheiten bei Apfelbäumen informieren.",
+        "color": "#FF9800",
+        "helpKey": "hoeren3_exam2_q3"
+      }
     },
     {
       "text": "Im Handwerksmuseum werden Kleidungsstücke ausgestellt.",

@@ -4,7 +4,12 @@
   "questions": [
     {
       "text": "Bei der Fahrschule kann man sich über das Internet anmelden.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Bei der Fahrschule kann man sich über das Internet anmelden.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren3_exam4_q1"
+      }
     },
     {
       "text": "Die Anruferin ist im Hinblick auf die Abfahrtszeit flexibel.",
@@ -16,7 +21,12 @@
     },
     {
       "text": "Bei dem Flug nach Mallorca ändert sich die Abflugzeit.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Bei dem Flug nach Mallorca ändert sich die Abflugzeit.",
+        "color": "#FF9800",
+        "helpKey": "hoeren3_exam4_q4"
+      }
     },
     {
       "text": "In Halle D wird aus E-Books vorgelesen.",

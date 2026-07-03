@@ -8,7 +8,12 @@
     },
     {
       "text": "In der kommenden Saison wird eine Symphonie von Mahler aufgeführt.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "In der kommenden Saison wird eine Symphonie von Mahler aufgeführt.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren3_exam10_q2"
+      }
     },
     {
       "text": "Die Weltmeisterschaften im Eiskunstlauf finden in der Dortmunder Helmut-Körnig-Halle statt.",
@@ -20,7 +25,12 @@
     },
     {
       "text": "Für die Vermittlung einer Mitfahrgelegenheit per E-Mail erhebt 'fahre mit' keine Gebühren.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Für die Vermittlung einer Mitfahrgelegenheit per E-Mail erhebt 'fahre mit' keine Gebühren.",
+        "color": "#FF9800",
+        "helpKey": "hoeren3_exam10_q5"
+      }
     }
   ]
 }

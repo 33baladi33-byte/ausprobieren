@@ -4,7 +4,12 @@
   "questions": [
     {
       "text": "Sie können im Internet prüfen, ob Ihre aktuelle Bestellung schon unterwegs ist.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Sie können im Internet prüfen, ob Ihre aktuelle Bestellung schon unterwegs ist.",
+        "color": "#4CAF50",
+        "helpKey": "hoeren3_exam7_q1"
+      }
     },
     {
       "text": "Man kann für die Nachtveranstaltung noch Karten im Internet kaufen.",
@@ -20,7 +25,12 @@
     },
     {
       "text": "Wer ein wichtiges Anliegen hat, soll eine andere Nummer wählen.",
-      "correct": true
+      "correct": true,
+      "highlight": {
+        "text": "Wer ein wichtiges Anliegen hat, soll eine andere Nummer wählen.",
+        "color": "#FF9800",
+        "helpKey": "hoeren3_exam7_q5"
+      }
     }
   ]
 }
