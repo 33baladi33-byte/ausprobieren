@@ -2671,8 +2671,25 @@ function applyHighlights() {
     if (!highlightEnabled) return;
     
     // 3. الحصول على المهارة الحالية ورقم الامتحان
-    const skill = getCurrentSkill();
+    let skill = getCurrentSkill();
     const examId = window.currentExamId || 1;
+    
+    // ✅ تصحيح المهارة إذا كانت 'exam'
+    if (skill === 'exam' || !skill) {
+        // محاولة استنتاج المهارة من الـ container
+        const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3', 'sprach1', 'sprach2', 'schreiben'];
+        for (let id of containers) {
+            const el = document.getElementById(id);
+            if (el && el.style.display !== 'none') {
+                skill = id;
+                break;
+            }
+        }
+        // إذا still 'exam'، استخدم القيمة المخزنة
+        if (skill === 'exam' || !skill) {
+            skill = window.currentSkill || 'hoeren1';
+        }
+    }
     
     if (!skill) {
         console.log('ℹ️ لا توجد مهارة حالية');
