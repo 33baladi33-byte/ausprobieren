@@ -4,26 +4,7 @@
 // ============================================
 
 console.log("✅ engine.js تم تحميله (النسخة النهائية الشغالة)");
-// ============================================
-// 🎨 بيانات التلوين - مدمجة في engine.js
-// ============================================
 
-window.HIGHLIGHT_DATA = {
-    "hoeren1_exam1": {
-        q1: { text: "Lufthansa", color: 1 },
-        q2: { text: "Sportverein", color: 2 },
-        q3: { text: "Pflegeheimen", color: 3 },
-        q4: { text: "Heizkosten", color: 4 },
-        q5: { text: "Dopingsperre", color: 5 }
-    },
-    "hoeren1_exam2": {
-        q1: { text: "Piloten", color: 1 }
-        // أضف المزيد حسب الحاجة
-    }
-};
-
-console.log('✅ HIGHLIGHT_DATA تم تحميلها في engine.js');
-console.log(`📊 إجمالي بيانات التلوين: ${Object.keys(window.HIGHLIGHT_DATA).length}`);
 window.loadExamFromFile = async function(skill, examId) {
   try {
     const response = await fetch(`data/${skill}/exam${examId}.json`);
@@ -2654,24 +2635,23 @@ if (typeof checkTeil3Exam === 'function') {
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 console.log("✅ engine.js تم تحميله بالكامل");
 // ============================================
-// 🎨 نظام التلوين الذكي - النسخة المركزية
+// 🎨 نظام التلوين الذكي - يستخدم HELP_DATA مباشرة
 // ============================================
 
 // ألوان هادئة
 const HIGHLIGHT_COLORS = {
-    1: { bg: '#E8F1FF', color: '#1456A0' },  // أزرق
-    2: { bg: '#EAF8EF', color: '#1F7A46' },  // أخضر
-    3: { bg: '#FFF5E5', color: '#A86400' },  // برتقالي
-    4: { bg: '#F7ECFF', color: '#6A3FA0' },  // بنفسجي
-    5: { bg: '#FFECEC', color: '#B33A3A' },  // أحمر
-    6: { bg: '#EAF7F7', color: '#0D7377' },  // تركواز
-    7: { bg: '#F0F0FF', color: '#4A4A8A' },  // نيلي
-    8: { bg: '#FFF8F0', color: '#B87A3A' }   // كهرماني
+    1: { bg: '#E8F1FF', color: '#1456A0' },
+    2: { bg: '#EAF8EF', color: '#1F7A46' },
+    3: { bg: '#FFF5E5', color: '#A86400' },
+    4: { bg: '#F7ECFF', color: '#6A3FA0' },
+    5: { bg: '#FFECEC', color: '#B33A3A' },
+    6: { bg: '#EAF7F7', color: '#0D7377' },
+    7: { bg: '#F0F0FF', color: '#4A4A8A' },
+    8: { bg: '#FFF8F0', color: '#B87A3A' }
 };
 
 let highlightEnabled = true;
 
-// تحميل الحالة من localStorage
 try {
     const saved = localStorage.getItem('zertiva_highlight');
     if (saved !== null) {
@@ -2679,134 +2659,38 @@ try {
     }
 } catch(e) {}
 
-// ============================================
-// 🎯 دالة التلوين الرئيسية
-// ============================================
-
-function applyHighlights() {
-    // 1. إزالة التلوين القديم
-    removeAllHighlights();
-    
-    // 2. إذا كان التلوين معطلاً، توقف
-    if (!highlightEnabled) return;
-    
-    // 3. الحصول على المهارة الحالية ورقم الامتحان
-    let skill = getCurrentSkill();
-    const examId = window.currentExamId || 1;
-    
-    // ✅ تصحيح المهارة إذا كانت 'exam'
-    if (skill === 'exam' || !skill) {
-        // محاولة استنتاج المهارة من الـ container
-        const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3', 'sprach1', 'sprach2', 'schreiben'];
-        for (let id of containers) {
-            const el = document.getElementById(id);
-            if (el && el.style.display !== 'none') {
-                skill = id;
-                break;
-            }
-        }
-        // إذا still 'exam'، استخدم القيمة المخزنة
-        if (skill === 'exam' || !skill) {
-            skill = window.currentSkill || 'hoeren1';
-        }
-    }
-    
-    if (!skill) {
-        console.log('ℹ️ لا توجد مهارة حالية');
-        return;
-    }
-    
-    // 4. بناء المفتاح للبحث في HIGHLIGHT_DATA
-    const key = `${skill}_exam${examId}`;
-    console.log(`🎨 البحث عن تلوين: ${key}`);
-    
-    // 5. التحقق من وجود بيانات تلوين
-    if (typeof HIGHLIGHT_DATA === 'undefined' || !HIGHLIGHT_DATA[key]) {
-        console.log(`ℹ️ لا توجد بيانات تلوين للامتحان: ${key}`);
-        return;
-    }
-    
-    const highlightData = HIGHLIGHT_DATA[key];
-    console.log(`✅ تم العثور على ${Object.keys(highlightData).length} عنصر تلوين`);
-    
-    // 6. الحصول على عناصر الأسئلة فقط
-    const container = document.querySelector('.page.active');
-    if (!container) return;
-    
-    const questionCards = container.querySelectorAll('.question-card');
-    if (questionCards.length === 0) {
-        console.log('⚠️ لا توجد بطاقات أسئلة');
-        return;
-    }
-    
-    // 7. تطبيق التلوين على كل سؤال
-    questionCards.forEach((card, index) => {
-        const qKey = `q${index + 1}`;
-        const data = highlightData[qKey];
-        
-        if (!data) return;
-        
-       // الحصول على عنصر النص في البطاقة
-let textElement = card.querySelector('.question-text, .text-content, div[style*="line-height"]');
-
-// إذا لم نجد، نبحث عن أي span يحتوي على النص (حالة Hören)
-if (!textElement) {
-    const spans = card.querySelectorAll('span');
-    for (let span of spans) {
-        // نبحث عن span يحتوي على أرقام (مثل "1. ...")
-        if (span.innerHTML.match(/^\s*<strong>\d+<\/strong>/)) {
-            textElement = span;
-            break;
-        }
-    }
-}
-
-// إذا لم نجد، نستخدم آخر span في البطاقة
-if (!textElement) {
-    const lastSpan = card.querySelector('span:last-child');
-    if (lastSpan) textElement = lastSpan;
-}
-
-if (!textElement) return;
-        
-        // تطبيق التلوين حسب نوع البيانات
-        const color = HIGHLIGHT_COLORS[data.color] || HIGHLIGHT_COLORS[1];
-        
-        if (data.text) {
-            // حالة بسيطة: نص واحد
-            highlightText(textElement, data.text, color);
-        }
-        
-        if (data.paragraph && data.title) {
-            // حالة Lesen: فقرة وعنوان
-            highlightText(textElement, data.paragraph, color);
-            highlightText(textElement, data.title, color);
-        }
-        
-        if (data.before && data.answer && data.after) {
-            // حالة Sprachbausteine
-            highlightText(textElement, data.before, color);
-            highlightText(textElement, data.answer, color);
-            highlightText(textElement, data.after, color);
-        }
-    });
-    
-    console.log('✅ تم تطبيق التلوين بنجاح');
-}
-
-// ============================================
-// 🔧 دوال مساعدة
-// ============================================
-
 function highlightText(element, textToHighlight, color) {
     if (!element || !textToHighlight || !color) return;
     
     const escapedText = textToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(${escapedText})`, 'g');
-    
-    element.innerHTML = element.innerHTML.replace(regex, (match) => {
-        return `<span class="memory-highlight color${Object.keys(HIGHLIGHT_COLORS).find(k => HIGHLIGHT_COLORS[k] === color) || '1'}" style="background:${color.bg};color:${color.color};border-radius:4px;padding:2px 4px;font-weight:600;">${match}</span>`;
+    let regex = new RegExp(`(${escapedText})`, 'g');
+    let newHtml = element.innerHTML.replace(regex, (match) => {
+        return `<span class="memory-highlight" style="background:${color.bg};color:${color.color};border-radius:4px;padding:2px 4px;font-weight:600;">${match}</span>`;
     });
+    
+    // إذا لم يجد، جرب بدون حساسية حالة الأحرف
+    if (newHtml === element.innerHTML) {
+        regex = new RegExp(`(${escapedText})`, 'gi');
+        newHtml = element.innerHTML.replace(regex, (match) => {
+            return `<span class="memory-highlight" style="background:${color.bg};color:${color.color};border-radius:4px;padding:2px 4px;font-weight:600;">${match}</span>`;
+        });
+    }
+    
+    // إذا لم يجد، جرب أول 3 كلمات
+    if (newHtml === element.innerHTML) {
+        const words = textToHighlight.split(' ').slice(0, 3).join(' ');
+        if (words.length > 5) {
+            const escapedWords = words.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            regex = new RegExp(`(${escapedWords})`, 'gi');
+            newHtml = element.innerHTML.replace(regex, (match) => {
+                return `<span class="memory-highlight" style="background:${color.bg};color:${color.color};border-radius:4px;padding:2px 4px;font-weight:600;">${match}</span>`;
+            });
+        }
+    }
+    
+    if (newHtml !== element.innerHTML) {
+        element.innerHTML = newHtml;
+    }
 }
 
 function removeAllHighlights() {
@@ -2818,6 +2702,90 @@ function removeAllHighlights() {
             parent.normalize();
         }
     });
+}
+
+function applyHighlights() {
+    removeAllHighlights();
+    if (!highlightEnabled) return;
+    
+    let skill = getCurrentSkill();
+    const examId = window.currentExamId || 1;
+    
+    if (skill === 'exam' || !skill) {
+        const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3', 'sprach1', 'sprach2', 'schreiben'];
+        for (let id of containers) {
+            const el = document.getElementById(id);
+            if (el && el.style.display !== 'none') {
+                skill = id;
+                break;
+            }
+        }
+        if (skill === 'exam' || !skill) {
+            skill = window.currentSkill || 'hoeren1';
+        }
+    }
+    
+    if (!skill) {
+        console.log('ℹ️ لا توجد مهارة حالية');
+        return;
+    }
+    
+    if (typeof HELP_DATA === 'undefined') {
+        console.log('ℹ️ HELP_DATA غير موجود');
+        return;
+    }
+    
+    const container = document.querySelector('.page.active');
+    if (!container) return;
+    
+    const questionCards = container.querySelectorAll('.question-card');
+    if (questionCards.length === 0) {
+        console.log('⚠️ لا توجد بطاقات أسئلة');
+        return;
+    }
+    
+    const colors = [1, 2, 3, 4, 5, 6, 7, 8];
+    let colorIndex = 0;
+    let foundCount = 0;
+    
+    questionCards.forEach((card, index) => {
+        const qNum = index + 1;
+        const key = `${skill}_exam${examId}_q${qNum}`;
+        let data = HELP_DATA[key];
+        
+        if (!data) {
+            const altKey = `${skill}_exam${examId}_${qNum}`;
+            data = HELP_DATA[altKey];
+        }
+        
+        if (!data || !data.text) return;
+        
+        let textElement = card.querySelector('.question-text, .text-content, div[style*="line-height"]');
+        if (!textElement) {
+            const spans = card.querySelectorAll('span');
+            for (let span of spans) {
+                if (span.innerHTML && span.innerHTML.includes('<strong>')) {
+                    textElement = span;
+                    break;
+                }
+            }
+        }
+        if (!textElement) {
+            const lastSpan = card.querySelector('span:last-child');
+            if (lastSpan) textElement = lastSpan;
+        }
+        if (!textElement) return;
+        
+        const color = HIGHLIGHT_COLORS[colors[colorIndex % colors.length]];
+        colorIndex++;
+        
+        highlightText(textElement, data.text, color);
+        foundCount++;
+    });
+    
+    if (foundCount > 0) {
+        console.log(`✅ تم تلوين ${foundCount} عنصر من HELP_DATA`);
+    }
 }
 
 function toggleHighlights() {
@@ -2847,10 +2815,7 @@ function updateHighlightButton() {
 
 function addHighlightButton() {
     const nav = document.getElementById('examNavButtons');
-    if (!nav) {
-        console.log('⚠️ لم يتم العثور على examNavButtons');
-        return;
-    }
+    if (!nav) return;
     
     const btn = document.createElement('button');
     btn.id = 'highlightToggleBtn';
@@ -2887,18 +2852,14 @@ function addHighlightButton() {
 }
 
 function getCurrentSkill() {
-    // 1. أولاً: استخدام المهارة المخزنة من exams.js
     if (window.currentSkill) {
         return window.currentSkill;
     }
     
-    // 2. ثانياً: البحث عن الصفحة النشطة
     const activePage = document.querySelector('.page.active');
     if (!activePage) return null;
     
-    // 3. إذا كانت الصفحة 'exam'، نحاول استنتاج المهارة
     if (activePage.id === 'exam') {
-        // البحث عن أي حاوية مهارة ظاهرة
         const skills = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3', 'sprach1', 'sprach2', 'schreiben'];
         for (let skill of skills) {
             const el = document.getElementById(skill);
@@ -2906,16 +2867,11 @@ function getCurrentSkill() {
                 return skill;
             }
         }
-        // قيمة افتراضية
         return 'hoeren1';
     }
     
     return activePage.id;
 }
-
-// ============================================
-// 🚀 تهيئة النظام
-// ============================================
 
 function initHighlightSystem() {
     console.log('🎨 تهيئة نظام التلوين...');
@@ -2931,11 +2887,6 @@ function initHighlightSystem() {
     }, 500);
 }
 
-// ============================================
-// 🔄 مراقبة تغيير الامتحان
-// ============================================
-
-// مراقبة عند فتح امتحان جديد
 const originalOpenExam = window.openExam;
 if (originalOpenExam) {
     window.openExam = async function(examId, examTitle, skill) {
@@ -2946,32 +2897,16 @@ if (originalOpenExam) {
     };
 }
 
-// مراقبة عند تغيير الأجزاء
-const originalShowTeil = window.showTeil;
-if (originalShowTeil) {
-    window.showTeil = function(teilNumber) {
-        originalShowTeil(teilNumber);
-        setTimeout(() => {
-            if (highlightEnabled) applyHighlights();
-        }, 300);
-    };
-}
-
-// ============================================
-// 🚀 تشغيل النظام
-// ============================================
-
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initHighlightSystem);
 } else {
     initHighlightSystem();
 }
 
-// جعل الدوال متاحة عالمياً
 window.toggleHighlights = toggleHighlights;
 window.applyHighlights = applyHighlights;
 window.removeAllHighlights = removeAllHighlights;
 window.getCurrentSkill = getCurrentSkill;
 
-console.log('🎨 نظام التلوين الذكي جاهز!');
+console.log('🎨 نظام التلوين الذكي جاهز! (يستخدم HELP_DATA)');
 console.log(`🎨 حالة التلوين: ${highlightEnabled ? 'مفعل ✅' : 'معطل ❌'}`);
