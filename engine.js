@@ -2739,7 +2739,6 @@ if (examData.type === 'teil3' && examData.items) {
     selects.forEach((select, index) => {
         const item = items[index];
         if (!item || item.correct === null || item.correct === undefined) return;
-        // ✅ استخدم اللون من item.highlightColor أو index
         const color = item.highlightColor !== undefined ? item.highlightColor : index % 8;
         const correctSituation = situations[item.correct];
         if (!correctSituation) return;
@@ -2755,11 +2754,12 @@ if (examData.type === 'teil3' && examData.items) {
             }
         }
     });
-}
+} // ✅ أضف هذا القوس هنا
 
 // ============================================
 // MemoryHighlightEngine
 // ============================================
+
 
 class MemoryHighlightEngine {
     constructor() {
