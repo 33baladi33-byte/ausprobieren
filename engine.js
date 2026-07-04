@@ -2798,12 +2798,12 @@ function applyAutoHighlights(examData) {
         });
     }
 }
+
 // ============================================
 // تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
 // ============================================
 
 function colorSelectOptions() {
-    // جلب البيانات من عدة مصادر محتملة
     const examData = window.currentExamData || 
                      (window.memoryEngine ? window.memoryEngine.currentExamData : null);
     
@@ -2822,7 +2822,7 @@ function colorSelectOptions() {
         selects.forEach((select, index) => {
             const q = questions[index];
             if (!q) return;
-            const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
+            const color = q.highlightColor !== undefined && q.highlightColor !== null ? q.highlightColor : index % 12;
             const correctOption = options[q.correct];
             if (!correctOption) return;
             for (let i = 0; i < select.options.length; i++) {
@@ -2849,8 +2849,8 @@ function colorSelectOptions() {
         selects.forEach((select, index) => {
             const item = items[index];
             if (!item || item.correct === null || item.correct === undefined) return;
-          // ✅ واستبدله بهذا
-const color = q.highlightColor !== undefined && q.highlightColor !== null ? q.highlightColor : index % 12;
+            // ✅ استخدم item بدلاً من q
+            const color = item.highlightColor !== undefined && item.highlightColor !== null ? item.highlightColor : index % 12;
             const correctSituation = situations[item.correct];
             if (!correctSituation) return;
             for (let i = 0; i < select.options.length; i++) {
