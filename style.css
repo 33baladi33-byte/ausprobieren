@@ -3571,12 +3571,13 @@ body.dark-mode .premium-features li {
     color: white;
 }
 
-/* ألوان التظليل - يمكن تعديلها بسهولة */
+/* ألوان التظليل - 12 لون مختلف */
 .memory-highlight.color0 {
     background: #D8ECFF;
     color: #1565C0;
     padding: 2px 4px;
     border-radius: 3px;
+    font-weight: bold;
 }
 
 .memory-highlight.color1 {
@@ -3584,6 +3585,7 @@ body.dark-mode .premium-features li {
     color: #2E7D32;
     padding: 2px 4px;
     border-radius: 3px;
+    font-weight: bold;
 }
 
 .memory-highlight.color2 {
@@ -3591,6 +3593,7 @@ body.dark-mode .premium-features li {
     color: #F57C00;
     padding: 2px 4px;
     border-radius: 3px;
+    font-weight: bold;
 }
 
 .memory-highlight.color3 {
@@ -3598,6 +3601,7 @@ body.dark-mode .premium-features li {
     color: #6A1B9A;
     padding: 2px 4px;
     border-radius: 3px;
+    font-weight: bold;
 }
 
 .memory-highlight.color4 {
@@ -3605,6 +3609,7 @@ body.dark-mode .premium-features li {
     color: #BF360C;
     padding: 2px 4px;
     border-radius: 3px;
+    font-weight: bold;
 }
 
 .memory-highlight.color5 {
@@ -3612,6 +3617,7 @@ body.dark-mode .premium-features li {
     color: #00695C;
     padding: 2px 4px;
     border-radius: 3px;
+    font-weight: bold;
 }
 
 .memory-highlight.color6 {
@@ -3619,6 +3625,7 @@ body.dark-mode .premium-features li {
     color: #880E4F;
     padding: 2px 4px;
     border-radius: 3px;
+    font-weight: bold;
 }
 
 .memory-highlight.color7 {
@@ -3626,4 +3633,44 @@ body.dark-mode .premium-features li {
     color: #33691E;
     padding: 2px 4px;
     border-radius: 3px;
+    font-weight: bold;
+}
+
+.memory-highlight.color8 {
+    background: #FFD1DC;
+    color: #C62828;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.memory-highlight.color9 {
+    background: #E6E9FF;
+    color: #3949AB;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.memory-highlight.color10 {
+    background: #FFEFD6;
+    color: #E65100;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.memory-highlight.color11 {
+    background: #E7F4E4;
+    color: #5D4037;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+/* تنسيق عام لعناصر التلوين */
+.memory-highlight {
+    border-radius: 3px;
+    padding: 1px 3px;
+    font-weight: bold;
 }
