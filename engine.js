@@ -2729,37 +2729,37 @@ function applyAutoHighlights(examData) {
         });
     }
     
-// Lesen Teil 3
-if (examData.type === 'teil3' && examData.items) {
-    const container = document.getElementById('teil3');
-    if (!container) return;
-    const items = examData.items || [];
-    const situations = examData.situations || [];
-    const selects = container.querySelectorAll('select');
-    selects.forEach((select, index) => {
-        const item = items[index];
-        if (!item || item.correct === null || item.correct === undefined) return;
-        const color = item.highlightColor !== undefined ? item.highlightColor : index % 8;
-        const correctSituation = situations[item.correct];
-        if (!correctSituation) return;
-        for (let i = 0; i < select.options.length; i++) {
-            const option = select.options[i];
-            if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
-                option.style.backgroundColor = getColorByIndex(color);
-                option.style.color = getTextColorByIndex(color);
-                option.style.fontWeight = 'bold';
-                option.style.padding = '2px 4px';
-                option.style.borderRadius = '3px';
-                break;
+    // Lesen Teil 3
+    if (examData.type === 'teil3' && examData.items) {
+        const container = document.getElementById('teil3');
+        if (!container) return;
+        const items = examData.items || [];
+        const situations = examData.situations || [];
+        const selects = container.querySelectorAll('select');
+        selects.forEach((select, index) => {
+            const item = items[index];
+            if (!item || item.correct === null || item.correct === undefined) return;
+            const color = item.highlightColor !== undefined ? item.highlightColor : index % 8;
+            const correctSituation = situations[item.correct];
+            if (!correctSituation) return;
+            for (let i = 0; i < select.options.length; i++) {
+                const option = select.options[i];
+                if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
+                    option.style.backgroundColor = getColorByIndex(color);
+                    option.style.color = getTextColorByIndex(color);
+                    option.style.fontWeight = 'bold';
+                    option.style.padding = '2px 4px';
+                    option.style.borderRadius = '3px';
+                    break;
+                }
             }
-        }
-    });
-} // ✅ أضف هذا القوس هنا
+        });
+    }
+}
 
 // ============================================
 // MemoryHighlightEngine
 // ============================================
-
 
 class MemoryHighlightEngine {
     constructor() {
@@ -2935,13 +2935,13 @@ class MemoryHighlightEngine {
         }
         this.originalTexts.clear();
     }
-}
+}  // <--- ✅ هذا القوس يغلق الكلاس
 
 // ============================================
 // تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
 // ============================================
 
-function colorSelectOptions() 
+function colorSelectOptions() {
     const examData = window.currentExamData;
     if (!examData) return;
     
@@ -2982,7 +2982,6 @@ function colorSelectOptions()
         selects.forEach((select, index) => {
             const item = items[index];
             if (!item || item.correct === null || item.correct === undefined) return;
-            // ✅ استخدم highlightColor من item
             const color = item.highlightColor !== undefined ? item.highlightColor : index % 8;
             const correctSituation = situations[item.correct];
             if (!correctSituation) return;
