@@ -2273,13 +2273,9 @@ function renderTeil3Exam() {
       if (select) select.selectedIndex = 0;
       updateTeil3CardStyle(i);
     }
-    
-     updateTeil3SelectOptions();
-  updateTeil3RightSideColors();
-  
-  // ✅ أضف هذا السطر لتلوين خيارات القائمة
-  setTimeout(colorTeil3SelectOptions, 200);
-}
+
+        updateTeil3SelectOptions();
+    updateTeil3RightSideColors();
     
     document.querySelectorAll('#teil3 .correct-message').forEach(msg => msg.remove());
     
@@ -2289,6 +2285,9 @@ function renderTeil3Exam() {
       resultDiv.innerHTML = "";
     }
   };
+  
+  // ✅ تلوين خيارات القائمة بعد تحميل الامتحان
+  setTimeout(colorTeil3SelectOptions, 200);
   buttonContainer.appendChild(resetBtn);
   
   container.appendChild(buttonContainer);
