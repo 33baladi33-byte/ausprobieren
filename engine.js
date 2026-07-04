@@ -2935,7 +2935,7 @@ class MemoryHighlightEngine {
         }
         this.originalTexts.clear();
     }
-}
+
 
 // ============================================
 // تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
