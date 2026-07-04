@@ -2605,18 +2605,43 @@ if (typeof checkTeil3Exam === 'function') {
 }
 
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
-
 // ============================================
 // MEMORY HIGHLIGHT SYSTEM - التلوين الذكي
 // ============================================
 
 function getColorByIndex(index) {
-    const colors = ['#D8ECFF', '#DDF7E5', '#FFF2CC', '#F5E1FF', '#FFE4D6', '#E3F6F5', '#FCE8F3', '#E8F5D0'];
+    const colors = [
+        '#D8ECFF',  // 0 - أزرق فاتح
+        '#DDF7E5',  // 1 - أخضر فاتح
+        '#FFF2CC',  // 2 - أصفر فاتح
+        '#F5E1FF',  // 3 - بنفسجي فاتح
+        '#FFE4D6',  // 4 - برتقالي فاتح
+        '#E3F6F5',  // 5 - تركواز فاتح
+        '#FCE8F3',  // 6 - وردي فاتح
+        '#E8F5D0',  // 7 - أخضر باستيل
+        '#FFD1DC',  // 8 - وردي
+        '#E6E9FF',  // 9 - لافندر أزرق
+        '#FFEFD6',  // 10 - مشمشي فاتح
+        '#E7F4E4'   // 11 - أخضر باستيل هادئ
+    ];
     return colors[index % colors.length] || '#D8ECFF';
 }
 
 function getTextColorByIndex(index) {
-    const textColors = ['#1565C0', '#2E7D32', '#F57C00', '#6A1B9A', '#BF360C', '#00695C', '#880E4F', '#33691E'];
+    const textColors = [
+        '#1565C0',  // 0 - أزرق غامق
+        '#2E7D32',  // 1 - أخضر غامق
+        '#F57C00',  // 2 - برتقالي
+        '#6A1B9A',  // 3 - بنفسجي غامق
+        '#BF360C',  // 4 - أحمر برتقالي
+        '#00695C',  // 5 - تركواز غامق
+        '#880E4F',  // 6 - وردي غامق
+        '#33691E',  // 7 - أخضر داكن
+        '#C62828',  // 8 - أحمر غامق
+        '#3949AB',  // 9 - نيلي
+        '#E65100',  // 10 - برتقالي غامق
+        '#5D4037'   // 11 - بني هادئ
+    ];
     return textColors[index % textColors.length] || '#1565C0';
 }
 
