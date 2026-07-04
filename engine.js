@@ -1,9 +1,8 @@
 // ============================================
-// engine.js - محرك الامتحانات المتكامل (النسخة النهائية الشغالة)
-// يدعم: Matching + True/False + Teil 2 + Teil 3 + Sprachbausteine Teil 1 + Sprachbausteine Teil 2 + Schreiben
+// engine.js - محرك الامتحانات المتكامل (النسخة النهائية)
 // ============================================
 
-console.log("✅ engine.js تم تحميله (النسخة النهائية الشغالة)");
+console.log("✅ engine.js تم تحميله");
 
 window.loadExamFromFile = async function(skill, examId) {
   try {
@@ -18,7 +17,10 @@ window.loadExamFromFile = async function(skill, examId) {
   }
 };
 
-// ========== نظام Schreiben ==========
+// ============================================
+// نظام Schreiben
+// ============================================
+
 let currentSchreibenData = null;
 
 window.loadSchreibenExam = function(examData) {
@@ -174,7 +176,10 @@ function renderSchreibenExam() {
   container.appendChild(twoColumns);
 }
 
-// ========== نظام Sprachbausteine Teil 2 ==========
+// ============================================
+// نظام Sprachbausteine Teil 2
+// ============================================
+
 let currentSprach2Data = null;
 let sprach2UserAnswers = {};
 let sprach2SelectedQuestionId = null;
@@ -672,7 +677,10 @@ function checkSprach2Exam() {
   }
 }
 
-// ========== نظام Sprachbausteine Teil 1 ==========
+// ============================================
+// نظام Sprachbausteine Teil 1
+// ============================================
+
 let currentSprach1Data = null;
 let sprach1UserAnswers = {};
 
@@ -1065,7 +1073,10 @@ function checkSprach1Exam() {
   }
 }
 
-// ========== نظام True/False (Hören Teil 1,2,3) ==========
+// ============================================
+// نظام True/False (Hören Teil 1,2,3)
+// ============================================
+
 window.buildTrueFalseExam = function(container, questions, note) {
   if (!questions || !Array.isArray(questions) || questions.length === 0) {
     console.error("❌ خطأ: لا توجد أسئلة في هذا الامتحان");
@@ -1400,7 +1411,10 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
   }, 100);
 }
 
-// ========== نظام Teil 1 (Lesen Teil 1 - Matching) ==========
+// ============================================
+// نظام Teil 1 (Lesen Teil 1 - Matching)
+// ============================================
+
 let currentMatchingExamData = null;
 let matchingSelectedAnswers = {};
 let matchingAvailableOptions = [];
@@ -1609,7 +1623,10 @@ function checkMatchingExam() {
   }
 }
 
-// ========== نظام Teil 2 (Lesen Teil 2) ==========
+// ============================================
+// نظام Teil 2 (Lesen Teil 2)
+// ============================================
+
 let currentTeil2Data = null;
 let teil2UserAnswers = {};
 
@@ -1876,7 +1893,10 @@ function checkTeil2Exam() {
   }
 }
 
-// ========== نظام Teil 3 (Lesen Teil 3) ==========
+// ============================================
+// نظام Teil 3 (Lesen Teil 3)
+// ============================================
+
 let currentTeil3Data = null;
 let teil3UserAnswers = {};
 let teil3SelectedItem = null;
@@ -2273,8 +2293,8 @@ function renderTeil3Exam() {
       if (select) select.selectedIndex = 0;
       updateTeil3CardStyle(i);
     }
-
-        updateTeil3SelectOptions();
+    
+    updateTeil3SelectOptions();
     updateTeil3RightSideColors();
     
     document.querySelectorAll('#teil3 .correct-message').forEach(msg => msg.remove());
@@ -2285,9 +2305,6 @@ function renderTeil3Exam() {
       resultDiv.innerHTML = "";
     }
   };
-  
-  // ✅ تلوين خيارات القائمة بعد تحميل الامتحان
-  setTimeout(colorTeil3SelectOptions, 200);
   buttonContainer.appendChild(resetBtn);
   
   container.appendChild(buttonContainer);
@@ -2394,7 +2411,7 @@ function checkTeil3Exam() {
 }
 
 // ============================================
-// التعديلات الخاصة بالهواتف - فقط تصحيح الشكل
+// التعديلات الخاصة بالهواتف
 // ============================================
 
 function applyMobileStylesToEngine() {
@@ -2509,7 +2526,7 @@ window.addEventListener('resize', function() {
 });
 
 // ============================================
-// تحديث ألوان التصحيح للهاتف بعد التصحيح مباشرة
+// تحديث ألوان التصحيح للهاتف
 // ============================================
 
 function applyTeil1CorrectionColors() {
@@ -2581,39 +2598,37 @@ if (typeof checkTeil3Exam === 'function') {
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 
 // ============================================
-// MEMORY HIGHLIGHT SYSTEM - التلوين الذكي (النسخة النهائية)
+// MEMORY HIGHLIGHT SYSTEM - التلوين الذكي
 // ============================================
 
-// دالة لاستخراج أول N كلمات من النص
+function getColorByIndex(index) {
+    const colors = ['#D8ECFF', '#DDF7E5', '#FFF2CC', '#F5E1FF', '#FFE4D6', '#E3F6F5', '#FCE8F3', '#E8F5D0'];
+    return colors[index % colors.length] || '#D8ECFF';
+}
+
+function getTextColorByIndex(index) {
+    const textColors = ['#1565C0', '#2E7D32', '#F57C00', '#6A1B9A', '#BF360C', '#00695C', '#880E4F', '#33691E'];
+    return textColors[index % textColors.length] || '#1565C0';
+}
+
 function getFirstWords(text, wordCount = 7) {
     let cleanText = text.replace(/^Text\s*\d+:\s*/, '');
     const words = cleanText.trim().split(/\s+/);
     return words.slice(0, wordCount).join(' ');
 }
 
-// دالة لتطبيق التلوين الآلي لـ Lesen Teil 1
-function applyAutoMatchingHighlights(examData) {
-    if (!examData || examData.type !== 'matching') return;
-    
-    const questions = examData.questions || [];
-    const options = examData.sharedOptions || [];
-    const container = document.getElementById('teil1');
-    if (!container) return;
-
-    removeHelpCardHighlights();
-
-    questions.forEach((q, index) => {
-        const firstWords = getFirstWords(q.text, 7);
-        const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
-        highlightTextInContainer(container, firstWords, color);
-        const correctOption = options[q.correct];
-        if (correctOption) {
-            highlightSelectOption(container, correctOption, color);
-        }
+function removeHelpCardHighlights() {
+    const helpContainer = document.getElementById('helpSystemContainer');
+    if (!helpContainer) return;
+    const highlights = helpContainer.querySelectorAll('.memory-highlight');
+    highlights.forEach(span => {
+        const parent = span.parentNode;
+        const textNode = document.createTextNode(span.textContent);
+        parent.replaceChild(textNode, span);
+        parent.normalize();
     });
 }
 
-// دالة لتلوين النص في الحاوية
 function highlightTextInContainer(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
@@ -2672,7 +2687,6 @@ function highlightTextInContainer(container, searchText, colorIndex) {
     });
 }
 
-// دالة خاصة لتلوين الخيارات في القائمة المنسدلة
 function highlightSelectOption(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
@@ -2692,31 +2706,74 @@ function highlightSelectOption(container, searchText, colorIndex) {
     });
 }
 
-// دوال الألوان
-function getColorByIndex(index) {
-    const colors = ['#D8ECFF', '#DDF7E5', '#FFF2CC', '#F5E1FF', '#FFE4D6', '#E3F6F5', '#FCE8F3', '#E8F5D0'];
-    return colors[index % colors.length] || '#D8ECFF';
+function applyAutoHighlights(examData) {
+    if (!examData) return;
+    if (examData.type !== 'matching' && examData.type !== 'teil3') return;
+    
+    const container = document.getElementById('teil1') || document.getElementById('teil3');
+    if (!container) return;
+
+    removeHelpCardHighlights();
+
+    if (examData.type === 'matching' && examData.questions) {
+        const questions = examData.questions || [];
+        const options = examData.sharedOptions || [];
+        questions.forEach((q, index) => {
+            const firstWords = getFirstWords(q.text, 7);
+            const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
+            highlightTextInContainer(container, firstWords, color);
+            const correctOption = options[q.correct];
+            if (correctOption) {
+                highlightSelectOption(container, correctOption, color);
+            }
+        });
+    }
+    
+    if (examData.type === 'teil3' && examData.items) {
+        const items = examData.items || [];
+        items.forEach((item, index) => {
+            if (item.correct === null || item.correct === undefined) return;
+            const firstWords = getFirstWords(item.text, 7);
+            const color = index % 8;
+            highlightTextInContainer(container, firstWords, color);
+        });
+        setTimeout(colorTeil3SelectOptions, 100);
+    }
 }
 
-function getTextColorByIndex(index) {
-    const textColors = ['#1565C0', '#2E7D32', '#F57C00', '#6A1B9A', '#BF360C', '#00695C', '#880E4F', '#33691E'];
-    return textColors[index % textColors.length] || '#1565C0';
-}
-
-function removeHelpCardHighlights() {
-    const helpContainer = document.getElementById('helpSystemContainer');
-    if (!helpContainer) return;
-    const highlights = helpContainer.querySelectorAll('.memory-highlight');
-    highlights.forEach(span => {
-        const parent = span.parentNode;
-        const textNode = document.createTextNode(span.textContent);
-        parent.replaceChild(textNode, span);
-        parent.normalize();
+function colorTeil3SelectOptions() {
+    const container = document.getElementById('teil3');
+    if (!container) return;
+    const examData = window.currentExamData;
+    if (!examData || examData.type !== 'teil3') return;
+    
+    const items = examData.items || [];
+    const situations = examData.situations || [];
+    const selects = container.querySelectorAll('select');
+    
+    selects.forEach((select, index) => {
+        const item = items[index];
+        if (!item || item.correct === null || item.correct === undefined) return;
+        const colorIndex = index % 8;
+        const correctSituation = situations[item.correct];
+        if (!correctSituation) return;
+        
+        for (let i = 0; i < select.options.length; i++) {
+            const option = select.options[i];
+            if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
+                option.style.backgroundColor = getColorByIndex(colorIndex);
+                option.style.color = getTextColorByIndex(colorIndex);
+                option.style.fontWeight = 'bold';
+                option.style.padding = '2px 6px';
+                option.style.borderRadius = '3px';
+                break;
+            }
+        }
     });
 }
 
 // ============================================
-// نظام التلوين الأساسي
+// MemoryHighlightEngine
 // ============================================
 
 class MemoryHighlightEngine {
@@ -2754,20 +2811,6 @@ class MemoryHighlightEngine {
             this.toggleBtn.classList.remove('active');
             this.toggleBtn.textContent = '🎨';
             this._lastAppliedId = null;
-            const container = document.getElementById('teil1');
-            if (container) {
-                const selects = container.querySelectorAll('select');
-                selects.forEach(select => {
-                    for (let i = 0; i < select.options.length; i++) {
-                        const option = select.options[i];
-                        option.style.backgroundColor = '';
-                        option.style.color = '';
-                        option.style.fontWeight = '';
-                        option.style.padding = '';
-                        option.style.borderRadius = '';
-                    }
-                });
-            }
         } else {
             this.applyHighlights();
             this.toggleBtn.classList.add('active');
@@ -2801,9 +2844,8 @@ class MemoryHighlightEngine {
         
         const memoryHighlights = examData.memoryHighlights || [];
 
-        // ✅ 1. للأنواع الأخرى (Hören, Sprach, إلخ)
         if (memoryHighlights.length > 0) {
-            console.log('🔄 تطبيق التلوين من memoryHighlights لـ Hören/Sprach');
+            console.log('🔄 تطبيق التلوين من memoryHighlights');
             memoryHighlights.forEach(highlight => {
                 const color = highlight.color || 0;
                 const parts = highlight.parts || [];
@@ -2817,12 +2859,11 @@ class MemoryHighlightEngine {
             return;
         }
 
-        // ✅ 2. لـ Lesen Teil 1 (matching)
-        if (examData.type === 'matching' && examData.questions) {
-            console.log('🔄 تطبيق التلوين الآلي لـ Lesen Teil 1');
-            applyAutoMatchingHighlights(examData);
+        if (examData.type === 'matching' || examData.type === 'teil3') {
+            console.log('🔄 تطبيق التلوين الآلي لـ Lesen Teil 1/3');
+            applyAutoHighlights(examData);
             this._isApplying = false;
-            console.log(`✅ تم تطبيق التلوين الآلي (${examData.questions.length} فقرة)`);
+            console.log('✅ تم تطبيق التلوين الآلي');
             return;
         }
 
@@ -2916,38 +2957,5 @@ class MemoryHighlightEngine {
 // ============================================
 
 window.memoryEngine = new MemoryHighlightEngine();
-console.log('🧠 نظام التلوين الذكي جاهز (النسخة النهائية)');
-// ============================================
-// تلوين خيارات Select في Lesen Teil 3
-// ============================================
-function colorTeil3SelectOptions() {
-    const container = document.getElementById('teil3');
-    if (!container) return;
-    const examData = window.currentExamData;
-    if (!examData || examData.type !== 'teil3') return;
-    
-    const items = examData.items || [];
-    const situations = examData.situations || [];
-    const selects = container.querySelectorAll('select');
-    
-    selects.forEach((select, index) => {
-        const item = items[index];
-        if (!item || item.correct === null || item.correct === undefined) return;
-        const colorIndex = index % 8;
-        const correctSituation = situations[item.correct];
-        if (!correctSituation) return;
-        
-        for (let i = 0; i < select.options.length; i++) {
-            const option = select.options[i];
-            if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
-                option.style.backgroundColor = getColorByIndex(colorIndex);
-                option.style.color = getTextColorByIndex(colorIndex);
-                option.style.fontWeight = 'bold';
-                option.style.padding = '2px 6px';
-                option.style.borderRadius = '3px';
-                break;
-            }
-        }
-    });
-}
+console.log('🧠 نظام التلوين الذكي جاهز');
 console.log("✅ engine.js تم تحميله بالكامل");
