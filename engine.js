@@ -3010,5 +3010,227 @@ class MemoryHighlightEngine {
 
 window.memoryEngine = new MemoryHighlightEngine();
 console.log('🧠 نظام التلوين الذكي جاهز (النسخة النهائية)');
+// ============================================
+// نظام التلوين الذكي - الجزء الثاني: تلوين العناوين في القائمة
+// ============================================
 
+// دالة لتلوين العناوين في القوائم المنسدلة (Select Options)
+function applyOptionHighlights(examData) {
+    if (!examData) return;
+    
+    // ✅ فقط لـ Lesen Teil 1 (matching)
+    if (examData.type !== 'matching') return;
+    
+    const questions = examData.questions || [];
+    const options = examData.sharedOptions || [];
+    
+    // ✅ استهداف حاوية الامتحان فقط
+    const container = document.getElementById('teil1');
+    if (!container) return;
+    
+    // ✅ البحث عن جميع القوائم المنسدلة في الحاوية
+    const selects = container.querySelectorAll('select');
+    
+    selects.forEach((select, index) => {
+        const q = questions[index];
+        if (!q) return;
+        
+        const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
+        const correctOptionText = options[q.correct];
+        
+        if (!correctOptionText) return;
+        
+        // ✅ تلوين الخيار الصحيح فقط
+        for (let i = 0; i < select.options.length; i++) {
+            const option = select.options[i];
+            if (option.textContent.includes(correctOptionText) || correctOptionText.includes(option.textContent)) {
+                // ✅ تطبيق الألوان
+                option.style.backgroundColor = getColorByIndex(color);
+                option.style.color = getTextColorByIndex(color);
+                option.style.fontWeight = 'bold';
+                option.style.padding = '2px 6px';
+                option.style.borderRadius = '3px';
+                break;
+            }
+        }
+    });
+    
+    console.log('🎨 تم تلوين العناوين في القائمة');
+}
+
+// ============================================
+// دالة لتطبيق التلوين الكامل (الفقرة + العناوين)
+// ============================================
+
+function applyFullHighlights(examData) {
+    if (!examData) return;
+    
+    // ✅ 1. تلوين الفقرات (النظام الآلي)
+    if (examData.type === 'matching' && examData.questions) {
+        applyAutoMatchingHighlights(examData);
+    }
+    
+    // ✅ 2. تلوين العناوين في القائمة
+    applyOptionHighlights(examData);
+    
+    console.log('✅ تم تطبيق التلوين الكامل (فقرات + عناوين)');
+}
+
+// ============================================
+// ربط التلوين مع تغيير القائمة (select change)
+// ============================================
+
+function bindSelectChangeEvents() {
+    const container = document.getElementById('teil1');
+    if (!container) return;
+    
+    const selects = container.querySelectorAll('select');
+    selects.forEach(select => {
+        // ✅ إزالة المستمع القديم لتجنب التكرار
+        select.removeEventListener('change', handleSelectChange);
+        select.addEventListener('change', handleSelectChange);
+    });
+}
+
+function handleSelectChange() {
+    // ✅ إعادة تطبيق التلوين بعد تغيير الاختيار
+    setTimeout(() => {
+        if (window.memoryEngine && window.memoryEngine.isActive) {
+            const examData = window.memoryEngine.currentExamData || window.currentExamData;
+            if (examData) {
+                applyOptionHighlights(examData);
+            }
+        }
+    }, 50);
+}
+
+// ============================================
+// ربط التلوين مع التصحيح (checkExam)
+// ============================================
+
+// حفظ الدوال الأصلية للتصحيح
+const originalCheckMatching = window.checkMatchingExam;
+const originalCheckTeil3 = window.checkTeil3Exam;
+
+// استبدال دالة checkMatchingExam
+if (typeof window.checkMatchingExam === 'function') {
+    window.checkMatchingExam = function() {
+        // استدعاء الدالة الأصلية
+        originalCheckMatching();
+        
+        // ✅ إعادة تطبيق التلوين بعد التصحيح
+        setTimeout(() => {
+            if (window.memoryEngine && window.memoryEngine.isActive) {
+                const examData = window.memoryEngine.currentExamData || window.currentExamData;
+                if (examData) {
+                    applyFullHighlights(examData);
+                }
+            }
+        }, 100);
+    };
+}
+
+// استبدال دالة checkTeil3Exam
+if (typeof window.checkTeil3Exam === 'function') {
+    window.checkTeil3Exam = function() {
+        // استدعاء الدالة الأصلية
+        originalCheckTeil3();
+        
+        // ✅ إعادة تطبيق التلوين بعد التصحيح
+        setTimeout(() => {
+            if (window.memoryEngine && window.memoryEngine.isActive) {
+                const examData = window.memoryEngine.currentExamData || window.currentExamData;
+                if (examData) {
+                    applyFullHighlights(examData);
+                }
+            }
+        }, 100);
+    };
+}
+
+// ============================================
+// تعديل دالة toggle لتشمل تلوين العناوين
+// ============================================
+
+// حفظ الدالة الأصلية
+const originalToggle = MemoryHighlightEngine.prototype.toggle;
+
+// استبدال دالة toggle
+MemoryHighlightEngine.prototype.toggle = function() {
+    if (this._isToggling) return;
+    this._isToggling = true;
+    
+    if (this.isActive) {
+        // ❌ إيقاف التلوين
+        this.removeHighlights();
+        this.toggleBtn.classList.remove('active');
+        this.toggleBtn.textContent = '🎨';
+        this._lastAppliedId = null;
+        
+        // ✅ إزالة تلوين العناوين من القائمة
+        const container = document.getElementById('teil1');
+        if (container) {
+            const selects = container.querySelectorAll('select');
+            selects.forEach(select => {
+                for (let i = 0; i < select.options.length; i++) {
+                    const option = select.options[i];
+                    option.style.backgroundColor = '';
+                    option.style.color = '';
+                    option.style.fontWeight = '';
+                    option.style.padding = '';
+                    option.style.borderRadius = '';
+                }
+            });
+        }
+    } else {
+        // ✅ تفعيل التلوين الكامل
+        const examData = this.currentExamData || window.currentExamData;
+        if (examData) {
+            applyFullHighlights(examData);
+            // ✅ ربط أحداث تغيير القائمة
+            setTimeout(bindSelectChangeEvents, 100);
+        }
+        this.toggleBtn.classList.add('active');
+        this.toggleBtn.textContent = '🧠';
+    }
+    this.isActive = !this.isActive;
+    
+    setTimeout(() => {
+        this._isToggling = false;
+    }, 500);
+};
+
+// ============================================
+// تعديل دالة applyHighlights لتستخدم النظام الكامل
+// ============================================
+
+// حفظ الدالة الأصلية
+const originalApplyHighlights = MemoryHighlightEngine.prototype.applyHighlights;
+
+// استبدال دالة applyHighlights
+MemoryHighlightEngine.prototype.applyHighlights = function() {
+    if (this._isApplying) return;
+    
+    const examData = this.currentExamData || window.currentExamData || {};
+    
+    // ✅ منع التكرار لنفس الامتحان
+    const examId = examData.id || examData.title || 'unknown';
+    if (this._lastAppliedId === examId && this.isActive) {
+        console.log('⏭️ تخطي التكرار (نفس الامتحان)', examId);
+        return;
+    }
+    
+    this._isApplying = true;
+    this._lastAppliedId = examId;
+    
+    // ✅ تطبيق التلوين الكامل (فقرات + عناوين)
+    applyFullHighlights(examData);
+    
+    // ✅ ربط أحداث تغيير القائمة
+    setTimeout(bindSelectChangeEvents, 100);
+    
+    this._isApplying = false;
+};
+
+console.log('✅ نظام تلوين العناوين في القائمة جاهز');
 console.log("✅ engine.js تم تحميله بالكامل");
