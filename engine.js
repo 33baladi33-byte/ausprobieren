@@ -2633,12 +2633,15 @@ if (typeof checkTeil3Exam === 'function') {
 
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 // ============================================
-// MEMORY HIGHLIGHT SYSTEM - التلوين الذكي
+// MEMORY HIGHLIGHT SYSTEM - التلوين الذكي (النسخة المحسنة)
 // ============================================
 
 class MemoryHighlightEngine {
     constructor() {
         this.isActive = false;
+        this._isApplying = false;
+        this._isToggling = false;
+        this.updateTimeout = null;
         this.originalTexts = new Map();
         this.container = document.querySelector('.exam-box');
         this.toggleBtn = document.getElementById('memoryToggleBtn');
@@ -2652,20 +2655,32 @@ class MemoryHighlightEngine {
             this.toggleBtn.addEventListener('click', () => this.toggle());
         }
         
-        // مراقبة تغيير الامتحان
+        // استخدام debounce لمنع التكرار
         this.observer = new MutationObserver(() => {
-            if (this.isActive) {
-                this.removeHighlights();
-                this.applyHighlights();
+            if (this.updateTimeout) {
+                clearTimeout(this.updateTimeout);
             }
+            this.updateTimeout = setTimeout(() => {
+                if (this.isActive && this.currentExamData) {
+                    this.removeHighlights();
+                    this.applyHighlights();
+                }
+            }, 300);
         });
         
         if (this.container) {
-            this.observer.observe(this.container, { childList: true, subtree: true });
+            this.observer.observe(this.container, { 
+                childList: true, 
+                subtree: true,
+                characterData: true 
+            });
         }
     }
 
     toggle() {
+        if (this._isToggling) return;
+        this._isToggling = true;
+        
         if (this.isActive) {
             this.removeHighlights();
             this.toggleBtn.classList.remove('active');
@@ -2676,6 +2691,10 @@ class MemoryHighlightEngine {
             this.toggleBtn.textContent = '🧠';
         }
         this.isActive = !this.isActive;
+        
+        setTimeout(() => {
+            this._isToggling = false;
+        }, 500);
     }
 
     setExamData(data) {
@@ -2687,24 +2706,28 @@ class MemoryHighlightEngine {
     }
 
     applyHighlights() {
+        if (this._isApplying) return;
+        this._isApplying = true;
+        
         const examData = this.currentExamData || window.currentExamData || {};
         const memoryHighlights = examData.memoryHighlights || [];
 
         if (memoryHighlights.length === 0) {
             console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
+            this._isApplying = false;
             return;
         }
 
         memoryHighlights.forEach(highlight => {
             const color = highlight.color || 0;
             const parts = highlight.parts || [];
-
             parts.forEach(partText => {
                 if (!partText || partText.trim() === '') return;
                 this.highlightText(partText, color);
             });
         });
         
+        this._isApplying = false;
         console.log(`✅ تم تطبيق التلوين (${memoryHighlights.length} مجموعة)`);
     }
 
@@ -2779,49 +2802,12 @@ class MemoryHighlightEngine {
 
         this.originalTexts.clear();
     }
-
-    // دالة مساعدة لتحديث البيانات عند تحميل امتحان جديد
-    updateExamData(data) {
-        this.currentExamData = data;
-        if (this.isActive) {
-            this.removeHighlights();
-            setTimeout(() => this.applyHighlights(), 100);
-        }
-    }
 }
 
 // ============================================
 // تهيئة نظام التلوين
 // ============================================
-// تهيئة النظام فوراً
+
 window.memoryEngine = new MemoryHighlightEngine();
-console.log('🧠 نظام التلوين الذكي جاهز');
-
-// دالة مساعدة لتحديث بيانات الامتحان من أي مكان
-window.updateMemoryHighlights = function(examData) {
-    if (memoryEngine) {
-        memoryEngine.updateExamData(examData);
-    }
-};
-
-// ربط مع نظام تحميل الامتحانات الحالي
-const originalLoadExam = window.loadExamFromFile;
-if (originalLoadExam) {
-    window.loadExamFromFile = async function(skill, examId) {
-        const data = await originalLoadExam(skill, examId);
-        if (data && memoryEngine) {
-            memoryEngine.setExamData(data);
-        }
-        return data;
-    };
-}
-
-// تحديث عند تحميل أي امتحان
-document.addEventListener('examLoaded', function(e) {
-    if (e.detail && e.detail.data && memoryEngine) {
-        memoryEngine.setExamData(e.detail.data);
-    }
-});
-
-console.log('✅ نظام التلوين الذكي تم تحميله');
+console.log('🧠 نظام التلوين الذكي جاهز (النسخة المحسنة)');
 console.log("✅ engine.js تم تحميله بالكامل");
