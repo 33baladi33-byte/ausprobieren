@@ -1,5 +1,5 @@
 // ============================================
-// engine.js - محرك الامتحانات المتكامل (النسخة النهائية)
+// engine.js - محرك الامتحانات المتكامل (النسخة النهائية المبسطة)
 // ============================================
 
 console.log("✅ engine.js تم تحميله");
@@ -2605,90 +2605,33 @@ if (typeof checkTeil3Exam === 'function') {
 }
 
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
+
 // ============================================
 // MEMORY HIGHLIGHT SYSTEM - التلوين الذكي
 // ============================================
 
 function getColorByIndex(index) {
     const colors = [
-        '#D8ECFF',  // 0 - أزرق فاتح
-        '#DDF7E5',  // 1 - أخضر فاتح
-        '#FFF2CC',  // 2 - أصفر فاتح
-        '#F5E1FF',  // 3 - بنفسجي فاتح
-        '#FFE4D6',  // 4 - برتقالي فاتح
-        '#E3F6F5',  // 5 - تركواز فاتح
-        '#FCE8F3',  // 6 - وردي فاتح
-        '#E8F5D0',  // 7 - أخضر باستيل
-        '#FFD1DC',  // 8 - وردي
-        '#E6E9FF',  // 9 - لافندر أزرق
-        '#FFEFD6',  // 10 - مشمشي فاتح
-        '#E7F4E4'   // 11 - أخضر باستيل هادئ
+        '#D8ECFF', '#DDF7E5', '#FFF2CC', '#F5E1FF', '#FFE4D6',
+        '#E3F6F5', '#FCE8F3', '#E8F5D0', '#FFD1DC', '#E6E9FF',
+        '#FFEFD6', '#E7F4E4'
     ];
     return colors[index % colors.length] || '#D8ECFF';
 }
 
 function getTextColorByIndex(index) {
     const textColors = [
-        '#1565C0',  // 0 - أزرق غامق
-        '#2E7D32',  // 1 - أخضر غامق
-        '#F57C00',  // 2 - برتقالي
-        '#6A1B9A',  // 3 - بنفسجي غامق
-        '#BF360C',  // 4 - أحمر برتقالي
-        '#00695C',  // 5 - تركواز غامق
-        '#880E4F',  // 6 - وردي غامق
-        '#33691E',  // 7 - أخضر داكن
-        '#C62828',  // 8 - أحمر غامق
-        '#3949AB',  // 9 - نيلي
-        '#E65100',  // 10 - برتقالي غامق
-        '#5D4037'   // 11 - بني هادئ
+        '#1565C0', '#2E7D32', '#F57C00', '#6A1B9A', '#BF360C',
+        '#00695C', '#880E4F', '#33691E', '#C62828', '#3949AB',
+        '#E65100', '#5D4037'
     ];
     return textColors[index % textColors.length] || '#1565C0';
 }
+
 // ============================================
-// دالة مساعدة لتلوين الخيار في القائمة المنسدلة Teil 3
+// دوال التلوين الأساسية
 // ============================================
 
-function colorTeil3Option(select, correctIndex, color) {
-    if (!select || correctIndex === null || correctIndex === undefined) return;
-    
-    // 🔍 حساب الإزاحة تلقائياً: البحث عن أول خيار يبدأ بـ "a."
-    const optionsArray = [...select.options];
-    const firstRealOptionIndex = optionsArray.findIndex(opt => 
-        /^[a-z]\./i.test(opt.textContent.trim())
-    );
-    
-    // إذا لم يتم العثور على "a."، استخدم الإزاحة الافتراضية +2
-    const offset = firstRealOptionIndex !== -1 ? firstRealOptionIndex : 2;
-    const optionIndex = correctIndex + offset;
-    
-    if (select.options[optionIndex]) {
-        const option = select.options[optionIndex];
-        option.style.backgroundColor = getColorByIndex(color);
-        option.style.color = getTextColorByIndex(color);
-        option.style.fontWeight = 'bold';
-        option.style.padding = '2px 4px';
-        option.style.borderRadius = '3px';
-    }
-}
-
-function getFirstWords(text, wordCount = 7) {
-    let cleanText = text.replace(/^Text\s*\d+:\s*/, '');
-    const words = cleanText.trim().split(/\s+/);
-    return words.slice(0, wordCount).join(' ');
-}
-
-
-function removeHelpCardHighlights() {
-    const helpContainer = document.getElementById('helpSystemContainer');
-    if (!helpContainer) return;
-    const highlights = helpContainer.querySelectorAll('.memory-highlight');
-    highlights.forEach(span => {
-        const parent = span.parentNode;
-        const textNode = document.createTextNode(span.textContent);
-        parent.replaceChild(textNode, span);
-        parent.normalize();
-    });
-}
 function highlightTextInContainer(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
@@ -2697,15 +2640,9 @@ function highlightTextInContainer(container, searchText, colorIndex) {
         NodeFilter.SHOW_TEXT,
         {
             acceptNode: function(node) {
-                if (node.parentElement && node.parentElement.closest && node.parentElement.closest('#helpSystemContainer')) {
-                    return NodeFilter.FILTER_REJECT;
-                }
-                if (node.parentElement && node.parentElement.classList && node.parentElement.classList.contains('memory-highlight')) {
-                    return NodeFilter.FILTER_REJECT;
-                }
-                if (node.parentElement && node.parentElement.tagName === 'SCRIPT') {
-                    return NodeFilter.FILTER_REJECT;
-                }
+                if (node.parentElement?.classList?.contains('memory-highlight')) return NodeFilter.FILTER_REJECT;
+                if (node.parentElement?.tagName === 'SCRIPT') return NodeFilter.FILTER_REJECT;
+                if (node.parentElement?.tagName === 'BUTTON') return NodeFilter.FILTER_REJECT;
                 return NodeFilter.FILTER_ACCEPT;
             }
         }
@@ -2720,7 +2657,6 @@ function highlightTextInContainer(container, searchText, colorIndex) {
 
     textNodes.forEach(node => {
         const text = node.textContent;
-        // ✅ استخدم indexOf بدلاً من includes + split
         const index = text.indexOf(searchText);
         if (index !== -1) {
             if (!window._originalTexts) window._originalTexts = new Map();
@@ -2728,19 +2664,14 @@ function highlightTextInContainer(container, searchText, colorIndex) {
                 window._originalTexts.set(node, text);
             }
 
-            // ✅ استخدام substring بدلاً من split
             const before = text.substring(0, index);
             const after = text.substring(index + searchText.length);
-
             const fragment = document.createDocumentFragment();
 
-            if (before) {
-                fragment.appendChild(document.createTextNode(before));
-            }
+            if (before) fragment.appendChild(document.createTextNode(before));
 
             const span = document.createElement("span");
             span.className = `memory-highlight color${colorIndex}`;
-            // ✅ إضافة الألوان مباشرة
             const bgColor = getColorByIndex(colorIndex);
             const txtColor = getTextColorByIndex(colorIndex);
             span.style.backgroundColor = bgColor;
@@ -2751,9 +2682,7 @@ function highlightTextInContainer(container, searchText, colorIndex) {
             span.textContent = searchText;
             fragment.appendChild(span);
 
-            if (after) {
-                fragment.appendChild(document.createTextNode(after));
-            }
+            if (after) fragment.appendChild(document.createTextNode(after));
 
             node.parentNode.replaceChild(fragment, node);
         }
@@ -2767,7 +2696,7 @@ function highlightSelectOption(container, searchText, colorIndex) {
     selects.forEach(select => {
         for (let i = 0; i < select.options.length; i++) {
             const option = select.options[i];
-            if (option.textContent.includes(searchText)) {
+            if (option.textContent.trim() === searchText) {
                 option.style.backgroundColor = getColorByIndex(colorIndex);
                 option.style.color = getTextColorByIndex(colorIndex);
                 option.style.fontWeight = 'bold';
@@ -2778,44 +2707,26 @@ function highlightSelectOption(container, searchText, colorIndex) {
         }
     });
 }
-// ============================================
-// ✅ أضف الدالة الجديدة هنا
-// ============================================
-// دالة لتلوين السياق الكامل (before + blank + after)
-// ============================================
 
-function highlightTextContext(container, context, colorIndex) {
-    if (!container || !context) return false;
+function highlightByContext(container, beforeText, connectorText, afterText, colorIndex) {
+    if (!container) return false;
+    if (!beforeText && !connectorText && !afterText) return false;
     
-    // استخراج النص قبل وبعد الـ blank
-    const blankMatch = context.match(/__\(\d+\)__/);
-    if (!blankMatch) return false;
+    let found = false;
     
-    const blank = blankMatch[0];
-    const parts = context.split(blank);
-    const beforeText = parts[0] || '';
-    const afterText = parts[1] || '';
-    
-    if (!beforeText && !afterText) return false;
-    
-    // البحث عن النص الكامل في container
     const walker = document.createTreeWalker(
         container,
         NodeFilter.SHOW_TEXT,
         {
             acceptNode: function(node) {
-                if (node.parentElement && node.parentElement.classList && node.parentElement.classList.contains('memory-highlight')) {
-                    return NodeFilter.FILTER_REJECT;
-                }
-                if (node.parentElement && node.parentElement.tagName === 'SCRIPT') {
-                    return NodeFilter.FILTER_REJECT;
-                }
+                if (node.parentElement?.classList?.contains('memory-highlight')) return NodeFilter.FILTER_REJECT;
+                if (node.parentElement?.tagName === 'SCRIPT') return NodeFilter.FILTER_REJECT;
+                if (node.parentElement?.tagName === 'BUTTON') return NodeFilter.FILTER_REJECT;
                 return NodeFilter.FILTER_ACCEPT;
             }
         }
     );
 
-    let found = false;
     const textNodes = [];
     let currentNode = walker.nextNode();
     while (currentNode) {
@@ -2825,70 +2736,101 @@ function highlightTextContext(container, context, colorIndex) {
 
     textNodes.forEach(node => {
         const text = node.textContent;
-        // البحث عن beforeText + blank + afterText في النص
-        const fullPattern = beforeText + blank + afterText;
-        const index = text.indexOf(fullPattern);
-        if (index !== -1) {
-            found = true;
-            if (!window._originalTexts) window._originalTexts = new Map();
-            if (!window._originalTexts.has(node)) {
-                window._originalTexts.set(node, text);
+        
+        if (beforeText && afterText) {
+            const beforeIndex = text.indexOf(beforeText);
+            if (beforeIndex !== -1) {
+                const afterIndex = text.indexOf(afterText, beforeIndex + beforeText.length);
+                if (afterIndex !== -1) {
+                    found = true;
+                    if (!window._originalTexts) window._originalTexts = new Map();
+                    if (!window._originalTexts.has(node)) {
+                        window._originalTexts.set(node, text);
+                    }
+                    
+                    const before = text.substring(0, beforeIndex);
+                    const middle = text.substring(beforeIndex + beforeText.length, afterIndex);
+                    const after = text.substring(afterIndex + afterText.length);
+                    
+                    const fragment = document.createDocumentFragment();
+                    if (before) fragment.appendChild(document.createTextNode(before));
+                    
+                    const bgColor = getColorByIndex(colorIndex);
+                    const txtColor = getTextColorByIndex(colorIndex);
+                    
+                    // تلوين before
+                    const spanBefore = document.createElement("span");
+                    spanBefore.className = `memory-highlight color${colorIndex}`;
+                    spanBefore.style.backgroundColor = bgColor;
+                    spanBefore.style.color = txtColor;
+                    spanBefore.style.fontWeight = 'bold';
+                    spanBefore.style.padding = '1px 3px';
+                    spanBefore.style.borderRadius = '3px';
+                    spanBefore.textContent = beforeText;
+                    fragment.appendChild(spanBefore);
+                    
+                    // تلوين connector
+                    if (connectorText && middle.includes(connectorText)) {
+                        const midBefore = middle.substring(0, middle.indexOf(connectorText));
+                        const midAfter = middle.substring(middle.indexOf(connectorText) + connectorText.length);
+                        if (midBefore) fragment.appendChild(document.createTextNode(midBefore));
+                        
+                        const spanConnector = document.createElement("span");
+                        spanConnector.className = `memory-highlight color${colorIndex}`;
+                        spanConnector.style.backgroundColor = bgColor;
+                        spanConnector.style.color = txtColor;
+                        spanConnector.style.fontWeight = 'bold';
+                        spanConnector.style.padding = '1px 3px';
+                        spanConnector.style.borderRadius = '3px';
+                        spanConnector.textContent = connectorText;
+                        fragment.appendChild(spanConnector);
+                        
+                        if (midAfter) fragment.appendChild(document.createTextNode(midAfter));
+                    } else {
+                        fragment.appendChild(document.createTextNode(middle));
+                    }
+                    
+                    // تلوين after
+                    const spanAfter = document.createElement("span");
+                    spanAfter.className = `memory-highlight color${colorIndex}`;
+                    spanAfter.style.backgroundColor = bgColor;
+                    spanAfter.style.color = txtColor;
+                    spanAfter.style.fontWeight = 'bold';
+                    spanAfter.style.padding = '1px 3px';
+                    spanAfter.style.borderRadius = '3px';
+                    spanAfter.textContent = afterText;
+                    fragment.appendChild(spanAfter);
+                    
+                    if (after) fragment.appendChild(document.createTextNode(after));
+                    
+                    node.parentNode.replaceChild(fragment, node);
+                }
             }
-
-            const before = text.substring(0, index);
-            const after = text.substring(index + fullPattern.length);
-
-            const fragment = document.createDocumentFragment();
-
-            if (before) {
-                fragment.appendChild(document.createTextNode(before));
-            }
-
-            // تلوين before
-            if (beforeText) {
-                const spanBefore = document.createElement("span");
-                spanBefore.className = `memory-highlight color${colorIndex}`;
-                const bgColor = getColorByIndex(colorIndex);
-                const txtColor = getTextColorByIndex(colorIndex);
-                spanBefore.style.backgroundColor = bgColor;
-                spanBefore.style.color = txtColor;
-                spanBefore.style.fontWeight = 'bold';
-                spanBefore.style.padding = '1px 3px';
-                spanBefore.style.borderRadius = '3px';
-                spanBefore.textContent = beforeText;
-                fragment.appendChild(spanBefore);
-            }
-
-            // إضافة الـ blank كما هو (بدون تلوين)
-            fragment.appendChild(document.createTextNode(blank));
-
-            // تلوين after
-            if (afterText) {
-                const spanAfter = document.createElement("span");
-                spanAfter.className = `memory-highlight color${colorIndex}`;
-                const bgColor = getColorByIndex(colorIndex);
-                const txtColor = getTextColorByIndex(colorIndex);
-                spanAfter.style.backgroundColor = bgColor;
-                spanAfter.style.color = txtColor;
-                spanAfter.style.fontWeight = 'bold';
-                spanAfter.style.padding = '1px 3px';
-                spanAfter.style.borderRadius = '3px';
-                spanAfter.textContent = afterText;
-                fragment.appendChild(spanAfter);
-            }
-
-            if (after) {
-                fragment.appendChild(document.createTextNode(after));
-            }
-
-            node.parentNode.replaceChild(fragment, node);
         }
     });
     
+    // محاولة البحث عن before فقط إذا لم نجد السياق الكامل
+    if (!found && beforeText) {
+        highlightTextInContainer(container, beforeText, colorIndex);
+        found = true;
+    }
+    
+    // محاولة البحث عن after فقط إذا لم نجد before
+    if (!found && afterText) {
+        highlightTextInContainer(container, afterText, colorIndex);
+        found = true;
+    }
+    
+    // محاولة البحث عن connector
+    if (connectorText) {
+        highlightTextInContainer(container, connectorText, colorIndex);
+    }
+    
     return found;
 }
+
 // ============================================
-// تطبيق التلوين الآلي لـ Lesen Teil 1 و 3
+// تطبيق التلوين الآلي
 // ============================================
 
 function applyAutoHighlights(examData) {
@@ -2903,86 +2845,48 @@ function applyAutoHighlights(examData) {
         
         questions.forEach((q, index) => {
             const firstWords = getFirstWords(q.text, 7);
-            const color = q.highlightColor !== undefined && q.highlightColor !== null ? q.highlightColor : index % 12;
+            const color = q.highlightColor !== undefined ? q.highlightColor : index % 12;
             highlightTextInContainer(container, firstWords, color);
             const correctOption = options[q.correct];
             if (correctOption) {
                 highlightSelectOption(container, correctOption, color);
             }
         });
+        return;
     }
-    // Sprachbausteine Teil 1 & 2
-if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
-    const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
-    const container = document.getElementById(containerId);
-    if (!container) return;
     
-    examData.options.forEach((option, index) => {
-        const highlight = option.memoryHighlight;
-        if (!highlight) return;
-        
-        const color = highlight.color !== undefined && highlight.color !== null ? highlight.color : index % 12;
-        
-        // ✅ الطريقة الجديدة: استخدام context كامل
-        if (highlight.context) {
-            // البحث عن السياق الكامل في النص
-            const found = highlightTextContext(container, highlight.context, color);
-            if (!found) {
-                // إذا لم يتم العثور على السياق الكامل، حاول البحث المنفصل (للتوافق مع الإصدارات القديمة)
-                if (highlight.before) highlightTextInContainer(container, highlight.before, color);
-                if (highlight.connector) highlightTextInContainer(container, highlight.connector, color);
-                if (highlight.after) highlightTextInContainer(container, highlight.after, color);
-            }
-        } else {
-            // الطريقة القديمة (للتوافق مع الإصدارات القديمة)
-            if (highlight.before) highlightTextInContainer(container, highlight.before, color);
-            if (highlight.connector) highlightTextInContainer(container, highlight.connector, color);
-            if (highlight.after) highlightTextInContainer(container, highlight.after, color);
-        }
-        
-        // تلوين الخيار الصحيح في القائمة
-        if (highlight.connector) {
-            highlightSelectOption(container, highlight.connector, color);
-        }
-    });
-}
     // Lesen Teil 3
     if (examData.type === 'teil3' && examData.items) {
         const container = document.getElementById('teil3');
         if (!container) return;
         const items = examData.items || [];
-        const situations = examData.situations || [];
         const memoryHighlights = examData.memoryHighlights || [];
         
-        // ✅ أولاً: تلوين النص في البطاقات باستخدام memoryHighlights
+        // تلوين من memoryHighlights
         if (memoryHighlights.length > 0) {
             memoryHighlights.forEach(highlight => {
                 const color = highlight.color || 0;
                 const parts = highlight.parts || [];
                 parts.forEach(partText => {
                     if (!partText || partText.trim() === '') return;
-                    // تلوين النص في البطاقات
                     highlightTextInContainer(container, partText, color);
                 });
             });
         }
         
-                // ✅ ثانياً: تلوين الخيارات في القائمة المنسدلة باستخدام الفهرس التلقائي
+        // تلوين الخيارات بالفهرس
         items.forEach((item, index) => {
             if (item.correct === null || item.correct === undefined) return;
-            const color = item.highlightColor !== undefined && item.highlightColor !== null ? item.highlightColor : index % 12;
+            const color = item.highlightColor !== undefined ? item.highlightColor : index % 12;
             const correctIndex = item.correct;
             
             const selects = container.querySelectorAll('select');
             selects.forEach((select, idx) => {
                 if (idx === index) {
-                    // 🔍 حساب الإزاحة تلقائياً: البحث عن أول خيار يبدأ بـ "a."
                     const optionsArray = [...select.options];
                     const firstRealOptionIndex = optionsArray.findIndex(opt => 
                         /^[a-z]\./i.test(opt.textContent.trim())
                     );
-                    
-                    // إذا لم يتم العثور على "a."، استخدم الإزاحة الافتراضية +2
                     const offset = firstRealOptionIndex !== -1 ? firstRealOptionIndex : 2;
                     const optionIndex = correctIndex + offset;
                     
@@ -2997,10 +2901,70 @@ if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.opt
                 }
             });
         });
+        return;
+    }
+    
+    // Sprachbausteine Teil 1 & 2
+    if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
+        const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        examData.options.forEach((option, index) => {
+            const highlight = option.memoryHighlight;
+            if (!highlight) return;
+            
+            const color = highlight.color !== undefined ? highlight.color : index % 12;
+            
+            // استخدام highlightByContext
+            let found = false;
+            
+            // محاولة 1: before + connector + after
+            if (highlight.before || highlight.connector || highlight.after) {
+                found = highlightByContext(
+                    container, 
+                    highlight.before || '', 
+                    highlight.connector || '', 
+                    highlight.after || '', 
+                    color
+                );
+            }
+            
+            // محاولة 2: context
+            if (!found && highlight.context) {
+                const blankMatch = highlight.context.match(/__\s*\(\d+\)\s*__/);
+                if (blankMatch) {
+                    const blank = blankMatch[0];
+                    const parts = highlight.context.split(blank);
+                    const beforeText = parts[0] || '';
+                    const afterText = parts[1] || '';
+                    found = highlightByContext(
+                        container, 
+                        beforeText, 
+                        highlight.connector || '', 
+                        afterText, 
+                        color
+                    );
+                }
+            }
+            
+            // تلوين الخيار في القائمة
+            if (highlight.connector) {
+                highlightSelectOption(container, highlight.connector, color);
+            }
+        });
+        return;
     }
 }
+
+function getFirstWords(text, wordCount = 7) {
+    let cleanText = text.replace(/^Text\s*\d+:\s*/, '');
+    const words = cleanText.trim().split(/\s+/);
+    return words.slice(0, wordCount).join(' ');
+}
+
 // ============================================
-// تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
+// تلوين خيارات القائمة المنسدلة
 // ============================================
 
 function colorSelectOptions() {
@@ -3022,7 +2986,7 @@ function colorSelectOptions() {
         selects.forEach((select, index) => {
             const q = questions[index];
             if (!q) return;
-            const color = q.highlightColor !== undefined && q.highlightColor !== null ? q.highlightColor : index % 12;
+            const color = q.highlightColor !== undefined ? q.highlightColor : index % 12;
             const correctOption = options[q.correct];
             if (!correctOption) return;
             for (let i = 0; i < select.options.length; i++) {
@@ -3037,22 +3001,10 @@ function colorSelectOptions() {
                 }
             }
         });
+        return;
     }
-        // Sprachbausteine Teil 1 & 2
-    if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
-        const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        
-        examData.options.forEach((option, index) => {
-            const highlight = option.memoryHighlight;
-            if (!highlight || !highlight.connector) return;
-            
-            const color = highlight.color !== undefined && highlight.color !== null ? highlight.color : index % 12;
-            highlightSelectOption(container, highlight.connector, color);
-        });
-    }
-        // Lesen Teil 3
+    
+    // Lesen Teil 3
     if (examData.type === 'teil3' && examData.items) {
         const container = document.getElementById('teil3');
         if (!container) return;
@@ -3061,16 +3013,13 @@ function colorSelectOptions() {
         selects.forEach((select, index) => {
             const item = items[index];
             if (!item || item.correct === null || item.correct === undefined) return;
-            const color = item.highlightColor !== undefined && item.highlightColor !== null ? item.highlightColor : index % 12;
+            const color = item.highlightColor !== undefined ? item.highlightColor : index % 12;
             const correctIndex = item.correct;
             
-            // 🔍 حساب الإزاحة تلقائياً: البحث عن أول خيار يبدأ بـ "a."
             const optionsArray = [...select.options];
             const firstRealOptionIndex = optionsArray.findIndex(opt => 
                 /^[a-z]\./i.test(opt.textContent.trim())
             );
-            
-            // إذا لم يتم العثور على "a."، استخدم الإزاحة الافتراضية +2
             const offset = firstRealOptionIndex !== -1 ? firstRealOptionIndex : 2;
             const optionIndex = correctIndex + offset;
             
@@ -3083,8 +3032,24 @@ function colorSelectOptions() {
                 option.style.borderRadius = '3px';
             }
         });
+        return;
+    }
+    
+    // Sprachbausteine Teil 1 & 2
+    if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
+        const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        examData.options.forEach((option, index) => {
+            const highlight = option.memoryHighlight;
+            if (!highlight || !highlight.connector) return;
+            const color = highlight.color !== undefined ? highlight.color : index % 12;
+            highlightSelectOption(container, highlight.connector, color);
+        });
     }
 }
+
 // ============================================
 // MemoryHighlightEngine
 // ============================================
@@ -3106,7 +3071,6 @@ class MemoryHighlightEngine {
         if (this.toggleBtn) {
             this.toggleBtn.addEventListener('click', () => this.toggle());
         }
-        this.observer = null;
         document.addEventListener('examLoaded', (e) => {
             if (this.isActive && e.detail?.data) {
                 this.removeHighlights();
@@ -3187,56 +3151,7 @@ class MemoryHighlightEngine {
 
     highlightText(searchText, colorIndex) {
         if (!this.container) return;
-
-        const walker = document.createTreeWalker(
-            this.container,
-            NodeFilter.SHOW_TEXT,
-            {
-                acceptNode: function(node) {
-                    if (node.parentElement && node.parentElement.closest && node.parentElement.closest('#helpSystemContainer')) {
-                        return NodeFilter.FILTER_REJECT;
-                    }
-                    if (node.parentElement && node.parentElement.classList && node.parentElement.classList.contains('memory-highlight')) {
-                        return NodeFilter.FILTER_REJECT;
-                    }
-                    if (node.parentElement && node.parentElement.tagName === 'SCRIPT') {
-                        return NodeFilter.FILTER_REJECT;
-                    }
-                    return NodeFilter.FILTER_ACCEPT;
-                }
-            }
-        );
-
-        const textNodes = [];
-        let currentNode = walker.nextNode();
-        while (currentNode) {
-            textNodes.push(currentNode);
-            currentNode = walker.nextNode();
-        }
-
-        textNodes.forEach(node => {
-            const text = node.textContent;
-            if (text.includes(searchText)) {
-                if (!this.originalTexts.has(node)) {
-                    this.originalTexts.set(node, text);
-                }
-                const parts = text.split(searchText);
-                const fragment = document.createDocumentFragment();
-                parts.forEach((part, index) => {
-                    if (index > 0) {
-                        const span = document.createElement('span');
-                        span.className = `memory-highlight color${colorIndex}`;
-                        span.textContent = searchText;
-                        fragment.appendChild(span);
-                    }
-                    if (part) {
-                        const textNode = document.createTextNode(part);
-                        fragment.appendChild(textNode);
-                    }
-                });
-                node.parentNode.replaceChild(fragment, node);
-            }
-        });
+        highlightTextInContainer(this.container, searchText, colorIndex);
     }
 
     removeHighlights() {
@@ -3251,12 +3166,11 @@ class MemoryHighlightEngine {
         const selects = this.container.querySelectorAll('select');
         selects.forEach(select => {
             for (let i = 0; i < select.options.length; i++) {
-                const option = select.options[i];
-                option.style.backgroundColor = '';
-                option.style.color = '';
-                option.style.fontWeight = '';
-                option.style.padding = '';
-                option.style.borderRadius = '';
+                select.options[i].style.backgroundColor = '';
+                select.options[i].style.color = '';
+                select.options[i].style.fontWeight = '';
+                select.options[i].style.padding = '';
+                select.options[i].style.borderRadius = '';
             }
         });
         if (window._originalTexts) {
@@ -3264,27 +3178,23 @@ class MemoryHighlightEngine {
         }
         this.originalTexts.clear();
     }
-}  // <--- ✅ هذا القوس يغلق الكلاس
+}
+
 // ============================================
-// ربط زر التلوين مع MemoryHighlightEngine
+// ربط زر التلوين
 // ============================================
 
-// إنشاء نسخة من MemoryHighlightEngine
 const memoryEngine = new MemoryHighlightEngine();
 window.memoryEngine = memoryEngine;
 
-// ربط مع زر التلوين
 const toggleBtn = document.getElementById('memoryToggleBtn');
 if (toggleBtn) {
     toggleBtn.addEventListener('click', function() {
-        // تشغيل/إيقاف التلوين
         memoryEngine.toggle();
-        // تحديث لون الخيارات بعد التلوين
         setTimeout(colorSelectOptions, 300);
     });
 }
 
-// ربط مع تحميل الامتحان
 document.addEventListener('examLoaded', function(e) {
     if (e.detail?.data) {
         window.currentExamData = e.detail.data;
@@ -3295,16 +3205,12 @@ document.addEventListener('examLoaded', function(e) {
     }
 });
 
-// ============================================
-// تلوين الخيارات يدوياً (للتأكد من التطبيق)
-// ============================================
-
 // دالة مساعدة لتلوين الخيارات عند الحاجة
 window.applyColorToOptions = function() {
     setTimeout(colorSelectOptions, 100);
 };
 
-// عند الضغط على زر التصحيح في Teil 1 و Teil 3
+// عند الضغط على زر التصحيح
 if (typeof checkMatchingExam === 'function') {
     const originalCheckMatching = window.checkMatchingExam;
     window.checkMatchingExam = function() {
@@ -3322,4 +3228,3 @@ if (typeof checkTeil3Exam === 'function') {
 }
 
 console.log("✅ engine.js تم تحميله بالكامل");
-
