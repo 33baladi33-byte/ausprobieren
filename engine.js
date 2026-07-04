@@ -2863,7 +2863,6 @@ class MemoryHighlightEngine {
             this.applyHighlights();
         }
     }
-
 applyHighlights() {
     // ✅ منع التكرار نهائياً
     if (this._isApplying) {
@@ -2913,19 +2912,6 @@ applyHighlights() {
     console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
     this._isApplying = false;
 }
-        memoryHighlights.forEach(highlight => {
-            const color = highlight.color || 0;
-            const parts = highlight.parts || [];
-            parts.forEach(partText => {
-                if (!partText || partText.trim() === '') return;
-                this.highlightText(partText, color);
-            });
-        });
-        
-        this._isApplying = false;
-        console.log(`✅ تم تطبيق التلوين (${memoryHighlights.length} مجموعة)`);
-    }
-
 
     highlightText(searchText, colorIndex) {
         if (!this.container) return;
