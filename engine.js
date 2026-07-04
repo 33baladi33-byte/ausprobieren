@@ -2793,14 +2793,9 @@ class MemoryHighlightEngine {
 // ============================================
 // تهيئة نظام التلوين
 // ============================================
-
-let memoryEngine = null;
-
-// تهيئة عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', function() {
-    memoryEngine = new MemoryHighlightEngine();
-    console.log('🧠 نظام التلوين الذكي جاهز');
-});
+// تهيئة النظام فوراً
+window.memoryEngine = new MemoryHighlightEngine();
+console.log('🧠 نظام التلوين الذكي جاهز');
 
 // دالة مساعدة لتحديث بيانات الامتحان من أي مكان
 window.updateMemoryHighlights = function(examData) {
