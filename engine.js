@@ -2938,12 +2938,6 @@ class MemoryHighlightEngine {
 }
 
 // ============================================
-// تهيئة نظام التلوين
-// ============================================
-
-window.memoryEngine = new MemoryHighlightEngine();
-console.log('🧠 نظام التلوين الذكي جاهز');
-// ============================================
 // تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
 // ============================================
 
@@ -2988,7 +2982,8 @@ function colorSelectOptions() {
         selects.forEach((select, index) => {
             const item = items[index];
             if (!item || item.correct === null || item.correct === undefined) return;
-            const color = index % 8;
+            // ✅ استخدم highlightColor من item
+            const color = item.highlightColor !== undefined ? item.highlightColor : index % 8;
             const correctSituation = situations[item.correct];
             if (!correctSituation) return;
             for (let i = 0; i < select.options.length; i++) {
@@ -3018,4 +3013,5 @@ if (toggleBtn) {
 document.addEventListener('examLoaded', function() {
     setTimeout(colorSelectOptions, 300);
 });
+
 console.log("✅ engine.js تم تحميله بالكامل");
