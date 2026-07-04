@@ -1960,6 +1960,11 @@ function updateTeil3SelectOptions() {
       }
     }
   }
+  
+  // ✅ إعادة التلوين بعد تحديث القوائم (إذا كان التلوين مفعلاً)
+  if (window.memoryEngine && window.memoryEngine.isActive) {
+    setTimeout(colorSelectOptions, 50);
+  }
 }
 
 function updateTeil3RightSideColors() {
