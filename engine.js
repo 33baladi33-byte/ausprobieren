@@ -2953,78 +2953,63 @@ class MemoryHighlightEngine {
         this.originalTexts.clear();
     }
 }  // <--- ✅ هذا القوس يغلق الكلاس
-1111111111111111
 // ============================================
-// تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
+// ربط زر التلوين مع MemoryHighlightEngine
 // ============================================
 
-function colorSelectOptions() {
-   function colorSelectOptions() {
-    // جلب البيانات من عدة مصادر محتملة
-    const examData = window.currentExamData || 
-                     (window.memoryEngine ? window.memoryEngine.currentExamData : null);
-    
-    if (!examData) {
-        console.log('⚠️ لا توجد بيانات امتحان للتلوين');
-        return;
-    }
-    // ... باقي الكود كما هو
-    if (!examData) return;
-    
-    // Lesen Teil 1
-    if (examData.type === 'matching' && examData.questions) {
-        const container = document.getElementById('teil1');
-        if (!container) return;
-        const questions = examData.questions || [];
-        const options = examData.sharedOptions || [];
-        const selects = container.querySelectorAll('select');
-        selects.forEach((select, index) => {
-            const q = questions[index];
-            if (!q) return;
-            const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
-            const correctOption = options[q.correct];
-            if (!correctOption) return;
-            for (let i = 0; i < select.options.length; i++) {
-                const option = select.options[i];
-                if (option.textContent.includes(correctOption) || correctOption.includes(option.textContent)) {
-                    option.style.backgroundColor = getColorByIndex(color);
-                    option.style.color = getTextColorByIndex(color);
-                    option.style.fontWeight = 'bold';
-                    option.style.padding = '2px 4px';
-                    option.style.borderRadius = '3px';
-                    break;
-                }
-            }
-        });
-    }
-    
-    // Lesen Teil 3
-    if (examData.type === 'teil3' && examData.items) {
-        const container = document.getElementById('teil3');
-        if (!container) return;
-        const items = examData.items || [];
-        const situations = examData.situations || [];
-        const selects = container.querySelectorAll('select');
-        selects.forEach((select, index) => {
-            const item = items[index];
-            if (!item || item.correct === null || item.correct === undefined) return;
-            const color = item.highlightColor !== undefined ? item.highlightColor : index % 8;
-            const correctSituation = situations[item.correct];
-            if (!correctSituation) return;
-            for (let i = 0; i < select.options.length; i++) {
-                const option = select.options[i];
-                if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
-                    option.style.backgroundColor = getColorByIndex(color);
-                    option.style.color = getTextColorByIndex(color);
-                    option.style.fontWeight = 'bold';
-                    option.style.padding = '2px 4px';
-                    option.style.borderRadius = '3px';
-                    break;
-                }
-            }
-        });
-    }
+// إنشاء نسخة من MemoryHighlightEngine
+const memoryEngine = new MemoryHighlightEngine();
+window.memoryEngine = memoryEngine;
+
+// ربط مع زر التلوين
+const toggleBtn = document.getElementById('memoryToggleBtn');
+if (toggleBtn) {
+    toggleBtn.addEventListener('click', function() {
+        // تشغيل/إيقاف التلوين
+        memoryEngine.toggle();
+        // تحديث لون الخيارات بعد التلوين
+        setTimeout(colorSelectOptions, 300);
+    });
 }
+
+// ربط مع تحميل الامتحان
+document.addEventListener('examLoaded', function(e) {
+    if (e.detail?.data) {
+        window.currentExamData = e.detail.data;
+        if (window.memoryEngine) {
+            window.memoryEngine.setExamData(e.detail.data);
+        }
+        setTimeout(colorSelectOptions, 300);
+    }
+});
+
+// ============================================
+// تلوين الخيارات يدوياً (للتأكد من التطبيق)
+// ============================================
+
+// دالة مساعدة لتلوين الخيارات عند الحاجة
+window.applyColorToOptions = function() {
+    setTimeout(colorSelectOptions, 100);
+};
+
+// عند الضغط على زر التصحيح في Teil 1 و Teil 3
+if (typeof checkMatchingExam === 'function') {
+    const originalCheckMatching = window.checkMatchingExam;
+    window.checkMatchingExam = function() {
+        originalCheckMatching();
+        setTimeout(colorSelectOptions, 200);
+    };
+}
+
+if (typeof checkTeil3Exam === 'function') {
+    const originalCheckTeil3 = window.checkTeil3Exam;
+    window.checkTeil3Exam = function() {
+        originalCheckTeil3();
+        setTimeout(colorSelectOptions, 200);
+    };
+}
+
+console.log("✅ engine.js تم تحميله بالكامل");
 
 
 // ============================================
