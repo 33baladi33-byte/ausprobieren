@@ -147,11 +147,11 @@
       ]
     },
     {
-      "color": 8,
-      "parts": [
-        "Man sollte meinen, Schauspieler Hendrik Höfgen wäre gegen",
-        "Ein Bekannter möchte einen Film sehen, der nach dem Werk eines Schriftstellers gedreht wurde."
-      ]
-    }
+  "color": 8,
+  "parts": [
+    "Man sollte meinen, Schauspieler Hendrik Höfgen wäre",
+    "Ein Bekannter möchte einen Film sehen, der nach dem Werk eines Schriftstellers gedreht wurde."
+  ]
+}
   ]
 }
