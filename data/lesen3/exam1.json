@@ -61,13 +61,13 @@
       "id": "j",
       "text": "Man darf gespannt sein, wie viel Spott die für ihre spitzen Zungen bekannten Basler Fasnächtler für das vergangene Jahr übrig haben. DRS überträgt die Straßenfasnacht, den Umzug der Pfeifen- und Trommlergruppen, die ihre Themen präsentieren, live. Die fachkundigen Kommentare zum Karneval am Oberrhein liefern Robert Pichler und der Basler Fastnachtsjournalist Roger Thiriet.",
       "correct": null,
-      "highlightColor": 9
+      "highlightColor": null
     },
     {
       "id": "k",
       "text": "Dreizehn Alben hat die vielköpfige korsische Gruppe 'I Muvrini' um die Brüder Jean-Francois und Alain Bernardini bereits veröffentlicht. Hierzulande galten die 'wilden Schafe' noch bis vor Kurzem als Geheimtipp. Inzwischen sind die Musiker mit ihrer Mischung aus korsischer Folklore, afrikanischen und keltischen Elementen, aber auch aus Jazz, Pop und Cajun bei uns bekannt.",
       "correct": null,
-      "highlightColor": 10
+      "highlightColor": null
     },
     {
       "id": "l",
@@ -147,25 +147,11 @@
       ]
     },
     {
-      "color": 8,
-      "parts": [
-        "Man sollte meinen, Schauspieler Hendrik Höfgen wäre",
-        "Ein Bekannter möchte einen Film sehen, der nach dem Werk eines Schriftstellers gedreht wurde."
-      ]
-    },
-    {
-      "color": 9,
-      "parts": [
-        "Man darf gespannt sein",
-        "Sie möchten einen Film über den Karneval sehen"
-      ]
-    },
-    {
-      "color": 10,
-      "parts": [
-        "Dreizehn Alben hat die vielköpfige korsische Gruppe",
-        "Sie suchen ein Konzert mit korsischer Musik"
-      ]
-    }
+  "color": 8,
+  "parts": [
+    "Man sollte meinen, Schauspieler Hendrik Höfgen wäre",
+    "Ein Bekannter möchte einen Film sehen, der nach dem Werk eines Schriftstellers gedreht wurde."
+  ]
+}
   ]
 }
