@@ -1048,8 +1048,9 @@ async function openExam(examId, examTitle, skill) {
       return;
     }
     currentExamData = await response.json();
-    window.currentExamId = examId;
-    if (window.memoryEngine) {
+window.currentExamData = currentExamData;  // ← هذا السطر ناقص!
+window.currentExamId = examId;
+if (window.memoryEngine) {
     window.memoryEngine.setExamData(currentExamData);
 }
     document.getElementById("home").classList.remove("active");
