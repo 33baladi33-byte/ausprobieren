@@ -2864,42 +2864,55 @@ class MemoryHighlightEngine {
         }
     }
 
-    applyHighlights() {
-        // ✅ منع التكرار نهائياً
-        if (this._isApplying) {
-            console.log('⏭️ جاري التطبيق بالفعل، تخطي');
-            return;
-        }
-        
-        const examData = this.currentExamData || window.currentExamData || {};
-        
-        // ✅ منع التكرار لنفس الامتحان
-        const examId = examData.id || examData.title || 'unknown';
-        if (this._lastAppliedId === examId && this.isActive) {
-            console.log('⏭️ تخطي التكرار (نفس الامتحان)', examId);
-            return;
-        }
-        
-        this._isApplying = true;
-        this._lastAppliedId = examId;
-        
-        const memoryHighlights = examData.memoryHighlights || [];
+applyHighlights() {
+    // ✅ منع التكرار نهائياً
+    if (this._isApplying) {
+        console.log('⏭️ جاري التطبيق بالفعل، تخطي');
+        return;
+    }
+    
+    const examData = this.currentExamData || window.currentExamData || {};
+    
+    // ✅ منع التكرار لنفس الامتحان
+    const examId = examData.id || examData.title || 'unknown';
+    if (this._lastAppliedId === examId && this.isActive) {
+        console.log('⏭️ تخطي التكرار (نفس الامتحان)', examId);
+        return;
+    }
+    
+    this._isApplying = true;
+    this._lastAppliedId = examId;
+    
+    const memoryHighlights = examData.memoryHighlights || [];
 
-        // ✅ إذا كان نوع الامتحان matching (Lesen Teil 1) استخدم النظام الآلي
-        if (examData.type === 'matching' && examData.questions) {
-            console.log('🔄 تطبيق التلوين الآلي لـ Lesen Teil 1');
-            applyAutoMatchingHighlights(examData);
-            this._isApplying = false;
-            console.log(`✅ تم تطبيق التلوين الآلي (${examData.questions.length} فقرة)`);
-            return;
-        }
+    // ✅ 1. أولاً: للأنواع الأخرى (Hören, Sprach, إلخ) استخدم النظام العادي
+    if (memoryHighlights.length > 0) {
+        memoryHighlights.forEach(highlight => {
+            const color = highlight.color || 0;
+            const parts = highlight.parts || [];
+            parts.forEach(partText => {
+                if (!partText || partText.trim() === '') return;
+                this.highlightText(partText, color);
+            });
+        });
+        this._isApplying = false;
+        console.log(`✅ تم تطبيق التلوين (${memoryHighlights.length} مجموعة)`);
+        return;
+    }
 
-        // ✅ للأنواع الأخرى (Hören, Sprach, إلخ) استخدم النظام العادي
-        if (memoryHighlights.length === 0) {
-            console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
-            this._isApplying = false;
-            return;
-        }
+    // ✅ 2. ثانياً: إذا كان نوع الامتحان matching (Lesen Teil 1) استخدم النظام الآلي
+    if (examData.type === 'matching' && examData.questions) {
+        console.log('🔄 تطبيق التلوين الآلي لـ Lesen Teil 1');
+        applyFullHighlights(examData);
+        this._isApplying = false;
+        console.log(`✅ تم تطبيق التلوين الآلي (${examData.questions.length} فقرة)`);
+        return;
+    }
+
+    // ✅ 3. إذا لم يجد شيئاً
+    console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
+    this._isApplying = false;
+}
 
         memoryHighlights.forEach(highlight => {
             const color = highlight.color || 0;
