@@ -2810,4 +2810,169 @@ class MemoryHighlightEngine {
 
 window.memoryEngine = new MemoryHighlightEngine();
 console.log('🧠 نظام التلوين الذكي جاهز (النسخة المحسنة)');
+// ============================================
+// نظام التلوين الذكي الآلي - لـ Lesen Teil 1
+// ============================================
+
+// دالة لاستخراج أول N كلمات من النص
+function getFirstWords(text, wordCount = 7) {
+    // إزالة "Text 1:" أو "Text 2:" من البداية
+    let cleanText = text.replace(/^Text\s*\d+:\s*/, '');
+    const words = cleanText.trim().split(/\s+/);
+    return words.slice(0, wordCount).join(' ');
+}
+
+// دالة لتطبيق التلوين الآلي لـ Lesen Teil 1
+function applyAutoMatchingHighlights(examData) {
+    if (!examData || examData.type !== 'matching') return;
+    
+    const questions = examData.questions || [];
+    const options = examData.sharedOptions || [];
+    const container = document.querySelector('.exam-box');
+    if (!container) return;
+
+    questions.forEach((q, index) => {
+        // استخراج أول 7 كلمات من الفقرة
+        const firstWords = getFirstWords(q.text, 7);
+        const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
+        
+        // 1. تلوين أول 7 كلمات في الفقرة
+        highlightTextInContainer(container, firstWords, color);
+        
+        // 2. تلوين الإجابة الصحيحة في القائمة المنسدلة
+        const correctOption = options[q.correct];
+        if (correctOption) {
+            highlightTextInContainer(container, correctOption, color);
+        }
+    });
+}
+
+// دالة مساعدة للبحث عن نص وتلوينه في الحاوية
+function highlightTextInContainer(container, searchText, colorIndex) {
+    if (!container || !searchText) return;
+    
+    const walker = document.createTreeWalker(
+        container,
+        NodeFilter.SHOW_TEXT,
+        {
+            acceptNode: function(node) {
+                if (node.parentElement && 
+                    node.parentElement.classList && 
+                    node.parentElement.classList.contains('memory-highlight')) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                if (node.parentElement && 
+                    node.parentElement.tagName === 'SCRIPT') {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                // تجاهل النصوص داخل select options (لأنها قد تسبب مشاكل)
+                if (node.parentElement && 
+                    node.parentElement.tagName === 'OPTION') {
+                    return NodeFilter.FILTER_ACCEPT;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        }
+    );
+
+    const textNodes = [];
+    let currentNode = walker.nextNode();
+    while (currentNode) {
+        textNodes.push(currentNode);
+        currentNode = walker.nextNode();
+    }
+
+    textNodes.forEach(node => {
+        const text = node.textContent;
+        if (text.includes(searchText)) {
+            // حفظ النص الأصلي
+            if (!window._originalTexts) window._originalTexts = new Map();
+            if (!window._originalTexts.has(node)) {
+                window._originalTexts.set(node, text);
+            }
+
+            const parts = text.split(searchText);
+            const fragment = document.createDocumentFragment();
+            
+            parts.forEach((part, idx) => {
+                if (idx > 0) {
+                    const span = document.createElement('span');
+                    span.className = `memory-highlight color${colorIndex}`;
+                    span.textContent = searchText;
+                    fragment.appendChild(span);
+                }
+                if (part) {
+                    const textNode = document.createTextNode(part);
+                    fragment.appendChild(textNode);
+                }
+            });
+
+            node.parentNode.replaceChild(fragment, node);
+        }
+    });
+}
+
+// ============================================
+// تعديل دالة applyHighlights لدعم النظام الآلي
+// ============================================
+
+// حفظ الدالة الأصلية
+const originalApplyHighlights = MemoryHighlightEngine.prototype.applyHighlights;
+
+// استبدال الدالة
+MemoryHighlightEngine.prototype.applyHighlights = function() {
+    if (this._isApplying) return;
+    this._isApplying = true;
+    
+    const examData = this.currentExamData || window.currentExamData || {};
+    const memoryHighlights = examData.memoryHighlights || [];
+
+    // ✅ إذا كان نوع الامتحان matching (Lesen Teil 1) استخدم النظام الآلي
+    if (examData.type === 'matching' && examData.questions) {
+        console.log('🔄 تطبيق التلوين الآلي لـ Lesen Teil 1');
+        applyAutoMatchingHighlights(examData);
+        this._isApplying = false;
+        console.log(`✅ تم تطبيق التلوين الآلي (${examData.questions.length} فقرة)`);
+        return;
+    }
+
+    // ✅ للأنواع الأخرى (Hören, Sprach, إلخ) استخدم النظام العادي
+    if (memoryHighlights.length === 0) {
+        console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
+        this._isApplying = false;
+        return;
+    }
+
+    memoryHighlights.forEach(highlight => {
+        const color = highlight.color || 0;
+        const parts = highlight.parts || [];
+        parts.forEach(partText => {
+            if (!partText || partText.trim() === '') return;
+            this.highlightText(partText, color);
+        });
+    });
+    
+    this._isApplying = false;
+    console.log(`✅ تم تطبيق التلوين (${memoryHighlights.length} مجموعة)`);
+};
+
+// تعديل دالة removeHighlights لتتضمن النصوص المحفوظة
+const originalRemoveHighlights = MemoryHighlightEngine.prototype.removeHighlights;
+MemoryHighlightEngine.prototype.removeHighlights = function() {
+    if (!this.container) return;
+
+    const highlights = this.container.querySelectorAll('.memory-highlight');
+    
+    highlights.forEach(span => {
+        const parent = span.parentNode;
+        const textNode = document.createTextNode(span.textContent);
+        parent.replaceChild(textNode, span);
+        parent.normalize();
+    });
+
+    if (window._originalTexts) {
+        window._originalTexts.clear();
+    }
+    this.originalTexts.clear();
+};
 console.log("✅ engine.js تم تحميله بالكامل");
