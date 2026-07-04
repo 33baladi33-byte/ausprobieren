@@ -7,132 +7,114 @@
     {
       "id": 1,
       "options": ["um", "ohne", "anstatt"],
-      "correct": 0,
-      "highlight": {
-        "connector": "um",
-        "before": "arbeiten muss",
-        "after": "meine Miete",
-        "highlightWords": ["arbeiten", "muss", "um", "meine", "Miete"],
-        "color": "#4CAF50",
-        "helpKey": "sprach1_exam1_q1"
-      }
+      "correct": 0
     },
     {
       "id": 2,
       "options": ["ob", "dass", "während"],
-      "correct": 0,
-      "highlight": {
-        "connector": "ob",
-        "before": "nicht weiß",
-        "after": "ich das",
-        "highlightWords": ["nicht", "weiß", "ob", "ich", "das"],
-        "color": "#FF9800",
-        "helpKey": "sprach1_exam1_q2"
-      }
+      "correct": 0
     },
     {
       "id": 3,
       "options": ["aber", "denn", "und"],
-      "correct": 0,
-      "highlight": {
-        "connector": "aber",
-        "before": "sehr anstrengend",
-        "after": "andererseits ist",
-        "highlightWords": ["sehr", "anstrengend", "aber", "andererseits", "ist"],
-        "color": "#2196F3",
-        "helpKey": "sprach1_exam1_q3"
-      }
+      "correct": 0
     },
     {
       "id": 4,
       "options": ["bestimmt", "unbedingt", "völlig"],
-      "correct": 1,
-      "highlight": {
-        "connector": "unbedingt",
-        "before": "wollte ich ja",
-        "after": "Kellnerin werden",
-        "highlightWords": ["wollte", "ich", "ja", "unbedingt", "Kellnerin", "werden"],
-        "color": "#9C27B0",
-        "helpKey": "sprach1_exam1_q4"
-      }
+      "correct": 1
     },
     {
       "id": 5,
       "options": ["mich", "dich", "sich"],
-      "correct": 0,
-      "highlight": {
-        "connector": "mich",
-        "before": "Wenn ich",
-        "after": "nicht täusche",
-        "highlightWords": ["Wenn", "ich", "mich", "nicht", "täusche"],
-        "color": "#F44336",
-        "helpKey": "sprach1_exam1_q5"
-      }
+      "correct": 0
     },
     {
       "id": 6,
       "options": ["als", "wenn", "wie"],
-      "correct": 0,
-      "highlight": {
-        "connector": "als",
-        "before": "ein Paar",
-        "after": "wir noch",
-        "highlightWords": ["ein", "Paar", "als", "wir", "noch"],
-        "color": "#00BCD4",
-        "helpKey": "sprach1_exam1_q6"
-      }
+      "correct": 0
     },
     {
       "id": 7,
       "options": ["baldigen", "kommenden", "vergangenen"],
-      "correct": 1,
-      "highlight": {
-        "connector": "kommenden",
-        "before": "für die",
-        "after": "Wochenenden aus",
-        "highlightWords": ["für", "die", "kommenden", "Wochenenden", "aus"],
-        "color": "#8BC34A",
-        "helpKey": "sprach1_exam1_q7"
-      }
+      "correct": 1
     },
     {
       "id": 8,
       "options": ["danach", "darüber", "dazu"],
-      "correct": 2,
-      "highlight": {
-        "connector": "dazu",
-        "before": "Lust",
-        "after": "? In",
-        "highlightWords": ["Lust", "dazu", "?"],
-        "color": "#FF5722",
-        "helpKey": "sprach1_exam1_q8"
-      }
+      "correct": 2
     },
     {
       "id": 9,
       "options": ["aber", "oder", "sondern"],
-      "correct": 2,
-      "highlight": {
-        "connector": "sondern",
-        "before": "nur sehr",
-        "after": "auch einige",
-        "highlightWords": ["nur", "sehr", "sondern", "auch", "einige"],
-        "color": "#3F51B5",
-        "helpKey": "sprach1_exam1_q9"
-      }
+      "correct": 2
     },
     {
       "id": 10,
       "options": ["für", "gegen", "ohne"],
-      "correct": 0,
-      "highlight": {
-        "connector": "für",
-        "before": "was",
-        "after": "dich?",
-        "highlightWords": ["was", "für", "dich", "?"],
-        "color": "#E91E63",
-        "helpKey": "sprach1_exam1_q10"
-      }
+      "correct": 0
+    }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 0,
+      "parts": [
+        "arbeiten muss um meine Miete"
+      ]
+    },
+    {
+      "color": 1,
+      "parts": [
+        "nicht weiß ob ich das"
+      ]
+    },
+    {
+      "color": 2,
+      "parts": [
+        "sehr anstrengend aber andererseits ist"
+      ]
+    },
+    {
+      "color": 3,
+      "parts": [
+        "wollte ich ja unbedingt Kellnerin werden"
+      ]
+    },
+    {
+      "color": 4,
+      "parts": [
+        "Wenn ich mich nicht täusche"
+      ]
+    },
+    {
+      "color": 5,
+      "parts": [
+        "ein Paar als wir noch"
+      ]
+    },
+    {
+      "color": 6,
+      "parts": [
+        "für die kommenden Wochenenden aus"
+      ]
+    },
+    {
+      "color": 7,
+      "parts": [
+        "Lust dazu?"
+      ]
+    },
+    {
+      "color": 8,
+      "parts": [
+        "nur sehr sondern auch einige"
+      ]
+    },
+    {
+      "color": 9,
+      "parts": [
+        "was für dich?"
+      ]
     }
   ]
 }
