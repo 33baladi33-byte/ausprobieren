@@ -2771,10 +2771,24 @@ function applyAutoHighlights(examData) {
         if (!container) return;
         const items = examData.items || [];
         const situations = examData.situations || [];
+        const memoryHighlights = examData.memoryHighlights || [];
         
+        // ✅ أولاً: تلوين النص في البطاقات باستخدام memoryHighlights
+        if (memoryHighlights.length > 0) {
+            memoryHighlights.forEach(highlight => {
+                const color = highlight.color || 0;
+                const parts = highlight.parts || [];
+                parts.forEach(partText => {
+                    if (!partText || partText.trim() === '') return;
+                    // تلوين النص في البطاقات
+                    highlightTextInContainer(container, partText, color);
+                });
+            });
+        }
+        
+        // ✅ ثانياً: تلوين الخيارات في القائمة المنسدلة
         items.forEach((item, index) => {
             if (item.correct === null || item.correct === undefined) return;
-            // ✅ استخدم item بدلاً من q
             const color = item.highlightColor !== undefined && item.highlightColor !== null ? item.highlightColor : index % 12;
             const correctSituation = situations[item.correct];
             if (!correctSituation) return;
@@ -2798,7 +2812,6 @@ function applyAutoHighlights(examData) {
         });
     }
 }
-
 // ============================================
 // تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
 // ============================================
