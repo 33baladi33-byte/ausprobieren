@@ -130,5 +130,70 @@
     "Sie würden gern etwas über Großstadtjugendliche erfahren, die am Rand der Gesellschaft leben.",
     "Sie möchten im nächsten Urlaub bergsteigen und sich über die Risiken informieren."
   ],
-  "note": "⚠️ ملاحظة: هناك فقرات ليس لها عنوان مناسب (c, j, k). سيتم اعتبارها صحيحة إذا تركت بدون اختيار."
+  "note": "⚠️ ملاحظة: هناك فقرات ليس لها عنوان مناسب (c, j, k). سيتم اعتبارها صحيحة إذا تركت بدون اختيار.",
+  "memoryHighlights": [
+    {
+      "color": 0,
+      "parts": [
+        "Ullrich Kasten und Hans-Hermann Hertle schildern",
+        "Eine Bekannte interessiert sich für informative Beiträge zur neueren Geschichte."
+      ]
+    },
+    {
+      "color": 1,
+      "parts": [
+        "Ob Klassik, Rock'n'Roll oder Jazz",
+        "Sie suchen eine abwechslungsreiche Musiksendung mit Klaviermusik."
+      ]
+    },
+    {
+      "color": 2,
+      "parts": [
+        "Aus Sorge um die nationale Sicherheit",
+        "Sie sehen gern spannende, aber auch spaßige Agentenfilme."
+      ]
+    },
+    {
+      "color": 3,
+      "parts": [
+        "Er schreit wie am Spieß",
+        "Sie mögen Familienkomödien, besonders mit frechen Kindern."
+      ]
+    },
+    {
+      "color": 4,
+      "parts": [
+        "Hier in Berlin bei meinen Freunden",
+        "Sie würden gern etwas über Großstadtjugendliche erfahren, die am Rand der Gesellschaft leben."
+      ]
+    },
+    {
+      "color": 5,
+      "parts": [
+        "Mit Sandalen und T-Shirt",
+        "Sie möchten im nächsten Urlaub bergsteigen und sich über die Risiken informieren."
+      ]
+    },
+    {
+      "color": 6,
+      "parts": [
+        "'Schwere Jungs' bildet den Auftakt",
+        "Sie mögen Filme mit viel Action und viel Spaß."
+      ]
+    },
+    {
+      "color": 7,
+      "parts": [
+        "Nach den Weltcup-Siegen",
+        "Ihre Bekannten verfolgen gern sportliche Wettkämpfe."
+      ]
+    },
+    {
+      "color": 8,
+      "parts": [
+        "Man sollte meinen, Schauspieler Hendrik Höfgen",
+        "Ein Bekannter möchte einen Film sehen, der nach dem Werk eines Schriftstellers gedreht wurde."
+      ]
+    }
+  ]
 }
