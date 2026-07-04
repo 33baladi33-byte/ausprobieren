@@ -2706,25 +2706,43 @@ function highlightSelectOption(container, searchText, colorIndex) {
     });
 }
 
-function applyAutoHighlights(examData) {
-    if (!examData) return;
-    if (examData.type !== 'matching' && examData.type !== 'teil3') return;
+// ============================================
+// تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
+// ============================================
+
+function colorSelectOptions() {
+    // جلب البيانات من عدة مصادر محتملة
+    const examData = window.currentExamData || 
+                     (window.memoryEngine ? window.memoryEngine.currentExamData : null);
     
-    const container = document.getElementById('teil1') || document.getElementById('teil3');
-    if (!container) return;
-
-    removeHelpCardHighlights();
-
+    if (!examData) {
+        console.log('⚠️ لا توجد بيانات امتحان للتلوين');
+        return;
+    }
+    
+    // Lesen Teil 1
     if (examData.type === 'matching' && examData.questions) {
+        const container = document.getElementById('teil1');
+        if (!container) return;
         const questions = examData.questions || [];
         const options = examData.sharedOptions || [];
-        questions.forEach((q, index) => {
-            const firstWords = getFirstWords(q.text, 7);
+        const selects = container.querySelectorAll('select');
+        selects.forEach((select, index) => {
+            const q = questions[index];
+            if (!q) return;
             const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
-            highlightTextInContainer(container, firstWords, color);
             const correctOption = options[q.correct];
-            if (correctOption) {
-                highlightSelectOption(container, correctOption, color);
+            if (!correctOption) return;
+            for (let i = 0; i < select.options.length; i++) {
+                const option = select.options[i];
+                if (option.textContent.includes(correctOption) || correctOption.includes(option.textContent)) {
+                    option.style.backgroundColor = getColorByIndex(color);
+                    option.style.color = getTextColorByIndex(color);
+                    option.style.fontWeight = 'bold';
+                    option.style.padding = '2px 4px';
+                    option.style.borderRadius = '3px';
+                    break;
+                }
             }
         });
     }
@@ -2756,7 +2774,6 @@ function applyAutoHighlights(examData) {
         });
     }
 }
-
 // ============================================
 // MemoryHighlightEngine
 // ============================================
@@ -2936,7 +2953,7 @@ class MemoryHighlightEngine {
         this.originalTexts.clear();
     }
 }  // <--- ✅ هذا القوس يغلق الكلاس
-
+1111111111111111
 // ============================================
 // تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
 // ============================================
