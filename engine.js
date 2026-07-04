@@ -2914,4 +2914,37 @@ class MemoryHighlightEngine {
 
 window.memoryEngine = new MemoryHighlightEngine();
 console.log('🧠 نظام التلوين الذكي جاهز (النسخة النهائية)');
+// ============================================
+// تلوين خيارات Select في Lesen Teil 3
+// ============================================
+function colorTeil3SelectOptions() {
+    const container = document.getElementById('teil3');
+    if (!container) return;
+    const examData = window.currentExamData;
+    if (!examData || examData.type !== 'teil3') return;
+    
+    const items = examData.items || [];
+    const situations = examData.situations || [];
+    const selects = container.querySelectorAll('select');
+    
+    selects.forEach((select, index) => {
+        const item = items[index];
+        if (!item || item.correct === null || item.correct === undefined) return;
+        const colorIndex = index % 8;
+        const correctSituation = situations[item.correct];
+        if (!correctSituation) return;
+        
+        for (let i = 0; i < select.options.length; i++) {
+            const option = select.options[i];
+            if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
+                option.style.backgroundColor = getColorByIndex(colorIndex);
+                option.style.color = getTextColorByIndex(colorIndex);
+                option.style.fontWeight = 'bold';
+                option.style.padding = '2px 6px';
+                option.style.borderRadius = '3px';
+                break;
+            }
+        }
+    });
+}
 console.log("✅ engine.js تم تحميله بالكامل");
