@@ -89,7 +89,7 @@
     "Sie möchten im nächsten Urlaub bergsteigen und sich über die Risiken informieren."
   ],
   "note": "⚠️ ملاحظة: هناك فقرات ليس لها عنوان مناسب (c, j, k). سيتم اعتبارها صحيحة إذا تركت بدون اختيار.",
-  "memoryHighlights": [
+"memoryHighlights": [
     {
       "color": 0,
       "parts": [
@@ -147,11 +147,24 @@
       ]
     },
     {
-  "color": 8,
-  "parts": [
-    "Man sollte meinen, Schauspieler Hendrik Höfgen wäre",
-    "Ein Bekannter möchte einen Film sehen, der nach dem Werk eines Schriftstellers gedreht wurde."
+      "color": 8,
+      "parts": [
+        "Man sollte meinen, Schauspieler Hendrik Höfgen wäre",
+        "Ein Bekannter möchte einen Film sehen, der nach dem Werk eines Schriftstellers gedreht wurde."
+      ]
+    },
+    {
+      "color": 9,
+      "parts": [
+        "Man darf gespannt sein",
+        "Sie möchten einen Film über den Karneval sehen"
+      ]
+    },
+    {
+      "color": 10,
+      "parts": [
+        "Dreizehn Alben hat die vielköpfige korsische Gruppe",
+        "Sie suchen ein Konzert mit korsischer Musik"
+      ]
+    }
   ]
-}
-  ]
-}
