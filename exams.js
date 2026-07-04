@@ -1049,6 +1049,9 @@ async function openExam(examId, examTitle, skill) {
     }
     currentExamData = await response.json();
     window.currentExamId = examId;
+    if (window.memoryEngine) {
+    window.memoryEngine.setExamData(currentExamData);
+}
     document.getElementById("home").classList.remove("active");
     document.getElementById("list").classList.remove("active");
     document.getElementById("exam").classList.add("active");
