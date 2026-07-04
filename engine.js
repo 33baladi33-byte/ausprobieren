@@ -2816,64 +2816,34 @@ class MemoryHighlightEngine {
         this.init();
     }
 
-    init() {
-        if (this.toggleBtn) {
-            this.toggleBtn.addEventListener('click', () => this.toggle());
-        }
-        
-        // استخدام debounce لمنع التكرار
-        this.observer = new MutationObserver(() => {
-            if (this.updateTimeout) {
-                clearTimeout(this.updateTimeout);
-            }
-            this.updateTimeout = setTimeout(() => {
-                if (this.isActive && this.currentExamData) {
-                    this.removeHighlights();
-                    this.applyHighlights();
-                }
-            }, 300);
-        });
-        
-        if (this.container) {
-            this.observer.observe(this.container, { 
-                childList: true, 
-                subtree: true,
-                characterData: true 
-            });
-        }
+   init() {
+    if (this.toggleBtn) {
+        this.toggleBtn.addEventListener('click', () => this.toggle());
     }
-
-    toggle() {
-        if (this._isToggling) return;
-        this._isToggling = true;
-        
-        if (this.isActive) {
-            this.removeHighlights();
-            this.toggleBtn.classList.remove('active');
-            this.toggleBtn.textContent = '🎨';
-        } else {
-            this.applyHighlights();
-            this.toggleBtn.classList.add('active');
-            this.toggleBtn.textContent = '🧠';
-        }
-        this.isActive = !this.isActive;
-        
-        setTimeout(() => {
-            this._isToggling = false;
-        }, 500);
-    }
-
-    setExamData(data) {
-        this.currentExamData = data;
-        if (this.isActive) {
+    
+    // ❌ تعطيل MutationObserver تماماً - يسبب تكرار لا نهائي
+    this.observer = null;
+    
+    // ✅ بدلاً من ذلك، استخدم حدث تحميل الامتحان
+    document.addEventListener('examLoaded', (e) => {
+        if (this.isActive && e.detail?.data) {
             this.removeHighlights();
             this.applyHighlights();
         }
-    }
+    });
+}
 
     applyHighlights() {
         if (this._isApplying) return;
-        this._isApplying = true;
+          // ✅ منع التكرار إذا كان التلوين مفعلاً بالفعل
+    if (this.isActive && this._lastApplied === this.currentExamData?.id) {
+        console.log('⏭️ تخطي التكرار (نفس البيانات)');
+        return;
+    }
+    
+    this._isApplying = true;
+    this._lastApplied = this.currentExamData?.id;
+        
         
         const examData = this.currentExamData || window.currentExamData || {};
         const memoryHighlights = examData.memoryHighlights || [];
