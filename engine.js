@@ -2803,7 +2803,33 @@ function applyAutoHighlights(examData) {
             }
         });
     }
-    
+        // Sprachbausteine Teil 1 & 2
+    if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
+        const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        examData.options.forEach((option, index) => {
+            const highlight = option.memoryHighlight;
+            if (!highlight) return;
+            
+            const color = highlight.color !== undefined && highlight.color !== null ? highlight.color : index % 12;
+            
+            if (highlight.before) {
+                highlightTextInContainer(container, highlight.before, color);
+            }
+            if (highlight.connector) {
+                highlightTextInContainer(container, highlight.connector, color);
+            }
+            if (highlight.after) {
+                highlightTextInContainer(container, highlight.after, color);
+            }
+            
+            if (highlight.connector) {
+                highlightSelectOption(container, highlight.connector, color);
+            }
+        });
+    }
     // Lesen Teil 3
     if (examData.type === 'teil3' && examData.items) {
         const container = document.getElementById('teil3');
@@ -2896,7 +2922,20 @@ function colorSelectOptions() {
             }
         });
     }
-    
+        // Sprachbausteine Teil 1 & 2
+    if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
+        const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        examData.options.forEach((option, index) => {
+            const highlight = option.memoryHighlight;
+            if (!highlight || !highlight.connector) return;
+            
+            const color = highlight.color !== undefined && highlight.color !== null ? highlight.color : index % 12;
+            highlightSelectOption(container, highlight.connector, color);
+        });
+    }
         // Lesen Teil 3
     if (examData.type === 'teil3' && examData.items) {
         const container = document.getElementById('teil3');
@@ -3017,11 +3056,12 @@ class MemoryHighlightEngine {
             return;
         }
 
-        if (examData.type === 'matching' || examData.type === 'teil3') {
-            console.log('🔄 تطبيق التلوين الآلي لـ Lesen Teil 1/3');
+        if (examData.type === 'matching' || examData.type === 'teil3' || examData.type === 'sprach1' || examData.type === 'sprach2') {
+            console.log(`🔄 تطبيق التلوين الآلي لـ ${examData.type}`);
             applyAutoHighlights(examData);
             this._isApplying = false;
-            console.log('✅ تم تطبيق التلوين الآلي');
+            console.log(`✅ تم تطبيق التلوين الآلي لـ ${examData.type}`);
+            setTimeout(colorSelectOptions, 100);
             return;
         }
 
