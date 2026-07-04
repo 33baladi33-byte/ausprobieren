@@ -2805,6 +2805,7 @@ function removeHelpCardHighlights() {
 class MemoryHighlightEngine {
     constructor() {
         this.isActive = false;
+        this._lastAppliedId = null;  // ✅ متغير واحد فقط
         this._isApplying = false;
         this._isToggling = false;
         this.updateTimeout = null;
@@ -2816,36 +2817,72 @@ class MemoryHighlightEngine {
         this.init();
     }
 
-   init() {
-    if (this.toggleBtn) {
-        this.toggleBtn.addEventListener('click', () => this.toggle());
+    init() {
+        if (this.toggleBtn) {
+            this.toggleBtn.addEventListener('click', () => this.toggle());
+        }
+        
+        // ❌ تعطيل MutationObserver تماماً
+        this.observer = null;
+        
+        // ✅ بدلاً من ذلك، استخدم حدث تحميل الامتحان
+        document.addEventListener('examLoaded', (e) => {
+            if (this.isActive && e.detail?.data) {
+                this.removeHighlights();
+                this.applyHighlights();
+            }
+        });
     }
-    
-    // ❌ تعطيل MutationObserver تماماً - يسبب تكرار لا نهائي
-    this.observer = null;
-    
-    // ✅ بدلاً من ذلك، استخدم حدث تحميل الامتحان
-    document.addEventListener('examLoaded', (e) => {
-        if (this.isActive && e.detail?.data) {
+
+    toggle() {
+        if (this._isToggling) return;
+        this._isToggling = true;
+        
+        if (this.isActive) {
+            this.removeHighlights();
+            this.toggleBtn.classList.remove('active');
+            this.toggleBtn.textContent = '🎨';
+            this._lastAppliedId = null;  // ✅ إعادة تعيين عند الإيقاف
+        } else {
+            this.applyHighlights();
+            this.toggleBtn.classList.add('active');
+            this.toggleBtn.textContent = '🧠';
+        }
+        this.isActive = !this.isActive;
+        
+        setTimeout(() => {
+            this._isToggling = false;
+        }, 500);
+    }
+
+    setExamData(data) {
+        this.currentExamData = data;
+        this._lastAppliedId = null;  // ✅ إعادة تعيين عند تحميل امتحان جديد
+        if (this.isActive) {
             this.removeHighlights();
             this.applyHighlights();
         }
-    });
-}
+    }
 
     applyHighlights() {
-        if (this._isApplying) return;
-          // ✅ منع التكرار إذا كان التلوين مفعلاً بالفعل
-    if (this.isActive && this._lastApplied === this.currentExamData?.id) {
-        console.log('⏭️ تخطي التكرار (نفس البيانات)');
-        return;
-    }
-    
-    this._isApplying = true;
-    this._lastApplied = this.currentExamData?.id;
-        
+        // ✅ منع التكرار نهائياً
+        if (this._isApplying) {
+            console.log('⏭️ جاري التطبيق بالفعل، تخطي');
+            return;
+        }
         
         const examData = this.currentExamData || window.currentExamData || {};
+        
+        // ✅ منع التكرار لنفس الامتحان
+        const examId = examData.id || examData.title || 'unknown';
+        if (this._lastAppliedId === examId && this.isActive) {
+            console.log('⏭️ تخطي التكرار (نفس الامتحان)', examId);
+            return;
+        }
+        
+        this._isApplying = true;
+        this._lastAppliedId = examId;
+        
         const memoryHighlights = examData.memoryHighlights || [];
 
         // ✅ إذا كان نوع الامتحان matching (Lesen Teil 1) استخدم النظام الآلي
@@ -2876,6 +2913,7 @@ class MemoryHighlightEngine {
         this._isApplying = false;
         console.log(`✅ تم تطبيق التلوين (${memoryHighlights.length} مجموعة)`);
     }
+
 
     highlightText(searchText, colorIndex) {
         if (!this.container) return;
