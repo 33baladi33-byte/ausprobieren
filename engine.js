@@ -2662,63 +2662,32 @@ function removeHelpCardHighlights() {
         parent.normalize();
     });
 }
-
 function highlightTextInContainer(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
-    const walker = document.createTreeWalker(
-        container,
-        NodeFilter.SHOW_TEXT,
-        {
-            acceptNode: function(node) {
-                if (node.parentElement && node.parentElement.closest && node.parentElement.closest('#helpSystemContainer')) {
-                    return NodeFilter.FILTER_REJECT;
-                }
-                if (node.parentElement && node.parentElement.classList && node.parentElement.classList.contains('memory-highlight')) {
-                    return NodeFilter.FILTER_REJECT;
-                }
-                if (node.parentElement && node.parentElement.tagName === 'SCRIPT') {
-                    return NodeFilter.FILTER_REJECT;
-                }
-                return NodeFilter.FILTER_ACCEPT;
-            }
-        }
-    );
-
-    const textNodes = [];
-    let currentNode = walker.nextNode();
-    while (currentNode) {
-        textNodes.push(currentNode);
-        currentNode = walker.nextNode();
+    // الحصول على HTML الكامل للـ container
+    let html = container.innerHTML;
+    
+    // التحقق من أن النص موجود
+    if (!html.includes(searchText)) {
+        // حاول البحث بدون علامات الترقيم
+        const cleanSearch = searchText.replace(/[,.]/g, '').trim();
+        const cleanHtml = html.replace(/[,.]/g, '').trim();
+        if (!cleanHtml.includes(cleanSearch)) return;
     }
-
-    textNodes.forEach(node => {
-        const text = node.textContent;
-        if (text.includes(searchText)) {
-            if (!window._originalTexts) window._originalTexts = new Map();
-            if (!window._originalTexts.has(node)) {
-                window._originalTexts.set(node, text);
-            }
-
-            const parts = text.split(searchText);
-            const fragment = document.createDocumentFragment();
-            
-            parts.forEach((part, idx) => {
-                if (idx > 0) {
-                    const span = document.createElement('span');
-                    span.className = `memory-highlight color${colorIndex}`;
-                    span.textContent = searchText;
-                    fragment.appendChild(span);
-                }
-                if (part) {
-                    const textNode = document.createTextNode(part);
-                    fragment.appendChild(textNode);
-                }
-            });
-
-            node.parentNode.replaceChild(fragment, node);
-        }
-    });
+    
+    // الحصول على الألوان
+    const bgColor = getColorByIndex(colorIndex);
+    const txtColor = getTextColorByIndex(colorIndex);
+    
+    // إنشاء النص الملون
+    const highlighted = `<span class="memory-highlight" style="background-color: ${bgColor}; color: ${txtColor}; font-weight: bold; padding: 1px 3px; border-radius: 3px;">${searchText}</span>`;
+    
+    // استبدال النص (مرة واحدة فقط لتجنب التكرار)
+    html = html.replace(searchText, highlighted);
+    
+    // تحديث الـ HTML
+    container.innerHTML = html;
 }
 
 function highlightSelectOption(container, searchText, colorIndex) {
