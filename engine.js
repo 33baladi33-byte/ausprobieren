@@ -1498,6 +1498,10 @@ function renderMatchingQuestions() {
             sel.appendChild(hiddenOpt);
           }
         });
+          // ✅✅✅ أضف هذا الكود هنا ✅✅✅
+    // إعادة التلوين بعد تحديث القوائم
+    if (window.memoryEngine && window.memoryEngine.isActive) {
+      setTimeout(colorSelectOptions, 50);
       };
     })(i);
     
