@@ -2958,4 +2958,122 @@ class MemoryHighlightEngine {
 
 window.memoryEngine = new MemoryHighlightEngine();
 console.log('🧠 نظام التلوين الذكي جاهز');
+// ============================================
+// تلوين خيارات Select في Lesen Teil 1 و Teil 3 (داخل القائمة)
+// ============================================
+
+function colorAllSelectOptions() {
+    // تلوين خيارات Lesen Teil 1
+    const container1 = document.getElementById('teil1');
+    if (container1) {
+        const examData = window.currentExamData;
+        if (examData && examData.type === 'matching' && examData.questions) {
+            const questions = examData.questions || [];
+            const options = examData.sharedOptions || [];
+            const selects = container1.querySelectorAll('select');
+            selects.forEach((select, index) => {
+                const q = questions[index];
+                if (!q) return;
+                const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
+                const correctOption = options[q.correct];
+                if (!correctOption) return;
+                for (let i = 0; i < select.options.length; i++) {
+                    const option = select.options[i];
+                    if (option.textContent.includes(correctOption) || correctOption.includes(option.textContent)) {
+                        option.style.backgroundColor = getColorByIndex(color);
+                        option.style.color = getTextColorByIndex(color);
+                        option.style.fontWeight = 'bold';
+                        option.style.padding = '2px 4px';
+                        option.style.borderRadius = '3px';
+                        break;
+                    }
+                }
+            });
+        }
+    }
+    
+    // تلوين خيارات Lesen Teil 3
+    const container3 = document.getElementById('teil3');
+    if (container3) {
+        const examData = window.currentExamData;
+        if (examData && examData.type === 'teil3' && examData.items) {
+            const items = examData.items || [];
+            const situations = examData.situations || [];
+            const selects = container3.querySelectorAll('select');
+            selects.forEach((select, index) => {
+                const item = items[index];
+                if (!item || item.correct === null || item.correct === undefined) return;
+                const color = index % 8;
+                const correctSituation = situations[item.correct];
+                if (!correctSituation) return;
+                for (let i = 0; i < select.options.length; i++) {
+                    const option = select.options[i];
+                    if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
+                        option.style.backgroundColor = getColorByIndex(color);
+                        option.style.color = getTextColorByIndex(color);
+                        option.style.fontWeight = 'bold';
+                        option.style.padding = '2px 4px';
+                        option.style.borderRadius = '3px';
+                        break;
+                    }
+                }
+            });
+        }
+    }
+}
+
+// استدعاء الدالة عند تطبيق التلوين
+function applyFullHighlights(examData) {
+    if (!examData) return;
+    
+    // تطبيق التلوين الأساسي
+    applyAutoHighlights(examData);
+    
+    // تلوين خيارات القائمة
+    setTimeout(colorAllSelectOptions, 150);
+}
+
+// تعديل دالة applyHighlights لاستخدام applyFullHighlights
+const originalApplyHighlights = MemoryHighlightEngine.prototype.applyHighlights;
+MemoryHighlightEngine.prototype.applyHighlights = function() {
+    if (this._isApplying) return;
+    
+    const examData = this.currentExamData || window.currentExamData || {};
+    const examId = examData.id || examData.title || 'unknown';
+    if (this._lastAppliedId === examId && this.isActive) {
+        console.log('⏭️ تخطي التكرار (نفس الامتحان)', examId);
+        return;
+    }
+    
+    this._isApplying = true;
+    this._lastAppliedId = examId;
+    
+    const memoryHighlights = examData.memoryHighlights || [];
+
+    if (memoryHighlights.length > 0) {
+        console.log('🔄 تطبيق التلوين من memoryHighlights');
+        memoryHighlights.forEach(highlight => {
+            const color = highlight.color || 0;
+            const parts = highlight.parts || [];
+            parts.forEach(partText => {
+                if (!partText || partText.trim() === '') return;
+                this.highlightText(partText, color);
+            });
+        });
+        this._isApplying = false;
+        console.log(`✅ تم تطبيق التلوين (${memoryHighlights.length} مجموعة)`);
+        return;
+    }
+
+    if (examData.type === 'matching' || examData.type === 'teil3') {
+        console.log('🔄 تطبيق التلوين الآلي لـ Lesen Teil 1/3');
+        applyFullHighlights(examData);
+        this._isApplying = false;
+        console.log('✅ تم تطبيق التلوين الآلي مع تلوين القائمة');
+        return;
+    }
+
+    console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
+    this._isApplying = false;
+};
 console.log("✅ engine.js تم تحميله بالكامل");
