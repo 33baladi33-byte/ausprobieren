@@ -2941,7 +2941,7 @@ class MemoryHighlightEngine {
 // تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
 // ============================================
 
-function colorSelectOptions() {
+function colorSelectOptions() 
     const examData = window.currentExamData;
     if (!examData) return;
     
