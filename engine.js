@@ -2644,7 +2644,38 @@ function getTextColorByIndex(index) {
     ];
     return textColors[index % textColors.length] || '#1565C0';
 }
+// ============================================
+// دالة مساعدة لتلوين الخيار في القائمة المنسدلة Teil 3
+// ============================================
 
+function colorTeil3Option(select, correctIndex, color) {
+    if (!select || correctIndex === null || correctIndex === undefined) return;
+    
+    // 🔍 حساب الإزاحة تلقائياً: البحث عن أول خيار يبدأ بـ "a."
+    const optionsArray = [...select.options];
+    const firstRealOptionIndex = optionsArray.findIndex(opt => 
+        /^[a-z]\./i.test(opt.textContent.trim())
+    );
+    
+    // إذا لم يتم العثور على "a."، استخدم الإزاحة الافتراضية +2
+    const offset = firstRealOptionIndex !== -1 ? firstRealOptionIndex : 2;
+    const optionIndex = correctIndex + offset;
+    
+    if (select.options[optionIndex]) {
+        const option = select.options[optionIndex];
+        option.style.backgroundColor = getColorByIndex(color);
+        option.style.color = getTextColorByIndex(color);
+        option.style.fontWeight = 'bold';
+        option.style.padding = '2px 4px';
+        option.style.borderRadius = '3px';
+    }
+}
+
+function getFirstWords(text, wordCount = 7) {
+    let cleanText = text.replace(/^Text\s*\d+:\s*/, '');
+    const words = cleanText.trim().split(/\s+/);
+    return words.slice(0, wordCount).join(' ');
+}
 function getFirstWords(text, wordCount = 7) {
     let cleanText = text.replace(/^Text\s*\d+:\s*/, '');
     const words = cleanText.trim().split(/\s+/);
@@ -2798,26 +2829,32 @@ function applyAutoHighlights(examData) {
             });
         }
         
-        // ✅ ثانياً: تلوين الخيارات في القائمة المنسدلة
+                // ✅ ثانياً: تلوين الخيارات في القائمة المنسدلة باستخدام الفهرس التلقائي
         items.forEach((item, index) => {
             if (item.correct === null || item.correct === undefined) return;
             const color = item.highlightColor !== undefined && item.highlightColor !== null ? item.highlightColor : index % 12;
-            const correctSituation = situations[item.correct];
-            if (!correctSituation) return;
+            const correctIndex = item.correct;
             
             const selects = container.querySelectorAll('select');
             selects.forEach((select, idx) => {
                 if (idx === index) {
-                    for (let i = 0; i < select.options.length; i++) {
-                        const option = select.options[i];
-                        if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
-                            option.style.backgroundColor = getColorByIndex(color);
-                            option.style.color = getTextColorByIndex(color);
-                            option.style.fontWeight = 'bold';
-                            option.style.padding = '2px 4px';
-                            option.style.borderRadius = '3px';
-                            break;
-                        }
+                    // 🔍 حساب الإزاحة تلقائياً: البحث عن أول خيار يبدأ بـ "a."
+                    const optionsArray = [...select.options];
+                    const firstRealOptionIndex = optionsArray.findIndex(opt => 
+                        /^[a-z]\./i.test(opt.textContent.trim())
+                    );
+                    
+                    // إذا لم يتم العثور على "a."، استخدم الإزاحة الافتراضية +2
+                    const offset = firstRealOptionIndex !== -1 ? firstRealOptionIndex : 2;
+                    const optionIndex = correctIndex + offset;
+                    
+                    if (select.options[optionIndex]) {
+                        const option = select.options[optionIndex];
+                        option.style.backgroundColor = getColorByIndex(color);
+                        option.style.color = getTextColorByIndex(color);
+                        option.style.fontWeight = 'bold';
+                        option.style.padding = '2px 4px';
+                        option.style.borderRadius = '3px';
                     }
                 }
             });
@@ -2864,30 +2901,35 @@ function colorSelectOptions() {
         });
     }
     
-    // Lesen Teil 3
+        // Lesen Teil 3
     if (examData.type === 'teil3' && examData.items) {
         const container = document.getElementById('teil3');
         if (!container) return;
         const items = examData.items || [];
-        const situations = examData.situations || [];
         const selects = container.querySelectorAll('select');
         selects.forEach((select, index) => {
             const item = items[index];
             if (!item || item.correct === null || item.correct === undefined) return;
-            // ✅ استخدم item بدلاً من q
             const color = item.highlightColor !== undefined && item.highlightColor !== null ? item.highlightColor : index % 12;
-            const correctSituation = situations[item.correct];
-            if (!correctSituation) return;
-            for (let i = 0; i < select.options.length; i++) {
-                const option = select.options[i];
-                if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
-                    option.style.backgroundColor = getColorByIndex(color);
-                    option.style.color = getTextColorByIndex(color);
-                    option.style.fontWeight = 'bold';
-                    option.style.padding = '2px 4px';
-                    option.style.borderRadius = '3px';
-                    break;
-                }
+            const correctIndex = item.correct;
+            
+            // 🔍 حساب الإزاحة تلقائياً: البحث عن أول خيار يبدأ بـ "a."
+            const optionsArray = [...select.options];
+            const firstRealOptionIndex = optionsArray.findIndex(opt => 
+                /^[a-z]\./i.test(opt.textContent.trim())
+            );
+            
+            // إذا لم يتم العثور على "a."، استخدم الإزاحة الافتراضية +2
+            const offset = firstRealOptionIndex !== -1 ? firstRealOptionIndex : 2;
+            const optionIndex = correctIndex + offset;
+            
+            if (select.options[optionIndex]) {
+                const option = select.options[optionIndex];
+                option.style.backgroundColor = getColorByIndex(color);
+                option.style.color = getTextColorByIndex(color);
+                option.style.fontWeight = 'bold';
+                option.style.padding = '2px 4px';
+                option.style.borderRadius = '3px';
             }
         });
     }
