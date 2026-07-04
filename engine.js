@@ -2910,47 +2910,134 @@ function applyAutoHighlights(examData) {
         const container = document.getElementById(containerId);
         if (!container) return;
         
+        // 🔍 البحث عن جميع الأزرار (الفراغات) في النص
+        const buttons = container.querySelectorAll('button.sprach1-gap-btn, button.sprach2-gap-btn, button[id*="sprach1_btn"], button[id*="sprach2_btn"]');
+        
         examData.options.forEach((option, index) => {
             const highlight = option.memoryHighlight;
             if (!highlight) return;
             
             const color = highlight.color !== undefined ? highlight.color : index % 12;
+            const bgColor = getColorByIndex(color);
+            const txtColor = getTextColorByIndex(color);
             
-            // استخدام highlightByContext
-            let found = false;
-            
-            // محاولة 1: before + connector + after
-            if (highlight.before || highlight.connector || highlight.after) {
-                found = highlightByContext(
-                    container, 
-                    highlight.before || '', 
-                    highlight.connector || '', 
-                    highlight.after || '', 
-                    color
-                );
-            }
-            
-            // محاولة 2: context
-            if (!found && highlight.context) {
-                const blankMatch = highlight.context.match(/__\s*\(\d+\)\s*__/);
-                if (blankMatch) {
-                    const blank = blankMatch[0];
-                    const parts = highlight.context.split(blank);
-                    const beforeText = parts[0] || '';
-                    const afterText = parts[1] || '';
-                    found = highlightByContext(
-                        container, 
-                        beforeText, 
-                        highlight.connector || '', 
-                        afterText, 
-                        color
-                    );
+            // 🔍 البحث عن الزر المناسب لهذا السؤال
+            const btnId = containerId === 'sprach1' ? `sprach1_btn_${option.id}` : `sprach2_btn_${option.id}`;
+            let btn = document.getElementById(btnId);
+            if (!btn) {
+                // محاولة العثور على الزر عبر buttons
+                for (let b of buttons) {
+                    if (b.textContent.includes(`(${option.id})`)) {
+                        btn = b;
+                        break;
+                    }
                 }
             }
             
-            // تلوين الخيار في القائمة
-            if (highlight.connector) {
-                highlightSelectOption(container, highlight.connector, color);
+            if (btn) {
+                // ✅ تلوين النص قبل الزر (before)
+                let prevNode = btn.previousSibling;
+                let beforeText = '';
+                while (prevNode) {
+                    if (prevNode.nodeType === 3) { // TextNode
+                        beforeText = prevNode.textContent + beforeText;
+                    } else if (prevNode.nodeType === 1) {
+                        if (prevNode.tagName === 'BUTTON' || prevNode.tagName === 'SPAN' || prevNode.tagName === 'DIV') {
+                            break;
+                        }
+                        beforeText = prevNode.textContent + beforeText;
+                    }
+                    prevNode = prevNode.previousSibling;
+                }
+                beforeText = beforeText.trim();
+                
+                // ✅ تلوين النص بعد الزر (after)
+                let nextNode = btn.nextSibling;
+                let afterText = '';
+                while (nextNode) {
+                    if (nextNode.nodeType === 3) { // TextNode
+                        afterText += nextNode.textContent;
+                    } else if (nextNode.nodeType === 1) {
+                        if (nextNode.tagName === 'BUTTON' || nextNode.tagName === 'SPAN' || nextNode.tagName === 'DIV') {
+                            break;
+                        }
+                        afterText += nextNode.textContent;
+                    }
+                    nextNode = nextNode.nextSibling;
+                }
+                afterText = afterText.trim();
+                
+                // ✅ تلوين before
+                if (highlight.before && beforeText.includes(highlight.before)) {
+                    const beforeNode = btn.previousSibling;
+                    if (beforeNode && beforeNode.nodeType === 3) {
+                        const text = beforeNode.textContent;
+                        const idx = text.indexOf(highlight.before);
+                        if (idx !== -1) {
+                            const before = text.substring(0, idx);
+                            const after = text.substring(idx + highlight.before.length);
+                            const fragment = document.createDocumentFragment();
+                            if (before) fragment.appendChild(document.createTextNode(before));
+                            
+                            const span = document.createElement('span');
+                            span.className = `memory-highlight color${color}`;
+                            span.style.backgroundColor = bgColor;
+                            span.style.color = txtColor;
+                            span.style.fontWeight = 'bold';
+                            span.style.padding = '1px 3px';
+                            span.style.borderRadius = '3px';
+                            span.textContent = highlight.before;
+                            fragment.appendChild(span);
+                            
+                            if (after) fragment.appendChild(document.createTextNode(after));
+                            beforeNode.parentNode.replaceChild(fragment, beforeNode);
+                        }
+                    }
+                }
+                
+                // ✅ تلوين after
+                if (highlight.after && afterText.includes(highlight.after)) {
+                    const afterNode = btn.nextSibling;
+                    if (afterNode && afterNode.nodeType === 3) {
+                        const text = afterNode.textContent;
+                        const idx = text.indexOf(highlight.after);
+                        if (idx !== -1) {
+                            const before = text.substring(0, idx);
+                            const after = text.substring(idx + highlight.after.length);
+                            const fragment = document.createDocumentFragment();
+                            if (before) fragment.appendChild(document.createTextNode(before));
+                            
+                            const span = document.createElement('span');
+                            span.className = `memory-highlight color${color}`;
+                            span.style.backgroundColor = bgColor;
+                            span.style.color = txtColor;
+                            span.style.fontWeight = 'bold';
+                            span.style.padding = '1px 3px';
+                            span.style.borderRadius = '3px';
+                            span.textContent = highlight.after;
+                            fragment.appendChild(span);
+                            
+                            if (after) fragment.appendChild(document.createTextNode(after));
+                            afterNode.parentNode.replaceChild(fragment, afterNode);
+                        }
+                    }
+                }
+                
+                // ✅ تلوين الزر نفسه (connector)
+                if (highlight.connector) {
+                    btn.textContent = highlight.connector;
+                    btn.style.backgroundColor = bgColor;
+                    btn.style.color = txtColor;
+                    btn.style.fontWeight = 'bold';
+                    btn.style.border = `2px solid ${txtColor}`;
+                    btn.style.borderRadius = '4px';
+                    btn.style.padding = '2px 8px';
+                }
+                
+                // ✅ تلوين الخيار في القائمة المنسدلة
+                if (highlight.connector) {
+                    highlightSelectOption(container, highlight.connector, color);
+                }
             }
         });
         return;
