@@ -2773,7 +2773,8 @@ function applyAutoHighlights(examData) {
         
         items.forEach((item, index) => {
             if (item.correct === null || item.correct === undefined) return;
-            const color = item.highlightColor !== undefined ? item.highlightColor : index % 8;
+           // ✅ واستبدله بهذا
+const color = q.highlightColor !== undefined && q.highlightColor !== null ? q.highlightColor : index % 12;
             const correctSituation = situations[item.correct];
             if (!correctSituation) return;
             
@@ -2847,7 +2848,8 @@ function colorSelectOptions() {
         selects.forEach((select, index) => {
             const item = items[index];
             if (!item || item.correct === null || item.correct === undefined) return;
-            const color = item.highlightColor !== undefined ? item.highlightColor : index % 8;
+          // ✅ واستبدله بهذا
+const color = q.highlightColor !== undefined && q.highlightColor !== null ? q.highlightColor : index % 12;
             const correctSituation = situations[item.correct];
             if (!correctSituation) return;
             for (let i = 0; i < select.options.length; i++) {
