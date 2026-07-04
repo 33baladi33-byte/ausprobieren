@@ -2665,29 +2665,72 @@ function removeHelpCardHighlights() {
 function highlightTextInContainer(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
-    // الحصول على HTML الكامل للـ container
-    let html = container.innerHTML;
-    
-    // التحقق من أن النص موجود
-    if (!html.includes(searchText)) {
-        // حاول البحث بدون علامات الترقيم
-        const cleanSearch = searchText.replace(/[,.]/g, '').trim();
-        const cleanHtml = html.replace(/[,.]/g, '').trim();
-        if (!cleanHtml.includes(cleanSearch)) return;
+    const walker = document.createTreeWalker(
+        container,
+        NodeFilter.SHOW_TEXT,
+        {
+            acceptNode: function(node) {
+                if (node.parentElement && node.parentElement.closest && node.parentElement.closest('#helpSystemContainer')) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                if (node.parentElement && node.parentElement.classList && node.parentElement.classList.contains('memory-highlight')) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                if (node.parentElement && node.parentElement.tagName === 'SCRIPT') {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        }
+    );
+
+    const textNodes = [];
+    let currentNode = walker.nextNode();
+    while (currentNode) {
+        textNodes.push(currentNode);
+        currentNode = walker.nextNode();
     }
-    
-    // الحصول على الألوان
-    const bgColor = getColorByIndex(colorIndex);
-    const txtColor = getTextColorByIndex(colorIndex);
-    
-    // إنشاء النص الملون
-    const highlighted = `<span class="memory-highlight" style="background-color: ${bgColor}; color: ${txtColor}; font-weight: bold; padding: 1px 3px; border-radius: 3px;">${searchText}</span>`;
-    
-    // استبدال النص (مرة واحدة فقط لتجنب التكرار)
-    html = html.replace(searchText, highlighted);
-    
-    // تحديث الـ HTML
-    container.innerHTML = html;
+
+    textNodes.forEach(node => {
+        const text = node.textContent;
+        // ✅ استخدم indexOf بدلاً من includes + split
+        const index = text.indexOf(searchText);
+        if (index !== -1) {
+            if (!window._originalTexts) window._originalTexts = new Map();
+            if (!window._originalTexts.has(node)) {
+                window._originalTexts.set(node, text);
+            }
+
+            // ✅ استخدام substring بدلاً من split
+            const before = text.substring(0, index);
+            const after = text.substring(index + searchText.length);
+
+            const fragment = document.createDocumentFragment();
+
+            if (before) {
+                fragment.appendChild(document.createTextNode(before));
+            }
+
+            const span = document.createElement("span");
+            span.className = `memory-highlight color${colorIndex}`;
+            // ✅ إضافة الألوان مباشرة
+            const bgColor = getColorByIndex(colorIndex);
+            const txtColor = getTextColorByIndex(colorIndex);
+            span.style.backgroundColor = bgColor;
+            span.style.color = txtColor;
+            span.style.fontWeight = 'bold';
+            span.style.padding = '1px 3px';
+            span.style.borderRadius = '3px';
+            span.textContent = searchText;
+            fragment.appendChild(span);
+
+            if (after) {
+                fragment.appendChild(document.createTextNode(after));
+            }
+
+            node.parentNode.replaceChild(fragment, node);
+        }
+    });
 }
 
 function highlightSelectOption(container, searchText, colorIndex) {
