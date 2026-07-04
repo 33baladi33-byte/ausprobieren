@@ -1465,6 +1465,14 @@ function goList() {
 function buildTeil1(questions) {
   const container = document.getElementById("teil1");
   if (!container) return;
+  
+  // ✅ التحقق من وجود أسئلة
+  if (!questions || !Array.isArray(questions) || questions.length === 0) {
+    console.warn('⚠️ buildTeil1: لا توجد أسئلة لعرضها');
+    container.innerHTML = '<div style="text-align:center; padding:20px; color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
+    return;
+  }
+  
   container.innerHTML = "";
   
   let userAnswers = {};
