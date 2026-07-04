@@ -2705,7 +2705,63 @@ function highlightSelectOption(container, searchText, colorIndex) {
         }
     });
 }
+// ============================================
+// تطبيق التلوين الآلي لـ Lesen Teil 1 و 3
+// ============================================
 
+function applyAutoHighlights(examData) {
+    if (!examData) return;
+    
+    // Lesen Teil 1 (Matching)
+    if (examData.type === 'matching' && examData.questions) {
+        const container = document.getElementById('teil1');
+        if (!container) return;
+        const questions = examData.questions || [];
+        const options = examData.sharedOptions || [];
+        
+        questions.forEach((q, index) => {
+            const firstWords = getFirstWords(q.text, 7);
+            const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
+            highlightTextInContainer(container, firstWords, color);
+            const correctOption = options[q.correct];
+            if (correctOption) {
+                highlightSelectOption(container, correctOption, color);
+            }
+        });
+    }
+    
+    // Lesen Teil 3
+    if (examData.type === 'teil3' && examData.items) {
+        const container = document.getElementById('teil3');
+        if (!container) return;
+        const items = examData.items || [];
+        const situations = examData.situations || [];
+        
+        items.forEach((item, index) => {
+            if (item.correct === null || item.correct === undefined) return;
+            const color = item.highlightColor !== undefined ? item.highlightColor : index % 8;
+            const correctSituation = situations[item.correct];
+            if (!correctSituation) return;
+            
+            const selects = container.querySelectorAll('select');
+            selects.forEach((select, idx) => {
+                if (idx === index) {
+                    for (let i = 0; i < select.options.length; i++) {
+                        const option = select.options[i];
+                        if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
+                            option.style.backgroundColor = getColorByIndex(color);
+                            option.style.color = getTextColorByIndex(color);
+                            option.style.fontWeight = 'bold';
+                            option.style.padding = '2px 4px';
+                            option.style.borderRadius = '3px';
+                            break;
+                        }
+                    }
+                }
+            });
+        });
+    }
+}
 // ============================================
 // تلوين خيارات القائمة المنسدلة في Lesen Teil 1 و 3
 // ============================================
