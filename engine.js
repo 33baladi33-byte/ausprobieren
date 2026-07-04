@@ -2633,7 +2633,173 @@ if (typeof checkTeil3Exam === 'function') {
 
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 // ============================================
-// MEMORY HIGHLIGHT SYSTEM - التلوين الذكي (النسخة المحسنة)
+// MEMORY HIGHLIGHT SYSTEM - التلوين الذكي (النسخة النهائية)
+// ============================================
+
+// ============================================
+// نظام التلوين الذكي الآلي - لـ Lesen Teil 1
+// ============================================
+
+// دالة لاستخراج أول N كلمات من النص
+function getFirstWords(text, wordCount = 7) {
+    // إزالة "Text 1:" أو "Text 2:" من البداية
+    let cleanText = text.replace(/^Text\s*\d+:\s*/, '');
+    const words = cleanText.trim().split(/\s+/);
+    return words.slice(0, wordCount).join(' ');
+}
+
+// دالة لتطبيق التلوين الآلي لـ Lesen Teil 1
+function applyAutoMatchingHighlights(examData) {
+    if (!examData || examData.type !== 'matching') return;
+    
+    const questions = examData.questions || [];
+    const options = examData.sharedOptions || [];
+    
+    // ✅ استهداف حاوية الامتحان فقط (وليس بطاقة المساعدة)
+    const container = document.getElementById('teil1');
+    if (!container) return;
+
+    // ✅ إزالة أي تلوين سابق من بطاقة المساعدة
+    removeHelpCardHighlights();
+
+    questions.forEach((q, index) => {
+        const firstWords = getFirstWords(q.text, 7);
+        const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
+        
+        // 1. تلوين أول 7 كلمات في الفقرة (داخل teil1 فقط)
+        highlightTextInContainer(container, firstWords, color);
+        
+        // 2. تلوين الإجابة الصحيحة في القائمة المنسدلة
+        const correctOption = options[q.correct];
+        if (correctOption) {
+            highlightSelectOption(container, correctOption, color);
+        }
+    });
+}
+
+// دالة لتلوين النص في الحاوية (تتجنب بطاقة المساعدة)
+function highlightTextInContainer(container, searchText, colorIndex) {
+    if (!container || !searchText) return;
+    
+    const walker = document.createTreeWalker(
+        container,
+        NodeFilter.SHOW_TEXT,
+        {
+            acceptNode: function(node) {
+                // ❌ رفض أي نصوص داخل بطاقة المساعدة
+                if (node.parentElement && 
+                    node.parentElement.closest && 
+                    node.parentElement.closest('#helpSystemContainer')) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                if (node.parentElement && 
+                    node.parentElement.classList && 
+                    node.parentElement.classList.contains('memory-highlight')) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                if (node.parentElement && 
+                    node.parentElement.tagName === 'SCRIPT') {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        }
+    );
+
+    const textNodes = [];
+    let currentNode = walker.nextNode();
+    while (currentNode) {
+        textNodes.push(currentNode);
+        currentNode = walker.nextNode();
+    }
+
+    textNodes.forEach(node => {
+        const text = node.textContent;
+        if (text.includes(searchText)) {
+            if (!window._originalTexts) window._originalTexts = new Map();
+            if (!window._originalTexts.has(node)) {
+                window._originalTexts.set(node, text);
+            }
+
+            const parts = text.split(searchText);
+            const fragment = document.createDocumentFragment();
+            
+            parts.forEach((part, idx) => {
+                if (idx > 0) {
+                    const span = document.createElement('span');
+                    span.className = `memory-highlight color${colorIndex}`;
+                    span.textContent = searchText;
+                    fragment.appendChild(span);
+                }
+                if (part) {
+                    const textNode = document.createTextNode(part);
+                    fragment.appendChild(textNode);
+                }
+            });
+
+            node.parentNode.replaceChild(fragment, node);
+        }
+    });
+}
+
+// ✅ دالة خاصة لتلوين الخيارات في القائمة المنسدلة (Select)
+function highlightSelectOption(container, searchText, colorIndex) {
+    if (!container || !searchText) return;
+    
+    // البحث عن جميع عناصر select في الحاوية
+    const selects = container.querySelectorAll('select');
+    
+    selects.forEach(select => {
+        // البحث عن الخيار الذي يحتوي على النص المطلوب
+        for (let i = 0; i < select.options.length; i++) {
+            const option = select.options[i];
+            if (option.textContent.includes(searchText)) {
+                // ✅ تلوين الخيار المطابق
+                option.style.backgroundColor = getColorByIndex(colorIndex);
+                option.style.color = getTextColorByIndex(colorIndex);
+                option.style.fontWeight = 'bold';
+                option.style.padding = '2px 4px';
+                option.style.borderRadius = '3px';
+                break;
+            }
+        }
+    });
+}
+
+// دالة للحصول على لون الخلفية حسب index
+function getColorByIndex(index) {
+    const colors = [
+        '#D8ECFF', '#DDF7E5', '#FFF2CC', '#F5E1FF',
+        '#FFE4D6', '#E3F6F5', '#FCE8F3', '#E8F5D0'
+    ];
+    return colors[index % colors.length] || '#D8ECFF';
+}
+
+// دالة للحصول على لون النص حسب index
+function getTextColorByIndex(index) {
+    const textColors = [
+        '#1565C0', '#2E7D32', '#F57C00', '#6A1B9A',
+        '#BF360C', '#00695C', '#880E4F', '#33691E'
+    ];
+    return textColors[index % textColors.length] || '#1565C0';
+}
+
+// ✅ دالة لإزالة التلوين من بطاقة المساعدة
+function removeHelpCardHighlights() {
+    const helpContainer = document.getElementById('helpSystemContainer');
+    if (!helpContainer) return;
+    
+    const highlights = helpContainer.querySelectorAll('.memory-highlight');
+    highlights.forEach(span => {
+        const parent = span.parentNode;
+        const textNode = document.createTextNode(span.textContent);
+        parent.replaceChild(textNode, span);
+        parent.normalize();
+    });
+}
+
+// ============================================
+// نظام التلوين الأساسي (للأنواع الأخرى)
 // ============================================
 
 class MemoryHighlightEngine {
@@ -2712,6 +2878,16 @@ class MemoryHighlightEngine {
         const examData = this.currentExamData || window.currentExamData || {};
         const memoryHighlights = examData.memoryHighlights || [];
 
+        // ✅ إذا كان نوع الامتحان matching (Lesen Teil 1) استخدم النظام الآلي
+        if (examData.type === 'matching' && examData.questions) {
+            console.log('🔄 تطبيق التلوين الآلي لـ Lesen Teil 1');
+            applyAutoMatchingHighlights(examData);
+            this._isApplying = false;
+            console.log(`✅ تم تطبيق التلوين الآلي (${examData.questions.length} فقرة)`);
+            return;
+        }
+
+        // ✅ للأنواع الأخرى (Hören, Sprach, إلخ) استخدم النظام العادي
         if (memoryHighlights.length === 0) {
             console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
             this._isApplying = false;
@@ -2800,6 +2976,22 @@ class MemoryHighlightEngine {
             parent.normalize();
         });
 
+        // ✅ إعادة تعيين خيارات الـ Select
+        const selects = this.container.querySelectorAll('select');
+        selects.forEach(select => {
+            for (let i = 0; i < select.options.length; i++) {
+                const option = select.options[i];
+                option.style.backgroundColor = '';
+                option.style.color = '';
+                option.style.fontWeight = '';
+                option.style.padding = '';
+                option.style.borderRadius = '';
+            }
+        });
+
+        if (window._originalTexts) {
+            window._originalTexts.clear();
+        }
         this.originalTexts.clear();
     }
 }
@@ -2809,170 +3001,6 @@ class MemoryHighlightEngine {
 // ============================================
 
 window.memoryEngine = new MemoryHighlightEngine();
-console.log('🧠 نظام التلوين الذكي جاهز (النسخة المحسنة)');
-// ============================================
-// نظام التلوين الذكي الآلي - لـ Lesen Teil 1
-// ============================================
+console.log('🧠 نظام التلوين الذكي جاهز (النسخة النهائية)');
 
-// دالة لاستخراج أول N كلمات من النص
-function getFirstWords(text, wordCount = 7) {
-    // إزالة "Text 1:" أو "Text 2:" من البداية
-    let cleanText = text.replace(/^Text\s*\d+:\s*/, '');
-    const words = cleanText.trim().split(/\s+/);
-    return words.slice(0, wordCount).join(' ');
-}
-
-// دالة لتطبيق التلوين الآلي لـ Lesen Teil 1
-function applyAutoMatchingHighlights(examData) {
-    if (!examData || examData.type !== 'matching') return;
-    
-    const questions = examData.questions || [];
-    const options = examData.sharedOptions || [];
-    const container = document.querySelector('.exam-box');
-    if (!container) return;
-
-    questions.forEach((q, index) => {
-        // استخراج أول 7 كلمات من الفقرة
-        const firstWords = getFirstWords(q.text, 7);
-        const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
-        
-        // 1. تلوين أول 7 كلمات في الفقرة
-        highlightTextInContainer(container, firstWords, color);
-        
-        // 2. تلوين الإجابة الصحيحة في القائمة المنسدلة
-        const correctOption = options[q.correct];
-        if (correctOption) {
-            highlightTextInContainer(container, correctOption, color);
-        }
-    });
-}
-
-// دالة مساعدة للبحث عن نص وتلوينه في الحاوية
-function highlightTextInContainer(container, searchText, colorIndex) {
-    if (!container || !searchText) return;
-    
-    const walker = document.createTreeWalker(
-        container,
-        NodeFilter.SHOW_TEXT,
-        {
-            acceptNode: function(node) {
-                if (node.parentElement && 
-                    node.parentElement.classList && 
-                    node.parentElement.classList.contains('memory-highlight')) {
-                    return NodeFilter.FILTER_REJECT;
-                }
-                if (node.parentElement && 
-                    node.parentElement.tagName === 'SCRIPT') {
-                    return NodeFilter.FILTER_REJECT;
-                }
-                // تجاهل النصوص داخل select options (لأنها قد تسبب مشاكل)
-                if (node.parentElement && 
-                    node.parentElement.tagName === 'OPTION') {
-                    return NodeFilter.FILTER_ACCEPT;
-                }
-                return NodeFilter.FILTER_ACCEPT;
-            }
-        }
-    );
-
-    const textNodes = [];
-    let currentNode = walker.nextNode();
-    while (currentNode) {
-        textNodes.push(currentNode);
-        currentNode = walker.nextNode();
-    }
-
-    textNodes.forEach(node => {
-        const text = node.textContent;
-        if (text.includes(searchText)) {
-            // حفظ النص الأصلي
-            if (!window._originalTexts) window._originalTexts = new Map();
-            if (!window._originalTexts.has(node)) {
-                window._originalTexts.set(node, text);
-            }
-
-            const parts = text.split(searchText);
-            const fragment = document.createDocumentFragment();
-            
-            parts.forEach((part, idx) => {
-                if (idx > 0) {
-                    const span = document.createElement('span');
-                    span.className = `memory-highlight color${colorIndex}`;
-                    span.textContent = searchText;
-                    fragment.appendChild(span);
-                }
-                if (part) {
-                    const textNode = document.createTextNode(part);
-                    fragment.appendChild(textNode);
-                }
-            });
-
-            node.parentNode.replaceChild(fragment, node);
-        }
-    });
-}
-
-// ============================================
-// تعديل دالة applyHighlights لدعم النظام الآلي
-// ============================================
-
-// حفظ الدالة الأصلية
-const originalApplyHighlights = MemoryHighlightEngine.prototype.applyHighlights;
-
-// استبدال الدالة
-MemoryHighlightEngine.prototype.applyHighlights = function() {
-    if (this._isApplying) return;
-    this._isApplying = true;
-    
-    const examData = this.currentExamData || window.currentExamData || {};
-    const memoryHighlights = examData.memoryHighlights || [];
-
-    // ✅ إذا كان نوع الامتحان matching (Lesen Teil 1) استخدم النظام الآلي
-    if (examData.type === 'matching' && examData.questions) {
-        console.log('🔄 تطبيق التلوين الآلي لـ Lesen Teil 1');
-        applyAutoMatchingHighlights(examData);
-        this._isApplying = false;
-        console.log(`✅ تم تطبيق التلوين الآلي (${examData.questions.length} فقرة)`);
-        return;
-    }
-
-    // ✅ للأنواع الأخرى (Hören, Sprach, إلخ) استخدم النظام العادي
-    if (memoryHighlights.length === 0) {
-        console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
-        this._isApplying = false;
-        return;
-    }
-
-    memoryHighlights.forEach(highlight => {
-        const color = highlight.color || 0;
-        const parts = highlight.parts || [];
-        parts.forEach(partText => {
-            if (!partText || partText.trim() === '') return;
-            this.highlightText(partText, color);
-        });
-    });
-    
-    this._isApplying = false;
-    console.log(`✅ تم تطبيق التلوين (${memoryHighlights.length} مجموعة)`);
-};
-
-// تعديل دالة removeHighlights لتتضمن النصوص المحفوظة
-const originalRemoveHighlights = MemoryHighlightEngine.prototype.removeHighlights;
-MemoryHighlightEngine.prototype.removeHighlights = function() {
-    if (!this.container) return;
-
-    const highlights = this.container.querySelectorAll('.memory-highlight');
-    
-    highlights.forEach(span => {
-        const parent = span.parentNode;
-        const textNode = document.createTextNode(span.textContent);
-        parent.replaceChild(textNode, span);
-        parent.normalize();
-    });
-
-    if (window._originalTexts) {
-        window._originalTexts.clear();
-    }
-    this.originalTexts.clear();
-};
 console.log("✅ engine.js تم تحميله بالكامل");
