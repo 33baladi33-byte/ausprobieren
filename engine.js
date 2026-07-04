@@ -2913,7 +2913,6 @@ applyHighlights() {
     console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
     this._isApplying = false;
 }
-
         memoryHighlights.forEach(highlight => {
             const color = highlight.color || 0;
             const parts = highlight.parts || [];
