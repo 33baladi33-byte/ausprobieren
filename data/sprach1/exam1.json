@@ -7,114 +7,112 @@
     {
       "id": 1,
       "options": ["um", "ohne", "anstatt"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "arbeiten muss",
+        "connector": "um",
+        "after": "meine Miete",
+        "color": 0
+      }
     },
     {
       "id": 2,
       "options": ["ob", "dass", "während"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "nicht weiß",
+        "connector": "ob",
+        "after": "ich das sonst",
+        "color": 1
+      }
     },
     {
       "id": 3,
       "options": ["aber", "denn", "und"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "sehr anstrengend",
+        "connector": "aber",
+        "after": "andererseits ist",
+        "color": 2
+      }
     },
     {
       "id": 4,
       "options": ["bestimmt", "unbedingt", "völlig"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "wollte ich ja",
+        "connector": "unbedingt",
+        "after": "Kellnerin werden",
+        "color": 3
+      }
     },
     {
       "id": 5,
       "options": ["mich", "dich", "sich"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Wenn ich",
+        "connector": "mich",
+        "after": "nicht täusche",
+        "color": 4
+      }
     },
     {
       "id": 6,
       "options": ["als", "wenn", "wie"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "ein Paar",
+        "connector": "als",
+        "after": "wir noch",
+        "color": 5
+      }
     },
     {
       "id": 7,
       "options": ["baldigen", "kommenden", "vergangenen"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "für die",
+        "connector": "kommenden",
+        "after": "Wochenenden aus",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["danach", "darüber", "dazu"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Lust",
+        "connector": "dazu",
+        "after": "?",
+        "color": 7
+      }
     },
     {
       "id": 9,
       "options": ["aber", "oder", "sondern"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "nicht nur sehr",
+        "connector": "sondern",
+        "after": "auch einige",
+        "color": 8
+      }
     },
     {
       "id": 10,
       "options": ["für", "gegen", "ohne"],
-      "correct": 0
-    }
-  ],
-  "memoryHighlights": [
-    {
-      "color": 0,
-      "parts": [
-        "arbeiten muss um meine Miete"
-      ]
-    },
-    {
-      "color": 1,
-      "parts": [
-        "nicht weiß ob ich das"
-      ]
-    },
-    {
-      "color": 2,
-      "parts": [
-        "sehr anstrengend aber andererseits ist"
-      ]
-    },
-    {
-      "color": 3,
-      "parts": [
-        "wollte ich ja unbedingt Kellnerin werden"
-      ]
-    },
-    {
-      "color": 4,
-      "parts": [
-        "Wenn ich mich nicht täusche"
-      ]
-    },
-    {
-      "color": 5,
-      "parts": [
-        "ein Paar als wir noch"
-      ]
-    },
-    {
-      "color": 6,
-      "parts": [
-        "für die kommenden Wochenenden aus"
-      ]
-    },
-    {
-      "color": 7,
-      "parts": [
-        "Lust dazu?"
-      ]
-    },
-    {
-      "color": 8,
-      "parts": [
-        "nur sehr sondern auch einige"
-      ]
-    },
-    {
-      "color": 9,
-      "parts": [
-        "was für dich?"
-      ]
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "was",
+        "connector": "für",
+        "after": "dich?",
+        "color": 9
+      }
     }
   ]
 }
