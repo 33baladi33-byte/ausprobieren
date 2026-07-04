@@ -4,12 +4,7 @@
   "questions": [
     {
       "text": "Bei der Deutschen Telefon KG bekommen Sie nur Auskunft zu Telefonapparaten dieses Unternehmens.",
-      "correct": true,
-      "highlight": {
-        "text": "Bei der Deutschen Telefon KG bekommen Sie nur Auskunft zu Telefonapparaten dieses Unternehmens.",
-        "color": "#4CAF50",
-        "helpKey": "hoeren3_exam1_q1"
-      }
+      "correct": true
     },
     {
       "text": "Im Rahmen des 'BR3 Aquarena Weekends' in Starnberg können Sie jeden Abend ein Feuerwerk betrachten.",
@@ -26,6 +21,14 @@
     {
       "text": "Sie haben eine ungültige Servicenummer gewählt und werden daher automatisch weiterverbunden.",
       "correct": false
+    }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 0,
+      "parts": [
+        "Bei der Deutschen Telefon KG bekommen Sie nur Auskunft zu Telefonapparaten dieses Unternehmens."
+      ]
     }
   ]
 }
