@@ -2942,7 +2942,16 @@ class MemoryHighlightEngine {
 // ============================================
 
 function colorSelectOptions() {
-    const examData = window.currentExamData;
+   function colorSelectOptions() {
+    // جلب البيانات من عدة مصادر محتملة
+    const examData = window.currentExamData || 
+                     (window.memoryEngine ? window.memoryEngine.currentExamData : null);
+    
+    if (!examData) {
+        console.log('⚠️ لا توجد بيانات امتحان للتلوين');
+        return;
+    }
+    // ... باقي الكود كما هو
     if (!examData) return;
     
     // Lesen Teil 1
@@ -3000,12 +3009,61 @@ function colorSelectOptions() {
     }
 }
 
+
+// ============================================
+// ربط زر التلوين مع MemoryHighlightEngine
+// ============================================
+
+// إنشاء نسخة من MemoryHighlightEngine
+const memoryEngine = new MemoryHighlightEngine();
+window.memoryEngine = memoryEngine;
+
 // ربط مع زر التلوين
 const toggleBtn = document.getElementById('memoryToggleBtn');
 if (toggleBtn) {
     toggleBtn.addEventListener('click', function() {
+        // تشغيل/إيقاف التلوين
+        memoryEngine.toggle();
+        // تحديث لون الخيارات بعد التلوين
         setTimeout(colorSelectOptions, 300);
     });
+}
+
+// ربط مع تحميل الامتحان
+document.addEventListener('examLoaded', function(e) {
+    if (e.detail?.data) {
+        window.currentExamData = e.detail.data;
+        if (window.memoryEngine) {
+            window.memoryEngine.setExamData(e.detail.data);
+        }
+        setTimeout(colorSelectOptions, 300);
+    }
+});
+
+// ============================================
+// تلوين الخيارات يدوياً (للتأكد من التطبيق)
+// ============================================
+
+// دالة مساعدة لتلوين الخيارات عند الحاجة
+window.applyColorToOptions = function() {
+    setTimeout(colorSelectOptions, 100);
+};
+
+// عند الضغط على زر التصحيح في Teil 1 و Teil 3
+if (typeof checkMatchingExam === 'function') {
+    const originalCheckMatching = window.checkMatchingExam;
+    window.checkMatchingExam = function() {
+        originalCheckMatching();
+        setTimeout(colorSelectOptions, 200);
+    };
+}
+
+if (typeof checkTeil3Exam === 'function') {
+    const originalCheckTeil3 = window.checkTeil3Exam;
+    window.checkTeil3Exam = function() {
+        originalCheckTeil3();
+        setTimeout(colorSelectOptions, 200);
+    };
 }
 
 // ربط مع تحميل الامتحان
