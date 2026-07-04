@@ -9,8 +9,9 @@
       "options": ["um", "ohne", "anstatt"],
       "correct": 0,
       "memoryHighlight": {
-        "context": "arbeiten muss __ (1) __ meine Miete",
+        "before": "arbeiten muss",
         "connector": "um",
+        "after": "meine Miete",
         "color": 0
       }
     },
@@ -19,8 +20,9 @@
       "options": ["ob", "dass", "während"],
       "correct": 0,
       "memoryHighlight": {
-        "context": "nicht weiß __ (2) __ ich das sonst",
+        "before": "nicht weiß",
         "connector": "ob",
+        "after": "ich das sonst",
         "color": 1
       }
     },
@@ -29,8 +31,9 @@
       "options": ["aber", "denn", "und"],
       "correct": 0,
       "memoryHighlight": {
-        "context": "sehr anstrengend __ (3) __ andererseits ist",
+        "before": "sehr anstrengend",
         "connector": "aber",
+        "after": "andererseits ist",
         "color": 2
       }
     },
@@ -39,8 +42,9 @@
       "options": ["bestimmt", "unbedingt", "völlig"],
       "correct": 1,
       "memoryHighlight": {
-        "context": "wollte ich ja __ (4) __ Kellnerin werden",
+        "before": "wollte ich ja",
         "connector": "unbedingt",
+        "after": "Kellnerin werden",
         "color": 3
       }
     },
@@ -49,8 +53,9 @@
       "options": ["mich", "dich", "sich"],
       "correct": 0,
       "memoryHighlight": {
-        "context": "Wenn ich __ (5) __ nicht täusche",
+        "before": "Wenn ich",
         "connector": "mich",
+        "after": "nicht täusche",
         "color": 4
       }
     },
@@ -59,8 +64,9 @@
       "options": ["als", "wenn", "wie"],
       "correct": 0,
       "memoryHighlight": {
-        "context": "ein Paar __ (6) __ wir noch",
+        "before": "ein Paar",
         "connector": "als",
+        "after": "wir noch",
         "color": 5
       }
     },
@@ -69,8 +75,9 @@
       "options": ["baldigen", "kommenden", "vergangenen"],
       "correct": 1,
       "memoryHighlight": {
-        "context": "für die __ (7) __ Wochenenden aus",
+        "before": "für die",
         "connector": "kommenden",
+        "after": "Wochenenden aus",
         "color": 6
       }
     },
@@ -79,8 +86,9 @@
       "options": ["danach", "darüber", "dazu"],
       "correct": 2,
       "memoryHighlight": {
-        "context": "Lust __ (8) __ ?",
+        "before": "Lust",
         "connector": "dazu",
+        "after": "?",
         "color": 7
       }
     },
@@ -89,8 +97,9 @@
       "options": ["aber", "oder", "sondern"],
       "correct": 2,
       "memoryHighlight": {
-        "context": "nicht nur sehr __ (9) __ auch einige",
+        "before": "nicht nur sehr",
         "connector": "sondern",
+        "after": "auch einige",
         "color": 8
       }
     },
@@ -99,8 +108,9 @@
       "options": ["für", "gegen", "ohne"],
       "correct": 0,
       "memoryHighlight": {
-        "context": "was __ (10) __ dich?",
+        "before": "was",
         "connector": "für",
+        "after": "dich?",
         "color": 9
       }
     }
