@@ -2967,12 +2967,13 @@ function applyAutoHighlights(examData) {
                 }
                 afterText = afterText.trim();
                 
-                // ✅ تلوين before
-                if (highlight.before && beforeText.includes(highlight.before)) {
+                // ✅ تلوين before - البحث في النص قبل الزر فقط
+                if (highlight.before) {
                     const beforeNode = btn.previousSibling;
                     if (beforeNode && beforeNode.nodeType === 3) {
                         const text = beforeNode.textContent;
-                        const idx = text.indexOf(highlight.before);
+                        // البحث عن before في نهاية النص (آخر ظهور)
+                        const idx = text.lastIndexOf(highlight.before);
                         if (idx !== -1) {
                             const before = text.substring(0, idx);
                             const after = text.substring(idx + highlight.before.length);
@@ -2995,11 +2996,12 @@ function applyAutoHighlights(examData) {
                     }
                 }
                 
-                // ✅ تلوين after
-                if (highlight.after && afterText.includes(highlight.after)) {
+                                // ✅ تلوين after - البحث في النص بعد الزر فقط
+                if (highlight.after) {
                     const afterNode = btn.nextSibling;
                     if (afterNode && afterNode.nodeType === 3) {
                         const text = afterNode.textContent;
+                        // البحث عن after في بداية النص (أول ظهور)
                         const idx = text.indexOf(highlight.after);
                         if (idx !== -1) {
                             const before = text.substring(0, idx);
