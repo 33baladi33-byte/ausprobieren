@@ -2729,42 +2729,27 @@ function applyAutoHighlights(examData) {
         });
     }
     
-    if (examData.type === 'teil3' && examData.items) {
-        const items = examData.items || [];
-        items.forEach((item, index) => {
-            if (item.correct === null || item.correct === undefined) return;
-            const firstWords = getFirstWords(item.text, 7);
-            const color = index % 8;
-            highlightTextInContainer(container, firstWords, color);
-        });
-        setTimeout(colorTeil3SelectOptions, 100);
-    }
-}
-
-function colorTeil3SelectOptions() {
+// Lesen Teil 3
+if (examData.type === 'teil3' && examData.items) {
     const container = document.getElementById('teil3');
     if (!container) return;
-    const examData = window.currentExamData;
-    if (!examData || examData.type !== 'teil3') return;
-    
     const items = examData.items || [];
     const situations = examData.situations || [];
     const selects = container.querySelectorAll('select');
-    
     selects.forEach((select, index) => {
         const item = items[index];
         if (!item || item.correct === null || item.correct === undefined) return;
-        const colorIndex = index % 8;
+        // ✅ استخدم اللون من item.highlightColor أو index
+        const color = item.highlightColor !== undefined ? item.highlightColor : index % 8;
         const correctSituation = situations[item.correct];
         if (!correctSituation) return;
-        
         for (let i = 0; i < select.options.length; i++) {
             const option = select.options[i];
             if (option.textContent.includes(correctSituation) || correctSituation.includes(option.textContent)) {
-                option.style.backgroundColor = getColorByIndex(colorIndex);
-                option.style.color = getTextColorByIndex(colorIndex);
+                option.style.backgroundColor = getColorByIndex(color);
+                option.style.color = getTextColorByIndex(color);
                 option.style.fontWeight = 'bold';
-                option.style.padding = '2px 6px';
+                option.style.padding = '2px 4px';
                 option.style.borderRadius = '3px';
                 break;
             }
