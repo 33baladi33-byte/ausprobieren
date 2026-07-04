@@ -2778,7 +2778,115 @@ function highlightSelectOption(container, searchText, colorIndex) {
         }
     });
 }
+// ============================================
+// ✅ أضف الدالة الجديدة هنا
+// ============================================
+// دالة لتلوين السياق الكامل (before + blank + after)
+// ============================================
 
+function highlightTextContext(container, context, colorIndex) {
+    if (!container || !context) return false;
+    
+    // استخراج النص قبل وبعد الـ blank
+    const blankMatch = context.match(/__\(\d+\)__/);
+    if (!blankMatch) return false;
+    
+    const blank = blankMatch[0];
+    const parts = context.split(blank);
+    const beforeText = parts[0] || '';
+    const afterText = parts[1] || '';
+    
+    if (!beforeText && !afterText) return false;
+    
+    // البحث عن النص الكامل في container
+    const walker = document.createTreeWalker(
+        container,
+        NodeFilter.SHOW_TEXT,
+        {
+            acceptNode: function(node) {
+                if (node.parentElement && node.parentElement.classList && node.parentElement.classList.contains('memory-highlight')) {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                if (node.parentElement && node.parentElement.tagName === 'SCRIPT') {
+                    return NodeFilter.FILTER_REJECT;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        }
+    );
+
+    let found = false;
+    const textNodes = [];
+    let currentNode = walker.nextNode();
+    while (currentNode) {
+        textNodes.push(currentNode);
+        currentNode = walker.nextNode();
+    }
+
+    textNodes.forEach(node => {
+        const text = node.textContent;
+        // البحث عن beforeText + blank + afterText في النص
+        const fullPattern = beforeText + blank + afterText;
+        const index = text.indexOf(fullPattern);
+        if (index !== -1) {
+            found = true;
+            if (!window._originalTexts) window._originalTexts = new Map();
+            if (!window._originalTexts.has(node)) {
+                window._originalTexts.set(node, text);
+            }
+
+            const before = text.substring(0, index);
+            const after = text.substring(index + fullPattern.length);
+
+            const fragment = document.createDocumentFragment();
+
+            if (before) {
+                fragment.appendChild(document.createTextNode(before));
+            }
+
+            // تلوين before
+            if (beforeText) {
+                const spanBefore = document.createElement("span");
+                spanBefore.className = `memory-highlight color${colorIndex}`;
+                const bgColor = getColorByIndex(colorIndex);
+                const txtColor = getTextColorByIndex(colorIndex);
+                spanBefore.style.backgroundColor = bgColor;
+                spanBefore.style.color = txtColor;
+                spanBefore.style.fontWeight = 'bold';
+                spanBefore.style.padding = '1px 3px';
+                spanBefore.style.borderRadius = '3px';
+                spanBefore.textContent = beforeText;
+                fragment.appendChild(spanBefore);
+            }
+
+            // إضافة الـ blank كما هو (بدون تلوين)
+            fragment.appendChild(document.createTextNode(blank));
+
+            // تلوين after
+            if (afterText) {
+                const spanAfter = document.createElement("span");
+                spanAfter.className = `memory-highlight color${colorIndex}`;
+                const bgColor = getColorByIndex(colorIndex);
+                const txtColor = getTextColorByIndex(colorIndex);
+                spanAfter.style.backgroundColor = bgColor;
+                spanAfter.style.color = txtColor;
+                spanAfter.style.fontWeight = 'bold';
+                spanAfter.style.padding = '1px 3px';
+                spanAfter.style.borderRadius = '3px';
+                spanAfter.textContent = afterText;
+                fragment.appendChild(spanAfter);
+            }
+
+            if (after) {
+                fragment.appendChild(document.createTextNode(after));
+            }
+
+            node.parentNode.replaceChild(fragment, node);
+        }
+    });
+    
+    return found;
+}
 // ============================================
 // تطبيق التلوين الآلي لـ Lesen Teil 1 و 3
 // ============================================
@@ -2803,33 +2911,41 @@ function applyAutoHighlights(examData) {
             }
         });
     }
-        // Sprachbausteine Teil 1 & 2
-    if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
-        const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
-        const container = document.getElementById(containerId);
-        if (!container) return;
+    // Sprachbausteine Teil 1 & 2
+if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
+    const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    examData.options.forEach((option, index) => {
+        const highlight = option.memoryHighlight;
+        if (!highlight) return;
         
-        examData.options.forEach((option, index) => {
-            const highlight = option.memoryHighlight;
-            if (!highlight) return;
-            
-            const color = highlight.color !== undefined && highlight.color !== null ? highlight.color : index % 12;
-            
-            if (highlight.before) {
-                highlightTextInContainer(container, highlight.before, color);
+        const color = highlight.color !== undefined && highlight.color !== null ? highlight.color : index % 12;
+        
+        // ✅ الطريقة الجديدة: استخدام context كامل
+        if (highlight.context) {
+            // البحث عن السياق الكامل في النص
+            const found = highlightTextContext(container, highlight.context, color);
+            if (!found) {
+                // إذا لم يتم العثور على السياق الكامل، حاول البحث المنفصل (للتوافق مع الإصدارات القديمة)
+                if (highlight.before) highlightTextInContainer(container, highlight.before, color);
+                if (highlight.connector) highlightTextInContainer(container, highlight.connector, color);
+                if (highlight.after) highlightTextInContainer(container, highlight.after, color);
             }
-            if (highlight.connector) {
-                highlightTextInContainer(container, highlight.connector, color);
-            }
-            if (highlight.after) {
-                highlightTextInContainer(container, highlight.after, color);
-            }
-            
-            if (highlight.connector) {
-                highlightSelectOption(container, highlight.connector, color);
-            }
-        });
-    }
+        } else {
+            // الطريقة القديمة (للتوافق مع الإصدارات القديمة)
+            if (highlight.before) highlightTextInContainer(container, highlight.before, color);
+            if (highlight.connector) highlightTextInContainer(container, highlight.connector, color);
+            if (highlight.after) highlightTextInContainer(container, highlight.after, color);
+        }
+        
+        // تلوين الخيار الصحيح في القائمة
+        if (highlight.connector) {
+            highlightSelectOption(container, highlight.connector, color);
+        }
+    });
+}
     // Lesen Teil 3
     if (examData.type === 'teil3' && examData.items) {
         const container = document.getElementById('teil3');
