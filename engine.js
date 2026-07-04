@@ -2676,11 +2676,7 @@ function getFirstWords(text, wordCount = 7) {
     const words = cleanText.trim().split(/\s+/);
     return words.slice(0, wordCount).join(' ');
 }
-function getFirstWords(text, wordCount = 7) {
-    let cleanText = text.replace(/^Text\s*\d+:\s*/, '');
-    const words = cleanText.trim().split(/\s+/);
-    return words.slice(0, wordCount).join(' ');
-}
+
 
 function removeHelpCardHighlights() {
     const helpContainer = document.getElementById('helpSystemContainer');
