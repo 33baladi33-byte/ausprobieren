@@ -2739,6 +2739,7 @@ function highlightSelectOption(container, searchText, colorIndex) {
         }
     });
 }
+
 // ============================================
 // تطبيق التلوين الآلي لـ Lesen Teil 1 و 3
 // ============================================
@@ -2755,7 +2756,7 @@ function applyAutoHighlights(examData) {
         
         questions.forEach((q, index) => {
             const firstWords = getFirstWords(q.text, 7);
-            const color = q.highlightColor !== undefined ? q.highlightColor : index % 8;
+            const color = q.highlightColor !== undefined && q.highlightColor !== null ? q.highlightColor : index % 12;
             highlightTextInContainer(container, firstWords, color);
             const correctOption = options[q.correct];
             if (correctOption) {
@@ -2773,8 +2774,8 @@ function applyAutoHighlights(examData) {
         
         items.forEach((item, index) => {
             if (item.correct === null || item.correct === undefined) return;
-           // ✅ واستبدله بهذا
-const color = q.highlightColor !== undefined && q.highlightColor !== null ? q.highlightColor : index % 12;
+            // ✅ استخدم item بدلاً من q
+            const color = item.highlightColor !== undefined && item.highlightColor !== null ? item.highlightColor : index % 12;
             const correctSituation = situations[item.correct];
             if (!correctSituation) return;
             
