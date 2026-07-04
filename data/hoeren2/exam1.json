@@ -12,21 +12,11 @@
     },
     {
       "text": "Die Bergbauern können kaum vom Verkauf ihrer Produkte leben.",
-      "correct": true,
-      "highlight": {
-        "text": "Die Bergbauern können kaum vom Verkauf ihrer Produkte leben.",
-        "color": "#4CAF50",
-        "helpKey": "hoeren2_exam1_q3"
-      }
+      "correct": true
     },
     {
       "text": "Auch heute werden die steilen Hänge noch manuell bearbeitet.",
-      "correct": true,
-      "highlight": {
-        "text": "Auch heute werden die steilen Hänge noch manuell bearbeitet.",
-        "color": "#FF9800",
-        "helpKey": "hoeren2_exam1_q4"
-      }
+      "correct": true
     },
     {
       "text": "Josef Gasser findet, dass man die Berglandschaft sich selbst überlassen sollte.",
@@ -42,30 +32,47 @@
     },
     {
       "text": "Für Frau Janke ist der Erholungswert trotz der Anstrengung sehr hoch.",
-      "correct": true,
-      "highlight": {
-        "text": "Für Frau Janke ist der Erholungswert trotz der Anstrengung sehr hoch.",
-        "color": "#2196F3",
-        "helpKey": "hoeren2_exam1_q8"
-      }
+      "correct": true
     },
     {
       "text": "Almhelferinnen und -helfer können vielseitige Aufgaben übernehmen.",
-      "correct": true,
-      "highlight": {
-        "text": "Almhelferinnen und -helfer können vielseitige Aufgaben übernehmen.",
-        "color": "#9C27B0",
-        "helpKey": "hoeren2_exam1_q9"
-      }
+      "correct": true
     },
     {
       "text": "Über die Dauer des Aufenthalts kann man frei entscheiden.",
-      "correct": true,
-      "highlight": {
-        "text": "Über die Dauer des Aufenthalts kann man frei entscheiden.",
-        "color": "#F44336",
-        "helpKey": "hoeren2_exam1_q10"
-      }
+      "correct": true
+    }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 0,
+      "parts": [
+        "Die Bergbauern können kaum vom Verkauf ihrer Produkte leben."
+      ]
+    },
+    {
+      "color": 1,
+      "parts": [
+        "Auch heute werden die steilen Hänge noch manuell bearbeitet."
+      ]
+    },
+    {
+      "color": 2,
+      "parts": [
+        "Für Frau Janke ist der Erholungswert trotz der Anstrengung sehr hoch."
+      ]
+    },
+    {
+      "color": 3,
+      "parts": [
+        "Almhelferinnen und -helfer können vielseitige Aufgaben übernehmen."
+      ]
+    },
+    {
+      "color": 4,
+      "parts": [
+        "Über die Dauer des Aufenthalts kann man frei entscheiden."
+      ]
     }
   ]
 }
