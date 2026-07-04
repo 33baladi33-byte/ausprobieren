@@ -2111,7 +2111,7 @@ function renderTeil3Exam() {
         updateTeil3RightSideColors();
         updateTeil3CardStyle(idx);
         
-        clearTeil3ItemSelection();
+        clearTeil3ItemSelection();  
         clearTeil3SituationSelection();
       };
     })(i);
@@ -2274,8 +2274,12 @@ function renderTeil3Exam() {
       updateTeil3CardStyle(i);
     }
     
-    updateTeil3SelectOptions();
-    updateTeil3RightSideColors();
+     updateTeil3SelectOptions();
+  updateTeil3RightSideColors();
+  
+  // ✅ أضف هذا السطر لتلوين خيارات القائمة
+  setTimeout(colorTeil3SelectOptions, 200);
+}
     
     document.querySelectorAll('#teil3 .correct-message').forEach(msg => msg.remove());
     
