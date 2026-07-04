@@ -2913,6 +2913,20 @@ applyHighlights() {
     this._isApplying = false;
 }
 
+    // ✅ 2. ثانياً: إذا كان نوع الامتحان matching (Lesen Teil 1) استخدم النظام الآلي
+    if (examData.type === 'matching' && examData.questions) {
+        console.log('🔄 تطبيق التلوين الآلي لـ Lesen Teil 1');
+        applyFullHighlights(examData);
+        this._isApplying = false;
+        console.log(`✅ تم تطبيق التلوين الآلي (${examData.questions.length} فقرة)`);
+        return;
+    }
+
+    // ✅ 3. إذا لم يجد شيئاً
+    console.log('📌 لا توجد بيانات تلوين لهذا الامتحان');
+    this._isApplying = false;
+}
+
     highlightText(searchText, colorIndex) {
         if (!this.container) return;
 
