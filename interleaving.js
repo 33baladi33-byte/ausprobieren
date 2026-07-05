@@ -42,7 +42,7 @@ class InterleavingManager {
 // ✅ التصدير الصحيح - يجب أن يكون بهذه الطريقة
 export default InterleavingManager;
 
-// ✅ أيضاً للاستخدام العالمي
+// ✅ للاستخدام العالمي
 if (typeof window !== 'undefined') {
     window.InterleavingManager = InterleavingManager;
 }
