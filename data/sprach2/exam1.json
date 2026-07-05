@@ -9,7 +9,7 @@
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
       "correct": "kaum",
       "memoryHighlight": {
-        "before": "in",
+        "before": "BMW, Audi: in",
         "connector": "kaum",
         "after": "einem anderen Land",
         "color": 0
