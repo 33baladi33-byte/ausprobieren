@@ -2697,17 +2697,20 @@ function highlightSelectOption(container, searchText, colorIndex) {
         for (let i = 0; i < select.options.length; i++) {
             const option = select.options[i];
             if (option.textContent.trim() === searchText) {
+                // ✅ تلوين الخيار بلون خفيف (مؤشر) وليس كاختيار
                 option.style.backgroundColor = getColorByIndex(colorIndex);
                 option.style.color = getTextColorByIndex(colorIndex);
                 option.style.fontWeight = 'bold';
                 option.style.padding = '2px 4px';
                 option.style.borderRadius = '3px';
+                // ✅ إضافة border خفيف بدلاً من جعله يبدو مختاراً
+                option.style.border = `2px solid ${getTextColorByIndex(colorIndex)}`;
+                option.style.opacity = '0.85';
                 break;
             }
         }
     });
 }
-
 function highlightByContext(container, beforeText, connectorText, afterText, colorIndex) {
     if (!container) return false;
     if (!beforeText && !connectorText && !afterText) return false;
@@ -2967,16 +2970,17 @@ function applyAutoHighlights(examData) {
                 }
                 afterText = afterText.trim();
                 
-                // ✅ تلوين before - البحث في النص قبل الزر فقط
+                               // ✅ تلوين before - البحث في النص قبل الزر فقط
                 if (highlight.before) {
                     const beforeNode = btn.previousSibling;
                     if (beforeNode && beforeNode.nodeType === 3) {
                         const text = beforeNode.textContent;
-                        // البحث عن before في نهاية النص (آخر ظهور)
-                        const idx = text.lastIndexOf(highlight.before);
+                        // ✅ البحث عن before مع تجاهل المسافات الزائدة
+                        const trimmedBefore = highlight.before.trim();
+                        const idx = text.lastIndexOf(trimmedBefore);
                         if (idx !== -1) {
                             const before = text.substring(0, idx);
-                            const after = text.substring(idx + highlight.before.length);
+                            const after = text.substring(idx + trimmedBefore.length);
                             const fragment = document.createDocumentFragment();
                             if (before) fragment.appendChild(document.createTextNode(before));
                             
@@ -2987,7 +2991,7 @@ function applyAutoHighlights(examData) {
                             span.style.fontWeight = 'bold';
                             span.style.padding = '1px 3px';
                             span.style.borderRadius = '3px';
-                            span.textContent = highlight.before;
+                            span.textContent = trimmedBefore;
                             fragment.appendChild(span);
                             
                             if (after) fragment.appendChild(document.createTextNode(after));
@@ -2996,16 +3000,17 @@ function applyAutoHighlights(examData) {
                     }
                 }
                 
-                                // ✅ تلوين after - البحث في النص بعد الزر فقط
+                               // ✅ تلوين after - البحث في النص بعد الزر فقط
                 if (highlight.after) {
                     const afterNode = btn.nextSibling;
                     if (afterNode && afterNode.nodeType === 3) {
                         const text = afterNode.textContent;
-                        // البحث عن after في بداية النص (أول ظهور)
-                        const idx = text.indexOf(highlight.after);
+                        // ✅ البحث عن after مع تجاهل المسافات الزائدة
+                        const trimmedAfter = highlight.after.trim();
+                        const idx = text.indexOf(trimmedAfter);
                         if (idx !== -1) {
                             const before = text.substring(0, idx);
-                            const after = text.substring(idx + highlight.after.length);
+                            const after = text.substring(idx + trimmedAfter.length);
                             const fragment = document.createDocumentFragment();
                             if (before) fragment.appendChild(document.createTextNode(before));
                             
@@ -3016,7 +3021,7 @@ function applyAutoHighlights(examData) {
                             span.style.fontWeight = 'bold';
                             span.style.padding = '1px 3px';
                             span.style.borderRadius = '3px';
-                            span.textContent = highlight.after;
+                            span.textContent = trimmedAfter;
                             fragment.appendChild(span);
                             
                             if (after) fragment.appendChild(document.createTextNode(after));
@@ -3024,7 +3029,7 @@ function applyAutoHighlights(examData) {
                         }
                     }
                 }
-                
+              
                 // ✅ تلوين الزر نفسه (connector)
                 if (highlight.connector) {
                     btn.textContent = highlight.connector;
