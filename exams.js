@@ -1108,15 +1108,17 @@ async function openExam(examId, examTitle, skill) {
     // ✅ تهيئة Interleaving بعد تحميل الامتحان
     // ============================================================
     
-    if (window.resetInterleaving) {
-        window.resetInterleaving();
+// في نهاية دالة openExam، بعد showTeil
+if (window.resetInterleaving) {
+    window.resetInterleaving();
+}
+
+// تهيئة الزر بعد تحميل الامتحان
+requestAnimationFrame(() => {
+    if (window.initInterleaving) {
+        window.initInterleaving();
     }
-    
-    requestAnimationFrame(() => {
-        if (window.initInterleaving) {
-            window.initInterleaving();
-        }
-    });
+});
     
   } catch(e) {
     console.error("❌ خطأ:", e);
