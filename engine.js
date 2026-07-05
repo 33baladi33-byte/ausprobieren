@@ -2689,6 +2689,7 @@ function highlightTextInContainer(container, searchText, colorIndex) {
     });
 }
 
+
 function highlightSelectOption(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
@@ -3300,7 +3301,7 @@ class MemoryHighlightEngine {
         highlightTextInContainer(this.container, searchText, colorIndex);
     }
 
-    removeHighlights() {
+       removeHighlights() {
         if (!this.container) return;
         
         // ✅ 1. إزالة التلوين من النص
@@ -3316,13 +3317,8 @@ class MemoryHighlightEngine {
         const selects = this.container.querySelectorAll('select');
         selects.forEach(select => {
             for (let i = 0; i < select.options.length; i++) {
-                select.options[i].style.backgroundColor = '';
                 select.options[i].style.color = '';
                 select.options[i].style.fontWeight = '';
-                select.options[i].style.padding = '';
-                select.options[i].style.borderRadius = '';
-                select.options[i].style.border = '';
-                select.options[i].style.opacity = '';
             }
         });
         
@@ -3333,19 +3329,9 @@ class MemoryHighlightEngine {
             spans.forEach(span => {
                 span.style.color = '';
                 span.style.fontWeight = '';
-                span.style.backgroundColor = '';
-                span.style.border = '';
-                span.style.padding = '';
-                span.style.borderRadius = '';
-                span.style.opacity = '';
             });
             label.style.color = '';
             label.style.fontWeight = '';
-            label.style.backgroundColor = '';
-            label.style.border = '';
-            label.style.padding = '';
-            label.style.borderRadius = '';
-            label.style.opacity = '';
         });
         
         // ✅ 4. إزالة التلوين من Sprach 2 (word cards)
@@ -3353,11 +3339,6 @@ class MemoryHighlightEngine {
         wordCards.forEach(card => {
             card.style.color = '';
             card.style.fontWeight = '';
-            card.style.backgroundColor = '';
-            card.style.border = '';
-            card.style.padding = '';
-            card.style.borderRadius = '';
-            card.style.opacity = '';
         });
         
         // ✅ 5. إزالة التلوين من أي عناصر أخرى
@@ -3365,11 +3346,6 @@ class MemoryHighlightEngine {
         allElements.forEach(el => {
             el.style.color = '';
             el.style.fontWeight = '';
-            el.style.backgroundColor = '';
-            el.style.border = '';
-            el.style.padding = '';
-            el.style.borderRadius = '';
-            el.style.opacity = '';
         });
         
         if (window._originalTexts) {
