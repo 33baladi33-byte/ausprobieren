@@ -1087,6 +1087,14 @@ window.buildTrueFalseExam = function(container, questions, note) {
   }
   
   container.innerHTML = '';
+  // ✅ إنشاء الـ wrapper
+let wrapper = container.querySelector('.questions-wrapper');
+if (!wrapper) {
+    wrapper = document.createElement('div');
+    wrapper.className = 'questions-wrapper';
+    wrapper.style.cssText = 'display: contents;';
+    container.prepend(wrapper);
+}
   
   if (window._trueFalseUserAnswers) {
     delete window._trueFalseUserAnswers;
@@ -1188,14 +1196,14 @@ window.buildTrueFalseExam = function(container, questions, note) {
     div.appendChild(labelFalse);
     div.appendChild(textSpan);
     
-    container.appendChild(div);
+  wrapper.appendChild(div);
     // ✅ حفظ البطاقات في مصفوفة للخلط لاحقاً
 if (!window._questionCards) window._questionCards = [];
 window._questionCards.push(div);
   }
   
 // ✅ خلط بطاقات الأسئلة فقط
-const questionCards = window._questionCards || [...container.querySelectorAll('.question-card')];
+const questionCards = window._questionCards || [...wrapper.querySelectorAll('.question-card')];
 if (questionCards.length > 0) {
     for (let i = questionCards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -1472,7 +1480,14 @@ function renderMatchingQuestions() {
   const container = document.getElementById("teil1");
   if (!container) return;
   container.innerHTML = "";
-  
+  // ✅ إنشاء الـ wrapper
+let wrapper = container.querySelector('.questions-wrapper');
+if (!wrapper) {
+    wrapper = document.createElement('div');
+    wrapper.className = 'questions-wrapper';
+    wrapper.style.cssText = 'display: contents;';
+    container.prepend(wrapper);
+}
   const questions = currentMatchingExamData.questions;
   
   for (let i = 0; i < questions.length; i++) {
@@ -1552,11 +1567,11 @@ function renderMatchingQuestions() {
     })(questionId);
     
     card.appendChild(select);
-    container.appendChild(card);
+    wrapper.appendChild(card);
   }
   
   // ✅ خلط بطاقات الأسئلة فقط (باستخدام ID ثابت)
-const questionCards = [...container.querySelectorAll('.question-card')];
+const questionCards = [...wrapper.querySelectorAll('.question-card')];
 if (questionCards.length > 0) {
     // ترتيب البطاقات حسب الـ ID الأصلي للحفاظ على الترتيب الثابت
     questionCards.sort((a, b) => {
@@ -1711,6 +1726,14 @@ function renderTeil2Exam() {
   const container = document.getElementById("teil2");
   if (!container) return;
   container.innerHTML = "";
+  // ✅ إنشاء الـ wrapper
+let wrapper = container.querySelector('.questions-wrapper');
+if (!wrapper) {
+    wrapper = document.createElement('div');
+    wrapper.className = 'questions-wrapper';
+    wrapper.style.cssText = 'display: contents;';
+    container.prepend(wrapper);
+}
   
   const twoColumns = document.createElement("div");
   twoColumns.style.display = "flex";
@@ -1821,7 +1844,7 @@ function renderTeil2Exam() {
   questionsColumn.appendChild(questionsContainer);
   
 // ✅ خلط بطاقات الأسئلة فقط (باستخدام ID ثابت)
-const questionCards = [...questionsContainer.querySelectorAll('.question-card')];
+const questionCards = [...wrapper.querySelectorAll('.question-card')];
 if (questionCards.length > 0) {
     questionCards.sort((a, b) => {
         const idA = parseInt(a.dataset.questionId) || 0;
@@ -2125,7 +2148,14 @@ function renderTeil3Exam() {
   const container = document.getElementById("teil3");
   if (!container) return;
   container.innerHTML = "";
-  
+  // ✅ إنشاء الـ wrapper
+let wrapper = container.querySelector('.questions-wrapper');
+if (!wrapper) {
+    wrapper = document.createElement('div');
+    wrapper.className = 'questions-wrapper';
+    wrapper.style.cssText = 'display: contents;';
+    container.prepend(wrapper);
+}
   const items = currentTeil3Data.items;
   const situations = currentTeil3Data.situations;
   
@@ -2240,7 +2270,7 @@ function renderTeil3Exam() {
   leftColumn.appendChild(itemsGrid);
   
 // ✅ خلط بطاقات الأسئلة فقط (باستخدام ID ثابت)
-const questionCards = [...leftColumn.querySelectorAll('.question-card')];
+const questionCards = [...wrapper.querySelectorAll('.question-card')];
 if (questionCards.length > 0) {
     questionCards.sort((a, b) => {
         const idA = parseInt(a.dataset.itemId) || 0;
