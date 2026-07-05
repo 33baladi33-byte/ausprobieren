@@ -3401,3 +3401,150 @@ if (typeof checkTeil3Exam === 'function') {
 }
 
 console.log("✅ engine.js تم تحميله بالكامل");
+
+// ============================================
+// نظام Interleaving (خلط الأسئلة)
+// ============================================
+
+let isInterleavingActive = false;
+let originalQuestionsOrder = [];
+
+// دالة خلط بطاقات الأسئلة فقط
+function shuffleQuestionCards(container) {
+    if (!container) return;
+    
+    // ✅ فقط بطاقات الأسئلة (وليس الأزرار أو النتيجة)
+    const cards = [...container.querySelectorAll('.question-card')];
+    if (cards.length === 0) return;
+    
+    // حفظ الترتيب الأصلي إذا لم يكن محفوظاً
+    if (!isInterleavingActive) {
+        originalQuestionsOrder = cards.map(card => card);
+    }
+    
+    // Fisher-Yates Shuffle
+    for (let i = cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const parent = cards[i].parentNode;
+        const nextSibling = cards[j].nextSibling;
+        
+        if (i < j) {
+            parent.insertBefore(cards[i], cards[j]);
+            parent.insertBefore(cards[j], nextSibling);
+        } else {
+            parent.insertBefore(cards[j], cards[i]);
+            parent.insertBefore(cards[i], cards[j].nextSibling);
+        }
+    }
+    
+    console.log(`✅ تم خلط ${cards.length} بطاقة سؤال في ${container.id}`);
+}
+
+// دالة استعادة الترتيب الأصلي
+function restoreOriginalOrder() {
+    if (!originalQuestionsOrder.length) return;
+    
+    const container = originalQuestionsOrder[0]?.parentNode;
+    if (!container) return;
+    
+    originalQuestionsOrder.forEach(card => {
+        container.appendChild(card);
+    });
+    
+    originalQuestionsOrder = [];
+    console.log('✅ تم استعادة الترتيب الأصلي');
+}
+
+// دالة تفعيل/إلغاء الخلط
+function toggleInterleaving() {
+    const btn = document.getElementById('interleavingBtn');
+    if (!btn) return;
+    
+    // البحث عن حاوية الأسئلة الحالية
+    const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3', 'sprach1', 'sprach2'];
+    let activeContainer = null;
+    
+    for (const id of containers) {
+        const el = document.getElementById(id);
+        if (el && el.style.display !== 'none' && el.children.length > 0) {
+            activeContainer = el;
+            break;
+        }
+    }
+    
+    if (!activeContainer) {
+        console.warn('⚠️ لا توجد أسئلة للخلط');
+        return;
+    }
+    
+    if (isInterleavingActive) {
+        // إلغاء الخلط
+        restoreOriginalOrder();
+        btn.classList.remove('active');
+        isInterleavingActive = false;
+        showNotification('✅ تم إلغاء خلط الأسئلة');
+    } else {
+        // تفعيل الخلط
+        shuffleQuestionCards(activeContainer);
+        btn.classList.add('active');
+        isInterleavingActive = true;
+        showNotification('🔄 تم خلط الأسئلة عشوائياً');
+    }
+}
+
+// دالة تهيئة الزر
+function initInterleaving() {
+    const btn = document.getElementById('interleavingBtn');
+    if (!btn) {
+        console.log('⚠️ زر Interleaving غير موجود');
+        return;
+    }
+    
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    
+    newBtn.addEventListener('click', toggleInterleaving);
+    console.log('✅ زر Interleaving تم تهيئته');
+}
+
+// دالة عرض إشعار
+function showNotification(message) {
+    if (typeof window.showToast === 'function') {
+        window.showToast(message);
+        return;
+    }
+    
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(59, 130, 246, 0.95);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        z-index: 9999;
+        animation: fadeInUp 0.3s ease;
+        direction: rtl;
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(-50%) translateY(20px)';
+        notification.style.transition = 'all 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 2000);
+}
+
+// تصدير الدوال للاستخدام العالمي
+window.initInterleaving = initInterleaving;
+window.toggleInterleaving = toggleInterleaving;
+window.shuffleQuestionCards = shuffleQuestionCards;
+
+console.log('✅ نظام Interleaving (خلط الأسئلة) جاهز');
