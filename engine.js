@@ -3112,11 +3112,6 @@ function getFirstWords(text, wordCount = 7) {
 // ============================================
 
 function colorSelectOptions() {
-      // ✅ منع التطبيق إذا كان التلوين غير مفعل
-    if (window.memoryEngine && !window.memoryEngine.isActive) {
-        console.log('⏭️ تخطي colorSelectOptions (التلوين غير مفعل)');
-        return;
-    }
     const examData = window.currentExamData || 
                      (window.memoryEngine ? window.memoryEngine.currentExamData : null);
     
