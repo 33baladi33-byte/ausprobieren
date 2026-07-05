@@ -2906,7 +2906,7 @@ function applyAutoHighlights(examData) {
         });
         return;
     }
-    
+  
     // Sprachbausteine Teil 1 & 2
     if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
         const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
@@ -3030,15 +3030,17 @@ function applyAutoHighlights(examData) {
                     }
                 }
               
-                // ✅ تلوين الزر نفسه (connector)
+                                // ✅ تلوين الزر نفسه (يبقى الرقم فقط، لا نغير محتواه)
                 if (highlight.connector) {
-                    btn.textContent = highlight.connector;
+                    // ❌ ممنوع: btn.textContent = highlight.connector;
+                    // ✅ فقط نضيف لون خفيف للزر
                     btn.style.backgroundColor = bgColor;
                     btn.style.color = txtColor;
                     btn.style.fontWeight = 'bold';
                     btn.style.border = `2px solid ${txtColor}`;
                     btn.style.borderRadius = '4px';
                     btn.style.padding = '2px 8px';
+                    btn.style.opacity = '0.7';
                 }
                 
                 // ✅ تلوين الخيار في القائمة المنسدلة
