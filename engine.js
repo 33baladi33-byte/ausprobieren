@@ -2688,20 +2688,19 @@ function highlightTextInContainer(container, searchText, colorIndex) {
         }
     });
 }
-
 function highlightSelectOption(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
+    const searchTrimmed = searchText.trim();
+    const bgColor = getColorByIndex(colorIndex);
+    const txtColor = getTextColorByIndex(colorIndex);
+    
+    // ✅ 1. تلوين الخيارات في القوائم المنسدلة (Lesen Teil 1)
     const selects = container.querySelectorAll('select');
     selects.forEach(select => {
         for (let i = 0; i < select.options.length; i++) {
             const option = select.options[i];
-            // ✅ مقارنة أكثر مرونة (تجاهل المسافات الزائدة)
-            const optionText = option.textContent.trim();
-            const searchTextTrimmed = searchText.trim();
-            if (optionText === searchTextTrimmed) {
-                const bgColor = getColorByIndex(colorIndex);
-                const txtColor = getTextColorByIndex(colorIndex);
+            if (option.textContent.trim() === searchTrimmed) {
                 option.style.backgroundColor = bgColor;
                 option.style.color = txtColor;
                 option.style.fontWeight = 'bold';
@@ -2709,9 +2708,69 @@ function highlightSelectOption(container, searchText, colorIndex) {
                 option.style.borderRadius = '3px';
                 option.style.border = `2px solid ${txtColor}`;
                 option.style.opacity = '0.85';
-                console.log(`✅ تلوين الخيار: "${searchTextTrimmed}"`);
                 break;
             }
+        }
+    });
+    
+    // ✅ 2. تلوين الخيارات في Sprach 1 (label > span)
+    const labels = container.querySelectorAll('label');
+    labels.forEach(label => {
+        // البحث عن span داخل label
+        const spans = label.querySelectorAll('span');
+        spans.forEach(span => {
+            if (span.textContent.trim() === searchTrimmed) {
+                span.style.backgroundColor = bgColor;
+                span.style.color = txtColor;
+                span.style.fontWeight = 'bold';
+                span.style.padding = '2px 4px';
+                span.style.borderRadius = '3px';
+                span.style.border = `2px solid ${txtColor}`;
+                span.style.opacity = '0.85';
+                console.log(`   ✅ تلوين الخيار في label/span: "${searchTrimmed}"`);
+            }
+        });
+        
+        // إذا لم يكن هناك span، نلون الـ label نفسه
+        if (label.textContent.trim() === searchTrimmed) {
+            label.style.backgroundColor = bgColor;
+            label.style.color = txtColor;
+            label.style.fontWeight = 'bold';
+            label.style.padding = '2px 4px';
+            label.style.borderRadius = '3px';
+            label.style.border = `2px solid ${txtColor}`;
+            label.style.opacity = '0.85';
+            console.log(`   ✅ تلوين الخيار في label: "${searchTrimmed}"`);
+        }
+    });
+    
+    // ✅ 3. تلوين الخيارات في Sprach 2 (word cards)
+    const wordCards = container.querySelectorAll('.sprach2-word-card');
+    wordCards.forEach(card => {
+        if (card.textContent.trim() === searchTrimmed) {
+            card.style.backgroundColor = bgColor;
+            card.style.color = txtColor;
+            card.style.fontWeight = 'bold';
+            card.style.padding = '4px 8px';
+            card.style.borderRadius = '4px';
+            card.style.border = `2px solid ${txtColor}`;
+            card.style.opacity = '0.85';
+            console.log(`   ✅ تلوين الخيار في word card: "${searchTrimmed}"`);
+        }
+    });
+    
+    // ✅ 4. تلوين الخيارات في أي عنصر يحتوي على النص (كحل أخير)
+    const allElements = container.querySelectorAll('.option, .option-btn, .choice, [class*="option"]');
+    allElements.forEach(el => {
+        if (el.textContent.trim() === searchTrimmed) {
+            el.style.backgroundColor = bgColor;
+            el.style.color = txtColor;
+            el.style.fontWeight = 'bold';
+            el.style.padding = '2px 4px';
+            el.style.borderRadius = '3px';
+            el.style.border = `2px solid ${txtColor}`;
+            el.style.opacity = '0.85';
+            console.log(`   ✅ تلوين الخيار في element: "${searchTrimmed}"`);
         }
     });
 }
