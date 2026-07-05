@@ -1051,7 +1051,17 @@ body.dark-mode .mobile-banner span {
             </div>
         </div>
     </div>
-
+<!-- أضف هذا الزر في البداية -->
+    <button id="interleavingBtn" class="interleaving-btn" 
+            title="Interleaving (Shuffle Questions)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" 
+             stroke="currentColor" stroke-width="2.5">
+            <path d="M21 16V8h-8" stroke-linecap="round"/>
+            <path d="M3 8h8v8" stroke-linecap="round"/>
+            <path d="M21 8l-4-4 4-4" stroke-linecap="round"/>
+            <path d="M3 16l4 4-4 4" stroke-linecap="round"/>
+        </svg>
+    </button>
     <!-- ⏰ جلسة مراجعة -->
     <button id="studySessionBtn" class="study-session-btn" title="جلسة مراجعة">⏰</button>
 
@@ -1926,6 +1936,7 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <div id="sessionTimerBar" class="session-timer-bar" style="display: none;">...</div>
 <div id="sessionEndOverlay" class="session-end-overlay" style="display: none;">...</div>
 
+<script type="module" src="./interleaving.js"></script>
 <script type="module" src="./helpSystem.js"></script>
 <script type="module" src="./engine.js"></script>
 <script type="module" src="./exams.js"></script>
