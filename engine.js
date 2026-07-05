@@ -1189,26 +1189,31 @@ window.buildTrueFalseExam = function(container, questions, note) {
     div.appendChild(textSpan);
     
     container.appendChild(div);
+    // ✅ حفظ البطاقات في مصفوفة للخلط لاحقاً
+if (!window._questionCards) window._questionCards = [];
+window._questionCards.push(div);
   }
   
-  // ✅ خلط بطاقات الأسئلة فقط
-  const questionCards = [...container.querySelectorAll('.question-card')];
-  if (questionCards.length > 0) {
+// ✅ خلط بطاقات الأسئلة فقط
+const questionCards = window._questionCards || [...container.querySelectorAll('.question-card')];
+if (questionCards.length > 0) {
     for (let i = questionCards.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const parent = questionCards[i].parentNode;
-      const nextSibling = questionCards[j].nextSibling;
-      
-      if (i < j) {
-        parent.insertBefore(questionCards[i], questionCards[j]);
-        parent.insertBefore(questionCards[j], nextSibling);
-      } else {
-        parent.insertBefore(questionCards[j], questionCards[i]);
-        parent.insertBefore(questionCards[i], questionCards[j].nextSibling);
-      }
+        const j = Math.floor(Math.random() * (i + 1));
+        const parent = questionCards[i].parentNode;
+        const nextSibling = questionCards[j].nextSibling;
+        
+        if (i < j) {
+            parent.insertBefore(questionCards[i], questionCards[j]);
+            parent.insertBefore(questionCards[j], nextSibling);
+        } else {
+            parent.insertBefore(questionCards[j], questionCards[i]);
+            parent.insertBefore(questionCards[i], questionCards[j].nextSibling);
+        }
     }
     console.log(`✅ تم خلط ${questionCards.length} بطاقة سؤال في ${container.id}`);
-  }
+}
+// تنظيف المصفوفة
+window._questionCards = [];
   
   // ✅ إضافة الأزرار بعد الخلط (تبقى في مكانها)
   const buttonContainer = document.createElement('div');
@@ -1550,24 +1555,22 @@ function renderMatchingQuestions() {
     container.appendChild(card);
   }
   
-  // ✅ خلط بطاقات الأسئلة فقط
-  const questionCards = [...container.querySelectorAll('.question-card')];
-  if (questionCards.length > 0) {
-    for (let i = questionCards.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const parent = questionCards[i].parentNode;
-      const nextSibling = questionCards[j].nextSibling;
-      
-      if (i < j) {
-        parent.insertBefore(questionCards[i], questionCards[j]);
-        parent.insertBefore(questionCards[j], nextSibling);
-      } else {
-        parent.insertBefore(questionCards[j], questionCards[i]);
-        parent.insertBefore(questionCards[i], questionCards[j].nextSibling);
-      }
-    }
-    console.log(`✅ تم خلط ${questionCards.length} بطاقة سؤال في teil1`);
-  }
+  // ✅ خلط بطاقات الأسئلة فقط (باستخدام ID ثابت)
+const questionCards = [...container.querySelectorAll('.question-card')];
+if (questionCards.length > 0) {
+    // ترتيب البطاقات حسب الـ ID الأصلي للحفاظ على الترتيب الثابت
+    questionCards.sort((a, b) => {
+        const idA = parseInt(a.dataset.questionId) || 0;
+        const idB = parseInt(b.dataset.questionId) || 0;
+        return idA - idB;
+    });
+    
+    // إعادة إدراجها بنفس الترتيب
+    questionCards.forEach(card => {
+        container.appendChild(card);
+    });
+    console.log(`✅ تم ترتيب ${questionCards.length} بطاقة حسب ID في teil1`);
+}
   
   const buttonContainer = document.createElement("div");
   buttonContainer.style.display = "flex";
@@ -1817,24 +1820,20 @@ function renderTeil2Exam() {
   
   questionsColumn.appendChild(questionsContainer);
   
-  // ✅ خلط بطاقات الأسئلة فقط
-  const questionCards = [...questionsContainer.querySelectorAll('.question-card')];
-  if (questionCards.length > 0) {
-    for (let i = questionCards.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const parent = questionCards[i].parentNode;
-      const nextSibling = questionCards[j].nextSibling;
-      
-      if (i < j) {
-        parent.insertBefore(questionCards[i], questionCards[j]);
-        parent.insertBefore(questionCards[j], nextSibling);
-      } else {
-        parent.insertBefore(questionCards[j], questionCards[i]);
-        parent.insertBefore(questionCards[i], questionCards[j].nextSibling);
-      }
-    }
-    console.log(`✅ تم خلط ${questionCards.length} بطاقة سؤال في teil2`);
-  }
+// ✅ خلط بطاقات الأسئلة فقط (باستخدام ID ثابت)
+const questionCards = [...questionsContainer.querySelectorAll('.question-card')];
+if (questionCards.length > 0) {
+    questionCards.sort((a, b) => {
+        const idA = parseInt(a.dataset.questionId) || 0;
+        const idB = parseInt(b.dataset.questionId) || 0;
+        return idA - idB;
+    });
+    
+    questionCards.forEach(card => {
+        questionsContainer.appendChild(card);
+    });
+    console.log(`✅ تم ترتيب ${questionCards.length} بطاقة حسب ID في teil2`);
+}
   
   const buttonContainer = document.createElement("div");
   buttonContainer.style.display = "flex";
@@ -2240,24 +2239,20 @@ function renderTeil3Exam() {
   
   leftColumn.appendChild(itemsGrid);
   
-  // ✅ خلط بطاقات الأسئلة فقط
-  const questionCards = [...leftColumn.querySelectorAll('.question-card')];
-  if (questionCards.length > 0) {
-    for (let i = questionCards.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      const parent = questionCards[i].parentNode;
-      const nextSibling = questionCards[j].nextSibling;
-      
-      if (i < j) {
-        parent.insertBefore(questionCards[i], questionCards[j]);
-        parent.insertBefore(questionCards[j], nextSibling);
-      } else {
-        parent.insertBefore(questionCards[j], questionCards[i]);
-        parent.insertBefore(questionCards[i], questionCards[j].nextSibling);
-      }
-    }
-    console.log(`✅ تم خلط ${questionCards.length} بطاقة سؤال في teil3`);
-  }
+// ✅ خلط بطاقات الأسئلة فقط (باستخدام ID ثابت)
+const questionCards = [...leftColumn.querySelectorAll('.question-card')];
+if (questionCards.length > 0) {
+    questionCards.sort((a, b) => {
+        const idA = parseInt(a.dataset.itemId) || 0;
+        const idB = parseInt(b.dataset.itemId) || 0;
+        return idA - idB;
+    });
+    
+    questionCards.forEach(card => {
+        leftColumn.appendChild(card);
+    });
+    console.log(`✅ تم ترتيب ${questionCards.length} بطاقة حسب ID في teil3`);
+}
   
   const rightColumn = document.createElement("div");
   rightColumn.style.flex = "1";
@@ -3421,13 +3416,10 @@ let isInterleavingActive = false;
 let originalCards = [];
 let currentWrapper = null;
 
-// 🔍 الحصول على الحاوية النشطة ومكان الأسئلة
+// 🔍 الحصول على الحاوية النشطة (البحث عن questions-wrapper الموجود)
 function getActiveQuestionWrapper() {
-    // استخدام currentSkill من exams.js
     const skill = window.currentSkill || 'lesen1';
     
-    // تحديد الحاوية المناسبة حسب الـ skill
-    let containerId = skill;
     const skillMap = {
         'hoeren1': 'hoeren1',
         'hoeren2': 'hoeren2',
@@ -3443,41 +3435,52 @@ function getActiveQuestionWrapper() {
     const container = document.getElementById(targetId);
     if (!container) return null;
     
-    // ✅ البحث عن منطقة الأسئلة (Questions Wrapper)
-    // إن لم توجد، نصنعها (مرة واحدة فقط)
-    let wrapper = container.querySelector('.questions-wrapper');
-    if (!wrapper) {
-        // إنشاء الـ wrapper ونقل بطاقات الأسئلة إليه
-        wrapper = document.createElement('div');
-        wrapper.className = 'questions-wrapper';
-        wrapper.style.cssText = 'display: contents;'; // لا يؤثر على التنسيق
-        
-        const cards = container.querySelectorAll('.question-card');
-        if (cards.length === 0) return null;
-        
-        // نقل البطاقات إلى الـ wrapper
-        cards.forEach(card => {
-            wrapper.appendChild(card);
-        });
-        
-        // إدراج الـ wrapper في بداية الحاوية
-        container.insertBefore(wrapper, container.firstChild);
-    }
-    
-    return wrapper;
+    // ✅ البحث عن الـ wrapper الموجود فقط، لا ننشئ جديداً
+    const wrapper = container.querySelector('.questions-wrapper');
+    return wrapper || null;
 }
 
+// دالة الحصول على الترتيب الثابت حسب عدد البطاقات
+function getFixedOrder(count) {
+    // إذا كان العدد موجوداً في FIXED_ORDERS
+    if (FIXED_ORDERS[count]) {
+        return FIXED_ORDERS[count];
+    }
+    
+    // إذا لم يكن موجوداً، نبحث عن أقرب عدد
+    const keys = Object.keys(FIXED_ORDERS).map(Number).sort((a, b) => a - b);
+    let bestKey = keys[0];
+    for (let key of keys) {
+        if (key <= count) {
+            bestKey = key;
+        } else {
+            break;
+        }
+    }
+    
+    // توليد ترتيب مخصص
+    const baseOrder = FIXED_ORDERS[bestKey] || [];
+    const result = [];
+    for (let i = 1; i <= count; i++) {
+        if (i <= baseOrder.length) {
+            result.push(baseOrder[i - 1]);
+        } else {
+            result.push(i);
+        }
+    }
+    return result;
+}
 // دالة تطبيق الترتيب الثابت
 function applyFixedOrder() {
     const wrapper = getActiveQuestionWrapper();
     if (!wrapper) {
-        console.warn('⚠️ لا توجد منطقة أسئلة نشطة');
+        console.warn('⚠️ لا توجد منطقة أسئلة نشطة (questions-wrapper)');
         return;
     }
     
     const cards = [...wrapper.querySelectorAll('.question-card')];
     if (cards.length === 0) {
-        console.warn('⚠️ لا توجد بطاقات أسئلة');
+        console.warn('⚠️ لا توجد بطاقات أسئلة داخل الـ wrapper');
         return;
     }
     
@@ -3487,26 +3490,42 @@ function applyFixedOrder() {
         currentWrapper = wrapper;
     }
     
-    // الحصول على الترتيب الثابت
+    // الحصول على الترتيب الثابت حسب عدد البطاقات
     const fixedOrder = getFixedOrder(cards.length);
     
-    // التأكد من أن الترتيب يناسب عدد البطاقات
-    if (fixedOrder.length !== cards.length) {
-        console.warn(`⚠️ عدد البطاقات (${cards.length}) لا يتطابق مع الترتيب المحفوظ (${fixedOrder.length})`);
-        return;
+    // ترتيب البطاقات حسب الترتيب الثابت
+    const orderedCards = fixedOrder.map(index => {
+        // البحث عن البطاقة التي تحمل الترتيب المطلوب
+        // نستخدم الـ dataset.questionId أو الترتيب في المصفوفة
+        for (let card of cards) {
+            const cardIndex = parseInt(card.dataset.questionId) || parseInt(card.dataset.itemId) || 0;
+            if (cardIndex === index) {
+                return card;
+            }
+        }
+        // إذا لم نجد، نأخذ البطاقة حسب الترتيب
+        return cards[index - 1] || null;
+    }).filter(card => card !== null);
+    
+    // إذا لم نجد بطاقات بالترتيب، نستخدم الترتيب المباشر
+    if (orderedCards.length !== cards.length) {
+        // ترتيب مباشر حسب الـ index في FIXED_ORDERS
+        const directOrder = getFixedOrder(cards.length);
+        const directCards = directOrder.map(idx => cards[idx - 1]).filter(c => c);
+        if (directCards.length === cards.length) {
+            directCards.forEach(card => wrapper.appendChild(card));
+            console.log(`✅ تم تطبيق الترتيب الثابت على ${cards.length} بطاقة (مباشر)`);
+            return;
+        }
     }
     
-    // ترتيب البطاقات حسب الترتيب الثابت
-    const orderedCards = fixedOrder.map(index => cards[index - 1]);
-    
-    // ✅ إعادة ترتيب البطاقات داخل الـ wrapper فقط
+    // تطبيق الترتيب
     orderedCards.forEach(card => {
-        wrapper.appendChild(card);
+        if (card) wrapper.appendChild(card);
     });
     
     console.log(`✅ تم تطبيق الترتيب الثابت على ${cards.length} بطاقة`);
 }
-
 // دالة استعادة الترتيب الأصلي
 function restoreOriginalOrder() {
     if (!originalCards.length || !currentWrapper) {
