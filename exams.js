@@ -53,7 +53,6 @@ function createResultBadge(score) {
   badge.className = "exam-result-badge";
   badge.textContent = `${score} / 25`;
   
-  // الكشف عن الهاتف وجعل الحجم أصغر
   const isMobile = window.innerWidth <= 768;
   badge.style.cssText = `
     font-size: ${isMobile ? '8px' : '11px'};
@@ -72,15 +71,12 @@ function createResultBadge(score) {
 
 // ========== عرض بطاقة Premium Access ==========
 function showLockedMessage(examTitle) {
-    // ✅ استخدام showPremiumModal من auth.js
     if (typeof window.showPremiumModal === 'function') {
         window.showPremiumModal(examTitle);
     } else {
-        // حل احتياطي: توجيه إلى صفحة الاشتراك
         window.location.href = 'subscribe.html';
     }
 }
-
 
 let currentExamData = null;
 let currentSkill = "lesen1";
@@ -89,19 +85,18 @@ let currentExamsList = [];
 let currentMündlichPart = 2;
 let examUserStatusCache = null;
 let examLastStatusCheck = 0;
-// ========== دوال التحقق من حالة المستخدم - مع تحسين Cache ==========
+
+// ========== دوال التحقق من حالة المستخدم ==========
 async function getUserStatusForExam() {
     let email = localStorage.getItem('zertiva_email');
     if (!email) return 'guest';
     
     let now = Date.now();
-    // ✅ زيادة مدة Cache إلى 60 ثانية بدلاً من 5 ثوانٍ
     if (examUserStatusCache && (now - examLastStatusCheck) < 60000) {
         return examUserStatusCache;
     }
     
     try {
-        // ✅ استخدام getUserStatus من auth.js مع Cache مدمج
         if (typeof window.getUserStatusGlobal === 'function') {
             const status = await window.getUserStatusGlobal();
             examUserStatusCache = status;
@@ -109,7 +104,6 @@ async function getUserStatusForExam() {
             return status;
         }
         
-        // ✅ حل احتياطي: استخدام checkUser مباشرة
         const result = await checkUser(email);
         if (result && result.exists && result.expiry) {
             let today = new Date().toISOString().slice(0,10);
@@ -128,6 +122,7 @@ async function getUserStatusForExam() {
         return 'free';
     }
 }
+
 // ========== قائمة Tips (نصائح) ==========
 const tipsExams = [
   { id: 1, title: "كيفاش تنجح بدكاء", enabled: true, hasFile: true }
@@ -237,7 +232,7 @@ const mündlich1Exams = [
   { id: 1, title: "قدم نفسك وتكلم عن موضوع اخترته", enabled: true, hasFile: true, skillPath: "mündlich1" }
 ];
 
-// ========== قائمة امتحانات Mündlich Teil 2 (الامتحانات الفعلية) ==========
+// ========== قائمة امتحانات Mündlich Teil 2 ==========
 const mündlich2Exams = [
   { id: 1, title: "Antibiotika – Gibt es Alternativen?", enabled: true, hasFile: true, skillPath: "mündlich2" },
   { id: 2, title: "Selbst gekocht", enabled: true, hasFile: true, skillPath: "mündlich2" },
@@ -283,7 +278,7 @@ const mündlich2Exams = [
   { id: 42, title: "Nahrungsergänzungsmittel", enabled: true, hasFile: true, skillPath: "mündlich2" }
 ];
 
-// ========== قائمة امتحانات Mündlich Teil 3 (دليل المشكلات) ==========
+// ========== قائمة امتحانات Mündlich Teil 3 ==========
 const mündlich3Exams = [
   { id: 1, title: "Problemlösung", enabled: true, hasFile: true, skillPath: "mündlich3" }
 ];
@@ -363,45 +358,45 @@ const examsDatabase = {
     { id: 36, title: "Nachtzug (معدل)", enabled: true, hasFile: true },
     { id: 37, title: "Wie zwei US-Teenager Millionäre wurden", enabled: true, hasFile: true }
   ],
- lesen3: [
-  { id: 1, title: "Filme - Fernsehprogramme", enabled: true, hasFile: true },
-  { id: 2, title: "Filme - Fernsehprogramme (معدل)", enabled: true, hasFile: true },
-  { id: 3, title: "Im Katalog eines Buchversands", enabled: true, hasFile: true },
-  { id: 4, title: "kein Zeit", enabled: true, hasFile: true },
-  { id: 5, title: "kein Zeit (معدل)", enabled: true, hasFile: true },
-  { id: 6, title: "Musik - spielt Gitarre", enabled: true, hasFile: true },
-  { id: 7, title: "Die schwangere Frau", enabled: true, hasFile: true },
-  { id: 8, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true },
-  { id: 9, title: "Unterstützung in Mathematik", enabled: true, hasFile: true },
-  { id: 10, title: "Ganztagesausflug", enabled: true, hasFile: true },
-  { id: 11, title: "Ihren Eltern zur Silberhochzeit", enabled: true, hasFile: true },
-  { id: 12, title: "Rechtsanwalt", enabled: true, hasFile: true },
-  { id: 13, title: "Rechtsanwalt (معدل)", enabled: true, hasFile: true },
-  { id: 14, title: "Au-pair Mädchen", enabled: true, hasFile: true },
-  { id: 15, title: "Hautprobleme", enabled: true, hasFile: true },
-  { id: 16, title: "Eine Bekannte ist schwanger", enabled: true, hasFile: true },
-  { id: 17, title: "Die Tochter einer Bekannten wird vier Jahre alt", enabled: true, hasFile: true },
-  { id: 18, title: "Tierdokumentationen", enabled: true, hasFile: true },
-  { id: 19, title: "Aufräumen", enabled: true, hasFile: true },
-  { id: 20, title: "Erholung und Reisen", enabled: true, hasFile: true },
-  { id: 21, title: "Sport", enabled: true, hasFile: true },
-  { id: 22, title: "Sport (معدل)", enabled: true, hasFile: true },
-  { id: 23, title: "Wein und Insekten", enabled: true, hasFile: true },
-  { id: 24, title: "Reiseführer", enabled: true, hasFile: true },
-  { id: 25, title: "Gartenbau", enabled: true, hasFile: true },
-  { id: 26, title: "Haushaltshilfe", enabled: true, hasFile: true },
-  { id: 27, title: "Einwanderung", enabled: true, hasFile: true },
-  { id: 28, title: "Musikinstrumente", enabled: true, hasFile: true },
-  { id: 29, title: "Musikinstrumente (معدل)", enabled: true, hasFile: true },
-  { id: 30, title: "Arbeitsorganisation", enabled: true, hasFile: true },
-  { id: 31, title: "Hunde", enabled: true, hasFile: true },
-  { id: 32, title: "schnelle Wasserfahrzeuge", enabled: true, hasFile: true },
-  { id: 33, title: "ein paar Tage in Berlin", enabled: true, hasFile: true },
-  { id: 34, title: "ein paar Tage in Berlin (معدل)", enabled: true, hasFile: true },
-  { id: 35, title: "Autos", enabled: true, hasFile: true },
-  { id: 36, title: "Möbel für die neue Wohnung", enabled: true, hasFile: true },
-  { id: 37, title: "Geschäftsreisen - رحلات العمل", enabled: true, hasFile: true }
-],
+  lesen3: [
+    { id: 1, title: "Filme - Fernsehprogramme", enabled: true, hasFile: true },
+    { id: 2, title: "Filme - Fernsehprogramme (معدل)", enabled: true, hasFile: true },
+    { id: 3, title: "Im Katalog eines Buchversands", enabled: true, hasFile: true },
+    { id: 4, title: "kein Zeit", enabled: true, hasFile: true },
+    { id: 5, title: "kein Zeit (معدل)", enabled: true, hasFile: true },
+    { id: 6, title: "Musik - spielt Gitarre", enabled: true, hasFile: true },
+    { id: 7, title: "Die schwangere Frau", enabled: true, hasFile: true },
+    { id: 8, title: "Die schwangere Frau (معدل)", enabled: true, hasFile: true },
+    { id: 9, title: "Unterstützung in Mathematik", enabled: true, hasFile: true },
+    { id: 10, title: "Ganztagesausflug", enabled: true, hasFile: true },
+    { id: 11, title: "Ihren Eltern zur Silberhochzeit", enabled: true, hasFile: true },
+    { id: 12, title: "Rechtsanwalt", enabled: true, hasFile: true },
+    { id: 13, title: "Rechtsanwalt (معدل)", enabled: true, hasFile: true },
+    { id: 14, title: "Au-pair Mädchen", enabled: true, hasFile: true },
+    { id: 15, title: "Hautprobleme", enabled: true, hasFile: true },
+    { id: 16, title: "Eine Bekannte ist schwanger", enabled: true, hasFile: true },
+    { id: 17, title: "Die Tochter einer Bekannten wird vier Jahre alt", enabled: true, hasFile: true },
+    { id: 18, title: "Tierdokumentationen", enabled: true, hasFile: true },
+    { id: 19, title: "Aufräumen", enabled: true, hasFile: true },
+    { id: 20, title: "Erholung und Reisen", enabled: true, hasFile: true },
+    { id: 21, title: "Sport", enabled: true, hasFile: true },
+    { id: 22, title: "Sport (معدل)", enabled: true, hasFile: true },
+    { id: 23, title: "Wein und Insekten", enabled: true, hasFile: true },
+    { id: 24, title: "Reiseführer", enabled: true, hasFile: true },
+    { id: 25, title: "Gartenbau", enabled: true, hasFile: true },
+    { id: 26, title: "Haushaltshilfe", enabled: true, hasFile: true },
+    { id: 27, title: "Einwanderung", enabled: true, hasFile: true },
+    { id: 28, title: "Musikinstrumente", enabled: true, hasFile: true },
+    { id: 29, title: "Musikinstrumente (معدل)", enabled: true, hasFile: true },
+    { id: 30, title: "Arbeitsorganisation", enabled: true, hasFile: true },
+    { id: 31, title: "Hunde", enabled: true, hasFile: true },
+    { id: 32, title: "schnelle Wasserfahrzeuge", enabled: true, hasFile: true },
+    { id: 33, title: "ein paar Tage in Berlin", enabled: true, hasFile: true },
+    { id: 34, title: "ein paar Tage in Berlin (معدل)", enabled: true, hasFile: true },
+    { id: 35, title: "Autos", enabled: true, hasFile: true },
+    { id: 36, title: "Möbel für die neue Wohnung", enabled: true, hasFile: true },
+    { id: 37, title: "Geschäftsreisen - رحلات العمل", enabled: true, hasFile: true }
+  ],
   sprach1: [
     { id: 1, title: "Hallo Ferdinand", enabled: true, hasFile: true },
     { id: 2, title: "Hallo Ferdinand (معدل)", enabled: true, hasFile: true },
@@ -494,7 +489,7 @@ const examsDatabase = {
     { id: 46, title: "Die Rückkehr des Nachtzugs", enabled: true, hasFile: true },
     { id: 47, title: "Die Reise im Schlafwagen", enabled: true, hasFile: true },
     { id: 48, title: "Theaterprojekt für Kinder (المعدل 1)", enabled: true, hasFile: true },
-{ id: 49, title: "Theater für Kinder und Jugendliche (المعدل 2)", enabled: true, hasFile: true }
+    { id: 49, title: "Theater für Kinder und Jugendliche (المعدل 2)", enabled: true, hasFile: true }
   ],
   hoeren1: [
     { id: 1, title: "Die Deutsche Lufthansa", enabled: true, hasFile: true },
@@ -596,9 +591,9 @@ const examsDatabase = {
     { id: 50, title: "Thomas", enabled: true, hasFile: true },
     { id: 51, title: "Frau Kiddar 3", enabled: true, hasFile: true },
     { id: 52, title: "Bio-Essen: Obst, Gemüse und Lieferung", enabled: true, hasFile: true },
-  { id: 53, title: "Influencerin - Maria im Interview", enabled: true, hasFile: true },
-  { id: 54, title: "Vom Marktstand zum eigenen Geschäft", enabled: true, hasFile: true },
-  { id: 55, title: "Interview mit Bauingenieur - Herr Böhm", enabled: true, hasFile: true }
+    { id: 53, title: "Influencerin - Maria im Interview", enabled: true, hasFile: true },
+    { id: 54, title: "Vom Marktstand zum eigenen Geschäft", enabled: true, hasFile: true },
+    { id: 55, title: "Interview mit Bauingenieur - Herr Böhm", enabled: true, hasFile: true }
   ],
   hoeren3: [
     { id: 1, title: "Telefon", enabled: true, hasFile: true },
@@ -678,7 +673,6 @@ function renderTeileList() {
   if (!container) return;
   container.innerHTML = "";
   
-  // حاوية الأزرار (Tabs) - محاذاة لليسار
   container.style.cssText = `
     display: flex;
     flex-wrap: wrap;
@@ -709,7 +703,6 @@ function renderTeileList() {
       white-space: nowrap;
     `;
     
-    // Hover effect
     btn.onmouseenter = () => {
       if (!isActive) {
         btn.style.background = '#202534';
@@ -842,7 +835,6 @@ async function renderExamListForSkill(skill, teilName) {
   for (let i = 0; i < targetExams.length; i++) {
     const exam = targetExams[i];
     const examNumber = exam.id;
-    // 🔴 التعديل: أول 6 امتحانات مفتوحة في الوضع المجاني
     const isFreeExam = (examNumber <= 6);
     
     const div = document.createElement("div");
@@ -933,14 +925,12 @@ function setupLockedNextButton() {
   getUserStatusForExam().then(status => {
     const isPremium = (status === 'premium');
     
-    // احصل على الامتحان التالي
     const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
     const nextExam = currentExamsList[currentIndex + 1];
     
     if (nextExam) {
       const nextExamId = nextExam.id;
       
-      // فقط إذا كان الامتحان التالي أكبر من 6 والمستخدم ليس بريميوم
       if (!isPremium && nextExamId > 6 && nextBtn.style.display !== 'none') {
         nextBtn.style.position = "relative";
         nextBtn.style.paddingLeft = "35px";
@@ -956,7 +946,6 @@ function setupLockedNextButton() {
         nextBtn.style.backgroundColor = "#b0bec5";
         nextBtn.style.opacity = "0.8";
         
-        // تغيير وظيفة الزر لمنع الانتقال
         nextBtn.onclick = function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -968,7 +957,6 @@ function setupLockedNextButton() {
     return false;
 };
       } 
-      // إذا كان الامتحان التالي ضمن الـ 6 الأولى، دع الزر يعمل بشكل طبيعي
       else if (isPremium || nextExamId <= 6) {
         const lockIcon = nextBtn.querySelector('.next-lock-icon');
         if (lockIcon) lockIcon.remove();
@@ -976,7 +964,6 @@ function setupLockedNextButton() {
         nextBtn.style.opacity = "1";
         nextBtn.style.paddingLeft = "";
         
-        // استعادة الوظيفة الأصلية للزر
         nextBtn.onclick = () => {
           openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
         };
@@ -1006,13 +993,11 @@ function shouldHideHelpButton(skill) {
 }
 
 async function openExam(examId, examTitle, skill) {
-  // ===== فحص الوصول للامتحان =====
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
-  const maxFreeExamId = 6; // أول 6 امتحانات مجانية للمستخدمين غير المدفوعين
+  const maxFreeExamId = 6;
   
-  // إذا كان المستخدم ليس بريميوم والامتحان المطلوب أكبر من 6، اظهر القفل
- if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
+  if (!isPremium && examId > maxFreeExamId && skill !== "mündlich1" && skill !== "mündlich3") {
     if (typeof window.showPremiumModal === 'function') {
         window.showPremiumModal(examTitle + " (" + examId + ")");
     } else {
@@ -1020,7 +1005,6 @@ async function openExam(examId, examTitle, skill) {
     }
     return;
 }
-  // ===== نهاية فحص الوصول =====
   
   console.log("🔍 openExam parameters:", { examId, examTitle, skill });
   
@@ -1048,11 +1032,11 @@ async function openExam(examId, examTitle, skill) {
       return;
     }
     currentExamData = await response.json();
-window.currentExamData = currentExamData;  // ← هذا السطر ناقص!
-window.currentExamId = examId;
-if (window.memoryEngine) {
-    window.memoryEngine.setExamData(currentExamData);
-}
+    window.currentExamData = currentExamData;
+    window.currentExamId = examId;
+    if (window.memoryEngine) {
+        window.memoryEngine.setExamData(currentExamData);
+    }
     document.getElementById("home").classList.remove("active");
     document.getElementById("list").classList.remove("active");
     document.getElementById("exam").classList.add("active");
@@ -1119,21 +1103,21 @@ if (window.memoryEngine) {
     } else {
       showTeil(10);
     }
-        // ============================================================
-    // ✅🆕 تهيئة Interleaving بعد تحميل الامتحان
+    
+    // ============================================================
+    // ✅ تهيئة Interleaving بعد تحميل الامتحان
     // ============================================================
     
-    // إعادة تعيين Interleaving عند فتح امتحان جديد
     if (window.resetInterleaving) {
         window.resetInterleaving();
     }
     
-    // بعد اكتمال بناء واجهة الامتحان (باستخدام requestAnimationFrame)
     requestAnimationFrame(() => {
         if (window.initInterleaving) {
             window.initInterleaving();
         }
     });
+    
   } catch(e) {
     console.error("❌ خطأ:", e);
     alert("خطأ في تحميل الامتحان: " + e.message);
@@ -1143,32 +1127,27 @@ if (window.memoryEngine) {
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
   if (currentSkill) {
-    // إذا كان skill هو mündlich1
     if (currentSkill === "mündlich1") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich1", "Mündlich - Teil 1 📖");
     } 
-    // إذا كان skill هو mündlich2
     else if (currentSkill === "mündlich2") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich2", "Mündlich - Teil 2 🗣️");
     }
-    // إذا كان skill هو mündlich3
     else if (currentSkill === "mündlich3") {
       document.getElementById("home").classList.remove("active");
       document.getElementById("exam").classList.remove("active");
       document.getElementById("list").classList.add("active");
       renderExamListForSkill("mündlich3", "Mündlich - Teil 3 🎯");
     }
-    // لأي مündlich آخر (احتياطي)
     else if (currentSkill.startsWith('mündlich')) {
       renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
     }
-    // لبقية الأقسام (Hören, Lesen, Sprachbausteine, Schreiben, Tips)
     else {
       const teil = teile.find(t => t.skill === currentSkill);
       if (teil) {
@@ -1431,7 +1410,6 @@ function updateExamNavButtons() {
   
   if (hasNext) {
     nextBtn.style.display = "inline-block";
-    // تعيين onclick مؤقتاً، سيتم تحديثه في setupLockedNextButton
     nextBtn.onclick = () => {
       const nextExam = currentExamsList[currentIndex + 1];
       openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
@@ -1463,7 +1441,6 @@ function goList() {
   
   renderTeileList();
   
-  // عرض امتحانات Hören Teil 1 مباشرة
   setTimeout(() => {
     const examsContainer = document.getElementById("examsList");
     if (examsContainer) {
@@ -1477,11 +1454,13 @@ function goList() {
   }, 50);
 }
 
+// ============================================
+// ✅ دالة buildTeil1 المُعدّلة - تعتمد على ID ثابت
+// ============================================
 function buildTeil1(questions) {
   const container = document.getElementById("teil1");
   if (!container) return;
   
-  // ✅ التحقق من وجود أسئلة
   if (!questions || !Array.isArray(questions) || questions.length === 0) {
     console.warn('⚠️ buildTeil1: لا توجد أسئلة لعرضها');
     container.innerHTML = '<div style="text-align:center; padding:20px; color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
@@ -1494,13 +1473,17 @@ function buildTeil1(questions) {
   
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
+    // ✅ استخدام ID ثابت من البيانات
+    const questionId = q.id !== undefined ? q.id : i;
+    
     const card = document.createElement("div");
     card.className = "question-card";
-    card.id = "q_" + i;
+    card.dataset.questionId = questionId;
+    card.id = `q_${questionId}`;
     
     const questionText = document.createElement("div");
     questionText.className = "question-text";
-    questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
+    questionText.innerHTML = `<strong>${i + 1}. ${q.text}</strong>`;
     card.appendChild(questionText);
     
     const optionsDiv = document.createElement("div");
@@ -1508,13 +1491,13 @@ function buildTeil1(questions) {
     for (let j = 0; j < q.options.length; j++) {
       const label = document.createElement("label");
       label.className = "option-label";
-      const radioId = "q" + i + "_" + j;
-      label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
-      label.onclick = (function(qIdx, ansIdx) {
+      const radioId = `q_${questionId}_${j}`;
+      label.innerHTML = `<input type="radio" name="q_${questionId}" value="${j}" class="option-input" id="${radioId}"> <span>${q.options[j]}</span>`;
+      label.onclick = (function(qId, ansIdx) {
         return function() {
-          userAnswers[qIdx] = ansIdx;
+          userAnswers[qId] = ansIdx;
         };
-      })(i, j);
+      })(questionId, j);
       optionsDiv.appendChild(label);
     }
     card.appendChild(optionsDiv);
@@ -1536,6 +1519,9 @@ function buildTeil1(questions) {
   container.appendChild(resultDiv);
 }
 
+// ============================================
+// ✅ دالة checkTeil1 المُعدّلة - تعتمد على ID ثابت
+// ============================================
 function checkTeil1(questions, answers) {
   let score = 0;
   const total = questions.length;
@@ -1543,8 +1529,9 @@ function checkTeil1(questions, answers) {
   
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
-    const card = document.getElementById("q_" + i);
-    const userAnswer = answers[i];
+    const questionId = q.id !== undefined ? q.id : i;
+    const card = document.getElementById(`q_${questionId}`);
+    const userAnswer = answers[questionId];
     const isCorrect = (userAnswer === q.correct);
     
     if (isCorrect) {
@@ -1644,7 +1631,6 @@ renderTeileList();
     }
 })();
 
-
 console.log("✅ exams.js تم تحميله بنجاح");
 console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
 console.log("📚 Lesen Teil 2:", examsDatabase.lesen2.length, "امتحان");
@@ -1658,4 +1644,4 @@ console.log("✏️ Schreiben:", examsDatabase.schreiben.length, "امتحان")
 console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich1.length, "قسم");
 console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich2.length, "امتحان");
 console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich3.length, "قسم");
-console.log("💡 Tips:", examsDatabase.tips.length, "قسم"); 
+console.log("💡 Tips:", examsDatabase.tips.length, "قسم");
