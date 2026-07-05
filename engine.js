@@ -2696,16 +2696,20 @@ function highlightSelectOption(container, searchText, colorIndex) {
     selects.forEach(select => {
         for (let i = 0; i < select.options.length; i++) {
             const option = select.options[i];
-            if (option.textContent.trim() === searchText) {
-                // ✅ تلوين الخيار بلون خفيف (مؤشر) وليس كاختيار
-                option.style.backgroundColor = getColorByIndex(colorIndex);
-                option.style.color = getTextColorByIndex(colorIndex);
+            // ✅ مقارنة أكثر مرونة (تجاهل المسافات الزائدة)
+            const optionText = option.textContent.trim();
+            const searchTextTrimmed = searchText.trim();
+            if (optionText === searchTextTrimmed) {
+                const bgColor = getColorByIndex(colorIndex);
+                const txtColor = getTextColorByIndex(colorIndex);
+                option.style.backgroundColor = bgColor;
+                option.style.color = txtColor;
                 option.style.fontWeight = 'bold';
                 option.style.padding = '2px 4px';
                 option.style.borderRadius = '3px';
-                // ✅ إضافة border خفيف بدلاً من جعله يبدو مختاراً
-                option.style.border = `2px solid ${getTextColorByIndex(colorIndex)}`;
+                option.style.border = `2px solid ${txtColor}`;
                 option.style.opacity = '0.85';
+                console.log(`✅ تلوين الخيار: "${searchTextTrimmed}"`);
                 break;
             }
         }
@@ -3030,17 +3034,17 @@ function applyAutoHighlights(examData) {
                     }
                 }
               
-                                // ✅ تلوين الزر نفسه (يبقى الرقم فقط، لا نغير محتواه)
+                       // ✅ تلوين الزر نفسه (يبقى الرقم فقط، لا نغير محتواه)
                 if (highlight.connector) {
-                    // ❌ ممنوع: btn.textContent = highlight.connector;
-                    // ✅ فقط نضيف لون خفيف للزر
+                    // ✅ نحتفظ بالشكل الأصلي للزر (دائري)
                     btn.style.backgroundColor = bgColor;
                     btn.style.color = txtColor;
                     btn.style.fontWeight = 'bold';
                     btn.style.border = `2px solid ${txtColor}`;
-                    btn.style.borderRadius = '4px';
-                    btn.style.padding = '2px 8px';
-                    btn.style.opacity = '0.7';
+                    // ✅ نعيد الشكل الدائري
+                    btn.style.borderRadius = '20px';
+                    btn.style.padding = '4px 12px';
+                    btn.style.opacity = '0.85';
                 }
                 
                 // ✅ تلوين الخيار في القائمة المنسدلة
