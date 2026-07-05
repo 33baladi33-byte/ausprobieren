@@ -3405,90 +3405,121 @@ if (typeof checkTeil3Exam === 'function') {
 
 console.log("✅ engine.js تم تحميله بالكامل");
 
-console.log("✅ engine.js تم تحميله بالكامل");
-
 // ============================================
-// نظام Interleaving (ترتيب ثابت) - النسخة المبسطة
+// نظام Interleaving (ترتيب ثابت) - النسخة النهائية المُحسّنة
 // ============================================
 
 // الترتيب الثابت لكل عدد من الأسئلة
 const FIXED_ORDERS = {
-    5: [2, 4, 1, 5, 3],      // 5 أسئلة
-    10: [3, 7, 1, 9, 5, 10, 2, 8, 4, 6], // 10 أسئلة
-    12: [4, 8, 1, 11, 6, 2, 10, 5, 12, 3, 9, 7] // 12 سؤال
+    5: [2, 4, 1, 5, 3],
+    10: [3, 7, 1, 9, 5, 10, 2, 8, 4, 6],
+    12: [4, 8, 1, 11, 6, 2, 10, 5, 12, 3, 9, 7]
 };
-
-// دالة للحصول على الترتيب الثابت حسب عدد الأسئلة
-function getFixedOrder(count) {
-    if (FIXED_ORDERS[count]) {
-        return FIXED_ORDERS[count];
-    }
-    const order = [];
-    for (let i = count; i > 0; i--) {
-        order.push(i);
-    }
-    return order;
-}
 
 // متغيرات الحالة
 let isInterleavingActive = false;
 let originalCards = [];
-let currentContainer = null;
+let currentWrapper = null;
+
+// 🔍 الحصول على الحاوية النشطة ومكان الأسئلة
+function getActiveQuestionWrapper() {
+    // استخدام currentSkill من exams.js
+    const skill = window.currentSkill || 'lesen1';
+    
+    // تحديد الحاوية المناسبة حسب الـ skill
+    let containerId = skill;
+    const skillMap = {
+        'hoeren1': 'hoeren1',
+        'hoeren2': 'hoeren2',
+        'hoeren3': 'hoeren3',
+        'lesen1': 'teil1',
+        'lesen2': 'teil2',
+        'lesen3': 'teil3',
+        'sprach1': 'sprach1',
+        'sprach2': 'sprach2'
+    };
+    
+    const targetId = skillMap[skill] || skill;
+    const container = document.getElementById(targetId);
+    if (!container) return null;
+    
+    // ✅ البحث عن منطقة الأسئلة (Questions Wrapper)
+    // إن لم توجد، نصنعها (مرة واحدة فقط)
+    let wrapper = container.querySelector('.questions-wrapper');
+    if (!wrapper) {
+        // إنشاء الـ wrapper ونقل بطاقات الأسئلة إليه
+        wrapper = document.createElement('div');
+        wrapper.className = 'questions-wrapper';
+        wrapper.style.cssText = 'display: contents;'; // لا يؤثر على التنسيق
+        
+        const cards = container.querySelectorAll('.question-card');
+        if (cards.length === 0) return null;
+        
+        // نقل البطاقات إلى الـ wrapper
+        cards.forEach(card => {
+            wrapper.appendChild(card);
+        });
+        
+        // إدراج الـ wrapper في بداية الحاوية
+        container.insertBefore(wrapper, container.firstChild);
+    }
+    
+    return wrapper;
+}
 
 // دالة تطبيق الترتيب الثابت
 function applyFixedOrder() {
-    const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3'];
-    let container = null;
-    
-    for (const id of containers) {
-        const el = document.getElementById(id);
-        if (el && el.offsetParent !== null) {
-            const hasCards = el.querySelector('.question-card');
-            if (hasCards) {
-                container = el;
-                break;
-            }
-        }
-    }
-    
-    if (!container) {
-        console.warn('⚠️ لا توجد حاوية أسئلة نشطة');
+    const wrapper = getActiveQuestionWrapper();
+    if (!wrapper) {
+        console.warn('⚠️ لا توجد منطقة أسئلة نشطة');
         return;
     }
     
-    const cards = [...container.querySelectorAll('.question-card')];
+    const cards = [...wrapper.querySelectorAll('.question-card')];
     if (cards.length === 0) {
         console.warn('⚠️ لا توجد بطاقات أسئلة');
         return;
     }
     
+    // حفظ الترتيب الأصلي
     if (!isInterleavingActive) {
         originalCards = cards.slice();
-        currentContainer = container;
+        currentWrapper = wrapper;
     }
     
+    // الحصول على الترتيب الثابت
     const fixedOrder = getFixedOrder(cards.length);
+    
+    // التأكد من أن الترتيب يناسب عدد البطاقات
+    if (fixedOrder.length !== cards.length) {
+        console.warn(`⚠️ عدد البطاقات (${cards.length}) لا يتطابق مع الترتيب المحفوظ (${fixedOrder.length})`);
+        return;
+    }
+    
+    // ترتيب البطاقات حسب الترتيب الثابت
     const orderedCards = fixedOrder.map(index => cards[index - 1]);
     
+    // ✅ إعادة ترتيب البطاقات داخل الـ wrapper فقط
     orderedCards.forEach(card => {
-        container.appendChild(card);
+        wrapper.appendChild(card);
     });
     
-    console.log(`✅ تم تطبيق الترتيب الثابت على ${cards.length} بطاقة في ${container.id}`);
+    console.log(`✅ تم تطبيق الترتيب الثابت على ${cards.length} بطاقة`);
 }
 
 // دالة استعادة الترتيب الأصلي
 function restoreOriginalOrder() {
-    if (!originalCards.length || !currentContainer) {
+    if (!originalCards.length || !currentWrapper) {
         console.warn('⚠️ لا يوجد ترتيب أصلي للحفظ');
         return;
     }
     
+    // ✅ إعادة البطاقات بالترتيب الأصلي داخل الـ wrapper فقط
     originalCards.forEach(card => {
-        currentContainer.appendChild(card);
+        currentWrapper.appendChild(card);
     });
     
-    console.log(`✅ تم استعادة الترتيب الأصلي في ${currentContainer.id}`);
+    console.log(`✅ تم استعادة الترتيب الأصلي`);
 }
 
 // دالة تبديل حالة الخلط
@@ -3503,7 +3534,7 @@ function toggleInterleaving() {
         restoreOriginalOrder();
         isInterleavingActive = false;
         originalCards = [];
-        currentContainer = null;
+        currentWrapper = null;
         btn.classList.remove('active');
     } else {
         applyFixedOrder();
@@ -3527,9 +3558,10 @@ function initInterleaving() {
     btn.addEventListener('click', toggleInterleaving);
     btn._listenerAttached = true;
     
+    // إعادة تعيين الحالة
     isInterleavingActive = false;
     originalCards = [];
-    currentContainer = null;
+    currentWrapper = null;
     btn.classList.remove('active');
     
     console.log('✅ زر Interleaving تم تهيئته');
@@ -3542,7 +3574,7 @@ function resetInterleaving() {
     }
     isInterleavingActive = false;
     originalCards = [];
-    currentContainer = null;
+    currentWrapper = null;
     
     const btn = document.getElementById('interleavingBtn');
     if (btn) {
