@@ -3416,7 +3416,6 @@ const FIXED_ORDERS = {
 // ✅ حالة Interleaving
 window.isInterleavingActive = false;
 let originalOrder = [];
-let currentContainer = null;
 
 // دالة الحصول على الترتيب الثابت
 function getFixedOrder(count) {
@@ -3437,15 +3436,16 @@ function getFixedOrder(count) {
     return result;
 }
 
-// ✅ دالة تطبيق الترتيب الثابت (تعمل على البطاقات فقط)
+// ✅ دالة تطبيق الترتيب الثابت (تبديل البطاقات فقط)
 function applyFixedOrder() {
+    // العثور على الحاوية النشطة
     const container = getActiveContainer();
     if (!container) {
         console.warn('⚠️ لا توجد حاوية نشطة');
         return;
     }
     
-    // 🔍 البحث عن البطاقات في كل الحاوية (وليس فقط الأبناء المباشرين)
+    // الحصول على جميع البطاقات في الحاوية (بأي عمق)
     const cards = container.querySelectorAll('.question-card');
     
     if (cards.length === 0) {
@@ -3453,13 +3453,11 @@ function applyFixedOrder() {
         return;
     }
     
-    // تحويل NodeList إلى مصفوفة
     const cardsArray = Array.from(cards);
     
     // حفظ الترتيب الأصلي (مرة واحدة فقط)
     if (!window.isInterleavingActive) {
         originalOrder = cardsArray.slice();
-        currentContainer = container;
     }
     
     // تطبيق الترتيب الثابت
@@ -3467,10 +3465,8 @@ function applyFixedOrder() {
     const orderedCards = fixedOrder.map(index => cardsArray[index - 1]).filter(c => c);
     
     if (orderedCards.length === cardsArray.length) {
-        // إعادة إدراج البطاقات بالترتيب الجديد
-        orderedCards.forEach(card => {
-            card.parentNode.appendChild(card);
-        });
+        // ✅ تبادل البطاقات في أماكنها الأصلية (بدون استخدام appendChild على الحاوية)
+        swapCardsInPlace(cardsArray, orderedCards);
         console.log(`✅ Interleaving: تم ترتيب ${orderedCards.length} بطاقة`);
         return;
     }
@@ -3479,30 +3475,90 @@ function applyFixedOrder() {
     const directOrder = getFixedOrder(cardsArray.length);
     const directCards = directOrder.map(idx => cardsArray[idx - 1]).filter(c => c);
     if (directCards.length === cardsArray.length) {
-        directCards.forEach(card => {
-            card.parentNode.appendChild(card);
-        });
+        swapCardsInPlace(cardsArray, directCards);
         console.log(`✅ Interleaving: تم ترتيب ${directCards.length} بطاقة (مباشر)`);
     }
 }
 
+// ✅ دالة تبادل البطاقات في أماكنها الأصلية
+function swapCardsInPlace(originalCards, orderedCards) {
+    // إنشاء خريطة: البطاقة الأصلية -> البطاقة المطلوبة في مكانها
+    const cardMap = {};
+    originalCards.forEach((card, index) => {
+        cardMap[card] = orderedCards[index];
+    });
+    
+    // لكل بطاقة أصلية، نستبدلها بالبطاقة المطلوبة في نفس المكان
+    originalCards.forEach((originalCard) => {
+        const targetCard = cardMap[originalCard];
+        if (targetCard && targetCard !== originalCard) {
+            // تبديل البطاقتين في DOM
+            const parent = originalCard.parentNode;
+            const nextSibling = originalCard.nextSibling;
+            
+            // إزالة targetCard من مكانها
+            const targetParent = targetCard.parentNode;
+            const targetNextSibling = targetCard.nextSibling;
+            
+            // إذا كانا في نفس الـ parent، نبدل ببساطة
+            if (parent === targetParent) {
+                // تبديل باستخدام insertBefore
+                if (nextSibling) {
+                    parent.insertBefore(targetCard, nextSibling);
+                } else {
+                    parent.appendChild(targetCard);
+                }
+                
+                // إعادة originalCard إلى مكان targetCard
+                if (targetNextSibling && targetNextSibling !== originalCard) {
+                    targetParent.insertBefore(originalCard, targetNextSibling);
+                } else {
+                    targetParent.appendChild(originalCard);
+                }
+            } else {
+                // إذا كانا في parents مختلفين (نادر)
+                // ننقل كل بطاقة إلى مكان الأخرى
+                if (nextSibling) {
+                    parent.insertBefore(targetCard, nextSibling);
+                } else {
+                    parent.appendChild(targetCard);
+                }
+                
+                if (targetNextSibling) {
+                    targetParent.insertBefore(originalCard, targetNextSibling);
+                } else {
+                    targetParent.appendChild(originalCard);
+                }
+            }
+        }
+    });
+}
+
 // ✅ دالة استعادة الترتيب الأصلي
 function restoreOriginalOrder() {
-    if (originalOrder.length === 0 || !currentContainer) {
+    if (originalOrder.length === 0) {
         console.warn('⚠️ لا يوجد ترتيب أصلي للحفظ');
         return;
     }
     
-    originalOrder.forEach(card => {
-        if (card && card.parentNode) {
-            card.parentNode.appendChild(card);
-        }
-    });
+    // العثور على الحاوية النشطة
+    const container = getActiveContainer();
+    if (!container) {
+        console.warn('⚠️ لا توجد حاوية نشطة');
+        return;
+    }
+    
+    // الحصول على البطاقات الحالية
+    const currentCards = container.querySelectorAll('.question-card');
+    const currentArray = Array.from(currentCards);
+    
+    // استعادة الترتيب الأصلي
+    swapCardsInPlace(currentArray, originalOrder);
     
     console.log(`✅ تم استعادة الترتيب الأصلي`);
 }
 
-// ✅ دالة الحصول على الحاوية النشطة (بدون إنشاء أي عناصر جديدة)
+// ✅ دالة الحصول على الحاوية النشطة
 function getActiveContainer() {
     const skill = window.currentSkill || 'lesen1';
     
@@ -3518,14 +3574,7 @@ function getActiveContainer() {
     };
     
     const targetId = skillMap[skill] || skill;
-    const container = document.getElementById(targetId);
-    
-    if (!container) {
-        console.warn(`⚠️ الحاوية ${targetId} غير موجودة`);
-        return null;
-    }
-    
-    return container;
+    return document.getElementById(targetId) || null;
 }
 
 // ✅ دالة تبديل حالة Interleaving
@@ -3536,7 +3585,6 @@ function toggleInterleaving() {
         restoreOriginalOrder();
         window.isInterleavingActive = false;
         originalOrder = [];
-        currentContainer = null;
         if (btn) btn.classList.remove('active');
     } else {
         applyFixedOrder();
@@ -3553,7 +3601,6 @@ function initInterleaving() {
         return;
     }
     
-    // إزالة المستمع القديم إن وجد
     if (btn._listenerAttached) {
         btn.removeEventListener('click', toggleInterleaving);
     }
@@ -3561,23 +3608,20 @@ function initInterleaving() {
     btn.addEventListener('click', toggleInterleaving);
     btn._listenerAttached = true;
     
-    // إعادة تعيين الحالة
     window.isInterleavingActive = false;
     originalOrder = [];
-    currentContainer = null;
     btn.classList.remove('active');
     
     console.log('✅ زر Interleaving تم تهيئته');
 }
 
-// ✅ دالة إعادة تعيين (عند فتح امتحان جديد)
+// ✅ دالة إعادة تعيين
 function resetInterleaving() {
     if (window.isInterleavingActive) {
         restoreOriginalOrder();
     }
     window.isInterleavingActive = false;
     originalOrder = [];
-    currentContainer = null;
     
     const btn = document.getElementById('interleavingBtn');
     if (btn) btn.classList.remove('active');
@@ -3589,6 +3633,5 @@ function resetInterleaving() {
 window.initInterleaving = initInterleaving;
 window.toggleInterleaving = toggleInterleaving;
 window.resetInterleaving = resetInterleaving;
-window.applyFixedOrder = applyFixedOrder;
 
-console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يعمل على البطاقات فقط');
+console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يعمل على تبادل البطاقات فقط');
