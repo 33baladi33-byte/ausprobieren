@@ -3403,7 +3403,7 @@ if (typeof checkTeil3Exam === 'function') {
 console.log("✅ engine.js تم تحميله بالكامل");
 
 // ============================================
-// نظام Interleaving (ترتيب ثابت) - يُطبق قبل إنشاء الـ DOM
+// نظام Interleaving (ترتيب ثابت) - يعمل على البطاقات فقط
 // ============================================
 
 // الترتيب الثابت لكل عدد من الأسئلة
@@ -3413,74 +3413,140 @@ const FIXED_ORDERS = {
     12: [4, 8, 1, 11, 6, 2, 10, 5, 12, 3, 9, 7]
 };
 
-// ✅ حالة Interleaving (يتم التحكم بها عن طريق الزر)
+// ✅ حالة Interleaving
 window.isInterleavingActive = false;
+let originalOrder = [];
+let currentContainer = null;
 
-// دالة الحصول على الترتيب الثابت حسب عدد البطاقات
+// دالة الحصول على الترتيب الثابت
 function getFixedOrder(count) {
-    if (FIXED_ORDERS[count]) {
-        return FIXED_ORDERS[count];
-    }
+    if (FIXED_ORDERS[count]) return FIXED_ORDERS[count];
     
     const keys = Object.keys(FIXED_ORDERS).map(Number).sort((a, b) => a - b);
     let bestKey = keys[0];
     for (let key of keys) {
-        if (key <= count) {
-            bestKey = key;
-        } else {
-            break;
-        }
+        if (key <= count) bestKey = key;
+        else break;
     }
     
     const baseOrder = FIXED_ORDERS[bestKey] || [];
     const result = [];
     for (let i = 1; i <= count; i++) {
-        if (i <= baseOrder.length) {
-            result.push(baseOrder[i - 1]);
-        } else {
-            result.push(i);
-        }
+        result.push(i <= baseOrder.length ? baseOrder[i - 1] : i);
     }
     return result;
 }
 
-// ✅ دالة تطبيق الترتيب الثابت على مصفوفة (تُستدعى قبل إنشاء الـ DOM)
-function applyFixedOrderToArray(cards) {
-    if (!cards || cards.length === 0) return cards;
-    if (!window.isInterleavingActive) return cards;
+// ✅ دالة تطبيق الترتيب الثابت (تعمل على البطاقات فقط)
+function applyFixedOrder() {
+    // العثور على الحاوية النشطة
+    const container = getActiveContainer();
+    if (!container) {
+        console.warn('⚠️ لا توجد حاوية نشطة');
+        return;
+    }
     
+    // استخراج البطاقات فقط (دون أي عناصر أخرى)
+    const cards = [];
+    const allChildren = [...container.children];
+    
+    for (let child of allChildren) {
+        if (child.classList && child.classList.contains('question-card')) {
+            cards.push(child);
+        }
+    }
+    
+    if (cards.length === 0) {
+        console.warn('⚠️ لا توجد بطاقات أسئلة في الحاوية');
+        return;
+    }
+    
+    // حفظ الترتيب الأصلي (مرة واحدة فقط)
+    if (!window.isInterleavingActive) {
+        originalOrder = cards.slice();
+        currentContainer = container;
+    }
+    
+    // تطبيق الترتيب الثابت
     const fixedOrder = getFixedOrder(cards.length);
     const orderedCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
     
-    if (orderedCards.length === cards.length) {
-        console.log(`✅ Interleaving: تم ترتيب ${orderedCards.length} بطاقة`);
-        return orderedCards;
+    // إذا لم نجد بطاقات بالترتيب، نستخدم الترتيب المباشر
+    if (orderedCards.length !== cards.length) {
+        const directOrder = getFixedOrder(cards.length);
+        const directCards = directOrder.map(idx => cards[idx - 1]).filter(c => c);
+        if (directCards.length === cards.length) {
+            directCards.forEach(card => container.appendChild(card));
+            console.log(`✅ Interleaving: تم ترتيب ${directCards.length} بطاقة (مباشر)`);
+            return;
+        }
     }
     
-    return cards;
+    // تطبيق الترتيب (نقل البطاقات فقط، دون لمس العناصر الأخرى)
+    orderedCards.forEach(card => {
+        if (card) container.appendChild(card);
+    });
+    
+    console.log(`✅ Interleaving: تم ترتيب ${orderedCards.length} بطاقة`);
 }
 
-// ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
-function toggleInterleaving() {
-    window.isInterleavingActive = !window.isInterleavingActive;
-    
-    const btn = document.getElementById('interleavingBtn');
-    if (btn) {
-        btn.classList.toggle('active');
+// ✅ دالة استعادة الترتيب الأصلي
+function restoreOriginalOrder() {
+    if (originalOrder.length === 0 || !currentContainer) {
+        console.warn('⚠️ لا يوجد ترتيب أصلي للحفظ');
+        return;
     }
     
-    console.log(`🔄 Interleaving: ${window.isInterleavingActive ? 'مفعّل ✅' : 'معطّل ❌'}`);
+    // إعادة البطاقات بالترتيب الأصلي (دون لمس العناصر الأخرى)
+    originalOrder.forEach(card => {
+        if (card && card.parentNode === currentContainer) {
+            currentContainer.appendChild(card);
+        }
+    });
     
-    // إعادة تحميل الامتحان الحالي لتطبيق التغيير
-    const currentSkill = window.currentSkill;
-    const currentExamId = window.currentExamId;
-    const currentExamTitle = document.getElementById('examTitle')?.textContent || '';
+    console.log(`✅ تم استعادة الترتيب الأصلي`);
+}
+
+// ✅ دالة الحصول على الحاوية النشطة (بدون إنشاء أي عناصر جديدة)
+function getActiveContainer() {
+    const skill = window.currentSkill || 'lesen1';
     
-    if (currentSkill && currentExamId) {
-        // إعادة فتح الامتحان مع الحالة الجديدة
-        setTimeout(() => {
-            openExam(currentExamId, currentExamTitle, currentSkill);
-        }, 100);
+    const skillMap = {
+        'hoeren1': 'hoeren1',
+        'hoeren2': 'hoeren2',
+        'hoeren3': 'hoeren3',
+        'lesen1': 'teil1',
+        'lesen2': 'teil2',
+        'lesen3': 'teil3',
+        'sprach1': 'sprach1',
+        'sprach2': 'sprach2'
+    };
+    
+    const targetId = skillMap[skill] || skill;
+    const container = document.getElementById(targetId);
+    
+    if (!container) {
+        console.warn(`⚠️ الحاوية ${targetId} غير موجودة`);
+        return null;
+    }
+    
+    return container;
+}
+
+// ✅ دالة تبديل حالة Interleaving
+function toggleInterleaving() {
+    const btn = document.getElementById('interleavingBtn');
+    
+    if (window.isInterleavingActive) {
+        restoreOriginalOrder();
+        window.isInterleavingActive = false;
+        originalOrder = [];
+        currentContainer = null;
+        if (btn) btn.classList.remove('active');
+    } else {
+        applyFixedOrder();
+        window.isInterleavingActive = true;
+        if (btn) btn.classList.add('active');
     }
 }
 
@@ -3492,6 +3558,7 @@ function initInterleaving() {
         return;
     }
     
+    // إزالة المستمع القديم إن وجد
     if (btn._listenerAttached) {
         btn.removeEventListener('click', toggleInterleaving);
     }
@@ -3499,7 +3566,10 @@ function initInterleaving() {
     btn.addEventListener('click', toggleInterleaving);
     btn._listenerAttached = true;
     
+    // إعادة تعيين الحالة
     window.isInterleavingActive = false;
+    originalOrder = [];
+    currentContainer = null;
     btn.classList.remove('active');
     
     console.log('✅ زر Interleaving تم تهيئته');
@@ -3507,12 +3577,15 @@ function initInterleaving() {
 
 // ✅ دالة إعادة تعيين (عند فتح امتحان جديد)
 function resetInterleaving() {
+    if (window.isInterleavingActive) {
+        restoreOriginalOrder();
+    }
     window.isInterleavingActive = false;
+    originalOrder = [];
+    currentContainer = null;
     
     const btn = document.getElementById('interleavingBtn');
-    if (btn) {
-        btn.classList.remove('active');
-    }
+    if (btn) btn.classList.remove('active');
     
     console.log('🔄 تم إعادة تعيين Interleaving');
 }
@@ -3521,6 +3594,6 @@ function resetInterleaving() {
 window.initInterleaving = initInterleaving;
 window.toggleInterleaving = toggleInterleaving;
 window.resetInterleaving = resetInterleaving;
-window.applyFixedOrderToArray = applyFixedOrderToArray;
+window.applyFixedOrder = applyFixedOrder;
 
-console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يُطبق قبل إنشاء الـ DOM');
+console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يعمل على البطاقات فقط');
