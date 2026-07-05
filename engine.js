@@ -3406,124 +3406,171 @@ if (typeof checkTeil3Exam === 'function') {
 console.log("✅ engine.js تم تحميله بالكامل");
 
 // ============================================
-// نظام Interleaving (ترتيب ثابت) - النسخة النهائية
+// نظام Interleaving (ترتيب ثابت) - النسخة المبسطة
 // ============================================
 
-const Interleaving = {
-    // الحالة
-    isActive: false,
-    originalOrder: [],
-    currentContainer: null,
-    currentSelector: '.question-card',
-    isShuffled: false,
+// الترتيب الثابت لكل عدد من الأسئلة
+const FIXED_ORDERS = {
+    5: [2, 4, 1, 5, 3],      // 5 أسئلة
+    10: [3, 7, 1, 9, 5, 10, 2, 8, 4, 6], // 10 أسئلة
+    12: [4, 8, 1, 11, 6, 2, 10, 5, 12, 3, 9, 7] // 12 سؤال
+};
+
+// دالة للحصول على الترتيب الثابت حسب عدد الأسئلة
+function getFixedOrder(count) {
+    // إذا كان العدد موجوداً في القائمة
+    if (FIXED_ORDERS[count]) {
+        return FIXED_ORDERS[count];
+    }
+    // إذا لم يكن موجوداً، نصنع ترتيباً عكسياً بسيطاً
+    const order = [];
+    for (let i = count; i > 0; i--) {
+        order.push(i);
+    }
+    return order;
+}
+
+// متغيرات الحالة
+let isInterleavingActive = false;
+let originalCards = [];
+let currentContainer = null;
+
+// دالة تطبيق الترتيب الثابت
+function applyFixedOrder() {
+    // البحث عن الحاوية النشطة
+    const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3'];
+    let container = null;
     
-    // 🔍 تحديد المحدد المناسب لكل نوع امتحان
-    getSelectorForContainer(containerId) {
-        const selectors = {
-            'hoeren1': '.question-card',
-            'hoeren2': '.question-card',
-            'hoeren3': '.question-card',
-            'teil1': '.question-card',
-            'teil2': '.question-card',
-            'teil3': '.question-card'  // Lesen 3 يستخدم نفس الكلاس
-        };
-        return selectors[containerId] || '.question-card';
-    },
-    
-    // 🔍 العثور على الحاوية النشطة
-    getActiveContainer() {
-        const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3'];
-        for (const id of containers) {
-            const el = document.getElementById(id);
-            if (el && el.offsetParent !== null) {
-                const selector = this.getSelectorForContainer(id);
-                const hasQuestions = el.querySelector(selector);
-                if (hasQuestions) {
-                    return el;
-                }
+    for (const id of containers) {
+        const el = document.getElementById(id);
+        if (el && el.offsetParent !== null) {
+            const hasCards = el.querySelector('.question-card');
+            if (hasCards) {
+                container = el;
+                break;
             }
         }
-        return null;
-    },
+    }
     
-    // ✅ ترتيب ثابت (بدلاً من العشوائي)
-    getFixedOrder(elements) {
-        // 🔄 ترتيب عكسي (أو يمكن تغييره لأي ترتيب ثابت آخر)
-        const indices = elements.map((_, i) => i);
-        return indices.reverse(); // مثلاً: [4,3,2,1,0]
-        
-        // يمكنك أيضاً استخدام ترتيب محدد:
-        // return [2, 0, 4, 1, 3]; // ترتيب ثابت
-    },
+    if (!container) {
+        console.warn('⚠️ لا توجد حاوية أسئلة نشطة');
+        return;
+    }
     
-    // ✅ تطبيق الترتيب الثابت
-    applyFixedOrder(container, selector) {
-        if (!container) return false;
-        
-        const elements = [...container.querySelectorAll(selector)];
-        if (elements.length === 0) {
-            console.warn(`⚠️ لا توجد عناصر للمحدد: ${selector}`);
-            return false;
-        }
-        
-        // حفظ الترتيب الأصلي (نسخة من العناصر نفسها)
-        if (!this.isActive) {
-            this.originalOrder = elements.slice();
-            this.currentContainer = container;
-            this.currentSelector = selector;
-        }
-        
-        // الحصول على الترتيب الثابت
-        const fixedIndices = this.getFixedOrder(elements);
-        
-        // ترتيب العناصر حسب الترتيب الثابت
-        const orderedElements = fixedIndices.map(index => elements[index]);
-        
-        // ✅ إعادة إضافة العناصر بالترتيب الجديد (مرة واحدة)
-        orderedElements.forEach(el => container.appendChild(el));
-        
-        console.log(`✅ تم تطبيق الترتيب الثابت على ${elements.length} عنصر في ${container.id}`);
-        return true;
-    },
+    // الحصول على بطاقات الأسئلة فقط
+    const cards = [...container.querySelectorAll('.question-card')];
+    if (cards.length === 0) {
+        console.warn('⚠️ لا توجد بطاقات أسئلة');
+        return;
+    }
     
-    // ✅ استعادة الترتيب الأصلي
-    restoreOrder() {
-        if (!this.originalOrder.length || !this.currentContainer) {
-            console.warn('⚠️ لا يوجد ترتيب أصلي للحفظ');
-            return false;
-        }
-        
-        const container = this.currentContainer;
-        
-        // ✅ إعادة إضافة العناصر بالترتيب الأصلي
-        this.originalOrder.forEach(el => {
-            container.appendChild(el);
-        });
-        
-        console.log(`✅ تم استعادة الترتيب الأصلي في ${container.id}`);
-        return true;
-    },
+    // إذا لم يكن مفعلاً، حفظ الترتيب الأصلي
+    if (!isInterleavingActive) {
+        originalCards = cards.slice();
+        currentContainer = container;
+    }
     
-    // 🔄 تبديل حالة الخلط
-    toggle() {
-        console.log('🔄 toggleInterleaving() تم استدعاؤها');
-        
-        const btn = document.getElementById('interleavingBtn');
-        if (!btn) {
-            console.warn('⚠️ زر Interleaving غير موجود');
-            return;
-        }
-        
-        const container = this.getActiveContainer();
-        if (!container) {
-            console.warn('⚠️ لا توجد حاوية أسئلة نشطة');
-            return;
-        }
-        
-        const selector = this.getSelectorForContainer(container.id);
-        
-        if (this.isActive) {
-            // إلغاء الخلط (العودة للترتيب الأصلي)
+    // الحصول على الترتيب الثابت
+    const fixedOrder = getFixedOrder(cards.length);
+    
+    // ترتيب البطاقات حسب الترتيب الثابت (مع تحويل الفهارس من 1-based إلى 0-based)
+    const orderedCards = fixedOrder.map(index => cards[index - 1]);
+    
+    // إعادة ترتيب البطاقات (باستخدام appendChild فقط)
+    orderedCards.forEach(card => {
+        container.appendChild(card);
+    });
+    
+    console.log(`✅ تم تطبيق الترتيب الثابت على ${cards.length} بطاقة في ${container.id}`);
+}
+
+// دالة استعادة الترتيب الأصلي
+function restoreOriginalOrder() {
+    if (!originalCards.length || !currentContainer) {
+        console.warn('⚠️ لا يوجد ترتيب أصلي للحفظ');
+        return;
+    }
+    
+    // إعادة البطاقات بالترتيب الأصلي
+    originalCards.forEach(card => {
+        currentContainer.appendChild(card);
+    });
+    
+    console.log(`✅ تم استعادة الترتيب الأصلي في ${currentContainer.id}`);
+}
+
+// دالة تبديل حالة الخلط
+function toggleInterleaving() {
+    const btn = document.getElementById('interleavingBtn');
+    if (!btn) {
+        console.warn('⚠️ زر Interleaving غير موجود');
+        return;
+    }
+    
+    if (isInterleavingActive) {
+        // إلغاء الخلط
+        restoreOriginalOrder();
+        isInterleavingActive = false;
+        originalCards = [];
+        currentContainer = null;
+        btn.classList.remove('active');
+    } else {
+        // تفعيل الخلط
+        applyFixedOrder();
+        isInterleavingActive = true;
+        btn.classList.add('active');
+    }
+}
+
+// دالة تهيئة الزر
+function initInterleaving() {
+    const btn = document.getElementById('interleavingBtn');
+    if (!btn) {
+        console.warn('⚠️ زر Interleaving غير موجود');
+        return;
+    }
+    
+    // إزالة الـ Listener القديم
+    if (btn._listenerAttached) {
+        btn.removeEventListener('click', toggleInterleaving);
+    }
+    
+    // ربط الـ Listener الجديد
+    btn.addEventListener('click', toggleInterleaving);
+    btn._listenerAttached = true;
+    
+    // إعادة تعيين الحالة
+    isInterleavingActive = false;
+    originalCards = [];
+    currentContainer = null;
+    btn.classList.remove('active');
+    
+    console.log('✅ زر Interleaving تم تهيئته');
+}
+
+// دالة إعادة تعيين (عند فتح امتحان جديد)
+function resetInterleaving() {
+    if (isInterleavingActive) {
+        restoreOriginalOrder();
+    }
+    isInterleavingActive = false;
+    originalCards = [];
+    currentContainer = null;
+    
+    const btn = document.getElementById('interleavingBtn');
+    if (btn) {
+        btn.classList.remove('active');
+    }
+    
+    console.log('🔄 تم إعادة تعيين Interleaving');
+}
+
+// تصدير الدوال للاستخدام العالمي
+window.initInterleaving = initInterleaving;
+window.toggleInterleaving = toggleInterleaving;
+window.resetInterleaving = resetInterleaving;
+
+console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز');ب الأصلي)
             this.restoreOrder();
             this.isActive = false;
             this.originalOrder = [];
