@@ -20,7 +20,7 @@
       "options": ["ob", "dass", "während"],
       "correct": 0,
       "memoryHighlight": {
-        "before": " Ich weiß nicht",
+        "before": " Ich weiß nicht,",
         "connector": "ob",
         "after": "ich das sonst",
         "color": 1
