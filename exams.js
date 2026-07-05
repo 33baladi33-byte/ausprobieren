@@ -1063,18 +1063,9 @@ if (window.memoryEngine) {
     if (currentExamData.type === "matching") {
       if (typeof window.loadMatchingExam === "function") {
         window.loadMatchingExam(currentExamData);
-     } else {
-  // ✅ التحقق من وجود أسئلة قبل调用 buildTeil1
-  if (currentExamData.questions && Array.isArray(currentExamData.questions) && currentExamData.questions.length > 0) {
-    buildTeil1(currentExamData.questions);
-  } else {
-    console.warn('⚠️ لا توجد أسئلة في هذا الامتحان');
-    const container = document.getElementById(currentSkill) || document.getElementById('teil1');
-    if (container) {
-      container.innerHTML = '<div style="text-align:center; padding:20px; color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
-    }
-  }
-}
+      } else {
+        buildTeil1(currentExamData.questions || []);
+      }
     } else if (currentExamData.type === "truefalse") {
       const container = document.getElementById(currentSkill);
       if (container && typeof window.buildTrueFalseExam === "function") {
@@ -1484,82 +1475,6 @@ function buildTeil1(questions) {
   
   container.innerHTML = "";
   
-  // ============================================================
-  // 🆕 إضافة شريط التحكم مع زر Interleaving وزر اللعب
-  // ============================================================
-  const controlsRow = document.createElement("div");
-  controlsRow.className = "exam-controls-row";
-  controlsRow.style.cssText = `
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 8px 14px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,0.06);
-    flex-wrap: wrap;
-  `;
-
-  // 🔀 زر Interleaving (خلط الأسئلة)
-  const shuffleBtn = document.createElement("button");
-  shuffleBtn.id = "interleavingBtn";
-  shuffleBtn.className = "interleaving-btn";
-  shuffleBtn.title = "Interleaving (Shuffle Questions)";
-  shuffleBtn.innerHTML = `
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" 
-         stroke="currentColor" stroke-width="2.5">
-      <path d="M21 16V8h-8" stroke-linecap="round"/>
-      <path d="M3 8h8v8" stroke-linecap="round"/>
-      <path d="M21 8l-4-4 4-4" stroke-linecap="round"/>
-      <path d="M3 16l4 4-4 4" stroke-linecap="round"/>
-    </svg>
-  `;
-  shuffleBtn.style.cssText = `
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    border: 2px solid #d1d5db;
-    background: white;
-    color: #4b5563;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 0;
-    margin: 0;
-  `;
-  
-  // إضافة حدث الضغط لزر Interleaving
-  shuffleBtn.addEventListener('click', function() {
-    if (typeof window.toggleInterleaving === 'function') {
-      window.toggleInterleaving();
-    } else {
-      console.warn('⚠️ window.toggleInterleaving غير معرف');
-    }
-  });
-
-  // 🎮 مكان زر "العب" (سيتم إضافته بواسطة rapidGame.js)
-  const gameBtnPlaceholder = document.createElement("span");
-  gameBtnPlaceholder.id = "rapidGamePlaceholder";
-  gameBtnPlaceholder.style.cssText = "display: inline-flex; align-items: center;";
-
-  controlsRow.appendChild(shuffleBtn);
-  controlsRow.appendChild(gameBtnPlaceholder);
-  container.appendChild(controlsRow);
-
-  // ============================================================
-  // 🆕 تخزين الأسئلة للاستخدام في Interleaving
-  // ============================================================
-  window.currentDisplayQuestions = questions;
-  window.currentDisplayContainer = container;
-  window.currentDisplayUserAnswers = {};
-
-  // ============================================================
-  // عرض الأسئلة
-  // ============================================================
   let userAnswers = {};
   
   for (let i = 0; i < questions.length; i++) {
@@ -1567,7 +1482,6 @@ function buildTeil1(questions) {
     const card = document.createElement("div");
     card.className = "question-card";
     card.id = "q_" + i;
-    card.dataset.questionIndex = i;
     
     const questionText = document.createElement("div");
     questionText.className = "question-text";
@@ -1584,7 +1498,6 @@ function buildTeil1(questions) {
       label.onclick = (function(qIdx, ansIdx) {
         return function() {
           userAnswers[qIdx] = ansIdx;
-          window.currentDisplayUserAnswers = userAnswers;
         };
       })(i, j);
       optionsDiv.appendChild(label);
@@ -1593,9 +1506,6 @@ function buildTeil1(questions) {
     container.appendChild(card);
   }
   
-  // ============================================================
-  // زر التصحيح
-  // ============================================================
   const checkBtn = document.createElement("button");
   checkBtn.innerText = "✅ تصحيح";
   checkBtn.className = "check-btn";
@@ -1609,148 +1519,8 @@ function buildTeil1(questions) {
   resultDiv.className = "result-box";
   resultDiv.style.display = "none";
   container.appendChild(resultDiv);
-
-  // ============================================================
-  // 🆕 دالة لتحديث عرض الأسئلة بعد الخلط
-  // ============================================================
-  window.updateQuestionsDisplay = function(shuffledQuestions) {
-    // إزالة الأسئلة القديمة (مع الاحتفاظ بشريط التحكم وزر التصحيح)
-    const questionCards = container.querySelectorAll('.question-card');
-    questionCards.forEach(card => card.remove());
-    
-    const checkBtnExisting = container.querySelector('.check-btn');
-    if (checkBtnExisting) checkBtnExisting.remove();
-    
-    const resultDivExisting = container.querySelector('#teil1Result');
-    if (resultDivExisting) resultDivExisting.remove();
-    
-    // إعادة بناء الأسئلة بالترتيب الجديد
-    let newUserAnswers = {};
-    
-    for (let i = 0; i < shuffledQuestions.length; i++) {
-      const q = shuffledQuestions[i];
-      const card = document.createElement("div");
-      card.className = "question-card";
-      card.id = "q_" + i;
-      card.dataset.questionIndex = i;
-      
-      const questionText = document.createElement("div");
-      questionText.className = "question-text";
-      questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
-      card.appendChild(questionText);
-      
-      const optionsDiv = document.createElement("div");
-      optionsDiv.className = "options-container";
-      for (let j = 0; j < q.options.length; j++) {
-        const label = document.createElement("label");
-        label.className = "option-label";
-        const radioId = "q" + i + "_" + j;
-        label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
-        label.onclick = (function(qIdx, ansIdx) {
-          return function() {
-            newUserAnswers[qIdx] = ansIdx;
-            window.currentDisplayUserAnswers = newUserAnswers;
-          };
-        })(i, j);
-        optionsDiv.appendChild(label);
-      }
-      card.appendChild(optionsDiv);
-      container.appendChild(card);
-    }
-    
-    // إعادة زر التصحيح
-    const newCheckBtn = document.createElement("button");
-    newCheckBtn.innerText = "✅ تصحيح";
-    newCheckBtn.className = "check-btn";
-    newCheckBtn.onclick = function() {
-      checkTeil1(shuffledQuestions, newUserAnswers);
-    };
-    container.appendChild(newCheckBtn);
-    
-    // إعادة حاوية النتيجة
-    const newResultDiv = document.createElement("div");
-    newResultDiv.id = "teil1Result";
-    newResultDiv.className = "result-box";
-    newResultDiv.style.display = "none";
-    container.appendChild(newResultDiv);
-    
-    // تحديث المتغيرات العامة
-    window.currentDisplayQuestions = shuffledQuestions;
-    window.currentDisplayUserAnswers = newUserAnswers;
-  };
-
-  // ============================================================
-  // 🆕 دالة لاستعادة الترتيب الأصلي
-  // ============================================================
-  window.restoreQuestionsDisplay = function(originalQuestions) {
-    // إزالة الأسئلة القديمة
-    const questionCards = container.querySelectorAll('.question-card');
-    questionCards.forEach(card => card.remove());
-    
-    const checkBtnExisting = container.querySelector('.check-btn');
-    if (checkBtnExisting) checkBtnExisting.remove();
-    
-    const resultDivExisting = container.querySelector('#teil1Result');
-    if (resultDivExisting) resultDivExisting.remove();
-    
-    let restoredUserAnswers = {};
-    
-    for (let i = 0; i < originalQuestions.length; i++) {
-      const q = originalQuestions[i];
-      const card = document.createElement("div");
-      card.className = "question-card";
-      card.id = "q_" + i;
-      card.dataset.questionIndex = i;
-      
-      const questionText = document.createElement("div");
-      questionText.className = "question-text";
-      questionText.innerHTML = "<strong>" + (i + 1) + ". " + q.text + "</strong>";
-      card.appendChild(questionText);
-      
-      const optionsDiv = document.createElement("div");
-      optionsDiv.className = "options-container";
-      for (let j = 0; j < q.options.length; j++) {
-        const label = document.createElement("label");
-        label.className = "option-label";
-        const radioId = "q" + i + "_" + j;
-        label.innerHTML = '<input type="radio" name="q' + i + '" value="' + j + '" class="option-input" id="' + radioId + '"> <span>' + q.options[j] + '</span>';
-        label.onclick = (function(qIdx, ansIdx) {
-          return function() {
-            restoredUserAnswers[qIdx] = ansIdx;
-            window.currentDisplayUserAnswers = restoredUserAnswers;
-          };
-        })(i, j);
-        optionsDiv.appendChild(label);
-      }
-      card.appendChild(optionsDiv);
-      container.appendChild(card);
-    }
-    
-    const newCheckBtn = document.createElement("button");
-    newCheckBtn.innerText = "✅ تصحيح";
-    newCheckBtn.className = "check-btn";
-    newCheckBtn.onclick = function() {
-      checkTeil1(originalQuestions, restoredUserAnswers);
-    };
-    container.appendChild(newCheckBtn);
-    
-    const newResultDiv = document.createElement("div");
-    newResultDiv.id = "teil1Result";
-    newResultDiv.className = "result-box";
-    newResultDiv.style.display = "none";
-    container.appendChild(newResultDiv);
-    
-    window.currentDisplayQuestions = originalQuestions;
-    window.currentDisplayUserAnswers = restoredUserAnswers;
-  };
-
-  // ============================================================
-  // 🆕 تهيئة Interleaving Manager
-  // ============================================================
-  if (typeof window.initInterleaving === 'function') {
-    window.initInterleaving();
-  }
 }
+
 function checkTeil1(questions, answers) {
   let score = 0;
   const total = questions.length;
@@ -1873,4 +1643,4 @@ console.log("✏️ Schreiben:", examsDatabase.schreiben.length, "امتحان")
 console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich1.length, "قسم");
 console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich2.length, "امتحان");
 console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich3.length, "قسم");
-console.log("💡 Tips:", examsDatabase.tips.length, "قسم");
+console.log("💡 Tips:", examsDatabase.tips.length, "قسم"); 
