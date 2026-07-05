@@ -1194,15 +1194,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
   }
   
   // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
-  let finalCards = cards;
-  if (window.isInterleavingActive) {
-    const fixedOrder = getFixedOrder(cards.length);
-    finalCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
-    if (finalCards.length !== cards.length) {
-      finalCards = cards;
-    }
-    console.log(`✅ Interleaving: تم ترتيب ${finalCards.length} بطاقة في ${container.id}`);
-  }
+  let finalCards = applyFixedOrderToArray(cards);
   
   // ✅ إضافة البطاقات إلى الـ DOM
   finalCards.forEach(card => {
@@ -1551,15 +1543,7 @@ function renderMatchingQuestions() {
   }
   
   // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
-  let finalCards = cards;
-  if (window.isInterleavingActive) {
-    const fixedOrder = getFixedOrder(cards.length);
-    finalCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
-    if (finalCards.length !== cards.length) {
-      finalCards = cards;
-    }
-    console.log(`✅ Interleaving: تم ترتيب ${finalCards.length} بطاقة في teil1`);
-  }
+  let finalCards = applyFixedOrderToArray(cards);
   
   // ✅ إضافة البطاقات إلى الـ DOM
   finalCards.forEach(card => {
@@ -1817,15 +1801,7 @@ function renderTeil2Exam() {
   }
   
   // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
-  let finalCards = cards;
-  if (window.isInterleavingActive) {
-    const fixedOrder = getFixedOrder(cards.length);
-    finalCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
-    if (finalCards.length !== cards.length) {
-      finalCards = cards;
-    }
-    console.log(`✅ Interleaving: تم ترتيب ${finalCards.length} بطاقة في teil2`);
-  }
+  let finalCards = applyFixedOrderToArray(cards);
   
   // ✅ إضافة البطاقات إلى الـ DOM
   finalCards.forEach(card => {
@@ -2239,15 +2215,7 @@ function renderTeil3Exam() {
   }
   
   // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
-  let finalCards = cards;
-  if (window.isInterleavingActive) {
-    const fixedOrder = getFixedOrder(cards.length);
-    finalCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
-    if (finalCards.length !== cards.length) {
-      finalCards = cards;
-    }
-    console.log(`✅ Interleaving: تم ترتيب ${finalCards.length} بطاقة في teil3`);
-  }
+  let finalCards = applyFixedOrderToArray(cards);
   
   // ✅ إضافة البطاقات إلى الـ DOM
   finalCards.forEach(card => {
@@ -3403,7 +3371,7 @@ if (typeof checkTeil3Exam === 'function') {
 console.log("✅ engine.js تم تحميله بالكامل");
 
 // ============================================
-// نظام Interleaving (ترتيب ثابت) - يعمل على البطاقات فقط
+// نظام Interleaving (ترتيب ثابت) - يعمل أثناء بناء الامتحان
 // ============================================
 
 // الترتيب الثابت لكل عدد من الأسئلة
@@ -3415,7 +3383,6 @@ const FIXED_ORDERS = {
 
 // ✅ حالة Interleaving
 window.isInterleavingActive = false;
-let originalOrder = [];
 
 // دالة الحصول على الترتيب الثابت
 function getFixedOrder(count) {
@@ -3436,133 +3403,100 @@ function getFixedOrder(count) {
     return result;
 }
 
-// ✅ دالة تطبيق الترتيب الثابت (تبديل البطاقات فقط)
-function applyFixedOrder() {
-    // العثور على الحاوية النشطة
-    const container = getActiveContainer();
-    if (!container) {
-        console.warn('⚠️ لا توجد حاوية نشطة');
-        return;
-    }
+// ✅ دالة تطبيق الترتيب الثابت على مصفوفة البطاقات (تُستدعى أثناء البناء)
+function applyFixedOrderToArray(cards) {
+    if (!cards || cards.length === 0) return cards;
+    if (!window.isInterleavingActive) return cards;
     
-    // الحصول على جميع البطاقات في الحاوية (بأي عمق)
-    const cards = container.querySelectorAll('.question-card');
+    const fixedOrder = getFixedOrder(cards.length);
+    const orderedCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
     
-    if (cards.length === 0) {
-        console.warn('⚠️ لا توجد بطاقات أسئلة في الحاوية');
-        return;
-    }
-    
-    const cardsArray = Array.from(cards);
-    
-    // حفظ الترتيب الأصلي (مرة واحدة فقط)
-    if (!window.isInterleavingActive) {
-        originalOrder = cardsArray.slice();
-    }
-    
-    // تطبيق الترتيب الثابت
-    const fixedOrder = getFixedOrder(cardsArray.length);
-    const orderedCards = fixedOrder.map(index => cardsArray[index - 1]).filter(c => c);
-    
-    if (orderedCards.length === cardsArray.length) {
-        // ✅ تبادل البطاقات في أماكنها الأصلية (بدون استخدام appendChild على الحاوية)
-        swapCardsInPlace(cardsArray, orderedCards);
+    if (orderedCards.length === cards.length) {
         console.log(`✅ Interleaving: تم ترتيب ${orderedCards.length} بطاقة`);
+        return orderedCards;
+    }
+    
+    return cards;
+}
+
+// ✅ دالة إعادة بناء الامتحان الحالي (بدون إعادة تحميل JSON)
+function rebuildCurrentExam() {
+    const examData = window.currentExamData;
+    const skill = window.currentSkill;
+    
+    if (!examData || !skill) {
+        console.warn('⚠️ لا توجد بيانات امتحان لإعادة البناء');
         return;
     }
     
-    // إذا لم نجد بطاقات بالترتيب، نستخدم الترتيب المباشر
-    const directOrder = getFixedOrder(cardsArray.length);
-    const directCards = directOrder.map(idx => cardsArray[idx - 1]).filter(c => c);
-    if (directCards.length === cardsArray.length) {
-        swapCardsInPlace(cardsArray, directCards);
-        console.log(`✅ Interleaving: تم ترتيب ${directCards.length} بطاقة (مباشر)`);
-    }
-}
-
-// ✅ دالة تبادل البطاقات في أماكنها الأصلية
-function swapCardsInPlace(originalCards, orderedCards) {
-    // إنشاء خريطة: البطاقة الأصلية -> البطاقة المطلوبة في مكانها
-    const cardMap = {};
-    originalCards.forEach((card, index) => {
-        cardMap[card] = orderedCards[index];
-    });
-    
-    // لكل بطاقة أصلية، نستبدلها بالبطاقة المطلوبة في نفس المكان
-    originalCards.forEach((originalCard) => {
-        const targetCard = cardMap[originalCard];
-        if (targetCard && targetCard !== originalCard) {
-            // تبديل البطاقتين في DOM
-            const parent = originalCard.parentNode;
-            const nextSibling = originalCard.nextSibling;
-            
-            // إزالة targetCard من مكانها
-            const targetParent = targetCard.parentNode;
-            const targetNextSibling = targetCard.nextSibling;
-            
-            // إذا كانا في نفس الـ parent، نبدل ببساطة
-            if (parent === targetParent) {
-                // تبديل باستخدام insertBefore
-                if (nextSibling) {
-                    parent.insertBefore(targetCard, nextSibling);
-                } else {
-                    parent.appendChild(targetCard);
-                }
-                
-                // إعادة originalCard إلى مكان targetCard
-                if (targetNextSibling && targetNextSibling !== originalCard) {
-                    targetParent.insertBefore(originalCard, targetNextSibling);
-                } else {
-                    targetParent.appendChild(originalCard);
-                }
-            } else {
-                // إذا كانا في parents مختلفين (نادر)
-                // ننقل كل بطاقة إلى مكان الأخرى
-                if (nextSibling) {
-                    parent.insertBefore(targetCard, nextSibling);
-                } else {
-                    parent.appendChild(targetCard);
-                }
-                
-                if (targetNextSibling) {
-                    targetParent.insertBefore(originalCard, targetNextSibling);
-                } else {
-                    targetParent.appendChild(originalCard);
-                }
-            }
-        }
-    });
-}
-
-// ✅ دالة استعادة الترتيب الأصلي
-function restoreOriginalOrder() {
-    if (originalOrder.length === 0) {
-        console.warn('⚠️ لا يوجد ترتيب أصلي للحفظ');
-        return;
-    }
-    
-    // العثور على الحاوية النشطة
-    const container = getActiveContainer();
+    // تحديد الحاوية المناسبة
+    const containerId = getContainerId(skill);
+    const container = document.getElementById(containerId);
     if (!container) {
-        console.warn('⚠️ لا توجد حاوية نشطة');
+        console.warn(`⚠️ الحاوية ${containerId} غير موجودة`);
         return;
     }
     
-    // الحصول على البطاقات الحالية
-    const currentCards = container.querySelectorAll('.question-card');
-    const currentArray = Array.from(currentCards);
+    console.log(`🔄 إعادة بناء الامتحان في ${containerId} مع Interleaving: ${window.isInterleavingActive}`);
     
-    // استعادة الترتيب الأصلي
-    swapCardsInPlace(currentArray, originalOrder);
+    // إعادة بناء الأسئلة حسب النوع
+    switch(examData.type) {
+        case 'matching':
+            // إعادة تعيين البيانات
+            matchingSelectedAnswers = {};
+            matchingAvailableOptions = [...examData.sharedOptions];
+            renderMatchingQuestions();
+            break;
+        case 'truefalse':
+            if (window._trueFalseUserAnswers) {
+                delete window._trueFalseUserAnswers;
+            }
+            window._trueFalseUserAnswers = {};
+            buildTrueFalseExam(container, examData.questions, examData.note);
+            break;
+        case 'teil2':
+            teil2UserAnswers = {};
+            renderTeil2Exam();
+            break;
+        case 'teil3':
+            teil3UserAnswers = {};
+            teil3SelectedItem = null;
+            teil3SelectedSit = null;
+            renderTeil3Exam();
+            break;
+        case 'sprach1':
+            sprach1UserAnswers = {};
+            renderSprach1Exam();
+            break;
+        case 'sprach2':
+            sprach2UserAnswers = {};
+            sprach2SelectedQuestionId = null;
+            sprach2SelectedWordForLinking = null;
+            renderSprach2Exam();
+            break;
+        case 'schreiben':
+            renderSchreibenExam();
+            break;
+        default:
+            if (examData.questions && examData.questions.length > 0) {
+                buildTeil1(examData.questions);
+            }
+    }
     
-    console.log(`✅ تم استعادة الترتيب الأصلي`);
+    // إعادة تطبيق التلوين إذا كان مفعلاً
+    if (window.memoryEngine && window.memoryEngine.isActive) {
+        setTimeout(() => {
+            window.memoryEngine.applyHighlights();
+        }, 200);
+    }
+    
+    // إعادة تطبيق أنماط الهاتف
+    setTimeout(applyMobileStylesToEngine, 100);
 }
 
-// ✅ دالة الحصول على الحاوية النشطة
-function getActiveContainer() {
-    const skill = window.currentSkill || 'lesen1';
-    
-    const skillMap = {
+// ✅ دالة الحصول على معرف الحاوية حسب المهارة
+function getContainerId(skill) {
+    const map = {
         'hoeren1': 'hoeren1',
         'hoeren2': 'hoeren2',
         'hoeren3': 'hoeren3',
@@ -3570,27 +3504,27 @@ function getActiveContainer() {
         'lesen2': 'teil2',
         'lesen3': 'teil3',
         'sprach1': 'sprach1',
-        'sprach2': 'sprach2'
+        'sprach2': 'sprach2',
+        'schreiben': 'schreiben',
+        'mündlich': 'mündlich',
+        'tips': 'tips'
     };
-    
-    const targetId = skillMap[skill] || skill;
-    return document.getElementById(targetId) || null;
+    return map[skill] || skill;
 }
 
-// ✅ دالة تبديل حالة Interleaving
+// ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
 function toggleInterleaving() {
-    const btn = document.getElementById('interleavingBtn');
+    window.isInterleavingActive = !window.isInterleavingActive;
     
-    if (window.isInterleavingActive) {
-        restoreOriginalOrder();
-        window.isInterleavingActive = false;
-        originalOrder = [];
-        if (btn) btn.classList.remove('active');
-    } else {
-        applyFixedOrder();
-        window.isInterleavingActive = true;
-        if (btn) btn.classList.add('active');
+    const btn = document.getElementById('interleavingBtn');
+    if (btn) {
+        btn.classList.toggle('active');
     }
+    
+    console.log(`🔄 Interleaving: ${window.isInterleavingActive ? 'مفعّل ✅' : 'معطّل ❌'}`);
+    
+    // ✅ إعادة بناء الأسئلة فقط (بدون إعادة تحميل JSON)
+    rebuildCurrentExam();
 }
 
 // ✅ دالة تهيئة الزر
@@ -3609,22 +3543,19 @@ function initInterleaving() {
     btn._listenerAttached = true;
     
     window.isInterleavingActive = false;
-    originalOrder = [];
     btn.classList.remove('active');
     
     console.log('✅ زر Interleaving تم تهيئته');
 }
 
-// ✅ دالة إعادة تعيين
+// ✅ دالة إعادة تعيين (عند فتح امتحان جديد)
 function resetInterleaving() {
-    if (window.isInterleavingActive) {
-        restoreOriginalOrder();
-    }
     window.isInterleavingActive = false;
-    originalOrder = [];
     
     const btn = document.getElementById('interleavingBtn');
-    if (btn) btn.classList.remove('active');
+    if (btn) {
+        btn.classList.remove('active');
+    }
     
     console.log('🔄 تم إعادة تعيين Interleaving');
 }
@@ -3633,5 +3564,8 @@ function resetInterleaving() {
 window.initInterleaving = initInterleaving;
 window.toggleInterleaving = toggleInterleaving;
 window.resetInterleaving = resetInterleaving;
+window.applyFixedOrderToArray = applyFixedOrderToArray;
+window.rebuildCurrentExam = rebuildCurrentExam;
 
-console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يعمل على تبادل البطاقات فقط');
+console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يعمل أثناء بناء الامتحان');
+console.log('📌 الضغط على زر Interleaving يعيد بناء الأسئلة فقط (بدون إعادة تحميل JSON)');
