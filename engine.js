@@ -2688,7 +2688,7 @@ function highlightTextInContainer(container, searchText, colorIndex) {
         }
     });
 }
-111
+
 function highlightSelectOption(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
@@ -2701,31 +2701,35 @@ function highlightSelectOption(container, searchText, colorIndex) {
         for (let i = 0; i < select.options.length; i++) {
             const option = select.options[i];
             if (option.textContent.trim() === searchTrimmed) {
+                // ✅ فقط لون الخط والوزن
                 option.style.color = txtColor;
                 option.style.fontWeight = 'bold';
+                // ✅ نزيل أي تغييرات أخرى
+                option.style.backgroundColor = '';
+                option.style.border = '';
+                option.style.padding = '';
+                option.style.borderRadius = '';
+                option.style.opacity = '';
                 break;
             }
         }
     });
     
-    // ✅ 2. تلوين الخيارات في Sprach 1 (label > span) - حفظ الشكل الأصلي
+    // ✅ 2. تلوين الخيارات في Sprach 1 (label > span)
     const labels = container.querySelectorAll('label');
     labels.forEach(label => {
-        // حفظ الخلفية الأصلية قبل التلوين (مرة واحدة فقط)
-        if (!label.dataset.originalBg) {
-            label.dataset.originalBg = label.style.backgroundColor || '';
-            label.dataset.originalBorder = label.style.border || '';
-            label.dataset.originalBorderRadius = label.style.borderRadius || '';
-            label.dataset.originalPadding = label.style.padding || '';
-        }
         const spans = label.querySelectorAll('span');
         spans.forEach(span => {
             if (span.textContent.trim() === searchTrimmed) {
-                if (!span.dataset.originalColor) {
-                    span.dataset.originalColor = span.style.color || '';
-                }
+                // ✅ فقط لون الخط والوزن
                 span.style.color = txtColor;
                 span.style.fontWeight = 'bold';
+                // ✅ نزيل أي تغييرات أخرى
+                span.style.backgroundColor = '';
+                span.style.border = '';
+                span.style.padding = '';
+                span.style.borderRadius = '';
+                span.style.opacity = '';
             }
         });
     });
@@ -2734,11 +2738,15 @@ function highlightSelectOption(container, searchText, colorIndex) {
     const wordCards = container.querySelectorAll('.sprach2-word-card');
     wordCards.forEach(card => {
         if (card.textContent.trim() === searchTrimmed) {
-            if (!card.dataset.originalColor) {
-                card.dataset.originalColor = card.style.color || '';
-            }
+            // ✅ فقط لون الخط والوزن
             card.style.color = txtColor;
             card.style.fontWeight = 'bold';
+            // ✅ نزيل أي تغييرات أخرى
+            card.style.backgroundColor = '';
+            card.style.border = '';
+            card.style.padding = '';
+            card.style.borderRadius = '';
+            card.style.opacity = '';
         }
     });
     
@@ -2746,11 +2754,13 @@ function highlightSelectOption(container, searchText, colorIndex) {
     const allElements = container.querySelectorAll('.option, .option-btn, .choice, [class*="option"]');
     allElements.forEach(el => {
         if (el.textContent.trim() === searchTrimmed) {
-            if (!el.dataset.originalColor) {
-                el.dataset.originalColor = el.style.color || '';
-            }
             el.style.color = txtColor;
             el.style.fontWeight = 'bold';
+            el.style.backgroundColor = '';
+            el.style.border = '';
+            el.style.padding = '';
+            el.style.borderRadius = '';
+            el.style.opacity = '';
         }
     });
 }
@@ -3292,7 +3302,7 @@ class MemoryHighlightEngine {
         if (!this.container) return;
         highlightTextInContainer(this.container, searchText, colorIndex);
     }
-       removeHighlights() {
+    removeHighlights() {
         if (!this.container) return;
         
         // ✅ 1. إزالة التلوين من النص
@@ -3323,45 +3333,44 @@ class MemoryHighlightEngine {
         labels.forEach(label => {
             const spans = label.querySelectorAll('span');
             spans.forEach(span => {
-                span.style.backgroundColor = '';
                 span.style.color = '';
                 span.style.fontWeight = '';
+                span.style.backgroundColor = '';
+                span.style.border = '';
                 span.style.padding = '';
                 span.style.borderRadius = '';
-                span.style.border = '';
                 span.style.opacity = '';
             });
-            // إزالة التلوين من الـ label نفسه
-            label.style.backgroundColor = '';
             label.style.color = '';
             label.style.fontWeight = '';
+            label.style.backgroundColor = '';
+            label.style.border = '';
             label.style.padding = '';
             label.style.borderRadius = '';
-            label.style.border = '';
             label.style.opacity = '';
         });
         
         // ✅ 4. إزالة التلوين من Sprach 2 (word cards)
         const wordCards = this.container.querySelectorAll('.sprach2-word-card');
         wordCards.forEach(card => {
-            card.style.backgroundColor = '';
             card.style.color = '';
             card.style.fontWeight = '';
+            card.style.backgroundColor = '';
+            card.style.border = '';
             card.style.padding = '';
             card.style.borderRadius = '';
-            card.style.border = '';
             card.style.opacity = '';
         });
         
         // ✅ 5. إزالة التلوين من أي عناصر أخرى
         const allElements = this.container.querySelectorAll('.option, .option-btn, .choice, [class*="option"]');
         allElements.forEach(el => {
-            el.style.backgroundColor = '';
             el.style.color = '';
             el.style.fontWeight = '';
+            el.style.backgroundColor = '';
+            el.style.border = '';
             el.style.padding = '';
             el.style.borderRadius = '';
-            el.style.border = '';
             el.style.opacity = '';
         });
         
@@ -3370,6 +3379,7 @@ class MemoryHighlightEngine {
         }
         this.originalTexts.clear();
     }
+  
 }
 
 // ============================================
