@@ -3406,9 +3406,9 @@ console.log("✅ engine.js تم تحميله بالكامل");
 // ============================================
 // 🆕 أضف كود Interleaving هنا
 // ============================================
-
-// استيراد InterleavingManager
+// ✅ استيراد InterleavingManager في بداية الملف
 import InterleavingManager from './interleaving.js';
+
 
 // إنشاء كائن InterleavingManager
 let interleavingManager = null;
