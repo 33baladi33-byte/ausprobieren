@@ -2688,7 +2688,7 @@ function highlightTextInContainer(container, searchText, colorIndex) {
         }
     });
 }
-
+111
 function highlightSelectOption(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
@@ -3292,7 +3292,7 @@ class MemoryHighlightEngine {
         if (!this.container) return;
         highlightTextInContainer(this.container, searchText, colorIndex);
     }
-    removeHighlights() {
+       removeHighlights() {
         if (!this.container) return;
         
         // ✅ 1. إزالة التلوين من النص
@@ -3318,62 +3318,51 @@ class MemoryHighlightEngine {
             }
         });
         
-        // ✅ 3. إزالة التلوين واستعادة الشكل الأصلي من الاختيارات في Sprach 1 (label > span)
+        // ✅ 3. إزالة التلوين من الاختيارات في Sprach 1 (label > span)
         const labels = this.container.querySelectorAll('label');
         labels.forEach(label => {
-            // استعادة الشكل الأصلي للـ label
-            label.style.backgroundColor = label.dataset.originalBg || '';
-            label.style.border = label.dataset.originalBorder || '';
-            label.style.borderRadius = label.dataset.originalBorderRadius || '';
-            label.style.padding = label.dataset.originalPadding || '';
-            label.style.color = '';
-            label.style.fontWeight = '';
-            label.style.opacity = '';
-            
             const spans = label.querySelectorAll('span');
             spans.forEach(span => {
-                span.style.color = span.dataset.originalColor || '';
-                span.style.fontWeight = '';
                 span.style.backgroundColor = '';
-                span.style.border = '';
+                span.style.color = '';
+                span.style.fontWeight = '';
                 span.style.padding = '';
                 span.style.borderRadius = '';
+                span.style.border = '';
                 span.style.opacity = '';
-                // حذف البيانات المحفوظة بعد الاستعادة
-                delete span.dataset.originalColor;
             });
-            
-            // حذف البيانات المحفوظة للـ label
-            delete label.dataset.originalBg;
-            delete label.dataset.originalBorder;
-            delete label.dataset.originalBorderRadius;
-            delete label.dataset.originalPadding;
+            // إزالة التلوين من الـ label نفسه
+            label.style.backgroundColor = '';
+            label.style.color = '';
+            label.style.fontWeight = '';
+            label.style.padding = '';
+            label.style.borderRadius = '';
+            label.style.border = '';
+            label.style.opacity = '';
         });
         
         // ✅ 4. إزالة التلوين من Sprach 2 (word cards)
         const wordCards = this.container.querySelectorAll('.sprach2-word-card');
         wordCards.forEach(card => {
-            card.style.color = card.dataset.originalColor || '';
-            card.style.fontWeight = '';
             card.style.backgroundColor = '';
-            card.style.border = '';
+            card.style.color = '';
+            card.style.fontWeight = '';
             card.style.padding = '';
             card.style.borderRadius = '';
+            card.style.border = '';
             card.style.opacity = '';
-            delete card.dataset.originalColor;
         });
         
         // ✅ 5. إزالة التلوين من أي عناصر أخرى
         const allElements = this.container.querySelectorAll('.option, .option-btn, .choice, [class*="option"]');
         allElements.forEach(el => {
-            el.style.color = el.dataset.originalColor || '';
-            el.style.fontWeight = '';
             el.style.backgroundColor = '';
-            el.style.border = '';
+            el.style.color = '';
+            el.style.fontWeight = '';
             el.style.padding = '';
             el.style.borderRadius = '';
+            el.style.border = '';
             el.style.opacity = '';
-            delete el.dataset.originalColor;
         });
         
         if (window._originalTexts) {
