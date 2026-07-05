@@ -1,7 +1,8 @@
 // ============================================
 // engine.js - محرك الامتحانات المتكامل (النسخة النهائية)
 // ============================================
-
+// ✅ أضف هذا السطر هنا في البداية
+import InterleavingManager from './interleaving.js';
 console.log("✅ engine.js تم تحميله");
 
 window.loadExamFromFile = async function(skill, examId) {
