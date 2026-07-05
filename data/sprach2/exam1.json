@@ -7,115 +7,113 @@
     {
       "id": 1,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "kaum"
+      "correct": "kaum",
+      "memoryHighlight": {
+        "before": "in",
+        "connector": "kaum",
+        "after": "einem anderen Land",
+        "color": 0
+      }
     },
     {
       "id": 2,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "auf"
+      "correct": "auf",
+      "memoryHighlight": {
+        "before": "und",
+        "connector": "auf",
+        "after": "ein anderes Verkehrsmittel",
+        "color": 1
+      }
     },
     {
       "id": 3,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "vorbei"
+      "correct": "vorbei",
+      "memoryHighlight": {
+        "before": "Fahrzeugen",
+        "connector": "vorbei",
+        "after": "und ausgeruht",
+        "color": 2
+      }
     },
     {
       "id": 4,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "statt"
+      "correct": "statt",
+      "memoryHighlight": {
+        "before": "fährt",
+        "connector": "statt",
+        "after": "zu sitzen",
+        "color": 3
+      }
     },
     {
       "id": 5,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "innerhalb"
+      "correct": "innerhalb",
+      "memoryHighlight": {
+        "before": "Zeit",
+        "connector": "innerhalb",
+        "after": "geschlossener Räume",
+        "color": 4
+      }
     },
     {
       "id": 6,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "müssen"
+      "correct": "müssen",
+      "memoryHighlight": {
+        "before": "aufhalten",
+        "connector": "müssen",
+        "after": "Auch die",
+        "color": 5
+      }
     },
     {
       "id": 7,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "an"
+      "correct": "an",
+      "memoryHighlight": {
+        "before": "Angebot",
+        "connector": "an",
+        "after": "Zubehör für",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "sollen"
+      "correct": "sollen",
+      "memoryHighlight": {
+        "before": "machen",
+        "connector": "sollen",
+        "after": "Nur wenn",
+        "color": 7
+      }
     },
     {
       "id": 9,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "dann"
+      "correct": "dann",
+      "memoryHighlight": {
+        "before": "selten",
+        "connector": "dann",
+        "after": "sind die",
+        "color": 8
+      }
     },
     {
       "id": 10,
       "options": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-      "correct": "denn"
+      "correct": "denn",
+      "memoryHighlight": {
+        "before": "länger",
+        "connector": "denn",
+        "after": "einen praktischen",
+        "color": 9
+      }
     }
   ],
-  "allOptions": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"],
-  "memoryHighlights": [
-    {
-      "color": 0,
-      "parts": [
-        "in kaum einem anderen"
-      ]
-    },
-    {
-      "color": 1,
-      "parts": [
-        "und auf ein anderes"
-      ]
-    },
-    {
-      "color": 2,
-      "parts": [
-        "Fahrzeugen vorbei und ausgeruht"
-      ]
-    },
-    {
-      "color": 3,
-      "parts": [
-        "fährt statt zu sitzen"
-      ]
-    },
-    {
-      "color": 4,
-      "parts": [
-        "Zeit innerhalb geschlossener Räume"
-      ]
-    },
-    {
-      "color": 5,
-      "parts": [
-        "aufhalten müssen. Auch die"
-      ]
-    },
-    {
-      "color": 6,
-      "parts": [
-        "Angebot an Zubehör für"
-      ]
-    },
-    {
-      "color": 7,
-      "parts": [
-        "machen sollen. Nur wenn"
-      ]
-    },
-    {
-      "color": 8,
-      "parts": [
-        "selten dann sind die"
-      ]
-    },
-    {
-      "color": 9,
-      "parts": [
-        "länger. denn einen praktischen"
-      ]
-    }
-  ]
+  "allOptions": ["an", "auf", "beinahe", "dafür", "dann", "denn", "dürfen", "fast", "innerhalb", "kaum", "müssen", "sollen", "statt", "vor", "vorbei"]
 }
