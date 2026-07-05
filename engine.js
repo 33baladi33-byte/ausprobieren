@@ -3402,19 +3402,13 @@ if (typeof checkTeil3Exam === 'function') {
 
 console.log("✅ engine.js تم تحميله بالكامل");
 
-
 // ============================================
-// 🆕 أضف كود Interleaving هنا
+// نظام Interleaving (خلط الأسئلة) - الدوال فقط
 // ============================================
-// ✅ استيراد InterleavingManager في بداية الملف
-import InterleavingManager from './interleaving.js';
 
-
-// إنشاء كائن InterleavingManager
 let interleavingManager = null;
 let isInterleavingActive = false;
 
-// تهيئة InterleavingManager
 function initInterleavingManager() {
     if (!interleavingManager) {
         interleavingManager = new InterleavingManager();
@@ -3422,7 +3416,6 @@ function initInterleavingManager() {
     return interleavingManager;
 }
 
-// دالة تفعيل/إلغاء الخلط
 function toggleInterleaving() {
     const btn = document.getElementById('interleavingBtn');
     if (!btn) return;
@@ -3442,69 +3435,45 @@ function toggleInterleaving() {
     }
 }
 
-// تفعيل الخلط
 function enableInterleaving() {
-    const questions = getCurrentDisplayQuestions();
+    const questions = window.currentDisplayQuestions || [];
     if (!questions || questions.length === 0) {
         console.warn('⚠️ لا توجد أسئلة للخلط');
         return;
     }
-    
     const shuffled = interleavingManager.shuffleQuestions(questions);
     if (shuffled) {
-        updateQuestionsDisplay(shuffled);
+        if (typeof window.updateQuestionsDisplay === 'function') {
+            window.updateQuestionsDisplay(shuffled);
+        }
     }
 }
 
-// إلغاء الخلط
 function disableInterleaving() {
     const original = interleavingManager.unshuffleQuestions();
     if (original && original.length > 0) {
-        updateQuestionsDisplay(original);
+        if (typeof window.updateQuestionsDisplay === 'function') {
+            window.updateQuestionsDisplay(original);
+        }
     }
 }
 
-// الحصول على الأسئلة المعروضة حالياً
-function getCurrentDisplayQuestions() {
-    return window.currentDisplayQuestions || [];
-}
-
-// تحديث عرض الأسئلة
-function updateQuestionsDisplay(questions) {
-    if (typeof window.updateQuestionsDisplay === 'function') {
-        window.updateQuestionsDisplay(questions);
-    } else {
-        console.warn('⚠️ window.updateQuestionsDisplay غير معرف');
-    }
-}
-
-// عرض إشعار
 function showInterleavingNotification(message) {
     if (typeof window.showNotification === 'function') {
         window.showNotification(message);
         return;
     }
-    
     const notification = document.createElement('div');
     notification.className = 'interleaving-notification';
     notification.textContent = message;
     notification.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(59, 130, 246, 0.95);
-        color: white;
-        padding: 10px 24px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 500;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-        z-index: 9999;
-        animation: slideUp 0.3s ease;
+        position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+        background: rgba(59, 130, 246, 0.95); color: white;
+        padding: 10px 24px; border-radius: 8px; font-size: 14px;
+        font-weight: 500; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        z-index: 9999; animation: slideUp 0.3s ease;
     `;
     document.body.appendChild(notification);
-    
     setTimeout(() => {
         notification.style.opacity = '0';
         notification.style.transform = 'translateX(-50%) translateY(20px)';
@@ -3513,17 +3482,14 @@ function showInterleavingNotification(message) {
     }, 2000);
 }
 
-// تهيئة زر Interleaving
 function initInterleaving() {
     const btn = document.getElementById('interleavingBtn');
     if (!btn) {
         console.log('⚠️ زر Interleaving غير موجود');
         return;
     }
-    
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
-    
     newBtn.addEventListener('click', toggleInterleaving);
     console.log('✅ زر Interleaving تم تهيئته');
 }
@@ -3531,9 +3497,5 @@ function initInterleaving() {
 // تصدير الدوال للاستخدام العالمي
 window.initInterleaving = initInterleaving;
 window.toggleInterleaving = toggleInterleaving;
-window.enableInterleaving = enableInterleaving;
-window.disableInterleaving = disableInterleaving;
-window.getCurrentDisplayQuestions = getCurrentDisplayQuestions;
-window.updateQuestionsDisplay = updateQuestionsDisplay;
 
 console.log('✅ نظام Interleaving (خلط الأسئلة) جاهز');
