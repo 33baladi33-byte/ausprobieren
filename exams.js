@@ -1063,9 +1063,18 @@ if (window.memoryEngine) {
     if (currentExamData.type === "matching") {
       if (typeof window.loadMatchingExam === "function") {
         window.loadMatchingExam(currentExamData);
-      } else {
-        buildTeil1(currentExamData.questions || []);
-      }
+     } else {
+  // ✅ التحقق من وجود أسئلة قبل调用 buildTeil1
+  if (currentExamData.questions && Array.isArray(currentExamData.questions) && currentExamData.questions.length > 0) {
+    buildTeil1(currentExamData.questions);
+  } else {
+    console.warn('⚠️ لا توجد أسئلة في هذا الامتحان');
+    const container = document.getElementById(currentSkill) || document.getElementById('teil1');
+    if (container) {
+      container.innerHTML = '<div style="text-align:center; padding:20px; color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
+    }
+  }
+}
     } else if (currentExamData.type === "truefalse") {
       const container = document.getElementById(currentSkill);
       if (container && typeof window.buildTrueFalseExam === "function") {
