@@ -2735,19 +2735,16 @@ function highlightSelectOption(container, searchText, colorIndex) {
         });
     });
     
-    // ✅ 3. تلوين الخيارات في Sprach 2 (word cards)
+    // ✅ 3. تلوين النص فقط في Sprach 2 (word cards) - البطاقة تبقى كما هي
     const wordCards = container.querySelectorAll('.sprach2-word-card');
     wordCards.forEach(card => {
-        if (card.textContent.trim() === searchTrimmed) {
-            // ✅ فقط لون الخط والوزن
-            card.style.color = txtColor;
-            card.style.fontWeight = 'bold';
-            // ✅ نزيل أي تغييرات أخرى
-            card.style.backgroundColor = '';
-            card.style.border = '';
-            card.style.padding = '';
-            card.style.borderRadius = '';
-            card.style.opacity = '';
+        // البحث عن العنصر الداخلي الذي يحتوي على النص
+        // في .sprach2-word-card، النص قد يكون مباشراً أو داخل span
+        const textElement = card.querySelector('span') || card;
+        if (textElement.textContent.trim() === searchTrimmed) {
+            // ✅ فقط لون النص يتغير، البطاقة الخارجية تبقى كما هي
+            textElement.style.color = txtColor;
+            textElement.style.fontWeight = 'bold';
         }
     });
     
@@ -3334,11 +3331,12 @@ class MemoryHighlightEngine {
             label.style.fontWeight = '';
         });
         
-        // ✅ 4. إزالة التلوين من Sprach 2 (word cards)
+               // ✅ 4. إزالة التلوين من النص فقط في Sprach 2 (word cards)
         const wordCards = this.container.querySelectorAll('.sprach2-word-card');
         wordCards.forEach(card => {
-            card.style.color = '';
-            card.style.fontWeight = '';
+            const textElement = card.querySelector('span') || card;
+            textElement.style.color = '';
+            textElement.style.fontWeight = '';
         });
         
         // ✅ 5. إزالة التلوين من أي عناصر أخرى
