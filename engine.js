@@ -2694,7 +2694,6 @@ function highlightSelectOption(container, searchText, colorIndex) {
     
     const searchTrimmed = searchText.trim();
     const txtColor = getTextColorByIndex(colorIndex);
-    const bgColor = getColorByIndex(colorIndex);
     
     // ✅ 1. تلوين الخيارات في القوائم المنسدلة (Lesen Teil 1)
     const selects = container.querySelectorAll('select');
@@ -2702,66 +2701,40 @@ function highlightSelectOption(container, searchText, colorIndex) {
         for (let i = 0; i < select.options.length; i++) {
             const option = select.options[i];
             if (option.textContent.trim() === searchTrimmed) {
-                // ✅ فقط لون الخط، بدون إطار أو خلفية
                 option.style.color = txtColor;
                 option.style.fontWeight = 'bold';
-                option.style.backgroundColor = '';
-                option.style.border = '';
-                option.style.padding = '';
-                option.style.borderRadius = '';
-                option.style.opacity = '';
                 break;
             }
         }
     });
     
-    // ✅ 2. تلوين الخيارات في Sprach 1 (label > span) - فقط لون الخط
+    // ✅ 2. تلوين الخيارات في Sprach 1 (label > span)
     const labels = container.querySelectorAll('label');
     labels.forEach(label => {
         const spans = label.querySelectorAll('span');
         spans.forEach(span => {
             if (span.textContent.trim() === searchTrimmed) {
-                // ✅ فقط لون الخط، بدون خلفية أو إطار
                 span.style.color = txtColor;
                 span.style.fontWeight = 'bold';
-                span.style.backgroundColor = '';
-                span.style.border = '';
-                span.style.padding = '';
-                span.style.borderRadius = '';
-                span.style.opacity = '';
-                console.log(`   ✅ تلوين الخط في span: "${searchTrimmed}"`);
             }
         });
     });
     
-    // ✅ 3. تلوين الخيارات في Sprach 2 (word cards) - فقط لون الخط
+    // ✅ 3. تلوين الخيارات في Sprach 2 (word cards)
     const wordCards = container.querySelectorAll('.sprach2-word-card');
     wordCards.forEach(card => {
         if (card.textContent.trim() === searchTrimmed) {
-            // ✅ فقط لون الخط، مع خلفية خفيفة جداً
             card.style.color = txtColor;
             card.style.fontWeight = 'bold';
-            card.style.backgroundColor = bgColor + '33'; // إضافة شفافية 20%
-            card.style.border = '';
-            card.style.padding = '';
-            card.style.borderRadius = '';
-            card.style.opacity = '';
-            console.log(`   ✅ تلوين الخط في word card: "${searchTrimmed}"`);
         }
     });
     
-    // ✅ 4. تلوين أي عنصر آخر - فقط لون الخط
+    // ✅ 4. تلوين أي عنصر آخر
     const allElements = container.querySelectorAll('.option, .option-btn, .choice, [class*="option"]');
     allElements.forEach(el => {
         if (el.textContent.trim() === searchTrimmed) {
             el.style.color = txtColor;
             el.style.fontWeight = 'bold';
-            el.style.backgroundColor = '';
-            el.style.border = '';
-            el.style.padding = '';
-            el.style.borderRadius = '';
-            el.style.opacity = '';
-            console.log(`   ✅ تلوين الخط في element: "${searchTrimmed}"`);
         }
     });
 }
