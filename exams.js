@@ -1119,6 +1119,21 @@ if (window.memoryEngine) {
     } else {
       showTeil(10);
     }
+        // ============================================================
+    // ✅🆕 تهيئة Interleaving بعد تحميل الامتحان
+    // ============================================================
+    
+    // إعادة تعيين Interleaving عند فتح امتحان جديد
+    if (window.resetInterleaving) {
+        window.resetInterleaving();
+    }
+    
+    // بعد اكتمال بناء واجهة الامتحان (باستخدام requestAnimationFrame)
+    requestAnimationFrame(() => {
+        if (window.initInterleaving) {
+            window.initInterleaving();
+        }
+    });
   } catch(e) {
     console.error("❌ خطأ:", e);
     alert("خطأ في تحميل الامتحان: " + e.message);
