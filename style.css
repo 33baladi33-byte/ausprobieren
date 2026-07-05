@@ -3712,3 +3712,58 @@ html {
     transform: none !important;
     z-index: 100 !important;
 }
+/* ============================================
+   زر Interleaving - نسخة مبسطة ومتطابقة مع أزرار الموقع
+   ============================================ */
+
+.interleaving-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: #E5E7EB;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    margin: 0 4px;
+}
+
+.interleaving-btn:hover {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+.interleaving-btn.active {
+    border-color: #3b82f6;
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+
+.interleaving-btn.active:hover {
+    transform: scale(1.05) rotate(180deg);
+}
+
+.interleaving-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.5;
+}
+
+/* للهواتف */
+@media (max-width: 768px) {
+    .interleaving-btn {
+        width: 34px;
+        height: 34px;
+    }
+    
+    .interleaving-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
