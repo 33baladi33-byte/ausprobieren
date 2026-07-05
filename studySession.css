@@ -359,3 +359,89 @@ body.dark-mode .session-end-sub {
         font-size: 0.85rem;
     }
 }
+/* زر Interleaving */
+.interleaving-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid #d1d5db;
+    background: white;
+    color: #4b5563;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    margin: 0 4px;
+}
+
+.interleaving-btn:hover {
+    border-color: #3b82f6;
+    color: #3b82f6;
+    transform: scale(1.08);
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
+}
+
+.interleaving-btn.active {
+    border-color: #3b82f6;
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 2px 12px rgba(59, 130, 246, 0.4);
+}
+
+.interleaving-btn.active:hover {
+    transform: scale(1.08) rotate(180deg);
+}
+
+.interleaving-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.5;
+}
+
+/* إشعار Interleaving */
+.interleaving-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(59, 130, 246, 0.95);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    animation: slideUp 0.3s ease;
+}
+
+.interleaving-notification.fade-out {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+    transition: all 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@media (max-width: 640px) {
+    .interleaving-btn {
+        width: 34px;
+        height: 34px;
+    }
+    
+    .interleaving-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
