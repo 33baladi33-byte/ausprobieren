@@ -5,6 +5,8 @@ class InterleavingManager {
         this.isActive = false;
         this.shuffledIndices = [];
         this.originalIndices = [];
+        this.originalQuestions = [];
+        this.shuffledQuestions = [];
     }
 
     shuffleArray(array) {
@@ -20,33 +22,46 @@ class InterleavingManager {
         if (!questions || questions.length === 0) return null;
         
         if (!this.isActive) {
+            this.originalQuestions = [...questions];
             this.originalIndices = questions.map((_, i) => i);
         }
         
         this.shuffledIndices = this.shuffleArray(questions.map((_, i) => i));
+        this.shuffledQuestions = this.shuffledIndices.map(i => questions[i]);
         this.isActive = true;
         
-        return this.shuffledIndices.map(i => questions[i]);
+        return this.shuffledQuestions;
     }
 
-    unshuffleQuestions(questions) {
-        if (!this.originalIndices.length) return questions;
+    unshuffleQuestions() {
+        if (!this.isActive) {
+            return this.originalQuestions;
+        }
         
-        const originalQuestions = this.originalIndices.map(i => questions[i]);
         this.isActive = false;
         this.shuffledIndices = [];
+        this.shuffledQuestions = [];
         
-        return originalQuestions;
+        return this.originalQuestions;
+    }
+
+    isShuffleActive() {
+        return this.isActive;
     }
 
     reset() {
         this.isActive = false;
         this.shuffledIndices = [];
         this.originalIndices = [];
+        this.originalQuestions = [];
+        this.shuffledQuestions = [];
     }
 }
 
-// تصدير للاستخدام
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = InterleavingManager;
+// ✅ تصدير افتراضي صحيح
+export default InterleavingManager;
+
+// ✅ أيضاً تصدير كـ window للاستخدام العالمي
+if (typeof window !== 'undefined') {
+    window.InterleavingManager = InterleavingManager;
 }
