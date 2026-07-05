@@ -3403,7 +3403,7 @@ if (typeof checkTeil3Exam === 'function') {
 console.log("✅ engine.js تم تحميله بالكامل");
 
 // ============================================
-// نظام Interleaving (خلط الأسئلة) - النسخة النهائية
+// نظام Interleaving (خلط الأسئلة) - النسخة النهائية المُصلحة
 // ============================================
 
 const Interleaving = {
@@ -3421,66 +3421,61 @@ const Interleaving = {
             'hoeren3': '.question-card',
             'teil1': '.question-card',
             'teil2': '.question-card',
-            'teil3': '.question-card',  // Lesen 3 يستخدم نفس الكلاس
-            'sprach1': '.question-card',
-            'sprach2': '.question-card'
+            'teil3': '.question-card'
+            // تم إزالة sprach1 و sprach2 كما طلبت
         };
         return selectors[containerId] || '.question-card';
     },
     
     // 🔍 العثور على الحاوية النشطة
     getActiveContainer() {
-        const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3', 'sprach1', 'sprach2'];
+        const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3'];
         for (const id of containers) {
             const el = document.getElementById(id);
-            // التحقق من الظهور بشكل صحيح
-            if (el && el.offsetParent !== null && el.children.length > 0) {
-                return el;
+            if (el && el.offsetParent !== null) {
+                // التحقق من وجود عناصر أسئلة
+                const selector = this.getSelectorForContainer(id);
+                const hasQuestions = el.querySelector(selector);
+                if (hasQuestions) {
+                    return el;
+                }
             }
         }
         return null;
     },
     
-    // ✅ خلط العناصر
+    // ✅ خلط العناصر - طريقة صحيحة
     shuffleElements(container, selector) {
         if (!container) return false;
         
+        // الحصول على العناصر
         const elements = [...container.querySelectorAll(selector)];
         if (elements.length === 0) {
             console.warn(`⚠️ لا توجد عناصر للمحدد: ${selector}`);
             return false;
         }
         
-        // حفظ الترتيب الأصلي (كـ IDs أو indices)
+        // حفظ الترتيب الأصلي (نسخة من العناصر نفسها)
         if (!this.isActive) {
-            this.originalOrder = elements.map(el => ({
-                id: el.id,
-                index: Array.from(container.children).indexOf(el)
-            }));
+            this.originalOrder = elements.slice(); // نسخة سطحية كافية
             this.currentContainer = container;
             this.currentSelector = selector;
         }
         
-        // Fisher-Yates Shuffle
+        // ✅ Fisher-Yates Shuffle الصحيح
         for (let i = elements.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            const parent = elements[i].parentNode;
-            const nextSibling = elements[j].nextSibling;
-            
-            if (i < j) {
-                parent.insertBefore(elements[i], elements[j]);
-                parent.insertBefore(elements[j], nextSibling);
-            } else {
-                parent.insertBefore(elements[j], elements[i]);
-                parent.insertBefore(elements[i], elements[j].nextSibling);
-            }
+            [elements[i], elements[j]] = [elements[j], elements[i]];
         }
+        
+        // ✅ إعادة إضافة العناصر بالترتيب الجديد (مرة واحدة)
+        elements.forEach(el => container.appendChild(el));
         
         console.log(`✅ تم خلط ${elements.length} عنصر في ${container.id} (${selector})`);
         return true;
     },
     
-    // ✅ استعادة الترتيب الأصلي
+    // ✅ استعادة الترتيب الأصلي - طريقة صحيحة
     restoreOrder() {
         if (!this.originalOrder.length || !this.currentContainer) {
             console.warn('⚠️ لا يوجد ترتيب أصلي للحفظ');
@@ -3488,17 +3483,9 @@ const Interleaving = {
         }
         
         const container = this.currentContainer;
-        const children = [...container.children];
         
-        // ترتيب العناصر حسب الترتيب الأصلي
-        const orderedElements = this.originalOrder.map(item => {
-            return children.find(child => child.id === item.id) || 
-                   children[item.index] || 
-                   null;
-        }).filter(el => el !== null);
-        
-        // إعادة ترتيب العناصر
-        orderedElements.forEach(el => {
+        // ✅ إعادة إضافة العناصر بالترتيب الأصلي
+        this.originalOrder.forEach(el => {
             container.appendChild(el);
         });
         
@@ -3574,13 +3561,12 @@ const Interleaving = {
             btn.removeEventListener('click', this._boundToggle);
         }
         
-        // ربط الـ Listener
+        // ربط الـ Listener الجديد
         this._boundToggle = this.toggle.bind(this);
         btn.addEventListener('click', this._boundToggle);
         btn._listenerAttached = true;
         
         console.log('✅ تم ربط click listener بالزر');
-        console.log('📌 الزر جاهز للاستخدام');
     },
     
     // 📢 عرض إشعار
