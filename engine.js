@@ -3406,153 +3406,224 @@ console.log("✅ engine.js تم تحميله بالكامل");
 // نظام Interleaving (خلط الأسئلة) - النسخة النهائية
 // ============================================
 
-let isInterleavingActive = false;
-let originalQuestionsOrder = [];
-
-// ✅ دالة خلط بطاقات الأسئلة فقط (مأخوذة من الكود الصحيح)
-function shuffleQuestionCards(container) {
-    if (!container) return;
+const Interleaving = {
+    // الحالة
+    isActive: false,
+    originalOrder: [],
+    currentContainer: null,
+    currentSelector: '.question-card',
     
-    // فقط بطاقات الأسئلة
-    const cards = [...container.querySelectorAll(".question-card")];
-    if (cards.length === 0) {
-        console.warn('⚠️ لا توجد بطاقات أسئلة للخلط');
-        return;
-    }
+    // 🔍 تحديد المحدد المناسب لكل نوع امتحان
+    getSelectorForContainer(containerId) {
+        const selectors = {
+            'hoeren1': '.question-card',
+            'hoeren2': '.question-card',
+            'hoeren3': '.question-card',
+            'teil1': '.question-card',
+            'teil2': '.question-card',
+            'teil3': '.question-card',  // Lesen 3 يستخدم نفس الكلاس
+            'sprach1': '.question-card',
+            'sprach2': '.question-card'
+        };
+        return selectors[containerId] || '.question-card';
+    },
     
-    // حفظ الترتيب الأصلي إذا لم يكن محفوظاً
-    if (!isInterleavingActive) {
-        originalQuestionsOrder = cards.map(card => card);
-    }
-    
-    // Fisher-Yates Shuffle (نفس الكود الصحيح)
-    for (let i = cards.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [cards[i], cards[j]] = [cards[j], cards[i]];
-    }
-    
-    // آخر بطاقة سؤال
-    const lastCard = cards[cards.length - 1];
-    
-    // إعادة إدراجها بالترتيب الجديد
-    cards.forEach(card => {
-        container.insertBefore(card, lastCard.nextSibling);
-    });
-    
-    console.log(`✅ تم خلط ${cards.length} بطاقة سؤال في ${container.id}`);
-}
-
-// ✅ دالة استعادة الترتيب الأصلي
-function restoreOriginalOrder() {
-    if (!originalQuestionsOrder.length) return;
-    
-    const container = originalQuestionsOrder[0]?.parentNode;
-    if (!container) return;
-    
-    originalQuestionsOrder.forEach(card => {
-        container.appendChild(card);
-    });
-    
-    originalQuestionsOrder = [];
-    console.log('✅ تم استعادة الترتيب الأصلي');
-}
-
-// ✅ دالة تفعيل/إلغاء الخلط
-function toggleInterleaving() {
-    const btn = document.getElementById('interleavingBtn');
-    if (!btn) {
-        console.warn('⚠️ زر Interleaving غير موجود');
-        return;
-    }
-    
-    // البحث عن حاوية الأسئلة الحالية
-    const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3', 'sprach1', 'sprach2'];
-    let activeContainer = null;
-    
-    for (const id of containers) {
-        const el = document.getElementById(id);
-        if (el && el.style.display !== 'none' && el.children.length > 0) {
-            activeContainer = el;
-            break;
+    // 🔍 العثور على الحاوية النشطة
+    getActiveContainer() {
+        const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3', 'sprach1', 'sprach2'];
+        for (const id of containers) {
+            const el = document.getElementById(id);
+            // التحقق من الظهور بشكل صحيح
+            if (el && el.offsetParent !== null && el.children.length > 0) {
+                return el;
+            }
         }
+        return null;
+    },
+    
+    // ✅ خلط العناصر
+    shuffleElements(container, selector) {
+        if (!container) return false;
+        
+        const elements = [...container.querySelectorAll(selector)];
+        if (elements.length === 0) {
+            console.warn(`⚠️ لا توجد عناصر للمحدد: ${selector}`);
+            return false;
+        }
+        
+        // حفظ الترتيب الأصلي (كـ IDs أو indices)
+        if (!this.isActive) {
+            this.originalOrder = elements.map(el => ({
+                id: el.id,
+                index: Array.from(container.children).indexOf(el)
+            }));
+            this.currentContainer = container;
+            this.currentSelector = selector;
+        }
+        
+        // Fisher-Yates Shuffle
+        for (let i = elements.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const parent = elements[i].parentNode;
+            const nextSibling = elements[j].nextSibling;
+            
+            if (i < j) {
+                parent.insertBefore(elements[i], elements[j]);
+                parent.insertBefore(elements[j], nextSibling);
+            } else {
+                parent.insertBefore(elements[j], elements[i]);
+                parent.insertBefore(elements[i], elements[j].nextSibling);
+            }
+        }
+        
+        console.log(`✅ تم خلط ${elements.length} عنصر في ${container.id} (${selector})`);
+        return true;
+    },
+    
+    // ✅ استعادة الترتيب الأصلي
+    restoreOrder() {
+        if (!this.originalOrder.length || !this.currentContainer) {
+            console.warn('⚠️ لا يوجد ترتيب أصلي للحفظ');
+            return false;
+        }
+        
+        const container = this.currentContainer;
+        const children = [...container.children];
+        
+        // ترتيب العناصر حسب الترتيب الأصلي
+        const orderedElements = this.originalOrder.map(item => {
+            return children.find(child => child.id === item.id) || 
+                   children[item.index] || 
+                   null;
+        }).filter(el => el !== null);
+        
+        // إعادة ترتيب العناصر
+        orderedElements.forEach(el => {
+            container.appendChild(el);
+        });
+        
+        console.log(`✅ تم استعادة الترتيب الأصلي في ${container.id}`);
+        return true;
+    },
+    
+    // 🔄 تبديل حالة الخلط
+    toggle() {
+        console.log('🔄 toggleInterleaving() تم استدعاؤها');
+        
+        const btn = document.getElementById('interleavingBtn');
+        if (!btn) {
+            console.warn('⚠️ زر Interleaving غير موجود');
+            return;
+        }
+        
+        const container = this.getActiveContainer();
+        if (!container) {
+            console.warn('⚠️ لا توجد حاوية أسئلة نشطة');
+            return;
+        }
+        
+        const selector = this.getSelectorForContainer(container.id);
+        
+        if (this.isActive) {
+            // إلغاء الخلط
+            this.restoreOrder();
+            this.isActive = false;
+            this.originalOrder = [];
+            btn.classList.remove('active');
+            this.showNotification('✅ تم إلغاء خلط الأسئلة');
+        } else {
+            // تفعيل الخلط
+            const success = this.shuffleElements(container, selector);
+            if (success) {
+                this.isActive = true;
+                btn.classList.add('active');
+                this.showNotification('🔄 تم خلط الأسئلة عشوائياً');
+            }
+        }
+    },
+    
+    // 🔄 إعادة تعيين الحالة (عند فتح امتحان جديد)
+    reset() {
+        if (this.isActive) {
+            this.restoreOrder();
+        }
+        this.isActive = false;
+        this.originalOrder = [];
+        this.currentContainer = null;
+        
+        const btn = document.getElementById('interleavingBtn');
+        if (btn) {
+            btn.classList.remove('active');
+        }
+        
+        console.log('🔄 تم إعادة تعيين نظام Interleaving');
+    },
+    
+    // 🔧 تهيئة الزر
+    init() {
+        console.log('🔧 initInterleaving() تم استدعاؤها');
+        
+        const btn = document.getElementById('interleavingBtn');
+        if (!btn) {
+            console.warn('⚠️ زر Interleaving غير موجود');
+            return;
+        }
+        
+        // إزالة الـ Listener القديم لتجنب التكرار
+        if (btn._listenerAttached) {
+            btn.removeEventListener('click', this._boundToggle);
+        }
+        
+        // ربط الـ Listener
+        this._boundToggle = this.toggle.bind(this);
+        btn.addEventListener('click', this._boundToggle);
+        btn._listenerAttached = true;
+        
+        console.log('✅ تم ربط click listener بالزر');
+        console.log('📌 الزر جاهز للاستخدام');
+    },
+    
+    // 📢 عرض إشعار
+    showNotification(message) {
+        if (typeof window.showToast === 'function') {
+            window.showToast(message);
+            return;
+        }
+        
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(59, 130, 246, 0.95);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            z-index: 9999;
+            animation: fadeInUp 0.3s ease;
+            direction: rtl;
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(-50%) translateY(20px)';
+            notification.style.transition = 'all 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
     }
-    
-    if (!activeContainer) {
-        console.warn('⚠️ لا توجد أسئلة للخلط');
-        return;
-    }
-    
-    if (isInterleavingActive) {
-        // إلغاء الخلط
-        restoreOriginalOrder();
-        btn.classList.remove('active');
-        isInterleavingActive = false;
-        showNotification('✅ تم إلغاء خلط الأسئلة');
-    } else {
-        // تفعيل الخلط
-        shuffleQuestionCards(activeContainer);
-        btn.classList.add('active');
-        isInterleavingActive = true;
-        showNotification('🔄 تم خلط الأسئلة عشوائياً');
-    }
-}
-
-// ✅ دالة تهيئة الزر
-function initInterleaving() {
-    const btn = document.getElementById('interleavingBtn');
-    if (!btn) {
-        console.log('⚠️ زر Interleaving غير موجود');
-        return;
-    }
-    
-    // إزالة المستمعات القديمة وتجديد الزر
-    const newBtn = btn.cloneNode(true);
-    btn.parentNode.replaceChild(newBtn, btn);
-    
-    newBtn.addEventListener('click', toggleInterleaving);
-    console.log('✅ زر Interleaving تم تهيئته');
-}
-
-// ✅ دالة عرض إشعار
-function showNotification(message) {
-    // استخدام نظام الإشعارات الموجود
-    if (typeof window.showToast === 'function') {
-        window.showToast(message);
-        return;
-    }
-    
-    // إشعار مؤقت
-    const notification = document.createElement('div');
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(59, 130, 246, 0.95);
-        color: white;
-        padding: 12px 24px;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 500;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-        z-index: 9999;
-        animation: fadeInUp 0.3s ease;
-        direction: rtl;
-    `;
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        notification.style.transform = 'translateX(-50%) translateY(20px)';
-        notification.style.transition = 'all 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-    }, 2000);
-}
+};
 
 // ✅ تصدير الدوال للاستخدام العالمي
-window.initInterleaving = initInterleaving;
-window.toggleInterleaving = toggleInterleaving;
-window.shuffleQuestionCards = shuffleQuestionCards;
+window.Interleaving = Interleaving;
+window.initInterleaving = Interleaving.init.bind(Interleaving);
+window.toggleInterleaving = Interleaving.toggle.bind(Interleaving);
+window.resetInterleaving = Interleaving.reset.bind(Interleaving);
 
 console.log('✅ نظام Interleaving (خلط الأسئلة) جاهز');
+console.log('📌 استدعِ window.initInterleaving() لتهيئة الزر');
