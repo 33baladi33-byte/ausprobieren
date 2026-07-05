@@ -3399,5 +3399,350 @@ if (typeof checkTeil3Exam === 'function') {
         setTimeout(colorSelectOptions, 200);
     };
 }
+// ============================================================
+// 📌 INTERLEAVING MODULE - خلط مؤقت بدون تعديل الملفات
+// ============================================================
 
+// --- الحالة المؤقتة للخلط ---
+window.interleavingState = null; // { enabled: boolean, shuffledItems: array, originalItems: array }
+
+/**
+ * خلط مصفوفة باستخدام خوارزمية Fisher-Yates
+ */
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+/**
+ * الحصول على العناصر المعروضة (مع أو بدون خلط)
+ */
+function getDisplayItems(examData) {
+    if (!examData || !examData.items) return [];
+    
+    // إذا كان الخلط مفعلاً ولدينا عناصر مخلوطة مخزنة
+    if (window.interleavingState && window.interleavingState.enabled) {
+        return window.interleavingState.shuffledItems;
+    }
+    
+    // وإلا نعيد العناصر الأصلية
+    return examData.items;
+}
+
+/**
+ * تطبيق الخلط حسب نوع القسم
+ */
+function applyInterleaving(examData) {
+    if (!examData || !examData.items) return null;
+    
+    const sectionType = examData.section || '';
+    let shuffled = [];
+    
+    // تحديد نوع الخلط حسب القسم
+    if (sectionType.includes('Hören')) {
+        // Hören Teil 1,2,3: خلط كامل الأسئلة
+        shuffled = shuffleArray(examData.items);
+    } 
+    else if (sectionType.includes('Lesen Teil 1')) {
+        // Lesen Teil 1: خلط البطاقات فقط (A,B,C,D...)
+        shuffled = shuffleArray(examData.items);
+    }
+    else if (sectionType.includes('Lesen Teil 2')) {
+        // Lesen Teil 2: خلط النصوص
+        shuffled = shuffleArray(examData.items);
+    }
+    else if (sectionType.includes('Lesen Teil 3')) {
+        // Lesen Teil 3: خلط الفقرات (a,b,c,d...) فقط
+        // العناوين (1,2,3...) تبقى كما هي - نحافظ على ترتيبها
+        shuffled = shuffleArray(examData.items);
+    }
+    else {
+        // لأي قسم آخر: خلط عادي
+        shuffled = shuffleArray(examData.items);
+    }
+    
+    return shuffled;
+}
+
+/**
+ * تبديل حالة الخلط (تشغيل/إيقاف)
+ */
+function toggleInterleaving() {
+    if (!window.currentExamData) {
+        console.warn('⚠️ لا يوجد امتحان مفتوح لتطبيق الخلط');
+        return;
+    }
+    
+    const examData = window.currentExamData;
+    
+    // إذا كان الخلط مفعلاً، نقوم بإيقافه
+    if (window.interleavingState && window.interleavingState.enabled) {
+        window.interleavingState = null;
+        console.log('🔄 تم إيقاف الخلط، العودة للترتيب الأصلي');
+        renderExam(); // إعادة العرض بالترتيب الأصلي
+        updateInterleavingButton(false);
+        return;
+    }
+    
+    // تطبيق الخلط
+    const shuffledItems = applyInterleaving(examData);
+    if (!shuffledItems) {
+        console.warn('⚠️ فشل في تطبيق الخلط');
+        return;
+    }
+    
+    // حفظ الحالة
+    window.interleavingState = {
+        enabled: true,
+        shuffledItems: shuffledItems,
+        originalItems: [...examData.items] // حفظ النسخة الأصلية للرجوع إليها
+    };
+    
+    console.log('🔄 تم تطبيق الخلط بنجاح');
+    renderExam(); // إعادة العرض بالترتيب المخلوط
+    updateInterleavingButton(true);
+}
+
+/**
+ * تحديث مظهر زر الخلط
+ */
+function updateInterleavingButton(isActive) {
+    const btn = document.getElementById('interleaving-btn');
+    if (!btn) return;
+    
+    if (isActive) {
+        btn.classList.add('active');
+        btn.style.backgroundColor = '#4CAF50';
+        btn.style.color = 'white';
+        btn.title = 'إيقاف الخلط';
+    } else {
+        btn.classList.remove('active');
+        btn.style.backgroundColor = '';
+        btn.style.color = '';
+        btn.title = 'تفعيل الخلط المؤقت';
+    }
+}
+
+/**
+ * إعادة تعيين حالة الخلط عند الخروج من الامتحان
+ */
+function resetInterleaving() {
+    if (window.interleavingState) {
+        window.interleavingState = null;
+        console.log('🔄 تم إعادة تعيين الخلط عند الخروج من الامتحان');
+        updateInterleavingButton(false);
+    }
+}
+
+// ============================================================
+// 📌 تعديل دالة renderExam لدعم الخلط
+// ============================================================
+
+// الاحتفاظ بالدالة الأصلية
+const originalRenderExam = window.renderExam || function() {};
+
+// استبدال دالة renderExam
+window.renderExam = function() {
+    if (!window.currentExamData) {
+        console.warn('⚠️ لا توجد بيانات امتحان للعرض');
+        return;
+    }
+    
+    // الحصول على العناصر المعروضة (مع أو بدون خلط)
+    const displayItems = getDisplayItems(window.currentExamData);
+    
+    // تحديث البيانات المؤقتة للعرض
+    const displayData = {
+        ...window.currentExamData,
+        items: displayItems
+    };
+    
+    // استدعاء الدالة الأصلية مع البيانات المعدلة
+    if (typeof originalRenderExam === 'function') {
+        // حفظ البيانات الأصلية مؤقتاً
+        const originalItems = window.currentExamData.items;
+        window.currentExamData.items = displayItems;
+        
+        // استدعاء الدالة الأصلية
+        originalRenderExam.call(this);
+        
+        // إعادة البيانات الأصلية
+        window.currentExamData.items = originalItems;
+    } else {
+        // إذا لم توجد دالة renderExam أصلية، نقوم بعرض بسيط
+        console.log('📝 عرض الامتحان:', displayData.title || 'بدون عنوان');
+        console.log('📋 عدد العناصر:', displayItems.length);
+    }
+};
+
+// ============================================================
+// 📌 إضافة زر Interleaving في واجهة المستخدم
+// ============================================================
+
+/**
+ * إضافة زر الخلط إلى شريط الأدوات
+ */
+function addInterleavingButton() {
+    // البحث عن شريط الأدوات أو حاوية الأزرار
+    const toolbar = document.querySelector('.toolbar') || 
+                   document.querySelector('#toolbar') ||
+                   document.querySelector('.controls') ||
+                   document.querySelector('.exam-controls') ||
+                   document.querySelector('.exam-header') ||
+                   document.querySelector('.exam-actions');
+    
+    if (!toolbar) {
+        console.warn('⚠️ لم يتم العثور على شريط الأدوات لإضافة الزر');
+        // محاولة إضافة الزر في مكان آخر
+        const container = document.querySelector('.container') || document.body;
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'interleaving-container';
+        btnContainer.style.display = 'inline-block';
+        btnContainer.style.margin = '5px';
+        container.prepend(btnContainer);
+        createButton(btnContainer);
+        return;
+    }
+    
+    createButton(toolbar);
+}
+
+/**
+ * إنشاء زر الخلط
+ */
+function createButton(container) {
+    // التحقق من وجود الزر مسبقاً
+    if (document.getElementById('interleaving-btn')) return;
+    
+    const btn = document.createElement('button');
+    btn.id = 'interleaving-btn';
+    btn.innerHTML = '🧠'; // رمز الدماغ
+    btn.className = 'interleaving-btn';
+    btn.title = 'تفعيل الخلط المؤقت';
+    btn.style.margin = '0 5px';
+    btn.style.padding = '8px 12px';
+    btn.style.fontSize = '18px';
+    btn.style.border = '2px solid #ccc';
+    btn.style.borderRadius = '8px';
+    btn.style.background = 'transparent';
+    btn.style.cursor = 'pointer';
+    btn.style.transition = 'all 0.3s ease';
+    
+    // إضافة حدث النقر
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleInterleaving();
+    });
+    
+    // تأثير hover
+    btn.addEventListener('mouseenter', function() {
+        if (!this.classList.contains('active')) {
+            this.style.borderColor = '#4CAF50';
+            this.style.backgroundColor = '#f0f8f0';
+        }
+    });
+    btn.addEventListener('mouseleave', function() {
+        if (!this.classList.contains('active')) {
+            this.style.borderColor = '#ccc';
+            this.style.backgroundColor = 'transparent';
+        }
+    });
+    
+    // إضافة الزر بجانب زر التلوين إذا وجد
+    const memoryBtn = document.getElementById('memoryToggleBtn');
+    if (memoryBtn && memoryBtn.parentNode === container) {
+        container.insertBefore(btn, memoryBtn.nextSibling);
+    } else {
+        container.appendChild(btn);
+    }
+    
+    console.log('✅ تم إضافة زر Interleaving');
+}
+
+// ============================================================
+// 📌 ربط الأحداث
+// ============================================================
+
+// عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    // إضافة الزر بعد تحميل المحتوى
+    setTimeout(addInterleavingButton, 500);
+});
+
+// عند فتح الامتحان (إذا كانت هناك دالة مخصصة)
+const originalOpenExam = window.openExam || function() {};
+
+window.openExam = function(examData) {
+    // إعادة تعيين الخلط عند فتح امتحان جديد
+    resetInterleaving();
+    
+    // استدعاء الدالة الأصلية
+    if (typeof originalOpenExam === 'function') {
+        originalOpenExam.call(this, examData);
+    }
+};
+
+// عند الخروج من الامتحان
+const originalExitExam = window.exitExam || function() {};
+
+window.exitExam = function() {
+    // إعادة تعيين الخلط عند الخروج
+    resetInterleaving();
+    
+    // استدعاء الدالة الأصلية
+    if (typeof originalExitExam === 'function') {
+        originalExitExam.call(this);
+    }
+};
+
+// مراقبة تغييرات الصفحة لإضافة الزر
+const interleavingObserver = new MutationObserver(function() {
+    if (!document.getElementById('interleaving-btn')) {
+        // محاولة إضافة الزر إذا لم يكن موجوداً
+        const toolbar = document.querySelector('.toolbar') || 
+                       document.querySelector('#toolbar') ||
+                       document.querySelector('.controls') ||
+                       document.querySelector('.exam-actions');
+        if (toolbar) {
+            addInterleavingButton();
+        }
+    }
+});
+
+interleavingObserver.observe(document.body, {
+    childList: true,
+    subtree: true
+});
+
+// ============================================================
+// 📌 دوال مساعدة للاستخدام الخارجي
+// ============================================================
+
+/**
+ * التحقق من حالة الخلط
+ */
+function isInterleavingActive() {
+    return window.interleavingState && window.interleavingState.enabled;
+}
+
+/**
+ * الحصول على العناصر الحالية (مع الخلط أو بدونه)
+ */
+function getCurrentItems() {
+    if (!window.currentExamData) return [];
+    return getDisplayItems(window.currentExamData);
+}
+
+// تصدير الدوال للاستخدام الخارجي
+window.toggleInterleaving = toggleInterleaving;
+window.resetInterleaving = resetInterleaving;
+window.isInterleavingActive = isInterleavingActive;
+window.getCurrentItems = getCurrentItems;
+window.addInterleavingButton = addInterleavingButton;
+
+console.log('✅ تم تحميل وحدة Interleaving بنجاح');
 console.log("✅ engine.js تم تحميله بالكامل");
