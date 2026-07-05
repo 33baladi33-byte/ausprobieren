@@ -3674,3 +3674,41 @@ body.dark-mode .premium-features li {
     padding: 1px 3px;
     font-weight: bold;
 }
+
+/* ============================================
+   إصلاح إزاحة الـ top-bar
+   ============================================ */
+
+/* إخفاء جميع العناصر الإضافية قبل الـ top-bar */
+.chrome-plugin-picture-search,
+#picture-search,
+[class*="chrome-plugin"]:not(.interleaving-btn),
+[class*="picture-search"] {
+    display: none !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+}
+
+/* إعادة تعيين الـ body */
+body {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* إعادة تعيين الـ html */
+html {
+    scroll-padding-top: 0 !important;
+}
+
+/* التأكد من الـ top-bar */
+.top-bar {
+    position: sticky !important;
+    top: 0 !important;
+    margin-top: 0 !important;
+    transform: none !important;
+    z-index: 100 !important;
+}
