@@ -1074,7 +1074,7 @@ function checkSprach1Exam() {
 }
 
 // ============================================
-// نظام True/False (Hören Teil 1,2,3) - المُعدّل
+// نظام True/False (Hören Teil 1,2,3) - المُعدّل مع Interleaving
 // ============================================
 
 window.buildTrueFalseExam = function(container, questions, note) {
@@ -1087,14 +1087,6 @@ window.buildTrueFalseExam = function(container, questions, note) {
   }
   
   container.innerHTML = '';
-  // ✅ إنشاء الـ wrapper
-let wrapper = container.querySelector('.questions-wrapper');
-if (!wrapper) {
-    wrapper = document.createElement('div');
-    wrapper.className = 'questions-wrapper';
-    wrapper.style.cssText = 'display: contents;';
-    container.prepend(wrapper);
-}
   
   if (window._trueFalseUserAnswers) {
     delete window._trueFalseUserAnswers;
@@ -1115,10 +1107,12 @@ if (!wrapper) {
     container.appendChild(noteDiv);
   }
   
-  // ✅ إنشاء بطاقات الأسئلة مع ID ثابت
+  // ✅ إنشاء مصفوفة البطاقات أولاً
+  const cards = [];
+  
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
-    const questionId = q.id !== undefined ? q.id : i; // استخدام id من البيانات أو الفهرس كاحتياطي
+    const questionId = q.id !== undefined ? q.id : i;
     
     const div = document.createElement('div');
     div.className = 'question-card';
@@ -1196,34 +1190,26 @@ if (!wrapper) {
     div.appendChild(labelFalse);
     div.appendChild(textSpan);
     
-  wrapper.appendChild(div);
-    // ✅ حفظ البطاقات في مصفوفة للخلط لاحقاً
-if (!window._questionCards) window._questionCards = [];
-window._questionCards.push(div);
+    cards.push(div);
   }
   
-// ✅ خلط بطاقات الأسئلة فقط
-const questionCards = window._questionCards || [...wrapper.querySelectorAll('.question-card')];
-if (questionCards.length > 0) {
-    for (let i = questionCards.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        const parent = questionCards[i].parentNode;
-        const nextSibling = questionCards[j].nextSibling;
-        
-        if (i < j) {
-            parent.insertBefore(questionCards[i], questionCards[j]);
-            parent.insertBefore(questionCards[j], nextSibling);
-        } else {
-            parent.insertBefore(questionCards[j], questionCards[i]);
-            parent.insertBefore(questionCards[i], questionCards[j].nextSibling);
-        }
+  // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
+  let finalCards = cards;
+  if (window.isInterleavingActive) {
+    const fixedOrder = getFixedOrder(cards.length);
+    finalCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
+    if (finalCards.length !== cards.length) {
+      finalCards = cards;
     }
-    console.log(`✅ تم خلط ${questionCards.length} بطاقة سؤال في ${container.id}`);
-}
-// تنظيف المصفوفة
-window._questionCards = [];
+    console.log(`✅ Interleaving: تم ترتيب ${finalCards.length} بطاقة في ${container.id}`);
+  }
   
-  // ✅ إضافة الأزرار بعد الخلط (تبقى في مكانها)
+  // ✅ إضافة البطاقات إلى الـ DOM
+  finalCards.forEach(card => {
+    container.appendChild(card);
+  });
+  
+  // ✅ إضافة الأزرار بعد البطاقات
   const buttonContainer = document.createElement('div');
   buttonContainer.style.display = "flex";
   buttonContainer.style.gap = "15px";
@@ -1343,10 +1329,8 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
   const total = questions.length;
   const pointsPerQuestion = 25 / total;
   
-  // ✅ استخدام querySelectorAll للحصول على البطاقات بالترتيب الحالي
   const cards = container.querySelectorAll('.question-card');
   
-  // ✅ إنشاء خريطة للبطاقات باستخدام ID السؤال
   const cardMap = {};
   cards.forEach(card => {
     const qId = parseInt(card.dataset.questionId);
@@ -1461,7 +1445,7 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
 }
 
 // ============================================
-// نظام Teil 1 (Lesen Teil 1 - Matching) - المُعدّل
+// نظام Teil 1 (Lesen Teil 1 - Matching) - المُعدّل مع Interleaving
 // ============================================
 
 let currentMatchingExamData = null;
@@ -1480,15 +1464,11 @@ function renderMatchingQuestions() {
   const container = document.getElementById("teil1");
   if (!container) return;
   container.innerHTML = "";
-  // ✅ إنشاء الـ wrapper
-let wrapper = container.querySelector('.questions-wrapper');
-if (!wrapper) {
-    wrapper = document.createElement('div');
-    wrapper.className = 'questions-wrapper';
-    wrapper.style.cssText = 'display: contents;';
-    container.prepend(wrapper);
-}
+  
   const questions = currentMatchingExamData.questions;
+  
+  // ✅ إنشاء البطاقات في مصفوفة
+  const cards = [];
   
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
@@ -1567,25 +1547,24 @@ if (!wrapper) {
     })(questionId);
     
     card.appendChild(select);
-    wrapper.appendChild(card);
+    cards.push(card);
   }
   
-  // ✅ خلط بطاقات الأسئلة فقط (باستخدام ID ثابت)
-const questionCards = [...wrapper.querySelectorAll('.question-card')];
-if (questionCards.length > 0) {
-    // ترتيب البطاقات حسب الـ ID الأصلي للحفاظ على الترتيب الثابت
-    questionCards.sort((a, b) => {
-        const idA = parseInt(a.dataset.questionId) || 0;
-        const idB = parseInt(b.dataset.questionId) || 0;
-        return idA - idB;
-    });
-    
-    // إعادة إدراجها بنفس الترتيب
-    questionCards.forEach(card => {
-        container.appendChild(card);
-    });
-    console.log(`✅ تم ترتيب ${questionCards.length} بطاقة حسب ID في teil1`);
-}
+  // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
+  let finalCards = cards;
+  if (window.isInterleavingActive) {
+    const fixedOrder = getFixedOrder(cards.length);
+    finalCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
+    if (finalCards.length !== cards.length) {
+      finalCards = cards;
+    }
+    console.log(`✅ Interleaving: تم ترتيب ${finalCards.length} بطاقة في teil1`);
+  }
+  
+  // ✅ إضافة البطاقات إلى الـ DOM
+  finalCards.forEach(card => {
+    container.appendChild(card);
+  });
   
   const buttonContainer = document.createElement("div");
   buttonContainer.style.display = "flex";
@@ -1709,7 +1688,7 @@ function checkMatchingExam() {
 }
 
 // ============================================
-// نظام Teil 2 (Lesen Teil 2) - المُعدّل
+// نظام Teil 2 (Lesen Teil 2) - المُعدّل مع Interleaving
 // ============================================
 
 let currentTeil2Data = null;
@@ -1726,14 +1705,6 @@ function renderTeil2Exam() {
   const container = document.getElementById("teil2");
   if (!container) return;
   container.innerHTML = "";
-  // ✅ إنشاء الـ wrapper
-let wrapper = container.querySelector('.questions-wrapper');
-if (!wrapper) {
-    wrapper = document.createElement('div');
-    wrapper.className = 'questions-wrapper';
-    wrapper.style.cssText = 'display: contents;';
-    container.prepend(wrapper);
-}
   
   const twoColumns = document.createElement("div");
   twoColumns.style.display = "flex";
@@ -1781,6 +1752,10 @@ if (!wrapper) {
   questionsContainer.id = "teil2_questions_container";
   
   const questions = currentTeil2Data.questions;
+  
+  // ✅ إنشاء البطاقات في مصفوفة
+  const cards = [];
+  
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
     const questionId = q.id !== undefined ? q.id : i;
@@ -1838,25 +1813,26 @@ if (!wrapper) {
       optionsDiv.appendChild(label);
     }
     card.appendChild(optionsDiv);
-    questionsContainer.appendChild(card);
+    cards.push(card);
   }
   
-  questionsColumn.appendChild(questionsContainer);
+  // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
+  let finalCards = cards;
+  if (window.isInterleavingActive) {
+    const fixedOrder = getFixedOrder(cards.length);
+    finalCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
+    if (finalCards.length !== cards.length) {
+      finalCards = cards;
+    }
+    console.log(`✅ Interleaving: تم ترتيب ${finalCards.length} بطاقة في teil2`);
+  }
   
-// ✅ خلط بطاقات الأسئلة فقط (باستخدام ID ثابت)
-const questionCards = [...wrapper.querySelectorAll('.question-card')];
-if (questionCards.length > 0) {
-    questionCards.sort((a, b) => {
-        const idA = parseInt(a.dataset.questionId) || 0;
-        const idB = parseInt(b.dataset.questionId) || 0;
-        return idA - idB;
-    });
-    
-    questionCards.forEach(card => {
-        questionsContainer.appendChild(card);
-    });
-    console.log(`✅ تم ترتيب ${questionCards.length} بطاقة حسب ID في teil2`);
-}
+  // ✅ إضافة البطاقات إلى الـ DOM
+  finalCards.forEach(card => {
+    questionsContainer.appendChild(card);
+  });
+  
+  questionsColumn.appendChild(questionsContainer);
   
   const buttonContainer = document.createElement("div");
   buttonContainer.style.display = "flex";
@@ -2005,7 +1981,7 @@ function checkTeil2Exam() {
 }
 
 // ============================================
-// نظام Teil 3 (Lesen Teil 3) - المُعدّل
+// نظام Teil 3 (Lesen Teil 3) - المُعدّل مع Interleaving
 // ============================================
 
 let currentTeil3Data = null;
@@ -2148,14 +2124,7 @@ function renderTeil3Exam() {
   const container = document.getElementById("teil3");
   if (!container) return;
   container.innerHTML = "";
-  // ✅ إنشاء الـ wrapper
-let wrapper = container.querySelector('.questions-wrapper');
-if (!wrapper) {
-    wrapper = document.createElement('div');
-    wrapper.className = 'questions-wrapper';
-    wrapper.style.cssText = 'display: contents;';
-    container.prepend(wrapper);
-}
+  
   const items = currentTeil3Data.items;
   const situations = currentTeil3Data.situations;
   
@@ -2179,6 +2148,9 @@ if (!wrapper) {
   itemsGrid.style.display = "grid";
   itemsGrid.style.gridTemplateColumns = "1fr 1fr";
   itemsGrid.style.gap = "20px";
+  
+  // ✅ إنشاء البطاقات في مصفوفة
+  const cards = [];
   
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
@@ -2263,26 +2235,26 @@ if (!wrapper) {
     })(itemId);
     
     card.appendChild(select);
-    
-    itemsGrid.appendChild(card);
+    cards.push(card);
   }
   
-  leftColumn.appendChild(itemsGrid);
+  // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
+  let finalCards = cards;
+  if (window.isInterleavingActive) {
+    const fixedOrder = getFixedOrder(cards.length);
+    finalCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
+    if (finalCards.length !== cards.length) {
+      finalCards = cards;
+    }
+    console.log(`✅ Interleaving: تم ترتيب ${finalCards.length} بطاقة في teil3`);
+  }
   
-// ✅ خلط بطاقات الأسئلة فقط (باستخدام ID ثابت)
-const questionCards = [...wrapper.querySelectorAll('.question-card')];
-if (questionCards.length > 0) {
-    questionCards.sort((a, b) => {
-        const idA = parseInt(a.dataset.itemId) || 0;
-        const idB = parseInt(b.dataset.itemId) || 0;
-        return idA - idB;
-    });
-    
-    questionCards.forEach(card => {
-        leftColumn.appendChild(card);
-    });
-    console.log(`✅ تم ترتيب ${questionCards.length} بطاقة حسب ID في teil3`);
-}
+  // ✅ إضافة البطاقات إلى الـ DOM
+  finalCards.forEach(card => {
+    itemsGrid.appendChild(card);
+  });
+  
+  leftColumn.appendChild(itemsGrid);
   
   const rightColumn = document.createElement("div");
   rightColumn.style.flex = "1";
@@ -2459,6 +2431,7 @@ if (questionCards.length > 0) {
   updateTeil3SelectOptions();
   updateTeil3RightSideColors();
 }
+
 function checkTeil3Exam() {
   const items = currentTeil3Data.items;
   let score = 0;
@@ -2740,7 +2713,7 @@ if (typeof checkTeil3Exam === 'function') {
 console.log('✅ ألوان التصحيح للهاتف (Teil 1 & Teil 3) تم تحميلها');
 
 // ============================================
-// MEMORY HIGHLIGHT SYSTEM - التلوين الذكي (المُعدّل)
+// MEMORY HIGHLIGHT SYSTEM - التلوين الذكي
 // ============================================
 
 function getColorByIndex(index) {
@@ -2761,7 +2734,6 @@ function getTextColorByIndex(index) {
     return textColors[index % textColors.length] || '#1565C0';
 }
 
-// ✅ دوال التلوين الأساسية - تعتمد على ID السؤال
 function highlightTextInContainer(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
@@ -3230,7 +3202,7 @@ function colorSelectOptions() {
 }
 
 // ============================================
-// MemoryHighlightEngine (المُعدّل)
+// MemoryHighlightEngine
 // ============================================
 
 class MemoryHighlightEngine {
@@ -3431,7 +3403,7 @@ if (typeof checkTeil3Exam === 'function') {
 console.log("✅ engine.js تم تحميله بالكامل");
 
 // ============================================
-// نظام Interleaving (ترتيب ثابت) - النسخة النهائية المُحسّنة
+// نظام Interleaving (ترتيب ثابت) - يُطبق قبل إنشاء الـ DOM
 // ============================================
 
 // الترتيب الثابت لكل عدد من الأسئلة
@@ -3441,43 +3413,15 @@ const FIXED_ORDERS = {
     12: [4, 8, 1, 11, 6, 2, 10, 5, 12, 3, 9, 7]
 };
 
-// متغيرات الحالة
-let isInterleavingActive = false;
-let originalCards = [];
-let currentWrapper = null;
-
-// 🔍 الحصول على الحاوية النشطة (البحث عن questions-wrapper الموجود)
-function getActiveQuestionWrapper() {
-    const skill = window.currentSkill || 'lesen1';
-    
-    const skillMap = {
-        'hoeren1': 'hoeren1',
-        'hoeren2': 'hoeren2',
-        'hoeren3': 'hoeren3',
-        'lesen1': 'teil1',
-        'lesen2': 'teil2',
-        'lesen3': 'teil3',
-        'sprach1': 'sprach1',
-        'sprach2': 'sprach2'
-    };
-    
-    const targetId = skillMap[skill] || skill;
-    const container = document.getElementById(targetId);
-    if (!container) return null;
-    
-    // ✅ البحث عن الـ wrapper الموجود فقط، لا ننشئ جديداً
-    const wrapper = container.querySelector('.questions-wrapper');
-    return wrapper || null;
-}
+// ✅ حالة Interleaving (يتم التحكم بها عن طريق الزر)
+window.isInterleavingActive = false;
 
 // دالة الحصول على الترتيب الثابت حسب عدد البطاقات
 function getFixedOrder(count) {
-    // إذا كان العدد موجوداً في FIXED_ORDERS
     if (FIXED_ORDERS[count]) {
         return FIXED_ORDERS[count];
     }
     
-    // إذا لم يكن موجوداً، نبحث عن أقرب عدد
     const keys = Object.keys(FIXED_ORDERS).map(Number).sort((a, b) => a - b);
     let bestKey = keys[0];
     for (let key of keys) {
@@ -3488,7 +3432,6 @@ function getFixedOrder(count) {
         }
     }
     
-    // توليد ترتيب مخصص
     const baseOrder = FIXED_ORDERS[bestKey] || [];
     const result = [];
     for (let i = 1; i <= count; i++) {
@@ -3500,99 +3443,48 @@ function getFixedOrder(count) {
     }
     return result;
 }
-// دالة تطبيق الترتيب الثابت
-function applyFixedOrder() {
-    const wrapper = getActiveQuestionWrapper();
-    if (!wrapper) {
-        console.warn('⚠️ لا توجد منطقة أسئلة نشطة (questions-wrapper)');
-        return;
-    }
+
+// ✅ دالة تطبيق الترتيب الثابت على مصفوفة (تُستدعى قبل إنشاء الـ DOM)
+function applyFixedOrderToArray(cards) {
+    if (!cards || cards.length === 0) return cards;
+    if (!window.isInterleavingActive) return cards;
     
-    const cards = [...wrapper.querySelectorAll('.question-card')];
-    if (cards.length === 0) {
-        console.warn('⚠️ لا توجد بطاقات أسئلة داخل الـ wrapper');
-        return;
-    }
-    
-    // حفظ الترتيب الأصلي
-    if (!isInterleavingActive) {
-        originalCards = cards.slice();
-        currentWrapper = wrapper;
-    }
-    
-    // الحصول على الترتيب الثابت حسب عدد البطاقات
     const fixedOrder = getFixedOrder(cards.length);
+    const orderedCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
     
-    // ترتيب البطاقات حسب الترتيب الثابت
-    const orderedCards = fixedOrder.map(index => {
-        // البحث عن البطاقة التي تحمل الترتيب المطلوب
-        // نستخدم الـ dataset.questionId أو الترتيب في المصفوفة
-        for (let card of cards) {
-            const cardIndex = parseInt(card.dataset.questionId) || parseInt(card.dataset.itemId) || 0;
-            if (cardIndex === index) {
-                return card;
-            }
-        }
-        // إذا لم نجد، نأخذ البطاقة حسب الترتيب
-        return cards[index - 1] || null;
-    }).filter(card => card !== null);
-    
-    // إذا لم نجد بطاقات بالترتيب، نستخدم الترتيب المباشر
-    if (orderedCards.length !== cards.length) {
-        // ترتيب مباشر حسب الـ index في FIXED_ORDERS
-        const directOrder = getFixedOrder(cards.length);
-        const directCards = directOrder.map(idx => cards[idx - 1]).filter(c => c);
-        if (directCards.length === cards.length) {
-            directCards.forEach(card => wrapper.appendChild(card));
-            console.log(`✅ تم تطبيق الترتيب الثابت على ${cards.length} بطاقة (مباشر)`);
-            return;
-        }
+    if (orderedCards.length === cards.length) {
+        console.log(`✅ Interleaving: تم ترتيب ${orderedCards.length} بطاقة`);
+        return orderedCards;
     }
     
-    // تطبيق الترتيب
-    orderedCards.forEach(card => {
-        if (card) wrapper.appendChild(card);
-    });
-    
-    console.log(`✅ تم تطبيق الترتيب الثابت على ${cards.length} بطاقة`);
-}
-// دالة استعادة الترتيب الأصلي
-function restoreOriginalOrder() {
-    if (!originalCards.length || !currentWrapper) {
-        console.warn('⚠️ لا يوجد ترتيب أصلي للحفظ');
-        return;
-    }
-    
-    // ✅ إعادة البطاقات بالترتيب الأصلي داخل الـ wrapper فقط
-    originalCards.forEach(card => {
-        currentWrapper.appendChild(card);
-    });
-    
-    console.log(`✅ تم استعادة الترتيب الأصلي`);
+    return cards;
 }
 
-// دالة تبديل حالة الخلط
+// ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
 function toggleInterleaving() {
+    window.isInterleavingActive = !window.isInterleavingActive;
+    
     const btn = document.getElementById('interleavingBtn');
-    if (!btn) {
-        console.warn('⚠️ زر Interleaving غير موجود');
-        return;
+    if (btn) {
+        btn.classList.toggle('active');
     }
     
-    if (isInterleavingActive) {
-        restoreOriginalOrder();
-        isInterleavingActive = false;
-        originalCards = [];
-        currentWrapper = null;
-        btn.classList.remove('active');
-    } else {
-        applyFixedOrder();
-        isInterleavingActive = true;
-        btn.classList.add('active');
+    console.log(`🔄 Interleaving: ${window.isInterleavingActive ? 'مفعّل ✅' : 'معطّل ❌'}`);
+    
+    // إعادة تحميل الامتحان الحالي لتطبيق التغيير
+    const currentSkill = window.currentSkill;
+    const currentExamId = window.currentExamId;
+    const currentExamTitle = document.getElementById('examTitle')?.textContent || '';
+    
+    if (currentSkill && currentExamId) {
+        // إعادة فتح الامتحان مع الحالة الجديدة
+        setTimeout(() => {
+            openExam(currentExamId, currentExamTitle, currentSkill);
+        }, 100);
     }
 }
 
-// دالة تهيئة الزر
+// ✅ دالة تهيئة الزر
 function initInterleaving() {
     const btn = document.getElementById('interleavingBtn');
     if (!btn) {
@@ -3607,23 +3499,15 @@ function initInterleaving() {
     btn.addEventListener('click', toggleInterleaving);
     btn._listenerAttached = true;
     
-    // إعادة تعيين الحالة
-    isInterleavingActive = false;
-    originalCards = [];
-    currentWrapper = null;
+    window.isInterleavingActive = false;
     btn.classList.remove('active');
     
     console.log('✅ زر Interleaving تم تهيئته');
 }
 
-// دالة إعادة تعيين (عند فتح امتحان جديد)
+// ✅ دالة إعادة تعيين (عند فتح امتحان جديد)
 function resetInterleaving() {
-    if (isInterleavingActive) {
-        restoreOriginalOrder();
-    }
-    isInterleavingActive = false;
-    originalCards = [];
-    currentWrapper = null;
+    window.isInterleavingActive = false;
     
     const btn = document.getElementById('interleavingBtn');
     if (btn) {
@@ -3637,5 +3521,6 @@ function resetInterleaving() {
 window.initInterleaving = initInterleaving;
 window.toggleInterleaving = toggleInterleaving;
 window.resetInterleaving = resetInterleaving;
+window.applyFixedOrderToArray = applyFixedOrderToArray;
 
-console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز');
+console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يُطبق قبل إنشاء الـ DOM');
