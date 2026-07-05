@@ -2688,6 +2688,7 @@ function highlightTextInContainer(container, searchText, colorIndex) {
         }
     });
 }
+111111
 function highlightSelectOption(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
@@ -3305,6 +3306,8 @@ class MemoryHighlightEngine {
 
     removeHighlights() {
         if (!this.container) return;
+        
+        // ✅ 1. إزالة التلوين من النص
         const highlights = this.container.querySelectorAll('.memory-highlight');
         highlights.forEach(span => {
             const parent = span.parentNode;
@@ -3312,6 +3315,8 @@ class MemoryHighlightEngine {
             parent.replaceChild(textNode, span);
             parent.normalize();
         });
+        
+        // ✅ 2. إزالة التلوين من القوائم المنسدلة (select)
         const selects = this.container.querySelectorAll('select');
         selects.forEach(select => {
             for (let i = 0; i < select.options.length; i++) {
@@ -3320,8 +3325,58 @@ class MemoryHighlightEngine {
                 select.options[i].style.fontWeight = '';
                 select.options[i].style.padding = '';
                 select.options[i].style.borderRadius = '';
+                select.options[i].style.border = '';
+                select.options[i].style.opacity = '';
             }
         });
+        
+        // ✅ 3. إزالة التلوين من الاختيارات في Sprach 1 (label > span)
+        const labels = this.container.querySelectorAll('label');
+        labels.forEach(label => {
+            const spans = label.querySelectorAll('span');
+            spans.forEach(span => {
+                span.style.backgroundColor = '';
+                span.style.color = '';
+                span.style.fontWeight = '';
+                span.style.padding = '';
+                span.style.borderRadius = '';
+                span.style.border = '';
+                span.style.opacity = '';
+            });
+            // إزالة التلوين من الـ label نفسه
+            label.style.backgroundColor = '';
+            label.style.color = '';
+            label.style.fontWeight = '';
+            label.style.padding = '';
+            label.style.borderRadius = '';
+            label.style.border = '';
+            label.style.opacity = '';
+        });
+        
+        // ✅ 4. إزالة التلوين من Sprach 2 (word cards)
+        const wordCards = this.container.querySelectorAll('.sprach2-word-card');
+        wordCards.forEach(card => {
+            card.style.backgroundColor = '';
+            card.style.color = '';
+            card.style.fontWeight = '';
+            card.style.padding = '';
+            card.style.borderRadius = '';
+            card.style.border = '';
+            card.style.opacity = '';
+        });
+        
+        // ✅ 5. إزالة التلوين من أي عناصر أخرى
+        const allElements = this.container.querySelectorAll('.option, .option-btn, .choice, [class*="option"]');
+        allElements.forEach(el => {
+            el.style.backgroundColor = '';
+            el.style.color = '';
+            el.style.fontWeight = '';
+            el.style.padding = '';
+            el.style.borderRadius = '';
+            el.style.border = '';
+            el.style.opacity = '';
+        });
+        
         if (window._originalTexts) {
             window._originalTexts.clear();
         }
