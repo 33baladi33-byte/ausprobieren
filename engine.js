@@ -3403,44 +3403,46 @@ if (typeof checkTeil3Exam === 'function') {
 console.log("✅ engine.js تم تحميله بالكامل");
 
 // ============================================
-// نظام Interleaving (خلط الأسئلة)
+// نظام Interleaving (خلط الأسئلة) - النسخة النهائية
 // ============================================
 
 let isInterleavingActive = false;
 let originalQuestionsOrder = [];
 
-// دالة خلط بطاقات الأسئلة فقط
+// ✅ دالة خلط بطاقات الأسئلة فقط (مأخوذة من الكود الصحيح)
 function shuffleQuestionCards(container) {
     if (!container) return;
     
-    // ✅ فقط بطاقات الأسئلة (وليس الأزرار أو النتيجة)
-    const cards = [...container.querySelectorAll('.question-card')];
-    if (cards.length === 0) return;
+    // فقط بطاقات الأسئلة
+    const cards = [...container.querySelectorAll(".question-card")];
+    if (cards.length === 0) {
+        console.warn('⚠️ لا توجد بطاقات أسئلة للخلط');
+        return;
+    }
     
     // حفظ الترتيب الأصلي إذا لم يكن محفوظاً
     if (!isInterleavingActive) {
         originalQuestionsOrder = cards.map(card => card);
     }
     
-    // Fisher-Yates Shuffle
+    // Fisher-Yates Shuffle (نفس الكود الصحيح)
     for (let i = cards.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        const parent = cards[i].parentNode;
-        const nextSibling = cards[j].nextSibling;
-        
-        if (i < j) {
-            parent.insertBefore(cards[i], cards[j]);
-            parent.insertBefore(cards[j], nextSibling);
-        } else {
-            parent.insertBefore(cards[j], cards[i]);
-            parent.insertBefore(cards[i], cards[j].nextSibling);
-        }
+        [cards[i], cards[j]] = [cards[j], cards[i]];
     }
+    
+    // آخر بطاقة سؤال
+    const lastCard = cards[cards.length - 1];
+    
+    // إعادة إدراجها بالترتيب الجديد
+    cards.forEach(card => {
+        container.insertBefore(card, lastCard.nextSibling);
+    });
     
     console.log(`✅ تم خلط ${cards.length} بطاقة سؤال في ${container.id}`);
 }
 
-// دالة استعادة الترتيب الأصلي
+// ✅ دالة استعادة الترتيب الأصلي
 function restoreOriginalOrder() {
     if (!originalQuestionsOrder.length) return;
     
@@ -3455,10 +3457,13 @@ function restoreOriginalOrder() {
     console.log('✅ تم استعادة الترتيب الأصلي');
 }
 
-// دالة تفعيل/إلغاء الخلط
+// ✅ دالة تفعيل/إلغاء الخلط
 function toggleInterleaving() {
     const btn = document.getElementById('interleavingBtn');
-    if (!btn) return;
+    if (!btn) {
+        console.warn('⚠️ زر Interleaving غير موجود');
+        return;
+    }
     
     // البحث عن حاوية الأسئلة الحالية
     const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3', 'sprach1', 'sprach2'];
@@ -3492,7 +3497,7 @@ function toggleInterleaving() {
     }
 }
 
-// دالة تهيئة الزر
+// ✅ دالة تهيئة الزر
 function initInterleaving() {
     const btn = document.getElementById('interleavingBtn');
     if (!btn) {
@@ -3500,6 +3505,7 @@ function initInterleaving() {
         return;
     }
     
+    // إزالة المستمعات القديمة وتجديد الزر
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
     
@@ -3507,13 +3513,15 @@ function initInterleaving() {
     console.log('✅ زر Interleaving تم تهيئته');
 }
 
-// دالة عرض إشعار
+// ✅ دالة عرض إشعار
 function showNotification(message) {
+    // استخدام نظام الإشعارات الموجود
     if (typeof window.showToast === 'function') {
         window.showToast(message);
         return;
     }
     
+    // إشعار مؤقت
     const notification = document.createElement('div');
     notification.textContent = message;
     notification.style.cssText = `
@@ -3542,7 +3550,7 @@ function showNotification(message) {
     }, 2000);
 }
 
-// تصدير الدوال للاستخدام العالمي
+// ✅ تصدير الدوال للاستخدام العالمي
 window.initInterleaving = initInterleaving;
 window.toggleInterleaving = toggleInterleaving;
 window.shuffleQuestionCards = shuffleQuestionCards;
