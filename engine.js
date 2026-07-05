@@ -3298,7 +3298,7 @@ class MemoryHighlightEngine {
         highlightTextInContainer(this.container, searchText, colorIndex);
     }
 
-       removeHighlights() {
+    removeHighlights() {
         if (!this.container) return;
         
         // ✅ 1. إزالة التلوين من النص
@@ -3314,8 +3314,14 @@ class MemoryHighlightEngine {
         const selects = this.container.querySelectorAll('select');
         selects.forEach(select => {
             for (let i = 0; i < select.options.length; i++) {
+                // إزالة كل الأنماط المضافة
                 select.options[i].style.color = '';
                 select.options[i].style.fontWeight = '';
+                select.options[i].style.backgroundColor = '';
+                select.options[i].style.border = '';
+                select.options[i].style.padding = '';
+                select.options[i].style.borderRadius = '';
+                select.options[i].style.opacity = '';
             }
         });
         
@@ -3326,17 +3332,38 @@ class MemoryHighlightEngine {
             spans.forEach(span => {
                 span.style.color = '';
                 span.style.fontWeight = '';
+                span.style.backgroundColor = '';
+                span.style.border = '';
+                span.style.padding = '';
+                span.style.borderRadius = '';
+                span.style.opacity = '';
             });
             label.style.color = '';
             label.style.fontWeight = '';
+            label.style.backgroundColor = '';
+            label.style.border = '';
+            label.style.padding = '';
+            label.style.borderRadius = '';
+            label.style.opacity = '';
         });
         
-               // ✅ 4. إزالة التلوين من النص فقط في Sprach 2 (word cards)
+        // ✅ 4. إزالة التلوين من النص فقط في Sprach 2 (word cards)
         const wordCards = this.container.querySelectorAll('.sprach2-word-card');
         wordCards.forEach(card => {
             const textElement = card.querySelector('span') || card;
             textElement.style.color = '';
             textElement.style.fontWeight = '';
+            textElement.style.backgroundColor = '';
+            textElement.style.border = '';
+            textElement.style.padding = '';
+            textElement.style.borderRadius = '';
+            textElement.style.opacity = '';
+            // إزالة التلوين من البطاقة نفسها أيضاً
+            card.style.backgroundColor = '';
+            card.style.border = '';
+            card.style.padding = '';
+            card.style.borderRadius = '';
+            card.style.opacity = '';
         });
         
         // ✅ 5. إزالة التلوين من أي عناصر أخرى
@@ -3344,6 +3371,29 @@ class MemoryHighlightEngine {
         allElements.forEach(el => {
             el.style.color = '';
             el.style.fontWeight = '';
+            el.style.backgroundColor = '';
+            el.style.border = '';
+            el.style.padding = '';
+            el.style.borderRadius = '';
+            el.style.opacity = '';
+        });
+        
+        // ✅ 6. إزالة التلوين من أي عنصر له class memory-highlight-color (للتأكد)
+        const coloredElements = this.container.querySelectorAll('[style*="color:"]');
+        coloredElements.forEach(el => {
+            // نزيل فقط الأنماط التي أضافها التلوين
+            if (el.style.color && el.style.color !== '') {
+                // نتحقق إذا كان اللون مطابقاً لأحد ألوان التلوين
+                const colors = [
+                    '#1565C0', '#2E7D32', '#F57C00', '#6A1B9A', '#BF360C',
+                    '#00695C', '#880E4F', '#33691E', '#C62828', '#3949AB',
+                    '#E65100', '#5D4037'
+                ];
+                if (colors.includes(el.style.color)) {
+                    el.style.color = '';
+                    el.style.fontWeight = '';
+                }
+            }
         });
         
         if (window._originalTexts) {
