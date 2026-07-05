@@ -2434,7 +2434,6 @@ function renderTeil3Exam() {
   updateTeil3SelectOptions();
   updateTeil3RightSideColors();
 }
-
 function checkTeil3Exam() {
   const items = currentTeil3Data.items;
   let score = 0;
@@ -2443,9 +2442,11 @@ function checkTeil3Exam() {
   document.querySelectorAll('#teil3 .correct-message').forEach(msg => msg.remove());
 
   for (let i = 0; i < total; i++) {
-    const card = document.getElementById(`teil3_card_${i}`);
-    const userAnswer = teil3UserAnswers[i];
-    const correctIndex = items[i].correct;
+    const item = items[i];
+    const itemId = item.id !== undefined ? item.id : i;
+    const card = document.getElementById(`teil3_card_${itemId}`);
+    const userAnswer = teil3UserAnswers[itemId];
+    const correctIndex = item.correct;
     let isCorrect = false;
     let correctText = "";
     let correctValue = null;
@@ -3405,15 +3406,18 @@ if (typeof checkTeil3Exam === 'function') {
 console.log("✅ engine.js تم تحميله بالكامل");
 
 // ============================================
-// نظام Interleaving (خلط الأسئلة) - النسخة النهائية المُصلحة
+// نظام Interleaving (ترتيب ثابت) - النسخة النهائية
 // ============================================
 
 const Interleaving = {
+    // الحالة
     isActive: false,
     originalOrder: [],
     currentContainer: null,
     currentSelector: '.question-card',
+    isShuffled: false,
     
+    // 🔍 تحديد المحدد المناسب لكل نوع امتحان
     getSelectorForContainer(containerId) {
         const selectors = {
             'hoeren1': '.question-card',
@@ -3421,11 +3425,12 @@ const Interleaving = {
             'hoeren3': '.question-card',
             'teil1': '.question-card',
             'teil2': '.question-card',
-            'teil3': '.question-card'
+            'teil3': '.question-card'  // Lesen 3 يستخدم نفس الكلاس
         };
         return selectors[containerId] || '.question-card';
     },
     
+    // 🔍 العثور على الحاوية النشطة
     getActiveContainer() {
         const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3'];
         for (const id of containers) {
@@ -3441,7 +3446,18 @@ const Interleaving = {
         return null;
     },
     
-    shuffleElements(container, selector) {
+    // ✅ ترتيب ثابت (بدلاً من العشوائي)
+    getFixedOrder(elements) {
+        // 🔄 ترتيب عكسي (أو يمكن تغييره لأي ترتيب ثابت آخر)
+        const indices = elements.map((_, i) => i);
+        return indices.reverse(); // مثلاً: [4,3,2,1,0]
+        
+        // يمكنك أيضاً استخدام ترتيب محدد:
+        // return [2, 0, 4, 1, 3]; // ترتيب ثابت
+    },
+    
+    // ✅ تطبيق الترتيب الثابت
+    applyFixedOrder(container, selector) {
         if (!container) return false;
         
         const elements = [...container.querySelectorAll(selector)];
@@ -3450,30 +3466,27 @@ const Interleaving = {
             return false;
         }
         
+        // حفظ الترتيب الأصلي (نسخة من العناصر نفسها)
         if (!this.isActive) {
             this.originalOrder = elements.slice();
             this.currentContainer = container;
             this.currentSelector = selector;
         }
         
-        for (let i = elements.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            const parent = elements[i].parentNode;
-            const nextSibling = elements[j].nextSibling;
-            
-            if (i < j) {
-                parent.insertBefore(elements[i], elements[j]);
-                parent.insertBefore(elements[j], nextSibling);
-            } else {
-                parent.insertBefore(elements[j], elements[i]);
-                parent.insertBefore(elements[i], elements[j].nextSibling);
-            }
-        }
+        // الحصول على الترتيب الثابت
+        const fixedIndices = this.getFixedOrder(elements);
         
-        console.log(`✅ تم خلط ${elements.length} عنصر في ${container.id} (${selector})`);
+        // ترتيب العناصر حسب الترتيب الثابت
+        const orderedElements = fixedIndices.map(index => elements[index]);
+        
+        // ✅ إعادة إضافة العناصر بالترتيب الجديد (مرة واحدة)
+        orderedElements.forEach(el => container.appendChild(el));
+        
+        console.log(`✅ تم تطبيق الترتيب الثابت على ${elements.length} عنصر في ${container.id}`);
         return true;
     },
     
+    // ✅ استعادة الترتيب الأصلي
     restoreOrder() {
         if (!this.originalOrder.length || !this.currentContainer) {
             console.warn('⚠️ لا يوجد ترتيب أصلي للحفظ');
@@ -3481,6 +3494,8 @@ const Interleaving = {
         }
         
         const container = this.currentContainer;
+        
+        // ✅ إعادة إضافة العناصر بالترتيب الأصلي
         this.originalOrder.forEach(el => {
             container.appendChild(el);
         });
@@ -3489,6 +3504,7 @@ const Interleaving = {
         return true;
     },
     
+    // 🔄 تبديل حالة الخلط
     toggle() {
         console.log('🔄 toggleInterleaving() تم استدعاؤها');
         
@@ -3507,21 +3523,24 @@ const Interleaving = {
         const selector = this.getSelectorForContainer(container.id);
         
         if (this.isActive) {
+            // إلغاء الخلط (العودة للترتيب الأصلي)
             this.restoreOrder();
             this.isActive = false;
             this.originalOrder = [];
             btn.classList.remove('active');
-            this.showNotification('✅ تم إلغاء خلط الأسئلة');
+            this.showNotification('✅ تم إلغاء الترتيب المحدد');
         } else {
-            const success = this.shuffleElements(container, selector);
+            // تفعيل الترتيب الثابت
+            const success = this.applyFixedOrder(container, selector);
             if (success) {
                 this.isActive = true;
                 btn.classList.add('active');
-                this.showNotification('🔄 تم خلط الأسئلة عشوائياً');
+                this.showNotification('🔄 تم تطبيق الترتيب المحدد');
             }
         }
     },
     
+    // 🔄 إعادة تعيين الحالة (عند فتح امتحان جديد)
     reset() {
         if (this.isActive) {
             this.restoreOrder();
@@ -3538,6 +3557,7 @@ const Interleaving = {
         console.log('🔄 تم إعادة تعيين نظام Interleaving');
     },
     
+    // 🔧 تهيئة الزر
     init() {
         console.log('🔧 initInterleaving() تم استدعاؤها');
         
@@ -3547,10 +3567,12 @@ const Interleaving = {
             return;
         }
         
+        // إزالة الـ Listener القديم لتجنب التكرار
         if (btn._listenerAttached) {
             btn.removeEventListener('click', this._boundToggle);
         }
         
+        // ربط الـ Listener الجديد
         this._boundToggle = this.toggle.bind(this);
         btn.addEventListener('click', this._boundToggle);
         btn._listenerAttached = true;
@@ -3558,6 +3580,7 @@ const Interleaving = {
         console.log('✅ تم ربط click listener بالزر');
     },
     
+    // 📢 عرض إشعار
     showNotification(message) {
         if (typeof window.showToast === 'function') {
             window.showToast(message);
@@ -3593,10 +3616,11 @@ const Interleaving = {
     }
 };
 
+// ✅ تصدير الدوال للاستخدام العالمي
 window.Interleaving = Interleaving;
 window.initInterleaving = Interleaving.init.bind(Interleaving);
 window.toggleInterleaving = Interleaving.toggle.bind(Interleaving);
 window.resetInterleaving = Interleaving.reset.bind(Interleaving);
 
-console.log('✅ نظام Interleaving (خلط الأسئلة) جاهز');
+console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز');
 console.log('📌 استدعِ window.initInterleaving() لتهيئة الزر');
