@@ -1,5 +1,5 @@
 // ============================================
-// engine.js - محرك الامتحانات المتكامل (النسخة النهائية المبسطة)
+// engine.js - محرك الامتحانات المتكامل (النسخة النهائية)
 // ============================================
 
 console.log("✅ engine.js تم تحميله");
@@ -2764,6 +2764,7 @@ function highlightSelectOption(container, searchText, colorIndex) {
         }
     });
 }
+
 function highlightByContext(container, beforeText, connectorText, afterText, colorIndex) {
     if (!container) return false;
     if (!beforeText && !connectorText && !afterText) return false;
@@ -3023,12 +3024,11 @@ function applyAutoHighlights(examData) {
                 }
                 afterText = afterText.trim();
                 
-                               // ✅ تلوين before - البحث في النص قبل الزر فقط
+                // ✅ تلوين before - البحث في النص قبل الزر فقط
                 if (highlight.before) {
                     const beforeNode = btn.previousSibling;
                     if (beforeNode && beforeNode.nodeType === 3) {
                         const text = beforeNode.textContent;
-                        // ✅ البحث عن before مع تجاهل المسافات الزائدة
                         const trimmedBefore = highlight.before.trim();
                         const idx = text.lastIndexOf(trimmedBefore);
                         if (idx !== -1) {
@@ -3053,12 +3053,11 @@ function applyAutoHighlights(examData) {
                     }
                 }
                 
-                               // ✅ تلوين after - البحث في النص بعد الزر فقط
+                // ✅ تلوين after - البحث في النص بعد الزر فقط
                 if (highlight.after) {
                     const afterNode = btn.nextSibling;
                     if (afterNode && afterNode.nodeType === 3) {
                         const text = afterNode.textContent;
-                        // ✅ البحث عن after مع تجاهل المسافات الزائدة
                         const trimmedAfter = highlight.after.trim();
                         const idx = text.indexOf(trimmedAfter);
                         if (idx !== -1) {
@@ -3083,14 +3082,12 @@ function applyAutoHighlights(examData) {
                     }
                 }
               
-                       // ✅ تلوين الزر نفسه (يبقى الرقم فقط، لا نغير محتواه)
+                // ✅ تلوين الزر نفسه (يبقى الرقم فقط، لا نغير محتواه)
                 if (highlight.connector) {
-                    // ✅ نحتفظ بالشكل الأصلي للزر (دائري)
                     btn.style.backgroundColor = bgColor;
                     btn.style.color = txtColor;
                     btn.style.fontWeight = 'bold';
                     btn.style.border = `2px solid ${txtColor}`;
-                    // ✅ نعيد الشكل الدائري
                     btn.style.borderRadius = '20px';
                     btn.style.padding = '4px 12px';
                     btn.style.opacity = '0.85';
@@ -3302,6 +3299,7 @@ class MemoryHighlightEngine {
         if (!this.container) return;
         highlightTextInContainer(this.container, searchText, colorIndex);
     }
+
     removeHighlights() {
         if (!this.container) return;
         
@@ -3379,7 +3377,6 @@ class MemoryHighlightEngine {
         }
         this.originalTexts.clear();
     }
-  
 }
 
 // ============================================
