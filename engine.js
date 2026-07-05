@@ -3439,55 +3439,51 @@ function getFixedOrder(count) {
 
 // ✅ دالة تطبيق الترتيب الثابت (تعمل على البطاقات فقط)
 function applyFixedOrder() {
-    // العثور على الحاوية النشطة
     const container = getActiveContainer();
     if (!container) {
         console.warn('⚠️ لا توجد حاوية نشطة');
         return;
     }
     
-    // استخراج البطاقات فقط (دون أي عناصر أخرى)
-    const cards = [];
-    const allChildren = [...container.children];
-    
-    for (let child of allChildren) {
-        if (child.classList && child.classList.contains('question-card')) {
-            cards.push(child);
-        }
-    }
+    // 🔍 البحث عن البطاقات في كل الحاوية (وليس فقط الأبناء المباشرين)
+    const cards = container.querySelectorAll('.question-card');
     
     if (cards.length === 0) {
         console.warn('⚠️ لا توجد بطاقات أسئلة في الحاوية');
         return;
     }
     
+    // تحويل NodeList إلى مصفوفة
+    const cardsArray = Array.from(cards);
+    
     // حفظ الترتيب الأصلي (مرة واحدة فقط)
     if (!window.isInterleavingActive) {
-        originalOrder = cards.slice();
+        originalOrder = cardsArray.slice();
         currentContainer = container;
     }
     
     // تطبيق الترتيب الثابت
-    const fixedOrder = getFixedOrder(cards.length);
-    const orderedCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
+    const fixedOrder = getFixedOrder(cardsArray.length);
+    const orderedCards = fixedOrder.map(index => cardsArray[index - 1]).filter(c => c);
     
-    // إذا لم نجد بطاقات بالترتيب، نستخدم الترتيب المباشر
-    if (orderedCards.length !== cards.length) {
-        const directOrder = getFixedOrder(cards.length);
-        const directCards = directOrder.map(idx => cards[idx - 1]).filter(c => c);
-        if (directCards.length === cards.length) {
-            directCards.forEach(card => container.appendChild(card));
-            console.log(`✅ Interleaving: تم ترتيب ${directCards.length} بطاقة (مباشر)`);
-            return;
-        }
+    if (orderedCards.length === cardsArray.length) {
+        // إعادة إدراج البطاقات بالترتيب الجديد
+        orderedCards.forEach(card => {
+            card.parentNode.appendChild(card);
+        });
+        console.log(`✅ Interleaving: تم ترتيب ${orderedCards.length} بطاقة`);
+        return;
     }
     
-    // تطبيق الترتيب (نقل البطاقات فقط، دون لمس العناصر الأخرى)
-    orderedCards.forEach(card => {
-        if (card) container.appendChild(card);
-    });
-    
-    console.log(`✅ Interleaving: تم ترتيب ${orderedCards.length} بطاقة`);
+    // إذا لم نجد بطاقات بالترتيب، نستخدم الترتيب المباشر
+    const directOrder = getFixedOrder(cardsArray.length);
+    const directCards = directOrder.map(idx => cardsArray[idx - 1]).filter(c => c);
+    if (directCards.length === cardsArray.length) {
+        directCards.forEach(card => {
+            card.parentNode.appendChild(card);
+        });
+        console.log(`✅ Interleaving: تم ترتيب ${directCards.length} بطاقة (مباشر)`);
+    }
 }
 
 // ✅ دالة استعادة الترتيب الأصلي
@@ -3497,10 +3493,9 @@ function restoreOriginalOrder() {
         return;
     }
     
-    // إعادة البطاقات بالترتيب الأصلي (دون لمس العناصر الأخرى)
     originalOrder.forEach(card => {
-        if (card && card.parentNode === currentContainer) {
-            currentContainer.appendChild(card);
+        if (card && card.parentNode) {
+            card.parentNode.appendChild(card);
         }
     });
     
