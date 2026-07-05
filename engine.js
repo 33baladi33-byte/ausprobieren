@@ -3405,6 +3405,8 @@ if (typeof checkTeil3Exam === 'function') {
 
 console.log("✅ engine.js تم تحميله بالكامل");
 
+console.log("✅ engine.js تم تحميله بالكامل");
+
 // ============================================
 // نظام Interleaving (ترتيب ثابت) - النسخة المبسطة
 // ============================================
@@ -3418,11 +3420,9 @@ const FIXED_ORDERS = {
 
 // دالة للحصول على الترتيب الثابت حسب عدد الأسئلة
 function getFixedOrder(count) {
-    // إذا كان العدد موجوداً في القائمة
     if (FIXED_ORDERS[count]) {
         return FIXED_ORDERS[count];
     }
-    // إذا لم يكن موجوداً، نصنع ترتيباً عكسياً بسيطاً
     const order = [];
     for (let i = count; i > 0; i--) {
         order.push(i);
@@ -3437,7 +3437,6 @@ let currentContainer = null;
 
 // دالة تطبيق الترتيب الثابت
 function applyFixedOrder() {
-    // البحث عن الحاوية النشطة
     const containers = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3'];
     let container = null;
     
@@ -3457,26 +3456,20 @@ function applyFixedOrder() {
         return;
     }
     
-    // الحصول على بطاقات الأسئلة فقط
     const cards = [...container.querySelectorAll('.question-card')];
     if (cards.length === 0) {
         console.warn('⚠️ لا توجد بطاقات أسئلة');
         return;
     }
     
-    // إذا لم يكن مفعلاً، حفظ الترتيب الأصلي
     if (!isInterleavingActive) {
         originalCards = cards.slice();
         currentContainer = container;
     }
     
-    // الحصول على الترتيب الثابت
     const fixedOrder = getFixedOrder(cards.length);
-    
-    // ترتيب البطاقات حسب الترتيب الثابت (مع تحويل الفهارس من 1-based إلى 0-based)
     const orderedCards = fixedOrder.map(index => cards[index - 1]);
     
-    // إعادة ترتيب البطاقات (باستخدام appendChild فقط)
     orderedCards.forEach(card => {
         container.appendChild(card);
     });
@@ -3491,7 +3484,6 @@ function restoreOriginalOrder() {
         return;
     }
     
-    // إعادة البطاقات بالترتيب الأصلي
     originalCards.forEach(card => {
         currentContainer.appendChild(card);
     });
@@ -3508,14 +3500,12 @@ function toggleInterleaving() {
     }
     
     if (isInterleavingActive) {
-        // إلغاء الخلط
         restoreOriginalOrder();
         isInterleavingActive = false;
         originalCards = [];
         currentContainer = null;
         btn.classList.remove('active');
     } else {
-        // تفعيل الخلط
         applyFixedOrder();
         isInterleavingActive = true;
         btn.classList.add('active');
@@ -3530,16 +3520,13 @@ function initInterleaving() {
         return;
     }
     
-    // إزالة الـ Listener القديم
     if (btn._listenerAttached) {
         btn.removeEventListener('click', toggleInterleaving);
     }
     
-    // ربط الـ Listener الجديد
     btn.addEventListener('click', toggleInterleaving);
     btn._listenerAttached = true;
     
-    // إعادة تعيين الحالة
     isInterleavingActive = false;
     originalCards = [];
     currentContainer = null;
@@ -3570,104 +3557,4 @@ window.initInterleaving = initInterleaving;
 window.toggleInterleaving = toggleInterleaving;
 window.resetInterleaving = resetInterleaving;
 
-console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز');ب الأصلي)
-            this.restoreOrder();
-            this.isActive = false;
-            this.originalOrder = [];
-            btn.classList.remove('active');
-            this.showNotification('✅ تم إلغاء الترتيب المحدد');
-        } else {
-            // تفعيل الترتيب الثابت
-            const success = this.applyFixedOrder(container, selector);
-            if (success) {
-                this.isActive = true;
-                btn.classList.add('active');
-                this.showNotification('🔄 تم تطبيق الترتيب المحدد');
-            }
-        }
-    },
-    
-    // 🔄 إعادة تعيين الحالة (عند فتح امتحان جديد)
-    reset() {
-        if (this.isActive) {
-            this.restoreOrder();
-        }
-        this.isActive = false;
-        this.originalOrder = [];
-        this.currentContainer = null;
-        
-        const btn = document.getElementById('interleavingBtn');
-        if (btn) {
-            btn.classList.remove('active');
-        }
-        
-        console.log('🔄 تم إعادة تعيين نظام Interleaving');
-    },
-    
-    // 🔧 تهيئة الزر
-    init() {
-        console.log('🔧 initInterleaving() تم استدعاؤها');
-        
-        const btn = document.getElementById('interleavingBtn');
-        if (!btn) {
-            console.warn('⚠️ زر Interleaving غير موجود');
-            return;
-        }
-        
-        // إزالة الـ Listener القديم لتجنب التكرار
-        if (btn._listenerAttached) {
-            btn.removeEventListener('click', this._boundToggle);
-        }
-        
-        // ربط الـ Listener الجديد
-        this._boundToggle = this.toggle.bind(this);
-        btn.addEventListener('click', this._boundToggle);
-        btn._listenerAttached = true;
-        
-        console.log('✅ تم ربط click listener بالزر');
-    },
-    
-    // 📢 عرض إشعار
-    showNotification(message) {
-        if (typeof window.showToast === 'function') {
-            window.showToast(message);
-            return;
-        }
-        
-        const notification = document.createElement('div');
-        notification.textContent = message;
-        notification.style.cssText = `
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(59, 130, 246, 0.95);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 500;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-            z-index: 9999;
-            animation: fadeInUp 0.3s ease;
-            direction: rtl;
-        `;
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            notification.style.opacity = '0';
-            notification.style.transform = 'translateX(-50%) translateY(20px)';
-            notification.style.transition = 'all 0.3s ease';
-            setTimeout(() => notification.remove(), 300);
-        }, 2000);
-    }
-};
-
-// ✅ تصدير الدوال للاستخدام العالمي
-window.Interleaving = Interleaving;
-window.initInterleaving = Interleaving.init.bind(Interleaving);
-window.toggleInterleaving = Interleaving.toggle.bind(Interleaving);
-window.resetInterleaving = Interleaving.reset.bind(Interleaving);
-
 console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز');
-console.log('📌 استدعِ window.initInterleaving() لتهيئة الزر');
