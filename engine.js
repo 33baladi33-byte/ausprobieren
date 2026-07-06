@@ -1118,7 +1118,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
     noteDiv.innerHTML = `📌 <strong>ملاحظة:</strong> ${note}`;
     container.appendChild(noteDiv);
   }
-  111
+  
    // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً ولـ Hören Teil 1
   let finalQuestions = questions;
   if (container.id === 'hoeren1' && window.isInterleavingActive) {
@@ -1313,6 +1313,140 @@ window.buildTrueFalseExam = function(container, questions, note) {
     container.appendChild(resultDiv);
   }
 };
+
+// ============================================
+// دالة التصحيح لـ Hören Teil 1,2,3
+// ============================================
+function checkTrueFalseExam(container, questions, answers, correctNumbersContainer) {
+    // ✅ إذا كان Hören Teil 1 ولدينا الأسئلة الأصلية، نستخدمها للتصحيح
+    let questionsToCheck = questions;
+    if (container.id === 'hoeren1' && _hoeren1OriginalQuestions && _hoeren1OriginalQuestions.length > 0) {
+        questionsToCheck = _hoeren1OriginalQuestions;
+    }
+    
+    if (!questionsToCheck || !Array.isArray(questionsToCheck) || questionsToCheck.length === 0) {
+        console.error("❌ خطأ: لا توجد أسئلة للتصحيح");
+        let resultDiv = container.querySelector('#truefalseResult');
+        if (!resultDiv) {
+            resultDiv = document.createElement('div');
+            resultDiv.id = 'truefalseResult';
+            resultDiv.className = 'result-box';
+            container.appendChild(resultDiv);
+        }
+        resultDiv.innerHTML = "❌ لا توجد أسئلة في هذا الامتحان";
+        resultDiv.style.display = 'block';
+        return;
+    }
+    
+    let score = 0;
+    const total = questionsToCheck.length;
+    const pointsPerQuestion = 25 / total;
+    
+    const cards = container.querySelectorAll('.question-card');
+    
+    for (let i = 0; i < questionsToCheck.length; i++) {
+        const q = questionsToCheck[i];
+        const card = cards[i];
+        const userAnswer = answers[i];
+        const isCorrect = (userAnswer === q.correct);
+        
+        if (!card) continue;
+        
+        card.classList.remove('correct-answer-card', 'wrong-answer-card');
+        const oldMsg = card.querySelector('.correct-message');
+        if (oldMsg) oldMsg.remove();
+        
+        if (isCorrect && userAnswer !== undefined) {
+            score++;
+            card.classList.add('correct-answer-card');
+        } else {
+            card.classList.add('wrong-answer-card');
+            
+            const correctMsg = document.createElement('div');
+            correctMsg.className = 'correct-message';
+            correctMsg.style.marginTop = '10px';
+            correctMsg.style.fontSize = '14px';
+            correctMsg.style.fontWeight = 'bold';
+            correctMsg.style.color = '#28a745';
+            correctMsg.innerHTML = `✅ الإجابة الصحيحة: ${q.correct ? 'Richtig' : 'Falsch'}`;
+            card.appendChild(correctMsg);
+        }
+        
+        const radios = card.querySelectorAll('input[type="radio"]');
+        for (let r = 0; r < radios.length; r++) {
+            const radio = radios[r];
+            const radioValue = radio.value === 'true';
+            const parentLabel = radio.parentElement;
+            
+            if (isCorrect && userAnswer !== undefined) {
+                if (radio.checked) {
+                    parentLabel.style.backgroundColor = '#d4edda';
+                    parentLabel.style.border = '2px solid #28a745';
+                }
+            } else {
+                if (radio.checked) {
+                    parentLabel.style.backgroundColor = '#fef0e0';
+                    parentLabel.style.border = '2px solid #e67e22';
+                }
+                if (radioValue === q.correct) {
+                    parentLabel.style.backgroundColor = '#d4edda';
+                    parentLabel.style.border = '2px solid #28a745';
+                }
+            }
+        }
+    }
+    
+    if (correctNumbersContainer) {
+        correctNumbersContainer.style.display = 'block';
+        let originalCorrectIndices = [];
+        for (let i = 0; i < questionsToCheck.length; i++) {
+            if (questionsToCheck[i].correct === true) {
+                originalCorrectIndices.push(i + 1);
+            }
+        }
+        if (originalCorrectIndices.length > 0) {
+            correctNumbersContainer.innerHTML = `▸ الإجابات الصحيحة في الامتحان: ${originalCorrectIndices.join(" - ")}`;
+        } else {
+            correctNumbersContainer.innerHTML = "▸ لا توجد إجابات صحيحة في هذا الامتحان";
+        }
+    }
+    
+    const finalScore = (score * pointsPerQuestion).toFixed(2);
+    
+    let resultDiv = container.querySelector('#truefalseResult');
+    if (!resultDiv) {
+        resultDiv = document.createElement('div');
+        resultDiv.id = 'truefalseResult';
+        resultDiv.className = 'result-box';
+        container.appendChild(resultDiv);
+    }
+    
+    resultDiv.innerHTML = `النتيجة: ${finalScore} / 25`;
+    resultDiv.style.display = 'block';
+    resultDiv.style.visibility = 'visible';
+    resultDiv.style.opacity = '1';
+    
+    if (finalScore >= 20) {
+        resultDiv.style.backgroundColor = '#28a745';
+        resultDiv.style.color = 'white';
+    } else if (finalScore >= 15) {
+        resultDiv.style.backgroundColor = '#ffc107';
+        resultDiv.style.color = '#333';
+    } else {
+        resultDiv.style.backgroundColor = '#dc3545';
+        resultDiv.style.color = 'white';
+    }
+    
+    if (typeof window.saveExamResultGlobal === "function") {
+        const skill = container.id || "hoeren";
+        const examId = window.currentExamId || 1;
+        window.saveExamResultGlobal(skill, examId, parseFloat(finalScore));
+    }
+    
+    setTimeout(() => {
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+}
 
 // ============================================
 // نظام Teil 1 (Lesen Teil 1 - Matching)
