@@ -1118,7 +1118,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
     noteDiv.innerHTML = `📌 <strong>ملاحظة:</strong> ${note}`;
     container.appendChild(noteDiv);
   }
-  
+  111
    // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً ولـ Hören Teil 1
   let finalQuestions = questions;
   if (container.id === 'hoeren1' && window.isInterleavingActive) {
@@ -1469,7 +1469,7 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
   setTimeout(() => {
     resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, 100);
-
+}
 
 // ============================================
 // نظام Teil 1 (Lesen Teil 1 - Matching)
