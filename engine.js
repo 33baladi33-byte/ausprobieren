@@ -3454,9 +3454,19 @@ if (typeof checkTeil3Exam === 'function') {
 // ============================================
 // دالة إعادة بناء بطاقات Hören Teil 1 فقط
 // ============================================
+// ============================================
+// دالة إعادة بناء بطاقات Hören Teil 1 فقط
+// ============================================
 function rebuildTrueFalseCards() {
+    console.log("========== REBUILD ==========");
+    console.log("_hoeren1Container =", _hoeren1Container);
+    console.log("_hoeren1Questions =", _hoeren1Questions);
+    console.log("questions length =", _hoeren1Questions ? _hoeren1Questions.length : 0);
+    console.log("interleaving =", window.isInterleavingActive);
+    
     if (!_hoeren1Container) {
         console.warn('⚠️ لا توجد بيانات لـ Hören Teil 1 لإعادة البناء');
+        console.log("========== END REBUILD (NO CONTAINER) ==========");
         return;
     }
     
@@ -3475,8 +3485,16 @@ function rebuildTrueFalseCards() {
         }
         if (ordered.length === _hoeren1Questions.length) {
             questionsToUse = ordered;
+            console.log('✅ Interleaving: تم ترتيب الأسئلة (Hören 1)');
         }
     }
+    
+    console.log("questionsToUse:");
+    questionsToUse.forEach((q,i)=>{
+        console.log(i+1, q.text);
+    });
+    
+    console.log("cards before delete =", _hoeren1Container.querySelectorAll(".question-card").length);
     
     // ✅ حذف البطاقات القديمة
     const oldCards = _hoeren1Container.querySelectorAll('.question-card');
@@ -3513,22 +3531,15 @@ function rebuildTrueFalseCards() {
     });
     
     // ✅ العثور على الحاوية الصحيحة لإدراج البطاقات قبلها
-    // البحث عن نتيجة التصحيح أولاً
     const resultBox = _hoeren1Container.querySelector("#truefalseResult");
-    
-    // إذا وجدت النتيجة، خذ العنصر السابق لها (وهو حاوية الأزرار)
-    // وإلا ابحث عن حاوية الأزرار مباشرة
     let buttonsContainer = null;
     if (resultBox) {
         buttonsContainer = resultBox.previousElementSibling;
     }
     
-    // إذا لم نجد حاوية الأزرار، ابحث عنها بطريقة أخرى
     if (!buttonsContainer) {
-        // البحث عن زر التصحيح ثم الصعود إلى الحاوية
         const checkBtn = _hoeren1Container.querySelector('.check-btn');
         if (checkBtn) {
-            // الصعود إلى أقرب div يحتوي على display:flex
             let parent = checkBtn.parentElement;
             while (parent && parent !== _hoeren1Container) {
                 const display = window.getComputedStyle(parent).display;
@@ -3618,14 +3629,14 @@ function rebuildTrueFalseCards() {
         div.appendChild(labelFalse);
         div.appendChild(textSpan);
         
-        // ✅ إدراج البطاقة في المكان الصحيح
         if (buttonsContainer && buttonsContainer.parentNode === _hoeren1Container) {
             _hoeren1Container.insertBefore(div, buttonsContainer);
         } else {
-            // إذا لم نجد حاوية مناسبة، نضيف البطاقة في النهاية
             _hoeren1Container.appendChild(div);
         }
     }
+    
+    console.log("cards after rebuild =", _hoeren1Container.querySelectorAll(".question-card").length);
     
     // ✅ استعادة الإجابات المحفوظة
     if (Object.keys(savedAnswers).length > 0) {
@@ -3646,7 +3657,7 @@ function rebuildTrueFalseCards() {
         window._trueFalseUserAnswers = savedAnswers;
     }
     
-    console.log('✅ تم إعادة بناء بطاقات Hören Teil 1');
+    console.log("========== END REBUILD ==========");
 }
 // ============================================
 // إصلاح زر Interleaving - النسخة النهائية
@@ -3654,10 +3665,15 @@ function rebuildTrueFalseCards() {
 
 // ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
 function toggleInterleaving() {
-    console.log("🔄 تم الضغط على زر Interleaving");
+    console.log("========== TOGGLE ==========");
+    console.log("before =", window.isInterleavingActive);
     
     // تبديل الحالة
     window.isInterleavingActive = !window.isInterleavingActive;
+    
+    console.log("after =", window.isInterleavingActive);
+    console.log("currentSkill =", window.currentSkill);
+    console.log("============================");
     
     const btn = document.getElementById('interleavingBtn');
     if (btn) {
@@ -3670,14 +3686,11 @@ function toggleInterleaving() {
         }
     }
     
-    console.log(`🔄 Interleaving: ${window.isInterleavingActive ? 'مفعّل ✅' : 'معطّل ❌'}`);
-    
     // ✅ إعادة بناء البطاقات فقط إذا كان الامتحان الحالي هو Hören Teil 1
     const currentSkill = window.currentSkill || 'hoeren1';
-    console.log(`📌 currentSkill: ${currentSkill}`);
     
     if (currentSkill === 'hoeren1') {
-        console.log('✅ إعادة بناء بطاقات Hören Teil 1');
+        console.log("Calling rebuildTrueFalseCards...");
         if (typeof rebuildTrueFalseCards === 'function') {
             rebuildTrueFalseCards();
         } else {
