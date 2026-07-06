@@ -3445,10 +3445,10 @@ function rebuildTrueFalseCards() {
         return;
     }
     
-    // حفظ الإجابات الحالية
+    // ✅ حفظ الإجابات الحالية
     const savedAnswers = window._trueFalseUserAnswers ? {...window._trueFalseUserAnswers} : {};
     
-    // تحديد الأسئلة التي سنستخدمها (مع الترتيب)
+    // ✅ تحديد الأسئلة التي سنستخدمها (مع الترتيب)
     let questionsToUse = _hoeren1Questions;
     if (window.isInterleavingActive) {
         const fixedOrder = [2, 4, 1, 5, 3];
@@ -3463,11 +3463,70 @@ function rebuildTrueFalseCards() {
         }
     }
     
-    // حذف البطاقات القديمة (مع الحفاظ على العناصر الأخرى)
+    // ✅ حذف البطاقات القديمة
     const oldCards = _hoeren1Container.querySelectorAll('.question-card');
     oldCards.forEach(card => card.remove());
     
-    // إعادة إنشاء البطاقات
+    // ✅ إزالة بقايا التصحيح القديم
+    window._trueFalseUserAnswers = {};
+    
+    const result = _hoeren1Container.querySelector("#truefalseResult");
+    if (result) {
+        result.style.display = "none";
+        result.innerHTML = "";
+    }
+    
+    const numbers = _hoeren1Container.querySelector("#truefalseCorrectNumbers");
+    if (numbers) {
+        numbers.style.display = "none";
+    }
+    
+    // ✅ إزالة أي رسائل تصحيح قديمة
+    const allMessages = _hoeren1Container.querySelectorAll('.correct-message');
+    allMessages.forEach(msg => msg.remove());
+    
+    // ✅ إزالة ألوان التصحيح القديمة
+    const allCards = _hoeren1Container.querySelectorAll('.question-card');
+    allCards.forEach(card => {
+        card.classList.remove('correct-answer-card', 'wrong-answer-card');
+    });
+    
+    const allLabels = _hoeren1Container.querySelectorAll('.option-label');
+    allLabels.forEach(label => {
+        label.style.backgroundColor = 'white';
+        label.style.border = '1px solid #ccc';
+    });
+    
+    // ✅ العثور على الحاوية الصحيحة لإدراج البطاقات قبلها
+    // البحث عن نتيجة التصحيح أولاً
+    const resultBox = _hoeren1Container.querySelector("#truefalseResult");
+    
+    // إذا وجدت النتيجة، خذ العنصر السابق لها (وهو حاوية الأزرار)
+    // وإلا ابحث عن حاوية الأزرار مباشرة
+    let buttonsContainer = null;
+    if (resultBox) {
+        buttonsContainer = resultBox.previousElementSibling;
+    }
+    
+    // إذا لم نجد حاوية الأزرار، ابحث عنها بطريقة أخرى
+    if (!buttonsContainer) {
+        // البحث عن زر التصحيح ثم الصعود إلى الحاوية
+        const checkBtn = _hoeren1Container.querySelector('.check-btn');
+        if (checkBtn) {
+            // الصعود إلى أقرب div يحتوي على display:flex
+            let parent = checkBtn.parentElement;
+            while (parent && parent !== _hoeren1Container) {
+                const display = window.getComputedStyle(parent).display;
+                if (display === 'flex' && parent.children.length > 1) {
+                    buttonsContainer = parent;
+                    break;
+                }
+                parent = parent.parentElement;
+            }
+        }
+    }
+    
+    // ✅ إعادة إنشاء البطاقات
     for (let i = 0; i < questionsToUse.length; i++) {
         const q = questionsToUse[i];
         const questionId = q.id !== undefined ? q.id : i;
@@ -3544,17 +3603,16 @@ function rebuildTrueFalseCards() {
         div.appendChild(labelFalse);
         div.appendChild(textSpan);
         
-        // إدراج البطاقة قبل عنصر الأزرار
-        const buttonsContainer = _hoeren1Container.querySelector('.check-btn')?.closest('div[style*="display: flex"]') || 
-                                 _hoeren1Container.querySelector('#truefalseResult')?.previousElementSibling;
-        if (buttonsContainer && buttonsContainer !== div) {
+        // ✅ إدراج البطاقة في المكان الصحيح
+        if (buttonsContainer && buttonsContainer.parentNode === _hoeren1Container) {
             _hoeren1Container.insertBefore(div, buttonsContainer);
         } else {
+            // إذا لم نجد حاوية مناسبة، نضيف البطاقة في النهاية
             _hoeren1Container.appendChild(div);
         }
     }
     
-    // استعادة الإجابات المحفوظة
+    // ✅ استعادة الإجابات المحفوظة
     if (Object.keys(savedAnswers).length > 0) {
         const allRadios = _hoeren1Container.querySelectorAll('input[type="radio"]');
         allRadios.forEach(radio => {
@@ -3575,73 +3633,3 @@ function rebuildTrueFalseCards() {
     
     console.log('✅ تم إعادة بناء بطاقات Hören Teil 1');
 }
-// ============================================
-// نظام Interleaving (ترتيب ثابت) - Hören Teil 1 فقط
-// ============================================
-
-// ✅ حالة Interleaving
-window.isInterleavingActive = window.isInterleavingActive || false;
-
-// ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
-function toggleInterleaving() {
-    window.isInterleavingActive = !window.isInterleavingActive;
-    
-    const btn = document.getElementById('interleavingBtn');
-    if (btn) {
-        btn.classList.toggle('active');
-    }
-    
-    console.log(`🔄 Interleaving: ${window.isInterleavingActive ? 'مفعّل ✅' : 'معطّل ❌'}`);
-    
-    // ✅ إعادة بناء البطاقات فقط إذا كان الامتحان الحالي هو Hören Teil 1
-    const currentSkill = window.currentSkill;
-    if (currentSkill === 'hoeren1') {
-        rebuildTrueFalseCards();
-    } else {
-        console.log('⚠️ Interleaving يعمل حالياً فقط على Hören Teil 1');
-        window.isInterleavingActive = !window.isInterleavingActive;
-        if (btn) btn.classList.remove('active');
-    }
-}
-
-// ✅ دالة تهيئة الزر
-function initInterleaving() {
-    const btn = document.getElementById('interleavingBtn');
-    if (!btn) {
-        console.warn('⚠️ زر Interleaving غير موجود');
-        return;
-    }
-    
-    if (btn._listenerAttached) {
-        btn.removeEventListener('click', toggleInterleaving);
-    }
-    
-    btn.addEventListener('click', toggleInterleaving);
-    btn._listenerAttached = true;
-    
-    window.isInterleavingActive = false;
-    btn.classList.remove('active');
-    
-    console.log('✅ زر Interleaving تم تهيئته (Hören Teil 1 فقط)');
-}
-
-// ✅ دالة إعادة تعيين (عند فتح امتحان جديد)
-function resetInterleaving() {
-    window.isInterleavingActive = false;
-    
-    const btn = document.getElementById('interleavingBtn');
-    if (btn) {
-        btn.classList.remove('active');
-    }
-    
-    console.log('🔄 تم إعادة تعيين Interleaving');
-}
-
-// تصدير الدوال للاستخدام العالمي
-window.initInterleaving = initInterleaving;
-window.toggleInterleaving = toggleInterleaving;
-window.resetInterleaving = resetInterleaving;
-window.rebuildTrueFalseCards = rebuildTrueFalseCards;
-
-console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يعمل على Hören Teil 1 فقط');
-console.log("✅ engine.js تم تحميله بالكامل");
