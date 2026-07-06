@@ -1117,16 +1117,19 @@ async function openExam(examId, examTitle, skill) {
     // ============================================================
 
     // إعادة تعيين Interleaving عند فتح امتحان جديد
-    if (window.resetInterleaving) {
+    if (typeof window.resetInterleaving === 'function') {
         window.resetInterleaving();
     }
 
-    // تهيئة الزر بعد تحميل الامتحان
-    requestAnimationFrame(() => {
-        if (window.initInterleaving) {
+    // تهيئة الزر بعد تحميل الامتحان مع تأخير أطول
+    setTimeout(function() {
+        if (typeof window.initInterleaving === 'function') {
+            console.log('🔄 تهيئة Interleaving بعد تحميل الامتحان...');
             window.initInterleaving();
+        } else {
+            console.warn('⚠️ initInterleaving غير موجودة!');
         }
-    });
+    }, 500);
     
   } catch(e) {
     console.error("❌ خطأ:", e);
