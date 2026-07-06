@@ -796,7 +796,7 @@ function renderMündlichPartTabs() {
 
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
-  window.currentSkill = skill;  // ✅ تعيين currentSkill للاستخدام العام
+
   const container = document.getElementById("examsList");
   if (!container) return;
   container.innerHTML = "";
@@ -1014,7 +1014,7 @@ async function openExam(examId, examTitle, skill) {
   
   currentExamId = examId;
   currentSkill = skill;
-  
+   window.currentSkill = skill;  
   if (shouldHideHelpButton(skill)) {
     const helpBtn = document.getElementById('globalHelpButton');
     if (helpBtn) helpBtn.style.display = "none";
