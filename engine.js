@@ -3319,22 +3319,26 @@ function rebuildTrueFalseCards() {
     }
     
     console.log('🔄 إعادة بناء بطاقات Hören Teil 1');
+    console.log('📊 حالة Interleaving:', window.isInterleavingActive);
     
     const savedAnswers = window._trueFalseUserAnswers ? {...window._trueFalseUserAnswers} : {};
     
-    let questionsToUse = _hoeren1Questions;
+    // ✅ تحديد الأسئلة حسب حالة Interleaving
+    let questionsToUse = [];
     if (window.isInterleavingActive) {
+        // ✅ الترتيب الثابت المطلوب: 2, 4, 1, 5, 3
         const fixedOrder = [2, 4, 1, 5, 3];
-        const ordered = [];
         for (let idx of fixedOrder) {
             if (idx <= _hoeren1Questions.length) {
-                ordered.push(_hoeren1Questions[idx - 1]);
+                questionsToUse.push(_hoeren1Questions[idx - 1]);
             }
         }
-        if (ordered.length === _hoeren1Questions.length) {
-            questionsToUse = ordered;
-            console.log('✅ Interleaving: تم ترتيب الأسئلة (Hören 1)');
-        }
+        console.log('✅ Interleaving: تم ترتيب الأسئلة (Hören 1)');
+        console.log('📋 الترتيب الجديد:', fixedOrder);
+    } else {
+        // ✅ الترتيب الأصلي
+        questionsToUse = _hoeren1Questions.slice();
+        console.log('✅ الترتيب الأصلي');
     }
     
     const oldCards = _hoeren1Container.querySelectorAll('.question-card');
@@ -3457,7 +3461,8 @@ function rebuildTrueFalseCards() {
         labelFalse.appendChild(document.createTextNode(' Falsch'));
         
         const textSpan = document.createElement('span');
-        const displayNumber = q.displayNumber || (i + 1);
+        // ✅ عرض الرقم حسب الترتيب الجديد (وليس السؤال الأصلي)
+        const displayNumber = i + 1;
         textSpan.innerHTML = `<strong>${displayNumber}</strong> ${q.text}`;
         textSpan.style.flex = '1';
         textSpan.style.minWidth = '200px';
