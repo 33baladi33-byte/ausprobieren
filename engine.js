@@ -3747,3 +3747,256 @@ window.initInterleaving = initInterleaving;
 window.resetInterleaving = resetInterleaving;
 
 console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1 فقط');
+// ============================================
+// التأكد من تصدير buildTrueFalseExam
+// ============================================
+if (typeof window.buildTrueFalseExam !== 'function') {
+    console.warn('⚠️ buildTrueFalseExam غير موجودة، يتم إعادة تعريفها...');
+    
+    window.buildTrueFalseExam = function(container, questions, note) {
+        if (!questions || !Array.isArray(questions) || questions.length === 0) {
+            console.error("❌ خطأ: لا توجد أسئلة في هذا الامتحان");
+            if (container) {
+                container.innerHTML = '<div style="text-align:center; color:#ff6b6b; padding:30px; background:#fff; border-radius:12px;"> حدث خطأ في تحميل الامتحان. يرجى المحاولة مرة أخرى.</div>';
+            }
+            return;
+        }
+        
+        container.innerHTML = '';
+        
+        if (container.id === 'hoeren1') {
+            _hoeren1Container = container;
+            _hoeren1Questions = questions.slice();
+            _hoeren1Note = note || '';
+            _hoeren1OriginalQuestions = questions.slice();
+        }
+        
+        if (window._trueFalseUserAnswers) {
+            delete window._trueFalseUserAnswers;
+        }
+        window._trueFalseUserAnswers = {};
+        
+        if (note) {
+            const noteDiv = document.createElement('div');
+            noteDiv.style.backgroundColor = '#fff3cd';
+            noteDiv.style.color = '#856404';
+            noteDiv.style.padding = '12px 15px';
+            noteDiv.style.borderRadius = '8px';
+            noteDiv.style.marginBottom = '20px';
+            noteDiv.style.border = '1px solid #ffeeba';
+            noteDiv.style.fontSize = '14px';
+            noteDiv.style.fontWeight = 'bold';
+            noteDiv.innerHTML = `📌 <strong>ملاحظة:</strong> ${note}`;
+            container.appendChild(noteDiv);
+        }
+        
+        let finalQuestions = questions;
+        if (container.id === 'hoeren1' && window.isInterleavingActive) {
+            const fixedOrder = [2, 4, 1, 5, 3];
+            const orderedQuestions = [];
+            for (let idx of fixedOrder) {
+                if (idx <= questions.length) {
+                    orderedQuestions.push(questions[idx - 1]);
+                }
+            }
+            if (orderedQuestions.length === questions.length) {
+                finalQuestions = orderedQuestions;
+                console.log('✅ Interleaving: تم ترتيب الأسئلة (Hören 1)');
+            }
+        }
+        
+        for (let i = 0; i < finalQuestions.length; i++) {
+            const q = finalQuestions[i];
+            const questionId = q.id !== undefined ? q.id : i;
+            
+            const div = document.createElement('div');
+            div.className = 'question-card';
+            div.dataset.questionId = questionId;
+            div.dataset.originalIndex = i;
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            div.style.gap = '15px';
+            div.style.marginBottom = '12px';
+            div.style.flexWrap = 'wrap';
+            div.style.padding = '12px';
+            div.style.border = '1px solid #ddd';
+            div.style.borderRadius = '10px';
+            div.style.backgroundColor = '#f9f9f9';
+            div.id = `truefalse_card_${questionId}`;
+            
+            const labelTrue = document.createElement('label');
+            labelTrue.className = 'option-label';
+            labelTrue.style.display = 'inline-flex';
+            labelTrue.style.alignItems = 'center';
+            labelTrue.style.gap = '5px';
+            labelTrue.style.cursor = 'pointer';
+            labelTrue.style.marginRight = '15px';
+            labelTrue.style.padding = '5px 10px';
+            labelTrue.style.border = '1px solid #ccc';
+            labelTrue.style.borderRadius = '5px';
+            labelTrue.style.backgroundColor = 'white';
+            
+            const radioTrue = document.createElement('input');
+            radioTrue.type = 'radio';
+            radioTrue.name = `q_${questionId}`;
+            radioTrue.value = 'true';
+            radioTrue.id = `q_${questionId}_true`;
+            
+            radioTrue.onchange = (function(qId) {
+                return function() {
+                    window._trueFalseUserAnswers[qId] = true;
+                };
+            })(questionId);
+            
+            labelTrue.appendChild(radioTrue);
+            labelTrue.appendChild(document.createTextNode(' Richtig'));
+            
+            const labelFalse = document.createElement('label');
+            labelFalse.className = 'option-label';
+            labelFalse.style.display = 'inline-flex';
+            labelFalse.style.alignItems = 'center';
+            labelFalse.style.gap = '5px';
+            labelFalse.style.cursor = 'pointer';
+            labelFalse.style.padding = '5px 10px';
+            labelFalse.style.border = '1px solid #ccc';
+            labelFalse.style.borderRadius = '5px';
+            labelFalse.style.backgroundColor = 'white';
+            
+            const radioFalse = document.createElement('input');
+            radioFalse.type = 'radio';
+            radioFalse.name = `q_${questionId}`;
+            radioFalse.value = 'false';
+            radioFalse.id = `q_${questionId}_false`;
+            
+            radioFalse.onchange = (function(qId) {
+                return function() {
+                    window._trueFalseUserAnswers[qId] = false;
+                };
+            })(questionId);
+            
+            labelFalse.appendChild(radioFalse);
+            labelFalse.appendChild(document.createTextNode(' Falsch'));
+            
+            const textSpan = document.createElement('span');
+            const displayNumber = q.displayNumber || (i + 1);
+            textSpan.innerHTML = `<strong>${displayNumber}</strong> ${q.text}`;
+            textSpan.style.flex = '1';
+            textSpan.style.minWidth = '200px';
+            
+            div.appendChild(labelTrue);
+            div.appendChild(labelFalse);
+            div.appendChild(textSpan);
+            
+            container.appendChild(div);
+        }
+        
+        const buttonContainer = document.createElement('div');
+        buttonContainer.style.display = "flex";
+        buttonContainer.style.gap = "15px";
+        buttonContainer.style.justifyContent = "space-between";
+        buttonContainer.style.alignItems = "center";
+        buttonContainer.style.marginTop = "25px";
+        
+        const correctNumbersContainer = document.createElement('div');
+        correctNumbersContainer.id = "truefalseCorrectNumbers";
+        correctNumbersContainer.style.backgroundColor = "#e3f2fd";
+        correctNumbersContainer.style.color = "#0d47a1";
+        correctNumbersContainer.style.padding = "10px 15px";
+        correctNumbersContainer.style.borderRadius = "8px";
+        correctNumbersContainer.style.fontWeight = "bold";
+        correctNumbersContainer.style.fontSize = "14px";
+        correctNumbersContainer.style.border = "1px solid #90caf9";
+        correctNumbersContainer.style.display = "none";
+        correctNumbersContainer.innerHTML = '▸ : ';
+        
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.style.display = 'flex';
+        buttonsDiv.style.gap = '15px';
+        
+        const checkBtn = document.createElement('button');
+        checkBtn.innerText = '📝 Prüfen';
+        checkBtn.className = 'check-btn';
+        checkBtn.style.padding = '12px 24px';
+        checkBtn.style.backgroundColor = '#2c3e66';
+        checkBtn.style.color = 'white';
+        checkBtn.style.border = 'none';
+        checkBtn.style.borderRadius = '8px';
+        checkBtn.style.cursor = 'pointer';
+        checkBtn.style.fontSize = '16px';
+        
+        checkBtn.onclick = () => {
+            checkTrueFalseExam(container, questions, window._trueFalseUserAnswers, correctNumbersContainer);
+        };
+        
+        const resetBtn = document.createElement('button');
+        resetBtn.innerText = '↺';
+        resetBtn.style.padding = '8px 12px';
+        resetBtn.style.backgroundColor = '#6c757d';
+        resetBtn.style.color = 'white';
+        resetBtn.style.border = 'none';
+        resetBtn.style.borderRadius = '6px';
+        resetBtn.style.cursor = 'pointer';
+        resetBtn.style.fontSize = '16px';
+        resetBtn.style.fontWeight = 'bold';
+        
+        resetBtn.onclick = function() {
+            for (let key in window._trueFalseUserAnswers) {
+                delete window._trueFalseUserAnswers[key];
+            }
+            
+            const allRadios = container.querySelectorAll('input[type="radio"]');
+            allRadios.forEach(radio => {
+                radio.checked = false;
+            });
+            
+            const cards = container.querySelectorAll('.question-card');
+            cards.forEach(card => {
+                card.classList.remove('correct-answer-card', 'wrong-answer-card');
+            });
+            
+            const allMessages = container.querySelectorAll('.correct-message');
+            allMessages.forEach(msg => msg.remove());
+            
+            const optionLabels = container.querySelectorAll('.option-label');
+            optionLabels.forEach(label => {
+                label.style.backgroundColor = 'white';
+                label.style.border = '1px solid #ccc';
+            });
+            
+            correctNumbersContainer.style.display = 'none';
+            
+            const resultDiv = document.getElementById('truefalseResult');
+            if (resultDiv) {
+                resultDiv.style.display = 'none';
+                resultDiv.innerHTML = '';
+            }
+        };
+        
+        buttonsDiv.appendChild(checkBtn);
+        buttonsDiv.appendChild(resetBtn);
+        
+        buttonContainer.appendChild(correctNumbersContainer);
+        buttonContainer.appendChild(buttonsDiv);
+        container.appendChild(buttonContainer);
+        
+        let resultDiv = document.getElementById('truefalseResult');
+        if (!resultDiv) {
+            resultDiv = document.createElement('div');
+            resultDiv.id = 'truefalseResult';
+            resultDiv.className = 'result-box';
+            resultDiv.style.display = 'none';
+            container.appendChild(resultDiv);
+        }
+        
+        if (container.id === 'hoeren1') {
+            setTimeout(function() {
+                if (typeof window.initInterleaving === 'function') {
+                    console.log('🔄 إعادة تهيئة Interleaving بعد بناء الامتحان');
+                    window.initInterleaving();
+                }
+            }, 100);
+        }
+    };
+    
+    console.log('✅ buildTrueFalseExam تم إعادة تعريفها بنجاح');
+}
