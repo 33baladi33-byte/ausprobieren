@@ -1471,8 +1471,12 @@ function goList() {
 // ============================================
 function buildTeil1(questions) {
   const container = document.getElementById("teil1");
-  if (!container) return;
+  if (!container) {
+    console.warn('⚠️ buildTeil1: الحاوية teil1 غير موجودة');
+    return;
+  }
   
+  // ✅ التحقق من وجود الأسئلة
   if (!questions || !Array.isArray(questions) || questions.length === 0) {
     console.warn('⚠️ buildTeil1: لا توجد أسئلة لعرضها');
     container.innerHTML = '<div style="text-align:center; padding:20px; color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
@@ -1530,7 +1534,6 @@ function buildTeil1(questions) {
   resultDiv.style.display = "none";
   container.appendChild(resultDiv);
 }
-
 // ============================================
 // ✅ دالة checkTeil1 المُعدّلة - تعتمد على ID ثابت
 // ============================================
