@@ -3634,9 +3634,10 @@ function rebuildTrueFalseCards() {
     console.log('✅ تم إعادة بناء بطاقات Hören Teil 1');
 }
 // ============================================
-// إصلاح زر Interleaving - نسخة معدلة
+// إصلاح زر Interleaving - النسخة النهائية
 // ============================================
 
+// ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
 function toggleInterleaving() {
     console.log("🔄 تم الضغط على زر Interleaving");
     
@@ -3645,42 +3646,41 @@ function toggleInterleaving() {
     
     const btn = document.getElementById('interleavingBtn');
     if (btn) {
-        btn.classList.toggle('active');
         if (window.isInterleavingActive) {
-            btn.textContent = '🔀 Interleaving: ON';
-            btn.style.backgroundColor = '#28a745';
-            btn.style.color = 'white';
+            btn.classList.add('active');
+            btn.title = 'Interleaving: ON';
         } else {
-            btn.textContent = '🔀 Interleaving: OFF';
-            btn.style.backgroundColor = '#6c757d';
-            btn.style.color = 'white';
+            btn.classList.remove('active');
+            btn.title = 'Interleaving: OFF';
         }
     }
     
     console.log(`🔄 Interleaving: ${window.isInterleavingActive ? 'مفعّل ✅' : 'معطّل ❌'}`);
     
     // ✅ إعادة بناء البطاقات فقط إذا كان الامتحان الحالي هو Hören Teil 1
-    const currentSkill = window.currentSkill || 'hoeren1';  // ✅ هذا السطر صحيح
+    const currentSkill = window.currentSkill || 'hoeren1';
     console.log(`📌 currentSkill: ${currentSkill}`);
     
     if (currentSkill === 'hoeren1') {
         console.log('✅ إعادة بناء بطاقات Hören Teil 1');
-        rebuildTrueFalseCards();
+        if (typeof rebuildTrueFalseCards === 'function') {
+            rebuildTrueFalseCards();
+        } else {
+            console.error('❌ دالة rebuildTrueFalseCards غير موجودة!');
+        }
     } else {
-        console.log(`⚠️ Interleaving يعمل حالياً فقط على Hören Teil 1 (currentSkill: ${currentSkill})`);
+        console.log(`⚠️ Interleaving يعمل فقط على Hören Teil 1 (currentSkill: ${currentSkill})`);
         // إعادة الحالة إذا لم يكن Hören Teil 1
         window.isInterleavingActive = !window.isInterleavingActive;
         if (btn) {
             btn.classList.remove('active');
-            btn.textContent = '🔀 Interleaving: OFF';
-            btn.style.backgroundColor = '#6c757d';
-            btn.style.color = 'white';
+            btn.title = 'Interleaving: OFF';
         }
         alert('⚠️ زر Interleaving يعمل فقط على Hören Teil 1');
     }
 }
 
-// ✅ دالة تهيئة الزر
+// ✅ دالة تهيئة الزر - نسخة محسنة
 function initInterleaving() {
     console.log('🔄 تهيئة زر Interleaving...');
     const btn = document.getElementById('interleavingBtn');
@@ -3696,16 +3696,19 @@ function initInterleaving() {
         btn.removeEventListener('click', toggleInterleaving);
     }
     
-    // إضافة مستمع جديد
-    btn.addEventListener('click', toggleInterleaving);
+    // إضافة مستمع جديد - استخدام click مباشر
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🔥 تم الضغط على الزر!');
+        toggleInterleaving();
+    });
     btn._listenerAttached = true;
     
     // تعيين الحالة الأولية
     window.isInterleavingActive = false;
-    btn.textContent = '🔀 Interleaving: OFF';
-    btn.style.backgroundColor = '#6c757d';
-    btn.style.color = 'white';
     btn.classList.remove('active');
+    btn.title = 'Interleaving: OFF';
     
     console.log('✅ زر Interleaving تم تهيئته بنجاح');
 }
@@ -3718,16 +3721,14 @@ function resetInterleaving() {
     const btn = document.getElementById('interleavingBtn');
     if (btn) {
         btn.classList.remove('active');
-        btn.textContent = '🔀 Interleaving: OFF';
-        btn.style.backgroundColor = '#6c757d';
-        btn.style.color = 'white';
+        btn.title = 'Interleaving: OFF';
     }
 }
 
 // تصدير الدوال للاستخدام العالمي
-window.initInterleaving = initInterleaving;
-window.toggleInterleaving = toggleInterleaving;
-window.resetInterleaving = resetInterleaving;
 window.rebuildTrueFalseCards = rebuildTrueFalseCards;
+window.toggleInterleaving = toggleInterleaving;
+window.initInterleaving = initInterleaving;
+window.resetInterleaving = resetInterleaving;
 
 console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1 فقط');
