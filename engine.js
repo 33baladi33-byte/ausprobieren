@@ -3633,3 +3633,102 @@ function rebuildTrueFalseCards() {
     
     console.log('✅ تم إعادة بناء بطاقات Hören Teil 1');
 }
+// ============================================
+// إصلاح زر Interleaving - نسخة معدلة
+// ============================================
+
+// ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
+function toggleInterleaving() {
+    console.log("🔄 تم الضغط على زر Interleaving");
+    
+    // تبديل الحالة
+    window.isInterleavingActive = !window.isInterleavingActive;
+    
+    const btn = document.getElementById('interleavingBtn');
+    if (btn) {
+        btn.classList.toggle('active');
+        if (window.isInterleavingActive) {
+            btn.textContent = '🔀 Interleaving: ON';
+            btn.style.backgroundColor = '#28a745';
+            btn.style.color = 'white';
+        } else {
+            btn.textContent = '🔀 Interleaving: OFF';
+            btn.style.backgroundColor = '#6c757d';
+            btn.style.color = 'white';
+        }
+    }
+    
+    console.log(`🔄 Interleaving: ${window.isInterleavingActive ? 'مفعّل ✅' : 'معطّل ❌'}`);
+    
+    // ✅ إعادة بناء البطاقات فقط إذا كان الامتحان الحالي هو Hören Teil 1
+    const currentSkill = window.currentSkill || currentSkill;
+    console.log(`📌 currentSkill: ${currentSkill}`);
+    
+    if (currentSkill === 'hoeren1') {
+        console.log('✅ إعادة بناء بطاقات Hören Teil 1');
+        rebuildTrueFalseCards();
+    } else {
+        console.log(`⚠️ Interleaving يعمل حالياً فقط على Hören Teil 1 (currentSkill: ${currentSkill})`);
+        // إعادة الحالة إذا لم يكن Hören Teil 1
+        window.isInterleavingActive = !window.isInterleavingActive;
+        if (btn) {
+            btn.classList.remove('active');
+            btn.textContent = '🔀 Interleaving: OFF';
+            btn.style.backgroundColor = '#6c757d';
+            btn.style.color = 'white';
+        }
+        alert('⚠️ زر Interleaving يعمل فقط على Hören Teil 1');
+    }
+}
+
+// ✅ دالة تهيئة الزر
+function initInterleaving() {
+    console.log('🔄 تهيئة زر Interleaving...');
+    const btn = document.getElementById('interleavingBtn');
+    if (!btn) {
+        console.warn('⚠️ زر Interleaving غير موجود في الصفحة!');
+        return;
+    }
+    
+    console.log('✅ تم العثور على زر Interleaving');
+    
+    // إزالة المستمعات القديمة
+    if (btn._listenerAttached) {
+        btn.removeEventListener('click', toggleInterleaving);
+    }
+    
+    // إضافة مستمع جديد
+    btn.addEventListener('click', toggleInterleaving);
+    btn._listenerAttached = true;
+    
+    // تعيين الحالة الأولية
+    window.isInterleavingActive = false;
+    btn.textContent = '🔀 Interleaving: OFF';
+    btn.style.backgroundColor = '#6c757d';
+    btn.style.color = 'white';
+    btn.classList.remove('active');
+    
+    console.log('✅ زر Interleaving تم تهيئته بنجاح');
+}
+
+// ✅ دالة إعادة تعيين (عند فتح امتحان جديد)
+function resetInterleaving() {
+    console.log('🔄 إعادة تعيين Interleaving');
+    window.isInterleavingActive = false;
+    
+    const btn = document.getElementById('interleavingBtn');
+    if (btn) {
+        btn.classList.remove('active');
+        btn.textContent = '🔀 Interleaving: OFF';
+        btn.style.backgroundColor = '#6c757d';
+        btn.style.color = 'white';
+    }
+}
+
+// تصدير الدوال للاستخدام العالمي
+window.initInterleaving = initInterleaving;
+window.toggleInterleaving = toggleInterleaving;
+window.resetInterleaving = resetInterleaving;
+window.rebuildTrueFalseCards = rebuildTrueFalseCards;
+
+console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1 فقط');
