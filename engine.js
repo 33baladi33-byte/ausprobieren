@@ -1,9 +1,15 @@
 // ============================================
-// engine.js - محرك الامتحانات المتكامل (النسخة النهائية المُعدّلة)
+// engine.js - محرك الامتحانات المتكامل (النسخة النهائية)
 // ============================================
 
 console.log("✅ engine.js تم تحميله");
-
+// ============================================
+// بيانات Hören Teil 1 للـ Interleaving
+// ============================================
+let _hoeren1Container = null;
+let _hoeren1Questions = [];
+let _hoeren1Note = '';
+let _hoeren1OriginalQuestions = [];
 window.loadExamFromFile = async function(skill, examId) {
   try {
     const response = await fetch(`data/${skill}/exam${examId}.json`);
@@ -1074,7 +1080,7 @@ function checkSprach1Exam() {
 }
 
 // ============================================
-// نظام True/False (Hören Teil 1,2,3) - المُعدّل مع Interleaving
+// نظام True/False (Hören Teil 1,2,3)
 // ============================================
 
 window.buildTrueFalseExam = function(container, questions, note) {
@@ -1087,7 +1093,13 @@ window.buildTrueFalseExam = function(container, questions, note) {
   }
   
   container.innerHTML = '';
-  
+    // ✅ تخزين البيانات لإعادة البناء (فقط لـ Hören Teil 1)
+  if (container.id === 'hoeren1') {
+      _hoeren1Container = container;
+      _hoeren1Questions = questions.slice(); // نسخة عميقة
+      _hoeren1Note = note || '';
+      _hoeren1OriginalQuestions = questions.slice(); // حفظ النسخة الأصلية
+  }
   if (window._trueFalseUserAnswers) {
     delete window._trueFalseUserAnswers;
   }
@@ -1107,16 +1119,27 @@ window.buildTrueFalseExam = function(container, questions, note) {
     container.appendChild(noteDiv);
   }
   
-  // ✅ إنشاء مصفوفة البطاقات أولاً
-  const cards = [];
+   // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً ولـ Hören Teil 1
+  let finalQuestions = questions;
+  if (container.id === 'hoeren1' && window.isInterleavingActive) {
+      const fixedOrder = [2, 4, 1, 5, 3];
+      const orderedQuestions = [];
+      for (let idx of fixedOrder) {
+          if (idx <= questions.length) {
+              orderedQuestions.push(questions[idx - 1]);
+          }
+      }
+      if (orderedQuestions.length === questions.length) {
+          finalQuestions = orderedQuestions;
+          console.log('✅ Interleaving: تم ترتيب الأسئلة (Hören 1)');
+      }
+  }
   
-  for (let i = 0; i < questions.length; i++) {
+  for (let i = 0; i < finalQuestions.length; i++) {
+      const q = finalQuestions[i];
     const q = questions[i];
-    const questionId = q.id !== undefined ? q.id : i;
-    
     const div = document.createElement('div');
     div.className = 'question-card';
-    div.dataset.questionId = questionId;
     div.style.display = 'flex';
     div.style.alignItems = 'center';
     div.style.gap = '15px';
@@ -1126,7 +1149,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
     div.style.border = '1px solid #ddd';
     div.style.borderRadius = '10px';
     div.style.backgroundColor = '#f9f9f9';
-    div.id = `truefalse_card_${questionId}`;
+    div.id = `truefalse_card_${i}`;
     
     const labelTrue = document.createElement('label');
     labelTrue.className = 'option-label';
@@ -1142,15 +1165,15 @@ window.buildTrueFalseExam = function(container, questions, note) {
     
     const radioTrue = document.createElement('input');
     radioTrue.type = 'radio';
-    radioTrue.name = `q_${questionId}`;
+    radioTrue.name = `q${i}`;
     radioTrue.value = 'true';
-    radioTrue.id = `q_${questionId}_true`;
+    radioTrue.id = `q${i}_true`;
     
-    radioTrue.onchange = (function(qId) {
+    radioTrue.onchange = (function(idx) {
       return function() {
-        window._trueFalseUserAnswers[qId] = true;
+        window._trueFalseUserAnswers[idx] = true;
       };
-    })(questionId);
+    })(i);
     
     labelTrue.appendChild(radioTrue);
     labelTrue.appendChild(document.createTextNode(' Richtig'));
@@ -1168,15 +1191,15 @@ window.buildTrueFalseExam = function(container, questions, note) {
     
     const radioFalse = document.createElement('input');
     radioFalse.type = 'radio';
-    radioFalse.name = `q_${questionId}`;
+    radioFalse.name = `q${i}`;
     radioFalse.value = 'false';
-    radioFalse.id = `q_${questionId}_false`;
+    radioFalse.id = `q${i}_false`;
     
-    radioFalse.onchange = (function(qId) {
+    radioFalse.onchange = (function(idx) {
       return function() {
-        window._trueFalseUserAnswers[qId] = false;
+        window._trueFalseUserAnswers[idx] = false;
       };
-    })(questionId);
+    })(i);
     
     labelFalse.appendChild(radioFalse);
     labelFalse.appendChild(document.createTextNode(' Falsch'));
@@ -1190,18 +1213,9 @@ window.buildTrueFalseExam = function(container, questions, note) {
     div.appendChild(labelFalse);
     div.appendChild(textSpan);
     
-    cards.push(div);
+    container.appendChild(div);
   }
   
-  // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
-  let finalCards = applyFixedOrderToArray(cards);
-  
-  // ✅ إضافة البطاقات إلى الـ DOM
-  finalCards.forEach(card => {
-    container.appendChild(card);
-  });
-  
-  // ✅ إضافة الأزرار بعد البطاقات
   const buttonContainer = document.createElement('div');
   buttonContainer.style.display = "flex";
   buttonContainer.style.gap = "15px";
@@ -1301,7 +1315,6 @@ window.buildTrueFalseExam = function(container, questions, note) {
   }
 };
 
-// ✅ دالة التصحيح المعدلة - تعتمد على ID السؤال
 function checkTrueFalseExam(container, questions, answers, correctNumbersContainer) {
   if (!questions || !Array.isArray(questions) || questions.length === 0) {
     console.error("❌ خطأ: لا توجد أسئلة للتصحيح");
@@ -1323,19 +1336,10 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
   
   const cards = container.querySelectorAll('.question-card');
   
-  const cardMap = {};
-  cards.forEach(card => {
-    const qId = parseInt(card.dataset.questionId);
-    if (qId !== undefined) {
-      cardMap[qId] = card;
-    }
-  });
-  
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
-    const questionId = q.id !== undefined ? q.id : i;
-    const card = cardMap[questionId];
-    const userAnswer = answers[questionId];
+    const card = cards[i];
+    const userAnswer = answers[i];
     const isCorrect = (userAnswer === q.correct);
     
     if (!card) continue;
@@ -1437,7 +1441,7 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
 }
 
 // ============================================
-// نظام Teil 1 (Lesen Teil 1 - Matching) - المُعدّل مع Interleaving
+// نظام Teil 1 (Lesen Teil 1 - Matching)
 // ============================================
 
 let currentMatchingExamData = null;
@@ -1459,17 +1463,11 @@ function renderMatchingQuestions() {
   
   const questions = currentMatchingExamData.questions;
   
-  // ✅ إنشاء البطاقات في مصفوفة
-  const cards = [];
-  
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
-    const questionId = q.id !== undefined ? q.id : i;
-    
     const card = document.createElement("div");
     card.className = "question-card";
-    card.dataset.questionId = questionId;
-    card.id = `matching_q_${questionId}`;
+    card.id = `matching_q_${i}`;
     
     const questionText = document.createElement("div");
     questionText.className = "question-text";
@@ -1482,7 +1480,6 @@ function renderMatchingQuestions() {
     select.style.marginTop = "10px";
     select.style.borderRadius = "8px";
     select.style.border = "1px solid #ccc";
-    select.dataset.questionId = questionId;
     
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
@@ -1496,22 +1493,20 @@ function renderMatchingQuestions() {
       select.appendChild(option);
     }
     
-    select.onchange = (function(qId) {
+    select.onchange = (function(idx) {
       return function() {
-        const oldVal = matchingSelectedAnswers[qId];
+        const oldVal = matchingSelectedAnswers[idx];
         if (oldVal) matchingAvailableOptions.push(oldVal);
         const newVal = select.value;
         if (newVal) {
           const index = matchingAvailableOptions.indexOf(newVal);
           if (index !== -1) matchingAvailableOptions.splice(index, 1);
-          matchingSelectedAnswers[qId] = newVal;
+          matchingSelectedAnswers[idx] = newVal;
         } else {
-          delete matchingSelectedAnswers[qId];
+          delete matchingSelectedAnswers[idx];
         }
-        // تحديث جميع القوائم
-        document.querySelectorAll('#teil1 select').forEach((sel) => {
+        document.querySelectorAll('#teil1 select').forEach((sel, sidx) => {
           const currentVal = sel.value;
-          const qIdAttr = parseInt(sel.dataset.questionId);
           sel.innerHTML = "";
           const optDefault = document.createElement("option");
           optDefault.value = "";
@@ -1532,23 +1527,16 @@ function renderMatchingQuestions() {
             sel.appendChild(hiddenOpt);
           }
         });
-        if (window.memoryEngine && window.memoryEngine.isActive) {
-          setTimeout(colorSelectOptions, 50);
-        }
-      };
-    })(questionId);
+   // ✅✅✅ إعادة التلوين بعد تحديث القوائم ✅✅✅
+    if (window.memoryEngine && window.memoryEngine.isActive) {
+      setTimeout(colorSelectOptions, 50);
+    }
+  };
+})(i);
     
     card.appendChild(select);
-    cards.push(card);
-  }
-  
-  // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
-  let finalCards = applyFixedOrderToArray(cards);
-  
-  // ✅ إضافة البطاقات إلى الـ DOM
-  finalCards.forEach(card => {
     container.appendChild(card);
-  });
+  }
   
   const buttonContainer = document.createElement("div");
   buttonContainer.style.display = "flex";
@@ -1595,7 +1583,6 @@ function renderMatchingQuestions() {
   container.appendChild(resultDiv);
 }
 
-// ✅ دالة التصحيح المعدلة لـ Matching - تعتمد على ID
 function checkMatchingExam() {
   const questions = currentMatchingExamData.questions;
   let score = 0;
@@ -1603,11 +1590,9 @@ function checkMatchingExam() {
   const pointsPerQuestion = 25 / total;
 
   for (let i = 0; i < questions.length; i++) {
-    const q = questions[i];
-    const questionId = q.id !== undefined ? q.id : i;
-    const card = document.getElementById(`matching_q_${questionId}`);
-    const userAnswer = matchingSelectedAnswers[questionId];
-    const correctAnswer = currentMatchingExamData.sharedOptions[q.correct];
+    const card = document.getElementById(`matching_q_${i}`);
+    const userAnswer = matchingSelectedAnswers[i];
+    const correctAnswer = currentMatchingExamData.sharedOptions[questions[i].correct];
     const isCorrect = (userAnswer === correctAnswer);
 
     if (card) {
@@ -1672,7 +1657,7 @@ function checkMatchingExam() {
 }
 
 // ============================================
-// نظام Teil 2 (Lesen Teil 2) - المُعدّل مع Interleaving
+// نظام Teil 2 (Lesen Teil 2)
 // ============================================
 
 let currentTeil2Data = null;
@@ -1736,18 +1721,11 @@ function renderTeil2Exam() {
   questionsContainer.id = "teil2_questions_container";
   
   const questions = currentTeil2Data.questions;
-  
-  // ✅ إنشاء البطاقات في مصفوفة
-  const cards = [];
-  
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
-    const questionId = q.id !== undefined ? q.id : i;
-    
     const card = document.createElement("div");
     card.className = "question-card";
-    card.dataset.questionId = questionId;
-    card.id = `teil2_q_${questionId}`;
+    card.id = "teil2_q_" + i;
     card.style.marginBottom = "20px";
     card.style.padding = "15px";
     card.style.border = "1px solid #e0e0e0";
@@ -1778,16 +1756,16 @@ function renderTeil2Exam() {
       
       const radio = document.createElement("input");
       radio.type = "radio";
-      radio.name = `teil2_q_${questionId}`;
+      radio.name = `teil2_q${i}`;
       radio.value = j;
       radio.style.cursor = "pointer";
-      radio.onchange = (function(qId, ansIdx) { 
+      radio.onchange = (function(qIdx, ansIdx) { 
         return function() { 
-          teil2UserAnswers[qId] = ansIdx; 
-          const cardElem = document.getElementById(`teil2_q_${qId}`);
+          teil2UserAnswers[qIdx] = ansIdx; 
+          const cardElem = document.getElementById(`teil2_q_${qIdx}`);
           if (cardElem) cardElem.classList.remove("correct-answer-card", "wrong-answer-card");
         }; 
-      })(questionId, j);
+      })(i, j);
       
       const optionText = document.createElement("span");
       optionText.innerHTML = q.options[j];
@@ -1797,16 +1775,8 @@ function renderTeil2Exam() {
       optionsDiv.appendChild(label);
     }
     card.appendChild(optionsDiv);
-    cards.push(card);
-  }
-  
-  // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
-  let finalCards = applyFixedOrderToArray(cards);
-  
-  // ✅ إضافة البطاقات إلى الـ DOM
-  finalCards.forEach(card => {
     questionsContainer.appendChild(card);
-  });
+  }
   
   questionsColumn.appendChild(questionsContainer);
   
@@ -1839,20 +1809,22 @@ function renderTeil2Exam() {
   resetBtn.style.fontWeight = "bold";
   resetBtn.onclick = function() {
     teil2UserAnswers = {};
-    questionsContainer.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
-    const cards = questionsContainer.querySelectorAll('.question-card');
-    cards.forEach(card => {
-      card.classList.remove("correct-answer-card", "wrong-answer-card");
-      card.style.backgroundColor = "#fafafa";
-      card.style.border = "1px solid #e0e0e0";
-    });
-    const oldMsgs = questionsContainer.querySelectorAll('.correct-message');
-    oldMsgs.forEach(msg => msg.remove());
-    const optionLabels = questionsContainer.querySelectorAll('.option-label');
-    optionLabels.forEach(label => {
-      label.style.backgroundColor = "";
-      label.style.border = "";
-    });
+    questionsColumn.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+    for (let i = 0; i < questions.length; i++) {
+      const card = document.getElementById(`teil2_q_${i}`);
+      if (card) {
+        card.classList.remove("correct-answer-card", "wrong-answer-card");
+        card.style.backgroundColor = "#fafafa";
+        card.style.border = "1px solid #e0e0e0";
+      }
+      const oldMsg = document.querySelector(`#teil2_q_${i} .correct-message`);
+      if (oldMsg) oldMsg.remove();
+      const optionLabels = document.querySelectorAll(`#teil2_q_${i} .option-label`);
+      optionLabels.forEach(label => {
+        label.style.backgroundColor = "";
+        label.style.border = "";
+      });
+    }
     const resultDiv = document.getElementById("teil2Result");
     if (resultDiv) {
       resultDiv.style.display = "none";
@@ -1874,7 +1846,6 @@ function renderTeil2Exam() {
   container.appendChild(twoColumns);
 }
 
-// ✅ دالة التصحيح المعدلة لـ Teil 2 - تعتمد على ID
 function checkTeil2Exam() {
   const questions = currentTeil2Data.questions;
   let score = 0;
@@ -1883,9 +1854,8 @@ function checkTeil2Exam() {
   
   for (let i = 0; i < total; i++) {
     const q = questions[i];
-    const questionId = q.id !== undefined ? q.id : i;
-    const card = document.getElementById(`teil2_q_${questionId}`);
-    const userAnswer = teil2UserAnswers[questionId];
+    const card = document.getElementById(`teil2_q_${i}`);
+    const userAnswer = teil2UserAnswers[i];
     const isCorrect = (userAnswer === q.correct);
     
     if (card) {
@@ -1957,7 +1927,7 @@ function checkTeil2Exam() {
 }
 
 // ============================================
-// نظام Teil 3 (Lesen Teil 3) - المُعدّل مع Interleaving
+// نظام Teil 3 (Lesen Teil 3)
 // ============================================
 
 let currentTeil3Data = null;
@@ -2024,6 +1994,7 @@ function updateTeil3SelectOptions() {
     }
   }
   
+  // ✅ إعادة التلوين بعد تحديث القوائم (إذا كان التلوين مفعلاً)
   if (window.memoryEngine && window.memoryEngine.isActive) {
     setTimeout(colorSelectOptions, 50);
   }
@@ -2125,17 +2096,11 @@ function renderTeil3Exam() {
   itemsGrid.style.gridTemplateColumns = "1fr 1fr";
   itemsGrid.style.gap = "20px";
   
-  // ✅ إنشاء البطاقات في مصفوفة
-  const cards = [];
-  
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
-    const itemId = item.id !== undefined ? item.id : i;
-    
     const card = document.createElement("div");
     card.className = "question-card";
-    card.dataset.itemId = itemId;
-    card.id = `teil3_card_${itemId}`;
+    card.id = `teil3_card_${i}`;
     card.style.padding = "15px";
     card.style.border = "1px solid #e0e0e0";
     card.style.borderRadius = "12px";
@@ -2167,8 +2132,7 @@ function renderTeil3Exam() {
     select.style.marginTop = "10px";
     select.style.borderRadius = "8px";
     select.style.border = "1px solid #ccc";
-    select.id = `teil3_select_${itemId}`;
-    select.dataset.itemId = itemId;
+    select.id = `teil3_select_${i}`;
     
     select.innerHTML = "";
     const defaultOption = document.createElement("option");
@@ -2208,19 +2172,12 @@ function renderTeil3Exam() {
         clearTeil3ItemSelection();  
         clearTeil3SituationSelection();
       };
-    })(itemId);
+    })(i);
     
     card.appendChild(select);
-    cards.push(card);
-  }
-  
-  // ✅ تطبيق الترتيب الثابت إذا كان Interleaving مفعلاً
-  let finalCards = applyFixedOrderToArray(cards);
-  
-  // ✅ إضافة البطاقات إلى الـ DOM
-  finalCards.forEach(card => {
+    
     itemsGrid.appendChild(card);
-  });
+  }
   
   leftColumn.appendChild(itemsGrid);
   
@@ -2408,11 +2365,9 @@ function checkTeil3Exam() {
   document.querySelectorAll('#teil3 .correct-message').forEach(msg => msg.remove());
 
   for (let i = 0; i < total; i++) {
-    const item = items[i];
-    const itemId = item.id !== undefined ? item.id : i;
-    const card = document.getElementById(`teil3_card_${itemId}`);
-    const userAnswer = teil3UserAnswers[itemId];
-    const correctIndex = item.correct;
+    const card = document.getElementById(`teil3_card_${i}`);
+    const userAnswer = teil3UserAnswers[i];
+    const correctIndex = items[i].correct;
     let isCorrect = false;
     let correctText = "";
     let correctValue = null;
@@ -2659,7 +2614,7 @@ function applyTeil3CorrectionColors() {
 }
 
 if (typeof checkMatchingExam === 'function') {
-    const originalCheckMatching = window.checkMatchingExam;
+    const originalCheckMatching = checkMatchingExam;
     window.checkMatchingExam = function() {
         originalCheckMatching();
         setTimeout(function() {
@@ -2669,7 +2624,7 @@ if (typeof checkMatchingExam === 'function') {
 }
 
 if (typeof checkTeil3Exam === 'function') {
-    const originalCheckTeil3 = window.checkTeil3Exam;
+    const originalCheckTeil3 = checkTeil3Exam;
     window.checkTeil3Exam = function() {
         originalCheckTeil3();
         setTimeout(function() {
@@ -2701,6 +2656,10 @@ function getTextColorByIndex(index) {
     ];
     return textColors[index % textColors.length] || '#1565C0';
 }
+
+// ============================================
+// دوال التلوين الأساسية
+// ============================================
 
 function highlightTextInContainer(container, searchText, colorIndex) {
     if (!container || !searchText) return;
@@ -2759,41 +2718,76 @@ function highlightTextInContainer(container, searchText, colorIndex) {
     });
 }
 
+
 function highlightSelectOption(container, searchText, colorIndex) {
     if (!container || !searchText) return;
     
     const searchTrimmed = searchText.trim();
     const txtColor = getTextColorByIndex(colorIndex);
     
+    // ✅ 1. تلوين الخيارات في القوائم المنسدلة (Lesen Teil 1)
     const selects = container.querySelectorAll('select');
     selects.forEach(select => {
         for (let i = 0; i < select.options.length; i++) {
             const option = select.options[i];
             if (option.textContent.trim() === searchTrimmed) {
+                // ✅ فقط لون الخط والوزن
                 option.style.color = txtColor;
                 option.style.fontWeight = 'bold';
+                // ✅ نزيل أي تغييرات أخرى
+                option.style.backgroundColor = '';
+                option.style.border = '';
+                option.style.padding = '';
+                option.style.borderRadius = '';
+                option.style.opacity = '';
                 break;
             }
         }
     });
     
+    // ✅ 2. تلوين الخيارات في Sprach 1 (label > span)
     const labels = container.querySelectorAll('label');
     labels.forEach(label => {
         const spans = label.querySelectorAll('span');
         spans.forEach(span => {
             if (span.textContent.trim() === searchTrimmed) {
+                // ✅ فقط لون الخط والوزن
                 span.style.color = txtColor;
                 span.style.fontWeight = 'bold';
+                // ✅ نزيل أي تغييرات أخرى
+                span.style.backgroundColor = '';
+                span.style.border = '';
+                span.style.padding = '';
+                span.style.borderRadius = '';
+                span.style.opacity = '';
             }
         });
     });
     
+    // ✅ 3. تلوين النص فقط في Sprach 2 (word cards) - البطاقة تبقى كما هي
     const wordCards = container.querySelectorAll('.sprach2-word-card');
     wordCards.forEach(card => {
+        // البحث عن العنصر الداخلي الذي يحتوي على النص
+        // في .sprach2-word-card، النص قد يكون مباشراً أو داخل span
         const textElement = card.querySelector('span') || card;
         if (textElement.textContent.trim() === searchTrimmed) {
+            // ✅ فقط لون النص يتغير، البطاقة الخارجية تبقى كما هي
             textElement.style.color = txtColor;
             textElement.style.fontWeight = 'bold';
+        }
+    });
+    
+    // ✅ 4. تلوين أي عنصر آخر
+    const allElements = container.querySelectorAll('.option, .option-btn, .choice, [class*="option"]');
+    allElements.forEach(el => {
+        if (el.textContent.trim() === searchTrimmed) {
+            el.style.color = txtColor;
+            el.style.fontWeight = 'bold';
+            el.style.backgroundColor = '';
+            el.style.border = '';
+            el.style.padding = '';
+            el.style.borderRadius = '';
+            el.style.opacity = '';
         }
     });
 }
@@ -2848,6 +2842,7 @@ function highlightByContext(container, beforeText, connectorText, afterText, col
                     const bgColor = getColorByIndex(colorIndex);
                     const txtColor = getTextColorByIndex(colorIndex);
                     
+                    // تلوين before
                     const spanBefore = document.createElement("span");
                     spanBefore.className = `memory-highlight color${colorIndex}`;
                     spanBefore.style.backgroundColor = bgColor;
@@ -2858,6 +2853,7 @@ function highlightByContext(container, beforeText, connectorText, afterText, col
                     spanBefore.textContent = beforeText;
                     fragment.appendChild(spanBefore);
                     
+                    // تلوين connector
                     if (connectorText && middle.includes(connectorText)) {
                         const midBefore = middle.substring(0, middle.indexOf(connectorText));
                         const midAfter = middle.substring(middle.indexOf(connectorText) + connectorText.length);
@@ -2878,6 +2874,7 @@ function highlightByContext(container, beforeText, connectorText, afterText, col
                         fragment.appendChild(document.createTextNode(middle));
                     }
                     
+                    // تلوين after
                     const spanAfter = document.createElement("span");
                     spanAfter.className = `memory-highlight color${colorIndex}`;
                     spanAfter.style.backgroundColor = bgColor;
@@ -2896,16 +2893,19 @@ function highlightByContext(container, beforeText, connectorText, afterText, col
         }
     });
     
+    // محاولة البحث عن before فقط إذا لم نجد السياق الكامل
     if (!found && beforeText) {
         highlightTextInContainer(container, beforeText, colorIndex);
         found = true;
     }
     
+    // محاولة البحث عن after فقط إذا لم نجد before
     if (!found && afterText) {
         highlightTextInContainer(container, afterText, colorIndex);
         found = true;
     }
     
+    // محاولة البحث عن connector
     if (connectorText) {
         highlightTextInContainer(container, connectorText, colorIndex);
     }
@@ -2920,6 +2920,7 @@ function highlightByContext(container, beforeText, connectorText, afterText, col
 function applyAutoHighlights(examData) {
     if (!examData) return;
     
+    // Lesen Teil 1 (Matching)
     if (examData.type === 'matching' && examData.questions) {
         const container = document.getElementById('teil1');
         if (!container) return;
@@ -2938,12 +2939,14 @@ function applyAutoHighlights(examData) {
         return;
     }
     
+    // Lesen Teil 3
     if (examData.type === 'teil3' && examData.items) {
         const container = document.getElementById('teil3');
         if (!container) return;
         const items = examData.items || [];
         const memoryHighlights = examData.memoryHighlights || [];
         
+        // تلوين من memoryHighlights
         if (memoryHighlights.length > 0) {
             memoryHighlights.forEach(highlight => {
                 const color = highlight.color || 0;
@@ -2955,6 +2958,7 @@ function applyAutoHighlights(examData) {
             });
         }
         
+        // تلوين الخيارات بالفهرس
         items.forEach((item, index) => {
             if (item.correct === null || item.correct === undefined) return;
             const color = item.highlightColor !== undefined ? item.highlightColor : index % 12;
@@ -2984,11 +2988,13 @@ function applyAutoHighlights(examData) {
         return;
     }
   
+    // Sprachbausteine Teil 1 & 2
     if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
         const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
         const container = document.getElementById(containerId);
         if (!container) return;
         
+        // 🔍 البحث عن جميع الأزرار (الفراغات) في النص
         const buttons = container.querySelectorAll('button.sprach1-gap-btn, button.sprach2-gap-btn, button[id*="sprach1_btn"], button[id*="sprach2_btn"]');
         
         examData.options.forEach((option, index) => {
@@ -2999,9 +3005,11 @@ function applyAutoHighlights(examData) {
             const bgColor = getColorByIndex(color);
             const txtColor = getTextColorByIndex(color);
             
+            // 🔍 البحث عن الزر المناسب لهذا السؤال
             const btnId = containerId === 'sprach1' ? `sprach1_btn_${option.id}` : `sprach2_btn_${option.id}`;
             let btn = document.getElementById(btnId);
             if (!btn) {
+                // محاولة العثور على الزر عبر buttons
                 for (let b of buttons) {
                     if (b.textContent.includes(`(${option.id})`)) {
                         btn = b;
@@ -3011,6 +3019,39 @@ function applyAutoHighlights(examData) {
             }
             
             if (btn) {
+                // ✅ تلوين النص قبل الزر (before)
+                let prevNode = btn.previousSibling;
+                let beforeText = '';
+                while (prevNode) {
+                    if (prevNode.nodeType === 3) { // TextNode
+                        beforeText = prevNode.textContent + beforeText;
+                    } else if (prevNode.nodeType === 1) {
+                        if (prevNode.tagName === 'BUTTON' || prevNode.tagName === 'SPAN' || prevNode.tagName === 'DIV') {
+                            break;
+                        }
+                        beforeText = prevNode.textContent + beforeText;
+                    }
+                    prevNode = prevNode.previousSibling;
+                }
+                beforeText = beforeText.trim();
+                
+                // ✅ تلوين النص بعد الزر (after)
+                let nextNode = btn.nextSibling;
+                let afterText = '';
+                while (nextNode) {
+                    if (nextNode.nodeType === 3) { // TextNode
+                        afterText += nextNode.textContent;
+                    } else if (nextNode.nodeType === 1) {
+                        if (nextNode.tagName === 'BUTTON' || nextNode.tagName === 'SPAN' || nextNode.tagName === 'DIV') {
+                            break;
+                        }
+                        afterText += nextNode.textContent;
+                    }
+                    nextNode = nextNode.nextSibling;
+                }
+                afterText = afterText.trim();
+                
+                // ✅ تلوين before - البحث في النص قبل الزر فقط
                 if (highlight.before) {
                     const beforeNode = btn.previousSibling;
                     if (beforeNode && beforeNode.nodeType === 3) {
@@ -3039,6 +3080,7 @@ function applyAutoHighlights(examData) {
                     }
                 }
                 
+                // ✅ تلوين after - البحث في النص بعد الزر فقط
                 if (highlight.after) {
                     const afterNode = btn.nextSibling;
                     if (afterNode && afterNode.nodeType === 3) {
@@ -3067,6 +3109,7 @@ function applyAutoHighlights(examData) {
                     }
                 }
               
+                // ✅ تلوين الزر نفسه (يبقى الرقم فقط، لا نغير محتواه)
                 if (highlight.connector) {
                     btn.style.backgroundColor = bgColor;
                     btn.style.color = txtColor;
@@ -3075,6 +3118,10 @@ function applyAutoHighlights(examData) {
                     btn.style.borderRadius = '20px';
                     btn.style.padding = '4px 12px';
                     btn.style.opacity = '0.85';
+                }
+                
+                // ✅ تلوين الخيار في القائمة المنسدلة
+                if (highlight.connector) {
                     highlightSelectOption(container, highlight.connector, color);
                 }
             }
@@ -3089,6 +3136,10 @@ function getFirstWords(text, wordCount = 7) {
     return words.slice(0, wordCount).join(' ');
 }
 
+// ============================================
+// تلوين خيارات القائمة المنسدلة
+// ============================================
+
 function colorSelectOptions() {
     const examData = window.currentExamData || 
                      (window.memoryEngine ? window.memoryEngine.currentExamData : null);
@@ -3098,6 +3149,7 @@ function colorSelectOptions() {
         return;
     }
     
+    // Lesen Teil 1
     if (examData.type === 'matching' && examData.questions) {
         const container = document.getElementById('teil1');
         if (!container) return;
@@ -3125,6 +3177,7 @@ function colorSelectOptions() {
         return;
     }
     
+    // Lesen Teil 3
     if (examData.type === 'teil3' && examData.items) {
         const container = document.getElementById('teil3');
         if (!container) return;
@@ -3155,6 +3208,7 @@ function colorSelectOptions() {
         return;
     }
     
+    // Sprachbausteine Teil 1 & 2
     if ((examData.type === 'sprach1' || examData.type === 'sprach2') && examData.options) {
         const containerId = examData.type === 'sprach1' ? 'sprach1' : 'sprach2';
         const container = document.getElementById(containerId);
@@ -3273,9 +3327,10 @@ class MemoryHighlightEngine {
         highlightTextInContainer(this.container, searchText, colorIndex);
     }
 
-    removeHighlights() {
+       removeHighlights() {
         if (!this.container) return;
         
+        // ✅ 1. إزالة التلوين من النص
         const highlights = this.container.querySelectorAll('.memory-highlight');
         highlights.forEach(span => {
             const parent = span.parentNode;
@@ -3284,6 +3339,7 @@ class MemoryHighlightEngine {
             parent.normalize();
         });
         
+        // ✅ 2. إزالة التلوين من القوائم المنسدلة (select)
         const selects = this.container.querySelectorAll('select');
         selects.forEach(select => {
             for (let i = 0; i < select.options.length; i++) {
@@ -3292,6 +3348,7 @@ class MemoryHighlightEngine {
             }
         });
         
+        // ✅ 3. إزالة التلوين من الاختيارات في Sprach 1 (label > span)
         const labels = this.container.querySelectorAll('label');
         labels.forEach(label => {
             const spans = label.querySelectorAll('span');
@@ -3303,6 +3360,7 @@ class MemoryHighlightEngine {
             label.style.fontWeight = '';
         });
         
+               // ✅ 4. إزالة التلوين من النص فقط في Sprach 2 (word cards)
         const wordCards = this.container.querySelectorAll('.sprach2-word-card');
         wordCards.forEach(card => {
             const textElement = card.querySelector('span') || card;
@@ -3310,6 +3368,7 @@ class MemoryHighlightEngine {
             textElement.style.fontWeight = '';
         });
         
+        // ✅ 5. إزالة التلوين من أي عناصر أخرى
         const allElements = this.container.querySelectorAll('.option, .option-btn, .choice, [class*="option"]');
         allElements.forEach(el => {
             el.style.color = '';
@@ -3348,10 +3407,12 @@ document.addEventListener('examLoaded', function(e) {
     }
 });
 
+// دالة مساعدة لتلوين الخيارات عند الحاجة
 window.applyColorToOptions = function() {
     setTimeout(colorSelectOptions, 100);
 };
 
+// عند الضغط على زر التصحيح
 if (typeof checkMatchingExam === 'function') {
     const originalCheckMatching = window.checkMatchingExam;
     window.checkMatchingExam = function() {
@@ -3367,262 +3428,151 @@ if (typeof checkTeil3Exam === 'function') {
         setTimeout(colorSelectOptions, 200);
     };
 }
-
-console.log("✅ engine.js تم تحميله بالكامل");
-
 // ============================================
-// نظام Interleaving (ترتيب ثابت) - يعمل أثناء بناء الامتحان
+// دالة إعادة بناء بطاقات Hören Teil 1 فقط
 // ============================================
-
-// ✅ الترتيبات الثابتة لكل عدد من الأسئلة
-const FIXED_ORDERS = {
-    5: [2, 4, 1, 5, 3],
-    6: [3, 5, 1, 6, 2, 4],
-    7: [3, 6, 1, 5, 7, 2, 4],
-    8: [4, 6, 1, 8, 3, 7, 2, 5],
-    9: [4, 7, 1, 9, 3, 6, 8, 2, 5],
-    10: [3, 7, 1, 9, 5, 10, 2, 8, 4, 6],
-    11: [4, 8, 1, 10, 6, 2, 9, 11, 3, 7, 5],
-    12: [4, 8, 1, 11, 6, 2, 10, 5, 12, 3, 9, 7],
-    13: [5, 9, 1, 12, 7, 3, 10, 13, 4, 8, 11, 2, 6],
-    14: [5, 9, 1, 13, 7, 3, 11, 6, 14, 2, 10, 12, 4, 8],
-    15: [6, 10, 1, 14, 8, 3, 12, 5, 15, 2, 9, 13, 4, 11, 7]
-};
+function rebuildTrueFalseCards() {
+    if (!_hoeren1Container) {
+        console.warn('⚠️ لا توجد بيانات لـ Hören Teil 1 لإعادة البناء');
+        return;
+    }
+    
+    // حفظ الإجابات الحالية
+    const savedAnswers = window._trueFalseUserAnswers ? {...window._trueFalseUserAnswers} : {};
+    
+    // تحديد الأسئلة التي سنستخدمها (مع الترتيب)
+    let questionsToUse = _hoeren1Questions;
+    if (window.isInterleavingActive) {
+        const fixedOrder = [2, 4, 1, 5, 3];
+        const ordered = [];
+        for (let idx of fixedOrder) {
+            if (idx <= _hoeren1Questions.length) {
+                ordered.push(_hoeren1Questions[idx - 1]);
+            }
+        }
+        if (ordered.length === _hoeren1Questions.length) {
+            questionsToUse = ordered;
+        }
+    }
+    
+    // حذف البطاقات القديمة (مع الحفاظ على العناصر الأخرى)
+    const oldCards = _hoeren1Container.querySelectorAll('.question-card');
+    oldCards.forEach(card => card.remove());
+    
+    // إعادة إنشاء البطاقات
+    for (let i = 0; i < questionsToUse.length; i++) {
+        const q = questionsToUse[i];
+        const questionId = q.id !== undefined ? q.id : i;
+        
+        const div = document.createElement('div');
+        div.className = 'question-card';
+        div.dataset.questionId = questionId;
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.gap = '15px';
+        div.style.marginBottom = '12px';
+        div.style.flexWrap = 'wrap';
+        div.style.padding = '12px';
+        div.style.border = '1px solid #ddd';
+        div.style.borderRadius = '10px';
+        div.style.backgroundColor = '#f9f9f9';
+        div.id = `truefalse_card_${questionId}`;
+        
+        const labelTrue = document.createElement('label');
+        labelTrue.className = 'option-label';
+        labelTrue.style.display = 'inline-flex';
+        labelTrue.style.alignItems = 'center';
+        labelTrue.style.gap = '5px';
+        labelTrue.style.cursor = 'pointer';
+        labelTrue.style.marginRight = '15px';
+        labelTrue.style.padding = '5px 10px';
+        labelTrue.style.border = '1px solid #ccc';
+        labelTrue.style.borderRadius = '5px';
+        labelTrue.style.backgroundColor = 'white';
+        
+        const radioTrue = document.createElement('input');
+        radioTrue.type = 'radio';
+        radioTrue.name = `q_${questionId}`;
+        radioTrue.value = 'true';
+        radioTrue.id = `q_${questionId}_true`;
+        radioTrue.onchange = (function(qId) {
+            return function() {
+                window._trueFalseUserAnswers[qId] = true;
+            };
+        })(questionId);
+        labelTrue.appendChild(radioTrue);
+        labelTrue.appendChild(document.createTextNode(' Richtig'));
+        
+        const labelFalse = document.createElement('label');
+        labelFalse.className = 'option-label';
+        labelFalse.style.display = 'inline-flex';
+        labelFalse.style.alignItems = 'center';
+        labelFalse.style.gap = '5px';
+        labelFalse.style.cursor = 'pointer';
+        labelFalse.style.padding = '5px 10px';
+        labelFalse.style.border = '1px solid #ccc';
+        labelFalse.style.borderRadius = '5px';
+        labelFalse.style.backgroundColor = 'white';
+        
+        const radioFalse = document.createElement('input');
+        radioFalse.type = 'radio';
+        radioFalse.name = `q_${questionId}`;
+        radioFalse.value = 'false';
+        radioFalse.id = `q_${questionId}_false`;
+        radioFalse.onchange = (function(qId) {
+            return function() {
+                window._trueFalseUserAnswers[qId] = false;
+            };
+        })(questionId);
+        labelFalse.appendChild(radioFalse);
+        labelFalse.appendChild(document.createTextNode(' Falsch'));
+        
+        const textSpan = document.createElement('span');
+        textSpan.innerHTML = `<strong>${i + 1}</strong> ${q.text}`;
+        textSpan.style.flex = '1';
+        textSpan.style.minWidth = '200px';
+        
+        div.appendChild(labelTrue);
+        div.appendChild(labelFalse);
+        div.appendChild(textSpan);
+        
+        // إدراج البطاقة قبل عنصر الأزرار
+        const buttonsContainer = _hoeren1Container.querySelector('.check-btn')?.closest('div[style*="display: flex"]') || 
+                                 _hoeren1Container.querySelector('#truefalseResult')?.previousElementSibling;
+        if (buttonsContainer && buttonsContainer !== div) {
+            _hoeren1Container.insertBefore(div, buttonsContainer);
+        } else {
+            _hoeren1Container.appendChild(div);
+        }
+    }
+    
+    // استعادة الإجابات المحفوظة
+    if (Object.keys(savedAnswers).length > 0) {
+        const allRadios = _hoeren1Container.querySelectorAll('input[type="radio"]');
+        allRadios.forEach(radio => {
+            const name = radio.name;
+            const match = name.match(/q_(\d+)/);
+            if (match) {
+                const qId = parseInt(match[1]);
+                if (savedAnswers[qId] !== undefined) {
+                    const expectedValue = savedAnswers[qId] ? 'true' : 'false';
+                    if (radio.value === expectedValue) {
+                        radio.checked = true;
+                    }
+                }
+            }
+        });
+        window._trueFalseUserAnswers = savedAnswers;
+    }
+    
+    console.log('✅ تم إعادة بناء بطاقات Hören Teil 1');
+}
+// ============================================
+// نظام Interleaving (ترتيب ثابت) - Hören Teil 1 فقط
+// ============================================
 
 // ✅ حالة Interleaving
-window.isInterleavingActive = false;
-
-// دالة الحصول على الترتيب الثابت
-function getFixedOrder(count) {
-    // البحث عن ترتيب مطابق
-    if (FIXED_ORDERS[count]) {
-        return FIXED_ORDERS[count];
-    }
-    
-    // إذا لم يكن موجوداً، نبحث عن أقرب ترتيب
-    const keys = Object.keys(FIXED_ORDERS).map(Number).sort((a, b) => a - b);
-    let bestKey = keys[0];
-    for (let key of keys) {
-        if (key <= count) bestKey = key;
-        else break;
-    }
-    
-    const baseOrder = FIXED_ORDERS[bestKey] || [];
-    const result = [];
-    for (let i = 1; i <= count; i++) {
-        result.push(i <= baseOrder.length ? baseOrder[i - 1] : i);
-    }
-    return result;
-}
-
-// ✅ دالة تطبيق الترتيب الثابت على مصفوفة البطاقات (تُستدعى أثناء البناء)
-function applyFixedOrderToArray(cards) {
-    if (!cards || cards.length === 0) return cards;
-    if (!window.isInterleavingActive) return cards;
-    
-    const fixedOrder = getFixedOrder(cards.length);
-    const orderedCards = fixedOrder.map(index => cards[index - 1]).filter(c => c);
-    
-    if (orderedCards.length === cards.length) {
-        console.log(`✅ Interleaving: تم ترتيب ${orderedCards.length} بطاقة`);
-        return orderedCards;
-    }
-    
-    // إذا لم ينجح الترتيب، نعيد المصفوفة الأصلية
-    console.warn(`⚠️ Interleaving: فشل ترتيب البطاقات، استخدم الترتيب الأصلي`);
-    return cards;
-}
-
-// ✅ دالة إعادة بناء الامتحان الحالي (بدون إعادة تحميل JSON)
-function rebuildCurrentExam() {
-    const examData = window.currentExamData;
-    const skill = window.currentSkill;
-    
-    if (!examData || !skill) {
-        console.warn('⚠️ لا توجد بيانات امتحان لإعادة البناء');
-        return;
-    }
-    
-    // تحديد الحاوية المناسبة
-    const containerId = getContainerId(skill);
-    const container = document.getElementById(containerId);
-    if (!container) {
-        console.warn(`⚠️ الحاوية ${containerId} غير موجودة`);
-        return;
-    }
-    
-    console.log(`🔄 إعادة بناء الامتحان في ${containerId} مع Interleaving: ${window.isInterleavingActive}`);
-    
-    // حفظ الإجابات الحالية إن وجدت
-    const savedAnswers = saveCurrentAnswers(skill);
-    
-    // إعادة بناء الأسئلة حسب النوع
-    switch(examData.type) {
-        case 'matching':
-            matchingSelectedAnswers = {};
-            matchingAvailableOptions = [...examData.sharedOptions];
-            renderMatchingQuestions();
-            break;
-        case 'truefalse':
-            if (window._trueFalseUserAnswers) {
-                delete window._trueFalseUserAnswers;
-            }
-            window._trueFalseUserAnswers = {};
-            buildTrueFalseExam(container, examData.questions, examData.note);
-            break;
-        case 'teil2':
-            teil2UserAnswers = {};
-            renderTeil2Exam();
-            break;
-        case 'teil3':
-            teil3UserAnswers = {};
-            teil3SelectedItem = null;
-            teil3SelectedSit = null;
-            renderTeil3Exam();
-            break;
-        case 'sprach1':
-            sprach1UserAnswers = {};
-            renderSprach1Exam();
-            break;
-        case 'sprach2':
-            sprach2UserAnswers = {};
-            sprach2SelectedQuestionId = null;
-            sprach2SelectedWordForLinking = null;
-            renderSprach2Exam();
-            break;
-        case 'schreiben':
-            renderSchreibenExam();
-            break;
-        default:
-            if (examData.questions && examData.questions.length > 0) {
-                buildTeil1(examData.questions);
-            }
-    }
-    
-    // استعادة الإجابات إن وجدت
-    restoreSavedAnswers(skill, savedAnswers);
-    
-    // إعادة تطبيق التلوين إذا كان مفعلاً
-    if (window.memoryEngine && window.memoryEngine.isActive) {
-        setTimeout(() => {
-            window.memoryEngine.applyHighlights();
-        }, 200);
-    }
-    
-    // إعادة تطبيق أنماط الهاتف
-    setTimeout(applyMobileStylesToEngine, 100);
-}
-
-// ✅ دالة حفظ الإجابات الحالية
-function saveCurrentAnswers(skill) {
-    const answers = {};
-    
-    if (skill === 'lesen1' || skill === 'matching') {
-        answers.answers = {...matchingSelectedAnswers};
-        answers.type = 'matching';
-    } else if (skill === 'lesen2') {
-        answers.answers = {...teil2UserAnswers};
-        answers.type = 'teil2';
-    } else if (skill === 'lesen3') {
-        answers.answers = {...teil3UserAnswers};
-        answers.type = 'teil3';
-    } else if (skill === 'sprach1') {
-        answers.answers = {...sprach1UserAnswers};
-        answers.type = 'sprach1';
-    } else if (skill === 'sprach2') {
-        answers.answers = {...sprach2UserAnswers};
-        answers.type = 'sprach2';
-    } else if (skill === 'hoeren1' || skill === 'hoeren2' || skill === 'hoeren3') {
-        answers.answers = {...window._trueFalseUserAnswers};
-        answers.type = 'truefalse';
-    }
-    
-    return answers;
-}
-
-// ✅ دالة استعادة الإجابات
-function restoreSavedAnswers(skill, savedAnswers) {
-    if (!savedAnswers || !savedAnswers.answers) return;
-    
-    const answers = savedAnswers.answers;
-    
-    switch(savedAnswers.type) {
-        case 'matching':
-            for (let key in answers) {
-                matchingSelectedAnswers[key] = answers[key];
-                const select = document.querySelector(`#matching_q_${key} select`);
-                if (select) {
-                    select.value = answers[key];
-                }
-            }
-            break;
-        case 'teil2':
-            for (let key in answers) {
-                teil2UserAnswers[key] = answers[key];
-                const radio = document.querySelector(`input[name="teil2_q_${key}"][value="${answers[key]}"]`);
-                if (radio) radio.checked = true;
-            }
-            break;
-        case 'teil3':
-            for (let key in answers) {
-                teil3UserAnswers[key] = answers[key];
-                const select = document.getElementById(`teil3_select_${key}`);
-                if (select) {
-                    select.value = answers[key];
-                }
-            }
-            updateTeil3RightSideColors();
-            break;
-        case 'sprach1':
-            for (let key in answers) {
-                sprach1UserAnswers[key] = answers[key];
-                const btn = document.getElementById(`sprach1_btn_${key}`);
-                if (btn) {
-                    btn.textContent = answers[key];
-                    btn.style.backgroundColor = "#d4edda";
-                    btn.style.color = "#155724";
-                }
-            }
-            break;
-        case 'sprach2':
-            for (let key in answers) {
-                sprach2UserAnswers[key] = answers[key];
-                const btn = document.getElementById(`sprach2_btn_${key}`);
-                if (btn) {
-                    btn.textContent = answers[key];
-                    btn.style.backgroundColor = "#d4edda";
-                    btn.style.border = "2px solid #28a745";
-                    btn.style.color = "#155724";
-                }
-            }
-            break;
-        case 'truefalse':
-            for (let key in answers) {
-                window._trueFalseUserAnswers[key] = answers[key];
-                const radio = document.querySelector(`input[name="q_${key}"][value="${answers[key] ? 'true' : 'false'}"]`);
-                if (radio) radio.checked = true;
-            }
-            break;
-    }
-}
-
-// ✅ دالة الحصول على معرف الحاوية حسب المهارة
-function getContainerId(skill) {
-    const map = {
-        'hoeren1': 'hoeren1',
-        'hoeren2': 'hoeren2',
-        'hoeren3': 'hoeren3',
-        'lesen1': 'teil1',
-        'lesen2': 'teil2',
-        'lesen3': 'teil3',
-        'sprach1': 'sprach1',
-        'sprach2': 'sprach2',
-        'schreiben': 'schreiben',
-        'mündlich': 'mündlich',
-        'tips': 'tips'
-    };
-    return map[skill] || skill;
-}
+window.isInterleavingActive = window.isInterleavingActive || false;
 
 // ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
 function toggleInterleaving() {
@@ -3631,13 +3581,19 @@ function toggleInterleaving() {
     const btn = document.getElementById('interleavingBtn');
     if (btn) {
         btn.classList.toggle('active');
-        btn.textContent = window.isInterleavingActive ? '🔄 Interleaving: ON' : '🔄 Interleaving: OFF';
     }
     
     console.log(`🔄 Interleaving: ${window.isInterleavingActive ? 'مفعّل ✅' : 'معطّل ❌'}`);
     
-    // ✅ إعادة بناء الأسئلة فقط (بدون إعادة تحميل JSON)
-    rebuildCurrentExam();
+    // ✅ إعادة بناء البطاقات فقط إذا كان الامتحان الحالي هو Hören Teil 1
+    const currentSkill = window.currentSkill;
+    if (currentSkill === 'hoeren1') {
+        rebuildTrueFalseCards();
+    } else {
+        console.log('⚠️ Interleaving يعمل حالياً فقط على Hören Teil 1');
+        window.isInterleavingActive = !window.isInterleavingActive;
+        if (btn) btn.classList.remove('active');
+    }
 }
 
 // ✅ دالة تهيئة الزر
@@ -3657,9 +3613,8 @@ function initInterleaving() {
     
     window.isInterleavingActive = false;
     btn.classList.remove('active');
-    btn.textContent = '🔄 Interleaving: OFF';
     
-    console.log('✅ زر Interleaving تم تهيئته');
+    console.log('✅ زر Interleaving تم تهيئته (Hören Teil 1 فقط)');
 }
 
 // ✅ دالة إعادة تعيين (عند فتح امتحان جديد)
@@ -3669,7 +3624,6 @@ function resetInterleaving() {
     const btn = document.getElementById('interleavingBtn');
     if (btn) {
         btn.classList.remove('active');
-        btn.textContent = '🔄 Interleaving: OFF';
     }
     
     console.log('🔄 تم إعادة تعيين Interleaving');
@@ -3679,9 +3633,7 @@ function resetInterleaving() {
 window.initInterleaving = initInterleaving;
 window.toggleInterleaving = toggleInterleaving;
 window.resetInterleaving = resetInterleaving;
-window.applyFixedOrderToArray = applyFixedOrderToArray;
-window.rebuildCurrentExam = rebuildCurrentExam;
+window.rebuildTrueFalseCards = rebuildTrueFalseCards;
 
-console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يعمل أثناء بناء الامتحان');
-console.log('📌 الضغط على زر Interleaving يعيد بناء الأسئلة فقط (بدون إعادة تحميل JSON)');
-console.log('📌 الترتيبات الثابتة متاحة لـ 5-15 سؤال');
+console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يعمل على Hören Teil 1 فقط');
+console.log("✅ engine.js تم تحميله بالكامل");
