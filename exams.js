@@ -1,6 +1,10 @@
 // ============================================
 // exams.js - نظام الامتحانات المتكامل مع نظام القفل وحفظ النتائج
 // ============================================
+
+// ✅ تعريف حالة Interleaving (يتم التحكم بها من engine.js)
+window.isInterleavingActive = false;
+
 const teile = [
   { id: 1, name: "Hören 1", container: "hoeren1", skill: "hoeren1" },
   { id: 2, name: "Hören 2", container: "hoeren2", skill: "hoeren2" },
@@ -1108,17 +1112,17 @@ async function openExam(examId, examTitle, skill) {
     // ✅ تهيئة Interleaving بعد تحميل الامتحان
     // ============================================================
     
-// في نهاية دالة openExam، بعد showTeil
-if (window.resetInterleaving) {
-    window.resetInterleaving();
-}
-
-// تهيئة الزر بعد تحميل الامتحان
-requestAnimationFrame(() => {
-    if (window.initInterleaving) {
-        window.initInterleaving();
+    // إعادة تعيين Interleaving عند فتح امتحان جديد
+    if (window.resetInterleaving) {
+        window.resetInterleaving();
     }
-});
+    
+    // تهيئة الزر بعد تحميل الامتحان
+    requestAnimationFrame(() => {
+        if (window.initInterleaving) {
+            window.initInterleaving();
+        }
+    });
     
   } catch(e) {
     console.error("❌ خطأ:", e);
