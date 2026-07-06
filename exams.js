@@ -796,7 +796,7 @@ function renderMündlichPartTabs() {
 
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
-  
+  window.currentSkill = skill;  // ✅ تعيين currentSkill للاستخدام العام
   const container = document.getElementById("examsList");
   if (!container) return;
   container.innerHTML = "";
@@ -1651,4 +1651,4 @@ console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich1.length, "قس�
 console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich2.length, "امتحان");
 console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich3.length, "قسم");
 console.log("💡 Tips:", examsDatabase.tips.length, "قسم");
-}
+
