@@ -1014,7 +1014,11 @@ async function openExam(examId, examTitle, skill) {
   
   currentExamId = examId;
   currentSkill = skill;
-   window.currentSkill = skill;  
+  
+  // ✅ تعيين القيم للاستخدام العام (مطلوب لـ Interleaving و Memory Engine)
+  window.currentSkill = skill;
+  window.currentExamId = examId;
+  
   if (shouldHideHelpButton(skill)) {
     const helpBtn = document.getElementById('globalHelpButton');
     if (helpBtn) helpBtn.style.display = "none";
@@ -1129,7 +1133,6 @@ async function openExam(examId, examTitle, skill) {
     alert("خطأ في تحميل الامتحان: " + e.message);
   }
 }  // ✅ هذا القوس يغلق دالة openExam
-
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
   if (currentSkill) {
