@@ -3374,11 +3374,19 @@ console.log("✅ engine.js تم تحميله بالكامل");
 // نظام Interleaving (ترتيب ثابت) - يعمل أثناء بناء الامتحان
 // ============================================
 
-// الترتيب الثابت لكل عدد من الأسئلة
+// ✅ الترتيبات الثابتة لكل عدد من الأسئلة
 const FIXED_ORDERS = {
     5: [2, 4, 1, 5, 3],
+    6: [3, 5, 1, 6, 2, 4],
+    7: [3, 6, 1, 5, 7, 2, 4],
+    8: [4, 6, 1, 8, 3, 7, 2, 5],
+    9: [4, 7, 1, 9, 3, 6, 8, 2, 5],
     10: [3, 7, 1, 9, 5, 10, 2, 8, 4, 6],
-    12: [4, 8, 1, 11, 6, 2, 10, 5, 12, 3, 9, 7]
+    11: [4, 8, 1, 10, 6, 2, 9, 11, 3, 7, 5],
+    12: [4, 8, 1, 11, 6, 2, 10, 5, 12, 3, 9, 7],
+    13: [5, 9, 1, 12, 7, 3, 10, 13, 4, 8, 11, 2, 6],
+    14: [5, 9, 1, 13, 7, 3, 11, 6, 14, 2, 10, 12, 4, 8],
+    15: [6, 10, 1, 14, 8, 3, 12, 5, 15, 2, 9, 13, 4, 11, 7]
 };
 
 // ✅ حالة Interleaving
@@ -3386,8 +3394,12 @@ window.isInterleavingActive = false;
 
 // دالة الحصول على الترتيب الثابت
 function getFixedOrder(count) {
-    if (FIXED_ORDERS[count]) return FIXED_ORDERS[count];
+    // البحث عن ترتيب مطابق
+    if (FIXED_ORDERS[count]) {
+        return FIXED_ORDERS[count];
+    }
     
+    // إذا لم يكن موجوداً، نبحث عن أقرب ترتيب
     const keys = Object.keys(FIXED_ORDERS).map(Number).sort((a, b) => a - b);
     let bestKey = keys[0];
     for (let key of keys) {
@@ -3416,6 +3428,8 @@ function applyFixedOrderToArray(cards) {
         return orderedCards;
     }
     
+    // إذا لم ينجح الترتيب، نعيد المصفوفة الأصلية
+    console.warn(`⚠️ Interleaving: فشل ترتيب البطاقات، استخدم الترتيب الأصلي`);
     return cards;
 }
 
@@ -3439,10 +3453,12 @@ function rebuildCurrentExam() {
     
     console.log(`🔄 إعادة بناء الامتحان في ${containerId} مع Interleaving: ${window.isInterleavingActive}`);
     
+    // حفظ الإجابات الحالية إن وجدت
+    const savedAnswers = saveCurrentAnswers(skill);
+    
     // إعادة بناء الأسئلة حسب النوع
     switch(examData.type) {
         case 'matching':
-            // إعادة تعيين البيانات
             matchingSelectedAnswers = {};
             matchingAvailableOptions = [...examData.sharedOptions];
             renderMatchingQuestions();
@@ -3483,6 +3499,9 @@ function rebuildCurrentExam() {
             }
     }
     
+    // استعادة الإجابات إن وجدت
+    restoreSavedAnswers(skill, savedAnswers);
+    
     // إعادة تطبيق التلوين إذا كان مفعلاً
     if (window.memoryEngine && window.memoryEngine.isActive) {
         setTimeout(() => {
@@ -3492,6 +3511,99 @@ function rebuildCurrentExam() {
     
     // إعادة تطبيق أنماط الهاتف
     setTimeout(applyMobileStylesToEngine, 100);
+}
+
+// ✅ دالة حفظ الإجابات الحالية
+function saveCurrentAnswers(skill) {
+    const answers = {};
+    
+    if (skill === 'lesen1' || skill === 'matching') {
+        answers.answers = {...matchingSelectedAnswers};
+        answers.type = 'matching';
+    } else if (skill === 'lesen2') {
+        answers.answers = {...teil2UserAnswers};
+        answers.type = 'teil2';
+    } else if (skill === 'lesen3') {
+        answers.answers = {...teil3UserAnswers};
+        answers.type = 'teil3';
+    } else if (skill === 'sprach1') {
+        answers.answers = {...sprach1UserAnswers};
+        answers.type = 'sprach1';
+    } else if (skill === 'sprach2') {
+        answers.answers = {...sprach2UserAnswers};
+        answers.type = 'sprach2';
+    } else if (skill === 'hoeren1' || skill === 'hoeren2' || skill === 'hoeren3') {
+        answers.answers = {...window._trueFalseUserAnswers};
+        answers.type = 'truefalse';
+    }
+    
+    return answers;
+}
+
+// ✅ دالة استعادة الإجابات
+function restoreSavedAnswers(skill, savedAnswers) {
+    if (!savedAnswers || !savedAnswers.answers) return;
+    
+    const answers = savedAnswers.answers;
+    
+    switch(savedAnswers.type) {
+        case 'matching':
+            for (let key in answers) {
+                matchingSelectedAnswers[key] = answers[key];
+                const select = document.querySelector(`#matching_q_${key} select`);
+                if (select) {
+                    select.value = answers[key];
+                }
+            }
+            break;
+        case 'teil2':
+            for (let key in answers) {
+                teil2UserAnswers[key] = answers[key];
+                const radio = document.querySelector(`input[name="teil2_q_${key}"][value="${answers[key]}"]`);
+                if (radio) radio.checked = true;
+            }
+            break;
+        case 'teil3':
+            for (let key in answers) {
+                teil3UserAnswers[key] = answers[key];
+                const select = document.getElementById(`teil3_select_${key}`);
+                if (select) {
+                    select.value = answers[key];
+                }
+            }
+            updateTeil3RightSideColors();
+            break;
+        case 'sprach1':
+            for (let key in answers) {
+                sprach1UserAnswers[key] = answers[key];
+                const btn = document.getElementById(`sprach1_btn_${key}`);
+                if (btn) {
+                    btn.textContent = answers[key];
+                    btn.style.backgroundColor = "#d4edda";
+                    btn.style.color = "#155724";
+                }
+            }
+            break;
+        case 'sprach2':
+            for (let key in answers) {
+                sprach2UserAnswers[key] = answers[key];
+                const btn = document.getElementById(`sprach2_btn_${key}`);
+                if (btn) {
+                    btn.textContent = answers[key];
+                    btn.style.backgroundColor = "#d4edda";
+                    btn.style.border = "2px solid #28a745";
+                    btn.style.color = "#155724";
+                }
+            }
+            break;
+        case 'truefalse':
+            for (let key in answers) {
+                window._trueFalseUserAnswers[key] = answers[key];
+                const radio = document.querySelector(`input[name="q_${key}"][value="${answers[key] ? 'true' : 'false'}"]`);
+                if (radio) radio.checked = true;
+            }
+            break;
+    }
 }
 
 // ✅ دالة الحصول على معرف الحاوية حسب المهارة
@@ -3519,6 +3631,7 @@ function toggleInterleaving() {
     const btn = document.getElementById('interleavingBtn');
     if (btn) {
         btn.classList.toggle('active');
+        btn.textContent = window.isInterleavingActive ? '🔄 Interleaving: ON' : '🔄 Interleaving: OFF';
     }
     
     console.log(`🔄 Interleaving: ${window.isInterleavingActive ? 'مفعّل ✅' : 'معطّل ❌'}`);
@@ -3544,6 +3657,7 @@ function initInterleaving() {
     
     window.isInterleavingActive = false;
     btn.classList.remove('active');
+    btn.textContent = '🔄 Interleaving: OFF';
     
     console.log('✅ زر Interleaving تم تهيئته');
 }
@@ -3555,6 +3669,7 @@ function resetInterleaving() {
     const btn = document.getElementById('interleavingBtn');
     if (btn) {
         btn.classList.remove('active');
+        btn.textContent = '🔄 Interleaving: OFF';
     }
     
     console.log('🔄 تم إعادة تعيين Interleaving');
@@ -3569,3 +3684,4 @@ window.rebuildCurrentExam = rebuildCurrentExam;
 
 console.log('✅ نظام Interleaving (ترتيب ثابت) جاهز - يعمل أثناء بناء الامتحان');
 console.log('📌 الضغط على زر Interleaving يعيد بناء الأسئلة فقط (بدون إعادة تحميل JSON)');
+console.log('📌 الترتيبات الثابتة متاحة لـ 5-15 سؤال');
