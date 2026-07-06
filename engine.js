@@ -3637,7 +3637,6 @@ function rebuildTrueFalseCards() {
 // إصلاح زر Interleaving - نسخة معدلة
 // ============================================
 
-// ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
 function toggleInterleaving() {
     console.log("🔄 تم الضغط على زر Interleaving");
     
@@ -3661,7 +3660,7 @@ function toggleInterleaving() {
     console.log(`🔄 Interleaving: ${window.isInterleavingActive ? 'مفعّل ✅' : 'معطّل ❌'}`);
     
     // ✅ إعادة بناء البطاقات فقط إذا كان الامتحان الحالي هو Hören Teil 1
-    const currentSkill = window.currentSkill || currentSkill;
+    const currentSkill = window.currentSkill || 'hoeren1';  // ✅ هذا السطر صحيح
     console.log(`📌 currentSkill: ${currentSkill}`);
     
     if (currentSkill === 'hoeren1') {
