@@ -1469,7 +1469,7 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
   setTimeout(() => {
     resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, 100);
-}
+
 
 // ============================================
 // نظام Teil 1 (Lesen Teil 1 - Matching)
