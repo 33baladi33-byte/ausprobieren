@@ -1135,9 +1135,8 @@ window.buildTrueFalseExam = function(container, questions, note) {
       }
   }
   
-  for (let i = 0; i < finalQuestions.length; i++) {
-      const q = finalQuestions[i];
-    const q = questions[i];
+ for (let i = 0; i < finalQuestions.length; i++) {
+    const q = finalQuestions[i];
     const div = document.createElement('div');
     div.className = 'question-card';
     div.style.display = 'flex';
@@ -1314,9 +1313,41 @@ window.buildTrueFalseExam = function(container, questions, note) {
     container.appendChild(resultDiv);
   }
 };
-
 function checkTrueFalseExam(container, questions, answers, correctNumbersContainer) {
-  if (!questions || !Array.isArray(questions) || questions.length === 0) {
+    // ✅ إذا كان Hören Teil 1 ولدينا الأسئلة الأصلية، نستخدمها للتصحيح
+    let questionsToCheck = questions;
+    if (container.id === 'hoeren1' && _hoeren1OriginalQuestions.length > 0) {
+        questionsToCheck = _hoeren1OriginalQuestions;
+    }
+    
+    if (!questionsToCheck || !Array.isArray(questionsToCheck) || questionsToCheck.length === 0) {
+        console.error("❌ خطأ: لا توجد أسئلة للتصحيح");
+        let resultDiv = container.querySelector('#truefalseResult');
+        if (!resultDiv) {
+            resultDiv = document.createElement('div');
+            resultDiv.id = 'truefalseResult';
+            resultDiv.className = 'result-box';
+            container.appendChild(resultDiv);
+        }
+        resultDiv.innerHTML = " لا توجد أسئلة في هذا الامتحان";
+        resultDiv.style.display = 'block';
+        return;
+    }
+    
+    let score = 0;
+    const total = questionsToCheck.length;
+    const pointsPerQuestion = 25 / total;
+    
+    const cards = container.querySelectorAll('.question-card');
+    
+    for (let i = 0; i < questionsToCheck.length; i++) {
+        const q = questionsToCheck[i];
+        const card = cards[i];
+        const userAnswer = answers[i];
+        const isCorrect = (userAnswer === q.correct);
+        
+        // ... باقي الكود كما هو ...
+    }
     console.error("❌ خطأ: لا توجد أسئلة للتصحيح");
     let resultDiv = container.querySelector('#truefalseResult');
     if (!resultDiv) {
