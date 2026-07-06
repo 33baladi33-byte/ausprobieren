@@ -3656,7 +3656,36 @@ function rebuildTrueFalseCards() {
         });
         window._trueFalseUserAnswers = savedAnswers;
     }
+        console.log("===== FINAL HTML =====");
+    console.log(_hoeren1Container.innerText);
     
+    console.log("===== FIRST CARD =====");
+    const firstCard = _hoeren1Container.querySelector(".question-card span");
+    console.log(firstCard ? firstCard.innerText : "لا توجد بطاقات");
+    
+    console.log("===== CONTAINER CHECK =====");
+    console.log("عدد hoeren1 =", document.querySelectorAll("#hoeren1").length);
+    document.querySelectorAll("#hoeren1").forEach((e, i) => {
+        console.log(
+            i,
+            e,
+            getComputedStyle(e).display,
+            e.getBoundingClientRect()
+        );
+    });
+    
+    console.log("===== VISIBLE CONTAINER =====");
+    const visibleHoeren1 = document.getElementById("hoeren1");
+    console.log("visibleHoeren1:", visibleHoeren1);
+    console.log("_hoeren1Container === visibleHoeren1?", _hoeren1Container === visibleHoeren1);
+    console.log("_hoeren1Container.style.display:", _hoeren1Container.style.display);
+    console.log("visibleHoeren1.style.display:", visibleHoeren1?.style.display);
+    
+    console.log("===== FIRST CARD TEXT IN DOM =====");
+    const allSpans = document.querySelectorAll("#hoeren1 .question-card span");
+    allSpans.forEach((span, idx) => {
+        console.log(`span ${idx + 1}:`, span.innerText);
+    });
     console.log("========== END REBUILD ==========");
 }
 // ============================================
