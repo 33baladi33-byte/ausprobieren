@@ -1108,27 +1108,21 @@ async function openExam(examId, examTitle, skill) {
       showTeil(10);
     }
     
-    // ============================================================
-    // ✅ تهيئة Interleaving بعد تحميل الامتحان
-    // ============================================================
-    
-    // إعادة تعيين Interleaving عند فتح امتحان جديد
-    if (window.resetInterleaving) {
-        window.resetInterleaving();
-    }
-    
-    // تهيئة الزر بعد تحميل الامتحان
-    requestAnimationFrame(() => {
-        if (window.initInterleaving) {
-            window.initInterleaving();
-        }
-    });
-    
-  } catch(e) {
-    console.error("❌ خطأ:", e);
-    alert("خطأ في تحميل الامتحان: " + e.message);
-  }
+// ============================================================
+// ✅ تهيئة Interleaving بعد تحميل الامتحان
+// ============================================================
+
+// إعادة تعيين Interleaving عند فتح امتحان جديد
+if (window.resetInterleaving) {
+    window.resetInterleaving();
 }
+
+// تهيئة الزر بعد تحميل الامتحان
+requestAnimationFrame(() => {
+    if (window.initInterleaving) {
+        window.initInterleaving();
+    }
+});
 
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
