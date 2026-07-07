@@ -3671,35 +3671,6 @@ console.log('✅ نظام Interleaving جاهز - يعمل على Hören و Lese
 console.log("✅ engine.js تم تحميله");
 
 // ============================================
-// بيانات Hören للأجزاء الثلاثة
-// ============================================
-const _hoerenData = {
-    hoeren1: { container: null, questions: [], note: '', originalQuestions: [] },
-    hoeren2: { container: null, questions: [], note: '', originalQuestions: [] },
-    hoeren3: { container: null, questions: [], note: '', originalQuestions: [] }
-};
-
-// ترتيب Interleaving لكل Teil (قابل للتعديل)
-const interleavingOrders = {
-    hoeren1: [2, 4, 1, 5, 3],
-    hoeren2: [3, 7, 1, 9, 5, 10, 2, 6, 4, 8],
-    hoeren3: [2, 4, 1, 5, 3]
-};
-
-window.loadExamFromFile = async function(skill, examId) {
-  try {
-    const response = await fetch(`data/${skill}/exam${examId}.json`);
-    if (response.ok) {
-      return await response.json();
-    }
-    return null;
-  } catch(e) {
-    console.error("خطأ:", e);
-    return null;
-  }
-};
-
-// ============================================
 // نظام Schreiben
 // ============================================
 
