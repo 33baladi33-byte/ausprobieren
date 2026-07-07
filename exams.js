@@ -996,6 +996,7 @@ function shouldHideHelpButton(skill) {
   return hiddenSkills.includes(skill);
 }
 
+
 async function openExam(examId, examTitle, skill) {
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
@@ -1113,28 +1114,36 @@ async function openExam(examId, examTitle, skill) {
     }
     
     // ============================================================
-    // ✅ تهيئة Interleaving بعد تحميل الامتحان
+    // ✅ ✅ ✅ التعديل الجديد لحل مشاكل Interleaving ✅ ✅ ✅
     // ============================================================
+    // 1. التأكد من إظهار الحاوية الخاصة بالجزء الحالي
+    const containerEl = document.getElementById(skill);
+    if (containerEl) {
+        containerEl.style.display = 'block';
+    }
 
-    // إعادة تعيين Interleaving عند فتح امتحان جديد
+    // 2. إعادة تعيين Interleaving (يعيد تعيين الحالة ويبني البطاقات إذا كان الامتحان مفتوحاً)
     if (typeof window.resetInterleaving === 'function') {
         window.resetInterleaving();
     }
 
-    // تهيئة الزر بعد تحميل الامتحان مع تأخير أطول
-    setTimeout(function() {
-        if (typeof window.initInterleaving === 'function') {
-            console.log('🔄 تهيئة Interleaving بعد تحميل الامتحان...');
-            window.initInterleaving();
-        } else {
-            console.warn('⚠️ initInterleaving غير موجودة!');
-        }
-    }, 500);
+    // 3. تهيئة زر Interleaving (ربط الأحداث)
+    if (typeof window.initInterleaving === 'function') {
+        console.log('🔄 تهيئة Interleaving بعد تحميل الامتحان...');
+        window.initInterleaving();
+    }
+
+    // 4. إذا كان Interleaving مفعلاً، نعيد بناء البطاقات فوراً لضمان الترتيب الصحيح
+    if (window.isInterleavingActive && typeof window.rebuildTrueFalseCards === 'function') {
+        console.log('🔄 إعادة بناء البطاقات لأن Interleaving مفعّل');
+        window.rebuildTrueFalseCards();
+    }
     
   } catch(e) {
     console.error("❌ خطأ:", e);
     alert("خطأ في تحميل الامتحان: " + e.message);
   }
+}
 }  // ✅ هذا القوس يغلق دالة openExam
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
