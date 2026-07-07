@@ -3849,7 +3849,7 @@ function rebuildLesen1() {
     }
     
     // ✅ الحصول على البطاقات فقط
-    const cards = [...container.querySelectorAll(":scope > .question-card")];
+  const cards = [...container.querySelectorAll(".question-card")];
     if (cards.length === 0) {
         console.warn("⚠️ لا توجد بطاقات في #teil1");
         return;
