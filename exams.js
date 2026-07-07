@@ -1139,11 +1139,11 @@ async function openExam(examId, examTitle, skill) {
         window.initInterleaving();
     }
 
-    // 4. ✅ إعادة بناء البطاقات فقط لـ Hören Teil 1,2,3
-    if (skill.startsWith('hoeren') && typeof window.rebuildTrueFalseCards === 'function') {
-        console.log('🔄 إعادة بناء بطاقات Hören بعد تحميل الامتحان');
-        window.rebuildTrueFalseCards();
-    }
+// 4. ✅ إعادة بناء البطاقات فقط لـ Hören Teil 1,2,3
+if (skill.startsWith('hoeren') && typeof window.rebuildTrueFalseCards === 'function') {
+    console.log('🔄 إعادة بناء بطاقات Hören بعد تحميل الامتحان');
+    window.rebuildTrueFalseCards();
+}
     
   } catch(e) {
     console.error("❌ خطأ:", e);
