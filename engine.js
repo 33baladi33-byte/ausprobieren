@@ -1,134 +1,24 @@
 // ============================================
-// engine.js - محرك الامتحانات المتكامل (النسخة النهائية - مع دعم Interleaving لجميع الأقسام)
+// engine.js - محرك الامتحانات المتكامل (النسخة النهائية - مع إصلاحات Interleaving)
 // ============================================
 
 console.log("✅ engine.js تم تحميله");
 
 // ============================================
-// بيانات الأقسام (Hören و Lesen)
+// بيانات Hören للأجزاء الثلاثة
 // ============================================
-const _sectionData = {
+const _hoerenData = {
     hoeren1: { container: null, questions: [], note: '', originalQuestions: [] },
     hoeren2: { container: null, questions: [], note: '', originalQuestions: [] },
-    hoeren3: { container: null, questions: [], note: '', originalQuestions: [] },
-    teil1: { container: null, questions: [], note: '', originalQuestions: [] },
-    teil2: { container: null, questions: [], note: '', originalQuestions: [] },
-    teil3: { container: null, questions: [], note: '', originalQuestions: [] }
+    hoeren3: { container: null, questions: [], note: '', originalQuestions: [] }
 };
 
-// ترتيب Interleaving لكل قسم (قابل للتعديل)
+// ترتيب Interleaving لكل Teil (قابل للتعديل)
 const interleavingOrders = {
     hoeren1: [2, 4, 1, 5, 3],
     hoeren2: [3, 7, 1, 9, 5, 10, 2, 6, 4, 8],
-    hoeren3: [2, 4, 1, 5, 3],
-    teil1: [3, 1, 4, 2, 5],
-    teil2: [2, 5, 1, 4, 3],
-    teil3: [4, 1, 3, 2, 5, 7, 6, 9, 8, 10, 12, 11]
+    hoeren3: [2, 4, 1, 5, 3]
 };
-
-// ============================================
-// دالة العثور على الحاوية النشطة
-// ============================================
-function findActiveContainer(skill) {
-    const containerIds = ['hoeren1', 'hoeren2', 'hoeren3', 'teil1', 'teil2', 'teil3'];
-    
-    if (containerIds.includes(skill)) {
-        const container = document.getElementById(skill);
-        if (container && container.querySelectorAll('.question-card').length > 0) {
-            return container;
-        }
-    }
-    
-    for (let id of containerIds) {
-        const container = document.getElementById(id);
-        if (container && container.querySelectorAll('.question-card').length > 0 && container.style.display !== 'none') {
-            return container;
-        }
-    }
-    
-    const cards = document.querySelectorAll('.question-card');
-    if (cards.length > 0) {
-        const container = cards[0].closest('#hoeren1, #hoeren2, #hoeren3, #teil1, #teil2, #teil3');
-        if (container) {
-            return container;
-        }
-    }
-    
-    return null;
-}
-
-// ============================================
-// دالة استخراج الأسئلة من DOM
-// ============================================
-function extractQuestionsFromDOM(container) {
-    const cards = container.querySelectorAll('.question-card');
-    const questions = [];
-    
-    cards.forEach((card, index) => {
-        let text = '';
-        let correct = false;
-        
-        // 1. Hören: استخراج النص من <span>
-        const span = card.querySelector('span');
-        if (span) {
-            text = span.textContent.replace(/^\d+\s+/, '').trim();
-        }
-        
-        // 2. Lesen 1,2: استخراج النص من .question-text
-        if (!text) {
-            const questionText = card.querySelector('.question-text');
-            if (questionText) {
-                text = questionText.textContent.replace(/^\d+\.?\s*/, '').trim();
-            }
-        }
-        
-        // 3. Lesen 3: استخراج النص من أي DIV
-        if (!text) {
-            const divs = card.querySelectorAll('div');
-            for (let div of divs) {
-                const divText = div.textContent.trim();
-                if (divText && 
-                    !divText.includes('Richtig') && 
-                    !divText.includes('Falsch') && 
-                    !divText.includes('Prüfen') &&
-                    !divText.includes('Anzeige') &&
-                    divText.length > 10) {
-                    text = divText;
-                    break;
-                }
-            }
-        }
-        
-        // 4. حل أخير
-        if (!text) {
-            const allText = card.textContent;
-            const lines = allText.split('\n').filter(line => line.trim());
-            for (let line of lines) {
-                const cleanLine = line.replace(/^\d+\s+/, '').trim();
-                if (cleanLine && 
-                    !cleanLine.includes('Richtig') && 
-                    !cleanLine.includes('Falsch') && 
-                    !cleanLine.includes('Prüfen') && 
-                    !cleanLine.includes('↺') &&
-                    cleanLine.length > 5) {
-                    text = cleanLine;
-                    break;
-                }
-            }
-        }
-        
-        if (text) {
-            questions.push({
-                text: text,
-                correct: correct,
-                displayNumber: index + 1,
-                originalIndex: index
-            });
-        }
-    });
-    
-    return questions;
-}
 
 window.loadExamFromFile = async function(skill, examId) {
   try {
@@ -1200,7 +1090,7 @@ function checkSprach1Exam() {
 }
 
 // ============================================
-// نظام True/False (Hören Teil 1,2,3 و Lesen 1,2,3) مع Interleaving
+// نظام True/False (Hören Teil 1,2,3) مع Interleaving
 // ============================================
 
 window.buildTrueFalseExam = function(container, questions, note) {
@@ -1213,21 +1103,22 @@ window.buildTrueFalseExam = function(container, questions, note) {
   }
   
   container.innerHTML = '';
-  container.style.display = 'block';
+  container.style.display = 'block'; // ✅ إظهار الحاوية دائماً
   
-  const skillId = container.id;
-  
-  // ✅ تخزين البيانات لكل قسم
-  const data = _sectionData[skillId];
-  if (data) {
-    data.container = container;
-    data.questions = questions.map((q, index) => ({
-      ...q,
-      displayNumber: index + 1
-    }));
-    data.note = note || '';
-    data.originalQuestions = data.questions.slice();
-    console.log(`✅ تم تخزين بيانات ${skillId}`);
+  const skillId = container.id; // hoeren1, hoeren2, hoeren3
+  // ✅ تخزين البيانات لكل Teil حسب container.id
+  if (skillId.startsWith('hoeren')) {
+    const data = _hoerenData[skillId];
+    if (data) {
+      data.container = container;
+      data.questions = questions.map((q, index) => ({
+        ...q,
+        displayNumber: index + 1
+      }));
+      data.note = note || '';
+      data.originalQuestions = data.questions.slice();
+      console.log(`✅ تم تخزين بيانات ${skillId}`);
+    }
   }
   
   if (window._trueFalseUserAnswers) {
@@ -1250,7 +1141,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
   }
   
   let finalQuestions = questions;
-  if (window.isInterleavingActive) {
+  if (skillId.startsWith('hoeren') && window.isInterleavingActive) {
     const order = interleavingOrders[skillId];
     if (order && order.length === questions.length) {
       const orderedQuestions = [];
@@ -1268,6 +1159,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
   
   for (let i = 0; i < finalQuestions.length; i++) {
     const q = finalQuestions[i];
+    // ✅ استخدام displayNumber كمفتاح للبطاقة (وليس الفهرس)
     const questionId = q.displayNumber;
     
     const div = document.createElement('div');
@@ -1386,7 +1278,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
   checkBtn.style.fontSize = '16px';
 
   checkBtn.onclick = () => {
-    const data = _sectionData[skillId];
+    const data = _hoerenData[skillId];
     const questionsToCheck = (data && data.originalQuestions.length > 0) 
         ? data.originalQuestions 
         : finalQuestions;
@@ -1455,12 +1347,13 @@ window.buildTrueFalseExam = function(container, questions, note) {
 };
 
 // ============================================
-// دالة التصحيح لـ Hören و Lesen
+// دالة التصحيح لـ Hören Teil 1,2,3 - النسخة النهائية مع دعم Interleaving
 // ============================================
 function checkTrueFalseExam(container, questions, answers, correctNumbersContainer) {
+    // ✅ تحديد الأسئلة التي سنستخدمها للتصحيح
     let questionsToCheck = questions;
     const skillId = container.id;
-    const data = _sectionData[skillId];
+    const data = _hoerenData[skillId];
     if (data && data.originalQuestions && data.originalQuestions.length > 0) {
         questionsToCheck = data.originalQuestions;
     }
@@ -1483,30 +1376,39 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
     const total = questionsToCheck.length;
     const pointsPerQuestion = 25 / total;
     
+    // ✅ الحصول على جميع البطاقات المعروضة
     const cards = container.querySelectorAll('.question-card');
     
+    // ✅ التصحيح يعتمد على النص المعروض وليس على المعرف
     for (const card of cards) {
+        // ✅ استخراج النص من البطاقة
         const textSpan = card.querySelector('span');
         if (!textSpan) continue;
         
+        // ✅ استخراج الرقم المعروض من النص (مثل "2 Ein Bonner...")
         const match = textSpan.textContent.match(/^(\d+)\s+(.+)$/);
         if (!match) continue;
         
-        const displayNumber = parseInt(match[1]);
-        const questionText = match[2].trim();
+        const displayNumber = parseInt(match[1]); // الرقم المعروض (2, 4, 1, 5, 3)
+        const questionText = match[2].trim(); // نص السؤال
         
+        // ✅ البحث عن السؤال في القائمة الأصلية باستخدام displayNumber
         let q = null;
+        let qIndex = -1;
         for (let i = 0; i < questionsToCheck.length; i++) {
             if (questionsToCheck[i].displayNumber === displayNumber) {
                 q = questionsToCheck[i];
+                qIndex = i;
                 break;
             }
         }
         
+        // إذا لم نجد بالـ displayNumber، نبحث بالنص
         if (!q) {
             for (let i = 0; i < questionsToCheck.length; i++) {
                 if (questionsToCheck[i].text.trim() === questionText) {
                     q = questionsToCheck[i];
+                    qIndex = i;
                     break;
                 }
             }
@@ -1514,13 +1416,16 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         
         if (!q) continue;
         
+        // ✅ الحصول على إجابة المستخدم لهذا السؤال (باستخدام displayNumber)
         const userAnswer = answers[displayNumber];
         const isCorrect = (userAnswer === q.correct);
         
+        // ✅ تنظيف البطاقة من التصحيح السابق
         card.classList.remove('correct-answer-card', 'wrong-answer-card');
         const oldMsg = card.querySelector('.correct-message');
         if (oldMsg) oldMsg.remove();
         
+        // ✅ تقييم الإجابة
         if (isCorrect && userAnswer !== undefined) {
             score++;
             card.classList.add('correct-answer-card');
@@ -1537,6 +1442,7 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
             card.appendChild(correctMsg);
         }
         
+        // ✅ تلوين خيارات الإجابة
         const radios = card.querySelectorAll('input[type="radio"]');
         for (let r = 0; r < radios.length; r++) {
             const radio = radios[r];
@@ -1561,15 +1467,22 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         }
     }
     
+    // ✅ عرض الأرقام الصحيحة (مع الحفاظ على ترتيب العرض)
     if (correctNumbersContainer) {
         correctNumbersContainer.style.display = 'block';
         let correctNumbers = [];
+        
+        // ✅ نجمع أرقام البطاقات الصحيحة حسب ترتيب العرض
         for (const card of cards) {
             const textSpan = card.querySelector('span');
             if (!textSpan) continue;
+            
             const match = textSpan.textContent.match(/^(\d+)/);
             if (!match) continue;
+            
             const displayNumber = parseInt(match[1]);
+            
+            // ✅ نبحث عن هذا الرقم في القائمة الأصلية
             let q = null;
             for (let i = 0; i < questionsToCheck.length; i++) {
                 if (questionsToCheck[i].displayNumber === displayNumber) {
@@ -1577,10 +1490,12 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
                     break;
                 }
             }
+            
             if (q && q.correct === true) {
                 correctNumbers.push(displayNumber);
             }
         }
+        
         if (correctNumbers.length > 0) {
             correctNumbersContainer.innerHTML = `▸ الإجابات الصحيحة: ${correctNumbers.join(" - ")}`;
         } else {
@@ -1588,6 +1503,7 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         }
     }
     
+    // ✅ حساب النتيجة وعرضها
     const finalScore = (score * pointsPerQuestion).toFixed(2);
     
     let resultDiv = container.querySelector('#truefalseResult');
@@ -1623,344 +1539,6 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
     setTimeout(() => {
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
-}
-
-// ============================================
-// دالة إعادة بناء البطاقات - تعتمد على DOM
-// ============================================
-function rebuildTrueFalseCards() {
-    console.log("========== REBUILD ==========");
-    
-    const activeSkill = window.currentSkill || 'hoeren1';
-    const container = findActiveContainer(activeSkill);
-    
-    if (!container) {
-        console.warn(`⚠️ لا توجد حاوية تحتوي على أسئلة لـ ${activeSkill}`);
-        console.log("========== END REBUILD (NO CONTAINER) ==========");
-        return;
-    }
-    
-    container.style.display = 'block';
-    console.log(`✅ الحاوية المستخدمة: ${container.id}`);
-    
-    // حفظ الإجابات الحالية
-    const savedAnswers = window._trueFalseUserAnswers ? {...window._trueFalseUserAnswers} : {};
-    
-    // استخراج الأسئلة من DOM
-    let questions = _sectionData[container.id]?.questions;
-    if (!questions || questions.length === 0) {
-        questions = extractQuestionsFromDOM(container);
-        if (questions.length === 0) {
-            console.warn(`⚠️ لا توجد أسئلة في ${container.id}`);
-            console.log("========== END REBUILD (NO QUESTIONS) ==========");
-            return;
-        }
-        if (!_sectionData[container.id]) {
-            _sectionData[container.id] = {};
-        }
-        _sectionData[container.id].questions = questions;
-        _sectionData[container.id].originalQuestions = questions.slice();
-        console.log(`✅ تم استخراج ${questions.length} سؤال من DOM`);
-    }
-    
-    console.log(`interleaving =`, window.isInterleavingActive);
-    
-    // تحديد الأسئلة المراد عرضها (مع الترتيب)
-    let questionsToUse = questions;
-    if (window.isInterleavingActive) {
-        const order = interleavingOrders[container.id];
-        if (order && order.length === questions.length) {
-            const ordered = [];
-            for (let idx of order) {
-                if (idx <= questions.length) {
-                    ordered.push(questions[idx - 1]);
-                }
-            }
-            if (ordered.length === questions.length) {
-                questionsToUse = ordered;
-                console.log(`✅ Interleaving: تم ترتيب الأسئلة (${container.id})`);
-            }
-        }
-    }
-    
-    console.log("questionsToUse:");
-    questionsToUse.forEach((q, i) => {
-        console.log(i + 1, q.text.slice(0, 60) + '...');
-    });
-    
-    // حذف البطاقات القديمة
-    const oldCards = container.querySelectorAll('.question-card');
-    oldCards.forEach(card => card.remove());
-    
-    // إزالة بقايا التصحيح القديم
-    window._trueFalseUserAnswers = {};
-    
-    const result = container.querySelector("#truefalseResult");
-    if (result) {
-        result.style.display = "none";
-        result.innerHTML = "";
-    }
-    
-    const numbers = container.querySelector("#truefalseCorrectNumbers");
-    if (numbers) {
-        numbers.style.display = "none";
-    }
-    
-    container.querySelectorAll('.correct-message').forEach(msg => msg.remove());
-    container.querySelectorAll('.question-card').forEach(card => {
-        card.classList.remove('correct-answer-card', 'wrong-answer-card');
-    });
-    container.querySelectorAll('.option-label').forEach(label => {
-        label.style.backgroundColor = 'white';
-        label.style.border = '1px solid #ccc';
-    });
-    
-    // العثور على حاوية الأزرار
-    let buttonsContainer = null;
-    let createNewButtons = false;
-    
-    const allDivs = container.querySelectorAll('div');
-    for (let el of allDivs) {
-        const btns = el.querySelectorAll('button');
-        if (btns.length >= 2) {
-            const hasPrüfen = btns[0].textContent.includes('Prüfen') || btns[1].textContent.includes('Prüfen');
-            const hasReset = btns[0].textContent === '↺' || btns[1].textContent === '↺';
-            if (hasPrüfen && hasReset) {
-                buttonsContainer = el;
-                break;
-            }
-        }
-    }
-    
-    if (!buttonsContainer) {
-        const checkBtn = container.querySelector('.check-btn');
-        if (checkBtn) {
-            let parent = checkBtn.parentElement;
-            while (parent && parent !== container) {
-                if (parent.querySelectorAll('button').length >= 2) {
-                    buttonsContainer = parent;
-                    break;
-                }
-                parent = parent.parentElement;
-            }
-        }
-    }
-    
-    if (!buttonsContainer) {
-        container.querySelectorAll('.check-btn').forEach(btn => {
-            const parent = btn.closest('div');
-            if (parent && parent.children.length <= 3) {
-                parent.remove();
-            } else {
-                btn.remove();
-            }
-        });
-        container.querySelectorAll('button').forEach(btn => {
-            if (btn.textContent === '↺') {
-                const parent = btn.closest('div');
-                if (parent && parent.children.length <= 2) {
-                    parent.remove();
-                } else {
-                    btn.remove();
-                }
-            }
-        });
-        createNewButtons = true;
-    }
-    
-    // إعادة إنشاء البطاقات
-    for (let i = 0; i < questionsToUse.length; i++) {
-        const q = questionsToUse[i];
-        const questionId = q.displayNumber || (i + 1);
-        
-        const div = document.createElement('div');
-        div.className = 'question-card';
-        div.dataset.questionId = questionId;
-        div.style.display = 'flex';
-        div.style.alignItems = 'center';
-        div.style.gap = '15px';
-        div.style.marginBottom = '12px';
-        div.style.flexWrap = 'wrap';
-        div.style.padding = '12px';
-        div.style.border = '1px solid #ddd';
-        div.style.borderRadius = '10px';
-        div.style.backgroundColor = '#f9f9f9';
-        div.id = `truefalse_card_${questionId}`;
-        
-        const labelTrue = document.createElement('label');
-        labelTrue.className = 'option-label';
-        labelTrue.style.display = 'inline-flex';
-        labelTrue.style.alignItems = 'center';
-        labelTrue.style.gap = '5px';
-        labelTrue.style.cursor = 'pointer';
-        labelTrue.style.marginRight = '15px';
-        labelTrue.style.padding = '5px 10px';
-        labelTrue.style.border = '1px solid #ccc';
-        labelTrue.style.borderRadius = '5px';
-        labelTrue.style.backgroundColor = 'white';
-        
-        const radioTrue = document.createElement('input');
-        radioTrue.type = 'radio';
-        radioTrue.name = `q_${questionId}`;
-        radioTrue.value = 'true';
-        radioTrue.id = `q_${questionId}_true`;
-        radioTrue.onchange = (function(qId) {
-            return function() {
-                window._trueFalseUserAnswers[qId] = true;
-            };
-        })(questionId);
-        labelTrue.appendChild(radioTrue);
-        labelTrue.appendChild(document.createTextNode(' Richtig'));
-        
-        const labelFalse = document.createElement('label');
-        labelFalse.className = 'option-label';
-        labelFalse.style.display = 'inline-flex';
-        labelFalse.style.alignItems = 'center';
-        labelFalse.style.gap = '5px';
-        labelFalse.style.cursor = 'pointer';
-        labelFalse.style.padding = '5px 10px';
-        labelFalse.style.border = '1px solid #ccc';
-        labelFalse.style.borderRadius = '5px';
-        labelFalse.style.backgroundColor = 'white';
-        
-        const radioFalse = document.createElement('input');
-        radioFalse.type = 'radio';
-        radioFalse.name = `q_${questionId}`;
-        radioFalse.value = 'false';
-        radioFalse.id = `q_${questionId}_false`;
-        radioFalse.onchange = (function(qId) {
-            return function() {
-                window._trueFalseUserAnswers[qId] = false;
-            };
-        })(questionId);
-        labelFalse.appendChild(radioFalse);
-        labelFalse.appendChild(document.createTextNode(' Falsch'));
-        
-        const textSpan = document.createElement('span');
-        textSpan.innerHTML = `<strong>${questionId}</strong> ${q.text}`;
-        textSpan.style.flex = '1';
-        textSpan.style.minWidth = '200px';
-        
-        div.appendChild(labelTrue);
-        div.appendChild(labelFalse);
-        div.appendChild(textSpan);
-        
-        if (buttonsContainer && buttonsContainer.parentNode === container) {
-            container.insertBefore(div, buttonsContainer);
-        } else {
-            container.appendChild(div);
-        }
-    }
-    
-    console.log("cards after rebuild =", container.querySelectorAll(".question-card").length);
-    
-    // إنشاء أزرار جديدة إذا لزم الأمر
-    if (createNewButtons || !buttonsContainer) {
-        const newButtonContainer = document.createElement('div');
-        newButtonContainer.style.display = "flex";
-        newButtonContainer.style.gap = "15px";
-        newButtonContainer.style.justifyContent = "space-between";
-        newButtonContainer.style.alignItems = "center";
-        newButtonContainer.style.marginTop = "25px";
-        
-        const correctNumbersContainer = document.createElement('div');
-        correctNumbersContainer.id = "truefalseCorrectNumbers";
-        correctNumbersContainer.style.backgroundColor = "#e3f2fd";
-        correctNumbersContainer.style.color = "#0d47a1";
-        correctNumbersContainer.style.padding = "10px 15px";
-        correctNumbersContainer.style.borderRadius = "8px";
-        correctNumbersContainer.style.fontWeight = "bold";
-        correctNumbersContainer.style.fontSize = "14px";
-        correctNumbersContainer.style.border = "1px solid #90caf9";
-        correctNumbersContainer.style.display = "none";
-        correctNumbersContainer.innerHTML = '▸ : ';
-        
-        const buttonsDiv = document.createElement('div');
-        buttonsDiv.style.display = 'flex';
-        buttonsDiv.style.gap = '15px';
-        
-        const checkBtnNew = document.createElement('button');
-        checkBtnNew.innerText = '📝 Prüfen';
-        checkBtnNew.className = 'check-btn';
-        checkBtnNew.style.padding = '12px 24px';
-        checkBtnNew.style.backgroundColor = '#2c3e66';
-        checkBtnNew.style.color = 'white';
-        checkBtnNew.style.border = 'none';
-        checkBtnNew.style.borderRadius = '8px';
-        checkBtnNew.style.cursor = 'pointer';
-        checkBtnNew.style.fontSize = '16px';
-        checkBtnNew.onclick = () => {
-            const data = _sectionData[container.id];
-            const questionsToCheck = (data && data.originalQuestions && data.originalQuestions.length > 0) 
-                ? data.originalQuestions 
-                : questions;
-            checkTrueFalseExam(container, questionsToCheck, window._trueFalseUserAnswers, correctNumbersContainer);
-        };
-        
-        const resetBtnNew = document.createElement('button');
-        resetBtnNew.innerText = '↺';
-        resetBtnNew.style.padding = '8px 12px';
-        resetBtnNew.style.backgroundColor = '#6c757d';
-        resetBtnNew.style.color = 'white';
-        resetBtnNew.style.border = 'none';
-        resetBtnNew.style.borderRadius = '6px';
-        resetBtnNew.style.cursor = 'pointer';
-        resetBtnNew.style.fontSize = '16px';
-        resetBtnNew.style.fontWeight = 'bold';
-        resetBtnNew.onclick = function() {
-            for (let key in window._trueFalseUserAnswers) delete window._trueFalseUserAnswers[key];
-            container.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
-            container.querySelectorAll('.question-card').forEach(card => card.classList.remove('correct-answer-card', 'wrong-answer-card'));
-            container.querySelectorAll('.correct-message').forEach(msg => msg.remove());
-            container.querySelectorAll('.option-label').forEach(label => {
-                label.style.backgroundColor = 'white';
-                label.style.border = '1px solid #ccc';
-            });
-            correctNumbersContainer.style.display = 'none';
-            const resultDiv = container.querySelector('#truefalseResult');
-            if (resultDiv) {
-                resultDiv.style.display = 'none';
-                resultDiv.innerHTML = '';
-            }
-        };
-        
-        buttonsDiv.appendChild(checkBtnNew);
-        buttonsDiv.appendChild(resetBtnNew);
-        newButtonContainer.appendChild(correctNumbersContainer);
-        newButtonContainer.appendChild(buttonsDiv);
-        container.appendChild(newButtonContainer);
-        buttonsContainer = newButtonContainer;
-    }
-    
-    // استعادة الإجابات المحفوظة
-    if (Object.keys(savedAnswers).length > 0) {
-        const allRadios = container.querySelectorAll('input[type="radio"]');
-        allRadios.forEach(radio => {
-            const name = radio.name;
-            const match = name.match(/q_(\d+)/);
-            if (match) {
-                const qId = parseInt(match[1]);
-                if (savedAnswers[qId] !== undefined) {
-                    const expectedValue = savedAnswers[qId] ? 'true' : 'false';
-                    if (radio.value === expectedValue) {
-                        radio.checked = true;
-                    }
-                }
-            }
-        });
-        window._trueFalseUserAnswers = savedAnswers;
-    }
-    
-    console.log("===== FINAL HTML =====");
-    console.log(container.innerText.substring(0, 300));
-    
-    console.log("===== FIRST CARD TEXT IN DOM =====");
-    const allSpans = container.querySelectorAll(".question-card span");
-    allSpans.forEach((span, idx) => {
-        console.log(`span ${idx + 1}:`, span.innerText);
-    });
-    
-    console.log("========== END REBUILD ==========");
 }
 
 // ============================================
@@ -3911,13 +3489,368 @@ if (typeof checkTeil3Exam === 'function') {
 }
 
 // ============================================
-// دوال Interleaving - النسخة النهائية
+// دالة إعادة بناء بطاقات Hören (عامة لـ Teil 1,2,3) - النسخة المحسنة
 // ============================================
+function rebuildTrueFalseCards() {
+    console.log("========== REBUILD ==========");
+    
+    // ✅ تأكد من وجود currentSkill
+    if (!window.currentSkill) {
+        console.warn('⚠️ window.currentSkill غير معرف، استخدام hoeren1 كافتراضي');
+        window.currentSkill = 'hoeren1';
+    }
+    
+    // ✅ تحديد الـ Teil الحالي
+    const activeSkill = window.currentSkill || 'hoeren1';
+    const data = _hoerenData[activeSkill];
+    
+    if (!data) {
+        console.warn(`⚠️ لا توجد بيانات لـ ${activeSkill}`);
+        console.log("========== END REBUILD (NO DATA) ==========");
+        return;
+    }
+    
+    // ✅ تحديث المرجع إلى الحاوية الصحيحة وإظهارها
+    const container = document.getElementById(activeSkill);
+    if (!container) {
+        console.warn(`⚠️ لا توجد حاوية ${activeSkill}`);
+        console.log("========== END REBUILD (NO CONTAINER) ==========");
+        return;
+    }
+    container.style.display = 'block'; // ✅ إظهار الحاوية دائماً
+    data.container = container;
+    
+    console.log(`container =`, container);
+    console.log(`questions =`, data.questions);
+    console.log(`questions length =`, data.questions ? data.questions.length : 0);
+    console.log(`interleaving =`, window.isInterleavingActive);
+    
+    // ✅ حفظ الإجابات الحالية
+    const savedAnswers = window._trueFalseUserAnswers ? {...window._trueFalseUserAnswers} : {};
+    
+    // ✅ تحديد الأسئلة التي سنستخدمها (مع الترتيب)
+    let questionsToUse = data.questions;
+    if (window.isInterleavingActive) {
+        const order = interleavingOrders[activeSkill];
+        if (order && order.length === data.questions.length) {
+            const ordered = [];
+            for (let idx of order) {
+                if (idx <= data.questions.length) {
+                    ordered.push(data.questions[idx - 1]);
+                }
+            }
+            if (ordered.length === data.questions.length) {
+                questionsToUse = ordered;
+                console.log(`✅ Interleaving: تم ترتيب الأسئلة (${activeSkill})`);
+            }
+        }
+    }
+    
+    console.log("questionsToUse:");
+    questionsToUse.forEach((q, i) => {
+        console.log(i + 1, q.text);
+    });
+    
+    console.log("cards before delete =", container.querySelectorAll(".question-card").length);
+    
+    // ✅ حذف البطاقات القديمة
+    const oldCards = container.querySelectorAll('.question-card');
+    oldCards.forEach(card => card.remove());
+    
+    // ✅ إزالة بقايا التصحيح القديم
+    window._trueFalseUserAnswers = {};
+    
+    const result = container.querySelector("#truefalseResult");
+    if (result) {
+        result.style.display = "none";
+        result.innerHTML = "";
+    }
+    
+    const numbers = container.querySelector("#truefalseCorrectNumbers");
+    if (numbers) {
+        numbers.style.display = "none";
+    }
+    
+    // ✅ إزالة أي رسائل تصحيح قديمة
+    const allMessages = container.querySelectorAll('.correct-message');
+    allMessages.forEach(msg => msg.remove());
+    
+    // ✅ إزالة ألوان التصحيح القديمة
+    const allCards = container.querySelectorAll('.question-card');
+    allCards.forEach(card => {
+        card.classList.remove('correct-answer-card', 'wrong-answer-card');
+    });
+    
+    const allLabels = container.querySelectorAll('.option-label');
+    allLabels.forEach(label => {
+        label.style.backgroundColor = 'white';
+        label.style.border = '1px solid #ccc';
+    });
+    
+    // ✅ العثور على حاوية الأزرار الموجودة (نسخة محسنة)
+    let buttonsContainer = null;
+    let createNewButtons = false;
+    
+    // 1. نبحث عن أي عنصر يحتوي على زر "Prüfen" و "↺" معاً
+    const allDivs = container.querySelectorAll('div');
+    for (let el of allDivs) {
+        const btns = el.querySelectorAll('button');
+        if (btns.length >= 2) {
+            const hasPrüfen = btns[0].textContent.includes('Prüfen') || btns[1].textContent.includes('Prüfen');
+            const hasReset = btns[0].textContent === '↺' || btns[1].textContent === '↺';
+            if (hasPrüfen && hasReset) {
+                buttonsContainer = el;
+                break;
+            }
+        }
+    }
+    
+    // 2. إذا لم نجد، نبحث عن أي عنصر يحتوي على .check-btn
+    if (!buttonsContainer) {
+        const checkBtn = container.querySelector('.check-btn');
+        if (checkBtn) {
+            let parent = checkBtn.parentElement;
+            while (parent && parent !== container) {
+                if (parent.querySelectorAll('button').length >= 2) {
+                    buttonsContainer = parent;
+                    break;
+                }
+                parent = parent.parentElement;
+            }
+        }
+    }
+    
+    // 3. إذا لم نجد نهائياً، نزيل الأزرار القديمة وننشئ حاوية جديدة في النهاية
+    if (!buttonsContainer) {
+        // نحذف أي أزرار قديمة
+        container.querySelectorAll('.check-btn').forEach(btn => {
+            const parent = btn.closest('div');
+            if (parent && parent.children.length <= 3) {
+                parent.remove();
+            } else {
+                btn.remove();
+            }
+        });
+        // نبحث عن ↺ ونحذفه
+        container.querySelectorAll('button').forEach(btn => {
+            if (btn.textContent === '↺') {
+                const parent = btn.closest('div');
+                if (parent && parent.children.length <= 2) {
+                    parent.remove();
+                } else {
+                    btn.remove();
+                }
+            }
+        });
+        createNewButtons = true;
+    }
+    
+    // ✅ إعادة إنشاء البطاقات
+    for (let i = 0; i < questionsToUse.length; i++) {
+        const q = questionsToUse[i];
+        const questionId = q.displayNumber;
+        
+        const div = document.createElement('div');
+        div.className = 'question-card';
+        div.dataset.questionId = questionId;
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.gap = '15px';
+        div.style.marginBottom = '12px';
+        div.style.flexWrap = 'wrap';
+        div.style.padding = '12px';
+        div.style.border = '1px solid #ddd';
+        div.style.borderRadius = '10px';
+        div.style.backgroundColor = '#f9f9f9';
+        div.id = `truefalse_card_${questionId}`;
+        
+        const labelTrue = document.createElement('label');
+        labelTrue.className = 'option-label';
+        labelTrue.style.display = 'inline-flex';
+        labelTrue.style.alignItems = 'center';
+        labelTrue.style.gap = '5px';
+        labelTrue.style.cursor = 'pointer';
+        labelTrue.style.marginRight = '15px';
+        labelTrue.style.padding = '5px 10px';
+        labelTrue.style.border = '1px solid #ccc';
+        labelTrue.style.borderRadius = '5px';
+        labelTrue.style.backgroundColor = 'white';
+        
+        const radioTrue = document.createElement('input');
+        radioTrue.type = 'radio';
+        radioTrue.name = `q_${questionId}`;
+        radioTrue.value = 'true';
+        radioTrue.id = `q_${questionId}_true`;
+        radioTrue.onchange = (function(qId) {
+            return function() {
+                window._trueFalseUserAnswers[qId] = true;
+            };
+        })(questionId);
+        labelTrue.appendChild(radioTrue);
+        labelTrue.appendChild(document.createTextNode(' Richtig'));
+        
+        const labelFalse = document.createElement('label');
+        labelFalse.className = 'option-label';
+        labelFalse.style.display = 'inline-flex';
+        labelFalse.style.alignItems = 'center';
+        labelFalse.style.gap = '5px';
+        labelFalse.style.cursor = 'pointer';
+        labelFalse.style.padding = '5px 10px';
+        labelFalse.style.border = '1px solid #ccc';
+        labelFalse.style.borderRadius = '5px';
+        labelFalse.style.backgroundColor = 'white';
+        
+        const radioFalse = document.createElement('input');
+        radioFalse.type = 'radio';
+        radioFalse.name = `q_${questionId}`;
+        radioFalse.value = 'false';
+        radioFalse.id = `q_${questionId}_false`;
+        radioFalse.onchange = (function(qId) {
+            return function() {
+                window._trueFalseUserAnswers[qId] = false;
+            };
+        })(questionId);
+        labelFalse.appendChild(radioFalse);
+        labelFalse.appendChild(document.createTextNode(' Falsch'));
+        
+        const textSpan = document.createElement('span');
+        const displayNumber = q.displayNumber || (i + 1);
+        textSpan.innerHTML = `<strong>${displayNumber}</strong> ${q.text}`;
+        textSpan.style.flex = '1';
+        textSpan.style.minWidth = '200px';
+        
+        div.appendChild(labelTrue);
+        div.appendChild(labelFalse);
+        div.appendChild(textSpan);
+        
+        if (buttonsContainer && buttonsContainer.parentNode === container) {
+            container.insertBefore(div, buttonsContainer);
+        } else {
+            container.appendChild(div);
+        }
+    }
+    
+    console.log("cards after rebuild =", container.querySelectorAll(".question-card").length);
+    
+    // ✅ إذا لم نجد حاوية الأزرار، ننشئها من جديد
+    if (createNewButtons) {
+        const activeSkill = window.currentSkill || 'hoeren1';
+        const data = _hoerenData[activeSkill];
+        const finalQuestions = data.questions;
+        
+        const newButtonContainer = document.createElement('div');
+        newButtonContainer.style.display = "flex";
+        newButtonContainer.style.gap = "15px";
+        newButtonContainer.style.justifyContent = "space-between";
+        newButtonContainer.style.alignItems = "center";
+        newButtonContainer.style.marginTop = "25px";
+        
+        const correctNumbersContainer = document.createElement('div');
+        correctNumbersContainer.id = "truefalseCorrectNumbers";
+        correctNumbersContainer.style.backgroundColor = "#e3f2fd";
+        correctNumbersContainer.style.color = "#0d47a1";
+        correctNumbersContainer.style.padding = "10px 15px";
+        correctNumbersContainer.style.borderRadius = "8px";
+        correctNumbersContainer.style.fontWeight = "bold";
+        correctNumbersContainer.style.fontSize = "14px";
+        correctNumbersContainer.style.border = "1px solid #90caf9";
+        correctNumbersContainer.style.display = "none";
+        correctNumbersContainer.innerHTML = '▸ : ';
+        
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.style.display = 'flex';
+        buttonsDiv.style.gap = '15px';
+        
+        const checkBtnNew = document.createElement('button');
+        checkBtnNew.innerText = '📝 Prüfen';
+        checkBtnNew.className = 'check-btn';
+        checkBtnNew.style.padding = '12px 24px';
+        checkBtnNew.style.backgroundColor = '#2c3e66';
+        checkBtnNew.style.color = 'white';
+        checkBtnNew.style.border = 'none';
+        checkBtnNew.style.borderRadius = '8px';
+        checkBtnNew.style.cursor = 'pointer';
+        checkBtnNew.style.fontSize = '16px';
+        checkBtnNew.onclick = () => {
+            const data = _hoerenData[activeSkill];
+            const questionsToCheck = (data && data.originalQuestions.length > 0) ? data.originalQuestions : finalQuestions;
+            checkTrueFalseExam(container, questionsToCheck, window._trueFalseUserAnswers, correctNumbersContainer);
+        };
+        
+        const resetBtnNew = document.createElement('button');
+        resetBtnNew.innerText = '↺';
+        resetBtnNew.style.padding = '8px 12px';
+        resetBtnNew.style.backgroundColor = '#6c757d';
+        resetBtnNew.style.color = 'white';
+        resetBtnNew.style.border = 'none';
+        resetBtnNew.style.borderRadius = '6px';
+        resetBtnNew.style.cursor = 'pointer';
+        resetBtnNew.style.fontSize = '16px';
+        resetBtnNew.style.fontWeight = 'bold';
+        resetBtnNew.onclick = function() {
+            for (let key in window._trueFalseUserAnswers) delete window._trueFalseUserAnswers[key];
+            container.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+            container.querySelectorAll('.question-card').forEach(card => card.classList.remove('correct-answer-card', 'wrong-answer-card'));
+            container.querySelectorAll('.correct-message').forEach(msg => msg.remove());
+            container.querySelectorAll('.option-label').forEach(label => {
+                label.style.backgroundColor = 'white';
+                label.style.border = '1px solid #ccc';
+            });
+            correctNumbersContainer.style.display = 'none';
+            const resultDiv = container.querySelector('#truefalseResult');
+            if (resultDiv) {
+                resultDiv.style.display = 'none';
+                resultDiv.innerHTML = '';
+            }
+        };
+        
+        buttonsDiv.appendChild(checkBtnNew);
+        buttonsDiv.appendChild(resetBtnNew);
+        newButtonContainer.appendChild(correctNumbersContainer);
+        newButtonContainer.appendChild(buttonsDiv);
+        container.appendChild(newButtonContainer);
+        buttonsContainer = newButtonContainer;
+    }
+    
+    // ✅ استعادة الإجابات المحفوظة
+    if (Object.keys(savedAnswers).length > 0) {
+        const allRadios = container.querySelectorAll('input[type="radio"]');
+        allRadios.forEach(radio => {
+            const name = radio.name;
+            const match = name.match(/q_(\d+)/);
+            if (match) {
+                const qId = parseInt(match[1]);
+                if (savedAnswers[qId] !== undefined) {
+                    const expectedValue = savedAnswers[qId] ? 'true' : 'false';
+                    if (radio.value === expectedValue) {
+                        radio.checked = true;
+                    }
+                }
+            }
+        });
+        window._trueFalseUserAnswers = savedAnswers;
+    }
+    
+    console.log("===== FINAL HTML =====");
+    console.log(container.innerText.substring(0, 300));
+    
+    console.log("===== FIRST CARD TEXT IN DOM =====");
+    const allSpans = container.querySelectorAll(".question-card span");
+    allSpans.forEach((span, idx) => {
+        console.log(`span ${idx + 1}:`, span.innerText);
+    });
+    
+    console.log("========== END REBUILD ==========");
+}
 
+// ============================================
+// إصلاح زر Interleaving - النسخة النهائية (عامة)
+// ============================================
+// ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر) - محسنة
 let _toggleInProgress = false;
-let _interleavingInitialized = false;
 
 function toggleInterleaving() {
+    // ✅ منع الضغط المتكرر
     if (_toggleInProgress) {
         console.log('⏭️ عملية تبديل قيد التنفيذ، تخطي');
         return;
@@ -3927,6 +3860,8 @@ function toggleInterleaving() {
     console.log("before =", window.isInterleavingActive);
     
     _toggleInProgress = true;
+    
+    // تبديل الحالة
     window.isInterleavingActive = !window.isInterleavingActive;
     
     console.log("after =", window.isInterleavingActive);
@@ -3944,11 +3879,41 @@ function toggleInterleaving() {
         }
     }
     
-    setTimeout(() => {
-        rebuildTrueFalseCards();
+    // ✅ إعادة بناء البطاقات إذا كان الامتحان الحالي هو Hören Teil 1,2,3
+    const currentSkill = window.currentSkill || 'hoeren1';
+    
+    if (currentSkill.startsWith('hoeren')) {
+        console.log(`Calling rebuildTrueFalseCards for ${currentSkill}...`);
+        const data = _hoerenData[currentSkill];
+        if (data && data.questions && data.questions.length > 0) {
+            if (typeof rebuildTrueFalseCards === 'function') {
+                // ✅ استخدام setTimeout لتجنب تعارض التحديث
+                setTimeout(() => {
+                    rebuildTrueFalseCards();
+                    _toggleInProgress = false;
+                }, 50);
+            } else {
+                console.error('❌ دالة rebuildTrueFalseCards غير موجودة!');
+                _toggleInProgress = false;
+            }
+        } else {
+            console.warn(`⚠️ لا توجد أسئلة لـ ${currentSkill}، انتظر تحميل الامتحان`);
+            _toggleInProgress = false;
+        }
+    } else {
+        console.log(`⚠️ Interleaving يعمل فقط على Hören Teil 1,2,3 (currentSkill: ${currentSkill})`);
+        // إعادة الحالة إذا لم يكن Hören Teil
+        window.isInterleavingActive = !window.isInterleavingActive;
+        if (btn) {
+            btn.classList.remove('active');
+            btn.title = 'Interleaving: OFF';
+        }
+        alert('⚠️ زر Interleaving يعمل فقط على أقسام Hören');
         _toggleInProgress = false;
-    }, 50);
+    }
 }
+// ✅ دالة تهيئة الزر - نسخة محسنة (تمنع التكرار)
+let _interleavingInitialized = false;
 
 function initInterleaving() {
     console.log('🔄 تهيئة زر Interleaving...');
@@ -3958,6 +3923,7 @@ function initInterleaving() {
         return;
     }
     
+    // ✅ إذا تم التهيئة مسبقاً، لا نعيد ربط المستمعات
     if (_interleavingInitialized) {
         console.log('⏭️ زر Interleaving تم تهيئته مسبقاً، تخطي');
         return;
@@ -3965,10 +3931,12 @@ function initInterleaving() {
     
     console.log('✅ تم العثور على زر Interleaving');
     
+    // ✅ إزالة أي مستمعات قديمة (للتأكد)
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
     const freshBtn = document.getElementById('interleavingBtn');
     
+    // ✅ إضافة مستمع جديد
     freshBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -3976,6 +3944,7 @@ function initInterleaving() {
         toggleInterleaving();
     });
     
+    // تعيين الحالة الأولية
     window.isInterleavingActive = false;
     freshBtn.classList.remove('active');
     freshBtn.title = 'Interleaving: OFF';
@@ -3983,7 +3952,7 @@ function initInterleaving() {
     _interleavingInitialized = true;
     console.log('✅ زر Interleaving تم تهيئته بنجاح (مرة واحدة)');
 }
-
+// ✅ دالة إعادة تعيين (عند فتح امتحان جديد) - تعيد الحالة وتحديث الزر
 function resetInterleaving() {
     console.log('🔄 إعادة تعيين Interleaving (حالة فقط)');
     window.isInterleavingActive = false;
@@ -3994,14 +3963,15 @@ function resetInterleaving() {
         btn.title = 'Interleaving: OFF';
     }
     
+    // ✅ إعادة تهيئة المتغير لمنع التكرار عند فتح امتحان جديد
     _interleavingInitialized = false;
     console.log('✅ تم إعادة تعيين حالة Interleaving');
 }
 
-// تصدير الدوال
+// تصدير الدوال للاستخدام العالمي
 window.rebuildTrueFalseCards = rebuildTrueFalseCards;
 window.toggleInterleaving = toggleInterleaving;
 window.initInterleaving = initInterleaving;
 window.resetInterleaving = resetInterleaving;
 
-console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3 و Lesen Teil 1,2,3');
+console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3');
