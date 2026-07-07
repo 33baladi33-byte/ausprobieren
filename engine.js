@@ -4050,8 +4050,18 @@ function toggleInterleaving() {
             console.error('❌ دالة rebuildLesen1 غير موجودة!');
             _toggleInProgress = false;
         }
-    }
     } else if (currentSkill === 'lesen2') {
+        console.log(`Calling rebuildLesen2...`);
+        if (typeof rebuildLesen2 === 'function') {
+            setTimeout(() => {
+                rebuildLesen2();
+                _toggleInProgress = false;
+            }, 50);
+        } else {
+            console.error('❌ دالة rebuildLesen2 غير موجودة!');
+            _toggleInProgress = false;
+        }
+    } else {
     console.log(`Calling rebuildLesen2...`);
     if (typeof rebuildLesen2 === 'function') {
         setTimeout(() => {
