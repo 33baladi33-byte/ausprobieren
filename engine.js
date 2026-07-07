@@ -3846,6 +3846,7 @@ function rebuildTrueFalseCards() {
 // ============================================
 // إصلاح زر Interleaving - النسخة النهائية (عامة)
 // ============================================
+
 // ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر) - محسنة
 let _toggleInProgress = false;
 
@@ -3912,6 +3913,7 @@ function toggleInterleaving() {
         _toggleInProgress = false;
     }
 }
+
 // ✅ دالة تهيئة الزر - نسخة محسنة (تمنع التكرار)
 let _interleavingInitialized = false;
 
@@ -3952,6 +3954,7 @@ function initInterleaving() {
     _interleavingInitialized = true;
     console.log('✅ زر Interleaving تم تهيئته بنجاح (مرة واحدة)');
 }
+
 // ✅ دالة إعادة تعيين (عند فتح امتحان جديد) - تعيد الحالة وتحديث الزر
 function resetInterleaving() {
     console.log('🔄 إعادة تعيين Interleaving (حالة فقط)');
