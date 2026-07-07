@@ -1541,10 +1541,11 @@ let matchingAvailableOptions = [];
 window.loadMatchingExam = function(examData) {
   console.log("🟢 loadMatchingExam", examData.title);
   
-  // ✅✅✅ إعادة تعيين ترتيب Lesen1 عند تحميل امتحان جديد ✅✅✅
-  if (typeof resetLesen1Order === 'function') {
-      resetLesen1Order();
-  }
+// ✅ إعادة تعيين ترتيب Lesen1 عند تحميل امتحان جديد
+lesen1OriginalOrder = [];
+lesen1MixedOrder = [];
+lesen1OrderSaved = false;
+console.log('🔄 تم إعادة تعيين ترتيب Lesen1');
   
   currentMatchingExamData = examData;
   matchingSelectedAnswers = {};
