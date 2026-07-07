@@ -5,12 +5,20 @@
 console.log("✅ engine.js تم تحميله");
 
 // ============================================
-// بيانات Hören Teil 1 للـ Interleaving
+// بيانات Hören للأجزاء الثلاثة
 // ============================================
-let _hoeren1Container = null;
-let _hoeren1Questions = [];
-let _hoeren1Note = '';
-let _hoeren1OriginalQuestions = [];
+const _hoerenData = {
+    hoeren1: { container: null, questions: [], note: '', originalQuestions: [] },
+    hoeren2: { container: null, questions: [], note: '', originalQuestions: [] },
+    hoeren3: { container: null, questions: [], note: '', originalQuestions: [] }
+};
+
+// ترتيب Interleaving لكل Teil (قابل للتعديل)
+const interleavingOrders = {
+    hoeren1: [2, 4, 1, 5, 3],
+    hoeren2: [3, 7, 1, 9, 5, 10, 2, 6, 4, 8],  // مثال - عدله حسب رغبتك
+    hoeren3: [2, 4, 1, 5, 3]                    // مثال - عدله حسب رغبتك
+};
 
 window.loadExamFromFile = async function(skill, examId) {
   try {
@@ -1082,7 +1090,7 @@ function checkSprach1Exam() {
 }
 
 // ============================================
-// نظام True/False (Hören Teil 1,2,3)
+// نظام True/False (Hören Teil 1,2,3) مع Interleaving
 // ============================================
 
 window.buildTrueFalseExam = function(container, questions, note) {
@@ -1096,17 +1104,22 @@ window.buildTrueFalseExam = function(container, questions, note) {
   
   container.innerHTML = '';
   
-// ✅ استبدله بهذا:
-if (container.id === 'hoeren1') {
-    _hoeren1Container = container;
-    // ✅ إضافة displayNumber تلقائياً لكل سؤال
-    _hoeren1Questions = questions.map((q, index) => ({
+  const skillId = container.id; // hoeren1, hoeren2, hoeren3
+  // ✅ تخزين البيانات لكل Teil حسب container.id
+  if (skillId.startsWith('hoeren')) {
+    const data = _hoerenData[skillId];
+    if (data) {
+      data.container = container;
+      data.questions = questions.map((q, index) => ({
         ...q,
         displayNumber: index + 1
-    }));
-    _hoeren1Note = note || '';
-    _hoeren1OriginalQuestions = _hoeren1Questions.slice();
-}
+      }));
+      data.note = note || '';
+      data.originalQuestions = data.questions.slice();
+      console.log(`✅ تم تخزين بيانات ${skillId}`);
+    }
+  }
+  
   if (window._trueFalseUserAnswers) {
     delete window._trueFalseUserAnswers;
   }
@@ -1127,23 +1140,26 @@ if (container.id === 'hoeren1') {
   }
   
   let finalQuestions = questions;
-  if (container.id === 'hoeren1' && window.isInterleavingActive) {
-      const fixedOrder = [2, 4, 1, 5, 3];
+  if (skillId.startsWith('hoeren') && window.isInterleavingActive) {
+    const order = interleavingOrders[skillId];
+    if (order && order.length === questions.length) {
       const orderedQuestions = [];
-      for (let idx of fixedOrder) {
-          if (idx <= questions.length) {
-              orderedQuestions.push(questions[idx - 1]);
-          }
+      for (let idx of order) {
+        if (idx <= questions.length) {
+          orderedQuestions.push(questions[idx - 1]);
+        }
       }
       if (orderedQuestions.length === questions.length) {
-          finalQuestions = orderedQuestions;
-          console.log('✅ Interleaving: تم ترتيب الأسئلة (Hören 1)');
+        finalQuestions = orderedQuestions;
+        console.log(`✅ Interleaving: تم ترتيب الأسئلة (${skillId})`);
       }
+    }
   }
   
   for (let i = 0; i < finalQuestions.length; i++) {
     const q = finalQuestions[i];
-    const questionId = q.id !== undefined ? q.id : i;
+    // ✅ استخدام displayNumber كمفتاح للبطاقة (وليس الفهرس)
+    const questionId = q.displayNumber;
     
     const div = document.createElement('div');
     div.className = 'question-card';
@@ -1260,14 +1276,13 @@ if (container.id === 'hoeren1') {
   checkBtn.style.cursor = 'pointer';
   checkBtn.style.fontSize = '16px';
 
-  // ✅ استبدله بهذا:
-checkBtn.onclick = () => {
-    // استخدام الأسئلة الأصلية للتصحيح (وليس المرتبة)
-    const questionsToCheck = (container.id === 'hoeren1' && _hoeren1OriginalQuestions.length > 0) 
-        ? _hoeren1OriginalQuestions 
+  checkBtn.onclick = () => {
+    const data = _hoerenData[skillId];
+    const questionsToCheck = (data && data.originalQuestions.length > 0) 
+        ? data.originalQuestions 
         : finalQuestions;
     checkTrueFalseExam(container, questionsToCheck, window._trueFalseUserAnswers, correctNumbersContainer);
-};
+  };
   
   const resetBtn = document.createElement('button');
   resetBtn.innerText = '↺';
@@ -1328,17 +1343,18 @@ checkBtn.onclick = () => {
     resultDiv.style.display = 'none';
     container.appendChild(resultDiv);
   }
-  
-  // ❌ تم إزالة التهيئة المزدوجة - يتم التهيئة فقط من openExam في exams.js
 };
+
 // ============================================
 // دالة التصحيح لـ Hören Teil 1,2,3 - النسخة النهائية مع دعم Interleaving
 // ============================================
 function checkTrueFalseExam(container, questions, answers, correctNumbersContainer) {
     // ✅ تحديد الأسئلة التي سنستخدمها للتصحيح
     let questionsToCheck = questions;
-    if (container.id === 'hoeren1' && _hoeren1OriginalQuestions && _hoeren1OriginalQuestions.length > 0) {
-        questionsToCheck = _hoeren1OriginalQuestions;
+    const skillId = container.id;
+    const data = _hoerenData[skillId];
+    if (data && data.originalQuestions && data.originalQuestions.length > 0) {
+        questionsToCheck = data.originalQuestions;
     }
     
     if (!questionsToCheck || !Array.isArray(questionsToCheck) || questionsToCheck.length === 0) {
@@ -1399,8 +1415,8 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         
         if (!q) continue;
         
-        // ✅ الحصول على إجابة المستخدم لهذا السؤال (باستخدام الفهرس الأصلي)
-        const userAnswer = answers[qIndex];
+        // ✅ الحصول على إجابة المستخدم لهذا السؤال (باستخدام displayNumber)
+        const userAnswer = answers[displayNumber];
         const isCorrect = (userAnswer === q.correct);
         
         // ✅ تنظيف البطاقة من التصحيح السابق
@@ -1523,6 +1539,7 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
 }
+
 // ============================================
 // نظام Teil 1 (Lesen Teil 1 - Matching)
 // ============================================
@@ -3471,40 +3488,54 @@ if (typeof checkTeil3Exam === 'function') {
 }
 
 // ============================================
-// دالة إعادة بناء بطاقات Hören Teil 1 فقط
+// دالة إعادة بناء بطاقات Hören (عامة لـ Teil 1,2,3)
 // ============================================
 function rebuildTrueFalseCards() {
     console.log("========== REBUILD ==========");
     
+    // ✅ تحديد الـ Teil الحالي
+    const activeSkill = window.currentSkill || 'hoeren1';
+    const data = _hoerenData[activeSkill];
+    
+    if (!data) {
+        console.warn(`⚠️ لا توجد بيانات لـ ${activeSkill}`);
+        console.log("========== END REBUILD (NO DATA) ==========");
+        return;
+    }
+    
     // ✅ تحديث المرجع إلى الحاوية الصحيحة
-    _hoeren1Container = document.getElementById("hoeren1");
-    if (!_hoeren1Container) {
-        console.warn('⚠️ لا توجد حاوية hoeren1');
+    const container = document.getElementById(activeSkill);
+    if (!container) {
+        console.warn(`⚠️ لا توجد حاوية ${activeSkill}`);
         console.log("========== END REBUILD (NO CONTAINER) ==========");
         return;
     }
     
-    console.log("_hoeren1Container =", _hoeren1Container);
-    console.log("_hoeren1Questions =", _hoeren1Questions);
-    console.log("questions length =", _hoeren1Questions ? _hoeren1Questions.length : 0);
-    console.log("interleaving =", window.isInterleavingActive);
+    data.container = container;
+    
+    console.log(`container =`, container);
+    console.log(`questions =`, data.questions);
+    console.log(`questions length =`, data.questions ? data.questions.length : 0);
+    console.log(`interleaving =`, window.isInterleavingActive);
     
     // ✅ حفظ الإجابات الحالية
     const savedAnswers = window._trueFalseUserAnswers ? {...window._trueFalseUserAnswers} : {};
     
     // ✅ تحديد الأسئلة التي سنستخدمها (مع الترتيب)
-    let questionsToUse = _hoeren1Questions;
+    let questionsToUse = data.questions;
     if (window.isInterleavingActive) {
-        const fixedOrder = [2, 4, 1, 5, 3];
-        const ordered = [];
-        for (let idx of fixedOrder) {
-            if (idx <= _hoeren1Questions.length) {
-                ordered.push(_hoeren1Questions[idx - 1]);
+        const order = interleavingOrders[activeSkill];
+        if (order && order.length === data.questions.length) {
+            const ordered = [];
+            for (let idx of order) {
+                if (idx <= data.questions.length) {
+                    ordered.push(data.questions[idx - 1]);
+                }
             }
-        }
-        if (ordered.length === _hoeren1Questions.length) {
-            questionsToUse = ordered;
-            console.log('✅ Interleaving: تم ترتيب الأسئلة (Hören 1)');
+            if (ordered.length === data.questions.length) {
+                questionsToUse = ordered;
+                console.log(`✅ Interleaving: تم ترتيب الأسئلة (${activeSkill})`);
+            }
         }
     }
     
@@ -3513,54 +3544,54 @@ function rebuildTrueFalseCards() {
         console.log(i + 1, q.text);
     });
     
-    console.log("cards before delete =", _hoeren1Container.querySelectorAll(".question-card").length);
+    console.log("cards before delete =", container.querySelectorAll(".question-card").length);
     
     // ✅ حذف البطاقات القديمة
-    const oldCards = _hoeren1Container.querySelectorAll('.question-card');
+    const oldCards = container.querySelectorAll('.question-card');
     oldCards.forEach(card => card.remove());
     
     // ✅ إزالة بقايا التصحيح القديم
     window._trueFalseUserAnswers = {};
     
-    const result = _hoeren1Container.querySelector("#truefalseResult");
+    const result = container.querySelector("#truefalseResult");
     if (result) {
         result.style.display = "none";
         result.innerHTML = "";
     }
     
-    const numbers = _hoeren1Container.querySelector("#truefalseCorrectNumbers");
+    const numbers = container.querySelector("#truefalseCorrectNumbers");
     if (numbers) {
         numbers.style.display = "none";
     }
     
     // ✅ إزالة أي رسائل تصحيح قديمة
-    const allMessages = _hoeren1Container.querySelectorAll('.correct-message');
+    const allMessages = container.querySelectorAll('.correct-message');
     allMessages.forEach(msg => msg.remove());
     
     // ✅ إزالة ألوان التصحيح القديمة
-    const allCards = _hoeren1Container.querySelectorAll('.question-card');
+    const allCards = container.querySelectorAll('.question-card');
     allCards.forEach(card => {
         card.classList.remove('correct-answer-card', 'wrong-answer-card');
     });
     
-    const allLabels = _hoeren1Container.querySelectorAll('.option-label');
+    const allLabels = container.querySelectorAll('.option-label');
     allLabels.forEach(label => {
         label.style.backgroundColor = 'white';
         label.style.border = '1px solid #ccc';
     });
     
     // ✅ العثور على الحاوية الصحيحة لإدراج البطاقات قبلها
-    const resultBox = _hoeren1Container.querySelector("#truefalseResult");
+    const resultBox = container.querySelector("#truefalseResult");
     let buttonsContainer = null;
     if (resultBox) {
         buttonsContainer = resultBox.previousElementSibling;
     }
     
     if (!buttonsContainer) {
-        const checkBtn = _hoeren1Container.querySelector('.check-btn');
+        const checkBtn = container.querySelector('.check-btn');
         if (checkBtn) {
             let parent = checkBtn.parentElement;
-            while (parent && parent !== _hoeren1Container) {
+            while (parent && parent !== container) {
                 const display = window.getComputedStyle(parent).display;
                 if (display === 'flex' && parent.children.length > 1) {
                     buttonsContainer = parent;
@@ -3574,7 +3605,7 @@ function rebuildTrueFalseCards() {
     // ✅ إعادة إنشاء البطاقات
     for (let i = 0; i < questionsToUse.length; i++) {
         const q = questionsToUse[i];
-        const questionId = q.id !== undefined ? q.id : i;
+        const questionId = q.displayNumber;
         
         const div = document.createElement('div');
         div.className = 'question-card';
@@ -3640,7 +3671,6 @@ function rebuildTrueFalseCards() {
         labelFalse.appendChild(document.createTextNode(' Falsch'));
         
         const textSpan = document.createElement('span');
-        // ✅ استخدام displayNumber من البيانات أو i+1
         const displayNumber = q.displayNumber || (i + 1);
         textSpan.innerHTML = `<strong>${displayNumber}</strong> ${q.text}`;
         textSpan.style.flex = '1';
@@ -3650,18 +3680,18 @@ function rebuildTrueFalseCards() {
         div.appendChild(labelFalse);
         div.appendChild(textSpan);
         
-        if (buttonsContainer && buttonsContainer.parentNode === _hoeren1Container) {
-            _hoeren1Container.insertBefore(div, buttonsContainer);
+        if (buttonsContainer && buttonsContainer.parentNode === container) {
+            container.insertBefore(div, buttonsContainer);
         } else {
-            _hoeren1Container.appendChild(div);
+            container.appendChild(div);
         }
     }
     
-    console.log("cards after rebuild =", _hoeren1Container.querySelectorAll(".question-card").length);
+    console.log("cards after rebuild =", container.querySelectorAll(".question-card").length);
     
     // ✅ استعادة الإجابات المحفوظة
     if (Object.keys(savedAnswers).length > 0) {
-        const allRadios = _hoeren1Container.querySelectorAll('input[type="radio"]');
+        const allRadios = container.querySelectorAll('input[type="radio"]');
         allRadios.forEach(radio => {
             const name = radio.name;
             const match = name.match(/q_(\d+)/);
@@ -3679,10 +3709,10 @@ function rebuildTrueFalseCards() {
     }
     
     console.log("===== FINAL HTML =====");
-    console.log(_hoeren1Container.innerText.substring(0, 300));
+    console.log(container.innerText.substring(0, 300));
     
     console.log("===== FIRST CARD TEXT IN DOM =====");
-    const allSpans = _hoeren1Container.querySelectorAll(".question-card span");
+    const allSpans = container.querySelectorAll(".question-card span");
     allSpans.forEach((span, idx) => {
         console.log(`span ${idx + 1}:`, span.innerText);
     });
@@ -3691,7 +3721,7 @@ function rebuildTrueFalseCards() {
 }
 
 // ============================================
-// إصلاح زر Interleaving - النسخة النهائية
+// إصلاح زر Interleaving - النسخة النهائية (عامة)
 // ============================================
 
 // ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
@@ -3717,25 +3747,25 @@ function toggleInterleaving() {
         }
     }
     
-    // ✅ إعادة بناء البطاقات فقط إذا كان الامتحان الحالي هو Hören Teil 1
+    // ✅ إعادة بناء البطاقات إذا كان الامتحان الحالي هو Hören Teil 1,2,3
     const currentSkill = window.currentSkill || 'hoeren1';
     
-    if (currentSkill === 'hoeren1') {
-        console.log("Calling rebuildTrueFalseCards...");
+    if (currentSkill.startsWith('hoeren')) {
+        console.log(`Calling rebuildTrueFalseCards for ${currentSkill}...`);
         if (typeof rebuildTrueFalseCards === 'function') {
             rebuildTrueFalseCards();
         } else {
             console.error('❌ دالة rebuildTrueFalseCards غير موجودة!');
         }
     } else {
-        console.log(`⚠️ Interleaving يعمل فقط على Hören Teil 1 (currentSkill: ${currentSkill})`);
-        // إعادة الحالة إذا لم يكن Hören Teil 1
+        console.log(`⚠️ Interleaving يعمل فقط على Hören Teil 1,2,3 (currentSkill: ${currentSkill})`);
+        // إعادة الحالة إذا لم يكن Hören Teil
         window.isInterleavingActive = !window.isInterleavingActive;
         if (btn) {
             btn.classList.remove('active');
             btn.title = 'Interleaving: OFF';
         }
-        alert('⚠️ زر Interleaving يعمل فقط على Hören Teil 1');
+        alert('⚠️ زر Interleaving يعمل فقط على أقسام Hören');
     }
 }
 
@@ -3787,4 +3817,4 @@ window.toggleInterleaving = toggleInterleaving;
 window.initInterleaving = initInterleaving;
 window.resetInterleaving = resetInterleaving;
 
-console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1 فقط');
+console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3');
