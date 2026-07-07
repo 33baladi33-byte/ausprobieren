@@ -3846,11 +3846,20 @@ function rebuildTrueFalseCards() {
 // ============================================
 // إصلاح زر Interleaving - النسخة النهائية (عامة)
 // ============================================
+// ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر) - محسنة
+let _toggleInProgress = false;
 
-// ✅ دالة تبديل حالة Interleaving (عند الضغط على الزر)
 function toggleInterleaving() {
+    // ✅ منع الضغط المتكرر
+    if (_toggleInProgress) {
+        console.log('⏭️ عملية تبديل قيد التنفيذ، تخطي');
+        return;
+    }
+    
     console.log("========== TOGGLE ==========");
     console.log("before =", window.isInterleavingActive);
+    
+    _toggleInProgress = true;
     
     // تبديل الحالة
     window.isInterleavingActive = !window.isInterleavingActive;
@@ -3875,16 +3884,21 @@ function toggleInterleaving() {
     
     if (currentSkill.startsWith('hoeren')) {
         console.log(`Calling rebuildTrueFalseCards for ${currentSkill}...`);
-        // تأكد من وجود بيانات قبل إعادة البناء
         const data = _hoerenData[currentSkill];
         if (data && data.questions && data.questions.length > 0) {
             if (typeof rebuildTrueFalseCards === 'function') {
-                rebuildTrueFalseCards();
+                // ✅ استخدام setTimeout لتجنب تعارض التحديث
+                setTimeout(() => {
+                    rebuildTrueFalseCards();
+                    _toggleInProgress = false;
+                }, 50);
             } else {
                 console.error('❌ دالة rebuildTrueFalseCards غير موجودة!');
+                _toggleInProgress = false;
             }
         } else {
             console.warn(`⚠️ لا توجد أسئلة لـ ${currentSkill}، انتظر تحميل الامتحان`);
+            _toggleInProgress = false;
         }
     } else {
         console.log(`⚠️ Interleaving يعمل فقط على Hören Teil 1,2,3 (currentSkill: ${currentSkill})`);
@@ -3895,10 +3909,12 @@ function toggleInterleaving() {
             btn.title = 'Interleaving: OFF';
         }
         alert('⚠️ زر Interleaving يعمل فقط على أقسام Hören');
+        _toggleInProgress = false;
     }
 }
+// ✅ دالة تهيئة الزر - نسخة محسنة (تمنع التكرار)
+let _interleavingInitialized = false;
 
-// ✅ دالة تهيئة الزر - نسخة محسنة
 function initInterleaving() {
     console.log('🔄 تهيئة زر Interleaving...');
     const btn = document.getElementById('interleavingBtn');
@@ -3907,13 +3923,21 @@ function initInterleaving() {
         return;
     }
     
+    // ✅ إذا تم التهيئة مسبقاً، لا نعيد ربط المستمعات
+    if (_interleavingInitialized) {
+        console.log('⏭️ زر Interleaving تم تهيئته مسبقاً، تخطي');
+        return;
+    }
+    
     console.log('✅ تم العثور على زر Interleaving');
     
-    // إزالة المستمعات القديمة
-    btn.removeEventListener('click', toggleInterleaving);
+    // ✅ إزالة أي مستمعات قديمة (للتأكد)
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    const freshBtn = document.getElementById('interleavingBtn');
     
-    // إضافة مستمع جديد - استخدام click مباشر
-    btn.addEventListener('click', function(e) {
+    // ✅ إضافة مستمع جديد
+    freshBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         console.log('🔥 تم الضغط على الزر!');
@@ -3922,13 +3946,13 @@ function initInterleaving() {
     
     // تعيين الحالة الأولية
     window.isInterleavingActive = false;
-    btn.classList.remove('active');
-    btn.title = 'Interleaving: OFF';
+    freshBtn.classList.remove('active');
+    freshBtn.title = 'Interleaving: OFF';
     
-    console.log('✅ زر Interleaving تم تهيئته بنجاح');
+    _interleavingInitialized = true;
+    console.log('✅ زر Interleaving تم تهيئته بنجاح (مرة واحدة)');
 }
-
-// ✅ دالة إعادة تعيين (عند فتح امتحان جديد) - فقط تعيد الحالة ولا تبني البطاقات
+// ✅ دالة إعادة تعيين (عند فتح امتحان جديد) - تعيد الحالة وتحديث الزر
 function resetInterleaving() {
     console.log('🔄 إعادة تعيين Interleaving (حالة فقط)');
     window.isInterleavingActive = false;
@@ -3938,7 +3962,10 @@ function resetInterleaving() {
         btn.classList.remove('active');
         btn.title = 'Interleaving: OFF';
     }
-    // ❌ لا تعيد بناء البطاقات هنا - سيتم ذلك في openExam
+    
+    // ✅ إعادة تهيئة المتغير لمنع التكرار عند فتح امتحان جديد
+    _interleavingInitialized = false;
+    console.log('✅ تم إعادة تعيين حالة Interleaving');
 }
 
 // تصدير الدوال للاستخدام العالمي
