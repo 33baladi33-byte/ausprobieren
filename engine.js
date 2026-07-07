@@ -3494,6 +3494,12 @@ if (typeof checkTeil3Exam === 'function') {
 function rebuildTrueFalseCards() {
     console.log("========== REBUILD ==========");
     
+    // ✅ تأكد من وجود currentSkill
+    if (!window.currentSkill) {
+        console.warn('⚠️ window.currentSkill غير معرف، استخدام hoeren1 كافتراضي');
+        window.currentSkill = 'hoeren1';
+    }
+    
     // ✅ تحديد الـ Teil الحالي
     const activeSkill = window.currentSkill || 'hoeren1';
     const data = _hoerenData[activeSkill];
@@ -3869,10 +3875,16 @@ function toggleInterleaving() {
     
     if (currentSkill.startsWith('hoeren')) {
         console.log(`Calling rebuildTrueFalseCards for ${currentSkill}...`);
-        if (typeof rebuildTrueFalseCards === 'function') {
-            rebuildTrueFalseCards();
+        // تأكد من وجود بيانات قبل إعادة البناء
+        const data = _hoerenData[currentSkill];
+        if (data && data.questions && data.questions.length > 0) {
+            if (typeof rebuildTrueFalseCards === 'function') {
+                rebuildTrueFalseCards();
+            } else {
+                console.error('❌ دالة rebuildTrueFalseCards غير موجودة!');
+            }
         } else {
-            console.error('❌ دالة rebuildTrueFalseCards غير موجودة!');
+            console.warn(`⚠️ لا توجد أسئلة لـ ${currentSkill}، انتظر تحميل الامتحان`);
         }
     } else {
         console.log(`⚠️ Interleaving يعمل فقط على Hören Teil 1,2,3 (currentSkill: ${currentSkill})`);
@@ -3916,9 +3928,9 @@ function initInterleaving() {
     console.log('✅ زر Interleaving تم تهيئته بنجاح');
 }
 
-// ✅ دالة إعادة تعيين (عند فتح امتحان جديد) - محسنة لإعادة البناء
+// ✅ دالة إعادة تعيين (عند فتح امتحان جديد) - فقط تعيد الحالة ولا تبني البطاقات
 function resetInterleaving() {
-    console.log('🔄 إعادة تعيين Interleaving');
+    console.log('🔄 إعادة تعيين Interleaving (حالة فقط)');
     window.isInterleavingActive = false;
     
     const btn = document.getElementById('interleavingBtn');
@@ -3926,16 +3938,7 @@ function resetInterleaving() {
         btn.classList.remove('active');
         btn.title = 'Interleaving: OFF';
     }
-    
-    // ✅ إعادة بناء البطاقات إذا كان الامتحان مفتوحاً (لإعادة الترتيب الأصلي)
-    const currentSkill = window.currentSkill;
-    if (currentSkill && currentSkill.startsWith('hoeren')) {
-        const container = document.getElementById(currentSkill);
-        if (container && container.style.display !== 'none') {
-            console.log('🔄 إعادة بناء البطاقات بعد إعادة التعيين');
-            rebuildTrueFalseCards();
-        }
-    }
+    // ❌ لا تعيد بناء البطاقات هنا - سيتم ذلك في openExam
 }
 
 // تصدير الدوال للاستخدام العالمي
