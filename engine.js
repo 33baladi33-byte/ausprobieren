@@ -3980,7 +3980,13 @@ function resetLesen1Order() {
     lesen1OrderSaved = false;
     console.log('🔄 تم إعادة تعيين ترتيب Lesen1');
 }
-
+// ✅✅✅ دالة إعادة تعيين ترتيب Lesen2 ✅✅✅
+function resetLesen2Order() {
+    lesen2OriginalNodes = null;
+    lesen2ShuffledNodes = null;
+    lesen2OrderSaved = false;
+    console.log('🔄 تم إعادة تعيين ترتيب Lesen2');
+}
 // تصدير الدوال للاستخدام العالمي
 window.rebuildTrueFalseCards = rebuildTrueFalseCards;
 window.rebuildLesen1 = rebuildLesen1;
