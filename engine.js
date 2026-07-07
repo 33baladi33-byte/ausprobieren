@@ -3494,7 +3494,7 @@ if (typeof checkTeil3Exam === 'function') {
 }
 
 // ============================================
-// دالة إعادة بناء البطاقات - عامة لجميع الأقسام
+// دالة إعادة بناء البطاقات - تعتمد على DOM وليس على أسماء الحاويات
 // ============================================
 function rebuildTrueFalseCards() {
     console.log("========== REBUILD ==========");
@@ -3505,29 +3505,127 @@ function rebuildTrueFalseCards() {
         window.currentSkill = 'hoeren1';
     }
     
-    // ✅ تحديد الـ Teil الحالي
     const activeSkill = window.currentSkill || 'hoeren1';
-    const data = _hoerenData[activeSkill];
     
-    if (!data) {
-        console.warn(`⚠️ لا توجد بيانات لـ ${activeSkill}`);
-        console.log("========== END REBUILD (NO DATA) ==========");
-        return;
+    // ✅ محاولة العثور على الحاوية بناءً على الـ skill
+    let container = null;
+    
+    // 1. محاولة العثور على الحاوية بالاسم المباشر
+    container = document.getElementById(activeSkill);
+    
+    // 2. إذا لم نجد، نبحث عن أي حاوية تحتوي على .question-card
+    if (!container) {
+        console.log(`🔍 لم نجد حاوية ${activeSkill}، نبحث عن .question-card في الصفحة...`);
+        const allContainers = document.querySelectorAll('#hoeren1, #hoeren2, #hoeren3, #teil1, #teil2, #teil3, #sprach1, #sprach2');
+        for (let el of allContainers) {
+            if (el.querySelectorAll('.question-card').length > 0 && el.style.display !== 'none') {
+                container = el;
+                console.log(`✅ تم العثور على حاوية تحتوي على أسئلة: ${el.id}`);
+                break;
+            }
+        }
     }
     
-    // ✅ تحديث المرجع إلى الحاوية الصحيحة وإظهارها
-    const container = document.getElementById(activeSkill);
+    // 3. إذا لم نجد، نبحث في كل الصفحة عن .question-card
     if (!container) {
-        console.warn(`⚠️ لا توجد حاوية ${activeSkill}`);
+        const questionCards = document.querySelectorAll('.question-card');
+        if (questionCards.length > 0) {
+            // نأخذ أقرب حاوية أب تحتوي على البطاقات
+            container = questionCards[0].closest('#hoeren1, #hoeren2, #hoeren3, #teil1, #teil2, #teil3, #sprach1, #sprach2');
+            if (container) {
+                console.log(`✅ تم العثور على حاوية عبر البحث في DOM: ${container.id}`);
+            }
+        }
+    }
+    
+    if (!container) {
+        console.warn(`⚠️ لا توجد حاوية تحتوي على أسئلة لـ ${activeSkill}`);
         console.log("========== END REBUILD (NO CONTAINER) ==========");
         return;
     }
-    container.style.display = 'block'; // ✅ إظهار الحاوية دائماً
-    data.container = container;
     
+    container.style.display = 'block';
     console.log(`container =`, container);
+    
+    // ✅ محاولة الحصول على البيانات من _hoerenData أو من DOM
+    let data = _hoerenData[activeSkill];
+    
+    // إذا لم تكن البيانات موجودة، نحاول استخراج الأسئلة من DOM
+    if (!data || !data.questions || data.questions.length === 0) {
+        console.log(`🔍 لا توجد بيانات مخزنة لـ ${activeSkill}، نحاول استخراج الأسئلة من DOM...`);
+        
+        const cards = container.querySelectorAll('.question-card');
+        if (cards.length > 0) {
+            const questions = [];
+            cards.forEach((card, index) => {
+                // محاولة استخراج النص من البطاقة
+                let text = '';
+                const textSpan = card.querySelector('span');
+                if (textSpan) {
+                    // إزالة الرقم من النص إذا كان موجوداً
+                    text = textSpan.textContent.replace(/^\d+\s+/, '').trim();
+                } else {
+                    // محاولة طرق أخرى
+                    const questionText = card.querySelector('.question-text, .text, .question');
+                    if (questionText) {
+                        text = questionText.textContent.replace(/^\d+\.?\s*/, '').trim();
+                    } else {
+                        // نأخذ أي نص من البطاقة
+                        const allText = card.textContent.trim();
+                        // نحاول استخراج النص الرئيسي (تجاهل أزرار Richtig/Falsch)
+                        const lines = allText.split('\n').filter(line => line.trim());
+                        for (let line of lines) {
+                            if (!line.includes('Richtig') && !line.includes('Falsch') && !line.includes('Prüfen') && !line.includes('↺')) {
+                                text = line.replace(/^\d+\s+/, '').trim();
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if (text) {
+                    // محاولة استخراج الإجابة الصحيحة إذا كانت موجودة
+                    let correct = false;
+                    // في Hören، الإجابة مخزنة في البيانات
+                    // في Lesen، الإجابة مخزنة في select أو options
+                    const select = card.querySelector('select');
+                    if (select) {
+                        // نحاول معرفة ما إذا كانت هناك إجابة محددة
+                        // في Lesen، الإجابة تكون في select ولكن لا نعرف القيمة الصحيحة
+                        // سنتركها false وسيتم التصحيح حسب DOM
+                    }
+                    
+                    questions.push({
+                        text: text,
+                        correct: correct,
+                        displayNumber: index + 1
+                    });
+                }
+            });
+            
+            if (questions.length > 0) {
+                // إنشاء بيانات جديدة
+                data = {
+                    container: container,
+                    questions: questions,
+                    note: '',
+                    originalQuestions: questions.slice()
+                };
+                _hoerenData[activeSkill] = data;
+                console.log(`✅ تم إنشاء بيانات لـ ${activeSkill} من DOM (${questions.length} سؤال)`);
+            }
+        }
+    }
+    
+    // إذا لم نجد بيانات حتى الآن
+    if (!data || !data.questions || data.questions.length === 0) {
+        console.warn(`⚠️ لا توجد أسئلة لـ ${activeSkill}`);
+        console.log("========== END REBUILD (NO QUESTIONS) ==========");
+        return;
+    }
+    
     console.log(`questions =`, data.questions);
-    console.log(`questions length =`, data.questions ? data.questions.length : 0);
+    console.log(`questions length =`, data.questions.length);
     console.log(`interleaving =`, window.isInterleavingActive);
     
     // ✅ حفظ الإجابات الحالية
@@ -3592,11 +3690,11 @@ function rebuildTrueFalseCards() {
         label.style.border = '1px solid #ccc';
     });
     
-    // ✅ العثور على حاوية الأزرار الموجودة (نسخة محسنة)
+    // ✅ العثور على حاوية الأزرار الموجودة
     let buttonsContainer = null;
     let createNewButtons = false;
     
-    // 1. نبحث عن أي عنصر يحتوي على زر "Prüfen" و "↺" معاً
+    // نبحث عن أي عنصر يحتوي على زر "Prüfen" و "↺" معاً
     const allDivs = container.querySelectorAll('div');
     for (let el of allDivs) {
         const btns = el.querySelectorAll('button');
@@ -3610,7 +3708,7 @@ function rebuildTrueFalseCards() {
         }
     }
     
-    // 2. إذا لم نجد، نبحث عن أي عنصر يحتوي على .check-btn
+    // إذا لم نجد، نبحث عن .check-btn
     if (!buttonsContainer) {
         const checkBtn = container.querySelector('.check-btn');
         if (checkBtn) {
@@ -3625,9 +3723,8 @@ function rebuildTrueFalseCards() {
         }
     }
     
-    // 3. إذا لم نجد نهائياً، نزيل الأزرار القديمة وننشئ حاوية جديدة في النهاية
+    // إذا لم نجد، ننشئ حاوية جديدة
     if (!buttonsContainer) {
-        // نحذف أي أزرار قديمة
         container.querySelectorAll('.check-btn').forEach(btn => {
             const parent = btn.closest('div');
             if (parent && parent.children.length <= 3) {
@@ -3636,7 +3733,6 @@ function rebuildTrueFalseCards() {
                 btn.remove();
             }
         });
-        // نبحث عن ↺ ونحذفه
         container.querySelectorAll('button').forEach(btn => {
             if (btn.textContent === '↺') {
                 const parent = btn.closest('div');
@@ -3653,7 +3749,7 @@ function rebuildTrueFalseCards() {
     // ✅ إعادة إنشاء البطاقات
     for (let i = 0; i < questionsToUse.length; i++) {
         const q = questionsToUse[i];
-        const questionId = q.displayNumber;
+        const questionId = q.displayNumber || (i + 1);
         
         const div = document.createElement('div');
         div.className = 'question-card';
@@ -3719,8 +3815,7 @@ function rebuildTrueFalseCards() {
         labelFalse.appendChild(document.createTextNode(' Falsch'));
         
         const textSpan = document.createElement('span');
-        const displayNumber = q.displayNumber || (i + 1);
-        textSpan.innerHTML = `<strong>${displayNumber}</strong> ${q.text}`;
+        textSpan.innerHTML = `<strong>${questionId}</strong> ${q.text}`;
         textSpan.style.flex = '1';
         textSpan.style.minWidth = '200px';
         
@@ -3737,10 +3832,8 @@ function rebuildTrueFalseCards() {
     
     console.log("cards after rebuild =", container.querySelectorAll(".question-card").length);
     
-    // ✅ إذا لم نجد حاوية الأزرار، ننشئها من جديد
-    if (createNewButtons) {
-        const activeSkill = window.currentSkill || 'hoeren1';
-        const data = _hoerenData[activeSkill];
+    // ✅ إذا لم نجد حاوية الأزرار، ننشئها
+    if (createNewButtons || !buttonsContainer) {
         const finalQuestions = data.questions;
         
         const newButtonContainer = document.createElement('div');
@@ -3778,7 +3871,9 @@ function rebuildTrueFalseCards() {
         checkBtnNew.style.fontSize = '16px';
         checkBtnNew.onclick = () => {
             const data = _hoerenData[activeSkill];
-            const questionsToCheck = (data && data.originalQuestions.length > 0) ? data.originalQuestions : finalQuestions;
+            const questionsToCheck = (data && data.originalQuestions && data.originalQuestions.length > 0) 
+                ? data.originalQuestions 
+                : finalQuestions;
             checkTrueFalseExam(container, questionsToCheck, window._trueFalseUserAnswers, correctNumbersContainer);
         };
         
