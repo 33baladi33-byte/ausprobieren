@@ -3820,7 +3820,6 @@ function rebuildTrueFalseCards() {
 // ============================================
 // إعادة بناء Lesen Teil 1 (ترتيب ثابت مع حفظ العقد)
 // ============================================
-
 function rebuildLesen1() {
     console.log("🔄 إعادة بناء Lesen 1...");
     
@@ -3877,8 +3876,8 @@ function rebuildLesen1() {
     cards.forEach(card => card.remove());
     
     if (firstNonCard) {
-        // إدراج البطاقات قبل الأزرار
-        for (let i = targetNodes.length - 1; i >= 0; i--) {
+        // ✅ إدراج البطاقات قبل الأزرار مع الحفاظ على الترتيب الصحيح
+        for (let i = 0; i < targetNodes.length; i++) {
             container.insertBefore(targetNodes[i], firstNonCard);
         }
     } else {
