@@ -1112,6 +1112,7 @@ async function openExam(examId, examTitle, skill) {
     } else {
       showTeil(10);
     }
+  
     
     // ============================================================
     // ✅ ✅ ✅ التعديل النهائي لـ Interleaving ✅ ✅ ✅
@@ -1128,14 +1129,13 @@ async function openExam(examId, examTitle, skill) {
         window.resetInterleaving();
     }
 
-    // 3. تهيئة زر Interleaving (ربط الأحداث)
+    // 3. تهيئة زر Interleaving (ربط الأحداث) - سيتم تنفيذها مرة واحدة فقط
     if (typeof window.initInterleaving === 'function') {
         console.log('🔄 تهيئة Interleaving بعد تحميل الامتحان...');
         window.initInterleaving();
     }
 
     // 4. ✅ إعادة بناء البطاقات دائماً بعد تحميل الامتحان
-    //    هذا يضمن تحديث البطاقات عند التبديل بين الامتحانات
     if (typeof window.rebuildTrueFalseCards === 'function') {
         console.log('🔄 إعادة بناء البطاقات بعد تحميل الامتحان');
         window.rebuildTrueFalseCards();
