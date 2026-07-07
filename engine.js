@@ -3991,7 +3991,6 @@ window.resetLesen2Order = resetLesen2Order;
 // إصلاح زر Interleaving - النسخة النهائية (عامة)
 // ============================================
 let _toggleInProgress = false;
-
 function toggleInterleaving() {
     if (_toggleInProgress) {
         console.log('⏭️ عملية تبديل قيد التنفيذ، تخطي');
@@ -4062,24 +4061,13 @@ function toggleInterleaving() {
             _toggleInProgress = false;
         }
     } else {
-    console.log(`Calling rebuildLesen2...`);
-    if (typeof rebuildLesen2 === 'function') {
-        setTimeout(() => {
-            rebuildLesen2();
-            _toggleInProgress = false;
-        }, 50);
-    } else {
-        console.error('❌ دالة rebuildLesen2 غير موجودة!');
-        _toggleInProgress = false;
-    }
-}else {
         console.log(`⚠️ Interleaving غير مدعوم لـ ${currentSkill} حالياً`);
         window.isInterleavingActive = !window.isInterleavingActive;
         if (btn) {
             btn.classList.remove('active');
             btn.title = 'Interleaving: OFF';
         }
-        alert(`⚠️ Interleaving يعمل فقط على Hören Teil 1,2,3 و Lesen 1 حالياً (المهارة الحالية: ${currentSkill})`);
+        alert(`⚠️ Interleaving يعمل فقط على Hören Teil 1,2,3 و Lesen 1 و Lesen 2 حالياً (المهارة الحالية: ${currentSkill})`);
         _toggleInProgress = false;
     }
 }
