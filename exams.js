@@ -1114,15 +1114,16 @@ async function openExam(examId, examTitle, skill) {
     }
     
     // ============================================================
-    // ✅ ✅ ✅ التعديل الجديد لحل مشاكل Interleaving ✅ ✅ ✅
+    // ✅ ✅ ✅ التعديل النهائي لـ Interleaving ✅ ✅ ✅
     // ============================================================
+    
     // 1. التأكد من إظهار الحاوية الخاصة بالجزء الحالي
     const containerEl = document.getElementById(skill);
     if (containerEl) {
         containerEl.style.display = 'block';
     }
 
-    // 2. إعادة تعيين Interleaving (يعيد تعيين الحالة ويبني البطاقات إذا كان الامتحان مفتوحاً)
+    // 2. إعادة تعيين Interleaving (فقط إعادة تعيين الحالة، لا تعيد بناء البطاقات)
     if (typeof window.resetInterleaving === 'function') {
         window.resetInterleaving();
     }
@@ -1133,9 +1134,10 @@ async function openExam(examId, examTitle, skill) {
         window.initInterleaving();
     }
 
-    // 4. إذا كان Interleaving مفعلاً، نعيد بناء البطاقات فوراً لضمان الترتيب الصحيح
-    if (window.isInterleavingActive && typeof window.rebuildTrueFalseCards === 'function') {
-        console.log('🔄 إعادة بناء البطاقات لأن Interleaving مفعّل');
+    // 4. ✅ إعادة بناء البطاقات دائماً بعد تحميل الامتحان
+    //    هذا يضمن تحديث البطاقات عند التبديل بين الامتحانات
+    if (typeof window.rebuildTrueFalseCards === 'function') {
+        console.log('🔄 إعادة بناء البطاقات بعد تحميل الامتحان');
         window.rebuildTrueFalseCards();
     }
     
