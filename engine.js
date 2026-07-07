@@ -30,6 +30,15 @@ let lesen1OrderSaved = false;
 let lesen2OriginalNodes = null;
 let lesen2ShuffledNodes = null;
 let lesen2OrderSaved = false;
+
+// ✅✅✅ دالة إعادة تعيين ترتيب Lesen2 ✅✅✅
+function resetLesen2Order() {
+    lesen2OriginalNodes = null;
+    lesen2ShuffledNodes = null;
+    lesen2OrderSaved = false;
+    console.log('🔄 تم إعادة تعيين ترتيب Lesen2');
+}
+
 window.loadExamFromFile = async function(skill, examId) {
   try {
     const response = await fetch(`data/${skill}/exam${examId}.json`);
@@ -3980,13 +3989,7 @@ function resetLesen1Order() {
     lesen1OrderSaved = false;
     console.log('🔄 تم إعادة تعيين ترتيب Lesen1');
 }
-// ✅✅✅ دالة إعادة تعيين ترتيب Lesen2 ✅✅✅
-function resetLesen2Order() {
-    lesen2OriginalNodes = null;
-    lesen2ShuffledNodes = null;
-    lesen2OrderSaved = false;
-    console.log('🔄 تم إعادة تعيين ترتيب Lesen2');
-}
+
 // تصدير الدوال للاستخدام العالمي
 window.rebuildTrueFalseCards = rebuildTrueFalseCards;
 window.rebuildLesen1 = rebuildLesen1;
