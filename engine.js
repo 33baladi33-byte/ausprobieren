@@ -1541,11 +1541,8 @@ let matchingAvailableOptions = [];
 window.loadMatchingExam = function(examData) {
   console.log("🟢 loadMatchingExam", examData.title);
   
-// ✅ إعادة تعيين ترتيب Lesen1 عند تحميل امتحان جديد
-lesen1OriginalOrder = [];
-lesen1MixedOrder = [];
-lesen1OrderSaved = false;
-console.log('🔄 تم إعادة تعيين ترتيب Lesen1');
+  // ✅ إعادة تعيين الترتيب عند فتح امتحان جديد
+  resetLesen1Order();
   
   currentMatchingExamData = examData;
   matchingSelectedAnswers = {};
@@ -3820,7 +3817,7 @@ function rebuildTrueFalseCards() {
 }
 
 // ============================================
-// إعادة بناء Lesen Teil 1 (ترتيب ثابت مع حفظ - مع حماية الأزرار)
+// إعادة بناء Lesen Teil 1 (ترتيب ثابت مع حفظ - مثل Hören)
 // ============================================
 
 function rebuildLesen1() {
@@ -3832,7 +3829,7 @@ function rebuildLesen1() {
         return;
     }
     
-    // ✅ الحصول على البطاقات فقط (وليس كل العناصر)
+    // ✅ الحصول على البطاقات فقط
     const cards = [...container.querySelectorAll(":scope > .question-card")];
     if (cards.length === 0) {
         console.warn("⚠️ لا توجد بطاقات في #teil1");
@@ -3840,13 +3837,13 @@ function rebuildLesen1() {
     }
     
     console.log(`📦 عدد البطاقات: ${cards.length}`);
+    console.log("📋 البطاقات الحالية:", cards.map(c => c.id));
     
-    // ✅ حفظ الترتيب الأصلي في أول مرة فقط
+    // ✅ إذا لم يتم حفظ الترتيب بعد، نستخدم الترتيب الحالي
     if (!lesen1OrderSaved) {
         lesen1OriginalOrder = cards.map(card => card.id);
         console.log("💾 تم حفظ الترتيب الأصلي:", lesen1OriginalOrder);
         
-        // ✅ إنشاء الترتيب المختلط مرة واحدة فقط
         const order = interleavingOrders.lesen1;
         if (order && order.length === cards.length) {
             const orderedCards = [];
@@ -3861,36 +3858,27 @@ function rebuildLesen1() {
             }
         } else {
             lesen1MixedOrder = cards.map(card => card.id);
-            console.log("💾 لا يوجد ترتيب محدد، استخدام الترتيب الحالي");
         }
         lesen1OrderSaved = true;
     }
     
-    // ✅ تطبيق الترتيب المطلوب
-    let targetOrder = [];
-    if (window.isInterleavingActive) {
-        targetOrder = lesen1MixedOrder;
-        console.log("🔄 تطبيق الترتيب المختلط:", targetOrder);
-    } else {
-        targetOrder = lesen1OriginalOrder;
-        console.log("🔄 تطبيق الترتيب الأصلي:", targetOrder);
-    }
+    // ✅ اختيار الترتيب المطلوب
+    let targetOrder = window.isInterleavingActive ? lesen1MixedOrder : lesen1OriginalOrder;
+    console.log(`🔄 تطبيق الترتيب: ${window.isInterleavingActive ? 'مختلط' : 'أصلي'}`, targetOrder);
     
-    // ✅ إعادة ترتيب البطاقات فقط (بدون لمس الأزرار)
-    // العثور على أول عنصر ليس بطاقة (الأزرار أو result-box)
+    // ✅ العثور على أول عنصر ليس بطاقة (الأزرار)
     const firstNonCard = container.querySelector(":scope > :not(.question-card)");
     
     if (firstNonCard) {
-        // إدراج البطاقات قبل أول عنصر ليس بطاقة
+        // إدراج البطاقات قبل الأزرار
         for (let i = targetOrder.length - 1; i >= 0; i--) {
-            const id = targetOrder[i];
-            const card = document.getElementById(id);
+            const card = document.getElementById(targetOrder[i]);
             if (card) {
                 container.insertBefore(card, firstNonCard);
             }
         }
     } else {
-        // إذا لم نجد عنصراً غير بطاقة، نضيفها في النهاية
+        // إذا لم نجد أزرار، نضيف في النهاية
         for (let id of targetOrder) {
             const card = document.getElementById(id);
             if (card) {
@@ -3899,7 +3887,7 @@ function rebuildLesen1() {
         }
     }
     
-    console.log("✅ تم إعادة ترتيب البطاقات بنجاح (الأزرار في مكانها)");
+    console.log("✅ تم إعادة ترتيب البطاقات بنجاح");
 }
 
 // ✅✅✅ دالة إعادة تعيين ترتيب Lesen1 ✅✅✅
