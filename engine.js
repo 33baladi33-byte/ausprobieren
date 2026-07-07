@@ -18,14 +18,18 @@ const interleavingOrders = {
     hoeren1: [2, 4, 1, 5, 3],
     hoeren2: [3, 7, 1, 9, 5, 10, 2, 6, 4, 8],
     hoeren3: [2, 4, 1, 5, 3],
-    lesen1: [3, 1, 5, 2, 4] 
+    lesen1: [3, 1, 5, 2, 4],
+    lesen2: [4, 2, 5, 1, 3]
 };
 
 // ✅✅✅ متغيرات لحفظ ترتيب Lesen1 ✅✅✅
 let lesen1OriginalNodes = null;
 let lesen1ShuffledNodes = null;
 let lesen1OrderSaved = false;
-
+// ✅✅✅ متغيرات لحفظ ترتيب Lesen2 ✅✅✅
+let lesen2OriginalNodes = null;
+let lesen2ShuffledNodes = null;
+let lesen2OrderSaved = false;
 window.loadExamFromFile = async function(skill, examId) {
   try {
     const response = await fetch(`data/${skill}/exam${examId}.json`);
@@ -1758,6 +1762,12 @@ let teil2UserAnswers = {};
 
 window.loadTeil2Exam = function(examData) {
   console.log("🟢 loadTeil2Exam", examData.title);
+  
+  // ✅ إعادة تعيين ترتيب Lesen2 عند فتح امتحان جديد
+  if (typeof resetLesen2Order === 'function') {
+      resetLesen2Order();
+  }
+  
   currentTeil2Data = examData;
   teil2UserAnswers = {};
   renderTeil2Exam();
@@ -3890,6 +3900,78 @@ function rebuildLesen1() {
     console.log("✅ تم إعادة ترتيب البطاقات بنجاح");
 }
 
+// ============================================
+// إعادة بناء Lesen Teil 2 (ترتيب ثابت محدد)
+// ============================================
+function rebuildLesen2() {
+    console.log("🔄 إعادة بناء Lesen 2...");
+    
+    const container = document.getElementById("teil2");
+    if (!container) {
+        console.warn("⚠️ #teil2 غير موجود");
+        return;
+    }
+    
+    // ✅ الحصول على البطاقات فقط
+    const cards = [...container.querySelectorAll(":scope > .question-card")];
+    if (cards.length === 0) {
+        console.warn("⚠️ لا توجد بطاقات في #teil2");
+        return;
+    }
+    
+    console.log(`📦 عدد البطاقات: ${cards.length}`);
+    
+    // ✅ حفظ العقد في أول مرة فقط
+    if (!lesen2OrderSaved) {
+        lesen2OriginalNodes = [...cards];
+        console.log("💾 تم حفظ العقد الأصلية لـ Lesen2:", lesen2OriginalNodes.map(c => c.id));
+        
+        // ✅ استخدام الترتيب المحدد من interleavingOrders
+        const order = interleavingOrders.lesen2;
+        if (order && order.length === cards.length) {
+            const orderedCards = [];
+            for (let idx of order) {
+                if (idx <= cards.length) {
+                    orderedCards.push(cards[idx - 1]);
+                }
+            }
+            if (orderedCards.length === cards.length) {
+                lesen2ShuffledNodes = [...orderedCards];
+                console.log("💾 تم حفظ الترتيب المختلط لـ Lesen2:", lesen2ShuffledNodes.map(c => c.id));
+            } else {
+                lesen2ShuffledNodes = [...cards];
+            }
+        } else {
+            lesen2ShuffledNodes = [...cards];
+            console.log("💾 لا يوجد ترتيب محدد، استخدام الترتيب الحالي");
+        }
+        lesen2OrderSaved = true;
+    }
+    
+    // ✅ اختيار الترتيب المطلوب
+    let targetNodes = window.isInterleavingActive ? lesen2ShuffledNodes : lesen2OriginalNodes;
+    console.log(`🔄 تطبيق الترتيب: ${window.isInterleavingActive ? 'مختلط' : 'أصلي'}`, targetNodes.map(c => c.id));
+    
+    // ✅ العثور على أول عنصر ليس بطاقة (النص الطويل أو الأزرار)
+    const firstNonCard = container.querySelector(":scope > :not(.question-card)");
+    
+    // ✅ إزالة البطاقات من DOM (بدون حذفها)
+    cards.forEach(card => card.remove());
+    
+    if (firstNonCard) {
+        // ✅ إدراج البطاقات قبل أول عنصر ليس بطاقة
+        for (let i = 0; i < targetNodes.length; i++) {
+            container.insertBefore(targetNodes[i], firstNonCard);
+        }
+    } else {
+        // إذا لم نجد عنصراً غير بطاقة، نضيف في النهاية
+        for (let node of targetNodes) {
+            container.appendChild(node);
+        }
+    }
+    
+    console.log("✅ تم إعادة ترتيب بطاقات Lesen2 بنجاح");
+}
 // ✅✅✅ دالة إعادة تعيين ترتيب Lesen1 ✅✅✅
 // ============================================
 function resetLesen1Order() {
@@ -3902,8 +3984,9 @@ function resetLesen1Order() {
 // تصدير الدوال للاستخدام العالمي
 window.rebuildTrueFalseCards = rebuildTrueFalseCards;
 window.rebuildLesen1 = rebuildLesen1;
+window.rebuildLesen2 = rebuildLesen2;
 window.resetLesen1Order = resetLesen1Order;
-
+window.resetLesen2Order = resetLesen2Order;
 // ============================================
 // إصلاح زر Interleaving - النسخة النهائية (عامة)
 // ============================================
@@ -3967,7 +4050,19 @@ function toggleInterleaving() {
             console.error('❌ دالة rebuildLesen1 غير موجودة!');
             _toggleInProgress = false;
         }
+    }
+    } else if (currentSkill === 'lesen2') {
+    console.log(`Calling rebuildLesen2...`);
+    if (typeof rebuildLesen2 === 'function') {
+        setTimeout(() => {
+            rebuildLesen2();
+            _toggleInProgress = false;
+        }, 50);
     } else {
+        console.error('❌ دالة rebuildLesen2 غير موجودة!');
+        _toggleInProgress = false;
+    }
+}else {
         console.log(`⚠️ Interleaving غير مدعوم لـ ${currentSkill} حالياً`);
         window.isInterleavingActive = !window.isInterleavingActive;
         if (btn) {
@@ -4027,10 +4122,13 @@ function resetInterleaving() {
         btn.title = 'Interleaving: OFF';
     }
     
-    // ✅ إعادة تعيين ترتيب Lesen1
-    if (typeof resetLesen1Order === 'function') {
-        resetLesen1Order();
-    }
+ // ✅ إعادة تعيين ترتيب Lesen1 و Lesen2
+if (typeof resetLesen1Order === 'function') {
+    resetLesen1Order();
+}
+if (typeof resetLesen2Order === 'function') {
+    resetLesen2Order();
+}
     
     _interleavingInitialized = false;
     console.log('✅ تم إعادة تعيين حالة Interleaving');
@@ -4041,4 +4139,4 @@ window.toggleInterleaving = toggleInterleaving;
 window.initInterleaving = initInterleaving;
 window.resetInterleaving = resetInterleaving;
 
-console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3 و Lesen 1');
+console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3 و Lesen 1 و Lesen 2');
