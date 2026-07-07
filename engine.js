@@ -3921,10 +3921,12 @@ function rebuildLesen2() {
         return;
     }
     
-    // ✅ الحصول على البطاقات فقط
-    const cards = [...container.querySelectorAll(":scope > .question-card")];
+    // ✅ التعديل الأساسي: البحث عن البطاقات في أي مستوى داخل الحاوية
+    const cards = [...container.querySelectorAll(".question-card")];
+    
     if (cards.length === 0) {
-        console.warn("⚠️ لا توجد بطاقات في #teil2");
+        console.warn("⚠️ لا توجد بطاقات في #teil2، إعادة المحاولة بعد 50ms");
+        setTimeout(rebuildLesen2, 50);
         return;
     }
     
@@ -4061,10 +4063,9 @@ function toggleInterleaving() {
     } else if (currentSkill === 'lesen2') {
         console.log(`Calling rebuildLesen2...`);
         if (typeof rebuildLesen2 === 'function') {
-            setTimeout(() => {
-                rebuildLesen2();
-                _toggleInProgress = false;
-            }, 50);
+            // استدعاء الدالة مباشرة، وهي ستتعامل مع إعادة المحاولة بنفسها
+            rebuildLesen2();
+            _toggleInProgress = false;
         } else {
             console.error('❌ دالة rebuildLesen2 غير موجودة!');
             _toggleInProgress = false;
