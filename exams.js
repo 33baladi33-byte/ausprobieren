@@ -1143,7 +1143,6 @@ async function openExam(examId, examTitle, skill) {
     console.error("❌ خطأ:", e);
     alert("خطأ في تحميل الامتحان: " + e.message);
   }
-}
 }  // ✅ هذا القوس يغلق دالة openExam
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
