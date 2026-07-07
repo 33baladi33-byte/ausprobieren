@@ -22,8 +22,8 @@ const interleavingOrders = {
 };
 
 // ✅✅✅ متغيرات لحفظ ترتيب Lesen1 ✅✅✅
-let lesen1OriginalOrder = [];
-let lesen1MixedOrder = [];
+let lesen1OriginalNodes = null;
+let lesen1ShuffledNodes = null;
 let lesen1OrderSaved = false;
 
 window.loadExamFromFile = async function(skill, examId) {
@@ -3816,8 +3816,9 @@ function rebuildTrueFalseCards() {
     console.log("========== END REBUILD ==========");
 }
 
+
 // ============================================
-// إعادة بناء Lesen Teil 1 (ترتيب ثابت مع حفظ - مثل Hören)
+// إعادة بناء Lesen Teil 1 (ترتيب ثابت مع حفظ العقد)
 // ============================================
 
 function rebuildLesen1() {
@@ -3837,13 +3838,13 @@ function rebuildLesen1() {
     }
     
     console.log(`📦 عدد البطاقات: ${cards.length}`);
-    console.log("📋 البطاقات الحالية:", cards.map(c => c.id));
     
-    // ✅ إذا لم يتم حفظ الترتيب بعد، نستخدم الترتيب الحالي
+    // ✅ حفظ العقد في أول مرة فقط
     if (!lesen1OrderSaved) {
-        lesen1OriginalOrder = cards.map(card => card.id);
-        console.log("💾 تم حفظ الترتيب الأصلي:", lesen1OriginalOrder);
+        lesen1OriginalNodes = [...cards];
+        console.log("💾 تم حفظ العقد الأصلية:", lesen1OriginalNodes.map(c => c.id));
         
+        // ✅ إنشاء الترتيب المختلط مرة واحدة فقط
         const order = interleavingOrders.lesen1;
         if (order && order.length === cards.length) {
             const orderedCards = [];
@@ -3853,37 +3854,37 @@ function rebuildLesen1() {
                 }
             }
             if (orderedCards.length === cards.length) {
-                lesen1MixedOrder = orderedCards.map(card => card.id);
-                console.log("💾 تم حفظ الترتيب المختلط:", lesen1MixedOrder);
+                lesen1ShuffledNodes = [...orderedCards];
+                console.log("💾 تم حفظ الترتيب المختلط:", lesen1ShuffledNodes.map(c => c.id));
+            } else {
+                lesen1ShuffledNodes = [...cards];
             }
         } else {
-            lesen1MixedOrder = cards.map(card => card.id);
+            lesen1ShuffledNodes = [...cards];
+            console.log("💾 لا يوجد ترتيب محدد، استخدام الترتيب الحالي");
         }
         lesen1OrderSaved = true;
     }
     
     // ✅ اختيار الترتيب المطلوب
-    let targetOrder = window.isInterleavingActive ? lesen1MixedOrder : lesen1OriginalOrder;
-    console.log(`🔄 تطبيق الترتيب: ${window.isInterleavingActive ? 'مختلط' : 'أصلي'}`, targetOrder);
+    let targetNodes = window.isInterleavingActive ? lesen1ShuffledNodes : lesen1OriginalNodes;
+    console.log(`🔄 تطبيق الترتيب: ${window.isInterleavingActive ? 'مختلط' : 'أصلي'}`, targetNodes.map(c => c.id));
     
     // ✅ العثور على أول عنصر ليس بطاقة (الأزرار)
     const firstNonCard = container.querySelector(":scope > :not(.question-card)");
     
+    // ✅ إزالة البطاقات من DOM (بدون حذفها)
+    cards.forEach(card => card.remove());
+    
     if (firstNonCard) {
         // إدراج البطاقات قبل الأزرار
-        for (let i = targetOrder.length - 1; i >= 0; i--) {
-            const card = document.getElementById(targetOrder[i]);
-            if (card) {
-                container.insertBefore(card, firstNonCard);
-            }
+        for (let i = targetNodes.length - 1; i >= 0; i--) {
+            container.insertBefore(targetNodes[i], firstNonCard);
         }
     } else {
         // إذا لم نجد أزرار، نضيف في النهاية
-        for (let id of targetOrder) {
-            const card = document.getElementById(id);
-            if (card) {
-                container.appendChild(card);
-            }
+        for (let node of targetNodes) {
+            container.appendChild(node);
         }
     }
     
@@ -3893,8 +3894,8 @@ function rebuildLesen1() {
 // ✅✅✅ دالة إعادة تعيين ترتيب Lesen1 ✅✅✅
 // ============================================
 function resetLesen1Order() {
-    lesen1OriginalOrder = [];
-    lesen1MixedOrder = [];
+    lesen1OriginalNodes = null;
+    lesen1ShuffledNodes = null;
     lesen1OrderSaved = false;
     console.log('🔄 تم إعادة تعيين ترتيب Lesen1');
 }
