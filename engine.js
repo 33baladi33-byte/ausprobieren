@@ -1362,17 +1362,45 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
     // ✅ الحصول على جميع البطاقات المعروضة
     const cards = container.querySelectorAll('.question-card');
     
-    // ✅ التصحيح يعتمد على معرف السؤال (questionId) وليس على الفهرس
+    // ✅ التصحيح يعتمد على النص المعروض وليس على المعرف
     for (const card of cards) {
-        // ✅ استخراج معرف السؤال من البطاقة
-        const questionId = parseInt(card.dataset.questionId);
+        // ✅ استخراج النص من البطاقة
+        const textSpan = card.querySelector('span');
+        if (!textSpan) continue;
         
-        // ✅ البحث عن السؤال في القائمة الأصلية باستخدام معرفه
-        const q = questionsToCheck.find((q, index) => index === questionId);
+        // ✅ استخراج الرقم المعروض من النص (مثل "2 Ein Bonner...")
+        const match = textSpan.textContent.match(/^(\d+)\s+(.+)$/);
+        if (!match) continue;
+        
+        const displayNumber = parseInt(match[1]); // الرقم المعروض (2, 4, 1, 5, 3)
+        const questionText = match[2].trim(); // نص السؤال
+        
+        // ✅ البحث عن السؤال في القائمة الأصلية باستخدام displayNumber
+        let q = null;
+        let qIndex = -1;
+        for (let i = 0; i < questionsToCheck.length; i++) {
+            if (questionsToCheck[i].displayNumber === displayNumber) {
+                q = questionsToCheck[i];
+                qIndex = i;
+                break;
+            }
+        }
+        
+        // إذا لم نجد بالـ displayNumber، نبحث بالنص
+        if (!q) {
+            for (let i = 0; i < questionsToCheck.length; i++) {
+                if (questionsToCheck[i].text.trim() === questionText) {
+                    q = questionsToCheck[i];
+                    qIndex = i;
+                    break;
+                }
+            }
+        }
+        
         if (!q) continue;
         
-        // ✅ الحصول على إجابة المستخدم لهذا السؤال
-        const userAnswer = answers[questionId];
+        // ✅ الحصول على إجابة المستخدم لهذا السؤال (باستخدام الفهرس الأصلي)
+        const userAnswer = answers[qIndex];
         const isCorrect = (userAnswer === q.correct);
         
         // ✅ تنظيف البطاقة من التصحيح السابق
@@ -1429,17 +1457,25 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         
         // ✅ نجمع أرقام البطاقات الصحيحة حسب ترتيب العرض
         for (const card of cards) {
-            const questionId = parseInt(card.dataset.questionId);
-            const q = questionsToCheck.find((q, index) => index === questionId);
-            if (q && q.correct === true) {
-                // ✅ نستخرج الرقم المعروض من البطاقة
-                const textSpan = card.querySelector('span');
-                if (textSpan) {
-                    const match = textSpan.textContent.match(/^(\d+)/);
-                    if (match) {
-                        correctNumbers.push(match[1]);
-                    }
+            const textSpan = card.querySelector('span');
+            if (!textSpan) continue;
+            
+            const match = textSpan.textContent.match(/^(\d+)/);
+            if (!match) continue;
+            
+            const displayNumber = parseInt(match[1]);
+            
+            // ✅ نبحث عن هذا الرقم في القائمة الأصلية
+            let q = null;
+            for (let i = 0; i < questionsToCheck.length; i++) {
+                if (questionsToCheck[i].displayNumber === displayNumber) {
+                    q = questionsToCheck[i];
+                    break;
                 }
+            }
+            
+            if (q && q.correct === true) {
+                correctNumbers.push(displayNumber);
             }
         }
         
