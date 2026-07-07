@@ -1,23 +1,29 @@
 // ============================================
-// engine.js - محرك الامتحانات المتكامل (النسخة النهائية - مع إصلاحات Interleaving)
+// engine.js - محرك الامتحانات المتكامل (النسخة النهائية - مع دعم Interleaving لجميع الأقسام)
 // ============================================
 
 console.log("✅ engine.js تم تحميله");
 
 // ============================================
-// بيانات Hören للأجزاء الثلاثة
+// بيانات Hören و Lesen للأجزاء
 // ============================================
 const _hoerenData = {
     hoeren1: { container: null, questions: [], note: '', originalQuestions: [] },
     hoeren2: { container: null, questions: [], note: '', originalQuestions: [] },
-    hoeren3: { container: null, questions: [], note: '', originalQuestions: [] }
+    hoeren3: { container: null, questions: [], note: '', originalQuestions: [] },
+    lesen1: { container: null, questions: [], note: '', originalQuestions: [] },
+    lesen2: { container: null, questions: [], note: '', originalQuestions: [] },
+    lesen3: { container: null, questions: [], note: '', originalQuestions: [] }
 };
 
 // ترتيب Interleaving لكل Teil (قابل للتعديل)
 const interleavingOrders = {
     hoeren1: [2, 4, 1, 5, 3],
     hoeren2: [3, 7, 1, 9, 5, 10, 2, 6, 4, 8],
-    hoeren3: [2, 4, 1, 5, 3]
+    hoeren3: [2, 4, 1, 5, 3],
+    lesen1: [3, 1, 4, 2, 5],
+    lesen2: [2, 5, 1, 4, 3, 6, 8, 7, 10, 9],
+    lesen3: [4, 1, 3, 2, 5, 7, 6, 9, 8, 10, 12, 11]
 };
 
 window.loadExamFromFile = async function(skill, examId) {
@@ -1090,7 +1096,7 @@ function checkSprach1Exam() {
 }
 
 // ============================================
-// نظام True/False (Hören Teil 1,2,3) مع Interleaving
+// نظام True/False (Hören Teil 1,2,3 و Lesen 1,2,3) مع Interleaving
 // ============================================
 
 window.buildTrueFalseExam = function(container, questions, note) {
@@ -1105,20 +1111,19 @@ window.buildTrueFalseExam = function(container, questions, note) {
   container.innerHTML = '';
   container.style.display = 'block'; // ✅ إظهار الحاوية دائماً
   
-  const skillId = container.id; // hoeren1, hoeren2, hoeren3
+  const skillId = container.id; // hoeren1, hoeren2, hoeren3, lesen1, lesen2, lesen3
+  
   // ✅ تخزين البيانات لكل Teil حسب container.id
-  if (skillId.startsWith('hoeren')) {
-    const data = _hoerenData[skillId];
-    if (data) {
-      data.container = container;
-      data.questions = questions.map((q, index) => ({
-        ...q,
-        displayNumber: index + 1
-      }));
-      data.note = note || '';
-      data.originalQuestions = data.questions.slice();
-      console.log(`✅ تم تخزين بيانات ${skillId}`);
-    }
+  const data = _hoerenData[skillId];
+  if (data) {
+    data.container = container;
+    data.questions = questions.map((q, index) => ({
+      ...q,
+      displayNumber: index + 1
+    }));
+    data.note = note || '';
+    data.originalQuestions = data.questions.slice();
+    console.log(`✅ تم تخزين بيانات ${skillId}`);
   }
   
   if (window._trueFalseUserAnswers) {
@@ -1141,7 +1146,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
   }
   
   let finalQuestions = questions;
-  if (skillId.startsWith('hoeren') && window.isInterleavingActive) {
+  if (window.isInterleavingActive) {
     const order = interleavingOrders[skillId];
     if (order && order.length === questions.length) {
       const orderedQuestions = [];
@@ -1347,7 +1352,7 @@ window.buildTrueFalseExam = function(container, questions, note) {
 };
 
 // ============================================
-// دالة التصحيح لـ Hören Teil 1,2,3 - النسخة النهائية مع دعم Interleaving
+// دالة التصحيح لـ Hören Teil 1,2,3 و Lesen 1,2,3 - النسخة النهائية مع دعم Interleaving
 // ============================================
 function checkTrueFalseExam(container, questions, answers, correctNumbersContainer) {
     // ✅ تحديد الأسئلة التي سنستخدمها للتصحيح
@@ -3489,7 +3494,7 @@ if (typeof checkTeil3Exam === 'function') {
 }
 
 // ============================================
-// دالة إعادة بناء بطاقات Hören (عامة لـ Teil 1,2,3) - النسخة المحسنة
+// دالة إعادة بناء البطاقات - عامة لجميع الأقسام
 // ============================================
 function rebuildTrueFalseCards() {
     console.log("========== REBUILD ==========");
@@ -3880,36 +3885,31 @@ function toggleInterleaving() {
         }
     }
     
-    // ✅ إعادة بناء البطاقات إذا كان الامتحان الحالي هو Hören Teil 1,2,3
+    // ✅ إعادة بناء البطاقات إذا كان الامتحان الحالي مدعوماً
     const currentSkill = window.currentSkill || 'hoeren1';
+    const data = _hoerenData[currentSkill];
     
-    if (currentSkill.startsWith('hoeren')) {
+    if (data && data.questions && data.questions.length > 0) {
         console.log(`Calling rebuildTrueFalseCards for ${currentSkill}...`);
-        const data = _hoerenData[currentSkill];
-        if (data && data.questions && data.questions.length > 0) {
-            if (typeof rebuildTrueFalseCards === 'function') {
-                // ✅ استخدام setTimeout لتجنب تعارض التحديث
-                setTimeout(() => {
-                    rebuildTrueFalseCards();
-                    _toggleInProgress = false;
-                }, 50);
-            } else {
-                console.error('❌ دالة rebuildTrueFalseCards غير موجودة!');
+        if (typeof rebuildTrueFalseCards === 'function') {
+            // ✅ استخدام setTimeout لتجنب تعارض التحديث
+            setTimeout(() => {
+                rebuildTrueFalseCards();
                 _toggleInProgress = false;
-            }
+            }, 50);
         } else {
-            console.warn(`⚠️ لا توجد أسئلة لـ ${currentSkill}، انتظر تحميل الامتحان`);
+            console.error('❌ دالة rebuildTrueFalseCards غير موجودة!');
             _toggleInProgress = false;
         }
     } else {
-        console.log(`⚠️ Interleaving يعمل فقط على Hören Teil 1,2,3 (currentSkill: ${currentSkill})`);
-        // إعادة الحالة إذا لم يكن Hören Teil
+        console.log(`⚠️ Interleaving لا يعمل على ${currentSkill} (لا توجد بيانات أو أسئلة)`);
+        // إعادة الحالة إذا لم تكن البيانات موجودة
         window.isInterleavingActive = !window.isInterleavingActive;
         if (btn) {
             btn.classList.remove('active');
             btn.title = 'Interleaving: OFF';
         }
-        alert('⚠️ زر Interleaving يعمل فقط على أقسام Hören');
+        alert(`⚠️ زر Interleaving لا يعمل على هذا القسم (${currentSkill})`);
         _toggleInProgress = false;
     }
 }
@@ -3977,4 +3977,4 @@ window.toggleInterleaving = toggleInterleaving;
 window.initInterleaving = initInterleaving;
 window.resetInterleaving = resetInterleaving;
 
-console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3');
+console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3 و Lesen Teil 1,2,3');
