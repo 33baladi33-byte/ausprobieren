@@ -3818,8 +3818,10 @@ function rebuildTrueFalseCards() {
     console.log("========== END REBUILD ==========");
 }
 
-// ✅✅✅ إعادة بناء Lesen Teil 1 (ترتيب ثابت مع حفظ) ✅✅✅
 // ============================================
+// إعادة بناء Lesen Teil 1 (ترتيب ثابت مع حفظ - مع حماية الأزرار)
+// ============================================
+
 function rebuildLesen1() {
     console.log("🔄 إعادة بناء Lesen 1...");
     
@@ -3830,7 +3832,7 @@ function rebuildLesen1() {
     }
     
     // ✅ الحصول على البطاقات فقط (وليس كل العناصر)
-    const cards = [...container.querySelectorAll(".question-card")];
+    const cards = [...container.querySelectorAll(":scope > .question-card")];
     if (cards.length === 0) {
         console.warn("⚠️ لا توجد بطاقات في #teil1");
         return;
@@ -3857,7 +3859,6 @@ function rebuildLesen1() {
                 console.log("💾 تم حفظ الترتيب المختلط:", lesen1MixedOrder);
             }
         } else {
-            // ✅ إذا لم يوجد ترتيب محدد، استخدم الترتيب الحالي
             lesen1MixedOrder = cards.map(card => card.id);
             console.log("💾 لا يوجد ترتيب محدد، استخدام الترتيب الحالي");
         }
@@ -3874,15 +3875,30 @@ function rebuildLesen1() {
         console.log("🔄 تطبيق الترتيب الأصلي:", targetOrder);
     }
     
-    // ✅ إعادة ترتيب البطاقات فقط (وليس كل العناصر)
-    for (let id of targetOrder) {
-        const card = document.getElementById(id);
-        if (card) {
-            container.appendChild(card);
+    // ✅ إعادة ترتيب البطاقات فقط (بدون لمس الأزرار)
+    // العثور على أول عنصر ليس بطاقة (الأزرار أو result-box)
+    const firstNonCard = container.querySelector(":scope > :not(.question-card)");
+    
+    if (firstNonCard) {
+        // إدراج البطاقات قبل أول عنصر ليس بطاقة
+        for (let i = targetOrder.length - 1; i >= 0; i--) {
+            const id = targetOrder[i];
+            const card = document.getElementById(id);
+            if (card) {
+                container.insertBefore(card, firstNonCard);
+            }
+        }
+    } else {
+        // إذا لم نجد عنصراً غير بطاقة، نضيفها في النهاية
+        for (let id of targetOrder) {
+            const card = document.getElementById(id);
+            if (card) {
+                container.appendChild(card);
+            }
         }
     }
     
-    console.log("✅ تم إعادة ترتيب البطاقات بنجاح");
+    console.log("✅ تم إعادة ترتيب البطاقات بنجاح (الأزرار في مكانها)");
 }
 
 // ✅✅✅ دالة إعادة تعيين ترتيب Lesen1 ✅✅✅
