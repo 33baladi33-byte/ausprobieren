@@ -21,6 +21,11 @@ const interleavingOrders = {
     lesen1: [3, 1, 5, 2, 4] 
 };
 
+// ✅✅✅ متغيرات لحفظ ترتيب Lesen1 ✅✅✅
+let lesen1OriginalOrder = [];
+let lesen1MixedOrder = [];
+let lesen1OrderSaved = false;
+
 window.loadExamFromFile = async function(skill, examId) {
   try {
     const response = await fetch(`data/${skill}/exam${examId}.json`);
@@ -1104,10 +1109,9 @@ window.buildTrueFalseExam = function(container, questions, note) {
   }
   
   container.innerHTML = '';
-  container.style.display = 'block'; // ✅ إظهار الحاوية دائماً
+  container.style.display = 'block';
   
-  const skillId = container.id; // hoeren1, hoeren2, hoeren3
-  // ✅ تخزين البيانات لكل Teil حسب container.id
+  const skillId = container.id;
   if (skillId.startsWith('hoeren')) {
     const data = _hoerenData[skillId];
     if (data) {
@@ -1160,7 +1164,6 @@ window.buildTrueFalseExam = function(container, questions, note) {
   
   for (let i = 0; i < finalQuestions.length; i++) {
     const q = finalQuestions[i];
-    // ✅ استخدام displayNumber كمفتاح للبطاقة (وليس الفهرس)
     const questionId = q.displayNumber;
     
     const div = document.createElement('div');
@@ -1351,7 +1354,6 @@ window.buildTrueFalseExam = function(container, questions, note) {
 // دالة التصحيح لـ Hören Teil 1,2,3 - النسخة النهائية مع دعم Interleaving
 // ============================================
 function checkTrueFalseExam(container, questions, answers, correctNumbersContainer) {
-    // ✅ تحديد الأسئلة التي سنستخدمها للتصحيح
     let questionsToCheck = questions;
     const skillId = container.id;
     const data = _hoerenData[skillId];
@@ -1377,23 +1379,18 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
     const total = questionsToCheck.length;
     const pointsPerQuestion = 25 / total;
     
-    // ✅ الحصول على جميع البطاقات المعروضة
     const cards = container.querySelectorAll('.question-card');
     
-    // ✅ التصحيح يعتمد على النص المعروض وليس على المعرف
     for (const card of cards) {
-        // ✅ استخراج النص من البطاقة
         const textSpan = card.querySelector('span');
         if (!textSpan) continue;
         
-        // ✅ استخراج الرقم المعروض من النص (مثل "2 Ein Bonner...")
         const match = textSpan.textContent.match(/^(\d+)\s+(.+)$/);
         if (!match) continue;
         
-        const displayNumber = parseInt(match[1]); // الرقم المعروض (2, 4, 1, 5, 3)
-        const questionText = match[2].trim(); // نص السؤال
+        const displayNumber = parseInt(match[1]);
+        const questionText = match[2].trim();
         
-        // ✅ البحث عن السؤال في القائمة الأصلية باستخدام displayNumber
         let q = null;
         let qIndex = -1;
         for (let i = 0; i < questionsToCheck.length; i++) {
@@ -1404,7 +1401,6 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
             }
         }
         
-        // إذا لم نجد بالـ displayNumber، نبحث بالنص
         if (!q) {
             for (let i = 0; i < questionsToCheck.length; i++) {
                 if (questionsToCheck[i].text.trim() === questionText) {
@@ -1417,16 +1413,13 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         
         if (!q) continue;
         
-        // ✅ الحصول على إجابة المستخدم لهذا السؤال (باستخدام displayNumber)
         const userAnswer = answers[displayNumber];
         const isCorrect = (userAnswer === q.correct);
         
-        // ✅ تنظيف البطاقة من التصحيح السابق
         card.classList.remove('correct-answer-card', 'wrong-answer-card');
         const oldMsg = card.querySelector('.correct-message');
         if (oldMsg) oldMsg.remove();
         
-        // ✅ تقييم الإجابة
         if (isCorrect && userAnswer !== undefined) {
             score++;
             card.classList.add('correct-answer-card');
@@ -1443,7 +1436,6 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
             card.appendChild(correctMsg);
         }
         
-        // ✅ تلوين خيارات الإجابة
         const radios = card.querySelectorAll('input[type="radio"]');
         for (let r = 0; r < radios.length; r++) {
             const radio = radios[r];
@@ -1468,12 +1460,10 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         }
     }
     
-    // ✅ عرض الأرقام الصحيحة (مع الحفاظ على ترتيب العرض)
     if (correctNumbersContainer) {
         correctNumbersContainer.style.display = 'block';
         let correctNumbers = [];
         
-        // ✅ نجمع أرقام البطاقات الصحيحة حسب ترتيب العرض
         for (const card of cards) {
             const textSpan = card.querySelector('span');
             if (!textSpan) continue;
@@ -1483,7 +1473,6 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
             
             const displayNumber = parseInt(match[1]);
             
-            // ✅ نبحث عن هذا الرقم في القائمة الأصلية
             let q = null;
             for (let i = 0; i < questionsToCheck.length; i++) {
                 if (questionsToCheck[i].displayNumber === displayNumber) {
@@ -1504,7 +1493,6 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         }
     }
     
-    // ✅ حساب النتيجة وعرضها
     const finalScore = (score * pointsPerQuestion).toFixed(2);
     
     let resultDiv = container.querySelector('#truefalseResult');
@@ -1552,6 +1540,12 @@ let matchingAvailableOptions = [];
 
 window.loadMatchingExam = function(examData) {
   console.log("🟢 loadMatchingExam", examData.title);
+  
+  // ✅✅✅ إعادة تعيين ترتيب Lesen1 عند تحميل امتحان جديد ✅✅✅
+  if (typeof resetLesen1Order === 'function') {
+      resetLesen1Order();
+  }
+  
   currentMatchingExamData = examData;
   matchingSelectedAnswers = {};
   matchingAvailableOptions = [...examData.sharedOptions];
@@ -1629,7 +1623,6 @@ function renderMatchingQuestions() {
             sel.appendChild(hiddenOpt);
           }
         });
-   // ✅✅✅ إعادة التلوين بعد تحديث القوائم ✅✅✅
     if (window.memoryEngine && window.memoryEngine.isActive) {
       setTimeout(colorSelectOptions, 50);
     }
@@ -2096,7 +2089,6 @@ function updateTeil3SelectOptions() {
     }
   }
   
-  // ✅ إعادة التلوين بعد تحديث القوائم (إذا كان التلوين مفعلاً)
   if (window.memoryEngine && window.memoryEngine.isActive) {
     setTimeout(colorSelectOptions, 50);
   }
@@ -3488,6 +3480,7 @@ if (typeof checkTeil3Exam === 'function') {
         setTimeout(colorSelectOptions, 200);
     };
 }
+
 // ============================================
 // دالة إعادة بناء بطاقات Hören (عامة لـ Teil 1,2,3) - النسخة المحسنة
 // ============================================
@@ -3824,12 +3817,11 @@ function rebuildTrueFalseCards() {
     
     console.log("========== END REBUILD ==========");
 }
-// ============================================
-// إعادة بناء Lesen Teil 1 (ترتيب ثابت)
-// ============================================
 
+// ✅✅✅ إعادة بناء Lesen Teil 1 (ترتيب ثابت مع حفظ) ✅✅✅
+// ============================================
 function rebuildLesen1() {
-    console.log("🔄 إعادة بناء Lesen 1 (ترتيب ثابت)...");
+    console.log("🔄 إعادة بناء Lesen 1...");
     
     const container = document.getElementById("teil1");
     if (!container) {
@@ -3837,6 +3829,7 @@ function rebuildLesen1() {
         return;
     }
     
+    // ✅ الحصول على البطاقات فقط (وليس كل العناصر)
     const cards = [...container.querySelectorAll(".question-card")];
     if (cards.length === 0) {
         console.warn("⚠️ لا توجد بطاقات في #teil1");
@@ -3845,30 +3838,66 @@ function rebuildLesen1() {
     
     console.log(`📦 عدد البطاقات: ${cards.length}`);
     
-    // ✅ استخدام الترتيب الثابت من interleavingOrders
-    const order = interleavingOrders.lesen1;
-    if (order && order.length === cards.length) {
-        const orderedCards = [];
-        for (let idx of order) {
-            if (idx <= cards.length) {
-                orderedCards.push(cards[idx - 1]);
+    // ✅ حفظ الترتيب الأصلي في أول مرة فقط
+    if (!lesen1OrderSaved) {
+        lesen1OriginalOrder = cards.map(card => card.id);
+        console.log("💾 تم حفظ الترتيب الأصلي:", lesen1OriginalOrder);
+        
+        // ✅ إنشاء الترتيب المختلط مرة واحدة فقط
+        const order = interleavingOrders.lesen1;
+        if (order && order.length === cards.length) {
+            const orderedCards = [];
+            for (let idx of order) {
+                if (idx <= cards.length) {
+                    orderedCards.push(cards[idx - 1]);
+                }
             }
+            if (orderedCards.length === cards.length) {
+                lesen1MixedOrder = orderedCards.map(card => card.id);
+                console.log("💾 تم حفظ الترتيب المختلط:", lesen1MixedOrder);
+            }
+        } else {
+            // ✅ إذا لم يوجد ترتيب محدد، استخدم الترتيب الحالي
+            lesen1MixedOrder = cards.map(card => card.id);
+            console.log("💾 لا يوجد ترتيب محدد، استخدام الترتيب الحالي");
         }
-        if (orderedCards.length === cards.length) {
-            // ✅ إعادة ترتيب البطاقات حسب الترتيب المحدد
-            orderedCards.forEach(card => container.appendChild(card));
-            console.log(`✅ تم ترتيب بطاقات Lesen 1 حسب: [${order.join(', ')}]`);
-            return;
+        lesen1OrderSaved = true;
+    }
+    
+    // ✅ تطبيق الترتيب المطلوب
+    let targetOrder = [];
+    if (window.isInterleavingActive) {
+        targetOrder = lesen1MixedOrder;
+        console.log("🔄 تطبيق الترتيب المختلط:", targetOrder);
+    } else {
+        targetOrder = lesen1OriginalOrder;
+        console.log("🔄 تطبيق الترتيب الأصلي:", targetOrder);
+    }
+    
+    // ✅ إعادة ترتيب البطاقات فقط (وليس كل العناصر)
+    for (let id of targetOrder) {
+        const card = document.getElementById(id);
+        if (card) {
+            container.appendChild(card);
         }
     }
     
-    // ✅ إذا لم يوجد ترتيب، استخدم الترتيب الطبيعي (بدون تغيير)
-    console.log("⚠️ لا يوجد ترتيب محدد، الإبقاء على الترتيب الحالي");
+    console.log("✅ تم إعادة ترتيب البطاقات بنجاح");
+}
+
+// ✅✅✅ دالة إعادة تعيين ترتيب Lesen1 ✅✅✅
+// ============================================
+function resetLesen1Order() {
+    lesen1OriginalOrder = [];
+    lesen1MixedOrder = [];
+    lesen1OrderSaved = false;
+    console.log('🔄 تم إعادة تعيين ترتيب Lesen1');
 }
 
 // تصدير الدوال للاستخدام العالمي
 window.rebuildTrueFalseCards = rebuildTrueFalseCards;
 window.rebuildLesen1 = rebuildLesen1;
+window.resetLesen1Order = resetLesen1Order;
 
 // ============================================
 // إصلاح زر Interleaving - النسخة النهائية (عامة)
@@ -3982,7 +4011,7 @@ function initInterleaving() {
     console.log('✅ زر Interleaving تم تهيئته بنجاح (مرة واحدة)');
 }
 
-// ✅ دالة إعادة تعيين (عند فتح امتحان جديد) - تعيد الحالة وتحديث الزر
+// ✅✅✅ دالة إعادة تعيين (عند فتح امتحان جديد) - تعيد الحالة وتحديث الزر ✅✅✅
 function resetInterleaving() {
     console.log('🔄 إعادة تعيين Interleaving (حالة فقط)');
     window.isInterleavingActive = false;
@@ -3991,6 +4020,11 @@ function resetInterleaving() {
     if (btn) {
         btn.classList.remove('active');
         btn.title = 'Interleaving: OFF';
+    }
+    
+    // ✅ إعادة تعيين ترتيب Lesen1
+    if (typeof resetLesen1Order === 'function') {
+        resetLesen1Order();
     }
     
     _interleavingInitialized = false;
