@@ -1096,13 +1096,17 @@ window.buildTrueFalseExam = function(container, questions, note) {
   
   container.innerHTML = '';
   
-  // ✅ تخزين البيانات لإعادة البناء (فقط لـ Hören Teil 1)
-  if (container.id === 'hoeren1') {
-      _hoeren1Container = container;
-      _hoeren1Questions = questions.slice();
-      _hoeren1Note = note || '';
-      _hoeren1OriginalQuestions = questions.slice();
-  }
+// ✅ استبدله بهذا:
+if (container.id === 'hoeren1') {
+    _hoeren1Container = container;
+    // ✅ إضافة displayNumber تلقائياً لكل سؤال
+    _hoeren1Questions = questions.map((q, index) => ({
+        ...q,
+        displayNumber: index + 1
+    }));
+    _hoeren1Note = note || '';
+    _hoeren1OriginalQuestions = _hoeren1Questions.slice();
+}
   if (window._trueFalseUserAnswers) {
     delete window._trueFalseUserAnswers;
   }
@@ -1255,10 +1259,15 @@ window.buildTrueFalseExam = function(container, questions, note) {
   checkBtn.style.borderRadius = '8px';
   checkBtn.style.cursor = 'pointer';
   checkBtn.style.fontSize = '16px';
-  
-  checkBtn.onclick = () => {
-    checkTrueFalseExam(container, finalQuestions, window._trueFalseUserAnswers, correctNumbersContainer);
-  };
+
+  // ✅ استبدله بهذا:
+checkBtn.onclick = () => {
+    // استخدام الأسئلة الأصلية للتصحيح (وليس المرتبة)
+    const questionsToCheck = (container.id === 'hoeren1' && _hoeren1OriginalQuestions.length > 0) 
+        ? _hoeren1OriginalQuestions 
+        : finalQuestions;
+    checkTrueFalseExam(container, questionsToCheck, window._trueFalseUserAnswers, correctNumbersContainer);
+};
   
   const resetBtn = document.createElement('button');
   resetBtn.innerText = '↺';
