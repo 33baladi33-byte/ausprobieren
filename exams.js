@@ -1118,6 +1118,10 @@ async function openExam(examId, examTitle, skill) {
     // ✅ ✅ ✅ التعديل النهائي لـ Interleaving ✅ ✅ ✅
     // ============================================================
     
+    // ============================================================
+    // ✅ ✅ ✅ التعديل النهائي لـ Interleaving ✅ ✅ ✅
+    // ============================================================
+    
     // 1. التأكد من إظهار الحاوية الخاصة بالجزء الحالي
     const containerEl = document.getElementById(skill);
     if (containerEl) {
@@ -1135,9 +1139,9 @@ async function openExam(examId, examTitle, skill) {
         window.initInterleaving();
     }
 
-    // 4. ✅ إعادة بناء البطاقات دائماً بعد تحميل الامتحان
-    if (typeof window.rebuildTrueFalseCards === 'function') {
-        console.log('🔄 إعادة بناء البطاقات بعد تحميل الامتحان');
+    // 4. ✅ إعادة بناء البطاقات فقط لـ Hören Teil 1,2,3
+    if (skill.startsWith('hoeren') && typeof window.rebuildTrueFalseCards === 'function') {
+        console.log('🔄 إعادة بناء بطاقات Hören بعد تحميل الامتحان');
         window.rebuildTrueFalseCards();
     }
     
