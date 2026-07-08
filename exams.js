@@ -1423,38 +1423,57 @@ function createMündlichCard(title, text) {
   
   return card;
 }
-
 function updateExamNavButtons() {
-  const prevBtn = document.getElementById("prevExamBtn");
-  const nextBtn = document.getElementById("nextExamBtn");
-  
-  if (!prevBtn || !nextBtn) return;
-  
-  const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
-  const hasPrev = currentIndex > 0;
-  const hasNext = currentIndex < currentExamsList.length - 1;
-  
-  if (hasPrev) {
-    prevBtn.style.display = "inline-block";
-    prevBtn.onclick = () => {
-      const prevExam = currentExamsList[currentIndex - 1];
-      openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
-    };
-  } else {
-    prevBtn.style.display = "none";
-  }
-  
-  if (hasNext) {
-    nextBtn.style.display = "inline-block";
-    nextBtn.onclick = () => {
-      const nextExam = currentExamsList[currentIndex + 1];
-      openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
-    };
-  } else {
-    nextBtn.style.display = "none";
-  }
-  
-  setupLockedNextButton();
+    const prevBtn = document.getElementById("prevExamBtn");
+    const nextBtn = document.getElementById("nextExamBtn");
+    const memoryBtn = document.getElementById("memoryTrainerBtn");
+    
+    if (!prevBtn || !nextBtn) return;
+    
+    const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
+    const hasPrev = currentIndex > 0;
+    const hasNext = currentIndex < currentExamsList.length - 1;
+    
+    if (hasPrev) {
+        prevBtn.style.display = "inline-block";
+        prevBtn.onclick = () => {
+            const prevExam = currentExamsList[currentIndex - 1];
+            openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
+        };
+    } else {
+        prevBtn.style.display = "none";
+    }
+    
+    if (hasNext) {
+        nextBtn.style.display = "inline-block";
+        nextBtn.onclick = () => {
+            const nextExam = currentExamsList[currentIndex + 1];
+            openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
+        };
+    } else {
+        nextBtn.style.display = "none";
+    }
+    
+    // ============================================
+    // ✅ إظهار زر Memory Trainer
+    // ============================================
+    if (memoryBtn) {
+        // فقط لـ Hören Teil 1
+        if (currentSkill === 'hoeren1') {
+            memoryBtn.style.display = 'inline-flex';
+            memoryBtn.onclick = function() {
+                if (window.startMemoryTrainer) {
+                    window.startMemoryTrainer();
+                } else {
+                    alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
+                }
+            };
+        } else {
+            memoryBtn.style.display = 'none';
+        }
+    }
+    
+    setupLockedNextButton();
 }
 
 function showTeil(teilNumber) {
