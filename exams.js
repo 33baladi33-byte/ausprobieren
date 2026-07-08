@@ -1140,6 +1140,7 @@ async function openExam(examId, examTitle, skill) {
     }
 
 // 4. ✅ إعادة بناء البطاقات للمهارات المدعومة
+// 4. ✅ إعادة بناء البطاقات للمهارات المدعومة
 if (skill.startsWith('hoeren') && typeof window.rebuildTrueFalseCards === 'function') {
     console.log('🔄 إعادة بناء بطاقات Hören بعد تحميل الامتحان');
     window.rebuildTrueFalseCards();
@@ -1149,6 +1150,9 @@ if (skill.startsWith('hoeren') && typeof window.rebuildTrueFalseCards === 'funct
 } else if (skill === 'lesen2' && typeof window.rebuildLesen2 === 'function') {
     console.log('🔄 إعادة بناء بطاقات Lesen 2 بعد تحميل الامتحان');
     window.rebuildLesen2();
+} else if (skill === 'lesen3' && typeof window.rebuildLesen3 === 'function') {
+    console.log('🔄 إعادة بناء بطاقات Lesen 3 بعد تحميل الامتحان');
+    window.rebuildLesen3();
 }
     
   } catch(e) {
