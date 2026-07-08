@@ -1693,6 +1693,89 @@ renderTeileList();
         }, 100);
     }
 })();
+// ============================================
+// تشغيل Memory Trainer من قائمة Hören 1
+// ============================================
+
+window.startMemoryTrainerFromList = function() {
+    if (!window._hoeren1CombinedData) {
+        alert('⚠️ جاري تحميل البيانات... يرجى الانتظار ثانية.');
+        return;
+    }
+    
+    if (window.memoryTrainer) {
+        window.memoryTrainer.start('list');
+    } else {
+        alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
+    }
+};
+
+// ============================================
+// تحميل جميع امتحانات Hören 1 مسبقاً (للتدريب السريع)
+// ============================================
+
+window.loadAllHoeren1Exams = async function() {
+    console.log('📚 تحميل جميع امتحانات Hören 1...');
+    const skill = 'hoeren1';
+    const exams = examsDatabase[skill] || [];
+    const allData = [];
+    const order = [1, 3, 5, 2, 4, 8, 6, 9, 7, 10, 12, 14, 11, 13, 15]; // ترتيب ثابت
+    
+    // تحميل الملفات حسب الترتيب
+    for (const examId of order) {
+        const exam = exams.find(e => e.id === examId);
+        if (!exam || !exam.hasFile) continue;
+        
+        const fileName = getActualFileName(exam.id);
+        try {
+            const response = await fetch(`data/${skill}/${fileName}`);
+            if (response.ok) {
+                const data = await response.json();
+                // ✅ إضافة الجمل الصحيحة فقط
+                const correctQuestions = (data.questions || [])
+                    .filter(q => q.correct === true)
+                    .map(q => q.text);
+                
+                allData.push({
+                    id: exam.id,
+                    title: exam.title,
+                    questions: correctQuestions,
+                    memoryHighlights: data.memoryHighlights || []
+                });
+                console.log(`✅ تم تحميل exam${exam.id}`);
+            }
+        } catch (e) {
+            console.warn(`⚠️ لا يمكن تحميل exam${exam.id}`);
+        }
+    }
+    
+    // دمج جميع الجمل
+    let combinedQuestions = [];
+    let combinedHighlights = [];
+    allData.forEach(data => {
+        data.questions.forEach(text => {
+            combinedQuestions.push({ text, correct: true });
+        });
+        if (data.memoryHighlights) {
+            combinedHighlights = combinedHighlights.concat(data.memoryHighlights);
+        }
+    });
+    
+    // تخزين البيانات المدمجة
+    window._hoeren1CombinedData = {
+        questions: combinedQuestions,
+        memoryHighlights: combinedHighlights,
+        totalExams: allData.length,
+        totalQuestions: combinedQuestions.length
+    };
+    
+    console.log(`✅ تم تحميل ${allData.length} امتحان، ${combinedQuestions.length} جملة`);
+};
+
+// ✅ تحميل البيانات فوراً
+setTimeout(() => {
+    window.loadAllHoeren1Exams();
+}, 500);
 
 console.log("✅ exams.js تم تحميله بنجاح");
 console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
@@ -1767,7 +1850,7 @@ function renderMemoryProgressBar(skill, container) {
             <div class="memory-progress-fill" style="width: ${percent}%;"></div>
         </div>
         <span class="memory-progress-percent">${percent}%</span>
-        <button class="memory-progress-btn" title="متابعة التدريب" onclick="window.startTeilTraining('${skill}')">
+        <button class="memory-progress-btn" title="متابعة التدريب" onclick="window.startMemoryTrainerFromList()">
             ▶
         </button>
         <button class="memory-progress-btn reset" title="إعادة تعيين التقدم" onclick="resetMemoryProgress('${skill}'); location.reload();">
@@ -1791,10 +1874,7 @@ window.startTeilTraining = function(skill) {
         return;
     }
     
-    if (!examData.memoryTrainer || examData.memoryTrainer.enabled !== true) {
-        alert('⚠️ هذه الميزة غير مفعلة لهذا الامتحان.');
-        return;
-    }
+  
     
     if (window.memoryTrainer) {
         window.memoryTrainer.start(examData);
