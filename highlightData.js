@@ -452,8 +452,8 @@ class MemoryTrainer {
         this.highlightsMap = {};
     }
 }
-
-// تهيئة المتغير العام
+ 
+// في نهاية memoryTrainer.js
 window.memoryTrainer = new MemoryTrainer();
 window.startMemoryTrainer = () => {
     if (window.memoryTrainer) {
