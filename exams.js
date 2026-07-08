@@ -1709,19 +1709,27 @@ window.startMemoryTrainerFromList = function() {
         alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
     }
 };
+// ============================================
+// تحميل جميع امتحانات Hören 1 مسبقاً (مع الجمل الصحيحة والخاطئة)
+// ============================================
 
-// ============================================
-// تحميل جميع امتحانات Hören 1 مسبقاً (للتدريب السريع)
-// ============================================
+let _hoeren1Loaded = false;
 
 window.loadAllHoeren1Exams = async function() {
+    // ✅ Cache: إذا تم التحميل مسبقاً، لا نعيد التحميل
+    if (_hoeren1Loaded && window._hoeren1CombinedData) {
+        console.log('📚 استخدام Cache لبيانات Hören 1');
+        return;
+    }
+    
     console.log('📚 تحميل جميع امتحانات Hören 1...');
     const skill = 'hoeren1';
     const exams = examsDatabase[skill] || [];
-    const allData = [];
-    const order = [1, 3, 5, 2, 4, 8, 6, 9, 7, 10, 12, 14, 11, 13, 15]; // ترتيب ثابت
+    const allCorrect = [];
+    const allWrong = [];
+    const allQuestions = [];
+    const order = [1, 3, 5, 2, 4, 8, 6, 9, 7, 10, 12, 14, 11, 13, 15];
     
-    // تحميل الملفات حسب الترتيب
     for (const examId of order) {
         const exam = exams.find(e => e.id === examId);
         if (!exam || !exam.hasFile) continue;
@@ -1731,45 +1739,42 @@ window.loadAllHoeren1Exams = async function() {
             const response = await fetch(`data/${skill}/${fileName}`);
             if (response.ok) {
                 const data = await response.json();
-                // ✅ إضافة الجمل الصحيحة فقط
-                const correctQuestions = (data.questions || [])
+                const questions = data.questions || [];
+                
+                // ✅ تخزين الجمل الصحيحة والخاطئة بشكل منفصل
+                const correctTexts = questions
                     .filter(q => q.correct === true)
                     .map(q => q.text);
                 
-                allData.push({
-                    id: exam.id,
-                    title: exam.title,
-                    questions: correctQuestions,
-                    memoryHighlights: data.memoryHighlights || []
-                });
-                console.log(`✅ تم تحميل exam${exam.id}`);
+                const wrongTexts = questions
+                    .filter(q => q.correct === false)
+                    .map(q => q.text);
+                
+                allCorrect.push(...correctTexts);
+                allWrong.push(...wrongTexts);
+                allQuestions.push(...questions);
+                
+                console.log(`✅ تم تحميل exam${examId} (صحيحة: ${correctTexts.length}, خاطئة: ${wrongTexts.length})`);
             }
         } catch (e) {
-            console.warn(`⚠️ لا يمكن تحميل exam${exam.id}`);
+            console.warn(`⚠️ لا يمكن تحميل exam${examId}`);
         }
     }
     
-    // دمج جميع الجمل
-    let combinedQuestions = [];
-    let combinedHighlights = [];
-    allData.forEach(data => {
-        data.questions.forEach(text => {
-            combinedQuestions.push({ text, correct: true });
-        });
-        if (data.memoryHighlights) {
-            combinedHighlights = combinedHighlights.concat(data.memoryHighlights);
-        }
-    });
-    
     // تخزين البيانات المدمجة
     window._hoeren1CombinedData = {
-        questions: combinedQuestions,
-        memoryHighlights: combinedHighlights,
-        totalExams: allData.length,
-        totalQuestions: combinedQuestions.length
+        questions: allCorrect.map(text => ({ text, correct: true })), // للتدريب (جمل صحيحة فقط)
+        wrongQuestions: allWrong, // ✅ الجمل الخاطئة للخيارات
+        allQuestions: allQuestions, // كل الجمل (للرجوع)
+        memoryHighlights: [], // يمكن إضافتها لاحقاً
+        totalExams: order.length,
+        totalCorrect: allCorrect.length,
+        totalWrong: allWrong.length,
+        totalQuestions: allCorrect.length + allWrong.length
     };
     
-    console.log(`✅ تم تحميل ${allData.length} امتحان، ${combinedQuestions.length} جملة`);
+    _hoeren1Loaded = true;
+    console.log(`✅ تم تحميل ${order.length} امتحان، ${allCorrect.length} جملة صحيحة، ${allWrong.length} جملة خاطئة`);
 };
 
 // ✅ تحميل البيانات فوراً
