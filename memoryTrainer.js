@@ -1,5 +1,5 @@
 // ============================================
-// MEMORY TRAINER V3 - تحسينات السرعة
+// MEMORY TRAINER V3 - تحسينات السرعة V2
 // ============================================
 
 class MemoryTrainer {
@@ -12,6 +12,7 @@ class MemoryTrainer {
         this.currentIndex = 0;
         this.isActive = false;
         this.isReviewMode = false;
+        this.isFromList = false; // ✅ لتحديد مصدر الدخول
         
         // السؤال الحالي
         this.currentCorrectText = '';
@@ -41,20 +42,30 @@ class MemoryTrainer {
     // START - نقطة الدخول الرئيسية (سريع)
     // ============================================
 
-    start() {
+    start(mode = 'single') {
         console.log("🧠 بدء Memory Trainer V3 (سريع)...");
         
-        const examData = window.currentExamData || window._currentExamData;
+        // ✅ تحديد مصدر البيانات
+        let examData = null;
+        this.isFromList = false;
+        
+        if (mode === 'list' && window._hoeren1CombinedData) {
+            // ✅ من قائمة Hören 1 - بيانات مدمجة
+            examData = window._hoeren1CombinedData;
+            this.isFromList = true;
+            console.log('📚 تدريب من قائمة Hören 1 (بيانات مدمجة)');
+        } else {
+            // ✅ من داخل امتحان واحد
+            examData = window.currentExamData || window._currentExamData;
+            console.log('📖 تدريب من امتحان واحد');
+        }
+        
         if (!examData) {
             this.showNotAvailable("لا توجد بيانات امتحان");
             return;
         }
 
-        if (!examData.memoryTrainer || examData.memoryTrainer.enabled !== true) {
-            this.showNotAvailable("هذه الميزة غير مفعلة لهذا الامتحان");
-            return;
-        }
-
+        // ✅ إزالة البحث عن enabled - نعتبرها مفعلة دائماً
         this.questions = examData.questions || [];
         this.memoryHighlights = examData.memoryHighlights || [];
 
@@ -92,7 +103,12 @@ class MemoryTrainer {
         this.createOverlay();
         this.createCardStructure();
         
-        this.showIntroCard();
+        // ✅ عرض شاشة البداية المناسبة
+        if (this.isFromList) {
+            this.showIntroCardList();
+        } else {
+            this.showIntroCardSingle();
+        }
     }
 
     // ============================================
@@ -129,15 +145,16 @@ class MemoryTrainer {
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: memorySlideUp 0.2s ease;
+            animation: memorySlideUp 0.15s ease;
         `;
         
         this.overlay.appendChild(this.card);
         this.isCardReady = true;
     }
 
+    // ✅ تحديث المحتوى مباشرة (بدون إعادة إنشاء)
     updateCard(html) {
-        if (!this.isCardReady) {
+        if (!this.isCardReady || !this.card) {
             this.createCardStructure();
         }
         this.card.innerHTML = html;
@@ -216,21 +233,66 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // عرض البطاقات (تحديث المحتوى فقط)
+    // شاشات البداية (مختلفة حسب المصدر)
     // ============================================
 
-    showIntroCard() {
+    // ✅ شاشة البداية - من داخل امتحان واحد
+    showIntroCardSingle() {
         this.updateCard(`
             <div class="memory-trainer-intro">
-                <div class="memory-trainer-icon">🧠</div>
-                <h2>تدريب الذاكرة</h2>
-                <p>${this.trainingQueue.length} جملة للتدريب</p>
+                <div class="memory-trainer-icon">🧩</div>
+                <h2>استدعاء ذكي</h2>
+                <p style="font-size: 14px; color: #334155; margin: 6px 0 2px 0;">
+                    سنعيد الآن تثبيت المعلومات بطريقة يستخدمها أبطال الذاكرة.
+                </p>
+                <p style="font-size: 13px; color: #64748B; margin: 2px 0 14px 0;">
+                    سترى الإجابة مرة واحدة فقط، ثم سنطلب منك استرجاعها بنفسك.
+                </p>
                 <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.showMemoryCard()">
                     ابدأ
                 </button>
             </div>
         `);
     }
+
+    // ✅ شاشة البداية - من قائمة Hören 1
+    showIntroCardList() {
+        const total = this.totalQuestions || this.trainingQueue.length || 0;
+        const percent = Math.min(Math.round((this.correctAttempts / (this.totalQuestions || 1)) * 100), 100);
+        
+        this.updateCard(`
+            <div class="memory-trainer-intro">
+                <div class="memory-trainer-icon">🧩</div>
+                <h2>استدعاء متقدم</h2>
+                <p style="font-size: 14px; color: #334155; margin: 4px 0 2px 0;">
+                    تدريب استدعاء متقدم لجميع امتحانات Hören 1.
+                </p>
+                <p style="font-size: 13px; color: #64748B; margin: 2px 0;">
+                    سيختار النظام الجمل التي تحتاج إلى مراجعة بناءً على أدائك السابق.
+                </p>
+                <p style="font-size: 13px; color: #64748B; margin: 2px 0 12px 0;">
+                    كلما تدربت أكثر، أصبح النظام أكثر ذكاءً في اختيار الجمل المناسبة لك.
+                </p>
+                
+                <div style="margin: 10px 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px; text-align: left;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
+                            <div style="width: ${percent}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
+                        </div>
+                        <span style="font-size: 13px; font-weight: 600; color: #1565C0; min-width: 40px; text-align: right;">${percent}%</span>
+                    </div>
+                </div>
+                
+                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.showMemoryCard()">
+                    ابدأ التدريب
+                </button>
+            </div>
+        `);
+    }
+
+    // ============================================
+    // عرض البطاقات (تحديث المحتوى فقط)
+    // ============================================
 
     showMemoryCard() {
         this.clearTimer();
@@ -381,7 +443,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // نهاية المرحلة الأولى
+    // نهاية المرحلة الأولى (مع شريط تقدم جديد)
     // ============================================
 
     showPhaseComplete() {
@@ -401,21 +463,28 @@ class MemoryTrainer {
             <div class="memory-trainer-results phase-complete">
                 <div class="memory-trainer-icon">🧠</div>
                 <h2>المرحلة الأولى انتهت</h2>
-                <div class="memory-trainer-stats">
+                
+                <div style="margin: 8px 0 12px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
+                            <div style="width: ${rate}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
+                        </div>
+                        <span style="font-size: 12px; font-weight: 600; color: #1565C0; min-width: 35px; text-align: right;">${rate}%</span>
+                    </div>
+                </div>
+                
+                <div class="memory-trainer-stats" style="margin: 6px 0 10px 0; padding: 4px 0;">
                     <div class="stat-item">
                         <span class="stat-label">المحاولات</span>
-                        <span class="stat-value">${this.attempts}</span>
+                        <span class="stat-value" style="font-size: 16px;">${this.attempts}</span>
                     </div>
                     <div class="stat-item">
                         <span class="stat-label">الإجابات الصحيحة</span>
-                        <span class="stat-value">${this.correctAttempts}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">نسبة النجاح</span>
-                        <span class="stat-value">${rate}%</span>
+                        <span class="stat-value" style="font-size: 16px;">${this.correctAttempts}</span>
                     </div>
                 </div>
-                <p class="memory-trainer-hint">الآن سنعيد فقط الأسئلة التي لم تثبت بعد.</p>
+                
+                <p class="memory-trainer-hint" style="font-size: 13px;">الآن سنعيد فقط الأسئلة التي لم تثبت بعد.</p>
                 <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.startReview()">
                     مراجعة ${wrongCount} سؤال →
                 </button>
@@ -439,14 +508,28 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // النهاية النهائية
+    // النهاية النهائية (مع شريط تقدم)
     // ============================================
 
     showResults() {
+        const total = this.totalQuestions;
+        const correct = this.correctAttempts;
+        const rate = total > 0 ? Math.round((correct / total) * 100) : 0;
+        
         this.updateCard(`
             <div class="memory-trainer-results final">
                 <div class="memory-trainer-icon">🧠</div>
                 <h2>تم تثبيت جميع الجمل</h2>
+                
+                <div style="margin: 10px 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
+                            <div style="width: ${rate}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
+                        </div>
+                        <span style="font-size: 12px; font-weight: 600; color: #1565C0; min-width: 35px; text-align: right;">${rate}%</span>
+                    </div>
+                </div>
+                
                 <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.close()">
                     ➡️ العودة للامتحان
                 </button>
@@ -500,6 +583,7 @@ class MemoryTrainer {
         this.currentIndex = 0;
         this.isActive = false;
         this.isReviewMode = false;
+        this.isFromList = false;
         this.attempts = 0;
         this.correctAttempts = 0;
         this.totalQuestions = 0;
@@ -511,9 +595,18 @@ class MemoryTrainer {
 // ============================================
 
 window.memoryTrainer = new MemoryTrainer();
+
+// ✅ تشغيل من داخل امتحان واحد (افتراضي)
 window.startMemoryTrainer = () => {
     if (window.memoryTrainer) {
-        window.memoryTrainer.start();
+        window.memoryTrainer.start('single');
+    }
+};
+
+// ✅ تشغيل من قائمة Hören 1
+window.startMemoryTrainerFromList = () => {
+    if (window.memoryTrainer) {
+        window.memoryTrainer.start('list');
     }
 };
 
