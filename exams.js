@@ -811,7 +811,7 @@ async function renderExamListForSkill(skill, teilName) {
   container.appendChild(headerDiv);
 
   // إضافة شريط تقدم الذاكرة (لـ Hören 1 فقط حالياً)
-  if (skill === 'hoeren1') {
+  if (skill === 'hoeren1' || skill === 'hoeren2' || skill === 'hoeren3') {
       renderMemoryProgressBar(skill, container);
   }
   
@@ -1777,9 +1777,8 @@ function renderMemoryProgressBar(skill, container) {
     
     container.insertBefore(bar, container.firstChild);
 }
-
 // ============================================
-// بدء تدريب Teil كامل
+// بدء تدريب Teil - عرض الامتحانات المفعلة
 // ============================================
 
 window.startTeilTraining = async function(skill) {
@@ -1791,7 +1790,183 @@ window.startTeilTraining = async function(skill) {
         return;
     }
     
+    // جمع الامتحانات المفعلة
+    const enabledExams = [];
+    let enabledCount = 0;
+    
+    for (const exam of exams) {
+        if (!exam.hasFile) continue;
+        const fileName = getActualFileName(exam.id);
+        try {
+            const response = await fetch(`data/${skill}/${fileName}`);
+            if (response.ok) {
+                const data = await response.json();
+                if (data.memoryTrainer && data.memoryTrainer.enabled === true) {
+                    enabledExams.push({
+                        id: exam.id,
+                        title: exam.title,
+                        data: data
+                    });
+                    enabledCount++;
+                }
+            }
+        } catch (e) {
+            console.warn(`⚠️ لا يمكن تحميل exam${exam.id}`);
+        }
+    }
+    
+    if (enabledExams.length === 0) {
+        alert(`⚠️ لا توجد امتحانات مفعلة للتدريب في ${skill}`);
+        return;
+    }
+    
+    // عرض قائمة الامتحانات المفعلة
+    showEnabledExamsList(skill, enabledExams);
+};
+
+// ============================================
+// عرض قائمة الامتحانات المفعلة
+// ============================================
+
+function showEnabledExamsList(skill, exams) {
+    // إزالة أي نافذة موجودة
+    const oldOverlay = document.querySelector('.memory-trainer-exams-overlay');
+    if (oldOverlay) oldOverlay.remove();
+    
+    // إنشاء نافذة منبثقة
+    const overlay = document.createElement('div');
+    overlay.className = 'memory-trainer-exams-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10001;
+        animation: memoryFadeIn 0.2s ease;
+    `;
+    
+    // إغلاق عند الضغط على الخلفية
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+    
+    // بناء القائمة
+    let html = `
+        <div class="memory-trainer-exams-list" style="
+            background: #FFFFFF;
+            border: 1px solid #E8EEF5;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            animation: memorySlideUp 0.25s ease;
+        ">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #F1F5F9;">
+                <h2 style="font-size: 18px; font-weight: 600; color: #1565C0; margin: 0;">🧠 امتحانات مفعلة</h2>
+                <button onclick="this.closest('.memory-trainer-exams-overlay').remove()" style="
+                    background: none;
+                    border: none;
+                    color: #A0AEC0;
+                    font-size: 20px;
+                    cursor: pointer;
+                    padding: 4px 8px;
+                    border-radius: 6px;
+                ">✕</button>
+            </div>
+            <p style="color: #64748B; font-size: 13px; margin-bottom: 16px;">
+                ${exams.length} امتحان مفعل للتدريب
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+    `;
+    
+    exams.forEach((exam, index) => {
+        const highlightCount = exam.data.memoryHighlights ? exam.data.memoryHighlights.length : 0;
+        const questionCount = exam.data.questions ? exam.data.questions.length : 0;
+        const correctCount = exam.data.questions ? exam.data.questions.filter(q => q.correct === true).length : 0;
+        
+        html += `
+            <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 14px;
+                background: #F8FAFC;
+                border-radius: 10px;
+                border: 1px solid #EDF2F7;
+                transition: all 0.2s ease;
+                cursor: pointer;
+            " onclick="window.startSingleExamTraining('${exam.id}', '${skill}')">
+                <span style="font-size: 14px; font-weight: 500; color: #334155;">${exam.id}: ${exam.title}</span>
+                <span style="font-size: 12px; color: #94A3B8; background: #E2E8F0; padding: 2px 10px; border-radius: 20px;">
+                    ${correctCount} ✅
+                </span>
+            </div>
+        `;
+    });
+    
+    html += `
+            </div>
+            <button onclick="window.startAllExamsTraining('${skill}')" style="
+                width: 100%;
+                margin-top: 16px;
+                padding: 10px;
+                background: #1565C0;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.25s ease;
+            ">تدريب جميع الامتحانات →</button>
+        </div>
+    `;
+    
+    overlay.innerHTML = html;
+    document.body.appendChild(overlay);
+}
+
+// ============================================
+// تدريب امتحان واحد
+// ============================================
+
+window.startSingleExamTraining = function(examId, skill) {
+    // إغلاق النافذة
+    const overlay = document.querySelector('.memory-trainer-exams-overlay');
+    if (overlay) overlay.remove();
+    
+    // فتح الامتحان وتشغيل Memory Trainer
+    openExam(examId, `امتحان ${examId}`, skill);
+    setTimeout(() => {
+        if (window.startMemoryTrainer) {
+            window.startMemoryTrainer();
+        }
+    }, 500);
+};
+
+// ============================================
+// تدريب جميع الامتحانات (دمج البيانات)
+// ============================================
+
+window.startAllExamsTraining = async function(skill) {
+    // إغلاق النافذة
+    const overlay = document.querySelector('.memory-trainer-exams-overlay');
+    if (overlay) overlay.remove();
+    
+    const exams = examsDatabase[skill] || [];
     const allData = [];
+    
     for (const exam of exams) {
         if (!exam.hasFile) continue;
         const fileName = getActualFileName(exam.id);
@@ -1809,7 +1984,7 @@ window.startTeilTraining = async function(skill) {
     }
     
     if (allData.length === 0) {
-        alert('⚠️ لا توجد امتحانات مفعلة للتدريب في هذا الجزء');
+        alert('⚠️ لا توجد امتحانات مفعلة للتدريب');
         return;
     }
     
@@ -1825,6 +2000,11 @@ window.startTeilTraining = async function(skill) {
         memoryHighlights: combinedHighlights,
         memoryTrainer: { enabled: true }
     };
+    
+    // تخزين مؤقتاً ثم تشغيل Memory Trainer
+    window._tempCombinedExam = tempExam;
+    window.currentExamData = tempExam;
+    window._currentExamData = tempExam;
     
     if (window.memoryTrainer) {
         window.memoryTrainer.start(tempExam);
