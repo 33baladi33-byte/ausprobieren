@@ -3,6 +3,10 @@
 // ============================================
 
 console.log("✅ engine.js تم تحميله");
+// ============================================
+// Memory Trainer - زر الإظهار
+// ============================================
+let memoryTrainerButtonAdded = false;
 
 // ============================================
 // بيانات Hören للأجزاء الثلاثة
@@ -1556,6 +1560,11 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
     setTimeout(() => {
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
+    
+    // عرض زر Memory Trainer بعد التصحيح (فقط لـ Hören Teil 1)
+    setTimeout(() => {
+        showMemoryTrainerButton();
+    }, 300);
 }
 
 // ============================================
@@ -3848,6 +3857,11 @@ function rebuildTrueFalseCards() {
     });
     
     console.log("========== END REBUILD ==========");
+    
+    // إخفاء زر Memory Trainer عند إعادة البناء
+    const trainerBtn = document.querySelector('.memory-trainer-trigger-btn');
+    if (trainerBtn) trainerBtn.remove();
+    memoryTrainerButtonAdded = false;
 }
 
 
@@ -3922,6 +3936,11 @@ function rebuildLesen1() {
     }
     
     console.log("✅ تم إعادة ترتيب البطاقات بنجاح");
+    
+    // إخفاء زر Memory Trainer عند إعادة البناء
+    const trainerBtn = document.querySelector('.memory-trainer-trigger-btn');
+    if (trainerBtn) trainerBtn.remove();
+    memoryTrainerButtonAdded = false;
 }
 // ============================================
 // إعادة بناء Lesen Teil 2 (ترتيب ثابت محدد) - النسخة النهائية
@@ -4016,6 +4035,11 @@ function rebuildLesen2() {
     }
     
     console.log("✅ تم إعادة ترتيب بطاقات Lesen2 بنجاح داخل حاوية الأسئلة");
+    
+    // إخفاء زر Memory Trainer عند إعادة البناء
+    const trainerBtn = document.querySelector('.memory-trainer-trigger-btn');
+    if (trainerBtn) trainerBtn.remove();
+    memoryTrainerButtonAdded = false;
 }
 // ============================================
 // إعادة بناء Lesen Teil 3 (ترتيب ثابت محدد) - 12 بطاقة
@@ -4102,6 +4126,11 @@ function rebuildLesen3() {
     }
     
     console.log("✅ تم إعادة ترتيب بطاقات Lesen3 بنجاح داخل حاوية الأسئلة");
+    
+    // إخفاء زر Memory Trainer عند إعادة البناء
+    const trainerBtn = document.querySelector('.memory-trainer-trigger-btn');
+    if (trainerBtn) trainerBtn.remove();
+    memoryTrainerButtonAdded = false;
 }
 // ✅✅✅ دالة إعادة تعيين ترتيب Lesen1 ✅✅✅
 // ============================================
@@ -4274,6 +4303,11 @@ if (typeof resetLesen3Order === 'function') {
     resetLesen3Order();
 }
     
+    // إخفاء زر Memory Trainer عند إعادة التعيين
+    const trainerBtn = document.querySelector('.memory-trainer-trigger-btn');
+    if (trainerBtn) trainerBtn.remove();
+    memoryTrainerButtonAdded = false;
+    
     _interleavingInitialized = false;
     console.log('✅ تم إعادة تعيين حالة Interleaving');
 }
@@ -4282,5 +4316,77 @@ if (typeof resetLesen3Order === 'function') {
 window.toggleInterleaving = toggleInterleaving;
 window.initInterleaving = initInterleaving;
 window.resetInterleaving = resetInterleaving;
+// ============================================
+// Memory Trainer - عرض الزر بعد التصحيح
+// ============================================
+function showMemoryTrainerButton() {
+    // فقط لـ Hören Teil 1
+    const skill = window.currentSkill || '';
+    if (skill !== 'hoeren1') {
+        console.log('⏭️ Memory Trainer يعمل فقط على Hören Teil 1 حالياً');
+        return;
+    }
+    
+    // التحقق من وجود بيانات
+    const examData = window.currentExamData || window._currentExamData;
+    if (!examData) {
+        console.log('⏭️ لا توجد بيانات امتحان');
+        return;
+    }
+    
+    // البحث عن حاوية النتائج
+    const resultDiv = document.getElementById('truefalseResult');
+    if (!resultDiv) return;
+    
+    // التحقق من عدم وجود الزر مسبقاً
+    if (document.querySelector('.memory-trainer-trigger-btn')) {
+        return;
+    }
+    
+    // إنشاء الزر
+    const btnContainer = document.createElement('div');
+    btnContainer.style.marginTop = '15px';
+    btnContainer.style.display = 'flex';
+    btnContainer.style.justifyContent = 'center';
+    
+    const btn = document.createElement('button');
+    btn.className = 'memory-trainer-trigger-btn';
+    btn.innerHTML = '🧠 تثبيت الذاكرة';
+    btn.style.padding = '12px 32px';
+    btn.style.backgroundColor = '#1565C0';
+    btn.style.color = 'white';
+    btn.style.border = 'none';
+    btn.style.borderRadius = '12px';
+    btn.style.fontSize = '16px';
+    btn.style.fontWeight = '600';
+    btn.style.cursor = 'pointer';
+    btn.style.transition = 'all 0.3s ease';
+    btn.style.boxShadow = '0 4px 12px rgba(21, 101, 192, 0.3)';
+    
+    btn.onmouseenter = function() {
+        this.style.backgroundColor = '#0D47A1';
+        this.style.transform = 'translateY(-2px)';
+        this.style.boxShadow = '0 6px 20px rgba(21, 101, 192, 0.4)';
+    };
+    btn.onmouseleave = function() {
+        this.style.backgroundColor = '#1565C0';
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = '0 4px 12px rgba(21, 101, 192, 0.3)';
+    };
+    
+    btn.onclick = function() {
+        if (window.startMemoryTrainer) {
+            window.startMemoryTrainer();
+        } else {
+            console.error('❌ Memory Trainer غير محمّل');
+            alert('⚠️ عذراً، ميزة تدريب الذاكرة غير متوفرة حالياً.');
+        }
+    };
+    
+    btnContainer.appendChild(btn);
+    resultDiv.parentNode.insertBefore(btnContainer, resultDiv.nextSibling);
+    memoryTrainerButtonAdded = true;
+    console.log('✅ تم إضافة زر Memory Trainer');
+}
 
 console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3 و Lesen 1 و Lesen 2');
