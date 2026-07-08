@@ -34,6 +34,7 @@ class MemoryTrainer {
         this.timer = null;
         this.isAnswered = false;
         this.isCardReady = false;
+        this._documentClickHandler = null; // ✅ مستمع حدث المستند
         
         // الإعدادات
         this.TOTAL_OPTIONS = 3;
@@ -132,9 +133,17 @@ class MemoryTrainer {
         }
         this.overlay = document.createElement('div');
         this.overlay.className = 'memory-trainer-overlay';
-        this.overlay.addEventListener('click', (e) => {
-            if (e.target === this.overlay) {
-                // ✅ إذا كانت آخر جملة، نعرض النتائج بدلاً من الإغلاق
+        document.body.appendChild(this.overlay);
+
+        // ✅ مستمع الحدث على المستند كله
+        this._documentClickHandler = (e) => {
+            if (!this.overlay) return;
+            
+            // الحصول على حاوية البطاقة
+            const cardContainer = this.overlay.querySelector('.memory-trainer-card-container');
+            // إذا لم توجد بطاقة، أو كان النقر خارجها
+            if (!cardContainer || !cardContainer.contains(e.target)) {
+                // النقر خارج البطاقة
                 if (this.currentIndex >= this.trainingQueue.length && this.isActive) {
                     const hasWrong = this.wrongQuestions.length > 0;
                     if (hasWrong) {
@@ -146,8 +155,8 @@ class MemoryTrainer {
                 }
                 this.close();
             }
-        });
-        document.body.appendChild(this.overlay);
+        };
+        document.addEventListener('click', this._documentClickHandler);
     }
 
     createCardStructure() {
@@ -753,6 +762,12 @@ class MemoryTrainer {
 
     close() {
         this.clearTimer();
+        
+        // ✅ إزالة مستمع الحدث
+        if (this._documentClickHandler) {
+            document.removeEventListener('click', this._documentClickHandler);
+            this._documentClickHandler = null;
+        }
         
         // ✅ إذا كانت آخر جملة ولم يتم عرض النتائج بعد
         const isLastQuestion = this.currentIndex >= this.trainingQueue.length;
