@@ -25,12 +25,14 @@
   ],
   "memoryHighlights": [
     {
+      "question": 0,
       "color": 0,
       "parts": [
         "Die Deutsche Lufthansa hat ihre Führungsposition verloren."
       ]
     },
     {
+      "question": 1,
       "color": 1,
       "parts": [
         "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot."
