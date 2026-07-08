@@ -1,5 +1,5 @@
 // ============================================
-// MEMORY TRAINER V2 - التصميم النهائي
+// MEMORY TRAINER V3 - تحسينات السرعة
 // ============================================
 
 class MemoryTrainer {
@@ -25,23 +25,24 @@ class MemoryTrainer {
         this.correctAttempts = 0;
         this.totalQuestions = 0;
         
-        // العناصر
+        // العناصر - سيتم إنشاؤها مرة واحدة فقط
         this.overlay = null;
+        this.card = null;
         this.timer = null;
         this.isAnswered = false;
+        this.isCardReady = false;
         
         // الإعدادات
-        this.TOTAL_OPTIONS = 3; // 1 صحيح + 2 خاطئ
+        this.TOTAL_OPTIONS = 3;
         this.WRONG_OPTIONS = 2;
-        this.AUTO_ADVANCE_DELAY = 800;
     }
 
     // ============================================
-    // START - نقطة الدخول الرئيسية
+    // START - نقطة الدخول الرئيسية (سريع)
     // ============================================
 
     start() {
-        console.log("🧠 بدء Memory Trainer V2...");
+        console.log("🧠 بدء Memory Trainer V3 (سريع)...");
         
         const examData = window.currentExamData || window._currentExamData;
         if (!examData) {
@@ -62,7 +63,6 @@ class MemoryTrainer {
             return;
         }
 
-        // استخراج الإجابات الصحيحة فقط
         const correctQuestions = this.questions
             .map((q, idx) => ({ ...q, index: idx }))
             .filter(q => q.correct === true);
@@ -72,7 +72,6 @@ class MemoryTrainer {
             return;
         }
 
-        // بناء قائمة التدريب
         this.buildTrainingQueue(correctQuestions);
 
         if (this.trainingQueue.length === 0) {
@@ -87,8 +86,61 @@ class MemoryTrainer {
         this.correctAttempts = 0;
         this.wrongQuestions = [];
         this.totalQuestions = this.trainingQueue.length;
+        this.isCardReady = false;
+        
+        // إنشاء الـ Overlay والـ Card مرة واحدة فقط
+        this.createOverlay();
+        this.createCardStructure();
         
         this.showIntroCard();
+    }
+
+    // ============================================
+    // بناء الـ Overlay والـ Card (مرة واحدة)
+    // ============================================
+
+    createOverlay() {
+        if (this.overlay) {
+            this.overlay.remove();
+        }
+        
+        this.overlay = document.createElement('div');
+        this.overlay.className = 'memory-trainer-overlay';
+        
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+                this.close();
+            }
+        });
+        
+        document.body.appendChild(this.overlay);
+    }
+
+    createCardStructure() {
+        // حذف البطاقة القديمة إذا وجدت
+        const oldCard = this.overlay.querySelector('.memory-trainer-card-container');
+        if (oldCard) oldCard.remove();
+        
+        // إنشاء حاوية البطاقة
+        this.card = document.createElement('div');
+        this.card.className = 'memory-trainer-card-container';
+        this.card.style.cssText = `
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: memorySlideUp 0.2s ease;
+        `;
+        
+        this.overlay.appendChild(this.card);
+        this.isCardReady = true;
+    }
+
+    updateCard(html) {
+        if (!this.isCardReady) {
+            this.createCardStructure();
+        }
+        this.card.innerHTML = html;
     }
 
     // ============================================
@@ -96,10 +148,7 @@ class MemoryTrainer {
     // ============================================
 
     buildTrainingQueue(correctQuestions) {
-        // 1. جميع الإجابات الصحيحة
         const baseQueue = correctQuestions.map(q => q.index);
-        
-        // 2. إعادة نصف عدد الإجابات الصحيحة (تقريب لأعلى)
         const repeatCount = Math.ceil(correctQuestions.length / 2);
         const shuffled = this.shuffleArray([...correctQuestions]);
         
@@ -108,12 +157,9 @@ class MemoryTrainer {
             repeatIndices.push(shuffled[i].index);
         }
         
-        // 3. دمج وخلط القائمة النهائية
         this.trainingQueue = this.shuffleArray([...baseQueue, ...repeatIndices]);
         
         console.log(`📊 قائمة التدريب: ${this.trainingQueue.length} جملة`);
-        console.log(`   - ${baseQueue.length} جملة أساسية`);
-        console.log(`   - ${repeatIndices.length} جملة للإعادة`);
     }
 
     // ============================================
@@ -145,7 +191,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // توليد الخيارات (1 صحيح + 2 خاطئ)
+    // توليد الخيارات
     // ============================================
 
     generateOptions(correctText, currentIndex) {
@@ -162,7 +208,6 @@ class MemoryTrainer {
             }
         }
         
-        // تأكد من وجود 3 خيارات
         while (options.length < this.TOTAL_OPTIONS) {
             options.push(`جملة ${options.length + 1}`);
         }
@@ -171,12 +216,11 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // عرض البطاقات
+    // عرض البطاقات (تحديث المحتوى فقط)
     // ============================================
 
     showIntroCard() {
-        this.createOverlay();
-        this.overlay.innerHTML = `
+        this.updateCard(`
             <div class="memory-trainer-intro">
                 <div class="memory-trainer-icon">🧠</div>
                 <h2>تدريب الذاكرة</h2>
@@ -185,12 +229,10 @@ class MemoryTrainer {
                     ابدأ
                 </button>
             </div>
-        `;
-        document.body.appendChild(this.overlay);
+        `);
     }
 
     showMemoryCard() {
-        this.removeOverlay();
         this.clearTimer();
         this.isAnswered = false;
         
@@ -209,8 +251,7 @@ class MemoryTrainer {
         this.hasHighlight = colorInfo.hasHighlight;
         this.currentQuestionIndex = qIndex;
         
-        this.createOverlay();
-        this.overlay.innerHTML = `
+        this.updateCard(`
             <div class="memory-trainer-card">
                 <div class="memory-trainer-header">
                     <span class="memory-trainer-progress">${this.currentIndex + 1}/${this.trainingQueue.length}</span>
@@ -229,12 +270,10 @@ class MemoryTrainer {
                     أنا جاهز
                 </button>
             </div>
-        `;
-        document.body.appendChild(this.overlay);
+        `);
     }
 
     readyToRecall() {
-        this.removeOverlay();
         this.clearTimer();
         
         this.currentOptions = this.generateOptions(
@@ -242,8 +281,7 @@ class MemoryTrainer {
             this.currentQuestionIndex
         );
         
-        this.createOverlay();
-        this.overlay.innerHTML = `
+        this.updateCard(`
             <div class="memory-trainer-recall">
                 <div class="memory-trainer-header">
                     <span class="memory-trainer-progress">${this.currentIndex + 1}/${this.trainingQueue.length}</span>
@@ -261,8 +299,7 @@ class MemoryTrainer {
                 </div>
                 <div id="memory-trainer-feedback"></div>
             </div>
-        `;
-        document.body.appendChild(this.overlay);
+        `);
     }
 
     // ============================================
@@ -291,23 +328,19 @@ class MemoryTrainer {
             allOptions[selectedIndex].style.borderColor = '#28a745';
             allOptions[selectedIndex].style.backgroundColor = '#d4edda';
             
-            // زر التالي فقط
             feedback.innerHTML = `
                 <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">
                     التالي →
                 </button>
             `;
         } else {
-            // تسجيل الخطأ
             if (!this.wrongQuestions.includes(this.currentQuestionIndex)) {
                 this.wrongQuestions.push(this.currentQuestionIndex);
             }
             
-            // المختار -> برتقالي
             allOptions[selectedIndex].style.borderColor = '#e67e22';
             allOptions[selectedIndex].style.backgroundColor = '#fef0e0';
             
-            // الصحيح -> أخضر
             allOptions.forEach((btn, idx) => {
                 if (this.currentOptions[idx] === this.currentCorrectText) {
                     btn.style.borderColor = '#28a745';
@@ -315,7 +348,6 @@ class MemoryTrainer {
                 }
             });
             
-            // زرين: إعادة المحاولة + التالي
             feedback.innerHTML = `
                 <div style="display: flex; gap: 10px; justify-content: center; margin-top: 8px;">
                     <button class="memory-trainer-btn secondary small" onclick="window.memoryTrainer.retryQuestion()">
@@ -336,7 +368,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // الانتقال
+    // الانتقال (سريع)
     // ============================================
 
     nextQuestion() {
@@ -353,7 +385,6 @@ class MemoryTrainer {
     // ============================================
 
     showPhaseComplete() {
-        this.removeOverlay();
         this.clearTimer();
         
         const total = this.totalQuestions;
@@ -366,8 +397,7 @@ class MemoryTrainer {
             return;
         }
         
-        this.createOverlay();
-        this.overlay.innerHTML = `
+        this.updateCard(`
             <div class="memory-trainer-results phase-complete">
                 <div class="memory-trainer-icon">🧠</div>
                 <h2>المرحلة الأولى انتهت</h2>
@@ -390,25 +420,21 @@ class MemoryTrainer {
                     مراجعة ${wrongCount} سؤال →
                 </button>
             </div>
-        `;
-        document.body.appendChild(this.overlay);
+        `);
     }
 
     // ============================================
-    // مراجعة الأخطاء (الجولة الثانية)
+    // مراجعة الأخطاء
     // ============================================
 
     startReview() {
-        this.removeOverlay();
         this.isReviewMode = true;
         
-        // بناء قائمة جديدة من الأسئلة الخاطئة فقط
         this.trainingQueue = [...this.wrongQuestions];
         this.currentIndex = 0;
         this.totalQuestions = this.trainingQueue.length;
         this.wrongQuestions = [];
         
-        // لا نعيد تعيين المحاولات والإجابات الصحيحة
         this.showMemoryCard();
     }
 
@@ -417,9 +443,7 @@ class MemoryTrainer {
     // ============================================
 
     showResults() {
-        this.removeOverlay();
-        this.createOverlay();
-        this.overlay.innerHTML = `
+        this.updateCard(`
             <div class="memory-trainer-results final">
                 <div class="memory-trainer-icon">🧠</div>
                 <h2>تم تثبيت جميع الجمل</h2>
@@ -427,33 +451,12 @@ class MemoryTrainer {
                     ➡️ العودة للامتحان
                 </button>
             </div>
-        `;
-        document.body.appendChild(this.overlay);
+        `);
     }
 
     // ============================================
     // دوال مساعدة
     // ============================================
-
-    createOverlay() {
-        this.overlay = document.createElement('div');
-        this.overlay.className = 'memory-trainer-overlay';
-        
-        this.overlay.addEventListener('click', (e) => {
-            if (e.target === this.overlay) {
-                this.close();
-            }
-        });
-        
-        return this.overlay;
-    }
-
-    removeOverlay() {
-        if (this.overlay && this.overlay.parentNode) {
-            this.overlay.remove();
-        }
-        this.overlay = null;
-    }
 
     clearTimer() {
         if (this.timer) {
@@ -471,8 +474,7 @@ class MemoryTrainer {
     }
 
     showNotAvailable(message = "هذه الميزة غير متوفرة لهذا الامتحان.") {
-        this.createOverlay();
-        this.overlay.innerHTML = `
+        this.updateCard(`
             <div class="memory-trainer-intro">
                 <h2>ℹ️ غير متوفرة</h2>
                 <p>${message}</p>
@@ -480,13 +482,17 @@ class MemoryTrainer {
                     فهمت
                 </button>
             </div>
-        `;
-        document.body.appendChild(this.overlay);
+        `);
     }
 
     close() {
         this.clearTimer();
-        this.removeOverlay();
+        if (this.overlay) {
+            this.overlay.remove();
+            this.overlay = null;
+        }
+        this.card = null;
+        this.isCardReady = false;
         this.questions = [];
         this.memoryHighlights = [];
         this.trainingQueue = [];
@@ -511,4 +517,4 @@ window.startMemoryTrainer = () => {
     }
 };
 
-console.log('🧠 Memory Trainer V2 تم تحميله');
+console.log('🧠 Memory Trainer V3 (سريع) تم تحميله');
