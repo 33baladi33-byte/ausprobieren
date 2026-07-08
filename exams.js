@@ -809,6 +809,11 @@ async function renderExamListForSkill(skill, teilName) {
   headerDiv.className = "teil-header";
   headerDiv.innerHTML = `<strong>📚 ${teilName || getTeilNameBySkill(skill)}</strong>`;
   container.appendChild(headerDiv);
+
+  // إضافة شريط تقدم الذاكرة (لـ Hören 1 فقط حالياً)
+  if (skill === 'hoeren1') {
+      renderMemoryProgressBar(skill, container);
+  }
   
   let targetSkill = skill;
   let targetExams = examsDatabase[skill] || [];
@@ -1704,3 +1709,129 @@ console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich2.length, "ام�
 console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich3.length, "قسم");
 console.log("💡 Tips:", examsDatabase.tips.length, "قسم");
 
+// ============================================
+// نظام تقدم الذاكرة (Memory Progress)
+// ============================================
+
+const MEMORY_PROGRESS_KEY = 'memory_progress';
+
+function getMemoryProgress(skill) {
+    try {
+        const data = JSON.parse(localStorage.getItem(MEMORY_PROGRESS_KEY) || '{}');
+        return data[skill] || { total: 0, correct: 0, attempts: 0 };
+    } catch {
+        return { total: 0, correct: 0, attempts: 0 };
+    }
+}
+
+function saveMemoryProgress(skill, progress) {
+    try {
+        const data = JSON.parse(localStorage.getItem(MEMORY_PROGRESS_KEY) || '{}');
+        data[skill] = progress;
+        localStorage.setItem(MEMORY_PROGRESS_KEY, JSON.stringify(data));
+    } catch (e) {
+        console.error('❌ خطأ في حفظ تقدم الذاكرة:', e);
+    }
+}
+
+function updateMemoryProgress(skill, correct, total) {
+    const progress = getMemoryProgress(skill);
+    progress.total += total;
+    progress.correct += correct;
+    progress.attempts += 1;
+    saveMemoryProgress(skill, progress);
+}
+
+function getMemoryProgressPercent(skill) {
+    const progress = getMemoryProgress(skill);
+    if (progress.total === 0) return 0;
+    return Math.round((progress.correct / progress.total) * 100);
+}
+
+function resetMemoryProgress(skill) {
+    const data = JSON.parse(localStorage.getItem(MEMORY_PROGRESS_KEY) || '{}');
+    delete data[skill];
+    localStorage.setItem(MEMORY_PROGRESS_KEY, JSON.stringify(data));
+}
+
+function renderMemoryProgressBar(skill, container) {
+    const percent = getMemoryProgressPercent(skill);
+    const progress = getMemoryProgress(skill);
+    const total = progress.total || 0;
+    
+    const bar = document.createElement('div');
+    bar.className = 'memory-progress-bar-container';
+    bar.innerHTML = `
+        <span class="memory-progress-label">🧠 الذاكرة</span>
+        <div class="memory-progress-track">
+            <div class="memory-progress-fill" style="width: ${percent}%;"></div>
+        </div>
+        <span class="memory-progress-percent">${percent}%</span>
+        <button class="memory-progress-btn" title="متابعة التدريب" onclick="window.startTeilTraining('${skill}')">
+            ▶
+        </button>
+        <button class="memory-progress-btn reset" title="إعادة تعيين التقدم" onclick="resetMemoryProgress('${skill}'); location.reload();">
+            ↺
+        </button>
+    `;
+    
+    container.insertBefore(bar, container.firstChild);
+}
+
+// ============================================
+// بدء تدريب Teil كامل
+// ============================================
+
+window.startTeilTraining = async function(skill) {
+    console.log(`🧠 بدء تدريب Teil: ${skill}`);
+    
+    const exams = examsDatabase[skill] || [];
+    if (exams.length === 0) {
+        alert('⚠️ لا توجد امتحانات في هذا الجزء');
+        return;
+    }
+    
+    const allData = [];
+    for (const exam of exams) {
+        if (!exam.hasFile) continue;
+        const fileName = getActualFileName(exam.id);
+        try {
+            const response = await fetch(`data/${skill}/${fileName}`);
+            if (response.ok) {
+                const data = await response.json();
+                if (data.memoryTrainer && data.memoryTrainer.enabled) {
+                    allData.push(data);
+                }
+            }
+        } catch (e) {
+            console.warn(`⚠️ لا يمكن تحميل exam${exam.id}`);
+        }
+    }
+    
+    if (allData.length === 0) {
+        alert('⚠️ لا توجد امتحانات مفعلة للتدريب في هذا الجزء');
+        return;
+    }
+    
+    let combinedQuestions = [];
+    let combinedHighlights = [];
+    allData.forEach(data => {
+        if (data.questions) combinedQuestions = combinedQuestions.concat(data.questions);
+        if (data.memoryHighlights) combinedHighlights = combinedHighlights.concat(data.memoryHighlights);
+    });
+    
+    const tempExam = {
+        questions: combinedQuestions,
+        memoryHighlights: combinedHighlights,
+        memoryTrainer: { enabled: true }
+    };
+    
+    if (window.memoryTrainer) {
+        window.memoryTrainer.start(tempExam);
+        window.memoryTrainer.onCloseCallback = function() {
+            const progress = getMemoryProgress(skill);
+            progress.attempts += 1;
+            saveMemoryProgress(skill, progress);
+        };
+    }
+};
