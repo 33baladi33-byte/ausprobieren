@@ -1557,6 +1557,12 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
     
+}  // ✅ هذا القوس يغلق دالة checkTrueFalseExam
+
+// ============================================
+// نظام Teil 1 (Lesen Teil 1 - Matching)
+// ============================================
+    
 
 
 // ============================================
@@ -3848,18 +3854,14 @@ function rebuildTrueFalseCards() {
         console.log(`span ${idx + 1}:`, span.innerText);
     });
     
-    console.log("========== END REBUILD ==========");
+       console.log("========== END REBUILD ==========");
     
-    // إخفاء زر Memory Trainer عند إعادة البناء
-    const trainerBtn = document.querySelector('.memory-trainer-trigger-btn');
-    if (trainerBtn) trainerBtn.remove();
-    memoryTrainerButtonAdded = false;
-}
-
+}  // ✅ هذا القوس يغلق دالة rebuildTrueFalseCards
 
 // ============================================
-// إعادة بناء Lesen Teil 1 (ترتيب ثابت مع حفظ العقد)
-// ============================================
+// إعادة بناء Lesen Teil 1
+    
+
 function rebuildLesen1() {
     console.log("🔄 إعادة بناء Lesen 1...");
     
@@ -3925,15 +3927,11 @@ function rebuildLesen1() {
         for (let node of targetNodes) {
             container.appendChild(node);
         }
-    }
+          }
     
     console.log("✅ تم إعادة ترتيب البطاقات بنجاح");
-    
-    // إخفاء زر Memory Trainer عند إعادة البناء
-    const trainerBtn = document.querySelector('.memory-trainer-trigger-btn');
-    if (trainerBtn) trainerBtn.remove();
-    memoryTrainerButtonAdded = false;
-}
+}  // ✅ هذا القوس يغلق دالة rebuildLesen1
+
 // ============================================
 // إعادة بناء Lesen Teil 2 (ترتيب ثابت محدد) - النسخة النهائية
 // ============================================
@@ -4027,12 +4025,8 @@ function rebuildLesen2() {
     }
     
     console.log("✅ تم إعادة ترتيب بطاقات Lesen2 بنجاح داخل حاوية الأسئلة");
-    
-    // إخفاء زر Memory Trainer عند إعادة البناء
-    const trainerBtn = document.querySelector('.memory-trainer-trigger-btn');
-    if (trainerBtn) trainerBtn.remove();
-    memoryTrainerButtonAdded = false;
-}
+}  // ✅ هذا القوس يغلق دالة rebuildLesen2
+
 // ============================================
 // إعادة بناء Lesen Teil 3 (ترتيب ثابت محدد) - 12 بطاقة
 // ============================================
@@ -4118,12 +4112,8 @@ function rebuildLesen3() {
     }
     
     console.log("✅ تم إعادة ترتيب بطاقات Lesen3 بنجاح داخل حاوية الأسئلة");
-    
-    // إخفاء زر Memory Trainer عند إعادة البناء
-    const trainerBtn = document.querySelector('.memory-trainer-trigger-btn');
-    if (trainerBtn) trainerBtn.remove();
-    memoryTrainerButtonAdded = false;
-}
+}  // ✅ هذا القوس يغلق دالة rebuildLesen3
+
 // ✅✅✅ دالة إعادة تعيين ترتيب Lesen1 ✅✅✅
 // ============================================
 function resetLesen1Order() {
@@ -4284,21 +4274,16 @@ function resetInterleaving() {
         btn.title = 'Interleaving: OFF';
     }
     
- // ✅ إعادة تعيين ترتيب Lesen1 و Lesen2 و Lesen3
-if (typeof resetLesen1Order === 'function') {
-    resetLesen1Order();
-}
-if (typeof resetLesen2Order === 'function') {
-    resetLesen2Order();
-}
-if (typeof resetLesen3Order === 'function') {
-    resetLesen3Order();
-}
-    
-    // إخفاء زر Memory Trainer عند إعادة التعيين
-    const trainerBtn = document.querySelector('.memory-trainer-trigger-btn');
-    if (trainerBtn) trainerBtn.remove();
-    memoryTrainerButtonAdded = false;
+    // ✅ إعادة تعيين ترتيب Lesen1 و Lesen2 و Lesen3
+    if (typeof resetLesen1Order === 'function') {
+        resetLesen1Order();
+    }
+    if (typeof resetLesen2Order === 'function') {
+        resetLesen2Order();
+    }
+    if (typeof resetLesen3Order === 'function') {
+        resetLesen3Order();
+    }
     
     _interleavingInitialized = false;
     console.log('✅ تم إعادة تعيين حالة Interleaving');
