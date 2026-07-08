@@ -3536,9 +3536,9 @@ body.dark-mode .premium-features li {
 .zertiva-center-toast {
     display: none !important;
 }
-/* ============================
-   MEMORY TRAINER - التصميم النهائي
-   ============================ */
+/* ========================================
+   MEMORY TRAINER V2 - التصميم النهائي
+   ======================================== */
 
 .memory-trainer-overlay {
     position: fixed;
@@ -3565,7 +3565,7 @@ body.dark-mode .premium-features li {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* بطاقات أنيقة */
+/* البطاقات */
 .memory-trainer-intro,
 .memory-trainer-card,
 .memory-trainer-recall,
@@ -3574,10 +3574,10 @@ body.dark-mode .premium-features li {
     border: 1px solid #E8EEF5;
     border-radius: 12px;
     padding: 20px 24px;
-    max-width: 460px;
+    max-width: 440px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
     animation: memorySlideUp 0.25s ease;
     position: relative;
 }
@@ -3592,32 +3592,21 @@ body.dark-mode .premium-features li {
     border-color: #B8E6B8;
 }
 
-/* زر الإغلاق - صغير وهادئ */
-.memory-trainer-close {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    background: none;
-    border: none;
-    color: #A0AEC0;
-    font-size: 15px;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-    line-height: 1;
+.memory-trainer-results.phase-complete {
+    background: #FFFDF5;
+    border-color: #FDE68A;
 }
 
-.memory-trainer-close:hover {
-    background: #F1F5F9;
-    color: #475569;
+.memory-trainer-results.final {
+    background: #F0FDF4;
+    border-color: #86EFAC;
 }
 
 /* أيقونات */
 .memory-trainer-icon {
     font-size: 28px;
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 /* عناوين */
@@ -3633,7 +3622,8 @@ body.dark-mode .premium-features li {
     color: #2E7D32;
 }
 
-.memory-trainer-intro p {
+.memory-trainer-intro p,
+.memory-trainer-hint {
     color: #64748B;
     font-size: 13px;
     margin-bottom: 12px;
@@ -3644,7 +3634,7 @@ body.dark-mode .premium-features li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     padding-bottom: 8px;
     border-bottom: 1px solid #F1F5F9;
 }
@@ -3658,15 +3648,21 @@ body.dark-mode .premium-features li {
 .memory-trainer-focus {
     font-size: 13px;
     font-weight: 600;
-    color: #1565C0;
+    color: #2D6A4F;
 }
 
-/* عرض الإجابة */
+/* المحتوى */
+.memory-trainer-hint {
+    font-size: 14px;
+    color: #4A7C59;
+    margin-bottom: 10px;
+}
+
 .memory-trainer-answer {
     background: #F8FAFC;
     border-radius: 10px;
     padding: 14px 18px;
-    margin: 10px 0 14px 0;
+    margin: 8px 0 14px 0;
     font-size: 17px;
     font-weight: 500;
     min-height: 44px;
@@ -3688,7 +3684,7 @@ body.dark-mode .premium-features li {
     display: flex;
     flex-direction: column;
     gap: 6px;
-    margin: 10px 0;
+    margin: 8px 0;
 }
 
 .memory-trainer-option {
@@ -3736,29 +3732,123 @@ body.dark-mode .premium-features li {
     background: #0D47A1;
 }
 
+.memory-trainer-btn.secondary {
+    background: #F59E0B;
+    color: white;
+    box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
+}
+
+.memory-trainer-btn.secondary:hover {
+    background: #D97706;
+}
+
 .memory-trainer-btn.small {
     padding: 7px 16px;
     font-size: 13px;
-    margin-top: 6px;
+    margin-top: 4px;
 }
 
-/* التغذية الراجعة */
-#memory-trainer-feedback {
+/* إحصائيات */
+.memory-trainer-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 12px 0 16px 0;
+    padding: 10px 0;
+    border-top: 1px solid #F1F5F9;
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: #1565C0;
+    margin-top: 2px;
+}
+
+/* ========================================
+   شريط التقدم في قائمة الامتحانات
+   ======================================== */
+
+.memory-progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 12px;
+    background: #F1F5F9;
+    border-radius: 8px;
     margin-top: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
 }
 
-/* ألوان التصحيح */
-.memory-trainer-option.correct {
-    border-color: #28a745 !important;
-    background-color: #d4edda !important;
+.memory-progress-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #475569;
+    white-space: nowrap;
 }
 
-.memory-trainer-option.wrong {
-    border-color: #e67e22 !important;
-    background-color: #fef0e0 !important;
+.memory-progress-track {
+    flex: 1;
+    min-width: 100px;
+    height: 8px;
+    background: #E2E8F0;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
 }
 
-/* للشاشات الصغيرة */
+.memory-progress-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #3B82F6, #8B5CF6);
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
+.memory-progress-percent {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1565C0;
+    min-width: 40px;
+    text-align: right;
+}
+
+.memory-progress-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    color: #475569;
+}
+
+.memory-progress-btn:hover {
+    background: #E2E8F0;
+    color: #0F172A;
+}
+
+.memory-progress-btn.reset {
+    font-size: 14px;
+}
+
+/* للهواتف */
 @media (max-width: 640px) {
     .memory-trainer-intro,
     .memory-trainer-card,
@@ -3788,10 +3878,27 @@ body.dark-mode .premium-features li {
     .memory-trainer-results h2 {
         font-size: 16px;
     }
-    
-    .memory-trainer-close {
-        top: 6px;
-        right: 8px;
-        font-size: 13px;
+
+    .memory-progress-bar-container {
+        padding: 4px 8px;
+        gap: 6px;
+    }
+
+    .memory-progress-label {
+        font-size: 10px;
+    }
+
+    .memory-progress-percent {
+        font-size: 10px;
+        min-width: 32px;
+    }
+
+    .memory-progress-btn {
+        font-size: 12px;
+        padding: 2px 6px;
+    }
+
+    #memory-trainer-feedback .memory-trainer-btn {
+        width: auto;
     }
 }
