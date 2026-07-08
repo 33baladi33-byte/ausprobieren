@@ -1778,52 +1778,30 @@ function renderMemoryProgressBar(skill, container) {
     container.insertBefore(bar, container.firstChild);
 }
 // ============================================
-// بدء تدريب Teil - عرض الامتحانات المفعلة
+// بدء تدريب Teil - تشغيل فوري باستخدام البيانات المخزنة
 // ============================================
 
-window.startTeilTraining = async function(skill) {
+window.startTeilTraining = function(skill) {
     console.log(`🧠 بدء تدريب Teil: ${skill}`);
     
-    const exams = examsDatabase[skill] || [];
-    if (exams.length === 0) {
-        alert('⚠️ لا توجد امتحانات في هذا الجزء');
+    // ✅ استخدام البيانات المخزنة في الذاكرة مباشرة
+    const examData = window.currentExamData;
+    if (!examData) {
+        alert('⚠️ لا توجد بيانات امتحان في الذاكرة. يرجى فتح الامتحان أولاً.');
         return;
     }
     
-    // جمع الامتحانات المفعلة
-    const enabledExams = [];
-    let enabledCount = 0;
-    
-    for (const exam of exams) {
-        if (!exam.hasFile) continue;
-        const fileName = getActualFileName(exam.id);
-        try {
-            const response = await fetch(`data/${skill}/${fileName}`);
-            if (response.ok) {
-                const data = await response.json();
-                if (data.memoryTrainer && data.memoryTrainer.enabled === true) {
-                    enabledExams.push({
-                        id: exam.id,
-                        title: exam.title,
-                        data: data
-                    });
-                    enabledCount++;
-                }
-            }
-        } catch (e) {
-            console.warn(`⚠️ لا يمكن تحميل exam${exam.id}`);
-        }
-    }
-    
-    if (enabledExams.length === 0) {
-        alert(`⚠️ لا توجد امتحانات مفعلة للتدريب في ${skill}`);
+    if (!examData.memoryTrainer || examData.memoryTrainer.enabled !== true) {
+        alert('⚠️ هذه الميزة غير مفعلة لهذا الامتحان.');
         return;
     }
     
-    // عرض قائمة الامتحانات المفعلة
-    showEnabledExamsList(skill, enabledExams);
+    if (window.memoryTrainer) {
+        window.memoryTrainer.start(examData);
+    } else {
+        alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
+    }
 };
-
 // ============================================
 // عرض قائمة الامتحانات المفعلة
 // ============================================
@@ -1938,7 +1916,7 @@ function showEnabledExamsList(skill, exams) {
 }
 
 // ============================================
-// تدريب امتحان واحد
+// تدريب امتحان واحد (مباشر)
 // ============================================
 
 window.startSingleExamTraining = function(examId, skill) {
@@ -1946,72 +1924,33 @@ window.startSingleExamTraining = function(examId, skill) {
     const overlay = document.querySelector('.memory-trainer-exams-overlay');
     if (overlay) overlay.remove();
     
-    // فتح الامتحان وتشغيل Memory Trainer
-    openExam(examId, `امتحان ${examId}`, skill);
-    setTimeout(() => {
-        if (window.startMemoryTrainer) {
-            window.startMemoryTrainer();
-        }
-    }, 500);
+    // ✅ استخدام البيانات الموجودة مباشرة (بدون openExam ولا setTimeout)
+    const examData = window.currentExamData;
+    if (!examData) {
+        alert('⚠️ لا توجد بيانات امتحان');
+        return;
+    }
+    if (window.memoryTrainer) {
+        window.memoryTrainer.start(examData);
+    }
 };
 
 // ============================================
-// تدريب جميع الامتحانات (دمج البيانات)
+// تدريب جميع الامتحانات - نسخة سريعة (تستخدم البيانات الحالية)
 // ============================================
 
-window.startAllExamsTraining = async function(skill) {
+window.startAllExamsTraining = function(skill) {
     // إغلاق النافذة
     const overlay = document.querySelector('.memory-trainer-exams-overlay');
     if (overlay) overlay.remove();
     
-    const exams = examsDatabase[skill] || [];
-    const allData = [];
-    
-    for (const exam of exams) {
-        if (!exam.hasFile) continue;
-        const fileName = getActualFileName(exam.id);
-        try {
-            const response = await fetch(`data/${skill}/${fileName}`);
-            if (response.ok) {
-                const data = await response.json();
-                if (data.memoryTrainer && data.memoryTrainer.enabled) {
-                    allData.push(data);
-                }
-            }
-        } catch (e) {
-            console.warn(`⚠️ لا يمكن تحميل exam${exam.id}`);
-        }
-    }
-    
-    if (allData.length === 0) {
-        alert('⚠️ لا توجد امتحانات مفعلة للتدريب');
+    // ✅ استخدام نفس البيانات الموجودة (لا نجمع من عدة ملفات)
+    const examData = window.currentExamData;
+    if (!examData) {
+        alert('⚠️ لا توجد بيانات امتحان');
         return;
     }
-    
-    let combinedQuestions = [];
-    let combinedHighlights = [];
-    allData.forEach(data => {
-        if (data.questions) combinedQuestions = combinedQuestions.concat(data.questions);
-        if (data.memoryHighlights) combinedHighlights = combinedHighlights.concat(data.memoryHighlights);
-    });
-    
-    const tempExam = {
-        questions: combinedQuestions,
-        memoryHighlights: combinedHighlights,
-        memoryTrainer: { enabled: true }
-    };
-    
-    // تخزين مؤقتاً ثم تشغيل Memory Trainer
-    window._tempCombinedExam = tempExam;
-    window.currentExamData = tempExam;
-    window._currentExamData = tempExam;
-    
     if (window.memoryTrainer) {
-        window.memoryTrainer.start(tempExam);
-        window.memoryTrainer.onCloseCallback = function() {
-            const progress = getMemoryProgress(skill);
-            progress.attempts += 1;
-            saveMemoryProgress(skill, progress);
-        };
+        window.memoryTrainer.start(examData);
     }
 };
