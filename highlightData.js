@@ -15,6 +15,7 @@ class MemoryTrainer {
         this.currentOptions = [];
         this.wrongAttempts = 0;
         
+        // رسائل قصيرة جداً
         this.successMessages = [
             "🧠 أحسنت",
             "🎯 ممتاز",
@@ -40,7 +41,7 @@ class MemoryTrainer {
             return;
         }
 
-        // ✅ استخدام جميع الأسئلة (وليس فقط التي لها Highlights)
+        // استخدام جميع الأسئلة
         this.collectQuestions(examData);
         
         if (this.currentQuestions.length === 0) {
@@ -52,7 +53,6 @@ class MemoryTrainer {
         this.showIntroCard();
     }
 
-    // ✅ جمع جميع الأسئلة
     collectQuestions(examData) {
         this.originalQuestions = examData.questions.map((q, index) => ({
             ...q,
@@ -65,19 +65,16 @@ class MemoryTrainer {
         console.log(`✅ تم جمع ${this.currentQuestions.length} سؤال للتدريب`);
     }
 
-    // ✅ البحث عن Highlight
     getHighlightForQuestion(index) {
         const examData = window.currentExamData || window._currentExamData;
         if (!examData || !examData.memoryHighlights) return null;
         
-        // البحث عن Highlight مع question
         for (const h of examData.memoryHighlights) {
             if (h.question === index) {
                 return h;
             }
         }
         
-        // إذا لم نجد، نستخدم الترتيب
         if (examData.memoryHighlights[index]) {
             return examData.memoryHighlights[index];
         }
