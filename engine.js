@@ -3908,9 +3908,8 @@ function rebuildLesen1() {
     
     console.log("✅ تم إعادة ترتيب البطاقات بنجاح");
 }
-
 // ============================================
-// إعادة بناء Lesen Teil 2 (ترتيب ثابت محدد)
+// إعادة بناء Lesen Teil 2 (ترتيب ثابت محدد) - النسخة النهائية
 // ============================================
 function rebuildLesen2() {
     console.log("🔄 إعادة بناء Lesen 2...");
@@ -3921,11 +3920,41 @@ function rebuildLesen2() {
         return;
     }
     
-    // ✅ التعديل الأساسي: البحث عن البطاقات في أي مستوى داخل الحاوية
-    const cards = [...container.querySelectorAll(".question-card")];
+    // ✅ البحث عن الحاوية التي تحتوي بطاقات الأسئلة كأبناء مباشرين
+    let questionsContainer = null;
+    
+    // الطريقة الأولى: البحث عن العنصر الذي أبناؤه المباشرون هم .question-card
+    const allDivs = container.querySelectorAll("div");
+    for (const div of allDivs) {
+        const directCards = [...div.children].filter(el =>
+            el.classList && el.classList.contains("question-card")
+        );
+        if (directCards.length > 0) {
+            questionsContainer = div;
+            console.log("✅ تم العثور على حاوية الأسئلة (أبناء مباشرين):", questionsContainer);
+            break;
+        }
+    }
+    
+    // ✅ إذا لم نجدها بالطريقة الأولى، نبحث بالـ ID
+    if (!questionsContainer) {
+        questionsContainer = document.getElementById("teil2_questions_container");
+        if (questionsContainer) {
+            console.log("✅ تم العثور على حاوية الأسئلة بواسطة ID:", questionsContainer);
+        }
+    }
+    
+    // ✅ إذا لم نجد حاوية، نخرج من الدالة
+    if (!questionsContainer) {
+        console.error("❌ لم يتم العثور على حاوية الأسئلة في #teil2");
+        return;
+    }
+    
+    // ✅ الحصول على البطاقات من داخل حاوية الأسئلة فقط
+    const cards = [...questionsContainer.querySelectorAll(".question-card")];
     
     if (cards.length === 0) {
-        console.warn("⚠️ لا توجد بطاقات في #teil2، إعادة المحاولة بعد 50ms");
+        console.warn("⚠️ لا توجد بطاقات في حاوية الأسئلة، إعادة المحاولة بعد 50ms");
         setTimeout(rebuildLesen2, 50);
         return;
     }
@@ -3963,25 +3992,15 @@ function rebuildLesen2() {
     let targetNodes = window.isInterleavingActive ? lesen2ShuffledNodes : lesen2OriginalNodes;
     console.log(`🔄 تطبيق الترتيب: ${window.isInterleavingActive ? 'مختلط' : 'أصلي'}`, targetNodes.map(c => c.id));
     
-    // ✅ العثور على أول عنصر ليس بطاقة (النص الطويل أو الأزرار)
-    const firstNonCard = container.querySelector(":scope > :not(.question-card)");
-    
     // ✅ إزالة البطاقات من DOM (بدون حذفها)
     cards.forEach(card => card.remove());
     
-    if (firstNonCard) {
-        // ✅ إدراج البطاقات قبل أول عنصر ليس بطاقة
-        for (let i = 0; i < targetNodes.length; i++) {
-            container.insertBefore(targetNodes[i], firstNonCard);
-        }
-    } else {
-        // إذا لم نجد عنصراً غير بطاقة، نضيف في النهاية
-        for (let node of targetNodes) {
-            container.appendChild(node);
-        }
+    // ✅ إعادة إدراج البطاقات في نفس الحاوية (questionsContainer) وليس في #teil2
+    for (let i = 0; i < targetNodes.length; i++) {
+        questionsContainer.appendChild(targetNodes[i]);
     }
     
-    console.log("✅ تم إعادة ترتيب بطاقات Lesen2 بنجاح");
+    console.log("✅ تم إعادة ترتيب بطاقات Lesen2 بنجاح داخل حاوية الأسئلة");
 }
 // ✅✅✅ دالة إعادة تعيين ترتيب Lesen1 ✅✅✅
 // ============================================
