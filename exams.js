@@ -864,6 +864,26 @@ async function renderExamListForSkill(skill, teilName) {
     div.appendChild(titleSpan);
     
     displaySavedResult(targetSkill, exam.id, titleSpan, div);
+
+    // ✅ عرض نسبة التقدم لكل امتحان (إذا كانت >0)
+    if (targetSkill === 'hoeren1') {
+      const progress = getExamProgress(targetSkill, exam.id);
+      if (progress > 0) {
+        const progressSpan = document.createElement('span');
+        progressSpan.className = 'exam-progress-mini';
+        progressSpan.style.cssText = `
+          font-size: 10px;
+          color: #1565C0;
+          margin-left: 8px;
+          font-weight: 500;
+          background: #f0f7ff;
+          padding: 2px 6px;
+          border-radius: 10px;
+        `;
+        progressSpan.textContent = `${progress}%`;
+        titleSpan.appendChild(progressSpan);
+      }
+    }
     
     if (!isPremium && !isFreeExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
       div.style.backgroundColor = "rgba(255,255,255,0.75)";
@@ -1810,23 +1830,29 @@ const LEVELS_KEY = 'memory_levels';
 const TOTAL_HOEREN1_SENTENCES = 108; // عدد الجمل الكلي في Hören 1
 const MAX_LEVEL = 5;
 
-// جلب مستوى جملة معينة
-function getSentenceLevel(sentenceId) {
+// بناء معرف الجملة الثابت (يستخدم أيضاً في memoryTrainer.js)
+function buildSentenceId(skill, examId, questionIndex) {
+    return `${skill}_exam${examId}_${questionIndex}`;
+}
+
+// جلب مستوى جملة معينة (باستخدام المعرف الثابت)
+function getSentenceLevel(skill, examId, questionIndex) {
+    const key = buildSentenceId(skill, examId, questionIndex);
     try {
         const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
-        return data[sentenceId] !== undefined ? data[sentenceId] : 0;
+        return data[key] !== undefined ? data[key] : 0;
     } catch {
         return 0;
     }
 }
 
-// حفظ مستوى جملة
-function setSentenceLevel(sentenceId, level) {
+// حفظ مستوى جملة (باستخدام المعرف الثابت)
+function setSentenceLevel(skill, examId, questionIndex, level) {
+    const key = buildSentenceId(skill, examId, questionIndex);
     try {
         const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
-        // التأكد من الحدود (0 - 5)
         let newLevel = Math.max(0, Math.min(MAX_LEVEL, level));
-        data[sentenceId] = newLevel;
+        data[key] = newLevel;
         localStorage.setItem(LEVELS_KEY, JSON.stringify(data));
     } catch (e) {
         console.error('❌ خطأ في حفظ المستوى:', e);
@@ -1834,18 +1860,40 @@ function setSentenceLevel(sentenceId, level) {
 }
 
 // زيادة المستوى (حد أقصى 5)
-function increaseLevel(sentenceId) {
-    const current = getSentenceLevel(sentenceId);
+function increaseLevel(skill, examId, questionIndex) {
+    const current = getSentenceLevel(skill, examId, questionIndex);
     if (current < MAX_LEVEL) {
-        setSentenceLevel(sentenceId, current + 1);
+        setSentenceLevel(skill, examId, questionIndex, current + 1);
     }
 }
 
 // إنقاص المستوى (حد أدنى 0)
-function decreaseLevel(sentenceId) {
-    const current = getSentenceLevel(sentenceId);
+function decreaseLevel(skill, examId, questionIndex) {
+    const current = getSentenceLevel(skill, examId, questionIndex);
     if (current > 0) {
-        setSentenceLevel(sentenceId, current - 1);
+        setSentenceLevel(skill, examId, questionIndex, current - 1);
+    }
+}
+
+// ✅ حساب نسبة امتحان واحد
+function getExamProgress(skill, examId) {
+    const prefix = `${skill}_exam${examId}_`;
+    try {
+        const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
+        let totalLevels = 0;
+        let count = 0;
+        for (const key in data) {
+            if (key.startsWith(prefix)) {
+                totalLevels += data[key];
+                count++;
+            }
+        }
+        if (count === 0) return 0;
+        const maxTotal = count * MAX_LEVEL;
+        const percent = maxTotal > 0 ? (totalLevels / maxTotal) * 100 : 0;
+        return Math.min(100, Math.round(percent));
+    } catch {
+        return 0;
     }
 }
 
@@ -1856,14 +1904,12 @@ function getOverallProgress() {
         const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
         let totalLevels = 0;
         let count = 0;
-        
-        // نأخذ أول 108 جملة فقط (لأنها الحد الأقصى لـ Hören 1)
         for (const key in data) {
-            if (count >= TOTAL_HOEREN1_SENTENCES) break;
-            totalLevels += data[key];
-            count++;
+            if (key.startsWith('hoeren1_exam')) {
+                totalLevels += data[key];
+                count++;
+            }
         }
-        
         const maxTotal = TOTAL_HOEREN1_SENTENCES * MAX_LEVEL; // 108 * 5 = 540
         const percent = maxTotal > 0 ? (totalLevels / maxTotal) * 100 : 0;
         return Math.min(100, Math.round(percent));
@@ -1911,11 +1957,13 @@ function renderMemoryProgressBar(skill, container) {
 // تصدير الدوال للاستخدام العالمي
 // ============================================
 
+window.buildSentenceId = buildSentenceId;
 window.getSentenceLevel = getSentenceLevel;
 window.setSentenceLevel = setSentenceLevel;
 window.increaseLevel = increaseLevel;
 window.decreaseLevel = decreaseLevel;
+window.getExamProgress = getExamProgress;
 window.getOverallProgress = getOverallProgress;
 window.resetAllLevels = resetAllLevels;
 
-console.log('🧠 نظام التقدم (Levels 0-5) تم تحميله بنجاح');
+console.log('🧠 نظام التقدم (Levels 0-5) مع معرفات ثابتة تم تحميله بنجاح');
