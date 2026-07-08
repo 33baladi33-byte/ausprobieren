@@ -3537,7 +3537,7 @@ body.dark-mode .premium-features li {
     display: none !important;
 }
 /* ========================================
-   MEMORY TRAINER V3 - تحسينات السرعة
+   MEMORY TRAINER V3 - تحسينات السرعة V2
    ======================================== */
 
 /* الخلفية - أخف وأسرع */
@@ -3547,13 +3547,13 @@ body.dark-mode .premium-features li {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.12);
-    backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.10);
+    backdrop-filter: blur(2px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10000;
-    animation: memoryFadeIn 0.15s ease;
+    animation: memoryFadeIn 0.12s ease;
 }
 
 @keyframes memoryFadeIn {
@@ -3562,7 +3562,7 @@ body.dark-mode .premium-features li {
 }
 
 @keyframes memorySlideUp {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -3572,7 +3572,7 @@ body.dark-mode .premium-features li {
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: memorySlideUp 0.15s ease;
+    animation: memorySlideUp 0.12s ease;
 }
 
 /* البطاقات - تصميم أنيق وسريع */
@@ -3688,7 +3688,10 @@ body.dark-mode .premium-features li {
     margin-bottom: 10px;
 }
 
-/* خيارات */
+/* ============================================
+   خيارات مع Hover فوري (0.08s)
+   ============================================ */
+
 .memory-trainer-options {
     display: flex;
     flex-direction: column;
@@ -3712,7 +3715,7 @@ body.dark-mode .premium-features li {
 .memory-trainer-option:hover:not(:disabled) {
     border-color: #38bdf8 !important;
     background: #f0f7ff !important;
-    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15) !important;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12) !important;
     transform: none !important;
 }
 
@@ -3732,7 +3735,10 @@ body.dark-mode .premium-features li {
     background-color: #fef0e0 !important;
 }
 
-/* أزرار */
+/* ============================================
+   أزرار
+   ============================================ */
+
 .memory-trainer-btn {
     padding: 8px 20px;
     border: none;
@@ -3740,7 +3746,7 @@ body.dark-mode .premium-features li {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     margin-top: 6px;
 }
 
@@ -3770,7 +3776,10 @@ body.dark-mode .premium-features li {
     margin-top: 4px;
 }
 
-/* إحصائيات */
+/* ============================================
+   إحصائيات
+   ============================================ */
+
 .memory-trainer-stats {
     display: flex;
     justify-content: space-around;
@@ -3802,7 +3811,7 @@ body.dark-mode .premium-features li {
 }
 
 /* ============================================
-   شريط التقدم - تصميم جديد (مستطيل أبيض، border خفيف، radius 6px)
+   شريط التقدم - مستطيل أبيض، border خفيف، radius 6px
    ============================================ */
 
 .memory-progress-bar-container {
@@ -3859,7 +3868,7 @@ body.dark-mode .premium-features li {
     cursor: pointer;
     padding: 2px 6px;
     border-radius: 6px;
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
     color: #94A3B8;
     line-height: 1;
 }
@@ -3873,9 +3882,44 @@ body.dark-mode .premium-features li {
     font-size: 13px;
 }
 
-/* ========================================
+/* ============================================
+   مستطيل التقدم في شاشة البداية (من القائمة)
+   ============================================ */
+
+.memory-trainer-intro .progress-box {
+    background: #FFFFFF;
+    border: 1px solid #E8EEF5;
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin: 10px 0 14px 0;
+}
+
+.memory-trainer-intro .progress-box .track {
+    flex: 1;
+    height: 5px;
+    background: #e9eef5;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.memory-trainer-intro .progress-box .fill {
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #1565C0, #38bdf8);
+    transition: width 0.3s ease;
+}
+
+.memory-trainer-intro .progress-box .percent {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1565C0;
+    min-width: 35px;
+    text-align: right;
+}
+
+/* ============================================
    للهواتف
-   ======================================== */
+   ============================================ */
 
 @media (max-width: 640px) {
     .memory-trainer-intro,
@@ -3931,38 +3975,4 @@ body.dark-mode .premium-features li {
     #memory-trainer-feedback .memory-trainer-btn {
         width: auto;
     }
-}
-/* ============================================
-   مستطيل التقدم في شاشة البداية (من القائمة)
-   ============================================ */
-
-.memory-trainer-intro .progress-box {
-    background: #FFFFFF;
-    border: 1px solid #E8EEF5;
-    border-radius: 6px;
-    padding: 6px 10px;
-    margin: 10px 0 14px 0;
-}
-
-.memory-trainer-intro .progress-box .track {
-    flex: 1;
-    height: 5px;
-    background: #e9eef5;
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-.memory-trainer-intro .progress-box .fill {
-    height: 100%;
-    border-radius: 6px;
-    background: linear-gradient(90deg, #1565C0, #38bdf8);
-    transition: width 0.3s ease;
-}
-
-.memory-trainer-intro .progress-box .percent {
-    font-size: 12px;
-    font-weight: 600;
-    color: #1565C0;
-    min-width: 35px;
-    text-align: right;
 }
