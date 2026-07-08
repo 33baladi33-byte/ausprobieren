@@ -19,7 +19,8 @@ const interleavingOrders = {
     hoeren2: [3, 7, 1, 9, 5, 10, 2, 6, 4, 8],
     hoeren3: [2, 4, 1, 5, 3],
     lesen1: [3, 1, 5, 2, 4],
-    lesen2: [4, 2, 5, 1, 3]
+    lesen2: [4, 2, 5, 1, 3],
+    lesen3: [4, 8, 1, 11, 6, 2, 10, 3, 12, 7, 5, 9]
 };
 
 // ✅✅✅ متغيرات لحفظ ترتيب Lesen1 ✅✅✅
@@ -31,6 +32,7 @@ let lesen2OriginalNodes = null;
 let lesen2ShuffledNodes = null;
 let lesen2OrderSaved = false;
 
+
 // ✅✅✅ دالة إعادة تعيين ترتيب Lesen2 ✅✅✅
 function resetLesen2Order() {
     lesen2OriginalNodes = null;
@@ -38,6 +40,19 @@ function resetLesen2Order() {
     lesen2OrderSaved = false;
     console.log('🔄 تم إعادة تعيين ترتيب Lesen2');
 }
+
+// ✅✅✅ دالة إعادة تعيين ترتيب Lesen3 ✅✅✅
+function resetLesen3Order() {
+    lesen3OriginalNodes = null;
+    lesen3ShuffledNodes = null;
+    lesen3OrderSaved = false;
+    console.log('🔄 تم إعادة تعيين ترتيب Lesen3');
+}
+
+// ✅✅✅ متغيرات لحفظ ترتيب Lesen3 ✅✅✅
+let lesen3OriginalNodes = null;
+let lesen3ShuffledNodes = null;
+let lesen3OrderSaved = false;
 
 window.loadExamFromFile = async function(skill, examId) {
   try {
@@ -4002,6 +4017,92 @@ function rebuildLesen2() {
     
     console.log("✅ تم إعادة ترتيب بطاقات Lesen2 بنجاح داخل حاوية الأسئلة");
 }
+// ============================================
+// إعادة بناء Lesen Teil 3 (ترتيب ثابت محدد) - 12 بطاقة
+// ============================================
+function rebuildLesen3() {
+    console.log("🔄 إعادة بناء Lesen 3...");
+    
+    const container = document.getElementById("teil3");
+    if (!container) {
+        console.warn("⚠️ #teil3 غير موجود");
+        return;
+    }
+    
+    // ✅ البحث عن الحاوية التي تحتوي بطاقات الأسئلة كأبناء مباشرين
+    let questionsContainer = null;
+    
+    // الطريقة الأولى: البحث عن العنصر الذي أبناؤه المباشرون هم .question-card
+    const allDivs = container.querySelectorAll("div");
+    for (const div of allDivs) {
+        const directCards = [...div.children].filter(el =>
+            el.classList && el.classList.contains("question-card")
+        );
+        if (directCards.length > 0) {
+            questionsContainer = div;
+            console.log("✅ تم العثور على حاوية الأسئلة لـ Lesen3 (أبناء مباشرين):", questionsContainer);
+            break;
+        }
+    }
+    
+    // ✅ إذا لم نجد حاوية، نخرج من الدالة
+    if (!questionsContainer) {
+        console.error("❌ لم يتم العثور على حاوية الأسئلة في #teil3");
+        return;
+    }
+    
+    // ✅ الحصول على البطاقات من داخل حاوية الأسئلة فقط
+    const cards = [...questionsContainer.querySelectorAll(".question-card")];
+    
+    if (cards.length === 0) {
+        console.warn("⚠️ لا توجد بطاقات في حاوية الأسئلة لـ Lesen3، إعادة المحاولة بعد 50ms");
+        setTimeout(rebuildLesen3, 50);
+        return;
+    }
+    
+    console.log(`📦 عدد البطاقات: ${cards.length}`);
+    
+    // ✅ حفظ العقد في أول مرة فقط
+    if (!lesen3OrderSaved) {
+        lesen3OriginalNodes = [...cards];
+        console.log("💾 تم حفظ العقد الأصلية لـ Lesen3:", lesen3OriginalNodes.map(c => c.id));
+        
+        // ✅ استخدام الترتيب المحدد من interleavingOrders
+        const order = interleavingOrders.lesen3;
+        if (order && order.length === cards.length) {
+            const orderedCards = [];
+            for (let idx of order) {
+                if (idx <= cards.length) {
+                    orderedCards.push(cards[idx - 1]);
+                }
+            }
+            if (orderedCards.length === cards.length) {
+                lesen3ShuffledNodes = [...orderedCards];
+                console.log("💾 تم حفظ الترتيب المختلط لـ Lesen3:", lesen3ShuffledNodes.map(c => c.id));
+            } else {
+                lesen3ShuffledNodes = [...cards];
+            }
+        } else {
+            lesen3ShuffledNodes = [...cards];
+            console.log("💾 لا يوجد ترتيب محدد، استخدام الترتيب الحالي");
+        }
+        lesen3OrderSaved = true;
+    }
+    
+    // ✅ اختيار الترتيب المطلوب
+    let targetNodes = window.isInterleavingActive ? lesen3ShuffledNodes : lesen3OriginalNodes;
+    console.log(`🔄 تطبيق الترتيب: ${window.isInterleavingActive ? 'مختلط' : 'أصلي'}`, targetNodes.map(c => c.id));
+    
+    // ✅ إزالة البطاقات من DOM (بدون حذفها)
+    cards.forEach(card => card.remove());
+    
+    // ✅ إعادة إدراج البطاقات في نفس الحاوية (questionsContainer) وليس في #teil3
+    for (let i = 0; i < targetNodes.length; i++) {
+        questionsContainer.appendChild(targetNodes[i]);
+    }
+    
+    console.log("✅ تم إعادة ترتيب بطاقات Lesen3 بنجاح داخل حاوية الأسئلة");
+}
 // ✅✅✅ دالة إعادة تعيين ترتيب Lesen1 ✅✅✅
 // ============================================
 function resetLesen1Order() {
@@ -4015,8 +4116,11 @@ function resetLesen1Order() {
 window.rebuildTrueFalseCards = rebuildTrueFalseCards;
 window.rebuildLesen1 = rebuildLesen1;
 window.rebuildLesen2 = rebuildLesen2;
+window.rebuildLesen3 = rebuildLesen3;
 window.resetLesen1Order = resetLesen1Order;
 window.resetLesen2Order = resetLesen2Order;
+window.resetLesen3Order = resetLesen3Order;
+
 // ============================================
 // إصلاح زر Interleaving - النسخة النهائية (عامة)
 // ============================================
@@ -4089,6 +4193,16 @@ function toggleInterleaving() {
             console.error('❌ دالة rebuildLesen2 غير موجودة!');
             _toggleInProgress = false;
         }
+    } else if (currentSkill === 'lesen3') {
+        console.log(`Calling rebuildLesen3...`);
+        if (typeof rebuildLesen3 === 'function') {
+            // استدعاء الدالة مباشرة، وهي ستتعامل مع إعادة المحاولة بنفسها
+            rebuildLesen3();
+            _toggleInProgress = false;
+        } else {
+            console.error('❌ دالة rebuildLesen3 غير موجودة!');
+            _toggleInProgress = false;
+        }
     } else {
         console.log(`⚠️ Interleaving غير مدعوم لـ ${currentSkill} حالياً`);
         window.isInterleavingActive = !window.isInterleavingActive;
@@ -4149,12 +4263,15 @@ function resetInterleaving() {
         btn.title = 'Interleaving: OFF';
     }
     
- // ✅ إعادة تعيين ترتيب Lesen1 و Lesen2
+ // ✅ إعادة تعيين ترتيب Lesen1 و Lesen2 و Lesen3
 if (typeof resetLesen1Order === 'function') {
     resetLesen1Order();
 }
 if (typeof resetLesen2Order === 'function') {
     resetLesen2Order();
+}
+if (typeof resetLesen3Order === 'function') {
+    resetLesen3Order();
 }
     
     _interleavingInitialized = false;
