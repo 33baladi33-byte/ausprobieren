@@ -3710,6 +3710,17 @@ body.dark-mode .premium-features li {
     opacity: 0.7;
 }
 
+/* ألوان التصحيح الصامتة */
+.memory-trainer-option.correct {
+    border-color: #28a745 !important;
+    background-color: #d4edda !important;
+}
+
+.memory-trainer-option.wrong {
+    border-color: #e67e22 !important;
+    background-color: #fef0e0 !important;
+}
+
 /* أزرار */
 .memory-trainer-btn {
     padding: 9px 22px;
@@ -3854,8 +3865,9 @@ body.dark-mode .premium-features li {
     .memory-trainer-card,
     .memory-trainer-recall,
     .memory-trainer-results {
-        padding: 16px 14px;
+        padding: 14px 12px;
         max-width: 95%;
+        border-radius: 10px;
     }
 
     .memory-trainer-answer {
