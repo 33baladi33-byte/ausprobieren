@@ -1,6 +1,6 @@
 // ============================================
-// MEMORY TRAINER V3 - النسخة النهائية
-// مع نظام Level (0-5) وخيارات خاطئة من نفس الامتحان
+// MEMORY TRAINER V3 - النسخة النهائية مع نظام Level (0-5)
+// باستخدام معرفات ثابتة للجمل (skill_examId_index)
 // ============================================
 
 class MemoryTrainer {
@@ -44,6 +44,10 @@ class MemoryTrainer {
         this.TOTAL_HOEREN1_SENTENCES = 108;
         this.MAX_LEVEL = 5;
         this.LEVEL_STEP = 20;
+        
+        // المتغيرات الخاصة بالامتحان الحالي
+        this.currentSkill = 'hoeren1';
+        this.currentExamId = 1;
     }
 
     // ============================================
@@ -59,9 +63,13 @@ class MemoryTrainer {
         if (mode === 'list' && window._hoeren1CombinedData) {
             examData = window._hoeren1CombinedData;
             this.isFromList = true;
+            this.currentSkill = 'hoeren1';
+            this.currentExamId = null;
             console.log('📚 تدريب من قائمة Hören 1 (بيانات مدمجة)');
         } else {
             examData = window.currentExamData || window._currentExamData;
+            this.currentSkill = window.currentSkill || 'hoeren1';
+            this.currentExamId = window.currentExamId || 1;
             console.log('📖 تدريب من امتحان واحد');
         }
         
@@ -182,14 +190,24 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // نظام المستويات (Levels)
+    // نظام المستويات (Levels) - باستخدام معرفات ثابتة
     // ============================================
 
+    // بناء معرف الجملة الثابت
+    buildSentenceId(skill, examId, questionIndex) {
+        if (window.buildSentenceId) {
+            return window.buildSentenceId(skill, examId, questionIndex);
+        }
+        return `${skill}_exam${examId}_${questionIndex}`;
+    }
+
+    // جلب المستوى الحالي لجملة
     getSentenceLevel(sentenceId) {
         const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
         return data[sentenceId] !== undefined ? data[sentenceId] : 0;
     }
 
+    // حفظ مستوى جملة
     setSentenceLevel(sentenceId, level) {
         const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
         let newLevel = Math.max(0, Math.min(this.MAX_LEVEL, level));
@@ -197,6 +215,7 @@ class MemoryTrainer {
         localStorage.setItem(this.LEVELS_KEY, JSON.stringify(data));
     }
 
+    // زيادة المستوى
     increaseLevel(sentenceId) {
         const current = this.getSentenceLevel(sentenceId);
         if (current < this.MAX_LEVEL) {
@@ -204,6 +223,7 @@ class MemoryTrainer {
         }
     }
 
+    // إنقاص المستوى
     decreaseLevel(sentenceId) {
         const current = this.getSentenceLevel(sentenceId);
         if (current > 0) {
@@ -211,14 +231,46 @@ class MemoryTrainer {
         }
     }
 
-    getOverallProgress() {
+    // ============================================
+    // دوال حساب النسب (تستخدم الدوال العامة من exams.js إن وجدت)
+    // ============================================
+
+    // نسبة الامتحان الحالي
+    getExamProgress(skill, examId) {
+        if (window.getExamProgress) {
+            return window.getExamProgress(skill, examId);
+        }
+        // Fallback - حساب يدوي باستخدام المفاتيح
+        const prefix = `${skill}_exam${examId}_`;
         const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
         let totalLevels = 0;
         let count = 0;
         for (const key in data) {
-            if (count >= this.TOTAL_HOEREN1_SENTENCES) break;
-            totalLevels += data[key];
-            count++;
+            if (key.startsWith(prefix)) {
+                totalLevels += data[key];
+                count++;
+            }
+        }
+        if (count === 0) return 0;
+        const maxTotal = count * this.MAX_LEVEL;
+        const percent = maxTotal > 0 ? (totalLevels / maxTotal) * 100 : 0;
+        return Math.min(100, Math.round(percent));
+    }
+
+    // نسبة Hören 1 العامة
+    getOverallProgress() {
+        if (window.getOverallProgress) {
+            return window.getOverallProgress();
+        }
+        // Fallback
+        const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
+        let totalLevels = 0;
+        let count = 0;
+        for (const key in data) {
+            if (key.startsWith('hoeren1_exam')) {
+                totalLevels += data[key];
+                count++;
+            }
         }
         const maxTotal = this.TOTAL_HOEREN1_SENTENCES * this.MAX_LEVEL;
         const percent = maxTotal > 0 ? (totalLevels / maxTotal) * 100 : 0;
@@ -287,9 +339,20 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // استخراج الألوان
+    // استخراج الألوان (باستخدام المعرف الثابت)
     // ============================================
 
+    // الحصول على لون الجملة من المعرف الثابت
+    getColorBySentenceId(sentenceId) {
+        if (window.getColorBySentenceId) {
+            return window.getColorBySentenceId(sentenceId);
+        }
+        // Fallback: البحث في memoryHighlights
+        // (هذا لن يعمل مع المعرف الثابت، لذا الأفضل استخدام window.getColorBySentenceId)
+        return 0;
+    }
+
+    // استخراج الألوان بالطريقة القديمة (للتوافق مع بيانات الامتحانات الفردية)
     findHighlightForText(text) {
         if (!this.memoryHighlights || this.memoryHighlights.length === 0) return null;
         const trimmed = text.trim();
@@ -303,6 +366,8 @@ class MemoryTrainer {
     }
 
     getColorForText(text) {
+        // أولاً نحاول من المعرف الثابت إذا كان متاحاً
+        // ولكننا لا نملك هنا sentenceId، لذلك نستخدم الطريقة القديمة
         const highlight = this.findHighlightForText(text);
         if (highlight && highlight.color !== undefined) {
             return { color: highlight.color, hasHighlight: true };
@@ -441,7 +506,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // التصحيح (مع نظام Level)
+    // التصحيح (مع نظام Level والمعرف الثابت)
     // ============================================
 
     checkAnswer(selectedIndex) {
@@ -451,7 +516,12 @@ class MemoryTrainer {
         
         const selectedText = this.currentOptions[selectedIndex];
         const isCorrect = (selectedText === this.currentCorrectText);
-        const sentenceId = this.currentQuestionIndex;
+        
+        // بناء المعرف الثابت للجملة
+        const skill = this.currentSkill || 'hoeren1';
+        const examId = this.currentExamId || 1;
+        const questionIndex = this.currentQuestionIndex;
+        const sentenceId = this.buildSentenceId(skill, examId, questionIndex);
         
         const allOptions = document.querySelectorAll('.memory-trainer-option');
         const feedback = document.getElementById('memory-trainer-feedback');
@@ -609,11 +679,26 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // النهاية النهائية
+    // النهاية النهائية - عرض نسبة الامتحان الحالي
     // ============================================
 
     showResults() {
-        const overallPercent = this.isFromList ? this.getOverallProgress() : 0;
+        let examPercent = 0;
+        let overallPercent = 0;
+        
+        if (this.isFromList) {
+            // من القائمة: نعرض النسبة الكلية لـ Hören 1
+            overallPercent = this.getOverallProgress();
+            examPercent = overallPercent;
+        } else {
+            // من امتحان واحد: نعرض نسبة هذا الامتحان
+            const skill = this.currentSkill || 'hoeren1';
+            const examId = this.currentExamId || 1;
+            examPercent = this.getExamProgress(skill, examId);
+            // أيضاً نحسب النسبة الكلية للتحديث الشامل (اختياري)
+            overallPercent = this.getOverallProgress();
+        }
+        
         this.updateCard(`
             <div class="memory-trainer-results final">
                 <div class="memory-trainer-icon">🧠</div>
@@ -622,9 +707,9 @@ class MemoryTrainer {
                 <div style="margin: 10px 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px;">
                     <div style="display: flex; align-items: center; gap: 10px;">
                         <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
-                            <div style="width: ${overallPercent}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
+                            <div style="width: ${examPercent}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
                         </div>
-                        <span style="font-size: 12px; font-weight: 600; color: #1565C0; min-width: 35px; text-align: right;">${overallPercent}%</span>
+                        <span style="font-size: 12px; font-weight: 600; color: #1565C0; min-width: 35px; text-align: right;">${examPercent}%</span>
                     </div>
                 </div>
                 
@@ -701,6 +786,8 @@ class MemoryTrainer {
         this.attempts = 0;
         this.correctAttempts = 0;
         this.totalQuestions = 0;
+        this.currentSkill = 'hoeren1';
+        this.currentExamId = 1;
     }
 }
 
@@ -722,4 +809,4 @@ window.startMemoryTrainerFromList = () => {
     }
 };
 
-console.log('🧠 Memory Trainer V3 (النسخة النهائية) تم تحميله');
+console.log('🧠 Memory Trainer V3 (النسخة النهائية مع معرفات ثابتة) تم تحميله');
