@@ -3705,13 +3705,15 @@ body.dark-mode .premium-features li {
     font-weight: 500;
     color: #334155;
     cursor: pointer;
-    transition: all 0.15s ease;
+    transition: all 0.08s ease !important;
     text-align: left;
 }
 
 .memory-trainer-option:hover:not(:disabled) {
-    border-color: #1565C0;
-    background: #F0F7FF;
+    border-color: #38bdf8 !important;
+    background: #f0f7ff !important;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15) !important;
+    transform: none !important;
 }
 
 .memory-trainer-option:disabled {
@@ -3799,50 +3801,52 @@ body.dark-mode .premium-features li {
     margin-top: 2px;
 }
 
-/* ========================================
-   شريط التقدم - تصميم جديد رفيع وأنيق
-   ======================================== */
+/* ============================================
+   شريط التقدم - تصميم جديد (مستطيل أبيض، border خفيف، radius 6px)
+   ============================================ */
 
 .memory-progress-bar-container {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 3px 0;
-    margin-top: 4px;
-    margin-bottom: 8px;
+    padding: 4px 0;
+    margin: 4px 0 8px 0;
 }
 
-/* إخفاء عبارة "🧠 الذاكرة" */
+/* إخفاء التسمية القديمة */
 .memory-progress-label {
     display: none !important;
 }
 
-/* مسار الشريط - رفيع */
+/* الشريط داخل مستطيل أبيض */
 .memory-progress-track {
     flex: 1;
     min-width: 60px;
-    height: 5px;
-    background: #E8EEF5;
-    border-radius: 20px;
+    height: 6px;
+    background: #e9eef5;
+    border-radius: 6px;
     overflow: hidden;
     position: relative;
+    border: 1px solid #E2E8F0;
+    background-color: #FFFFFF;
+    padding: 1px;
 }
 
-/* التعبئة - تدرج لوني أنيق */
+/* التعبئة بتدرج أزرق */
 .memory-progress-fill {
     height: 100%;
-    border-radius: 20px;
+    border-radius: 6px;
     background: linear-gradient(90deg, #1565C0, #38bdf8);
     transition: width 0.3s ease;
     width: 0%;
 }
 
-/* النسبة المئوية - صغيرة وأنيقة */
+/* النسبة على اليمين */
 .memory-progress-percent {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     color: #1565C0;
-    min-width: 32px;
+    min-width: 35px;
     text-align: right;
     font-variant-numeric: tabular-nums;
 }
@@ -3927,4 +3931,38 @@ body.dark-mode .premium-features li {
     #memory-trainer-feedback .memory-trainer-btn {
         width: auto;
     }
+}
+/* ============================================
+   مستطيل التقدم في شاشة البداية (من القائمة)
+   ============================================ */
+
+.memory-trainer-intro .progress-box {
+    background: #FFFFFF;
+    border: 1px solid #E8EEF5;
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin: 10px 0 14px 0;
+}
+
+.memory-trainer-intro .progress-box .track {
+    flex: 1;
+    height: 5px;
+    background: #e9eef5;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.memory-trainer-intro .progress-box .fill {
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #1565C0, #38bdf8);
+    transition: width 0.3s ease;
+}
+
+.memory-trainer-intro .progress-box .percent {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1565C0;
+    min-width: 35px;
+    text-align: right;
 }
