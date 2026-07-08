@@ -3771,65 +3771,46 @@ html {
    MEMORY TRAINER - تدريب الذاكرة
 ============================ */
 
-/* الزر في شريط التنقل */
-.memory-trainer-nav-btn {
-    background: linear-gradient(135deg, #2c3e66, #1a2a4a) !important;
-    border: 1px solid rgba(100, 150, 200, 0.3) !important;
-    border-radius: 30px !important;
-    padding: 8px 18px !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    color: #ffffff !important;
-    cursor: pointer !important;
-    transition: all 0.3s ease !important;
-}
-
-.memory-trainer-nav-btn:hover {
-    background: linear-gradient(135deg, #3a5a8a, #2a3a5a) !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* الخلفية العامة */
+/* الخلفية العامة - أخف */
 .memory-trainer-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10000;
-    animation: memoryFadeIn 0.3s ease;
+    animation: memoryFadeIn 0.25s ease;
 }
 
 @keyframes memoryFadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes memorySlideUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* البطاقات الأساسية */
+/* البطاقات - تصميم أنيق وأخف */
 .memory-trainer-intro,
 .memory-trainer-card,
 .memory-trainer-recall,
 .memory-trainer-results {
     background: #F8FBFF;
-    border: 2px solid #D8ECFF;
-    border-radius: 20px;
-    padding: 40px;
-    max-width: 600px;
+    border: 1px solid #E8EEF5;
+    border-radius: 12px;
+    padding: 28px 32px;
+    max-width: 520px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 20px 60px rgba(21, 101, 192, 0.15);
-    animation: memorySlideUp 0.4s ease;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    animation: memorySlideUp 0.3s ease;
 }
 
 .memory-trainer-recall {
@@ -3842,73 +3823,77 @@ html {
     border-color: #B8E6B8;
 }
 
-/* الأيقونات */
+/* الأيقونات - أصغر */
 .memory-trainer-icon {
-    font-size: 48px;
+    font-size: 32px;
     display: block;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
 }
 
-/* العناوين */
+/* العناوين - أصغر */
 .memory-trainer-intro h2,
 .memory-trainer-results h2 {
     color: #1565C0;
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
 }
 
-/* النصوص */
+.memory-trainer-results h2 {
+    color: #2E7D32;
+}
+
+/* النصوص - أصغر */
 .memory-trainer-hint {
     color: #666;
-    font-size: 16px;
-    line-height: 1.6;
-    margin: 12px 0;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 8px 0;
 }
 
 .memory-trainer-instruction {
     color: #444;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 500;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .memory-trainer-question {
     color: #333;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
-/* عرض الإجابة */
+/* عرض الإجابة - أصغر */
 .memory-trainer-answer {
     background: #FFFFFF;
-    border-radius: 12px;
-    padding: 24px;
-    margin: 20px 0;
-    font-size: 22px;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 14px 0;
+    font-size: 18px;
     font-weight: 600;
-    min-height: 60px;
+    min-height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid #E8EEF5;
 }
 
-/* الخيارات */
+/* الخيارات - أصغر */
 .memory-trainer-options {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin: 20px 0;
+    gap: 8px;
+    margin: 14px 0;
 }
 
 .memory-trainer-option {
     background: #FFFFFF;
-    border: 2px solid #E8EEF5;
-    border-radius: 12px;
-    padding: 16px 20px;
-    font-size: 16px;
+    border: 1.5px solid #E8EEF5;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
     font-weight: 500;
     color: #333;
     cursor: pointer;
@@ -3919,157 +3904,100 @@ html {
 .memory-trainer-option:hover:not(:disabled) {
     border-color: #1565C0;
     background: #F0F7FF;
-    transform: translateX(4px);
-}
-
-.memory-trainer-option:active:not(:disabled) {
-    transform: scale(0.98);
+    transform: translateX(3px);
 }
 
 .memory-trainer-option:disabled {
     cursor: not-allowed;
 }
 
-/* الأزرار */
+/* الأزرار - أصغر */
 .memory-trainer-btn {
-    padding: 12px 32px;
+    padding: 10px 28px;
     border: none;
-    border-radius: 12px;
-    font-size: 18px;
+    border-radius: 10px;
+    font-size: 15px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 16px;
-    letter-spacing: 0.3px;
+    margin-top: 12px;
+    letter-spacing: 0.2px;
 }
 
 .memory-trainer-btn.primary {
     background: #1565C0;
     color: white;
-    box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+    box-shadow: 0 2px 8px rgba(21, 101, 192, 0.25);
 }
 
 .memory-trainer-btn.primary:hover {
     background: #0D47A1;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(21, 101, 192, 0.4);
+    box-shadow: 0 4px 14px rgba(21, 101, 192, 0.35);
 }
 
-.memory-trainer-btn.secondary {
-    background: #F57C00;
-    color: white;
-    box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3);
+.memory-trainer-btn.small {
+    padding: 8px 20px;
+    font-size: 13px;
+    margin-top: 10px;
 }
 
-.memory-trainer-btn.secondary:hover {
-    background: #E65100;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(245, 124, 0, 0.4);
-}
-
-/* التقدم */
+/* التقدم - أصغر */
 .memory-trainer-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    padding-bottom: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #E8EEF5;
 }
 
 .memory-trainer-progress {
-    font-size: 14px;
+    font-size: 12px;
     color: #888;
     font-weight: 500;
 }
 
 .memory-trainer-focus {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     color: #1565C0;
 }
 
-/* التغذية الراجعة */
+/* التغذية الراجعة - أصغر وأخف */
 #memory-trainer-feedback {
-    margin-top: 20px;
+    margin-top: 14px;
 }
 
 .memory-trainer-success,
-.memory-trainer-retry,
-.memory-trainer-solution {
-    padding: 16px;
-    border-radius: 12px;
-    margin-top: 12px;
+.memory-trainer-error {
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .memory-trainer-success {
     background: #E8F5E9;
     border: 1px solid #A5D6A7;
-}
-
-.memory-trainer-success p {
     color: #2E7D32;
-    font-size: 17px;
-    font-weight: 500;
 }
 
-.memory-trainer-retry {
+.memory-trainer-error {
     background: #FFF8E1;
     border: 1px solid #FFE082;
-}
-
-.memory-trainer-retry p {
     color: #F57C00;
-    font-size: 17px;
-    font-weight: 500;
 }
 
-.memory-trainer-solution {
-    background: #F3E5F5;
-    border: 1px solid #CE93D8;
-}
-
-.memory-trainer-solution p {
-    color: #6A1B9A;
-    font-size: 17px;
-    font-weight: 500;
-    margin-bottom: 12px;
-}
-
-.memory-trainer-solution .memory-highlight {
-    display: inline-block;
-    font-size: 20px;
-    padding: 12px 20px;
-    margin: 8px 0;
-}
-
-/* الإحصائيات */
-.memory-trainer-stats {
-    display: flex;
-    justify-content: space-around;
-    margin: 24px 0;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 12px;
-}
-
-.memory-trainer-stat {
-    text-align: center;
-}
-
-.memory-trainer-stat .stat-label {
-    display: block;
-    font-size: 14px;
-    color: #888;
-    font-weight: 500;
-}
-
-.memory-trainer-stat .stat-value {
-    display: block;
-    font-size: 28px;
-    font-weight: 700;
-    color: #1565C0;
-    margin-top: 4px;
+.memory-trainer-success .memory-trainer-icon,
+.memory-trainer-error .memory-trainer-icon {
+    font-size: 18px;
+    margin: 0;
 }
 
 /* للشاشات الصغيرة */
@@ -4078,26 +4006,28 @@ html {
     .memory-trainer-card,
     .memory-trainer-recall,
     .memory-trainer-results {
-        padding: 24px;
+        padding: 20px 18px;
         max-width: 95%;
     }
 
     .memory-trainer-answer {
-        font-size: 18px;
-        padding: 16px;
+        font-size: 16px;
+        padding: 12px 16px;
     }
 
-    .memory-trainer-stats {
-        flex-direction: column;
-        gap: 12px;
+    .memory-trainer-option {
+        font-size: 13px;
+        padding: 10px 14px;
     }
 
     .memory-trainer-btn {
+        font-size: 13px;
+        padding: 8px 20px;
         width: 100%;
     }
-    
-    .memory-trainer-nav-btn {
-        font-size: 12px !important;
-        padding: 6px 12px !important;
+
+    .memory-trainer-intro h2,
+    .memory-trainer-results h2 {
+        font-size: 18px;
     }
 }
