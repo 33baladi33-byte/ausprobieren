@@ -14,21 +14,23 @@ class MemoryTrainer {
         this.currentCorrectText = '';
         this.currentOptions = [];
         this.wrongAttempts = 0;
+        this.currentHighlight = null;
         
         // رسائل قصيرة جداً
         this.successMessages = [
-            "🧠 أحسنت",
-            "🎯 ممتاز",
-            "🔥 رائع",
-            "👏 جيد جداً",
-            "✨ صحيح"
+            "🎯 هذا بالضبط ما أردناه.",
+            "🧠 أحسنت، استرجعتها بنفسك.",
+            "🔥 ممتاز، انتقلت من القراءة إلى التذكر.",
+            "👏 ممتاز، لم تعتمد على النظر.",
+            "⭐ ذاكرتك التقطتها بسرعة."
         ];
         
         this.retryMessages = [
-            "🧠 حاول مرة أخرى",
-            "🎯 اقتربت",
-            "💭 ركز",
-            "🔄 أعد المحاولة"
+            "🧠 كانت قريبة... حاول مرة أخرى.",
+            "💭 خذ ثانية وفكر.",
+            "🔄 ليس بعد... دع ذاكرتك تعمل مرة أخرى.",
+            "🎯 اقتربت. جرب مرة أخرى دون استعجال.",
+            "⏳ أعطِ ذاكرتك فرصة."
         ];
     }
 
@@ -41,7 +43,6 @@ class MemoryTrainer {
             return;
         }
 
-        // استخدام جميع الأسئلة
         this.collectQuestions(examData);
         
         if (this.currentQuestions.length === 0) {
@@ -99,24 +100,30 @@ class MemoryTrainer {
     }
 
     generateOptions(question, correctText, index) {
+        // الخيار الأول: الجملة الصحيحة
         const options = [correctText];
         
+        // جمع جميع الأسئلة الأخرى
         const otherQuestions = this.currentQuestions.filter(
             (q, idx) => idx !== this.currentIndex
         );
         
         const shuffledOthers = this.shuffleArray([...otherQuestions]);
         
-        for (let i = 0; i < Math.min(3, shuffledOthers.length); i++) {
+        // أخذ 3 جمل مختلفة كخيارات خاطئة (من الأسئلة الأخرى)
+        let added = 0;
+        for (let i = 0; i < shuffledOthers.length && added < 3; i++) {
             const q = shuffledOthers[i];
             const originalIndex = q.originalIndex !== undefined ? q.originalIndex : this.currentQuestions.indexOf(q);
             const displayInfo = this.getDisplayText(q, originalIndex);
             const text = displayInfo.text;
             if (!options.includes(text) && text !== correctText) {
                 options.push(text);
+                added++;
             }
         }
         
+        // التأكد من وجود 4 خيارات
         while (options.length < 4) {
             const randomText = `جملة ${options.length + 1}`;
             if (!options.includes(randomText)) {
@@ -133,7 +140,7 @@ class MemoryTrainer {
             <div class="memory-trainer-intro">
                 <div class="memory-trainer-icon">🧠</div>
                 <h2>تدريب الذاكرة</h2>
-                <p>سترى الجملة مرة واحدة</p>
+                <p>سترى الجملة مرة واحدة ثم تسترجعها</p>
                 <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.showMemoryCard()">
                     ابدأ
                 </button>
@@ -159,19 +166,20 @@ class MemoryTrainer {
         
         this.currentQuestion = question;
         this.currentCorrectText = textToShow;
+        this.currentHighlight = displayInfo;
         
         const overlay = this.createOverlay();
         overlay.innerHTML = `
             <div class="memory-trainer-card">
                 <div class="memory-trainer-header">
-                    <span>${this.currentIndex + 1}/${this.currentQuestions.length}</span>
-                    <span>🧠 ركز</span>
+                    <span class="memory-trainer-progress">${this.currentIndex + 1}/${this.currentQuestions.length}</span>
+                    <span class="memory-trainer-focus">🧠 ركز</span>
                 </div>
                 <div class="memory-trainer-content">
                     <div class="memory-trainer-answer">
                         ${displayInfo.hasHighlight ? 
                             `<span class="memory-highlight color${colorIndex}">${textToShow}</span>` :
-                            `<span>${textToShow}</span>`
+                            `<span style="font-size: 18px;">${textToShow}</span>`
                         }
                     </div>
                 </div>
@@ -196,14 +204,14 @@ class MemoryTrainer {
         overlay.innerHTML = `
             <div class="memory-trainer-recall">
                 <div class="memory-trainer-header">
-                    <span>${this.currentIndex + 1}/${this.currentQuestions.length}</span>
-                    <span>🧠 استرجع</span>
+                    <span class="memory-trainer-progress">${this.currentIndex + 1}/${this.currentQuestions.length}</span>
+                    <span class="memory-trainer-focus">🧠 استرجع</span>
                 </div>
                 <div class="memory-trainer-content">
-                    <p>اختر الجملة الصحيحة</p>
+                    <p class="memory-trainer-question">اختر الجملة الصحيحة</p>
                     <div class="memory-trainer-options">
                         ${this.currentOptions.map((opt, idx) => `
-                            <button class="memory-trainer-option" onclick="window.memoryTrainer.checkAnswer(${idx})">
+                            <button class="memory-trainer-option" data-index="${idx}" onclick="window.memoryTrainer.checkAnswer(${idx})">
                                 ${String.fromCharCode(65 + idx)}. ${opt}
                             </button>
                         `).join('')}
@@ -225,7 +233,8 @@ class MemoryTrainer {
         const allOptions = document.querySelectorAll('.memory-trainer-option');
         allOptions.forEach(btn => {
             btn.disabled = true;
-            btn.style.opacity = '0.5';
+            btn.style.opacity = '0.6';
+            btn.style.cursor = 'default';
         });
         
         const selectedBtn = allOptions[selectedIndex];
@@ -238,16 +247,20 @@ class MemoryTrainer {
             const message = this.successMessages[Math.floor(Math.random() * this.successMessages.length)];
             feedback.innerHTML = `
                 <div class="memory-trainer-success">
-                    ✅ ${message}
+                    <span class="memory-trainer-icon">✅</span>
+                    <span>${message}</span>
                 </div>
                 <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">
                     التالي →
                 </button>
             `;
+            
         } else {
+            // الإجابة المختارة -> برتقالي
             selectedBtn.style.borderColor = '#e67e22';
             selectedBtn.style.backgroundColor = '#fef0e0';
             
+            // إظهار الإجابة الصحيحة -> أخضر
             allOptions.forEach((btn, idx) => {
                 if (this.currentOptions[idx] === this.currentCorrectText) {
                     btn.style.borderColor = '#28a745';
@@ -265,10 +278,11 @@ class MemoryTrainer {
             const message = this.retryMessages[Math.floor(Math.random() * this.retryMessages.length)];
             feedback.innerHTML = `
                 <div class="memory-trainer-error">
-                    🔄 ${message}
+                    <span class="memory-trainer-icon">🔄</span>
+                    <span>${message}</span>
                 </div>
                 <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">
-                    التالي →
+                    متابعة →
                 </button>
             `;
         }
@@ -289,37 +303,17 @@ class MemoryTrainer {
         const overlay = this.createOverlay();
         overlay.innerHTML = `
             <div class="memory-trainer-results">
-                <div class="memory-trainer-icon">✅</div>
-                <h2>تم الانتهاء من تدريب الذاكرة</h2>
-                <div class="memory-trainer-buttons">
-                    <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.reviewWrongQuestions()">
-                        🔄 إعادة التدريب
-                    </button>
-                    <button class="memory-trainer-btn secondary small" onclick="window.memoryTrainer.close()">
-                        ➡️ العودة للامتحان
-                    </button>
-                </div>
+                <div class="memory-trainer-icon">🧠</div>
+                <h2>تم تثبيت جميع الجمل بنجاح</h2>
+                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.close()">
+                    ➡️ العودة للامتحان
+                </button>
             </div>
         `;
         document.body.appendChild(overlay);
     }
 
-    reviewWrongQuestions() {
-        if (this.wrongQuestions.length === 0) {
-            this.close();
-            return;
-        }
-        
-        const wrongIds = this.wrongQuestions;
-        this.currentQuestions = this.originalQuestions.filter(q => {
-            const id = q.originalIndex !== undefined ? q.originalIndex : this.originalQuestions.indexOf(q);
-            return wrongIds.includes(id);
-        });
-        this.currentIndex = 0;
-        this.wrongQuestions = [];
-        this.showMemoryCard();
-    }
-
+    // دوال مساعدة
     createOverlay() {
         const overlay = document.createElement('div');
         overlay.className = 'memory-trainer-overlay';
