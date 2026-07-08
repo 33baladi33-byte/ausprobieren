@@ -14,18 +14,15 @@ class MemoryTrainer {
         this.currentCorrectText = '';
         this.currentOptions = [];
         this.wrongAttempts = 0;
-        this.currentHighlight = null;
         
-        // رسائل النجاح - قصيرة جداً
         this.successMessages = [
-            "🎯 ممتاز",
             "🧠 أحسنت",
+            "🎯 ممتاز",
             "🔥 رائع",
             "👏 جيد جداً",
             "✨ صحيح"
         ];
         
-        // رسائل الخطأ - قصيرة جداً
         this.retryMessages = [
             "🧠 حاول مرة أخرى",
             "🎯 اقتربت",
@@ -43,7 +40,7 @@ class MemoryTrainer {
             return;
         }
 
-        // استخدام questions كمصدر رئيسي
+        // ✅ استخدام جميع الأسئلة (وليس فقط التي لها Highlights)
         this.collectQuestions(examData);
         
         if (this.currentQuestions.length === 0) {
@@ -55,28 +52,34 @@ class MemoryTrainer {
         this.showIntroCard();
     }
 
+    // ✅ جمع جميع الأسئلة
     collectQuestions(examData) {
-        // حفظ جميع الأسئلة
         this.originalQuestions = examData.questions.map((q, index) => ({
             ...q,
             originalIndex: index
         }));
         
-        // استخدام جميع الأسئلة (وليس فقط التي لها Highlights)
+        // استخدام جميع الأسئلة
         this.currentQuestions = [...this.originalQuestions];
         
         console.log(`✅ تم جمع ${this.currentQuestions.length} سؤال للتدريب`);
     }
 
+    // ✅ البحث عن Highlight
     getHighlightForQuestion(index) {
         const examData = window.currentExamData || window._currentExamData;
         if (!examData || !examData.memoryHighlights) return null;
         
-        // البحث عن Highlight يطابق السؤال
+        // البحث عن Highlight مع question
         for (const h of examData.memoryHighlights) {
             if (h.question === index) {
                 return h;
             }
+        }
+        
+        // إذا لم نجد، نستخدم الترتيب
+        if (examData.memoryHighlights[index]) {
+            return examData.memoryHighlights[index];
         }
         
         return null;
@@ -88,31 +91,25 @@ class MemoryTrainer {
             return {
                 text: highlight.parts.join(' '),
                 color: highlight.color || 0,
-                hasHighlight: true,
-                highlight: highlight
+                hasHighlight: true
             };
         }
-        
-        // النص الاحتياطي: استخدام نص السؤال
         return {
             text: question.text,
             color: 0,
-            hasHighlight: false,
-            highlight: null
+            hasHighlight: false
         };
     }
 
     generateOptions(question, correctText, index) {
         const options = [correctText];
         
-        // جمع جميع الجمل من الأسئلة الأخرى
         const otherQuestions = this.currentQuestions.filter(
             (q, idx) => idx !== this.currentIndex
         );
         
         const shuffledOthers = this.shuffleArray([...otherQuestions]);
         
-        // أخذ 3 جمل مختلفة كخيارات خاطئة
         for (let i = 0; i < Math.min(3, shuffledOthers.length); i++) {
             const q = shuffledOthers[i];
             const originalIndex = q.originalIndex !== undefined ? q.originalIndex : this.currentQuestions.indexOf(q);
@@ -123,7 +120,6 @@ class MemoryTrainer {
             }
         }
         
-        // التأكد من وجود 4 خيارات
         while (options.length < 4) {
             const randomText = `جملة ${options.length + 1}`;
             if (!options.includes(randomText)) {
@@ -166,7 +162,6 @@ class MemoryTrainer {
         
         this.currentQuestion = question;
         this.currentCorrectText = textToShow;
-        this.currentHighlight = displayInfo.highlight;
         
         const overlay = this.createOverlay();
         overlay.innerHTML = `
@@ -208,10 +203,10 @@ class MemoryTrainer {
                     <span>🧠 استرجع</span>
                 </div>
                 <div class="memory-trainer-content">
-                    <p class="memory-trainer-question">اختر الجملة الصحيحة</p>
+                    <p>اختر الجملة الصحيحة</p>
                     <div class="memory-trainer-options">
                         ${this.currentOptions.map((opt, idx) => `
-                            <button class="memory-trainer-option" data-index="${idx}" onclick="window.memoryTrainer.checkAnswer(${idx})">
+                            <button class="memory-trainer-option" onclick="window.memoryTrainer.checkAnswer(${idx})">
                                 ${String.fromCharCode(65 + idx)}. ${opt}
                             </button>
                         `).join('')}
@@ -230,42 +225,32 @@ class MemoryTrainer {
         const feedback = document.getElementById('memory-trainer-feedback');
         this.attempts++;
         
-        // تعطيل الأزرار
         const allOptions = document.querySelectorAll('.memory-trainer-option');
         allOptions.forEach(btn => {
             btn.disabled = true;
-            btn.style.opacity = '0.6';
-            btn.style.cursor = 'default';
+            btn.style.opacity = '0.5';
         });
         
-        // تمييز الإجابة المختارة
         const selectedBtn = allOptions[selectedIndex];
         
         if (isCorrect) {
             this.correctAttempts++;
-            
-            // تغيير لون الإجابة إلى الأخضر
             selectedBtn.style.borderColor = '#28a745';
             selectedBtn.style.backgroundColor = '#d4edda';
             
-            // رسالة نجاح قصيرة جداً
             const message = this.successMessages[Math.floor(Math.random() * this.successMessages.length)];
             feedback.innerHTML = `
-                <div class="memory-trainer-feedback success">
-                    <span>✅</span>
-                    <span>${message}</span>
+                <div class="memory-trainer-success">
+                    ✅ ${message}
                 </div>
                 <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">
                     التالي →
                 </button>
             `;
-            
         } else {
-            // تغيير لون الإجابة إلى البرتقالي
             selectedBtn.style.borderColor = '#e67e22';
             selectedBtn.style.backgroundColor = '#fef0e0';
             
-            // إظهار الإجابة الصحيحة باللون الأخضر
             allOptions.forEach((btn, idx) => {
                 if (this.currentOptions[idx] === this.currentCorrectText) {
                     btn.style.borderColor = '#28a745';
@@ -273,7 +258,6 @@ class MemoryTrainer {
                 }
             });
             
-            // تسجيل السؤال كخاطئ
             const questionId = this.currentQuestion.originalIndex !== undefined 
                 ? this.currentQuestion.originalIndex 
                 : this.currentIndex;
@@ -281,12 +265,10 @@ class MemoryTrainer {
                 this.wrongQuestions.push(questionId);
             }
             
-            // رسالة خطأ قصيرة جداً
             const message = this.retryMessages[Math.floor(Math.random() * this.retryMessages.length)];
             feedback.innerHTML = `
-                <div class="memory-trainer-feedback error">
-                    <span>🔄</span>
-                    <span>${message}</span>
+                <div class="memory-trainer-error">
+                    🔄 ${message}
                 </div>
                 <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">
                     التالي →
