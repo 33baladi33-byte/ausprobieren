@@ -1728,7 +1728,11 @@ window.loadAllHoeren1Exams = async function() {
     const allCorrect = [];
     const allWrong = [];
     const allQuestions = [];
-    const order = [1, 3, 5, 2, 4, 8, 6, 9, 7, 10, 12, 14, 11, 13, 15];
+   // ✅ تحميل جميع امتحانات Hören 1 (1-45)
+const order = [];
+for (let i = 1; i <= 45; i++) {
+    order.push(i);
+}
     
     for (const examId of order) {
         const exam = exams.find(e => e.id === examId);
