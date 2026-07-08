@@ -1,5 +1,5 @@
 // ============================================
-// MEMORY TRAINER - Hören Teil 1
+// MEMORY TRAINER - تدريب الذاكرة (Hören Teil 1)
 // ============================================
 
 class MemoryTrainer {
@@ -9,7 +9,8 @@ class MemoryTrainer {
         this.attempts = 0;
         this.correctAttempts = 0;
         this.wrongQuestions = [];
-        this.colorIndex = 0;
+        this.isActive = false;
+        this.originalQuestions = [];
         
         // رسائل النجاح
         this.successMessages = [
@@ -33,7 +34,9 @@ class MemoryTrainer {
     }
 
     start() {
-        // التحقق من وجود memoryHighlights
+        console.log("🧠 بدء Memory Trainer...");
+        
+        // التحقق من وجود memoryHighlights في الامتحان الحالي
         if (!this.hasMemoryHighlights()) {
             this.showNotAvailable();
             return;
@@ -41,21 +44,29 @@ class MemoryTrainer {
 
         // جمع الأسئلة التي تحتوي على memoryHighlights
         this.collectQuestions();
+        this.isActive = true;
         this.showIntroCard();
     }
 
     hasMemoryHighlights() {
-        // التحقق من وجود memoryHighlights في الامتحان الحالي
-        return window.examData && 
-               window.examData.memoryHighlights && 
-               window.examData.memoryHighlights.length > 0;
+        const examData = window.currentExamData || window._currentExamData;
+        if (!examData) return false;
+        return examData.memoryHighlights && examData.memoryHighlights.length > 0;
     }
 
     collectQuestions() {
+        const examData = window.currentExamData || window._currentExamData;
+        if (!examData) return;
+        
+        // حفظ الأسئلة الأصلية
+        this.originalQuestions = [...examData.questions];
+        
         // استخراج الأسئلة مع memoryHighlights
-        this.currentQuestions = window.examData.questions.filter(
+        this.currentQuestions = examData.questions.filter(
             q => q.memoryHighlights && q.memoryHighlights.length > 0
         );
+        
+        console.log(`✅ تم جمع ${this.currentQuestions.length} سؤال للتدريب`);
     }
 
     showIntroCard() {
@@ -78,9 +89,16 @@ class MemoryTrainer {
     showMemoryCard() {
         // المرحلة 2: عرض المعلومة
         this.removeOverlay();
+        
+        if (this.currentIndex >= this.currentQuestions.length) {
+            this.showResults();
+            return;
+        }
+        
         const question = this.currentQuestions[this.currentIndex];
         const highlight = question.memoryHighlights[0];
         const colorIndex = highlight.color || 0;
+        const textToShow = highlight.parts.join(' ');
         
         const overlay = this.createOverlay();
         overlay.innerHTML = `
@@ -95,7 +113,7 @@ class MemoryTrainer {
                     <p class="memory-trainer-instruction">هذه هي الإجابة الصحيحة لهذا السؤال.</p>
                     <div class="memory-trainer-answer">
                         <span class="memory-highlight color${colorIndex}">
-                            ${highlight.parts.join(' ')}
+                            ${textToShow}
                         </span>
                     </div>
                     <p class="memory-trainer-hint">اقرأها مرة واحدة فقط وحاول أن ترسمها في ذهنك.</p>
@@ -111,8 +129,10 @@ class MemoryTrainer {
     readyToRecall() {
         // المرحلة 3: اختبار الاسترجاع
         this.removeOverlay();
+        
         const question = this.currentQuestions[this.currentIndex];
-        const options = this.generateOptions(question);
+        const correctText = question.memoryHighlights[0].parts.join(' ');
+        const options = this.generateOptions(question, correctText);
         
         const overlay = this.createOverlay();
         overlay.innerHTML = `
@@ -127,7 +147,7 @@ class MemoryTrainer {
                     <p class="memory-trainer-question">أي جملة رأيتها قبل قليل؟</p>
                     <div class="memory-trainer-options">
                         ${options.map((opt, idx) => `
-                            <button class="memory-trainer-option" onclick="window.memoryTrainer.checkAnswer(${idx})">
+                            <button class="memory-trainer-option" data-index="${idx}" onclick="window.memoryTrainer.checkAnswer(${idx})">
                                 ${String.fromCharCode(65 + idx)}. ${opt}
                             </button>
                         `).join('')}
@@ -137,21 +157,39 @@ class MemoryTrainer {
             </div>
         `;
         document.body.appendChild(overlay);
+        
+        // حفظ الإجابة الصحيحة للاستخدام في checkAnswer
+        this._currentCorrectAnswer = correctText;
+        this._currentOptions = options;
     }
 
-    generateOptions(question) {
+    generateOptions(question, correctText) {
         // توليد 3 اختيارات من بيانات الامتحان
-        const options = [question.memoryHighlights[0].parts.join(' ')];
+        const options = [correctText];
         
         // أخذ اختيارات عشوائية من أسئلة أخرى
         const otherQuestions = this.currentQuestions.filter(
             q => q.id !== question.id
         );
         
-        for (let i = 0; i < 2; i++) {
-            const randomQ = otherQuestions[Math.floor(Math.random() * otherQuestions.length)];
-            if (randomQ && randomQ.memoryHighlights && randomQ.memoryHighlights.length > 0) {
-                options.push(randomQ.memoryHighlights[0].parts.join(' '));
+        // خلط الأسئلة الأخرى للحصول على اختيارات مختلفة
+        const shuffledOthers = this.shuffleArray([...otherQuestions]);
+        
+        for (let i = 0; i < Math.min(2, shuffledOthers.length); i++) {
+            const q = shuffledOthers[i];
+            if (q && q.memoryHighlights && q.memoryHighlights.length > 0) {
+                const text = q.memoryHighlights[0].parts.join(' ');
+                if (!options.includes(text)) {
+                    options.push(text);
+                }
+            }
+        }
+        
+        // إذا لم نحصل على 3 اختيارات، نملأ باختيارات إضافية
+        while (options.length < 3) {
+            const randomText = `نص إضافي ${options.length + 1}`;
+            if (!options.includes(randomText)) {
+                options.push(randomText);
             }
         }
         
@@ -160,15 +198,21 @@ class MemoryTrainer {
     }
 
     checkAnswer(selectedIndex) {
-        const question = this.currentQuestions[this.currentIndex];
-        const correctAnswer = question.memoryHighlights[0].parts.join(' ');
-        const selectedOption = document.querySelectorAll('.memory-trainer-option')[selectedIndex];
-        const selectedText = selectedOption.textContent.substring(3); // إزالة "A. " أو "B. "
+        const selectedText = this._currentOptions[selectedIndex];
+        const correctText = this._currentCorrectAnswer;
+        const isCorrect = (selectedText === correctText);
         
         const feedback = document.getElementById('memory-trainer-feedback');
         this.attempts++;
         
-        if (selectedText === correctAnswer) {
+        // تعطيل الأزرار لمنع الضغط المتكرر
+        document.querySelectorAll('.memory-trainer-option').forEach(btn => {
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            btn.style.cursor = 'default';
+        });
+        
+        if (isCorrect) {
             this.correctAttempts++;
             const message = this.successMessages[Math.floor(Math.random() * this.successMessages.length)];
             feedback.innerHTML = `
@@ -180,12 +224,19 @@ class MemoryTrainer {
                     التالي →
                 </button>
             `;
+            
+            // تمييز الإجابة الصحيحة
+            document.querySelectorAll('.memory-trainer-option')[selectedIndex].style.borderColor = '#28a745';
+            document.querySelectorAll('.memory-trainer-option')[selectedIndex].style.backgroundColor = '#d4edda';
+            
         } else {
-            if (this.wrongQuestions.includes(question.id)) {
-                // المحاولة الثانية - عرض الحل
-                this.showSolution(question);
-            } else {
-                this.wrongQuestions.push(question.id);
+            // التحقق من وجود السؤال في قائمة الأخطاء
+            const questionId = this.currentQuestions[this.currentIndex].id;
+            const isFirstAttempt = !this.wrongQuestions.includes(questionId);
+            
+            if (isFirstAttempt) {
+                // المحاولة الأولى - تشجيع على إعادة المحاولة
+                this.wrongQuestions.push(questionId);
                 const message = this.retryMessages[Math.floor(Math.random() * this.retryMessages.length)];
                 feedback.innerHTML = `
                     <div class="memory-trainer-retry">
@@ -196,27 +247,47 @@ class MemoryTrainer {
                         أريد رؤيتها مرة أخرى
                     </button>
                 `;
+                
+                // تمييز الإجابة الخاطئة
+                document.querySelectorAll('.memory-trainer-option')[selectedIndex].style.borderColor = '#e67e22';
+                document.querySelectorAll('.memory-trainer-option')[selectedIndex].style.backgroundColor = '#fef0e0';
+                
+            } else {
+                // المحاولة الثانية - عرض الحل
+                this.showSolution();
             }
         }
     }
 
-    showSolution(question) {
+    showSolution() {
+        const question = this.currentQuestions[this.currentIndex];
         const highlight = question.memoryHighlights[0];
         const colorIndex = highlight.color || 0;
+        const correctText = highlight.parts.join(' ');
         
         const feedback = document.getElementById('memory-trainer-feedback');
         feedback.innerHTML = `
             <div class="memory-trainer-solution">
                 <span class="memory-trainer-icon">🧠</span>
                 <p>تذكير سريع</p>
-                <span class="memory-highlight color${colorIndex}">
-                    ${highlight.parts.join(' ')}
-                </span>
-                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()">
-                    أعد المحاولة
+                <div class="memory-trainer-answer" style="margin: 12px 0; padding: 16px;">
+                    <span class="memory-highlight color${colorIndex}">
+                        ${correctText}
+                    </span>
+                </div>
+                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.nextQuestion()">
+                    متابعة →
                 </button>
             </div>
         `;
+        
+        // تمييز الإجابة الصحيحة في الخيارات
+        document.querySelectorAll('.memory-trainer-option').forEach((btn, idx) => {
+            if (this._currentOptions[idx] === correctText) {
+                btn.style.borderColor = '#28a745';
+                btn.style.backgroundColor = '#d4edda';
+            }
+        });
     }
 
     nextQuestion() {
@@ -232,12 +303,12 @@ class MemoryTrainer {
         this.removeOverlay();
         const wrongCount = this.wrongQuestions.length;
         const totalQuestions = this.currentQuestions.length;
-        const successRate = Math.round((this.correctAttempts / this.attempts) * 100);
+        const successRate = totalQuestions > 0 ? Math.round(((totalQuestions - wrongCount) / totalQuestions) * 100) : 0;
         
         const overlay = this.createOverlay();
         overlay.innerHTML = `
             <div class="memory-trainer-results">
-                <div class="memory-trainer-icon">🎉</div>
+                <div class="memory-trainer-icon">${wrongCount === 0 ? '🎉' : '🧠'}</div>
                 <h2>${wrongCount === 0 ? 'تم تثبيت جميع الإجابات!' : 'المرحلة الأولى انتهت.'}</h2>
                 <div class="memory-trainer-stats">
                     <div class="memory-trainer-stat">
@@ -270,8 +341,9 @@ class MemoryTrainer {
 
     reviewWrongQuestions() {
         // إعادة الأسئلة الخاطئة فقط
-        this.currentQuestions = this.currentQuestions.filter(
-            q => this.wrongQuestions.includes(q.id)
+        const wrongIds = this.wrongQuestions;
+        this.currentQuestions = this.originalQuestions.filter(
+            q => wrongIds.includes(q.id)
         );
         this.currentIndex = 0;
         this.wrongQuestions = [];
@@ -299,7 +371,6 @@ class MemoryTrainer {
     }
 
     showNotAvailable() {
-        // عرض رسالة الميزة غير متوفرة
         const overlay = this.createOverlay();
         overlay.innerHTML = `
             <div class="memory-trainer-intro">
@@ -319,9 +390,16 @@ class MemoryTrainer {
         this.currentQuestions = [];
         this.currentIndex = 0;
         this.wrongQuestions = [];
+        this.isActive = false;
     }
 }
 
 // تهيئة المتغير العام
 window.memoryTrainer = new MemoryTrainer();
-window.startMemoryTrainer = () => window.memoryTrainer.start();
+window.startMemoryTrainer = () => {
+    if (window.memoryTrainer) {
+        window.memoryTrainer.start();
+    }
+};
+
+console.log('🧠 Memory Trainer تم تحميله بنجاح');
