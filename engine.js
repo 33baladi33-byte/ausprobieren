@@ -3854,14 +3854,12 @@ function rebuildTrueFalseCards() {
         console.log(`span ${idx + 1}:`, span.innerText);
     });
     
-       console.log("========== END REBUILD ==========");
+    console.log("========== END REBUILD ==========");
     
 }  // ✅ هذا القوس يغلق دالة rebuildTrueFalseCards
-
 // ============================================
-// إعادة بناء Lesen Teil 1
-    
-
+// إعادة بناء Lesen Teil 1 (ترتيب ثابت مع حفظ العقد)
+// ============================================
 function rebuildLesen1() {
     console.log("🔄 إعادة بناء Lesen 1...");
     
@@ -3927,11 +3925,10 @@ function rebuildLesen1() {
         for (let node of targetNodes) {
             container.appendChild(node);
         }
-          }
+    }
     
     console.log("✅ تم إعادة ترتيب البطاقات بنجاح");
 }  // ✅ هذا القوس يغلق دالة rebuildLesen1
-
 // ============================================
 // إعادة بناء Lesen Teil 2 (ترتيب ثابت محدد) - النسخة النهائية
 // ============================================
