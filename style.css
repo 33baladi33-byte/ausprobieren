@@ -3767,3 +3767,308 @@ html {
         height: 16px;
     }
 }
+/* ============================
+   MEMORY TRAINER
+============================ */
+
+/* الخلفية العامة */
+.memory-trainer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: memoryFadeIn 0.3s ease;
+}
+
+@keyframes memoryFadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* البطاقات الأساسية */
+.memory-trainer-intro,
+.memory-trainer-card,
+.memory-trainer-recall,
+.memory-trainer-results {
+    background: #F8FBFF;
+    border: 2px solid #D8ECFF;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(21, 101, 192, 0.15);
+    transition: all 0.3s ease;
+}
+
+.memory-trainer-recall {
+    background: #F8FFF8;
+    border-color: #DDF7E5;
+}
+
+.memory-trainer-results {
+    background: #F5FFF5;
+    border-color: #B8E6B8;
+}
+
+/* الأيقونات */
+.memory-trainer-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 16px;
+}
+
+/* العناوين */
+.memory-trainer-intro h2,
+.memory-trainer-results h2 {
+    color: #1565C0;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.memory-trainer-recall .memory-trainer-focus {
+    color: #2E7D32;
+}
+
+/* النصوص */
+.memory-trainer-hint {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 12px 0;
+}
+
+.memory-trainer-instruction {
+    color: #444;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.memory-trainer-question {
+    color: #333;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+/* عرض الإجابة */
+.memory-trainer-answer {
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+    font-size: 22px;
+    font-weight: 600;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #E8EEF5;
+}
+
+/* الخيارات */
+.memory-trainer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.memory-trainer-option {
+    background: #FFFFFF;
+    border: 2px solid #E8EEF5;
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.memory-trainer-option:hover {
+    border-color: #1565C0;
+    background: #F0F7FF;
+    transform: translateX(4px);
+}
+
+.memory-trainer-option:active {
+    transform: scale(0.98);
+}
+
+/* الأزرار */
+.memory-trainer-btn {
+    padding: 12px 32px;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 16px;
+    letter-spacing: 0.3px;
+}
+
+.memory-trainer-btn.primary {
+    background: #1565C0;
+    color: white;
+    box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+}
+
+.memory-trainer-btn.primary:hover {
+    background: #0D47A1;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(21, 101, 192, 0.4);
+}
+
+.memory-trainer-btn.secondary {
+    background: #F57C00;
+    color: white;
+    box-shadow: 0 4px 12px rgba(245, 124, 0, 0.3);
+}
+
+.memory-trainer-btn.secondary:hover {
+    background: #E65100;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 124, 0, 0.4);
+}
+
+/* التقدم */
+.memory-trainer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #E8EEF5;
+}
+
+.memory-trainer-progress {
+    font-size: 14px;
+    color: #888;
+    font-weight: 500;
+}
+
+.memory-trainer-focus {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1565C0;
+}
+
+/* التغذية الراجعة */
+#memory-trainer-feedback {
+    margin-top: 20px;
+}
+
+.memory-trainer-success,
+.memory-trainer-retry,
+.memory-trainer-solution {
+    padding: 16px;
+    border-radius: 12px;
+    margin-top: 12px;
+}
+
+.memory-trainer-success {
+    background: #E8F5E9;
+    border: 1px solid #A5D6A7;
+}
+
+.memory-trainer-success p {
+    color: #2E7D32;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.memory-trainer-retry {
+    background: #FFF8E1;
+    border: 1px solid #FFE082;
+}
+
+.memory-trainer-retry p {
+    color: #F57C00;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.memory-trainer-solution {
+    background: #F3E5F5;
+    border: 1px solid #CE93D8;
+}
+
+.memory-trainer-solution p {
+    color: #6A1B9A;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.memory-trainer-solution .memory-highlight {
+    display: inline-block;
+    font-size: 20px;
+    padding: 12px 20px;
+    margin: 8px 0;
+}
+
+/* الإحصائيات */
+.memory-trainer-stats {
+    display: flex;
+    justify-content: space-around;
+    margin: 24px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+}
+
+.memory-trainer-stat {
+    text-align: center;
+}
+
+.memory-trainer-stat .stat-label {
+    display: block;
+    font-size: 14px;
+    color: #888;
+    font-weight: 500;
+}
+
+.memory-trainer-stat .stat-value {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1565C0;
+    margin-top: 4px;
+}
+
+/* للشاشات الصغيرة */
+@media (max-width: 640px) {
+    .memory-trainer-intro,
+    .memory-trainer-card,
+    .memory-trainer-recall,
+    .memory-trainer-results {
+        padding: 24px;
+        max-width: 95%;
+    }
+
+    .memory-trainer-answer {
+        font-size: 18px;
+        padding: 16px;
+    }
+
+    .memory-trainer-stats {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .memory-trainer-btn {
+        width: 100%;
+    }
+}
