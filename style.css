@@ -3768,7 +3768,7 @@ html {
     }
 }
 /* ============================
-   MEMORY TRAINER
+   MEMORY TRAINER - تدريب الذاكرة
 ============================ */
 
 /* الخلفية العامة */
@@ -3792,6 +3792,11 @@ html {
     to { opacity: 1; transform: scale(1); }
 }
 
+@keyframes memorySlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* البطاقات الأساسية */
 .memory-trainer-intro,
 .memory-trainer-card,
@@ -3805,7 +3810,7 @@ html {
     width: 90%;
     text-align: center;
     box-shadow: 0 20px 60px rgba(21, 101, 192, 0.15);
-    transition: all 0.3s ease;
+    animation: memorySlideUp 0.4s ease;
 }
 
 .memory-trainer-recall {
@@ -3832,10 +3837,6 @@ html {
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 12px;
-}
-
-.memory-trainer-recall .memory-trainer-focus {
-    color: #2E7D32;
 }
 
 /* النصوص */
@@ -3896,14 +3897,18 @@ html {
     text-align: left;
 }
 
-.memory-trainer-option:hover {
+.memory-trainer-option:hover:not(:disabled) {
     border-color: #1565C0;
     background: #F0F7FF;
     transform: translateX(4px);
 }
 
-.memory-trainer-option:active {
+.memory-trainer-option:active:not(:disabled) {
     transform: scale(0.98);
+}
+
+.memory-trainer-option:disabled {
+    cursor: not-allowed;
 }
 
 /* الأزرار */
