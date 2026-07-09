@@ -1,12 +1,11 @@
 // ============================================
-// MEMORY TRAINER V4 - إصدار المعرفات الثابتة الحقيقية
-// يحفظ المستويات تحت skill_examId_questionIndex الحقيقي
+// MEMORY TRAINER V4 - مع نقاط تتبع (Logging) لتشخيص مشكلة النسبة
 // ============================================
 
 class MemoryTrainer {
     constructor() {
         // البيانات الأساسية
-        this.questions = [];           // مصفوفة كائنات { text, correct, examId, questionIndex }
+        this.questions = [];
         this.trainingQueue = [];
         this.wrongQuestions = [];
         this.currentIndex = 0;
@@ -47,7 +46,7 @@ class MemoryTrainer {
     // ============================================
 
     start(mode = 'single') {
-        console.log("🧠 بدء Memory Trainer V4...");
+        console.log("🧠 بدء Memory Trainer V4 (مع نقاط التتبع)...");
 
         let examData = null;
         this.isFromList = false;
@@ -72,7 +71,6 @@ class MemoryTrainer {
         // ✅ في وضع فردي، نحولها إلى نفس البنية
         let rawQuestions = examData.questions || [];
         if (!this.isFromList) {
-            // تحويل بيانات الامتحان الفردي إلى نفس البنية
             rawQuestions = rawQuestions.map((q, idx) => ({
                 text: q.text,
                 correct: q.correct,
@@ -151,11 +149,11 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // بناء قائمة التدريب (تعتمد على الكائنات الحاملة لـ examId)
+    // بناء قائمة التدريب (مع عرض المعرفات)
     // ============================================
 
     buildTrainingQueue() {
-        const baseQueue = this.questions.map(q => q); // نسخ الكائنات
+        const baseQueue = this.questions.map(q => q);
         const repeatCount = Math.ceil(baseQueue.length / 2);
         const shuffled = this.shuffleArray([...baseQueue]);
         const repeatItems = [];
@@ -163,11 +161,18 @@ class MemoryTrainer {
             repeatItems.push(shuffled[i]);
         }
         this.trainingQueue = this.shuffleArray([...baseQueue, ...repeatItems]);
-        console.log(`📊 قائمة التدريب: ${this.trainingQueue.length} جملة (مع معرفات حقيقية)`);
+
+        // 🟢 نقطة تتبع 4: عرض قائمة التدريب مع المعرفات
+        console.log("📊 قائمة التدريب (مع المعرفات):");
+        this.trainingQueue.forEach((item, idx) => {
+            const sentenceId = this.buildSentenceId('hoeren1', item.examId, item.questionIndex);
+            console.log(`  ${idx+1}. examId: ${item.examId}, qIndex: ${item.questionIndex}, id: ${sentenceId}, text: "${item.text.substring(0, 30)}..."`);
+        });
+        console.log(`📊 إجمالي الجمل: ${this.trainingQueue.length}`);
     }
 
     // ============================================
-    // نظام المستويات (باستخدام المعرف الثابت الحقيقي)
+    // نظام المستويات (مع نقاط التتبع)
     // ============================================
 
     buildSentenceId(skill, examId, questionIndex) {
@@ -190,23 +195,31 @@ class MemoryTrainer {
     }
 
     increaseLevel(sentenceId) {
-        const current = this.getSentenceLevel(sentenceId);
-        if (current < this.MAX_LEVEL) {
-            this.setSentenceLevel(sentenceId, current + 1);
-            console.log(`⬆️ زيادة مستوى ${sentenceId} -> ${current + 1}`);
-        }
+        const oldLevel = this.getSentenceLevel(sentenceId);
+        const newLevel = Math.min(oldLevel + 1, this.MAX_LEVEL);
+        this.setSentenceLevel(sentenceId, newLevel);
+
+        // 🟢 نقطة تتبع 1: زيادة المستوى
+        console.log("⬆️ Level Updated");
+        console.log("  Sentence ID:", sentenceId);
+        console.log("  Old Level:", oldLevel);
+        console.log("  New Level:", newLevel);
     }
 
     decreaseLevel(sentenceId) {
-        const current = this.getSentenceLevel(sentenceId);
-        if (current > 0) {
-            this.setSentenceLevel(sentenceId, current - 1);
-            console.log(`⬇️ إنقاص مستوى ${sentenceId} -> ${current - 1}`);
-        }
+        const oldLevel = this.getSentenceLevel(sentenceId);
+        const newLevel = Math.max(oldLevel - 1, 0);
+        this.setSentenceLevel(sentenceId, newLevel);
+
+        // 🟢 نقطة تتبع 2: إنقاص المستوى
+        console.log("⬇️ Level Updated");
+        console.log("  Sentence ID:", sentenceId);
+        console.log("  Old Level:", oldLevel);
+        console.log("  New Level:", newLevel);
     }
 
     // ============================================
-    // دوال حساب النسب (تستخدم الدوال العامة من exams.js)
+    // دوال حساب النسب (مع نقاط التتبع)
     // ============================================
 
     getExamProgress(skill, examId) {
@@ -223,12 +236,27 @@ class MemoryTrainer {
 
     getOverallProgress() {
         if (window.getOverallProgress) return window.getOverallProgress();
+
+        // 🟢 نقطة تتبع 3: تتبع النسبة الكلية
         const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
+        console.log("==== Progress Debug ====");
+        console.log("  Stored Levels:", data);
+        console.log("  Number of Keys:", Object.keys(data).length);
+
         let totalLevels = 0, count = 0;
         for (const key in data) {
-            if (key.startsWith('hoeren1_exam')) { totalLevels += data[key]; count++; }
+            if (key.startsWith('hoeren1_exam')) {
+                totalLevels += data[key];
+                count++;
+            }
         }
-        return Math.min(100, Math.round((totalLevels / (this.TOTAL_HOEREN1_SENTENCES * this.MAX_LEVEL)) * 100));
+        const percent = Math.min(100, Math.round((totalLevels / (this.TOTAL_HOEREN1_SENTENCES * this.MAX_LEVEL)) * 100));
+
+        console.log("  Total Levels (hoeren1_exam):", totalLevels);
+        console.log("  Count of hoeren1_exam keys:", count);
+        console.log("  Percent:", percent);
+        console.log("=========================");
+        return percent;
     }
 
     getStageProgress(examIds) {
@@ -246,7 +274,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // توليد الخيارات (تعتمد على الكائنات)
+    // توليد الخيارات
     // ============================================
 
     generateOptions(correctText, currentQuestionObj) {
@@ -326,7 +354,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // عرض البطاقات (مع الحفاظ على المعرف الحقيقي)
+    // عرض البطاقات
     // ============================================
 
     showMemoryCard() {
@@ -339,7 +367,6 @@ class MemoryTrainer {
         }
 
         const item = this.trainingQueue[this.currentIndex];
-        // ✅ item هو كائن { text, correct, examId, questionIndex, ... }
         const textToShow = item.text;
         this.currentCorrectText = textToShow;
         this.currentExamId = item.examId;
@@ -388,7 +415,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // التصحيح (يستخدم المعرف الحقيقي)
+    // التصحيح (مع نقاط تتبع إضافية)
     // ============================================
 
     checkAnswer(selectedIndex) {
@@ -399,13 +426,20 @@ class MemoryTrainer {
         const selectedText = this.currentOptions[selectedIndex];
         const isCorrect = (selectedText === this.currentCorrectText);
 
-        // ✅ بناء المعرف الحقيقي من بيانات الجملة الحالية
         const skill = this.currentSkill;
-        const examId = this.currentExamId;       // الآن القيمة الحقيقية
+        const examId = this.currentExamId;
         const qIndex = this.currentQuestionIndex;
         const sentenceId = this.buildSentenceId(skill, examId, qIndex);
 
-        console.log(`🔍 جملة: ${this.currentCorrectText.substring(0, 30)}... | المعرف: ${sentenceId}`);
+        // 🟢 نقطة تتبع 5: بيانات الجملة الحالية
+        console.log("==== Current Sentence ====");
+        console.log("  Skill:", skill);
+        console.log("  Exam ID:", examId);
+        console.log("  Question Index:", qIndex);
+        console.log("  Sentence ID:", sentenceId);
+        console.log("  Text:", this.currentCorrectText);
+        console.log("  Is Correct:", isCorrect);
+        console.log("===========================");
 
         const allOptions = document.querySelectorAll('.memory-trainer-option');
         const feedback = document.getElementById('memory-trainer-feedback');
@@ -414,12 +448,12 @@ class MemoryTrainer {
 
         if (isCorrect) {
             this.correctAttempts++;
-            this.increaseLevel(sentenceId);
+            this.increaseLevel(sentenceId); // 🟢 سيتم عرض التتبع داخلها
             allOptions[selectedIndex].style.borderColor = '#28a745';
             allOptions[selectedIndex].style.backgroundColor = '#d4edda';
             feedback.innerHTML = `<button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">التالي →</button>`;
         } else {
-            this.decreaseLevel(sentenceId);
+            this.decreaseLevel(sentenceId); // 🟢 سيتم عرض التتبع داخلها
             if (!this.wrongQuestions.includes(this.currentQuestionObj)) {
                 this.wrongQuestions.push(this.currentQuestionObj);
             }
@@ -438,6 +472,9 @@ class MemoryTrainer {
                 </div>
             `;
         }
+
+        // بعد التحديث، نعرض النسبة الجديدة
+        this.getOverallProgress();
 
         if (this.isFromList) {
             this.updateProgressBar();
@@ -523,7 +560,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // النهاية النهائية (مع دعم المراحل الحقيقي)
+    // النهاية النهائية (مع دعم المراحل)
     // ============================================
 
     showResults() {
@@ -653,4 +690,4 @@ window.startMemoryTrainer = () => { if (window.memoryTrainer) window.memoryTrain
 
 window.startMemoryTrainerFromList = () => { if (window.memoryTrainer) window.memoryTrainer.start('list'); };
 
-console.log('🧠 Memory Trainer V4 (معرفات حقيقية) تم تحميله');
+console.log('🧠 Memory Trainer V4 (مع نقاط التتبع) تم تحميله');
