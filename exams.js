@@ -1855,23 +1855,6 @@ function getOverallProgress(skill) {
 // ============================================
 // تحميل بيانات المرحلة الحالية (لأي مهارة)
 // ============================================
-// ============================================
-// نظام المراحل المتوازن (لجميع المهارات)
-// ============================================
-
-// ✅ إعدادات المراحل حسب الأرقام الحقيقية
-const SKILL_CONFIG = {
-    hoeren1: { totalExams: 45, examsPerStage: 15, totalSentences: 108 },
-    hoeren2: { totalExams: 55, examsPerStage: 15, totalSentences: 273 },
-    hoeren3: { totalExams: 48, examsPerStage: 15, totalSentences: 105 },
-    lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 },
-    lesen2: { totalExams: 37, examsPerStage: 15, totalSentences: 185 } // ✅ تمت الإضافة
-    // يمكن إضافة lesen3, sprach1, ... بنفس الطريقة
-};
-
-// ============================================
-// تحميل بيانات المرحلة الحالية (لأي مهارة)
-// ============================================
 
 window.loadStageExams = async function(skill) {
     const config = SKILL_CONFIG[skill];
