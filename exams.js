@@ -1729,7 +1729,7 @@ window.startMemoryTrainerFromList = function() {
         alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
     }
 };
-let _hoeren1Loaded = false;
+
 
 // ============================================
 // تحميل امتحانات المرحلة الحالية من Hören 1 فقط
@@ -1817,7 +1817,6 @@ setTimeout(() => {
 // ============================================
 // الانتقال إلى المرحلة التالية
 // ============================================
-
 window.goToNextStage = function() {
     const skill = 'hoeren1';
     const exams = examsDatabase[skill] || [];
@@ -1840,7 +1839,7 @@ window.goToNextStage = function() {
         return true;
     } else {
         console.log('🏆 تم إكمال جميع المراحل!');
-        return false; // لا توجد مرحلة تالية
+        return false;
     }
 };
 
