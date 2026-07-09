@@ -134,7 +134,6 @@ class MemoryTrainer {
         this.overlay.className = 'memory-trainer-overlay';
         this.overlay.addEventListener('click', (e) => {
             if (e.target === this.overlay) {
-                // ✅ إذا كانت آخر جملة، نعرض النتائج بدلاً من الإغلاق
                 if (this.currentIndex >= this.trainingQueue.length && this.isActive) {
                     const hasWrong = this.wrongQuestions.length > 0;
                     if (hasWrong) {
@@ -193,7 +192,6 @@ class MemoryTrainer {
     // نظام المستويات (Levels) - باستخدام معرفات ثابتة
     // ============================================
 
-    // بناء معرف الجملة الثابت
     buildSentenceId(skill, examId, questionIndex) {
         if (window.buildSentenceId) {
             return window.buildSentenceId(skill, examId, questionIndex);
@@ -201,13 +199,11 @@ class MemoryTrainer {
         return `${skill}_exam${examId}_${questionIndex}`;
     }
 
-    // جلب المستوى الحالي لجملة
     getSentenceLevel(sentenceId) {
         const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
         return data[sentenceId] !== undefined ? data[sentenceId] : 0;
     }
 
-    // حفظ مستوى جملة
     setSentenceLevel(sentenceId, level) {
         const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
         let newLevel = Math.max(0, Math.min(this.MAX_LEVEL, level));
@@ -215,7 +211,6 @@ class MemoryTrainer {
         localStorage.setItem(this.LEVELS_KEY, JSON.stringify(data));
     }
 
-    // زيادة المستوى
     increaseLevel(sentenceId) {
         const current = this.getSentenceLevel(sentenceId);
         if (current < this.MAX_LEVEL) {
@@ -223,7 +218,6 @@ class MemoryTrainer {
         }
     }
 
-    // إنقاص المستوى
     decreaseLevel(sentenceId) {
         const current = this.getSentenceLevel(sentenceId);
         if (current > 0) {
@@ -235,12 +229,10 @@ class MemoryTrainer {
     // دوال حساب النسب (تستخدم الدوال العامة من exams.js إن وجدت)
     // ============================================
 
-    // نسبة الامتحان الحالي
     getExamProgress(skill, examId) {
         if (window.getExamProgress) {
             return window.getExamProgress(skill, examId);
         }
-        // Fallback - حساب يدوي باستخدام المفاتيح
         const prefix = `${skill}_exam${examId}_`;
         const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
         let totalLevels = 0;
@@ -257,12 +249,10 @@ class MemoryTrainer {
         return Math.min(100, Math.round(percent));
     }
 
-    // نسبة Hören 1 العامة
     getOverallProgress() {
         if (window.getOverallProgress) {
             return window.getOverallProgress();
         }
-        // Fallback
         const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
         let totalLevels = 0;
         let count = 0;
@@ -274,6 +264,27 @@ class MemoryTrainer {
         }
         const maxTotal = this.TOTAL_HOEREN1_SENTENCES * this.MAX_LEVEL;
         const percent = maxTotal > 0 ? (totalLevels / maxTotal) * 100 : 0;
+        return Math.min(100, Math.round(percent));
+    }
+
+    // حساب نسبة المرحلة الحالية (من امتحاناتها فقط)
+    getStageProgress(examIds) {
+        if (!examIds || examIds.length === 0) return 0;
+        let totalLevels = 0;
+        let count = 0;
+        const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
+        for (const examId of examIds) {
+            const prefix = `hoeren1_exam${examId}_`;
+            for (const key in data) {
+                if (key.startsWith(prefix)) {
+                    totalLevels += data[key];
+                    count++;
+                }
+            }
+        }
+        if (count === 0) return 0;
+        const maxTotal = count * this.MAX_LEVEL;
+        const percent = (totalLevels / maxTotal) * 100;
         return Math.min(100, Math.round(percent));
     }
 
@@ -342,17 +353,13 @@ class MemoryTrainer {
     // استخراج الألوان (باستخدام المعرف الثابت)
     // ============================================
 
-    // الحصول على لون الجملة من المعرف الثابت
     getColorBySentenceId(sentenceId) {
         if (window.getColorBySentenceId) {
             return window.getColorBySentenceId(sentenceId);
         }
-        // Fallback: البحث في memoryHighlights
-        // (هذا لن يعمل مع المعرف الثابت، لذا الأفضل استخدام window.getColorBySentenceId)
         return 0;
     }
 
-    // استخراج الألوان بالطريقة القديمة (للتوافق مع بيانات الامتحانات الفردية)
     findHighlightForText(text) {
         if (!this.memoryHighlights || this.memoryHighlights.length === 0) return null;
         const trimmed = text.trim();
@@ -366,8 +373,6 @@ class MemoryTrainer {
     }
 
     getColorForText(text) {
-        // أولاً نحاول من المعرف الثابت إذا كان متاحاً
-        // ولكننا لا نملك هنا sentenceId، لذلك نستخدم الطريقة القديمة
         const highlight = this.findHighlightForText(text);
         if (highlight && highlight.color !== undefined) {
             return { color: highlight.color, hasHighlight: true };
@@ -517,7 +522,6 @@ class MemoryTrainer {
         const selectedText = this.currentOptions[selectedIndex];
         const isCorrect = (selectedText === this.currentCorrectText);
         
-        // بناء المعرف الثابت للجملة
         const skill = this.currentSkill || 'hoeren1';
         const examId = this.currentExamId || 1;
         const questionIndex = this.currentQuestionIndex;
@@ -616,7 +620,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // نهاية المرحلة الأولى
+    // نهاية المرحلة الأولى (قبل المراجعة)
     // ============================================
 
     showPhaseComplete() {
@@ -678,88 +682,146 @@ class MemoryTrainer {
         this.showMemoryCard();
     }
 
+    // ============================================
+    // النهاية النهائية - مع دعم المراحل (Stages)
+    // ============================================
 
-// ============================================
-// النهاية النهائية - مع دعم المراحل (Stages)
-// ============================================
-
-showResults() {
-    let examPercent = 0;
-    let overallPercent = 0;
-    let isLastStage = true;
-    let currentStage = 1;
-    let totalStages = 1;
-    
-    if (this.isFromList && window._hoeren1CombinedData) {
-        // ✅ من قائمة Hören 1 (وضع المراحل)
-        const data = window._hoeren1CombinedData;
-        currentStage = data.currentStage || 1;
-        totalStages = data.totalStages || 1;
-        isLastStage = data.isLastStage || (currentStage >= totalStages);
-        
-        overallPercent = this.getOverallProgress();
-        examPercent = overallPercent;
-    } else {
-        // ✅ من امتحان واحد (بدون مراحل)
+    showResults() {
+        // تحديد السياق
+        const isFromList = this.isFromList;
         const skill = this.currentSkill || 'hoeren1';
         const examId = this.currentExamId || 1;
-        examPercent = this.getExamProgress(skill, examId);
-        overallPercent = this.getOverallProgress();
-        isLastStage = true; // في وضع الامتحان الواحد نعتبره المرحلة الأخيرة
-    }
-    
-    // ✅ تحديد النصوص حسب الحالة
-    let icon = isLastStage ? '🏆' : '🧩';
-    let title = isLastStage 
-        ? 'تم إنهاء التدريب بالكامل' 
-        : `اكتملت المرحلة ${currentStage}`;
-    let subtitle = isLastStage 
-        ? 'لقد راجعت جميع الجمل بنجاح.' 
-        : 'أنت تبني ذاكرة قوية يومًا بعد يوم.';
-    let buttonText = isLastStage 
-        ? '➡️ العودة للامتحان' 
-        : `➡️ متابعة المرحلة ${currentStage + 1}`;
-    let buttonAction = isLastStage 
-        ? 'window.memoryTrainer.close()' 
-        : 'window.goToNextStage && window.goToNextStage()';
-    
-    this.updateCard(`
-        <div class="memory-trainer-results final">
-            <div style="font-size: 28px; text-align: center; margin-bottom: 4px;">${icon}</div>
-            <h2 style="color: #1565C0; font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px;">${title}</h2>
-            <p style="font-size: 14px; color: #64748B; text-align: center; margin-bottom: 14px; font-weight: 400;">
-                ${subtitle}
-            </p>
-            
-            <div style="margin: 0 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
-                        <div style="width: ${examPercent}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
+
+        // نسبة الامتحان الحالي
+        const examPercent = this.getExamProgress(skill, examId);
+        // نسبة الجزء الكلي
+        const overallPercent = this.getOverallProgress();
+
+        let html = '';
+
+        if (isFromList && window._hoeren1CombinedData) {
+            // وضع المراحل
+            const data = window._hoeren1CombinedData;
+            const currentStage = data.currentStage || 1;
+            const totalStages = data.totalStages || 1;
+            const isLastStage = data.isLastStage || (currentStage >= totalStages);
+
+            // حساب نسبة المرحلة الحالية (جميع جمل هذه المرحلة)
+            const stagePercent = this.getStageProgress(data.examIds || []);
+
+            if (isLastStage) {
+                // نهاية الجزء بالكامل
+                html = `
+                    <div class="memory-trainer-results final">
+                        <div style="font-size: 28px; text-align: center; margin-bottom: 4px;">🏆</div>
+                        <h2 style="color: #1565C0; font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px;">لقد أكملت Hören Teil 1 بالكامل</h2>
+                        <p style="font-size: 14px; color: #64748B; text-align: center; margin-bottom: 14px; font-weight: 400;">
+                            تهانينا! لقد أنهيت جميع المراحل بنجاح.
+                        </p>
+                        <div style="margin: 0 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
+                                    <div style="width: ${overallPercent}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
+                                </div>
+                                <span style="font-size: 13px; font-weight: 600; color: #1565C0; min-width: 40px; text-align: right;">${overallPercent}%</span>
+                            </div>
+                        </div>
+                        <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.close();" style="
+                            padding: 8px 20px;
+                            border: none;
+                            border-radius: 10px;
+                            font-size: 14px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s ease;
+                            margin-top: 6px;
+                            background: #1565C0;
+                            color: white;
+                            box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
+                            display: block;
+                            width: 100%;
+                        ">
+                            ⬅ العودة للقائمة
+                        </button>
                     </div>
-                    <span style="font-size: 13px; font-weight: 600; color: #1565C0; min-width: 40px; text-align: right;">${examPercent}%</span>
+                `;
+            } else {
+                // نهاية مرحلة (غير الأخيرة)
+                html = `
+                    <div class="memory-trainer-results final">
+                        <div style="font-size: 28px; text-align: center; margin-bottom: 4px;">🎉</div>
+                        <h2 style="color: #1565C0; font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px;">أحسنت، لقد أنهيت المرحلة ${currentStage}</h2>
+                        <p style="font-size: 14px; color: #64748B; text-align: center; margin-bottom: 14px; font-weight: 400;">
+                            تم تثبيت ${data.totalQuestions || 0} جملة.
+                        </p>
+                        <div style="margin: 0 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
+                                    <div style="width: ${stagePercent}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
+                                </div>
+                                <span style="font-size: 13px; font-weight: 600; color: #1565C0; min-width: 40px; text-align: right;">${stagePercent}%</span>
+                            </div>
+                        </div>
+                        <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.close(); if (typeof window.goToNextStage === 'function') window.goToNextStage();" style="
+                            padding: 8px 20px;
+                            border: none;
+                            border-radius: 10px;
+                            font-size: 14px;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.2s ease;
+                            margin-top: 6px;
+                            background: #1565C0;
+                            color: white;
+                            box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
+                            display: block;
+                            width: 100%;
+                        ">
+                            ➡ متابعة المرحلة ${currentStage + 1}
+                        </button>
+                    </div>
+                `;
+            }
+        } else {
+            // وضع امتحان واحد
+            html = `
+                <div class="memory-trainer-results final">
+                    <div style="font-size: 28px; text-align: center; margin-bottom: 4px;">🧩</div>
+                    <h2 style="color: #1565C0; font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px;">اكتمل الاستدعاء</h2>
+                    <p style="font-size: 14px; color: #64748B; text-align: center; margin-bottom: 14px; font-weight: 400;">
+                        لقد أنهيت تدريب هذه الجمل.
+                    </p>
+                    <div style="margin: 0 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
+                                <div style="width: ${examPercent}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
+                            </div>
+                            <span style="font-size: 13px; font-weight: 600; color: #1565C0; min-width: 40px; text-align: right;">${examPercent}%</span>
+                        </div>
+                    </div>
+                    <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.close();" style="
+                        padding: 8px 20px;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        margin-top: 6px;
+                        background: #1565C0;
+                        color: white;
+                        box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
+                        display: block;
+                        width: 100%;
+                    ">
+                        ⬅ العودة للامتحان
+                    </button>
                 </div>
-            </div>
-            
-            <button class="memory-trainer-btn primary" onclick="${buttonAction}" style="
-                padding: 8px 20px;
-                border: none;
-                border-radius: 10px;
-                font-size: 14px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.2s ease;
-                margin-top: 6px;
-                background: #1565C0;
-                color: white;
-                box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
-                display: block;
-                width: 100%;
-            ">
-                ${buttonText}
-            </button>
-        </div>
-    `);
-}
+            `;
+        }
+
+        this.updateCard(html);
+    }
 
     // ============================================
     // دوال مساعدة
@@ -792,11 +854,9 @@ showResults() {
         `);
     }
 
-    // ✅ دالة الإغلاق النهائية - تغلق فقط ولا تتخذ أي قرارات
     close() {
         this.clearTimer();
 
-        // إزالة الـ Overlay فقط
         if (this.overlay) {
             this.overlay.remove();
             this.overlay = null;
