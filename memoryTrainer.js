@@ -556,101 +556,107 @@ class MemoryTrainer {
                     </button>
                 </div>
             `;
-       } else if (this.examType === 'multiple') {
-    // ============================================
-    // تخطيط خاص لـ Lesen 2
-    // ============================================
-    const firstOption = this.currentQuestionObj.options && this.currentQuestionObj.options.length > 0 
-        ? this.currentQuestionObj.options[0] 
-        : '';
-   // تنظيف الخيار الأول من البادئة (a. أو a)) إن وجدت
-let optionText = firstOption;
-if (/^a[\.\)]\s*/.test(optionText)) {
-    optionText = optionText.replace(/^a[\.\)]\s*/, '');
-}
-// بناء النص مع سطر جديد ومسافة بادئة (4 مسافات) قبل a.
-const displayText = `${this.currentIndex + 1}:${textToShow}:\n\n        a. ${optionText}`;
+        } else if (this.examType === 'multiple') {
+            // ============================================
+            // تخطيط خاص لـ Lesen 2
+            // ============================================
+            // ✅ المشكلة 1 و 2: نأخذ الخيار الصحيح ورقم السؤال الحقيقي
+            const realQuestionNumber = this.currentQuestionObj.questionIndex !== undefined 
+                ? this.currentQuestionObj.questionIndex + 1 
+                : this.currentIndex + 1; // احتياطي
+            
+            const correctOptionText = this.currentQuestionObj.options && this.currentQuestionObj.options.length > 0 
+                ? this.currentQuestionObj.options[this.currentQuestionObj.correct]  // ✅ الخيار الصحيح حسب الفهرس
+                : '';
+            
+            // تنظيف البادئة (a. أو a)) من الخيار الصحيح إن وجدت
+            let optionText = correctOptionText;
+            if (/^[a-zA-Z][\.\)]\s*/.test(optionText)) {
+                optionText = optionText.replace(/^[a-zA-Z][\.\)]\s*/, '');
+            }
+            // بناء النص مع سطر جديد ومسافة بادئة (8 مسافات) قبل a.
+            const displayText = `${realQuestionNumber}:${textToShow}:\n\n        a. ${optionText}`;
 
-    cardContent = `
-        <div class="memory-trainer-card" style="
-            background: #FFFFFF;
-            border: 1px solid #E8EEF5;
-            border-radius: 12px;
-            padding: 20px 24px;
-            max-width: 440px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-            position: relative;
-        ">
-            <div class="memory-trainer-header" style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 10px;
-                padding-bottom: 8px;
-                border-bottom: 1px solid #F1F5F9;
-            ">
-                <span class="memory-trainer-progress" style="
-                    font-size: 12px;
-                    color: #94A3B8;
-                    font-weight: 500;
-                ">
-                    ${this.currentIndex + 1}/${this.trainingQueue.length}
-                </span>
-                <span class="memory-trainer-focus" style="
-                    font-size: 13px;
-                    font-weight: 600;
-                    color: #2D6A4F;
-                ">
-                    🍃 خذ وقتك
-                </span>
-            </div>
-
-            <div class="memory-trainer-content">
-                <p class="memory-trainer-hint" style="
-                    font-size: 14px;
-                    color: #4A7C59;
-                    margin-bottom: 8px;
+            cardContent = `
+                <div class="memory-trainer-card" style="
+                    background: #FFFFFF;
+                    border: 1px solid #E8EEF5;
+                    border-radius: 12px;
+                    padding: 20px 24px;
+                    max-width: 440px;
+                    width: 90%;
                     text-align: center;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+                    position: relative;
                 ">
-                    🌿 اقرأ السؤال جيداً، سأطلب منك اختيار الجواب الصحيح.
-                </p>
+                    <div class="memory-trainer-header" style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 10px;
+                        padding-bottom: 8px;
+                        border-bottom: 1px solid #F1F5F9;
+                    ">
+                        <span class="memory-trainer-progress" style="
+                            font-size: 12px;
+                            color: #94A3B8;
+                            font-weight: 500;
+                        ">
+                            ${this.currentIndex + 1}/${this.trainingQueue.length}
+                        </span>
+                        <span class="memory-trainer-focus" style="
+                            font-size: 13px;
+                            font-weight: 600;
+                            color: #2D6A4F;
+                        ">
+                            🍃 خذ وقتك
+                        </span>
+                    </div>
 
-                <!-- عرض السؤال مع الخيار A -->
-                <div style="
-    font-size: 17px;
-    font-weight: 500;
-    text-align: left;      <!-- ← تغيير هنا -->
-    padding: 12px 0;
-    color: #1a202c;
-    margin: 8px 0 12px 0;
-    white-space: pre-wrap;
-">
-    ${displayText}
-</div>
-            </div>
+                    <div class="memory-trainer-content">
+                        <p class="memory-trainer-hint" style="
+                            font-size: 14px;
+                            color: #4A7C59;
+                            margin-bottom: 8px;
+                            text-align: center;
+                        ">
+                            🌿 اقرأ السؤال جيداً، سأطلب منك اختيار الجواب الصحيح.
+                        </p>
 
-            <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()" style="
-                padding: 8px 20px;
-                border: none;
-                border-radius: 10px;
-                font-size: 14px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.15s ease;
-                margin-top: 10px;
-                background: #1565C0;
-                color: white;
-                box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
-                display: inline-block;
-                width: auto;
-            ">
-                أنا جاهز
-            </button>
-        </div>
-    `;
-} else {
+                        <!-- عرض السؤال مع الخيار الصحيح -->
+                        <div style="
+                            font-size: 17px;
+                            font-weight: 500;
+                            text-align: left;
+                            padding: 12px 0;
+                            color: #1a202c;
+                            margin: 8px 0 12px 0;
+                            white-space: pre-wrap;
+                        ">
+                            ${displayText}
+                        </div>
+                    </div>
+
+                    <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()" style="
+                        padding: 8px 20px;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.15s ease;
+                        margin-top: 10px;
+                        background: #1565C0;
+                        color: white;
+                        box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
+                        display: inline-block;
+                        width: auto;
+                    ">
+                        أنا جاهز
+                    </button>
+                </div>
+            `;
+        } else {
             // ============================================
             // Hören: التصميم الأصلي (بدون تغيير)
             // ============================================
@@ -708,10 +714,13 @@ const displayText = `${this.currentIndex + 1}:${textToShow}:\n\n        a. ${opt
             questionText = 'اختر العنوان المناسب للنص الذي قرأته:';
         } else if (this.examType === 'multiple') {
             questionText = 'ما الاختيار الصحيح؟';
-            // عرض النص مع الخيارات لـ Lesen 2
+            // ✅ المشكلة 3: عرض السؤال مع الرقم الحقيقي ونقطتين ومحاذاة لليسار
+            const realQuestionNumber = this.currentQuestionObj.questionIndex !== undefined 
+                ? this.currentQuestionObj.questionIndex + 1 
+                : this.currentIndex + 1;
             displayQuestion = `
-                <div style="font-size:17px; font-weight:500; text-align:center; padding:12px; background:#f8fafc; border-radius:8px; margin-bottom:16px; border:1px solid #edf2f7;">
-                    ${this.currentCorrectText}
+                <div style="font-size:17px; font-weight:500; text-align:left; padding:12px 0; color:#1a202c; margin-bottom:16px;">
+                    ${realQuestionNumber}. ${this.currentCorrectText}:
                 </div>
             `;
         } else {
