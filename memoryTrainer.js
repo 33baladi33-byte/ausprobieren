@@ -563,7 +563,13 @@ class MemoryTrainer {
     const firstOption = this.currentQuestionObj.options && this.currentQuestionObj.options.length > 0 
         ? this.currentQuestionObj.options[0] 
         : '';
-    const displayText = `${this.currentIndex + 1}:${textToShow}:\n\na. ${firstOption}`;
+   // تنظيف الخيار الأول من البادئة (a. أو a)) إن وجدت
+let optionText = firstOption;
+if (/^a[\.\)]\s*/.test(optionText)) {
+    optionText = optionText.replace(/^a[\.\)]\s*/, '');
+}
+// بناء النص مع سطر جديد ومسافة بادئة (4 مسافات) قبل a.
+const displayText = `${this.currentIndex + 1}:${textToShow}:\n\n    a. ${optionText}`;
 
     cardContent = `
         <div class="memory-trainer-card" style="
@@ -613,16 +619,16 @@ class MemoryTrainer {
 
                 <!-- عرض السؤال مع الخيار A -->
                 <div style="
-                    font-size: 17px;
-                    font-weight: 500;
-                    text-align: center;
-                    padding: 12px 0;
-                    color: #1a202c;
-                    margin: 8px 0 12px 0;
-                    white-space: pre-wrap;
-                ">
-                    ${displayText}
-                </div>
+    font-size: 17px;
+    font-weight: 500;
+    text-align: left;      <!-- ← تغيير هنا -->
+    padding: 12px 0;
+    color: #1a202c;
+    margin: 8px 0 12px 0;
+    white-space: pre-wrap;
+">
+    ${displayText}
+</div>
             </div>
 
             <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()" style="
