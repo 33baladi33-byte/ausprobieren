@@ -1901,11 +1901,34 @@ window.loadStageExams = async function(skill) {
         }
     }
 
+    // ✅ إضافة sharedOptions (لـ Lesen 1)
+    let sharedOptions = [];
+    if (skill === 'lesen1' && examIds.length > 0) {
+        const firstExamId = examIds[0];
+        const firstExam = exams.find(e => e.id === firstExamId);
+        if (firstExam && firstExam.hasFile) {
+            try {
+                const fileName = getActualFileName(firstExamId);
+                const response = await fetch(`data/${skill}/${fileName}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.sharedOptions) {
+                        sharedOptions = data.sharedOptions;
+                        console.log(`✅ تم استخراج sharedOptions لـ ${skill} (${sharedOptions.length} عنوان)`);
+                    }
+                }
+            } catch (e) {
+                console.warn(`⚠️ لا يمكن تحميل sharedOptions لـ ${skill}`);
+            }
+        }
+    }
+
     // تخزين البيانات المدمجة تحت مفتاح المهارة
     window[`_${skill}_combinedData`] = {
         questions: allCorrect,
         wrongQuestions: allWrong,
         allQuestions: allQuestions,
+        sharedOptions: sharedOptions,  // ✅ مهم لـ Lesen 1
         totalExams: examIds.length,
         totalCorrect: allCorrect.length,
         totalWrong: allWrong.length,
