@@ -1722,8 +1722,8 @@ const SKILL_CONFIG = {
     hoeren1: { totalExams: 45, examsPerStage: 15, totalSentences: 108 },
     hoeren2: { totalExams: 55, examsPerStage: 15, totalSentences: 273 },
     hoeren3: { totalExams: 48, examsPerStage: 15, totalSentences: 105 },
-    lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 } // ✅ تمت الإضافة
-    // يمكن إضافة lesen2, lesen3, sprach1, ... بنفس الطريقة
+    lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 }, // ✅ تمت الإضافة
+    lesen2: { totalExams: 37, examsPerStage: 15, totalSentences: 185 }
 };
 
 // ✅ دوال المراحل العامة (تعمل مع أي مهارة)
@@ -1855,6 +1855,23 @@ function getOverallProgress(skill) {
 // ============================================
 // تحميل بيانات المرحلة الحالية (لأي مهارة)
 // ============================================
+// ============================================
+// نظام المراحل المتوازن (لجميع المهارات)
+// ============================================
+
+// ✅ إعدادات المراحل حسب الأرقام الحقيقية
+const SKILL_CONFIG = {
+    hoeren1: { totalExams: 45, examsPerStage: 15, totalSentences: 108 },
+    hoeren2: { totalExams: 55, examsPerStage: 15, totalSentences: 273 },
+    hoeren3: { totalExams: 48, examsPerStage: 15, totalSentences: 105 },
+    lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 },
+    lesen2: { totalExams: 37, examsPerStage: 15, totalSentences: 185 } // ✅ تمت الإضافة
+    // يمكن إضافة lesen3, sprach1, ... بنفس الطريقة
+};
+
+// ============================================
+// تحميل بيانات المرحلة الحالية (لأي مهارة)
+// ============================================
 
 window.loadStageExams = async function(skill) {
     const config = SKILL_CONFIG[skill];
@@ -1883,23 +1900,23 @@ window.loadStageExams = async function(skill) {
                 const data = await response.json();
                 const questions = data.questions || [];
                 questions.forEach((q, idx) => {
-    const entry = {
-        text: q.text,
-        correct: q.correct,
-        examId: examId,
-        questionIndex: idx,
-        originalQuestion: q
-    };
-    allQuestions.push(entry);
-    
-    // ✅ إذا كانت المهارة lesen1، كل الأسئلة صالحة للتدريب
-    if (skill === 'lesen1') {
-        allCorrect.push(entry);
-    } else {
-        if (q.correct === true) allCorrect.push(entry);
-        else allWrong.push(entry);
-    }
-});
+                    const entry = {
+                        text: q.text,
+                        correct: q.correct,
+                        examId: examId,
+                        questionIndex: idx,
+                        originalQuestion: q
+                    };
+                    allQuestions.push(entry);
+                    
+                    // ✅ إذا كانت المهارة lesen1 أو lesen2، كل الأسئلة صالحة للتدريب
+                    if (skill === 'lesen1' || skill === 'lesen2') {
+                        allCorrect.push(entry);
+                    } else {
+                        if (q.correct === true) allCorrect.push(entry);
+                        else allWrong.push(entry);
+                    }
+                });
                 console.log(`✅ تم تحميل ${skill} exam${examId}`);
             }
         } catch (e) {
@@ -1907,7 +1924,7 @@ window.loadStageExams = async function(skill) {
         }
     }
 
-    // ✅ إضافة sharedOptions (لـ Lesen 1)
+    // ✅ إضافة sharedOptions (لـ Lesen 1 فقط)
     let sharedOptions = [];
     if (skill === 'lesen1' && examIds.length > 0) {
         const firstExamId = examIds[0];
@@ -1934,7 +1951,7 @@ window.loadStageExams = async function(skill) {
         questions: allCorrect,
         wrongQuestions: allWrong,
         allQuestions: allQuestions,
-        sharedOptions: sharedOptions,  // ✅ مهم لـ Lesen 1
+        sharedOptions: sharedOptions,
         totalExams: examIds.length,
         totalCorrect: allCorrect.length,
         totalWrong: allWrong.length,
