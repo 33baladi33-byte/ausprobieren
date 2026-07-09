@@ -810,8 +810,8 @@ async function renderExamListForSkill(skill, teilName) {
   headerDiv.innerHTML = `<strong>📚 ${teilName || getTeilNameBySkill(skill)}</strong>`;
   container.appendChild(headerDiv);
 
-  // إضافة شريط تقدم الذاكرة (لـ Hören 1 فقط حالياً)
-  if (skill === 'hoeren1' || skill === 'hoeren2' || skill === 'hoeren3') {
+  // ✅ إضافة شريط تقدم الذاكرة للمهارات المدعومة
+  if (SKILL_CONFIG[skill]) {
       renderMemoryProgressBar(skill, container);
   }
   
@@ -866,23 +866,21 @@ async function renderExamListForSkill(skill, teilName) {
     displaySavedResult(targetSkill, exam.id, titleSpan, div);
 
     // ✅ عرض نسبة التقدم لكل امتحان (إذا كانت >0)
-    if (targetSkill === 'hoeren1') {
-      const progress = getExamProgress(targetSkill, exam.id);
-      if (progress > 0) {
-        const progressSpan = document.createElement('span');
-        progressSpan.className = 'exam-progress-mini';
-        progressSpan.style.cssText = `
-          font-size: 10px;
-          color: #1565C0;
-          margin-left: 8px;
-          font-weight: 500;
-          background: #f0f7ff;
-          padding: 2px 6px;
-          border-radius: 10px;
-        `;
-        progressSpan.textContent = `${progress}%`;
-        titleSpan.appendChild(progressSpan);
-      }
+    const progress = getExamProgress(targetSkill, exam.id);
+    if (progress > 0) {
+      const progressSpan = document.createElement('span');
+      progressSpan.className = 'exam-progress-mini';
+      progressSpan.style.cssText = `
+        font-size: 10px;
+        color: #1565C0;
+        margin-left: 8px;
+        font-weight: 500;
+        background: #f0f7ff;
+        padding: 2px 6px;
+        border-radius: 10px;
+      `;
+      progressSpan.textContent = `${progress}%`;
+      titleSpan.appendChild(progressSpan);
     }
     
     if (!isPremium && !isFreeExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
@@ -1483,12 +1481,12 @@ function updateExamNavButtons() {
     // ✅ إظهار زر Memory Trainer
     // ============================================
     if (memoryBtn) {
-        // فقط لـ Hören Teil 1
-        if (currentSkill === 'hoeren1') {
+        // دعم Hören 1,2,3
+        if (currentSkill && SKILL_CONFIG[currentSkill]) {
             memoryBtn.style.display = 'inline-flex';
             memoryBtn.onclick = function() {
-                if (window.startMemoryTrainer) {
-                    window.startMemoryTrainer();
+                if (window.startMemoryTrainerFromList) {
+                    window.startMemoryTrainerFromList(currentSkill);
                 } else {
                     alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
                 }
@@ -1715,196 +1713,60 @@ renderTeileList();
 })();
 
 // ============================================
-// تشغيل Memory Trainer من قائمة Hören 1
+// نظام المراحل المتوازن (لجميع المهارات)
 // ============================================
 
-window.startMemoryTrainerFromList = function() {
-    if (!window._hoeren1CombinedData) {
-        alert('⚠️ جاري تحميل البيانات... يرجى الانتظار ثانية.');
-        return;
-    }
-    if (window.memoryTrainer) {
-        window.memoryTrainer.start('list');
-    } else {
-        alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
-    }
+// ✅ إعدادات المراحل حسب الأرقام الحقيقية
+const SKILL_CONFIG = {
+    hoeren1: { totalExams: 45, examsPerStage: 15, totalSentences: 108 },
+    hoeren2: { totalExams: 55, examsPerStage: 15, totalSentences: 273 },
+    hoeren3: { totalExams: 48, examsPerStage: 15, totalSentences: 105 }
+    // يمكن إضافة lesen1, sprach1, ... بنفس الطريقة
 };
 
+// ✅ دوال المراحل العامة (تعمل مع أي مهارة)
+function getStageKey(skill) {
+    return `${skill}_stage`;
+}
 
-// ============================================
-// تحميل امتحانات المرحلة الحالية من Hören 1 فقط
-// ============================================
-
-window.loadAllHoeren1Exams = async function() {
-    const skill = 'hoeren1';
-    const exams = examsDatabase[skill] || [];
-    const totalExams = exams.length;
-    const totalStages = getTotalStages(totalExams);
-    
-    let currentStage = getCurrentStage();
-    if (currentStage > totalStages) {
-        currentStage = 1;
-        setCurrentStage(currentStage);
-    }
-    
-    console.log(`📚 تحميل المرحلة ${currentStage} من ${totalStages} (إجمالي ${totalExams} امتحان)`);
-    
-    const examIds = getExamsForStage(currentStage, totalExams);
-    console.log(`📋 الامتحانات في هذه المرحلة: ${examIds.join(', ')}`);
-    
-    const allCorrect = [];
-    const allWrong = [];
-    const allQuestions = [];
-
-    for (const examId of examIds) {
-        const exam = exams.find(e => e.id === examId);
-        if (!exam || !exam.hasFile) continue;
-        
-        const fileName = getActualFileName(exam.id);
-        try {
-            const response = await fetch(`data/${skill}/${fileName}`);
-            if (response.ok) {
-                const data = await response.json();
-                const questions = data.questions || [];
-                
-                questions.forEach((q, idx) => {
-                    // ✅ نضيف examId و questionIndex إلى كل جملة
-                    const entry = {
-                        text: q.text,
-                        correct: q.correct,
-                        examId: examId,
-                        questionIndex: idx,
-                        originalQuestion: q
-                    };
-                    allQuestions.push(entry);
-                    if (q.correct === true) {
-                        allCorrect.push(entry);
-                    } else {
-                        allWrong.push(entry);
-                    }
-                });
-                
-                console.log(`✅ تم تحميل exam${examId} (صحيحة: ${questions.filter(q => q.correct).length}, خاطئة: ${questions.filter(q => !q.correct).length})`);
-            }
-        } catch (e) {
-            console.warn(`⚠️ لا يمكن تحميل exam${examId}`);
-        }
-    }
-
-    window._hoeren1CombinedData = {
-        questions: allCorrect,
-        wrongQuestions: allWrong,
-        allQuestions: allQuestions,
-        memoryHighlights: [],
-        totalExams: examIds.length,
-        totalCorrect: allCorrect.length,
-        totalWrong: allWrong.length,
-        totalQuestions: allCorrect.length + allWrong.length,
-        currentStage: currentStage,
-        totalStages: totalStages,
-        examIds: examIds,
-        isLastStage: currentStage >= totalStages
-    };
-    
-    console.log(`✅ تم تحميل ${examIds.length} امتحان، ${allCorrect.length} جملة صحيحة، ${allWrong.length} جملة خاطئة`);
-    console.log(`📌 المرحلة ${currentStage} من ${totalStages} - ${allCorrect.length} جملة للتدريب`);
-};
-
-// ✅ تحميل البيانات فوراً
-setTimeout(() => {
-    window.loadAllHoeren1Exams();
-}, 500);
-
-// ============================================
-// الانتقال إلى المرحلة التالية
-// ============================================
-window.goToNextStage = function() {
-    const skill = 'hoeren1';
-    const exams = examsDatabase[skill] || [];
-    const totalExams = exams.length;
-    const totalStages = getTotalStages(totalExams);
-    let currentStage = getCurrentStage();
-    
-    if (currentStage < totalStages) {
-        currentStage++;
-        setCurrentStage(currentStage);
-        console.log(`➡️ الانتقال إلى المرحلة ${currentStage}`);
-        
-        window.loadAllHoeren1Exams().then(() => {
-            if (window.memoryTrainer) {
-                window.memoryTrainer.start('list');
-            }
-        });
-        return true;
-    } else {
-        console.log('🏆 تم إكمال جميع المراحل!');
-        return false;
-    }
-};
-
-// ✅ دالة إعادة تعيين المراحل (لإعادة التدريب من البداية)
-window.resetStages = function() {
-    setCurrentStage(1);
-    console.log('🔄 تم إعادة تعيين المراحل إلى المرحلة 1');
-    window.loadAllHoeren1Exams();
-};
-
-console.log("✅ exams.js تم تحميله بنجاح");
-console.log("📚 Lesen Teil 1:", examsDatabase.lesen1.length, "امتحان");
-console.log("📚 Lesen Teil 2:", examsDatabase.lesen2.length, "امتحان");
-console.log("📚 Lesen Teil 3:", examsDatabase.lesen3.length, "امتحان");
-console.log("📝 Sprachbausteine Teil 1:", examsDatabase.sprach1.length, "امتحان");
-console.log("📝 Sprachbausteine Teil 2:", examsDatabase.sprach2.length, "امتحان");
-console.log("🎧 Hören Teil 1:", examsDatabase.hoeren1.length, "امتحان");
-console.log("🎧 Hören Teil 2:", examsDatabase.hoeren2.length, "امتحان");
-console.log("🎧 Hören Teil 3:", examsDatabase.hoeren3.length, "امتحان");
-console.log("✏️ Schreiben:", examsDatabase.schreiben.length, "امتحان");
-console.log("🗣️ Mündlich Teil 1:", examsDatabase.mündlich1.length, "قسم");
-console.log("🗣️ Mündlich Teil 2:", examsDatabase.mündlich2.length, "امتحان");
-console.log("🗣️ Mündlich Teil 3:", examsDatabase.mündlich3.length, "قسم");
-console.log("💡 Tips:", examsDatabase.tips.length, "قسم");
-
-// ============================================
-// نظام تقدم الذاكرة (Levels 0-5) - المصدر الوحيد للتقدم
-// ============================================
-
-const STAGES_KEY = 'hoeren1_stage';
-const EXAMS_PER_STAGE = 15;
-const TOTAL_HOEREN1_SENTENCES = 108;
-const MAX_LEVEL = 5;
-const LEVELS_KEY = 'memory_levels';
-
-function getCurrentStage() {
+function getCurrentStage(skill) {
+    const key = getStageKey(skill);
     try {
-        const stage = parseInt(localStorage.getItem(STAGES_KEY)) || 1;
-        return Math.max(1, stage);
-    } catch {
-        return 1;
-    }
+        const stage = parseInt(localStorage.getItem(key)) || 1;
+        const config = SKILL_CONFIG[skill];
+        const totalStages = config ? Math.ceil(config.totalExams / config.examsPerStage) : 1;
+        return Math.max(1, Math.min(stage, totalStages));
+    } catch { return 1; }
 }
 
-function setCurrentStage(stage) {
+function setCurrentStage(skill, stage) {
     try {
-        localStorage.setItem(STAGES_KEY, String(stage));
-    } catch(e) {
-        console.warn('⚠️ لا يمكن حفظ المرحلة:', e);
-    }
+        localStorage.setItem(getStageKey(skill), String(stage));
+    } catch(e) { console.warn('⚠️ لا يمكن حفظ المرحلة:', e); }
 }
 
-function getTotalStages(totalExams) {
-    if (totalExams <= 0) return 1;
-    return Math.ceil(totalExams / EXAMS_PER_STAGE);
+function getTotalStages(skill) {
+    const config = SKILL_CONFIG[skill];
+    if (!config) return 1;
+    return Math.ceil(config.totalExams / config.examsPerStage);
 }
 
-function getExamsForStage(stage, totalExams) {
-    const start = (stage - 1) * EXAMS_PER_STAGE;
-    const end = Math.min(start + EXAMS_PER_STAGE, totalExams);
+function getExamsForStage(skill, stage) {
+    const config = SKILL_CONFIG[skill];
+    if (!config) return [];
+    const start = (stage - 1) * config.examsPerStage;
+    const end = Math.min(start + config.examsPerStage, config.totalExams);
     const exams = [];
-    for (let i = start + 1; i <= end; i++) {
-        exams.push(i);
-    }
+    for (let i = start + 1; i <= end; i++) exams.push(i);
     return exams;
 }
+
+// ============================================
+// نظام المستويات (معرفات ثابتة)
+// ============================================
+
+const LEVELS_KEY = 'memory_levels';
+const MAX_LEVEL = 5;
 
 function buildSentenceId(skill, examId, questionIndex) {
     return `${skill}_exam${examId}_${questionIndex}`;
@@ -1915,9 +1777,7 @@ function getSentenceLevel(skill, examId, questionIndex) {
     try {
         const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
         return data[key] !== undefined ? data[key] : 0;
-    } catch {
-        return 0;
-    }
+    } catch { return 0; }
 }
 
 function setSentenceLevel(skill, examId, questionIndex, level) {
@@ -1927,64 +1787,200 @@ function setSentenceLevel(skill, examId, questionIndex, level) {
         let newLevel = Math.max(0, Math.min(MAX_LEVEL, level));
         data[key] = newLevel;
         localStorage.setItem(LEVELS_KEY, JSON.stringify(data));
-    } catch (e) {
-        console.error('❌ خطأ في حفظ المستوى:', e);
-    }
+    } catch (e) { console.error('❌ خطأ في حفظ المستوى:', e); }
 }
 
 function increaseLevel(skill, examId, questionIndex) {
     const current = getSentenceLevel(skill, examId, questionIndex);
-    if (current < MAX_LEVEL) {
-        setSentenceLevel(skill, examId, questionIndex, current + 1);
-    }
+    if (current < MAX_LEVEL) setSentenceLevel(skill, examId, questionIndex, current + 1);
 }
 
 function decreaseLevel(skill, examId, questionIndex) {
     const current = getSentenceLevel(skill, examId, questionIndex);
-    if (current > 0) {
-        setSentenceLevel(skill, examId, questionIndex, current - 1);
-    }
+    if (current > 0) setSentenceLevel(skill, examId, questionIndex, current - 1);
 }
 
+// ============================================
+// دوال حساب النسب (المتوازنة)
+// ============================================
+
+// نسبة امتحان واحد (تعتمد على جمل ذلك الامتحان فقط)
 function getExamProgress(skill, examId) {
     const prefix = `${skill}_exam${examId}_`;
     try {
         const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
-        let totalLevels = 0;
-        let count = 0;
+        let totalLevels = 0, count = 0;
         for (const key in data) {
-            if (key.startsWith(prefix)) {
-                totalLevels += data[key];
-                count++;
-            }
+            if (key.startsWith(prefix)) { totalLevels += data[key]; count++; }
         }
         if (count === 0) return 0;
-        const maxTotal = count * MAX_LEVEL;
-        const percent = (totalLevels / maxTotal) * 100;
-        return Math.min(100, Math.round(percent));
-    } catch {
-        return 0;
-    }
+        return Math.min(100, Math.round((totalLevels / (count * MAX_LEVEL)) * 100));
+    } catch { return 0; }
 }
 
-function getOverallProgress() {
-    try {
-        const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
-        let totalLevels = 0;
-        let count = 0;
+// نسبة المرحلة الحالية (مجموع مستويات جمل المرحلة / عدد جمل المرحلة × 5)
+function getStageProgress(skill) {
+    const config = SKILL_CONFIG[skill];
+    if (!config) return 0;
+    const currentStage = getCurrentStage(skill);
+    const examIds = getExamsForStage(skill, currentStage);
+    if (examIds.length === 0) return 0;
+
+    const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
+    let totalLevels = 0, count = 0;
+    for (const examId of examIds) {
+        const prefix = `${skill}_exam${examId}_`;
         for (const key in data) {
-            if (key.startsWith('hoeren1_exam')) {
-                totalLevels += data[key];
-                count++;
-            }
+            if (key.startsWith(prefix)) { totalLevels += data[key]; count++; }
         }
-        const maxTotal = TOTAL_HOEREN1_SENTENCES * MAX_LEVEL; // 108 * 5 = 540
-        const percent = maxTotal > 0 ? (totalLevels / maxTotal) * 100 : 0;
-        return Math.min(100, Math.round(percent));
-    } catch {
-        return 0;
     }
+    if (count === 0) return 0;
+    return Math.min(100, Math.round((totalLevels / (count * MAX_LEVEL)) * 100));
 }
+
+// النسبة العامة للجزء بالكامل (تعتمد على المراحل، وليس العدد الكلي للجمل)
+function getOverallProgress(skill) {
+    const totalStages = getTotalStages(skill);
+    if (totalStages <= 0) return 0;
+    const currentStage = getCurrentStage(skill);
+    const stageProgress = getStageProgress(skill);
+    
+    // معادلة متوازنة: (المرحلة الحالية - 1 + نسبة المرحلة) / إجمالي المراحل × 100
+    const overall = ((currentStage - 1) + (stageProgress / 100)) / totalStages * 100;
+    return Math.min(100, Math.round(overall));
+}
+
+// ============================================
+// تحميل بيانات المرحلة الحالية (لأي مهارة)
+// ============================================
+
+window.loadStageExams = async function(skill) {
+    const config = SKILL_CONFIG[skill];
+    if (!config) {
+        console.warn(`⚠️ لا توجد إعدادات للمهارة: ${skill}`);
+        return;
+    }
+
+    const exams = examsDatabase[skill] || [];
+    const totalExams = config.totalExams;
+    const currentStage = getCurrentStage(skill);
+    const examIds = getExamsForStage(skill, currentStage);
+    
+    console.log(`📚 تحميل المرحلة ${currentStage} من ${getTotalStages(skill)} لـ ${skill}`);
+    console.log(`📋 الامتحانات: ${examIds.join(', ')}`);
+
+    const allCorrect = [], allWrong = [], allQuestions = [];
+
+    for (const examId of examIds) {
+        const exam = exams.find(e => e.id === examId);
+        if (!exam || !exam.hasFile) continue;
+        const fileName = getActualFileName(exam.id);
+        try {
+            const response = await fetch(`data/${skill}/${fileName}`);
+            if (response.ok) {
+                const data = await response.json();
+                const questions = data.questions || [];
+                questions.forEach((q, idx) => {
+                    const entry = {
+                        text: q.text,
+                        correct: q.correct,
+                        examId: examId,
+                        questionIndex: idx,
+                        originalQuestion: q
+                    };
+                    allQuestions.push(entry);
+                    if (q.correct === true) allCorrect.push(entry);
+                    else allWrong.push(entry);
+                });
+                console.log(`✅ تم تحميل ${skill} exam${examId}`);
+            }
+        } catch (e) {
+            console.warn(`⚠️ لا يمكن تحميل ${skill} exam${examId}`);
+        }
+    }
+
+    // تخزين البيانات المدمجة تحت مفتاح المهارة
+    window[`_${skill}_combinedData`] = {
+        questions: allCorrect,
+        wrongQuestions: allWrong,
+        allQuestions: allQuestions,
+        totalExams: examIds.length,
+        totalCorrect: allCorrect.length,
+        totalWrong: allWrong.length,
+        totalQuestions: allCorrect.length + allWrong.length,
+        currentStage: currentStage,
+        totalStages: getTotalStages(skill),
+        examIds: examIds,
+        isLastStage: currentStage >= getTotalStages(skill)
+    };
+
+    console.log(`✅ تم تحميل ${examIds.length} امتحان، ${allCorrect.length} جملة صحيحة، ${allWrong.length} جملة خاطئة`);
+};
+
+// ============================================
+// الانتقال إلى المرحلة التالية (لأي مهارة)
+// ============================================
+
+window.goToNextStage = function(skill) {
+    const totalStages = getTotalStages(skill);
+    let currentStage = getCurrentStage(skill);
+    if (currentStage < totalStages) {
+        currentStage++;
+        setCurrentStage(skill, currentStage);
+        console.log(`➡️ الانتقال إلى المرحلة ${currentStage} لـ ${skill}`);
+        window.loadStageExams(skill).then(() => {
+            if (window.memoryTrainer && window.memoryTrainer.currentSkill === skill) {
+                window.memoryTrainer.start('list');
+            }
+        });
+        return true;
+    } else {
+        console.log(`🏆 تم إكمال جميع مراحل ${skill}!`);
+        return false;
+    }
+};
+
+window.resetStages = function(skill) {
+    setCurrentStage(skill, 1);
+    console.log(`🔄 إعادة تعيين مراحل ${skill} إلى 1`);
+    window.loadStageExams(skill);
+};
+
+// ============================================
+// عرض شريط التقدم في القائمة
+// ============================================
+
+function renderMemoryProgressBar(skill, container) {
+    const percent = getOverallProgress(skill);
+    const currentStage = getCurrentStage(skill);
+    const totalStages = getTotalStages(skill);
+    
+    const bar = document.createElement('div');
+    bar.className = 'memory-progress-bar-container';
+    bar.innerHTML = `
+        <span class="memory-progress-label">🧠 الذاكرة</span>
+        <div style="display:flex; align-items:center; gap:8px; flex:1;">
+            <div class="memory-progress-track" style="flex:1;">
+                <div class="memory-progress-fill" style="width: ${percent}%;"></div>
+            </div>
+            <span class="memory-progress-percent">${percent}%</span>
+        </div>
+        <span style="font-size:11px; color:#64748B; min-width:60px; text-align:left;">
+            المرحلة ${currentStage}/${totalStages}
+        </span>
+        <button class="memory-progress-btn" title="متابعة التدريب" onclick="window.startMemoryTrainerFromList('${skill}')">
+            ▶
+        </button>
+        <button class="memory-progress-btn reset" title="إعادة تعيين التقدم" onclick="window.resetAllLevels();">
+            ↺
+        </button>
+    `;
+    container.insertBefore(bar, container.firstChild);
+}
+
+// ============================================
+// إعادة تعيين جميع المستويات (للمهارات كافة)
+// ============================================
 
 function resetAllLevels() {
     if (confirm('⚠️ هل أنت متأكد من إعادة تعيين جميع مستويات الذاكرة؟')) {
@@ -1993,27 +1989,40 @@ function resetAllLevels() {
     }
 }
 
-function renderMemoryProgressBar(skill, container) {
-    const percent = getOverallProgress();
-    
-    const bar = document.createElement('div');
-    bar.className = 'memory-progress-bar-container';
-    bar.innerHTML = `
-        <span class="memory-progress-label">🧠 الذاكرة</span>
-        <div class="memory-progress-track">
-            <div class="memory-progress-fill" style="width: ${percent}%;"></div>
-        </div>
-        <span class="memory-progress-percent">${percent}%</span>
-        <button class="memory-progress-btn" title="متابعة التدريب" onclick="window.startMemoryTrainerFromList()">
-            ▶
-        </button>
-        <button class="memory-progress-btn reset" title="إعادة تعيين التقدم" onclick="window.resetAllLevels();">
-            ↺
-        </button>
-    `;
-    
-    container.insertBefore(bar, container.firstChild);
-}
+// ============================================
+// تشغيل Memory Trainer من القائمة (يدعم جميع المهارات)
+// ============================================
+
+window.startMemoryTrainerFromList = function(skill = 'hoeren1') {
+    // التأكد من تحميل بيانات المهارة
+    const combinedKey = `_${skill}_combinedData`;
+    if (!window[combinedKey]) {
+        // إذا لم تكن محملة، نحملها ثم نبدأ
+        window.loadStageExams(skill).then(() => {
+            if (window.memoryTrainer) {
+                window.memoryTrainer.currentSkill = skill;
+                window.memoryTrainer.start('list');
+            }
+        });
+        return;
+    }
+    if (window.memoryTrainer) {
+        window.memoryTrainer.currentSkill = skill;
+        window.memoryTrainer.start('list');
+    } else {
+        alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
+    }
+};
+
+// ============================================
+// تحميل جميع المهارات المدعومة عند بدء التشغيل
+// ============================================
+
+setTimeout(() => {
+    for (const skill in SKILL_CONFIG) {
+        window.loadStageExams(skill);
+    }
+}, 500);
 
 // ============================================
 // تصدير الدوال للاستخدام العالمي
@@ -2025,14 +2034,18 @@ window.setSentenceLevel = setSentenceLevel;
 window.increaseLevel = increaseLevel;
 window.decreaseLevel = decreaseLevel;
 window.getExamProgress = getExamProgress;
+window.getStageProgress = getStageProgress;
 window.getOverallProgress = getOverallProgress;
-window.resetAllLevels = resetAllLevels;
 window.getCurrentStage = getCurrentStage;
 window.setCurrentStage = setCurrentStage;
 window.getTotalStages = getTotalStages;
 window.getExamsForStage = getExamsForStage;
+window.SKILL_CONFIG = SKILL_CONFIG;
+window.resetAllLevels = resetAllLevels;
+window.loadStageExams = loadStageExams;
 window.goToNextStage = goToNextStage;
 window.resetStages = resetStages;
-window.EXAMS_PER_STAGE = EXAMS_PER_STAGE;
+window.startMemoryTrainerFromList = startMemoryTrainerFromList;
 
-console.log('🧠 نظام التقدم (Levels 0-5) مع معرفات ثابتة تم تحميله بنجاح');
+console.log('🧠 نظام التقدم المتوازن (المراحل لكل مهارة) تم تحميله بنجاح');
+console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));
