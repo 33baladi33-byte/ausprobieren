@@ -606,20 +606,17 @@ class MemoryTrainer {
                             🌿 اقرأ السؤال جيداً، سأطلب منك اختيار الجواب الصحيح.
                         </p>
 
-                        <!-- عرض السؤال فقط (النص) -->
-                        <div style="
-                            font-size: 17px;
-                            font-weight: 500;
-                            text-align: center;
-                            padding: 16px 12px;
-                            background: #F8FAFC;
-                            border-radius: 10px;
-                            border: 1px solid #EDF2F7;
-                            color: #1a202c;
-                            margin: 8px 0 12px 0;
-                        ">
-                            ${textToShow}
-                        </div>
+                        <!-- عرض السؤال فقط (نص عادي) -->
+<div style="
+    font-size: 17px;
+    font-weight: 500;
+    text-align: center;
+    padding: 12px 0;
+    color: #1a202c;
+    margin: 8px 0 12px 0;
+">
+    ${textToShow}
+</div>
                     </div>
 
                     <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()" style="
