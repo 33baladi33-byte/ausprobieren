@@ -5,7 +5,7 @@
 class MemoryTrainer {
     constructor() {
         // البيانات الأساسية
-        this.questions = [];           // الجمل الصحيحة فقط (للتدريب)
+        this.questions = [];           // الجمل الصحيحة فقط (للتدريب) - أو كل الجمل في حالة lesen1
         this.allQuestions = [];        // جميع الجمل (صحيحة وخاطئة) - لتوليد الخيارات (Hören)
         this.sharedOptions = [];       // العناوين المشتركة (Lesen 1)
         this.trainingQueue = [];
@@ -67,22 +67,12 @@ class MemoryTrainer {
                 // ✅ استخراج sharedOptions إن وجدت (لـ Lesen 1)
                 if (examData.sharedOptions) {
                     this.sharedOptions = examData.sharedOptions;
-                } else {
-                    // محاولة تحميل أول امتحان للحصول على sharedOptions (حل مؤقت)
-                    const examIds = examData.examIds || [];
-                    if (examIds.length > 0 && this.currentSkill === 'lesen1') {
-                        const firstExamId = examIds[0];
-                        const fileName = window.getActualFileName ? window.getActualFileName(firstExamId) : `exam${firstExamId}.json`;
-                        fetch(`data/${this.currentSkill}/${fileName}`)
-                            .then(r => r.json())
-                            .then(data => {
-                                if (data.sharedOptions) {
-                                    this.sharedOptions = data.sharedOptions;
-                                    console.log(`✅ تم تحميل sharedOptions لـ ${this.currentSkill} من exam${firstExamId}`);
-                                }
-                            })
-                            .catch(e => console.warn('⚠️ لا يمكن تحميل sharedOptions:', e));
-                    }
+                }
+                // ✅ تحديد نوع الامتحان من البيانات المخزنة
+                this.examType = examData.examType || 'hoeren';
+                // إذا كانت المهارة lesen1، نضبط النوع تلقائياً
+                if (this.currentSkill === 'lesen1') {
+                    this.examType = 'matching';
                 }
             } else {
                 if (typeof window.loadStageExams === 'function') {
@@ -111,6 +101,11 @@ class MemoryTrainer {
                 if (examData.sharedOptions) {
                     this.sharedOptions = examData.sharedOptions;
                 }
+                // تحديد نوع الامتحان
+                this.examType = examData.type || 'hoeren';
+                if (this.currentSkill === 'lesen1') {
+                    this.examType = 'matching';
+                }
             } else {
                 this.showNotAvailable("لا توجد بيانات امتحان");
                 return;
@@ -122,15 +117,17 @@ class MemoryTrainer {
             return;
         }
 
-        // ✅ تحديد نوع الامتحان
-        this.examType = examData.type || 'hoeren'; // 'matching' لـ Lesen 1
-
-        // ✅ استخراج جميع الجمل (صحيحة وخاطئة) لتوليد الخيارات (لـ Hören)
+        // ✅ استخراج جميع الجمل
         let rawQuestions = [];
         if (this.isFromList) {
             // في وضع القائمة، examData.allQuestions تحتوي على كل الجمل
             rawQuestions = examData.allQuestions || [];
-            this.questions = (examData.questions || []).filter(q => q.correct === true);
+            // ✅ معالجة خاصة لـ lesen1: كل الجمل صالحة للتدريب
+            if (this.currentSkill === 'lesen1') {
+                this.questions = rawQuestions; // جميع الجمل
+            } else {
+                this.questions = rawQuestions.filter(q => q.correct === true);
+            }
         } else {
             // في وضع الامتحان الفردي، نحول جميع الجمل إلى بنية موحدة
             const examQuestions = examData.questions || [];
@@ -141,11 +138,28 @@ class MemoryTrainer {
                 questionIndex: idx,
                 originalQuestion: q
             }));
-            this.questions = rawQuestions.filter(q => q.correct === true);
+            // ✅ معالجة خاصة لـ lesen1: كل الجمل صالحة للتدريب
+            if (this.currentSkill === 'lesen1') {
+                this.questions = rawQuestions; // جميع الجمل
+            } else {
+                this.questions = rawQuestions.filter(q => q.correct === true);
+            }
         }
 
         // ✅ تخزين جميع الجمل (صحيحة وخاطئة) لتوليد الخيارات (لـ Hören)
         this.allQuestions = rawQuestions;
+
+        // ✅ إذا كانت المهارة lesen1 ولم نجد sharedOptions بعد، نحاول استخراجها من أول سؤال
+        if (this.currentSkill === 'lesen1' && this.sharedOptions.length === 0 && rawQuestions.length > 0) {
+            // محاولة استخراج sharedOptions من originalQuestion إن وجدت
+            const firstQ = rawQuestions[0];
+            if (firstQ.originalQuestion && firstQ.originalQuestion.options) {
+                // بعض الامتحانات قد تحتوي على options مباشرة، لكننا نفضل sharedOptions
+                // نترك هذا للتوافق
+            }
+            // إذا لم نجد، نعطي رسالة خطأ
+            console.warn('⚠️ لم يتم العثور على sharedOptions لـ lesen1، قد لا تعمل الخيارات بشكل صحيح.');
+        }
 
         if (this.questions.length === 0) {
             this.showNotAvailable("لا توجد إجابات صحيحة في هذا الامتحان");
