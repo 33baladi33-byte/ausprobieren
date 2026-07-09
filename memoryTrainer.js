@@ -1,5 +1,5 @@
 // ============================================
-// MEMORY TRAINER V4 - يدعم Hören و Lesen 1
+// MEMORY TRAINER V4 - يدعم Hören و Lesen 1 (UI محسّن لـ Lesen 1)
 // ============================================
 
 class MemoryTrainer {
@@ -64,11 +64,9 @@ class MemoryTrainer {
                 this.isFromList = true;
                 console.log(`📚 تدريب من قائمة ${this.currentSkill} (المرحلة ${examData.currentStage || 1})`);
                 
-                // ✅ استخراج sharedOptions إن وجدت (لـ Lesen 1)
                 if (examData.sharedOptions) {
                     this.sharedOptions = examData.sharedOptions;
                 } else {
-                    // محاولة تحميل أول امتحان للحصول على sharedOptions (حل مؤقت)
                     const examIds = examData.examIds || [];
                     if (examIds.length > 0 && this.currentSkill === 'lesen1') {
                         const firstExamId = examIds[0];
@@ -107,7 +105,6 @@ class MemoryTrainer {
                 this.currentSkill = window.currentSkill || 'hoeren1';
                 this.currentExamId = window.currentExamId || 1;
                 console.log(`📖 تدريب من امتحان فردي: ${this.currentSkill} exam${this.currentExamId}`);
-                // استخراج sharedOptions إن وجدت
                 if (examData.sharedOptions) {
                     this.sharedOptions = examData.sharedOptions;
                 }
@@ -123,16 +120,14 @@ class MemoryTrainer {
         }
 
         // ✅ تحديد نوع الامتحان
-        this.examType = examData.type || 'hoeren'; // 'matching' لـ Lesen 1
+        this.examType = examData.type || 'hoeren';
 
         // ✅ استخراج جميع الجمل (صحيحة وخاطئة) لتوليد الخيارات (لـ Hören)
         let rawQuestions = [];
         if (this.isFromList) {
-            // في وضع القائمة، examData.allQuestions تحتوي على كل الجمل
             rawQuestions = examData.allQuestions || [];
             this.questions = (examData.questions || []).filter(q => q.correct === true);
         } else {
-            // في وضع الامتحان الفردي، نحول جميع الجمل إلى بنية موحدة
             const examQuestions = examData.questions || [];
             rawQuestions = examQuestions.map((q, idx) => ({
                 text: q.text,
@@ -144,7 +139,6 @@ class MemoryTrainer {
             this.questions = rawQuestions.filter(q => q.correct === true);
         }
 
-        // ✅ تخزين جميع الجمل (صحيحة وخاطئة) لتوليد الخيارات (لـ Hören)
         this.allQuestions = rawQuestions;
 
         if (this.questions.length === 0) {
@@ -315,22 +309,16 @@ class MemoryTrainer {
     // ============================================
 
     generateOptions(correctText, currentQuestionObj) {
-        // الخيار الصحيح أولاً
         const options = [correctText];
         let added = 0;
 
-        // ✅ إذا كان الامتحان من نوع Lesen 1 (matching)
         if (this.examType === 'matching' && this.sharedOptions && this.sharedOptions.length > 0) {
-            // نستخدم sharedOptions لتوليد الخيارات
-            const correctIndex = currentQuestionObj.correct; // فهرس الصحيح في sharedOptions
+            const correctIndex = currentQuestionObj.correct;
             const correctOption = this.sharedOptions[correctIndex];
-            // نعيد بناء الخيارات بحيث يكون الصحيح هو الأول، ثم نضيف خيارين عشوائيين
             const allOptions = this.sharedOptions.filter((_, idx) => idx !== correctIndex);
             const shuffled = this.shuffleArray([...allOptions]);
             const wrongOptions = shuffled.slice(0, 2);
-            // نضع الصحيح أولاً ثم الخيارات الخاطئة
             const finalOptions = [correctOption, ...wrongOptions];
-            // إذا كان هناك أقل من 2 خيارات خاطئة، نكرر بعضها
             while (finalOptions.length < 3) {
                 const extra = this.sharedOptions[Math.floor(Math.random() * this.sharedOptions.length)];
                 if (!finalOptions.includes(extra)) finalOptions.push(extra);
@@ -338,7 +326,6 @@ class MemoryTrainer {
             return this.shuffleArray(finalOptions);
         }
 
-        // ✅ لـ Hören: استخدام allQuestions
         const wrongTexts = this.allQuestions
             .filter(q => q.text !== correctText)
             .map(q => q.text);
@@ -352,7 +339,6 @@ class MemoryTrainer {
             }
         }
 
-        // ✅ في حال عدم وجود جمل خاطئة كافية
         while (options.length < this.TOTAL_OPTIONS) {
             console.warn('⚠️ لم يتم العثور على جمل خاطئة كافية، نضيف جملة وهمية مؤقتة');
             options.push(`جملة ${options.length + 1}`);
@@ -418,7 +404,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // عرض البطاقات (تدعم Hören و Lesen 1)
+    // عرض البطاقات (تدعم Hören و Lesen 1) - UI محسّن لـ Lesen 1
     // ============================================
 
     showMemoryCard() {
@@ -436,15 +422,53 @@ class MemoryTrainer {
         this.currentExamId = item.examId;
         this.currentQuestionIndex = item.questionIndex;
         this.currentQuestionObj = item;
-        this.currentCorrectIndex = item.correct; // فهرس الصحيح في sharedOptions (لـ Lesen 1)
+        this.currentCorrectIndex = item.correct;
 
         // ✅ عرض النص حسب النوع
         let displayContent = '';
+        let correctTitleHtml = '';
+
         if (this.examType === 'matching') {
-            // Lesen 1: عرض النص كاملاً (بدون عنوان)
-            displayContent = `<div style="font-size:15px;line-height:1.8;text-align:right;max-height:300px;overflow-y:auto;padding:8px;background:#f8fafc;border-radius:8px;">${textToShow}</div>`;
+            // ✅ Lesen 1: عرض النص مع ارتفاع محدود (20-30%) + العنوان الصحيح في الأسفل
+            const correctIndex = this.currentQuestionObj.correct;
+            const correctTitle = this.sharedOptions[correctIndex] || '';
+            // استخراج الحرف الأول من العنوان (a., b., ...) إن وجد
+            const titlePrefix = correctTitle.match(/^[a-z]\.\s*/) ? correctTitle.match(/^[a-z]\.\s*/)[0] : '';
+            const titleWithoutPrefix = correctTitle.replace(/^[a-z]\.\s*/, '');
+
+            displayContent = `
+                <div style="
+                    font-size: 15px;
+                    line-height: 1.8;
+                    text-align: right;
+                    max-height: 120px; /* يظهر فقط جزء صغير من النص */
+                    overflow-y: auto;
+                    padding: 8px 12px;
+                    background: #f8fafc;
+                    border-radius: 8px;
+                    border: 1px solid #e8ecf0;
+                    width: 100%;
+                    box-sizing: border-box;
+                    direction: rtl;
+                ">
+                    ${textToShow}
+                </div>
+                <div style="
+                    margin-top: 12px;
+                    padding: 8px 12px;
+                    background: #e8f5e9;
+                    border-radius: 8px;
+                    border-right: 4px solid #28a745;
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: #1a5a1a;
+                    direction: rtl;
+                ">
+                    ✅ <strong>${titlePrefix}${titleWithoutPrefix}</strong>
+                </div>
+            `;
         } else {
-            // Hören: عرض الجملة فقط
+            // ✅ Hören: عرض الجملة فقط (بدون تغيير)
             displayContent = `<span>${textToShow}</span>`;
         }
 
@@ -467,9 +491,7 @@ class MemoryTrainer {
 
     readyToRecall() {
         this.clearTimer();
-        // توليد الخيارات حسب النوع
         if (this.examType === 'matching') {
-            // لـ Lesen 1: نستخدم sharedOptions
             const correctIndex = this.currentQuestionObj.correct;
             const allOptions = this.sharedOptions.filter((_, idx) => idx !== correctIndex);
             const shuffled = this.shuffleArray([...allOptions]);
@@ -482,7 +504,6 @@ class MemoryTrainer {
             }
             this.currentOptions = this.shuffleArray(finalOptions);
         } else {
-            // Hören: استخدام الطريقة القديمة
             this.currentOptions = this.generateOptions(this.currentCorrectText, this.currentQuestionObj);
         }
 
@@ -508,7 +529,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // التصحيح (مع تحديث المستوى)
+    // التصحيح (مع تحديث المستوى) - عرض الإجابة الصحيحة بشكل أنيق لـ Lesen 1
     // ============================================
 
     checkAnswer(selectedIndex) {
@@ -520,12 +541,10 @@ class MemoryTrainer {
         let isCorrect = false;
 
         if (this.examType === 'matching') {
-            // Lesen 1: المقارنة مع العنوان الصحيح
             const correctIndex = this.currentQuestionObj.correct;
             const correctOption = this.sharedOptions[correctIndex];
             isCorrect = (selectedText === correctOption);
         } else {
-            // Hören: مقارنة النص
             isCorrect = (selectedText === this.currentCorrectText);
         }
 
@@ -539,12 +558,34 @@ class MemoryTrainer {
 
         allOptions.forEach(btn => { btn.disabled = true; btn.style.opacity = '0.7'; btn.style.cursor = 'default'; });
 
+        // ✅ عرض الإجابة الصحيحة بشكل أنيق لـ Lesen 1
+        let correctText = '';
+        if (this.examType === 'matching') {
+            const correctIndex = this.currentQuestionObj.correct;
+            correctText = this.sharedOptions[correctIndex];
+        } else {
+            correctText = this.currentCorrectText;
+        }
+
+        // استخراج الحرف الأول إن وجد
+        const titlePrefix = correctText.match(/^[a-z]\.\s*/) ? correctText.match(/^[a-z]\.\s*/)[0] : '';
+        const titleWithoutPrefix = correctText.replace(/^[a-z]\.\s*/, '');
+
         if (isCorrect) {
             this.correctAttempts++;
             this.increaseLevel(sentenceId);
             allOptions[selectedIndex].style.borderColor = '#28a745';
             allOptions[selectedIndex].style.backgroundColor = '#d4edda';
-            feedback.innerHTML = `<button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">التالي →</button>`;
+            feedback.innerHTML = `
+                <div style="margin-top:12px; padding:10px 14px; background:#e8f5e9; border-radius:8px; border-right:4px solid #28a745;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                        <span style="font-size:15px; font-weight:500; color:#1a5a1a;">
+                            ✅ <strong>${titlePrefix}${titleWithoutPrefix}</strong>
+                        </span>
+                        <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()" style="padding:6px 16px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:#28a745; color:white;">التالي →</button>
+                    </div>
+                </div>
+            `;
         } else {
             this.decreaseLevel(sentenceId);
             if (!this.wrongQuestions.includes(this.currentQuestionObj)) {
@@ -552,14 +593,6 @@ class MemoryTrainer {
             }
             allOptions[selectedIndex].style.borderColor = '#e67e22';
             allOptions[selectedIndex].style.backgroundColor = '#fef0e0';
-            // عرض الإجابة الصحيحة
-            let correctText = '';
-            if (this.examType === 'matching') {
-                const correctIndex = this.currentQuestionObj.correct;
-                correctText = this.sharedOptions[correctIndex];
-            } else {
-                correctText = this.currentCorrectText;
-            }
             allOptions.forEach((btn, idx) => {
                 if (this.currentOptions[idx] === correctText) {
                     btn.style.borderColor = '#28a745';
@@ -567,9 +600,14 @@ class MemoryTrainer {
                 }
             });
             feedback.innerHTML = `
-                <div style="display:flex;gap:10px;justify-content:center;margin-top:8px;">
-                    <button class="memory-trainer-btn secondary small" onclick="window.memoryTrainer.retryQuestion()">🔄 إعادة المحاولة</button>
-                    <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">التالي →</button>
+                <div style="margin-top:12px; padding:10px 14px; background:#fff5f0; border-radius:8px; border-right:4px solid #e67e22;">
+                    <div style="margin-bottom:10px; font-size:15px; font-weight:500; color:#b85a00;">
+                        ✅ الإجابة الصحيحة: <strong style="color:#1a5a1a;">${titlePrefix}${titleWithoutPrefix}</strong>
+                    </div>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <button class="memory-trainer-btn secondary small" onclick="window.memoryTrainer.retryQuestion()" style="padding:6px 16px; border:2px solid #e67e22; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:white; color:#e67e22;">🔄 إعادة المحاولة</button>
+                        <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()" style="padding:6px 16px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:#1565C0; color:white;">التالي →</button>
+                    </div>
                 </div>
             `;
         }
@@ -672,7 +710,6 @@ class MemoryTrainer {
         let html = '';
 
         if (isFromList) {
-            // وضع المراحل (من القائمة)
             let currentStage = 1, totalStages = 1, isLastStage = false;
             if (window.getCurrentStage && window.getTotalStages) {
                 currentStage = window.getCurrentStage(skill);
@@ -730,7 +767,6 @@ class MemoryTrainer {
                 `;
             }
         } else {
-            // وضع امتحان فردي (نسبة الامتحان فقط)
             const examLabel = this.examType === 'matching' ? `امتحان ${this.currentExamId} (Lesen 1)` : `امتحان ${this.currentExamId}`;
             html = `
                 <div class="memory-trainer-results final">
@@ -833,4 +869,4 @@ window.startMemoryTrainerFromList = (skill = 'hoeren1') => {
 // ✅ للتوافق مع الإصدارات القديمة
 window.startMemoryTrainer = window.startMemoryTrainerForExam;
 
-console.log('🧠 Memory Trainer V4 (يدعم Hören و Lesen 1) تم تحميله');
+console.log('🧠 Memory Trainer V4 (يدعم Hören و Lesen 1 - UI محسّن لـ Lesen 1) تم تحميله');
