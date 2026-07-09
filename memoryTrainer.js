@@ -680,29 +680,55 @@ class MemoryTrainer {
 
 
 // ============================================
-// النهاية النهائية - عرض نسبة الامتحان الحالي
+// النهاية النهائية - مع دعم المراحل (Stages)
 // ============================================
 
 showResults() {
     let examPercent = 0;
     let overallPercent = 0;
+    let isLastStage = true;
+    let currentStage = 1;
+    let totalStages = 1;
     
-    if (this.isFromList) {
+    if (this.isFromList && window._hoeren1CombinedData) {
+        // ✅ من قائمة Hören 1 (وضع المراحل)
+        const data = window._hoeren1CombinedData;
+        currentStage = data.currentStage || 1;
+        totalStages = data.totalStages || 1;
+        isLastStage = data.isLastStage || (currentStage >= totalStages);
+        
         overallPercent = this.getOverallProgress();
         examPercent = overallPercent;
     } else {
+        // ✅ من امتحان واحد (بدون مراحل)
         const skill = this.currentSkill || 'hoeren1';
         const examId = this.currentExamId || 1;
         examPercent = this.getExamProgress(skill, examId);
         overallPercent = this.getOverallProgress();
+        isLastStage = true; // في وضع الامتحان الواحد نعتبره المرحلة الأخيرة
     }
+    
+    // ✅ تحديد النصوص حسب الحالة
+    let icon = isLastStage ? '🏆' : '🧩';
+    let title = isLastStage 
+        ? 'تم إنهاء التدريب بالكامل' 
+        : `اكتملت المرحلة ${currentStage}`;
+    let subtitle = isLastStage 
+        ? 'لقد راجعت جميع الجمل بنجاح.' 
+        : 'أنت تبني ذاكرة قوية يومًا بعد يوم.';
+    let buttonText = isLastStage 
+        ? '➡️ العودة للامتحان' 
+        : `➡️ متابعة المرحلة ${currentStage + 1}`;
+    let buttonAction = isLastStage 
+        ? 'window.memoryTrainer.close()' 
+        : 'window.goToNextStage && window.goToNextStage()';
     
     this.updateCard(`
         <div class="memory-trainer-results final">
-            <div style="font-size: 28px; text-align: center; margin-bottom: 4px;">🧩</div>
-            <h2 style="color: #1565C0; font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px;">اكتمل الاستدعاء</h2>
+            <div style="font-size: 28px; text-align: center; margin-bottom: 4px;">${icon}</div>
+            <h2 style="color: #1565C0; font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px;">${title}</h2>
             <p style="font-size: 14px; color: #64748B; text-align: center; margin-bottom: 14px; font-weight: 400;">
-                أنت تبني ذاكرة قوية يومًا بعد يوم.
+                ${subtitle}
             </p>
             
             <div style="margin: 0 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px;">
@@ -714,7 +740,7 @@ showResults() {
                 </div>
             </div>
             
-            <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.close()" style="
+            <button class="memory-trainer-btn primary" onclick="${buttonAction}" style="
                 padding: 8px 20px;
                 border: none;
                 border-radius: 10px;
@@ -729,7 +755,7 @@ showResults() {
                 display: block;
                 width: 100%;
             ">
-                ➡️ العودة للامتحان
+                ${buttonText}
             </button>
         </div>
     `);
