@@ -1754,57 +1754,62 @@ window.loadAllHoeren1Exams = async function() {
     const examIds = getExamsForStage(currentStage, totalExams);
     console.log(`📋 الامتحانات في هذه المرحلة: ${examIds.join(', ')}`);
     
-    const allCorrect = [];
-    const allWrong = [];
-    const allQuestions = [];
+   // داخل window.loadAllHoeren1Exams
+const allCorrect = [];
+const allWrong = [];
+const allQuestions = [];
+
+for (const examId of examIds) {
+    const exam = exams.find(e => e.id === examId);
+    if (!exam || !exam.hasFile) continue;
     
-    // ✅ تحميل الامتحانات المحددة فقط
-    for (const examId of examIds) {
-        const exam = exams.find(e => e.id === examId);
-        if (!exam || !exam.hasFile) continue;
-        
-        const fileName = getActualFileName(exam.id);
-        try {
-            const response = await fetch(`data/${skill}/${fileName}`);
-            if (response.ok) {
-                const data = await response.json();
-                const questions = data.questions || [];
-                
-                const correctTexts = questions
-                    .filter(q => q.correct === true)
-                    .map(q => q.text);
-                
-                const wrongTexts = questions
-                    .filter(q => q.correct === false)
-                    .map(q => q.text);
-                
-                allCorrect.push(...correctTexts);
-                allWrong.push(...wrongTexts);
-                allQuestions.push(...questions);
-                
-                console.log(`✅ تم تحميل exam${examId} (صحيحة: ${correctTexts.length}, خاطئة: ${wrongTexts.length})`);
-            }
-        } catch (e) {
-            console.warn(`⚠️ لا يمكن تحميل exam${examId}`);
+    const fileName = getActualFileName(exam.id);
+    try {
+        const response = await fetch(`data/${skill}/${fileName}`);
+        if (response.ok) {
+            const data = await response.json();
+            const questions = data.questions || [];
+            
+            questions.forEach((q, idx) => {
+                // ✅ نضيف examId و questionIndex إلى كل جملة
+                const entry = {
+                    text: q.text,
+                    correct: q.correct,
+                    examId: examId,
+                    questionIndex: idx,
+                    // نحتفظ بالبيانات الأصلية للمستقبل
+                    originalQuestion: q
+                };
+                allQuestions.push(entry);
+                if (q.correct === true) {
+                    allCorrect.push(entry);
+                } else {
+                    allWrong.push(entry);
+                }
+            });
+            
+            console.log(`✅ تم تحميل exam${examId} (صحيحة: ${questions.filter(q => q.correct).length}, خاطئة: ${questions.filter(q => !q.correct).length})`);
         }
+    } catch (e) {
+        console.warn(`⚠️ لا يمكن تحميل exam${examId}`);
     }
-    
-    // ✅ تخزين البيانات المدمجة للمرحلة الحالية
-    window._hoeren1CombinedData = {
-        questions: allCorrect.map(text => ({ text, correct: true })),
-        wrongQuestions: allWrong,
-        allQuestions: allQuestions,
-        memoryHighlights: [],
-        totalExams: examIds.length,
-        totalCorrect: allCorrect.length,
-        totalWrong: allWrong.length,
-        totalQuestions: allCorrect.length + allWrong.length,
-        // ✅ بيانات إضافية للمراحل
-        currentStage: currentStage,
-        totalStages: totalStages,
-        examIds: examIds,
-        isLastStage: currentStage >= totalStages
-    };
+}
+
+// ✅ تحديث البيانات المخزنة
+window._hoeren1CombinedData = {
+    questions: allCorrect,          // الآن مصفوفة من { text, correct, examId, questionIndex }
+    wrongQuestions: allWrong,       // الآن مصفوفة من { text, correct, examId, questionIndex }
+    allQuestions: allQuestions,     // الآن مصفوفة من { text, correct, examId, questionIndex }
+    memoryHighlights: [],
+    totalExams: examIds.length,
+    totalCorrect: allCorrect.length,
+    totalWrong: allWrong.length,
+    totalQuestions: allCorrect.length + allWrong.length,
+    currentStage: currentStage,
+    totalStages: totalStages,
+    examIds: examIds,
+    isLastStage: currentStage >= totalStages
+};
     
     console.log(`✅ تم تحميل ${examIds.length} امتحان، ${allCorrect.length} جملة صحيحة، ${allWrong.length} جملة خاطئة`);
     console.log(`📌 المرحلة ${currentStage} من ${totalStages} - ${allCorrect.length} جملة للتدريب`);
