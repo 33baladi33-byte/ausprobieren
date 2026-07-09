@@ -678,63 +678,62 @@ class MemoryTrainer {
         this.showMemoryCard();
     }
 
-    // ============================================
-    // النهاية النهائية - التصميم الجديد
-    // ============================================
 
-    showResults() {
-        let examPercent = 0;
-        let overallPercent = 0;
-        
-        if (this.isFromList) {
-            // من القائمة: نعرض النسبة الكلية لـ Hören 1
-            overallPercent = this.getOverallProgress();
-            examPercent = overallPercent;
-        } else {
-            // من امتحان واحد: نعرض نسبة هذا الامتحان
-            const skill = this.currentSkill || 'hoeren1';
-            const examId = this.currentExamId || 1;
-            examPercent = this.getExamProgress(skill, examId);
-            overallPercent = this.getOverallProgress();
-        }
-        
-        this.updateCard(`
-            <div class="memory-trainer-results final">
-                <div style="font-size: 28px; text-align: center; margin-bottom: 4px;">🧩</div>
-                <h2 style="color: #1565C0; font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px;">اكتمل الاستدعاء</h2>
-                <p style="font-size: 14px; color: #64748B; text-align: center; margin-bottom: 14px; font-weight: 400;">
-                    أنت تبني ذاكرة قوية يومًا بعد يوم.
-                </p>
-                
-                <div style="margin: 0 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px;">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
-                            <div style="width: ${examPercent}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
-                        </div>
-                        <span style="font-size: 13px; font-weight: 600; color: #1565C0; min-width: 40px; text-align: right;">${examPercent}%</span>
-                    </div>
-                </div>
-                
-                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.close()" style="
-                    padding: 8px 20px;
-                    border: none;
-                    border-radius: 10px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.2s ease;
-                    margin-top: 6px;
-                    background: #1565C0;
-                    color: white;
-                    box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
-                    display: block;
-                    width: 100%;
-                ">
-                    ➡️ العودة للامتحان
-                </button>
-            </div>
-        `);
+// ============================================
+// النهاية النهائية - عرض نسبة الامتحان الحالي
+// ============================================
+
+showResults() {
+    let examPercent = 0;
+    let overallPercent = 0;
+    
+    if (this.isFromList) {
+        overallPercent = this.getOverallProgress();
+        examPercent = overallPercent;
+    } else {
+        const skill = this.currentSkill || 'hoeren1';
+        const examId = this.currentExamId || 1;
+        examPercent = this.getExamProgress(skill, examId);
+        overallPercent = this.getOverallProgress();
     }
+    
+    this.updateCard(`
+        <div class="memory-trainer-results final">
+            <div style="font-size: 28px; text-align: center; margin-bottom: 4px;">🧩</div>
+            <h2 style="color: #1565C0; font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px;">اكتمل الاستدعاء</h2>
+            <p style="font-size: 14px; color: #64748B; text-align: center; margin-bottom: 14px; font-weight: 400;">
+                أنت تبني ذاكرة قوية يومًا بعد يوم.
+            </p>
+            
+            <div style="margin: 0 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
+                        <div style="width: ${examPercent}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px; transition: width 0.3s ease;"></div>
+                    </div>
+                    <span style="font-size: 13px; font-weight: 600; color: #1565C0; min-width: 40px; text-align: right;">${examPercent}%</span>
+                </div>
+            </div>
+            
+            <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.close()" style="
+                padding: 8px 20px;
+                border: none;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                margin-top: 6px;
+                background: #1565C0;
+                color: white;
+                box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
+                display: block;
+                width: 100%;
+            ">
+                ➡️ العودة للامتحان
+            </button>
+        </div>
+    `);
+}
 
     // ============================================
     // دوال مساعدة
@@ -767,24 +766,11 @@ class MemoryTrainer {
         `);
     }
 
+    // ✅ دالة الإغلاق النهائية - تغلق فقط ولا تتخذ أي قرارات
     close() {
         this.clearTimer();
-        
-        // ✅ إذا كانت آخر جملة ولم يتم عرض النتائج بعد
-        const isLastQuestion = this.currentIndex >= this.trainingQueue.length;
-        const hasWrongQuestions = this.wrongQuestions.length > 0;
-        
-        if (this.isActive && isLastQuestion && !this.isReviewMode) {
-            if (hasWrongQuestions) {
-                this.showPhaseComplete();
-                return;
-            } else {
-                this.showResults();
-                return;
-            }
-        }
-        
-        // ✅ الإغلاق الطبيعي
+
+        // إزالة الـ Overlay فقط
         if (this.overlay) {
             this.overlay.remove();
             this.overlay = null;
