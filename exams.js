@@ -1883,17 +1883,23 @@ window.loadStageExams = async function(skill) {
                 const data = await response.json();
                 const questions = data.questions || [];
                 questions.forEach((q, idx) => {
-                    const entry = {
-                        text: q.text,
-                        correct: q.correct,
-                        examId: examId,
-                        questionIndex: idx,
-                        originalQuestion: q
-                    };
-                    allQuestions.push(entry);
-                    if (q.correct === true) allCorrect.push(entry);
-                    else allWrong.push(entry);
-                });
+    const entry = {
+        text: q.text,
+        correct: q.correct,
+        examId: examId,
+        questionIndex: idx,
+        originalQuestion: q
+    };
+    allQuestions.push(entry);
+    
+    // ✅ إذا كانت المهارة lesen1، كل الأسئلة صالحة للتدريب
+    if (skill === 'lesen1') {
+        allCorrect.push(entry);
+    } else {
+        if (q.correct === true) allCorrect.push(entry);
+        else allWrong.push(entry);
+    }
+});
                 console.log(`✅ تم تحميل ${skill} exam${examId}`);
             }
         } catch (e) {
