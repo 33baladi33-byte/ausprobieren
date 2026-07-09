@@ -1,17 +1,18 @@
 // ============================================
-// MEMORY TRAINER V4 - وضعان منفصلان (امتحان فردي / مرحلة)
+// MEMORY TRAINER V4 - الإصدار النهائي مع إصلاح الخيارات الخاطئة
 // ============================================
 
 class MemoryTrainer {
     constructor() {
         // البيانات الأساسية
-        this.questions = [];
+        this.questions = [];           // الجمل الصحيحة فقط (للتدريب)
+        this.allQuestions = [];        // جميع الجمل (صحيحة وخاطئة) - لتوليد الخيارات
         this.trainingQueue = [];
         this.wrongQuestions = [];
         this.currentIndex = 0;
         this.isActive = false;
         this.isReviewMode = false;
-        this.isFromList = false; // false = امتحان فردي, true = مرحلة
+        this.isFromList = false;
 
         // السؤال الحالي
         this.currentCorrectText = '';
@@ -38,7 +39,7 @@ class MemoryTrainer {
         this.LEVELS_KEY = 'memory_levels';
         this.MAX_LEVEL = 5;
         this.currentSkill = 'hoeren1';
-        this.currentExamId = 1; // يستخدم فقط في وضع الامتحان الفردي
+        this.currentExamId = 1;
     }
 
     // ============================================
@@ -76,22 +77,11 @@ class MemoryTrainer {
         } 
         // ✅ وضع الامتحان الفردي (من زر 🧠 داخل الامتحان)
         else {
-            // نستخدم بيانات الامتحان الحالي من window.currentExamData
             examData = window.currentExamData || window._currentExamData;
             if (examData) {
                 this.currentSkill = window.currentSkill || 'hoeren1';
                 this.currentExamId = window.currentExamId || 1;
                 console.log(`📖 تدريب من امتحان فردي: ${this.currentSkill} exam${this.currentExamId}`);
-                
-                // تحويل بيانات الامتحان إلى بنية موحدة
-                const rawQuestions = (examData.questions || []).map((q, idx) => ({
-                    text: q.text,
-                    correct: q.correct,
-                    examId: this.currentExamId,
-                    questionIndex: idx,
-                    originalQuestion: q
-                }));
-                this.questions = rawQuestions.filter(q => q.correct === true);
             } else {
                 this.showNotAvailable("لا توجد بيانات امتحان");
                 return;
@@ -103,10 +93,29 @@ class MemoryTrainer {
             return;
         }
 
-        // في وضع القائمة، البيانات جاهزة في examData.questions
+        // ✅ استخراج جميع الجمل (صحيحة وخاطئة) لتوليد الخيارات
+        let rawQuestions = [];
         if (this.isFromList) {
+            // في وضع القائمة، examData.allQuestions تحتوي على كل الجمل
+            rawQuestions = examData.allQuestions || [];
+            // لكن examData.questions تحتوي فقط على الصحيحة للتدريب
             this.questions = (examData.questions || []).filter(q => q.correct === true);
+        } else {
+            // في وضع الامتحان الفردي، نحول جميع الجمل إلى بنية موحدة
+            const examQuestions = examData.questions || [];
+            rawQuestions = examQuestions.map((q, idx) => ({
+                text: q.text,
+                correct: q.correct,
+                examId: this.currentExamId,
+                questionIndex: idx,
+                originalQuestion: q
+            }));
+            // نستخرج الصحيحة للتدريب
+            this.questions = rawQuestions.filter(q => q.correct === true);
         }
+
+        // ✅ تخزين جميع الجمل (صحيحة وخاطئة) لتوليد الخيارات
+        this.allQuestions = rawQuestions;
 
         if (this.questions.length === 0) {
             this.showNotAvailable("لا توجد إجابات صحيحة في هذا الامتحان");
@@ -272,46 +281,39 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // توليد الخيارات
+    // توليد الخيارات (مع إصلاح الخيارات الخاطئة)
     // ============================================
 
     generateOptions(correctText, currentQuestionObj) {
+        // الخيار الصحيح أولاً
         const options = [correctText];
-        let added = 0;
-        const WRONG_NEEDED = this.WRONG_OPTIONS;
 
-        // 1. من نفس الامتحان (جمل خاطئة)
-        const wrongFromSameExam = this.questions
-            .filter(q => q.correct === false || q.correct === undefined)
+        // ✅ جمع جميع الجمل الخاطئة من `this.allQuestions` (جميع الجمل)
+        // نستثني الجملة الصحيحة الحالية، ونتأكد من أن النص مختلف
+        const wrongTexts = this.allQuestions
+            .filter(q => q.text !== correctText)
             .map(q => q.text);
-        let shuffledSame = this.shuffleArray([...wrongFromSameExam]);
-        for (let i = 0; i < shuffledSame.length && added < WRONG_NEEDED; i++) {
-            const candidate = shuffledSame[i];
-            if (!options.includes(candidate) && candidate !== correctText) {
+
+        // إذا لم تكن هناك جمل خاطئة كافية (نادراً)، نستخدم مجموعة افتراضية
+        let shuffledWrong = this.shuffleArray([...wrongTexts]);
+
+        // نختار جملتين مختلفتين
+        let added = 0;
+        for (let i = 0; i < shuffledWrong.length && added < this.WRONG_OPTIONS; i++) {
+            const candidate = shuffledWrong[i];
+            if (!options.includes(candidate) && candidate.trim() !== '') {
                 options.push(candidate);
                 added++;
             }
         }
 
-        // 2. من البيانات العامة (إذا كانت متوفرة وفي وضع القائمة)
-        if (added < WRONG_NEEDED && this.isFromList) {
-            const combinedKey = `_${this.currentSkill}_combinedData`;
-            if (window[combinedKey]) {
-                const allWrong = window[combinedKey].wrongQuestions || [];
-                const shuffledAll = this.shuffleArray([...allWrong]);
-                for (let i = 0; i < shuffledAll.length && added < WRONG_NEEDED; i++) {
-                    const candidate = shuffledAll[i].text || shuffledAll[i];
-                    if (!options.includes(candidate) && candidate !== correctText) {
-                        options.push(candidate);
-                        added++;
-                    }
-                }
-            }
-        }
-
+        // ✅ في حال عدم وجود جمل خاطئة كافية (مثلاً امتحان يحتوي على جملة صحيحة واحدة فقط)
+        // نضيف نصوصاً مؤقتة ولكن مع تحذير (هذا نادر جداً)
         while (options.length < this.TOTAL_OPTIONS) {
+            console.warn('⚠️ لم يتم العثور على جمل خاطئة كافية، نضيف جملة وهمية مؤقتة');
             options.push(`جملة ${options.length + 1}`);
         }
+
         return this.shuffleArray(options);
     }
 
@@ -600,7 +602,6 @@ class MemoryTrainer {
             }
 
             if (isLastStage) {
-                // 🏆 نهاية الجزء بالكامل
                 html = `
                     <div class="memory-trainer-results final">
                         <div style="font-size:28px;text-align:center;margin-bottom:4px;">🏆</div>
@@ -618,7 +619,6 @@ class MemoryTrainer {
                     </div>
                 `;
             } else {
-                // 🎉 نهاية مرحلة (غير الأخيرة)
                 html = `
                     <div class="memory-trainer-results final">
                         <div style="font-size:28px;text-align:center;margin-bottom:4px;">🎉</div>
@@ -697,6 +697,7 @@ class MemoryTrainer {
         this.card = null;
         this.isCardReady = false;
         this.questions = [];
+        this.allQuestions = [];
         this.trainingQueue = [];
         this.wrongQuestions = [];
         this.currentIndex = 0;
@@ -736,4 +737,4 @@ window.startMemoryTrainerFromList = (skill = 'hoeren1') => {
 // ✅ للتوافق مع الإصدارات القديمة
 window.startMemoryTrainer = window.startMemoryTrainerForExam;
 
-console.log('🧠 Memory Trainer V4 (وضعان منفصلان: امتحان فردي / مرحلة) تم تحميله');
+console.log('🧠 Memory Trainer V4 (إصلاح الخيارات الخاطئة) تم تحميله');
