@@ -34,7 +34,6 @@ class MemoryTrainer {
         this.timer = null;
         this.isAnswered = false;
         this.isCardReady = false;
-        this._documentClickHandler = null; // ✅ مستمع حدث المستند
         
         // الإعدادات
         this.TOTAL_OPTIONS = 3;
@@ -133,17 +132,9 @@ class MemoryTrainer {
         }
         this.overlay = document.createElement('div');
         this.overlay.className = 'memory-trainer-overlay';
-        document.body.appendChild(this.overlay);
-
-        // ✅ مستمع الحدث على المستند كله
-        this._documentClickHandler = (e) => {
-            if (!this.overlay) return;
-            
-            // الحصول على حاوية البطاقة
-            const cardContainer = this.overlay.querySelector('.memory-trainer-card-container');
-            // إذا لم توجد بطاقة، أو كان النقر خارجها
-            if (!cardContainer || !cardContainer.contains(e.target)) {
-                // النقر خارج البطاقة
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+                // ✅ إذا كانت آخر جملة، نعرض النتائج بدلاً من الإغلاق
                 if (this.currentIndex >= this.trainingQueue.length && this.isActive) {
                     const hasWrong = this.wrongQuestions.length > 0;
                     if (hasWrong) {
@@ -155,8 +146,8 @@ class MemoryTrainer {
                 }
                 this.close();
             }
-        };
-        document.addEventListener('click', this._documentClickHandler);
+        });
+        document.body.appendChild(this.overlay);
     }
 
     createCardStructure() {
@@ -709,9 +700,9 @@ class MemoryTrainer {
         
         this.updateCard(`
             <div class="memory-trainer-results final">
-                <div class="memory-trainer-icon" style="font-size: 28px; display: block; margin-bottom: 4px;">🧩</div>
-                <h2 style="color: #1565C0; font-size: 18px; font-weight: 600; margin-bottom: 4px;">اكتمل الاستدعاء</h2>
-                <p style="font-size: 14px; color: #64748B; margin-bottom: 14px; font-weight: 400;">
+                <div style="font-size: 28px; text-align: center; margin-bottom: 4px;">🧩</div>
+                <h2 style="color: #1565C0; font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px;">اكتمل الاستدعاء</h2>
+                <p style="font-size: 14px; color: #64748B; text-align: center; margin-bottom: 14px; font-weight: 400;">
                     أنت تبني ذاكرة قوية يومًا بعد يوم.
                 </p>
                 
@@ -736,6 +727,8 @@ class MemoryTrainer {
                     background: #1565C0;
                     color: white;
                     box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
+                    display: block;
+                    width: 100%;
                 ">
                     ➡️ العودة للامتحان
                 </button>
@@ -776,12 +769,6 @@ class MemoryTrainer {
 
     close() {
         this.clearTimer();
-        
-        // ✅ إزالة مستمع الحدث
-        if (this._documentClickHandler) {
-            document.removeEventListener('click', this._documentClickHandler);
-            this._documentClickHandler = null;
-        }
         
         // ✅ إذا كانت آخر جملة ولم يتم عرض النتائج بعد
         const isLastQuestion = this.currentIndex >= this.trainingQueue.length;
