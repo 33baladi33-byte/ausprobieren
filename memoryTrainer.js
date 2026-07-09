@@ -569,7 +569,7 @@ if (/^a[\.\)]\s*/.test(optionText)) {
     optionText = optionText.replace(/^a[\.\)]\s*/, '');
 }
 // بناء النص مع سطر جديد ومسافة بادئة (4 مسافات) قبل a.
-const displayText = `${this.currentIndex + 1}:${textToShow}:\n\n    a. ${optionText}`;
+const displayText = `${this.currentIndex + 1}:${textToShow}:\n\n        a. ${optionText}`;
 
     cardContent = `
         <div class="memory-trainer-card" style="
