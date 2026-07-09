@@ -1485,9 +1485,9 @@ if (memoryBtn) {
     if (currentSkill && SKILL_CONFIG[currentSkill]) {
         memoryBtn.style.display = 'inline-flex';
         memoryBtn.onclick = function() {
-            // ✅ استدعاء دالة الامتحان الفردي (وليس القائمة)
+            // ✅ استدعاء دالة الامتحان الفردي (وليس القائمة) مع تمرير المهارة الحالية
             if (window.startMemoryTrainerForExam) {
-                window.startMemoryTrainerForExam();
+                window.startMemoryTrainerForExam(currentSkill);
             } else {
                 alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
             }
@@ -1721,8 +1721,9 @@ renderTeileList();
 const SKILL_CONFIG = {
     hoeren1: { totalExams: 45, examsPerStage: 15, totalSentences: 108 },
     hoeren2: { totalExams: 55, examsPerStage: 15, totalSentences: 273 },
-    hoeren3: { totalExams: 48, examsPerStage: 15, totalSentences: 105 }
-    // يمكن إضافة lesen1, sprach1, ... بنفس الطريقة
+    hoeren3: { totalExams: 48, examsPerStage: 15, totalSentences: 105 },
+    lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 } // ✅ تمت الإضافة
+    // يمكن إضافة lesen2, lesen3, sprach1, ... بنفس الطريقة
 };
 
 // ✅ دوال المراحل العامة (تعمل مع أي مهارة)
@@ -2016,6 +2017,20 @@ window.startMemoryTrainerFromList = function(skill = 'hoeren1') {
 };
 
 // ============================================
+// دالة تشغيل Memory Trainer لامتحان فردي (تُستدعى من زر 🧠 داخل الامتحان)
+// ============================================
+
+window.startMemoryTrainerForExam = function(skill) {
+    if (window.memoryTrainer) {
+        window.memoryTrainer.currentSkill = skill || window.currentSkill || 'hoeren1';
+        window.memoryTrainer.currentExamId = window.currentExamId || 1;
+        window.memoryTrainer.start('single');
+    } else {
+        alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
+    }
+};
+
+// ============================================
 // تحميل جميع المهارات المدعومة عند بدء التشغيل
 // ============================================
 
@@ -2047,6 +2062,7 @@ window.loadStageExams = loadStageExams;
 window.goToNextStage = goToNextStage;
 window.resetStages = resetStages;
 window.startMemoryTrainerFromList = startMemoryTrainerFromList;
+window.startMemoryTrainerForExam = startMemoryTrainerForExam;
 
 console.log('🧠 نظام التقدم المتوازن (المراحل لكل مهارة) تم تحميله بنجاح');
 console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));
