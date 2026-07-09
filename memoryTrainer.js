@@ -601,92 +601,76 @@ class MemoryTrainer {
         `);
     }
 
-    // ============================================
-    // التصحيح (مع تحديث المستوى)
-    // ============================================
 
-    checkAnswer(selectedIndex) {
-        if (this.isAnswered) return;
-        this.isAnswered = true;
-        this.attempts++;
+// ============================================
+// التصحيح (مع تحديث المستوى) - نسخة بدون نص إضافي
+// ============================================
 
-        const selectedText = this.currentOptions[selectedIndex];
-        let isCorrect = false;
+checkAnswer(selectedIndex) {
+    if (this.isAnswered) return;
+    this.isAnswered = true;
+    this.attempts++;
 
-        if (this.examType === 'matching') {
-            const correctIndex = this.currentQuestionObj.correct;
-            const correctOption = this.sharedOptions[correctIndex];
-            isCorrect = (selectedText === correctOption);
-        } else {
-            isCorrect = (selectedText === this.currentCorrectText);
+    const selectedText = this.currentOptions[selectedIndex];
+    let isCorrect = false;
+
+    if (this.examType === 'matching') {
+        const correctIndex = this.currentQuestionObj.correct;
+        const correctOption = this.sharedOptions[correctIndex];
+        isCorrect = (selectedText === correctOption);
+    } else {
+        isCorrect = (selectedText === this.currentCorrectText);
+    }
+
+    const skill = this.currentSkill;
+    const examId = this.currentExamId;
+    const qIndex = this.currentQuestionIndex;
+    const sentenceId = this.buildSentenceId(skill, examId, qIndex);
+
+    const allOptions = document.querySelectorAll('.memory-trainer-option');
+    const feedback = document.getElementById('memory-trainer-feedback');
+
+    allOptions.forEach(btn => { btn.disabled = true; btn.style.opacity = '0.7'; btn.style.cursor = 'default'; });
+
+    if (isCorrect) {
+        this.correctAttempts++;
+        this.increaseLevel(sentenceId);
+        allOptions[selectedIndex].style.borderColor = '#28a745';
+        allOptions[selectedIndex].style.backgroundColor = '#d4edda';
+        feedback.innerHTML = `<button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">التالي →</button>`;
+    } else {
+        this.decreaseLevel(sentenceId);
+        if (!this.wrongQuestions.includes(this.currentQuestionObj)) {
+            this.wrongQuestions.push(this.currentQuestionObj);
         }
-
-        const skill = this.currentSkill;
-        const examId = this.currentExamId;
-        const qIndex = this.currentQuestionIndex;
-        const sentenceId = this.buildSentenceId(skill, examId, qIndex);
-
-        const allOptions = document.querySelectorAll('.memory-trainer-option');
-        const feedback = document.getElementById('memory-trainer-feedback');
-
-        allOptions.forEach(btn => { btn.disabled = true; btn.style.opacity = '0.7'; btn.style.cursor = 'default'; });
-
+        allOptions[selectedIndex].style.borderColor = '#e67e22';
+        allOptions[selectedIndex].style.backgroundColor = '#fef0e0';
+        // عرض الإجابة الصحيحة (باللون الأخضر فقط)
         let correctText = '';
-        let titlePrefix = '';
-        let titleWithoutPrefix = '';
-
         if (this.examType === 'matching') {
             const correctIndex = this.currentQuestionObj.correct;
             correctText = this.sharedOptions[correctIndex];
-            titlePrefix = correctText.match(/^[a-z]\.\s*/) ? correctText.match(/^[a-z]\.\s*/)[0] : '';
-            titleWithoutPrefix = correctText.replace(/^[a-z]\.\s*/, '');
         } else {
             correctText = this.currentCorrectText;
         }
-
-        if (isCorrect) {
-            this.correctAttempts++;
-            this.increaseLevel(sentenceId);
-            allOptions[selectedIndex].style.borderColor = '#28a745';
-            allOptions[selectedIndex].style.backgroundColor = '#d4edda';
-            feedback.innerHTML = `
-                <div style="margin-top:12px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-                    <span style="font-size:15px; font-weight:500; color:#1a5a1a;">
-                        ✅ ${titlePrefix}${titleWithoutPrefix}
-                    </span>
-                    <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()" style="padding:6px 16px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:#28a745; color:white;">التالي →</button>
-                </div>
-            `;
-        } else {
-            this.decreaseLevel(sentenceId);
-            if (!this.wrongQuestions.includes(this.currentQuestionObj)) {
-                this.wrongQuestions.push(this.currentQuestionObj);
+        allOptions.forEach((btn, idx) => {
+            if (this.currentOptions[idx] === correctText) {
+                btn.style.borderColor = '#28a745';
+                btn.style.backgroundColor = '#d4edda';
             }
-            allOptions[selectedIndex].style.borderColor = '#e67e22';
-            allOptions[selectedIndex].style.backgroundColor = '#fef0e0';
-            allOptions.forEach((btn, idx) => {
-                if (this.currentOptions[idx] === correctText) {
-                    btn.style.borderColor = '#28a745';
-                    btn.style.backgroundColor = '#d4edda';
-                }
-            });
-            feedback.innerHTML = `
-                <div style="margin-top:12px; display:flex; flex-direction:column; gap:10px;">
-                    <span style="font-size:15px; font-weight:500; color:#b85a00;">
-                        ✅ الإجابة الصحيحة: <strong style="color:#1a5a1a;">${titlePrefix}${titleWithoutPrefix}</strong>
-                    </span>
-                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                        <button class="memory-trainer-btn secondary small" onclick="window.memoryTrainer.retryQuestion()" style="padding:6px 16px; border:2px solid #e67e22; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:white; color:#e67e22;">🔄 إعادة المحاولة</button>
-                        <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()" style="padding:6px 16px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:#1565C0; color:white;">التالي →</button>
-                    </div>
-                </div>
-            `;
-        }
-
-        if (this.isFromList) {
-            this.updateProgressBar();
-        }
+        });
+        feedback.innerHTML = `
+            <div style="display:flex;gap:10px;justify-content:center;margin-top:8px;">
+                <button class="memory-trainer-btn secondary small" onclick="window.memoryTrainer.retryQuestion()">🔄 إعادة المحاولة</button>
+                <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">التالي →</button>
+            </div>
+        `;
     }
+
+    if (this.isFromList) {
+        this.updateProgressBar();
+    }
+}
 
     // ============================================
     // تحديث شريط التقدم
