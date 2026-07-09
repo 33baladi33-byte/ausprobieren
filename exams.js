@@ -1477,24 +1477,25 @@ function updateExamNavButtons() {
         nextBtn.style.display = "none";
     }
     
-    // ============================================
-    // ✅ إظهار زر Memory Trainer
-    // ============================================
-    if (memoryBtn) {
-        // دعم Hören 1,2,3
-        if (currentSkill && SKILL_CONFIG[currentSkill]) {
-            memoryBtn.style.display = 'inline-flex';
-            memoryBtn.onclick = function() {
-                if (window.startMemoryTrainerFromList) {
-                    window.startMemoryTrainerFromList(currentSkill);
-                } else {
-                    alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
-                }
-            };
-        } else {
-            memoryBtn.style.display = 'none';
-        }
+// ============================================
+// ✅ إظهار زر Memory Trainer داخل الامتحان
+// ============================================
+if (memoryBtn) {
+    // ✅ دعم جميع المهارات التي لها إعدادات مراحل
+    if (currentSkill && SKILL_CONFIG[currentSkill]) {
+        memoryBtn.style.display = 'inline-flex';
+        memoryBtn.onclick = function() {
+            // ✅ استدعاء دالة الامتحان الفردي (وليس القائمة)
+            if (window.startMemoryTrainerForExam) {
+                window.startMemoryTrainerForExam();
+            } else {
+                alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
+            }
+        };
+    } else {
+        memoryBtn.style.display = 'none';
     }
+}
     
     setupLockedNextButton();
 }
