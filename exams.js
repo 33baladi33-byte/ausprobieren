@@ -1901,12 +1901,13 @@ window.loadStageExams = async function(skill) {
                 const questions = data.questions || [];
                 questions.forEach((q, idx) => {
                     const entry = {
-                        text: q.text,
-                        correct: q.correct,
-                        examId: examId,
-                        questionIndex: idx,
-                        originalQuestion: q
-                    };
+    text: q.text,
+    correct: q.correct,
+    options: q.options || [],   // ✅ إضافة الخيارات لـ Lesen 2
+    examId: examId,
+    questionIndex: idx,
+    originalQuestion: q
+};
                     allQuestions.push(entry);
                     
                     // ✅ إذا كانت المهارة lesen1 أو lesen2، كل الأسئلة صالحة للتدريب
