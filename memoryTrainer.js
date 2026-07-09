@@ -5,20 +5,20 @@
 class MemoryTrainer {
     constructor() {
         // البيانات الأساسية
-        this.questions = [];           // الجمل الصحيحة فقط (للتدريب) - أو كل الجمل في حالة lesen1
-        this.allQuestions = [];        // جميع الجمل (صحيحة وخاطئة) - لتوليد الخيارات (Hören)
-        this.sharedOptions = [];       // العناوين المشتركة (Lesen 1)
+        this.questions = [];
+        this.allQuestions = [];
+        this.sharedOptions = [];
         this.trainingQueue = [];
         this.wrongQuestions = [];
         this.currentIndex = 0;
         this.isActive = false;
         this.isReviewMode = false;
         this.isFromList = false;
-        this.examType = 'hoeren';      // 'hoeren' أو 'matching' (Lesen 1)
+        this.examType = 'hoeren';
 
         // السؤال الحالي
         this.currentCorrectText = '';
-        this.currentCorrectIndex = -1; // للـ Lesen 1 (فهرس في sharedOptions)
+        this.currentCorrectIndex = -1;
         this.currentOptions = [];
         this.currentQuestionIndex = 0;
         this.currentExamId = 1;
@@ -56,7 +56,6 @@ class MemoryTrainer {
         this.isFromList = false;
         this.sharedOptions = [];
 
-        // ✅ وضع قائمة المراحل (من زر القائمة)
         if (mode === 'list') {
             const combinedKey = `_${this.currentSkill}_combinedData`;
             if (window[combinedKey]) {
@@ -67,7 +66,6 @@ class MemoryTrainer {
                 if (examData.sharedOptions) {
                     this.sharedOptions = examData.sharedOptions;
                 }
-                // ✅ تحديد نوع الامتحان
                 this.examType = examData.examType || 'hoeren';
                 if (this.currentSkill === 'lesen1') {
                     this.examType = 'matching';
@@ -88,7 +86,6 @@ class MemoryTrainer {
                 }
             }
         } 
-        // ✅ وضع الامتحان الفردي (من زر 🧠 داخل الامتحان)
         else {
             examData = window.currentExamData || window._currentExamData;
             if (examData) {
@@ -113,13 +110,11 @@ class MemoryTrainer {
             return;
         }
 
-        // ✅ استخراج جميع الجمل
         let rawQuestions = [];
         if (this.isFromList) {
             rawQuestions = examData.allQuestions || [];
-            // ✅ معالجة خاصة لـ lesen1: كل الجمل صالحة للتدريب
             if (this.currentSkill === 'lesen1') {
-                this.questions = rawQuestions; // جميع الجمل
+                this.questions = rawQuestions;
             } else {
                 this.questions = rawQuestions.filter(q => q.correct === true);
             }
@@ -132,9 +127,8 @@ class MemoryTrainer {
                 questionIndex: idx,
                 originalQuestion: q
             }));
-            // ✅ معالجة خاصة لـ lesen1: كل الجمل صالحة للتدريب
             if (this.currentSkill === 'lesen1') {
-                this.questions = rawQuestions; // جميع الجمل
+                this.questions = rawQuestions;
             } else {
                 this.questions = rawQuestions.filter(q => q.correct === true);
             }
@@ -142,13 +136,7 @@ class MemoryTrainer {
 
         this.allQuestions = rawQuestions;
 
-        // ✅ إذا كانت المهارة lesen1 ولم نجد sharedOptions، نحاول استخراجها من البيانات
         if (this.currentSkill === 'lesen1' && this.sharedOptions.length === 0 && rawQuestions.length > 0) {
-            // محاولة استخراج sharedOptions من originalQuestion إن وجدت
-            const firstQ = rawQuestions[0];
-            if (firstQ.originalQuestion && firstQ.originalQuestion.options) {
-                // بعض الامتحانات قد تحتوي على options مباشرة
-            }
             console.warn('⚠️ لم يتم العثور على sharedOptions لـ lesen1، قد لا تعمل الخيارات بشكل صحيح.');
         }
 
@@ -370,7 +358,7 @@ class MemoryTrainer {
                 <div class="memory-trainer-icon">🧩</div>
                 <h2>استدعاء ذكي</h2>
                 <p style="font-size:14px;color:#334155;margin:6px 0 2px 0;">تدريب ${examLabel}.</p>
-                <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">سترى النص مرة واحدة، ثم سنطلب منك اختيار العنوان الصحيح (Lesen 1).</p>
+                <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">سترى النص مرة واحدة، ثم سنطلب منك اختيار العنوان الصحيح.</p>
                 <div style="margin:4px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:4px 10px;">
                     <div style="display:flex;align-items:center;gap:10px;">
                         <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
@@ -437,45 +425,26 @@ class MemoryTrainer {
 
         // ✅ عرض النص حسب النوع
         let displayContent = '';
-        let correctTitleHtml = '';
 
         if (this.examType === 'matching') {
-            // ✅ Lesen 1: عرض النص مع ارتفاع محدود (20-30%) + العنوان الصحيح في الأسفل
-            const correctIndex = this.currentQuestionObj.correct;
-            const correctTitle = this.sharedOptions[correctIndex] || '';
-            // استخراج الحرف الأول من العنوان (a., b., ...) إن وجد
-            const titlePrefix = correctTitle.match(/^[a-z]\.\s*/) ? correctTitle.match(/^[a-z]\.\s*/)[0] : '';
-            const titleWithoutPrefix = correctTitle.replace(/^[a-z]\.\s*/, '');
-
+            // ✅ Lesen 1: عرض النص في صندوق أفقي مع تمرير (بدون العنوان الصحيح)
             displayContent = `
                 <div style="
                     font-size: 15px;
-                    line-height: 1.8;
+                    line-height: 1.9;
                     text-align: right;
-                    max-height: 120px;
+                    max-height: 180px;
                     overflow-y: auto;
-                    padding: 8px 12px;
+                    padding: 12px 16px;
                     background: #f8fafc;
-                    border-radius: 8px;
-                    border: 1px solid #e8ecf0;
+                    border-radius: 10px;
+                    border: 1px solid #e2e8f0;
                     width: 100%;
                     box-sizing: border-box;
                     direction: rtl;
+                    color: #1a202c;
                 ">
                     ${textToShow}
-                </div>
-                <div style="
-                    margin-top: 12px;
-                    padding: 8px 12px;
-                    background: #e8f5e9;
-                    border-radius: 8px;
-                    border-right: 4px solid #28a745;
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: #1a5a1a;
-                    direction: rtl;
-                ">
-                    ✅ <strong>${titlePrefix}${titleWithoutPrefix}</strong>
                 </div>
             `;
         } else {
@@ -540,7 +509,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // التصحيح (مع تحديث المستوى) - عرض الإجابة الصحيحة بشكل أنيق لـ Lesen 1
+    // التصحيح (مع تحديث المستوى) - عرض الإجابة الصحيحة كنص عادي
     // ============================================
 
     checkAnswer(selectedIndex) {
@@ -569,7 +538,6 @@ class MemoryTrainer {
 
         allOptions.forEach(btn => { btn.disabled = true; btn.style.opacity = '0.7'; btn.style.cursor = 'default'; });
 
-        // ✅ عرض الإجابة الصحيحة بشكل أنيق لـ Lesen 1
         let correctText = '';
         if (this.examType === 'matching') {
             const correctIndex = this.currentQuestionObj.correct;
@@ -588,13 +556,11 @@ class MemoryTrainer {
             allOptions[selectedIndex].style.borderColor = '#28a745';
             allOptions[selectedIndex].style.backgroundColor = '#d4edda';
             feedback.innerHTML = `
-                <div style="margin-top:12px; padding:10px 14px; background:#e8f5e9; border-radius:8px; border-right:4px solid #28a745;">
-                    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-                        <span style="font-size:15px; font-weight:500; color:#1a5a1a;">
-                            ✅ <strong>${titlePrefix}${titleWithoutPrefix}</strong>
-                        </span>
-                        <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()" style="padding:6px 16px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:#28a745; color:white;">التالي →</button>
-                    </div>
+                <div style="margin-top:12px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+                    <span style="font-size:15px; font-weight:500; color:#1a5a1a;">
+                        ✅ ${titlePrefix}${titleWithoutPrefix}
+                    </span>
+                    <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()" style="padding:6px 16px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:#28a745; color:white;">التالي →</button>
                 </div>
             `;
         } else {
@@ -611,10 +577,10 @@ class MemoryTrainer {
                 }
             });
             feedback.innerHTML = `
-                <div style="margin-top:12px; padding:10px 14px; background:#fff5f0; border-radius:8px; border-right:4px solid #e67e22;">
-                    <div style="margin-bottom:10px; font-size:15px; font-weight:500; color:#b85a00;">
+                <div style="margin-top:12px; display:flex; flex-direction:column; gap:10px;">
+                    <span style="font-size:15px; font-weight:500; color:#b85a00;">
                         ✅ الإجابة الصحيحة: <strong style="color:#1a5a1a;">${titlePrefix}${titleWithoutPrefix}</strong>
-                    </div>
+                    </span>
                     <div style="display:flex; gap:10px; flex-wrap:wrap;">
                         <button class="memory-trainer-btn secondary small" onclick="window.memoryTrainer.retryQuestion()" style="padding:6px 16px; border:2px solid #e67e22; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:white; color:#e67e22;">🔄 إعادة المحاولة</button>
                         <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()" style="padding:6px 16px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:#1565C0; color:white;">التالي →</button>
