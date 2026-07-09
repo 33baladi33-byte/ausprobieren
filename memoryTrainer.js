@@ -1,6 +1,5 @@
 // ============================================
-// MEMORY TRAINER V4 - الإصدار النهائي المتوافق مع نظام المراحل المتعددة
-// يدعم Hören 1,2,3 (ويمكن إضافة المزيد) مع معرفات ثابتة
+// MEMORY TRAINER V4 - وضعان منفصلان (امتحان فردي / مرحلة)
 // ============================================
 
 class MemoryTrainer {
@@ -12,7 +11,7 @@ class MemoryTrainer {
         this.currentIndex = 0;
         this.isActive = false;
         this.isReviewMode = false;
-        this.isFromList = false;
+        this.isFromList = false; // false = امتحان فردي, true = مرحلة
 
         // السؤال الحالي
         this.currentCorrectText = '';
@@ -38,7 +37,8 @@ class MemoryTrainer {
         this.WRONG_OPTIONS = 2;
         this.LEVELS_KEY = 'memory_levels';
         this.MAX_LEVEL = 5;
-        this.currentSkill = 'hoeren1'; // المهارة الحالية (يتم تعيينها عند البدء)
+        this.currentSkill = 'hoeren1';
+        this.currentExamId = 1; // يستخدم فقط في وضع الامتحان الفردي
     }
 
     // ============================================
@@ -46,39 +46,56 @@ class MemoryTrainer {
     // ============================================
 
     start(mode = 'single') {
-        console.log(`🧠 بدء Memory Trainer V4 (المهارة: ${this.currentSkill})...`);
+        console.log(`🧠 بدء Memory Trainer V4 (المهارة: ${this.currentSkill}, الوضع: ${mode})...`);
 
         let examData = null;
         this.isFromList = false;
 
+        // ✅ وضع قائمة المراحل (من زر القائمة)
         if (mode === 'list') {
-            // ✅ استخدام البيانات المخزنة حسب المهارة الحالية
             const combinedKey = `_${this.currentSkill}_combinedData`;
             if (window[combinedKey]) {
                 examData = window[combinedKey];
                 this.isFromList = true;
-                console.log(`📚 تدريب من قائمة ${this.currentSkill} (بيانات مدمجة)`);
+                console.log(`📚 تدريب من قائمة ${this.currentSkill} (المرحلة ${examData.currentStage || 1})`);
             } else {
-                // محاولة تحميل البيانات أولاً
                 if (typeof window.loadStageExams === 'function') {
                     window.loadStageExams(this.currentSkill).then(() => {
                         if (window[combinedKey]) {
                             this.start(mode);
                         } else {
-                            this.showNotAvailable(`لم يتم تحميل بيانات ${this.currentSkill} بعد، حاول مرة أخرى.`);
+                            this.showNotAvailable(`لم يتم تحميل بيانات ${this.currentSkill} بعد`);
                         }
                     });
                     return;
                 } else {
-                    this.showNotAvailable(`لم يتم تحميل بيانات ${this.currentSkill} بعد، حاول مرة أخرى.`);
+                    this.showNotAvailable(`لم يتم تحميل بيانات ${this.currentSkill} بعد`);
                     return;
                 }
             }
-        } else {
-            // وضع امتحان فردي
+        } 
+        // ✅ وضع الامتحان الفردي (من زر 🧠 داخل الامتحان)
+        else {
+            // نستخدم بيانات الامتحان الحالي من window.currentExamData
             examData = window.currentExamData || window._currentExamData;
-            this.currentSkill = window.currentSkill || 'hoeren1';
-            console.log('📖 تدريب من امتحان واحد');
+            if (examData) {
+                this.currentSkill = window.currentSkill || 'hoeren1';
+                this.currentExamId = window.currentExamId || 1;
+                console.log(`📖 تدريب من امتحان فردي: ${this.currentSkill} exam${this.currentExamId}`);
+                
+                // تحويل بيانات الامتحان إلى بنية موحدة
+                const rawQuestions = (examData.questions || []).map((q, idx) => ({
+                    text: q.text,
+                    correct: q.correct,
+                    examId: this.currentExamId,
+                    questionIndex: idx,
+                    originalQuestion: q
+                }));
+                this.questions = rawQuestions.filter(q => q.correct === true);
+            } else {
+                this.showNotAvailable("لا توجد بيانات امتحان");
+                return;
+            }
         }
 
         if (!examData) {
@@ -86,22 +103,10 @@ class MemoryTrainer {
             return;
         }
 
-        // تحويل البيانات إلى بنية موحدة (كائنات تحتوي على examId و questionIndex)
-        let rawQuestions = examData.questions || [];
-        if (!this.isFromList) {
-            // وضع امتحان فردي: نضيف examId و questionIndex
-            rawQuestions = rawQuestions.map((q, idx) => ({
-                text: q.text,
-                correct: q.correct,
-                examId: window.currentExamId || 1,
-                questionIndex: idx,
-                originalQuestion: q
-            }));
+        // في وضع القائمة، البيانات جاهزة في examData.questions
+        if (this.isFromList) {
+            this.questions = (examData.questions || []).filter(q => q.correct === true);
         }
-        // في وضع القائمة، البيانات جاهزة بالفعل (من exams.js)
-
-        // استخراج الجمل الصحيحة فقط للتدريب
-        this.questions = rawQuestions.filter(q => q.correct === true);
 
         if (this.questions.length === 0) {
             this.showNotAvailable("لا توجد إجابات صحيحة في هذا الامتحان");
@@ -188,7 +193,7 @@ class MemoryTrainer {
             repeatItems.push(shuffled[i]);
         }
         this.trainingQueue = this.shuffleArray([...baseQueue, ...repeatItems]);
-        console.log(`📊 قائمة التدريب: ${this.trainingQueue.length} جملة`);
+        console.log(`📊 قائمة التدريب: ${this.trainingQueue.length} جملة (${this.isFromList ? 'مرحلة' : 'امتحان فردي'})`);
     }
 
     // ============================================
@@ -233,13 +238,11 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // دوال حساب النسب (تستخدم دوال exams.js إن وجدت)
+    // دوال حساب النسب
     // ============================================
 
-    // نسبة امتحان واحد
     getExamProgress(skill, examId) {
         if (window.getExamProgress) return window.getExamProgress(skill, examId);
-        // Fallback محلي
         const prefix = `${skill}_exam${examId}_`;
         const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
         let totalLevels = 0, count = 0;
@@ -250,57 +253,26 @@ class MemoryTrainer {
         return Math.min(100, Math.round((totalLevels / (count * this.MAX_LEVEL)) * 100));
     }
 
-    // النسبة العامة للجزء (تعتمد على المراحل)
     getOverallProgressForSkill(skill) {
         if (window.getOverallProgress) {
-            // الدالة الجديدة تأخذ skill كوسيط
             if (window.getOverallProgress.length === 1) {
                 return window.getOverallProgress(skill);
             } else {
-                // للتوافق مع الإصدارات القديمة (بدون وسيط)
                 return window.getOverallProgress();
             }
         }
-        // Fallback محلي (يعمل فقط لـ hoeren1)
-        const data = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
-        let totalLevels = 0, count = 0;
-        for (const key in data) {
-            if (key.startsWith(`${skill}_exam`)) {
-                totalLevels += data[key];
-                count++;
-            }
-        }
-        // نستخدم إجمالي الجمل المحفوظة، ولكننا لا نعرف العدد الإجمالي هنا، لذا نرجع 0
         return 0;
     }
 
-    // نسبة المرحلة الحالية
     getStageProgressForSkill(skill) {
         if (window.getStageProgress) {
             return window.getStageProgress(skill);
-        }
-        // Fallback: نحاول الحصول على examIds من البيانات المحملة
-        const combinedKey = `_${skill}_combinedData`;
-        if (window[combinedKey]) {
-            const data = window[combinedKey];
-            const examIds = data.examIds || [];
-            if (examIds.length === 0) return 0;
-            let totalLevels = 0, count = 0;
-            const storage = JSON.parse(localStorage.getItem(this.LEVELS_KEY) || '{}');
-            for (const examId of examIds) {
-                const prefix = `${skill}_exam${examId}_`;
-                for (const key in storage) {
-                    if (key.startsWith(prefix)) { totalLevels += storage[key]; count++; }
-                }
-            }
-            if (count === 0) return 0;
-            return Math.min(100, Math.round((totalLevels / (count * this.MAX_LEVEL)) * 100));
         }
         return 0;
     }
 
     // ============================================
-    // توليد الخيارات (من الجمل الخاطئة)
+    // توليد الخيارات
     // ============================================
 
     generateOptions(correctText, currentQuestionObj) {
@@ -321,21 +293,22 @@ class MemoryTrainer {
             }
         }
 
-        // 2. من البيانات العامة (إذا كانت متوفرة)
-        const combinedKey = `_${this.currentSkill}_combinedData`;
-        if (added < WRONG_NEEDED && window[combinedKey]) {
-            const allWrong = window[combinedKey].wrongQuestions || [];
-            const shuffledAll = this.shuffleArray([...allWrong]);
-            for (let i = 0; i < shuffledAll.length && added < WRONG_NEEDED; i++) {
-                const candidate = shuffledAll[i].text || shuffledAll[i];
-                if (!options.includes(candidate) && candidate !== correctText) {
-                    options.push(candidate);
-                    added++;
+        // 2. من البيانات العامة (إذا كانت متوفرة وفي وضع القائمة)
+        if (added < WRONG_NEEDED && this.isFromList) {
+            const combinedKey = `_${this.currentSkill}_combinedData`;
+            if (window[combinedKey]) {
+                const allWrong = window[combinedKey].wrongQuestions || [];
+                const shuffledAll = this.shuffleArray([...allWrong]);
+                for (let i = 0; i < shuffledAll.length && added < WRONG_NEEDED; i++) {
+                    const candidate = shuffledAll[i].text || shuffledAll[i];
+                    if (!options.includes(candidate) && candidate !== correctText) {
+                        options.push(candidate);
+                        added++;
+                    }
                 }
             }
         }
 
-        // 3. ملء فراغات (نادراً ما يحدث)
         while (options.length < this.TOTAL_OPTIONS) {
             options.push(`جملة ${options.length + 1}`);
         }
@@ -347,22 +320,29 @@ class MemoryTrainer {
     // ============================================
 
     showIntroCardSingle() {
+        const examPercent = this.getExamProgress(this.currentSkill, this.currentExamId);
         this.updateCard(`
             <div class="memory-trainer-intro">
                 <div class="memory-trainer-icon">🧩</div>
                 <h2>استدعاء ذكي</h2>
-                <p style="font-size:14px;color:#334155;margin:6px 0 2px 0;">سنعيد الآن تثبيت المعلومات بطريقة يستخدمها أبطال الذاكرة.</p>
+                <p style="font-size:14px;color:#334155;margin:6px 0 2px 0;">تدريب امتحان ${this.currentExamId} فقط.</p>
                 <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">سترى الإجابة مرة واحدة فقط، ثم سنطلب منك استرجاعها بنفسك.</p>
+                <div style="margin:4px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:4px 10px;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
+                            <div style="width:${examPercent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
+                        </div>
+                        <span style="font-size:12px;font-weight:600;color:#1565C0;">${examPercent}%</span>
+                    </div>
+                </div>
                 <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.showMemoryCard()">ابدأ</button>
             </div>
         `);
     }
 
     showIntroCardList() {
-        // استخدام الدالة العامة للحصول على النسبة
         const percent = this.getOverallProgressForSkill(this.currentSkill);
         const total = this.trainingQueue.length;
-        // الحصول على معلومات المرحلة
         let currentStage = 1, totalStages = 1;
         if (window.getCurrentStage && window.getTotalStages) {
             currentStage = window.getCurrentStage(this.currentSkill);
@@ -372,12 +352,12 @@ class MemoryTrainer {
             <div class="memory-trainer-intro">
                 <div class="memory-trainer-icon">🧩</div>
                 <h2>استدعاء متقدم</h2>
-                <p style="font-size:14px;color:#334155;margin:4px 0 2px 0;">تدريب استدعاء متقدم لجميع امتحانات ${this.currentSkill}.</p>
+                <p style="font-size:14px;color:#334155;margin:4px 0 2px 0;">تدريب المرحلة ${currentStage} من ${this.currentSkill}.</p>
                 <p style="font-size:13px;color:#64748B;margin:2px 0 12px 0;">كلما تدربت أكثر، أصبح النظام أكثر ذكاءً في اختيار الجمل المناسبة لك.</p>
                 <div style="margin:10px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;text-align:left;">
                     <div style="display:flex;align-items:center;gap:10px;">
                         <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
-                            <div style="width:${percent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;transition:width 0.3s ease;"></div>
+                            <div style="width:${percent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
                         </div>
                         <span style="font-size:13px;font-weight:600;color:#1565C0;min-width:40px;text-align:right;">${percent}%</span>
                     </div>
@@ -558,7 +538,7 @@ class MemoryTrainer {
                 <div style="margin:8px 0 12px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;">
                     <div style="display:flex;align-items:center;gap:10px;">
                         <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
-                            <div style="width:${overallPercent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;transition:width 0.3s ease;"></div>
+                            <div style="width:${overallPercent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
                         </div>
                         <span style="font-size:12px;font-weight:600;color:#1565C0;min-width:35px;text-align:right;">${overallPercent}%</span>
                     </div>
@@ -583,7 +563,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // النهاية النهائية (مع دعم المراحل والامتحان الفردي)
+    // النهاية النهائية
     // ============================================
 
     showResults() {
@@ -597,15 +577,13 @@ class MemoryTrainer {
         let html = '';
 
         if (isFromList) {
-            // وضع المراحل (القائمة)
-            // الحصول على معلومات المرحلة من الدوال العامة
+            // وضع المراحل (من القائمة)
             let currentStage = 1, totalStages = 1, isLastStage = false;
             if (window.getCurrentStage && window.getTotalStages) {
                 currentStage = window.getCurrentStage(skill);
                 totalStages = window.getTotalStages(skill);
                 isLastStage = (currentStage >= totalStages);
             } else {
-                // Fallback: محاولة من البيانات المحملة
                 const combinedKey = `_${skill}_combinedData`;
                 if (window[combinedKey]) {
                     const data = window[combinedKey];
@@ -615,7 +593,6 @@ class MemoryTrainer {
                 }
             }
 
-            // عدد الجمل في هذه المرحلة (من البيانات المحملة)
             let totalQuestionsInStage = this.totalQuestions || 0;
             const combinedKey = `_${skill}_combinedData`;
             if (window[combinedKey]) {
@@ -632,7 +609,7 @@ class MemoryTrainer {
                         <div style="margin:0 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;">
                             <div style="display:flex;align-items:center;gap:10px;">
                                 <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
-                                    <div style="width:${overallPercent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;transition:width 0.3s ease;"></div>
+                                    <div style="width:${overallPercent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
                                 </div>
                                 <span style="font-size:13px;font-weight:600;color:#1565C0;min-width:40px;text-align:right;">${overallPercent}%</span>
                             </div>
@@ -650,7 +627,7 @@ class MemoryTrainer {
                         <div style="margin:0 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;">
                             <div style="display:flex;align-items:center;gap:10px;">
                                 <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
-                                    <div style="width:${stagePercent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;transition:width 0.3s ease;"></div>
+                                    <div style="width:${stagePercent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
                                 </div>
                                 <span style="font-size:13px;font-weight:600;color:#1565C0;min-width:40px;text-align:right;">${stagePercent}%</span>
                             </div>
@@ -660,16 +637,16 @@ class MemoryTrainer {
                 `;
             }
         } else {
-            // وضع امتحان واحد (نسبة الامتحان فقط)
+            // وضع امتحان فردي (نسبة الامتحان فقط)
             html = `
                 <div class="memory-trainer-results final">
                     <div style="font-size:28px;text-align:center;margin-bottom:4px;">🧩</div>
                     <h2 style="color:#1565C0;font-size:18px;font-weight:600;text-align:center;margin-bottom:4px;">اكتمل الاستدعاء</h2>
-                    <p style="font-size:14px;color:#64748B;text-align:center;margin-bottom:14px;font-weight:400;">لقد أنهيت تدريب هذه الجمل.</p>
+                    <p style="font-size:14px;color:#64748B;text-align:center;margin-bottom:14px;font-weight:400;">لقد أنهيت تدريب امتحان ${this.currentExamId}.</p>
                     <div style="margin:0 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;">
                         <div style="display:flex;align-items:center;gap:10px;">
                             <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
-                                <div style="width:${examPercent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;transition:width 0.3s ease;"></div>
+                                <div style="width:${examPercent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
                             </div>
                             <span style="font-size:13px;font-weight:600;color:#1565C0;min-width:40px;text-align:right;">${examPercent}%</span>
                         </div>
@@ -730,7 +707,6 @@ class MemoryTrainer {
         this.correctAttempts = 0;
         this.totalQuestions = 0;
         this.currentExamId = 1;
-        // لا نقوم بإعادة تعيين currentSkill، قد نستخدمها لاحقاً
     }
 }
 
@@ -740,12 +716,16 @@ class MemoryTrainer {
 
 window.memoryTrainer = new MemoryTrainer();
 
-// دالة بدء التدريب من امتحان فردي
-window.startMemoryTrainer = () => {
-    if (window.memoryTrainer) window.memoryTrainer.start('single');
+// ✅ دالة بدء التدريب من امتحان فردي (تُستدعى من زر 🧠 داخل الامتحان)
+window.startMemoryTrainerForExam = () => {
+    if (window.memoryTrainer) {
+        window.memoryTrainer.currentSkill = window.currentSkill || 'hoeren1';
+        window.memoryTrainer.currentExamId = window.currentExamId || 1;
+        window.memoryTrainer.start('single');
+    }
 };
 
-// دالة بدء التدريب من القائمة (تستقبل المهارة)
+// ✅ دالة بدء التدريب من القائمة (تُستدعى من زر 🧠 في قائمة الامتحانات)
 window.startMemoryTrainerFromList = (skill = 'hoeren1') => {
     if (window.memoryTrainer) {
         window.memoryTrainer.currentSkill = skill;
@@ -753,4 +733,7 @@ window.startMemoryTrainerFromList = (skill = 'hoeren1') => {
     }
 };
 
-console.log('🧠 Memory Trainer V4 (متوافق مع نظام المراحل المتعددة) تم تحميله');
+// ✅ للتوافق مع الإصدارات القديمة
+window.startMemoryTrainer = window.startMemoryTrainerForExam;
+
+console.log('🧠 Memory Trainer V4 (وضعان منفصلان: امتحان فردي / مرحلة) تم تحميله');
