@@ -430,8 +430,7 @@ class MemoryTrainer {
         let displayContent = '';
 
         if (this.examType === 'matching') {
-            // ✅ Lesen 1: عرض النص في صندوق أفقي مع تمرير (بدون بطاقة خضراء)
-            // استخراج الحرف الأول من العنوان الصحيح
+            // ✅ Lesen 1: عرض النص في صندوق أفقي مع تمرير، والعنوان الصحيح كسطر عادي
             const correctIndex = this.currentQuestionObj.correct;
             const correctTitle = this.sharedOptions[correctIndex] || '';
             const titlePrefix = correctTitle.match(/^[a-z]\.\s*/) ? correctTitle.match(/^[a-z]\.\s*/)[0] : '';
@@ -471,6 +470,11 @@ class MemoryTrainer {
             displayContent = `<span>${textToShow}</span>`;
         }
 
+        // ✅ نص الإرشاد مع 😊 لـ Lesen 1
+        const hintText = this.examType === 'matching' 
+            ? 'اقرأ النص جيداً، سأطلب منك اختيار العنوان المناسب 😊'
+            : 'سأطلب منك هذه الجملة بعد قليل.';
+
         this.updateCard(`
             <div class="memory-trainer-card">
                 <div class="memory-trainer-header">
@@ -478,7 +482,7 @@ class MemoryTrainer {
                     <span class="memory-trainer-focus">🍃 خذ وقتك</span>
                 </div>
                 <div class="memory-trainer-content">
-                    <p class="memory-trainer-hint">🌿 ${this.examType === 'matching' ? 'اقرأ النص جيداً، سأطلب منك اختيار العنوان المناسب.' : 'سأطلب منك هذه الجملة بعد قليل.'}</p>
+                    <p class="memory-trainer-hint">🌿 ${hintText}</p>
                     <div class="memory-trainer-answer">
                         ${displayContent}
                     </div>
@@ -865,4 +869,4 @@ window.startMemoryTrainerFromList = (skill = 'hoeren1') => {
 // ✅ للتوافق مع الإصدارات القديمة
 window.startMemoryTrainer = window.startMemoryTrainerForExam;
 
-console.log('🧠 Memory Trainer V4 (يدعم Hören و Lesen 1 - UI محسّن) تم تحميله');
+console.log('🧠 Memory Trainer V4 (يدعم Hören و Lesen 1 - UI محسّن لـ Lesen 1) تم تحميله');
