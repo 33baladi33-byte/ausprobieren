@@ -1,11 +1,11 @@
 // ============================================
-// MEMORY TRAINER V4 - يدعم Hören و Lesen 1 (تخطيط خاص لـ Lesen 1)
+// MEMORY TRAINER V4 - يدعم Hören, Lesen 1 و Lesen 2
 // ============================================
 
 class MemoryTrainer {
     constructor() {
         // البيانات الأساسية
-        this.questions = [];           // الجمل الصحيحة فقط (للتدريب) - أو كل الجمل في حالة lesen1
+        this.questions = [];           // الجمل الصحيحة فقط (للتدريب) - أو كل الجمل في حالة lesen1/lesen2
         this.allQuestions = [];        // جميع الجمل (صحيحة وخاطئة) - لتوليد الخيارات (Hören)
         this.sharedOptions = [];       // العناوين المشتركة (Lesen 1)
         this.trainingQueue = [];
@@ -14,11 +14,11 @@ class MemoryTrainer {
         this.isActive = false;
         this.isReviewMode = false;
         this.isFromList = false;
-        this.examType = 'hoeren';      // 'hoeren' أو 'matching' (Lesen 1)
+        this.examType = 'hoeren';      // 'hoeren' | 'matching' (Lesen 1) | 'multiple' (Lesen 2)
 
         // السؤال الحالي
         this.currentCorrectText = '';
-        this.currentCorrectIndex = -1; // للـ Lesen 1 (فهرس في sharedOptions)
+        this.currentCorrectIndex = -1; // للـ Lesen 1 و Lesen 2 (فهرس في sharedOptions أو options)
         this.currentOptions = [];
         this.currentQuestionIndex = 0;
         this.currentExamId = 1;
@@ -68,8 +68,11 @@ class MemoryTrainer {
                     this.sharedOptions = examData.sharedOptions;
                 }
                 this.examType = examData.examType || 'hoeren';
+                // تحديد النوع حسب المهارة
                 if (this.currentSkill === 'lesen1') {
                     this.examType = 'matching';
+                } else if (this.currentSkill === 'lesen2') {
+                    this.examType = 'multiple';
                 }
             } else {
                 if (typeof window.loadStageExams === 'function') {
@@ -100,6 +103,8 @@ class MemoryTrainer {
                 this.examType = examData.type || 'hoeren';
                 if (this.currentSkill === 'lesen1') {
                     this.examType = 'matching';
+                } else if (this.currentSkill === 'lesen2') {
+                    this.examType = 'multiple';
                 }
             } else {
                 this.showNotAvailable("لا توجد بيانات امتحان");
@@ -116,7 +121,8 @@ class MemoryTrainer {
         let rawQuestions = [];
         if (this.isFromList) {
             rawQuestions = examData.allQuestions || [];
-            if (this.currentSkill === 'lesen1') {
+            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2') {
+                // لـ Lesen 1 و Lesen 2: كل الجمل صالحة للتدريب
                 this.questions = rawQuestions;
             } else {
                 this.questions = rawQuestions.filter(q => q.correct === true);
@@ -126,11 +132,12 @@ class MemoryTrainer {
             rawQuestions = examQuestions.map((q, idx) => ({
                 text: q.text,
                 correct: q.correct,
+                options: q.options || [],          // ✅ حفظ الخيارات لـ Lesen 2
                 examId: this.currentExamId,
                 questionIndex: idx,
                 originalQuestion: q
             }));
-            if (this.currentSkill === 'lesen1') {
+            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2') {
                 this.questions = rawQuestions;
             } else {
                 this.questions = rawQuestions.filter(q => q.correct === true);
@@ -355,13 +362,18 @@ class MemoryTrainer {
 
     showIntroCardSingle() {
         const examPercent = this.getExamProgress(this.currentSkill, this.currentExamId);
-        const examLabel = this.examType === 'matching' ? `امتحان ${this.currentExamId} (Lesen 1)` : `امتحان ${this.currentExamId}`;
+        let examLabel = `امتحان ${this.currentExamId}`;
+        if (this.examType === 'matching') {
+            examLabel = `امتحان ${this.currentExamId} (Lesen 1)`;
+        } else if (this.examType === 'multiple') {
+            examLabel = `امتحان ${this.currentExamId} (Lesen 2)`;
+        }
         this.updateCard(`
             <div class="memory-trainer-intro">
                 <div class="memory-trainer-icon">🧩</div>
                 <h2>استدعاء ذكي</h2>
                 <p style="font-size:14px;color:#334155;margin:6px 0 2px 0;">تدريب ${examLabel}.</p>
-                <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">سترى النص مرة واحدة، ثم سنطلب منك اختيار العنوان الصحيح.</p>
+                <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">${this.examType === 'multiple' ? 'سترى السؤال مرة واحدة، ثم سنطلب منك اختيار الجواب الصحيح.' : 'سترى النص مرة واحدة، ثم سنطلب منك اختيار العنوان الصحيح.'}</p>
                 <div style="margin:4px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:4px 10px;">
                     <div style="display:flex;align-items:center;gap:10px;">
                         <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
@@ -383,7 +395,12 @@ class MemoryTrainer {
             currentStage = window.getCurrentStage(this.currentSkill);
             totalStages = window.getTotalStages(this.currentSkill);
         }
-        const skillLabel = this.examType === 'matching' ? `Lesen 1` : this.currentSkill;
+        let skillLabel = this.currentSkill;
+        if (this.examType === 'matching') {
+            skillLabel = 'Lesen 1';
+        } else if (this.examType === 'multiple') {
+            skillLabel = 'Lesen 2';
+        }
         this.updateCard(`
             <div class="memory-trainer-intro">
                 <div class="memory-trainer-icon">🧩</div>
@@ -406,7 +423,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // عرض البطاقات - تخطيط خاص لـ Lesen 1 فقط
+    // عرض البطاقات - تخطيط خاص لكل نوع
     // ============================================
 
     showMemoryCard() {
@@ -428,6 +445,7 @@ class MemoryTrainer {
 
         // ✅ بناء محتوى البطاقة حسب النوع
         let cardContent = '';
+        let hintText = '';
 
         if (this.examType === 'matching') {
             // ============================================
@@ -538,6 +556,91 @@ class MemoryTrainer {
                     </button>
                 </div>
             `;
+        } else if (this.examType === 'multiple') {
+            // ============================================
+            // تخطيط خاص لـ Lesen 2
+            // ============================================
+            cardContent = `
+                <div class="memory-trainer-card" style="
+                    background: #FFFFFF;
+                    border: 1px solid #E8EEF5;
+                    border-radius: 12px;
+                    padding: 20px 24px;
+                    max-width: 440px;
+                    width: 90%;
+                    text-align: center;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+                    position: relative;
+                ">
+                    <div class="memory-trainer-header" style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 10px;
+                        padding-bottom: 8px;
+                        border-bottom: 1px solid #F1F5F9;
+                    ">
+                        <span class="memory-trainer-progress" style="
+                            font-size: 12px;
+                            color: #94A3B8;
+                            font-weight: 500;
+                        ">
+                            ${this.currentIndex + 1}/${this.trainingQueue.length}
+                        </span>
+                        <span class="memory-trainer-focus" style="
+                            font-size: 13px;
+                            font-weight: 600;
+                            color: #2D6A4F;
+                        ">
+                            🍃 خذ وقتك
+                        </span>
+                    </div>
+
+                    <div class="memory-trainer-content">
+                        <p class="memory-trainer-hint" style="
+                            font-size: 14px;
+                            color: #4A7C59;
+                            margin-bottom: 8px;
+                            text-align: center;
+                        ">
+                            🌿 اقرأ السؤال جيداً، سأطلب منك اختيار الجواب الصحيح.
+                        </p>
+
+                        <!-- عرض السؤال فقط (النص) -->
+                        <div style="
+                            font-size: 17px;
+                            font-weight: 500;
+                            text-align: center;
+                            padding: 16px 12px;
+                            background: #F8FAFC;
+                            border-radius: 10px;
+                            border: 1px solid #EDF2F7;
+                            color: #1a202c;
+                            margin: 8px 0 12px 0;
+                        ">
+                            ${textToShow}
+                        </div>
+                    </div>
+
+                    <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()" style="
+                        padding: 8px 20px;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.15s ease;
+                        margin-top: 10px;
+                        background: #1565C0;
+                        color: white;
+                        box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
+                        display: inline-block;
+                        width: auto;
+                    ">
+                        أنا جاهز
+                    </button>
+                </div>
+            `;
         } else {
             // ============================================
             // Hören: التصميم الأصلي (بدون تغيير)
@@ -576,21 +679,100 @@ class MemoryTrainer {
                 if (!finalOptions.includes(extra)) finalOptions.push(extra);
             }
             this.currentOptions = this.shuffleArray(finalOptions);
+        } else if (this.examType === 'multiple') {
+            // ✅ Lesen 2: استخدم الخيارات الموجودة في السؤال نفسه
+            this.currentOptions = this.currentQuestionObj.options || [];
+            // إذا لم تكن هناك خيارات، نستخدم generateOptions كحل احتياطي
+            if (this.currentOptions.length === 0) {
+                console.warn('⚠️ لا توجد خيارات في السؤال، نستخدم generateOptions كحل احتياطي');
+                this.currentOptions = this.generateOptions(this.currentCorrectText, this.currentQuestionObj);
+            }
         } else {
             this.currentOptions = this.generateOptions(this.currentCorrectText, this.currentQuestionObj);
         }
 
+        // بناء شاشة التذكر حسب النوع
+        let questionText = '';
+        let displayQuestion = '';
+
+        if (this.examType === 'matching') {
+            questionText = 'اختر العنوان المناسب للنص الذي قرأته:';
+        } else if (this.examType === 'multiple') {
+            questionText = 'ما الاختيار الصحيح؟';
+            // عرض النص مع الخيارات لـ Lesen 2
+            displayQuestion = `
+                <div style="font-size:17px; font-weight:500; text-align:center; padding:12px; background:#f8fafc; border-radius:8px; margin-bottom:16px; border:1px solid #edf2f7;">
+                    ${this.currentCorrectText}
+                </div>
+            `;
+        } else {
+            questionText = 'ما هي الجملة التي رأيتها قبل قليل؟';
+        }
+
         this.updateCard(`
-            <div class="memory-trainer-recall">
-                <div class="memory-trainer-header">
-                    <span class="memory-trainer-progress">${this.currentIndex + 1}/${this.trainingQueue.length}</span>
-                    <span class="memory-trainer-focus">🍃 خذ وقتك</span>
+            <div class="memory-trainer-recall" style="
+                background: #FFFFFF;
+                border: 1px solid #E8EEF5;
+                border-radius: 12px;
+                padding: 20px 24px;
+                max-width: 440px;
+                width: 90%;
+                text-align: center;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+                position: relative;
+            ">
+                <div class="memory-trainer-header" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 10px;
+                    padding-bottom: 8px;
+                    border-bottom: 1px solid #F1F5F9;
+                ">
+                    <span class="memory-trainer-progress" style="
+                        font-size: 12px;
+                        color: #94A3B8;
+                        font-weight: 500;
+                    ">
+                        ${this.currentIndex + 1}/${this.trainingQueue.length}
+                    </span>
+                    <span class="memory-trainer-focus" style="
+                        font-size: 13px;
+                        font-weight: 600;
+                        color: #2D6A4F;
+                    ">
+                        🍃 خذ وقتك
+                    </span>
                 </div>
                 <div class="memory-trainer-content">
-                    <p class="memory-trainer-question">${this.examType === 'matching' ? 'اختر العنوان المناسب للنص الذي قرأته:' : 'ما هي الجملة التي رأيتها قبل قليل؟'}</p>
-                    <div class="memory-trainer-options">
+                    <p class="memory-trainer-question" style="
+                        font-size: 15px;
+                        font-weight: 500;
+                        color: #334155;
+                        margin-bottom: 10px;
+                    ">
+                        ${questionText}
+                    </p>
+                    ${displayQuestion}
+                    <div class="memory-trainer-options" style="
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+                        margin: 8px 0;
+                    ">
                         ${this.currentOptions.map((opt, idx) => `
-                            <button class="memory-trainer-option" data-index="${idx}" onclick="window.memoryTrainer.checkAnswer(${idx})">
+                            <button class="memory-trainer-option" data-index="${idx}" onclick="window.memoryTrainer.checkAnswer(${idx})" style="
+                                background: #FFFFFF;
+                                border: 1.5px solid #E8EEF5;
+                                border-radius: 10px;
+                                padding: 9px 14px;
+                                font-size: 14px;
+                                font-weight: 500;
+                                color: #334155;
+                                cursor: pointer;
+                                transition: all 0.08s ease;
+                                text-align: left;
+                            ">
                                 ${String.fromCharCode(65 + idx)}. ${opt}
                             </button>
                         `).join('')}
@@ -601,76 +783,77 @@ class MemoryTrainer {
         `);
     }
 
+    // ============================================
+    // التصحيح (مع تحديث المستوى) - نسخة بدون نص إضافي
+    // ============================================
 
-// ============================================
-// التصحيح (مع تحديث المستوى) - نسخة بدون نص إضافي
-// ============================================
+    checkAnswer(selectedIndex) {
+        if (this.isAnswered) return;
+        this.isAnswered = true;
+        this.attempts++;
 
-checkAnswer(selectedIndex) {
-    if (this.isAnswered) return;
-    this.isAnswered = true;
-    this.attempts++;
-
-    const selectedText = this.currentOptions[selectedIndex];
-    let isCorrect = false;
-
-    if (this.examType === 'matching') {
-        const correctIndex = this.currentQuestionObj.correct;
-        const correctOption = this.sharedOptions[correctIndex];
-        isCorrect = (selectedText === correctOption);
-    } else {
-        isCorrect = (selectedText === this.currentCorrectText);
-    }
-
-    const skill = this.currentSkill;
-    const examId = this.currentExamId;
-    const qIndex = this.currentQuestionIndex;
-    const sentenceId = this.buildSentenceId(skill, examId, qIndex);
-
-    const allOptions = document.querySelectorAll('.memory-trainer-option');
-    const feedback = document.getElementById('memory-trainer-feedback');
-
-    allOptions.forEach(btn => { btn.disabled = true; btn.style.opacity = '0.7'; btn.style.cursor = 'default'; });
-
-    if (isCorrect) {
-        this.correctAttempts++;
-        this.increaseLevel(sentenceId);
-        allOptions[selectedIndex].style.borderColor = '#28a745';
-        allOptions[selectedIndex].style.backgroundColor = '#d4edda';
-        feedback.innerHTML = `<button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">التالي →</button>`;
-    } else {
-        this.decreaseLevel(sentenceId);
-        if (!this.wrongQuestions.includes(this.currentQuestionObj)) {
-            this.wrongQuestions.push(this.currentQuestionObj);
-        }
-        allOptions[selectedIndex].style.borderColor = '#e67e22';
-        allOptions[selectedIndex].style.backgroundColor = '#fef0e0';
-        // عرض الإجابة الصحيحة (باللون الأخضر فقط)
+        const selectedText = this.currentOptions[selectedIndex];
+        let isCorrect = false;
         let correctText = '';
+
         if (this.examType === 'matching') {
             const correctIndex = this.currentQuestionObj.correct;
-            correctText = this.sharedOptions[correctIndex];
+            const correctOption = this.sharedOptions[correctIndex];
+            isCorrect = (selectedText === correctOption);
+            correctText = correctOption;
+        } else if (this.examType === 'multiple') {
+            // ✅ Lesen 2: مقارنة مع الخيار الصحيح من options
+            const correctIndex = this.currentQuestionObj.correct;
+            const correctOption = this.currentOptions[correctIndex];
+            isCorrect = (selectedText === correctOption);
+            correctText = correctOption;
         } else {
+            isCorrect = (selectedText === this.currentCorrectText);
             correctText = this.currentCorrectText;
         }
-        allOptions.forEach((btn, idx) => {
-            if (this.currentOptions[idx] === correctText) {
-                btn.style.borderColor = '#28a745';
-                btn.style.backgroundColor = '#d4edda';
-            }
-        });
-        feedback.innerHTML = `
-            <div style="display:flex;gap:10px;justify-content:center;margin-top:8px;">
-                <button class="memory-trainer-btn secondary small" onclick="window.memoryTrainer.retryQuestion()">🔄 إعادة المحاولة</button>
-                <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()">التالي →</button>
-            </div>
-        `;
-    }
 
-    if (this.isFromList) {
-        this.updateProgressBar();
+        const skill = this.currentSkill;
+        const examId = this.currentExamId;
+        const qIndex = this.currentQuestionIndex;
+        const sentenceId = this.buildSentenceId(skill, examId, qIndex);
+
+        const allOptions = document.querySelectorAll('.memory-trainer-option');
+        const feedback = document.getElementById('memory-trainer-feedback');
+
+        allOptions.forEach(btn => { btn.disabled = true; btn.style.opacity = '0.7'; btn.style.cursor = 'default'; });
+
+        if (isCorrect) {
+            this.correctAttempts++;
+            this.increaseLevel(sentenceId);
+            allOptions[selectedIndex].style.borderColor = '#28a745';
+            allOptions[selectedIndex].style.backgroundColor = '#d4edda';
+            feedback.innerHTML = `<button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()" style="padding:6px 16px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:#28a745; color:white;">التالي →</button>`;
+        } else {
+            this.decreaseLevel(sentenceId);
+            if (!this.wrongQuestions.includes(this.currentQuestionObj)) {
+                this.wrongQuestions.push(this.currentQuestionObj);
+            }
+            allOptions[selectedIndex].style.borderColor = '#e67e22';
+            allOptions[selectedIndex].style.backgroundColor = '#fef0e0';
+            // عرض الإجابة الصحيحة (باللون الأخضر فقط)
+            allOptions.forEach((btn, idx) => {
+                if (this.currentOptions[idx] === correctText) {
+                    btn.style.borderColor = '#28a745';
+                    btn.style.backgroundColor = '#d4edda';
+                }
+            });
+            feedback.innerHTML = `
+                <div style="display:flex;gap:10px;justify-content:center;margin-top:8px;">
+                    <button class="memory-trainer-btn secondary small" onclick="window.memoryTrainer.retryQuestion()" style="padding:6px 16px; border:2px solid #e67e22; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:white; color:#e67e22;">🔄 إعادة المحاولة</button>
+                    <button class="memory-trainer-btn primary small" onclick="window.memoryTrainer.nextQuestion()" style="padding:6px 16px; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; background:#1565C0; color:white;">التالي →</button>
+                </div>
+            `;
+        }
+
+        if (this.isFromList) {
+            this.updateProgressBar();
+        }
     }
-}
 
     // ============================================
     // تحديث شريط التقدم
@@ -720,9 +903,18 @@ checkAnswer(selectedIndex) {
         }
 
         this.updateCard(`
-            <div class="memory-trainer-results phase-complete">
-                <div class="memory-trainer-icon">🧠</div>
-                <h2>المرحلة الأولى انتهت</h2>
+            <div class="memory-trainer-results phase-complete" style="
+                background: #FFFDF5;
+                border: 1px solid #FDE68A;
+                border-radius: 12px;
+                padding: 20px 24px;
+                max-width: 440px;
+                width: 90%;
+                text-align: center;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            ">
+                <div class="memory-trainer-icon" style="font-size:26px; display:block; margin-bottom:4px;">🧠</div>
+                <h2 style="color:#1565C0; font-size:17px; font-weight:600; margin-bottom:4px;">المرحلة الأولى انتهت</h2>
                 <div style="margin:8px 0 12px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;">
                     <div style="display:flex;align-items:center;gap:10px;">
                         <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
@@ -731,12 +923,18 @@ checkAnswer(selectedIndex) {
                         <span style="font-size:12px;font-weight:600;color:#1565C0;min-width:35px;text-align:right;">${overallPercent}%</span>
                     </div>
                 </div>
-                <div class="memory-trainer-stats" style="margin:6px 0 10px 0;padding:4px 0;">
-                    <div class="stat-item"><span class="stat-label">المحاولات</span><span class="stat-value" style="font-size:16px;">${this.attempts}</span></div>
-                    <div class="stat-item"><span class="stat-label">الإجابات الصحيحة</span><span class="stat-value" style="font-size:16px;">${this.correctAttempts}</span></div>
+                <div class="memory-trainer-stats" style="margin:6px 0 10px 0;padding:4px 0;display:flex;justify-content:space-around;border-top:1px solid #F1F5F9;border-bottom:1px solid #F1F5F9;">
+                    <div class="stat-item" style="text-align:center;">
+                        <span class="stat-label" style="display:block; font-size:10px; color:#94A3B8; font-weight:500; text-transform:uppercase; letter-spacing:0.5px;">المحاولات</span>
+                        <span class="stat-value" style="display:block; font-size:18px; font-weight:700; color:#1565C0; margin-top:2px;">${this.attempts}</span>
+                    </div>
+                    <div class="stat-item" style="text-align:center;">
+                        <span class="stat-label" style="display:block; font-size:10px; color:#94A3B8; font-weight:500; text-transform:uppercase; letter-spacing:0.5px;">الإجابات الصحيحة</span>
+                        <span class="stat-value" style="display:block; font-size:18px; font-weight:700; color:#1565C0; margin-top:2px;">${this.correctAttempts}</span>
+                    </div>
                 </div>
-                <p class="memory-trainer-hint" style="font-size:13px;">الآن سنعيد فقط الأسئلة التي لم تثبت بعد.</p>
-                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.startReview()">مراجعة ${wrongCount} سؤال →</button>
+                <p class="memory-trainer-hint" style="font-size:13px; color:#64748B; margin:8px 0 16px 0;">الآن سنعيد فقط الأسئلة التي لم تثبت بعد.</p>
+                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.startReview()" style="padding:8px 20px; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; background:#1565C0; color:white; box-shadow:0 2px 6px rgba(21,101,192,0.15);">مراجعة ${wrongCount} سؤال →</button>
             </div>
         `);
     }
@@ -788,7 +986,16 @@ checkAnswer(selectedIndex) {
 
             if (isLastStage) {
                 html = `
-                    <div class="memory-trainer-results final">
+                    <div class="memory-trainer-results final" style="
+                        background: #F0FDF4;
+                        border: 1px solid #86EFAC;
+                        border-radius: 12px;
+                        padding: 20px 24px;
+                        max-width: 440px;
+                        width: 90%;
+                        text-align: center;
+                        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+                    ">
                         <div style="font-size:28px;text-align:center;margin-bottom:4px;">🏆</div>
                         <h2 style="color:#1565C0;font-size:18px;font-weight:600;text-align:center;margin-bottom:4px;">لقد أكملت ${skill} بالكامل</h2>
                         <p style="font-size:14px;color:#64748B;text-align:center;margin-bottom:14px;font-weight:400;">تهانينا! لقد أنهيت جميع المراحل بنجاح.</p>
@@ -805,7 +1012,16 @@ checkAnswer(selectedIndex) {
                 `;
             } else {
                 html = `
-                    <div class="memory-trainer-results final">
+                    <div class="memory-trainer-results final" style="
+                        background: #F8FFFB;
+                        border: 1px solid #B8E6B8;
+                        border-radius: 12px;
+                        padding: 20px 24px;
+                        max-width: 440px;
+                        width: 90%;
+                        text-align: center;
+                        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+                    ">
                         <div style="font-size:28px;text-align:center;margin-bottom:4px;">🎉</div>
                         <h2 style="color:#1565C0;font-size:18px;font-weight:600;text-align:center;margin-bottom:4px;">أحسنت، لقد أنهيت المرحلة ${currentStage}</h2>
                         <p style="font-size:14px;color:#64748B;text-align:center;margin-bottom:14px;font-weight:400;">تم تثبيت ${totalQuestionsInStage} نص.</p>
@@ -822,9 +1038,23 @@ checkAnswer(selectedIndex) {
                 `;
             }
         } else {
-            const examLabel = this.examType === 'matching' ? `امتحان ${this.currentExamId} (Lesen 1)` : `امتحان ${this.currentExamId}`;
+            let examLabel = `امتحان ${this.currentExamId}`;
+            if (this.examType === 'matching') {
+                examLabel = `امتحان ${this.currentExamId} (Lesen 1)`;
+            } else if (this.examType === 'multiple') {
+                examLabel = `امتحان ${this.currentExamId} (Lesen 2)`;
+            }
             html = `
-                <div class="memory-trainer-results final">
+                <div class="memory-trainer-results final" style="
+                    background: #F8FFFB;
+                    border: 1px solid #B8E6B8;
+                    border-radius: 12px;
+                    padding: 20px 24px;
+                    max-width: 440px;
+                    width: 90%;
+                    text-align: center;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+                ">
                     <div style="font-size:28px;text-align:center;margin-bottom:4px;">🧩</div>
                     <h2 style="color:#1565C0;font-size:18px;font-weight:600;text-align:center;margin-bottom:4px;">اكتمل الاستدعاء</h2>
                     <p style="font-size:14px;color:#64748B;text-align:center;margin-bottom:14px;font-weight:400;">لقد أنهيت تدريب ${examLabel}.</p>
@@ -865,10 +1095,19 @@ checkAnswer(selectedIndex) {
 
     showNotAvailable(message = "هذه الميزة غير متوفرة لهذا الامتحان.") {
         this.updateCard(`
-            <div class="memory-trainer-intro">
-                <h2>ℹ️ غير متوفرة</h2>
-                <p>${message}</p>
-                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.close()">فهمت</button>
+            <div class="memory-trainer-intro" style="
+                background: #FFFFFF;
+                border: 1px solid #E8EEF5;
+                border-radius: 12px;
+                padding: 20px 24px;
+                max-width: 440px;
+                width: 90%;
+                text-align: center;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+            ">
+                <h2 style="color:#1565C0; font-size:17px; font-weight:600;">ℹ️ غير متوفرة</h2>
+                <p style="color:#64748B; margin:12px 0;">${message}</p>
+                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.close()" style="padding:8px 20px; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; background:#1565C0; color:white; box-shadow:0 2px 6px rgba(21,101,192,0.15);">فهمت</button>
             </div>
         `);
     }
@@ -924,4 +1163,4 @@ window.startMemoryTrainerFromList = (skill = 'hoeren1') => {
 // ✅ للتوافق مع الإصدارات القديمة
 window.startMemoryTrainer = window.startMemoryTrainerForExam;
 
-console.log('🧠 Memory Trainer V4 (يدعم Hören و Lesen 1 - تخطيط خاص لـ Lesen 1) تم تحميله');
+console.log('🧠 Memory Trainer V4 (يدعم Hören, Lesen 1 و Lesen 2) تم تحميله');
