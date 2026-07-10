@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"],
-      "correct": "davon"
+      "correct": "davon",
+      "memoryHighlight": {
+        "before": "Menschen",
+        "connector": "davon",
+        "after": "geträumt, jederzeit",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"],
-      "correct": "wer"
+      "correct": "wer",
+      "memoryHighlight": {
+        "before": "anhängt:",
+        "connector": "wer",
+        "after": "Auto fährt",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"],
-      "correct": "dass"
+      "correct": "dass",
+      "memoryHighlight": {
+        "before": "folgt,",
+        "connector": "dass",
+        "after": "für so",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"],
-      "correct": "oft"
+      "correct": "oft",
+      "memoryHighlight": {
+        "before": "Straßen sind",
+        "connector": "oft",
+        "after": "nicht breit",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"],
-      "correct": "fahren"
+      "correct": "fahren",
+      "memoryHighlight": {
+        "before": "als sie",
+        "connector": "fahren",
+        "after": ". Manche Orte",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"],
-      "correct": "denn"
+      "correct": "denn",
+      "memoryHighlight": {
+        "before": "mehr,",
+        "connector": "denn",
+        "after": "die Zahl",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"],
-      "correct": "dazu"
+      "correct": "dazu",
+      "memoryHighlight": {
+        "before": "führt",
+        "connector": "dazu",
+        "after": ", dass sich",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"],
-      "correct": "um"
+      "correct": "um",
+      "memoryHighlight": {
+        "before": "wird.",
+        "connector": "um",
+        "after": "dem Verkehrsinfarkt",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"],
-      "correct": "graben"
+      "correct": "graben",
+      "memoryHighlight": {
+        "before": "Metropolen",
+        "connector": "graben",
+        "after": "sich die",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"],
-      "correct": "kosten"
+      "correct": "kosten",
+      "memoryHighlight": {
+        "before": "Überzeugungsarbeit",
+        "connector": "kosten",
+        "after": "wird.",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["dass", "davon", "dazu", "denn", "fahren", "graben", "hiermit", "klauen", "kosten", "oft", "reiben", "so", "um", "wenn", "wer"]
