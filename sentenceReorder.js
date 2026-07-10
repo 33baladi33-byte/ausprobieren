@@ -1,5 +1,5 @@
 // ============================================
-// sentenceReorder.js - أداة ترتيب الجمل (النسخة الاحترافية)
+// sentenceReorder.js - أداة ترتيب الجمل (النسخة النهائية)
 // ============================================
 
 console.log("🧩 sentenceReorder.js يتم تحميله...");
@@ -68,25 +68,15 @@ class SentenceReorder {
 
         this.puzzleContainer.innerHTML = '';
 
-        // أيقونة
-        const icon = document.createElement('div');
-        icon.textContent = '🧩';
-        icon.style.cssText = `
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 12px;
-        `;
-        this.puzzleContainer.appendChild(icon);
-
         // العنوان
         const title = document.createElement('h3');
-        title.textContent = 'رتّب الجملة';
+        title.textContent = 'أعد تشكيل الجملة. ✨';
         title.style.cssText = `
-            margin: 0 0 12px 0;
+            margin: 0 0 16px 0;
             color: #1e293b;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             text-align: center;
-            font-weight: 600;
+            font-weight: 500;
         `;
         this.puzzleContainer.appendChild(title);
 
@@ -96,7 +86,7 @@ class SentenceReorder {
         description.style.cssText = `
             margin: 0 0 20px 0;
             color: #64748b;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-align: center;
             line-height: 1.6;
             max-width: 400px;
@@ -112,9 +102,9 @@ class SentenceReorder {
             background: #2c3e66;
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 12px 32px;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            padding: 10px 28px;
+            font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -211,7 +201,7 @@ class SentenceReorder {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.35);
+            background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(3px);
             display: flex;
             align-items: center;
@@ -225,11 +215,11 @@ class SentenceReorder {
         this.puzzleContainer.id = 'sentencePuzzleCard';
         this.puzzleContainer.style.cssText = `
             background: #ffffff;
-            border-radius: 16px;
-            padding: 28px 32px;
-            max-width: 560px;
+            border-radius: 14px;
+            padding: 24px 28px;
+            max-width: 620px;
             width: 92%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
             transform: scale(0.96) translateY(8px);
             transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             position: relative;
@@ -256,7 +246,7 @@ class SentenceReorder {
     }
 
     // ==========================================
-    // عرض اللغز (البطاقات والخانات)
+    // عرض اللغز (البطاقات والخانات) - تخطيط أفقي
     // ==========================================
     static renderPuzzle() {
         if (!this.puzzleContainer) {
@@ -268,7 +258,7 @@ class SentenceReorder {
 
         // ---- العنوان ----
         const title = document.createElement('h3');
-        title.textContent = 'رتّب الجملة';
+        title.textContent = 'أعد تشكيل الجملة. ✨';
         title.style.cssText = `
             margin: 0 0 20px 0;
             color: #1e293b;
@@ -278,13 +268,13 @@ class SentenceReorder {
         `;
         this.puzzleContainer.appendChild(title);
 
-        // ---- الخانات (Slots) ----
+        // ---- الخانات (Slots) - أفقي ----
         const slotsContainer = document.createElement('div');
         slotsContainer.id = 'sentenceSlotsContainer';
         slotsContainer.style.cssText = `
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            gap: 12px;
+            justify-content: center;
             margin-bottom: 20px;
         `;
 
@@ -296,24 +286,25 @@ class SentenceReorder {
             slot.className = 'sentence-slot';
             slot.dataset.slotIndex = i;
             slot.style.cssText = `
-                width: 100%;
-                min-height: 48px;
+                flex: 1;
+                min-width: 100px;
+                min-height: 50px;
                 padding: 10px 16px;
                 border: 2px dashed #dce2ec;
-                border-radius: 10px;
+                border-radius: 8px;
                 background: #f8fafc;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 text-align: center;
-                font-size: 0.9rem;
-                color: #94a3b8;
+                font-size: 0.85rem;
+                color: transparent;
                 transition: all 0.2s ease;
                 cursor: pointer;
                 font-weight: 400;
                 box-sizing: border-box;
             `;
-            slot.textContent = `اسحب هنا ${i + 1}`;
+            slot.textContent = '';
 
             slot.addEventListener('dragover', (e) => {
                 e.preventDefault();
@@ -354,19 +345,20 @@ class SentenceReorder {
 
         this.puzzleContainer.appendChild(slotsContainer);
 
-        // ---- البطاقات (Cards) ----
+        // ---- البطاقات (Cards) - أفقي ----
         const cardsContainer = document.createElement('div');
         cardsContainer.id = 'sentenceCardsContainer';
         cardsContainer.style.cssText = `
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            gap: 12px;
+            justify-content: center;
             margin-bottom: 20px;
             padding: 12px;
             background: #f8fafc;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid #e8edf4;
             min-height: 60px;
+            flex-wrap: wrap;
         `;
 
         this.shuffledParts.forEach((part, index) => {
@@ -380,13 +372,14 @@ class SentenceReorder {
             card.dataset.partText = part;
             card.draggable = true;
             card.style.cssText = `
-                width: 100%;
+                flex: 1;
+                min-width: 120px;
                 padding: 12px 18px;
                 background: #ffffff;
                 border: 1px solid #dce2ec;
-                border-radius: 10px;
+                border-radius: 8px;
                 cursor: grab;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 color: #1e293b;
                 transition: all 0.2s ease;
                 box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
@@ -449,9 +442,9 @@ class SentenceReorder {
             background: #2c3e66;
             color: white;
             border: none;
-            border-radius: 10px;
-            padding: 12px 28px;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            padding: 10px 28px;
+            font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -488,7 +481,7 @@ class SentenceReorder {
             right: 16px;
             background: none;
             border: none;
-            font-size: 20px;
+            font-size: 18px;
             color: #94a3b8;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -562,12 +555,12 @@ class SentenceReorder {
         const slot = this.slots[slotIndex];
         if (!slot) return;
 
-        slot.textContent = `اسحب هنا ${slotIndex + 1}`;
+        slot.textContent = '';
         delete slot.dataset.hasPart;
         delete slot.dataset.partIndex;
         slot.style.borderColor = '#dce2ec';
         slot.style.background = '#f8fafc';
-        slot.style.color = '#94a3b8';
+        slot.style.color = 'transparent';
         slot.style.fontWeight = '400';
     }
 
@@ -631,11 +624,11 @@ class SentenceReorder {
             slot.style.color = '#155724';
         });
 
-        // إغلاق النافذة بعد 800ms
+        // إغلاق النافذة بعد 1000ms
         setTimeout(() => {
             this.close();
             this.isAnimating = false;
-        }, 800);
+        }, 1000);
     }
 
     // ==========================================
@@ -650,7 +643,7 @@ class SentenceReorder {
             } else {
                 slot.style.borderColor = '#dce2ec';
                 slot.style.background = '#f8fafc';
-                slot.style.color = '#94a3b8';
+                slot.style.color = 'transparent';
             }
         });
     }
