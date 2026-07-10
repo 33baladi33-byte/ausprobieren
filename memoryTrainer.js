@@ -695,19 +695,19 @@ class MemoryTrainer {
                             🌿 اقرأ السؤال جيداً، سأطلب منك اختيار الجواب الصحيح.
                         </p>
 
-                        <div style="
-                            width: 100%;
-                            display: block;
-                            font-size: 17px;
-                            font-weight: 500;
-                            text-align: left;
-                            padding: 12px 0;
-                            color: #1a202c;
-                            margin: 8px 0 12px 0;
-                            white-space: pre-wrap;
-                        ">
-                            ${displayText}
-                        </div>
+                       <div style="
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a5a1a;
+    padding: 6px 12px;
+    padding-left: 30px;
+    margin-top: 0;
+    background: transparent;
+    border-radius: 6px;
+">
+    ✅ ${connector}
+</div>
                     </div>
 
                     <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()" style="
