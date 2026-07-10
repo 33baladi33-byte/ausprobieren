@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["vergangen", "vergehend", "vergingen"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "halbes Jahr",
+        "connector": "vergangen",
+        "after": ", seit ich",
+        "color": 2
+      }
     },
     {
       "id": 2,
       "options": ["gleich", "plötzlich", "sofort"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Frau Reuter,",
+        "connector": "plötzlich",
+        "after": "erkrankt. Sie",
+        "color": 8
+      }
     },
     {
       "id": 3,
       "options": ["als", "da", "wenn"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "zurück,",
+        "connector": "wenn",
+        "after": "unsere Prüfung",
+        "color": 0
+      }
     },
     {
       "id": 4,
       "options": ["sondern", "sowohl", "zwar"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "ist",
+        "connector": "zwar",
+        "after": "sehr nett",
+        "color": 6
+      }
     },
     {
       "id": 5,
       "options": ["werde", "wollte", "würde"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Und dann",
+        "connector": "werde",
+        "after": "ich alle",
+        "color": 4
+      }
     },
     {
       "id": 6,
       "options": ["Damit", "Darauf", "Davon"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "tun.",
+        "connector": "Darauf",
+        "after": "freue ich",
+        "color": 9
+      }
     },
     {
       "id": 7,
       "options": ["darüber", "davon", "dazu"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "hältst du",
+        "connector": "davon",
+        "after": "?",
+        "color": 3
+      }
     },
     {
       "id": 8,
       "options": ["an", "auf", "in"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "noch",
+        "connector": "auf",
+        "after": "der Nase",
+        "color": 11
+      }
     },
     {
       "id": 9,
       "options": ["beschäftigen lassen", "beschäftigt zu sein", "zu beschäftigen"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Tag",
+        "connector": "zu beschäftigen",
+        "after": ". Aber ich",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["zurechtkamst", "zurechtkommst", "zurechtzukommen"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Kindern",
+        "connector": "zurechtkommst",
+        "after": ". So, jetzt",
+        "color": 7
+      }
     }
   ]
 }
