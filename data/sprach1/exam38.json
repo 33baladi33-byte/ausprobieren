@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["miteinander", "voneinander", "zueinander"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "zuletzt",
+        "connector": "voneinander",
+        "after": "gehört haben",
+        "color": 2
+      }
     },
     {
       "id": 2,
       "options": ["durch", "über", "in"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Rundreise",
+        "connector": "durch",
+        "after": "Europa, die",
+        "color": 8
+      }
     },
     {
       "id": 3,
       "options": ["als", "wie", "wenn"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "hatte.",
+        "connector": "wie",
+        "after": "du weißt",
+        "color": 4
+      }
     },
     {
       "id": 4,
       "options": ["war", "würde", "wurde"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Mein Chef",
+        "connector": "war",
+        "after": "zuerst nicht",
+        "color": 9
+      }
     },
     {
       "id": 5,
       "options": ["es", "er", "man"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "ist",
+        "connector": "es",
+        "after": "in der",
+        "color": 1
+      }
     },
     {
       "id": 6,
       "options": ["erste", "ersten", "erst"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Meine",
+        "connector": "erste",
+        "after": "Station war",
+        "color": 7
+      }
     },
     {
       "id": 7,
       "options": ["daran", "darüber", "davon"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "nicht",
+        "connector": "daran",
+        "after": "denken, dass",
+        "color": 3
+      }
     },
     {
       "id": 8,
       "options": ["kann", "mag", "muss"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "zurück",
+        "connector": "muss",
+        "after": ". In den",
+        "color": 11
+      }
     },
     {
       "id": 9,
       "options": ["bei", "in", "mir"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "kam",
+        "connector": "mir",
+        "after": "manchmal der",
+        "color": 6
+      }
     },
     {
       "id": 10,
       "options": ["bräuchte", "dürfte", "könnte"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "anfangen",
+        "connector": "könnte",
+        "after": ". Ich wünsche",
+        "color": 5
+      }
     }
   ]
 }
