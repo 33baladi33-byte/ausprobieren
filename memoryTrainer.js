@@ -46,6 +46,36 @@ class MemoryTrainer {
     }
 
     // ============================================
+    // استخراج السياق من النص لـ Sprachbausteine 1
+    // ============================================
+    extractContextFromText(text, questionId) {
+        // البحث عن النمط: __ (id) __  أو  ⌄ __ (id) __ ⌄
+        const pattern = new RegExp(`[\\s]*[⌄]?\\s*__\\s*\\(\\s*${questionId}\\s*\\)\\s*__\\s*[⌄]?[\\s]*`, 'i');
+        const match = text.match(pattern);
+        if (!match) {
+            // إذا لم يتم العثور على النمط، نستخدم النص كله كـ before ونترك after فارغاً
+            return { before: text, after: '', connector: '' };
+        }
+
+        const beforeText = text.substring(0, match.index).trim();
+        const afterText = text.substring(match.index + match[0].length).trim();
+
+        // استخراج آخر 3 كلمات قبل الفراغ
+        const beforeWords = beforeText.split(/\s+/);
+        const lastThreeBefore = beforeWords.slice(-3).join(' ');
+
+        // استخراج أول 3 كلمات بعد الفراغ
+        const afterWords = afterText.split(/\s+/);
+        const firstThreeAfter = afterWords.slice(0, 3).join(' ');
+
+        return {
+            before: lastThreeBefore,
+            after: firstThreeAfter,
+            connector: '' // سنملؤه لاحقاً بالخيار الصحيح
+        };
+    }
+
+    // ============================================
     // START - نقطة الدخول
     // ============================================
 
@@ -133,11 +163,11 @@ class MemoryTrainer {
             }
         } else {
             let examQuestions = [];
-            // ✅ لـ Sprachbausteine 1: نستخدم questions مع memoryHighlight
+            // ✅ لـ Sprachbausteine 1: نستخدم questions مباشرة ونستخرج السياق تلقائياً
             if (this.currentSkill === 'sprach1') {
                 examQuestions = examData.questions || [];
-                // نأخذ فقط الأسئلة التي تحتوي على memoryHighlight
-                examQuestions = examQuestions.filter(q => q.memoryHighlight);
+                // نتجاوز الأسئلة التي ليس لها خيارات أو correct
+                examQuestions = examQuestions.filter(q => q.options && q.options.length > 0 && q.correct !== undefined);
             } else if (this.currentSkill === 'lesen3' && examData.items) {
                 examQuestions = examData.items;
                 // حفظ situations كـ sharedOptions
@@ -147,21 +177,40 @@ class MemoryTrainer {
             } else {
                 examQuestions = examData.questions || [];
             }
-            rawQuestions = examQuestions.map((q, idx) => ({
-                text: q.text,
-                correct: q.correct,
-                options: q.options || [],
-                examId: this.currentExamId,
-                questionIndex: idx,
-                originalQuestion: q,
-                // ✅ إضافة بيانات sprach1
-                memoryHighlight: q.memoryHighlight || null,
-                id: q.id,
-                before: q.memoryHighlight ? q.memoryHighlight.before : '',
-                connector: q.memoryHighlight ? q.memoryHighlight.connector : '',
-                after: q.memoryHighlight ? q.memoryHighlight.after : '',
-                color: q.memoryHighlight ? q.memoryHighlight.color : 0
-            }));
+
+            rawQuestions = examQuestions.map((q, idx) => {
+                // استخراج السياق لـ sprach1
+                let before = '', after = '', connector = '';
+                if (this.currentSkill === 'sprach1') {
+                    const context = this.extractContextFromText(q.text || '', q.id || (idx + 1));
+                    before = context.before;
+                    after = context.after;
+                    // الحصول على الإجابة الصحيحة من الخيارات
+                    const correctIndex = q.correct;
+                    if (correctIndex !== undefined && q.options && q.options[correctIndex]) {
+                        connector = q.options[correctIndex];
+                    } else {
+                        connector = q.connector || '';
+                    }
+                }
+
+                return {
+                    text: q.text,
+                    correct: q.correct,
+                    options: q.options || [],
+                    examId: this.currentExamId,
+                    questionIndex: idx,
+                    originalQuestion: q,
+                    // ✅ بيانات sprach1 (يتم استخراجها تلقائياً أو استخدام memoryHighlight إذا كان موجوداً)
+                    memoryHighlight: q.memoryHighlight || null,
+                    id: q.id,
+                    before: before || (q.memoryHighlight ? q.memoryHighlight.before : ''),
+                    connector: connector || (q.memoryHighlight ? q.memoryHighlight.connector : ''),
+                    after: after || (q.memoryHighlight ? q.memoryHighlight.after : ''),
+                    color: q.memoryHighlight ? q.memoryHighlight.color : 0
+                };
+            });
+
             if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3' || this.currentSkill === 'sprach1') {
                 this.questions = rawQuestions;
             } else {
@@ -243,25 +292,25 @@ class MemoryTrainer {
     }
 
     createCardStructure() {
-    // ✅ التأكد من وجود overlay قبل استخدامه
-    if (!this.overlay) {
-        console.warn('⚠️ createCardStructure: overlay غير موجود، يتم إنشاؤه تلقائياً');
-        this.createOverlay();
+        // ✅ التأكد من وجود overlay قبل استخدامه
+        if (!this.overlay) {
+            console.warn('⚠️ createCardStructure: overlay غير موجود، يتم إنشاؤه تلقائياً');
+            this.createOverlay();
+        }
+        const oldCard = this.overlay.querySelector('.memory-trainer-card-container');
+        if (oldCard) oldCard.remove();
+        this.card = document.createElement('div');
+        this.card.className = 'memory-trainer-card-container';
+        this.card.style.cssText = `
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: memorySlideUp 0.15s ease;
+        `;
+        this.overlay.appendChild(this.card);
+        this.isCardReady = true;
     }
-    const oldCard = this.overlay.querySelector('.memory-trainer-card-container');
-    if (oldCard) oldCard.remove();
-    this.card = document.createElement('div');
-    this.card.className = 'memory-trainer-card-container';
-    this.card.style.cssText = `
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        animation: memorySlideUp 0.15s ease;
-    `;
-    this.overlay.appendChild(this.card);
-    this.isCardReady = true;
-}
 
     updateCard(html) {
         if (!this.isCardReady || !this.card) this.createCardStructure();
@@ -717,11 +766,12 @@ class MemoryTrainer {
             // تخطيط خاص لـ Sprachbausteine Teil 1
             // ============================================
             const item = this.currentQuestionObj;
+            // استخدم memoryHighlight إذا كان موجوداً، وإلا استخدم القيم المستخرجة
             const highlight = item.memoryHighlight || {};
             const id = item.id || (this.currentQuestionIndex + 1);
-            const before = highlight.before || '';
-            const connector = highlight.connector || '';
-            const after = highlight.after || '';
+            const before = item.before || highlight.before || '';
+            const connector = item.connector || highlight.connector || '';
+            const after = item.after || highlight.after || '';
             const color = highlight.color !== undefined ? highlight.color : 0;
             
             // تحديد لون البطاقة حسب color
@@ -902,8 +952,8 @@ class MemoryTrainer {
             const item = this.currentQuestionObj;
             const highlight = item.memoryHighlight || {};
             const id = item.id || (this.currentQuestionIndex + 1);
-            const before = highlight.before || '';
-            const after = highlight.after || '';
+            const before = item.before || highlight.before || '';
+            const after = item.after || highlight.after || '';
             displayQuestion = `
                 <div style="
                     font-size: 18px;
