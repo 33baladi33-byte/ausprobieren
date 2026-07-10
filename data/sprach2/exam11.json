@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
-      "correct": "zur"
+      "correct": "zur",
+      "memoryHighlight": {
+        "before": "Tagesstätte",
+        "connector": "zur",
+        "after": "Verfügung. Die",
+        "color": 5
+      }
     },
     {
       "id": 2,
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
-      "correct": "bei"
+      "correct": "bei",
+      "memoryHighlight": {
+        "before": "Jahre",
+        "connector": "bei",
+        "after": "dem Kind",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
-      "correct": "das"
+      "correct": "das",
+      "memoryHighlight": {
+        "before": "bleiben,",
+        "connector": "das",
+        "after": "hat den",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
-      "correct": "dennoch"
+      "correct": "dennoch",
+      "memoryHighlight": {
+        "before": "verliert.",
+        "connector": "dennoch",
+        "after": "wird die",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
-      "correct": "dafür"
+      "correct": "dafür",
+      "memoryHighlight": {
+        "before": "Gründe",
+        "connector": "dafür",
+        "after": "zu sein",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
-      "correct": "sondern"
+      "correct": "sondern",
+      "memoryHighlight": {
+        "before": "still am",
+        "connector": "sondern",
+        "after": "stören mit",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
-      "correct": "niemanden"
+      "correct": "niemanden",
+      "memoryHighlight": {
+        "before": "das",
+        "connector": "niemanden",
+        "after": ": Telefonate",
+        "color": 4
+      }
     },
     {
       "id": 8,
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
-      "correct": "weil"
+      "correct": "weil",
+      "memoryHighlight": {
+        "before": "an,",
+        "connector": "weil",
+        "after": "die Kinder",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
-      "correct": "dass"
+      "correct": "dass",
+      "memoryHighlight": {
+        "before": "angeordnet,",
+        "connector": "dass",
+        "after": "mit einem",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
-      "correct": "auf"
+      "correct": "auf",
+      "memoryHighlight": {
+        "before": "Anspruch",
+        "connector": "auf",
+        "after": "einen Platz",
+        "color": 6
+      }
     }
   ],
   "allOptions": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"]
