@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"],
-      "correct": "MODE"
+      "correct": "MODE",
+      "memoryHighlight": {
+        "before": "in",
+        "connector": "MODE",
+        "after": "bringt. Der",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"],
-      "correct": "GANZ"
+      "correct": "GANZ",
+      "memoryHighlight": {
+        "before": "aber",
+        "connector": "GANZ",
+        "after": "so schnell",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"],
-      "correct": "AUSWEITEN"
+      "correct": "AUSWEITEN",
+      "memoryHighlight": {
+        "before": "deutlich",
+        "connector": "AUSWEITEN",
+        "after": ", sagt Bernhard",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"],
-      "correct": "INSGESAMT"
+      "correct": "INSGESAMT",
+      "memoryHighlight": {
+        "before": "Bord.",
+        "connector": "INSGESAMT",
+        "after": "seien in",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"],
-      "correct": "NEUE"
+      "correct": "NEUE",
+      "memoryHighlight": {
+        "before": "eine",
+        "connector": "NEUE",
+        "after": "Intercity-Nachtverbindung",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"],
-      "correct": "EINGESTELLT"
+      "correct": "EINGESTELLT",
+      "memoryHighlight": {
+        "before": "Mitarbeiter",
+        "connector": "EINGESTELLT",
+        "after": "werden. \"Wenn",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"],
-      "correct": "KONKURRENTEN"
+      "correct": "KONKURRENTEN",
+      "memoryHighlight": {
+        "before": "nicht",
+        "connector": "KONKURRENTEN",
+        "after": "dieses Angebot",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"],
-      "correct": "DURCH"
+      "correct": "DURCH",
+      "memoryHighlight": {
+        "before": "werden,",
+        "connector": "DURCH",
+        "after": "ein klimafreundliches",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"],
-      "correct": "GESTALTET"
+      "correct": "GESTALTET",
+      "memoryHighlight": {
+        "before": "wäre.",
+        "connector": "GESTALTET",
+        "after": "Und der",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"],
-      "correct": "WEGEN"
+      "correct": "WEGEN",
+      "memoryHighlight": {
+        "before": "wurde",
+        "connector": "WEGEN",
+        "after": "damals hoher",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["ALS", "NEUE", "FORM", "MODE", "EINSTEHEN", "AUSWEITEN", "WEGEN", "GANZ", "INSGESAMT", "GESTALTET", "KONKURRENTEN", "DURCH", "EIN", "EINGESTELLT", "KUNDEN"]
