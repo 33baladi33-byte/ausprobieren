@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["obwohl", "trotz", "während"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "gefahren,",
+        "connector": "obwohl",
+        "after": "ich mir",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["hat", "hatte", "hätte"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "ich ankam,",
+        "connector": "hatte",
+        "after": "sie schon",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["konnte", "sollte", "wollte"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Ich",
+        "connector": "wollte",
+        "after": "es mir",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["dafür", "damit", "davon"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "nichts",
+        "connector": "davon",
+        "after": "hören. Heute",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["Einerseite", "weder", "zwar"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "los.",
+        "connector": "Einerseite",
+        "after": "war ich",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["dabei", "davon", "dazu"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "mir",
+        "connector": "dabei",
+        "after": "geholfen, im",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["aussuchen", "ausgesucht", "auszusuchen"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "mich",
+        "connector": "auszusuchen",
+        "after": ". Dann hat",
+        "color": 0
+      }
     },
     {
       "id": 8,
       "options": ["grundlegende", "grundlegenden", "grundlegender"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "einige",
+        "connector": "grundlegende",
+        "after": "Dinge erklärt",
+        "color": 6
+      }
     },
     {
       "id": 9,
       "options": ["am", "im", "zum"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "scheinen",
+        "connector": "im",
+        "after": "Gegensatz zu",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["dass", "ob", "wie"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "nicht,",
+        "connector": "wie",
+        "after": "ich das",
+        "color": 8
+      }
     }
   ]
 }
