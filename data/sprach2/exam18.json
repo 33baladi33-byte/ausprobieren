@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
-      "correct": "was"
+      "correct": "was",
+      "memoryHighlight": {
+        "before": "treu, aber",
+        "connector": "was",
+        "after": "ihre Intelligenz",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
-      "correct": "jetzt"
+      "correct": "jetzt",
+      "memoryHighlight": {
+        "before": "betrifft.",
+        "connector": "jetzt",
+        "after": "haben wissenschaftliche",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
-      "correct": "an"
+      "correct": "an",
+      "memoryHighlight": {
+        "before": "Experimente",
+        "connector": "an",
+        "after": "der Universität",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
-      "correct": "aus"
+      "correct": "aus",
+      "memoryHighlight": {
+        "before": "sollte",
+        "connector": "aus",
+        "after": "verschiedenen Bildern",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
-      "correct": "darauf"
+      "correct": "darauf",
+      "memoryHighlight": {
+        "before": "und",
+        "connector": "darauf",
+        "after": "entweder einen",
+        "color": 11
+      }
     },
     {
       "id": 6,
       "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
-      "correct": "so dass"
+      "correct": "so dass",
+      "memoryHighlight": {
+        "before": "ausgestattet,",
+        "connector": "so dass",
+        "after": "der Hund",
+        "color": 4
+      }
     },
     {
       "id": 7,
       "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
-      "correct": "nicht nur"
+      "correct": "nicht nur",
+      "memoryHighlight": {
+        "before": "hing",
+        "connector": "nicht nur",
+        "after": "mit einer",
+        "color": 8
+      }
     },
     {
       "id": 8,
       "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
-      "correct": "denen"
+      "correct": "denen",
+      "memoryHighlight": {
+        "before": "Gefäße, von",
+        "connector": "denen",
+        "after": "eins Futter",
+        "color": 2
+      }
     },
     {
       "id": 9,
       "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
-      "correct": "dass"
+      "correct": "dass",
+      "memoryHighlight": {
+        "before": "Leipzig,",
+        "connector": "dass",
+        "after": "bestimmte Muster",
+        "color": 6
+      }
     },
     {
       "id": 10,
-      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht только", "so dass", "später", "was", "zu"],
-      "correct": "kein"
+      "options": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"],
+      "correct": "keine",
+      "memoryHighlight": {
+        "before": "brachten",
+        "connector": "keine",
+        "after": "vergleichbaren Resultate",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["an", "aus", "darauf", "das", "eins", "dass", "dem", "denen", "jetzt", "keine", "nicht nur", "so dass", "später", "was", "zu"]
