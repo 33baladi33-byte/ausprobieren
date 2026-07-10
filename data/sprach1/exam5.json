@@ -8,130 +8,110 @@
       "id": 1,
       "options": ["das", "was", "welches"],
       "correct": 1,
-      "highlight": {
-        "connector": "was",
+      "memoryHighlight": {
         "before": "das studieren,",
+        "connector": "was",
         "after": "du möchtest",
-        "highlightWords": ["das", "studieren", ",", "was", "du", "möchtest"],
-        "color": "#4CAF50",
-        "helpKey": "sprach1_exam5_q1"
+        "color": 2
       }
     },
     {
       "id": 2,
       "options": ["denn", "doch", "mal"],
       "correct": 0,
-      "highlight": {
-        "connector": "denn",
+      "memoryHighlight": {
         "before": "Wie ist es",
+        "connector": "denn",
         "after": "so an",
-        "highlightWords": ["Wie", "ist", "es", "denn", "so", "an"],
-        "color": "#FF9800",
-        "helpKey": "sprach1_exam5_q2"
+        "color": 8
       }
     },
     {
       "id": 3,
       "options": ["dazu", "noch", "sogar"],
       "correct": 1,
-      "highlight": {
-        "connector": "noch",
+      "memoryHighlight": {
         "before": "zuhause auch",
+        "connector": "noch",
         "after": "viel lernen",
-        "highlightWords": ["zuhause", "auch", "noch", "viel", "lernen"],
-        "color": "#2196F3",
-        "helpKey": "sprach1_exam5_q3"
+        "color": 0
       }
     },
     {
       "id": 4,
       "options": ["abnehmen", "annehmen", "nehmen"],
       "correct": 0,
-      "highlight": {
-        "connector": "annehmen",
+      "memoryHighlight": {
         "before": "Einladung wirklich gerne",
+        "connector": "annehmen",
         "after": "und dich",
-        "highlightWords": ["Einladung", "wirklich", "gerne", "annehmen", "und", "dich"],
-        "color": "#9C27B0",
-        "helpKey": "sprach1_exam5_q4"
+        "color": 5
       }
     },
     {
       "id": 5,
       "options": ["für", "über", "um"],
       "correct": 2,
-      "highlight": {
-        "connector": "um",
+      "memoryHighlight": {
         "before": "mich viel",
+        "connector": "um",
         "after": "Jonas kümmern",
-        "highlightWords": ["mich", "viel", "um", "Jonas", "kümmern"],
-        "color": "#F44336",
-        "helpKey": "sprach1_exam5_q5"
+        "color": 10
       }
     },
     {
       "id": 6,
       "options": ["bevor", "bis", "sobald"],
       "correct": 2,
-      "highlight": {
-        "connector": "sobald",
+      "memoryHighlight": {
         "before": "Aber",
+        "connector": "sobald",
         "after": "frei hat",
-        "highlightWords": ["Aber", "sobald", "frei", "hat"],
-        "color": "#00BCD4",
-        "helpKey": "sprach1_exam5_q6"
+        "color": 3
       }
     },
     {
       "id": 7,
       "options": ["wenn", "auch wenn", "wenn auch"],
       "correct": 1,
-      "highlight": {
-        "connector": "auch wenn",
+      "memoryHighlight": {
         "before": "toll,",
+        "connector": "auch wenn",
         "after": "es mal",
-        "highlightWords": ["toll", ",", "auch", "wenn", "es", "mal"],
-        "color": "#8BC34A",
-        "helpKey": "sprach1_exam5_q7"
+        "color": 6
       }
     },
     {
       "id": 8,
       "options": ["an", "für", "über"],
       "correct": 1,
-      "highlight": {
-        "connector": "für",
+      "memoryHighlight": {
         "before": "wirklich",
+        "connector": "für",
         "after": "dich! Bei",
-        "highlightWords": ["wirklich", "für", "dich", "!", "Bei"],
-        "color": "#FF5722",
-        "helpKey": "sprach1_exam5_q8"
+        "color": 9
       }
     },
     {
       "id": 9,
       "options": ["demnächst", "neulich", "noch nicht"],
       "correct": 1,
-      "highlight": {
-        "connector": "neulich",
+      "memoryHighlight": {
         "before": "hatten",
+        "connector": "neulich",
         "after": "mal überlegt",
-        "highlightWords": ["hatten", "neulich", "mal", "überlegt"],
-        "color": "#3F51B5",
-        "helpKey": "sprach1_exam5_q9"
+        "color": 4
       }
     },
     {
       "id": 10,
       "options": ["müssen", "sollen", "wollen"],
       "correct": 2,
-      "highlight": {
-        "connector": "wollen",
+      "memoryHighlight": {
         "before": "und wir",
+        "connector": "wollen",
         "after": "uns nicht",
-        "highlightWords": ["und", "wir", "wollen", "uns", "nicht"],
-        "color": "#E91E63",
-        "helpKey": "sprach1_exam5_q10"
+        "color": 7
       }
     }
   ]
