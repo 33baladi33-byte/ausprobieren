@@ -243,20 +243,25 @@ class MemoryTrainer {
     }
 
     createCardStructure() {
-        const oldCard = this.overlay.querySelector('.memory-trainer-card-container');
-        if (oldCard) oldCard.remove();
-        this.card = document.createElement('div');
-        this.card.className = 'memory-trainer-card-container';
-        this.card.style.cssText = `
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: memorySlideUp 0.15s ease;
-        `;
-        this.overlay.appendChild(this.card);
-        this.isCardReady = true;
+    // ✅ التأكد من وجود overlay قبل استخدامه
+    if (!this.overlay) {
+        console.warn('⚠️ createCardStructure: overlay غير موجود، يتم إنشاؤه تلقائياً');
+        this.createOverlay();
     }
+    const oldCard = this.overlay.querySelector('.memory-trainer-card-container');
+    if (oldCard) oldCard.remove();
+    this.card = document.createElement('div');
+    this.card.className = 'memory-trainer-card-container';
+    this.card.style.cssText = `
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: memorySlideUp 0.15s ease;
+    `;
+    this.overlay.appendChild(this.card);
+    this.isCardReady = true;
+}
 
     updateCard(html) {
         if (!this.isCardReady || !this.card) this.createCardStructure();
