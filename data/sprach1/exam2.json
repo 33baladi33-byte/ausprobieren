@@ -12,7 +12,7 @@
         "before": "arbeiten muss",
         "connector": "um",
         "after": "meine Miete",
-        "color": 7
+        "color": 5
       }
     },
     {
@@ -23,7 +23,7 @@
         "before": "nicht weiß",
         "connector": "wie",
         "after": "ich das",
-        "color": 2
+        "color": 1
       }
     },
     {
@@ -45,7 +45,7 @@
         "before": "wollte ich ja",
         "connector": "unbedingt",
         "after": "Kellnerin werden",
-        "color": 4
+        "color": 3
       }
     },
     {
@@ -56,7 +56,7 @@
         "before": "Wenn ich",
         "connector": "mich",
         "after": "nicht täusche",
-        "color": 0
+        "color": 7
       }
     },
     {
@@ -67,7 +67,7 @@
         "before": "ein Paar",
         "connector": "als",
         "after": "wir noch",
-        "color": 6
+        "color": 0
       }
     },
     {
@@ -78,7 +78,7 @@
         "before": "für die",
         "connector": "kommenden",
         "after": "Wochenenden aus",
-        "color": 3
+        "color": 11
       }
     },
     {
@@ -89,7 +89,7 @@
         "before": "Lust",
         "connector": "dazu",
         "after": "? In",
-        "color": 11
+        "color": 4
       }
     },
     {
@@ -100,7 +100,7 @@
         "before": "nur sehr",
         "connector": "ebenso",
         "after": "auch einige",
-        "color": 5
+        "color": 6
       }
     },
     {
@@ -111,7 +111,7 @@
         "before": "was",
         "connector": "einfach",
         "after": "dich?",
-        "color": 8
+        "color": 2
       }
     }
   ]
