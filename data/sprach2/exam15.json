@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"],
-      "correct": "ob"
+      "correct": "ob",
+      "memoryHighlight": {
+        "before": "beispielsweise,",
+        "connector": "ob",
+        "after": "Bio-Produkte nun",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"],
-      "correct": "außerdem"
+      "correct": "außerdem",
+      "memoryHighlight": {
+        "before": "ist.",
+        "connector": "außerdem",
+        "after": "sind Bio-Produkte",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"],
-      "correct": "enthalten"
+      "correct": "enthalten",
+      "memoryHighlight": {
+        "before": "Sie",
+        "connector": "enthalten",
+        "after": "weniger Nitrat",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"],
-      "correct": "hinter"
+      "correct": "hinter",
+      "memoryHighlight": {
+        "before": "steht",
+        "connector": "hinter",
+        "after": "ihrem Einkaufsverhalten",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"],
-      "correct": "enthattet"
+      "correct": "entlastet",
+      "memoryHighlight": {
+        "before": "Sie",
+        "connector": "entlastet",
+        "after": "unsere Umwelt",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"],
-      "correct": "aus"
+      "correct": "aus",
+      "memoryHighlight": {
+        "before": "kommen",
+        "connector": "aus",
+        "after": "ökologischer Landwirtschaft",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"],
-      "correct": "auf"
+      "correct": "auf",
+      "memoryHighlight": {
+        "before": "beispielsweise",
+        "connector": "auf",
+        "after": "Wochenmärkten oder",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"],
-      "correct": "verwendet"
+      "correct": "verwendet",
+      "memoryHighlight": {
+        "before": "dürfen weder",
+        "connector": "verwendet",
+        "after": "werden. Wenn",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"],
-      "correct": "wirklich"
+      "correct": "wirklich",
+      "memoryHighlight": {
+        "before": "dürfen",
+        "connector": "wirklich",
+        "after": "nur Bio-Lebensmittel",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"],
-      "correct": "dass"
+      "correct": "dass",
+      "memoryHighlight": {
+        "before": "garantieren,",
+        "connector": "dass",
+        "after": "die Produkte",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["an", "auf", "aus", "außerdem", "dass", "enthalten", "entlastet", "für", "hinter", "ob", "sogar", "sondern", "verwendet", "wenn", "wirklich"]
