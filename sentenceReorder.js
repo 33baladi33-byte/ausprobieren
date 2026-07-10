@@ -1,100 +1,84 @@
 // ============================================
 // sentenceReorder.js - ميزة ترتيب الجمل (Sentence Puzzle)
-// للمهارات المسموعة (Hören Teil 1, 2, 3)
 // ============================================
 
-console.log("✅ sentenceReorder.js تم تحميله");
+console.log("🧩 sentenceReorder.js يتم تحميله...");
 
 class SentenceReorder {
-    // ==========================================
-    // الخصائص الثابتة
-    // ==========================================
     static overlay = null;
     static puzzleContainer = null;
     static parts = [];
     static shuffledParts = [];
     static slots = [];
     static currentQuestionId = null;
-    static currentContainer = null;
     static currentSentenceElement = null;
     static isOpen = false;
     static isCorrect = false;
     static iconElement = null;
+    static currentText = '';
 
     // ==========================================
-    // الدوال الرئيسية
+    // الفتح الرئيسي
     // ==========================================
-
-    /**
-     * فتح نافذة ترتيب الجملة
-     * @param {HTMLElement} container - حاوية الامتحان
-     * @param {HTMLElement} sentenceElement - عنصر الجملة
-     * @param {number} questionId - رقم السؤال
-     */
     static open(container, sentenceElement, questionId) {
-        // منع فتح أكثر من نافذة
-        if (this.isOpen) return;
+        console.log('🧩 فتح SentenceReorder للجملة:', sentenceElement.textContent);
         
-        // الحصول على نص الجملة
-        const text = this.getSentenceText(sentenceElement);
-        if (!text || text.trim().length === 0) {
+        if (this.isOpen) {
+            console.log('⚠️ نافذة مفتوحة بالفعل');
+            return;
+        }
+
+        // الحصول على النص
+        const text = sentenceElement.textContent || sentenceElement.innerText || '';
+        this.currentText = text.trim();
+        
+        if (!this.currentText) {
             console.warn('⚠️ لا يوجد نص للجملة');
             return;
         }
+
+        console.log('📝 نص الجملة:', this.currentText);
 
         // حفظ البيانات
         this.currentContainer = container;
         this.currentSentenceElement = sentenceElement;
         this.currentQuestionId = questionId;
         this.isOpen = true;
+        this.isCorrect = false;
 
-        // تقسيم الجملة إلى 3 أجزاء
-        this.parts = this.splitSentence(text);
-        
+        // تقسيم الجملة
+        this.parts = this.splitSentence(this.currentText);
+        console.log('📦 الأجزاء:', this.parts);
+
         // خلط الأجزاء
         this.shuffledParts = this.shuffleArray([...this.parts]);
+        console.log('🔀 الأجزاء المخلوطة:', this.shuffledParts);
 
         // إنشاء النافذة
         this.createOverlay();
         this.renderPuzzle();
 
-        // إضافة مستمعين للأحداث
-        this.addEventListeners();
+        console.log('✅ SentenceReorder تم فتحه بنجاح');
     }
 
-    /**
-     * الحصول على نص الجملة من العنصر
-     */
-    static getSentenceText(sentenceElement) {
-        // محاولة الحصول على النص من العنصر مباشرة
-        if (sentenceElement.textContent) {
-            // إزالة رقم السؤال إذا وجد (مثل "1. ")
-            let text = sentenceElement.textContent.trim();
-            text = text.replace(/^\d+\.\s*/, '');
-            return text;
-        }
-        return '';
-    }
-
-    /**
-     * تقسيم الجملة إلى 3 أجزاء متقاربة في الطول
-     */
+    // ==========================================
+    // تقسيم الجملة إلى 3 أجزاء
+    // ==========================================
     static splitSentence(text) {
-        // تنظيف النص
         let cleanText = text.trim();
         
-        // إذا كان النص قصيراً جداً
-        if (cleanText.length < 15) {
-            return [cleanText, '', ''];
+        // إذا كان النص قصيراً
+        if (cleanText.length < 20) {
+            return [cleanText];
         }
 
         // تقسيم إلى كلمات
         const words = cleanText.split(/\s+/);
         const totalWords = words.length;
         
-        // إذا كان عدد الكلمات أقل من 3
-        if (totalWords <= 3) {
-            return words;
+        // إذا كان عدد الكلمات قليلاً
+        if (totalWords <= 4) {
+            return [words.join(' ')];
         }
 
         // تقسيم إلى 3 أجزاء متساوية تقريباً
@@ -105,38 +89,41 @@ class SentenceReorder {
             const start = i * partSize;
             const end = Math.min(start + partSize, totalWords);
             if (start < totalWords) {
-                parts.push(words.slice(start, end).join(' '));
-            } else {
-                parts.push('');
+                const part = words.slice(start, end).join(' ');
+                parts.push(part);
             }
         }
 
-        // إزالة الأجزاء الفارغة
-        return parts.filter(p => p.length > 0);
+        // التأكد من وجود 3 أجزاء
+        while (parts.length < 3) {
+            parts.push('');
+        }
+
+        console.log('✂️ التقسيم:', parts);
+        return parts;
     }
 
-    /**
-     * خلط المصفوفة (Fisher-Yates)
-     */
+    // ==========================================
+    // خلط المصفوفة
+    // ==========================================
     static shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
-        return array;
+        return shuffled;
     }
 
     // ==========================================
     // إنشاء النافذة
     // ==========================================
-
     static createOverlay() {
         // إزالة أي نافذة قديمة
         this.close();
 
-        // إنشاء الخلفية
+        // الخلفية
         this.overlay = document.createElement('div');
-        this.overlay.className = 'sentence-puzzle-overlay';
         this.overlay.id = 'sentencePuzzleOverlay';
         this.overlay.style.cssText = `
             position: fixed;
@@ -144,135 +131,156 @@ class SentenceReorder {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(4px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 99999;
-            animation: sentenceFadeIn 0.2s ease;
             opacity: 0;
+            transition: opacity 0.2s ease;
         `;
 
-        // إنشاء البطاقة
+        // البطاقة
         this.puzzleContainer = document.createElement('div');
-        this.puzzleContainer.className = 'sentence-puzzle-card';
+        this.puzzleContainer.id = 'sentencePuzzleCard';
         this.puzzleContainer.style.cssText = `
             background: #ffffff;
-            border-radius: 18px;
+            border-radius: 20px;
             padding: 24px 28px;
-            max-width: 520px;
+            max-width: 580px;
             width: 92%;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-            animation: sentenceScaleIn 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
             transform: scale(0.95);
+            transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             position: relative;
             max-height: 90vh;
             overflow-y: auto;
         `;
 
-        // إضافة العناصر إلى الصفحة
         this.overlay.appendChild(this.puzzleContainer);
         document.body.appendChild(this.overlay);
 
-        // تأخير صغير لتطبيق الأنيميشن
+        // ظهور مع أنيميشن
         requestAnimationFrame(() => {
             this.overlay.style.opacity = '1';
             this.puzzleContainer.style.transform = 'scale(1)';
         });
+
+        // إغلاق عند الضغط على الخلفية
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+                this.close();
+            }
+        });
+
+        // إغلاق عند الضغط على ESC
+        document.addEventListener('keydown', this.handleEsc);
     }
 
     // ==========================================
-    // عرض اللغز
+    // عرض اللغز (البطاقات والخانات)
     // ==========================================
-
     static renderPuzzle() {
-        if (!this.puzzleContainer) return;
-        
+        if (!this.puzzleContainer) {
+            console.error('❌ puzzleContainer غير موجود');
+            return;
+        }
+
+        console.log('🎨 بدء renderPuzzle()');
+        console.log('📦 الأجزاء:', this.parts);
+        console.log('🔀 الأجزاء المخلوطة:', this.shuffledParts);
+
         // تنظيف المحتوى
         this.puzzleContainer.innerHTML = '';
 
-        // العنوان
+        // ---- العنوان ----
         const title = document.createElement('h3');
+        title.textContent = '🧩 رتب الجملة';
         title.style.cssText = `
-            margin: 0 0 16px 0;
+            margin: 0 0 20px 0;
             color: #2c3e66;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            font-weight: 600;
         `;
-        title.innerHTML = '🧩 رتب الجملة';
         this.puzzleContainer.appendChild(title);
 
         // ---- الخانات (Slots) ----
         const slotsContainer = document.createElement('div');
-        slotsContainer.className = 'sentence-slots-container';
+        slotsContainer.id = 'sentenceSlotsContainer';
         slotsContainer.style.cssText = `
             display: flex;
             gap: 12px;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             flex-wrap: wrap;
+            min-height: 70px;
+            padding: 8px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 2px dashed #e2e8f0;
         `;
 
         this.slots = [];
-        for (let i = 0; i < this.parts.length; i++) {
+        const numSlots = this.parts.length;
+
+        for (let i = 0; i < numSlots; i++) {
             const slot = document.createElement('div');
-            slot.className = `sentence-slot slot-${i}`;
+            slot.className = `sentence-slot`;
             slot.dataset.slotIndex = i;
             slot.style.cssText = `
                 flex: 1;
                 min-width: 80px;
-                min-height: 50px;
+                min-height: 56px;
                 padding: 10px 14px;
-                border: 2px dashed #d0d7e6;
+                border: 2px dashed #cbd5e1;
                 border-radius: 12px;
-                background: #f8fafc;
+                background: #ffffff;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 text-align: center;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 color: #94a3b8;
                 transition: all 0.2s ease;
                 cursor: pointer;
-                position: relative;
-                min-height: 60px;
+                font-weight: 500;
             `;
-            slot.textContent = `[ ${i + 1} ]`;
-            
-            // إضافة مستمع للسحب والإفلات
+            slot.textContent = `📥 ${i + 1}`;
+
+            // مستمعات السحب والإفلات
             slot.addEventListener('dragover', (e) => {
                 e.preventDefault();
-                slot.style.borderColor = '#38bdf8';
-                slot.style.background = '#f0f8ff';
+                if (!slot.dataset.hasPart) {
+                    slot.style.borderColor = '#38bdf8';
+                    slot.style.background = '#f0f8ff';
+                }
             });
-            
+
             slot.addEventListener('dragleave', () => {
                 if (!slot.dataset.hasPart) {
-                    slot.style.borderColor = '#d0d7e6';
-                    slot.style.background = '#f8fafc';
+                    slot.style.borderColor = '#cbd5e1';
+                    slot.style.background = '#ffffff';
                 }
             });
 
             slot.addEventListener('drop', (e) => {
                 e.preventDefault();
                 const draggedIndex = parseInt(e.dataTransfer.getData('text/plain'));
+                console.log(`📥 إفلات البطاقة ${draggedIndex} في الخانة ${i}`);
                 this.handleDrop(draggedIndex, i);
             });
 
-            // للنقر على الخانة (بديل للسحب في الهواتف)
             slot.addEventListener('click', () => {
+                if (this.isCorrect) return;
                 if (slot.dataset.hasPart) {
                     // إعادة البطاقة إلى الأسفل
                     const partText = slot.textContent;
-                    const partIndex = this.parts.indexOf(partText);
+                    const partIndex = this.shuffledParts.indexOf(partText);
                     if (partIndex !== -1) {
                         this.clearSlot(i);
-                        this.addPartToPool(partText, partIndex);
+                        this.showCard(partIndex);
                     }
                 }
             });
@@ -280,43 +288,55 @@ class SentenceReorder {
             this.slots.push(slot);
             slotsContainer.appendChild(slot);
         }
+
         this.puzzleContainer.appendChild(slotsContainer);
+        console.log('✅ تم إنشاء', this.slots.length, 'خانات');
 
         // ---- البطاقات (Cards) ----
         const cardsContainer = document.createElement('div');
-        cardsContainer.className = 'sentence-cards-container';
+        cardsContainer.id = 'sentenceCardsContainer';
         cardsContainer.style.cssText = `
             display: flex;
             gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             min-height: 60px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 12px;
         `;
 
-        // إنشاء بطاقة لكل جزء مخلوط
+        console.log('🔀 إنشاء بطاقات للأجزاء:', this.shuffledParts);
+
         this.shuffledParts.forEach((part, index) => {
+            if (!part || part.trim() === '') {
+                console.warn(`⚠️ الجزء ${index} فارغ، تخطي`);
+                return;
+            }
+
             const card = document.createElement('div');
-            card.className = `sentence-card card-${index}`;
+            card.className = 'sentence-card';
             card.dataset.partIndex = index;
             card.dataset.partText = part;
             card.draggable = true;
             card.style.cssText = `
-                padding: 10px 18px;
+                padding: 12px 20px;
                 background: #ffffff;
                 border: 2px solid #d0d7e6;
                 border-radius: 12px;
                 cursor: grab;
                 font-size: 0.9rem;
-                color: #2c3e66;
+                color: #1e293b;
                 transition: all 0.2s ease;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
                 user-select: none;
                 font-weight: 500;
                 flex: 0 1 auto;
-                max-width: 200px;
+                max-width: 220px;
                 text-align: center;
                 word-break: break-word;
+                line-height: 1.4;
             `;
             card.textContent = part;
 
@@ -328,53 +348,63 @@ class SentenceReorder {
                 }
                 e.dataTransfer.setData('text/plain', index.toString());
                 card.style.opacity = '0.5';
+                card.style.transform = 'scale(0.95)';
             });
 
             card.addEventListener('dragend', () => {
                 card.style.opacity = '1';
+                card.style.transform = 'scale(1)';
             });
 
-            // للنقر على البطاقة (بديل للسحب في الهواتف)
+            // النقر كبديل للسحب (للهواتف)
             card.addEventListener('click', () => {
                 if (this.isCorrect) return;
                 // البحث عن أول خانة فارغة
                 const emptySlotIndex = this.slots.findIndex(s => !s.dataset.hasPart);
                 if (emptySlotIndex !== -1) {
+                    console.log(`👆 نقر على البطاقة ${index}، وضعها في الخانة ${emptySlotIndex}`);
                     this.handleDrop(index, emptySlotIndex);
+                } else {
+                    this.showToast('⚠️ جميع الخانات ممتلئة', 'warning');
                 }
             });
 
-            // تأثير hover
+            // تأثيرات Hover
             card.addEventListener('mouseenter', () => {
-                if (!this.isCorrect) {
+                if (!this.isCorrect && !card.dataset.placed) {
                     card.style.borderColor = '#38bdf8';
                     card.style.background = '#f0f8ff';
-                    card.style.transform = 'translateY(-2px)';
+                    card.style.transform = 'translateY(-3px)';
+                    card.style.boxShadow = '0 8px 20px rgba(56, 189, 248, 0.15)';
                 }
             });
 
             card.addEventListener('mouseleave', () => {
-                if (!this.isCorrect) {
+                if (!this.isCorrect && !card.dataset.placed) {
                     card.style.borderColor = '#d0d7e6';
                     card.style.background = '#ffffff';
                     card.style.transform = 'translateY(0)';
+                    card.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.06)';
                 }
             });
 
             cardsContainer.appendChild(card);
+            console.log(`✅ بطاقة ${index}:`, part.substring(0, 30) + '...');
         });
 
         this.puzzleContainer.appendChild(cardsContainer);
+        console.log('✅ تم إنشاء', this.shuffledParts.length, 'بطاقات');
 
         // ---- زر التحقق ----
         const checkBtn = document.createElement('button');
-        checkBtn.className = 'sentence-check-btn';
+        checkBtn.id = 'sentenceCheckBtn';
+        checkBtn.textContent = '✅ تحقق';
         checkBtn.style.cssText = `
             background: #2c3e66;
             color: white;
             border: none;
             border-radius: 12px;
-            padding: 12px 28px;
+            padding: 14px 28px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -384,11 +414,9 @@ class SentenceReorder {
             align-items: center;
             justify-content: center;
             gap: 8px;
+            font-family: inherit;
         `;
-        checkBtn.innerHTML = '✅ تحقق';
-        checkBtn.addEventListener('click', () => this.checkOrder());
 
-        // تأثير hover
         checkBtn.addEventListener('mouseenter', () => {
             checkBtn.style.background = '#1a2a4a';
             checkBtn.style.transform = 'translateY(-2px)';
@@ -398,11 +426,16 @@ class SentenceReorder {
             checkBtn.style.transform = 'translateY(0)';
         });
 
+        checkBtn.addEventListener('click', () => {
+            console.log('🔍 التحقق من الترتيب');
+            this.checkOrder();
+        });
+
         this.puzzleContainer.appendChild(checkBtn);
 
         // ---- زر الإغلاق ----
         const closeBtn = document.createElement('button');
-        closeBtn.className = 'sentence-close-btn';
+        closeBtn.textContent = '✕';
         closeBtn.style.cssText = `
             position: absolute;
             top: 12px;
@@ -415,10 +448,9 @@ class SentenceReorder {
             transition: all 0.2s ease;
             padding: 4px 8px;
             line-height: 1;
+            font-family: inherit;
         `;
-        closeBtn.textContent = '✕';
-        closeBtn.addEventListener('click', () => this.close());
-        
+
         closeBtn.addEventListener('mouseenter', () => {
             closeBtn.style.color = '#2c3e66';
             closeBtn.style.transform = 'scale(1.1)';
@@ -428,42 +460,64 @@ class SentenceReorder {
             closeBtn.style.transform = 'scale(1)';
         });
 
+        closeBtn.addEventListener('click', () => {
+            console.log('❌ إغلاق النافذة');
+            this.close();
+        });
+
         this.puzzleContainer.appendChild(closeBtn);
+
+        console.log('✅ renderPuzzle() اكتمل');
+        console.log('📄 محتوى puzzleContainer:', this.puzzleContainer.innerHTML.substring(0, 200) + '...');
     }
 
     // ==========================================
     // معالجة السحب والإفلات
     // ==========================================
-
     static handleDrop(draggedIndex, slotIndex) {
-        if (this.isCorrect) return;
+        if (this.isCorrect) {
+            console.log('⛔ اللغز تم حله بالفعل');
+            return;
+        }
 
-        // الحصول على البطاقة المسحوبة
-        const card = document.querySelector(`.sentence-card[data-part-index="${draggedIndex}"]`);
-        if (!card) return;
+        console.log(`🔄 معالجة الإفلات: بطاقة ${draggedIndex} → خانة ${slotIndex}`);
 
-        // الحصول على الخانة المستهدفة
+        // التحقق من صحة المؤشرات
+        if (draggedIndex < 0 || draggedIndex >= this.shuffledParts.length) {
+            console.error('❌ مؤشر البطاقة غير صحيح:', draggedIndex);
+            return;
+        }
+
+        if (slotIndex < 0 || slotIndex >= this.slots.length) {
+            console.error('❌ مؤشر الخانة غير صحيح:', slotIndex);
+            return;
+        }
+
         const slot = this.slots[slotIndex];
-        if (!slot) return;
+        if (!slot) {
+            console.error('❌ الخانة غير موجودة');
+            return;
+        }
 
         // إذا كانت الخانة تحتوي بالفعل على جزء
         if (slot.dataset.hasPart) {
-            // تبديل الأجزاء
+            console.log('🔄 الخانة مشغولة، تبادل الأجزاء');
             const existingPart = slot.textContent;
-            const existingIndex = this.parts.indexOf(existingPart);
+            const existingIndex = this.shuffledParts.indexOf(existingPart);
             
             // تنظيف الخانة
             this.clearSlot(slotIndex);
             
-            // وضع الجزء الجديد في الخانة
+            // وضع الجزء الجديد
             this.placePartInSlot(draggedIndex, slotIndex);
             
-            // إعادة الجزء القديم إلى المجموعة
+            // إعادة الجزء القديم
             if (existingIndex !== -1) {
-                this.addPartToPool(existingPart, existingIndex);
+                this.showCard(existingIndex);
             }
         } else {
-            // وضع الجزء في الخانة الفارغة
+            // خانة فارغة
+            console.log(`📥 وضع البطاقة ${draggedIndex} في الخانة ${slotIndex}`);
             this.placePartInSlot(draggedIndex, slotIndex);
         }
 
@@ -475,12 +529,22 @@ class SentenceReorder {
         const card = document.querySelector(`.sentence-card[data-part-index="${partIndex}"]`);
         const slot = this.slots[slotIndex];
         
-        if (!card || !slot) return;
+        if (!card) {
+            console.error(`❌ البطاقة ${partIndex} غير موجودة`);
+            return;
+        }
+        
+        if (!slot) {
+            console.error(`❌ الخانة ${slotIndex} غير موجودة`);
+            return;
+        }
 
         const partText = card.dataset.partText;
-        
+        console.log(`📥 وضع "${partText}" في الخانة ${slotIndex}`);
+
         // إخفاء البطاقة
         card.style.display = 'none';
+        card.dataset.placed = 'true';
         
         // وضع النص في الخانة
         slot.textContent = partText;
@@ -488,39 +552,47 @@ class SentenceReorder {
         slot.dataset.partIndex = partIndex;
         slot.style.borderColor = '#28a745';
         slot.style.background = '#f0fdf4';
-        slot.style.color = '#2c3e66';
+        slot.style.color = '#1e293b';
+        slot.style.fontWeight = '600';
     }
 
     static clearSlot(slotIndex) {
         const slot = this.slots[slotIndex];
         if (!slot) return;
 
-        slot.textContent = `[ ${slotIndex + 1} ]`;
+        console.log(`🗑️ تنظيف الخانة ${slotIndex}`);
+        slot.textContent = `📥 ${slotIndex + 1}`;
         delete slot.dataset.hasPart;
         delete slot.dataset.partIndex;
-        slot.style.borderColor = '#d0d7e6';
-        slot.style.background = '#f8fafc';
+        slot.style.borderColor = '#cbd5e1';
+        slot.style.background = '#ffffff';
         slot.style.color = '#94a3b8';
+        slot.style.fontWeight = '500';
     }
 
-    static addPartToPool(partText, partIndex) {
+    static showCard(partIndex) {
         const card = document.querySelector(`.sentence-card[data-part-index="${partIndex}"]`);
         if (card) {
+            console.log(`🔄 إظهار البطاقة ${partIndex}`);
             card.style.display = 'block';
+            delete card.dataset.placed;
         }
     }
 
     // ==========================================
     // التحقق من الترتيب
     // ==========================================
-
     static checkOrder() {
-        if (this.isCorrect) return;
+        if (this.isCorrect) {
+            console.log('⛔ اللغز تم حله بالفعل');
+            return;
+        }
 
         // التحقق من أن جميع الخانات مملوءة
         const filledSlots = this.slots.filter(s => s.dataset.hasPart);
+        console.log(`📊 خانات ممتلئة: ${filledSlots.length}/${this.parts.length}`);
+
         if (filledSlots.length < this.parts.length) {
-            // إظهار رسالة
             this.showToast('⚠️ الرجاء ملء جميع الخانات أولاً', 'warning');
             return;
         }
@@ -532,27 +604,33 @@ class SentenceReorder {
             const partText = slot.textContent;
             const correctPart = this.parts[index];
             
+            console.log(`🔍 الخانة ${index}: "${partText}" vs "${correctPart}"`);
+
             // إزالة الألوان القديمة
-            slot.style.borderColor = '#d0d7e6';
-            slot.style.background = '#f8fafc';
+            slot.style.borderColor = '#cbd5e1';
+            slot.style.background = '#ffffff';
 
             if (partText === correctPart) {
                 // صحيح
                 slot.style.borderColor = '#28a745';
                 slot.style.background = '#d4edda';
                 slot.style.color = '#155724';
+                console.log(`✅ الخانة ${index} صحيحة`);
             } else {
                 // خاطئ
                 isAllCorrect = false;
                 slot.style.borderColor = '#e67e22';
                 slot.style.background = '#fef0e0';
                 slot.style.color = '#856404';
+                console.log(`❌ الخانة ${index} خاطئة`);
             }
         });
 
         if (isAllCorrect) {
+            console.log('🎉 جميع الخانات صحيحة!');
             this.onSuccess();
         } else {
+            console.log('❌ بعض الخانات خاطئة');
             this.showToast('❌ الترتيب غير صحيح، حاول مرة أخرى', 'error');
         }
     }
@@ -560,9 +638,9 @@ class SentenceReorder {
     // ==========================================
     // عند النجاح
     // ==========================================
-
     static onSuccess() {
         this.isCorrect = true;
+        console.log('🎉 النجاح!');
         
         // تغيير لون الخانات إلى الأخضر
         this.slots.forEach(slot => {
@@ -571,10 +649,9 @@ class SentenceReorder {
             slot.style.color = '#155724';
         });
 
-        // إظهار رسالة نجاح
         this.showToast('🎉 أحسنت! الترتيب صحيح ✅', 'success');
 
-        // تغيير أيقونة الجملة إلى ✅
+        // تحديث الأيقونة
         this.updateIcon(true);
 
         // إغلاق النافذة بعد 800ms
@@ -584,32 +661,48 @@ class SentenceReorder {
     }
 
     // ==========================================
-    // تحديث أيقونة الجملة
+    // تحديث الأيقونة
     // ==========================================
-
     static updateIcon(success) {
-        if (!this.currentSentenceElement) return;
-
-        // البحث عن أيقونة 🔀 بجانب الجملة
-        const icon = this.currentSentenceElement.parentElement?.querySelector('.sentence-puzzle-icon');
-        if (icon) {
-            icon.textContent = success ? '✅' : '🔀';
+        if (this.iconElement) {
+            this.iconElement.textContent = success ? '✅' : '🔀';
             if (success) {
-                icon.style.color = '#28a745';
-                icon.style.cursor = 'default';
-                icon.style.opacity = '0.8';
+                this.iconElement.style.color = '#28a745';
+                this.iconElement.style.cursor = 'default';
+                this.iconElement.style.opacity = '0.8';
+                this.iconElement.classList.add('success');
             }
         }
     }
 
     // ==========================================
+    // إعادة تعيين ألوان التصحيح
+    // ==========================================
+    static clearCorrectionColors() {
+        this.slots.forEach(slot => {
+            if (slot.dataset.hasPart) {
+                slot.style.borderColor = '#28a745';
+                slot.style.background = '#f0fdf4';
+                slot.style.color = '#1e293b';
+            } else {
+                slot.style.borderColor = '#cbd5e1';
+                slot.style.background = '#ffffff';
+                slot.style.color = '#94a3b8';
+            }
+        });
+    }
+
+    // ==========================================
     // إغلاق النافذة
     // ==========================================
-
     static close() {
+        console.log('❌ إغلاق SentenceReorder');
+        
         if (this.overlay) {
             this.overlay.style.opacity = '0';
-            this.puzzleContainer.style.transform = 'scale(0.95)';
+            if (this.puzzleContainer) {
+                this.puzzleContainer.style.transform = 'scale(0.95)';
+            }
             
             setTimeout(() => {
                 if (this.overlay && this.overlay.parentNode) {
@@ -618,41 +711,24 @@ class SentenceReorder {
                 this.overlay = null;
                 this.puzzleContainer = null;
                 this.isOpen = false;
+                this.isCorrect = false;
+                console.log('✅ SentenceReorder تم إغلاقه');
             }, 200);
         }
 
-        // إعادة تعيين المتغيرات
-        this.parts = [];
-        this.shuffledParts = [];
-        this.slots = [];
-        this.currentQuestionId = null;
-        this.currentContainer = null;
-        this.currentSentenceElement = null;
-        this.isCorrect = false;
+        // إزالة مستمع ESC
+        document.removeEventListener('keydown', this.handleEsc);
     }
 
-    // ==========================================
-    // إعادة تعيين ألوان التصحيح
-    // ==========================================
-
-    static clearCorrectionColors() {
-        this.slots.forEach(slot => {
-            if (slot.dataset.hasPart) {
-                slot.style.borderColor = '#28a745';
-                slot.style.background = '#f0fdf4';
-                slot.style.color = '#2c3e66';
-            } else {
-                slot.style.borderColor = '#d0d7e6';
-                slot.style.background = '#f8fafc';
-                slot.style.color = '#94a3b8';
-            }
-        });
+    static handleEsc(e) {
+        if (e.key === 'Escape' && SentenceReorder.isOpen) {
+            SentenceReorder.close();
+        }
     }
 
     // ==========================================
     // Toast Notification
     // ==========================================
-
     static showToast(message, type = 'info') {
         // إزالة أي توست قديم
         const oldToast = document.querySelector('.sentence-toast');
@@ -662,43 +738,55 @@ class SentenceReorder {
         toast.className = 'sentence-toast';
         toast.style.cssText = `
             position: fixed;
-            bottom: 80px;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 10px 24px;
-            border-radius: 12px;
-            font-size: 0.9rem;
+            padding: 12px 28px;
+            border-radius: 14px;
+            font-size: 0.95rem;
             font-weight: 500;
             z-index: 100000;
             animation: sentenceToastIn 0.3s ease;
             max-width: 90%;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
             text-align: center;
+            font-family: inherit;
+            border: 1px solid transparent;
         `;
 
         // ألوان حسب النوع
-        if (type === 'success') {
-            toast.style.background = '#d4edda';
-            toast.style.color = '#155724';
-            toast.style.border = '1px solid #28a745';
-        } else if (type === 'error') {
-            toast.style.background = '#fef0e0';
-            toast.style.color = '#856404';
-            toast.style.border = '1px solid #e67e22';
-        } else if (type === 'warning') {
-            toast.style.background = '#fff3cd';
-            toast.style.color = '#856404';
-            toast.style.border = '1px solid #ffc107';
-        } else {
-            toast.style.background = '#f0f8ff';
-            toast.style.color = '#2c3e66';
-            toast.style.border = '1px solid #38bdf8';
-        }
+        const styles = {
+            success: {
+                background: '#d4edda',
+                color: '#155724',
+                border: '1px solid #28a745'
+            },
+            error: {
+                background: '#fef0e0',
+                color: '#856404',
+                border: '1px solid #e67e22'
+            },
+            warning: {
+                background: '#fff3cd',
+                color: '#856404',
+                border: '1px solid #ffc107'
+            },
+            info: {
+                background: '#f0f8ff',
+                color: '#2c3e66',
+                border: '1px solid #38bdf8'
+            }
+        };
+
+        const style = styles[type] || styles.info;
+        toast.style.background = style.background;
+        toast.style.color = style.color;
+        toast.style.border = style.border;
 
         toast.textContent = message;
         document.body.appendChild(toast);
 
-        // إزالة التوست بعد 2.5 ثانية
+        // إزالة بعد 2.5 ثانية
         setTimeout(() => {
             toast.style.animation = 'sentenceToastOut 0.3s ease forwards';
             setTimeout(() => {
@@ -708,69 +796,29 @@ class SentenceReorder {
     }
 
     // ==========================================
-    // إضافة مستمعي الأحداث العامة
+    // التهيئة
     // ==========================================
-
-    static addEventListeners() {
-        // إغلاق النافذة عند الضغط على الخلفية
-        if (this.overlay) {
-            this.overlay.addEventListener('click', (e) => {
-                if (e.target === this.overlay) {
-                    this.close();
-                }
-            });
-        }
-
-        // إغلاق النافذة عند الضغط على ESC
-        document.addEventListener('keydown', this.handleEsc);
-    }
-
-    static handleEsc(e) {
-        if (e.key === 'Escape' && SentenceReorder.isOpen) {
-            SentenceReorder.close();
-            document.removeEventListener('keydown', SentenceReorder.handleEsc);
-        }
-    }
-
-    // ==========================================
-    // تهيئة النظام
-    // ==========================================
-
     static init() {
         console.log('🧩 SentenceReorder: جاهز للعمل');
-        
-        // إضافة الأنماط الديناميكية إذا لم تكن موجودة
         this.addStyles();
     }
 
     static addStyles() {
-        // التحقق من وجود الأنماط
         if (document.getElementById('sentenceReorderStyles')) return;
 
         const styles = document.createElement('style');
         styles.id = 'sentenceReorderStyles';
         styles.textContent = `
-            @keyframes sentenceFadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-            
-            @keyframes sentenceScaleIn {
-                from { opacity: 0; transform: scale(0.9) translateY(10px); }
-                to { opacity: 1; transform: scale(1) translateY(0); }
-            }
-            
             @keyframes sentenceToastIn {
-                from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+                from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
             }
             
             @keyframes sentenceToastOut {
-                from { opacity: 1; transform: translateX(-50%) translateY(0); }
-                to { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                from { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+                to { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
             }
 
-            /* أيقونة الجملة */
             .sentence-puzzle-icon {
                 font-size: 18px;
                 cursor: pointer;
@@ -793,37 +841,39 @@ class SentenceReorder {
                 opacity: 0.8;
             }
 
-            /* تحسينات للهواتف */
+            /* للهواتف */
             @media (max-width: 768px) {
-                .sentence-puzzle-card {
-                    padding: 16px !important;
-                    max-width: 95% !important;
-                    border-radius: 14px !important;
+                #sentencePuzzleCard {
+                    padding: 16px 18px !important;
+                    max-width: 96% !important;
+                    border-radius: 16px !important;
                 }
                 
                 .sentence-slot {
                     min-width: 50px !important;
-                    min-height: 40px !important;
+                    min-height: 44px !important;
                     padding: 6px 10px !important;
-                    font-size: 0.75rem !important;
+                    font-size: 0.7rem !important;
                 }
                 
                 .sentence-card {
-                    padding: 6px 12px !important;
+                    padding: 8px 14px !important;
                     font-size: 0.75rem !important;
-                    max-width: 140px !important;
+                    max-width: 160px !important;
                 }
                 
-                .sentence-slots-container {
+                #sentenceSlotsContainer {
                     gap: 6px !important;
+                    padding: 6px !important;
                 }
                 
-                .sentence-cards-container {
+                #sentenceCardsContainer {
                     gap: 6px !important;
+                    padding: 8px !important;
                 }
                 
-                .sentence-check-btn {
-                    padding: 8px 16px !important;
+                #sentenceCheckBtn {
+                    padding: 10px 20px !important;
                     font-size: 0.85rem !important;
                 }
             }
@@ -831,15 +881,15 @@ class SentenceReorder {
             @media (max-width: 480px) {
                 .sentence-slot {
                     min-width: 40px !important;
-                    min-height: 32px !important;
+                    min-height: 36px !important;
                     padding: 4px 6px !important;
-                    font-size: 0.65rem !important;
+                    font-size: 0.6rem !important;
                 }
                 
                 .sentence-card {
-                    padding: 4px 8px !important;
+                    padding: 6px 10px !important;
                     font-size: 0.65rem !important;
-                    max-width: 100px !important;
+                    max-width: 120px !important;
                 }
             }
         `;
@@ -848,16 +898,21 @@ class SentenceReorder {
 }
 
 // ============================================
-// تصدير للاستخدام العالمي
+// التصدير
 // ============================================
 window.SentenceReorder = SentenceReorder;
 
 // ============================================
 // التهيئة التلقائية
 // ============================================
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        SentenceReorder.init();
+        console.log('🧩 SentenceReorder: تم التهيئة');
+    });
+} else {
     SentenceReorder.init();
-    console.log('🧩 SentenceReorder: تم التهيئة بنجاح');
-});
+    console.log('🧩 SentenceReorder: تم التهيئة (مباشر)');
+}
 
-console.log('✅ sentenceReorder.js جاهز');
+console.log('✅ sentenceReorder.js تم تحميله بالكامل');
