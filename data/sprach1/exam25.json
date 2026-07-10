@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["ihr", "Sie", "sie"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "dass wir",
+        "connector": "sie",
+        "after": "bald kennenlernen",
+        "color": 1
+      }
     },
     {
       "id": 2,
       "options": ["Deshalb", "Obwohl", "Trotzdem"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "kann.",
+        "connector": "Deshalb",
+        "after": "warten wir",
+        "color": 7
+      }
     },
     {
       "id": 3,
       "options": ["bis", "dann", "wann"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Bescheid,",
+        "connector": "wann",
+        "after": "euch ein",
+        "color": 3
+      }
     },
     {
       "id": 4,
       "options": ["auf", "im", "in"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "steht",
+        "connector": "auf",
+        "after": "jeden Fall",
+        "color": 9
+      }
     },
     {
       "id": 5,
       "options": ["Seit", "Vom", "Zum"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Kindergarten.",
+        "connector": "Seit",
+        "after": "diesem Jahr",
+        "color": 5
+      }
     },
     {
       "id": 6,
       "options": ["ob", "obwohl", "ohnehin"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "überlege mir,",
+        "connector": "ob",
+        "after": "ich nicht",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["verstellen", "vorstellen", "zustellen"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "gar nicht",
+        "connector": "vorstellen",
+        "after": ", wie ich",
+        "color": 4
+      }
     },
     {
       "id": 8,
       "options": ["dafür", "damit", "davon"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "hältst du",
+        "connector": "davon",
+        "after": "? Fällt dir",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["als", "wie", "zu"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Ausbildung",
+        "connector": "als",
+        "after": "Krankenschwester",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["hätte", "sei", "wäre"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Wie dem auch",
+        "connector": "sei",
+        "after": "- ich wünsche",
+        "color": 6
+      }
     }
   ]
 }
