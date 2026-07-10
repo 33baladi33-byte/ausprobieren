@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "mehr", "übrigens", "wer"],
-      "correct": "genau"
+      "correct": "genau",
+      "memoryHighlight": {
+        "before": "Doch",
+        "connector": "genau",
+        "after": "das Gegenteil",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "mehr", "übrigens", "wer"],
-      "correct": "fähig"
+      "correct": "fähig",
+      "memoryHighlight": {
+        "before": "Leistungen",
+        "connector": "fähig",
+        "after": "und können",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "mehr", "übrigens", "wer"],
-      "correct": "entwickelten"
+      "correct": "entwickelten",
+      "memoryHighlight": {
+        "before": "Zeit",
+        "connector": "entwickelten",
+        "after": "sie hochspezialisierte",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "mehr", "übrigens", "wer"],
-      "correct": "beobachtung"
+      "correct": "beobachtung",
+      "memoryHighlight": {
+        "before": "durch",
+        "connector": "beobachtung",
+        "after": "oder benutzen",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "mehr", "übrigens", "wer"],
-      "correct": "noch"
+      "correct": "noch",
+      "memoryHighlight": {
+        "before": "wurde",
+        "connector": "noch",
+        "after": "nicht einmal",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "mehr", "übrigens", "wer"],
-      "correct": "übrigens"
+      "correct": "übrigens",
+      "memoryHighlight": {
+        "before": "bewies",
+        "connector": "übrigens",
+        "after": "auch als",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "mehr", "übrigens", "wer"],
-      "correct": "doch"
+      "correct": "doch",
+      "memoryHighlight": {
+        "before": "können.",
+        "connector": "doch",
+        "after": "warum wurden",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "mehr", "übrigens", "wer"],
-      "correct": "für"
+      "correct": "für",
+      "memoryHighlight": {
+        "before": "„",
+        "connector": "für",
+        "after": "intelligent halten",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "mehr", "übrigens", "wer"],
-      "correct": "als"
+      "correct": "als",
+      "memoryHighlight": {
+        "before": "zurechtkommen",
+        "connector": "als",
+        "after": "Tiere an",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "mehr", "übrigens", "wer"],
-      "correct": "wer"
+      "correct": "wer",
+      "memoryHighlight": {
+        "before": "rät,",
+        "connector": "wer",
+        "after": "mehr über",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["als", "beobachtung", "betrachtung", "denn", "der", "deutlich", "doch", "entwarfen", "entwickelten", "fähig", "für", "genau", "noch", "übrigens", "wer"]
