@@ -166,8 +166,21 @@ if (this.isFromList) {
             return;
         }
 
-        this.buildTrainingQueue();
+        // ✅ تصفية Lesen 3: استبعاد الفقرات التي ليس لها حالة صحيحة
+        if (this.currentSkill === 'lesen3' && this.sharedOptions.length > 0) {
+            const before = this.questions.length;
+            this.questions = this.questions.filter(item => {
+                return item.correct !== undefined && 
+                       item.correct >= 0 && 
+                       item.correct < this.sharedOptions.length;
+            });
+            const after = this.questions.length;
+            if (after < before) {
+                console.log(`🔍 Lesen 3: تم استبعاد ${before - after} فقرة غير صالحة، بقي ${after} فقرة للتدريب`);
+            }
+        }
 
+        this.buildTrainingQueue();
         if (this.trainingQueue.length === 0) {
             this.showNotAvailable("لا توجد جمل للتدريب");
             return;
