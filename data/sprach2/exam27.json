@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
-      "correct": "weil"
+      "correct": "weil",
+      "memoryHighlight": {
+        "before": "schmerzt schnell,",
+        "connector": "weil",
+        "after": "Schreiben mit",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
-      "correct": "immer"
+      "correct": "immer",
+      "memoryHighlight": {
+        "before": "Schule",
+        "connector": "immer",
+        "after": "mehr Probleme",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
-      "correct": "tun"
+      "correct": "tun",
+      "memoryHighlight": {
+        "before": "zu",
+        "connector": "tun",
+        "after": "hat: Unter",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
-      "correct": "wurde"
+      "correct": "wurde",
+      "memoryHighlight": {
+        "before": "gefürchtet",
+        "connector": "wurde",
+        "after": ", ist das",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
-      "correct": "von"
+      "correct": "von",
+      "memoryHighlight": {
+        "before": "Verbindung",
+        "connector": "von",
+        "after": "Schrift und",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
-      "correct": "damit"
+      "correct": "damit",
+      "memoryHighlight": {
+        "before": "Erfahrungen",
+        "connector": "damit",
+        "after": "hat auch",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
-      "correct": "spielerische"
+      "correct": "spielerische",
+      "memoryHighlight": {
+        "before": "Auf",
+        "connector": "spielerische",
+        "after": "Weise vermittelt",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
-      "correct": "dass"
+      "correct": "dass",
+      "memoryHighlight": {
+        "before": "Anliegen,",
+        "connector": "dass",
+        "after": "Kinder die",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
-      "correct": "gestalten"
+      "correct": "gestalten",
+      "memoryHighlight": {
+        "before": "zu",
+        "connector": "gestalten",
+        "after": ". Der Rhythmus",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"],
-      "correct": "geht"
+      "correct": "geht",
+      "memoryHighlight": {
+        "before": "Hand",
+        "connector": "geht",
+        "after": ". So wird",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["damit", "das", "dass", "figuren", "für", "geht", "gestalten", "immer", "nie", "spielerische", "suchen", "tun", "von", "weil", "wurde"]
