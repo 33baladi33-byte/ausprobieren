@@ -1875,7 +1875,7 @@ window.loadStageExams = async function(skill) {
 
     const allCorrect = [], allWrong = [], allQuestions = [];
 
-    for (const examId of examIds) {
+   for (const examId of examIds) {
     const exam = exams.find(e => e.id === examId);
     if (!exam || !exam.hasFile) continue;
     const fileName = getActualFileName(exam.id);
@@ -1887,15 +1887,25 @@ window.loadStageExams = async function(skill) {
             if (skill === 'lesen3') {
                 questions = data.items || [];
             } else if (skill === 'sprach1') {
-                // ✅ لـ sprach1: نأخذ فقط الأسئلة التي تحتوي على memoryHighlight
-                questions = (data.questions || []).filter(q => q.memoryHighlight);
+                // ✅ لـ sprach1: نأخذ من options أو questions
+                if (data.options && Array.isArray(data.options)) {
+                    questions = data.options;
+                } else if (data.questions && Array.isArray(data.questions)) {
+                    questions = data.questions;
+                } else {
+                    questions = [];
+                }
+                // نأخذ فقط الأسئلة التي تحتوي على memoryHighlight
+                questions = questions.filter(q => q.memoryHighlight);
             } else {
                 questions = data.questions || [];
             }
+
             questions.forEach((q, idx) => {
-                // ✅ بناء entry خاص لـ sprach1
                 let entry;
                 if (skill === 'sprach1') {
+                    // ✅ بناء entry خاص لـ sprach1 باستخدام memoryHighlight
+                    const highlight = q.memoryHighlight || {};
                     entry = {
                         text: q.text || '',
                         correct: q.correct,
@@ -1903,12 +1913,12 @@ window.loadStageExams = async function(skill) {
                         examId: examId,
                         questionIndex: idx,
                         originalQuestion: q,
-                        memoryHighlight: q.memoryHighlight || null,
+                        memoryHighlight: highlight,
                         id: q.id,
-                        before: q.memoryHighlight ? q.memoryHighlight.before : '',
-                        connector: q.memoryHighlight ? q.memoryHighlight.connector : '',
-                        after: q.memoryHighlight ? q.memoryHighlight.after : '',
-                        color: q.memoryHighlight ? q.memoryHighlight.color : 0
+                        before: highlight.before || '',
+                        connector: highlight.connector || '',
+                        after: highlight.after || '',
+                        color: highlight.color !== undefined ? highlight.color : 0
                     };
                 } else {
                     entry = {
@@ -1921,8 +1931,8 @@ window.loadStageExams = async function(skill) {
                     };
                 }
                 allQuestions.push(entry);
-                
-                // ✅ إذا كانت المهارة lesen1 أو lesen2 أو lesen3 أو sprach1، كل الأسئلة صالحة للتدريب
+
+                // ✅ إذا كانت المهارة sprach1 أو lesen1/2/3، كل الأسئلة صالحة للتدريب
                 if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1') {
                     allCorrect.push(entry);
                 } else {
@@ -1936,7 +1946,6 @@ window.loadStageExams = async function(skill) {
         console.warn(`⚠️ لا يمكن تحميل ${skill} exam${examId}`);
     }
 }
-
 // ✅ إضافة sharedOptions (لـ Lesen 1 و Lesen 3)
 let sharedOptions = [];
 if ((skill === 'lesen1' || skill === 'lesen3') && examIds.length > 0) {
