@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
-      "correct": "zu"
+      "correct": "zu",
+      "memoryHighlight": {
+        "before": "Sonntagnachmittag",
+        "connector": "zu",
+        "after": "Kaffee und",
+        "color": 5
+      }
     },
     {
       "id": 2,
       "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
-      "correct": "wie"
+      "correct": "wie",
+      "memoryHighlight": {
+        "before": "gekannt.",
+        "connector": "wie",
+        "after": "lange es",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
-      "correct": "sicher"
+      "correct": "sicher",
+      "memoryHighlight": {
+        "before": "bekannt.",
+        "connector": "sicher",
+        "after": "ist nur",
+        "color": 2
+      }
     },
     {
       "id": 4,
       "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
-      "correct": "damals"
+      "correct": "damals",
+      "memoryHighlight": {
+        "before": "verbreitete.",
+        "connector": "damals",
+        "after": "entstanden zahlreiche",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
-      "correct": "sondern"
+      "correct": "sondern",
+      "memoryHighlight": {
+        "before": "nicht nur",
+        "connector": "sondern",
+        "after": "man konnte",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
-      "correct": "von"
+      "correct": "von",
+      "memoryHighlight": {
+        "before": "Kaffeekantate",
+        "connector": "von",
+        "after": "Johann Sebastian",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
-      "correct": "konnten"
+      "correct": "konnten",
+      "memoryHighlight": {
+        "before": "leisten",
+        "connector": "konnten",
+        "after": ". Erst mit",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
-      "correct": "bis"
+      "correct": "bis",
+      "memoryHighlight": {
+        "before": "und ist es",
+        "connector": "bis",
+        "after": "heute geblieben",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
-      "correct": "aus"
+      "correct": "aus",
+      "memoryHighlight": {
+        "before": "Spezialitäten",
+        "connector": "aus",
+        "after": "alle Welt",
+        "color": 1
+      }
     },
     {
       "id": 10,
       "options": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "zu", "sehr", "auch", "in", "mit"],
-      "correct": "immer"
+      "correct": "immer",
+      "memoryHighlight": {
+        "before": "setzten seitdem",
+        "connector": "immer",
+        "after": "häufiger Konkurrenz",
+        "color": 4
+      }
     }
   ],
   "allOptions": ["sicher", "zu", "sondern", "wie", "damals", "bis", "konnten", "von", "aus", "immer", "auch", "in", "mit", "sehr"]
