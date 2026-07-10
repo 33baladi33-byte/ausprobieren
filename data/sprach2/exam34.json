@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "flut"
+      "correct": "flut",
+      "memoryHighlight": {
+        "before": "einer",
+        "connector": "flut",
+        "after": "von Fotos",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "recht"
+      "correct": "recht",
+      "memoryHighlight": {
+        "before": "sogar für",
+        "connector": "recht",
+        "after": "einfach, Fotos",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "aber"
+      "correct": "aber",
+      "memoryHighlight": {
+        "before": "harmlos,",
+        "connector": "aber",
+        "after": "die Möglichkeiten",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "stellt"
+      "correct": "stellt",
+      "memoryHighlight": {
+        "before": "Zusammenhang",
+        "connector": "stellt",
+        "after": "sich die",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "diesen"
+      "correct": "diesen",
+      "memoryHighlight": {
+        "before": "finden?",
+        "connector": "diesen",
+        "after": "Fragen sind",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "meisten"
+      "correct": "meisten",
+      "memoryHighlight": {
+        "before": "Die",
+        "connector": "meisten",
+        "after": "Teilnehmer waren",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "korrekt"
+      "correct": "korrekt",
+      "memoryHighlight": {
+        "before": "tatsächlich",
+        "connector": "korrekt",
+        "after": "bestimmen, wo",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "unlogische"
+      "correct": "unlogische",
+      "memoryHighlight": {
+        "before": "andere",
+        "connector": "unlogische",
+        "after": "Abweichungen wurden",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "unterscheiden"
+      "correct": "unterscheiden",
+      "memoryHighlight": {
+        "before": "nicht",
+        "connector": "unterscheiden",
+        "after": ", so können",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"],
-      "correct": "somit"
+      "correct": "somit",
+      "memoryHighlight": {
+        "before": "dokumentierten",
+        "connector": "somit",
+        "after": ", dass wir",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["aber", "abgrenzen", "als", "diesen", "flut", "korrekt", "meisten", "recht", "reisend", "somit", "stellt", "unlogische", "unterscheiden", "verschieden", "zwar"]
