@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"],
-      "correct": "lage"
+      "correct": "lage",
+      "memoryHighlight": {
+        "before": "der",
+        "connector": "lage",
+        "after": ", ihren Namen",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"],
-      "correct": "angaben"
+      "correct": "angaben",
+      "memoryHighlight": {
+        "before": "eigenen",
+        "connector": "angaben",
+        "after": "haben sie",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"],
-      "correct": "sondern"
+      "correct": "sondern",
+      "memoryHighlight": {
+        "before": "sprach,",
+        "connector": "sondern",
+        "after": "eine fremde",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"],
-      "correct": "denen"
+      "correct": "denen",
+      "memoryHighlight": {
+        "before": "von",
+        "connector": "denen",
+        "after": "ihrer Artgenossen",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"],
-      "correct": "verhalten"
+      "correct": "verhalten",
+      "memoryHighlight": {
+        "before": "das",
+        "connector": "verhalten",
+        "after": "von 78",
+        "color": 11
+      }
     },
     {
       "id": 6,
       "options": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"],
-      "correct": "zunächst"
+      "correct": "zunächst",
+      "memoryHighlight": {
+        "before": "untersucht.",
+        "connector": "zunächst",
+        "after": "spielten sie",
+        "color": 4
+      }
     },
     {
       "id": 7,
       "options": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"],
-      "correct": "weiter"
+      "correct": "weiter",
+      "memoryHighlight": {
+        "before": "immer",
+        "connector": "weiter",
+        "after": "ab. Doch",
+        "color": 8
+      }
     },
     {
       "id": 8,
       "options": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"],
-      "correct": "bloß"
+      "correct": "bloß",
+      "memoryHighlight": {
+        "before": "ist es",
+        "connector": "bloß",
+        "after": "schwierig, ihnen",
+        "color": 2
+      }
     },
     {
       "id": 9,
       "options": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"],
-      "correct": "sofern"
+      "correct": "sofern",
+      "memoryHighlight": {
+        "before": "-",
+        "connector": "sofern",
+        "after": "sie bereit",
+        "color": 6
+      }
     },
     {
       "id": 10,
       "options": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"],
-      "correct": "bekannt"
+      "correct": "bekannt",
+      "memoryHighlight": {
+        "before": "ist",
+        "connector": "bekannt",
+        "after": ", dass Katzen",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["angaben", "bekannt", "bloß", "da", "dagegen", "denen", "lage", "obwohl", "sofern", "sondern", "verhalten", "weil", "weiter", "ziel", "zunächst"]
