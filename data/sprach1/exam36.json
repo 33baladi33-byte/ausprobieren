@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["auf", "für", "wegen"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Dank",
+        "connector": "für",
+        "after": "Ihre Anfrage",
+        "color": 2
+      }
     },
     {
       "id": 2,
       "options": ["jeden", "jedoch", "jeweils"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "zwar",
+        "connector": "jeweils",
+        "after": "am ersten",
+        "color": 8
+      }
     },
     {
       "id": 3,
       "options": ["gedacht", "geeignet", "gewidmet"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Aspekt",
+        "connector": "gewidmet",
+        "after": ", von der",
+        "color": 0
+      }
     },
     {
       "id": 4,
       "options": ["vorbereitende", "vorbereitend", "vorbereiteten"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "mehrere",
+        "connector": "vorbereitende",
+        "after": "Treffen. Von",
+        "color": 6
+      }
     },
     {
       "id": 5,
       "options": ["am meisten", "meisten", "meistens"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "die",
+        "connector": "meisten",
+        "after": "unserer Mitglieder",
+        "color": 4
+      }
     },
     {
       "id": 6,
       "options": ["entlang", "gegenüber", "während"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "beispielsweise",
+        "connector": "entlang",
+        "after": "der Route",
+        "color": 9
+      }
     },
     {
       "id": 7,
       "options": ["auf", "hinter", "neben"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "an:",
+        "connector": "auf",
+        "after": "den Spuren",
+        "color": 3
+      }
     },
     {
       "id": 8,
       "options": ["der", "deren", "dessen"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "mit",
+        "connector": "deren",
+        "after": "Hilfe Sie",
+        "color": 11
+      }
     },
     {
       "id": 9,
       "options": ["sofern", "sogar", "sogleich"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "umtauschen -",
+        "connector": "sofern",
+        "after": "diese organisatorisch",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["erhältlich", "erreichbar", "wirksam"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Uhr",
+        "connector": "erreichbar",
+        "after": "und steht",
+        "color": 7
+      }
     }
   ]
 }
