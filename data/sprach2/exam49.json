@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"],
-      "correct": "sondern"
+      "correct": "sondern",
+      "memoryHighlight": {
+        "before": "nur die",
+        "connector": "sondern",
+        "after": "auch die",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"],
-      "correct": "seit"
+      "correct": "seit",
+      "memoryHighlight": {
+        "before": "arbeitet",
+        "connector": "seit",
+        "after": "vielen Jahren",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"],
-      "correct": "brauchen"
+      "correct": "brauchen",
+      "memoryHighlight": {
+        "before": "Hilfe",
+        "connector": "brauchen",
+        "after": ". Bis zu",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"],
-      "correct": "werden"
+      "correct": "werden",
+      "memoryHighlight": {
+        "before": "Jungen",
+        "connector": "werden",
+        "after": "ab dem",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"],
-      "correct": "am"
+      "correct": "am",
+      "memoryHighlight": {
+        "before": "kennenlernen.",
+        "connector": "am",
+        "after": "Ende des",
+        "color": 11
+      }
     },
     {
       "id": 6,
       "options": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"],
-      "correct": "es"
+      "correct": "es",
+      "memoryHighlight": {
+        "before": "ist",
+        "connector": "es",
+        "after": "wichtig, dass",
+        "color": 4
+      }
     },
     {
       "id": 7,
       "options": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"],
-      "correct": "da"
+      "correct": "da",
+      "memoryHighlight": {
+        "before": "unmöglich,",
+        "connector": "da",
+        "after": "bei der",
+        "color": 8
+      }
     },
     {
       "id": 8,
       "options": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"],
-      "correct": "bekannt"
+      "correct": "bekannt",
+      "memoryHighlight": {
+        "before": "Projekte",
+        "connector": "bekannt",
+        "after": "zu machen",
+        "color": 2
+      }
     },
     {
       "id": 9,
       "options": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"],
-      "correct": "auf"
+      "correct": "auf",
+      "memoryHighlight": {
+        "before": "hofft,",
+        "connector": "auf",
+        "after": "diese Weise",
+        "color": 6
+      }
     },
     {
       "id": 10,
       "options": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"],
-      "correct": "um"
+      "correct": "um",
+      "memoryHighlight": {
+        "before": "Spenden,",
+        "connector": "um",
+        "after": "weitere Projekte",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["aber", "am", "am", "auf", "bekannt", "brauchen", "da", "es", "für", "mit", "noch", "seit", "sondern", "um", "von", "werden"]
