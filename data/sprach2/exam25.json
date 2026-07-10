@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"],
-      "correct": "nachweisen"
+      "correct": "nachweisen",
+      "memoryHighlight": {
+        "before": "konnte",
+        "connector": "nachweisen",
+        "after": ", dass auch",
+        "color": 7
+      }
     },
     {
       "id": 2,
       "options": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"],
-      "correct": "zu"
+      "correct": "zu",
+      "memoryHighlight": {
+        "before": "Schimpansen",
+        "connector": "zu",
+        "after": "echter Teamarbeit",
+        "color": 2
+      }
     },
     {
       "id": 3,
       "options": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"],
-      "correct": "dazu"
+      "correct": "dazu",
+      "memoryHighlight": {
+        "before": "holen.",
+        "connector": "dazu",
+        "after": "bekam einer",
+        "color": 9
+      }
     },
     {
       "id": 4,
       "options": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"],
-      "correct": "davon"
+      "correct": "davon",
+      "memoryHighlight": {
+        "before": "eines",
+        "connector": "davon",
+        "after": "an seine",
+        "color": 4
+      }
     },
     {
       "id": 5,
       "options": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"],
-      "correct": "sei"
+      "correct": "sei",
+      "memoryHighlight": {
+        "before": "Versuche",
+        "connector": "sei",
+        "after": "es sogar",
+        "color": 11
+      }
     },
     {
       "id": 6,
       "options": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"],
-      "correct": "nur"
+      "correct": "nur",
+      "memoryHighlight": {
+        "before": "Eigenschaft",
+        "connector": "nur",
+        "after": "beim Menschen",
+        "color": 1
+      }
     },
     {
       "id": 7,
       "options": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"],
-      "correct": "konnten"
+      "correct": "konnten",
+      "memoryHighlight": {
+        "before": "sie",
+        "connector": "konnten",
+        "after": ". Bei den",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"],
-      "correct": "liefert"
+      "correct": "liefert",
+      "memoryHighlight": {
+        "before": "Studie",
+        "connector": "liefert",
+        "after": "erste Hinweise",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"],
-      "correct": "geben"
+      "correct": "geben",
+      "memoryHighlight": {
+        "before": "Acht",
+        "connector": "geben",
+        "after": "können. Den",
+        "color": 3
+      }
     },
     {
       "id": 10,
       "options": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"],
-      "correct": "wie"
+      "correct": "wie",
+      "memoryHighlight": {
+        "before": "Genau",
+        "connector": "wie",
+        "after": "den Menschen",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["zu", "wie", "sei", "nur", "nachweisen", "mussten", "liefert", "konnten", "haben", "geben", "förderte", "erbringen", "dazu", "davon", "bekanntlich"]
