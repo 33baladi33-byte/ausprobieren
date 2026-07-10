@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"],
-      "correct": "rege"
+      "correct": "rege",
+      "memoryHighlight": {
+        "before": "höchst",
+        "connector": "rege",
+        "after": "aktiv und",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"],
-      "correct": "an"
+      "correct": "an",
+      "memoryHighlight": {
+        "before": "es",
+        "connector": "an",
+        "after": "verschiedenen deutschen",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"],
-      "correct": "allein"
+      "correct": "allein",
+      "memoryHighlight": {
+        "before": "Beliebtheit.",
+        "connector": "allein",
+        "after": "in Trier",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"],
-      "correct": "darauf"
+      "correct": "darauf",
+      "memoryHighlight": {
+        "before": "Politik.",
+        "connector": "darauf",
+        "after": "folgten die",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"],
-      "correct": "dürften"
+      "correct": "dürften",
+      "memoryHighlight": {
+        "before": "dafür",
+        "connector": "dürften",
+        "after": "sein, dass",
+        "color": 11
+      }
     },
     {
       "id": 6,
       "options": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"],
-      "correct": "auf"
+      "correct": "auf",
+      "memoryHighlight": {
+        "before": "häufig",
+        "connector": "auf",
+        "after": "eine berufliche",
+        "color": 4
+      }
     },
     {
       "id": 7,
       "options": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"],
-      "correct": "stattdessen"
+      "correct": "stattdessen",
+      "memoryHighlight": {
+        "before": "verzichteten.",
+        "connector": "stattdessen",
+        "after": "setzten sie",
+        "color": 8
+      }
     },
     {
       "id": 8,
       "options": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"],
-      "correct": "kurz"
+      "correct": "kurz",
+      "memoryHighlight": {
+        "before": "häufig zu",
+        "connector": "kurz",
+        "after": "gekommen war",
+        "color": 2
+      }
     },
     {
       "id": 9,
       "options": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"],
-      "correct": "aufgrund"
+      "correct": "aufgrund",
+      "memoryHighlight": {
+        "before": "bringen.",
+        "connector": "aufgrund",
+        "after": "dessen sehen",
+        "color": 6
+      }
     },
     {
       "id": 10,
       "options": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"],
-      "correct": "durch"
+      "correct": "durch",
+      "memoryHighlight": {
+        "before": "gespeist",
+        "connector": "durch",
+        "after": "die Vitalität",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["allein", "an", "auf", "aufgrund", "darauf", "durch", "dürften", "einzige", "knapp", "kurz", "möchten", "rege", "stattdessen", "während", "wegen"]
