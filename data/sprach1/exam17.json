@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["allergrößte", "allergrößtem", "allergrößten"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "mit",
+        "connector": "allergrößtem",
+        "after": "Interesse habe",
+        "color": 1
+      }
     },
     {
       "id": 2,
       "options": ["an", "auf", "in"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "gelesen,",
+        "connector": "in",
+        "after": "Sie eine",
+        "color": 8
+      }
     },
     {
       "id": 3,
       "options": ["als", "so", "wie"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "einem",
+        "connector": "so",
+        "after": "renommierten Geschäft",
+        "color": 4
+      }
     },
     {
       "id": 4,
       "options": ["können", "könnte", "zu können"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "übernehmen",
+        "connector": "zu können",
+        "after": ". Nach dem",
+        "color": 9
+      }
     },
     {
       "id": 5,
       "options": ["begann", "beging", "belief"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Velbert",
+        "connector": "begann",
+        "after": "ich eine",
+        "color": 2
+      }
     },
     {
       "id": 6,
       "options": ["durch ein Jahr", "ein Jahr lang", "seit einem Jahr"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "arbeitete ich",
+        "connector": "ein Jahr lang",
+        "after": "bei Stutz",
+        "color": 6
+      }
     },
     {
       "id": 7,
       "options": ["entdeckte", "erfand", "merkte"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "ein und",
+        "connector": "entdeckte",
+        "after": "meine Liebe",
+        "color": 0
+      }
     },
     {
       "id": 8,
       "options": ["Dabei", "Inzwischen", "Während"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Jugendstil.",
+        "connector": "Während",
+        "after": "meiner Berufstätigkeit",
+        "color": 11
+      }
     },
     {
       "id": 9,
       "options": ["sowohl", "teils", "weder"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Epochen",
+        "connector": "sowohl",
+        "after": "in Nord-",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["auf Ihre Anzeige antworten", "auf Ihre Anzeige zu antworten", "um auf Ihre Anzeige zu antworten"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "entschlossen,",
+        "connector": "auf Ihre Anzeige zu antworten",
+        "after": ", und bewerbe",
+        "color": 7
+      }
     }
   ]
 }
