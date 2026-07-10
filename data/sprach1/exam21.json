@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["neue", "neuen", "neuer"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "deiner",
+        "connector": "neuen",
+        "after": "Arbeit zufrieden",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["Seit", "Sobald", "Solange"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "war.",
+        "connector": "Seit",
+        "after": "ich einen",
+        "color": 8
+      }
     },
     {
       "id": 3,
       "options": ["daran", "darauf", "darüber"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "oft",
+        "connector": "darüber",
+        "after": "nachgedacht, ob",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["es", "mich", "mir"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "habe",
+        "connector": "mich",
+        "after": "an einer",
+        "color": 6
+      }
     },
     {
       "id": 5,
       "options": ["Damit", "Obwohl", "Wenn"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "eingeschrieben.",
+        "connector": "Obwohl",
+        "after": "ich zuerst",
+        "color": 0
+      }
     },
     {
       "id": 6,
       "options": ["dürfte", "könnte", "müsste"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "schaffen",
+        "connector": "könnte",
+        "after": ". Schließlich muss",
+        "color": 9
+      }
     },
     {
       "id": 7,
       "options": ["als", "nach", "wie"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "würde,",
+        "connector": "wie",
+        "after": "war ich",
+        "color": 3
+      }
     },
     {
       "id": 8,
       "options": ["nahmen", "nehmen", "nimmt"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Anspruch",
+        "connector": "nehmen",
+        "after": ". Manchmal fehlt",
+        "color": 11
+      }
     },
     {
       "id": 9,
       "options": ["mein", "mich", "mir"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Für",
+        "connector": "mich",
+        "after": "ist es",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["denen", "der", "die"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "in",
+        "connector": "denen",
+        "after": "man rund",
+        "color": 7
+      }
     }
   ]
 }
