@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["mit", "über", "wegen"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Nachricht,",
+        "connector": "über",
+        "after": "die ich",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["außerdem", "sonst", "weiterhin"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "und",
+        "connector": "außerdem",
+        "after": "noch billiger",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["fahren", "kommen", "nehmen"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Zug",
+        "connector": "fahren",
+        "after": "und zwar",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["da", "darum", "deshalb"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Grenze.",
+        "connector": "da",
+        "after": "wir noch",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["dadurch", "damit", "davon"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "hängt",
+        "connector": "davon",
+        "after": "ab, wie",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["besprochen", "gesprochen", "versprochen"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Marseille",
+        "connector": "gesprochen",
+        "after": "und sie",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["als", "dass", "wenn"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "vorgeschlagen,",
+        "connector": "dass",
+        "after": "wir einige",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["euch", "sich", "uns"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "würden",
+        "connector": "sich",
+        "after": "freuen, mit",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["das", "der", "die"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Wegen",
+        "connector": "die",
+        "after": "Sprachkenntnisse brauchst",
+        "color": 0
+      }
     },
     {
       "id": 10,
       "options": ["bestenfalls", "jedenfalls", "keinesfalls"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "freue mich",
+        "connector": "jedenfalls",
+        "after": "schon sehr",
+        "color": 5
+      }
     }
   ]
 }
