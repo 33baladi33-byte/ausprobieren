@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["dürft", "könnt", "sollt"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Ihr",
+        "connector": "sollt",
+        "after": "doch endlich",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["an", "für", "in"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "möchten wir euch",
+        "connector": "für",
+        "after": "das verlängerte",
+        "color": 8
+      }
     },
     {
       "id": 3,
       "options": ["bei", "unter", "zu"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "natürlich",
+        "connector": "bei",
+        "after": "uns. Emma",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["einige", "einigen", "einiges"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "hat",
+        "connector": "einiges",
+        "after": "zu bieten",
+        "color": 6
+      }
     },
     {
       "id": 5,
       "options": ["dem", "den", "der"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "auf",
+        "connector": "den",
+        "after": "Turm der",
+        "color": 0
+      }
     },
     {
       "id": 6,
       "options": ["ist", "sind", "waren"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Rundgang",
+        "connector": "sind",
+        "after": "auch die",
+        "color": 9
+      }
     },
     {
       "id": 7,
       "options": ["wann", "wie", "wo"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Wehrgraten,",
+        "connector": "wo",
+        "after": "man an",
+        "color": 3
+      }
     },
     {
       "id": 8,
       "options": ["Dabei", "Daneben", "Darin"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "kann.",
+        "connector": "Dabei",
+        "after": "erfährt man",
+        "color": 11
+      }
     },
     {
       "id": 9,
       "options": ["dies", "diesem", "dieses"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "an",
+        "connector": "diesem",
+        "after": "Wochenende die",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["man", "sich", "sie"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "kann",
+        "connector": "sich",
+        "after": "sehen lassen",
+        "color": 7
+      }
     }
   ]
 }
