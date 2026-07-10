@@ -1723,7 +1723,8 @@ const SKILL_CONFIG = {
     hoeren2: { totalExams: 55, examsPerStage: 15, totalSentences: 273 },
     hoeren3: { totalExams: 48, examsPerStage: 15, totalSentences: 105 },
     lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 }, // ✅ تمت الإضافة
-    lesen2: { totalExams: 37, examsPerStage: 15, totalSentences: 185 }
+    lesen2: { totalExams: 37, examsPerStage: 15, totalSentences: 185 },
+    lesen3: { totalExams: 37, examsPerStage: 15, totalSentences: 120 }
 };
 
 // ✅ دوال المراحل العامة (تعمل مع أي مهارة)
@@ -1881,7 +1882,13 @@ window.loadStageExams = async function(skill) {
             const response = await fetch(`data/${skill}/${fileName}`);
             if (response.ok) {
                 const data = await response.json();
-                const questions = data.questions || [];
+                // لـ lesen3 نأخذ items، وإلا نأخذ questions
+let questions = [];
+if (skill === 'lesen3') {
+    questions = data.items || [];
+} else {
+    questions = data.questions || [];
+}
                 questions.forEach((q, idx) => {
                     const entry = {
     text: q.text,
@@ -1893,13 +1900,14 @@ window.loadStageExams = async function(skill) {
 };
                     allQuestions.push(entry);
                     
-                    // ✅ إذا كانت المهارة lesen1 أو lesen2، كل الأسئلة صالحة للتدريب
-                    if (skill === 'lesen1' || skill === 'lesen2') {
-                        allCorrect.push(entry);
-                    } else {
-                        if (q.correct === true) allCorrect.push(entry);
-                        else allWrong.push(entry);
-                    }
+                    
+                    // ✅ إذا كانت المهارة lesen1 أو lesen2 أو lesen3، كل الأسئلة صالحة للتدريب
+if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3') {
+    allCorrect.push(entry);
+} else {
+    if (q.correct === true) allCorrect.push(entry);
+    else allWrong.push(entry);
+}
                 });
                 console.log(`✅ تم تحميل ${skill} exam${examId}`);
             }
@@ -1908,27 +1916,33 @@ window.loadStageExams = async function(skill) {
         }
     }
 
-    // ✅ إضافة sharedOptions (لـ Lesen 1 فقط)
-    let sharedOptions = [];
-    if (skill === 'lesen1' && examIds.length > 0) {
-        const firstExamId = examIds[0];
-        const firstExam = exams.find(e => e.id === firstExamId);
-        if (firstExam && firstExam.hasFile) {
-            try {
-                const fileName = getActualFileName(firstExamId);
-                const response = await fetch(`data/${skill}/${fileName}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.sharedOptions) {
-                        sharedOptions = data.sharedOptions;
-                        console.log(`✅ تم استخراج sharedOptions لـ ${skill} (${sharedOptions.length} عنوان)`);
-                    }
+// ✅ إضافة sharedOptions (لـ Lesen 1 و Lesen 3)
+let sharedOptions = [];
+if ((skill === 'lesen1' || skill === 'lesen3') && examIds.length > 0) {
+    const firstExamId = examIds[0];
+    const firstExam = exams.find(e => e.id === firstExamId);
+    if (firstExam && firstExam.hasFile) {
+        try {
+            const fileName = getActualFileName(firstExamId);
+            const response = await fetch(`data/${skill}/${fileName}`);
+            if (response.ok) {
+                const data = await response.json();
+                // لـ Lesen 1: نأخذ sharedOptions
+                if (skill === 'lesen1' && data.sharedOptions) {
+                    sharedOptions = data.sharedOptions;
+                    console.log(`✅ تم استخراج sharedOptions لـ ${skill} (${sharedOptions.length} عنوان)`);
                 }
-            } catch (e) {
-                console.warn(`⚠️ لا يمكن تحميل sharedOptions لـ ${skill}`);
+                // لـ Lesen 3: نأخذ situations كـ sharedOptions
+                else if (skill === 'lesen3' && data.situations) {
+                    sharedOptions = data.situations;
+                    console.log(`✅ تم استخراج situations لـ ${skill} كـ sharedOptions (${sharedOptions.length} حالة)`);
+                }
             }
+        } catch (e) {
+            console.warn(`⚠️ لا يمكن تحميل sharedOptions لـ ${skill}`);
         }
     }
+}
 
     // تخزين البيانات المدمجة تحت مفتاح المهارة
     window[`_${skill}_combinedData`] = {
