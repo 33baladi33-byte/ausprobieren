@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["das", "den", "der"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Brief,",
+        "connector": "den",
+        "after": "ich letzte",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["bist", "hast", "warst"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "verbracht",
+        "connector": "hast",
+        "after": ". Bestimmt wirst",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["mich", "mir", "sich"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Du hast",
+        "connector": "mich",
+        "after": "gefragt, was",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["doch", "obwohl", "sondern"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Allerjüngsten,",
+        "connector": "doch",
+        "after": "zum Sprachenlernen",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["erst", "noch", "schon"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "bestimmt",
+        "connector": "noch",
+        "after": "jung genug",
+        "color": 5
+      }
     },
     {
       "id": 6,
       "options": ["bearbeitet", "bedient", "bewirkt"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Computer",
+        "connector": "bedient",
+        "after": ". Und heute",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["lernen", "lernen müssen", "zu lernen"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Neues",
+        "connector": "zu lernen",
+        "after": "?",
+        "color": 4
+      }
     },
     {
       "id": 8,
       "options": ["einsetzen", "fortsetzen", "übersetzen"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "praktisch",
+        "connector": "einsetzen",
+        "after": ". Du hast",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["Ob", "Wann", "Wenn"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "ist.",
+        "connector": "Wenn",
+        "after": "du mich",
+        "color": 0
+      }
     },
     {
       "id": 10,
       "options": ["also", "kaum", "nämlich"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "ich muss",
+        "connector": "nämlich",
+        "after": "gleich in",
+        "color": 6
+      }
     }
   ]
 }
