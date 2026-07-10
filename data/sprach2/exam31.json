@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "bequem"
+      "correct": "bequem",
+      "memoryHighlight": {
+        "before": "Leben ist",
+        "connector": "bequem",
+        "after": "geworden. Ein",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "sind"
+      "correct": "sind",
+      "memoryHighlight": {
+        "before": "Erkrankungen",
+        "connector": "sind",
+        "after": "in den",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "immer"
+      "correct": "immer",
+      "memoryHighlight": {
+        "before": "Wichtig ist",
+        "connector": "immer",
+        "after": "richtig zu",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "unter"
+      "correct": "unter",
+      "memoryHighlight": {
+        "before": "Ausdauertraining",
+        "connector": "unter",
+        "after": "Verbrennung von",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "sollte"
+      "correct": "sollte",
+      "memoryHighlight": {
+        "before": "Dabei",
+        "connector": "sollte",
+        "after": "der Puls",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "dass"
+      "correct": "dass",
+      "memoryHighlight": {
+        "before": "überfordert.",
+        "connector": "dass",
+        "after": "mehr Menschen",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "aller"
+      "correct": "aller",
+      "memoryHighlight": {
+        "before": "Prozent",
+        "connector": "aller",
+        "after": "Deutschen bringen",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "einem"
+      "correct": "einem",
+      "memoryHighlight": {
+        "before": "mit",
+        "connector": "einem",
+        "after": "Herzinfarkt -",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "bei"
+      "correct": "bei",
+      "memoryHighlight": {
+        "before": "häufiger",
+        "connector": "bei",
+        "after": "Frauen. Ausdauersport",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"],
-      "correct": "wie"
+      "correct": "wie",
+      "memoryHighlight": {
+        "before": "erleiden,",
+        "connector": "wie",
+        "after": "Milch und",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["erheblich", "schnell", "immer", "wird", "dass", "einem", "aller", "sollte", "ist", "sind", "bequem", "unter", "bei", "dabei", "wie"]
