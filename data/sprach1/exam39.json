@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["für das", "in dem", "von dem"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Dienstag,",
+        "connector": "in dem",
+        "after": "Sie um",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["Da", "Wann", "Wenn"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "haben.",
+        "connector": "Da",
+        "after": "unser Programmheft",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["Untergebracht", "Verbracht", "Zugebracht"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Bahn.",
+        "connector": "Untergebracht",
+        "after": "sind Sie",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["man", "sich", "Sie"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "das",
+        "connector": "sich",
+        "after": "in der",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["geschaut", "gesehen", "gezeigt"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Sehenswürdigkeiten",
+        "connector": "gezeigt",
+        "after": "werden. Am",
+        "color": 5
+      }
     },
     {
       "id": 6,
       "options": ["der", "die", "von"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Besuch",
+        "connector": "der",
+        "after": "Semper-Oper geplant",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["für", "mit", "wegen"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "dessen Park",
+        "connector": "für",
+        "after": "seine exotischen",
+        "color": 4
+      }
     },
     {
       "id": 8,
       "options": ["fällt", "liegt", "steht"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Juni",
+        "connector": "steht",
+        "after": "zu Ihrer",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["beteiligen", "fahren", "teilnehmen"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Schweiz",
+        "connector": "teilnehmen",
+        "after": ". Ich hoffe",
+        "color": 0
+      }
     },
     {
       "id": 10,
       "options": ["verschaffen", "vermachen", "schaffen"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Reise",
+        "connector": "verschaffen",
+        "after": ". Nähere Informationen",
+        "color": 6
+      }
     }
   ]
 }
