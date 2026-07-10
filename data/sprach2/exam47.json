@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"],
-      "correct": "EINGESTELLT"
+      "correct": "EINGESTELLT",
+      "memoryHighlight": {
+        "before": "wurden",
+        "connector": "EINGESTELLT",
+        "after": ". Noch in",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"],
-      "correct": "KUNDEN"
+      "correct": "KUNDEN",
+      "memoryHighlight": {
+        "before": "neue",
+        "connector": "KUNDEN",
+        "after": ", erklärt Sprecher",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"],
-      "correct": "GRÜNDEN"
+      "correct": "GRÜNDEN",
+      "memoryHighlight": {
+        "before": "aus",
+        "connector": "GRÜNDEN",
+        "after": "des Umweltschutzes",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"],
-      "correct": "MODE"
+      "correct": "MODE",
+      "memoryHighlight": {
+        "before": "in",
+        "connector": "MODE",
+        "after": "? Und könnten",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"],
-      "correct": "KONKURRENZ"
+      "correct": "KONKURRENZ",
+      "memoryHighlight": {
+        "before": "Reisemittel",
+        "connector": "KONKURRENZ",
+        "after": "machen? Stefan",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"],
-      "correct": "GANZ"
+      "correct": "GANZ",
+      "memoryHighlight": {
+        "before": "manchmal",
+        "connector": "GANZ",
+        "after": "schön ungemütlich",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"],
-      "correct": "AUSSERDEM"
+      "correct": "AUSSERDEM",
+      "memoryHighlight": {
+        "before": "stickig.\"",
+        "connector": "AUSSERDEM",
+        "after": "schrecke die",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"],
-      "correct": "ALS"
+      "correct": "ALS",
+      "memoryHighlight": {
+        "before": "sein.",
+        "connector": "ALS",
+        "after": "umweltschonendes Transportmittel",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"],
-      "correct": "WÄHREND"
+      "correct": "WÄHREND",
+      "memoryHighlight": {
+        "before": "vorbei,",
+        "connector": "WÄHREND",
+        "after": "man von",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"],
-      "correct": "VOREILIG"
+      "correct": "VOREILIG",
+      "memoryHighlight": {
+        "before": "etwas",
+        "connector": "VOREILIG",
+        "after": ". Als sanfte",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["WÄHREND", "VOREILIG", "MODE", "KUNDEN", "KONKURRENZ", "GRÜNDEN", "GESAMT", "GENAU", "GANZ", "FORM", "EINGESTELLT", "EINGESETZT", "EIN", "AUSSERDEM", "ALS"]
