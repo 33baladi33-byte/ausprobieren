@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["allergrößte", "allergrößtem", "allergrößten"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "mit",
+        "connector": "allergrößtem",
+        "after": "Interesse habe",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["an dem", "auf dem", "in dem"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "gelesen,",
+        "connector": "an dem",
+        "after": "Sie eine",
+        "color": 8
+      }
     },
     {
       "id": 3,
       "options": ["Ihrem", "Ihren", "Ihres"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "dem",
+        "connector": "Ihrem",
+        "after": "übernehmen",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["können", "könnte", "zu können"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "übernehmen",
+        "connector": "zu können",
+        "after": ". Nach dem",
+        "color": 6
+      }
     },
     {
       "id": 5,
       "options": ["an", "bei", "mit"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Schreinerlehre",
+        "connector": "bei",
+        "after": "der Firma",
+        "color": 9
+      }
     },
     {
       "id": 6,
       "options": ["ein Jahr lang", "durch ein Jahr", "seit einem Jahr"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "arbeitete ich",
+        "connector": "ein Jahr lang",
+        "after": "bei Stutz",
+        "color": 4
+      }
     },
     {
       "id": 7,
       "options": ["entdeckte", "erfand", "merkte"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "ein und",
+        "connector": "entdeckte",
+        "after": "meine Liebe",
+        "color": 0
+      }
     },
     {
       "id": 8,
       "options": ["das", "was", "welches"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "erwerben,",
+        "connector": "was",
+        "after": "Möbelstile und",
+        "color": 11
+      }
     },
     {
       "id": 9,
       "options": ["sowohl", "teils", "weder"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Epochen",
+        "connector": "sowohl",
+        "after": "in Nord-",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["auf Ihre Anzeige antworten", "auf Ihre Anzeige zu antworten", "um auf Ihre Anzeige zu antworten"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "entschlossen,",
+        "connector": "auf Ihre Anzeige zu antworten",
+        "after": ", und bewerbe",
+        "color": 7
+      }
     }
   ]
 }
