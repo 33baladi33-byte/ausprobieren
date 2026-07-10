@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"],
-      "correct": "während"
+      "correct": "während",
+      "memoryHighlight": {
+        "before": "Temperaturen",
+        "connector": "während",
+        "after": "der vergangen",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"],
-      "correct": "dadurch"
+      "correct": "dadurch",
+      "memoryHighlight": {
+        "before": "nutzbar.",
+        "connector": "dadurch",
+        "after": "wurde der",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"],
-      "correct": "dass"
+      "correct": "dass",
+      "memoryHighlight": {
+        "before": "unumstritten,",
+        "connector": "dass",
+        "after": "das Verschwinden",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"],
-      "correct": "um"
+      "correct": "um",
+      "memoryHighlight": {
+        "before": "Europas",
+        "connector": "um",
+        "after": "zwei bis",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"],
-      "correct": "nachkommen"
+      "correct": "nachkommen",
+      "memoryHighlight": {
+        "before": "weniger",
+        "connector": "nachkommen",
+        "after": ", und ihre",
+        "color": 11
+      }
     },
     {
       "id": 6,
       "options": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"],
-      "correct": "dafür"
+      "correct": "dafür",
+      "memoryHighlight": {
+        "before": "Grund",
+        "connector": "dafür",
+        "after": "ist, dass",
+        "color": 4
+      }
     },
     {
       "id": 7,
       "options": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"],
-      "correct": "denn"
+      "correct": "denn",
+      "memoryHighlight": {
+        "before": "Fortpflanzung,",
+        "connector": "denn",
+        "after": "sie bringen",
+        "color": 8
+      }
     },
     {
       "id": 8,
       "options": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"],
-      "correct": "eingriffe"
+      "correct": "eingriffe",
+      "memoryHighlight": {
+        "before": "menschlichen",
+        "connector": "eingriffe",
+        "after": "in die",
+        "color": 5
+      }
     },
     {
       "id": 9,
       "options": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"],
-      "correct": "noch"
+      "correct": "noch",
+      "memoryHighlight": {
+        "before": "war",
+        "connector": "noch",
+        "after": "überall in",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"],
-      "correct": "ging"
+      "correct": "ging",
+      "memoryHighlight": {
+        "before": "bergab",
+        "connector": "ging",
+        "after": "es mit",
+        "color": 6
+      }
     }
   ],
   "allOptions": ["während", "vorkommen", "um", "sowie", "sodass", "noch", "nachkommen", "kam", "ging", "eingriffe", "denn", "dass", "dafür", "dadurch", "begriffe"]
