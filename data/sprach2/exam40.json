@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"],
-      "correct": "nutzen"
+      "correct": "nutzen",
+      "memoryHighlight": {
+        "before": "und",
+        "connector": "nutzen",
+        "after": "vielfach die",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"],
-      "correct": "angeboten"
+      "correct": "angeboten",
+      "memoryHighlight": {
+        "before": "Universitäten",
+        "connector": "angeboten",
+        "after": "wird, erfährt",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"],
-      "correct": "als"
+      "correct": "als",
+      "memoryHighlight": {
+        "before": "50+",
+        "connector": "als",
+        "after": "Gasthörer eingeschrieben",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"],
-      "correct": "dagegen"
+      "correct": "dagegen",
+      "memoryHighlight": {
+        "before": "wurden",
+        "connector": "dagegen",
+        "after": "weniger häufig",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"],
-      "correct": "könnten"
+      "correct": "könnten",
+      "memoryHighlight": {
+        "before": "dafür",
+        "connector": "könnten",
+        "after": "sein, dass",
+        "color": 11
+      }
     },
     {
       "id": 6,
       "options": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"],
-      "correct": "für"
+      "correct": "für",
+      "memoryHighlight": {
+        "before": "sich",
+        "connector": "für",
+        "after": "die Familie",
+        "color": 3
+      }
     },
     {
       "id": 7,
       "options": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"],
-      "correct": "erwachsen"
+      "correct": "erwachsen",
+      "memoryHighlight": {
+        "before": "Kinder",
+        "connector": "erwachsen",
+        "after": "und aus",
+        "color": 8
+      }
     },
     {
       "id": 8,
       "options": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"],
-      "correct": "während"
+      "correct": "während",
+      "memoryHighlight": {
+        "before": "häufiger",
+        "connector": "während",
+        "after": "ihres Arbeitslebens",
+        "color": 2
+      }
     },
     {
       "id": 9,
       "options": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"],
-      "correct": "daher"
+      "correct": "daher",
+      "memoryHighlight": {
+        "before": "bringen.",
+        "connector": "daher",
+        "after": "sehen sie",
+        "color": 6
+      }
     },
     {
       "id": 10,
       "options": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"],
-      "correct": "einzige"
+      "correct": "einzige",
+      "memoryHighlight": {
+        "before": "erwerben,",
+        "connector": "einzige",
+        "after": "Kompetenzen zu",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["als", "angeboten", "dagegen", "daher", "einzige", "erwachsen", "für", "könnten", "nutzen", "während", "auf", "weil", "genommen", "deshalb", "durch"]
