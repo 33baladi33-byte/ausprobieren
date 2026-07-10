@@ -8,130 +8,110 @@
       "id": 1,
       "options": ["ab", "aus", "von"],
       "correct": 1,
-      "highlight": {
-        "connector": "aus",
+      "memoryHighlight": {
         "before": "Grüße",
+        "connector": "aus",
         "after": "Berlin",
-        "highlightWords": ["Grüße", "aus", "Berlin"],
-        "color": "#4CAF50",
-        "helpKey": "sprach1_exam7_q1"
+        "color": 9
       }
     },
     {
       "id": 2,
       "options": ["wann", "was", "wie"],
       "correct": 1,
-      "highlight": {
-        "connector": "was",
+      "memoryHighlight": {
         "before": "berichte ich dir,",
+        "connector": "was",
         "after": "alles los",
-        "highlightWords": ["berichte", "ich", "dir", ",", "was", "alles", "los"],
-        "color": "#FF9800",
-        "helpKey": "sprach1_exam7_q2"
+        "color": 2
       }
     },
     {
       "id": 3,
       "options": ["da", "indem", "obwohl"],
       "correct": 0,
-      "highlight": {
-        "connector": "da",
+      "memoryHighlight": {
         "before": "Stress,",
+        "connector": "da",
         "after": "drei Kollegen",
-        "highlightWords": ["Stress", ",", "da", "drei", "Kollegen"],
-        "color": "#2196F3",
-        "helpKey": "sprach1_exam7_q3"
+        "color": 7
       }
     },
     {
       "id": 4,
       "options": ["ist", "wird", "würde"],
       "correct": 1,
-      "highlight": {
-        "connector": "wird",
+      "memoryHighlight": {
         "before": "Hoffentlich",
+        "connector": "wird",
         "after": "das in",
-        "highlightWords": ["Hoffentlich", "wird", "das", "in"],
-        "color": "#9C27B0",
-        "helpKey": "sprach1_exam7_q4"
+        "color": 0
       }
     },
     {
       "id": 5,
       "options": ["bin", "war", "wäre"],
       "correct": 2,
-      "highlight": {
-        "connector": "wäre",
+      "memoryHighlight": {
         "before": "und",
+        "connector": "wäre",
         "after": "am liebsten",
-        "highlightWords": ["und", "wäre", "am", "liebsten"],
-        "color": "#F44336",
-        "helpKey": "sprach1_exam7_q5"
+        "color": 5
       }
     },
     {
       "id": 6,
       "options": ["konnte", "musste", "sollte"],
       "correct": 0,
-      "highlight": {
-        "connector": "konnte",
+      "memoryHighlight": {
         "before": "Da",
+        "connector": "konnte",
         "after": "ich ja",
-        "highlightWords": ["Da", "konnte", "ich", "ja"],
-        "color": "#00BCD4",
-        "helpKey": "sprach1_exam7_q6"
+        "color": 11
       }
     },
     {
       "id": 7,
       "options": ["aber", "denn", "sondern"],
       "correct": 1,
-      "highlight": {
-        "connector": "denn",
+      "memoryHighlight": {
         "before": "gegangen sind,",
+        "connector": "denn",
         "after": "es war",
-        "highlightWords": ["gegangen", "sind", ",", "denn", "es", "war"],
-        "color": "#8BC34A",
-        "helpKey": "sprach1_exam7_q7"
+        "color": 3
       }
     },
     {
       "id": 8,
       "options": ["Beide", "Beiden", "Beides"],
       "correct": 2,
-      "highlight": {
-        "connector": "Beides",
+      "memoryHighlight": {
         "before": "eingeladen,",
+        "connector": "Beides",
         "after": "war zwar",
-        "highlightWords": ["eingeladen", ",", "Beides", "war", "zwar"],
-        "color": "#FF5722",
-        "helpKey": "sprach1_exam7_q8"
+        "color": 8
       }
     },
     {
       "id": 9,
       "options": ["erst", "noch", "schon"],
       "correct": 1,
-      "highlight": {
-        "connector": "noch",
+      "memoryHighlight": {
         "before": "Wochenenden",
+        "connector": "noch",
         "after": "keine Pläne",
-        "highlightWords": ["Wochenenden", "noch", "keine", "Pläne"],
-        "color": "#3F51B5",
-        "helpKey": "sprach1_exam7_q9"
+        "color": 4
       }
     },
     {
       "id": 10,
       "options": ["auf", "für", "über"],
       "correct": 0,
-      "highlight": {
-        "connector": "auf",
+      "memoryHighlight": {
         "before": "freue mich",
+        "connector": "auf",
         "after": "deine nächste",
-        "highlightWords": ["freue", "mich", "auf", "deine", "nächste"],
-        "color": "#E91E63",
-        "helpKey": "sprach1_exam7_q10"
+        "color": 6
       }
     }
   ]
