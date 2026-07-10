@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "darüber"
+      "correct": "darüber",
+      "memoryHighlight": {
+        "before": "schon einmal",
+        "connector": "darüber",
+        "after": "aufgeregt, dass",
+        "color": 5
+      }
     },
     {
       "id": 2,
       "options": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "nur"
+      "correct": "nur",
+      "memoryHighlight": {
+        "before": "gibt es",
+        "connector": "nur",
+        "after": "noch in",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "kam"
+      "correct": "kam",
+      "memoryHighlight": {
+        "before": "Hohenstein",
+        "connector": "kam",
+        "after": "nun zu",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "weder"
+      "correct": "weder",
+      "memoryHighlight": {
+        "before": "offenbar",
+        "connector": "weder",
+        "after": "den Kundinnen",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "habe"
+      "correct": "habe",
+      "memoryHighlight": {
+        "before": "Arme",
+        "connector": "habe",
+        "after": "zugenommen, besonders",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "da"
+      "correct": "da",
+      "memoryHighlight": {
+        "before": "zugelegt.",
+        "connector": "da",
+        "after": "man natürlich",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "das"
+      "correct": "das",
+      "memoryHighlight": {
+        "before": "entwickelt,",
+        "connector": "das",
+        "after": "Männer und",
+        "color": 4
+      }
     },
     {
       "id": 8,
       "options": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "sollen"
+      "correct": "sollen",
+      "memoryHighlight": {
+        "before": "Bilder",
+        "connector": "sollen",
+        "after": "es ermöglichen",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "dass"
+      "correct": "dass",
+      "memoryHighlight": {
+        "before": "freuen,",
+        "connector": "dass",
+        "after": "sich als",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "gleich"
+      "correct": "gleich",
+      "memoryHighlight": {
+        "before": "überall",
+        "connector": "gleich",
+        "after": "groß, ob",
+        "color": 6
+      }
     }
   ],
   "allOptions": ["als", "da", "darüber", "darum", "das", "dass", "gleich", "habe", "ins", "kam", "nur", "sollen", "sondern", "sowie", "weder"]
