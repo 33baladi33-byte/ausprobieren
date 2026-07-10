@@ -8,130 +8,110 @@
       "id": 1,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
       "correct": "sogar",
-      "highlight": {
-        "connector": "sogar",
+      "memoryHighlight": {
         "before": "Kurse und",
+        "connector": "sogar",
         "after": "mit Smartphones",
-        "highlightWords": ["Kurse", "und", "sogar", "mit", "Smartphones"],
-        "color": "#4CAF50",
-        "helpKey": "sprach2_exam9_q1"
+        "color": 4
       }
     },
     {
       "id": 2,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
       "correct": "mit",
-      "highlight": {
-        "connector": "mit",
+      "memoryHighlight": {
         "before": "Partnerschaft",
+        "connector": "mit",
         "after": "einem Muttersprachler",
-        "highlightWords": ["Partnerschaft", "mit", "einem", "Muttersprachler"],
-        "color": "#FF9800",
-        "helpKey": "sprach2_exam9_q2"
+        "color": 9
       }
     },
     {
       "id": 3,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
       "correct": "sondern",
-      "highlight": {
-        "connector": "sondern",
+      "memoryHighlight": {
         "before": "nur lesen,",
+        "connector": "sondern",
         "after": "gleichzeitig auch",
-        "highlightWords": ["nur", "lesen", ",", "sondern", "gleichzeitig", "auch"],
-        "color": "#2196F3",
-        "helpKey": "sprach2_exam9_q3"
+        "color": 1
       }
     },
     {
       "id": 4,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
       "correct": "ohne",
-      "highlight": {
-        "connector": "ohne",
+      "memoryHighlight": {
         "before": "nachsprechen,",
+        "connector": "ohne",
         "after": "dass ein",
-        "highlightWords": ["nachsprechen", ",", "ohne", "dass", "ein"],
-        "color": "#9C27B0",
-        "helpKey": "sprach2_exam9_q4"
+        "color": 7
       }
     },
     {
       "id": 5,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
       "correct": "anstatt",
-      "highlight": {
-        "connector": "anstatt",
+      "memoryHighlight": {
         "before": "wiederholen,",
+        "connector": "anstatt",
         "after": "sie in",
-        "highlightWords": ["wiederholen", ",", "anstatt", "sie", "in"],
-        "color": "#F44336",
-        "helpKey": "sprach2_exam9_q5"
+        "color": 3
       }
     },
     {
       "id": 6,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
       "correct": "besonders",
-      "highlight": {
-        "connector": "besonders",
+      "memoryHighlight": {
         "before": "Helfer sind",
+        "connector": "besonders",
         "after": "gut zum",
-        "highlightWords": ["Helfer", "sind", "besonders", "gut", "zum"],
-        "color": "#00BCD4",
-        "helpKey": "sprach2_exam9_q6"
+        "color": 11
       }
     },
     {
       "id": 7,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
       "correct": "aber",
-      "highlight": {
-        "connector": "aber",
+      "memoryHighlight": {
         "before": "Spaß,",
+        "connector": "aber",
         "after": "Satzbau oder",
-        "highlightWords": ["Spaß", ",", "aber", "Satzbau", "oder"],
-        "color": "#8BC34A",
-        "helpKey": "sprach2_exam9_q7"
+        "color": 6
       }
     },
     {
       "id": 8,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
       "correct": "sollte",
-      "highlight": {
-        "connector": "sollte",
+      "memoryHighlight": {
         "before": "Dafür",
+        "connector": "sollte",
         "after": "man besser",
-        "highlightWords": ["Dafür", "sollte", "man", "besser"],
-        "color": "#FF5722",
-        "helpKey": "sprach2_exam9_q8"
+        "color": 8
       }
     },
     {
       "id": 9,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
       "correct": "um",
-      "highlight": {
-        "connector": "um",
+      "memoryHighlight": {
         "before": "Weg,",
+        "connector": "um",
         "after": "einen passenden",
-        "highlightWords": ["Weg", ",", "um", "einen", "passenden"],
-        "color": "#3F51B5",
-        "helpKey": "sprach2_exam9_q9"
+        "color": 2
       }
     },
     {
       "id": 10,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
       "correct": "schon",
-      "highlight": {
-        "connector": "schon",
+      "memoryHighlight": {
         "before": "eingeben,",
+        "connector": "schon",
         "after": "werden alle",
-        "highlightWords": ["eingeben", ",", "schon", "werden", "alle"],
-        "color": "#E91E63",
-        "helpKey": "sprach2_exam9_q10"
+        "color": 5
       }
     }
   ],
