@@ -166,19 +166,23 @@ if (this.isFromList) {
             return;
         }
 
-        // ✅ تصفية Lesen 3: استبعاد الفقرات التي ليس لها حالة صحيحة
-        if (this.currentSkill === 'lesen3' && this.sharedOptions.length > 0) {
-            const before = this.questions.length;
-            this.questions = this.questions.filter(item => {
-                return item.correct !== undefined && 
-                       item.correct >= 0 && 
-                       item.correct < this.sharedOptions.length;
-            });
-            const after = this.questions.length;
-            if (after < before) {
-                console.log(`🔍 Lesen 3: تم استبعاد ${before - after} فقرة غير صالحة، بقي ${after} فقرة للتدريب`);
-            }
-        }
+       // ✅ تصفية Lesen 3: استبعاد الفقرات التي ليس لها حالة صحيحة
+if (this.currentSkill === 'lesen3' && this.sharedOptions.length > 0) {
+    const before = this.questions.length;
+    this.questions = this.questions.filter(item => {
+        // ⚠️ التأكد من أن correct ليس null أو undefined، وأنه رقم صحيح ضمن نطاق الحالات
+        const isValid = item.correct !== null && 
+                        item.correct !== undefined && 
+                        typeof item.correct === 'number' &&
+                        item.correct >= 0 && 
+                        item.correct < this.sharedOptions.length;
+        return isValid;
+    });
+    const after = this.questions.length;
+    if (after < before) {
+        console.log(`🔍 Lesen 3: تم استبعاد ${before - after} فقرة غير صالحة (correct == null أو خارج النطاق)، بقي ${after} فقرة للتدريب`);
+    }
+}
 
         this.buildTrainingQueue();
         if (this.trainingQueue.length === 0) {
