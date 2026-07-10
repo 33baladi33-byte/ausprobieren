@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["dich", "dir", "sich"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "es",
+        "connector": "dich",
+        "after": ", dass ich",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["könnte", "möchte", "müsste"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "sein",
+        "connector": "könnte",
+        "after": ". Aber ich",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["mit", "von", "vor"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "man sich",
+        "connector": "von",
+        "after": "der Hektik",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["als", "für", "wie"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "was ich",
+        "connector": "als",
+        "after": "sehr angenehm",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["aus", "in", "zu"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "eigentlich",
+        "connector": "aus",
+        "after": "zwei Inseln",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["hat", "ist", "wird"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "erreichen",
+        "connector": "ist",
+        "after": ". Man kann",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["lebende", "lebenden", "lebender"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "man wild",
+        "connector": "lebenden",
+        "after": "Tiere so",
+        "color": 5
+      }
     },
     {
       "id": 8,
       "options": ["wenige", "wenigen", "weniger"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "nur",
+        "connector": "wenige",
+        "after": "Stunden auf",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["Sobald", "Sofern", "Somit"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Insel.",
+        "connector": "Sobald",
+        "after": "die Tagesausflügler",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["dürftest", "könntest", "würdest"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "gern umziehen",
+        "connector": "würdest",
+        "after": ". Wie sieht",
+        "color": 6
+      }
     }
   ]
 }
