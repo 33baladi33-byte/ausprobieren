@@ -730,20 +730,14 @@ class MemoryTrainer {
                 </div>
             `;
         } else if (this.examType === 'sprach1') {
-            // ============================================
-            // تخطيط خاص لـ Sprachbausteine Teil 1
-            // ============================================
-            const item = this.currentQuestionObj;
-            const highlight = item.memoryHighlight || {};
-            const id = item.id || (this.currentQuestionIndex + 1);
-            const before = highlight.before || '';
-            const connector = highlight.connector || '';
-            const after = highlight.after || '';
-            const color = highlight.color !== undefined ? highlight.color : 0;
-            
-            // تحديد لون البطاقة حسب color (0-5 فقط متوفرة في هذه القائمة)
-            const colorMap = ['#F8FAFC', '#E8F5E9', '#FFF3E0', '#F3E5F5', '#E3F2FD', '#FBE9E7'];
-            const bgColor = colorMap[color % colorMap.length] || '#F8FAFC';
+    const item = this.currentQuestionObj;
+    const highlight = item.memoryHighlight || {};
+    const id = item.id || (this.currentQuestionIndex + 1);
+    const before = highlight.before || '';
+    const connector = highlight.connector || '';
+    const after = highlight.after || '';
+    // ✅ إلغاء الألوان واستخدام خلفية بيضاء
+    const bgColor = '#FFFFFF';
             
             cardContent = `
                 <div class="memory-trainer-card" style="
