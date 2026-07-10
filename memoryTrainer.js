@@ -90,59 +90,70 @@ class MemoryTrainer {
                 }
             }
         } 
-        // ✅ وضع الامتحان الفردي (من زر 🧠 داخل الامتحان)
-        else {
-            examData = window.currentExamData || window._currentExamData;
-            if (examData) {
-                this.currentSkill = window.currentSkill || 'hoeren1';
-                this.currentExamId = window.currentExamId || 1;
-                console.log(`📖 تدريب من امتحان فردي: ${this.currentSkill} exam${this.currentExamId}`);
-                if (examData.sharedOptions) {
-                    this.sharedOptions = examData.sharedOptions;
-                }
-                this.examType = examData.type || 'hoeren';
-                if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen3') {
-                    this.examType = 'matching';
-                } else if (this.currentSkill === 'lesen2') {
-                    this.examType = 'multiple';
-                }
-            } else {
-                this.showNotAvailable("لا توجد بيانات امتحان");
-                return;
-            }
+    // ✅ وضع الامتحان الفردي (من زر 🧠 داخل الامتحان)
+else {
+    examData = window.currentExamData || window._currentExamData;
+    if (examData) {
+        this.currentSkill = window.currentSkill || 'hoeren1';
+        this.currentExamId = window.currentExamId || 1;
+        console.log(`📖 تدريب من امتحان فردي: ${this.currentSkill} exam${this.currentExamId}`);
+        if (examData.sharedOptions) {
+            this.sharedOptions = examData.sharedOptions;
         }
+        this.examType = examData.type || 'hoeren';
+        // ✅ دعم Lesen 3
+        if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen3') {
+            this.examType = 'matching';
+        } else if (this.currentSkill === 'lesen2') {
+            this.examType = 'multiple';
+        }
+    } else {
+        this.showNotAvailable("لا توجد بيانات امتحان");
+        return;
+    }
+}
+        
 
         if (!examData) {
             this.showNotAvailable("لا توجد بيانات امتحان");
             return;
         }
 
-        // ✅ استخراج جميع الجمل
-        let rawQuestions = [];
-        if (this.isFromList) {
-            rawQuestions = examData.allQuestions || [];
-            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3') {
-                // لـ Lesen 1, Lesen 2, Lesen 3: كل الجمل صالحة للتدريب
-                this.questions = rawQuestions;
-            } else {
-                this.questions = rawQuestions.filter(q => q.correct === true);
-            }
-        } else {
-            const examQuestions = examData.questions || [];
-            rawQuestions = examQuestions.map((q, idx) => ({
-                text: q.text,
-                correct: q.correct,
-                options: q.options || [],          // ✅ حفظ الخيارات لـ Lesen 2
-                examId: this.currentExamId,
-                questionIndex: idx,
-                originalQuestion: q
-            }));
-            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3') {
-                this.questions = rawQuestions;
-            } else {
-                this.questions = rawQuestions.filter(q => q.correct === true);
-            }
+       // ✅ استخراج جميع الجمل
+let rawQuestions = [];
+if (this.isFromList) {
+    rawQuestions = examData.allQuestions || [];
+    if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3') {
+        this.questions = rawQuestions;
+    } else {
+        this.questions = rawQuestions.filter(q => q.correct === true);
+    }
+} else {
+    let examQuestions = [];
+    // ✅ لـ Lesen 3: نستخدم items بدلاً من questions
+    if (this.currentSkill === 'lesen3' && examData.items) {
+        examQuestions = examData.items;
+        // حفظ situations كـ sharedOptions
+        if (examData.situations && !this.sharedOptions.length) {
+            this.sharedOptions = examData.situations;
         }
+    } else {
+        examQuestions = examData.questions || [];
+    }
+    rawQuestions = examQuestions.map((q, idx) => ({
+        text: q.text,
+        correct: q.correct,
+        options: q.options || [],
+        examId: this.currentExamId,
+        questionIndex: idx,
+        originalQuestion: q
+    }));
+    if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3') {
+        this.questions = rawQuestions;
+    } else {
+        this.questions = rawQuestions.filter(q => q.correct === true);
+    }
+}
 
         this.allQuestions = rawQuestions;
 
@@ -507,7 +518,7 @@ class MemoryTrainer {
                             margin-bottom: 8px;
                             text-align: center;
                         ">
-                            🌿 اقرأ النص جيداً، سأطلب منك اختيار العنوان المناسب.
+                           🌿 اقرأ الفقرة جيداً، سأطلب منك اختيار الحالة المناسبة.
                         </p>
 
                         <!-- صندوق القراءة الخاص بـ Lesen 1 و Lesen 3 -->
@@ -714,7 +725,7 @@ class MemoryTrainer {
         let displayQuestion = '';
 
         if (this.examType === 'matching') {
-            questionText = 'اختر العنوان المناسب للنص الذي قرأته:';
+           questionText = this.currentSkill === 'lesen3' ? 'اختر الحالة المناسبة للفقرة التي قرأتها:' : 'اختر العنوان المناسب للنص الذي قرأته:';
         } else if (this.examType === 'multiple') {
             questionText = 'ما الاختيار الصحيح؟';
             const realQuestionNumber = this.currentQuestionObj.questionIndex !== undefined 
