@@ -9,9 +9,9 @@
       "options": ["auf", "bei", "dafür", "jemanden", "das", "dass", "davon", "dennoch", "doch", "passen", "zur", "niemanden", "sondern", "dennoch", "weil"],
       "correct": "zur",
       "memoryHighlight": {
-        "before": "Tagesstätte",
+        "before": "Kindertagesstätte.",
         "connector": "zur",
-        "after": "Verfügung. Die",
+        "after": "Verfügung.",
         "color": 5
       }
     },
