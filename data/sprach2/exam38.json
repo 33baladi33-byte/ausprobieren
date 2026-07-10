@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"],
-      "correct": "gehören"
+      "correct": "gehören",
+      "memoryHighlight": {
+        "before": "Die Arme",
+        "connector": "gehören",
+        "after": "nicht auf",
+        "color": 2
+      }
     },
     {
       "id": 2,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"],
-      "correct": "behält"
+      "correct": "behält",
+      "memoryHighlight": {
+        "before": "Schuhe",
+        "connector": "behält",
+        "after": "in jedem",
+        "color": 8
+      }
     },
     {
       "id": 3,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"],
-      "correct": "manchem"
+      "correct": "manchem",
+      "memoryHighlight": {
+        "before": "bereitet so",
+        "connector": "manchem",
+        "after": "Probleme. Die",
+        "color": 4
+      }
     },
     {
       "id": 4,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"],
-      "correct": "mit"
+      "correct": "mit",
+      "memoryHighlight": {
+        "before": "Bedienung",
+        "connector": "mit",
+        "after": "der Anrede",
+        "color": 9
+      }
     },
     {
       "id": 5,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"],
-      "correct": "dagegen"
+      "correct": "dagegen",
+      "memoryHighlight": {
+        "before": "Bedienung\" ist",
+        "connector": "dagegen",
+        "after": "zwar korrekt",
+        "color": 1
+      }
     },
     {
       "id": 6,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"],
-      "correct": "wink"
+      "correct": "wink",
+      "memoryHighlight": {
+        "before": "kleinen",
+        "connector": "wink",
+        "after": "mit der",
+        "color": 7
+      }
     },
     {
       "id": 7,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"],
-      "correct": "fertig"
+      "correct": "fertig",
+      "memoryHighlight": {
+        "before": "Essen",
+        "connector": "fertig",
+        "after": "ist, platziert",
+        "color": 11
+      }
     },
     {
       "id": 8,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"],
-      "correct": "taktgefühl"
+      "correct": "taktgefühl",
+      "memoryHighlight": {
+        "before": "Bezahlen ist",
+        "connector": "taktgefühl",
+        "after": "wichtig, wenn",
+        "color": 3
+      }
     },
     {
       "id": 9,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"],
-      "correct": "klar"
+      "correct": "klar",
+      "memoryHighlight": {
+        "before": "dies dem",
+        "connector": "klar",
+        "after": ". Ein \"Bringen",
+        "color": 6
+      }
     },
     {
       "id": 10,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"],
-      "correct": "was"
+      "correct": "was",
+      "memoryHighlight": {
+        "before": "bezahlen,",
+        "connector": "was",
+        "after": "durchaus üblich",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "manchem", "mit", "taktgefühl", "tipp", "was", "wink"]
