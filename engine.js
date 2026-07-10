@@ -4340,27 +4340,28 @@ function addSentencePuzzleIcons(container, questions) {
 
         // إذا كان السؤال صحيحاً (correct: true)
         if (question.correct === true) {
-            // البحث عن أيقونة موجودة مسبقاً
+            // البحث عن أيقونة موجودة مسبقاً - تأكد من عدم وجودها
             let icon = card.querySelector('.sentence-puzzle-icon');
+            
+            // إذا كانت موجودة، لا نعيد إنشاؤها
+            if (icon) return;
 
-            if (!icon) {
-                // إنشاء أيقونة جديدة
-                icon = document.createElement('span');
-                icon.className = 'sentence-puzzle-icon';
-                icon.textContent = '🔀';
-                icon.style.cssText = `
-                    font-size: 16px;
-                    cursor: pointer;
-                    transition: all 0.2s ease;
-                    margin-right: 10px;
-                    display: inline-block;
-                    color: #64748b;
-                    opacity: 0.6;
-                `;
+            // إنشاء أيقونة جديدة
+            icon = document.createElement('span');
+            icon.className = 'sentence-puzzle-icon';
+            icon.textContent = '🔀';
+            icon.style.cssText = `
+                font-size: 16px;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                margin-right: 10px;
+                display: inline-block;
+                color: #64748b;
+                opacity: 0.6;
+            `;
 
-                // إضافة الأيقونة قبل النص
-                card.insertBefore(icon, textSpan);
-            }
+            // إضافة الأيقونة قبل النص
+            card.insertBefore(icon, textSpan);
 
             // إضافة مستمع النقر
             icon.onclick = function(e) {
@@ -4391,75 +4392,5 @@ function addSentencePuzzleIcons(container, questions) {
         }
     });
 }
-
-// ============================================
-// زر 🔀 في شريط التنقل - يظهر فقط بعد التصحيح
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    const navButtons = document.getElementById('examNavButtons');
-    if (!navButtons) return;
-
-    // التحقق من وجود الزر بالفعل
-    if (document.getElementById('sentencePuzzleNavBtn')) return;
-
-    const puzzleBtn = document.createElement('button');
-    puzzleBtn.id = 'sentencePuzzleNavBtn';
-    puzzleBtn.className = 'nav-exam-btn';
-    puzzleBtn.textContent = '🔀';
-    puzzleBtn.title = 'ترتيب الجمل الصحيحة';
-    puzzleBtn.style.cssText = `
-        padding: 10px 18px;
-        font-size: 16px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        background: #2c3e66;
-        color: white;
-        display: none;
-    `;
-
-    puzzleBtn.addEventListener('mouseenter', function() {
-        this.style.background = '#1a2a4a';
-    });
-    puzzleBtn.addEventListener('mouseleave', function() {
-        this.style.background = '#2c3e66';
-    });
-
-    puzzleBtn.addEventListener('click', function() {
-        // تنفيذ التصحيح أولاً
-        const checkBtn = document.querySelector('.check-btn');
-        if (checkBtn) {
-            checkBtn.click();
-
-            // بعد التصحيح، البحث عن أول جملة صحيحة وفتحها
-            setTimeout(() => {
-                const firstIcon = document.querySelector('.sentence-puzzle-icon');
-                if (firstIcon) {
-                    firstIcon.click();
-                }
-            }, 300);
-        }
-    });
-
-    navButtons.appendChild(puzzleBtn);
-
-    // مراقبة ظهور أيقونات 🔀 لإظهار الزر
-    const observer = new MutationObserver(function() {
-        const icons = document.querySelectorAll('.sentence-puzzle-icon');
-        if (icons.length > 0) {
-            puzzleBtn.style.display = 'inline-block';
-        } else {
-            puzzleBtn.style.display = 'none';
-        }
-    });
-
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true,
-        attributes: true
-    });
-});
 
 console.log('✅ تم ربط SentenceReorder مع engine.js');
