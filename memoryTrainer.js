@@ -786,28 +786,35 @@ class MemoryTrainer {
                             🌿 اختر الكلمة المناسبة للفراغ.
                         </p>
 
-                        <!-- عرض الجملة مع الفراغ -->
-                        <div style="
-                            font-size: 18px;
-                            font-weight: 500;
-                            text-align: left;
-                            padding: 16px 12px;
-                            color: #1a202c;
-                            margin: 4px 0 12px 0;
-                            line-height: 1.8;
-                            background: rgba(255,255,255,0.5);
-                            border-radius: 8px;
-                        ">
-                            ${before} <span style="font-weight:700;color:#1565C0;background:#E3F2FD;padding:0 6px;border-radius:4px;">[${id}]</span> ${after}
-                        </div>
+                      <!-- صندوق القراءة الخاص بـ Sprachbausteine 1 -->
+<div class="memory-reading-box" style="
+    width: 100%;
+    height: 80px;
+    overflow-y: auto;
+    padding: 12px 16px;
+    background: #F8FAFC;
+    border: 1px solid #EDF2F7;
+    border-radius: 10px;
+    text-align: left;
+    direction: rtl;
+    font-size: 17px;
+    line-height: 1.8;
+    font-weight: 400;
+    color: #1a202c;
+    box-sizing: border-box;
+    margin: 8px 0 12px 0;
+">
+    ${before} <span style="font-weight:700;color:#1565C0;background:#E3F2FD;padding:0 6px;border-radius:4px;">[${id}]</span> ${after}
+</div>
 
                         <!-- الإجابة الصحيحة -->
 <div style="
-    text-align: center;
+    text-align: left;
     font-size: 16px;
     font-weight: 500;
     color: #1a5a1a;
     padding: 6px 12px;
+    padding-left: 20px;
     margin-top: 0;
     background: transparent;
     border-radius: 6px;
