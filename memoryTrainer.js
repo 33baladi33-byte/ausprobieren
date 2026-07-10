@@ -802,20 +802,18 @@ class MemoryTrainer {
                         </div>
 
                         <!-- الإجابة الصحيحة -->
-                        <div style="
-                            text-align: right;
-                            font-size: 16px;
-                            font-weight: 500;
-                            color: #1a5a1a;
-                            padding: 4px 4px;
-                            direction: rtl;
-                            margin-top: 0;
-                            background: #E8F5E9;
-                            border-radius: 6px;
-                            padding: 6px 12px;
-                        ">
-                            ✅ ${connector}
-                        </div>
+<div style="
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a5a1a;
+    padding: 6px 12px;
+    margin-top: 0;
+    background: transparent;
+    border-radius: 6px;
+">
+    ✅ ${connector}
+</div>
                     </div>
 
                     <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()" style="
