@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["dabei", "daraus", "davon"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Schulen, acht",
+        "connector": "davon",
+        "after": "in Deutschland",
+        "color": 2
+      }
     },
     {
       "id": 2,
       "options": ["denen", "die", "den"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Österreich, an",
+        "connector": "denen",
+        "after": "Sie ausnahmslos",
+        "color": 8
+      }
     },
     {
       "id": 3,
       "options": ["an", "durch", "in"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Regel",
+        "connector": "an",
+        "after": "fünf Tagen",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["Jeder Mittwoch", "Mittwochs", "zum Mittwoch"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Uhr.",
+        "connector": "Mittwochs",
+        "after": "ist kein",
+        "color": 6
+      }
     },
     {
       "id": 5,
       "options": ["jedem Kurs", "jeden Kurs", "jedes Kurses"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Beginn",
+        "connector": "jedes Kurses",
+        "after": "wird ein",
+        "color": 9
+      }
     },
     {
       "id": 6,
       "options": ["der", "deren", "dessen"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "mit",
+        "connector": "dessen",
+        "after": "Hilfe wir",
+        "color": 3
+      }
     },
     {
       "id": 7,
       "options": ["obwohl", "wenn", "wobei"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "erhalten,",
+        "connector": "wenn",
+        "after": "Sie den",
+        "color": 0
+      }
     },
     {
       "id": 8,
       "options": ["Ihnen", "Sie", "Euch"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "die",
+        "connector": "Ihnen",
+        "after": "vor Ort",
+        "color": 5
+      }
     },
     {
       "id": 9,
       "options": ["hat", "ist", "wird"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Unterkunftspreis",
+        "connector": "ist",
+        "after": "jeweils Halbpension",
+        "color": 11
+      }
     },
     {
       "id": 10,
       "options": ["eine Diät halten müssen", "müssen eine Diät halten", "müssen halten eine Diät"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "oder",
+        "connector": "eine Diät halten müssen",
+        "after": ". Alles Weitere",
+        "color": 7
+      }
     }
   ]
 }
