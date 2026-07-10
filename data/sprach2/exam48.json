@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
-      "correct": "sondern"
+      "correct": "sondern",
+      "memoryHighlight": {
+        "before": "nur die",
+        "connector": "sondern",
+        "after": "auch die",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
-      "correct": "seit"
+      "correct": "seit",
+      "memoryHighlight": {
+        "before": "arbeitet",
+        "connector": "seit",
+        "after": "vielen Jahren",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
-      "correct": "wegen"
+      "correct": "wegen",
+      "memoryHighlight": {
+        "before": "die",
+        "connector": "wegen",
+        "after": "familiärer und",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
-      "correct": "ab"
+      "correct": "ab",
+      "memoryHighlight": {
+        "before": "werden",
+        "connector": "ab",
+        "after": "dem kommenden",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
-      "correct": "des"
+      "correct": "des",
+      "memoryHighlight": {
+        "before": "Ende",
+        "connector": "des",
+        "after": "Projekts werden",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
-      "correct": "Wolfgang"
+      "correct": "Wolfgang",
+      "memoryHighlight": {
+        "before": "Schauspieler",
+        "connector": "Wolfgang",
+        "after": "Neuhausen. Er",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
-      "correct": "keine"
+      "correct": "keine",
+      "memoryHighlight": {
+        "before": "Stadt",
+        "connector": "keine",
+        "after": "Gelder vorhanden",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
-      "correct": "aufgehängt"
+      "correct": "aufgehängt",
+      "memoryHighlight": {
+        "before": "Plakate",
+        "connector": "aufgehängt",
+        "after": ", mit denen",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
-      "correct": "auf"
+      "correct": "auf",
+      "memoryHighlight": {
+        "before": "hofft,",
+        "connector": "auf",
+        "after": "diese Weise",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["aber", "anstatt", "besonders", "für", "kaum", "mit", "müsste", "ohne", "schon", "so", "sogar", "sollte", "sondern", "um", "von"],
-      "correct": "noch"
+      "correct": "noch",
+      "memoryHighlight": {
+        "before": "Aufführungen",
+        "connector": "noch",
+        "after": "ehrenamtliche Helfer",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["ab", "auf", "aufgehängt", "da", "des", "es", "keine", "noch", "seit", "sondern", "um", "wegen", "Wolfgang"]
