@@ -1,24 +1,24 @@
 // ============================================
-// MEMORY TRAINER V4 - يدعم Hören, Lesen 1 و Lesen 2
+// MEMORY TRAINER V4 - يدعم Hören, Lesen 1, Lesen 2 و Lesen 3
 // ============================================
 
 class MemoryTrainer {
     constructor() {
         // البيانات الأساسية
-        this.questions = [];           // الجمل الصحيحة فقط (للتدريب) - أو كل الجمل في حالة lesen1/lesen2
+        this.questions = [];           // الجمل الصحيحة فقط (للتدريب) - أو كل الجمل في حالة lesen1/lesen2/lesen3
         this.allQuestions = [];        // جميع الجمل (صحيحة وخاطئة) - لتوليد الخيارات (Hören)
-        this.sharedOptions = [];       // العناوين المشتركة (Lesen 1)
+        this.sharedOptions = [];       // العناوين المشتركة (Lesen 1) أو الحالات (Lesen 3)
         this.trainingQueue = [];
         this.wrongQuestions = [];
         this.currentIndex = 0;
         this.isActive = false;
         this.isReviewMode = false;
         this.isFromList = false;
-        this.examType = 'hoeren';      // 'hoeren' | 'matching' (Lesen 1) | 'multiple' (Lesen 2)
+        this.examType = 'hoeren';      // 'hoeren' | 'matching' (Lesen 1, Lesen 3) | 'multiple' (Lesen 2)
 
         // السؤال الحالي
         this.currentCorrectText = '';
-        this.currentCorrectIndex = -1; // للـ Lesen 1 و Lesen 2 (فهرس في sharedOptions أو options)
+        this.currentCorrectIndex = -1; // للـ Lesen 1 و Lesen 2 و Lesen 3 (فهرس في sharedOptions أو options)
         this.currentOptions = [];
         this.currentQuestionIndex = 0;
         this.currentExamId = 1;
@@ -69,7 +69,7 @@ class MemoryTrainer {
                 }
                 this.examType = examData.examType || 'hoeren';
                 // تحديد النوع حسب المهارة
-                if (this.currentSkill === 'lesen1') {
+                if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen3') {
                     this.examType = 'matching';
                 } else if (this.currentSkill === 'lesen2') {
                     this.examType = 'multiple';
@@ -101,7 +101,7 @@ class MemoryTrainer {
                     this.sharedOptions = examData.sharedOptions;
                 }
                 this.examType = examData.type || 'hoeren';
-                if (this.currentSkill === 'lesen1') {
+                if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen3') {
                     this.examType = 'matching';
                 } else if (this.currentSkill === 'lesen2') {
                     this.examType = 'multiple';
@@ -121,8 +121,8 @@ class MemoryTrainer {
         let rawQuestions = [];
         if (this.isFromList) {
             rawQuestions = examData.allQuestions || [];
-            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2') {
-                // لـ Lesen 1 و Lesen 2: كل الجمل صالحة للتدريب
+            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3') {
+                // لـ Lesen 1, Lesen 2, Lesen 3: كل الجمل صالحة للتدريب
                 this.questions = rawQuestions;
             } else {
                 this.questions = rawQuestions.filter(q => q.correct === true);
@@ -137,7 +137,7 @@ class MemoryTrainer {
                 questionIndex: idx,
                 originalQuestion: q
             }));
-            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2') {
+            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3') {
                 this.questions = rawQuestions;
             } else {
                 this.questions = rawQuestions.filter(q => q.correct === true);
@@ -146,8 +146,8 @@ class MemoryTrainer {
 
         this.allQuestions = rawQuestions;
 
-        if (this.currentSkill === 'lesen1' && this.sharedOptions.length === 0 && rawQuestions.length > 0) {
-            console.warn('⚠️ لم يتم العثور على sharedOptions لـ lesen1، قد لا تعمل الخيارات بشكل صحيح.');
+        if ((this.currentSkill === 'lesen1' || this.currentSkill === 'lesen3') && this.sharedOptions.length === 0 && rawQuestions.length > 0) {
+            console.warn(`⚠️ لم يتم العثور على sharedOptions لـ ${this.currentSkill}، قد لا تعمل الخيارات بشكل صحيح.`);
         }
 
         if (this.questions.length === 0) {
@@ -314,7 +314,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // توليد الخيارات (تدعم Hören و Lesen 1)
+    // توليد الخيارات (تدعم Hören و Lesen 1 و Lesen 3)
     // ============================================
 
     generateOptions(correctText, currentQuestionObj) {
@@ -364,7 +364,11 @@ class MemoryTrainer {
         const examPercent = this.getExamProgress(this.currentSkill, this.currentExamId);
         let examLabel = `امتحان ${this.currentExamId}`;
         if (this.examType === 'matching') {
-            examLabel = `امتحان ${this.currentExamId} (Lesen 1)`;
+            if (this.currentSkill === 'lesen3') {
+                examLabel = `امتحان ${this.currentExamId} (Lesen 3)`;
+            } else {
+                examLabel = `امتحان ${this.currentExamId} (Lesen 1)`;
+            }
         } else if (this.examType === 'multiple') {
             examLabel = `امتحان ${this.currentExamId} (Lesen 2)`;
         }
@@ -373,7 +377,7 @@ class MemoryTrainer {
                 <div class="memory-trainer-icon">🧩</div>
                 <h2>استدعاء ذكي</h2>
                 <p style="font-size:14px;color:#334155;margin:6px 0 2px 0;">تدريب ${examLabel}.</p>
-                <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">${this.examType === 'multiple' ? 'سترى السؤال مرة واحدة، ثم سنطلب منك اختيار الجواب الصحيح.' : 'سترى النص مرة واحدة، ثم سنطلب منك اختيار العنوان الصحيح.'}</p>
+                <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">${this.examType === 'multiple' ? 'سترى السؤال مرة واحدة، ثم سنطلب منك اختيار الجواب الصحيح.' : 'سترى النص مرة واحدة، ثم سنطلب منك اختيار العنوان المناسب.'}</p>
                 <div style="margin:4px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:4px 10px;">
                     <div style="display:flex;align-items:center;gap:10px;">
                         <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
@@ -397,7 +401,11 @@ class MemoryTrainer {
         }
         let skillLabel = this.currentSkill;
         if (this.examType === 'matching') {
-            skillLabel = 'Lesen 1';
+            if (this.currentSkill === 'lesen3') {
+                skillLabel = 'Lesen 3';
+            } else {
+                skillLabel = 'Lesen 1';
+            }
         } else if (this.examType === 'multiple') {
             skillLabel = 'Lesen 2';
         }
@@ -449,12 +457,12 @@ class MemoryTrainer {
 
         if (this.examType === 'matching') {
             // ============================================
-            // تخطيط خاص لـ Lesen 1
+            // تخطيط خاص لـ Lesen 1 و Lesen 3
             // ============================================
             const correctIndex = this.currentQuestionObj.correct;
             const correctTitle = this.sharedOptions[correctIndex] || '';
-            const titlePrefix = correctTitle.match(/^[a-z]\.\s*/) ? correctTitle.match(/^[a-z]\.\s*/)[0] : '';
-            const titleWithoutPrefix = correctTitle.replace(/^[a-z]\.\s*/, '');
+            const titlePrefix = correctTitle.match(/^[a-zA-Z][\.\)]\s*/) ? correctTitle.match(/^[a-zA-Z][\.\)]\s*/)[0] : '';
+            const titleWithoutPrefix = correctTitle.replace(/^[a-zA-Z][\.\)]\s*/, '');
 
             cardContent = `
                 <div class="memory-trainer-card" style="
@@ -502,7 +510,7 @@ class MemoryTrainer {
                             🌿 اقرأ النص جيداً، سأطلب منك اختيار العنوان المناسب.
                         </p>
 
-                        <!-- صندوق القراءة الخاص بـ Lesen 1 -->
+                        <!-- صندوق القراءة الخاص بـ Lesen 1 و Lesen 3 -->
                         <div class="memory-reading-box" style="
                             width: 100%;
                             height: 160px;
@@ -560,21 +568,18 @@ class MemoryTrainer {
             // ============================================
             // تخطيط خاص لـ Lesen 2
             // ============================================
-            // ✅ المشكلة 1 و 2: نأخذ الخيار الصحيح ورقم السؤال الحقيقي
             const realQuestionNumber = this.currentQuestionObj.questionIndex !== undefined 
                 ? this.currentQuestionObj.questionIndex + 1 
-                : this.currentIndex + 1; // احتياطي
+                : this.currentIndex + 1;
             
             const correctOptionText = this.currentQuestionObj.options && this.currentQuestionObj.options.length > 0 
-                ? this.currentQuestionObj.options[this.currentQuestionObj.correct]  // ✅ الخيار الصحيح حسب الفهرس
+                ? this.currentQuestionObj.options[this.currentQuestionObj.correct]
                 : '';
             
-            // تنظيف البادئة (a. أو a)) من الخيار الصحيح إن وجدت
             let optionText = correctOptionText;
             if (/^[a-zA-Z][\.\)]\s*/.test(optionText)) {
                 optionText = optionText.replace(/^[a-zA-Z][\.\)]\s*/, '');
             }
-            // بناء النص مع سطر جديد ومسافة بادئة (8 مسافات) قبل a.
             const displayText = `${realQuestionNumber}:${textToShow}:\n\n         a. ${optionText}`;
 
             cardContent = `
@@ -623,20 +628,19 @@ class MemoryTrainer {
                             🌿 اقرأ السؤال جيداً، سأطلب منك اختيار الجواب الصحيح.
                         </p>
 
-                        <!-- عرض السؤال مع الخيار الصحيح -->
                         <div style="
-    width: 100%;
-    display: block;
-    font-size: 17px;
-    font-weight: 500;
-    text-align: left;
-    padding: 12px 0;
-    color: #1a202c;
-    margin: 8px 0 12px 0;
-    white-space: pre-wrap;
-">
-    ${displayText}
-</div>
+                            width: 100%;
+                            display: block;
+                            font-size: 17px;
+                            font-weight: 500;
+                            text-align: left;
+                            padding: 12px 0;
+                            color: #1a202c;
+                            margin: 8px 0 12px 0;
+                            white-space: pre-wrap;
+                        ">
+                            ${displayText}
+                        </div>
                     </div>
 
                     <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()" style="
@@ -697,9 +701,7 @@ class MemoryTrainer {
             }
             this.currentOptions = this.shuffleArray(finalOptions);
         } else if (this.examType === 'multiple') {
-            // ✅ Lesen 2: استخدم الخيارات الموجودة في السؤال نفسه
             this.currentOptions = this.currentQuestionObj.options || [];
-            // إذا لم تكن هناك خيارات، نستخدم generateOptions كحل احتياطي
             if (this.currentOptions.length === 0) {
                 console.warn('⚠️ لا توجد خيارات في السؤال، نستخدم generateOptions كحل احتياطي');
                 this.currentOptions = this.generateOptions(this.currentCorrectText, this.currentQuestionObj);
@@ -708,7 +710,6 @@ class MemoryTrainer {
             this.currentOptions = this.generateOptions(this.currentCorrectText, this.currentQuestionObj);
         }
 
-        // بناء شاشة التذكر حسب النوع
         let questionText = '';
         let displayQuestion = '';
 
@@ -716,7 +717,6 @@ class MemoryTrainer {
             questionText = 'اختر العنوان المناسب للنص الذي قرأته:';
         } else if (this.examType === 'multiple') {
             questionText = 'ما الاختيار الصحيح؟';
-            // ✅ المشكلة 3: عرض السؤال مع الرقم الحقيقي ونقطتين ومحاذاة لليسار
             const realQuestionNumber = this.currentQuestionObj.questionIndex !== undefined 
                 ? this.currentQuestionObj.questionIndex + 1 
                 : this.currentIndex + 1;
@@ -804,7 +804,7 @@ class MemoryTrainer {
     }
 
     // ============================================
-    // التصحيح (مع تحديث المستوى) - نسخة بدون نص إضافي
+    // التصحيح (مع تحديث المستوى)
     // ============================================
 
     checkAnswer(selectedIndex) {
@@ -822,7 +822,6 @@ class MemoryTrainer {
             isCorrect = (selectedText === correctOption);
             correctText = correctOption;
         } else if (this.examType === 'multiple') {
-            // ✅ Lesen 2: مقارنة مع الخيار الصحيح من options
             const correctIndex = this.currentQuestionObj.correct;
             const correctOption = this.currentOptions[correctIndex];
             isCorrect = (selectedText === correctOption);
@@ -855,7 +854,6 @@ class MemoryTrainer {
             }
             allOptions[selectedIndex].style.borderColor = '#e67e22';
             allOptions[selectedIndex].style.backgroundColor = '#fef0e0';
-            // عرض الإجابة الصحيحة (باللون الأخضر فقط)
             allOptions.forEach((btn, idx) => {
                 if (this.currentOptions[idx] === correctText) {
                     btn.style.borderColor = '#28a745';
@@ -1060,7 +1058,11 @@ class MemoryTrainer {
         } else {
             let examLabel = `امتحان ${this.currentExamId}`;
             if (this.examType === 'matching') {
-                examLabel = `امتحان ${this.currentExamId} (Lesen 1)`;
+                if (this.currentSkill === 'lesen3') {
+                    examLabel = `امتحان ${this.currentExamId} (Lesen 3)`;
+                } else {
+                    examLabel = `امتحان ${this.currentExamId} (Lesen 1)`;
+                }
             } else if (this.examType === 'multiple') {
                 examLabel = `امتحان ${this.currentExamId} (Lesen 2)`;
             }
@@ -1163,7 +1165,7 @@ class MemoryTrainer {
 
 window.memoryTrainer = new MemoryTrainer();
 
-// ✅ دالة بدء التدريب من امتحان فردي (تُستدعى من زر 🧠 داخل الامتحان)
+// ✅ دالة بدء التدريب من امتحان فردي
 window.startMemoryTrainerForExam = (skill) => {
     if (window.memoryTrainer) {
         window.memoryTrainer.currentSkill = skill || window.currentSkill || 'hoeren1';
@@ -1172,7 +1174,7 @@ window.startMemoryTrainerForExam = (skill) => {
     }
 };
 
-// ✅ دالة بدء التدريب من القائمة (تُستدعى من زر 🧠 في قائمة الامتحانات)
+// ✅ دالة بدء التدريب من القائمة
 window.startMemoryTrainerFromList = (skill = 'hoeren1') => {
     if (window.memoryTrainer) {
         window.memoryTrainer.currentSkill = skill;
@@ -1183,4 +1185,4 @@ window.startMemoryTrainerFromList = (skill = 'hoeren1') => {
 // ✅ للتوافق مع الإصدارات القديمة
 window.startMemoryTrainer = window.startMemoryTrainerForExam;
 
-console.log('🧠 Memory Trainer V4 (يدعم Hören, Lesen 1 و Lesen 2) تم تحميله');
+console.log('🧠 Memory Trainer V4 (يدعم Hören, Lesen 1, Lesen 2 و Lesen 3) تم تحميله');
