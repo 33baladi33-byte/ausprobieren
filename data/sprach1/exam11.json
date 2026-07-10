@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["an", "für", "über"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Urlaubskarte,",
+        "connector": "über",
+        "after": "die ich",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["daher", "gar", "sicher"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Ich wusste",
+        "connector": "gar",
+        "after": "nicht, dass",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["besonders", "einfach", "kaum"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "nicht",
+        "connector": "besonders",
+        "after": "gefallen. Ich",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["allerdings", "außerdem", "schließlich"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "ins Wasser gehen –",
+        "connector": "schließlich",
+        "after": "habe ich",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["-", "abgerückt", "entfernt"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "noch weiter",
+        "connector": "entfernt",
+        "after": "als deine",
+        "color": 0
+      }
     },
     {
       "id": 6,
       "options": ["ändern", "verwechseln", "wechseln"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Stelle zu",
+        "connector": "wechseln",
+        "after": ". Mein Chef",
+        "color": 5
+      }
     },
     {
       "id": 7,
       "options": ["gesagt", "sagend", "zu sagen"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Ehrlich",
+        "connector": "gesagt",
+        "after": "langweile ich",
+        "color": 11
+      }
     },
     {
       "id": 8,
       "options": ["kommende", "kommendem", "kommenden"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "ab dem",
+        "connector": "kommenden",
+        "after": "Monat erst",
+        "color": 4
+      }
     },
     {
       "id": 9,
       "options": ["als", "je", "weil"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "schwieriger,",
+        "connector": "je",
+        "after": "älter man",
+        "color": 6
+      }
     },
     {
       "id": 10,
       "options": ["ist", "war", "wäre"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Wie",
+        "connector": "wäre",
+        "after": "es, wenn",
+        "color": 8
+      }
     }
   ]
 }
