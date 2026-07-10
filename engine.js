@@ -1327,39 +1327,85 @@ window.buildTrueFalseExam = function(container, questions, note) {
   resetBtn.style.cursor = 'pointer';
   resetBtn.style.fontSize = '16px';
   resetBtn.style.fontWeight = 'bold';
-  
-  resetBtn.onclick = function() {
-    for (let key in window._trueFalseUserAnswers) {
-      delete window._trueFalseUserAnswers[key];
+resetBtn.onclick = function() {
+    // ============================================
+    // 1. حذف جميع أيقونات 🔀 من الـ DOM
+    // ============================================
+    container.querySelectorAll('.sentence-puzzle-icon').forEach(icon => {
+        icon.remove();
+    });
+
+    // ============================================
+    // 2. إعادة تعيين حالة SentenceReorder بالكامل
+    // ============================================
+    if (window.SentenceReorder) {
+        window.SentenceReorder.isOpen = false;
+        window.SentenceReorder.isCorrect = false;
+        window.SentenceReorder.isAnimating = false;
+        window.SentenceReorder.iconElement = null;
+        window.SentenceReorder.parts = [];
+        window.SentenceReorder.shuffledParts = [];
+        window.SentenceReorder.slots = [];
+        window.SentenceReorder.currentContainer = null;
+        window.SentenceReorder.currentSentenceElement = null;
+        window.SentenceReorder.currentQuestionId = null;
+        window.SentenceReorder.currentText = '';
     }
-    
+
+    // ============================================
+    // 3. إزالة الإجابات المخزنة
+    // ============================================
+    for (let key in window._trueFalseUserAnswers) {
+        delete window._trueFalseUserAnswers[key];
+    }
+
+    // ============================================
+    // 4. إلغاء تحديد جميع الراديوهات
+    // ============================================
     const allRadios = container.querySelectorAll('input[type="radio"]');
     allRadios.forEach(radio => {
-      radio.checked = false;
+        radio.checked = false;
     });
-    
+
+    // ============================================
+    // 5. إزالة ألوان التصحيح من البطاقات
+    // ============================================
     const cards = container.querySelectorAll('.question-card');
     cards.forEach(card => {
-      card.classList.remove('correct-answer-card', 'wrong-answer-card');
+        card.classList.remove('correct-answer-card', 'wrong-answer-card');
     });
-    
+
+    // ============================================
+    // 6. إزالة رسائل التصحيح
+    // ============================================
     const allMessages = container.querySelectorAll('.correct-message');
     allMessages.forEach(msg => msg.remove());
-    
+
+    // ============================================
+    // 7. إعادة تعيين ألوان خيارات الإجابة
+    // ============================================
     const optionLabels = container.querySelectorAll('.option-label');
     optionLabels.forEach(label => {
-      label.style.backgroundColor = 'white';
-      label.style.border = '1px solid #ccc';
+        label.style.backgroundColor = 'white';
+        label.style.border = '1px solid #ccc';
     });
-    
-    correctNumbersContainer.style.display = 'none';
-    
-    const resultDiv = document.getElementById('truefalseResult');
-    if (resultDiv) {
-      resultDiv.style.display = 'none';
-      resultDiv.innerHTML = '';
+
+    // ============================================
+    // 8. إخفاء أرقام الإجابات الصحيحة
+    // ============================================
+    if (correctNumbersContainer) {
+        correctNumbersContainer.style.display = 'none';
     }
-  };
+
+    // ============================================
+    // 9. إخفاء نتيجة التصحيح
+    // ============================================
+    const resultDiv = container.querySelector('#truefalseResult');
+    if (resultDiv) {
+        resultDiv.style.display = 'none';
+        resultDiv.innerHTML = '';
+    }
+};
   
   buttonsDiv.appendChild(checkBtn);
   buttonsDiv.appendChild(resetBtn);
