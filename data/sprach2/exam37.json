@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
-      "correct": "gehören"
+      "correct": "gehören",
+      "memoryHighlight": {
+        "before": "Die Arme",
+        "connector": "gehören",
+        "after": "nicht auf",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
-      "correct": "behält"
+      "correct": "behält",
+      "memoryHighlight": {
+        "before": "Schuhe",
+        "connector": "behält",
+        "after": "in jedem",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
-      "correct": "mancher"
+      "correct": "mancher",
+      "memoryHighlight": {
+        "before": "steht so",
+        "connector": "mancher",
+        "after": "vor einem",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
-      "correct": "mit"
+      "correct": "mit",
+      "memoryHighlight": {
+        "before": "Bedienung",
+        "connector": "mit",
+        "after": "\"Fräulein\" an",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
-      "correct": "dagegen"
+      "correct": "dagegen",
+      "memoryHighlight": {
+        "before": "Bedienung\" ist",
+        "connector": "dagegen",
+        "after": "noch möglich",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
-      "correct": "wink"
+      "correct": "wink",
+      "memoryHighlight": {
+        "before": "kleinen",
+        "connector": "wink",
+        "after": "mit der",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
-      "correct": "fertig"
+      "correct": "fertig",
+      "memoryHighlight": {
+        "before": "Essen",
+        "connector": "fertig",
+        "after": ", legt man",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
-      "correct": "takt"
+      "correct": "takt",
+      "memoryHighlight": {
+        "before": "Bezahlen ist",
+        "connector": "takt",
+        "after": "gefragt. Übernimmt",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
-      "correct": "klar"
+      "correct": "klar",
+      "memoryHighlight": {
+        "before": "dies dem",
+        "connector": "klar",
+        "after": ". Ein \"Bringen",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"],
-      "correct": "was"
+      "correct": "was",
+      "memoryHighlight": {
+        "before": "bezahlen,",
+        "connector": "was",
+        "after": "durchaus üblich",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["als", "behält", "bereit", "bleibt", "dagegen", "fertig", "gehören", "jeder", "klar", "mancher", "mit", "takt", "tipp", "was", "wink"]
