@@ -8,130 +8,110 @@
       "id": 1,
       "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
       "correct": "denn",
-      "highlight": {
-        "connector": "denn",
+      "memoryHighlight": {
         "before": "ändern.",
+        "connector": "denn",
         "after": "immer mehr",
-        "highlightWords": ["ändern", ".", "denn", "immer", "mehr"],
-        "color": "#4CAF50",
-        "helpKey": "sprach2_exam3_q1"
+        "color": 3
       }
     },
     {
       "id": 2,
       "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
       "correct": "für",
-      "highlight": {
-        "connector": "für",
+      "memoryHighlight": {
         "before": "Grund",
+        "connector": "für",
         "after": "diese Entwicklung",
-        "highlightWords": ["Grund", "für", "diese", "Entwicklung"],
-        "color": "#FF9800",
-        "helpKey": "sprach2_exam3_q2"
+        "color": 9
       }
     },
     {
       "id": 3,
       "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
       "correct": "zwischen",
-      "highlight": {
-        "connector": "zwischen",
+      "memoryHighlight": {
         "before": "besteht",
+        "connector": "zwischen",
         "after": "den Ansprüchen",
-        "highlightWords": ["besteht", "zwischen", "den", "Ansprüchen"],
-        "color": "#2196F3",
-        "helpKey": "sprach2_exam3_q3"
+        "color": 1
       }
     },
     {
       "id": 4,
       "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
       "correct": "irgendein",
-      "highlight": {
-        "connector": "irgendein",
+      "memoryHighlight": {
         "before": "Nicht",
+        "connector": "irgendein",
         "after": "Topf darf",
-        "highlightWords": ["Nicht", "irgendein", "Topf", "darf"],
-        "color": "#9C27B0",
-        "helpKey": "sprach2_exam3_q4"
+        "color": 7
       }
     },
     {
       "id": 5,
       "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
       "correct": "dafür",
-      "highlight": {
-        "connector": "dafür",
+      "memoryHighlight": {
         "before": "Voraussetzung",
+        "connector": "dafür",
         "after": ", dass die",
-        "highlightWords": ["Voraussetzung", "dafür", ",", "dass", "die"],
-        "color": "#F44336",
-        "helpKey": "sprach2_exam3_q5"
+        "color": 11
       }
     },
     {
       "id": 6,
       "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
       "correct": "davon",
-      "highlight": {
-        "connector": "davon",
+      "memoryHighlight": {
         "before": "nur noch",
+        "connector": "davon",
         "after": "ab, was",
-        "highlightWords": ["nur", "noch", "davon", "ab", ","],
-        "color": "#00BCD4",
-        "helpKey": "sprach2_exam3_q6"
+        "color": 4
       }
     },
     {
       "id": 7,
       "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
       "correct": "weiter",
-      "highlight": {
-        "connector": "weiter",
+      "memoryHighlight": {
         "before": "nicht",
+        "connector": "weiter",
         "after": ", bieten zum",
-        "highlightWords": ["nicht", "weiter", ",", "bieten", "zum"],
-        "color": "#8BC34A",
-        "helpKey": "sprach2_exam3_q7"
+        "color": 8
       }
     },
     {
       "id": 8,
       "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
       "correct": "dazu",
-      "highlight": {
-        "connector": "dazu",
+      "memoryHighlight": {
         "before": "führt",
+        "connector": "dazu",
         "after": ", dass man(n)",
-        "highlightWords": ["führt", "dazu", ",", "dass", "man(n)"],
-        "color": "#FF5722",
-        "helpKey": "sprach2_exam3_q8"
+        "color": 2
       }
     },
     {
       "id": 9,
       "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
       "correct": "dass",
-      "highlight": {
-        "connector": "dass",
+      "memoryHighlight": {
         "before": "aber,",
+        "connector": "dass",
         "after": "es viel",
-        "highlightWords": ["aber", ",", "dass", "es", "viel"],
-        "color": "#3F51B5",
-        "helpKey": "sprach2_exam3_q9"
+        "color": 6
       }
     },
     {
       "id": 10,
       "options": ["dafür", "daher", "damit", "daran", "dass", "davon", "dazu", "denn", "für", "gegen", "irgendein", "was", "weiter", "zu", "zwischen"],
       "correct": "daran",
-      "highlight": {
-        "connector": "daran",
+      "memoryHighlight": {
         "before": "Interessante",
+        "connector": "daran",
         "after": "ist, dass",
-        "highlightWords": ["Interessante", "daran", "ist", ",", "dass"],
-        "color": "#E91E63",
-        "helpKey": "sprach2_exam3_q10"
+        "color": 5
       }
     }
   ],
