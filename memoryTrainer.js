@@ -1,20 +1,20 @@
 // ============================================
-// MEMORY TRAINER V4 - يدعم Hören, Lesen 1, Lesen 2 و Lesen 3
+// MEMORY TRAINER V4 - يدعم Hören, Lesen 1, Lesen 2, Lesen 3 و Sprachbausteine 1
 // ============================================
 
 class MemoryTrainer {
     constructor() {
         // البيانات الأساسية
-        this.questions = [];           // الجمل الصحيحة فقط (للتدريب) - أو كل الجمل في حالة lesen1/lesen2/lesen3
+        this.questions = [];           // الجمل الصحيحة فقط (للتدريب) - أو كل الجمل في حالة lesen1/lesen2/lesen3/sprach1
         this.allQuestions = [];        // جميع الجمل (صحيحة وخاطئة) - لتوليد الخيارات (Hören)
-        this.sharedOptions = [];       // العناوين المشتركة (Lesen 1) أو الحالات (Lesen 3)
+        this.sharedOptions = [];       // العناوين المشتركة (Lesen 1) أو الحالات (Lesen 3) أو situations
         this.trainingQueue = [];
         this.wrongQuestions = [];
         this.currentIndex = 0;
         this.isActive = false;
         this.isReviewMode = false;
         this.isFromList = false;
-        this.examType = 'hoeren';      // 'hoeren' | 'matching' (Lesen 1, Lesen 3) | 'multiple' (Lesen 2)
+        this.examType = 'hoeren';      // 'hoeren' | 'matching' (Lesen 1, Lesen 3) | 'multiple' (Lesen 2) | 'sprach1'
 
         // السؤال الحالي
         this.currentCorrectText = '';
@@ -73,6 +73,8 @@ class MemoryTrainer {
                     this.examType = 'matching';
                 } else if (this.currentSkill === 'lesen2') {
                     this.examType = 'multiple';
+                } else if (this.currentSkill === 'sprach1') {
+                    this.examType = 'sprach1';
                 }
             } else {
                 if (typeof window.loadStageExams === 'function') {
@@ -90,70 +92,82 @@ class MemoryTrainer {
                 }
             }
         } 
-    // ✅ وضع الامتحان الفردي (من زر 🧠 داخل الامتحان)
-else {
-    examData = window.currentExamData || window._currentExamData;
-    if (examData) {
-        this.currentSkill = window.currentSkill || 'hoeren1';
-        this.currentExamId = window.currentExamId || 1;
-        console.log(`📖 تدريب من امتحان فردي: ${this.currentSkill} exam${this.currentExamId}`);
-        if (examData.sharedOptions) {
-            this.sharedOptions = examData.sharedOptions;
+        // ✅ وضع الامتحان الفردي (من زر 🧠 داخل الامتحان)
+        else {
+            examData = window.currentExamData || window._currentExamData;
+            if (examData) {
+                this.currentSkill = window.currentSkill || 'hoeren1';
+                this.currentExamId = window.currentExamId || 1;
+                console.log(`📖 تدريب من امتحان فردي: ${this.currentSkill} exam${this.currentExamId}`);
+                if (examData.sharedOptions) {
+                    this.sharedOptions = examData.sharedOptions;
+                }
+                this.examType = examData.type || 'hoeren';
+                // ✅ دعم Lesen 3 و Sprachbausteine 1
+                if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen3') {
+                    this.examType = 'matching';
+                } else if (this.currentSkill === 'lesen2') {
+                    this.examType = 'multiple';
+                } else if (this.currentSkill === 'sprach1') {
+                    this.examType = 'sprach1';
+                }
+            } else {
+                this.showNotAvailable("لا توجد بيانات امتحان");
+                return;
+            }
         }
-        this.examType = examData.type || 'hoeren';
-        // ✅ دعم Lesen 3
-        if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen3') {
-            this.examType = 'matching';
-        } else if (this.currentSkill === 'lesen2') {
-            this.examType = 'multiple';
-        }
-    } else {
-        this.showNotAvailable("لا توجد بيانات امتحان");
-        return;
-    }
-}
-        
 
         if (!examData) {
             this.showNotAvailable("لا توجد بيانات امتحان");
             return;
         }
 
-       // ✅ استخراج جميع الجمل
-let rawQuestions = [];
-if (this.isFromList) {
-    rawQuestions = examData.allQuestions || [];
-    if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3') {
-        this.questions = rawQuestions;
-    } else {
-        this.questions = rawQuestions.filter(q => q.correct === true);
-    }
-} else {
-    let examQuestions = [];
-    // ✅ لـ Lesen 3: نستخدم items بدلاً من questions
-    if (this.currentSkill === 'lesen3' && examData.items) {
-        examQuestions = examData.items;
-        // حفظ situations كـ sharedOptions
-        if (examData.situations && !this.sharedOptions.length) {
-            this.sharedOptions = examData.situations;
+        // ✅ استخراج جميع الجمل
+        let rawQuestions = [];
+        if (this.isFromList) {
+            rawQuestions = examData.allQuestions || [];
+            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3' || this.currentSkill === 'sprach1') {
+                this.questions = rawQuestions;
+            } else {
+                this.questions = rawQuestions.filter(q => q.correct === true);
+            }
+        } else {
+            let examQuestions = [];
+            // ✅ لـ Sprachbausteine 1: نستخدم questions مع memoryHighlight
+            if (this.currentSkill === 'sprach1') {
+                examQuestions = examData.questions || [];
+                // نأخذ فقط الأسئلة التي تحتوي على memoryHighlight
+                examQuestions = examQuestions.filter(q => q.memoryHighlight);
+            } else if (this.currentSkill === 'lesen3' && examData.items) {
+                examQuestions = examData.items;
+                // حفظ situations كـ sharedOptions
+                if (examData.situations && !this.sharedOptions.length) {
+                    this.sharedOptions = examData.situations;
+                }
+            } else {
+                examQuestions = examData.questions || [];
+            }
+            rawQuestions = examQuestions.map((q, idx) => ({
+                text: q.text,
+                correct: q.correct,
+                options: q.options || [],
+                examId: this.currentExamId,
+                questionIndex: idx,
+                originalQuestion: q,
+                // ✅ إضافة بيانات sprach1
+                memoryHighlight: q.memoryHighlight || null,
+                id: q.id,
+                before: q.memoryHighlight ? q.memoryHighlight.before : '',
+                connector: q.memoryHighlight ? q.memoryHighlight.connector : '',
+                after: q.memoryHighlight ? q.memoryHighlight.after : '',
+                color: q.memoryHighlight ? q.memoryHighlight.color : 0
+            }));
+            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3' || this.currentSkill === 'sprach1') {
+                this.questions = rawQuestions;
+            } else {
+                this.questions = rawQuestions.filter(q => q.correct === true);
+            }
         }
-    } else {
-        examQuestions = examData.questions || [];
-    }
-    rawQuestions = examQuestions.map((q, idx) => ({
-        text: q.text,
-        correct: q.correct,
-        options: q.options || [],
-        examId: this.currentExamId,
-        questionIndex: idx,
-        originalQuestion: q
-    }));
-    if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3') {
-        this.questions = rawQuestions;
-    } else {
-        this.questions = rawQuestions.filter(q => q.correct === true);
-    }
-}
 
         this.allQuestions = rawQuestions;
 
@@ -166,23 +180,22 @@ if (this.isFromList) {
             return;
         }
 
-       // ✅ تصفية Lesen 3: استبعاد الفقرات التي ليس لها حالة صحيحة
-if (this.currentSkill === 'lesen3' && this.sharedOptions.length > 0) {
-    const before = this.questions.length;
-    this.questions = this.questions.filter(item => {
-        // ⚠️ التأكد من أن correct ليس null أو undefined، وأنه رقم صحيح ضمن نطاق الحالات
-        const isValid = item.correct !== null && 
-                        item.correct !== undefined && 
-                        typeof item.correct === 'number' &&
-                        item.correct >= 0 && 
-                        item.correct < this.sharedOptions.length;
-        return isValid;
-    });
-    const after = this.questions.length;
-    if (after < before) {
-        console.log(`🔍 Lesen 3: تم استبعاد ${before - after} فقرة غير صالحة (correct == null أو خارج النطاق)، بقي ${after} فقرة للتدريب`);
-    }
-}
+        // ✅ تصفية Lesen 3: استبعاد الفقرات التي ليس لها حالة صحيحة
+        if (this.currentSkill === 'lesen3' && this.sharedOptions.length > 0) {
+            const before = this.questions.length;
+            this.questions = this.questions.filter(item => {
+                const isValid = item.correct !== null && 
+                                item.correct !== undefined && 
+                                typeof item.correct === 'number' &&
+                                item.correct >= 0 && 
+                                item.correct < this.sharedOptions.length;
+                return isValid;
+            });
+            const after = this.questions.length;
+            if (after < before) {
+                console.log(`🔍 Lesen 3: تم استبعاد ${before - after} فقرة غير صالحة (correct == null أو خارج النطاق)، بقي ${after} فقرة للتدريب`);
+            }
+        }
 
         this.buildTrainingQueue();
         if (this.trainingQueue.length === 0) {
@@ -399,13 +412,15 @@ if (this.currentSkill === 'lesen3' && this.sharedOptions.length > 0) {
             }
         } else if (this.examType === 'multiple') {
             examLabel = `امتحان ${this.currentExamId} (Lesen 2)`;
+        } else if (this.examType === 'sprach1') {
+            examLabel = `امتحان ${this.currentExamId} (Sprachbausteine 1)`;
         }
         this.updateCard(`
             <div class="memory-trainer-intro">
                 <div class="memory-trainer-icon">🧩</div>
                 <h2>استدعاء ذكي</h2>
                 <p style="font-size:14px;color:#334155;margin:6px 0 2px 0;">تدريب ${examLabel}.</p>
-                <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">${this.examType === 'multiple' ? 'سترى السؤال مرة واحدة، ثم سنطلب منك اختيار الجواب الصحيح.' : 'سترى النص مرة واحدة، ثم سنطلب منك اختيار العنوان المناسب.'}</p>
+                <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">${this.examType === 'multiple' ? 'سترى السؤال مرة واحدة، ثم سنطلب منك اختيار الجواب الصحيح.' : this.examType === 'sprach1' ? 'سترى الجملة مع الفراغ، ثم سنطلب منك اختيار الكلمة المناسبة.' : 'سترى النص مرة واحدة، ثم سنطلب منك اختيار العنوان المناسب.'}</p>
                 <div style="margin:4px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:4px 10px;">
                     <div style="display:flex;align-items:center;gap:10px;">
                         <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
@@ -436,6 +451,8 @@ if (this.currentSkill === 'lesen3' && this.sharedOptions.length > 0) {
             }
         } else if (this.examType === 'multiple') {
             skillLabel = 'Lesen 2';
+        } else if (this.examType === 'sprach1') {
+            skillLabel = 'Sprachbausteine 1';
         }
         this.updateCard(`
             <div class="memory-trainer-intro">
@@ -690,6 +707,120 @@ if (this.currentSkill === 'lesen3' && this.sharedOptions.length > 0) {
                     </button>
                 </div>
             `;
+        } else if (this.examType === 'sprach1') {
+            // ============================================
+            // تخطيط خاص لـ Sprachbausteine Teil 1
+            // ============================================
+            const item = this.currentQuestionObj;
+            const highlight = item.memoryHighlight || {};
+            const id = item.id || (this.currentQuestionIndex + 1);
+            const before = highlight.before || '';
+            const connector = highlight.connector || '';
+            const after = highlight.after || '';
+            const color = highlight.color !== undefined ? highlight.color : 0;
+            
+            // تحديد لون البطاقة حسب color
+            const colorMap = ['#F8FAFC', '#E8F5E9', '#FFF3E0', '#F3E5F5', '#E3F2FD', '#FBE9E7'];
+            const bgColor = colorMap[color % colorMap.length] || '#F8FAFC';
+            
+            cardContent = `
+                <div class="memory-trainer-card" style="
+                    background: ${bgColor};
+                    border: 1px solid #E8EEF5;
+                    border-radius: 12px;
+                    padding: 20px 24px;
+                    max-width: 440px;
+                    width: 90%;
+                    text-align: center;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+                    position: relative;
+                    transition: background 0.3s ease;
+                ">
+                    <div class="memory-trainer-header" style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 10px;
+                        padding-bottom: 8px;
+                        border-bottom: 1px solid rgba(0,0,0,0.06);
+                    ">
+                        <span class="memory-trainer-progress" style="
+                            font-size: 12px;
+                            color: #94A3B8;
+                            font-weight: 500;
+                        ">
+                            ${this.currentIndex + 1}/${this.trainingQueue.length}
+                        </span>
+                        <span class="memory-trainer-focus" style="
+                            font-size: 13px;
+                            font-weight: 600;
+                            color: #2D6A4F;
+                        ">
+                            🍃 خذ وقتك
+                        </span>
+                    </div>
+
+                    <div class="memory-trainer-content">
+                        <p class="memory-trainer-hint" style="
+                            font-size: 14px;
+                            color: #4A7C59;
+                            margin-bottom: 12px;
+                            text-align: center;
+                        ">
+                            🌿 اختر الكلمة المناسبة للفراغ.
+                        </p>
+
+                        <!-- عرض الجملة مع الفراغ -->
+                        <div style="
+                            font-size: 18px;
+                            font-weight: 500;
+                            text-align: left;
+                            padding: 16px 12px;
+                            color: #1a202c;
+                            margin: 4px 0 12px 0;
+                            line-height: 1.8;
+                            background: rgba(255,255,255,0.5);
+                            border-radius: 8px;
+                        ">
+                            ${before} <span style="font-weight:700;color:#1565C0;background:#E3F2FD;padding:0 6px;border-radius:4px;">[${id}]</span> ${after}
+                        </div>
+
+                        <!-- الإجابة الصحيحة -->
+                        <div style="
+                            text-align: right;
+                            font-size: 16px;
+                            font-weight: 500;
+                            color: #1a5a1a;
+                            padding: 4px 4px;
+                            direction: rtl;
+                            margin-top: 0;
+                            background: #E8F5E9;
+                            border-radius: 6px;
+                            padding: 6px 12px;
+                        ">
+                            ✅ ${connector}
+                        </div>
+                    </div>
+
+                    <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()" style="
+                        padding: 8px 20px;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.15s ease;
+                        margin-top: 12px;
+                        background: #1565C0;
+                        color: white;
+                        box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
+                        display: inline-block;
+                        width: auto;
+                    ">
+                        أنا جاهز
+                    </button>
+                </div>
+            `;
         } else {
             // ============================================
             // Hören: التصميم الأصلي (بدون تغيير)
@@ -713,30 +844,30 @@ if (this.currentSkill === 'lesen3' && this.sharedOptions.length > 0) {
 
         this.updateCard(cardContent);
     }
-readyToRecall() {
+
+    readyToRecall() {
         this.clearTimer();
         if (this.examType === 'matching') {
             const correctIndex = this.currentQuestionObj.correct;
-            // الحالة الصحيحة
             const correctOption = this.sharedOptions[correctIndex];
-            
-            // جميع الحالات ما عدا الصحيحة (نخلطها ثم نأخذ أول اثنين)
             const wrongOptions = this.sharedOptions
                 .filter((_, idx) => idx !== correctIndex)
                 .sort(() => Math.random() - 0.5)
                 .slice(0, 2);
-            
-            // إذا لم نحصل على 2 خطأ بسبب نقص الحالات، نملأ من الحالات المتاحة (آمن)
             while (wrongOptions.length < 2) {
                 const extra = this.sharedOptions[Math.floor(Math.random() * this.sharedOptions.length)];
                 if (!wrongOptions.includes(extra) && extra !== correctOption) {
                     wrongOptions.push(extra);
                 }
             }
-            
-            // تجميع الخيارات (1 صحيح + 2 خطأ) ثم خلطها
             this.currentOptions = this.shuffleArray([correctOption, ...wrongOptions]);
         } else if (this.examType === 'multiple') {
+            this.currentOptions = this.currentQuestionObj.options || [];
+            if (this.currentOptions.length === 0) {
+                console.warn('⚠️ لا توجد خيارات في السؤال، نستخدم generateOptions كحل احتياطي');
+                this.currentOptions = this.generateOptions(this.currentCorrectText, this.currentQuestionObj);
+            }
+        } else if (this.examType === 'sprach1') {
             this.currentOptions = this.currentQuestionObj.options || [];
             if (this.currentOptions.length === 0) {
                 console.warn('⚠️ لا توجد خيارات في السؤال، نستخدم generateOptions كحل احتياطي');
@@ -750,7 +881,7 @@ readyToRecall() {
         let displayQuestion = '';
 
         if (this.examType === 'matching') {
-           questionText = this.currentSkill === 'lesen3' ? 'اختر الحالة المناسبة للفقرة التي قرأتها:' : 'اختر العنوان المناسب للنص الذي قرأته:';
+            questionText = this.currentSkill === 'lesen3' ? 'اختر الحالة المناسبة للفقرة التي قرأتها:' : 'اختر العنوان المناسب للنص الذي قرأته:';
         } else if (this.examType === 'multiple') {
             questionText = 'ما الاختيار الصحيح؟';
             const realQuestionNumber = this.currentQuestionObj.questionIndex !== undefined 
@@ -759,6 +890,28 @@ readyToRecall() {
             displayQuestion = `
                 <div style="font-size:17px; font-weight:500; text-align:left; padding:12px 0; color:#1a202c; margin-bottom:16px;">
                     ${realQuestionNumber}. ${this.currentCorrectText}:
+                </div>
+            `;
+        } else if (this.examType === 'sprach1') {
+            questionText = 'اختر الكلمة الصحيحة:';
+            const item = this.currentQuestionObj;
+            const highlight = item.memoryHighlight || {};
+            const id = item.id || (this.currentQuestionIndex + 1);
+            const before = highlight.before || '';
+            const after = highlight.after || '';
+            displayQuestion = `
+                <div style="
+                    font-size: 18px;
+                    font-weight: 500;
+                    text-align: left;
+                    padding: 16px 12px;
+                    color: #1a202c;
+                    margin: 4px 0 16px 0;
+                    line-height: 1.8;
+                    background: rgba(255,255,255,0.5);
+                    border-radius: 8px;
+                ">
+                    ${before} <span style="font-weight:700;color:#1565C0;background:#E3F2FD;padding:0 6px;border-radius:4px;">[${id}]</span> ${after}
                 </div>
             `;
         } else {
@@ -860,6 +1013,10 @@ readyToRecall() {
         } else if (this.examType === 'multiple') {
             const correctIndex = this.currentQuestionObj.correct;
             const correctOption = this.currentOptions[correctIndex];
+            isCorrect = (selectedText === correctOption);
+            correctText = correctOption;
+        } else if (this.examType === 'sprach1') {
+            const correctOption = this.currentQuestionObj.connector || this.currentQuestionObj.correct;
             isCorrect = (selectedText === correctOption);
             correctText = correctOption;
         } else {
@@ -1101,6 +1258,8 @@ readyToRecall() {
                 }
             } else if (this.examType === 'multiple') {
                 examLabel = `امتحان ${this.currentExamId} (Lesen 2)`;
+            } else if (this.examType === 'sprach1') {
+                examLabel = `امتحان ${this.currentExamId} (Sprachbausteine 1)`;
             }
             html = `
                 <div class="memory-trainer-results final" style="
@@ -1221,4 +1380,4 @@ window.startMemoryTrainerFromList = (skill = 'hoeren1') => {
 // ✅ للتوافق مع الإصدارات القديمة
 window.startMemoryTrainer = window.startMemoryTrainerForExam;
 
-console.log('🧠 Memory Trainer V4 (يدعم Hören, Lesen 1, Lesen 2 و Lesen 3) تم تحميله');
+console.log('🧠 Memory Trainer V4 (يدعم Hören, Lesen 1, Lesen 2, Lesen 3 و Sprachbausteine 1) تم تحميله');
