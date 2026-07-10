@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"],
-      "correct": "doch"
+      "correct": "doch",
+      "memoryHighlight": {
+        "before": "Dunkelheit.",
+        "connector": "doch",
+        "after": "in der",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"],
-      "correct": "leitet"
+      "correct": "leitet",
+      "memoryHighlight": {
+        "before": "Er",
+        "connector": "leitet",
+        "after": "einen Berliner",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"],
-      "correct": "ankommt"
+      "correct": "ankommt",
+      "memoryHighlight": {
+        "before": "Großmarkt",
+        "connector": "ankommt",
+        "after": ". Die meisten",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"],
-      "correct": "nämlich"
+      "correct": "nämlich",
+      "memoryHighlight": {
+        "before": "werden",
+        "connector": "nämlich",
+        "after": "auf dem",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"],
-      "correct": "darf"
+      "correct": "darf",
+      "memoryHighlight": {
+        "before": "Weg",
+        "connector": "darf",
+        "after": "das empfindliche",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"],
-      "correct": "als"
+      "correct": "als",
+      "memoryHighlight": {
+        "before": "schlimmer",
+        "connector": "als",
+        "after": "verdorbene Ware",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"],
-      "correct": "genau"
+      "correct": "genau",
+      "memoryHighlight": {
+        "before": "Käufer alles",
+        "connector": "genau",
+        "after": "an. Für",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"],
-      "correct": "erwerben"
+      "correct": "erwerben",
+      "memoryHighlight": {
+        "before": "Kartoffeln",
+        "connector": "erwerben",
+        "after": "sie dagegen",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"],
-      "correct": "sondern"
+      "correct": "sondern",
+      "memoryHighlight": {
+        "before": "angeboten,",
+        "connector": "sondern",
+        "after": "direkt verarbeitet",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"],
-      "correct": "abgeschlossen"
+      "correct": "abgeschlossen",
+      "memoryHighlight": {
+        "before": "erfolgreich",
+        "connector": "abgeschlossen",
+        "after": "sind, werden",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["darf", "erwerben", "ankommt", "nämlich", "doch", "abgeschlossen", "genau", "leitet", "sondern", "als", "mehr", "während", "von", "wie", "zu"]
