@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
-      "correct": "rechnen"
+      "correct": "rechnen",
+      "memoryHighlight": {
+        "before": "Folgen",
+        "connector": "rechnen",
+        "after": ". Das Strafgesetzbuch",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
-      "correct": "gültig"
+      "correct": "gültig",
+      "memoryHighlight": {
+        "before": "Piste",
+        "connector": "gültig",
+        "after": ". Laut Gesetz",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
-      "correct": "vor"
+      "correct": "vor",
+      "memoryHighlight": {
+        "before": "Monaten",
+        "connector": "vor",
+        "after": ". Der deutsche",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
-      "correct": "sollte"
+      "correct": "sollte",
+      "memoryHighlight": {
+        "before": "Wintersportler",
+        "connector": "sollte",
+        "after": "diese Regeln",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
-      "correct": "so"
+      "correct": "so",
+      "memoryHighlight": {
+        "before": "sich stets",
+        "connector": "so",
+        "after": "verhalten, dass",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
-      "correct": "anpassen"
+      "correct": "anpassen",
+      "memoryHighlight": {
+        "before": "Wetterverhältnissen",
+        "connector": "anpassen",
+        "after": ". Ein von",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
-      "correct": "allerdings"
+      "correct": "allerdings",
+      "memoryHighlight": {
+        "before": "oder links,",
+        "connector": "allerdings",
+        "after": "immer in",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
-      "correct": "rand"
+      "correct": "rand",
+      "memoryHighlight": {
+        "before": "nur den",
+        "connector": "rand",
+        "after": "der Abfahrtstrecke",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
-      "correct": "stelle"
+      "correct": "stelle",
+      "memoryHighlight": {
+        "before": "solche",
+        "connector": "stelle",
+        "after": "so schnell",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"],
-      "correct": "angeben"
+      "correct": "angeben",
+      "memoryHighlight": {
+        "before": "Personalien",
+        "connector": "angeben",
+        "after": ". Durch Beachtung",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["zwar", "vor", "stelle", "sollte", "so", "rechnen", "rand", "kann", "gültig", "gelten", "einordnen", "darf", "anpassen", "angeben", "allerdings"]
