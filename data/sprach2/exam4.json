@@ -8,130 +8,110 @@
       "id": 1,
       "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
       "correct": "seit",
-      "highlight": {
-        "connector": "seit",
+      "memoryHighlight": {
         "before": "bereits",
+        "connector": "seit",
         "after": "Herbst 2002",
-        "highlightWords": ["bereits", "seit", "Herbst", "2002"],
-        "color": "#4CAF50",
-        "helpKey": "sprach2_exam4_q1"
+        "color": 7
       }
     },
     {
       "id": 2,
       "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
       "correct": "wie",
-      "highlight": {
-        "connector": "wie",
+      "memoryHighlight": {
         "before": "vor.",
+        "connector": "wie",
         "after": "immer bereiten",
-        "highlightWords": ["vor", ".", "wie", "immer", "bereiten"],
-        "color": "#FF9800",
-        "helpKey": "sprach2_exam4_q2"
+        "color": 2
       }
     },
     {
       "id": 3,
       "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
       "correct": "warum",
-      "highlight": {
-        "connector": "warum",
+      "memoryHighlight": {
         "before": "dich,",
+        "connector": "warum",
         "after": "du teilnehmen",
-        "highlightWords": ["dich", ",", "warum", "du", "teilnehmen"],
-        "color": "#2196F3",
-        "helpKey": "sprach2_exam4_q3"
+        "color": 9
       }
     },
     {
       "id": 4,
       "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
       "correct": "ausserdem",
-      "highlight": {
-        "connector": "ausserdem",
+      "memoryHighlight": {
         "before": "langfristig.",
+        "connector": "ausserdem",
         "after": "bietet dir",
-        "highlightWords": ["langfristig", ".", "ausserdem", "bietet", "dir"],
-        "color": "#9C27B0",
-        "helpKey": "sprach2_exam4_q4"
+        "color": 4
       }
     },
     {
       "id": 5,
       "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
       "correct": "an",
-      "highlight": {
-        "connector": "an",
+      "memoryHighlight": {
         "before": "dann",
+        "connector": "an",
         "after": "Regionalwettbewerben teilnehmen",
-        "highlightWords": ["dann", "an", "Regionalwettbewerben", "teilnehmen"],
-        "color": "#F44336",
-        "helpKey": "sprach2_exam4_q5"
+        "color": 11
       }
     },
     {
       "id": 6,
       "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
       "correct": "als",
-      "highlight": {
-        "connector": "als",
+      "memoryHighlight": {
         "before": "an.",
+        "connector": "als",
         "after": "Preise kann",
-        "highlightWords": ["an", ".", "als", "Preise", "kann"],
-        "color": "#00BCD4",
-        "helpKey": "sprach2_exam4_q6"
+        "color": 0
       }
     },
     {
       "id": 7,
       "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
       "correct": "bei",
-      "highlight": {
-        "connector": "bei",
+      "memoryHighlight": {
         "before": "gewinnen.",
+        "connector": "bei",
         "after": "\"Jugend diskutiert\"",
-        "highlightWords": ["gewinnen", ".", "bei", "\"Jugend", "diskutiert\""],
-        "color": "#8BC34A",
-        "helpKey": "sprach2_exam4_q7"
+        "color": 6
       }
     },
     {
       "id": 8,
       "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
       "correct": "weil",
-      "highlight": {
-        "connector": "weil",
+      "memoryHighlight": {
         "before": "Selbstbewusstsein,",
+        "connector": "weil",
         "after": "du lernst",
-        "highlightWords": ["Selbstbewusstsein", ",", "weil", "du", "lernst"],
-        "color": "#FF5722",
-        "helpKey": "sprach2_exam4_q8"
+        "color": 3
       }
     },
     {
       "id": 9,
       "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
       "correct": "was",
-      "highlight": {
-        "connector": "was",
+      "memoryHighlight": {
         "before": "hinaus,",
+        "connector": "was",
         "after": "du vielleicht",
-        "highlightWords": ["hinaus", ",", "was", "du", "vielleicht"],
-        "color": "#3F51B5",
-        "helpKey": "sprach2_exam4_q9"
+        "color": 8
       }
     },
     {
       "id": 10,
       "options": ["als", "an", "ausserdem", "bei", "darunter", "die", "nachdem", "obwohl", "seit", "vor", "warum", "was", "weil", "wer", "wie"],
       "correct": "wer",
-      "highlight": {
-        "connector": "wer",
+      "memoryHighlight": {
         "before": "auftrittst.",
+        "connector": "wer",
         "after": "das alles",
-        "highlightWords": ["auftrittst", ".", "wer", "das", "alles"],
-        "color": "#E91E63",
-        "helpKey": "sprach2_exam4_q10"
+        "color": 5
       }
     }
   ],
