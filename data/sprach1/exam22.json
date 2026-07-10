@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["dass", "ob", "weil"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Leid,",
+        "connector": "dass",
+        "after": "ich dir",
+        "color": 2
+      }
     },
     {
       "id": 2,
       "options": ["bedienen", "beeilen", "beschäftigen"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "zu",
+        "connector": "beschäftigen",
+        "after": "als mit",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["bloß", "doch", "nur"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "gibt es",
+        "connector": "doch",
+        "after": "wie Sand",
+        "color": 0
+      }
     },
     {
       "id": 4,
       "options": ["außerdem", "insbesondere", "jedoch"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Obstbäume,",
+        "connector": "insbesondere",
+        "after": "an die",
+        "color": 6
+      }
     },
     {
       "id": 5,
       "options": ["übermächtig", "übermäßig", "überwiegend"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "körperlich",
+        "connector": "überwiegend",
+        "after": "im Freien",
+        "color": 4
+      }
     },
     {
       "id": 6,
       "options": ["fast", "nahe", "ziemlich"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "leider",
+        "connector": "fast",
+        "after": "eine dreiviertel",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["gering", "knapp", "wenig"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "nur",
+        "connector": "wenig",
+        "after": "Lust, etwas",
+        "color": 3
+      }
     },
     {
       "id": 8,
       "options": ["kommt", "läuft", "steht"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Sie",
+        "connector": "kommt",
+        "after": "wieder. Wie",
+        "color": 7
+      }
     },
     {
       "id": 9,
       "options": ["brauchst", "hast", "lässt"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Oder",
+        "connector": "lässt",
+        "after": "du dir",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["kürzlich", "möglich", "üblich"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "wie",
+        "connector": "möglich",
+        "after": "mit den",
+        "color": 8
+      }
     }
   ]
 }
