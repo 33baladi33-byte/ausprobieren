@@ -3977,7 +3977,7 @@ body.dark-mode .premium-features li {
     }
 }
 /* ============================================
-   Sentence Puzzle - أداة ترتيب الجمل
+   Sentence Puzzle - أداة ترتيب الجمل (النسخة النهائية)
    ============================================ */
 
 /* أيقونة الجملة */
@@ -4004,7 +4004,7 @@ body.dark-mode .premium-features li {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(3px);
     display: flex;
     align-items: center;
@@ -4016,11 +4016,11 @@ body.dark-mode .premium-features li {
 
 #sentencePuzzleCard {
     background: #ffffff;
-    border-radius: 16px;
-    padding: 28px 32px;
-    max-width: 560px;
+    border-radius: 14px;
+    padding: 24px 28px;
+    max-width: 620px;
     width: 92%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
     transform: scale(0.96) translateY(8px);
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     position: relative;
@@ -4029,20 +4029,21 @@ body.dark-mode .premium-features li {
     border: 1px solid #e8edf4;
 }
 
-/* الخانات */
+/* الخانات - أفقي */
 .sentence-slot {
-    width: 100%;
-    min-height: 48px;
+    flex: 1;
+    min-width: 100px;
+    min-height: 50px;
     padding: 10px 16px;
     border: 2px dashed #dce2ec;
-    border-radius: 10px;
+    border-radius: 8px;
     background: #f8fafc;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 0.9rem;
-    color: #94a3b8;
+    font-size: 0.85rem;
+    color: transparent;
     transition: all 0.2s ease;
     cursor: pointer;
     font-weight: 400;
@@ -4060,15 +4061,16 @@ body.dark-mode .premium-features li {
     color: #1e293b;
 }
 
-/* البطاقات */
+/* البطاقات - أفقي ومستطيلة */
 .sentence-card {
-    width: 100%;
+    flex: 1;
+    min-width: 120px;
     padding: 12px 18px;
     background: #ffffff;
     border: 1px solid #dce2ec;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: grab;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #1e293b;
     transition: all 0.2s ease;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
@@ -4099,37 +4101,41 @@ body.dark-mode .premium-features li {
 
 @media (max-width: 768px) {
     #sentencePuzzleCard {
-        padding: 20px 18px;
+        padding: 18px 16px;
         max-width: 96%;
-        border-radius: 14px;
+        border-radius: 12px;
     }
     
     .sentence-slot {
+        min-width: 60px;
         min-height: 40px;
-        padding: 8px 12px;
-        font-size: 0.8rem;
+        padding: 6px 10px;
+        font-size: 0.75rem;
     }
     
     .sentence-card {
-        padding: 10px 14px;
-        font-size: 0.8rem;
+        min-width: 60px;
+        padding: 8px 12px;
+        font-size: 0.75rem;
     }
 }
 
 @media (max-width: 480px) {
     #sentencePuzzleCard {
-        padding: 16px 14px;
-        border-radius: 12px;
+        padding: 14px 12px;
+        border-radius: 10px;
     }
     
     .sentence-slot {
-        min-height: 36px;
-        padding: 6px 10px;
-        font-size: 0.7rem;
+        min-width: 40px;
+        min-height: 32px;
+        padding: 4px 6px;
+        font-size: 0.65rem;
     }
     
     .sentence-card {
-        padding: 8px 12px;
-        font-size: 0.7rem;
+        min-width: 40px;
+        padding: 6px 8px;
+        font-size: 0.65rem;
     }
 }
