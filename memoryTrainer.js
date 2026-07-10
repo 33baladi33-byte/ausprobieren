@@ -1,5 +1,5 @@
 // ============================================
-// MEMORY TRAINER V4 - يدعم Hören, Lesen 1, Lesen 2, Lesen 3 و Sprachbausteine 1
+// MEMORY TRAINER V4 - يدعم Hören, Lesen 1, Lesen 2, Lesen 3, Sprachbausteine 1 و Sprachbausteine 2
 // ============================================
 
 class MemoryTrainer {
@@ -74,6 +74,8 @@ class MemoryTrainer {
                     this.examType = 'multiple';
                 } else if (this.currentSkill === 'sprach1') {
                     this.examType = 'sprach1';
+                } else if (this.currentSkill === 'sprach2') {
+                    this.examType = 'sprach2';
                 }
             } else {
                 if (typeof window.loadStageExams === 'function') {
@@ -108,6 +110,8 @@ class MemoryTrainer {
                     this.examType = 'multiple';
                 } else if (this.currentSkill === 'sprach1') {
                     this.examType = 'sprach1';
+                } else if (this.currentSkill === 'sprach2') {
+                    this.examType = 'sprach2';
                 }
             } else {
                 this.showNotAvailable("لا توجد بيانات امتحان");
@@ -124,15 +128,15 @@ class MemoryTrainer {
         let rawQuestions = [];
         if (this.isFromList) {
             rawQuestions = examData.allQuestions || [];
-            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3' || this.currentSkill === 'sprach1') {
+            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3' || this.currentSkill === 'sprach1' || this.currentSkill === 'sprach2') {
                 this.questions = rawQuestions;
             } else {
                 this.questions = rawQuestions.filter(q => q.correct === true);
             }
         } else {
             let examQuestions = [];
-            // ✅ لـ Sprachbausteine 1: نستخدم options أو questions (حسب الهيكل)
-            if (this.currentSkill === 'sprach1') {
+            // ✅ لـ Sprachbausteine 1 و Sprachbausteine 2: نستخدم options
+            if (this.currentSkill === 'sprach1' || this.currentSkill === 'sprach2') {
                 // نبحث في examData.options أولاً، ثم examData.questions
                 if (examData.options && Array.isArray(examData.options)) {
                     examQuestions = examData.options;
@@ -153,13 +157,13 @@ class MemoryTrainer {
             }
 
             rawQuestions = examQuestions.map((q, idx) => {
-                // ✅ لـ sprach1: نستخدم memoryHighlight مباشرة
+                // ✅ لـ sprach1 و sprach2: نستخدم memoryHighlight مباشرة
                 let before = '', after = '', connector = '', color = 0;
-                if (this.currentSkill === 'sprach1' && q.memoryHighlight) {
+                if ((this.currentSkill === 'sprach1' || this.currentSkill === 'sprach2') && q.memoryHighlight) {
                     before = q.memoryHighlight.before || '';
                     connector = q.memoryHighlight.connector || '';
                     after = q.memoryHighlight.after || '';
-                    color = q.memoryHighlight.color !== undefined ? q.memoryHighlight.color : 0;
+                    color = 0; // ✅ لا نستخدم اللون لـ sprach1 و sprach2
                 }
 
                 return {
@@ -169,7 +173,7 @@ class MemoryTrainer {
                     examId: this.currentExamId,
                     questionIndex: idx,
                     originalQuestion: q,
-                    // ✅ بيانات sprach1 من memoryHighlight
+                    // ✅ بيانات sprach1 و sprach2 من memoryHighlight
                     memoryHighlight: q.memoryHighlight || null,
                     id: q.id,
                     before: before,
@@ -179,7 +183,7 @@ class MemoryTrainer {
                 };
             });
 
-            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3' || this.currentSkill === 'sprach1') {
+            if (this.currentSkill === 'lesen1' || this.currentSkill === 'lesen2' || this.currentSkill === 'lesen3' || this.currentSkill === 'sprach1' || this.currentSkill === 'sprach2') {
                 this.questions = rawQuestions;
             } else {
                 this.questions = rawQuestions.filter(q => q.correct === true);
@@ -436,13 +440,15 @@ class MemoryTrainer {
             examLabel = `امتحان ${this.currentExamId} (Lesen 2)`;
         } else if (this.examType === 'sprach1') {
             examLabel = `امتحان ${this.currentExamId} (Sprachbausteine 1)`;
+        } else if (this.examType === 'sprach2') {
+            examLabel = `امتحان ${this.currentExamId} (Sprachbausteine 2)`;
         }
         this.updateCard(`
             <div class="memory-trainer-intro">
                 <div class="memory-trainer-icon">🧩</div>
                 <h2>استدعاء ذكي</h2>
                 <p style="font-size:14px;color:#334155;margin:6px 0 2px 0;">تدريب ${examLabel}.</p>
-                <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">${this.examType === 'multiple' ? 'سترى السؤال مرة واحدة، ثم سنطلب منك اختيار الجواب الصحيح.' : this.examType === 'sprach1' ? 'سترى الجملة مع الفراغ، ثم سنطلب منك اختيار الكلمة المناسبة.' : 'سترى النص مرة واحدة، ثم سنطلب منك اختيار العنوان المناسب.'}</p>
+                <p style="font-size:13px;color:#64748B;margin:2px 0 14px 0;">${this.examType === 'multiple' ? 'سترى السؤال مرة واحدة، ثم سنطلب منك اختيار الجواب الصحيح.' : this.examType === 'sprach1' || this.examType === 'sprach2' ? 'سترى الجملة مع الفراغ، ثم سنطلب منك اختيار الكلمة المناسبة.' : 'سترى النص مرة واحدة، ثم سنطلب منك اختيار العنوان المناسب.'}</p>
                 <div style="margin:4px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:4px 10px;">
                     <div style="display:flex;align-items:center;gap:10px;">
                         <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
@@ -475,6 +481,8 @@ class MemoryTrainer {
             skillLabel = 'Lesen 2';
         } else if (this.examType === 'sprach1') {
             skillLabel = 'Sprachbausteine 1';
+        } else if (this.examType === 'sprach2') {
+            skillLabel = 'Sprachbausteine 2';
         }
         this.updateCard(`
             <div class="memory-trainer-intro">
@@ -730,14 +738,13 @@ class MemoryTrainer {
                 </div>
             `;
         } else if (this.examType === 'sprach1') {
-    const item = this.currentQuestionObj;
-    const highlight = item.memoryHighlight || {};
-    const id = item.id || (this.currentQuestionIndex + 1);
-    const before = highlight.before || '';
-    const connector = highlight.connector || '';
-    const after = highlight.after || '';
-    // ✅ إلغاء الألوان واستخدام خلفية بيضاء
-    const bgColor = '#FFFFFF';
+            const item = this.currentQuestionObj;
+            const highlight = item.memoryHighlight || {};
+            const id = item.id || (this.currentQuestionIndex + 1);
+            const before = highlight.before || '';
+            const connector = highlight.connector || '';
+            const after = highlight.after || '';
+            const bgColor = '#FFFFFF';
             
             cardContent = `
                 <div class="memory-trainer-card" style="
@@ -842,6 +849,121 @@ class MemoryTrainer {
                     </button>
                 </div>
             `;
+        } else if (this.examType === 'sprach2') {
+            // ============================================
+            // تخطيط خاص لـ Sprachbausteine Teil 2
+            // ============================================
+            const item = this.currentQuestionObj;
+            const highlight = item.memoryHighlight || {};
+            const id = item.id || (this.currentQuestionIndex + 1);
+            const before = highlight.before || '';
+            const connector = highlight.connector || '';
+            const after = highlight.after || '';
+            const bgColor = '#FFFFFF';
+            
+            cardContent = `
+                <div class="memory-trainer-card" style="
+                    background: ${bgColor};
+                    border: 1px solid #E8EEF5;
+                    border-radius: 12px;
+                    padding: 20px 24px;
+                    max-width: 440px;
+                    width: 90%;
+                    text-align: center;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+                    position: relative;
+                    transition: background 0.3s ease;
+                ">
+                    <div class="memory-trainer-header" style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 10px;
+                        padding-bottom: 8px;
+                        border-bottom: 1px solid rgba(0,0,0,0.06);
+                    ">
+                        <span class="memory-trainer-progress" style="
+                            font-size: 12px;
+                            color: #94A3B8;
+                            font-weight: 500;
+                        ">
+                            ${this.currentIndex + 1}/${this.trainingQueue.length}
+                        </span>
+                        <span class="memory-trainer-focus" style="
+                            font-size: 13px;
+                            font-weight: 600;
+                            color: #2D6A4F;
+                        ">
+                            🍃 خذ وقتك
+                        </span>
+                    </div>
+
+                    <div class="memory-trainer-content">
+                        <p class="memory-trainer-hint" style="
+                            font-size: 14px;
+                            color: #4A7C59;
+                            margin-bottom: 12px;
+                            text-align: center;
+                        ">
+                            🌿 اختر الكلمة المناسبة للفراغ.
+                        </p>
+
+                        <!-- صندوق القراءة الخاص بـ Sprachbausteine 2 -->
+                        <div class="memory-reading-box" style="
+                            width: 100%;
+                            height: 80px;
+                            overflow-y: auto;
+                            padding: 12px 16px;
+                            background: #F8FAFC;
+                            border: 1px solid #EDF2F7;
+                            border-radius: 10px;
+                            text-align: left;
+                            direction: rtl;
+                            font-size: 17px;
+                            line-height: 1.8;
+                            font-weight: 400;
+                            color: #1a202c;
+                            box-sizing: border-box;
+                            margin: 8px 0 12px 0;
+                        ">
+                            ${before} <span style="font-weight:700;color:#1565C0;background:#E3F2FD;padding:0 6px;border-radius:4px;">[${id}]</span> ${after}
+                        </div>
+
+                        <!-- الإجابة الصحيحة -->
+                        <div style="
+                            text-align: left;
+                            font-size: 16px;
+                            font-weight: 500;
+                            color: #1a5a1a;
+                            padding: 6px 12px;
+                            padding-left: 20px;
+                            margin-top: 0;
+                            background: transparent;
+                            border-radius: 6px;
+                        ">
+                            ✅ ${connector}
+                        </div>
+                    </div>
+
+                    <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.readyToRecall()" style="
+                        padding: 8px 20px;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.15s ease;
+                        margin-top: 12px;
+                        background: #1565C0;
+                        color: white;
+                        box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
+                        display: inline-block;
+                        width: auto;
+                    ">
+                        أنا جاهز
+                    </button>
+                </div>
+            `;
         } else {
             // ============================================
             // Hören: التصميم الأصلي (بدون تغيير)
@@ -889,12 +1011,24 @@ class MemoryTrainer {
                 this.currentOptions = this.generateOptions(this.currentCorrectText, this.currentQuestionObj);
             }
         } else if (this.examType === 'sprach1') {
-            // ✅ استخدام الخيارات الموجودة في السؤال
             this.currentOptions = this.currentQuestionObj.options || [];
             if (this.currentOptions.length === 0) {
                 console.warn('⚠️ لا توجد خيارات في السؤال، نستخدم generateOptions كحل احتياطي');
                 this.currentOptions = this.generateOptions(this.currentCorrectText, this.currentQuestionObj);
             }
+        } else if (this.examType === 'sprach2') {
+            // ✅ اختيار 3 خيارات فقط (1 صحيح + 2 خاطئين) من قائمة الـ 15 كلمة
+            const allOptions = this.currentQuestionObj.options || [];
+            const correctText = this.currentQuestionObj.connector || this.currentQuestionObj.correct;
+            
+            // نأخذ الخيارات ما عدا الصحيح
+            const wrongOptions = allOptions
+                .filter(opt => opt !== correctText)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 2);
+            
+            // نضيف الصحيح ونخلط
+            this.currentOptions = this.shuffleArray([correctText, ...wrongOptions]);
         } else {
             this.currentOptions = this.generateOptions(this.currentCorrectText, this.currentQuestionObj);
         }
@@ -915,6 +1049,28 @@ class MemoryTrainer {
                 </div>
             `;
         } else if (this.examType === 'sprach1') {
+            questionText = 'اختر الكلمة الصحيحة:';
+            const item = this.currentQuestionObj;
+            const highlight = item.memoryHighlight || {};
+            const id = item.id || (this.currentQuestionIndex + 1);
+            const before = highlight.before || '';
+            const after = highlight.after || '';
+            displayQuestion = `
+                <div style="
+                    font-size: 18px;
+                    font-weight: 500;
+                    text-align: left;
+                    padding: 16px 12px;
+                    color: #1a202c;
+                    margin: 4px 0 16px 0;
+                    line-height: 1.8;
+                    background: rgba(255,255,255,0.5);
+                    border-radius: 8px;
+                ">
+                    ${before} <span style="font-weight:700;color:#1565C0;background:#E3F2FD;padding:0 6px;border-radius:4px;">[${id}]</span> ${after}
+                </div>
+            `;
+        } else if (this.examType === 'sprach2') {
             questionText = 'اختر الكلمة الصحيحة:';
             const item = this.currentQuestionObj;
             const highlight = item.memoryHighlight || {};
@@ -1038,7 +1194,10 @@ class MemoryTrainer {
             isCorrect = (selectedText === correctOption);
             correctText = correctOption;
         } else if (this.examType === 'sprach1') {
-            // ✅ استخدم connector من memoryHighlight أو correct
+            const correctOption = this.currentQuestionObj.connector || this.currentQuestionObj.correct;
+            isCorrect = (selectedText === correctOption);
+            correctText = correctOption;
+        } else if (this.examType === 'sprach2') {
             const correctOption = this.currentQuestionObj.connector || this.currentQuestionObj.correct;
             isCorrect = (selectedText === correctOption);
             correctText = correctOption;
@@ -1283,6 +1442,8 @@ class MemoryTrainer {
                 examLabel = `امتحان ${this.currentExamId} (Lesen 2)`;
             } else if (this.examType === 'sprach1') {
                 examLabel = `امتحان ${this.currentExamId} (Sprachbausteine 1)`;
+            } else if (this.examType === 'sprach2') {
+                examLabel = `امتحان ${this.currentExamId} (Sprachbausteine 2)`;
             }
             html = `
                 <div class="memory-trainer-results final" style="
@@ -1403,4 +1564,4 @@ window.startMemoryTrainerFromList = (skill = 'hoeren1') => {
 // ✅ للتوافق مع الإصدارات القديمة
 window.startMemoryTrainer = window.startMemoryTrainerForExam;
 
-console.log('🧠 Memory Trainer V4 (يدعم Hören, Lesen 1, Lesen 2, Lesen 3 و Sprachbausteine 1) تم تحميله');
+console.log('🧠 Memory Trainer V4 (يدعم Hören, Lesen 1, Lesen 2, Lesen 3, Sprachbausteine 1 و Sprachbausteine 2) تم تحميله');
