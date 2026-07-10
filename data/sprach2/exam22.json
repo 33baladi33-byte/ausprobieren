@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
-      "correct": "anstatt"
+      "correct": "anstatt",
+      "memoryHighlight": {
+        "before": "drauf,",
+        "connector": "anstatt",
+        "after": "– wie durch",
+        "color": 5
+      }
     },
     {
       "id": 2,
       "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
-      "correct": "jede"
+      "correct": "jede",
+      "memoryHighlight": {
+        "before": "nicht",
+        "connector": "jede",
+        "after": "Gelegenheit so",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
-      "correct": "gegen"
+      "correct": "gegen",
+      "memoryHighlight": {
+        "before": "Argument",
+        "connector": "gegen",
+        "after": "illegale Arbeiter",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
-      "correct": "davon"
+      "correct": "davon",
+      "memoryHighlight": {
+        "before": "Abgesehen",
+        "connector": "davon",
+        "after": ", dass es",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
-      "correct": "will"
+      "correct": "will",
+      "memoryHighlight": {
+        "before": "Finanzamt",
+        "connector": "will",
+        "after": "eine ordentliche",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
-      "correct": "bilden"
+      "correct": "bilden",
+      "memoryHighlight": {
+        "before": "Bauten",
+        "connector": "bilden",
+        "after": "eher die",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
-      "correct": "ausgehen"
+      "correct": "ausgehen",
+      "memoryHighlight": {
+        "before": "leer",
+        "connector": "ausgehen",
+        "after": ", wenn beim",
+        "color": 4
+      }
     },
     {
       "id": 8,
       "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
-      "correct": "solche"
+      "correct": "solche",
+      "memoryHighlight": {
+        "before": "für",
+        "connector": "solche",
+        "after": "Fälle eine",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
-      "correct": "bekommen"
+      "correct": "bekommen",
+      "memoryHighlight": {
+        "before": "dann",
+        "connector": "bekommen",
+        "after": "es gleich",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"],
-      "correct": "höchstens"
+      "correct": "höchstens",
+      "memoryHighlight": {
+        "before": "braucht",
+        "connector": "höchstens",
+        "after": "einen Anwalt",
+        "color": 6
+      }
     }
   ],
   "allOptions": ["alles", "anstatt", "ausgehen", "bekommen", "bilden", "dagegen", "davon", "gegen", "höchstens", "jede", "meistens", "solche", "um", "will", "wünscht"]
