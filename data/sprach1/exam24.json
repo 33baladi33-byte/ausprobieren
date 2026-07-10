@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["an", "auf", "wegen"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "gar nicht",
+        "connector": "auf",
+        "after": "die neue",
+        "color": 7
+      }
     },
     {
       "id": 2,
       "options": ["habe", "hätte", "würde"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Ich",
+        "connector": "hätte",
+        "after": "ja auch",
+        "color": 2
+      }
     },
     {
       "id": 3,
       "options": ["dich", "uns", "mich"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Zuerst habe ich",
+        "connector": "mich",
+        "after": "in meiner",
+        "color": 9
+      }
     },
     {
       "id": 4,
       "options": ["ausgepackt habe", "ausgepackt hatte", "auspackte"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Umzugskartons",
+        "connector": "ausgepackt hatte",
+        "after": ", konnte ich",
+        "color": 4
+      }
     },
     {
       "id": 5,
       "options": ["daran", "darauf", "darin"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "vor allem",
+        "connector": "daran",
+        "after": ", dass ich",
+        "color": 11
+      }
     },
     {
       "id": 6,
       "options": ["einander", "gegeneinander", "miteinander"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Als wir",
+        "connector": "miteinander",
+        "after": "ins Gespräch",
+        "color": 0
+      }
     },
     {
       "id": 7,
       "options": ["als", "denn", "wenn"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "anders aus",
+        "connector": "als",
+        "after": "noch vor",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["obwohl", "trotzdem", "während"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "zufrieden,",
+        "connector": "obwohl",
+        "after": "ich oft",
+        "color": 3
+      }
     },
     {
       "id": 9,
       "options": ["bei", "mit", "zu"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Betriebsklima",
+        "connector": "bei",
+        "after": "uns in",
+        "color": 8
+      }
     },
     {
       "id": 10,
       "options": ["eigentlich", "hoffentlich", "sicherlich"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "es Dir",
+        "connector": "eigentlich",
+        "after": "geht. Gibt",
+        "color": 5
+      }
     }
   ]
 }
