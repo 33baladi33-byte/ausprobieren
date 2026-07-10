@@ -575,7 +575,7 @@ class MemoryTrainer {
                 optionText = optionText.replace(/^[a-zA-Z][\.\)]\s*/, '');
             }
             // بناء النص مع سطر جديد ومسافة بادئة (8 مسافات) قبل a.
-            const displayText = `${realQuestionNumber}:${textToShow}:\n\n        a. ${optionText}`;
+            const displayText = `${realQuestionNumber}:${textToShow}:\n\n         a. ${optionText}`;
 
             cardContent = `
                 <div class="memory-trainer-card" style="
