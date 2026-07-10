@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["her", "hin", "vorbei"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "halbes Jahr",
+        "connector": "her",
+        "after": ", dass ich",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["erkrankt", "gekränkt", "kränklich"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Frau Reuter,",
+        "connector": "erkrankt",
+        "after": ". Sie liegt",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["als", "da", "wenn"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "zurück,",
+        "connector": "wenn",
+        "after": "unsere Prüfung",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["nicht nur", "teils", "zwar"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "ist",
+        "connector": "zwar",
+        "after": "sehr nett",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["werde", "wollte", "würde"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Und dann",
+        "connector": "werde",
+        "after": "ich alle",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["Darauf", "Danach", "Davon"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "tun.",
+        "connector": "Darauf",
+        "after": "freue ich",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["darüber", "davon", "dazu"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "hältst du",
+        "connector": "davon",
+        "after": "?",
+        "color": 0
+      }
     },
     {
       "id": 8,
       "options": ["dich", "dir", "sich"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "tanzen sie",
+        "connector": "dir",
+        "after": "noch immer",
+        "color": 6
+      }
     },
     {
       "id": 9,
       "options": ["beschäftigen lassen", "beschäftigt zu sein", "zu beschäftigen"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Tag",
+        "connector": "zu beschäftigen",
+        "after": ". Aber ich",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["weshalb", "wie", "wo"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "gefunden,",
+        "connector": "wie",
+        "after": "du mit",
+        "color": 8
+      }
     }
   ]
 }
