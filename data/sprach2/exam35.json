@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "daruber"
+      "correct": "darüber",
+      "memoryHighlight": {
+        "before": "schon einmal",
+        "connector": "darüber",
+        "after": "geärgert, dass",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "nur"
+      "correct": "nur",
+      "memoryHighlight": {
+        "before": "gibt es",
+        "connector": "nur",
+        "after": "noch in",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "ans"
+      "correct": "ans",
+      "memoryHighlight": {
+        "before": "nun",
+        "connector": "ans",
+        "after": "Licht, dass",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "weder"
+      "correct": "weder",
+      "memoryHighlight": {
+        "before": "offenbar",
+        "connector": "weder",
+        "after": "den Kundinnen",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "müssen"
+      "correct": "müssen",
+      "memoryHighlight": {
+        "before": "suchen",
+        "connector": "müssen",
+        "after": ". Seit den",
+        "color": 11
+      }
     },
     {
       "id": 6,
       "options": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "da"
+      "correct": "da",
+      "memoryHighlight": {
+        "before": "zugelegt.",
+        "connector": "da",
+        "after": "der Handel",
+        "color": 4
+      }
     },
     {
       "id": 7,
       "options": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "das"
+      "correct": "das",
+      "memoryHighlight": {
+        "before": "geplant,",
+        "connector": "das",
+        "after": "Aufschluss darüber",
+        "color": 8
+      }
     },
     {
       "id": 8,
       "options": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "sollen"
+      "correct": "sollen",
+      "memoryHighlight": {
+        "before": "Bilder",
+        "connector": "sollen",
+        "after": "es ermöglichen",
+        "color": 2
+      }
     },
     {
       "id": 9,
       "options": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "dürfen"
+      "correct": "dürfen",
+      "memoryHighlight": {
+        "before": "Kunden",
+        "connector": "dürfen",
+        "after": "wir uns",
+        "color": 6
+      }
     },
     {
       "id": 10,
       "options": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"],
-      "correct": "dass"
+      "correct": "dass",
+      "memoryHighlight": {
+        "before": "freuen,",
+        "connector": "dass",
+        "after": "sich als",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["ans", "als", "da", "darüber", "darum", "das", "dass", "dürfen", "ins", "müssen", "nur", "sollen", "sondern", "sowie", "weder"]
