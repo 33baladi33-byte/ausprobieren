@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["wegen", "von", "auf"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Antwort",
+        "connector": "auf",
+        "after": "meine Bewerbung",
+        "color": 2
+      }
     },
     {
       "id": 2,
       "options": ["zu", "aus", "ab"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Schulausbildung",
+        "connector": "ab",
+        "after": "und möchte",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["kaum", "fast", "ein bisschen"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Deutsch",
+        "connector": "ein bisschen",
+        "after": "verbessern. Dafür",
+        "color": 4
+      }
     },
     {
       "id": 4,
       "options": ["unterrichten", "machen", "lernen"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Heimat",
+        "connector": "machen",
+        "after": ". Anschließend fahre",
+        "color": 0
+      }
     },
     {
       "id": 5,
       "options": ["über", "für", "an"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Frage",
+        "connector": "an",
+        "after": "Sie. Sie",
+        "color": 7
+      }
     },
     {
       "id": 6,
       "options": ["irgendwo", "irgendjemandem", "irgendetwas"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "bei",
+        "connector": "irgendjemandem",
+        "after": "ausleihen? In",
+        "color": 3
+      }
     },
     {
       "id": 7,
       "options": ["falls", "dass", "dafür"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Danke schön,",
+        "connector": "dass",
+        "after": "Sie mich",
+        "color": 11
+      }
     },
     {
       "id": 8,
       "options": ["schon", "noch", "bevor"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Frankfurt",
+        "connector": "schon",
+        "after": "gebucht. Am",
+        "color": 6
+      }
     },
     {
       "id": 9,
       "options": ["zu", "vor", "nach"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Ich schlage",
+        "connector": "vor",
+        "after": ", dass wir",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["weniger", "viel", "mehr"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "bisschen",
+        "connector": "mehr",
+        "after": "von mir",
+        "color": 8
+      }
     }
   ]
 }
