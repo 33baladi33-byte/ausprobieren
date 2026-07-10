@@ -624,6 +624,14 @@ class SentenceReorder {
             slot.style.color = '#155724';
         });
 
+        // ✅ تحديث الأيقونة إلى ✅ عند النجاح
+        if (this.iconElement) {
+            this.iconElement.textContent = '✅';
+            this.iconElement.style.color = '#28a745';
+            this.iconElement.style.opacity = '0.8';
+            this.iconElement.classList.add('success');
+        }
+
         // إغلاق النافذة بعد 1000ms
         setTimeout(() => {
             this.close();
@@ -652,6 +660,14 @@ class SentenceReorder {
     // إغلاق النافذة
     // ==========================================
     static close() {
+        // ✅ تحديث الأيقونة إذا تم الإغلاق بدون نجاح
+        if (this.iconElement && !this.isCorrect) {
+            this.iconElement.textContent = '🔀';
+            this.iconElement.style.color = '#64748b';
+            this.iconElement.style.opacity = '0.6';
+            this.iconElement.classList.remove('success');
+        }
+
         if (this.overlay) {
             this.overlay.style.opacity = '0';
             if (this.puzzleContainer) {
