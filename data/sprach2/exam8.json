@@ -8,130 +8,110 @@
       "id": 1,
       "options": ["zufolge", "anstrengend", "auf", "vermutlich", "jede", "fast", "folglich", "in", "ob", "langweilig", "sowie", "von", "wegen", "denen", "zu"],
       "correct": "zufolge",
-      "highlight": {
-        "connector": "zufolge",
+      "memoryHighlight": {
         "before": "Studie",
+        "connector": "zufolge",
         "after": "kann man",
-        "highlightWords": ["Studie", "zufolge", "kann", "man"],
-        "color": "#4CAF50",
-        "helpKey": "sprach2_exam8_q1"
+        "color": 2
       }
     },
     {
       "id": 2,
       "options": ["zufolge", "anstrengend", "auf", "vermutlich", "jede", "fast", "folglich", "in", "ob", "langweilig", "sowie", "von", "wegen", "denen", "zu"],
       "correct": "von",
-      "highlight": {
-        "connector": "von",
+      "memoryHighlight": {
         "before": "Kategorien",
+        "connector": "von",
         "after": "Single-Männern:",
-        "highlightWords": ["Kategorien", "von", "Single-Männern", ":"],
-        "color": "#FF9800",
-        "helpKey": "sprach2_exam8_q2"
+        "color": 8
       }
     },
     {
       "id": 3,
       "options": ["zufolge", "anstrengend", "auf", "vermutlich", "jede", "fast", "folglich", "in", "ob", "langweilig", "sowie", "von", "wegen", "denen", "zu"],
       "correct": "sowie",
-      "highlight": {
-        "connector": "sowie",
+      "memoryHighlight": {
         "before": "Kreativen,",
+        "connector": "sowie",
         "after": "den Cocktail-",
-        "highlightWords": ["Kreativen", ",", "sowie", "den", "Cocktail-"],
-        "color": "#2196F3",
-        "helpKey": "sprach2_exam8_q3"
+        "color": 4
       }
     },
     {
       "id": 4,
       "options": ["zufolge", "anstrengend", "auf", "vermutlich", "jede", "fast", "folglich", "in", "ob", "langweilig", "sowie", "von", "wegen", "denen", "zu"],
       "correct": "denen",
-      "highlight": {
-        "connector": "denen",
+      "memoryHighlight": {
         "before": "aus",
+        "connector": "denen",
         "after": "er eine",
-        "highlightWords": ["aus", "denen", "er", "eine"],
-        "color": "#9C27B0",
-        "helpKey": "sprach2_exam8_q4"
+        "color": 0
       }
     },
     {
       "id": 5,
       "options": ["zufolge", "anstrengend", "auf", "vermutlich", "jede", "fast", "folglich", "in", "ob", "langweilig", "sowie", "von", "wegen", "denen", "zu"],
       "correct": "jede",
-      "highlight": {
-        "connector": "jede",
+      "memoryHighlight": {
         "before": "für",
+        "connector": "jede",
         "after": "Frau ist",
-        "highlightWords": ["für", "jede", "Frau", "ist"],
-        "color": "#F44336",
-        "helpKey": "sprach2_exam8_q5"
+        "color": 6
       }
     },
     {
       "id": 6,
       "options": ["zufolge", "anstrengend", "auf", "vermutlich", "jede", "fast", "folglich", "in", "ob", "langweilig", "sowie", "von", "wegen", "denen", "zu"],
       "correct": "anstrengend",
-      "highlight": {
-        "connector": "anstrengend",
+      "memoryHighlight": {
         "before": "sogar zu",
+        "connector": "anstrengend",
         "after": ", zwei Tüten",
-        "highlightWords": ["sogar", "zu", "anstrengend", ",", "zwei", "Tüten"],
-        "color": "#00BCD4",
-        "helpKey": "sprach2_exam8_q6"
+        "color": 9
       }
     },
     {
       "id": 7,
       "options": ["zufolge", "anstrengend", "auf", "vermutlich", "jede", "fast", "folglich", "in", "ob", "langweilig", "sowie", "von", "wegen", "denen", "zu"],
       "correct": "folglich",
-      "highlight": {
-        "connector": "folglich",
+      "memoryHighlight": {
         "before": "einer.",
+        "connector": "folglich",
         "after": "kaufen diese",
-        "highlightWords": ["einer", ".", "folglich", "kaufen", "diese"],
-        "color": "#8BC34A",
-        "helpKey": "sprach2_exam8_q7"
+        "color": 3
       }
     },
     {
       "id": 8,
       "options": ["zufolge", "anstrengend", "auf", "vermutlich", "jede", "fast", "folglich", "in", "ob", "langweilig", "sowie", "von", "wegen", "denen", "zu"],
       "correct": "ob",
-      "highlight": {
-        "connector": "ob",
+      "memoryHighlight": {
         "before": "Aber",
+        "connector": "ob",
         "after": "sie so",
-        "highlightWords": ["Aber", "ob", "sie", "so"],
-        "color": "#FF5722",
-        "helpKey": "sprach2_exam8_q8"
+        "color": 11
       }
     },
     {
       "id": 9,
       "options": ["zufolge", "anstrengend", "auf", "vermutlich", "jede", "fast", "folglich", "in", "ob", "langweilig", "sowie", "von", "wegen", "denen", "zu"],
       "correct": "zu",
-      "highlight": {
-        "connector": "zu",
+      "memoryHighlight": {
         "before": "egal,",
+        "connector": "zu",
         "after": "welcher Kategorie",
-        "highlightWords": ["egal", ",", "zu", "welcher", "Kategorie"],
-        "color": "#3F51B5",
-        "helpKey": "sprach2_exam8_q9"
+        "color": 5
       }
     },
     {
       "id": 10,
       "options": ["zufolge", "anstrengend", "auf", "vermutlich", "jede", "fast", "folglich", "in", "ob", "langweilig", "sowie", "von", "wegen", "denen", "zu"],
       "correct": "vermutlich",
-      "highlight": {
-        "connector": "vermutlich",
+      "memoryHighlight": {
         "before": "Einige haben",
+        "connector": "vermutlich",
         "after": "wenig Zeit",
-        "highlightWords": ["Einige", "haben", "vermutlich", "wenig", "Zeit"],
-        "color": "#E91E63",
-        "helpKey": "sprach2_exam8_q10"
+        "color": 7
       }
     }
   ],
