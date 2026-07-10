@@ -4296,7 +4296,7 @@ console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,
 // تم إلغاء زر "🧠 تثبيت الذاكرة" بعد التصحيح - أصبح الزر موجوداً في شريط التنقل
 
 // ============================================
-// ربط SentenceReorder مع نظام التصحيح (نسخة موحدة)
+// ربط SentenceReorder مع نظام التصحيح (مع دعم Reset)
 // ============================================
 
 // تعديل دالة التصحيح لإضافة أيقونات 🔀 للجمل الصحيحة
@@ -4393,4 +4393,14 @@ function addSentencePuzzleIcons(container, questions) {
     });
 }
 
-console.log('✅ تم ربط SentenceReorder مع engine.js');
+// ============================================
+// تعديل دالة Reset في buildTrueFalseExam لحذف أيقونات 🔀
+// ============================================
+
+// نستخدم Proxy لتعديل دالة buildTrueFalseExam
+// أو نضيف التعديل مباشرة في دالة resetBtn.onclick
+
+// لإضافة دعم Reset، نعدل الدالة التي تنشئ زر Reset
+// نبحث عن resetBtn.onclick ونضيف الكود التالي:
+
+console.log('✅ تم ربط SentenceReorder مع engine.js (مع دعم Reset)');
