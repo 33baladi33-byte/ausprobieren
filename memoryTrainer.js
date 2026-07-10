@@ -713,21 +713,29 @@ if (this.currentSkill === 'lesen3' && this.sharedOptions.length > 0) {
 
         this.updateCard(cardContent);
     }
-
-    readyToRecall() {
+readyToRecall() {
         this.clearTimer();
         if (this.examType === 'matching') {
             const correctIndex = this.currentQuestionObj.correct;
-            const allOptions = this.sharedOptions.filter((_, idx) => idx !== correctIndex);
-            const shuffled = this.shuffleArray([...allOptions]);
-            const wrongOptions = shuffled.slice(0, 2);
+            // الحالة الصحيحة
             const correctOption = this.sharedOptions[correctIndex];
-            let finalOptions = [correctOption, ...wrongOptions];
-            while (finalOptions.length < 3) {
+            
+            // جميع الحالات ما عدا الصحيحة (نخلطها ثم نأخذ أول اثنين)
+            const wrongOptions = this.sharedOptions
+                .filter((_, idx) => idx !== correctIndex)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 2);
+            
+            // إذا لم نحصل على 2 خطأ بسبب نقص الحالات، نملأ من الحالات المتاحة (آمن)
+            while (wrongOptions.length < 2) {
                 const extra = this.sharedOptions[Math.floor(Math.random() * this.sharedOptions.length)];
-                if (!finalOptions.includes(extra)) finalOptions.push(extra);
+                if (!wrongOptions.includes(extra) && extra !== correctOption) {
+                    wrongOptions.push(extra);
+                }
             }
-            this.currentOptions = this.shuffleArray(finalOptions);
+            
+            // تجميع الخيارات (1 صحيح + 2 خطأ) ثم خلطها
+            this.currentOptions = this.shuffleArray([correctOption, ...wrongOptions]);
         } else if (this.examType === 'multiple') {
             this.currentOptions = this.currentQuestionObj.options || [];
             if (this.currentOptions.length === 0) {
