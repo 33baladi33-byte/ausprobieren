@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["momentan", "noch", "weiterhin"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "dir",
+        "connector": "noch",
+        "after": "rasch einige",
+        "color": 1
+      }
     },
     {
       "id": 2,
       "options": ["deswegen", "wegen", "weil"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "dass du",
+        "connector": "wegen",
+        "after": "deiner Grippe",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["abgesehen", "außer", "bis"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "vermisst.",
+        "connector": "bis",
+        "after": "auf Michael",
+        "color": 4
+      }
     },
     {
       "id": 4,
       "options": ["haben", "hatten", "hätten"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "abgestellt",
+        "connector": "hatten",
+        "after": ", haben wir",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["als", "für", "zur"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "sich",
+        "connector": "als",
+        "after": "ausgezeichnete Fremdenführerin",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["auf", "in", "zu"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Felsenbühne",
+        "connector": "auf",
+        "after": "dem Programm",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["absolut", "ganz", "vollkommen"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "war",
+        "connector": "ganz",
+        "after": "schön anstrengend",
+        "color": 5
+      }
     },
     {
       "id": 8,
       "options": ["obwohl", "trotzdem", "ungeachtet"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "wunderbar.",
+        "connector": "obwohl",
+        "after": "alle ziemlich",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["durften", "konnten", "sollten"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "machen.",
+        "connector": "sollten",
+        "after": "Und nächstes",
+        "color": 0
+      }
     },
     {
       "id": 10,
       "options": ["inzwischen", "während", "zwischen"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "dir",
+        "connector": "inzwischen",
+        "after": "schon wieder",
+        "color": 6
+      }
     }
   ]
 }
