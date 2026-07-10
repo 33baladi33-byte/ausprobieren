@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["erst", "gleich", "zuerst"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "dass ich",
+        "connector": "erst",
+        "after": "jetzt antworte",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["am besten", "bestenfalls", "bestens"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "alles",
+        "connector": "bestens",
+        "after": ", so dass",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["bei", "mit", "zu"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "mal",
+        "connector": "bei",
+        "after": "uns kommen",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["aber", "denn", "oder"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "umgehört,",
+        "connector": "aber",
+        "after": "du bist",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["besondere", "geringe", "gute"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "keine",
+        "connector": "besondere",
+        "after": "Berufserfahrung; nur",
+        "color": 5
+      }
     },
     {
       "id": 6,
       "options": ["künftige", "nächste", "weitere"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "eine",
+        "connector": "weitere",
+        "after": "Fremdsprache wäre",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["anwerben", "bewerben", "umwerben"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "dich",
+        "connector": "bewerben",
+        "after": ", am besten",
+        "color": 4
+      }
     },
     {
       "id": 8,
       "options": ["Bedauerlich", "Leider", "Schade"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Hotels.",
+        "connector": "Leider",
+        "after": "kenne ich",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["deshalb", "trotzdem", "übrigens"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Ich werde",
+        "connector": "übrigens",
+        "after": "wieder im",
+        "color": 0
+      }
     },
     {
       "id": 10,
       "options": ["ausgemacht", "beschlossen", "entschieden"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "mich doch",
+        "connector": "entschieden",
+        "after": "hier zu",
+        "color": 6
+      }
     }
   ]
 }
