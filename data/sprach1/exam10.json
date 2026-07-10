@@ -8,130 +8,110 @@
       "id": 1,
       "options": ["seien", "sind", "waren"],
       "correct": 2,
-      "highlight": {
-        "connector": "waren",
+      "memoryHighlight": {
         "before": "zurückgekommen",
+        "connector": "waren",
         "after": "haben wir",
-        "highlightWords": ["zurückgekommen", "waren", "haben", "wir"],
-        "color": "#4CAF50",
-        "helpKey": "sprach1_exam10_q1"
+        "color": 2
       }
     },
     {
       "id": 2,
       "options": ["Da", "Das", "Dass"],
       "correct": 0,
-      "highlight": {
-        "connector": "Da",
+      "memoryHighlight": {
         "before": "entdeckt.",
+        "connector": "Da",
         "after": "gibt es",
-        "highlightWords": ["entdeckt", ".", "Da", "gibt", "es"],
-        "color": "#FF9800",
-        "helpKey": "sprach1_exam10_q2"
+        "color": 7
       }
     },
     {
       "id": 3,
       "options": ["an", "auf", "für"],
       "correct": 1,
-      "highlight": {
-        "connector": "auf",
+      "memoryHighlight": {
         "before": "freun uns sehr",
+        "connector": "auf",
         "after": "euch .dass",
-        "highlightWords": ["freun", "uns", "sehr", "auf", "euch", "."],
-        "color": "#2196F3",
-        "helpKey": "sprach1_exam10_q3"
+        "color": 0
       }
     },
     {
       "id": 4,
       "options": ["je", "sowohl", "weder"],
       "correct": 1,
-      "highlight": {
-        "connector": "sowohl",
+      "memoryHighlight": {
         "before": "idee",
+        "connector": "sowohl",
         "after": "in der",
-        "highlightWords": ["idee", "sowohl", "in", "der"],
-        "color": "#9C27B0",
-        "helpKey": "sprach1_exam10_q4"
+        "color": 9
       }
     },
     {
       "id": 5,
       "options": ["Verwandte", "Verwandten", "Verwandter"],
       "correct": 1,
-      "highlight": {
-        "connector": "Verwandten",
+      "memoryHighlight": {
         "before": "Freunde und",
+        "connector": "Verwandten",
         "after": "dabei sein",
-        "highlightWords": ["Freunde", "und", "Verwandten", "dabei", "sein"],
-        "color": "#F44336",
-        "helpKey": "sprach1_exam10_q5"
+        "color": 4
       }
     },
     {
       "id": 6,
       "options": ["unsere", "unseren", "unserer"],
       "correct": 2,
-      "highlight": {
-        "connector": "unserer",
+      "memoryHighlight": {
         "before": "einige",
+        "connector": "unserer",
         "after": "alten frende",
-        "highlightWords": ["einige", "unserer", "alten", "frende"],
-        "color": "#00BCD4",
-        "helpKey": "sprach1_exam10_q6"
+        "color": 11
       }
     },
     {
       "id": 7,
       "options": ["als", "für", "wie"],
       "correct": 0,
-      "highlight": {
-        "connector": "als",
+      "memoryHighlight": {
         "before": "dort",
+        "connector": "als",
         "after": "jugendliche gemeinsam",
-        "highlightWords": ["dort", "als", "jugendliche", "gemeinsam"],
-        "color": "#8BC34A",
-        "helpKey": "sprach1_exam10_q7"
+        "color": 3
       }
     },
     {
       "id": 8,
       "options": ["dass", "falls", "ob"],
       "correct": 2,
-      "highlight": {
-        "connector": "ob",
+      "memoryHighlight": {
         "before": "überlegen wir",
+        "connector": "ob",
         "after": "wir nicht",
-        "highlightWords": ["überlegen", "wir", "ob", "wir", "nicht"],
-        "color": "#FF5722",
-        "helpKey": "sprach1_exam10_q8"
+        "color": 6
       }
     },
     {
       "id": 9,
       "options": ["bereten", "machen", "tun"],
       "correct": 2,
-      "highlight": {
-        "connector": "tun",
+      "memoryHighlight": {
         "before": "Hände voll zu",
+        "connector": "tun",
         "after": ". Dann können",
-        "highlightWords": ["Hände", "voll", "zu", "tun", ".", "Dann", "können"],
-        "color": "#3F51B5",
-        "helpKey": "sprach1_exam10_q9"
+        "color": 5
       }
     },
     {
       "id": 10,
       "options": ["hätten", "könnten", "solten"],
       "correct": 0,
-      "highlight": {
-        "connector": "hätten",
+      "memoryHighlight": {
         "before": "Sonntag",
+        "connector": "hätten",
         "after": "wir die",
-        "highlightWords": ["Sonntag", "hätten", "wir", "die"],
-        "color": "#E91E63",
-        "helpKey": "sprach1_exam10_q10"
+        "color": 8
       }
     }
   ]
