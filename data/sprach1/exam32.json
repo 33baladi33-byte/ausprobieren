@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["anbei", "dabei", "vorbei"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Deutschkursen.",
+        "connector": "anbei",
+        "after": "erhalten Sie",
+        "color": 2
+      }
     },
     {
       "id": 2,
       "options": ["in Betrag", "in Höhe", "in Summe"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Anzahlung",
+        "connector": "in Höhe",
+        "after": "von €",
+        "color": 8
+      }
     },
     {
       "id": 3,
       "options": ["für", "zur", "zwek"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Formular.",
+        "connector": "zur",
+        "after": "genaueren Einschätzung",
+        "color": 0
+      }
     },
     {
       "id": 4,
       "options": ["durchführen", "stattfinden", "veranstalten"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "auch ein mündlicher Test",
+        "connector": "stattfinden",
+        "after": ". Damit sind",
+        "color": 6
+      }
     },
     {
       "id": 5,
       "options": ["anlässlich", "bezüglich", "mittels"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Fragebogen",
+        "connector": "bezüglich",
+        "after": "Ihrer Freizeitinteressen",
+        "color": 4
+      }
     },
     {
       "id": 6,
       "options": ["möglich", "möglicherweise", "möglichst"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Leipzig",
+        "connector": "möglichst",
+        "after": "angenehm zu",
+        "color": 9
+      }
     },
     {
       "id": 7,
       "options": ["ein", "einem", "einer"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "Hotel,",
+        "connector": "einer",
+        "after": "Privatunterkunft in",
+        "color": 3
+      }
     },
     {
       "id": 8,
       "options": ["Sobald", "Sofort", "Sooft"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "ist.",
+        "connector": "Sobald",
+        "after": "Ihre Anmeldung",
+        "color": 7
+      }
     },
     {
       "id": 9,
       "options": ["dafür", "damit", "dazu"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Wegbeschreibung,",
+        "connector": "damit",
+        "after": "Sie den",
+        "color": 5
+      }
     },
     {
       "id": 10,
       "options": ["Bei", "Für", "Zu"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Kursbeginn.",
+        "connector": "Für",
+        "after": "weitere Fragen",
+        "color": 11
+      }
     }
   ]
 }
