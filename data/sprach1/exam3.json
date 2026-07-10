@@ -8,130 +8,110 @@
       "id": 1,
       "options": ["an den", "auf dem", "über den"],
       "correct": 2,
-      "highlight": {
-        "connector": "über den",
+      "memoryHighlight": {
         "before": "deinen Brief",
+        "connector": "über den",
         "after": "ich mich",
-        "highlightWords": ["deinen", "Brief", "über", "den", "ich", "mich"],
-        "color": "#4CAF50",
-        "helpKey": "sprach1_exam3_q1"
+        "color": 4
       }
     },
     {
       "id": 2,
       "options": ["nichts mehr", "noch nicht", "keines"],
       "correct": 0,
-      "highlight": {
-        "connector": "nichts mehr",
+      "memoryHighlight": {
         "before": "drei Wochen",
+        "connector": "nichts mehr",
         "after": "von mir",
-        "highlightWords": ["drei", "Wochen", "nichts", "mehr", "von", "mir"],
-        "color": "#FF9800",
-        "helpKey": "sprach1_exam3_q2"
+        "color": 8
       }
     },
     {
       "id": 3,
       "options": ["doch", "eben", "überhaupt"],
       "correct": 0,
-      "highlight": {
-        "connector": "doch",
+      "memoryHighlight": {
         "before": "Du weißt",
+        "connector": "doch",
         "after": "selbst wie",
-        "highlightWords": ["Du", "weißt", "doch", "selbst", "wie"],
-        "color": "#2196F3",
-        "helpKey": "sprach1_exam3_q3"
+        "color": 1
       }
     },
     {
       "id": 4,
       "options": ["Wann", "Was", "Wie"],
       "correct": 2,
-      "highlight": {
-        "connector": "Wie",
+      "memoryHighlight": {
         "before": "übrigens",
+        "connector": "Wie",
         "after": "ist es",
-        "highlightWords": ["übrigens", "Wie", "ist", "es"],
-        "color": "#9C27B0",
-        "helpKey": "sprach1_exam3_q4"
+        "color": 6
       }
     },
     {
       "id": 5,
       "options": ["der", "die", "von"],
       "correct": 0,
-      "highlight": {
-        "connector": "der",
+      "memoryHighlight": {
         "before": "Fuß",
+        "connector": "der",
         "after": "Alpen. Wir",
-        "highlightWords": ["Fuß", "der", "Alpen", "."],
-        "color": "#F44336",
-        "helpKey": "sprach1_exam3_q5"
+        "color": 0
       }
     },
     {
       "id": 6,
       "options": ["gelaufen", "getan", "geworden"],
       "correct": 1,
-      "highlight": {
-        "connector": "getan",
+      "memoryHighlight": {
         "before": "die Füße weh",
+        "connector": "getan",
         "after": ", doch meine",
-        "highlightWords": ["die", "Füße", "weh", "getan", ",", "doch", "meine"],
-        "color": "#00BCD4",
-        "helpKey": "sprach1_exam3_q6"
+        "color": 9
       }
     },
     {
       "id": 7,
       "options": ["durchfallen", "umfallen", "wegfallen"],
       "correct": 1,
-      "highlight": {
-        "connector": "umfallen",
+      "memoryHighlight": {
         "before": "Erschöpfung",
+        "connector": "umfallen",
         "after": ". Unterwegs haben",
-        "highlightWords": ["Erschöpfung", "umfallen", ".", "Unterwegs", "haben"],
-        "color": "#8BC34A",
-        "helpKey": "sprach1_exam3_q7"
+        "color": 3
       }
     },
     {
       "id": 8,
       "options": ["dich", "dir", "mal"],
       "correct": 1,
-      "highlight": {
-        "connector": "dir",
+      "memoryHighlight": {
         "before": "Stell",
+        "connector": "dir",
         "after": "vor, alle",
-        "highlightWords": ["Stell", "dir", "vor", ",", "alle"],
-        "color": "#FF5722",
-        "helpKey": "sprach1_exam3_q8"
+        "color": 11
       }
     },
     {
       "id": 9,
       "options": ["alle", "ganze", "jede"],
       "correct": 2,
-      "highlight": {
-        "connector": "jede",
+      "memoryHighlight": {
         "before": "gibt es",
+        "connector": "jede",
         "after": "Menge Hindernisse",
-        "highlightWords": ["gibt", "es", "jede", "Menge", "Hindernisse"],
-        "color": "#3F51B5",
-        "helpKey": "sprach1_exam3_q9"
+        "color": 7
       }
     },
     {
       "id": 10,
       "options": ["dabei", "damit", "davon"],
       "correct": 1,
-      "highlight": {
-        "connector": "damit",
+      "memoryHighlight": {
         "before": "mehr",
+        "connector": "damit",
         "after": "aufhören. Jetzt",
-        "highlightWords": ["mehr", "damit", "aufhören", ".", "Jetzt"],
-        "color": "#E91E63",
-        "helpKey": "sprach1_exam3_q10"
+        "color": 2
       }
     }
   ]
