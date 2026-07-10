@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"],
-      "correct": "denn"
+      "correct": "denn",
+      "memoryHighlight": {
+        "before": "Schulbank.",
+        "connector": "denn",
+        "after": "sie hat",
+        "color": 5
+      }
     },
     {
       "id": 2,
       "options": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"],
-      "correct": "möchte"
+      "correct": "möchte",
+      "memoryHighlight": {
+        "before": "Sie",
+        "connector": "möchte",
+        "after": "in den",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"],
-      "correct": "da"
+      "correct": "da",
+      "memoryHighlight": {
+        "before": "Einsteiger.",
+        "connector": "da",
+        "after": "es heute",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"],
-      "correct": "chance"
+      "correct": "chance",
+      "memoryHighlight": {
+        "before": "eine",
+        "connector": "chance",
+        "after": ". Thomas Neuendorfer",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"],
-      "correct": "warum"
+      "correct": "warum",
+      "memoryHighlight": {
+        "before": "erklärt,",
+        "connector": "warum",
+        "after": "sein Arbeitgeber",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"],
-      "correct": "übernehmen"
+      "correct": "übernehmen",
+      "memoryHighlight": {
+        "before": "Verantwortung zu",
+        "connector": "übernehmen",
+        "after": ", und motiviert",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"],
-      "correct": "könnten"
+      "correct": "könnten",
+      "memoryHighlight": {
+        "before": "Zudem",
+        "connector": "könnten",
+        "after": "sie die",
+        "color": 8
+      }
     },
     {
       "id": 8,
       "options": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"],
-      "correct": "verfügung"
+      "correct": "verfügung",
+      "memoryHighlight": {
+        "before": "vor",
+        "connector": "verfügung",
+        "after": "stehen. Trotzdem",
+        "color": 4
+      }
     },
     {
       "id": 9,
       "options": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"],
-      "correct": "trotzdem"
+      "correct": "trotzdem",
+      "memoryHighlight": {
+        "before": "stehen.",
+        "connector": "trotzdem",
+        "after": "haben ältere",
+        "color": 6
+      }
     },
     {
       "id": 10,
       "options": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"],
-      "correct": "sondern"
+      "correct": "sondern",
+      "memoryHighlight": {
+        "before": "festgelegt,",
+        "connector": "sondern",
+        "after": "es wird",
+        "color": 2
+      }
     }
   ],
   "allOptions": ["auswahl", "chance", "da", "dagegen", "denn", "durften", "könnten", "möchte", "sollte", "sondern", "trotzdem", "übernehmen", "verfügung", "warum", "ziehen"]
