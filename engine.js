@@ -4294,3 +4294,224 @@ window.resetInterleaving = resetInterleaving;
 console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3 و Lesen 1 و Lesen 2');
 
 // تم إلغاء زر "🧠 تثبيت الذاكرة" بعد التصحيح - أصبح الزر موجوداً في شريط التنقل
+
+// ============================================
+// ربط SentenceReorder مع نظام التصحيح
+// ============================================
+
+// تعديل دالة التصحيح لإضافة أيقونات 🔀
+const originalCheckTrueFalse = checkTrueFalseExam;
+checkTrueFalseExam = function(container, questions, answers, correctNumbersContainer) {
+    // استدعاء الدالة الأصلية
+    originalCheckTrueFalse(container, questions, answers, correctNumbersContainer);
+    
+    // بعد التصحيح، أضف أيقونات 🔀 للجمل الصحيحة
+    setTimeout(() => {
+        addSentencePuzzleIcons(container, questions);
+    }, 100);
+};
+
+function addSentencePuzzleIcons(container, questions) {
+    if (!container || !questions) return;
+    
+    // البحث عن جميع بطاقات الأسئلة
+    const cards = container.querySelectorAll('.question-card');
+    
+    cards.forEach((card, index) => {
+        // البحث عن نص السؤال
+        const textSpan = card.querySelector('span');
+        if (!textSpan) return;
+        
+        // استخراج رقم السؤال
+        const match = textSpan.textContent.match(/^(\d+)/);
+        if (!match) return;
+        const questionId = parseInt(match[1]);
+        
+        // البحث عن السؤال في البيانات
+        let question = null;
+        for (let q of questions) {
+            if (q.displayNumber === questionId) {
+                question = q;
+                break;
+            }
+        }
+        
+        if (!question) return;
+        
+        // إذا كان السؤال صحيحاً (correct: true)
+        if (question.correct === true) {
+            // البحث عن أيقونة موجودة مسبقاً
+            let icon = card.querySelector('.sentence-puzzle-icon');
+            
+            if (!icon) {
+                // إنشاء أيقونة جديدة
+                icon = document.createElement('span');
+                icon.className = 'sentence-puzzle-icon';
+                icon.textContent = '🔀';
+                icon.style.cssText = `
+                    font-size: 18px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    margin-right: 8px;
+                    display: inline-block;
+                    color: #2c3e66;
+                    opacity: 0.7;
+                `;
+                
+                // إضافة الأيقونة قبل النص
+                card.insertBefore(icon, textSpan);
+            }
+            
+            // إضافة مستمع النقر
+            icon.onclick = function(e) {
+                e.stopPropagation();
+                if (this.textContent === '✅') return; // تم حلها بالفعل
+                
+                // فتح نافذة الترتيب
+                if (window.SentenceReorder) {
+                    // الحصول على النص النظيف (بدون رقم السؤال)
+                    const cleanText = textSpan.textContent.replace(/^\d+\s*/, '');
+                    const tempElement = document.createElement('span');
+                    tempElement.textContent = cleanText;
+                    
+                    // تمرير العنصر المؤقت مع المعرف
+                    SentenceReorder.open(container, tempElement, questionId);
+                    
+                    // حفظ مرجع للأيقونة لتحديثها لاحقاً
+                    SentenceReorder.currentSentenceElement = tempElement;
+                    SentenceReorder.iconElement = this;
+                } else {
+                    console.warn('⚠️ SentenceReorder غير متاح');
+                }
+            };
+            
+            // تأثير hover
+            icon.addEventListener('mouseenter', function() {
+                if (this.textContent !== '✅') {
+                    this.style.color = '#38bdf8';
+                    this.style.transform = 'scale(1.1)';
+                }
+            });
+            icon.addEventListener('mouseleave', function() {
+                if (this.textContent !== '✅') {
+                    this.style.color = '#2c3e66';
+                    this.style.transform = 'scale(1)';
+                }
+            });
+        }
+    });
+}
+
+// ============================================
+// زر 🔀 في شريط التنقل
+// ============================================
+
+// إضافة زر 🔀 بجانب أزرار التنقل
+document.addEventListener('DOMContentLoaded', function() {
+    const navButtons = document.getElementById('examNavButtons');
+    if (!navButtons) return;
+    
+    // التحقق من وجود الزر بالفعل
+    if (document.getElementById('sentencePuzzleNavBtn')) return;
+    
+    const puzzleBtn = document.createElement('button');
+    puzzleBtn.id = 'sentencePuzzleNavBtn';
+    puzzleBtn.className = 'nav-exam-btn';
+    puzzleBtn.textContent = '🔀';
+    puzzleBtn.title = 'ترتيب الجمل الصحيحة';
+    puzzleBtn.style.cssText = `
+        padding: 10px 18px;
+        font-size: 18px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: #2c3e66;
+        color: white;
+    `;
+    
+    puzzleBtn.addEventListener('mouseenter', function() {
+        this.style.background = '#1a2a4a';
+        this.style.transform = 'translateY(-2px)';
+    });
+    puzzleBtn.addEventListener('mouseleave', function() {
+        this.style.background = '#2c3e66';
+        this.style.transform = 'translateY(0)';
+    });
+    
+    puzzleBtn.addEventListener('click', function() {
+        // تنفيذ التصحيح أولاً
+        const checkBtn = document.querySelector('.check-btn');
+        if (checkBtn) {
+            checkBtn.click();
+            
+            // بعد التصحيح، البحث عن أول جملة صحيحة وفتحها
+            setTimeout(() => {
+                const firstIcon = document.querySelector('.sentence-puzzle-icon:not(.success)');
+                if (firstIcon) {
+                    firstIcon.click();
+                } else {
+                    // إظهار رسالة
+                    const toast = document.createElement('div');
+                    toast.style.cssText = `
+                        position: fixed;
+                        bottom: 80px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: #fff3cd;
+                        color: #856404;
+                        padding: 10px 24px;
+                        border-radius: 12px;
+                        font-size: 0.9rem;
+                        font-weight: 500;
+                        z-index: 100000;
+                        animation: sentenceToastIn 0.3s ease;
+                        max-width: 90%;
+                        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                        text-align: center;
+                        border: 1px solid #ffc107;
+                    `;
+                    toast.textContent = '✅ جميع الجمل الصحيحة تم حلها!';
+                    document.body.appendChild(toast);
+                    
+                    setTimeout(() => {
+                        toast.style.animation = 'sentenceToastOut 0.3s ease forwards';
+                        setTimeout(() => toast.remove(), 300);
+                    }, 2500);
+                }
+            }, 300);
+        } else {
+            // إذا لم يوجد زر تصحيح
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #fef0e0;
+                color: #856404;
+                padding: 10px 24px;
+                border-radius: 12px;
+                font-size: 0.9rem;
+                font-weight: 500;
+                z-index: 100000;
+                animation: sentenceToastIn 0.3s ease;
+                max-width: 90%;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                text-align: center;
+                border: 1px solid #e67e22;
+            `;
+            toast.textContent = '⚠️ الرجاء فتح امتحان Hören أولاً';
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'sentenceToastOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+    });
+    
+    navButtons.appendChild(puzzleBtn);
+});
+
+console.log('✅ تم ربط SentenceReorder مع engine.js');
