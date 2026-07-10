@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"],
-      "correct": "stimmen"
+      "correct": "stimmen",
+      "memoryHighlight": {
+        "before": "Deutschen",
+        "connector": "stimmen",
+        "after": "dieser Behauptung",
+        "color": 4
+      }
     },
     {
       "id": 2,
       "options": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"],
-      "correct": "meinen"
+      "correct": "meinen",
+      "memoryHighlight": {
+        "before": "höflicher,",
+        "connector": "meinen",
+        "after": "einer Umfrage",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"],
-      "correct": "nach"
+      "correct": "nach",
+      "memoryHighlight": {
+        "before": "Wunsch",
+        "connector": "nach",
+        "after": "gewissen Höflichkeitsformen",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"],
-      "correct": "miteinander"
+      "correct": "miteinander",
+      "memoryHighlight": {
+        "before": "höfliches",
+        "connector": "miteinander",
+        "after": "– In einer",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"],
-      "correct": "vergeblich"
+      "correct": "vergeblich",
+      "memoryHighlight": {
+        "before": "oft",
+        "connector": "vergeblich",
+        "after": "– Da wäre",
+        "color": 3
+      }
     },
     {
       "id": 6,
       "options": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"],
-      "correct": "gut"
+      "correct": "gut",
+      "memoryHighlight": {
+        "before": "Sie.",
+        "connector": "gut",
+        "after": "die Hälfte",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"],
-      "correct": "mögen"
+      "correct": "mögen",
+      "memoryHighlight": {
+        "before": "empfinden",
+        "connector": "mögen",
+        "after": ", vom Kellner",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"],
-      "correct": "stören"
+      "correct": "stören",
+      "memoryHighlight": {
+        "before": "Ältere",
+        "connector": "stören",
+        "after": "– sich am",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"],
-      "correct": "lassen"
+      "correct": "lassen",
+      "memoryHighlight": {
+        "before": "Vortritt",
+        "connector": "lassen",
+        "after": ". Unhöflich finden",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"],
-      "correct": "sich"
+      "correct": "sich",
+      "memoryHighlight": {
+        "before": "was",
+        "connector": "sich",
+        "after": "gehört, kann",
+        "color": 5
+      }
     }
   ],
   "allOptions": ["fein", "gut", "lassen", "man", "meinen", "miteinander", "mögen", "nach", "nacheinander", "nehmen", "sich", "sinnlos", "stimmen", "stören", "vergeblich"]
