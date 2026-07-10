@@ -7,52 +7,112 @@
     {
       "id": 1,
       "options": ["ganz", "noch", "zwar"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "Und",
+        "connector": "noch",
+        "after": "schöner ist",
+        "color": 3
+      }
     },
     {
       "id": 2,
       "options": ["jedoch", "obwohl", "trotzdem"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "willst,",
+        "connector": "obwohl",
+        "after": "Du in",
+        "color": 9
+      }
     },
     {
       "id": 3,
       "options": ["anschauen", "überschauen", "vorschauen"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Dom",
+        "connector": "anschauen",
+        "after": "und noch",
+        "color": 1
+      }
     },
     {
       "id": 4,
       "options": ["konnten", "sollten", "wollten"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "natürlich",
+        "connector": "sollten",
+        "after": "wir genug",
+        "color": 7
+      }
     },
     {
       "id": 5,
       "options": ["ankommen wirst", "anzukommen wirst", "wirst ankommen"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Hauptbahnhof",
+        "connector": "ankommen wirst",
+        "after": ". Wir holen",
+        "color": 5
+      }
     },
     {
       "id": 6,
       "options": ["falls", "für den Fall", "im Fall"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "uns,",
+        "connector": "falls",
+        "after": "wir uns",
+        "color": 11
+      }
     },
     {
       "id": 7,
       "options": ["neulich", "seitdem", "vormals"],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": {
+        "before": "benutzen es",
+        "connector": "seitdem",
+        "after": "für ihn",
+        "color": 4
+      }
     },
     {
       "id": 8,
       "options": ["auffrischen", "aufholen", "aufsparen"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "Erinnerungen",
+        "connector": "auffrischen",
+        "after": ". Wir haben",
+        "color": 8
+      }
     },
     {
       "id": 9,
       "options": ["als", "wann", "wo"],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": {
+        "before": "gemacht,",
+        "connector": "als",
+        "after": "wir bei",
+        "color": 2
+      }
     },
     {
       "id": 10,
       "options": ["geh", "komm", "lass"],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": {
+        "before": "aber",
+        "connector": "lass",
+        "after": "Dich überraschen",
+        "color": 6
+      }
     }
   ]
 }
