@@ -1724,7 +1724,8 @@ const SKILL_CONFIG = {
     hoeren3: { totalExams: 48, examsPerStage: 15, totalSentences: 105 },
     lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 }, // ✅ تمت الإضافة
     lesen2: { totalExams: 37, examsPerStage: 15, totalSentences: 185 },
-    lesen3: { totalExams: 37, examsPerStage: 15, totalSentences: 120 }
+    lesen3: { totalExams: 37, examsPerStage: 15, totalSentences: 120 },
+    sprach1: { totalExams: 41, examsPerStage: 15, totalSentences: 205 }
 };
 
 // ✅ دوال المراحل العامة (تعمل مع أي مهارة)
@@ -1875,46 +1876,66 @@ window.loadStageExams = async function(skill) {
     const allCorrect = [], allWrong = [], allQuestions = [];
 
     for (const examId of examIds) {
-        const exam = exams.find(e => e.id === examId);
-        if (!exam || !exam.hasFile) continue;
-        const fileName = getActualFileName(exam.id);
-        try {
-            const response = await fetch(`data/${skill}/${fileName}`);
-            if (response.ok) {
-                const data = await response.json();
-                // لـ lesen3 نأخذ items، وإلا نأخذ questions
-let questions = [];
-if (skill === 'lesen3') {
-    questions = data.items || [];
-} else {
-    questions = data.questions || [];
-}
-                questions.forEach((q, idx) => {
-                    const entry = {
-    text: q.text,
-    correct: q.correct,
-    options: q.options || [],   // ✅ إضافة الخيارات لـ Lesen 2
-    examId: examId,
-    questionIndex: idx,
-    originalQuestion: q
-};
-                    allQuestions.push(entry);
-                    
-                    
-                    // ✅ إذا كانت المهارة lesen1 أو lesen2 أو lesen3، كل الأسئلة صالحة للتدريب
-if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3') {
-    allCorrect.push(entry);
-} else {
-    if (q.correct === true) allCorrect.push(entry);
-    else allWrong.push(entry);
-}
-                });
-                console.log(`✅ تم تحميل ${skill} exam${examId}`);
+    const exam = exams.find(e => e.id === examId);
+    if (!exam || !exam.hasFile) continue;
+    const fileName = getActualFileName(exam.id);
+    try {
+        const response = await fetch(`data/${skill}/${fileName}`);
+        if (response.ok) {
+            const data = await response.json();
+            let questions = [];
+            if (skill === 'lesen3') {
+                questions = data.items || [];
+            } else if (skill === 'sprach1') {
+                // ✅ لـ sprach1: نأخذ فقط الأسئلة التي تحتوي على memoryHighlight
+                questions = (data.questions || []).filter(q => q.memoryHighlight);
+            } else {
+                questions = data.questions || [];
             }
-        } catch (e) {
-            console.warn(`⚠️ لا يمكن تحميل ${skill} exam${examId}`);
+            questions.forEach((q, idx) => {
+                // ✅ بناء entry خاص لـ sprach1
+                let entry;
+                if (skill === 'sprach1') {
+                    entry = {
+                        text: q.text || '',
+                        correct: q.correct,
+                        options: q.options || [],
+                        examId: examId,
+                        questionIndex: idx,
+                        originalQuestion: q,
+                        memoryHighlight: q.memoryHighlight || null,
+                        id: q.id,
+                        before: q.memoryHighlight ? q.memoryHighlight.before : '',
+                        connector: q.memoryHighlight ? q.memoryHighlight.connector : '',
+                        after: q.memoryHighlight ? q.memoryHighlight.after : '',
+                        color: q.memoryHighlight ? q.memoryHighlight.color : 0
+                    };
+                } else {
+                    entry = {
+                        text: q.text,
+                        correct: q.correct,
+                        options: q.options || [],
+                        examId: examId,
+                        questionIndex: idx,
+                        originalQuestion: q
+                    };
+                }
+                allQuestions.push(entry);
+                
+                // ✅ إذا كانت المهارة lesen1 أو lesen2 أو lesen3 أو sprach1، كل الأسئلة صالحة للتدريب
+                if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1') {
+                    allCorrect.push(entry);
+                } else {
+                    if (q.correct === true) allCorrect.push(entry);
+                    else allWrong.push(entry);
+                }
+            });
+            console.log(`✅ تم تحميل ${skill} exam${examId}`);
         }
+    } catch (e) {
+        console.warn(`⚠️ لا يمكن تحميل ${skill} exam${examId}`);
     }
+}
 
 // ✅ إضافة sharedOptions (لـ Lesen 1 و Lesen 3)
 let sharedOptions = [];
