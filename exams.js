@@ -1725,7 +1725,8 @@ const SKILL_CONFIG = {
     lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 }, // ✅ تمت الإضافة
     lesen2: { totalExams: 37, examsPerStage: 15, totalSentences: 185 },
     lesen3: { totalExams: 37, examsPerStage: 15, totalSentences: 120 },
-    sprach1: { totalExams: 41, examsPerStage: 15, totalSentences: 205 }
+    sprach1: { totalExams: 41, examsPerStage: 15, totalSentences: 205 },
+    sprach2: { totalExams: 49, examsPerStage: 15, totalSentences: 245 }
 };
 
 // ✅ دوال المراحل العامة (تعمل مع أي مهارة)
@@ -1874,8 +1875,7 @@ window.loadStageExams = async function(skill) {
     console.log(`📋 الامتحانات: ${examIds.join(', ')}`);
 
     const allCorrect = [], allWrong = [], allQuestions = [];
-
-   for (const examId of examIds) {
+for (const examId of examIds) {
     const exam = exams.find(e => e.id === examId);
     if (!exam || !exam.hasFile) continue;
     const fileName = getActualFileName(exam.id);
@@ -1886,8 +1886,8 @@ window.loadStageExams = async function(skill) {
             let questions = [];
             if (skill === 'lesen3') {
                 questions = data.items || [];
-            } else if (skill === 'sprach1') {
-                // ✅ لـ sprach1: نأخذ من options أو questions
+            } else if (skill === 'sprach1' || skill === 'sprach2') {
+                // ✅ لـ sprach1 و sprach2: نأخذ من options أو questions
                 if (data.options && Array.isArray(data.options)) {
                     questions = data.options;
                 } else if (data.questions && Array.isArray(data.questions)) {
@@ -1903,8 +1903,8 @@ window.loadStageExams = async function(skill) {
 
             questions.forEach((q, idx) => {
                 let entry;
-                if (skill === 'sprach1') {
-                    // ✅ بناء entry خاص لـ sprach1 باستخدام memoryHighlight
+                if (skill === 'sprach1' || skill === 'sprach2') {
+                    // ✅ بناء entry خاص لـ sprach1 و sprach2 باستخدام memoryHighlight
                     const highlight = q.memoryHighlight || {};
                     entry = {
                         text: q.text || '',
@@ -1918,7 +1918,7 @@ window.loadStageExams = async function(skill) {
                         before: highlight.before || '',
                         connector: highlight.connector || '',
                         after: highlight.after || '',
-                        color: highlight.color !== undefined ? highlight.color : 0
+                        color: 0  // ✅ لا نستخدم اللون لـ sprach1 و sprach2
                     };
                 } else {
                     entry = {
@@ -1932,8 +1932,8 @@ window.loadStageExams = async function(skill) {
                 }
                 allQuestions.push(entry);
 
-                // ✅ إذا كانت المهارة sprach1 أو lesen1/2/3، كل الأسئلة صالحة للتدريب
-                if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1') {
+                // ✅ إذا كانت المهارة sprach1 أو sprach2 أو lesen1/2/3، كل الأسئلة صالحة للتدريب
+                if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1' || skill === 'sprach2') {
                     allCorrect.push(entry);
                 } else {
                     if (q.correct === true) allCorrect.push(entry);
