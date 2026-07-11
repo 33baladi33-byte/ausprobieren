@@ -23,5 +23,25 @@
       "text": "Das Tiefdruckgebiet 'Helena' kann morgen im Südwesten Deutschlands Verkehrsprobleme verursachen.",
       "correct": true
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 1,
+      "parts": [
+        "Die Fluggesellschaft DL fliegt z. B. Rostock nicht mehr an."
+      ]
+    },
+    {
+      "color": 7,
+      "parts": [
+        "Die Sonnenstürme hatten keine negativen Auswirkungen."
+      ]
+    },
+    {
+      "color": 11,
+      "parts": [
+        "Das Tiefdruckgebiet 'Helena' kann morgen im Südwesten Deutschlands Verkehrsprobleme verursachen."
+      ]
+    }
   ]
 }
