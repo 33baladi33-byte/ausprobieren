@@ -22,5 +22,25 @@
       "text": "Nach den Bürgermeisterwahlen in Bensheim bleibt die CDU weiterhin an der Regierung.",
       "correct": true
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 0,
+      "parts": [
+        "Ein deutsches Schiff ist am Südpol eingefroren, aber Menschen kamen nicht zu Schaden."
+      ]
+    },
+    {
+      "color": 5,
+      "parts": [
+        "Die Firma Brain International ist in wirtschaftliche Schwierigkeiten geraten."
+      ]
+    },
+    {
+      "color": 10,
+      "parts": [
+        "Nach den Bürgermeisterwahlen in Bensheim bleibt die CDU weiterhin an der Regierung."
+      ]
+    }
   ]
 }
