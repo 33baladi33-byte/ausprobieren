@@ -1570,7 +1570,7 @@ body.dark-mode .mobile-banner span {
     <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
     <button id="navSubscribeBtn" class="subscribe-text-btn" style="background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 25px; padding: 8px 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: white;">اشترك</button>
    <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
-<button id="navSignupBtn" class="btn-login-top" style="background: #2c3e66; color: white; border: none; border-radius: 25px; padding: 8px 16px; cursor: pointer;">إنشاء حساب</button>
+
     <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
 </div>
     
@@ -1660,81 +1660,80 @@ body.dark-mode .mobile-banner span {
 <div id="profileDropdown" class="profile-dropdown">
     <div id="userNameDisplay" class="profile-name">مستخدم</div>
     <div id="userEmailDisplay" class="profile-email">غير مسجل</div>
+    <div class="profile-divider"></div>
+    <div id="profileStatus" class="profile-status">Free</div>
     <div id="profileExpiry" class="profile-expiry" style="display: none;"></div>
-    <div id="profileStatus" class="profile-status">📋 Basic User</div>
     <button id="profileLogoutBtn" class="profile-logout">🚪 تسجيل خروج</button>
 </div>
 
 <!-- ===== نافذة تسجيل الدخول ===== -->
 <div id="loginPopup" class="login-popup">
     <div class="login-popup-content">
-        <div class="login-header">
+        <div class="auth-header">
             <h3>👋 مرحباً بيك من جديد</h3>
             <button id="closePopupBtn" class="close-btn">✕</button>
         </div>
-        <p class="login-subtitle">سجل دخولك باش تكمل المراجعة</p>
+        <p class="auth-subtitle">سجل دخولك باش تكمل المراجعة</p>
         
-        <input type="email" id="popupEmail" placeholder="البريد الإلكتروني" class="login-input">
+        <input type="email" id="popupEmail" placeholder="البريد الإلكتروني" class="auth-input">
         
         <div class="password-wrapper">
-            <input type="password" id="popupPassword" placeholder="كلمة السر" class="login-input">
+            <input type="password" id="popupPassword" placeholder="كلمة السر" class="auth-input">
             <button id="togglePasswordBtn" class="toggle-password-btn" type="button">👁️</button>
         </div>
         
-        <button id="popupLoginBtn" class="login-btn-primary">دخول</button>
+        <button id="popupLoginBtn" class="auth-btn-primary">دخول</button>
         
-        <div class="login-links">
-            <span id="forgotPasswordLink" class="forgot-link">نسيت كلمة المرور؟</span>
-            <span id="switchToSignup" class="signup-link">إنشاء حساب جديد</span>
+        <div class="auth-links">
+            <span id="forgotPasswordLink" class="link link-forgot">نسيت كلمة المرور؟</span>
+            <span id="switchToSignup" class="link">إنشاء حساب جديد</span>
         </div>
     </div>
 </div>
 
 <!-- ===== نافذة إنشاء حساب ===== -->
-<div id="signupPopup" class="auth-popup">
-    <div class="auth-popup-content">
-        <div class="auth-popup-header">
-            <h3>📝 إنشاء حساب جديد</h3>
-            <button id="closeSignupPopup" class="auth-close-btn">✕</button>
+<div id="signupPopup" class="signup-popup">
+    <div class="signup-popup-content">
+        <div class="auth-header">
+            <h3>📝 إنشاء حساب</h3>
+            <button id="closeSignupPopup" class="close-btn">✕</button>
         </div>
-        <div class="auth-popup-body">
-            <p class="auth-subtitle">أهلاً وسهلاً بيك في Zertiva 🎉</p>
-            
-            <div class="auth-row">
-                <input type="text" id="signupFirstName" placeholder="الاسم الشخصي" class="auth-input half">
-                <input type="text" id="signupLastName" placeholder="الاسم العائلي" class="auth-input half">
-            </div>
-            
-            <input type="text" id="signupUsername" placeholder="اسم المستخدم" class="auth-input">
-            <input type="email" id="signupEmail" placeholder="البريد الإلكتروني" class="auth-input">
-            
-            <div class="password-wrapper">
-                <input type="password" id="signupPassword" placeholder="كلمة السر" class="auth-input">
-                <button id="toggleSignupPasswordBtn" class="toggle-password-btn" type="button">👁️</button>
-            </div>
-            
-            <button id="createAccountBtn" class="auth-btn primary">تسجيل</button>
-            <p class="auth-switch">عندك حساب؟ <span id="switchToLogin" class="auth-link">دخل هنا</span></p>
+        
+        <div class="auth-row">
+            <input type="text" id="signupFirstName" placeholder="الاسم الشخصي" class="auth-input half">
+            <input type="text" id="signupLastName" placeholder="الاسم العائلي" class="auth-input half">
+        </div>
+        
+        <input type="text" id="signupUsername" placeholder="اسم المستخدم" class="auth-input">
+        <input type="email" id="signupEmail" placeholder="البريد الإلكتروني" class="auth-input">
+        
+        <div class="password-wrapper">
+            <input type="password" id="signupPassword" placeholder="كلمة السر" class="auth-input">
+            <button id="toggleSignupPasswordBtn" class="toggle-password-btn" type="button">👁️</button>
+        </div>
+        
+        <button id="createAccountBtn" class="auth-btn-primary">تسجيل</button>
+        
+        <div class="auth-links" style="justify-content: center;">
+            <span id="switchToLogin" class="link">عندك حساب؟ دخل هنا</span>
         </div>
     </div>
 </div>
-
-    <!-- ===== نافذة نسيت كلمة المرور ===== -->
+<!-- ===== نافذة نسيت كلمة المرور ===== -->
 <div id="forgotPasswordPopup" class="forgot-popup">
     <div class="forgot-popup-content">
-        <div class="forgot-header">
+        <div class="auth-header">
             <h3>🔄 تغيير كلمة المرور</h3>
             <button id="closeForgotPopup" class="close-btn">✕</button>
         </div>
-        <p class="forgot-subtitle">أدخل بريدك الإلكتروني وكلمة السر الجديدة</p>
+        <p class="auth-subtitle">أدخل بريدك الإلكتروني وكلمة السر الجديدة</p>
         
-        <input type="email" id="forgotEmail" placeholder="البريد الإلكتروني" class="forgot-input">
-        <input type="password" id="forgotNewPassword" placeholder="كلمة السر الجديدة" class="forgot-input">
+        <input type="email" id="forgotEmail" placeholder="البريد الإلكتروني" class="auth-input">
+        <input type="password" id="forgotNewPassword" placeholder="كلمة السر الجديدة" class="auth-input">
         
-        <button id="resetPasswordBtn" class="reset-btn-primary">إرسال عبر واتساب</button>
+        <button id="resetPasswordBtn" class="auth-btn-whatsapp">إرسال عبر واتساب</button>
         
-        <div class="whatsapp-info">
-            <span>📱 سيتم الإرسال إلى: <strong>+212 687-561491</strong></span>
+
         </div>
     </div>
 </div>
