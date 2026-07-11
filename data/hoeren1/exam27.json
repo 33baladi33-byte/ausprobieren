@@ -23,5 +23,19 @@
       "text": "In Düsseldorf wurden neue Bürogebäude errichtet.",
       "correct": false
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 2,
+      "parts": [
+        "Viele Angestellte würden gern nur vier Tage pro Woche arbeiten."
+      ]
+    },
+    {
+      "color": 8,
+      "parts": [
+        "In handwerklichen Berufen gibt es zurzeit viele freie Stellen."
+      ]
+    }
   ]
 }
