@@ -1,67 +1,84 @@
 // ============================================
-// auth.js - نظام تسجيل الدخول
+// auth.js - نظام إنشاء الحساب وتسجيل الدخول
 // ============================================
 
-import { auth, db, provider, signInWithPopup, signOut, onAuthStateChanged, doc, getDoc, setDoc, serverTimestamp } from './firebase.js';
+import { 
+    auth, db,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    updateProfile,
+    doc, getDoc, setDoc, updateDoc, serverTimestamp
+} from './firebase.js';
 
 // ============================================
-// حالة المستخدم (متغير عالمي)
+// الحالة العامة
 // ============================================
 let currentUser = null;
+let currentUserData = null;
 let isPremium = false;
 
 // ============================================
-// تسجيل الدخول بـ Google
+// إنشاء حساب جديد
 // ============================================
-async function signInWithGoogle() {
+async function createAccount(firstName, lastName, username, email, password, level) {
     try {
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
+        // 1. إنشاء الحساب في Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
         
-        console.log('✅ تم تسجيل الدخول:', user.email);
+        // 2. تحديث الاسم في Auth
+        await updateProfile(user, {
+            displayName: `${firstName} ${lastName}`
+        });
         
-        // حفظ المستخدم في Firestore
-        await saveUserToFirestore(user);
+        // 3. حفظ البيانات في Firestore
+        const userData = {
+            uid: user.uid,
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            email: email,
+            level: level || 'B1',
+            plan: 'basic',           // ✅ حساب مجاني افتراضياً
+            premiumUntil: null,      // ✅ لا يوجد اشتراك
+            studyMinutes: 0,
+            createdAt: serverTimestamp(),
+            activeSession: null
+        };
         
-        // تحديث واجهة المستخدم
-        updateUIAfterLogin(user);
+        await setDoc(doc(db, 'users', user.uid), userData);
         
-        return { success: true, user };
+        console.log('✅ تم إنشاء الحساب:', email);
+        return { success: true, user, userData };
+        
     } catch (error) {
-        console.error('❌ خطأ في تسجيل الدخول:', error);
-        showMessage('❌ فشل تسجيل الدخول: ' + error.message);
+        console.error('❌ خطأ في إنشاء الحساب:', error);
         return { success: false, error: error.message };
     }
 }
 
 // ============================================
-// حفظ المستخدم في Firestore
+// تسجيل الدخول بالبريد وكلمة المرور
 // ============================================
-async function saveUserToFirestore(user) {
-    const userRef = doc(db, 'users', user.uid);
-    const docSnap = await getDoc(userRef);
-    
-    if (!docSnap.exists()) {
-        // مستخدم جديد - إنشاء ملف
-        await setDoc(userRef, {
-            email: user.email,
-            displayName: user.displayName || 'مستخدم',
-            photoURL: user.photoURL || '',
-            premium: false,
-            premiumUntil: null,
-            studyMinutes: 0,
-            createdAt: serverTimestamp(),
-            activeSession: null,
-            role: 'user'
-        });
-        console.log('✅ تم إنشاء مستخدم جديد:', user.email);
-    } else {
-        console.log('✅ مستخدم موجود:', user.email);
+async function signInWithEmail(email, password) {
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // جلب بيانات المستخدم من Firestore
+        const userData = await getUserData(user.uid);
+        
+        return { success: true, user, userData };
+    } catch (error) {
+        console.error('❌ خطأ في تسجيل الدخول:', error);
+        return { success: false, error: error.message };
     }
 }
 
 // ============================================
-// قراءة بيانات المستخدم من Firestore
+// جلب بيانات المستخدم من Firestore
 // ============================================
 async function getUserData(uid) {
     try {
@@ -73,32 +90,24 @@ async function getUserData(uid) {
         }
         return null;
     } catch (error) {
-        console.error('❌ خطأ في قراءة البيانات:', error);
+        console.error('❌ خطأ في جلب البيانات:', error);
         return null;
     }
 }
 
 // ============================================
-// تحديث واجهة المستخدم بعد تسجيل الدخول
+// تحديث بيانات المستخدم
 // ============================================
-function updateUIAfterLogin(user) {
-    const loginBtn = document.getElementById('navLoginBtn');
-    const profileIcon = document.getElementById('profileIcon');
-    
-    if (loginBtn) loginBtn.style.display = 'none';
-    if (profileIcon) {
-        profileIcon.style.display = 'flex';
-        profileIcon.innerHTML = user.displayName ? user.displayName.charAt(0).toUpperCase() : '👤';
+async function updateUserData(uid, data) {
+    try {
+        const userRef = doc(db, 'users', uid);
+        await updateDoc(userRef, data);
+        console.log('✅ تم تحديث بيانات المستخدم');
+        return { success: true };
+    } catch (error) {
+        console.error('❌ خطأ في تحديث البيانات:', error);
+        return { success: false, error: error.message };
     }
-    
-    // إغلاق نافذة تسجيل الدخول
-    const popup = document.getElementById('loginPopup');
-    if (popup) popup.style.display = 'none';
-    
-    showMessage('✅ مرحباً ' + (user.displayName || user.email));
-    
-    // تحديث Premium
-    checkPremiumStatus(user.uid);
 }
 
 // ============================================
@@ -106,38 +115,123 @@ function updateUIAfterLogin(user) {
 // ============================================
 async function checkPremiumStatus(uid) {
     const data = await getUserData(uid);
-    if (data) {
-        isPremium = data.premium || false;
+    if (!data) return { premium: false, plan: 'basic' };
+    
+    let premium = data.plan === 'premium';
+    let premiumUntil = data.premiumUntil || null;
+    
+    // التحقق من انتهاء الاشتراك
+    if (premium && premiumUntil) {
+        const now = Date.now();
+        const expiry = premiumUntil.seconds ? premiumUntil.seconds * 1000 : premiumUntil;
         
-        // التحقق من انتهاء الاشتراك
-        if (data.premiumUntil) {
-            const now = Date.now();
-            const expiry = data.premiumUntil.seconds ? data.premiumUntil.seconds * 1000 : data.premiumUntil;
-            
-            if (now > expiry) {
-                // انتهى الاشتراك
-                const userRef = doc(db, 'users', uid);
-                await updateDoc(userRef, {
-                    premium: false,
-                    premiumUntil: null
-                });
-                isPremium = false;
-            }
+        if (now > expiry) {
+            // انتهى الاشتراك - التغيير تلقائياً إلى basic
+            await updateUserData(uid, {
+                plan: 'basic',
+                premiumUntil: null
+            });
+            premium = false;
+            premiumUntil = null;
+            console.log('⏰ انتهى الاشتراك للمستخدم:', uid);
         }
-        
-        console.log('💰 Premium:', isPremium);
-        updatePremiumUI(isPremium);
+    }
+    
+    return { premium, plan: premium ? 'premium' : 'basic', premiumUntil };
+}
+
+// ============================================
+// تحديث واجهة المستخدم
+// ============================================
+function updateUIAfterLogin(user, userData) {
+    if (!user) {
+        // غير مسجل
+        document.getElementById('navLoginBtn').style.display = 'block';
+        document.getElementById('profileIcon').style.display = 'none';
+        document.getElementById('profileDropdown').classList.remove('active');
+        return;
+    }
+    
+    // مسجل
+    document.getElementById('navLoginBtn').style.display = 'none';
+    const profileIcon = document.getElementById('profileIcon');
+    profileIcon.style.display = 'flex';
+    profileIcon.textContent = user.displayName ? user.displayName.charAt(0).toUpperCase() : '👤';
+    
+    // تحديث الـ Profile Dropdown
+    document.getElementById('userNameDisplay').textContent = user.displayName || 'مستخدم';
+    document.getElementById('userEmailDisplay').textContent = user.email || 'بريد غير معروف';
+    
+    // المستوى
+    const levelDisplay = document.getElementById('userLevelDisplay');
+    if (levelDisplay && userData) {
+        levelDisplay.textContent = userData.level || 'B1';
+    }
+    
+    // نوع الحساب
+    const statusDisplay = document.getElementById('profileStatus');
+    if (statusDisplay && userData) {
+        const isPremium = userData.plan === 'premium';
+        statusDisplay.textContent = isPremium ? '✅ Premium User' : '📋 Basic User';
+        statusDisplay.style.color = isPremium ? '#22c55e' : '#94a3b8';
+    }
+    
+    // تاريخ انتهاء الاشتراك
+    const expiryDisplay = document.getElementById('profileExpiry');
+    if (expiryDisplay && userData?.premiumUntil) {
+        const expiryDate = userData.premiumUntil.seconds 
+            ? new Date(userData.premiumUntil.seconds * 1000) 
+            : new Date(userData.premiumUntil);
+        expiryDisplay.textContent = `ينتهي: ${expiryDate.toLocaleDateString()}`;
+        expiryDisplay.style.display = 'block';
+    } else if (expiryDisplay) {
+        expiryDisplay.style.display = 'none';
+    }
+    
+    // إغلاق نافذة التسجيل
+    document.getElementById('signupPopup')?.classList.remove('active');
+    document.getElementById('loginPopup')?.classList.remove('active');
+    
+    // تحديث المزايا حسب الـ Premium
+    updatePremiumFeatures(userData?.plan === 'premium');
+}
+
+// ============================================
+// تحديث المزايا حسب الـ Premium
+// ============================================
+function updatePremiumFeatures(isPremium) {
+    const premiumElements = document.querySelectorAll('.premium-only');
+    premiumElements.forEach(el => {
+        el.style.display = isPremium ? 'block' : 'none';
+    });
+    
+    // تحديث زر الاشتراك
+    const subscribeBtn = document.getElementById('navSubscribeBtn');
+    if (subscribeBtn) {
+        if (isPremium) {
+            subscribeBtn.textContent = '✅ Premium';
+            subscribeBtn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+        } else {
+            subscribeBtn.textContent = 'اشترك';
+            subscribeBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        }
     }
 }
 
 // ============================================
-// تحديث واجهة Premium
+// تسجيل الخروج
 // ============================================
-function updatePremiumUI(premium) {
-    const premiumElements = document.querySelectorAll('.premium-only');
-    premiumElements.forEach(el => {
-        el.style.display = premium ? 'block' : 'none';
-    });
+async function signOutUser() {
+    try {
+        await signOut(auth);
+        currentUser = null;
+        currentUserData = null;
+        isPremium = false;
+        updateUIAfterLogin(null, null);
+        showMessage('✅ تم تسجيل الخروج');
+    } catch (error) {
+        console.error('❌ خطأ في تسجيل الخروج:', error);
+    }
 }
 
 // ============================================
@@ -147,43 +241,33 @@ function initAuthListener() {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             currentUser = user;
-            await saveUserToFirestore(user);
-            updateUIAfterLogin(user);
-            await checkPremiumStatus(user.uid);
+            currentUserData = await getUserData(user.uid);
+            
+            // التحقق من Premium
+            if (currentUserData) {
+                const status = await checkPremiumStatus(user.uid);
+                isPremium = status.premium;
+                // تحديث البيانات إذا تغيرت
+                if (currentUserData.plan !== status.plan) {
+                    currentUserData.plan = status.plan;
+                    currentUserData.premiumUntil = status.premiumUntil;
+                }
+            }
+            
+            updateUIAfterLogin(user, currentUserData);
         } else {
             currentUser = null;
+            currentUserData = null;
             isPremium = false;
-            // تحديث واجهة المستخدم للخروج
-            const loginBtn = document.getElementById('navLoginBtn');
-            const profileIcon = document.getElementById('profileIcon');
-            
-            if (loginBtn) loginBtn.style.display = 'block';
-            if (profileIcon) {
-                profileIcon.style.display = 'none';
-                profileIcon.innerHTML = '👤';
-            }
+            updateUIAfterLogin(null, null);
         }
     });
 }
 
 // ============================================
-// تسجيل الخروج
-// ============================================
-async function signOutUser() {
-    try {
-        await signOut(auth);
-        showMessage('✅ تم تسجيل الخروج');
-        currentUser = null;
-        isPremium = false;
-    } catch (error) {
-        console.error('❌ خطأ في تسجيل الخروج:', error);
-    }
-}
-
-// ============================================
 // إظهار رسالة
 // ============================================
-function showMessage(msg) {
+function showMessage(msg, isError = false) {
     let bubble = document.getElementById('tempMsg');
     if (bubble) bubble.remove();
     bubble = document.createElement('div');
@@ -194,8 +278,8 @@ function showMessage(msg) {
         bottom: 80px;
         left: 50%;
         transform: translateX(-50%);
-        background: #2d2f36;
-        color: #e0e0e0;
+        background: ${isError ? '#dc2626' : '#2d2f36'};
+        color: #ffffff;
         padding: 8px 20px;
         border-radius: 40px;
         font-size: 0.8rem;
@@ -208,44 +292,134 @@ function showMessage(msg) {
 }
 
 // ============================================
-// تهيئة الأحداث
+// ربط الأحداث
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
-    // زر تسجيل الدخول
-    const loginBtn = document.getElementById('navLoginBtn');
-    if (loginBtn) {
-        loginBtn.addEventListener('click', signInWithGoogle);
-    }
+    // زر تسجيل الدخول (يفتح نافذة تسجيل الدخول)
+    document.getElementById('navLoginBtn')?.addEventListener('click', () => {
+        document.getElementById('loginPopup').classList.add('active');
+    });
     
-    // زر تسجيل الدخول في النافذة المنبثقة
-    const popupLoginBtn = document.getElementById('popupLoginBtn');
-    if (popupLoginBtn) {
-        popupLoginBtn.addEventListener('click', signInWithGoogle);
-    }
+    // زر إنشاء حساب (يفتح نافذة التسجيل)
+    document.getElementById('signupBtn')?.addEventListener('click', () => {
+        document.getElementById('signupPopup').classList.add('active');
+    });
+    
+    // زر إغلاق نافذة تسجيل الدخول
+    document.getElementById('closeLoginPopup')?.addEventListener('click', () => {
+        document.getElementById('loginPopup').classList.remove('active');
+    });
+    
+    // زر إغلاق نافذة التسجيل
+    document.getElementById('closeSignupPopup')?.addEventListener('click', () => {
+        document.getElementById('signupPopup').classList.remove('active');
+    });
+    
+    // إغلاق النوافذ عند الضغط خارجها
+    document.getElementById('loginPopup')?.addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) {
+            e.currentTarget.classList.remove('active');
+        }
+    });
+    document.getElementById('signupPopup')?.addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) {
+            e.currentTarget.classList.remove('active');
+        }
+    });
+    
+    // زر تسجيل الدخول بالبريد
+    document.getElementById('loginEmailBtn')?.addEventListener('click', async () => {
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        
+        if (!email || !password) {
+            showMessage('⚠️ الرجاء إدخال البريد وكلمة السر', true);
+            return;
+        }
+        
+        const result = await signInWithEmail(email, password);
+        if (result.success) {
+            showMessage('✅ مرحباً ' + (result.user.displayName || result.user.email));
+            document.getElementById('loginPopup').classList.remove('active');
+        } else {
+            showMessage('❌ ' + result.error, true);
+        }
+    });
+    
+    // زر إنشاء حساب
+    document.getElementById('createAccountBtn')?.addEventListener('click', async () => {
+        const firstName = document.getElementById('signupFirstName').value.trim();
+        const lastName = document.getElementById('signupLastName').value.trim();
+        const username = document.getElementById('signupUsername').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const password = document.getElementById('signupPassword').value;
+        const level = document.getElementById('signupLevel').value || 'B1';
+        
+        if (!firstName || !lastName || !username || !email || !password) {
+            showMessage('⚠️ الرجاء ملء جميع الحقول', true);
+            return;
+        }
+        
+        if (password.length < 6) {
+            showMessage('⚠️ كلمة السر يجب أن تكون 6 أحرف على الأقل', true);
+            return;
+        }
+        
+        const result = await createAccount(firstName, lastName, username, email, password, level);
+        if (result.success) {
+            showMessage('✅ تم إنشاء الحساب بنجاح!');
+            document.getElementById('signupPopup').classList.remove('active');
+        } else {
+            showMessage('❌ ' + result.error, true);
+        }
+    });
     
     // زر تسجيل الخروج
-    const logoutBtn = document.getElementById('profileLogoutBtn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', signOutUser);
-    }
+    document.getElementById('profileLogoutBtn')?.addEventListener('click', signOutUser);
     
-    // بدء الاستماع لحالة Auth
+    // فتح/إغلاق الـ Profile Dropdown
+    document.getElementById('profileIcon')?.addEventListener('click', () => {
+        document.getElementById('profileDropdown').classList.toggle('active');
+    });
+    
+    // إغلاق الـ Profile عند النقر خارجها
+    document.addEventListener('click', (e) => {
+        const dropdown = document.getElementById('profileDropdown');
+        const icon = document.getElementById('profileIcon');
+        if (dropdown && icon && !dropdown.contains(e.target) && !icon.contains(e.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+    
+    // بدء الاستماع
     initAuthListener();
 });
 
-// تصدير الدوال للاستخدام العالمي
-export { 
-    currentUser, 
-    isPremium, 
-    signInWithGoogle, 
-    signOutUser, 
+// ============================================
+// تصدير للاستخدام العالمي
+// ============================================
+export {
+    currentUser,
+    currentUserData,
+    isPremium,
+    createAccount,
+    signInWithEmail,
     getUserData,
-    checkPremiumStatus
+    updateUserData,
+    checkPremiumStatus,
+    signOutUser,
+    updatePremiumFeatures
 };
 
-// جعلها متاحة عالمياً
-window.signInWithGoogle = signInWithGoogle;
-window.signOutUser = signOutUser;
+window.currentUser = currentUser;
+window.currentUserData = currentUserData;
+window.isPremium = isPremium;
+window.createAccount = createAccount;
+window.signInWithEmail = signInWithEmail;
 window.getUserData = getUserData;
+window.updateUserData = updateUserData;
+window.checkPremiumStatus = checkPremiumStatus;
+window.signOutUser = signOutUser;
+window.updatePremiumFeatures = updatePremiumFeatures;
 
-console.log('✅ نظام Auth جاهز');
+console.log('✅ Auth System جاهز (مع إنشاء الحساب)');
