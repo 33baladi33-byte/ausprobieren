@@ -1,5 +1,5 @@
 /* ============================================
-   studySession.css - جلسة مراجعة
+   studySession.css - جلسة مراجعة (النسخة النهائية)
    ============================================ */
 
 /* زر العداد - مثل زر الإشعارات */
@@ -7,18 +7,14 @@
     width: 46px;
     height: 46px;
     border-radius: 50%;
-
     background: rgba(56, 189, 248, 0.08);
     border: 1px solid rgba(56, 189, 248, 0.25);
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     color: #38bdf8;
     font-size: 20px;
     cursor: pointer;
-
     transition: all 0.25s ease;
 }
 
@@ -30,7 +26,7 @@
     box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
 }
 
-/* نافذة اختيار المدة */
+/* ====== نافذة الجلسة الجديدة (بدون عناوين ونصوص تحفيزية) ====== */
 .session-modal {
     display: none;
     position: fixed;
@@ -38,8 +34,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
     z-index: 15000;
     justify-content: center;
     align-items: center;
@@ -49,107 +45,81 @@
     display: flex;
 }
 
+/* البطاقة الرئيسية - تصميم بسيط */
 .session-modal-content {
-    background: #ffffff;
-    border-radius: 28px;
+    background: #f8f9fc;
+    border-radius: 20px;
     max-width: 400px;
     width: 90%;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    overflow: hidden;
+    padding: 32px 28px 28px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-.session-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 24px;
-    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
-    color: white;
-}
-
-.session-modal-header h3 {
-    margin: 0;
-    font-size: 1.2rem;
-}
-
-.close-session-modal {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: white;
-    opacity: 0.7;
-}
-
-.session-modal-body {
-    padding: 28px 24px 32px;
-}
-
-.session-question {
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #1e293b;
+/* ====== أزرار المدة ====== */
+.session-times-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
     margin-bottom: 24px;
 }
 
-.session-times-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 28px;
-}
-
 .time-option {
-    background: #f1f5f9;
-    border: none;
-    border-radius: 60px;
-    padding: 12px 8px;
-    font-size: 0.95rem;
+    background: #ffffff;
+    border: 1px solid #e8ecf0;
+    border-radius: 12px;
+    padding: 12px 6px;
+    font-size: 0.85rem;
     font-weight: 500;
-    color: #1e293b;
+    color: #334155;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     text-align: center;
+    font-family: inherit;
 }
 
 .time-option:hover {
-    background: #e2e8f0;
-    transform: translateY(-2px);
+    background: #f1f4f8;
+    border-color: #c8d0d8;
+    transform: translateY(-1px);
 }
 
-/* نص التحفيز */
-.session-motivation {
-    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-    border-radius: 20px;
-    padding: 16px;
+.time-option:active {
+    transform: scale(0.98);
+}
+
+/* ====== مجموع ساعات الدراسة ====== */
+.session-total-hours {
     text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #e8ecf0;
 }
 
-.motivation-icon {
-    font-size: 1.8rem;
-    margin-bottom: 6px;
-}
-
-.motivation-text {
-    font-size: 0.9rem;
-    color: #1e293b;
-    line-height: 1.5;
-}
-
-.motivation-small {
+.session-total-hours .label {
     font-size: 0.75rem;
-    color: #5dade2;
+    color: #94a3b8;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
     display: block;
-    margin-top: 5px;
+    margin-bottom: 4px;
 }
 
-.motivation-coffee {
-    font-size: 1.2rem;
-    margin-top: 8px;
+.session-total-hours .value {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1e293b;
+    font-family: 'SF Mono', 'Monaco', monospace;
 }
 
-/* ====== العداد الصغير - رمادي مسود ====== */
+.session-total-hours .value-unit {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #64748b;
+    margin-left: 4px;
+}
+
+/* ====== العداد الصغير (التايمر) ====== */
 .session-timer-bar {
     position: fixed;
     top: 85px;
@@ -174,7 +144,6 @@
     color: #f5f7fa;
 }
 
-/* زر الإلغاء */
 .cancel-session-btn {
     background: rgba(255, 255, 255, 0.12);
     border: none;
@@ -197,37 +166,15 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Bubble صغيرة */
-.session-timer-bubble {
-    position: fixed;
-    top: 120px;
-    right: 20px;
-    background: #f59e0b;
-    color: #1a1a2e;
-    padding: 3px 10px;
-    border-radius: 40px;
-    font-size: 0.6rem;
-    font-weight: 500;
-    z-index: 13999;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    animation: bubblePulse 0.4s ease;
-    white-space: nowrap;
-}
-
-@keyframes bubblePulse {
-    0% { transform: scale(0.8); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-/* نافذة النهاية */
+/* ====== نافذة النهاية ====== */
 .session-end-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px);
     z-index: 20000;
     display: flex;
     justify-content: center;
@@ -235,127 +182,139 @@
 }
 
 .session-end-card {
-    background: #ffffff;
-    border-radius: 48px;
+    background: #f8f9fc;
+    border-radius: 20px;
     padding: 32px 28px;
     text-align: center;
-    max-width: 280px;
+    max-width: 260px;
     width: 85%;
-}
-
-.session-end-icon {
-    font-size: 3rem;
-    margin-bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
 }
 
 .session-end-title {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 1.3rem;
+    font-weight: 600;
     color: #1e293b;
+    margin-bottom: 6px;
 }
 
 .session-end-sub {
-    font-size: 0.95rem;
-    color: #2c3e66;
-    margin: 8px 0;
-}
-
-.session-end-message {
     font-size: 0.85rem;
-    color: #475569;
-    margin-bottom: 20px;
+    color: #64748b;
+    margin-bottom: 16px;
 }
 
 .end-overlay-btn {
-    background: linear-gradient(135deg, #2c3e66, #1a2a4a);
+    background: #2c3e66;
     border: none;
     border-radius: 60px;
-    padding: 10px 24px;
+    padding: 10px 28px;
     color: white;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 500;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
-/* الوضع الليلي */
+.end-overlay-btn:hover {
+    background: #1a2a4a;
+}
+
+/* ====== الوضع الليلي ====== */
 body.dark-mode .session-modal-content {
-    background: #0f0f1a;
-}
-
-body.dark-mode .session-question {
-    color: #e0e0e0;
+    background: #14141e;
+    border-color: rgba(255, 255, 255, 0.04);
 }
 
 body.dark-mode .time-option {
-    background: #1a1a2e;
-    color: #c0c0c0;
+    background: #1e1e2e;
+    border-color: #2a2a3a;
+    color: #c8d0d8;
 }
 
 body.dark-mode .time-option:hover {
     background: #2a2a3a;
+    border-color: #3a3a4a;
 }
 
-body.dark-mode .session-motivation {
-    background: linear-gradient(135deg, #1a1a2e, #0f0f1a);
+body.dark-mode .session-total-hours {
+    border-top-color: #2a2a3a;
 }
 
-body.dark-mode .motivation-text {
-    color: #e0e0e0;
+body.dark-mode .session-total-hours .label {
+    color: #64748b;
 }
 
-body.dark-mode .session-timer-bar {
-    background: #2a3a4a;
+body.dark-mode .session-total-hours .value {
+    color: #e8ecf0;
+}
+
+body.dark-mode .session-total-hours .value-unit {
+    color: #94a3b8;
 }
 
 body.dark-mode .session-end-card {
-    background: #0f0f1a;
+    background: #14141e;
+    border-color: rgba(255, 255, 255, 0.04);
 }
 
 body.dark-mode .session-end-title {
-    color: #ffffff;
+    color: #e8ecf0;
 }
 
 body.dark-mode .session-end-sub {
-    color: #5dade2;
+    color: #94a3b8;
 }
 
-/* للهواتف */
+body.dark-mode .session-timer-bar {
+    background: #1e1e2e;
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ====== الهواتف ====== */
 @media (max-width: 768px) {
     .study-session-btn {
         width: 34px;
         height: 34px;
-        padding: 6px 10px;
         font-size: 14px;
     }
-    
+
+    .session-modal-content {
+        padding: 24px 16px 20px;
+    }
+
+    .session-times-grid {
+        gap: 6px;
+    }
+
+    .time-option {
+        padding: 10px 4px;
+        font-size: 0.75rem;
+        border-radius: 10px;
+    }
+
+    .session-total-hours .value {
+        font-size: 1.3rem;
+    }
+
     .session-timer-bar {
         top: 60px;
         right: 10px;
         padding: 2px 8px 2px 12px;
     }
-    
+
     .timer-display {
         font-size: 0.6rem;
     }
-    
+
     .cancel-session-btn {
         width: 16px;
         height: 16px;
         font-size: 9px;
     }
-    
-    .session-timer-bubble {
-        top: 95px;
-        right: 10px;
-        font-size: 0.55rem;
-        padding: 2px 8px;
-    }
-    
-    .session-times-grid {
-        gap: 8px;
-    }
-    
-    .time-option {
-        padding: 8px 6px;
-        font-size: 0.85rem;
+
+    .session-end-card {
+        padding: 24px 20px;
     }
 }
