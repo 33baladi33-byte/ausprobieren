@@ -22,5 +22,19 @@
       "text": "Ingrid Thieme wird sich an der kommenden WM beteiligen.",
       "correct": false
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 5,
+      "parts": [
+        "Es ist unklar, ob das Problem noch einmal auftreten kann."
+      ]
+    },
+    {
+      "color": 11,
+      "parts": [
+        "Die Produkte von TipTop sind in Deutschland nicht mehr so gefragt."
+      ]
+    }
   ]
 }
