@@ -1308,10 +1308,15 @@ body.dark-mode .mobile-banner span {
     </button>
 </div>
 
-<!-- ✅ زر التخليط أصبح خارج examNavButtons، فوق الأسئلة -->
-<div id="interleavingRow" style="display: flex; align-items: center; justify-content: flex-start; margin-bottom: 12px; padding-left: 4px;">
+<!-- ✅ زر التخليط + زر اللعبة فوق الأسئلة -->
+<div id="interleavingRow" style="display: flex; align-items: center; justify-content: flex-start; margin-bottom: 12px; padding-left: 4px; gap: 8px;">
+    <!-- زر التخليط -->
     <button id="interleavingBtn" class="interleaving-icon-btn" title="ترتيب ثابت للأسئلة">
         <span class="material-symbols-outlined">swap_vert</span>
+    </button>
+    <!-- زر اللعبة (جديد) -->
+    <button id="rapidGameBtn" class="interleaving-icon-btn" title="العب التحدي السريع">
+        <span class="material-symbols-outlined">stadia_controller</span>
     </button>
 </div>
 
