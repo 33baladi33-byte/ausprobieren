@@ -22,5 +22,25 @@
       "text": "Erzieherinnen verlangen bessere Bezahlung.",
       "correct": true
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 0,
+      "parts": [
+        "Die Fans, die das Spiel unterstützten, waren überrascht."
+      ]
+    },
+    {
+      "color": 5,
+      "parts": [
+        "Eine Familie von Pandas kommt im Park an."
+      ]
+    },
+    {
+      "color": 11,
+      "parts": [
+        "Erzieherinnen verlangen bessere Bezahlung."
+      ]
+    }
   ]
 }
