@@ -60,7 +60,6 @@ async function signInWithEmail(email, password) {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         
-        // جلب بيانات المستخدم من Firestore
         const userData = await getUserData(user.uid);
         
         return { success: true, user, userData };
@@ -113,13 +112,11 @@ async function checkPremiumStatus(uid) {
     let premium = data.plan === 'premium';
     let premiumUntil = data.premiumUntil || null;
     
-    // التحقق من انتهاء الاشتراك
     if (premium && premiumUntil) {
         const now = Date.now();
         const expiry = premiumUntil.seconds ? premiumUntil.seconds * 1000 : premiumUntil;
         
         if (now > expiry) {
-            // انتهى الاشتراك - التغيير تلقائياً إلى basic
             await updateUserData(uid, {
                 plan: 'basic',
                 premiumUntil: null
@@ -137,55 +134,65 @@ async function checkPremiumStatus(uid) {
 // تحديث واجهة المستخدم
 // ============================================
 function updateUIAfterLogin(user, userData) {
+    const navLoginBtn = document.getElementById('navLoginBtn');
+    const navSignupBtn = document.getElementById('navSignupBtn');
+    const profileIcon = document.getElementById('profileIcon');
+    const profileDropdown = document.getElementById('profileDropdown');
+    const userNameDisplay = document.getElementById('userNameDisplay');
+    const userEmailDisplay = document.getElementById('userEmailDisplay');
+    const profileStatus = document.getElementById('profileStatus');
+    const profileExpiry = document.getElementById('profileExpiry');
+    
     if (!user) {
-        // غير مسجل
-        document.getElementById('navLoginBtn').style.display = 'block';
-        document.getElementById('profileIcon').style.display = 'none';
-        document.getElementById('profileDropdown').classList.remove('active');
+        if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
+        if (navSignupBtn) navSignupBtn.style.display = 'inline-block';
+        if (profileIcon) profileIcon.style.display = 'none';
+        if (profileDropdown) profileDropdown.classList.remove('active');
+        if (userNameDisplay) userNameDisplay.textContent = 'مستخدم';
+        if (userEmailDisplay) userEmailDisplay.textContent = 'غير مسجل';
+        if (profileStatus) profileStatus.textContent = '📋 Basic User';
+        if (profileExpiry) profileExpiry.style.display = 'none';
         return;
     }
     
     // مسجل
-    document.getElementById('navLoginBtn').style.display = 'none';
-    const profileIcon = document.getElementById('profileIcon');
-    profileIcon.style.display = 'flex';
-    profileIcon.textContent = user.displayName ? user.displayName.charAt(0).toUpperCase() : '👤';
+    if (navLoginBtn) navLoginBtn.style.display = 'none';
+    if (navSignupBtn) navSignupBtn.style.display = 'none';
     
-    // تحديث الـ Profile Dropdown
-    document.getElementById('userNameDisplay').textContent = user.displayName || 'مستخدم';
-    document.getElementById('userEmailDisplay').textContent = user.email || 'بريد غير معروف';
-    
-    // المستوى
-    const levelDisplay = document.getElementById('userLevelDisplay');
-    if (levelDisplay && userData) {
-        levelDisplay.textContent = userData.level || 'B1';
+    if (profileIcon) {
+        profileIcon.style.display = 'flex';
+        profileIcon.textContent = user.displayName ? user.displayName.charAt(0).toUpperCase() : '👤';
     }
     
-    // نوع الحساب
-    const statusDisplay = document.getElementById('profileStatus');
-    if (statusDisplay && userData) {
+    if (userNameDisplay) {
+        userNameDisplay.textContent = user.displayName || 'مستخدم';
+    }
+    
+    if (userEmailDisplay) {
+        userEmailDisplay.textContent = user.email || 'بريد غير معروف';
+    }
+    
+    if (profileStatus && userData) {
         const isPremium = userData.plan === 'premium';
-        statusDisplay.textContent = isPremium ? '✅ Premium User' : '📋 Basic User';
-        statusDisplay.style.color = isPremium ? '#22c55e' : '#94a3b8';
+        profileStatus.textContent = isPremium ? '⭐ Premium User' : '📋 Basic User';
+        profileStatus.style.color = isPremium ? '#22c55e' : '#94a3b8';
     }
     
-    // تاريخ انتهاء الاشتراك
-    const expiryDisplay = document.getElementById('profileExpiry');
-    if (expiryDisplay && userData?.premiumUntil) {
+    if (profileExpiry && userData?.premiumUntil) {
         const expiryDate = userData.premiumUntil.seconds 
             ? new Date(userData.premiumUntil.seconds * 1000) 
             : new Date(userData.premiumUntil);
-        expiryDisplay.textContent = `ينتهي: ${expiryDate.toLocaleDateString()}`;
-        expiryDisplay.style.display = 'block';
-    } else if (expiryDisplay) {
-        expiryDisplay.style.display = 'none';
+        profileExpiry.textContent = `📅 ينتهي: ${expiryDate.toLocaleDateString('ar-EG')}`;
+        profileExpiry.style.display = 'block';
+    } else if (profileExpiry) {
+        profileExpiry.style.display = 'none';
     }
     
-    // إغلاق نافذة التسجيل
+    // إغلاق النوافذ
     document.getElementById('signupPopup')?.classList.remove('active');
     document.getElementById('loginPopup')?.classList.remove('active');
     
-    // تحديث المزايا حسب الـ Premium
+    // تحديث المزايا
     updatePremiumFeatures(userData?.plan === 'premium');
 }
 
@@ -198,7 +205,6 @@ function updatePremiumFeatures(isPremium) {
         el.style.display = isPremium ? 'block' : 'none';
     });
     
-    // تحديث زر الاشتراك
     const subscribeBtn = document.getElementById('navSubscribeBtn');
     if (subscribeBtn) {
         if (isPremium) {
@@ -236,11 +242,9 @@ function initAuthListener() {
             currentUser = user;
             currentUserData = await getUserData(user.uid);
             
-            // التحقق من Premium
             if (currentUserData) {
                 const status = await checkPremiumStatus(user.uid);
                 isPremium = status.premium;
-                // تحديث البيانات إذا تغيرت
                 if (currentUserData.plan !== status.plan) {
                     currentUserData.plan = status.plan;
                     currentUserData.premiumUntil = status.premiumUntil;
@@ -285,45 +289,53 @@ function showMessage(msg, isError = false) {
 }
 
 // ============================================
-// ربط الأحداث
+// ربط الأحداث (معدل حسب HTML الخاص بك)
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
-    // زر تسجيل الدخول (يفتح نافذة تسجيل الدخول)
+    
+    // === زر تسجيل الدخول (يفتح نافذة تسجيل الدخول) ===
     document.getElementById('navLoginBtn')?.addEventListener('click', () => {
-        document.getElementById('loginPopup').classList.add('active');
+        document.getElementById('loginPopup')?.classList.add('active');
     });
     
-    // زر إنشاء حساب (يفتح نافذة التسجيل)
-    document.getElementById('signupBtn')?.addEventListener('click', () => {
-        document.getElementById('signupPopup').classList.add('active');
+    // === زر إنشاء حساب (يفتح نافذة التسجيل) ===
+    document.getElementById('navSignupBtn')?.addEventListener('click', () => {
+        document.getElementById('signupPopup')?.classList.add('active');
     });
     
-    // زر إغلاق نافذة تسجيل الدخول
-    document.getElementById('closeLoginPopup')?.addEventListener('click', () => {
-        document.getElementById('loginPopup').classList.remove('active');
+    // === زر إغلاق نافذة تسجيل الدخول ===
+    document.getElementById('closePopupBtn')?.addEventListener('click', () => {
+        document.getElementById('loginPopup')?.classList.remove('active');
     });
     
-    // زر إغلاق نافذة التسجيل
+    // === زر إغلاق نافذة التسجيل ===
     document.getElementById('closeSignupPopup')?.addEventListener('click', () => {
-        document.getElementById('signupPopup').classList.remove('active');
+        document.getElementById('signupPopup')?.classList.remove('active');
     });
     
-    // إغلاق النوافذ عند الضغط خارجها
+    // === إغلاق النوافذ عند الضغط خارجها ===
     document.getElementById('loginPopup')?.addEventListener('click', (e) => {
         if (e.target === e.currentTarget) {
             e.currentTarget.classList.remove('active');
         }
     });
+    
     document.getElementById('signupPopup')?.addEventListener('click', (e) => {
         if (e.target === e.currentTarget) {
             e.currentTarget.classList.remove('active');
         }
     });
     
-    // زر تسجيل الدخول بالبريد
-    document.getElementById('loginEmailBtn')?.addEventListener('click', async () => {
-        const email = document.getElementById('loginEmail').value.trim();
-        const password = document.getElementById('loginPassword').value;
+    // === التبديل من إنشاء حساب إلى تسجيل الدخول ===
+    document.getElementById('switchToLogin')?.addEventListener('click', () => {
+        document.getElementById('signupPopup')?.classList.remove('active');
+        document.getElementById('loginPopup')?.classList.add('active');
+    });
+    
+    // === زر تسجيل الدخول بالبريد ===
+    document.getElementById('popupLoginBtn')?.addEventListener('click', async () => {
+        const email = document.getElementById('popupEmail')?.value.trim();
+        const password = document.getElementById('popupPassword')?.value;
         
         if (!email || !password) {
             showMessage('⚠️ الرجاء إدخال البريد وكلمة السر', true);
@@ -333,20 +345,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const result = await signInWithEmail(email, password);
         if (result.success) {
             showMessage('✅ مرحباً ' + (result.user.displayName || result.user.email));
-            document.getElementById('loginPopup').classList.remove('active');
+            document.getElementById('loginPopup')?.classList.remove('active');
         } else {
             showMessage('❌ ' + result.error, true);
         }
     });
     
-    // زر إنشاء حساب
+    // === زر إنشاء حساب ===
     document.getElementById('createAccountBtn')?.addEventListener('click', async () => {
-        const firstName = document.getElementById('signupFirstName').value.trim();
-        const lastName = document.getElementById('signupLastName').value.trim();
-        const username = document.getElementById('signupUsername').value.trim();
-        const email = document.getElementById('signupEmail').value.trim();
-        const password = document.getElementById('signupPassword').value;
-        const level = document.getElementById('signupLevel').value || 'B1';
+        const firstName = document.getElementById('signupFirstName')?.value.trim();
+        const lastName = document.getElementById('signupLastName')?.value.trim();
+        const username = document.getElementById('signupUsername')?.value.trim();
+        const email = document.getElementById('signupEmail')?.value.trim();
+        const password = document.getElementById('signupPassword')?.value;
         
         if (!firstName || !lastName || !username || !email || !password) {
             showMessage('⚠️ الرجاء ملء جميع الحقول', true);
@@ -358,24 +369,40 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        const result = await createAccount(firstName, lastName, username, email, password, level);
+        const result = await createAccount(firstName, lastName, username, email, password);
         if (result.success) {
-            showMessage('✅ تم إنشاء الحساب بنجاح!');
-            document.getElementById('signupPopup').classList.remove('active');
+            showMessage('✅ تم إنشاء الحساب بنجاح! 🎉');
+            document.getElementById('signupPopup')?.classList.remove('active');
         } else {
             showMessage('❌ ' + result.error, true);
         }
     });
     
-    // زر تسجيل الخروج
-    document.getElementById('profileLogoutBtn')?.addEventListener('click', signOutUser);
-    
-    // فتح/إغلاق الـ Profile Dropdown
-    document.getElementById('profileIcon')?.addEventListener('click', () => {
-        document.getElementById('profileDropdown').classList.toggle('active');
+    // === دعم الضغط على Enter ===
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            if (document.getElementById('loginPopup')?.classList.contains('active')) {
+                document.getElementById('popupLoginBtn')?.click();
+            } else if (document.getElementById('signupPopup')?.classList.contains('active')) {
+                document.getElementById('createAccountBtn')?.click();
+            }
+        }
+        if (e.key === 'Escape') {
+            document.getElementById('loginPopup')?.classList.remove('active');
+            document.getElementById('signupPopup')?.classList.remove('active');
+        }
     });
     
-    // إغلاق الـ Profile عند النقر خارجها
+    // === زر تسجيل الخروج ===
+    document.getElementById('profileLogoutBtn')?.addEventListener('click', signOutUser);
+    
+    // === فتح/إغلاق الـ Profile Dropdown ===
+    document.getElementById('profileIcon')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.getElementById('profileDropdown')?.classList.toggle('active');
+    });
+    
+    // === إغلاق الـ Profile عند النقر خارجها ===
     document.addEventListener('click', (e) => {
         const dropdown = document.getElementById('profileDropdown');
         const icon = document.getElementById('profileIcon');
@@ -384,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // بدء الاستماع
+    // === بدء الاستماع ===
     initAuthListener();
 });
 
