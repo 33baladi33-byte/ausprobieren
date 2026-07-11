@@ -19,30 +19,23 @@ let currentUser = null;
 let currentUserData = null;
 let isPremium = false;
 
-// ============================================
-// إنشاء حساب جديد
-// ============================================
-async function createAccount(firstName, lastName, username, email, password, level) {
+async function createAccount(firstName, lastName, username, email, password) {
     try {
-        // 1. إنشاء الحساب في Firebase Auth
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         
-        // 2. تحديث الاسم في Auth
         await updateProfile(user, {
             displayName: `${firstName} ${lastName}`
         });
         
-        // 3. حفظ البيانات في Firestore
         const userData = {
             uid: user.uid,
             firstName: firstName,
             lastName: lastName,
             username: username,
             email: email,
-            level: level || 'B1',
-            plan: 'basic',           // ✅ حساب مجاني افتراضياً
-            premiumUntil: null,      // ✅ لا يوجد اشتراك
+            plan: 'basic',
+            premiumUntil: null,
             studyMinutes: 0,
             createdAt: serverTimestamp(),
             activeSession: null
