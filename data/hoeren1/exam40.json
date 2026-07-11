@@ -7,5 +7,10 @@
     { "text": "Die Sprecherin ist verheiratet und hat zwei Kinder.", "correct": true },
     { "text": "Der Sprecher ist geschieden und lebt mit seiner Tochter bei einer anderen Familie.", "correct": true },
     { "text": "Die Sprecherin wollte nie viele Kinder haben.", "correct": false }
+  ],
+  "memoryHighlights": [
+    { "color": 6, "parts": [ "Die Sprecherin möchte allein leben und machen können, was sie will." ] },
+    { "color": 11, "parts": [ "Die Sprecherin ist verheiratet und hat zwei Kinder." ] },
+    { "color": 2, "parts": [ "Der Sprecher ist geschieden und lebt mit seiner Tochter bei einer anderen Familie." ] }
   ]
 }
