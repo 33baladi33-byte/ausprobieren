@@ -28,6 +28,32 @@
 <link rel="stylesheet" href="studySession.css">
     
 <style>
+    /* أزرار المساعدة والتدريب الموحدة */
+.memory-btn {
+    border: none;
+    border-radius: 30px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.memory-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+.btn-blue {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+}
+.btn-indigo {
+    background: linear-gradient(135deg, #4F46E5, #4338CA);
+}
     /* تنسيق زر كفاش */
     .tips-trigger-btn {
         background: linear-gradient(135deg, #2c3e66, #1a2a4a);
@@ -1260,9 +1286,8 @@ body.dark-mode .mobile-banner span {
   <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
     <button id="prevExamBtn" class="nav-exam-btn">◀ السابق</button>
     <button id="nextExamBtn" class="nav-exam-btn">التالي ▶</button>
-    <button id="memoryTrainerBtn" class="nav-exam-btn memory-trainer-nav-btn" 
-        style="background: linear-gradient(135deg, #4F46E5, #4338CA); color: white; border: none; border-radius: 30px; padding: 8px 20px; font-size: 14px; font-weight: bold; cursor: pointer; margin-left: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: all 0.3s; display: none;">
-     خمّن و ماتخافش، حنا معاك
+    <button id="memoryTrainerBtn" class="memory-btn btn-indigo" style="display: none;">
+    😚 خمّن و ماتخافش، حنا معاك
 </button>
   </div>
   <div id="teil1" style="display:none;"></div>
