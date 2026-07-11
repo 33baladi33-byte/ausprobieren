@@ -9,7 +9,8 @@ import {
     signOut,
     onAuthStateChanged,
     updateProfile,
-    doc, getDoc, setDoc, updateDoc, serverTimestamp
+    doc, getDoc, setDoc, updateDoc, serverTimestamp,
+    collection, query, where, getDocs
 } from './firebase.js';
 
 // ============================================
@@ -191,6 +192,7 @@ function updateUIAfterLogin(user, userData) {
     // إغلاق النوافذ
     document.getElementById('signupPopup')?.classList.remove('active');
     document.getElementById('loginPopup')?.classList.remove('active');
+    document.getElementById('forgotPasswordPopup')?.classList.remove('active');
     
     // تحديث المزايا
     updatePremiumFeatures(userData?.plan === 'premium');
@@ -231,6 +233,66 @@ async function signOutUser() {
     } catch (error) {
         console.error('❌ خطأ في تسجيل الخروج:', error);
     }
+}
+
+// ============================================
+// نسيت كلمة المرور - إرسال عبر واتساب
+// ============================================
+async function resetPassword(email, newPassword) {
+    try {
+        // البحث عن المستخدم في Firestore
+        const usersRef = collection(db, 'users');
+        const q = query(usersRef, where('email', '==', email));
+        const querySnapshot = await getDocs(q);
+        
+        if (querySnapshot.empty) {
+            return { success: false, error: '❌ لا يوجد حساب بهذا البريد الإلكتروني' };
+        }
+        
+        // جلب بيانات المستخدم
+        const userDoc = querySnapshot.docs[0];
+        const userData = userDoc.data();
+        const uid = userDoc.id;
+        
+        // هنا سنقوم بإرسال رسالة واتساب تحتوي على طلب تغيير كلمة المرور
+        const phoneNumber = '212687561491';
+        const message = `السلام عليكم، نسيت كلمة المرور وبغيت نبدلها\n\n📧 البريد الإلكتروني: ${email}\n🔑 كلمة السر الجديدة: ${newPassword}\n👤 اسم المستخدم: ${userData.username || 'غير محدد'}`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+        
+        // فتح رابط واتساب في نافذة جديدة
+        window.open(whatsappUrl, '_blank');
+        
+        return { 
+            success: true, 
+            message: '✅ تم إرسال طلب تغيير كلمة المرور عبر واتساب',
+            whatsappUrl: whatsappUrl
+        };
+        
+    } catch (error) {
+        console.error('❌ خطأ في إعادة تعيين كلمة المرور:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// ============================================
+// إظهار/إخفاء كلمة السر
+// ============================================
+function togglePasswordVisibility(inputId, buttonId) {
+    const input = document.getElementById(inputId);
+    const button = document.getElementById(buttonId);
+    
+    if (!input || !button) return;
+    
+    button.addEventListener('click', function() {
+        if (input.type === 'password') {
+            input.type = 'text';
+            this.textContent = '🙈';
+        } else {
+            input.type = 'password';
+            this.textContent = '👁️';
+        }
+    });
 }
 
 // ============================================
@@ -332,6 +394,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('loginPopup')?.classList.add('active');
     });
     
+    // === التبديل من تسجيل الدخول إلى إنشاء حساب ===
+    document.getElementById('switchToSignup')?.addEventListener('click', () => {
+        document.getElementById('loginPopup')?.classList.remove('active');
+        document.getElementById('signupPopup')?.classList.add('active');
+    });
+    
     // === زر تسجيل الدخول بالبريد ===
     document.getElementById('popupLoginBtn')?.addEventListener('click', async () => {
         const email = document.getElementById('popupEmail')?.value.trim();
@@ -378,6 +446,52 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // === إغلاق نافذة نسيت كلمة المرور ===
+    document.getElementById('closeForgotPopup')?.addEventListener('click', () => {
+        document.getElementById('forgotPasswordPopup')?.classList.remove('active');
+    });
+    
+    // === إغلاق نافذة نسيت كلمة المرور عند الضغط خارجها ===
+    document.getElementById('forgotPasswordPopup')?.addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) {
+            e.currentTarget.classList.remove('active');
+        }
+    });
+    
+    // === فتح نافذة نسيت كلمة المرور ===
+    document.getElementById('forgotPasswordLink')?.addEventListener('click', () => {
+        document.getElementById('loginPopup')?.classList.remove('active');
+        document.getElementById('forgotPasswordPopup')?.classList.add('active');
+    });
+    
+    // === زر إرسال عبر واتساب (نسيت كلمة المرور) ===
+    document.getElementById('resetPasswordBtn')?.addEventListener('click', async () => {
+        const email = document.getElementById('forgotEmail')?.value.trim();
+        const newPassword = document.getElementById('forgotNewPassword')?.value;
+        
+        if (!email || !newPassword) {
+            showMessage('⚠️ الرجاء إدخال البريد الإلكتروني وكلمة السر الجديدة', true);
+            return;
+        }
+        
+        if (newPassword.length < 6) {
+            showMessage('⚠️ كلمة السر يجب أن تكون 6 أحرف على الأقل', true);
+            return;
+        }
+        
+        const result = await resetPassword(email, newPassword);
+        if (result.success) {
+            showMessage(result.message);
+            document.getElementById('forgotPasswordPopup')?.classList.remove('active');
+        } else {
+            showMessage('❌ ' + result.error, true);
+        }
+    });
+    
+    // === تفعيل زر العين (إظهار/إخفاء كلمة السر) ===
+    togglePasswordVisibility('popupPassword', 'togglePasswordBtn');
+    togglePasswordVisibility('signupPassword', 'toggleSignupPasswordBtn');
+    
     // === دعم الضغط على Enter ===
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -385,11 +499,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('popupLoginBtn')?.click();
             } else if (document.getElementById('signupPopup')?.classList.contains('active')) {
                 document.getElementById('createAccountBtn')?.click();
+            } else if (document.getElementById('forgotPasswordPopup')?.classList.contains('active')) {
+                document.getElementById('resetPasswordBtn')?.click();
             }
         }
         if (e.key === 'Escape') {
             document.getElementById('loginPopup')?.classList.remove('active');
             document.getElementById('signupPopup')?.classList.remove('active');
+            document.getElementById('forgotPasswordPopup')?.classList.remove('active');
         }
     });
     
@@ -428,6 +545,7 @@ export {
     updateUserData,
     checkPremiumStatus,
     signOutUser,
+    resetPassword,
     updatePremiumFeatures
 };
 
@@ -440,6 +558,7 @@ window.getUserData = getUserData;
 window.updateUserData = updateUserData;
 window.checkPremiumStatus = checkPremiumStatus;
 window.signOutUser = signOutUser;
+window.resetPassword = resetPassword;
 window.updatePremiumFeatures = updatePremiumFeatures;
 
-console.log('✅ Auth System جاهز (مع إنشاء الحساب)');
+console.log('✅ Auth System جاهز (مع إنشاء الحساب ونسيت كلمة المرور)');
