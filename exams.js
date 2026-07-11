@@ -15,8 +15,7 @@ const teile = [
   { id: 7, name: "Sprach 1", container: "sprach1", skill: "sprach1" },
   { id: 8, name: "Sprach 2", container: "sprach2", skill: "sprach2" },
   { id: 9, name: "Schreiben", container: "schreiben", skill: "schreiben" },
-  { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" },
-  { id: 11, name: "Tipps", container: "tips", skill: "tips" }
+  { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" }
 ];
 
 // ========== دالة حفظ آخر نتيجة ==========
