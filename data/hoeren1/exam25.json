@@ -22,5 +22,25 @@
       "text": "Es ist noch nicht entschieden, wie lange der Streik dauern soll.",
       "correct": true
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 1,
+      "parts": [
+        "Die Bundesländer sollen in Zukunft Geld für alternative Energien bekommen."
+      ]
+    },
+    {
+      "color": 7,
+      "parts": [
+        "Wenn man im Internet etwas kaufen möchte, sollte man seine Identität nachweisen müssen."
+      ]
+    },
+    {
+      "color": 11,
+      "parts": [
+        "Es ist noch nicht entschieden, wie lange der Streik dauern soll."
+      ]
+    }
   ]
 }
