@@ -1,5 +1,5 @@
 // ============================================
-// studySession.js - نظام جلسات المراجعة (النسخة النهائية)
+// studySession.js - نظام جلسات المراجعة (النسخة النهائية مع المجموع الكلي)
 // ============================================
 
 (function() {
@@ -20,20 +20,41 @@
             timerSeconds: document.getElementById('timerSeconds'),
             cancelBtn: document.getElementById('cancelSessionBtn'),
             endOverlay: document.getElementById('sessionEndOverlay'),
-            closeEndBtn: document.getElementById('closeEndOverlayBtn')
+            closeEndBtn: document.getElementById('closeEndOverlayBtn'),
+            totalHoursValue: document.getElementById('totalHoursValue')
         };
     }
     
-    // ====== إخفاء رسالة "المراجعة شغالة" تماماً ======
-    function showActiveMessage() {
-        // لا تفعل شيء - العبارة مخفية
+    // ====== إدارة مجموع ساعات الدراسة (الكلي) ======
+    function getTotalStudyMinutes() {
+        return parseInt(localStorage.getItem('total_study_minutes')) || 0;
     }
     
-    function hideActiveMessage() {
-        // لا تفعل شيء
+    function addTotalStudyMinutes(minutes) {
+        const newTotal = getTotalStudyMinutes() + minutes;
+        localStorage.setItem('total_study_minutes', newTotal);
     }
     
-    // ====== تشغيل صوت نهاية الجلسة (من ملف خارجي) ======
+    function formatTotalHours() {
+        const totalMinutes = getTotalStudyMinutes();
+        const hours = totalMinutes / 60;
+        
+        if (totalMinutes < 120) { // أقل من ساعتين
+            return hours.toFixed(1) + ' ساعة';
+        } else {
+            return Math.round(hours) + ' ساعات';
+        }
+    }
+    
+    // ====== عرض المجموع الكلي في النافذة ======
+    function updateTotalDisplay() {
+        const { totalHoursValue } = getElements();
+        if (totalHoursValue) {
+            totalHoursValue.textContent = formatTotalHours();
+        }
+    }
+    
+    // ====== تشغيل صوت نهاية الجلسة ======
     let endSound = null;
     
     function playEndSound() {
@@ -50,7 +71,7 @@
         }
     }
     
-    // ====== إدارة وقت المراجعة اليومي (مخفي تماماً) ======
+    // ====== إدارة وقت المراجعة اليومي ======
     function getTodayKey() {
         return `session_total_${new Date().toISOString().split('T')[0]}`;
     }
@@ -62,14 +83,9 @@
     function addTodayReviewedMinutes(minutes) {
         const newTotal = getTodayReviewedMinutes() + minutes;
         localStorage.setItem(getTodayKey(), newTotal);
-        if (newTotal >= 120 && newTotal - minutes < 120) {
-            showMessage("🔥 اليوم كنت مركز بزاف!");
-        } else if (newTotal >= 60 && newTotal - minutes < 60) {
-            showMessage("🇩🇪 تقدم ممتاز اليوم!");
-        }
     }
     
-    // دالة showMessage المعدلة - اللون رمادي مسود
+    // ====== رسالة مؤقتة ======
     function showMessage(msg) {
         let bubble = document.getElementById('tempMsg');
         if (bubble) bubble.remove();
@@ -79,15 +95,6 @@
         bubble.style.cssText = `position:fixed;bottom:80px;right:20px;background:#2d2f36;color:#e0e0e0;padding:5px 12px;border-radius:40px;font-size:0.7rem;z-index:13999;opacity:0.9;`;
         document.body.appendChild(bubble);
         setTimeout(() => bubble.remove(), 3000);
-    }
-    
-    // تم إخفاء عرض وقت المراجعة اليومي نهائياً
-    function updateTodayDisplay() {
-        let display = document.getElementById('todayReviewedDisplay');
-        if (display) {
-            display.style.display = 'none';
-            display.remove();
-        }
     }
     
     // ====== إظهار/إخفاء الزر حسب الصفحة ======
@@ -108,7 +115,7 @@
         }
     }
     
-    // ====== فتح/إغلاق النافذة ======
+    // ====== فتح النافذة ======
     function openModal() {
         const { modal } = getElements();
         if (!modal) return;
@@ -116,6 +123,7 @@
             showMessage("⚡ المراجعة شغالة");
             return; 
         }
+        updateTotalDisplay(); // تحديث المجموع عند الفتح
         modal.classList.add('active');
     }
     
@@ -124,7 +132,7 @@
         if (modal) modal.classList.remove('active');
     }
     
-    // ====== تحديث العداد (دقائق وثواني) ======
+    // ====== تحديث العداد ======
     function updateTimerDisplay() {
         const { timerMinutes, timerSeconds } = getElements();
         if (!timerMinutes) return;
@@ -135,19 +143,6 @@
             timerSeconds.textContent = secs.toString().padStart(2, '0');
             timerSeconds.style.display = 'inline';
         }
-    }
-    
-    // ====== Bubble الـ 20% ======
-    function showBubble() {
-        let bubble = document.getElementById('timeBubble');
-        if (bubble) bubble.remove();
-        const msgs = ["🔥 بقي القليل", "🇩🇪 كمل للنهاية", "☕ الشاي قريب"];
-        bubble = document.createElement('div');
-        bubble.id = 'timeBubble';
-        bubble.className = 'session-timer-bubble';
-        bubble.textContent = msgs[Math.floor(Math.random() * msgs.length)];
-        document.body.appendChild(bubble);
-        setTimeout(() => bubble.remove(), 3500);
     }
     
     // ====== بدء الجلسة ======
@@ -172,11 +167,6 @@
             } else {
                 remainingSeconds--;
                 updateTimerDisplay();
-                const percent = (remainingSeconds / totalSeconds) * 100;
-                if (percent <= 20 && percent > 19.5 && !window._bubbleShown) {
-                    showBubble();
-                    window._bubbleShown = true;
-                }
             }
         }, 1000);
     }
@@ -184,35 +174,53 @@
     // ====== إنهاء الجلسة ======
     function endSession() {
         if (sessionTimer) clearInterval(sessionTimer);
+        
+        // حساب الوقت الفعلي المستغرق
+        const elapsedSeconds = totalSeconds - remainingSeconds;
+        const minutesSpent = Math.floor(elapsedSeconds / 60);
+        
+        // إضافة للمجموع اليومي والكلي (إذا كان هناك وقت مستغرق)
+        if (minutesSpent > 0) {
+            addTodayReviewedMinutes(minutesSpent);
+            addTotalStudyMinutes(minutesSpent);
+        }
+        
         playEndSound();
-        const minutesSpent = Math.floor(totalSeconds / 60);
-        addTodayReviewedMinutes(minutesSpent);
         activeSession = false;
         
         const { timerBar, endOverlay } = getElements();
         if (timerBar) timerBar.style.display = 'none';
         if (endOverlay) endOverlay.style.display = 'flex';
         
-        window._bubbleShown = false;
-        const bubble = document.getElementById('timeBubble');
-        if (bubble) bubble.remove();
+        // تحديث عرض المجموع
+        updateTotalDisplay();
         
         setTimeout(() => { 
             if (endOverlay) endOverlay.style.display = 'none'; 
-        }, 5000);
+        }, 4000);
     }
     
     // ====== إلغاء الجلسة ======
     function cancelSession() {
         if (sessionTimer) clearInterval(sessionTimer);
+        
+        // حساب الوقت الفعلي المستغرق عند الإلغاء
+        const elapsedSeconds = totalSeconds - remainingSeconds;
+        const minutesSpent = Math.floor(elapsedSeconds / 60);
+        
+        // إضافة للمجموع اليومي والكلي (إذا كان هناك وقت مستغرق)
+        if (minutesSpent > 0) {
+            addTodayReviewedMinutes(minutesSpent);
+            addTotalStudyMinutes(minutesSpent);
+        }
+        
         activeSession = false;
         
         const { timerBar } = getElements();
         if (timerBar) timerBar.style.display = 'none';
         
-        window._bubbleShown = false;
-        const bubble = document.getElementById('timeBubble');
-        if (bubble) bubble.remove();
+        // تحديث عرض المجموع
+        updateTotalDisplay();
     }
     
     // ====== ربط الأحداث ======
@@ -277,8 +285,8 @@
         setTimeout(() => {
             bindEvents();
             setupObserver();
-            updateTodayDisplay();
-            console.log("✅ studySession.js جاهز - النسخة النهائية مع الصوت");
+            updateTotalDisplay();
+            console.log("✅ studySession.js جاهز - النسخة النهائية مع المجموع الكلي");
         }, 200);
     }
     
