@@ -1075,6 +1075,17 @@ body.dark-mode .mobile-banner span {
             </div>
         </div>
     </div>
+<!-- 🔀 زر Interleaving (ترتيب ثابت) -->
+<button id="interleavingBtn" class="interleaving-btn" 
+        title="ترتيب ثابت للأسئلة">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" 
+         stroke="currentColor" stroke-width="2.5">
+        <path d="M21 16V8h-8" stroke-linecap="round"/>
+        <path d="M3 8h8v8" stroke-linecap="round"/>
+        <path d="M21 8l-4-4 4-4" stroke-linecap="round"/>
+        <path d="M3 16l4 4-4 4" stroke-linecap="round"/>
+    </svg>
+</button>
     <!-- ⏰ جلسة مراجعة -->
     <button id="studySessionBtn" class="study-session-btn" title="جلسة مراجعة">⏰</button>
 
@@ -1264,48 +1275,37 @@ body.dark-mode .mobile-banner span {
 </div>
 
 <div id="exam" class="page">
-<div class="exam-box" style="display: flex; gap: 20px; align-items: flex-start;">
-    <!-- الشريط الجانبي للأزرار -->
-    <div class="exam-sidebar" style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; flex-shrink: 0;">
-        <!-- زر التخليط -->
-        <button id="interleavingBtn" class="sidebar-btn" title="ترتيب ثابت للأسئلة">
-            <span class="material-symbols-outlined">swap_vert</span>
-        </button>
-        <!-- زر اللعبة -->
-        <button id="memoryTrainerBtn" class="sidebar-btn" title="تدريب الذاكرة" style="display: none;">
-            <span class="material-symbols-outlined">stadia_controller</span>
-        </button>
-    
-
-    <!-- محتوى الامتحان -->
-    <div class="exam-content" style="flex: 1; min-width: 0;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <button id="backArrowFromExam" class="arrow-back-btn">↰</button>
-            <h2 id="examTitle" style="margin: 0; flex: 1; text-align: center;"></h2>
-            <div style="width: 40px;"></div>
-        </div>
-        <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
-            <button id="prevExamBtn" class="nav-exam-btn">◀ السابق</button>
-            <button id="nextExamBtn" class="nav-exam-btn">التالي ▶</button>
-        </div>
-        <!-- باقي أقسام الامتحان -->
-        <div id="teil1" style="display:none;"></div>
-        <div id="teil2" style="display:none;"></div>
-        <div id="teil3" style="display:none;"></div>
-        <div id="sprach1" style="display:none;"></div>
-        <div id="sprach2" style="display:none;"></div>
-        <div id="hoeren1" style="display:none;"></div>
-        <div id="hoeren2" style="display:none;"></div>
-        <div id="hoeren3" style="display:none;"></div>
-        <div id="schreiben" style="display:none;"></div>
-        <div id="mündlich1" style="display:none;"></div>
-        <div id="mündlich2" style="display:none;"></div>
-        <div id="mündlich3" style="display:none;"></div>
-        <div id="mündlich" style="display:none;"></div>
-        <div style="display: flex; justify-content: center; margin-top: 25px;">
-            <button id="backToListBtn" class="back-list-btn">عودة إلى القائمة</button>
-        </div>
-    </div>
+<div class="exam-box">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <button id="backArrowFromExam" class="arrow-back-btn">↰</button>
+    <h2 id="examTitle" style="margin: 0; flex: 1; text-align: center;"></h2>
+    <div style="width: 40px;"></div>
+  </div>
+  <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+    <button id="prevExamBtn" class="nav-exam-btn">◀ السابق</button>
+    <button id="nextExamBtn" class="nav-exam-btn">التالي ▶</button>
+    <button id="memoryTrainerBtn" class="memory-btn btn-blue" style="display: none;">
+    😚 خمّن و ماتخافش، حنا معاك
+</button>
+  </div>
+  <div id="teil1" style="display:none;"></div>
+  <div id="teil2" style="display:none;"></div>
+  <div id="teil3" style="display:none;"></div>
+  <div id="sprach1" style="display:none;"></div>
+  <div id="sprach2" style="display:none;"></div>
+  <div id="hoeren1" style="display:none;"></div>
+  <div id="hoeren2" style="display:none;"></div>
+  <div id="hoeren3" style="display:none;"></div>
+  <div id="schreiben" style="display:none;"></div>
+  <div id="mündlich1" style="display:none;"></div>
+  <div id="mündlich2" style="display:none;"></div>
+  <div id="mündlich3" style="display:none;"></div>
+  <div id="mündlich" style="display:none;"></div>
+  
+  <div style="display: flex; justify-content: center; margin-top: 25px;">
+    <button id="backToListBtn" class="back-list-btn">عودة إلى القائمة</button>
+  </div>
+</div>
 </div>
 
 <a href="https://wa.me/212687561491" target="_blank" id="whatsappFloat" class="whatsapp-float">
