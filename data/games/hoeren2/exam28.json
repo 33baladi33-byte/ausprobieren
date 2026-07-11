@@ -1,0 +1,16 @@
+{
+  "title": "Hörverstehen Teil 2 - Franz Schumacher",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Franz Schumacher handelt nicht nur mit Produkten aus eigenem Anbau.", "correct": true },
+    { "id": 2, "text": "Herr Schumacher lässt sich auch von anderen Bauern Produkte liefern.", "correct": true },
+    { "id": 3, "text": "Auf dem Markt sind schon viele Besucher unterwegs.", "correct": false },
+    { "id": 4, "text": "Die große Mehrheit der Kunden von Herrn Schumacher sind Stammkunden.", "correct": true },
+    { "id": 5, "text": "Herr Schumacher ist auf die Pfälzer Kartoffeln besonders stolz.", "correct": false },
+    { "id": 6, "text": "Franz Schumacher hat keine hohe Meinung vom 'Fachhändlerverein vom Rathausplatz'.", "correct": true },
+    { "id": 7, "text": "Herr Schumacher kommt morgens sehr früh auf den Markt, um sich einen guten Platz für seinen Stand zu sichern.", "correct": false },
+    { "id": 8, "text": "Herr Schumacher hat seit über 20 Jahren einen Stand auf dem Landauer Markt.", "correct": true },
+    { "id": 9, "text": "Herr Schumacher trägt eine Mütze, um sich vor Kälte zu schützen.", "correct": false },
+    { "id": 10, "text": "Herr Schumacher möchte in Zukunft einen Verkaufsstand in einer Markthalle eröffnen.", "correct": true }
+  ]
+}

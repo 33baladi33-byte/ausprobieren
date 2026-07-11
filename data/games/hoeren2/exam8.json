@@ -1,0 +1,16 @@
+{
+  "title": "Hörverstehen Teil 2 - In dem Restaurant",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "In dem Restaurant gab es einen Wasserschaden.", "correct": true },
+    { "id": 2, "text": "Anton Laurito ist bei seinen Großeltern aufgewachsen.", "correct": false },
+    { "id": 3, "text": "Im Haus der Großeltern lebten auch andere Kinder.", "correct": true },
+    { "id": 4, "text": "Der Stress störte den Studiogast während der Ausbildung nicht.", "correct": true },
+    { "id": 5, "text": "Bei neuen Mitarbeitern legt Anton Laurito am meisten Wert auf viel Erfahrung.", "correct": false },
+    { "id": 6, "text": "Aussehen und Geschmack der Speisen haben für den Koch den gleichen Stellenwert.", "correct": false },
+    { "id": 7, "text": "In der Essschule können Kinder kochen lernen.", "correct": true },
+    { "id": 8, "text": "Anton Laurito lehnt Fastfood nicht grundsätzlich ab.", "correct": true },
+    { "id": 9, "text": "Der Koch hat eine gesunde Einstellung zum Thema Wettbewerb.", "correct": true },
+    { "id": 10, "text": "Zuhause probiert er gerne komplizierte Gerichte aus.", "correct": false }
+  ]
+}

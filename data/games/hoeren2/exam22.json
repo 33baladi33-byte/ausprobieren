@@ -1,0 +1,16 @@
+{
+  "title": "Hörverstehen Teil 2 - Herr Scherer",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Herr Scherer wird an seinem Arbeitsplatz interviewt.", "correct": false },
+    { "id": 2, "text": "Herr Scherer probt jede Woche zweimal mit dem Kirchenchor.", "correct": false },
+    { "id": 3, "text": "Herr Scherer hat wechselnde Arbeitszeiten.", "correct": true },
+    { "id": 4, "text": "Verspätungen gehen häufig auf das Konto undisziplinierter Fahrgäste.", "correct": true },
+    { "id": 5, "text": "Herr Scherer und seine Kollegen verkaufen keine Fahrscheine mehr.", "correct": false },
+    { "id": 6, "text": "Alkoholisierte Fahrgäste verursachen zunehmend Probleme.", "correct": false },
+    { "id": 7, "text": "Die Verkehrsbetriebe haben ein eigenes Schwimmbad.", "correct": false },
+    { "id": 8, "text": "Die Klimatisierung der Busse ist bei hohen Temperaturen nicht ausreichend.", "correct": false },
+    { "id": 9, "text": "Herr Scherer hat bei der Bundeswehr eine Ausbildung zum Automechaniker gemacht.", "correct": false },
+    { "id": 10, "text": "Herr Scherer hat bei der Post 15 Jahre in Nachtschicht gearbeitet.", "correct": true }
+  ]
+}

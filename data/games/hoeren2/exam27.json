@@ -1,0 +1,16 @@
+{
+  "title": "Hörverstehen Teil 2 - Lisa Eisenberg",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Lisa Eisenberg war aus beruflichen Gründen in den USA.", "correct": false },
+    { "id": 2, "text": "Während einer Reise entschied sich Lisa Eisenberg für einen beruflichen Neuanfang.", "correct": true },
+    { "id": 3, "text": "Lisa Eisenbergs Geschäftsidee stieß in ihrem Bekanntenkreis auf Skepsis.", "correct": true },
+    { "id": 4, "text": "Lisa Eisenberg hat sich auf regionale Speisen spezialisiert.", "correct": true },
+    { "id": 5, "text": "In der Mittagszeit erzielt Lisa Eisenberg den Großteil ihres Umsatzes.", "correct": false },
+    { "id": 6, "text": "Lisa Eisenberg muss nicht mehr aktiv nach Kunden suchen.", "correct": true },
+    { "id": 7, "text": "Lisa Eisenberg bietet für Firmen täglich auch abends Gerichte an.", "correct": false },
+    { "id": 8, "text": "Es war für Lisa Eisenberg leicht, ein geeignetes Fahrzeug zu finden.", "correct": true },
+    { "id": 9, "text": "Lisa Eisenberg hat als Studentin nebenbei in der Gastronomie gearbeitet.", "correct": false },
+    { "id": 10, "text": "In den nächsten Monaten wird Lisa Eisenberg einen zweiten Wagen kaufen.", "correct": false }
+  ]
+}

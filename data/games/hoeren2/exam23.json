@@ -1,0 +1,16 @@
+{
+  "title": "Hörverstehen Teil 2 - Beim Wettkampf",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Beim Wettkampf auf Sylt gibt es mehr Zuschauer als bei anderen Surf-Wettkämpfen.", "correct": true },
+    { "id": 2, "text": "Die Wind-Bedingungen sind auf Sylt sehr unberechenbar.", "correct": true },
+    { "id": 3, "text": "Herr Dunderbeck ist noch immer so fit wie früher.", "correct": false },
+    { "id": 4, "text": "Im Freestyle hat er schon starke Gegner, die viel jünger sind als er.", "correct": true },
+    { "id": 5, "text": "Beim Slalom muss er auch mit starken Gegnern rechnen.", "correct": false },
+    { "id": 6, "text": "Sein Hobby ist, solche Strände zu suchen, wo sich im Windsurfen noch niemand ausprobiert hat.", "correct": true },
+    { "id": 7, "text": "Er hat ständig Angst vor den Haien.", "correct": false },
+    { "id": 8, "text": "Seine Kinder haben noch ein bisschen Angst vor dem Wasser, obwohl er sie schon aufs Brett gesetzt hat.", "correct": false },
+    { "id": 9, "text": "Falls er auf Sylt siegen würde, würde er dies zuerst gerne mit seinen Freunden feiern.", "correct": false },
+    { "id": 10, "text": "Er hat zwei Kinder und sie gehen mit ihm auf Reisen.", "correct": false }
+  ]
+}

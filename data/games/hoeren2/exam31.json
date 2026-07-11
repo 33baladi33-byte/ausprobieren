@@ -1,0 +1,16 @@
+{
+  "title": "Hörverstehen Teil 2 - Frau Keder aus Malta",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Frau Kedar kommt aus Düsseldorf.", "correct": false },
+    { "id": 2, "text": "Sie lebt jetzt in Malta.", "correct": true },
+    { "id": 3, "text": "Sie ist effektiv und tätig in Malta.", "correct": false },
+    { "id": 4, "text": "Sie genießt das ganze Jahr im Mittelmeer zu baden.", "correct": true },
+    { "id": 5, "text": "Der Moderator kennt die Temperatur des Mittelmeers im Winter nicht.", "correct": true },
+    { "id": 6, "text": "Der Moderator denkt, in Malta gibt es drei Amtssprachen.", "correct": false },
+    { "id": 7, "text": "Die Malteser waren konservativ und zurückhaltend.", "correct": false },
+    { "id": 8, "text": "Malteser kommen aus verschiedenen Religionen.", "correct": true },
+    { "id": 9, "text": "Sie plante, die maltesische Sprache zu lernen.", "correct": true },
+    { "id": 10, "text": "Sie möchte zu Van... umziehen.", "correct": false }
+  ]
+}

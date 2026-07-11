@@ -1,0 +1,16 @@
+{
+  "title": "Hörverstehen Teil 2 - Die Ausbildung (مواضيع تركيا)",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Viele befürchten, dass es durch das neue Gesetz zu weiteren Mittelkürzungen kommt.", "correct": true },
+    { "id": 2, "text": "In Zukunft werden weniger Erzieherinnen gebraucht als heute.", "correct": true },
+    { "id": 3, "text": "Künftig soll es mehr Krippenplätze für Kinder unter drei Jahren geben.", "correct": false },
+    { "id": 4, "text": "Der Besuch von Kindergärten soll kostenlos werden.", "correct": true },
+    { "id": 5, "text": "Die Mehrheit der Kleinkinder wird auch weiterhin zu Hause betreut werden.", "correct": false },
+    { "id": 6, "text": "Bei Bedarf setzt die Sprachförderung im vierten Lebensjahr ein.", "correct": true },
+    { "id": 7, "text": "Deutsche Kinder haben keinen Anspruch auf staatliche Sprachförderung.", "correct": false },
+    { "id": 8, "text": "Im Elternhaus wird die Sprachförderung der Kinder immer häufiger vernachlässigt.", "correct": true },
+    { "id": 9, "text": "Herr Teichmann sieht in Bezug auf Sprachförderung auch auf Seiten der Politik Handlungsbedarf.", "correct": false },
+    { "id": 10, "text": "Die Ausbildung der Erzieherinnen soll künftig an Hochschulen angesiedelt sein.", "correct": true }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Hörverstehen Teil 2 - Herr Gasser und Frau Janke",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Herr Gasser und Frau Janke haben zusammen Urlaub im Gebirge gemacht.", "correct": false },
+    { "id": 2, "text": "Josef Gasser ist ein gebürtiger Tiroler.", "correct": false },
+    { "id": 3, "text": "Die Bergbauern können kaum vom Verkauf ihrer Produkte leben.", "correct": true },
+    { "id": 4, "text": "Auch heute werden die steilen Hänge noch manuell bearbeitet.", "correct": true },
+    { "id": 5, "text": "Josef Gasser findet, dass man die Berglandschaft sich selbst überlassen sollte.", "correct": false },
+    { "id": 6, "text": "Eva Janke begeistert sich immer noch für Flugreisen.", "correct": false },
+    { "id": 7, "text": "Ihren ersten Einsatz auf der Alm hatte sie vor kurzem.", "correct": false },
+    { "id": 8, "text": "Für Frau Janke ist der Erholungswert trotz der Anstrengung sehr hoch.", "correct": true },
+    { "id": 9, "text": "Almhelferinnen und -helfer können vielseitige Aufgaben übernehmen.", "correct": true },
+    { "id": 10, "text": "Über die Dauer des Aufenthalts kann man frei entscheiden.", "correct": true }
+  ]
+}

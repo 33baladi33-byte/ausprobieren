@@ -1,0 +1,16 @@
+{
+  "title": "Hörverstehen Teil 2 - Roland (einer höheren Lige)",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Roland Wünschmann spielt selbst bei Viktoria Köln Fußball.", "correct": false },
+    { "id": 2, "text": "Viktoria Köln spielt seit Beginn der Saison in einer höheren Lige.", "correct": true },
+    { "id": 3, "text": "Die meisten Spieler der Mannschaft haben schon in der letzten Saison bei Viktoria Köln gespielt.", "correct": true },
+    { "id": 4, "text": "Neuzugänge kommen bei Viktoria Köln meist aus ganz unterschiedlichen Mannschaften.", "correct": false },
+    { "id": 5, "text": "Die Mannschaft von Viktoria Köln möchte in dieser Saison neue Spieltaktiken ausprobieren.", "correct": true },
+    { "id": 6, "text": "Roland Wünschmann wagt die Prognose, dass in dieser Saison der 1. FC Mönchengladbach Meister wird.", "correct": false },
+    { "id": 7, "text": "Roland Wünschmann empfindet sein Ehrenamt oft als Belastung.", "correct": false },
+    { "id": 8, "text": "Roland Wünschmanns Frau engagiert sich für denselben Verein.", "correct": true },
+    { "id": 9, "text": "Herr Wünschmann und der Vereinsvorstand sind meistens einer Meinung.", "correct": true },
+    { "id": 10, "text": "Roland Wünschmann hofft auf Verbesserungen in der Nachwuchsförderung.", "correct": false }
+  ]
+}
