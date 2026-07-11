@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="studySession.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-<script type="module" src="firebase.js"></script>
+
 <style>
     /* زر التخليط الأيقوني الصغير */
 .interleaving-icon-btn {
@@ -1046,7 +1046,250 @@ body.dark-mode .mobile-banner span {
             font-size: 0.7rem;
         }
     }
+/* ============================================
+   Auth Popups - تسجيل الدخول وإنشاء الحساب
+   ============================================ */
 
+.auth-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-popup.active {
+    display: flex;
+}
+
+.auth-popup-content {
+    background: #ffffff;
+    border-radius: 24px;
+    max-width: 420px;
+    width: 92%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: authSlideUp 0.3s ease;
+}
+
+@keyframes authSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.auth-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e8ecf0;
+}
+
+.auth-popup-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #1e293b;
+}
+
+.auth-close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.auth-close-btn:hover {
+    color: #475569;
+}
+
+.auth-popup-body {
+    padding: 24px;
+}
+
+.auth-subtitle {
+    font-size: 0.9rem;
+    color: #64748b;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #dce2ec;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    transition: border 0.2s;
+    font-family: inherit;
+}
+
+.auth-input:focus {
+    outline: none;
+    border-color: #2c3e66;
+    box-shadow: 0 0 0 3px rgba(44, 62, 102, 0.1);
+}
+
+.auth-row {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-row .auth-input.half {
+    width: 50%;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    margin-bottom: 8px;
+}
+
+.auth-btn.primary {
+    background: #2c3e66;
+    color: white;
+}
+
+.auth-btn.primary:hover {
+    background: #1a2a4a;
+    transform: translateY(-1px);
+}
+
+.auth-btn.google {
+    background: #ffffff;
+    color: #1e293b;
+    border: 1px solid #dce2ec;
+}
+
+.auth-btn.google:hover {
+    background: #f8fafc;
+    border-color: #c8d0d8;
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e8ecf0;
+}
+
+.auth-divider span {
+    padding: 0 12px;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+
+.auth-switch {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 12px;
+}
+
+.auth-link {
+    color: #2c3e66;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.auth-link:hover {
+    color: #1a2a4a;
+    text-decoration: underline;
+}
+
+/* Profile Dropdown */
+.profile-dropdown {
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 16px 20px;
+    min-width: 220px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e8ecf0;
+    display: none;
+    z-index: 1000;
+}
+
+.profile-dropdown.active {
+    display: block;
+}
+
+.profile-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 2px;
+}
+
+.profile-email {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin-bottom: 4px;
+    word-break: break-all;
+}
+
+.profile-expiry {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+
+.profile-status {
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #f1f5f9;
+    display: inline-block;
+    margin: 8px 0 12px 0;
+}
+
+.profile-logout {
+    background: #f1f5f9;
+    border: none;
+    border-radius: 40px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: #475569;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.profile-logout:hover {
+    background: #e2e8f0;
+}
 </style>
 </head>
 <body>
@@ -1055,7 +1298,8 @@ body.dark-mode .mobile-banner span {
     <div class="left-side">
     <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
     <button id="navSubscribeBtn" class="subscribe-text-btn" style="background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 25px; padding: 8px 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: white;">اشترك</button>
-    <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
+   <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
+<button id="navSignupBtn" class="btn-login-top" style="background: #2c3e66; color: white; border: none; border-radius: 25px; padding: 8px 16px; cursor: pointer;">إنشاء حساب</button>
     <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
 </div>
     
@@ -1143,12 +1387,14 @@ body.dark-mode .mobile-banner span {
 </div>
 
 <div id="profileDropdown" class="profile-dropdown">
-    <div id="profileEmail" class="profile-email">غير مسجل</div>
-    <div id="profileExpiry" class="profile-expiry"></div>
-    <div id="profileStatus" class="profile-status"></div>
+    <div id="userNameDisplay" class="profile-name">مستخدم</div>
+    <div id="userEmailDisplay" class="profile-email">غير مسجل</div>
+    <div id="profileExpiry" class="profile-expiry" style="display: none;"></div>
+    <div id="profileStatus" class="profile-status">📋 Basic User</div>
     <button id="profileLogoutBtn" class="profile-logout">🚪 تسجيل خروج</button>
 </div>
 
+<!-- ===== نافذة تسجيل الدخول ===== -->
 <div id="loginPopup" class="login-popup">
     <div class="login-popup-content">
         <h3>🔐 تسجيل الدخول / إنشاء حساب</h3>
@@ -1158,6 +1404,31 @@ body.dark-mode .mobile-banner span {
         <button id="popupLoginBtn" class="btn-popup-login">دخول / إنشاء حساب</button>
         <br>
         <button id="closePopupBtn" class="btn-popup-close">إغلاق</button>
+    </div>
+</div>
+
+<!-- ===== نافذة إنشاء حساب ===== -->
+<div id="signupPopup" class="auth-popup">
+    <div class="auth-popup-content">
+        <div class="auth-popup-header">
+            <h3>📝 إنشاء حساب جديد</h3>
+            <button id="closeSignupPopup" class="auth-close-btn">✕</button>
+        </div>
+        <div class="auth-popup-body">
+            <p class="auth-subtitle">أهلاً وسهلاً بيك في Zertiva 🎉</p>
+            
+            <div class="auth-row">
+                <input type="text" id="signupFirstName" placeholder="الاسم الأول" class="auth-input half">
+                <input type="text" id="signupLastName" placeholder="الاسم الأخير" class="auth-input half">
+            </div>
+            
+            <input type="text" id="signupUsername" placeholder="اسم المستخدم" class="auth-input">
+            <input type="email" id="signupEmail" placeholder="البريد الإلكتروني" class="auth-input">
+            <input type="password" id="signupPassword" placeholder="كلمة السر (6 أحرف على الأقل)" class="auth-input">
+            
+            <button id="createAccountBtn" class="auth-btn primary">إنشاء حساب</button>
+            <p class="auth-switch">عندك حساب؟ <span id="switchToLogin" class="auth-link">دخل هنا</span></p>
+        </div>
     </div>
 </div>
 
@@ -1982,11 +2253,8 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         <button id="closeEndOverlayBtn" class="end-overlay-btn">حسناً</button>
     </div>
 </div>
-<!-- ========== عناصر جلسة المراجعة ========== -->
-<div id="studySessionModal" class="session-modal">...</div>
-<div id="sessionTimerBar" class="session-timer-bar" style="display: none;">...</div>
-<div id="sessionEndOverlay" class="session-end-overlay" style="display: none;">...</div>
 <script src="sentenceReorder.js"></script>
+<script type="module" src="firebase.js"></script>
 <script type="module" src="./helpSystem.js"></script>
 <script type="module" src="./engine.js"></script>
 <script type="module" src="./memoryTrainer.js"></script>
