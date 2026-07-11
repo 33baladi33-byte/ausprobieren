@@ -19123,7 +19123,6 @@ function toggleHelp() {
     }
 }
 
-// إضافة زر المساعدة
 function addHelpButton() {
     if (document.getElementById('globalHelpButton')) return;
     const nav = document.getElementById('examNavButtons');
@@ -19131,8 +19130,9 @@ function addHelpButton() {
     
     const btn = document.createElement('button');
     btn.id = 'globalHelpButton';
-    btn.textContent = 'اجي ضحك وفهم';
-    btn.style.cssText = 'background:linear-gradient(135deg,#007bff,#0056b3);color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:bold;cursor:pointer;margin-left:10px;box-shadow:0 2px 5px rgba(0,0,0,0.2);transition:all 0.3s';
+    btn.className = 'memory-btn btn-blue';  // استخدم الكلاس الموحد
+    btn.textContent = '😂 اجي ضحك وفهم';   // النص الجديد مع أيقونة مختلفة
+    // btn.style.cssText = ...  // تم الاستغناء عن الأنماط المباشرة لأن الكلاسات تغطيها
     btn.onmouseenter = () => { btn.style.transform = 'scale(1.02)'; btn.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)'; };
     btn.onmouseleave = () => { btn.style.transform = 'scale(1)'; btn.style.boxShadow = '0 2px 5px rgba(0,0,0,0.05)'; };
     btn.onclick = (e) => { e.stopPropagation(); toggleHelp(); };
