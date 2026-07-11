@@ -22,5 +22,19 @@
       "text": "Die Leopoldina soll internationale Akademie werden.",
       "correct": false
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 1,
+      "parts": [
+        "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld."
+      ]
+    },
+    {
+      "color": 6,
+      "parts": [
+        "Man befürchtet auch in Deutschland Gewalt von Fußballfans."
+      ]
+    }
   ]
 }
