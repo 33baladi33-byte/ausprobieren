@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Ausgang 26",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Sie sollen zum Ausgang 26 kommen.", "correct": true },
+    { "id": 2, "text": "Um die zuständige Abteilung zu erreichen, müssen Sie die 3 wählen.", "correct": false },
+    { "id": 3, "text": "Bei der Service-Nummer bekommen Sie Karten für eine Führung.", "correct": false },
+    { "id": 4, "text": "Sie können sich am Sonntag um ein Uhr bewerben.", "correct": true },
+    { "id": 5, "text": "In der Bäckerstraße dürfen Sie nicht fahren.", "correct": true }
+  ]
+}

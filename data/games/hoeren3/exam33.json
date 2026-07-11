@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Gartenausstellung KöGa (مواضيع تركيا)",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Parade der Kulturen wird mit einem Feuerwerk eröffnet.", "correct": false },
+    { "id": 2, "text": "Zum Skateboard-Treffen am 31. Oktober soll man verkleidet erscheinen.", "correct": true },
+    { "id": 3, "text": "Bei der Gartenausstellung KöGa kann man Gartenzwerge kaufen.", "correct": true },
+    { "id": 4, "text": "Die Autobahn A2 Richtung Hannover ist zwischen Rheda-Wiedenbrück und Oelde gesperrt.", "correct": true },
+    { "id": 5, "text": "Für handvermittelte Telefongespräche ins Ausland müssen Sie die 613 30 30 wählen.", "correct": false }
+  ]
+}

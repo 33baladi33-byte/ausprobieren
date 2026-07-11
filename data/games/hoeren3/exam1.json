@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Telefon",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Bei der Deutschen Telefon KG bekommen Sie nur Auskunft zu Telefonapparaten dieses Unternehmens.", "correct": true },
+    { "id": 2, "text": "Im Rahmen des 'BR3 Aquarena Weekends' in Starnberg können Sie jeden Abend ein Feuerwerk betrachten.", "correct": false },
+    { "id": 3, "text": "Die Trierer Domorganisten spielen am 6. Juli in Michelstadt.", "correct": false },
+    { "id": 4, "text": "Während des Musikfestivals 'Sound of Frankfurt' ist die Benutzung der U- und S-Bahnen gebührenfrei.", "correct": false },
+    { "id": 5, "text": "Sie haben eine ungültige Servicenummer gewählt und werden daher automatisch weiterverbunden.", "correct": false }
+  ]
+}

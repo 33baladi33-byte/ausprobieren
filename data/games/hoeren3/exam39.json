@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Die Fahrradtouren von Berlin (مواضيع تركيا)",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Fahrradtouren von 'Berlin auf zwei Rädern' können nicht nur privat, sondern auch im beruflichen Kontext gebucht werden.", "correct": true },
+    { "id": 2, "text": "Straßen in Passau sind durch das starke Unwetter heute noch bis vier Uhr blockiert.", "correct": false },
+    { "id": 3, "text": "Sitzplatzreservierungen im ICE sind wegen technischer Probleme in den Wagen 24-38 ungültig.", "correct": false },
+    { "id": 4, "text": "Selma schlägt vor, die Verabredung auf Samstag zu verschieben.", "correct": false },
+    { "id": 5, "text": "Die lange Nacht der Architektur ist kostenlos, wenn man sich vorher online anmeldet.", "correct": true }
+  ]
+}

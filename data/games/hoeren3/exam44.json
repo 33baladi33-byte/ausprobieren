@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 3 - Ein Teil der kostenlosen Veranstaltungen (مواضيع تركيا)",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Der IC 865 fährt heute nicht nach Hamburg, sondern nur bis Bonn.", "correct": false },
+    { "id": 2, "text": "Ein Teil der kostenlosen Veranstaltungen beim Literaturfest findet an spannenden Orten in der Stadt statt.", "correct": true },
+    { "id": 3, "text": "Die Firma Sanitärbedarf Frieder & Hansen ist sechs Tage die Woche für Anfragen erreichbar.", "correct": true },
+    { "id": 4, "text": "Bewohner des Musikerviertels müssen am Donnerstagnachmittag für zwei Stunden zu Hause bleiben.", "correct": false },
+    { "id": 5, "text": "Zum Valentinstag gibt es heute eine spezielle Beratung für Schmuck und Kosmetikartikel.", "correct": false }
+  ]
+}
