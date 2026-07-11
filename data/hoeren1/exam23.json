@@ -22,5 +22,19 @@
       "text": "Bei einem S-Bahn-Unglück in München gab es zahlreiche Verletzte und einen hohen Sachschaden.",
       "correct": true
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 4,
+      "parts": [
+        "Der Benzinpreis hat sich aufgrund internationaler Einflussfaktoren erhöht."
+      ]
+    },
+    {
+      "color": 8,
+      "parts": [
+        "Bei einem S-Bahn-Unglück in München gab es zahlreiche Verletzte und einen hohen Sachschaden."
+      ]
+    }
   ]
 }
