@@ -3396,23 +3396,21 @@ class MemoryHighlightEngine {
         });
     }
 
-    toggle() {
-        if (this._isToggling) return;
-        this._isToggling = true;
-        
-        if (this.isActive) {
-            this.removeHighlights();
-            this.toggleBtn.classList.remove('active');
-            this.toggleBtn.textContent = '🎨';
-            this._lastAppliedId = null;
-        } else {
-            this.applyHighlights();
-            this.toggleBtn.classList.add('active');
-            this.toggleBtn.textContent = '🧠';
-        }
-        this.isActive = !this.isActive;
-        setTimeout(() => { this._isToggling = false; }, 500);
+   toggle() {
+    if (this._isToggling) return;
+    this._isToggling = true;
+    
+    if (this.isActive) {
+        this.removeHighlights();
+        this.toggleBtn.classList.remove('active');
+        this._lastAppliedId = null;
+    } else {
+        this.applyHighlights();
+        this.toggleBtn.classList.add('active');
     }
+    this.isActive = !this.isActive;
+    setTimeout(() => { this._isToggling = false; }, 500);
+}
 
     setExamData(data) {
         this.currentExamData = data;
