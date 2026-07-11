@@ -22,5 +22,19 @@
       "text": "Entlaufene Tiere verursachten einen Unfall auf der Autobahn.",
       "correct": false
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 4,
+      "parts": [
+        "Wegen Unwetterschäden wurden Urlauber in einer Notunterkunft untergebracht."
+      ]
+    },
+    {
+      "color": 8,
+      "parts": [
+        "Am 21. Mai ist der Besuch der Sonderausstellung kostenlos."
+      ]
+    }
   ]
 }
