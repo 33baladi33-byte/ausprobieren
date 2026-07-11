@@ -22,5 +22,13 @@
       "text": "Die Schwarzarbeit hat im vergangenen Jahr um 15% zugenommen.",
       "correct": false
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 7,
+      "parts": [
+        "Wissenschaftler der Universität Mainz sind am Projekt zur Erforschung des Planeten Mars beteiligt."
+      ]
+    }
   ]
 }
