@@ -4139,31 +4139,3 @@ body.dark-mode .premium-features li {
         font-size: 0.65rem;
     }
 }
-/* أزرار الشريط الجانبي */
-.sidebar-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    border: none;
-    background: #2c3e66;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-    font-size: 0;
-    padding: 0;
-}
-.sidebar-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-.sidebar-btn .material-symbols-outlined {
-    font-size: 24px;
-}
-.sidebar-btn.active {
-    background: #1a2a4a;
-    box-shadow: inset 0 0 0 2px #5dade2;
-}
