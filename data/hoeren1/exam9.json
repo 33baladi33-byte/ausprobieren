@@ -22,5 +22,19 @@
       "text": "Die Gefahr schwerer Unwetter ist nun vorbei.",
       "correct": false
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 3,
+      "parts": [
+        "In der Europäischen Union verzeichnet man weniger jugendliche Arbeitslose."
+      ]
+    },
+    {
+      "color": 9,
+      "parts": [
+        "Das Bundesarbeitsministerium bemüht sich um ausländische Arbeitnehmer bestimmter Berufsgruppen."
+      ]
+    }
   ]
 }
