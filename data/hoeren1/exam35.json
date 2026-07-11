@@ -7,5 +7,9 @@
     { "text": "In Kärnten kann es aufgrund von starkem Gegenverkehr zu Verzögerungen kommen.", "correct": true },
     { "text": "Aufgrund einer Kaltfront sinkt die Schneefallgrenze entlang der Alpennordseite knapp unter 2000 m herab.", "correct": true },
     { "text": "Mit Frankreich gegen Kanada steht das erste Viertelfinale der FrauenfußballWM fest.", "correct": false }
+  ],
+  "memoryHighlights": [
+    { "color": 1, "parts": [ "In Kärnten kann es aufgrund von starkem Gegenverkehr zu Verzögerungen kommen." ] },
+    { "color": 7, "parts": [ "Aufgrund einer Kaltfront sinkt die Schneefallgrenze entlang der Alpennordseite knapp unter 2000 m herab." ] }
   ]
 }
