@@ -1041,6 +1041,11 @@ async function openExam(examId, examTitle, skill) {
   // ✅ تعيين القيم للاستخدام العام (مطلوب لـ Interleaving و Memory Engine)
   window.currentSkill = skill;
   window.currentExamId = examId;
+
+// بعد تعيين window.currentSkill = skill;
+if (typeof window.updateSidebarButtons === 'function') {
+    setTimeout(window.updateSidebarButtons, 50);
+}
   
   if (shouldHideHelpButton(skill)) {
     const helpBtn = document.getElementById('globalHelpButton');
