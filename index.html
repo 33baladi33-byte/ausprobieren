@@ -1947,31 +1947,20 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <!-- نافذة جلسة المراجعة -->
 <div id="studySessionModal" class="session-modal">
     <div class="session-modal-content">
-        <div class="session-modal-header">
-            <h3>🇩🇪 جلسة مراجعة</h3>
-            <button class="close-session-modal">✕</button>
+        <div class="session-times-grid">
+            <button class="time-option" data-minutes="25">25 دقيقة</button>
+            <button class="time-option" data-minutes="45">45 دقيقة</button>
+            <button class="time-option" data-minutes="60">60 دقيقة</button>
+            <button class="time-option" data-minutes="90">90 دقيقة</button>
+            <button class="time-option" data-minutes="105">105 دقيقة</button>
+            <button class="time-option" data-minutes="120">120 دقيقة</button>
         </div>
-        <div class="session-modal-body">
-            <p class="session-question">كم تريد تراجع اليوم؟</p>
-            <div class="session-times-grid">
-                <button class="time-option" data-minutes="25">25 دقيقة</button>
-                <button class="time-option" data-minutes="45">45 دقيقة</button>
-                <button class="time-option" data-minutes="60">60 دقيقة</button>
-                <button class="time-option" data-minutes="90">90 دقيقة</button>
-                <button class="time-option" data-minutes="105">105 دقيقة</button>
-                <button class="time-option" data-minutes="120">120 دقيقة</button>
-            </div>
-            <div class="session-motivation" id="sessionMotivation">
-                <div class="motivation-icon">✨</div>
-                <div class="motivation-text">
-                    ممتاز<br>
-                    …راجع غير واحد الشوية وسير رتاح مع راسك 😅<br>
-                    <span class="motivation-small">من بعد امكن ليك تشرب شي كاس ديال اتاي بالنعناع 🤣🤣🤣</span>
-                </div>
-                <div class="motivation-coffee">☕🇩🇪</div>
-            </div>
+        <div class="session-total-hours">
+            <span class="label">📚 مجموع ساعات الدراسة</span>
+            <span class="value" id="totalHoursValue">0.0 <span class="value-unit">ساعة</span></span>
         </div>
     </div>
+</div>
 </div>
 
 <!-- عداد صغير جداً أعلى اليمين -->
