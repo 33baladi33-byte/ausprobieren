@@ -7,5 +7,9 @@
     { "text": "Baden bereitet den Antrag für die Aufnahme als 'Kleine historische Stadt' vor.", "correct": false },
     { "text": "Bei der Sportveranstaltung 'Stilecht' sind Fahrräder aller Arten vertreten.", "correct": true },
     { "text": "In den nächsten Wochen sind österreichweit starke Niederschläge zu erwarten.", "correct": false }
+  ],
+  "memoryHighlights": [
+    { "color": 5, "parts": [ "Aufgrund eines Unfalls kam es zu einem Großaufgebot von Einsatzwägen." ] },
+    { "color": 9, "parts": [ "Bei der Sportveranstaltung 'Stilecht' sind Fahrräder aller Arten vertreten." ] }
   ]
 }
