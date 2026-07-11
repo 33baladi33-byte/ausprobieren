@@ -1,5 +1,5 @@
 // ============================================
-// auth.js - نظام إنشاء الحساب وتسجيل الدخول
+// auth.js - نظام تسجيل الدخول وإدارة الحساب
 // ============================================
 
 import { 
@@ -20,13 +20,16 @@ let currentUser = null;
 let currentUserData = null;
 let isPremium = false;
 
+// ============================================
+// إنشاء حساب جديد
+// ============================================
 async function createAccount(firstName, lastName, username, email, password) {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         
         await updateProfile(user, {
-            displayName: `${firstName} ${lastName}`
+            displayName: username
         });
         
         const userData = {
@@ -37,9 +40,7 @@ async function createAccount(firstName, lastName, username, email, password) {
             email: email,
             plan: 'basic',
             premiumUntil: null,
-            studyMinutes: 0,
-            createdAt: serverTimestamp(),
-            activeSession: null
+            createdAt: serverTimestamp()
         };
         
         await setDoc(doc(db, 'users', user.uid), userData);
@@ -60,7 +61,6 @@ async function signInWithEmail(email, password) {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        
         const userData = await getUserData(user.uid);
         
         return { success: true, user, userData };
@@ -132,11 +132,10 @@ async function checkPremiumStatus(uid) {
 }
 
 // ============================================
-// تحديث واجهة المستخدم
+// تحديث واجهة المستخدم بعد تسجيل الدخول
 // ============================================
 function updateUIAfterLogin(user, userData) {
     const navLoginBtn = document.getElementById('navLoginBtn');
-    const navSignupBtn = document.getElementById('navSignupBtn');
     const profileIcon = document.getElementById('profileIcon');
     const profileDropdown = document.getElementById('profileDropdown');
     const userNameDisplay = document.getElementById('userNameDisplay');
@@ -145,53 +144,55 @@ function updateUIAfterLogin(user, userData) {
     const profileExpiry = document.getElementById('profileExpiry');
     
     if (!user) {
+        // غير مسجل
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
-        if (navSignupBtn) navSignupBtn.style.display = 'inline-block';
         if (profileIcon) profileIcon.style.display = 'none';
         if (profileDropdown) profileDropdown.classList.remove('active');
         if (userNameDisplay) userNameDisplay.textContent = 'مستخدم';
         if (userEmailDisplay) userEmailDisplay.textContent = 'غير مسجل';
-        if (profileStatus) profileStatus.textContent = '📋 Basic User';
+        if (profileStatus) profileStatus.textContent = 'Free';
         if (profileExpiry) profileExpiry.style.display = 'none';
         return;
     }
     
     // مسجل
     if (navLoginBtn) navLoginBtn.style.display = 'none';
-    if (navSignupBtn) navSignupBtn.style.display = 'none';
     
     if (profileIcon) {
         profileIcon.style.display = 'flex';
         profileIcon.textContent = user.displayName ? user.displayName.charAt(0).toUpperCase() : '👤';
     }
     
-    if (userNameDisplay) {
-        userNameDisplay.textContent = user.displayName || 'مستخدم';
+    // عرض اسم المستخدم (مرحباً بك محمد)
+    if (userNameDisplay && userData) {
+        userNameDisplay.textContent = `مرحباً بك ${userData.username || user.displayName || 'مستخدم'}`;
     }
     
     if (userEmailDisplay) {
         userEmailDisplay.textContent = user.email || 'بريد غير معروف';
     }
     
+    // عرض نوع الحساب
     if (profileStatus && userData) {
         const isPremium = userData.plan === 'premium';
-        profileStatus.textContent = isPremium ? '⭐ Premium User' : '📋 Basic User';
+        profileStatus.textContent = isPremium ? 'Premium' : 'Free';
         profileStatus.style.color = isPremium ? '#22c55e' : '#94a3b8';
     }
     
+    // عرض تاريخ الانتهاء للمستخدمين Premium
     if (profileExpiry && userData?.premiumUntil) {
         const expiryDate = userData.premiumUntil.seconds 
             ? new Date(userData.premiumUntil.seconds * 1000) 
             : new Date(userData.premiumUntil);
-        profileExpiry.textContent = `📅 ينتهي: ${expiryDate.toLocaleDateString('ar-EG')}`;
+        profileExpiry.textContent = `صالح إلى: ${expiryDate.toLocaleDateString('ar-EG')}`;
         profileExpiry.style.display = 'block';
     } else if (profileExpiry) {
         profileExpiry.style.display = 'none';
     }
     
     // إغلاق النوافذ
-    document.getElementById('signupPopup')?.classList.remove('active');
     document.getElementById('loginPopup')?.classList.remove('active');
+    document.getElementById('signupPopup')?.classList.remove('active');
     document.getElementById('forgotPasswordPopup')?.classList.remove('active');
     
     // تحديث المزايا
@@ -202,11 +203,6 @@ function updateUIAfterLogin(user, userData) {
 // تحديث المزايا حسب الـ Premium
 // ============================================
 function updatePremiumFeatures(isPremium) {
-    const premiumElements = document.querySelectorAll('.premium-only');
-    premiumElements.forEach(el => {
-        el.style.display = isPremium ? 'block' : 'none';
-    });
-    
     const subscribeBtn = document.getElementById('navSubscribeBtn');
     if (subscribeBtn) {
         if (isPremium) {
@@ -252,20 +248,18 @@ async function resetPassword(email, newPassword) {
         // جلب بيانات المستخدم
         const userDoc = querySnapshot.docs[0];
         const userData = userDoc.data();
-        const uid = userDoc.id;
         
-        // هنا سنقوم بإرسال رسالة واتساب تحتوي على طلب تغيير كلمة المرور
+        // إرسال رسالة واتساب
         const phoneNumber = '212687561491';
-        const message = `السلام عليكم، نسيت كلمة المرور وبغيت نبدلها\n\n📧 البريد الإلكتروني: ${email}\n🔑 كلمة السر الجديدة: ${newPassword}\n👤 اسم المستخدم: ${userData.username || 'غير محدد'}`;
+        const message = `السلام،\nنسيت كلمة المرور وبغيت نبدلها.\n\n📧 البريد الإلكتروني: ${email}\n🔑 كلمة السر الجديدة: ${newPassword}\n👤 اسم المستخدم: ${userData.username || 'غير محدد'}`;
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
         
-        // فتح رابط واتساب في نافذة جديدة
         window.open(whatsappUrl, '_blank');
         
         return { 
             success: true, 
-            message: '✅ تم إرسال طلب تغيير كلمة المرور عبر واتساب',
+            message: '✅ تم فتح واتساب لإرسال الطلب',
             whatsappUrl: whatsappUrl
         };
         
@@ -351,56 +345,61 @@ function showMessage(msg, isError = false) {
 }
 
 // ============================================
-// ربط الأحداث (معدل حسب HTML الخاص بك)
+// تبديل النوافذ (Login ↔ Signup ↔ Forgot)
+// ============================================
+function switchToLogin() {
+    document.getElementById('signupPopup')?.classList.remove('active');
+    document.getElementById('forgotPasswordPopup')?.classList.remove('active');
+    document.getElementById('loginPopup')?.classList.add('active');
+}
+
+function switchToSignup() {
+    document.getElementById('loginPopup')?.classList.remove('active');
+    document.getElementById('forgotPasswordPopup')?.classList.remove('active');
+    document.getElementById('signupPopup')?.classList.add('active');
+}
+
+function switchToForgot() {
+    document.getElementById('loginPopup')?.classList.remove('active');
+    document.getElementById('signupPopup')?.classList.remove('active');
+    document.getElementById('forgotPasswordPopup')?.classList.add('active');
+}
+
+// ============================================
+// ربط الأحداث
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
     
-    // === زر تسجيل الدخول (يفتح نافذة تسجيل الدخول) ===
+    // === زر تسجيل الدخول ===
     document.getElementById('navLoginBtn')?.addEventListener('click', () => {
         document.getElementById('loginPopup')?.classList.add('active');
     });
     
-    // === زر إنشاء حساب (يفتح نافذة التسجيل) ===
-    document.getElementById('navSignupBtn')?.addEventListener('click', () => {
-        document.getElementById('signupPopup')?.classList.add('active');
+    // === إغلاق النوافذ ===
+    document.querySelectorAll('.close-btn, .auth-close-btn').forEach(btn => {
+        btn?.addEventListener('click', () => {
+            document.getElementById('loginPopup')?.classList.remove('active');
+            document.getElementById('signupPopup')?.classList.remove('active');
+            document.getElementById('forgotPasswordPopup')?.classList.remove('active');
+        });
     });
     
-    // === زر إغلاق نافذة تسجيل الدخول ===
-    document.getElementById('closePopupBtn')?.addEventListener('click', () => {
-        document.getElementById('loginPopup')?.classList.remove('active');
+    // === إغلاق عند الضغط خارج النافذة ===
+    ['loginPopup', 'signupPopup', 'forgotPasswordPopup'].forEach(id => {
+        const el = document.getElementById(id);
+        el?.addEventListener('click', (e) => {
+            if (e.target === el) {
+                el.classList.remove('active');
+            }
+        });
     });
     
-    // === زر إغلاق نافذة التسجيل ===
-    document.getElementById('closeSignupPopup')?.addEventListener('click', () => {
-        document.getElementById('signupPopup')?.classList.remove('active');
-    });
+    // === التبديل بين النوافذ ===
+    document.getElementById('switchToSignup')?.addEventListener('click', switchToSignup);
+    document.getElementById('switchToLogin')?.addEventListener('click', switchToLogin);
+    document.getElementById('forgotPasswordLink')?.addEventListener('click', switchToForgot);
     
-    // === إغلاق النوافذ عند الضغط خارجها ===
-    document.getElementById('loginPopup')?.addEventListener('click', (e) => {
-        if (e.target === e.currentTarget) {
-            e.currentTarget.classList.remove('active');
-        }
-    });
-    
-    document.getElementById('signupPopup')?.addEventListener('click', (e) => {
-        if (e.target === e.currentTarget) {
-            e.currentTarget.classList.remove('active');
-        }
-    });
-    
-    // === التبديل من إنشاء حساب إلى تسجيل الدخول ===
-    document.getElementById('switchToLogin')?.addEventListener('click', () => {
-        document.getElementById('signupPopup')?.classList.remove('active');
-        document.getElementById('loginPopup')?.classList.add('active');
-    });
-    
-    // === التبديل من تسجيل الدخول إلى إنشاء حساب ===
-    document.getElementById('switchToSignup')?.addEventListener('click', () => {
-        document.getElementById('loginPopup')?.classList.remove('active');
-        document.getElementById('signupPopup')?.classList.add('active');
-    });
-    
-    // === زر تسجيل الدخول بالبريد ===
+    // === زر تسجيل الدخول ===
     document.getElementById('popupLoginBtn')?.addEventListener('click', async () => {
         const email = document.getElementById('popupEmail')?.value.trim();
         const password = document.getElementById('popupPassword')?.value;
@@ -446,25 +445,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // === إغلاق نافذة نسيت كلمة المرور ===
-    document.getElementById('closeForgotPopup')?.addEventListener('click', () => {
-        document.getElementById('forgotPasswordPopup')?.classList.remove('active');
-    });
-    
-    // === إغلاق نافذة نسيت كلمة المرور عند الضغط خارجها ===
-    document.getElementById('forgotPasswordPopup')?.addEventListener('click', (e) => {
-        if (e.target === e.currentTarget) {
-            e.currentTarget.classList.remove('active');
-        }
-    });
-    
-    // === فتح نافذة نسيت كلمة المرور ===
-    document.getElementById('forgotPasswordLink')?.addEventListener('click', () => {
-        document.getElementById('loginPopup')?.classList.remove('active');
-        document.getElementById('forgotPasswordPopup')?.classList.add('active');
-    });
-    
-    // === زر إرسال عبر واتساب (نسيت كلمة المرور) ===
+    // === زر إرسال عبر واتساب ===
     document.getElementById('resetPasswordBtn')?.addEventListener('click', async () => {
         const email = document.getElementById('forgotEmail')?.value.trim();
         const newPassword = document.getElementById('forgotNewPassword')?.value;
@@ -488,7 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // === تفعيل زر العين (إظهار/إخفاء كلمة السر) ===
+    // === تفعيل زر العين ===
     togglePasswordVisibility('popupPassword', 'togglePasswordBtn');
     togglePasswordVisibility('signupPassword', 'toggleSignupPasswordBtn');
     
@@ -510,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // === زر تسجيل الخروج ===
+    // === تسجيل الخروج ===
     document.getElementById('profileLogoutBtn')?.addEventListener('click', signOutUser);
     
     // === فتح/إغلاق الـ Profile Dropdown ===
@@ -546,7 +527,10 @@ export {
     checkPremiumStatus,
     signOutUser,
     resetPassword,
-    updatePremiumFeatures
+    updatePremiumFeatures,
+    switchToLogin,
+    switchToSignup,
+    switchToForgot
 };
 
 window.currentUser = currentUser;
@@ -560,5 +544,8 @@ window.checkPremiumStatus = checkPremiumStatus;
 window.signOutUser = signOutUser;
 window.resetPassword = resetPassword;
 window.updatePremiumFeatures = updatePremiumFeatures;
+window.switchToLogin = switchToLogin;
+window.switchToSignup = switchToSignup;
+window.switchToForgot = switchToForgot;
 
-console.log('✅ Auth System جاهز (مع إنشاء الحساب ونسيت كلمة المرور)');
+console.log('✅ Auth System جاهز (مع تبديل النوافذ ونسيت كلمة المرور)');
