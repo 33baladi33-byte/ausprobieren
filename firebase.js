@@ -60,5 +60,25 @@ window.firebaseApp = app;
 window.firebaseAuth = auth;
 window.firebaseDb = db;
 window.firebaseSignOut = signOut;
+// ============================================
+// دوال إضافية لإنشاء الحساب بالبريد وكلمة المرور
+// ============================================
+import { 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword,
+    sendEmailVerification,
+    updateProfile
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
+// تصدير الدوال الجديدة
+export {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    sendEmailVerification,
+    updateProfile
+};
+
+// جعلها متاحة عالمياً
+window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+window.signInWithEmailAndPassword = signInWithEmailAndPassword;
 console.log('✅ Firebase تم تهيئته بنجاح');
