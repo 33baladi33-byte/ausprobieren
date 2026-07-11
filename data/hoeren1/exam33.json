@@ -7,5 +7,9 @@
     { "text": "Beim Filmfestival in Cannes hat nach elf Jahren wieder ein deutscher Film den ersten Preis gewonnen.", "correct": false },
     { "text": "Das Internationale Olympische Komitee trifft sich in Lausanne, um über den Austragungsort für die Olympischen Spiele 2012 zu beraten.", "correct": true },
     { "text": "In Hessen gibt es ein Überangebot an Lehrstellen.", "correct": false }
+  ],
+  "memoryHighlights": [
+    { "color": 2, "parts": [ "Experten aus Bankenwelt und Wirtschaft sehen die Konjunkturentwicklung negativ." ] },
+    { "color": 8, "parts": [ "Das Internationale Olympische Komitee trifft sich in Lausanne, um über den Austragungsort für die Olympischen Spiele 2012 zu beraten." ] }
   ]
 }
