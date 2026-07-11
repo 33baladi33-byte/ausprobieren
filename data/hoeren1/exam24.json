@@ -22,5 +22,25 @@
       "text": "Bei einem S-Bahn-Unglück in München gab es zahlreiche Verletzte und einen hohen Sachschaden.",
       "correct": true
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 0,
+      "parts": [
+        "Bei den Europawahlen haben die CDU und CSU fast die Hälfte aller Stimmen erhalten."
+      ]
+    },
+    {
+      "color": 5,
+      "parts": [
+        "Der Benzinpreis hat sich aufgrund internationaler Einflussfaktoren erhöht."
+      ]
+    },
+    {
+      "color": 10,
+      "parts": [
+        "Bei einem S-Bahn-Unglück in München gab es zahlreiche Verletzte und einen hohen Sachschaden."
+      ]
+    }
   ]
 }
