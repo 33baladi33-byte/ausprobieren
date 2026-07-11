@@ -1,39 +1,39 @@
 {
-  "title": "Hörverstehen Teil 1 - Erdbeben",
+  "title": "Hörverstehen Teil 1 - Bierkonsum",
   "type": "truefalse",
   "questions": [
     {
-      "text": "Nach dem Erdbeben meldeten viele Bürger Schäden bei Polizei und Feuerwehr.",
+      "text": "Der Bierkonsum steigt um 10%.",
+      "correct": false
+    },
+    {
+      "text": "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld.",
       "correct": true
     },
     {
-      "text": "Eltern müssen sich neuerdings über den Impfschutz für ihre Kinder beraten lassen.",
+      "text": "Es ist ein Ende des Bahnstreiks in Sicht.",
       "correct": false
     },
     {
-      "text": "Verkehrsbehinderungen drohen in den nächsten Wochen besonders samstags und sonntags.",
-      "correct": false
-    },
-    {
-      "text": "Pipelines tragen maßgeblich zur Umweltverschmutzung in Schleswig-Holstein bei.",
-      "correct": false
-    },
-    {
-      "text": "Anfang nächster Woche ist mit einer erhöhten Ozonbelastung zu rechnen.",
+      "text": "Es wird Gewalt von Fußballfans auch in Deutschland befürchtet.",
       "correct": true
+    },
+    {
+      "text": "Die Leopoldina soll internationale Akademie werden.",
+      "correct": false
     }
   ],
   "memoryHighlights": [
     {
-      "color": 2,
+      "color": 4,
       "parts": [
-        "Nach dem Erdbeben meldeten viele Bürger Schäden bei Polizei und Feuerwehr."
+        "Deutsche Einkommen liegen im europäischen Vergleich nur im Mittelfeld."
       ]
     },
     {
-      "color": 9,
+      "color": 8,
       "parts": [
-        "Anfang nächster Woche ist mit einer erhöhten Ozonbelastung zu rechnen."
+        "Es wird Gewalt von Fußballfans auch in Deutschland befürchtet."
       ]
     }
   ]
