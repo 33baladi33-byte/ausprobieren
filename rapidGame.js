@@ -1011,22 +1011,22 @@
     }
     
     function addGameButton() {
-        const nav = document.getElementById('examNavButtons');
-        if (!nav) { setTimeout(addGameButton, 500); return; }
-        if (document.getElementById('rapidGameBtn')) return;
-        
-        const btn = document.createElement('button');
-        btn.id = 'rapidGameBtn';
-        btn.innerHTML = '⚡ العب';
-        btn.style.cssText = 'background:#2c3e66;color:white;border:none;border-radius:30px;padding:8px 20px;font-size:14px;font-weight:500;cursor:pointer;margin-left:10px';
-        btn.onclick = () => {
+    // نبحث عن زر اللعبة الجديد في interleavingRow
+    const gameBtn = document.getElementById('rapidGameBtn');
+    if (gameBtn) {
+        // نربط الزر الموجود بوظيفته
+        gameBtn.onclick = () => {
             const currentSkill = typeof getCurrentSkill === 'function' ? getCurrentSkill() : 'lesen1';
             const currentExamId = typeof getCurrentExamId === 'function' ? getCurrentExamId() : 1;
             startGame(currentSkill, currentExamId);
         };
-        nav.appendChild(btn);
-        console.log('🎮 زر العب جاهز');
+        console.log('🎮 زر العب تم ربطه');
+        return;
     }
+    
+    // إذا لم نجد الزر، نعيد المحاولة (لأن interleavingRow قد لا يكون جاهزاً بعد)
+    setTimeout(addGameButton, 500);
+}
     
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => { setTimeout(addGameButton, 500); });
