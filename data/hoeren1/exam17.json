@@ -22,5 +22,19 @@
       "text": "Die Löscharbeiten sind noch nicht abgeschlossen.",
       "correct": true
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 3,
+      "parts": [
+        "Der Sekthersteller hat die Pläne für sein Bauvorhaben geändert."
+      ]
+    },
+    {
+      "color": 8,
+      "parts": [
+        "Die Löscharbeiten sind noch nicht abgeschlossen."
+      ]
+    }
   ]
 }
