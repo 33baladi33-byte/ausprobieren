@@ -30,7 +30,11 @@ import {
     setDoc, 
     updateDoc, 
     onSnapshot,
-    serverTimestamp 
+    serverTimestamp,
+    collection,
+    query,
+    where,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
 // ============================================
@@ -40,6 +44,17 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
+
+// ============================================
+// دوال إضافية لإنشاء الحساب بالبريد وكلمة المرور
+// ============================================
+import { 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword,
+    sendEmailVerification,
+    updateProfile,
+    sendPasswordResetEmail
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
 
 // ============================================
 // تصدير للاستخدام في ملفات أخرى
@@ -52,33 +67,24 @@ export {
     signInWithPopup, 
     signOut, 
     onAuthStateChanged,
-    doc, getDoc, setDoc, updateDoc, onSnapshot, serverTimestamp
+    doc, getDoc, setDoc, updateDoc, onSnapshot, serverTimestamp,
+    collection, query, where, getDocs,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    sendEmailVerification,
+    updateProfile,
+    sendPasswordResetEmail
 };
 
+// ============================================
 // جعلها متاحة عالمياً (للوصول من console)
+// ============================================
 window.firebaseApp = app;
 window.firebaseAuth = auth;
 window.firebaseDb = db;
 window.firebaseSignOut = signOut;
-// ============================================
-// دوال إضافية لإنشاء الحساب بالبريد وكلمة المرور
-// ============================================
-import { 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword,
-    sendEmailVerification,
-    updateProfile
-} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
-
-// تصدير الدوال الجديدة
-export {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    sendEmailVerification,
-    updateProfile
-};
-
-// جعلها متاحة عالمياً
 window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
 window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-console.log('✅ Firebase تم تهيئته بنجاح');
+window.sendPasswordResetEmail = sendPasswordResetEmail;
+
+console.log('✅ Firebase تم تهيئته بنجاح مع جميع الدوال');
