@@ -4598,4 +4598,63 @@ body.dark-mode .auth-links .link:hover {
     color: #0ea5e9;
 }
 
-body.dark-mode .
+body.dark-mode .auth-links .link-forgot {
+    color: #94a3b8;
+}
+
+body.dark-mode .auth-links .link-forgot:hover {
+    color: #38bdf8;
+}
+
+body.dark-mode .profile-dropdown {
+    background: #0f172a;
+    border-color: #1e293b;
+}
+
+body.dark-mode .profile-dropdown .profile-name {
+    color: #f1f5f9;
+}
+
+body.dark-mode .profile-dropdown .profile-email {
+    color: #94a3b8;
+}
+
+body.dark-mode .profile-dropdown .profile-divider {
+    background: #1e293b;
+}
+
+body.dark-mode .profile-dropdown .profile-status {
+    background: #1e293b;
+    color: #f1f5f9;
+}
+
+body.dark-mode .profile-dropdown .profile-expiry {
+    color: #94a3b8;
+}
+
+body.dark-mode .profile-dropdown .profile-logout {
+    background: #1e293b;
+    color: #94a3b8;
+}
+
+body.dark-mode .profile-dropdown .profile-logout:hover {
+    background: #2d3748;
+    color: #f1f5f9;
+}
+
+body.dark-mode .close-btn {
+    color: #64748b;
+}
+
+body.dark-mode .close-btn:hover {
+    color: #94a3b8;
+}
+
+body.dark-mode .auth-btn-whatsapp {
+    background: #25D366;
+    color: white;
+}
+
+body.dark-mode .auth-btn-whatsapp:hover {
+    background: #128C7E;
+}
