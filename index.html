@@ -1227,6 +1227,277 @@ body.dark-mode .mobile-banner span {
 }
 
 /* Profile Dropdown */
+   /* ============================================
+   Login Popup - نافذة تسجيل الدخول الجديدة
+   ============================================ */
+
+.login-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-popup.active {
+    display: flex;
+}
+
+.login-popup-content {
+    background: #ffffff;
+    border-radius: 24px;
+    max-width: 400px;
+    width: 92%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 28px 24px 24px 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: authSlideUp 0.3s ease;
+    position: relative;
+}
+
+.login-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.login-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1e293b;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #475569;
+}
+
+.login-subtitle {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0 0 18px 0;
+    text-align: right;
+}
+
+.login-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #dce2ec;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    transition: border 0.2s;
+    font-family: inherit;
+    background: #f8fafc;
+}
+
+.login-input:focus {
+    outline: none;
+    border-color: #2c3e66;
+    box-shadow: 0 0 0 3px rgba(44, 62, 102, 0.1);
+    background: #ffffff;
+}
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper .login-input {
+    padding-left: 48px;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #94a3b8;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.toggle-password-btn:hover {
+    color: #475569;
+}
+
+.login-btn-primary {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: #2c3e66;
+    color: white;
+    transition: all 0.2s;
+    font-family: inherit;
+    margin-top: 4px;
+}
+
+.login-btn-primary:hover {
+    background: #1a2a4a;
+    transform: translateY(-1px);
+}
+
+.login-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    font-size: 0.85rem;
+}
+
+.forgot-link {
+    color: #64748b;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.forgot-link:hover {
+    color: #2c3e66;
+    text-decoration: underline;
+}
+
+.signup-link {
+    color: #2c3e66;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.signup-link:hover {
+    color: #1a2a4a;
+    text-decoration: underline;
+}
+
+/* ============================================
+   Forgot Password - نافذة نسيت كلمة المرور
+   ============================================ */
+
+.forgot-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 100001;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.forgot-popup.active {
+    display: flex;
+}
+
+.forgot-popup-content {
+    background: #ffffff;
+    border-radius: 24px;
+    max-width: 400px;
+    width: 92%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 28px 24px 24px 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    animation: authSlideUp 0.3s ease;
+}
+
+.forgot-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.forgot-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #1e293b;
+}
+
+.forgot-subtitle {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0 0 18px 0;
+    text-align: right;
+}
+
+.forgot-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #dce2ec;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    transition: border 0.2s;
+    font-family: inherit;
+    background: #f8fafc;
+}
+
+.forgot-input:focus {
+    outline: none;
+    border-color: #2c3e66;
+    box-shadow: 0 0 0 3px rgba(44, 62, 102, 0.1);
+    background: #ffffff;
+}
+
+.reset-btn-primary {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: #25D366;
+    color: white;
+    transition: all 0.2s;
+    font-family: inherit;
+    margin-top: 4px;
+}
+
+.reset-btn-primary:hover {
+    background: #1da851;
+    transform: translateY(-1px);
+}
+
+.whatsapp-info {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.whatsapp-info strong {
+    color: #25D366;
+} 
 .profile-dropdown {
     position: absolute;
     top: 60px;
@@ -1397,13 +1668,25 @@ body.dark-mode .mobile-banner span {
 <!-- ===== نافذة تسجيل الدخول ===== -->
 <div id="loginPopup" class="login-popup">
     <div class="login-popup-content">
-        <h3>🔐 تسجيل الدخول / إنشاء حساب</h3>
-        <p>أدخل بريدك الإلكتروني وكلمة السر</p>
-        <input type="email" id="popupEmail" placeholder="البريد الإلكتروني">
-        <input type="password" id="popupPassword" placeholder="كلمة السر">
-        <button id="popupLoginBtn" class="btn-popup-login">دخول / إنشاء حساب</button>
-        <br>
-        <button id="closePopupBtn" class="btn-popup-close">إغلاق</button>
+        <div class="login-header">
+            <h3>👋 مرحباً بيك من جديد</h3>
+            <button id="closePopupBtn" class="close-btn">✕</button>
+        </div>
+        <p class="login-subtitle">سجل دخولك باش تكمل المراجعة</p>
+        
+        <input type="email" id="popupEmail" placeholder="البريد الإلكتروني" class="login-input">
+        
+        <div class="password-wrapper">
+            <input type="password" id="popupPassword" placeholder="كلمة السر" class="login-input">
+            <button id="togglePasswordBtn" class="toggle-password-btn" type="button">👁️</button>
+        </div>
+        
+        <button id="popupLoginBtn" class="login-btn-primary">دخول</button>
+        
+        <div class="login-links">
+            <span id="forgotPasswordLink" class="forgot-link">نسيت كلمة المرور؟</span>
+            <span id="switchToSignup" class="signup-link">إنشاء حساب جديد</span>
+        </div>
     </div>
 </div>
 
@@ -1418,20 +1701,43 @@ body.dark-mode .mobile-banner span {
             <p class="auth-subtitle">أهلاً وسهلاً بيك في Zertiva 🎉</p>
             
             <div class="auth-row">
-                <input type="text" id="signupFirstName" placeholder="الاسم الأول" class="auth-input half">
-                <input type="text" id="signupLastName" placeholder="الاسم الأخير" class="auth-input half">
+                <input type="text" id="signupFirstName" placeholder="الاسم الشخصي" class="auth-input half">
+                <input type="text" id="signupLastName" placeholder="الاسم العائلي" class="auth-input half">
             </div>
             
             <input type="text" id="signupUsername" placeholder="اسم المستخدم" class="auth-input">
             <input type="email" id="signupEmail" placeholder="البريد الإلكتروني" class="auth-input">
-            <input type="password" id="signupPassword" placeholder="كلمة السر (6 أحرف على الأقل)" class="auth-input">
             
-            <button id="createAccountBtn" class="auth-btn primary">إنشاء حساب</button>
+            <div class="password-wrapper">
+                <input type="password" id="signupPassword" placeholder="كلمة السر" class="auth-input">
+                <button id="toggleSignupPasswordBtn" class="toggle-password-btn" type="button">👁️</button>
+            </div>
+            
+            <button id="createAccountBtn" class="auth-btn primary">تسجيل</button>
             <p class="auth-switch">عندك حساب؟ <span id="switchToLogin" class="auth-link">دخل هنا</span></p>
         </div>
     </div>
 </div>
 
+    <!-- ===== نافذة نسيت كلمة المرور ===== -->
+<div id="forgotPasswordPopup" class="forgot-popup">
+    <div class="forgot-popup-content">
+        <div class="forgot-header">
+            <h3>🔄 تغيير كلمة المرور</h3>
+            <button id="closeForgotPopup" class="close-btn">✕</button>
+        </div>
+        <p class="forgot-subtitle">أدخل بريدك الإلكتروني وكلمة السر الجديدة</p>
+        
+        <input type="email" id="forgotEmail" placeholder="البريد الإلكتروني" class="forgot-input">
+        <input type="password" id="forgotNewPassword" placeholder="كلمة السر الجديدة" class="forgot-input">
+        
+        <button id="resetPasswordBtn" class="reset-btn-primary">إرسال عبر واتساب</button>
+        
+        <div class="whatsapp-info">
+            <span>📱 سيتم الإرسال إلى: <strong>+212 687-561491</strong></span>
+        </div>
+    </div>
+</div>
 <!-- الصفحة الرئيسية -->
 <div id="home" class="page active home">
     <div class="hero-wrapper">
