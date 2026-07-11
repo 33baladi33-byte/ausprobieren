@@ -22,5 +22,19 @@
       "text": "Anfang nächster Woche ist mit einer erhöhten Ozonbelastung zu rechnen.",
       "correct": true
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 2,
+      "parts": [
+        "Nach dem Erdbeben meldeten viele Bürger Schäden bei Polizei und Feuerwehr."
+      ]
+    },
+    {
+      "color": 9,
+      "parts": [
+        "Anfang nächster Woche ist mit einer erhöhten Ozonbelastung zu rechnen."
+      ]
+    }
   ]
 }
