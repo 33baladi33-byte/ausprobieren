@@ -22,5 +22,19 @@
       "text": "Kinder können in der Bücherei ihre eigenen Texte vorlesen.",
       "correct": false
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 2,
+      "parts": [
+        "Die Wahlbeteiligung in Deutschland nimmt wieder zu."
+      ]
+    },
+    {
+      "color": 9,
+      "parts": [
+        "Bei der Sportveranstaltung wurden neue Bestzeiten aufgestellt."
+      ]
+    }
   ]
 }
