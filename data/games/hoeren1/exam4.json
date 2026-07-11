@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Erdbeben",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Nach dem Erdbeben meldeten viele Bürger Schäden bei Polizei und Feuerwehr.", "correct": true },
+    { "id": 2, "text": "Eltern müssen sich neuerdings über den Impfschutz für ihre Kinder beraten lassen.", "correct": false },
+    { "id": 3, "text": "Verkehrsbehinderungen drohen in den nächsten Wochen besonders samstags und sonntags.", "correct": false },
+    { "id": 4, "text": "Pipelines tragen maßgeblich zur Umweltverschmutzung in Schleswig-Holstein bei.", "correct": false },
+    { "id": 5, "text": "Anfang nächster Woche ist mit einer erhöhten Ozonbelastung zu rechnen.", "correct": true }
+  ]
+}

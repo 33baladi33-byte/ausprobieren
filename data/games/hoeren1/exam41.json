@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Bei der Sportveranstaltung",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die ÖBB wollen ihre Kooperation mit den Schweizer Bundesbahnen (SBB) ausbauen.", "correct": false },
+    { "id": 2, "text": "Aufgrund eines Unfalls kam es zu einem Großaufgebot von Einsatzwägen.", "correct": true },
+    { "id": 3, "text": "Baden bereitet den Antrag für die Aufnahme als 'Kleine historische Stadt' vor.", "correct": false },
+    { "id": 4, "text": "Bei der Sportveranstaltung 'Stilecht' sind Fahrräder aller Arten vertreten.", "correct": true },
+    { "id": 5, "text": "In den nächsten Wochen sind österreichweit starke Niederschläge zu erwarten.", "correct": false }
+  ]
+}

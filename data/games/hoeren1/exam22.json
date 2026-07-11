@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Das Schladminger",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Das Schladminger Skirennen fällt wieder aus.", "correct": true },
+    { "id": 2, "text": "Mehr Mädchen als Buben leisten als pflegende Kinder und Jugendliche Betreuungsarbeit in den Familien.", "correct": true },
+    { "id": 3, "text": "Ein Grazer Wohnhaus brannte bei einem Großbrand komplett aus.", "correct": false },
+    { "id": 4, "text": "Alle bei Australien gestrandeten Wale sind verendet.", "correct": false },
+    { "id": 5, "text": "Insgesamt bleibt es mild.", "correct": true }
+  ]
+}

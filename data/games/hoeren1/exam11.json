@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Nicht sicher",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Es ist nicht sicher, ob es erneut zu diesem Problem kommen kann.", "correct": true },
+    { "id": 2, "text": "Hamburgs Politiker befürworteten den Bau des Einkaufszentrums nicht.", "correct": false },
+    { "id": 3, "text": "Zwischen Frankreich und Deutschland wurde ein neuer Hochgeschwindigkeitszug genommen.", "correct": false },
+    { "id": 4, "text": "Die Produkte von TipTop sind in Deutschland nicht mehr so gefragt.", "correct": true },
+    { "id": 5, "text": "Ingrid Thieme wird sich an der kommenden WM beteiligen.", "correct": false }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Reflex Modus",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Deutsche Lufthansa hat ihre Führungsposition verloren.", "correct": false },
+    { "id": 2, "text": "Ein Bonner Sportverein zeigt der Öffentlichkeit sein Angebot.", "correct": true },
+    { "id": 3, "text": "Die Rahmenbedingungen in deutschen Pflegeheimen bedürfen dringend einer Änderung.", "correct": true },
+    { "id": 4, "text": "Durch moderne Wärmedämmung könnten die Heizkosten deutlich reduziert werden.", "correct": false },
+    { "id": 5, "text": "Das Nationale Olympische Komitee hat die Dopingsperre für Tom Sanders aufgehoben.", "correct": false }
+  ]
+}

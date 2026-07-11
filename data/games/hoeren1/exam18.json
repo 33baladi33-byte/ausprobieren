@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Die Fluggesellschaft",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Kunden der Fluggesellschaft DL äußern Unzufriedenheit.", "correct": true },
+    { "id": 2, "text": "Die Preise von Süßwaren wurden dieses Jahr gesenkt, um Käufer zurückzugewinnen.", "correct": false },
+    { "id": 3, "text": "Die Sonnenstürme hatten keine negativen Auswirkungen.", "correct": true },
+    { "id": 4, "text": "Einer der Kandidaten konnte die Mehrheit der Zuschauer auf seine Seite bringen.", "correct": false },
+    { "id": 5, "text": "Das Tiefdruckgebiet 'Helena' kann morgen im Südwesten Deutschlands Verkehrsprobleme verursachen.", "correct": true }
+  ]
+}

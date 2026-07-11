@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Der Fluggesellschaft (Mittel)",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Fluggesellschaft DL fliegt z. B. Rostock nicht mehr an.", "correct": true },
+    { "id": 2, "text": "Süßwaren wurden dieses Jahr angeboten, um Käufer zurückzugewinnen.", "correct": false },
+    { "id": 3, "text": "Die Sonnenstürme hatten keine negativen Auswirkungen.", "correct": true },
+    { "id": 4, "text": "Einer der Kandidaten konnte die Mehrheit der Zuschauer für sich gewinnen.", "correct": false },
+    { "id": 5, "text": "Das Tiefdruckgebiet 'Helena' kann morgen im Südwesten Deutschlands Verkehrsprobleme verursachen.", "correct": true }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Die Stadt Friedrichsberg",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Stadt Friedrichsberg lädt zu einer Preisverleihung ein.", "correct": false },
+    { "id": 2, "text": "Die Alte Brücke ist zum Jahresbeginn wieder befahrbar.", "correct": true },
+    { "id": 3, "text": "Der Wanderer wurde verarztet und in Sicherheit gebracht.", "correct": true },
+    { "id": 4, "text": "In dem Unternehmen kommt es zu Kündigungen.", "correct": false },
+    { "id": 5, "text": "Man kann nach einer Registrierung an einem Gruppenlauf teilnehmen.", "correct": true }
+  ]
+}

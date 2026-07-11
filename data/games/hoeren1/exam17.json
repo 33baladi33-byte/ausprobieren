@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Insel Bali",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Auf der Insel Bali wurden neue Maßnahmen zur Müllentsorgung beschlossen.", "correct": false },
+    { "id": 2, "text": "In Nordfrankreich wird nach einem entlaufenen Panther gesucht.", "correct": false },
+    { "id": 3, "text": "Die Mietervereinigung fordert die Mieter auf, die Betriebskosten nicht zu bezahlen.", "correct": false },
+    { "id": 4, "text": "Der Sekthersteller hat die Pläne für sein Bauvorhaben geändert.", "correct": true },
+    { "id": 5, "text": "Die Löscharbeiten sind noch nicht abgeschlossen.", "correct": true }
+  ]
+}

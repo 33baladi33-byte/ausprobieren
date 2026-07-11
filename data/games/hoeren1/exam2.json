@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Die Piloten der Lufthansa",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Die Piloten der Lufthansa kämpfen für eine bessere Bezahlung.", "correct": false },
+    { "id": 2, "text": "Das Gesundheitsministerium empfiehlt allen Bürgern eine Grippeimpfung.", "correct": false },
+    { "id": 3, "text": "Immer mehr Menschen besuchen den Tag des offenen Denkmals.", "correct": true },
+    { "id": 4, "text": "Die Mehrheit der deutschen Arbeitnehmer würde auch im Ausland arbeiten.", "correct": false },
+    { "id": 5, "text": "Bei den Fußballspielen gab es keinen Sieger.", "correct": true }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Ein Treffen bei der Integrationsbeauftragten",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Ein Treffen bei der Integrationsbeauftragten soll dazu beitragen, die Integration von Migrantinnen und Migranten zu verbessern.", "correct": true },
+    { "id": 2, "text": "In Teilen von Karlsruhe gab es am Mittwochabend vierzig Minuten lang keinen Strom.", "correct": false },
+    { "id": 3, "text": "Untersuchung zum Essverhalten der Deutschen zeigt: Viele haben Gewichtsprobleme.", "correct": true },
+    { "id": 4, "text": "Chinas Polizei hilft Unwetteropfern.", "correct": false },
+    { "id": 5, "text": "Später Bestattungsritus für Mahatma Gandhi.", "correct": true }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Hörverstehen Teil 1 - Unwetterschäden",
+  "type": "reflex_truefalse",
+  "sentences": [
+    { "id": 1, "text": "Wegen Unwetterschäden wurden Urlauber in einer Notunterkunft untergebracht.", "correct": true },
+    { "id": 2, "text": "Sämtliche Waren der Firma Mirella wurden aus den Läden entfernt.", "correct": false },
+    { "id": 3, "text": "Das Arbeitsplatzangebot in der Bundesrepublik hat einen Tiefstand erreicht.", "correct": false },
+    { "id": 4, "text": "Am 21. Mai ist der Besuch der Sonderausstellung kostenlos.", "correct": true },
+    { "id": 5, "text": "Entlaufene Tiere verursachten einen Unfall auf der Autobahn.", "correct": false }
+  ]
+}
