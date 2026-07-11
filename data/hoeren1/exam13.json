@@ -23,5 +23,25 @@
       "text": "Die Temperaturen steigen in den nächsten Tagen an.",
       "correct": true
     }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 1,
+      "parts": [
+        "Der öffentliche Nahverkehr funktioniert noch nicht störungsfrei."
+      ]
+    },
+    {
+      "color": 6,
+      "parts": [
+        "Wildes Camping ist im In- und Ausland nur bedingt zugelassen."
+      ]
+    },
+    {
+      "color": 10,
+      "parts": [
+        "Die Temperaturen steigen in den nächsten Tagen an."
+      ]
+    }
   ]
 }
