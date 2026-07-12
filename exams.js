@@ -1690,30 +1690,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 renderTeileList();
 
-// ========== إظهار امتحانات Hören 1 تلقائياً ==========
-(function() {
-    const originalGoList = goList;
-    
-    goList = function() {
-        originalGoList();
-        
-        setTimeout(function() {
-            const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
-            if (hoeren1Teil && document.getElementById("list").classList.contains("active")) {
-                renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
-            }
-        }, 150);
-    };
-    
-    if (document.getElementById("list").classList.contains("active")) {
-        setTimeout(function() {
-            const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
-            if (hoeren1Teil) {
-                renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
-            }
-        }, 100);
-    }
-})();
+
 
 // ============================================
 // نظام المراحل المتوازن (لجميع المهارات)
