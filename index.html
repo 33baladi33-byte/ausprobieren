@@ -1273,7 +1273,6 @@ body.dark-mode .mobile-banner span {
     display: block !important;
 }
 
-/* جعل أيقونة الملف الشخصي ذات وضع نسبي */
 .profile-icon {
     position: relative !important;
     cursor: pointer;
@@ -1281,6 +1280,23 @@ body.dark-mode .mobile-banner span {
     align-items: center;
     justify-content: center;
     font-size: 20px;
+}
+
+/* الوضع الليلي لنافذة الملف الشخصي */
+body.dark-mode #profileModal .settings-modal-content {
+    background: #0f0f1a;
+}
+body.dark-mode #profileModal .settings-modal-body {
+    color: #e2e8f0;
+}
+body.dark-mode #profileModal #profileDisplayName {
+    color: #ffffff;
+}
+body.dark-mode #profileModal #profileStatusModal {
+    color: #94a3b8;
+}
+body.dark-mode #profileModal .settings-modal-header h3 {
+    color: #ffffff;
 }
 </style>
 </head>
@@ -1412,7 +1428,28 @@ body.dark-mode .mobile-banner span {
                     <span class="darkmode-slider"></span>
                 </label>
             </div>
-
+<!-- ===== نافذة الملف الشخصي (مودال) ===== -->
+<div id="profileModal" class="settings-modal">
+    <div class="settings-modal-content" style="max-width: 340px;">
+        <div class="settings-modal-header">
+            <h3>👤 الملف الشخصي</h3>
+            <button id="closeProfileModal" class="close-settings-btn">✕</button>
+        </div>
+        <div class="settings-modal-body">
+            <div style="text-align: center; padding: 10px 0;">
+                <div style="font-size: 48px; margin-bottom: 8px;">🙂</div>
+                <div id="profileDisplayName" style="font-size: 18px; font-weight: 600; color: #1a1a2e;">مستخدم</div>
+                <div id="profileStatusModal" style="font-size: 14px; margin-top: 4px; color: #94a3b8;">🆓 مجاني</div>
+                <div id="profileExpiry" style="font-size: 13px; color: #64748b; margin-top: 2px;"></div>
+                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e2e8f0;">
+                    <span style="font-size: 12px; color: #94a3b8;">🆔</span>
+                    <span id="profileUid" style="font-size: 11px; color: #94a3b8; font-family: monospace; word-break: break-all;">---</span>
+                </div>
+                <button id="profileLogoutBtnModal" style="margin-top: 16px; width: 100%; padding: 10px; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600;">🚪 تسجيل خروج</button>
+            </div>
+        </div>
+    </div>
+</div>
             <!-- 👤 معلومات الحساب -->
             <div class="darkmode-divider"></div>
             <div style="margin-top: 10px; padding: 10px 0;">
