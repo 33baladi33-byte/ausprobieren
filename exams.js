@@ -89,41 +89,44 @@ let currentMündlichPart = 2;
 let examUserStatusCache = null;
 let examLastStatusCheck = 0;
 
-// ========== دوال التحقق من حالة المستخدم ==========
+// ========== دوال التحقق من حالة المستخدم (باستخدام Firestore) ==========
 async function getUserStatusForExam() {
-    let email = localStorage.getItem('zertiva_email');
-    if (!email) return 'guest';
-    
-    let now = Date.now();
-    if (examUserStatusCache && (now - examLastStatusCheck) < 60000) {
-        return examUserStatusCache;
-    }
-    
+    // ✅ استخدام Firestore مباشرة عبر window.getUserStatusGlobal
     try {
         if (typeof window.getUserStatusGlobal === 'function') {
             const status = await window.getUserStatusGlobal();
-            examUserStatusCache = status;
-            examLastStatusCheck = now;
-            return status;
+            return status; // يعيد 'premium' أو 'free' أو 'guest'
         }
-        
-        const result = await checkUser(email);
-        if (result && result.exists && result.expiry) {
-            let today = new Date().toISOString().slice(0,10);
-            if (today <= result.expiry) {
-                examUserStatusCache = 'premium';
-                examLastStatusCheck = now;
-                return 'premium';
+    } catch (error) {
+        console.warn('⚠️ فشل جلب حالة المستخدم من Firestore:', error);
+    }
+    
+    // ✅ إذا فشل Firestore، نستخدم localStorage كحل احتياطي
+    const email = localStorage.getItem('zertiva_email');
+    if (!email) return 'guest';
+    
+    // ✅ محاولة جلب البيانات من Firestore مباشرة (إذا كان auth متاحاً)
+    try {
+        if (auth && auth.currentUser) {
+            const docRef = db.collection('users').doc(auth.currentUser.uid);
+            const docSnap = await docRef.get();
+            if (docSnap.exists) {
+                const data = docSnap.data();
+                if (data.premium && data.premiumUntil) {
+                    const today = new Date().toISOString().split('T')[0];
+                    if (today <= data.premiumUntil) {
+                        return 'premium';
+                    }
+                }
+                return 'free';
             }
         }
-        examUserStatusCache = 'free';
-        examLastStatusCheck = now;
-        return 'free';
-    } catch(e) {
-        examUserStatusCache = 'free';
-        examLastStatusCheck = now;
-        return 'free';
+    } catch (e) {
+        console.warn('⚠️ فشل قراءة Firestore في getUserStatusForExam:', e);
     }
+    
+    // ✅ إذا كل شيء فشل، نعتبر المستخدم Free
+    return 'free';
 }
 
 // ========== قائمة Tips (نصائح) ==========
