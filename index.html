@@ -166,154 +166,121 @@
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
-/* ============================================
-   بطاقة الملف الشخصي الجديدة
-   ============================================ */
+/* ========================================
+   Profile Dropdown (التصميم القديم)
+   ======================================== */
+
 .profile-dropdown {
-    display: none !important;
     position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 10px;
-    background: #0f0f1a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    top: 60px;
+    left: 30px;
+    background: #0f172a;
     border-radius: 16px;
-    padding: 20px;
-    min-width: 280px;
-    z-index: 9999;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    padding: 15px 20px;
+    min-width: 250px;
+    z-index: 200;
+    display: none;
+    direction: rtl;
+    border: 1px solid rgba(56, 189, 248, 0.2);
 }
 
-.profile-dropdown.active {
-    display: block !important;
+.profile-dropdown.show {
+    display: block;
 }
 
-.profile-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-.profile-avatar {
-    font-size: 40px;
-    margin-bottom: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.profile-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 4px;
-}
-
-.profile-status {
-    margin-bottom: 4px;
-}
-
-.status-badge {
-    font-size: 14px;
-    font-weight: 500;
-    padding: 4px 12px;
-    border-radius: 20px;
-}
-
-.status-badge.premium {
-    color: #10b981;
-    background: rgba(16, 185, 129, 0.15);
-}
-
-.status-badge.free {
-    color: #f59e0b;
-    background: rgba(245, 158, 11, 0.15);
+.profile-email {
+    font-weight: bold;
+    color: #38bdf8;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #334155;
 }
 
 .profile-expiry {
-    font-size: 12px;
     color: #94a3b8;
-    margin-bottom: 12px;
+    font-size: 13px;
+    margin-bottom: 8px;
 }
 
-.profile-divider {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.06);
-    margin: 12px 0;
-    width: 100%;
+.profile-status {
+    font-size: 13px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #334155;
 }
 
+.status-premium {
+    color: #10b981;
+    font-weight: bold;
+}
+
+.status-free {
+    color: #f59e0b;
+}
+
+/* ✅ سطر الـ UID */
 .profile-uid {
-    font-size: 11px;
-    color: #64748b;
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 8px;
+    padding: 6px 0;
+    border-top: 1px solid #334155;
     display: flex;
     align-items: center;
     gap: 6px;
-    width: 100%;
-    justify-content: center;
 }
 
-.profile-uid span:last-child {
-    font-family: monospace;
-    font-size: 10px;
-    letter-spacing: 0.5px;
-}
-
-.profile-actions {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-    margin-top: 4px;
-}
-
-.profile-btn {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    background: transparent;
-    color: #e2e8f0;
-    cursor: pointer;
-    font-size: 13px;
-    transition: all 0.2s ease;
-}
-
-.profile-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.profile-btn.settings-btn {
-    color: #94a3b8;
-}
-
-.profile-btn.logout-btn {
-    color: #ef4444;
-}
-
-.profile-btn.logout-btn:hover {
-    background: rgba(239, 68, 68, 0.1);
-    border-color: rgba(239, 68, 68, 0.3);
-}
-
-/* الوضع الليلي */
-body.dark-mode .profile-dropdown {
-    background: #0f0f1a;
-    border-color: rgba(255, 255, 255, 0.08);
-}
-
-body.dark-mode .profile-name {
-    color: #ffffff;
-}
-
-body.dark-mode .profile-uid {
+.profile-uid .uid-label {
     color: #64748b;
+    font-weight: 500;
 }
+
+.profile-uid .uid-value {
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: #cbd5e1;
+    word-break: break-all;
+}
+
+.profile-logout {
+    margin-top: 12px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+.profile-logout:hover {
+    background: #dc2626;
+}
+
+/* زر الترقية (يظهر فقط عند عدم تسجيل الدخول) */
+#dropdownUpgradeBtn {
+    margin-top: 12px;
+    background: #64748B;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 13px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+#dropdownUpgradeBtn:hover {
+    background: #475569;
+}
+
+
     /* البطاقة الصغيرة المنبثقة */
     .tips-mini-card {
         position: absolute;
@@ -1251,53 +1218,7 @@ body.dark-mode .mobile-banner span {
             font-size: 0.7rem;
         }
     }
-        /* ============================================
-   إظهار القائمة المنسدلة للملف الشخصي
-   ============================================ */
-.profile-dropdown {
-    display: none !important;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    padding: 12px;
-    min-width: 200px;
-    z-index: 9999;
-    margin-top: 8px;
-}
 
-.profile-dropdown.active {
-    display: block !important;
-}
-
-.profile-icon {
-    position: relative !important;
-    cursor: pointer;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-}
-
-/* الوضع الليلي لنافذة الملف الشخصي */
-body.dark-mode #profileModal .settings-modal-content {
-    background: #0f0f1a;
-}
-body.dark-mode #profileModal .settings-modal-body {
-    color: #e2e8f0;
-}
-body.dark-mode #profileModal #profileDisplayName {
-    color: #ffffff;
-}
-body.dark-mode #profileModal #profileStatusModal {
-    color: #94a3b8;
-}
-body.dark-mode #profileModal .settings-modal-header h3 {
-    color: #ffffff;
-}
         /* ============================================
    نافذة تسجيل الدخول الجديدة
    ============================================ */
@@ -1329,12 +1250,12 @@ body.dark-mode #profileModal .settings-modal-header h3 {
 <body>
 
 <div class="top-bar">
+
 <div class="left-side">
     <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
-    <button id="navSubscribeBtn" class="subscribe-text-btn" style="background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 25px; padding: 8px 20px; font-weight: 600; font-size: 13px; cursor: pointer; color: white;">اشترك</button>
+    <button id="navSubscribeBtn" class="subscribe-text-btn" ...>اشترك</button>
     <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
     <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
-    <button id="profileBtn" class="settings-icon-btn" title="الملف الشخصي">👤</button>
 </div>
     
    <div class="right-side">
@@ -1394,28 +1315,24 @@ body.dark-mode #profileModal .settings-modal-header h3 {
 
 
 
-<!-- ===== بطاقة الملف الشخصي ===== -->
+<!-- ===== الملف الشخصي (التصميم القديم مع إضافة UID) ===== -->
 <div id="profileDropdown" class="profile-dropdown">
-    <div class="profile-card">
-        <div class="profile-avatar">🙂</div>
-        <div class="profile-name" id="profileDisplayName">مرحباً 👋</div>
-        <div class="profile-status" id="profileStatus">
-            <span class="status-badge free">🆓 مجاني</span>
-        </div>
-        <div class="profile-expiry" id="profileExpiry"></div>
-        <div class="profile-divider"></div>
-        <div id="profileSubscribeBtn" class="profile-subscribe-btn" style="display:none; background:linear-gradient(135deg,#38bdf8,#0ea5e9); border:none; border-radius:8px; padding:10px; color:#0a0e1a; font-weight:600; cursor:pointer; width:100%; margin-bottom:8px; font-size:13px;">⭐ اشترك الآن</div>
-        <div class="profile-divider"></div>
-        <div class="profile-uid">
-            <span>ID:</span>
-            <span id="profileUid">---</span>
-        </div>
-        <div class="profile-divider"></div>
-        <div class="profile-actions">
-            <button id="settingsBtn" class="profile-btn settings-btn">⚙️ الإعدادات</button>
-            <button id="profileLogoutBtn" class="profile-btn logout-btn">🚪 تسجيل خروج</button>
-        </div>
+    <div id="profileEmail" class="profile-email">👤 غير مسجل</div>
+    <div id="profileExpiry" class="profile-expiry">الوصول محدود لبعض الامتحانات</div>
+    <div id="profileStatus" class="profile-status"></div>
+    
+    <!-- ✅ سطر الـ UID -->
+    <div id="profileUid" class="profile-uid">
+        <span class="uid-label">ID:</span>
+        <span class="uid-value" id="profileUidValue">---</span>
     </div>
+
+    <!-- زر تسجيل الخروج -->
+    <button id="profileLogoutBtn" class="profile-logout" style="display: none;">🚪 تسجيل خروج</button>
+    
+    <!-- زر الترقية (يتم إضافته بواسطة JavaScript عند الحاجة) -->
+</div>
+
 </div>
 
 <!-- ===== نافذة تسجيل الدخول / إنشاء حساب / نسيت كلمة المرور (مودال موحد) ===== -->
