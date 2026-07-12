@@ -49,7 +49,31 @@ function closeLoginPopup() {
 }
 
 // ============================================
-// دالة جلب حالة المستخدم (للقراءة فقط)
+// دالة إنشاء مستند المستخدم في Firestore
+// ============================================
+async function createUserDocument(user, additionalData = {}) {
+    try {
+        const userData = {
+            email: user.email,
+            username: additionalData.username || user.email.split('@')[0] || 'مستخدم',
+            firstname: additionalData.firstname || '',
+            lastname: additionalData.lastname || '',
+            plan: 'free',
+            premiumUntil: null,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        };
+
+        await db.collection('users').doc(user.uid).set(userData);
+        console.log('✅ تم إنشاء مستند المستخدم في Firestore:', user.uid);
+        return true;
+    } catch (error) {
+        console.error('❌ فشل إنشاء مستند المستخدم:', error);
+        return false;
+    }
+}
+
+// ============================================
+// دالة جلب حالة المستخدم (مع إنشاء تلقائي للمستخدمين القدامى)
 // ============================================
 window.getUserStatusGlobal = async function() {
     const user = auth.currentUser;
@@ -58,14 +82,31 @@ window.getUserStatusGlobal = async function() {
     try {
         const docRef = db.collection('users').doc(user.uid);
         const docSnap = await docRef.get();
+        
         if (docSnap.exists) {
+            // ✅ المستند موجود -> نقرأ البيانات
             const data = docSnap.data();
-            if (data.premium && data.premiumUntil) {
+            if (data.plan === 'premium' && data.premiumUntil) {
                 const today = new Date().toISOString().split('T')[0];
-                if (today <= data.premiumUntil) return 'premium';
+                if (today <= data.premiumUntil) {
+                    return 'premium';
+                } else {
+                    // ✅ إذا انتهت الصلاحية، نعدل الخطة تلقائياً إلى free
+                    await docRef.update({
+                        plan: 'free',
+                        premiumUntil: null
+                    });
+                    console.log('🔄 تم تغيير الخطة إلى free (انتهت الصلاحية)');
+                }
             }
+            return 'free';
+        } else {
+            // ✅ المستند غير موجود -> ننشئه تلقائياً (للمستخدمين القدامى)
+            console.log('📝 إنشاء مستند جديد للمستخدم القديم:', user.email);
+            await createUserDocument(user);
+            console.log('✅ تم إنشاء مستند المستخدم تلقائياً');
+            return 'free';
         }
-        return 'free';
     } catch (error) {
         console.error('❌ خطأ في جلب حالة المستخدم:', error);
         return 'free';
@@ -84,7 +125,7 @@ async function signIn(email, password) {
     }
 }
 
-async function signUp(email, password) {
+async function signUp(email, password, additionalData = {}) {
     if (password.length < 6) {
         showPopupError('كلمة المرور يجب أن تكون 6 أحرف أو أكثر');
         return;
@@ -94,13 +135,8 @@ async function signUp(email, password) {
         const user = userCredential.user;
         localStorage.setItem('userPass_' + user.uid, password);
 
-        await db.collection('users').doc(user.uid).set({
-            email: user.email,
-            premium: false,
-            premiumUntil: null,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        console.log('✅ تم إنشاء مستند المستخدم في Firestore');
+        // ✅ إنشاء مستند المستخدم في Firestore
+        await createUserDocument(user, additionalData);
 
         await user.sendEmailVerification();
         alert('✅ تم إنشاء الحساب بنجاح!');
