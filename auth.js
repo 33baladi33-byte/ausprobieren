@@ -19,7 +19,7 @@ const loginPopup = document.getElementById('loginPopup');
 const profileIcon = document.getElementById('profileIcon');
 const profileDropdown = document.getElementById('profileDropdown');
 const profileEmail = document.getElementById('profileEmail');
-const profileStatus = document.getElementById('profileStatus'); // ✅ لعرض الحالة
+const profileStatus = document.getElementById('profileStatus');
 const profileLogoutBtn = document.getElementById('profileLogoutBtn');
 const navLoginBtn = document.getElementById('navLoginBtn');
 const navSubscribeBtn = document.getElementById('navSubscribeBtn');
@@ -40,7 +40,7 @@ function closeLoginPopup() {
 }
 
 // ============================================
-// دالة جلب حالة المستخدم من Firestore (عامة)
+// دالة جلب حالة المستخدم من Firestore (للقراءة فقط)
 // ============================================
 window.getUserStatusGlobal = async function() {
     const user = auth.currentUser;
@@ -54,27 +54,15 @@ window.getUserStatusGlobal = async function() {
 
         if (docSnap.exists) {
             const data = docSnap.data();
-            
-            // ✅ التحقق من الاشتراك المدفوع
             if (data.premium && data.premiumUntil) {
-                const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+                const today = new Date().toISOString().split('T')[0];
                 if (today <= data.premiumUntil) {
                     return 'premium';
-                } else {
-                    // (اختياري) لو انتهت الصلاحية، نحدثها في الخلفية
-                    // await docRef.update({ premium: false });
-                    return 'free';
                 }
             }
             return 'free';
         } else {
-            // ✅ إذا لم يكن هناك مستند، ننشئ واحداً (للمستخدمين القدامى)
-            await db.collection('users').doc(user.uid).set({
-                email: user.email,
-                premium: false,
-                premiumUntil: null,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
+            // ✅ إذا لم يكن هناك مستند، نعتبر المستخدم Free (لا ننشئ مستنداً هنا)
             return 'free';
         }
     } catch (error) {
@@ -156,22 +144,30 @@ async function updateUI(user) {
         // ✅ إخفاء زر تسجيل الدخول
         if (navLoginBtn) navLoginBtn.style.display = 'none';
         
-        // ✅ إبقاء زر "اشترك" ظاهراً (يذهب لصفحة الاشتراك)
+        // ✅ إبقاء زر "اشترك" ظاهراً
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-block';
         
         // ✅ عرض البريد الإلكتروني
         if (profileEmail) profileEmail.innerText = user.email;
         
-        // ✅ حفظ البريد في localStorage للتوافق مع صفحات أخرى
+        // ✅ حفظ البريد في localStorage
         localStorage.setItem('zertiva_email', user.email);
 
-        // ✅✅✅ جلب حالة المستخدم من Firestore وعرضها في القائمة المنسدلة ✅✅✅
-        if (profileStatus) {
+        // ✅ جلب الحالة من Firestore (قراءة فقط)
+        try {
             const status = await window.getUserStatusGlobal();
-            if (status === 'premium') {
-                profileStatus.innerText = '⭐ مشترك (Premium)';
-                profileStatus.style.color = '#10b981';
-            } else {
+            if (profileStatus) {
+                if (status === 'premium') {
+                    profileStatus.innerText = '⭐ مشترك (Premium)';
+                    profileStatus.style.color = '#10b981';
+                } else {
+                    profileStatus.innerText = '🆓 مجاني (Free)';
+                    profileStatus.style.color = '#f59e0b';
+                }
+            }
+        } catch (error) {
+            console.warn('⚠️ فشل جلب حالة المستخدم، استخدام الوضع المجاني:', error);
+            if (profileStatus) {
                 profileStatus.innerText = '🆓 مجاني (Free)';
                 profileStatus.style.color = '#f59e0b';
             }
@@ -223,67 +219,89 @@ auth.onAuthStateChanged(user => {
 // ربط الأحداث (Event Listeners)
 // ============================================
 
-// 1. زر تسجيل الدخول (يفتح النافذة المنبثقة)
-if (navLoginBtn) {
-    navLoginBtn.addEventListener('click', openLoginPopup);
-    console.log('✅ زر تسجيل الدخول مربوط');
-}
+// ✅ التأكد من ربط الأزرار بعد تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
 
-// 2. زر اشترك (يذهب مباشرة إلى صفحة الاشتراك)
-if (navSubscribeBtn) {
-    navSubscribeBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.location.href = 'subscribe.html';
-    });
-    console.log('✅ زر اشترك مربوط (يذهب لصفحة الاشتراك)');
-}
-
-// 3. إغلاق النافذة المنبثقة
-if (closePopupBtn) {
-    closePopupBtn.addEventListener('click', closeLoginPopup);
-}
-
-// 4. إغلاق النافذة عند الضغط خارجها
-if (loginPopup) {
-    loginPopup.addEventListener('click', (e) => {
-        if (e.target === loginPopup) closeLoginPopup();
-    });
-}
-
-// 5. أزرار داخل النافذة المنبثقة
-if (popupLoginBtn) {
-    popupLoginBtn.addEventListener('click', () => {
-        const email = popupEmail.value.trim();
-        const pass = popupPassword.value;
-        signIn(email, pass);
-    });
-}
-if (popupSignupBtn) {
-    popupSignupBtn.addEventListener('click', () => {
-        const email = popupEmail.value.trim();
-        const pass = popupPassword.value;
-        signUp(email, pass);
-    });
-}
-if (popupResetBtn) {
-    popupResetBtn.addEventListener('click', () => {
-        const email = popupEmail.value.trim();
-        resetPassword(email);
-    });
-}
-
-// 6. تسجيل الخروج
-if (profileLogoutBtn) {
-    profileLogoutBtn.addEventListener('click', logOut);
-}
-
-v
-
-// 8. إغلاق القائمة المنسدلة عند الضغط في أي مكان آخر
-document.addEventListener('click', (e) => {
-    if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileIcon) {
-        profileDropdown.classList.remove('active');
+    // 1. زر تسجيل الدخول (يفتح النافذة المنبثقة)
+    if (navLoginBtn) {
+        navLoginBtn.addEventListener('click', openLoginPopup);
+        console.log('✅ زر تسجيل الدخول مربوط');
     }
+
+    // 2. زر اشترك (يذهب مباشرة إلى صفحة الاشتراك)
+    if (navSubscribeBtn) {
+        navSubscribeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'subscribe.html';
+        });
+        console.log('✅ زر اشترك مربوط (يذهب لصفحة الاشتراك)');
+    }
+
+    // 3. إغلاق النافذة المنبثقة
+    if (closePopupBtn) {
+        closePopupBtn.addEventListener('click', closeLoginPopup);
+        console.log('✅ زر إغلاق النافذة مربوط');
+    }
+
+    // 4. إغلاق النافذة عند الضغط خارجها
+    if (loginPopup) {
+        loginPopup.addEventListener('click', (e) => {
+            if (e.target === loginPopup) closeLoginPopup();
+        });
+        console.log('✅ إغلاق النافذة بالخارج مربوط');
+    }
+
+    // 5. أزرار داخل النافذة المنبثقة
+    if (popupLoginBtn) {
+        popupLoginBtn.addEventListener('click', () => {
+            const email = popupEmail.value.trim();
+            const pass = popupPassword.value;
+            signIn(email, pass);
+        });
+        console.log('✅ زر تسجيل الدخول في النافذة مربوط');
+    }
+    if (popupSignupBtn) {
+        popupSignupBtn.addEventListener('click', () => {
+            const email = popupEmail.value.trim();
+            const pass = popupPassword.value;
+            signUp(email, pass);
+        });
+        console.log('✅ زر إنشاء حساب في النافذة مربوط');
+    }
+    if (popupResetBtn) {
+        popupResetBtn.addEventListener('click', () => {
+            const email = popupEmail.value.trim();
+            resetPassword(email);
+        });
+        console.log('✅ زر نسيت كلمة المرور مربوط');
+    }
+
+    // 6. تسجيل الخروج
+    if (profileLogoutBtn) {
+        profileLogoutBtn.addEventListener('click', logOut);
+        console.log('✅ زر تسجيل خروج مربوط');
+    }
+
+    // 7. أيقونة الملف الشخصي (فتح/إغلاق القائمة المنسدلة)
+    if (profileIcon) {
+        profileIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (profileDropdown) {
+                profileDropdown.classList.toggle('active');
+                console.log('✅ تم تبديل قائمة الملف الشخصي');
+            }
+        });
+        console.log('✅ أيقونة الملف الشخصي (👤) مربوطة بنجاح');
+    }
+
+    // 8. إغلاق القائمة المنسدلة عند الضغط في أي مكان آخر
+    document.addEventListener('click', (e) => {
+        if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileIcon) {
+            profileDropdown.classList.remove('active');
+        }
+    });
+
+    console.log('✅ جميع أزرار المصادقة تم ربطها بنجاح');
 });
 
 console.log('✅ auth.js (مع Firestore) تم تحميله بنجاح');
