@@ -374,7 +374,7 @@ async function updateProfile() {
         
         if (isPremium) {
             const expiry = new Date(data.premiumUntil);
-            if (profileExpiry) profileExpiry.textContent = `📅 الصلاحية: حتى ${expiry.toLocaleDateString('ar-EG')}`;
+            if (profileExpiry) profileExpiry.textContent = `📅 الصلاحية: حتى ${expiry.toLocaleDateString('en-US')}`;
             if (profileStatus) profileStatus.innerHTML = `<span class="status-premium">✅ مشترك (Pro)</span>`;
             if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
         } else {
