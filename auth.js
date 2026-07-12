@@ -277,15 +277,7 @@ if (profileLogoutBtn) {
     profileLogoutBtn.addEventListener('click', logOut);
 }
 
-// 7. أيقونة الملف الشخصي (فتح/إغلاق القائمة المنسدلة)
-if (profileIcon) {
-    profileIcon.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (profileDropdown) {
-            profileDropdown.classList.toggle('active');
-        }
-    });
-}
+v
 
 // 8. إغلاق القائمة المنسدلة عند الضغط في أي مكان آخر
 document.addEventListener('click', (e) => {
