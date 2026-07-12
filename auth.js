@@ -18,7 +18,7 @@ if (!db) {
 }
 
 // ============================================
-// عناصر DOM
+// عناصر DOM (للملف الشخصي الجديد)
 // ============================================
 const popupEmail = document.getElementById('popupEmail');
 const popupPassword = document.getElementById('popupPassword');
@@ -36,6 +36,11 @@ const profileLogoutBtn = document.getElementById('profileLogoutBtn');
 const navLoginBtn = document.getElementById('navLoginBtn');
 const navSubscribeBtn = document.getElementById('navSubscribeBtn');
 
+// عناصر البطاقة الجديدة
+const profileDisplayName = document.getElementById('profileDisplayName');
+const profileUid = document.getElementById('profileUid');
+const profileExpiry = document.getElementById('profileExpiry');
+
 function showPopupError(msg) {
     if (popupError) popupError.innerText = msg;
     setTimeout(() => { if (popupError) popupError.innerText = ''; }, 5000);
@@ -49,10 +54,27 @@ function closeLoginPopup() {
 }
 
 // ============================================
-// دالة إنشاء مستند المستخدم في Firestore
+// دالة إنشاء مستند المستخدم في Firestore (مرة واحدة فقط)
 // ============================================
 async function createUserDocument(user, additionalData = {}) {
     try {
+        const userRef = db.collection('users').doc(user.uid);
+        const docSnap = await userRef.get();
+        
+        // ✅ إذا كان المستند موجوداً، لا نعيد كتابة plan و premiumUntil
+        if (docSnap.exists) {
+            console.log('📝 المستند موجود، تحديث البيانات الأساسية فقط');
+            // تحديث فقط الحقول التي لا تؤثر على الاشتراك
+            await userRef.update({
+                username: additionalData.username || user.email.split('@')[0] || 'مستخدم',
+                firstname: additionalData.firstname || '',
+                lastname: additionalData.lastname || '',
+                lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            return true;
+        }
+        
+        // ✅ المستند غير موجود -> ننشئه لأول مرة
         const userData = {
             email: user.email,
             username: additionalData.username || user.email.split('@')[0] || 'مستخدم',
@@ -60,10 +82,12 @@ async function createUserDocument(user, additionalData = {}) {
             lastname: additionalData.lastname || '',
             plan: 'free',
             premiumUntil: null,
+            currentSession: null,
+            lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         };
 
-        await db.collection('users').doc(user.uid).set(userData);
+        await userRef.set(userData);
         console.log('✅ تم إنشاء مستند المستخدم في Firestore:', user.uid);
         return true;
     } catch (error) {
@@ -73,7 +97,7 @@ async function createUserDocument(user, additionalData = {}) {
 }
 
 // ============================================
-// دالة جلب حالة المستخدم (مع إنشاء تلقائي للمستخدمين القدامى)
+// دالة جلب حالة المستخدم (قراءة فقط، لا تعدل)
 // ============================================
 window.getUserStatusGlobal = async function() {
     const user = auth.currentUser;
@@ -84,27 +108,22 @@ window.getUserStatusGlobal = async function() {
         const docSnap = await docRef.get();
         
         if (docSnap.exists) {
-            // ✅ المستند موجود -> نقرأ البيانات
             const data = docSnap.data();
+            
+            // ✅ قراءة فقط، لا نعدل أي شيء
             if (data.plan === 'premium' && data.premiumUntil) {
                 const today = new Date().toISOString().split('T')[0];
                 if (today <= data.premiumUntil) {
                     return 'premium';
-                } else {
-                    // ✅ إذا انتهت الصلاحية، نعدل الخطة تلقائياً إلى free
-                    await docRef.update({
-                        plan: 'free',
-                        premiumUntil: null
-                    });
-                    console.log('🔄 تم تغيير الخطة إلى free (انتهت الصلاحية)');
                 }
+                // ✅ إذا انتهت الصلاحية، نرجع free لكن لا نعدل في Firestore
+                return 'free';
             }
             return 'free';
         } else {
-            // ✅ المستند غير موجود -> ننشئه تلقائياً (للمستخدمين القدامى)
+            // ✅ المستند غير موجود -> ننشئه (مرة واحدة فقط)
             console.log('📝 إنشاء مستند جديد للمستخدم القديم:', user.email);
             await createUserDocument(user);
-            console.log('✅ تم إنشاء مستند المستخدم تلقائياً');
             return 'free';
         }
     } catch (error) {
@@ -164,7 +183,7 @@ async function logOut() {
 }
 
 // ============================================
-// تحديث واجهة المستخدم
+// تحديث واجهة المستخدم (مع البطاقة الجديدة)
 // ============================================
 async function updateUI(user) {
     if (user) {
@@ -175,22 +194,47 @@ async function updateUI(user) {
         localStorage.setItem('zertiva_email', user.email);
 
         try {
-            const status = await window.getUserStatusGlobal();
-            if (profileStatus) {
-                if (status === 'premium') {
-                    profileStatus.innerText = '⭐ مشترك (Premium)';
-                    profileStatus.style.color = '#10b981';
-                } else {
-                    profileStatus.innerText = '🆓 مجاني (Free)';
-                    profileStatus.style.color = '#f59e0b';
+            const docRef = db.collection('users').doc(user.uid);
+            const docSnap = await docRef.get();
+            
+            if (docSnap.exists) {
+                const data = docSnap.data();
+                
+                // ✅ عرض الاسم
+                const displayName = data.username || user.email.split('@')[0] || 'مستخدم';
+                if (profileDisplayName) profileDisplayName.innerText = displayName;
+                
+                // ✅ عرض الحالة
+                const status = await window.getUserStatusGlobal();
+                if (profileStatus) {
+                    if (status === 'premium') {
+                        profileStatus.innerHTML = `<span class="status-badge premium">⭐ مشترك (Premium)</span>`;
+                    } else {
+                        profileStatus.innerHTML = `<span class="status-badge free">🆓 مجاني (Free)</span>`;
+                    }
+                }
+                
+                // ✅ عرض تاريخ انتهاء الاشتراك
+                if (profileExpiry && data.premiumUntil) {
+                    const date = new Date(data.premiumUntil);
+                    const formatted = date.toLocaleDateString('ar-EG', {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit'
+                    });
+                    profileExpiry.innerText = `ينتهي الاشتراك: ${formatted}`;
+                } else if (profileExpiry) {
+                    profileExpiry.innerText = '';
+                }
+                
+                // ✅ عرض UID
+                if (profileUid) {
+                    const uid = user.uid;
+                    profileUid.innerText = uid.length > 20 ? uid.substring(0, 20) + '...' : uid;
                 }
             }
         } catch (error) {
-            console.warn('⚠️ فشل جلب حالة المستخدم:', error);
-            if (profileStatus) {
-                profileStatus.innerText = '🆓 مجاني (Free)';
-                profileStatus.style.color = '#f59e0b';
-            }
+            console.warn('⚠️ فشل جلب بيانات المستخدم:', error);
         }
     } else {
         if (profileIcon) profileIcon.style.display = 'none';
@@ -198,9 +242,11 @@ async function updateUI(user) {
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-block';
         if (profileEmail) profileEmail.innerText = 'غير مسجل';
         if (profileStatus) {
-            profileStatus.innerText = '';
-            profileStatus.style.color = '';
+            profileStatus.innerHTML = '';
         }
+        if (profileDisplayName) profileDisplayName.innerText = 'مستخدم';
+        if (profileExpiry) profileExpiry.innerText = '';
+        if (profileUid) profileUid.innerText = '---';
     }
     updateSettingsUI(user);
 }
