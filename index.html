@@ -1113,33 +1113,7 @@ body.dark-mode .mobile-banner span {
   </div>
 </div>
 
-<div id="settingsModal" class="settings-modal">
-    <div class="settings-modal-content">
-        <div class="settings-modal-header">
-            <h3>⚙️ إعدادات العرض</h3>
-            <button id="closeSettingsModal" class="close-settings-btn">✕</button>
-        </div>
-        <div class="settings-modal-body">
-            <p class="settings-desc">تحكم في حجم الموقع ليناسب راحتك</p>
-            <div class="font-size-controls">
-                <button id="decreaseFontBtn" class="font-size-btn" title="تصغير">A-</button>
-                <span id="fontSizeValue" class="font-size-value">100%</span>
-                <button id="increaseFontBtn" class="font-size-btn" title="تكبير">A+</button>
-            </div>
-            <button id="resetFontBtn" class="reset-font-btn" title="إعادة الحجم الطبيعي">↺ إعادة الضبط</button>
-            
-            <!-- الوضع الليلي -->
-            <div class="darkmode-divider"></div>
-            <div class="darkmode-control">
-                <span class="darkmode-label">🌙 الوضع الليلي</span>
-                <label class="darkmode-switch">
-                    <input type="checkbox" id="darkModeToggle">
-                    <span class="darkmode-slider"></span>
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div id="profileDropdown" class="profile-dropdown">
     <div id="profileEmail" class="profile-email">غير مسجل</div>
@@ -1153,10 +1127,13 @@ body.dark-mode .mobile-banner span {
         <h3>🔐 تسجيل الدخول / إنشاء حساب</h3>
         <p>أدخل بريدك الإلكتروني وكلمة السر</p>
         <input type="email" id="popupEmail" placeholder="البريد الإلكتروني">
-        <input type="password" id="popupPassword" placeholder="كلمة السر">
-        <button id="popupLoginBtn" class="btn-popup-login">دخول / إنشاء حساب</button>
+        <input type="password" id="popupPassword" placeholder="كلمة السر (6 أحرف على الأقل)">
+        <button id="popupSignupBtn" class="btn-popup-login" style="background:#27ae60;">➕ إنشاء حساب</button>
+        <button id="popupLoginBtn" class="btn-popup-login" style="background:#2980b9;">🔑 تسجيل الدخول</button>
+        <button id="popupResetBtn" class="btn-popup-login" style="background:#f39c12;">🔁 نسيت كلمة المرور</button>
         <br>
         <button id="closePopupBtn" class="btn-popup-close">إغلاق</button>
+        <div id="popupError" style="color:red; margin-top:10px; font-size:14px;"></div>
     </div>
 </div>
 
@@ -1985,12 +1962,29 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <div id="studySessionModal" class="session-modal">...</div>
 <div id="sessionTimerBar" class="session-timer-bar" style="display: none;">...</div>
 <div id="sessionEndOverlay" class="session-end-overlay" style="display: none;">...</div>
+<!-- ===== تهيئة Firebase ===== -->
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSy...",          // ضع مفتاحك هنا
+    authDomain: "your-app.firebaseapp.com",
+    projectId: "your-project-id",
+    storageBucket: "your-app.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  window.auth = auth;
+  console.log("✅ Firebase initialized");
+</script>
 <script src="sentenceReorder.js"></script>
 <script type="module" src="./helpSystem.js"></script>
 <script type="module" src="./engine.js"></script>
 <script type="module" src="./memoryTrainer.js"></script>
 <script type="module" src="./exams.js"></script>
-<script type="module" src="./auth_google.js"></script>
+
 <script type="module" src="./auth.js"></script>
 <script type="module" src="./notifications.js"></script>
 <script type="module" src="./rapidGame.js"></script>
