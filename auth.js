@@ -333,7 +333,7 @@ async function updateProfile() {
         if (profileLogoutBtn) profileLogoutBtn.style.display = 'none';
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-        if (profileIcon) profileIcon.style.display = 'none';
+       if (profileIcon) profileIcon.style.display = 'flex';
         
         // إضافة زر الترقية للمستخدم غير المسجل
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
@@ -410,7 +410,7 @@ auth.onAuthStateChanged(user => {
         if (profileIcon) profileIcon.style.display = 'flex';
     } else {
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
-        if (profileIcon) profileIcon.style.display = 'none';
+        if (profileIcon) profileIcon.style.display = 'flex'; // ✅ تظهر دائماً
         if (profileDropdown) profileDropdown.classList.remove('show');
         updateProfile();
     }
