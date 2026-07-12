@@ -59,6 +59,64 @@
     border-color: #2c3e66;
     color: #2c3e66;
 }
+        /* ===== نافذة الإعدادات ===== */
+.settings-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 10001;
+    justify-content: center;
+    align-items: center;
+}
+.settings-modal.active {
+    display: flex !important;
+}
+.settings-modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 400px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.settings-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.close-settings-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+.font-size-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0;
+}
+.font-size-btn {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f5f5f5;
+    cursor: pointer;
+    font-size: 16px;
+}
+.reset-font-btn {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f5f5f5;
+    cursor: pointer;
+}
     /* أزرار المساعدة والتدريب الموحدة */
 .memory-btn {
     border: none;
@@ -1167,7 +1225,43 @@ body.dark-mode .mobile-banner span {
         <div id="popupError" style="color:red; margin-top:10px; font-size:14px;"></div>
     </div>
 </div>
+<!-- ===== نافذة الإعدادات ===== -->
+<div id="settingsModal" class="settings-modal">
+    <div class="settings-modal-content">
+        <div class="settings-modal-header">
+            <h3>⚙️ إعدادات العرض</h3>
+            <button id="closeSettingsModal" class="close-settings-btn">✕</button>
+        </div>
+        <div class="settings-modal-body">
+            <p class="settings-desc">تحكم في حجم الموقع ليناسب راحتك</p>
+            <div class="font-size-controls">
+                <button id="decreaseFontBtn" class="font-size-btn" title="تصغير">A-</button>
+                <span id="fontSizeValue" class="font-size-value">100%</span>
+                <button id="increaseFontBtn" class="font-size-btn" title="تكبير">A+</button>
+            </div>
+            <button id="resetFontBtn" class="reset-font-btn" title="إعادة الحجم الطبيعي">↺ إعادة الضبط</button>
+            
+            <div class="darkmode-divider"></div>
+            <div class="darkmode-control">
+                <span class="darkmode-label">🌙 الوضع الليلي</span>
+                <label class="darkmode-switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="darkmode-slider"></span>
+                </label>
+            </div>
 
+            <!-- 👤 معلومات الحساب -->
+            <div class="darkmode-divider"></div>
+            <div style="margin-top: 10px; padding: 10px 0;">
+                <h4 style="color: #38bdf8; margin-bottom: 8px;">👤 حسابي</h4>
+                <p><strong>📧 البريد:</strong> <span id="settingsUserEmail">غير مسجل</span></p>
+                <p><strong>🆔 UID:</strong> <span id="settingsUserUid" style="font-size:13px;">لا يوجد</span></p>
+                <p><strong>🔑 كلمة المرور:</strong> <span id="settingsUserPass" style="color:#fbbf24;">غير متوفرة</span></p>
+                <p style="font-size:12px; color:#94a3b8;">* الكلمة محفوظة محلياً في متصفحك لأغراض تجريبية.</p>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- الصفحة الرئيسية -->
 <div id="home" class="page active home">
     <div class="hero-wrapper">
