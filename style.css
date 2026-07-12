@@ -1249,136 +1249,7 @@ body:has(#exam.active) .top-bar {
     border-radius: 30px;
 }
 
-.profile-dropdown {
-    position: absolute;
-    top: 60px;
-    left: 30px;
-    background: #0f172a;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    padding: 15px 20px;
-    min-width: 250px;
-    z-index: 200;
-    display: none;
-    direction: rtl;
-    border: 1px solid rgba(56, 189, 248, 0.2);
-}
 
-.profile-dropdown.show {
-    display: block;
-}
-
-.profile-email {
-    font-weight: bold;
-    color: #38bdf8;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #334155;
-}
-
-.profile-expiry {
-    color: #94a3b8;
-    font-size: 13px;
-    margin-bottom: 8px;
-}
-
-.profile-status {
-    font-size: 13px;
-    margin-top: 8px;
-    padding-top: 8px;
-    border-top: 1px solid #334155;
-}
-
-.status-premium {
-    color: #10b981;
-    font-weight: bold;
-}
-
-.status-free {
-    color: #f59e0b;
-}
-
-.profile-logout {
-    margin-top: 12px;
-    background: #ef4444;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 25px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 13px;
-}
-
-.profile-logout:hover {
-    background: #dc2626;
-}
-
-.login-popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.login-popup-content {
-    background: #0f172a;
-    padding: 35px;
-    border-radius: 25px;
-    width: 380px;
-    text-align: center;
-    direction: rtl;
-    box-shadow: 0 25px 45px rgba(0,0,0,0.3);
-    border: 1px solid rgba(56, 189, 248, 0.2);
-}
-
-.login-popup-content h3 {
-    color: #38bdf8;
-    margin-bottom: 10px;
-}
-
-.login-popup-content p {
-    color: #94a3b8;
-}
-
-.login-popup-content input {
-    width: 90%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 30px;
-    border: 1px solid #334155;
-    font-size: 15px;
-    background: #1e293b;
-    color: white;
-}
-
-.btn-popup-login {
-    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-    color: #0a0e1a;
-    border: none;
-    padding: 12px;
-    border-radius: 30px;
-    width: 95%;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.btn-popup-close {
-    background: #334155;
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-    margin-top: 12px;
-}
 
 /* ========================================
    Exam List & Teile Styles
@@ -4140,3 +4011,204 @@ body.dark-mode .premium-features li {
     }
 }
 
+/* ============================================
+   بطاقة الملف الشخصي - التصميم الجديد
+   ============================================ */
+.profile-dropdown {
+    display: none !important;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 10px;
+    background: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px;
+    min-width: 280px;
+    z-index: 9999;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.profile-dropdown.active {
+    display: block !important;
+}
+
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-avatar {
+    font-size: 40px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.profile-status {
+    margin-bottom: 4px;
+}
+
+.status-badge {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.status-badge.premium {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.status-badge.free {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.15);
+}
+
+.profile-expiry {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 12px;
+}
+
+.profile-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 12px 0;
+    width: 100%;
+}
+
+.profile-uid {
+    font-size: 11px;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    justify-content: center;
+}
+
+.profile-uid span:last-child {
+    font-family: monospace;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.profile-btn {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: transparent;
+    color: #e2e8f0;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.profile-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.profile-btn.settings-btn {
+    color: #94a3b8;
+}
+
+.profile-btn.logout-btn {
+    color: #ef4444;
+}
+
+.profile-btn.logout-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.profile-subscribe-btn {
+    display: none;
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    color: #0a0e1a;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 8px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.profile-subscribe-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+}
+
+/* الوضع الليلي */
+body.dark-mode .profile-dropdown {
+    background: #0f0f1a;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-mode .profile-name {
+    color: #ffffff;
+}
+
+body.dark-mode .profile-uid {
+    color: #64748b;
+}
+
+/* ============================================
+   نافذة تسجيل الدخول الجديدة (مودال موحد)
+   ============================================ */
+#authModal .settings-modal-content {
+    background: #0f172a;
+    border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+#authModal input:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+#authModal .settings-modal-body label {
+    color: #94a3b8;
+}
+
+/* أيقونة العين */
+.eye-icon {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    cursor: pointer;
+    color: #64748b;
+    font-size: 18px;
+    user-select: none;
+}
+
+.eye-icon:hover {
+    color: #94a3b8;
+}
