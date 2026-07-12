@@ -1494,13 +1494,62 @@ body.dark-mode .mobile-banner span {
 
 
     
-    const logoBtn = document.getElementById('logoHomeBtn');
-    if(logoBtn) {
-        logoBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+   // ============================================
+// ✅ ربط زر الإعدادات (⚙️) وزر الشعار (🖼️) بأمان
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+
+    // 1. زر الإعدادات (⚙️)
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettingsModal = document.getElementById('closeSettingsModal');
+
+    if (settingsBtn && settingsModal) {
+        settingsBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            settingsModal.classList.add('active');
+            console.log('✅ تم فتح نافذة الإعدادات');
+        });
+        console.log('✅ زر الإعدادات (⚙️) مربوط');
+    } else {
+        console.warn('⚠️ لم يتم العثور على زر الإعدادات أو النافذة');
+    }
+
+    if (closeSettingsModal) {
+        closeSettingsModal.addEventListener('click', function() {
+            settingsModal.classList.remove('active');
+        });
+        console.log('✅ زر إغلاق الإعدادات مربوط');
+    }
+
+    if (settingsModal) {
+        settingsModal.addEventListener('click', function(e) {
+            if (e.target === settingsModal) {
+                settingsModal.classList.remove('active');
+            }
         });
     }
+
+    // 2. زر الشعار (Logo) - للعودة للرئيسية
+    const logoBtn = document.getElementById('logoHomeBtn');
+    if (logoBtn) {
+        logoBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // استدعاء دالة goHome إذا كانت موجودة، وإلا التمرير للأعلى
+            if (typeof goHome === 'function') {
+                goHome();
+                console.log('✅ تم العودة للرئيسية عبر الشعار');
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                console.log('✅ تم التمرير للأعلى عبر الشعار');
+            }
+        });
+        console.log('✅ زر الشعار (🖼️) مربوط');
+    } else {
+        console.warn('⚠️ لم يتم العثور على زر الشعار');
+    }
+
+});
 
     const widgetSliderElem = document.getElementById('widgetSlider');
     if (widgetSliderElem) {
