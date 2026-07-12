@@ -1965,6 +1965,7 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 <!-- ===== تهيئة Firebase ===== -->
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyABp_TfYLzX76ddo0nE08R7T0N8UEGbjIc",
@@ -1976,10 +1977,12 @@ const firebaseConfig = {
   appId: "1:510978830489:web:754fc4ebc02a7ab40a4808",
   measurementId: "G-57CPE84S84"
 };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  window.auth = auth;
-  console.log("✅ Firebase initialized");
+ firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore(); // ✅ أضف هذا السطر
+window.auth = auth;
+window.db = db;                 // ✅ وأضف هذا السطر أيضاً
+console.log("✅ Firebase initialized");
 </script>
 <script src="sentenceReorder.js"></script>
 <script type="module" src="./helpSystem.js"></script>
