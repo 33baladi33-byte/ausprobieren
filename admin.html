@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Zertiva B2</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #0a0e1a;
+            color: #e2e8f0;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #38bdf8;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            background: #0f1a2e;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+        .search-box button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            background: #38bdf8;
+            color: #0a0e1a;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .search-box button:hover {
+            background: #0ea5e9;
+        }
+        .user-card {
+            background: #0f1a2e;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .user-card .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+        .user-card label {
+            min-width: 120px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+        .user-card input, .user-card select {
+            flex: 1;
+            min-width: 150px;
+            padding: 8px 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            background: #0a0e1a;
+            color: #e2e8f0;
+            font-size: 13px;
+        }
+        .user-card .email-display {
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+        .user-card .uid-display {
+            color: #64748b;
+            font-size: 11px;
+            font-family: monospace;
+        }
+        .btn-save {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #10b981;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-save:hover {
+            background: #059669;
+        }
+        .btn-save:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+        .message.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .message.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .back-link {
+            margin-top: 30px;
+            display: block;
+            color: #38bdf8;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            color: #0ea5e9;
+        }
+        @media (max-width: 600px) {
+            .user-card .row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .user-card label {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🛠️ إدارة المستخدمين</h1>
+    
+    <div class="search-box">
+        <input type="email" id="searchEmail" placeholder="البحث بالبريد الإلكتروني...">
+        <button onclick="searchUser()">🔍 بحث</button>
+        <button onclick="listAllUsers()">📋 عرض الكل</button>
+    </div>
+    
+    <div id="usersList"></div>
+    
+    <a href="index.html" class="back-link">← العودة إلى الرئيسية</a>
+</div>
+
+<!-- تهيئة Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyABp_TfYLzX76ddo0nE08R7T0N8UEGbjIc",
+  authDomain: "zertivab22.firebaseapp.com",
+  projectId: "zertivab22",
+  storageBucket: "zertivab22.firebasestorage.app",
+  messagingSenderId: "510978830489",
+  appId: "1:510978830489:web:754fc4ebc02a7ab40a4808"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// ============================================
+// البحث عن مستخدم
+// ============================================
+window.searchUser = async function() {
+    const email = document.getElementById('searchEmail').value.trim();
+    if (!email) {
+        alert('يرجى إدخال بريد إلكتروني');
+        return;
+    }
+    showLoading();
+    try {
+        const snapshot = await db.collection('users')
+            .where('email', '==', email)
+            .get();
+        
+        if (snapshot.empty) {
+            document.getElementById('usersList').innerHTML = 
+                `<div class="user-card" style="text-align:center;color:#64748b;">
+                    ❌ لا يوجد مستخدم بهذا البريد
+                </div>`;
+            hideLoading();
+            return;
+        }
+        
+        let html = '';
+        snapshot.forEach(doc => {
+            html += renderUserCard(doc.id, doc.data());
+        });
+        document.getElementById('usersList').innerHTML = html;
+        hideLoading();
+    } catch (error) {
+        document.getElementById('usersList').innerHTML = 
+            `<div class="user-card" style="text-align:center;color:#ef4444;">
+                ❌ خطأ: ${error.message}
+            </div>`;
+        hideLoading();
+    }
+};
+
+// ============================================
+// عرض جميع المستخدمين
+// ============================================
+window.listAllUsers = async function() {
+    showLoading();
+    try {
+        const snapshot = await db.collection('users').orderBy('createdAt', 'desc').get();
+        
+        if (snapshot.empty) {
+            document.getElementById('usersList').innerHTML = 
+                `<div class="user-card" style="text-align:center;color:#64748b;">
+                    📭 لا يوجد مستخدمين بعد
+                </div>`;
+            hideLoading();
+            return;
+        }
+        
+        let html = '';
+        snapshot.forEach(doc => {
+            html += renderUserCard(doc.id, doc.data());
+        });
+        document.getElementById('usersList').innerHTML = html;
+        hideLoading();
+    } catch (error) {
+        document.getElementById('usersList').innerHTML = 
+            `<div class="user-card" style="text-align:center;color:#ef4444;">
+                ❌ خطأ: ${error.message}
+            </div>`;
+        hideLoading();
+    }
+};
+
+// ============================================
+// عرض بطاقة المستخدم
+// ============================================
+function renderUserCard(uid, data) {
+    const plan = data.plan || 'free';
+    const premiumUntil = data.premiumUntil || '';
+    const username = data.username || 'مستخدم';
+    const email = data.email || '';
+    
+    return `
+        <div class="user-card" data-uid="${uid}">
+            <div class="row">
+                <label>📧 البريد</label>
+                <span class="email-display">${email}</span>
+            </div>
+            <div class="row">
+                <label>👤 الاسم</label>
+                <input type="text" value="${username}" id="username_${uid}" placeholder="الاسم">
+            </div>
+            <div class="row">
+                <label>🆔 UID</label>
+                <span class="uid-display">${uid}</span>
+            </div>
+            <div class="row">
+                <label>📋 الحالة</label>
+                <select id="plan_${uid}">
+                    <option value="free" ${plan === 'free' ? 'selected' : ''}>🆓 مجاني</option>
+                    <option value="premium" ${plan === 'premium' ? 'selected' : ''}>⭐ Premium</option>
+                </select>
+            </div>
+            <div class="row">
+                <label>📅 انتهاء الاشتراك</label>
+                <input type="date" value="${premiumUntil}" id="premiumUntil_${uid}">
+            </div>
+            <div class="row">
+                <label>🔑 Session</label>
+                <span class="uid-display">${data.currentSession || 'لا يوجد'}</span>
+            </div>
+            <div class="row">
+                <label>📅 آخر دخول</label>
+                <span class="uid-display">${data.lastLogin ? new Date(data.lastLogin.seconds * 1000).toLocaleDateString('ar-EG') : 'غير معروف'}</span>
+            </div>
+            <button class="btn-save" onclick="saveUser('${uid}')">💾 حفظ</button>
+            <div id="message_${uid}" class="message"></div>
+        </div>
+    `;
+}
+
+// ============================================
+// حفظ بيانات المستخدم
+// ============================================
+window.saveUser = async function(uid) {
+    const messageEl = document.getElementById(`message_${uid}`);
+    messageEl.className = 'message';
+    messageEl.style.display = 'none';
+    
+    const username = document.getElementById(`username_${uid}`).value.trim();
+    const plan = document.getElementById(`plan_${uid}`).value;
+    const premiumUntil = document.getElementById(`premiumUntil_${uid}`).value;
+    
+    if (!username) {
+        showMessage(uid, '⚠️ الاسم مطلوب', 'error');
+        return;
+    }
+    
+    const btn = document.querySelector(`[onclick="saveUser('${uid}')"]`);
+    btn.disabled = true;
+    btn.textContent = '⏳ جاري الحفظ...';
+    
+    try {
+        const updateData = {
+            username: username,
+            plan: plan,
+            premiumUntil: premiumUntil || null
+        };
+        
+        await db.collection('users').doc(uid).update(updateData);
+        showMessage(uid, '✅ تم حفظ التغييرات بنجاح!', 'success');
+    } catch (error) {
+        showMessage(uid, `❌ خطأ: ${error.message}`, 'error');
+    }
+    
+    btn.disabled = false;
+    btn.textContent = '💾 حفظ';
+};
+
+function showMessage(uid, text, type) {
+    const el = document.getElementById(`message_${uid}`);
+    el.textContent = text;
+    el.className = `message ${type}`;
+    el.style.display = 'block';
+    setTimeout(() => {
+        el.style.display = 'none';
+    }, 4000);
+}
+
+function showLoading() {
+    document.getElementById('usersList').innerHTML = 
+        `<div class="user-card" style="text-align:center;color:#64748b;">⏳ جاري التحميل...</div>`;
+}
+
+function hideLoading() {
+    // يتم التعامل معها داخل الدوال
+}
+
+// ============================================
+// تحميل المستخدمين تلقائياً عند فتح الصفحة
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    listAllUsers();
+});
+</script>
+</body>
+</html>
