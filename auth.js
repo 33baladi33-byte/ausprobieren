@@ -1,5 +1,5 @@
 // ============================================
-// auth.js - نظام تسجيل الدخول وإدارة الحساب (معدل بالكامل)
+// auth.js - نظام المصادقة المتكامل (النسخة النهائية)
 // ============================================
 
 import { 
@@ -9,12 +9,12 @@ import {
     signOut,
     onAuthStateChanged,
     updateProfile,
-    doc, getDoc, setDoc, updateDoc, deleteDoc, serverTimestamp,
+    doc, getDoc, setDoc, updateDoc, serverTimestamp,
     collection, query, where, getDocs
 } from './firebase.js';
 
 // ============================================
-// حالة المستخدم
+// الحالة العامة
 // ============================================
 let currentUser = null;
 let currentUserData = null;
@@ -80,8 +80,7 @@ async function createAccount(firstName, lastName, username, email, password) {
         updateUIAfterLogin(user, userData);
         
         // 6. إغلاق النوافذ
-        document.getElementById('signupPopup')?.classList.remove('active');
-        document.getElementById('loginPopup')?.classList.remove('active');
+        closeAllPopups();
 
         showMessage('✅ تم إنشاء الحساب بنجاح!');
         return { success: true, user, userData };
@@ -112,13 +111,11 @@ async function signInWithEmail(email, password) {
         if (userData) {
             currentUserData = userData;
             isPremium = userData.premium || false;
-            // تحديث activeSession (للمستقبل)
-            // await updateDoc(doc(db, 'users', user.uid), { activeSession: generateSessionId() });
         }
 
         currentUser = user;
         updateUIAfterLogin(user, userData);
-        document.getElementById('loginPopup')?.classList.remove('active');
+        closeAllPopups();
         
         showMessage('✅ مرحباً ' + (user.displayName || user.email));
         return { success: true, user, userData };
@@ -208,11 +205,6 @@ function updateUIAfterLogin(user, userData) {
         profileExpiry.style.display = 'none';
     }
     
-    // إغلاق النوافذ
-    document.getElementById('loginPopup')?.classList.remove('active');
-    document.getElementById('signupPopup')?.classList.remove('active');
-    document.getElementById('forgotPasswordPopup')?.classList.remove('active');
-    
     // تحديث زر الاشتراك
     updatePremiumFeatures(userData?.premium === true);
 }
@@ -243,6 +235,7 @@ async function signOutUser() {
         currentUserData = null;
         isPremium = false;
         updateUIAfterLogin(null, null);
+        closeAllPopups();
         showMessage('✅ تم تسجيل الخروج');
     } catch (error) {
         console.error('❌ Logout error:', error);
@@ -296,6 +289,36 @@ function togglePasswordVisibility(inputId, buttonId) {
             this.textContent = '👁️';
         }
     });
+}
+
+// ============================================
+// إغلاق جميع النوافذ
+// ============================================
+function closeAllPopups() {
+    document.getElementById('loginPopup')?.classList.remove('active');
+    document.getElementById('signupPopup')?.classList.remove('active');
+    document.getElementById('forgotPasswordPopup')?.classList.remove('active');
+}
+
+// ============================================
+// تبديل النوافذ (داخل نفس البطاقة)
+// ============================================
+function switchToLogin() {
+    document.getElementById('signupPopup')?.classList.remove('active');
+    document.getElementById('forgotPasswordPopup')?.classList.remove('active');
+    document.getElementById('loginPopup')?.classList.add('active');
+}
+
+function switchToSignup() {
+    document.getElementById('loginPopup')?.classList.remove('active');
+    document.getElementById('forgotPasswordPopup')?.classList.remove('active');
+    document.getElementById('signupPopup')?.classList.add('active');
+}
+
+function switchToForgot() {
+    document.getElementById('loginPopup')?.classList.remove('active');
+    document.getElementById('signupPopup')?.classList.remove('active');
+    document.getElementById('forgotPasswordPopup')?.classList.add('active');
 }
 
 // ============================================
@@ -370,27 +393,6 @@ function showMessage(msg, isError = false) {
 }
 
 // ============================================
-// تبديل النوافذ
-// ============================================
-function switchToLogin() {
-    document.getElementById('signupPopup')?.classList.remove('active');
-    document.getElementById('forgotPasswordPopup')?.classList.remove('active');
-    document.getElementById('loginPopup')?.classList.add('active');
-}
-
-function switchToSignup() {
-    document.getElementById('loginPopup')?.classList.remove('active');
-    document.getElementById('forgotPasswordPopup')?.classList.remove('active');
-    document.getElementById('signupPopup')?.classList.add('active');
-}
-
-function switchToForgot() {
-    document.getElementById('loginPopup')?.classList.remove('active');
-    document.getElementById('signupPopup')?.classList.remove('active');
-    document.getElementById('forgotPasswordPopup')?.classList.add('active');
-}
-
-// ============================================
 // ربط الأحداث
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
@@ -403,11 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // إغلاق النوافذ
     document.querySelectorAll('.close-btn, .auth-close-btn').forEach(btn => {
-        btn?.addEventListener('click', () => {
-            document.getElementById('loginPopup')?.classList.remove('active');
-            document.getElementById('signupPopup')?.classList.remove('active');
-            document.getElementById('forgotPasswordPopup')?.classList.remove('active');
-        });
+        btn?.addEventListener('click', closeAllPopups);
     });
     
     // إغلاق عند الضغط خارج النافذة
@@ -490,9 +488,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         if (e.key === 'Escape') {
-            document.getElementById('loginPopup')?.classList.remove('active');
-            document.getElementById('signupPopup')?.classList.remove('active');
-            document.getElementById('forgotPasswordPopup')?.classList.remove('active');
+            closeAllPopups();
         }
     });
     
@@ -532,7 +528,8 @@ export {
     updatePremiumFeatures,
     switchToLogin,
     switchToSignup,
-    switchToForgot
+    switchToForgot,
+    closeAllPopups
 };
 
 window.currentUser = currentUser;
@@ -543,5 +540,6 @@ window.signInWithEmail = signInWithEmail;
 window.getUserData = getUserData;
 window.signOutUser = signOutUser;
 window.resetPassword = resetPassword;
+window.closeAllPopups = closeAllPopups;
 
 console.log('✅ Auth system ready (persistent)');
