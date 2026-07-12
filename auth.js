@@ -36,14 +36,11 @@ const resetWhatsAppBtn = document.getElementById('resetWhatsAppBtn');
 const resetError = document.getElementById('resetError');
 const toggleResetPassword = document.getElementById('toggleResetPassword');
 
-// عناصر الملف الشخصي
+// ============================================
+// ✅ عناصر الملف الشخصي (التصميم القديم)
+// ============================================
 const profileIcon = document.getElementById('profileIcon');
 const profileDropdown = document.getElementById('profileDropdown');
-const profileDisplayName = document.getElementById('profileDisplayName');
-const profileStatus = document.getElementById('profileStatus');
-const profileExpiry = document.getElementById('profileExpiry');
-const profileUid = document.getElementById('profileUid');
-const profileSubscribeBtn = document.getElementById('profileSubscribeBtn');
 const profileLogoutBtn = document.getElementById('profileLogoutBtn');
 
 // أزرار التنقل بين النماذج
@@ -259,7 +256,7 @@ async function handleReset() {
 async function handleLogout() {
     try {
         await auth.signOut();
-        if (profileDropdown) profileDropdown.classList.remove('active');
+        if (profileDropdown) profileDropdown.classList.remove('show');
         showToast('✅ تم تسجيل الخروج بنجاح', 'success');
     } catch (error) {
         console.error(error);
@@ -311,42 +308,93 @@ function showToast(message, type = 'info') {
 }
 
 // ============================================
-// تحديث الملف الشخصي
+// ✅ تحديث الملف الشخصي (باستخدام عناصر التصميم القديم)
 // ============================================
 async function updateProfile() {
     const user = auth.currentUser;
+    
+    // عناصر التصميم القديم الموجودة في index.html
+    const profileEmail = document.getElementById('profileEmail');
+    const profileExpiry = document.getElementById('profileExpiry');
+    const profileStatus = document.getElementById('profileStatus');
+    const profileUidValue = document.getElementById('profileUidValue');
+    const profileLogoutBtn = document.getElementById('profileLogoutBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+    const navLoginBtn = document.getElementById('navLoginBtn');
+    const navSubscribeBtn = document.getElementById('navSubscribeBtn');
+    const profileIcon = document.getElementById('profileIcon');
+
     if (!user) {
-        profileDisplayName.textContent = '👤 غير مسجل';
-        profileStatus.innerHTML = '<span style="color:#94a3b8;">🆓 مجاني</span>';
-        profileExpiry.textContent = 'الوصول محدود لبعض الامتحانات';
-        profileUid.textContent = '---';
-        profileSubscribeBtn.style.display = 'block';
+        // ❌ المستخدم غير مسجل
+        if (profileEmail) profileEmail.innerHTML = '👤 غير مسجل';
+        if (profileExpiry) profileExpiry.textContent = 'الوصول محدود لبعض الامتحانات';
+        if (profileStatus) profileStatus.innerHTML = '';
+        if (profileUidValue) profileUidValue.textContent = '---';
+        if (profileLogoutBtn) profileLogoutBtn.style.display = 'none';
+        if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
+        if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+        if (profileIcon) profileIcon.style.display = 'none';
+        
+        // إضافة زر الترقية للمستخدم غير المسجل
+        const oldBtn = document.getElementById('dropdownUpgradeBtn');
+        if (oldBtn) oldBtn.remove();
+        if (profileDropdown) {
+            const upgradeBtn = document.createElement('button');
+            upgradeBtn.id = 'dropdownUpgradeBtn';
+            upgradeBtn.innerHTML = 'الترقية إلى الحساب الكامل →';
+            upgradeBtn.style.cssText = `
+                margin-top: 12px;
+                background: #64748B;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 25px;
+                cursor: pointer;
+                width: 100%;
+                font-size: 13px;
+                font-weight: bold;
+                transition: all 0.3s ease;
+            `;
+            upgradeBtn.onclick = () => window.location.href = 'subscribe.html';
+            profileDropdown.appendChild(upgradeBtn);
+        }
         return;
     }
-    
+
+    // ✅ المستخدم مسجل
     try {
         const doc = await db.collection('users').doc(user.uid).get();
         const data = doc.exists ? doc.data() : {};
         
-        const name = data.username || data.firstname || user.email.split('@')[0] || 'مستخدم';
-        profileDisplayName.textContent = `مرحباً ${name} 👋`;
-        
+        // عرض البريد الإلكتروني
+        if (profileEmail) profileEmail.innerHTML = `📧 ${user.email}`;
+
+        // تحديد حالة الاشتراك
         const isPremium = data.plan === 'premium' && data.premiumUntil && new Date(data.premiumUntil) > new Date();
         
         if (isPremium) {
             const expiry = new Date(data.premiumUntil);
-            profileStatus.innerHTML = '<span class="status-badge premium">⭐ مشترك (Pro)</span>';
-            profileExpiry.textContent = `📅 الصلاحية حتى: ${expiry.toLocaleDateString('ar-EG')}`;
-            profileSubscribeBtn.style.display = 'none';
+            if (profileExpiry) profileExpiry.textContent = `📅 الصلاحية: حتى ${expiry.toLocaleDateString('ar-EG')}`;
+            if (profileStatus) profileStatus.innerHTML = `<span class="status-premium">✅ مشترك (Pro)</span>`;
+            if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
         } else {
-            profileStatus.innerHTML = '<span class="status-badge free">🆓 مجاني (Free)</span>';
-            profileExpiry.textContent = '⏰ انتهت الصلاحية';
-            profileSubscribeBtn.style.display = 'block';
+            if (profileExpiry) profileExpiry.textContent = '⏰ انتهت الصلاحية';
+            if (profileStatus) profileStatus.innerHTML = `<span class="status-free">📖 مجاني</span>`;
+            if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         }
-        
-        const uid = user.uid;
-        profileUid.textContent = uid.length > 20 ? uid.substring(0, 20) + '...' : uid;
-        
+
+        // ✅ عرض UID كاملاً
+        if (profileUidValue) profileUidValue.textContent = user.uid;
+
+        // إظهار/إخفاء الأزرار
+        if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
+        if (navLoginBtn) navLoginBtn.style.display = 'none';
+        if (profileIcon) profileIcon.style.display = 'flex';
+
+        // إزالة زر الترقية إن وجد (لأن المستخدم مسجل)
+        const oldBtn = document.getElementById('dropdownUpgradeBtn');
+        if (oldBtn) oldBtn.remove();
+
     } catch (error) {
         console.error('خطأ في تحديث الملف الشخصي:', error);
     }
@@ -363,7 +411,7 @@ auth.onAuthStateChanged(user => {
     } else {
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (profileIcon) profileIcon.style.display = 'none';
-        if (profileDropdown) profileDropdown.classList.remove('active');
+        if (profileDropdown) profileDropdown.classList.remove('show');
         updateProfile();
     }
 });
@@ -393,20 +441,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (switchToReset) switchToReset.addEventListener('click', () => showForm('reset'));
     if (switchToLoginFromReset) switchToLoginFromReset.addEventListener('click', () => showForm('login'));
     
-    // الملف الشخصي
+    // ✅ حدث النقر على أيقونة الملف الشخصي
     if (profileIcon) profileIcon.addEventListener('click', (e) => {
         e.stopPropagation();
-        if (profileDropdown) profileDropdown.classList.toggle('active');
+        if (profileDropdown) profileDropdown.classList.toggle('show');
     });
+    
+    // ✅ زر تسجيل الخروج
     if (profileLogoutBtn) profileLogoutBtn.addEventListener('click', handleLogout);
-    if (profileSubscribeBtn) profileSubscribeBtn.addEventListener('click', () => window.location.href = 'subscribe.html');
     
     // الإعدادات
     if (settingsBtn && settingsModal) {
         settingsBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             settingsModal.classList.add('active');
-            if (profileDropdown) profileDropdown.classList.remove('active');
+            if (profileDropdown) profileDropdown.classList.remove('show');
         });
     }
     if (closeSettingsModal) {
@@ -418,10 +467,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // إغلاق القائمة المنسدلة
+    // ✅ إغلاق القائمة المنسدلة عند الضغط خارجها
     document.addEventListener('click', (e) => {
         if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileIcon) {
-            profileDropdown.classList.remove('active');
+            profileDropdown.classList.remove('show');
         }
     });
 });
