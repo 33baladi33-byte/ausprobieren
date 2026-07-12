@@ -1,60 +1,124 @@
 // ============================================
-// auth.js - نظام المصادقة مع Firebase + Firestore
+// auth.js - نظام المصادقة مع Firebase + Firestore (نسخة متطورة)
 // ============================================
 
 // ============================================
-// عناصر DOM
+// عناصر DOM (النوافذ الجديدة)
 // ============================================
-const popupEmail = document.getElementById('popupEmail');
-const popupPassword = document.getElementById('popupPassword');
-const popupError = document.getElementById('popupError');
-const popupLoginBtn = document.getElementById('popupLoginBtn');
-const popupSignupBtn = document.getElementById('popupSignupBtn');
-const popupResetBtn = document.getElementById('popupResetBtn');
-const closePopupBtn = document.getElementById('closePopupBtn');
-const loginPopup = document.getElementById('loginPopup');
+const authModal = document.getElementById('authModal');
+const closeAuthModal = document.getElementById('closeAuthModal');
+const authModalTitle = document.getElementById('authModalTitle');
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+const resetForm = document.getElementById('resetForm');
+
+// عناصر تسجيل الدخول
+const authEmail = document.getElementById('authEmail');
+const authPassword = document.getElementById('authPassword');
+const authLoginBtn = document.getElementById('authLoginBtn');
+const authError = document.getElementById('authError');
+const togglePassword = document.getElementById('togglePassword');
+
+// عناصر إنشاء حساب
+const signupUsername = document.getElementById('signupUsername');
+const signupLastname = document.getElementById('signupLastname');
+const signupFirstname = document.getElementById('signupFirstname');
+const signupEmail = document.getElementById('signupEmail');
+const signupPassword = document.getElementById('signupPassword');
+const authSignupBtn = document.getElementById('authSignupBtn');
+const signupError = document.getElementById('signupError');
+const toggleSignupPassword = document.getElementById('toggleSignupPassword');
+
+// عناصر نسيت كلمة المرور
+const resetEmail = document.getElementById('resetEmail');
+const resetNewPassword = document.getElementById('resetNewPassword');
+const resetWhatsAppBtn = document.getElementById('resetWhatsAppBtn');
+const resetError = document.getElementById('resetError');
+const toggleResetPassword = document.getElementById('toggleResetPassword');
+
+// عناصر الملف الشخصي
 const profileIcon = document.getElementById('profileIcon');
 const profileDropdown = document.getElementById('profileDropdown');
-const profileEmail = document.getElementById('profileEmail');
+const profileDisplayName = document.getElementById('profileDisplayName');
 const profileStatus = document.getElementById('profileStatus');
+const profileExpiry = document.getElementById('profileExpiry');
+const profileUid = document.getElementById('profileUid');
+const profileSubscribeBtn = document.getElementById('profileSubscribeBtn');
 const profileLogoutBtn = document.getElementById('profileLogoutBtn');
+
+// أزرار التنقل بين النماذج
+const switchToSignup = document.getElementById('switchToSignup');
+const switchToLogin = document.getElementById('switchToLogin');
+const switchToReset = document.getElementById('switchToReset');
+const switchToLoginFromReset = document.getElementById('switchToLoginFromReset');
+
+// عناصر أخرى
 const navLoginBtn = document.getElementById('navLoginBtn');
 const navSubscribeBtn = document.getElementById('navSubscribeBtn');
 const settingsBtn = document.getElementById('settingsBtn');
 const settingsModal = document.getElementById('settingsModal');
 const closeSettingsModal = document.getElementById('closeSettingsModal');
 
-// عناصر الملف الشخصي الجديد (مودال)
-const profileBtn = document.getElementById('profileBtn');
-const profileModal = document.getElementById('profileModal');
-const closeProfileModal = document.getElementById('closeProfileModal');
-const profileDisplayName = document.getElementById('profileDisplayName');
-const profileUid = document.getElementById('profileUid');
-const profileExpiry = document.getElementById('profileExpiry');
-const profileStatusModal = document.getElementById('profileStatusModal');
-const profileLogoutBtnModal = document.getElementById('profileLogoutBtnModal');
-
-function showPopupError(msg) {
-    if (popupError) popupError.innerText = msg;
-    setTimeout(() => { if (popupError) popupError.innerText = ''; }, 5000);
+// ============================================
+// دوال عرض/إخفاء النوافذ
+// ============================================
+function openAuthModal(form = 'login') {
+    showForm(form);
+    if (authModal) authModal.classList.add('active');
 }
 
-function openLoginPopup() {
-    if (loginPopup) loginPopup.style.display = 'flex';
+function closeAuthModalFunc() {
+    if (authModal) authModal.classList.remove('active');
+    clearErrors();
 }
-function closeLoginPopup() {
-    if (loginPopup) loginPopup.style.display = 'none';
+
+function showForm(form) {
+    loginForm.style.display = 'none';
+    signupForm.style.display = 'none';
+    resetForm.style.display = 'none';
+    
+    if (form === 'login') {
+        loginForm.style.display = 'block';
+        authModalTitle.textContent = '🔐 تسجيل الدخول';
+    } else if (form === 'signup') {
+        signupForm.style.display = 'block';
+        authModalTitle.textContent = '📝 إنشاء حساب';
+    } else if (form === 'reset') {
+        resetForm.style.display = 'block';
+        authModalTitle.textContent = '🔑 تغيير كلمة المرور';
+    }
+    clearErrors();
+}
+
+function clearErrors() {
+    if (authError) authError.textContent = '';
+    if (signupError) signupError.textContent = '';
+    if (resetError) resetError.textContent = '';
 }
 
 // ============================================
-// دالة إنشاء مستند المستخدم في Firestore (مرة واحدة فقط)
+// إظهار/إخفاء كلمة المرور
+// ============================================
+function togglePasswordVisibility(inputId, toggleId) {
+    const input = document.getElementById(inputId);
+    const toggle = document.getElementById(toggleId);
+    if (input && toggle) {
+        toggle.addEventListener('click', function() {
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            this.textContent = isPassword ? '🙈' : '👁️';
+        });
+    }
+}
+
+// ============================================
+// دالة إنشاء مستند المستخدم في Firestore
 // ============================================
 async function createUserDocument(user, additionalData = {}) {
     try {
         const userRef = db.collection('users').doc(user.uid);
         const docSnap = await userRef.get();
         
-        // ✅ إذا كان المستند موجوداً، لا نعيد كتابة plan و premiumUntil
         if (docSnap.exists) {
             console.log('📝 المستند موجود، تحديث البيانات الأساسية فقط');
             await userRef.update({
@@ -66,7 +130,6 @@ async function createUserDocument(user, additionalData = {}) {
             return true;
         }
         
-        // ✅ المستند غير موجود -> ننشئه لأول مرة
         const userData = {
             email: user.email,
             username: additionalData.username || user.email.split('@')[0] || 'مستخدم',
@@ -89,7 +152,7 @@ async function createUserDocument(user, additionalData = {}) {
 }
 
 // ============================================
-// دالة جلب حالة المستخدم (قراءة فقط، لا تعدل)
+// دالة جلب حالة المستخدم (قراءة فقط)
 // ============================================
 window.getUserStatusGlobal = async function() {
     const user = auth.currentUser;
@@ -101,8 +164,6 @@ window.getUserStatusGlobal = async function() {
         
         if (docSnap.exists) {
             const data = docSnap.data();
-            
-            // ✅ قراءة فقط، لا نعدل أي شيء
             if (data.plan === 'premium' && data.premiumUntil) {
                 const today = new Date().toISOString().split('T')[0];
                 if (today <= data.premiumUntil) {
@@ -112,7 +173,6 @@ window.getUserStatusGlobal = async function() {
             }
             return 'free';
         } else {
-            // ✅ المستند غير موجود -> ننشئه (مرة واحدة فقط)
             console.log('📝 إنشاء مستند جديد للمستخدم القديم:', user.email);
             await createUserDocument(user);
             return 'free';
@@ -126,173 +186,169 @@ window.getUserStatusGlobal = async function() {
 // ============================================
 // دوال المصادقة (Firebase)
 // ============================================
-async function signIn(email, password) {
-    try {
-        await auth.signInWithEmailAndPassword(email, password);
-        closeLoginPopup();
-    } catch (error) {
-        showPopupError(error.message);
-    }
-}
-
-async function signUp(email, password) {
-    if (password.length < 6) {
-        showPopupError('كلمة المرور يجب أن تكون 6 أحرف أو أكثر');
-        return;
-    }
-    try {
-        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-        const user = userCredential.user;
-        localStorage.setItem('userPass_' + user.uid, password);
-
-        // ✅ إنشاء مستند المستخدم في Firestore
-        await createUserDocument(user);
-
-        await user.sendEmailVerification();
-        alert('✅ تم إنشاء الحساب بنجاح!');
-        closeLoginPopup();
-    } catch (error) {
-        showPopupError(error.message);
-    }
-}
-
-async function resetPassword(email) {
-    if (!email) { showPopupError('يرجى كتابة بريدك الإلكتروني أولاً'); return; }
-    try {
-        await auth.sendPasswordResetEmail(email);
-        alert('📧 تم إرسال رابط إعادة التعيين إلى بريدك');
-    } catch (error) {
-        showPopupError(error.message);
-    }
-}
-
-async function logOut() {
-    try {
-        await auth.signOut();
-        if (profileDropdown) profileDropdown.classList.remove('active');
-        closeProfileModalFunc();
-    } catch (error) { console.error(error); }
-}
-
-// ============================================
-// نافذة الملف الشخصي (مودال)
-// ============================================
-
-function openProfileModal() {
-    if (profileModal) profileModal.classList.add('active');
-}
-
-function closeProfileModalFunc() {
-    if (profileModal) profileModal.classList.remove('active');
-}
-
-function updateProfileModal(user) {
-    if (!user) {
-        if (profileDisplayName) profileDisplayName.innerText = 'غير مسجل';
-        if (profileUid) profileUid.innerText = '---';
-        if (profileExpiry) profileExpiry.innerText = '';
-        if (profileStatusModal) {
-            profileStatusModal.innerHTML = '<span style="color: #94a3b8;">🆓 مجاني</span>';
-        }
+async function handleLogin() {
+    const email = authEmail.value.trim();
+    const password = authPassword.value;
+    
+    if (!email || !password) {
+        authError.textContent = '⚠️ يرجى ملء جميع الحقول';
         return;
     }
     
     try {
-        const docRef = db.collection('users').doc(user.uid);
-        docRef.get().then(docSnap => {
-            if (docSnap.exists) {
-                const data = docSnap.data();
-                if (profileDisplayName) {
-                    profileDisplayName.innerText = data.username || user.email.split('@')[0] || 'مستخدم';
-                }
-                if (profileUid) {
-                    const uid = user.uid;
-                    profileUid.innerText = uid.length > 24 ? uid.substring(0, 24) + '...' : uid;
-                }
-                
-                // الحالة
-                window.getUserStatusGlobal().then(status => {
-                    if (profileStatusModal) {
-                        if (status === 'premium') {
-                            profileStatusModal.innerHTML = '<span style="color: #10b981;">⭐ مشترك (Premium)</span>';
-                        } else {
-                            profileStatusModal.innerHTML = '<span style="color: #94a3b8;">🆓 مجاني (Free)</span>';
-                        }
-                    }
-                });
-                
-                // تاريخ الانتهاء
-                if (profileExpiry && data.premiumUntil) {
-                    const date = new Date(data.premiumUntil);
-                    const formatted = date.toLocaleDateString('ar-EG', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit'
-                    });
-                    profileExpiry.innerText = `📅 ينتهي: ${formatted}`;
-                } else if (profileExpiry) {
-                    profileExpiry.innerText = '';
-                }
-            }
-        }).catch(err => {
-            console.warn('⚠️ فشل جلب بيانات المستخدم:', err);
-        });
-    } catch (err) {
-        console.warn('⚠️ فشل جلب بيانات المستخدم:', err);
+        await auth.signInWithEmailAndPassword(email, password);
+        closeAuthModalFunc();
+        showToast('✅ تم تسجيل الدخول بنجاح', 'success');
+    } catch (error) {
+        authError.textContent = getFirebaseErrorMessage(error.code);
+    }
+}
+
+async function handleSignup() {
+    const username = signupUsername.value.trim();
+    const lastname = signupLastname.value.trim();
+    const firstname = signupFirstname.value.trim();
+    const email = signupEmail.value.trim();
+    const password = signupPassword.value;
+    
+    if (!username || !lastname || !firstname || !email || !password) {
+        signupError.textContent = '⚠️ يرجى ملء جميع الحقول';
+        return;
+    }
+    
+    if (password.length < 6) {
+        signupError.textContent = '⚠️ كلمة المرور يجب أن تكون 6 أحرف أو أكثر';
+        return;
+    }
+    
+    try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        localStorage.setItem('userPass_' + user.uid, password);
+        
+        await createUserDocument(user, { username, firstname, lastname });
+        
+        closeAuthModalFunc();
+        showToast('✅ تم إنشاء الحساب بنجاح', 'success');
+    } catch (error) {
+        signupError.textContent = getFirebaseErrorMessage(error.code);
+    }
+}
+
+async function handleReset() {
+    const email = resetEmail.value.trim();
+    const newPassword = resetNewPassword.value;
+    
+    if (!email || !newPassword) {
+        resetError.textContent = '⚠️ يرجى ملء جميع الحقول';
+        return;
+    }
+    
+    if (newPassword.length < 6) {
+        resetError.textContent = '⚠️ كلمة المرور يجب أن تكون 6 أحرف أو أكثر';
+        return;
+    }
+    
+    const message = `السلام عليكم،\nنسيت كلمة المرور وبغيت نبدلها.\nالبريد الإلكتروني: ${email}`;
+    const waUrl = `https://wa.me/212687561491?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, '_blank');
+    closeAuthModalFunc();
+    showToast('📱 تم فتح واتساب', 'info');
+}
+
+async function handleLogout() {
+    try {
+        await auth.signOut();
+        if (profileDropdown) profileDropdown.classList.remove('active');
+        showToast('✅ تم تسجيل الخروج بنجاح', 'success');
+    } catch (error) {
+        console.error(error);
     }
 }
 
 // ============================================
-// تحديث واجهة المستخدم
+// دالة ترجمة أخطاء Firebase
 // ============================================
-async function updateUI(user) {
-    if (user) {
-        if (profileIcon) profileIcon.style.display = 'flex';
-        if (navLoginBtn) navLoginBtn.style.display = 'none';
-        if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-block';
-        if (profileEmail) profileEmail.innerText = user.email;
-        localStorage.setItem('zertiva_email', user.email);
-
-        try {
-            const status = await window.getUserStatusGlobal();
-            if (profileStatus) {
-                if (status === 'premium') {
-                    profileStatus.innerHTML = '<span style="color: #10b981;">⭐ مشترك (Premium)</span>';
-                } else {
-                    profileStatus.innerHTML = '<span style="color: #94a3b8;">🆓 مجاني (Free)</span>';
-                }
-            }
-            // تحديث المودال أيضاً
-            updateProfileModal(user);
-        } catch (error) {
-            console.warn('⚠️ فشل جلب حالة المستخدم:', error);
-        }
-    } else {
-        if (profileIcon) profileIcon.style.display = 'none';
-        if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
-        if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-block';
-        if (profileEmail) profileEmail.innerText = 'غير مسجل';
-        if (profileStatus) {
-            profileStatus.innerHTML = '';
-        }
-        updateProfileModal(null);
-    }
+function getFirebaseErrorMessage(code) {
+    const errors = {
+        'auth/user-not-found': '❌ البريد الإلكتروني غير مسجل',
+        'auth/wrong-password': '❌ كلمة السر غير صحيحة',
+        'auth/email-already-in-use': '❌ البريد الإلكتروني مستخدم بالفعل',
+        'auth/invalid-email': '❌ البريد الإلكتروني غير صحيح',
+        'auth/too-many-requests': '⚠️ حاول مرة أخرى لاحقاً',
+        'auth/weak-password': '⚠️ كلمة المرور ضعيفة (6 أحرف على الأقل)'
+    };
+    return errors[code] || '⚠️ حدث خطأ، حاول مرة أخرى';
 }
 
-function updateSettingsUI(user) {
-    const emailSpan = document.getElementById('settingsUserEmail');
-    const uidSpan = document.getElementById('settingsUserUid');
-    const passSpan = document.getElementById('settingsUserPass');
-    if (!emailSpan || !uidSpan || !passSpan) return;
-    if (user) {
-        emailSpan.innerText = user.email;
-        uidSpan.innerText = user.uid;
-        const savedPass = localStorage.getItem('userPass_' + user.uid);
-        passSpan.innerText = savedPass || 'لم تُحفظ';
-    } else {
-        emailSpan.innerText = 'غير مسجل';
-        uidSpan.innerText = 'لا يوجد';
-        passSpan.innerText = 'غير متوفرة';
+// ============================================
+// عرض Toast
+// ============================================
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        position: fixed; top: 20px; right: 20px;
+        padding: 12px 20px; border-radius: 12px;
+        background: #0f172a; color: white;
+        border: 1px solid rgba(56,189,248,0.2);
+        z-index: 99999;
+        font-size: 14px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        animation: slideIn 0.3s ease;
+        direction: rtl;
+        max-width: 380px;
+    `;
+    if (type === 'success') toast.style.borderColor = '#22c55e';
+    if (type === 'error') toast.style.borderColor = '#ef4444';
+    if (type === 'info') toast.style.borderColor = '#38bdf8';
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// ============================================
+// تحديث الملف الشخصي
+// ============================================
+async function updateProfile() {
+    const user = auth.currentUser;
+    if (!user) {
+        profileDisplayName.textContent = '👤 غير مسجل';
+        profileStatus.innerHTML = '<span style="color:#94a3b8;">🆓 مجاني</span>';
+        profileExpiry.textContent = 'الوصول محدود لبعض الامتحانات';
+        profileUid.textContent = '---';
+        profileSubscribeBtn.style.display = 'block';
+        return;
+    }
+    
+    try {
+        const doc = await db.collection('users').doc(user.uid).get();
+        const data = doc.exists ? doc.data() : {};
+        
+        const name = data.username || data.firstname || user.email.split('@')[0] || 'مستخدم';
+        profileDisplayName.textContent = `مرحباً ${name} 👋`;
+        
+        const isPremium = data.plan === 'premium' && data.premiumUntil && new Date(data.premiumUntil) > new Date();
+        
+        if (isPremium) {
+            const expiry = new Date(data.premiumUntil);
+            profileStatus.innerHTML = '<span class="status-badge premium">⭐ مشترك (Pro)</span>';
+            profileExpiry.textContent = `📅 الصلاحية حتى: ${expiry.toLocaleDateString('ar-EG')}`;
+            profileSubscribeBtn.style.display = 'none';
+        } else {
+            profileStatus.innerHTML = '<span class="status-badge free">🆓 مجاني (Free)</span>';
+            profileExpiry.textContent = '⏰ انتهت الصلاحية';
+            profileSubscribeBtn.style.display = 'block';
+        }
+        
+        const uid = user.uid;
+        profileUid.textContent = uid.length > 20 ? uid.substring(0, 20) + '...' : uid;
+        
+    } catch (error) {
+        console.error('خطأ في تحديث الملف الشخصي:', error);
     }
 }
 
@@ -300,147 +356,69 @@ function updateSettingsUI(user) {
 // مراقب حالة المستخدم
 // ============================================
 auth.onAuthStateChanged(user => {
-    updateUI(user);
-    updateSettingsUI(user);
-    if (profileDropdown) profileDropdown.classList.remove('active');
+    if (user) {
+        updateProfile();
+        if (navLoginBtn) navLoginBtn.style.display = 'none';
+        if (profileIcon) profileIcon.style.display = 'flex';
+    } else {
+        if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
+        if (profileIcon) profileIcon.style.display = 'none';
+        if (profileDropdown) profileDropdown.classList.remove('active');
+        updateProfile();
+    }
 });
 
 // ============================================
 // ربط الأحداث
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. زر تسجيل الدخول
-    if (navLoginBtn) {
-        navLoginBtn.addEventListener('click', openLoginPopup);
-        console.log('✅ زر تسجيل الدخول مربوط');
-    }
+    // إظهار/إخفاء كلمة المرور
+    togglePasswordVisibility('authPassword', 'togglePassword');
+    togglePasswordVisibility('signupPassword', 'toggleSignupPassword');
+    togglePasswordVisibility('resetNewPassword', 'toggleResetPassword');
     
-    // 2. زر اشترك
-    if (navSubscribeBtn) {
-        navSubscribeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.location.href = 'subscribe.html';
-        });
-        console.log('✅ زر اشترك مربوط');
-    }
+    // زر تسجيل الدخول في الشريط العلوي
+    if (navLoginBtn) navLoginBtn.addEventListener('click', () => openAuthModal('login'));
+    if (closeAuthModal) closeAuthModal.addEventListener('click', closeAuthModalFunc);
+    if (authModal) authModal.addEventListener('click', (e) => { if (e.target === authModal) closeAuthModalFunc(); });
     
-    // 3. إغلاق النافذة
-    if (closePopupBtn) {
-        closePopupBtn.addEventListener('click', closeLoginPopup);
-        console.log('✅ زر إغلاق النافذة مربوط');
-    }
+    // أزرار تسجيل الدخول في النموذج
+    if (authLoginBtn) authLoginBtn.addEventListener('click', handleLogin);
+    if (authSignupBtn) authSignupBtn.addEventListener('click', handleSignup);
+    if (resetWhatsAppBtn) resetWhatsAppBtn.addEventListener('click', handleReset);
     
-    // 4. إغلاق النافذة بالخارج
-    if (loginPopup) {
-        loginPopup.addEventListener('click', (e) => {
-            if (e.target === loginPopup) closeLoginPopup();
-        });
-    }
+    // التنقل بين النماذج
+    if (switchToSignup) switchToSignup.addEventListener('click', () => showForm('signup'));
+    if (switchToLogin) switchToLogin.addEventListener('click', () => showForm('login'));
+    if (switchToReset) switchToReset.addEventListener('click', () => showForm('reset'));
+    if (switchToLoginFromReset) switchToLoginFromReset.addEventListener('click', () => showForm('login'));
     
-    // 5. أزرار النافذة
-    if (popupLoginBtn) {
-        popupLoginBtn.addEventListener('click', () => {
-            const email = popupEmail.value.trim();
-            const pass = popupPassword.value;
-            signIn(email, pass);
-        });
-        console.log('✅ زر تسجيل الدخول في النافذة مربوط');
-    }
-    if (popupSignupBtn) {
-        popupSignupBtn.addEventListener('click', () => {
-            const email = popupEmail.value.trim();
-            const pass = popupPassword.value;
-            signUp(email, pass);
-        });
-        console.log('✅ زر إنشاء حساب في النافذة مربوط');
-    }
-    if (popupResetBtn) {
-        popupResetBtn.addEventListener('click', () => {
-            const email = popupEmail.value.trim();
-            resetPassword(email);
-        });
-        console.log('✅ زر نسيت كلمة المرور مربوط');
-    }
+    // الملف الشخصي
+    if (profileIcon) profileIcon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (profileDropdown) profileDropdown.classList.toggle('active');
+    });
+    if (profileLogoutBtn) profileLogoutBtn.addEventListener('click', handleLogout);
+    if (profileSubscribeBtn) profileSubscribeBtn.addEventListener('click', () => window.location.href = 'subscribe.html');
     
-    // 6. تسجيل الخروج (القائمة المنسدلة)
-    if (profileLogoutBtn) {
-        profileLogoutBtn.addEventListener('click', logOut);
-        console.log('✅ زر تسجيل خروج مربوط');
-    }
-    
-    // 7. أيقونة الملف الشخصي (القائمة المنسدلة)
-    if (profileIcon) {
-        profileIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (profileDropdown) profileDropdown.classList.toggle('active');
-            console.log('✅ تم تبديل قائمة الملف الشخصي');
-        });
-        console.log('✅ أيقونة الملف الشخصي مربوطة');
-    }
-    
-    // 8. زر الملف الشخصي الجديد (مودال)
-    if (profileBtn) {
-        profileBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const user = auth.currentUser;
-            if (user) {
-                updateProfileModal(user);
-                openProfileModal();
-            } else {
-                alert('⚠️ يرجى تسجيل الدخول أولاً');
-            }
-        });
-        console.log('✅ زر الملف الشخصي (مودال) مربوط');
-    }
-    
-    // 9. إغلاق نافذة الملف الشخصي
-    if (closeProfileModal) {
-        closeProfileModal.addEventListener('click', closeProfileModalFunc);
-        console.log('✅ زر إغلاق الملف الشخصي مربوط');
-    }
-    
-    // 10. إغلاق نافذة الملف الشخصي بالخارج
-    if (profileModal) {
-        profileModal.addEventListener('click', function(e) {
-            if (e.target === profileModal) closeProfileModalFunc();
-        });
-    }
-    
-    // 11. زر تسجيل الخروج في نافذة الملف الشخصي
-    if (profileLogoutBtnModal) {
-        profileLogoutBtnModal.addEventListener('click', function() {
-            closeProfileModalFunc();
-            logOut();
-        });
-        console.log('✅ زر خروج في الملف الشخصي مربوط');
-    }
-    
-    // 12. زر الإعدادات
+    // الإعدادات
     if (settingsBtn && settingsModal) {
-        settingsBtn.addEventListener('click', function(e) {
+        settingsBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             settingsModal.classList.add('active');
-            console.log('✅ تم فتح نافذة الإعدادات');
+            if (profileDropdown) profileDropdown.classList.remove('active');
         });
-        console.log('✅ زر الإعدادات مربوط');
     }
-    
     if (closeSettingsModal) {
-        closeSettingsModal.addEventListener('click', function() {
-            settingsModal.classList.remove('active');
-        });
-        console.log('✅ زر إغلاق الإعدادات مربوط');
+        closeSettingsModal.addEventListener('click', () => settingsModal.classList.remove('active'));
     }
-    
     if (settingsModal) {
-        settingsModal.addEventListener('click', function(e) {
-            if (e.target === settingsModal) {
-                settingsModal.classList.remove('active');
-            }
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) settingsModal.classList.remove('active');
         });
     }
     
-    // 13. إغلاق القائمة المنسدلة
+    // إغلاق القائمة المنسدلة
     document.addEventListener('click', (e) => {
         if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileIcon) {
             profileDropdown.classList.remove('active');
@@ -448,4 +426,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-console.log('✅ auth.js (مع Firebase + Firestore) تم تحميله بنجاح');
+console.log('✅ auth.js (نسخة متطورة مع مودال موحد) تم تحميله بنجاح');
