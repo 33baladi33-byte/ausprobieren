@@ -2,7 +2,20 @@
 // auth.js - نظام المصادقة مع Firebase + Firestore
 // ============================================
 
-const db = window.db;
+// ============================================
+// انتظار توفر db من window
+// ============================================
+let db = window.db;
+if (!db) {
+    console.warn('⚠️ db غير معرف، محاولة الانتظار...');
+    const waitForDb = setInterval(() => {
+        if (window.db) {
+            db = window.db;
+            clearInterval(waitForDb);
+            console.log('✅ db تم تعريفه');
+        }
+    }, 100);
+}
 
 // ============================================
 // عناصر DOM
