@@ -1298,6 +1298,32 @@ body.dark-mode #profileModal #profileStatusModal {
 body.dark-mode #profileModal .settings-modal-header h3 {
     color: #ffffff;
 }
+        /* ============================================
+   نافذة تسجيل الدخول الجديدة
+   ============================================ */
+#authModal .settings-modal-content {
+    background: #0f172a;
+    border: 1px solid rgba(56,189,248,0.15);
+}
+
+#authModal input:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 2px rgba(56,189,248,0.2);
+}
+
+#authModal .settings-modal-body label {
+    color: #94a3b8;
+}
+
+/* زر اشترك الآن في الملف الشخصي */
+.profile-subscribe-btn {
+    transition: all 0.3s ease;
+}
+.profile-subscribe-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(56,189,248,0.3);
+}
 </style>
 </head>
 <body>
@@ -1368,18 +1394,20 @@ body.dark-mode #profileModal .settings-modal-header h3 {
 
 
 
-<!-- ===== بطاقة الملف الشخصي الجديدة ===== -->
+<!-- ===== بطاقة الملف الشخصي ===== -->
 <div id="profileDropdown" class="profile-dropdown">
     <div class="profile-card">
         <div class="profile-avatar">🙂</div>
-        <div class="profile-name" id="profileDisplayName">مستخدم</div>
+        <div class="profile-name" id="profileDisplayName">مرحباً 👋</div>
         <div class="profile-status" id="profileStatus">
             <span class="status-badge free">🆓 مجاني</span>
         </div>
         <div class="profile-expiry" id="profileExpiry"></div>
         <div class="profile-divider"></div>
+        <div id="profileSubscribeBtn" class="profile-subscribe-btn" style="display:none; background:linear-gradient(135deg,#38bdf8,#0ea5e9); border:none; border-radius:8px; padding:10px; color:#0a0e1a; font-weight:600; cursor:pointer; width:100%; margin-bottom:8px; font-size:13px;">⭐ اشترك الآن</div>
+        <div class="profile-divider"></div>
         <div class="profile-uid">
-            <span>🆔</span>
+            <span>ID:</span>
             <span id="profileUid">---</span>
         </div>
         <div class="profile-divider"></div>
@@ -1390,18 +1418,83 @@ body.dark-mode #profileModal .settings-modal-header h3 {
     </div>
 </div>
 
-<div id="loginPopup" class="login-popup">
-    <div class="login-popup-content">
-        <h3>🔐 تسجيل الدخول / إنشاء حساب</h3>
-        <p>أدخل بريدك الإلكتروني وكلمة السر</p>
-        <input type="email" id="popupEmail" placeholder="البريد الإلكتروني">
-        <input type="password" id="popupPassword" placeholder="كلمة السر (6 أحرف على الأقل)">
-        <button id="popupSignupBtn" class="btn-popup-login" style="background:#27ae60;">➕ إنشاء حساب</button>
-        <button id="popupLoginBtn" class="btn-popup-login" style="background:#2980b9;">🔑 تسجيل الدخول</button>
-        <button id="popupResetBtn" class="btn-popup-login" style="background:#f39c12;">🔁 نسيت كلمة المرور</button>
-        <br>
-        <button id="closePopupBtn" class="btn-popup-close">إغلاق</button>
-        <div id="popupError" style="color:red; margin-top:10px; font-size:14px;"></div>
+<!-- ===== نافذة تسجيل الدخول / إنشاء حساب / نسيت كلمة المرور (مودال موحد) ===== -->
+<div id="authModal" class="settings-modal">
+    <div class="settings-modal-content" style="max-width: 380px;">
+        <div class="settings-modal-header">
+            <h3 id="authModalTitle">🔐 تسجيل الدخول</h3>
+            <button id="closeAuthModal" class="close-settings-btn">✕</button>
+        </div>
+        <div class="settings-modal-body" id="authModalBody">
+            <!-- ===== نموذج تسجيل الدخول ===== -->
+            <div id="loginForm">
+                <div style="margin-bottom: 14px;">
+                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">البريد الإلكتروني</label>
+                    <input type="email" id="authEmail" placeholder="example@mail.com" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom: 14px; position:relative;">
+                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر</label>
+                    <input type="password" id="authPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
+                    <span id="togglePassword" style="position:absolute; right:12px; bottom:12px; cursor:pointer; color:#64748b; font-size:18px;">👁️</span>
+                </div>
+                <button id="authLoginBtn" style="width:100%; padding:12px; background:#38bdf8; color:#0a0e1a; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:0.3s;">دخول</button>
+                <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:13px;">
+                    <span id="switchToSignup" style="color:#38bdf8; cursor:pointer;">➕ إنشاء حساب جديد</span>
+                    <span id="switchToReset" style="color:#94a3b8; cursor:pointer; font-size:12px;">نسيت كلمة المرور؟</span>
+                </div>
+                <div id="authError" style="color:#ef4444; font-size:13px; margin-top:10px; text-align:center;"></div>
+            </div>
+
+            <!-- ===== نموذج إنشاء حساب ===== -->
+            <div id="signupForm" style="display:none;">
+                <div style="margin-bottom:10px;">
+                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">اسم المستخدم</label>
+                    <input type="text" id="signupUsername" placeholder="أحمد" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:10px;">
+                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">الإسم العائلي</label>
+                    <input type="text" id="signupLastname" placeholder="الاسم العائلي" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:10px;">
+                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">الإسم الشخصي</label>
+                    <input type="text" id="signupFirstname" placeholder="الإسم الشخصي" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:10px;">
+                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">البريد الإلكتروني</label>
+                    <input type="email" id="signupEmail" placeholder="example@mail.com" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:14px; position:relative;">
+                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر</label>
+                    <input type="password" id="signupPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
+                    <span id="toggleSignupPassword" style="position:absolute; right:12px; bottom:12px; cursor:pointer; color:#64748b; font-size:18px;">👁️</span>
+                </div>
+                <button id="authSignupBtn" style="width:100%; padding:12px; background:#38bdf8; color:#0a0e1a; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:0.3s;">تسجيل</button>
+                <div style="margin-top:12px; font-size:13px; text-align:center;">
+                    <span style="color:#94a3b8;">عندك حساب؟ </span>
+                    <span id="switchToLogin" style="color:#38bdf8; cursor:pointer;">دخل هنا</span>
+                </div>
+                <div id="signupError" style="color:#ef4444; font-size:13px; margin-top:10px; text-align:center;"></div>
+            </div>
+
+            <!-- ===== نموذج نسيت كلمة المرور ===== -->
+            <div id="resetForm" style="display:none;">
+                <p style="color:#94a3b8; font-size:13px; margin-bottom:14px;">أدخل بريدك الإلكتروني وكلمة السر الجديدة</p>
+                <div style="margin-bottom:10px;">
+                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">البريد الإلكتروني</label>
+                    <input type="email" id="resetEmail" placeholder="example@mail.com" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box;">
+                </div>
+                <div style="margin-bottom:14px; position:relative;">
+                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر الجديدة</label>
+                    <input type="password" id="resetNewPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
+                    <span id="toggleResetPassword" style="position:absolute; right:12px; bottom:12px; cursor:pointer; color:#64748b; font-size:18px;">👁️</span>
+                </div>
+                <button id="resetWhatsAppBtn" style="width:100%; padding:12px; background:#25D366; color:white; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:0.3s;">📱 إرسال عبر واتساب</button>
+                <div style="margin-top:12px; font-size:13px; text-align:center;">
+                    <span id="switchToLoginFromReset" style="color:#38bdf8; cursor:pointer;">← العودة لتسجيل الدخول</span>
+                </div>
+                <div id="resetError" style="color:#ef4444; font-size:13px; margin-top:10px; text-align:center;"></div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- ===== نافذة الإعدادات ===== -->
@@ -1428,28 +1521,7 @@ body.dark-mode #profileModal .settings-modal-header h3 {
                     <span class="darkmode-slider"></span>
                 </label>
             </div>
-<!-- ===== نافذة الملف الشخصي (مودال) ===== -->
-<div id="profileModal" class="settings-modal">
-    <div class="settings-modal-content" style="max-width: 340px;">
-        <div class="settings-modal-header">
-            <h3>👤 الملف الشخصي</h3>
-            <button id="closeProfileModal" class="close-settings-btn">✕</button>
-        </div>
-        <div class="settings-modal-body">
-            <div style="text-align: center; padding: 10px 0;">
-                <div style="font-size: 48px; margin-bottom: 8px;">🙂</div>
-                <div id="profileDisplayName" style="font-size: 18px; font-weight: 600; color: #1a1a2e;">مستخدم</div>
-                <div id="profileStatusModal" style="font-size: 14px; margin-top: 4px; color: #94a3b8;">🆓 مجاني</div>
-                <div id="profileExpiry" style="font-size: 13px; color: #64748b; margin-top: 2px;"></div>
-                <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e2e8f0;">
-                    <span style="font-size: 12px; color: #94a3b8;">🆔</span>
-                    <span id="profileUid" style="font-size: 11px; color: #94a3b8; font-family: monospace; word-break: break-all;">---</span>
-                </div>
-                <button id="profileLogoutBtnModal" style="margin-top: 16px; width: 100%; padding: 10px; background: #ef4444; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600;">🚪 تسجيل خروج</button>
-            </div>
-        </div>
-    </div>
-</div>
+
             <!-- 👤 معلومات الحساب -->
             <div class="darkmode-divider"></div>
             <div style="margin-top: 10px; padding: 10px 0;">
