@@ -1494,7 +1494,7 @@ body.dark-mode .mobile-banner span {
 
 
     
-   // ============================================
+// ============================================
 // ✅ ربط زر الإعدادات (⚙️) وزر الشعار (🖼️) بأمان
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
@@ -1535,7 +1535,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (logoBtn) {
         logoBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            // استدعاء دالة goHome إذا كانت موجودة، وإلا التمرير للأعلى
             if (typeof goHome === 'function') {
                 goHome();
                 console.log('✅ تم العودة للرئيسية عبر الشعار');
@@ -2007,10 +2006,7 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         <button id="closeEndOverlayBtn" class="end-overlay-btn">حسناً</button>
     </div>
 </div>
-<!-- ========== عناصر جلسة المراجعة ========== -->
-<div id="studySessionModal" class="session-modal">...</div>
-<div id="sessionTimerBar" class="session-timer-bar" style="display: none;">...</div>
-<div id="sessionEndOverlay" class="session-end-overlay" style="display: none;">...</div>
+
 <!-- ===== تهيئة Firebase ===== -->
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
