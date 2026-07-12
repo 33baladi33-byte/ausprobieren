@@ -318,47 +318,97 @@
     </div>
 </div>
 
+<!-- ================================ -->
+<!-- تهيئة Firebase (compat)         -->
+<!-- ================================ -->
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
 <script>
-    // ✅ رابط الواتساب
+    // 🔥 إعدادات مشروعك (من Firebase Console)
+    const firebaseConfig = {
+        apiKey: "AIzaSyABp_TfYLzX76ddo0nE08R7T0N8UEGbjIc",
+        authDomain: "zertivab22.firebaseapp.com",
+        databaseURL: "https://zertivab22-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "zertivab22",
+        storageBucket: "zertivab22.firebasestorage.app",
+        messagingSenderId: "510978830489",
+        appId: "1:510978830489:web:754fc4ebc02a7ab40a4808",
+        measurementId: "G-57CPE84S84"
+    };
+
+    // تهيئة Firebase
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // =============================================
+    // دالة الحصول على البريد الإلكتروني للمستخدم
+    // =============================================
+    function getLoggedInEmail() {
+        // 1️⃣ أولاً: جرب جلب البريد من Firebase Auth (إذا كان المستخدم مسجلاً)
+        if (auth.currentUser) {
+            return auth.currentUser.email;
+        }
+        // 2️⃣ ثانياً: إذا لم يكن مسجلاً، جرب جلب البريد من localStorage (للتوافق مع النظام القديم)
+        const localEmail = localStorage.getItem('zertiva_email');
+        if (localEmail) {
+            return localEmail;
+        }
+        // 3️⃣ وإلا: عرض "غير مسجل"
+        return 'غير مسجل';
+    }
+
+    // =============================================
+    // رابط الواتساب ورسائل الباقات
+    // =============================================
     const WA_URL = 'https://wa.me/212687561491';
-    
-    // ✅ رسائل الباقات - الصيغة المطلوبة
+
     const PLAN_MESSAGES = {
         "1month": "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]\n[PLN] Paket: 1 Monat\n[PRC] Preis: 99 DH\n[TM] Dauer: 1 Monat\n\n[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang.",
         "2months": "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]\n[PLN] Paket: 2 Monate\n[PRC] Preis: 149 DH\n[TM] Dauer: 2 Monate\n\n[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang.",
         "3months": "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]\n[PLN] Paket: 3 Monate\n[PRC] Preis: 199 DH\n[TM] Dauer: 3 Monate\n\n[NT] Bitte aktivieren Sie mein Konto nach Zahlungseingang."
     };
-    
-    function getLoggedInEmail() {
-        return localStorage.getItem('zertiva_email') || 'غير مسجل';
-    }
-    
+
+    // =============================================
+    // ربط الأزرار والبطاقات
+    // =============================================
     document.querySelectorAll('.plan-card').forEach(card => {
-        let plan = card.getAttribute('data-plan');
-        
+        const plan = card.getAttribute('data-plan');
+
         function goToWhatsApp() {
             const email = getLoggedInEmail();
             let message = PLAN_MESSAGES[plan] || "[NEW] Neue Abonnementanfrage – Zertiva B2\n\n[USR] E-Mail: [EMAIL]";
             message = message.replace('[EMAIL]', email);
-            
+
             const encodedMessage = encodeURIComponent(message);
             window.location.href = `${WA_URL}?text=${encodedMessage}`;
         }
-        
-        let btn = card.querySelector('.btn-select');
-        if(btn) {
+
+        const btn = card.querySelector('.btn-select');
+        if (btn) {
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
                 goToWhatsApp();
             });
         }
-        
+
+        // عند النقر على البطاقة نفسها (إذا لم يكن الضغط على الزر)
         card.addEventListener('click', function(e) {
-            if(e.target !== btn) {
+            if (e.target !== btn) {
                 goToWhatsApp();
             }
         });
     });
+
+    // =============================================
+    // (اختياري) تحديث البريد المعروض في الـ UI
+    // =============================================
+    // يمكنك إضافة عنصر لعرض البريد الحالي في الصفحة
+    // مثلاً: <div id="user-email"></div>
+    // وعند تحميل الصفحة: auth.onAuthStateChanged(user => {
+    //   if (user) document.getElementById('user-email').innerText = user.email;
+    // });
+    console.log('✅ subscribe.html جاهز مع Firebase');
 </script>
+
 </body>
 </html>
