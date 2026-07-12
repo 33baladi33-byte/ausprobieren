@@ -19,6 +19,30 @@ import {
 let currentUser = null;
 let currentUserData = null;
 let isPremium = false;
+let authInitialized = false;
+
+// ============================================
+// حفظ واستعادة الجلسة في localStorage
+// ============================================
+function saveUserToLocalStorage(user) {
+    if (user) {
+        localStorage.setItem('firebaseUser', JSON.stringify({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL || null
+        }));
+        console.log('💾 تم حفظ المستخدم في localStorage');
+    } else {
+        localStorage.removeItem('firebaseUser');
+        console.log('🗑️ تم مسح المستخدم من localStorage');
+    }
+}
+
+function getUserFromLocalStorage() {
+    const saved = localStorage.getItem('firebaseUser');
+    return saved ? JSON.parse(saved) : null;
+}
 
 // ============================================
 // إنشاء حساب جديد
@@ -62,6 +86,9 @@ async function signInWithEmail(email, password) {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         const userData = await getUserData(user.uid);
+        
+        // حفظ الجلسة
+        saveUserToLocalStorage(user);
         
         return { success: true, user, userData };
     } catch (error) {
@@ -224,6 +251,7 @@ async function signOutUser() {
         currentUser = null;
         currentUserData = null;
         isPremium = false;
+        saveUserToLocalStorage(null); // مسح الجلسة
         updateUIAfterLogin(null, null);
         showMessage('✅ تم تسجيل الخروج');
     } catch (error) {
@@ -290,13 +318,19 @@ function togglePasswordVisibility(inputId, buttonId) {
 }
 
 // ============================================
-// مراقبة حالة تسجيل الدخول
+// مراقبة حالة تسجيل الدخول (معدلة)
 // ============================================
 function initAuthListener() {
+    console.log('🔄 بدء الاستماع لحالة تسجيل الدخول...');
+    
     onAuthStateChanged(auth, async (user) => {
+        console.log('📡 تغير حالة المستخدم:', user ? user.email : 'غير مسجل');
+        
         if (user) {
             currentUser = user;
+            saveUserToLocalStorage(user); // حفظ الجلسة
             currentUserData = await getUserData(user.uid);
+            console.log('✅ تم جلب بيانات المستخدم:', currentUserData);
             
             if (currentUserData) {
                 const status = await checkPremiumStatus(user.uid);
@@ -309,10 +343,19 @@ function initAuthListener() {
             
             updateUIAfterLogin(user, currentUserData);
         } else {
-            currentUser = null;
-            currentUserData = null;
-            isPremium = false;
-            updateUIAfterLogin(null, null);
+            // التحقق من localStorage إذا كان هناك مستخدم محفوظ
+            const savedUser = getUserFromLocalStorage();
+            if (savedUser) {
+                console.log('📦 استعادة المستخدم من localStorage:', savedUser.email);
+                // محاولة استعادة المستخدم
+                // (سيعيد onAuthStateChanged الاتصال تلقائياً)
+            } else {
+                console.log('👤 لا يوجد مستخدم مسجل');
+                currentUser = null;
+                currentUserData = null;
+                isPremium = false;
+                updateUIAfterLogin(null, null);
+            }
         }
     });
 }
@@ -369,6 +412,7 @@ function switchToForgot() {
 // ربط الأحداث
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('📄 تم تحميل الصفحة، جاري تهيئة نظام المصادقة...');
     
     // === زر تسجيل الدخول ===
     document.getElementById('navLoginBtn')?.addEventListener('click', () => {
@@ -511,6 +555,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // === بدء الاستماع ===
     initAuthListener();
+    
+    // === التحقق من الجلسة المحفوظة ===
+    const savedUser = getUserFromLocalStorage();
+    if (savedUser) {
+        console.log('📦 جلسة محفوظة موجودة:', savedUser.email);
+        // onAuthStateChanged سيتولى استعادة الجلسة
+    }
 });
 
 // ============================================
@@ -530,7 +581,9 @@ export {
     updatePremiumFeatures,
     switchToLogin,
     switchToSignup,
-    switchToForgot
+    switchToForgot,
+    saveUserToLocalStorage,
+    getUserFromLocalStorage
 };
 
 window.currentUser = currentUser;
@@ -547,5 +600,7 @@ window.updatePremiumFeatures = updatePremiumFeatures;
 window.switchToLogin = switchToLogin;
 window.switchToSignup = switchToSignup;
 window.switchToForgot = switchToForgot;
+window.saveUserToLocalStorage = saveUserToLocalStorage;
+window.getUserFromLocalStorage = getUserFromLocalStorage;
 
-console.log('✅ Auth System جاهز (مع تبديل النوافذ ونسيت كلمة المرور)');
+console.log('✅ Auth System جاهز (مع بقاء الجلسة بعد Refresh)');
