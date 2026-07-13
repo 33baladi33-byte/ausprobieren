@@ -1522,17 +1522,22 @@ body:has(#exam.active) .top-bar {
 .left-side .btn-login-top {
     order: 4;  /* أقصى اليسار (في حال ظهوره) */
 }
-/* ===== تعديل الصفحة الرئيسية فقط ===== */
-#home .settings-icon-btn {
-    order: 3 !important;
+/* ===== الصفحة الرئيسية فقط ===== */
+
+.home-page .left-side .subscribe-text-btn {
+    order: 1;
 }
 
-#home .subscribe-text-btn {
-    order: 1 !important;
+.home-page .left-side .btn-login-top {
+    order: 2;
 }
 
-#home .btn-login-top {
-    order: 2 !important;
+.home-page .left-side .settings-icon-btn {
+    order: 3;
+}
+
+.home-page .left-side .profile-icon {
+    order: 4;
 }
 /* ========================================
    تحسينات الهواتف
