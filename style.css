@@ -1499,10 +1499,6 @@ body:has(#exam.active) .top-bar {
    ترتيب الأزرار في الجهة اليسرى
    ======================================== */
 
-/* ========================================
-   ترتيب الأزرار في الجهة اليسرى
-   ======================================== */
-
 .left-side {
     display: flex;
     align-items: center;
@@ -1511,20 +1507,20 @@ body:has(#exam.active) .top-bar {
 }
 
 /* ترتيب الأزرار من اليمين إلى اليسار */
-.left-side .subscribe-text-btn {
+.left-side .profile-icon {
     order: 1;  /* أقصى اليمين */
 }
 
-.left-side .profile-icon {
-    order: 2;  /* ثاني عنصر من اليمين */
+.left-side .settings-icon-btn {
+    order: 2;  /* ثاني من اليمين */
+}
+
+.left-side .subscribe-text-btn {
+    order: 3;  /* ثالث من اليمين */
 }
 
 .left-side .btn-login-top {
-    order: 3;  /* ثالث عنصر من اليمين (في الصفحة الرئيسية) */
-}
-
-.left-side .settings-icon-btn {
-    order: 4;  /* أقصى اليسار */
+    order: 4;  /* أقصى اليسار (في حال ظهوره) */
 }
 
 /* ========================================
