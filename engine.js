@@ -1425,7 +1425,7 @@ resetBtn.onclick = function() {
 };
 
 // ============================================
-// دالة التصحيح لـ Hören Teil 1,2,3 - النسخة النهائية مع دعم Interleaving
+// دالة التصحيح لـ Hören Teil 1,2,3 - النسخة النهائية مع دعم Premium
 // ============================================
 function checkTrueFalseExam(container, questions, answers, correctNumbersContainer) {
     let questionsToCheck = questions;
@@ -1593,6 +1593,7 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         resultDiv.style.color = 'white';
     }
     
+    // ✅ استخدام saveExamResultGlobal (القراءة فقط)
     if (typeof window.saveExamResultGlobal === "function") {
         const skill = container.id || "hoeren";
         const examId = window.currentExamId || 1;
@@ -1604,7 +1605,6 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
     }, 100);
     
 }  // ✅ هذا القوس يغلق دالة checkTrueFalseExam
-
 // ============================================
 // نظام Teil 1 (Lesen Teil 1 - Matching)
 // ============================================
@@ -3569,7 +3569,12 @@ if (typeof checkTeil3Exam === 'function') {
 // ============================================
 function rebuildTrueFalseCards() {
     console.log("========== REBUILD ==========");
-    
+    // ✅ قراءة حالة المستخدم (للتأكد من عرض الامتحانات بشكل صحيح)
+    if (typeof window.getUserStatusForExam === 'function') {
+        window.getUserStatusForExam().then(status => {
+            console.log('📊 حالة المستخدم في rebuild:', status);
+        });
+    }
     if (!window.currentSkill) {
         console.warn('⚠️ window.currentSkill غير معرف، استخدام hoeren1 كافتراضي');
         window.currentSkill = 'hoeren1';
