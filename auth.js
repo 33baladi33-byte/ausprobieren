@@ -1,5 +1,5 @@
 // ============================================
-// auth.js - نظام المصادقة مع Firebase + Firestore (نسخة متطورة)
+// auth.js - نظام المصادقة مع Firebase + Firestore
 // ============================================
 
 // ============================================
@@ -109,7 +109,22 @@ function togglePasswordVisibility(inputId, toggleId) {
 }
 
 // ============================================
-// دالة إنشاء مستند المستخدم في Firestore
+// 🔧 دالة إنشاء Session ID عشوائي
+// ============================================
+function generateSessionId() {
+    // استخدام crypto.randomUUID() إذا كان متاحاً، وإلا استخدم طريقة بديلة
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+    }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+// ============================================
+// 🔧 دالة إنشاء مستند المستخدم في Firestore
 // ============================================
 async function createUserDocument(user, additionalData = {}) {
     try {
@@ -127,16 +142,17 @@ async function createUserDocument(user, additionalData = {}) {
             return true;
         }
         
+        // ✅ إنشاء مستند جديد مع currentSession = null
         const userData = {
             email: user.email,
             username: additionalData.username || user.email.split('@')[0] || 'مستخدم',
             firstname: additionalData.firstname || '',
             lastname: additionalData.lastname || '',
-            plan: 'free',
-            premiumUntil: null,
-            currentSession: null,
-            lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            plan: 'free',                    // ✅ دائماً free عند الإنشاء
+            premiumUntil: null,              // ✅ null عند الإنشاء
+            currentSession: null,            // ✅ null عند الإنشاء
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
         };
 
         await userRef.set(userData);
@@ -149,7 +165,63 @@ async function createUserDocument(user, additionalData = {}) {
 }
 
 // ============================================
-// دالة جلب حالة المستخدم (قراءة فقط)
+// 🔧 دالة تحديث Session عند تسجيل الدخول
+// ============================================
+async function updateUserSession(uid) {
+    try {
+        const sessionId = generateSessionId();
+        await db.collection('users').doc(uid).update({
+            currentSession: sessionId
+        });
+        // حفظ الجلسة في localStorage
+        localStorage.setItem('zertiva_session', sessionId);
+        console.log('✅ تم تحديث الجلسة:', sessionId.substring(0, 12) + '...');
+        return sessionId;
+    } catch (error) {
+        console.error('❌ فشل تحديث الجلسة:', error);
+        return null;
+    }
+}
+
+// ============================================
+// 🔧 دالة التحقق من صحة الجلسة (لمنع مشاركة الحساب)
+// ============================================
+async function validateSession(user) {
+    if (!user) return false;
+    
+    try {
+        // ✅ قراءة currentSession من Firestore
+        const docRef = db.collection('users').doc(user.uid);
+        const docSnap = await docRef.get();
+        
+        if (!docSnap.exists) {
+            console.log('⚠️ المستند غير موجود');
+            return false;
+        }
+        
+        const data = docSnap.data();
+        const firestoreSession = data.currentSession || null;
+        const localSession = localStorage.getItem('zertiva_session');
+        
+        // ✅ مقارنة الجلسات
+        if (firestoreSession && localSession && firestoreSession === localSession) {
+            console.log('✅ الجلسة صالحة');
+            return true;
+        }
+        
+        // ❌ الجلسة غير صالحة (تم تسجيل الدخول من جهاز آخر)
+        console.log('⚠️ جلسة غير صالحة - تم تسجيل الدخول من جهاز آخر');
+        return false;
+        
+    } catch (error) {
+        console.error('❌ خطأ في التحقق من الجلسة:', error);
+        // في حالة الخطأ، نعتبر الجلسة صالحة لتجنب حظر المستخدم
+        return true;
+    }
+}
+
+// ============================================
+// 🔧 دالة جلب حالة المستخدم (قراءة فقط - لا كتابة)
 // ============================================
 window.getUserStatusGlobal = async function() {
     const user = auth.currentUser;
@@ -161,16 +233,19 @@ window.getUserStatusGlobal = async function() {
         
         if (docSnap.exists) {
             const data = docSnap.data();
+            
+            // ✅ قراءة فقط: التحقق من plan و premiumUntil
             if (data.plan === 'premium' && data.premiumUntil) {
                 const today = new Date().toISOString().split('T')[0];
                 if (today <= data.premiumUntil) {
                     return 'premium';
                 }
+                // ✅ إذا انتهى الاشتراك، نرجع free (بدون كتابة)
                 return 'free';
             }
             return 'free';
         } else {
-            console.log('📝 إنشاء مستند جديد للمستخدم القديم:', user.email);
+            // ✅ إذا لم يوجد المستند، ننشئه
             await createUserDocument(user);
             return 'free';
         }
@@ -193,7 +268,12 @@ async function handleLogin() {
     }
     
     try {
-        await auth.signInWithEmailAndPassword(email, password);
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const user = userCredential.user;
+        
+        // ✅ بعد تسجيل الدخول: تحديث الجلسة
+        await updateUserSession(user.uid);
+        
         closeAuthModalFunc();
         showToast('✅ تم تسجيل الدخول بنجاح', 'success');
     } catch (error) {
@@ -223,6 +303,7 @@ async function handleSignup() {
         const user = userCredential.user;
         localStorage.setItem('userPass_' + user.uid, password);
         
+        // ✅ إنشاء مستند المستخدم (plan = free, premiumUntil = null, currentSession = null)
         await createUserDocument(user, { username, firstname, lastname });
         
         closeAuthModalFunc();
@@ -255,6 +336,9 @@ async function handleReset() {
 
 async function handleLogout() {
     try {
+        // ✅ حذف الجلسة من localStorage
+        localStorage.removeItem('zertiva_session');
+        
         await auth.signOut();
         if (profileDropdown) profileDropdown.classList.remove('show');
         showToast('✅ تم تسجيل الخروج بنجاح', 'success');
@@ -308,12 +392,11 @@ function showToast(message, type = 'info') {
 }
 
 // ============================================
-// ✅ تحديث الملف الشخصي (باستخدام عناصر التصميم القديم)
+// ✅ تحديث الملف الشخصي
 // ============================================
 async function updateProfile() {
     const user = auth.currentUser;
     
-    // عناصر التصميم القديم الموجودة في index.html
     const profileEmail = document.getElementById('profileEmail');
     const profileExpiry = document.getElementById('profileExpiry');
     const profileStatus = document.getElementById('profileStatus');
@@ -325,7 +408,6 @@ async function updateProfile() {
     const profileIcon = document.getElementById('profileIcon');
 
     if (!user) {
-        // ❌ المستخدم غير مسجل
         if (profileEmail) profileEmail.innerHTML = '👤 غير مسجل';
         if (profileExpiry) profileExpiry.textContent = 'الوصول محدود لبعض الامتحانات';
         if (profileStatus) profileStatus.innerHTML = '';
@@ -333,9 +415,8 @@ async function updateProfile() {
         if (profileLogoutBtn) profileLogoutBtn.style.display = 'none';
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-       if (profileIcon) profileIcon.style.display = 'flex';
+        if (profileIcon) profileIcon.style.display = 'flex';
         
-        // إضافة زر الترقية للمستخدم غير المسجل
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
         if (profileDropdown) {
@@ -361,15 +442,13 @@ async function updateProfile() {
         return;
     }
 
-    // ✅ المستخدم مسجل
     try {
         const doc = await db.collection('users').doc(user.uid).get();
         const data = doc.exists ? doc.data() : {};
         
-        // عرض البريد الإلكتروني
         if (profileEmail) profileEmail.innerHTML = `📧 ${user.email}`;
 
-        // تحديد حالة الاشتراك
+        // ✅ قراءة فقط: التحقق من الاشتراك
         const isPremium = data.plan === 'premium' && data.premiumUntil && new Date(data.premiumUntil) > new Date();
         
         if (isPremium) {
@@ -383,15 +462,12 @@ async function updateProfile() {
             if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         }
 
-        // ✅ عرض UID كاملاً
         if (profileUidValue) profileUidValue.textContent = user.uid;
 
-        // إظهار/إخفاء الأزرار
         if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
         if (navLoginBtn) navLoginBtn.style.display = 'none';
         if (profileIcon) profileIcon.style.display = 'flex';
 
-        // إزالة زر الترقية إن وجد (لأن المستخدم مسجل)
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
 
@@ -401,16 +477,47 @@ async function updateProfile() {
 }
 
 // ============================================
+// 🔧 دالة التحقق من الجلسة عند فتح الموقع أو Refresh
+// ============================================
+async function checkSessionOnLoad() {
+    const user = auth.currentUser;
+    if (!user) return;
+    
+    try {
+        const isValid = await validateSession(user);
+        
+        if (!isValid) {
+            // ❌ جلسة غير صالحة - تسجيل خروج
+            localStorage.removeItem('zertiva_session');
+            await auth.signOut();
+            
+            // عرض رسالة للمستخدم
+            showToast('⚠️ تم تسجيل الدخول من جهاز آخر. سيتم تسجيل الخروج.', 'error');
+            
+            // إعادة التوجيه إلى الصفحة الرئيسية
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+    } catch (error) {
+        console.error('❌ خطأ في التحقق من الجلسة:', error);
+    }
+}
+
+// ============================================
 // مراقب حالة المستخدم
 // ============================================
-auth.onAuthStateChanged(user => {
+auth.onAuthStateChanged(async user => {
     if (user) {
+        // ✅ بعد المصادقة، نتحقق من الجلسة
+        await checkSessionOnLoad();
+        
         updateProfile();
         if (navLoginBtn) navLoginBtn.style.display = 'none';
         if (profileIcon) profileIcon.style.display = 'flex';
     } else {
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
-        if (profileIcon) profileIcon.style.display = 'flex'; // ✅ تظهر دائماً
+        if (profileIcon) profileIcon.style.display = 'flex';
         if (profileDropdown) profileDropdown.classList.remove('show');
         updateProfile();
     }
@@ -420,37 +527,30 @@ auth.onAuthStateChanged(user => {
 // ربط الأحداث
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
-    // إظهار/إخفاء كلمة المرور
     togglePasswordVisibility('authPassword', 'togglePassword');
     togglePasswordVisibility('signupPassword', 'toggleSignupPassword');
     togglePasswordVisibility('resetNewPassword', 'toggleResetPassword');
     
-    // زر تسجيل الدخول في الشريط العلوي
     if (navLoginBtn) navLoginBtn.addEventListener('click', () => openAuthModal('login'));
     if (closeAuthModal) closeAuthModal.addEventListener('click', closeAuthModalFunc);
     if (authModal) authModal.addEventListener('click', (e) => { if (e.target === authModal) closeAuthModalFunc(); });
     
-    // أزرار تسجيل الدخول في النموذج
     if (authLoginBtn) authLoginBtn.addEventListener('click', handleLogin);
     if (authSignupBtn) authSignupBtn.addEventListener('click', handleSignup);
     if (resetWhatsAppBtn) resetWhatsAppBtn.addEventListener('click', handleReset);
     
-    // التنقل بين النماذج
     if (switchToSignup) switchToSignup.addEventListener('click', () => showForm('signup'));
     if (switchToLogin) switchToLogin.addEventListener('click', () => showForm('login'));
     if (switchToReset) switchToReset.addEventListener('click', () => showForm('reset'));
     if (switchToLoginFromReset) switchToLoginFromReset.addEventListener('click', () => showForm('login'));
     
-    // ✅ حدث النقر على أيقونة الملف الشخصي
     if (profileIcon) profileIcon.addEventListener('click', (e) => {
         e.stopPropagation();
         if (profileDropdown) profileDropdown.classList.toggle('show');
     });
     
-    // ✅ زر تسجيل الخروج
     if (profileLogoutBtn) profileLogoutBtn.addEventListener('click', handleLogout);
     
-    // الإعدادات
     if (settingsBtn && settingsModal) {
         settingsBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -467,7 +567,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // ✅ إغلاق القائمة المنسدلة عند الضغط خارجها
     document.addEventListener('click', (e) => {
         if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileIcon) {
             profileDropdown.classList.remove('show');
@@ -475,4 +574,4 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-console.log('✅ auth.js (نسخة متطورة مع مودال موحد) تم تحميله بنجاح');
+console.log('✅ auth.js (النظام الجديد مع الجلسات ومنع مشاركة الحساب) تم تحميله بنجاح');
