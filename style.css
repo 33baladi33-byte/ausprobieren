@@ -640,7 +640,7 @@ body:has(#exam.active) .btn-login-top {
     display: none !important;
 }
 
-/* زر اشترك يظهر في صفحات الامتحانات (يتم التحكم به عبر JavaScript) */
+/* زر اشترك يظهر في صفحات الامتحانات */
 body:has(#list.active) .subscribe-text-btn,
 body:has(#exam.active) .subscribe-text-btn {
     display: inline-flex !important;
@@ -650,6 +650,11 @@ body:has(#exam.active) .subscribe-text-btn {
 body:has(#list.active) .profile-icon,
 body:has(#exam.active) .profile-icon {
     display: flex !important;
+}
+
+/* في الصفحة الرئيسية: إخفاء أيقونة الملف الشخصي (تتحكم بها JavaScript) */
+#home .profile-icon {
+    display: none !important;
 }
 
 .settings-icon-btn {
