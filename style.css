@@ -4062,3 +4062,40 @@ body.dark-mode .premium-features li {
     color: #38bdf8; /* اللون الأزرق الأساسي عند المرور */
     transform: translateY(-50%) scale(1.1);
 }
+/* ============================================
+   Password Wrapper - حل المشكلة النهائي
+   ============================================ */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper .password-toggle-icon {
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #9CA3AF;
+    font-size: 22px;
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 22;
+    transition: color 0.2s ease, transform 0.2s ease;
+    user-select: none;
+    z-index: 5;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    line-height: 1;
+}
+
+.password-wrapper .password-toggle-icon:hover {
+    color: #38bdf8;
+    transform: scale(1.1);
+}
