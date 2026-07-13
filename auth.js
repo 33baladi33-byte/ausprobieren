@@ -112,7 +112,6 @@ function togglePasswordVisibility(inputId, toggleId) {
 // 🔧 دالة إنشاء Session ID عشوائي
 // ============================================
 function generateSessionId() {
-    // استخدام crypto.randomUUID() إذا كان متاحاً، وإلا استخدم طريقة بديلة
     if (typeof crypto !== 'undefined' && crypto.randomUUID) {
         return crypto.randomUUID();
     }
@@ -142,15 +141,14 @@ async function createUserDocument(user, additionalData = {}) {
             return true;
         }
         
-        // ✅ إنشاء مستند جديد مع currentSession = null
         const userData = {
             email: user.email,
             username: additionalData.username || user.email.split('@')[0] || 'مستخدم',
             firstname: additionalData.firstname || '',
             lastname: additionalData.lastname || '',
-            plan: 'free',                    // ✅ دائماً free عند الإنشاء
-            premiumUntil: null,              // ✅ null عند الإنشاء
-            currentSession: null,            // ✅ null عند الإنشاء
+            plan: 'free',
+            premiumUntil: null,
+            currentSession: null,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             lastLogin: firebase.firestore.FieldValue.serverTimestamp()
         };
@@ -173,7 +171,6 @@ async function updateUserSession(uid) {
         await db.collection('users').doc(uid).update({
             currentSession: sessionId
         });
-        // حفظ الجلسة في localStorage
         localStorage.setItem('zertiva_session', sessionId);
         console.log('✅ تم تحديث الجلسة:', sessionId.substring(0, 12) + '...');
         return sessionId;
@@ -190,7 +187,6 @@ async function validateSession(user) {
     if (!user) return false;
     
     try {
-        // ✅ قراءة currentSession من Firestore
         const docRef = db.collection('users').doc(user.uid);
         const docSnap = await docRef.get();
         
@@ -203,19 +199,16 @@ async function validateSession(user) {
         const firestoreSession = data.currentSession || null;
         const localSession = localStorage.getItem('zertiva_session');
         
-        // ✅ مقارنة الجلسات
         if (firestoreSession && localSession && firestoreSession === localSession) {
             console.log('✅ الجلسة صالحة');
             return true;
         }
         
-        // ❌ الجلسة غير صالحة (تم تسجيل الدخول من جهاز آخر)
         console.log('⚠️ جلسة غير صالحة - تم تسجيل الدخول من جهاز آخر');
         return false;
         
     } catch (error) {
         console.error('❌ خطأ في التحقق من الجلسة:', error);
-        // في حالة الخطأ، نعتبر الجلسة صالحة لتجنب حظر المستخدم
         return true;
     }
 }
@@ -234,18 +227,15 @@ window.getUserStatusGlobal = async function() {
         if (docSnap.exists) {
             const data = docSnap.data();
             
-            // ✅ قراءة فقط: التحقق من plan و premiumUntil
             if (data.plan === 'premium' && data.premiumUntil) {
                 const today = new Date().toISOString().split('T')[0];
                 if (today <= data.premiumUntil) {
                     return 'premium';
                 }
-                // ✅ إذا انتهى الاشتراك، نرجع free (بدون كتابة)
                 return 'free';
             }
             return 'free';
         } else {
-            // ✅ إذا لم يوجد المستند، ننشئه
             await createUserDocument(user);
             return 'free';
         }
@@ -271,7 +261,6 @@ async function handleLogin() {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
         const user = userCredential.user;
         
-        // ✅ بعد تسجيل الدخول: تحديث الجلسة
         await updateUserSession(user.uid);
         
         closeAuthModalFunc();
@@ -303,7 +292,6 @@ async function handleSignup() {
         const user = userCredential.user;
         localStorage.setItem('userPass_' + user.uid, password);
         
-        // ✅ إنشاء مستند المستخدم (plan = free, premiumUntil = null, currentSession = null)
         await createUserDocument(user, { username, firstname, lastname });
         
         closeAuthModalFunc();
@@ -336,7 +324,6 @@ async function handleReset() {
 
 async function handleLogout() {
     try {
-        // ✅ حذف الجلسة من localStorage
         localStorage.removeItem('zertiva_session');
         
         await auth.signOut();
@@ -448,7 +435,6 @@ async function updateProfile() {
         
         if (profileEmail) profileEmail.innerHTML = `📧 ${user.email}`;
 
-        // ✅ قراءة فقط: التحقق من الاشتراك
         const isPremium = data.plan === 'premium' && data.premiumUntil && new Date(data.premiumUntil) > new Date();
         
         if (isPremium) {
@@ -487,14 +473,11 @@ async function checkSessionOnLoad() {
         const isValid = await validateSession(user);
         
         if (!isValid) {
-            // ❌ جلسة غير صالحة - تسجيل خروج
             localStorage.removeItem('zertiva_session');
             await auth.signOut();
             
-            // عرض رسالة للمستخدم
             showToast('⚠️ تم تسجيل الدخول من جهاز آخر. سيتم تسجيل الخروج.', 'error');
             
-            // إعادة التوجيه إلى الصفحة الرئيسية
             setTimeout(() => {
                 window.location.href = 'index.html';
             }, 1500);
@@ -509,7 +492,6 @@ async function checkSessionOnLoad() {
 // ============================================
 auth.onAuthStateChanged(async user => {
     if (user) {
-        // ✅ بعد المصادقة، نتحقق من الجلسة
         await checkSessionOnLoad();
         
         updateProfile();
