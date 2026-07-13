@@ -4030,17 +4030,4 @@ body.dark-mode .premium-features li {
     color: #94a3b8;
 }
 
-/* أيقونة العين */
-.eye-icon {
-    position: absolute;
-    left: 12px;
-    bottom: 12px;
-    cursor: pointer;
-    color: #64748b;
-    font-size: 18px;
-    user-select: none;
-}
 
-.eye-icon:hover {
-    color: #94a3b8;
-}
