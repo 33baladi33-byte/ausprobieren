@@ -634,14 +634,19 @@ body {
     background: #334155;
     transform: scale(1.05);
 }
-
+/* إخفاء زر تسجيل الدخول فقط في صفحات الامتحانات */
 body:has(#list.active) .btn-login-top,
-body:has(#list.active) .subscribe-text-btn,
-body:has(#exam.active) .btn-login-top,
-body:has(#exam.active) .subscribe-text-btn {
+body:has(#exam.active) .btn-login-top {
     display: none !important;
 }
 
+/* زر اشترك يظهر في صفحات الامتحانات (يتم التحكم به عبر JavaScript) */
+body:has(#list.active) .subscribe-text-btn,
+body:has(#exam.active) .subscribe-text-btn {
+    display: inline-flex !important;
+}
+
+/* أيقونة الملف الشخصي تظهر في صفحات الامتحانات */
 body:has(#list.active) .profile-icon,
 body:has(#exam.active) .profile-icon {
     display: flex !important;
