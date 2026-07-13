@@ -89,43 +89,19 @@ let currentMündlichPart = 2;
 let examUserStatusCache = null;
 let examLastStatusCheck = 0;
 
-// ========== دوال التحقق من حالة المستخدم (باستخدام Firestore) ==========
+// ========== دوال التحقق من حالة المستخدم (قراءة فقط) ==========
 async function getUserStatusForExam() {
-    // ✅ استخدام Firestore مباشرة عبر window.getUserStatusGlobal
     try {
+        // ✅ استخدام الدالة العامة للقراءة فقط
         if (typeof window.getUserStatusGlobal === 'function') {
             const status = await window.getUserStatusGlobal();
             return status; // يعيد 'premium' أو 'free' أو 'guest'
         }
     } catch (error) {
-        console.warn('⚠️ فشل جلب حالة المستخدم من Firestore:', error);
+        console.warn('⚠️ فشل جلب حالة المستخدم:', error);
     }
     
-    // ✅ إذا فشل Firestore، نستخدم localStorage كحل احتياطي
-    const email = localStorage.getItem('zertiva_email');
-    if (!email) return 'guest';
-    
-    // ✅ محاولة جلب البيانات من Firestore مباشرة (إذا كان auth متاحاً)
-    try {
-        if (auth && auth.currentUser) {
-            const docRef = db.collection('users').doc(auth.currentUser.uid);
-            const docSnap = await docRef.get();
-            if (docSnap.exists) {
-                const data = docSnap.data();
-                if (data.premium && data.premiumUntil) {
-                    const today = new Date().toISOString().split('T')[0];
-                    if (today <= data.premiumUntil) {
-                        return 'premium';
-                    }
-                }
-                return 'free';
-            }
-        }
-    } catch (e) {
-        console.warn('⚠️ فشل قراءة Firestore في getUserStatusForExam:', e);
-    }
-    
-    // ✅ إذا كل شيء فشل، نعتبر المستخدم Free
+    // ✅ إذا فشل، نعتبر المستخدم Free
     return 'free';
 }
 
@@ -795,7 +771,6 @@ function renderMündlichPartTabs() {
   
   container.insertBefore(tabsDiv, container.firstChild);
 }
-
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
 
@@ -812,7 +787,6 @@ async function renderExamListForSkill(skill, teilName) {
   headerDiv.innerHTML = `<strong>📚 ${teilName || getTeilNameBySkill(skill)}</strong>`;
   container.appendChild(headerDiv);
 
-  // ✅ إضافة شريط تقدم الذاكرة للمهارات المدعومة
   if (SKILL_CONFIG[skill]) {
       renderMemoryProgressBar(skill, container);
   }
@@ -840,6 +814,7 @@ async function renderExamListForSkill(skill, teilName) {
     return;
   }
   
+  // ✅ قراءة حالة المستخدم (قراءة فقط من auth.js)
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
   
@@ -867,7 +842,6 @@ async function renderExamListForSkill(skill, teilName) {
     
     displaySavedResult(targetSkill, exam.id, titleSpan, div);
 
-    // ✅ عرض نسبة التقدم لكل امتحان (إذا كانت >0)
     const progress = getExamProgress(targetSkill, exam.id);
     if (progress > 0) {
       const progressSpan = document.createElement('span');
@@ -921,14 +895,15 @@ async function renderExamListForSkill(skill, teilName) {
       };
       
       div.onclick = (function(title, id) {
-    return function() {
-        if (typeof window.showPremiumModal === 'function') {
+        return function() {
+          if (typeof window.showPremiumModal === 'function') {
             window.showPremiumModal(title + " (" + id + ")");
-        } else {
+          } else {
             window.location.href = 'subscribe.html';
-        }
-    };
-})(exam.title, exam.id);
+          }
+        };
+      })(exam.title, exam.id);
+      
     } else if (exam.hasFile) {
       div.onclick = (function(id, title, skillPath) {
         return function() { 
@@ -936,6 +911,7 @@ async function renderExamListForSkill(skill, teilName) {
           openExam(id, title, actualSkill); 
         };
       })(exam.id, exam.title, exam.skillPath || targetSkill);
+      
     } else {
       div.style.opacity = "0.6";
       div.style.backgroundColor = "#f8f9fa";
@@ -951,6 +927,7 @@ function setupLockedNextButton() {
   const nextBtn = document.getElementById('nextExamBtn');
   if (!nextBtn) return;
   
+  // ✅ استخدام القراءة فقط من getUserStatusForExam
   getUserStatusForExam().then(status => {
     const isPremium = (status === 'premium');
     
@@ -976,15 +953,15 @@ function setupLockedNextButton() {
         nextBtn.style.opacity = "0.8";
         
         nextBtn.onclick = function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    if (typeof window.showPremiumModal === 'function') {
-        window.showPremiumModal(nextExam.title + " (" + nextExamId + ")");
-    } else {
-        window.location.href = 'subscribe.html';
-    }
-    return false;
-};
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof window.showPremiumModal === 'function') {
+            window.showPremiumModal(nextExam.title + " (" + nextExamId + ")");
+          } else {
+            window.location.href = 'subscribe.html';
+          }
+          return false;
+        };
       } 
       else if (isPremium || nextExamId <= 6) {
         const lockIcon = nextBtn.querySelector('.next-lock-icon');
