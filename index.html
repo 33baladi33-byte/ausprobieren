@@ -27,7 +27,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="studySession.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=visibility,visibility_off" />
     <style>
     /* زر التخليط الأيقوني الصغير */
 .interleaving-icon-btn {
@@ -166,6 +166,52 @@
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
+        /* ============================================
+   Password Toggle Icons - Material Symbols Rounded
+   ============================================ */
+.password-toggle-icon {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    cursor: pointer;
+    color: #9CA3AF;
+    font-size: 22px;
+    font-family: 'Material Symbols Rounded', sans-serif;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 22;
+    transition: color 0.2s ease, transform 0.2s ease;
+    user-select: none;
+    z-index: 5;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+}
+
+.password-toggle-icon:hover {
+    color: #38bdf8;
+    transform: scale(1.05);
+}
+
+.password-toggle-icon:active {
+    transform: scale(0.95);
+}
+
+/* ضبط الحقول التي تحتوي على الأيقونة */
+input[type="password"],
+input[type="text"] {
+    padding-left: 48px !important;
+}
+
+/* الوضع الليلي */
+body.dark-mode .password-toggle-icon {
+    color: #6B7280;
+}
+
+body.dark-mode .password-toggle-icon:hover {
+    color: #38bdf8;
+}
 /* ========================================
    Profile Dropdown (التصميم القديم)
    ======================================== */
@@ -1352,7 +1398,7 @@ body.dark-mode .mobile-banner span {
                 <div style="margin-bottom: 14px; position:relative;">
                     <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر</label>
                     <input type="password" id="authPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
-                    <span id="togglePassword" style="position:absolute; right:12px; bottom:12px; cursor:pointer; color:#64748b; font-size:18px;">👁️</span>
+                   <span id="togglePassword" class="password-toggle-icon" data-target="authPassword">visibility</span>
                 </div>
                 <button id="authLoginBtn" style="width:100%; padding:12px; background:#38bdf8; color:#0a0e1a; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:0.3s;">دخول</button>
                 <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:13px;">
@@ -1383,7 +1429,8 @@ body.dark-mode .mobile-banner span {
                 <div style="margin-bottom:14px; position:relative;">
                     <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر</label>
                     <input type="password" id="signupPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
-                    <span id="toggleSignupPassword" style="position:absolute; right:12px; bottom:12px; cursor:pointer; color:#64748b; font-size:18px;">👁️</span>
+                    <span id="toggleSignupPassword" class="password-toggle-icon" data-target="signupPassword">visibility</span>
+                
                 </div>
                 <button id="authSignupBtn" style="width:100%; padding:12px; background:#38bdf8; color:#0a0e1a; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:0.3s;">تسجيل</button>
                 <div style="margin-top:12px; font-size:13px; text-align:center;">
@@ -1403,7 +1450,7 @@ body.dark-mode .mobile-banner span {
                 <div style="margin-bottom:14px; position:relative;">
                     <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر الجديدة</label>
                     <input type="password" id="resetNewPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
-                    <span id="toggleResetPassword" style="position:absolute; right:12px; bottom:12px; cursor:pointer; color:#64748b; font-size:18px;">👁️</span>
+                    <span id="toggleResetPassword" class="password-toggle-icon" data-target="resetNewPassword">visibility</span>
                 </div>
                 <button id="resetWhatsAppBtn" style="width:100%; padding:12px; background:#25D366; color:white; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:0.3s;">📱 إرسال عبر واتساب</button>
                 <div style="margin-top:12px; font-size:13px; text-align:center;">
