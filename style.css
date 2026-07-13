@@ -4069,3 +4069,25 @@ body.dark-mode .premium-features li {
     color: #38bdf8;
     transform: scale(1.1);
 }
+/* ============================================
+   توسيط عنوان نافذة تسجيل الدخول
+   ============================================ */
+#authModal .settings-modal-header {
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    position: relative;
+}
+
+#authModal .settings-modal-header h3 {
+    text-align: center;
+    flex: 1;
+    margin: 0;
+}
+
+#authModal .close-settings-btn {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
