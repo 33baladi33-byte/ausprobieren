@@ -166,14 +166,14 @@
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
-        /* ============================================
-   Password Toggle Icons - Material Symbols Rounded
+/* ============================================
+   Password Toggle Icons - النسخة النهائية
    ============================================ */
 .password-toggle-icon {
     position: absolute;
-    left: 12px;
-    bottom: 50%;
-    transform: translateY(50%);
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
     cursor: pointer;
     color: #9CA3AF;
     font-size: 22px;
@@ -186,22 +186,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
 }
 
 .password-toggle-icon:hover {
     color: #38bdf8;
-    transform: translateY(50%) scale(1.05);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .password-toggle-icon:active {
-    transform: translateY(50%) scale(0.95);
+    transform: translateY(-50%) scale(0.95);
 }
 
 /* ضبط الحقول التي تحتوي على الأيقونة */
-input[type="password"],
-input[type="text"] {
+#authModal input[type="password"],
+#authModal input[type="text"],
+#signupForm input[type="password"],
+#resetForm input[type="password"] {
     padding-left: 48px !important;
 }
 
