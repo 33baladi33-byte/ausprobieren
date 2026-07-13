@@ -1350,11 +1350,13 @@ body.dark-mode .mobile-banner span {
                     <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">البريد الإلكتروني</label>
                     <input type="email" id="authEmail" placeholder="example@mail.com" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box;">
                 </div>
-                <div style="margin-bottom: 14px; position:relative;">
-                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر</label>
-                    <input type="password" id="authPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
-                 <span id="togglePassword" class="material-symbols-outlined password-toggle-icon" data-target="authPassword">visibility</span>
-                </div>
+             <div style="margin-bottom: 14px;">
+    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر</label>
+    <div class="password-wrapper">
+        <input type="password" id="authPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
+        <span id="togglePassword" class="material-symbols-outlined password-toggle-icon" data-target="authPassword">visibility</span>
+    </div>
+</div>
                 <button id="authLoginBtn" style="width:100%; padding:12px; background:#38bdf8; color:#0a0e1a; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:0.3s;">دخول</button>
                 <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:13px;">
                     <span id="switchToSignup" style="color:#38bdf8; cursor:pointer;">➕ إنشاء حساب جديد</span>
@@ -1381,12 +1383,13 @@ body.dark-mode .mobile-banner span {
                     <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">البريد الإلكتروني</label>
                     <input type="email" id="signupEmail" placeholder="example@mail.com" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box;">
                 </div>
-                <div style="margin-bottom:14px; position:relative;">
-                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر</label>
-                    <input type="password" id="signupPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
-                  <span id="toggleSignupPassword" class="material-symbols-outlined password-toggle-icon" data-target="signupPassword">visibility</span>
-                
-                </div>
+        <div style="margin-bottom:14px;">
+    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر</label>
+    <div class="password-wrapper">
+        <input type="password" id="signupPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
+        <span id="toggleSignupPassword" class="material-symbols-outlined password-toggle-icon" data-target="signupPassword">visibility</span>
+    </div>
+</div>
                 <button id="authSignupBtn" style="width:100%; padding:12px; background:#38bdf8; color:#0a0e1a; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:0.3s;">تسجيل</button>
                 <div style="margin-top:12px; font-size:13px; text-align:center;">
                     <span style="color:#94a3b8;">عندك حساب؟ </span>
@@ -1402,11 +1405,13 @@ body.dark-mode .mobile-banner span {
                     <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">البريد الإلكتروني</label>
                     <input type="email" id="resetEmail" placeholder="example@mail.com" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box;">
                 </div>
-                <div style="margin-bottom:14px; position:relative;">
-                    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر الجديدة</label>
-                    <input type="password" id="resetNewPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
-                  <span id="toggleResetPassword" class="material-symbols-outlined password-toggle-icon" data-target="resetNewPassword">visibility</span>
-                </div>
+     <div style="margin-bottom:14px;">
+    <label style="display:block; font-size:13px; color:#94a3b8; margin-bottom:4px;">كلمة السر الجديدة</label>
+    <div class="password-wrapper">
+        <input type="password" id="resetNewPassword" placeholder="••••••••" style="width:100%; padding:10px 12px; border:1px solid #334155; border-radius:10px; background:#1e293b; color:white; font-size:14px; box-sizing:border-box; padding-left:40px;">
+        <span id="toggleResetPassword" class="material-symbols-outlined password-toggle-icon" data-target="resetNewPassword">visibility</span>
+    </div>
+</div>
                 <button id="resetWhatsAppBtn" style="width:100%; padding:12px; background:#25D366; color:white; border:none; border-radius:10px; font-size:15px; font-weight:600; cursor:pointer; transition:0.3s;"> إرسال عبر واتساب</button>
                 <div style="margin-top:12px; font-size:13px; text-align:center;">
                     <span id="switchToLoginFromReset" style="color:#38bdf8; cursor:pointer;">← العودة لتسجيل الدخول</span>
