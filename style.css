@@ -1506,20 +1506,21 @@ body:has(#exam.active) .top-bar {
     direction: ltr;
 }
 
-.left-side .profile-icon {
-    order: 1;
-}
-
+/* ترتيب الأزرار من اليمين إلى اليسار */
 .left-side .subscribe-text-btn {
-    order: 2;
-}
-
-.left-side .btn-login-top {
-    order: 3;
+    order: 1;  /* أقصى اليمين */
 }
 
 .left-side .settings-icon-btn {
-    order: 4;
+    order: 2;  /* ثاني عنصر من اليمين */
+}
+
+.left-side .profile-icon {
+    order: 3;  /* ثالث عنصر من اليمين */
+}
+
+.left-side .btn-login-top {
+    order: 4;  /* أقصى اليسار (في حال ظهوره) */
 }
 
 /* ========================================
