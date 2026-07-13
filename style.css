@@ -1523,6 +1523,19 @@ body:has(#exam.active) .top-bar {
     order: 4;  /* أقصى اليسار (في حال ظهوره) */
 }
 
+/* ===== تعديل الصفحة الرئيسية فقط ===== */
+#home .settings-icon-btn {
+    order: 3 !important;
+}
+
+#home .subscribe-text-btn {
+    order: 1 !important;
+}
+
+#home .btn-login-top {
+    order: 2 !important;
+}
+
 /* ========================================
    تحسينات الهواتف
    ======================================== */
