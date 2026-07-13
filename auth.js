@@ -342,7 +342,7 @@ async function handleReset() {
     const waUrl = `https://wa.me/212687561491?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
     closeAuthModalFunc();
-    showToast('📱 تم فتح واتساب', 'info');
+    showToast(' تم فتح واتساب', 'info');
 }
 
 async function handleLogout() {
