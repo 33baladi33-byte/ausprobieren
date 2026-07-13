@@ -425,7 +425,7 @@ async function updateProfile() {
         if (profileLogoutBtn) profileLogoutBtn.style.display = 'none';
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-        if (profileIcon) profileIcon.style.display = 'flex';
+        if (profileIcon) profileIcon.style.display = 'none';
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
