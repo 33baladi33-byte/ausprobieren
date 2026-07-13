@@ -76,13 +76,13 @@ function showForm(form) {
     
     if (form === 'login') {
         loginForm.style.display = 'block';
-        authModalTitle.textContent = '🔐 تسجيل الدخول';
+        authModalTitle.textContent = 'تسجيل الدخول';
     } else if (form === 'signup') {
         signupForm.style.display = 'block';
-        authModalTitle.textContent = '📝 إنشاء حساب';
+        authModalTitle.textContent = 'إنشاء حساب';
     } else if (form === 'reset') {
         resetForm.style.display = 'block';
-        authModalTitle.textContent = '🔑 تغيير كلمة المرور';
+        authModalTitle.textContent = 'تغيير كلمة المرور';
     }
     clearErrors();
 }
