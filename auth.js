@@ -92,22 +92,48 @@ function clearErrors() {
     if (signupError) signupError.textContent = '';
     if (resetError) resetError.textContent = '';
 }
-
 // ============================================
-// إظهار/إخفاء كلمة المرور
+// إظهار/إخفاء كلمة المرور (باستخدام Material Symbols)
 // ============================================
 function togglePasswordVisibility(inputId, toggleId) {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
+    
     if (input && toggle) {
         toggle.addEventListener('click', function() {
             const isPassword = input.type === 'password';
             input.type = isPassword ? 'text' : 'password';
-            this.textContent = isPassword ? '🙈' : '👁️';
+            this.textContent = isPassword ? 'visibility_off' : 'visibility';
         });
     }
 }
+// ============================================
+// تهيئة أيقونات إظهار كلمة المرور (Material Symbols)
+// ============================================
+function initPasswordToggles() {
+    document.querySelectorAll('.password-toggle-icon').forEach(icon => {
+        const targetId = icon.getAttribute('data-target');
+        if (!targetId) return;
+        
+        const input = document.getElementById(targetId);
+        if (!input) return;
+        
+        // إزالة المستمعات القديمة
+        const newIcon = icon.cloneNode(true);
+        icon.parentNode.replaceChild(newIcon, icon);
+        
+        newIcon.addEventListener('click', function() {
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            this.textContent = isPassword ? 'visibility_off' : 'visibility';
+        });
+    });
+}
 
+// استدعاء التهيئة
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(initPasswordToggles, 100);
+});
 // ============================================
 // 🔧 دالة إنشاء Session ID عشوائي
 // ============================================
