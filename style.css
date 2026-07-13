@@ -4031,37 +4031,7 @@ body.dark-mode .premium-features li {
 }
 
 
-/* ============================================
-   Password Toggle Icons - التعديل النهائي
-   ============================================ */
-.password-toggle-icon {
-    position: absolute;
-    left: 14px; /* المسافة من الحافة اليسرى */
-    top: 50%; /* بداية التمركز */
-    transform: translateY(-50%); /* التمركز العمودي المثالي */
-    cursor: pointer;
-    color: #9CA3AF; /* لون رمادي فاتح */
-    font-size: 22px; /* حجم الأيقونة بين 20-22px */
-    font-family: 'Material Symbols Outlined', sans-serif;
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 22;
-    transition: color 0.2s ease, transform 0.2s ease;
-    user-select: none;
-    z-index: 5;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-}
 
-.password-toggle-icon:hover {
-    color: #38bdf8; /* اللون الأزرق الأساسي عند المرور */
-    transform: translateY(-50%) scale(1.1);
-}
 /* ============================================
    Password Wrapper - حل المشكلة النهائي
    ============================================ */
