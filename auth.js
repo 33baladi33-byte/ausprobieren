@@ -92,9 +92,6 @@ function clearErrors() {
     if (signupError) signupError.textContent = '';
     if (resetError) resetError.textContent = '';
 }
-// ============================================
-// إظهار/إخفاء كلمة المرور (باستخدام Material Symbols)
-// ============================================
 function togglePasswordVisibility(inputId, toggleId) {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
