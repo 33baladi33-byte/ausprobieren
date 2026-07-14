@@ -11,7 +11,8 @@
         "b. ist insgesamt sehr gut bezahlt",
         "c. lässt sich gut mit dem Studium vereinbaren"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "lässt sich gut mit dem Studium vereinbaren", "color": 0 }
     },
     {
       "text": "Wer als Kellner arbeitet",
@@ -20,7 +21,8 @@
         "b. muss das Trinkgeld mit den Kollegen teilen",
         "c. sollte nicht aus der Ruhe zu bringen sein"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "sollte nicht aus der Ruhe zu bringen sein", "color": 8 }
     },
     {
       "text": "Jan arbeitet gern als Fahrradkurier",
@@ -29,7 +31,8 @@
         "b. weil er dann fest angestellt ist",
         "c. weil er mit dem Verdienst ganz zufrieden ist"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "weil er mit dem Verdienst ganz zufrieden ist", "color": 11 }
     },
     {
       "text": "Jan sagte",
@@ -38,7 +41,8 @@
         "b. dass er lieber im Büro arbeiten würde",
         "c. dass ihm schlechtes Wetter gar nicht stört"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "dass er durch seinen Job keine Ausgaben für ein Fitnessstudio hat", "color": 4 }
     },
     {
       "text": "Stefanie muss als Testkäuferin",
@@ -47,7 +51,8 @@
         "b. einige Waren selbst bezahlen",
         "c. sich beim Einkauf an einen festen Ablauf halten"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "sich beim Einkauf an einen festen Ablauf halten", "color": 10 }
     }
   ]
 }
