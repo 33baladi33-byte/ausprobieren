@@ -11,7 +11,8 @@
         "b. nur nachmachen, was ihre Eltern tun",
         "c. sehr kompliziert denken"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "kaum auf ihre Umwelt reagieren", "color": 5 }
     },
     {
       "text": "Die Umwelt ist für die Entwicklung der Intelligenz",
@@ -20,7 +21,8 @@
         "b. im Kleinkindalter besonders wichtig",
         "c. in jedem Alter gleich wichtig"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "im Kleinkindalter besonders wichtig", "color": 11 }
     },
     {
       "text": "Bessere Entwicklungschancen haben Kinder, je",
@@ -29,7 +31,8 @@
         "b. mehr altersgerechte Erfahrungen sie machen können",
         "c. öfter sie beim Spielen auf sich gestellt sind"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "mehr altersgerechte Erfahrungen sie machen können", "color": 3 }
     },
     {
       "text": "Fernsehen und Computer sind",
@@ -38,7 +41,8 @@
         "b. geistige Nahrung für das Gehirn",
         "c. sehr gute Hilfsmittel für das Lernen"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "für die geistige Entwicklung eher ungeeignet", "color": 9 }
     },
     {
       "text": "Kontakt mit Menschen",
@@ -47,7 +51,8 @@
         "b. ist weniger wichtig als Erfahrungen in der freien Natur",
         "c. wird unwichtig, wenn es gutes Spielzeug gibt"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "fördert die Intelligenz des Babys am besten", "color": 7 }
     }
   ]
 }
