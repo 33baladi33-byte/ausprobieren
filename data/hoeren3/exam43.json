@@ -7,5 +7,9 @@
     { "text": "Auf der Autobahn A7 zwischen Hamburg und Flensburg ist ein Stau wegen mehrerer Unfälle.", "correct": false },
     { "text": "Wer anruft, kann über die Vergabe des Preises mitentscheiden.", "correct": false },
     { "text": "Telefonische Beratungen werden an allen Werktagen auch nachmittags angeboten.", "correct": true }
+  ],
+  "memoryHighlights": [
+    { "color": 4, "parts": [ "im Frankfurter Zoo kann man Großkatzen in einer naturnahen Umgebung erleben." ] },
+    { "color": 10, "parts": [ "Telefonische Beratungen werden an allen Werktagen auch nachmittags angeboten." ] }
   ]
 }
