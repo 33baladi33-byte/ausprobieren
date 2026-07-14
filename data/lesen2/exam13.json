@@ -11,7 +11,8 @@
         "b. lassen das Frühstück aus Zeitmangel ausfallen",
         "c. schaufeln das Frühstück einfach in sich hinein"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "lassen das Frühstück aus Zeitmangel ausfallen", "color": 2 }
     },
     {
       "text": "Ein gesundes Frühstück",
@@ -20,7 +21,8 @@
         "b. muss mindestens aus einem Glas Kakao oder Milch bestehen",
         "c. sollte gemeinsam in der Schule eingenommen werden."
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "erhöht die Leistungen des Kindes", "color": 9 }
     },
     {
       "text": "Milch",
@@ -29,7 +31,8 @@
         "b. gehört zum Angebot der Schulkantinen",
         "c. wird in verschiedenen Geschmacksrichtungen angeboten"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "wird in verschiedenen Geschmacksrichtungen angeboten", "color": 11 }
     },
     {
       "text": "Kinder",
@@ -38,7 +41,8 @@
         "b. dürfen während des Unterrichts nichts trinken",
         "c. können sich auch noch gut konzentrieren, wenn sie nicht genug trinken"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "denken von alleine nicht immer daran, genug zu trinken", "color": 6 }
     },
     {
       "text": "Mittagessen",
@@ -47,7 +51,8 @@
         "b. sollten die Kinder von zu Hause mitbringen",
         "c. sollten Kinder bei den Eltern zu Hause bekommen"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "sollte in der Schule angeboten werden", "color": 10 }
     }
   ]
 }
