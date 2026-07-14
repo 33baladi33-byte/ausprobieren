@@ -1147,22 +1147,27 @@ class MemoryTrainer {
                         gap: 6px;
                         margin: 8px 0;
                     ">
-                        ${this.currentOptions.map((opt, idx) => `
-                            <button class="memory-trainer-option" data-index="${idx}" onclick="window.memoryTrainer.checkAnswer(${idx})" style="
-                                background: #FFFFFF;
-                                border: 1.5px solid #E8EEF5;
-                                border-radius: 10px;
-                                padding: 9px 14px;
-                                font-size: 14px;
-                                font-weight: 500;
-                                color: #334155;
-                                cursor: pointer;
-                                transition: all 0.08s ease;
-                                text-align: left;
-                            ">
-                                ${String.fromCharCode(65 + idx)}. ${opt}
-                            </button>
-                        `).join('')}
+                       ${this.currentOptions.map((opt, idx) => `
+    <button class="memory-trainer-option" data-index="${idx}" onclick="window.memoryTrainer.checkAnswer(${idx})" style="
+        background: #FFFFFF;
+        border: 1.5px solid #E8EEF5;
+        border-radius: 10px;
+        padding: 9px 14px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #334155;
+        cursor: pointer;
+        text-align: left;
+        transition: background-color 0.08s ease, border-color 0.08s ease, box-shadow 0.08s ease, transform 0.08s ease;
+        transform: translateY(0);
+        box-shadow: none;
+    "
+    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.08)'; this.style.borderColor='#2c3e66';"
+    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'; this.style.borderColor='#E8EEF5';"
+    >
+        ${String.fromCharCode(65 + idx)}. ${opt}
+    </button>
+`).join('')}
                     </div>
                 </div>
                 <div id="memory-trainer-feedback"></div>
