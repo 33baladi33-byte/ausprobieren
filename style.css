@@ -684,11 +684,6 @@ body:has(#exam.active) .top-bar {
     box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
 }
-
-/* ========================================
-   Settings Modal
-   ======================================== */
-
 .settings-modal {
     position: fixed;
     top: 0;
@@ -752,7 +747,6 @@ body:has(#exam.active) .top-bar {
     color: #38bdf8;
     transform: scale(1.1);
 }
-
 .settings-desc {
     color: #cbd5e1;
     font-size: 0.85rem;
