@@ -7,5 +7,9 @@
     { "text": "Nächste Woche gibt es Äpfel zum Preis von unter 1€.", "correct": false },
     { "text": "Der Intercity nach München fährt immer von Bahnsteig 2.", "correct": false },
     { "text": "Der Eintritt ins Kunterbunt-Kindermuseum ist am Eröffnungstag gratis.", "correct": true }
+  ],
+  "memoryHighlights": [
+    { "color": 8, "parts": [ "Man kann ein Auto gewinnen, wenn man alle 9 Gewinnzahlen sammelt." ] },
+    { "color": 11, "parts": [ "Der Eintritt ins Kunterbunt-Kindermuseum ist am Eröffnungstag gratis." ] }
   ]
 }
