@@ -1382,12 +1382,21 @@ body.dark-mode .mobile-banner span {
             <!-- الوضع الليلي -->
             <div class="darkmode-divider"></div>
             <div class="darkmode-control">
-                <span class="darkmode-label">🌙 الوضع الليلي</span>
+                <span class="darkmode-label"> الوضع الليلي</span>
                 <label class="darkmode-switch">
                     <input type="checkbox" id="darkModeToggle">
                     <span class="darkmode-slider"></span>
                 </label>
             </div>
+
+        <!-- وضع القراءة -->
+<div class="reading-mode-control">
+    <span class="reading-mode-label"> وضع القراءة</span>
+    <label class="reading-mode-switch">
+        <input type="checkbox" id="readingModeToggle">
+        <span class="reading-mode-slider"></span>
+    </label>
+</div>
         </div>
     </div>
 </div>
@@ -2213,6 +2222,56 @@ const examPage2 = document.getElementById('exam');
 if (homePage2) observerPremium.observe(homePage2, { attributes: true, attributeFilter: ['class'] });
 if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeFilter: ['class'] });
 if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeFilter: ['class'] });
+    // ============================================
+// وضع القراءة (Reading Mode) - طبقة دافئة
+// ============================================
+(function() {
+    const readingToggle = document.getElementById('readingModeToggle');
+    let readingOverlay = null;
+    
+    function createReadingOverlay() {
+        if (readingOverlay) return;
+        readingOverlay = document.createElement('div');
+        readingOverlay.id = 'readingModeOverlay';
+        readingOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: rgba(255, 190, 80, 0.08);
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        `;
+        document.body.appendChild(readingOverlay);
+    }
+    
+    function setReadingMode(enabled) {
+        createReadingOverlay();
+        if (enabled) {
+            readingOverlay.style.opacity = '1';
+            localStorage.setItem('readingMode', 'enabled');
+        } else {
+            readingOverlay.style.opacity = '0';
+            localStorage.setItem('readingMode', 'disabled');
+        }
+        if (readingToggle) readingToggle.checked = enabled;
+    }
+    
+    // استعادة الحالة المحفوظة
+    const savedReadingMode = localStorage.getItem('readingMode');
+    if (savedReadingMode === 'enabled') {
+        setTimeout(() => setReadingMode(true), 100);
+    }
+    
+    if (readingToggle) {
+        readingToggle.addEventListener('change', function() {
+            setReadingMode(this.checked);
+        });
+    }
+})();
 </script>
 
 <!-- ========== عناصر جلسة المراجعة (يجب أن تكون قبل الـ Scripts التي تحتاجها) ========== -->
