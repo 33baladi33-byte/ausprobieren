@@ -11,7 +11,8 @@
         "b. in der Schweiz und in Schweden",
         "c. in Deutschland und in Schweden"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "in der Schweiz und in Schweden", "color": 3 }
     },
     {
       "text": "Früher wurden in Duisburg die Parkgebühren verwendet, um",
@@ -20,7 +21,8 @@
         "b. Dauerparker aus den Stadtzentren zu vertreiben",
         "c. Löcher im städtischen Haushalt zu stopfen"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "Bedürftige zu unterstützen", "color": 9 }
     },
     {
       "text": "Die ersten Parkuhren",
@@ -29,7 +31,8 @@
         "b. gaben nur Groschen zurück",
         "c. konnten nur Münzen annehmen"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "konnten nur Münzen annehmen", "color": 11 }
     },
     {
       "text": "Die neuen Parkscheinautomaten",
@@ -38,7 +41,8 @@
         "b. geben kein Wechselgeld zurück",
         "c. sind flexibel im Hinblick auf die Art der Bezahlung"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "sind flexibel im Hinblick auf die Art der Bezahlung", "color": 5 }
     },
     {
       "text": "In Berlin und in Düsseldorf",
@@ -47,7 +51,8 @@
         "b. nimmt die Zahl der Parkscheinautomaten zu",
         "c. werden die höchsten Parkgebühren verlangt"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "werden die höchsten Parkgebühren verlangt", "color": 7 }
     }
   ]
 }
