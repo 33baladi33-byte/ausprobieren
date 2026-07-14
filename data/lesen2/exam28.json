@@ -11,7 +11,8 @@
         "b. die Lebensumstände es erschweren, den Partner oder die Partnerin fürs Leben zu finden",
         "c. eine Mehrheit ohnehin lieber in zeitlich begrenzten Beziehungen lebt"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "die Lebensumstände es erschweren, den Partner oder die Partnerin fürs Leben zu finden", "color": 0 }
     },
     {
       "text": "Viele Singles suchen sich heute ihre Partner oder Partnerinnen",
@@ -20,7 +21,8 @@
         "b. auf Festen",
         "c. in den Medien"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "in den Medien", "color": 8 }
     },
     {
       "text": "Im Radio werden",
@@ -29,7 +31,8 @@
         "b. jeden Tag Heiratswünsche gesendet",
         "c. täglich Hochzeitsglückwünsche gesendet"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "jeden Tag Heiratswünsche gesendet", "color": 11 }
     },
     {
       "text": "Ein Forscher hat herausgefunden, dass",
@@ -38,7 +41,8 @@
         "b. sich überraschenderweise immer mehr Menschen ehrlich in ihren Kontaktanzeigen beschreiben",
         "c. viele Kontaktanzeigen eine hohe Erfolgsquote aufweisen"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "klassische Rollenbilder bei der Selbstdarstellung in Kontaktanzeigen weiterhin stark verbreitet sind", "color": 4 }
     },
     {
       "text": "Wer eine Kontaktanzeige aufgibt, sollte",
@@ -47,7 +51,8 @@
         "b. sich werbewirksam präsentieren können",
         "c. zunächst eine Selbstanalyse vornehmen"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "zunächst eine Selbstanalyse vornehmen", "color": 10 }
     }
   ]
 }
