@@ -12,5 +12,13 @@
     { "text": "Nadine Wagner hat auf der Reise gelegentlich gearbeitet.", "correct": true },
     { "text": "Sie hat am meisten ihre eigene Wohnung vermisst.", "correct": false },
     { "text": "Nach ihrer Rückkehr musste sie nicht lange nach einer neuen Arbeit suchen.", "correct": true }
+  ],
+  "memoryHighlights": [
+    { "color": 4, "parts": [ "Sie hatte vor der Weltreise einige Zweifel und Bedenken." ] },
+    { "color": 10, "parts": [ "Die Journalistin ist während ihrer Reise auch geflogen." ] },
+    { "color": 1, "parts": [ "Ihre Freunde waren unterschiedlicher Meinung über ihr Vorhaben." ] },
+    { "color": 8, "parts": [ "In Tadschikistan hat sie eine Zeit lang andere Motorradfahrer begleitet." ] },
+    { "color": 11, "parts": [ "Nadine Wagner hat auf der Reise gelegentlich gearbeitet." ] },
+    { "color": 2, "parts": [ "Nach ihrer Rückkehr musste sie nicht lange nach einer neuen Arbeit suchen." ] }
   ]
 }
