@@ -11,7 +11,8 @@
         "b. die Lebensumstände es erschweren, den Partner oder die Partnerin fürs Leben zu finden",
         "c. eine Mehrheit ohnehin lieber in zeitlich begrenzten Beziehungen lebt"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "die Lebensumstände es erschweren, den Partner oder die Partnerin fürs Leben zu finden", "color": 5 }
     },
     {
       "text": "Viele Singles suchen sich heute ihre Partner oder Partnerinnen",
@@ -20,7 +21,8 @@
         "b. auf Festen",
         "c. in den Medien"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "in den Medien", "color": 11 }
     },
     {
       "text": "Im Radio werden",
@@ -29,7 +31,8 @@
         "b. jeden Tag Heiratswünsche gesendet",
         "c. täglich Hochzeitsglückwünsche gesendet"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "jeden Tag Heiratswünsche gesendet", "color": 3 }
     },
     {
       "text": "In Kontaktanzeigen",
@@ -38,7 +41,8 @@
         "b. suchen die meisten Männer moderne, attraktive Frauen",
         "c. werden recht häufig die passenden Partner fürs Leben gefunden"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "beschreiben sich Partnersuchende oft im Rahmen konventioneller Rollenerwartungen", "color": 9 }
     },
     {
       "text": "Wer eine Kontaktanzeige aufgibt, sollte",
@@ -47,7 +51,8 @@
         "b. sich werbewirksam präsentieren können",
         "c. zunächst eine Selbstanalyse vornehmen"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "zunächst eine Selbstanalyse vornehmen", "color": 7 }
     }
   ]
 }
