@@ -462,48 +462,77 @@ class MemoryTrainer {
         `);
     }
 
-    showIntroCardList() {
-        const percent = this.getOverallProgressForSkill(this.currentSkill);
-        const total = this.trainingQueue.length;
-        let currentStage = 1, totalStages = 1;
-        if (window.getCurrentStage && window.getTotalStages) {
-            currentStage = window.getCurrentStage(this.currentSkill);
-            totalStages = window.getTotalStages(this.currentSkill);
-        }
-        let skillLabel = this.currentSkill;
-        if (this.examType === 'matching') {
-            if (this.currentSkill === 'lesen3') {
-                skillLabel = 'Lesen 3';
-            } else {
-                skillLabel = 'Lesen 1';
-            }
-        } else if (this.examType === 'multiple') {
-            skillLabel = 'Lesen 2';
-        } else if (this.examType === 'sprach1') {
-            skillLabel = 'Sprachbausteine 1';
-        } else if (this.examType === 'sprach2') {
-            skillLabel = 'Sprachbausteine 2';
-        }
-        this.updateCard(`
-            <div class="memory-trainer-intro">
-                <div class="memory-trainer-icon">🧩</div>
-                <h2>استدعاء متقدم</h2>
-                <p style="font-size:14px;color:#334155;margin:4px 0 2px 0;">تدريب المرحلة ${currentStage} من ${skillLabel}.</p>
-                <p style="font-size:13px;color:#64748B;margin:2px 0 12px 0;">كلما تدربت أكثر، أصبح النظام أكثر ذكاءً في اختيار النصوص المناسبة لك.</p>
-                <div style="margin:10px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;text-align:left;">
-                    <div style="display:flex;align-items:center;gap:10px;">
-                        <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
-                            <div style="width:${percent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
-                        </div>
-                        <span style="font-size:13px;font-weight:600;color:#1565C0;min-width:40px;text-align:right;">${percent}%</span>
-                    </div>
-                </div>
-                <p style="font-size:12px;color:#94A3B8;margin:4px 0 4px 0;">${total} نص للتدريب</p>
-                <p style="font-size:11px;color:#94A3B8;margin:0 0 12px 0;">المرحلة ${currentStage} / ${totalStages}</p>
-                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.showMemoryCard()">ابدأ التدريب</button>
-            </div>
-        `);
+showIntroCardList() {
+    const percent = this.getOverallProgressForSkill(this.currentSkill);
+    const total = this.trainingQueue.length;
+
+    let currentStage = 1, totalStages = 1;
+    if (window.getCurrentStage && window.getTotalStages) {
+        currentStage = window.getCurrentStage(this.currentSkill);
+        totalStages = window.getTotalStages(this.currentSkill);
     }
+
+    let skillLabel = this.currentSkill;
+
+    if (this.currentSkill === 'hören1') {
+        skillLabel = 'Hören 1';
+    } else if (this.currentSkill === 'hören2') {
+        skillLabel = 'Hören 2';
+    } else if (this.currentSkill === 'hören3') {
+        skillLabel = 'Hören 3';
+    } else if (this.examType === 'matching') {
+        skillLabel = (this.currentSkill === 'lesen3') ? 'Lesen 3' : 'Lesen 1';
+    } else if (this.examType === 'multiple') {
+        skillLabel = 'Lesen 2';
+    } else if (this.examType === 'sprach1') {
+        skillLabel = 'Sprachbausteine 1';
+    } else if (this.examType === 'sprach2') {
+        skillLabel = 'Sprachbausteine 2';
+    }
+
+    this.updateCard(`
+        <div class="memory-trainer-intro">
+
+            <h2 style="display:flex;justify-content:center;align-items:center;gap:8px;">
+                استدعاء متقدم
+                <span style="font-size:26px;">🧩</span>
+            </h2>
+
+            <p style="font-size:14px;color:#334155;margin:10px 0 4px 0;">
+                هاد الميزة غدي تخليك تتدرب على جميع أسئلة امتحانات <strong>${skillLabel}</strong>.
+            </p>
+
+            <p style="font-size:13px;color:#64748B;margin:4px 0 14px 0;">
+                كلما تدربت أكثر، أصبح النظام أكثر ذكاءً في اختيار الأسئلة.
+            </p>
+
+            <div style="margin:10px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;text-align:left;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
+                        <div style="width:${percent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
+                    </div>
+                    <span style="font-size:13px;font-weight:600;color:#1565C0;min-width:40px;text-align:right;">
+                        ${percent}%
+                    </span>
+                </div>
+            </div>
+
+            <p style="font-size:12px;color:#94A3B8;margin:4px 0 4px 0;">
+                ${total} سؤال للتدريب
+            </p>
+
+            <p style="font-size:11px;color:#94A3B8;margin:0 0 12px 0;">
+                المرحلة ${currentStage} / ${totalStages}
+            </p>
+
+            <button class="memory-trainer-btn primary"
+                onclick="window.memoryTrainer.showMemoryCard()">
+                ابدأ التدريب
+            </button>
+
+        </div>
+    `);
+}
 
     // ============================================
     // عرض البطاقات - تخطيط خاص لكل نوع
