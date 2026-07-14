@@ -3,70 +3,22 @@
   "type": "truefalse",
   "note": "عندما تجد البطاطس Kartoffel في LESEN تصبح الجملة 7 صحيحة أيضا",
   "questions": [
-    {
-      "text": "Für die Autorin Suza Hotop ist Schreiben Freude und Anstrengung zugleich.",
-      "correct": true,
-      "highlight": {
-        "text": "Für die Autorin Suza Hotop ist Schreiben Freude und Anstrengung zugleich.",
-        "color": "#4CAF50",
-        "helpKey": "hoeren2_exam3_q1"
-      }
-    },
-    {
-      "text": "Suza begann im Alter von zwölf Jahren mit ihrem Buch Jenseits von Zaram.",
-      "correct": false
-    },
-    {
-      "text": "Am Anfang dachte Suza nicht daran, ihre Geschichte zu veröffentlichen.",
-      "correct": true,
-      "highlight": {
-        "text": "Am Anfang dachte Suza nicht daran, ihre Geschichte zu veröffentlichen.",
-        "color": "#FF9800",
-        "helpKey": "hoeren2_exam3_q3"
-      }
-    },
-    {
-      "text": "Zuerst stellte Suza Auszüge ihrer Geschichte ins Internet.",
-      "correct": true,
-      "highlight": {
-        "text": "Zuerst stellte Suza Auszüge ihrer Geschichte ins Internet.",
-        "color": "#2196F3",
-        "helpKey": "hoeren2_exam3_q4"
-      }
-    },
-    {
-      "text": "Begeisterte Nutzer stellten den Kontakt zu einem Verlag her.",
-      "correct": false
-    },
-    {
-      "text": "Suza beschreibt bewusst Personen aus ihrem eigenen Umfeld.",
-      "correct": false
-    },
-    {
-      "text": "Die Autorin plant nie ganz genau, was in der Geschichte passieren wird.",
-      "correct": true,
-      "highlight": {
-        "text": "Die Autorin plant nie ganz genau, was in der Geschichte passieren wird.",
-        "color": "#9C27B0",
-        "helpKey": "hoeren2_exam3_q7"
-      }
-    },
-    {
-      "text": "Suza folgt beim Schreiben keinen besonderen Vorbildern.",
-      "correct": true,
-      "highlight": {
-        "text": "Suza folgt beim Schreiben keinen besonderen Vorbildern.",
-        "color": "#F44336",
-        "helpKey": "hoeren2_exam3_q8"
-      }
-    },
-    {
-      "text": "Die junge Frau gab während des Radiointerviews eine Leseprobe.",
-      "correct": false
-    },
-    {
-      "text": "Suza braucht immer Ruhe, um schreiben zu können.",
-      "correct": false
-    }
+    { "text": "Für die Autorin Suza Hotop ist Schreiben Freude und Anstrengung zugleich.", "correct": true },
+    { "text": "Suza begann im Alter von zwölf Jahren mit ihrem Buch Jenseits von Zaram.", "correct": false },
+    { "text": "Am Anfang dachte Suza nicht daran, ihre Geschichte zu veröffentlichen.", "correct": true },
+    { "text": "Zuerst stellte Suza Auszüge ihrer Geschichte ins Internet.", "correct": true },
+    { "text": "Begeisterte Nutzer stellten den Kontakt zu einem Verlag her.", "correct": false },
+    { "text": "Suza beschreibt bewusst Personen aus ihrem eigenen Umfeld.", "correct": false },
+    { "text": "Die Autorin plant nie ganz genau, was in der Geschichte passieren wird.", "correct": true },
+    { "text": "Suza folgt beim Schreiben keinen besonderen Vorbildern.", "correct": true },
+    { "text": "Die junge Frau gab während des Radiointerviews eine Leseprobe.", "correct": false },
+    { "text": "Suza braucht immer Ruhe, um schreiben zu können.", "correct": false }
+  ],
+  "memoryHighlights": [
+    { "color": 2, "parts": [ "Für die Autorin Suza Hotop ist Schreiben Freude und Anstrengung zugleich." ] },
+    { "color": 10, "parts": [ "Am Anfang dachte Suza nicht daran, ihre Geschichte zu veröffentlichen." ] },
+    { "color": 4, "parts": [ "Zuerst stellte Suza Auszüge ihrer Geschichte ins Internet." ] },
+    { "color": 8, "parts": [ "Die Autorin plant nie ganz genau, was in der Geschichte passieren wird." ] },
+    { "color": 11, "parts": [ "Suza folgt beim Schreiben keinen besonderen Vorbildern." ] }
   ]
 }
