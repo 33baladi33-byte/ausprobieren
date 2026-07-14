@@ -1082,7 +1082,7 @@ async function openExam(examId, examTitle, skill) {
   console.log("📂 المسار الكامل:", `data/${skill}/${fileName}`);
   
   try {
-    const response = await fetch(`./data/${skill}/${fileName}`);
+    const response = await fetch(`data/${skill}/${fileName}`);
     if (!response.ok) {
       alert(`⚠️ الامتحان "${examTitle}" سيتم إضافته قريباً.\nالملف المطلوب: data/${skill}/${fileName}`);
       return;
@@ -1209,13 +1209,6 @@ if (skill.startsWith('hoeren') && typeof window.rebuildTrueFalseCards === 'funct
 }  // ✅ هذا القوس يغلق دالة openExam
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
-  // ✅ استخدام نظام التوجيه إذا كان موجوداً
-  if (typeof navigateTo === 'function') {
-    navigateTo('list');
-    return;
-  }
-  
-  // الحل البديل (الكود القديم)
   if (currentSkill) {
     if (currentSkill === "mündlich1") {
       document.getElementById("home").classList.remove("active");
@@ -1539,25 +1532,15 @@ function showTeil(teilNumber) {
 }
 
 function goHome() {
-  // استخدام نظام التوجيه إذا كان موجوداً
-  if (typeof navigateTo === 'function') {
-    navigateTo('home');
-  } else {
-    document.getElementById("home").classList.add("active");
-    document.getElementById("list").classList.remove("active");
-    document.getElementById("exam").classList.remove("active");
-  }
+  document.getElementById("home").classList.add("active");
+  document.getElementById("list").classList.remove("active");
+  document.getElementById("exam").classList.remove("active");
 }
 
 function goList() {
-  // استخدام نظام التوجيه إذا كان موجوداً
-  if (typeof navigateTo === 'function') {
-    navigateTo('list');
-  } else {
-    document.getElementById("home").classList.remove("active");
-    document.getElementById("list").classList.add("active");
-    document.getElementById("exam").classList.remove("active");
-  }
+  document.getElementById("home").classList.remove("active");
+  document.getElementById("list").classList.add("active");
+  document.getElementById("exam").classList.remove("active");
   
   renderTeileList();
   
@@ -1898,7 +1881,7 @@ for (const examId of examIds) {
     if (!exam || !exam.hasFile) continue;
     const fileName = getActualFileName(exam.id);
     try {
-       const response = await fetch(`./data/${skill}/${fileName}`);
+        const response = await fetch(`data/${skill}/${fileName}`);
         if (response.ok) {
             const data = await response.json();
             let questions = [];
@@ -1972,7 +1955,7 @@ if ((skill === 'lesen1' || skill === 'lesen3') && examIds.length > 0) {
     if (firstExam && firstExam.hasFile) {
         try {
             const fileName = getActualFileName(firstExamId);
-         const response = await fetch(`./data/${skill}/${fileName}`);
+            const response = await fetch(`data/${skill}/${fileName}`);
             if (response.ok) {
                 const data = await response.json();
                 // لـ Lesen 1: نأخذ sharedOptions
@@ -2157,56 +2140,4 @@ window.startMemoryTrainerFromList = startMemoryTrainerFromList;
 window.startMemoryTrainerForExam = startMemoryTrainerForExam;
 
 console.log('🧠 نظام التقدم المتوازن (المراحل لكل مهارة) تم تحميله بنجاح');
-// ============================================
-// ✅ تصدير الدوال للاستخدام العالمي (لـ window)
-// ============================================
-
-// دوال رئيسية
-window.openExam = openExam;
-window.goList = goList;
-window.goHome = goHome;
-window.goBackToExamsList = goBackToExamsList;
-window.renderExamListForSkill = renderExamListForSkill;
-window.getUserStatusForExam = getUserStatusForExam;
-window.getExamResult = getExamResult;
-window.saveExamResult = saveExamResult;
-window.saveExamResultGlobal = saveExamResultGlobal;
-
-// دوال بناء الامتحانات
-window.buildTrueFalseExam = buildTrueFalseExam;
-window.loadMatchingExam = loadMatchingExam;
-window.loadTeil2Exam = loadTeil2Exam;
-window.loadTeil3Exam = loadTeil3Exam;
-window.loadSprach1Exam = loadSprach1Exam;
-window.loadSprach2Exam = loadSprach2Exam;
-window.loadSchreibenExam = loadSchreibenExam;
-
-// دوال Memory Trainer
-window.loadStageExams = loadStageExams;
-window.startMemoryTrainerFromList = startMemoryTrainerFromList;
-window.startMemoryTrainerForExam = startMemoryTrainerForExam;
-
-// دوال المراحل
-window.SKILL_CONFIG = SKILL_CONFIG;
-window.getCurrentStage = getCurrentStage;
-window.getOverallProgress = getOverallProgress;
-window.getExamProgress = getExamProgress;
-window.getStageProgress = getStageProgress;
-window.getTotalStages = getTotalStages;
-window.getExamsForStage = getExamsForStage;
-window.setCurrentStage = setCurrentStage;
-window.resetStages = resetStages;
-window.goToNextStage = goToNextStage;
-window.resetAllLevels = resetAllLevels;
-
-// دوال Interleaving
-window.rebuildTrueFalseCards = rebuildTrueFalseCards;
-window.rebuildLesen1 = rebuildLesen1;
-window.rebuildLesen2 = rebuildLesen2;
-window.rebuildLesen3 = rebuildLesen3;
-window.resetInterleaving = resetInterleaving;
-window.initInterleaving = initInterleaving;
-window.toggleInterleaving = toggleInterleaving;
-
-console.log('✅ exams.js: جميع الدوال تم تصديرها عالمياً');
 console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));

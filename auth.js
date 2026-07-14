@@ -446,7 +446,7 @@ async function updateProfile() {
                 font-weight: bold;
                 transition: all 0.3s ease;
             `;
-            upgradeBtn.onclick = () => window.location.href = '/subscribe';
+            upgradeBtn.onclick = () => window.location.href = 'subscribe.html';
             profileDropdown.appendChild(upgradeBtn);
         }
         return;
@@ -502,7 +502,7 @@ async function checkSessionOnLoad() {
             showToast('⚠️ تم تسجيل الدخول من جهاز آخر. سيتم تسجيل الخروج.', 'error');
             
             setTimeout(() => {
-                window.location.href = '/';
+                window.location.href = 'index.html';
             }, 1500);
         }
     } catch (error) {
@@ -575,13 +575,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ============================================
-    // ✅ أزرار الاشتراك - توجيه إلى /subscribe
+    // ✅ أزرار الاشتراك - توجيه إلى subscribe.html
     // ============================================
     const navSubscribeBtn = document.getElementById('navSubscribeBtn');
     if (navSubscribeBtn) {
         navSubscribeBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = '/subscribe';
+            window.location.href = 'subscribe.html';
         });
         console.log('✅ زر اشترك (navSubscribeBtn) مربوط');
     }
@@ -590,7 +590,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (featuresSubscribeBtn) {
         featuresSubscribeBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = '/subscribe';
+            window.location.href = 'subscribe.html';
         });
         console.log('✅ زر اشترك (featuresSubscribeBtn) مربوط');
     }
@@ -600,7 +600,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (dropdownUpgradeBtn) {
         dropdownUpgradeBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = '/subscribe';
+            window.location.href = 'subscribe.html';
         });
         console.log('✅ زر الترقية (dropdownUpgradeBtn) مربوط');
     }
