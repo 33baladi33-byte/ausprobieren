@@ -11,7 +11,8 @@
         "b. gefälschten 50-Euro-Scheine ist in Deutschland besonders hoch",
         "c. gefälschten Banknoten hat zugenommen"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "gefälschten 50-Euro-Scheine ist in Deutschland besonders hoch", "color": 2 }
     },
     {
       "text": "Es werden immer mehr Falschmünzen entdeckt, weil",
@@ -20,7 +21,8 @@
         "b. die Qualität der Falschmünzen immer schlechter wird",
         "c. es ein neues technisches Gerät dafür gibt"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "die Ermittler gründlicher suchen", "color": 9 }
     },
     {
       "text": "Die meisten gefälschten Geldscheine werden",
@@ -29,7 +31,8 @@
         "b. von Kassierern in Banken und Läden entdeckt",
         "c. von Privatleuten am Geldautomaten entdeckt"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "von Kassierern in Banken und Läden entdeckt", "color": 11 }
     },
     {
       "text": "Man bekommt Falschgeld nur selten zu sehen, da",
@@ -38,7 +41,8 @@
         "b. die Fälscher mit Kassierern in Geschäften zusammenarbeiten",
         "c. die Wahrscheinlichkeit sehr niedrig ist"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "die Wahrscheinlichkeit sehr niedrig ist", "color": 6 }
     },
     {
       "text": "Künftig wird die Herstellung von Falschgeld noch schwieriger, weil",
@@ -47,7 +51,8 @@
         "b. beim Druck Farben verwendet werden, die man nicht kopieren kann",
         "c. Münzen mit Mikrochips versehen werden"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "beim Druck Farben verwendet werden, die man nicht kopieren kann", "color": 10 }
     }
   ]
 }
