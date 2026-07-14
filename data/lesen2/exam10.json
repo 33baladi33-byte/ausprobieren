@@ -12,10 +12,9 @@
         "c. hauptsächlich aus berufstätigen Frauen"
       ],
       "correct": 1,
-      "highlight": {
-        "text": "sowohl aus jungen als auch alten Menschen",
-        "color": "#4CAF50",
-        "helpKey": "lesen2_exam10_q1"
+      "memoryHighlight": {
+        "connector": "sowohl aus jungen als auch alten Menschen",
+        "color": 3
       }
     },
     {
@@ -26,10 +25,9 @@
         "c. das Gefühl haben, dass ihr Gedächtnis nachlässt"
       ],
       "correct": 0,
-      "highlight": {
-        "text": "sich von den vielen Informationen überfordert fühlen",
-        "color": "#FF9800",
-        "helpKey": "lesen2_exam10_q2"
+      "memoryHighlight": {
+        "connector": "sich von den vielen Informationen überfordert fühlen",
+        "color": 9
       }
     },
     {
@@ -40,10 +38,9 @@
         "c. kann sich alle erdenklichen Geräusche und Gerüche merken"
       ],
       "correct": 0,
-      "highlight": {
-        "text": "vergisst die meisten Informationen innerhalb kürzester Zeit",
-        "color": "#2196F3",
-        "helpKey": "lesen2_exam10_q3"
+      "memoryHighlight": {
+        "connector": "vergisst die meisten Informationen innerhalb kürzester Zeit",
+        "color": 2
       }
     },
     {
@@ -54,10 +51,9 @@
         "c. als Kind etwas merken"
       ],
       "correct": 0,
-      "highlight": {
-        "text": "intensive Gefühle merken",
-        "color": "#9C27B0",
-        "helpKey": "lesen2_exam10_q4"
+      "memoryHighlight": {
+        "connector": "intensive Gefühle merken",
+        "color": 7
       }
     },
     {
@@ -68,10 +64,9 @@
         "c. lehrt andere, wie man sich \"Eselsbrücken\" ausdenkt"
       ],
       "correct": 1,
-      "highlight": {
-        "text": "verbindet Informationen mit Bildern",
-        "color": "#F44336",
-        "helpKey": "lesen2_exam10_q5"
+      "memoryHighlight": {
+        "connector": "verbindet Informationen mit Bildern",
+        "color": 11
       }
     }
   ]
