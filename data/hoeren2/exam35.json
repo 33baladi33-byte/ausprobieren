@@ -12,5 +12,12 @@
     { "text": "Der Arbeitsalltag im Kino läuft immer völlig reibungslos ab.", "correct": false },
     { "text": "Frau Pesina entscheidet immer allein, was im Kosmos Kino läuft.", "correct": false },
     { "text": "Manchmal gibt es in dem Kino ein spezielles Programm für Frau.", "correct": true }
+  ],
+  "memoryHighlights": [
+    { "color": 2, "parts": [ "Frau Pesina ist die Chefin des Kosmos Kinos." ] },
+    { "color": 9, "parts": [ "Von Hanau nach Frankfurt braucht man weniger als eine halbe Stunde." ] },
+    { "color": 11, "parts": [ "Die Gründung des Kinos vor 100 Jahren war eher ein Zufall." ] },
+    { "color": 4, "parts": [ "In dem Kino gibt es heute außer der Schwägerin und den beiden Schwestern auch noch weitere Mitarbeiter." ] },
+    { "color": 7, "parts": [ "Manchmal gibt es in dem Kino ein spezielles Programm für Frau." ] }
   ]
 }
