@@ -4121,10 +4121,6 @@ body:has(#exam.active) .left-side .btn-login-top {
     transition: background 0.4s ease;
 }
 
-/* الوضع الليلي + وضع القراءة معاً */
-body.dark-mode #readingModeOverlay {
-    background: rgba(255, 180, 70, 0);
-}
 
 /* Toast الإشعار */
 @keyframes toastFadeIn {
