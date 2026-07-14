@@ -4061,3 +4061,87 @@ body:has(#exam.active) .left-side .btn-login-top {
     top: 50%;
     transform: translateY(-50%);
 }
+/* ============================================
+   وضع القراءة (Reading Mode) - التحكم
+   ============================================ */
+
+.reading-mode-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 10px;
+}
+
+.reading-mode-label {
+    font-size: 0.95rem;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.reading-mode-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.reading-mode-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.reading-mode-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #3a3a4a;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.reading-mode-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .reading-mode-slider {
+    background-color: #f59e0b;
+}
+
+input:checked + .reading-mode-slider:before {
+    transform: translateX(26px);
+}
+
+/* طبقة وضع القراءة - موجودة في الـ DOM */
+#readingModeOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    background: rgba(255, 190, 80, 0.08);
+    transition: opacity 0.4s ease;
+    opacity: 0;
+}
+
+/* الوضع الليلي + وضع القراءة معاً */
+body.dark-mode #readingModeOverlay {
+    background: rgba(255, 180, 70, 0.06);
+}
