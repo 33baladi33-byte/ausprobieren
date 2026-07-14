@@ -1379,23 +1379,11 @@ body.dark-mode .mobile-banner span {
             </div>
             <button id="resetFontBtn" class="reset-font-btn" title="إعادة الحجم الطبيعي">↺ إعادة الضبط</button>
             
-            <!-- الوضع الليلي -->
-            <div class="darkmode-divider"></div>
-            <div class="darkmode-control">
-                <span class="darkmode-label"> الوضع الليلي</span>
-                <label class="darkmode-switch">
-                    <input type="checkbox" id="darkModeToggle">
-                    <span class="darkmode-slider"></span>
-                </label>
-            </div>
-
-        <!-- وضع القراءة -->
+<!-- وضع القراءة - متعدد الدرجات -->
 <div class="reading-mode-control">
-    <span class="reading-mode-label"> وضع القراءة</span>
-    <label class="reading-mode-switch">
-        <input type="checkbox" id="readingModeToggle">
-        <span class="reading-mode-slider"></span>
-    </label>
+    <button id="readingModeBtn" class="reading-mode-btn" title="🌙 وضع القراءة: إيقاف">
+        🌙 وضع القراءة: <span id="readingModeStatus">إيقاف</span>
+    </button>
 </div>
         </div>
     </div>
@@ -2222,11 +2210,23 @@ const examPage2 = document.getElementById('exam');
 if (homePage2) observerPremium.observe(homePage2, { attributes: true, attributeFilter: ['class'] });
 if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeFilter: ['class'] });
 if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeFilter: ['class'] });
-    // ============================================
-// وضع القراءة (Reading Mode) - طبقة دافئة
+// ============================================
+// وضع القراءة (Reading Mode) - 4 درجات
 // ============================================
 (function() {
-    const readingToggle = document.getElementById('readingModeToggle');
+    const readingBtn = document.getElementById('readingModeBtn');
+    const statusSpan = document.getElementById('readingModeStatus');
+    
+    // تعريف الدرجات
+    const LEVELS = {
+        off: { label: 'إيقاف', opacity: 0, value: 'off' },
+        low: { label: 'منخفض', opacity: 0.04, value: 'low' },
+        medium: { label: 'متوسط', opacity: 0.08, value: 'medium' },
+        high: { label: 'مرتفع', opacity: 0.12, value: 'high' }
+    };
+    
+    const LEVEL_ORDER = ['off', 'low', 'medium', 'high'];
+    let currentLevel = 'off';
     let readingOverlay = null;
     
     function createReadingOverlay() {
@@ -2241,35 +2241,90 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
             height: 100%;
             pointer-events: none;
             z-index: 9999;
-            background: rgba(255, 190, 80, 0.08);
-            transition: opacity 0.4s ease;
-            opacity: 0;
+            background: rgba(255, 190, 80, 0);
+            transition: background 0.4s ease;
         `;
         document.body.appendChild(readingOverlay);
     }
     
-    function setReadingMode(enabled) {
+    function updateReadingMode(level) {
         createReadingOverlay();
-        if (enabled) {
-            readingOverlay.style.opacity = '1';
-            localStorage.setItem('readingMode', 'enabled');
+        currentLevel = level;
+        const levelData = LEVELS[level];
+        
+        if (level === 'off') {
+            readingOverlay.style.background = 'rgba(255, 190, 80, 0)';
         } else {
-            readingOverlay.style.opacity = '0';
-            localStorage.setItem('readingMode', 'disabled');
+            readingOverlay.style.background = `rgba(255, 190, 80, ${levelData.opacity})`;
         }
-        if (readingToggle) readingToggle.checked = enabled;
+        
+        // تحديث النص
+        if (statusSpan) statusSpan.textContent = levelData.label;
+        if (readingBtn) readingBtn.title = `🌙 وضع القراءة: ${levelData.label}`;
+        
+        // حفظ في localStorage
+        localStorage.setItem('readingMode', level);
+    }
+    
+    function getNextLevel(current) {
+        const currentIndex = LEVEL_ORDER.indexOf(current);
+        const nextIndex = (currentIndex + 1) % LEVEL_ORDER.length;
+        return LEVEL_ORDER[nextIndex];
     }
     
     // استعادة الحالة المحفوظة
-    const savedReadingMode = localStorage.getItem('readingMode');
-    if (savedReadingMode === 'enabled') {
-        setTimeout(() => setReadingMode(true), 100);
+    const savedLevel = localStorage.getItem('readingMode');
+    if (savedLevel && LEVELS[savedLevel]) {
+        setTimeout(() => updateReadingMode(savedLevel), 100);
+    } else {
+        updateReadingMode('off');
     }
     
-    if (readingToggle) {
-        readingToggle.addEventListener('change', function() {
-            setReadingMode(this.checked);
+    // حدث الضغط على الزر
+    if (readingBtn) {
+        readingBtn.addEventListener('click', function() {
+            const nextLevel = getNextLevel(currentLevel);
+            updateReadingMode(nextLevel);
+            
+            // إشعار صغير
+            const levelData = LEVELS[nextLevel];
+            showToast(`📖 وضع القراءة: ${levelData.label}`, 'info');
         });
+    }
+    
+    // دالة عرض إشعار بسيط
+    function showToast(message, type = 'info') {
+        const existing = document.querySelector('.reading-toast');
+        if (existing) existing.remove();
+        
+        const toast = document.createElement('div');
+        toast.className = 'reading-toast';
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15, 23, 42, 0.92);
+            color: #f1f5f9;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 99999;
+            border: 1px solid rgba(255, 190, 80, 0.3);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            animation: toastFadeIn 0.3s ease;
+            direction: rtl;
+            backdrop-filter: blur(8px);
+        `;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.3s';
+            setTimeout(() => toast.remove(), 300);
+        }, 1500);
     }
 })();
 </script>
