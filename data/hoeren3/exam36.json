@@ -7,5 +7,9 @@
     { "text": "Interessenten können auf der Messe nur Bestellungen aufgeben.", "correct": false },
     { "text": "Alle Studierenden müssen ab dem Wintersemester Studiengebühren bezahlen.", "correct": false },
     { "text": "Der Bürgermeister eröffnet das Fest.", "correct": true }
+  ],
+  "memoryHighlights": [
+    { "color": 6, "parts": [ "Das Geschäft für österreichische Spezialitäten befindet sich in Check-in-2." ] },
+    { "color": 11, "parts": [ "Der Bürgermeister eröffnet das Fest." ] }
   ]
 }
