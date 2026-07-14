@@ -12,10 +12,9 @@
         "c. nur noch Kaffee, der von internationalen Gesellschaften vermarktet wird."
       ],
       "correct": 1,
-      "highlight": {
-        "text": "nur noch eine geringe Zahl von Kaffeeröstereien.",
-        "color": "#4CAF50",
-        "helpKey": "lesen2_exam6_q1"
+      "memoryHighlight": {
+        "connector": "nur noch eine geringe Zahl von Kaffeeröstereien.",
+        "color": 2
       }
     },
     {
@@ -26,10 +25,9 @@
         "c. steht eher die Qualität des Kaffees als der Preis im Vordergrund"
       ],
       "correct": 2,
-      "highlight": {
-        "text": "steht eher die Qualität des Kaffees als der Preis im Vordergrund.",
-        "color": "#FF9800",
-        "helpKey": "lesen2_exam6_q2"
+      "memoryHighlight": {
+        "connector": "steht eher die Qualität des Kaffees als der Preis im Vordergrund.",
+        "color": 9
       }
     },
     {
@@ -40,10 +38,9 @@
         "c. müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten."
       ],
       "correct": 2,
-      "highlight": {
-        "text": "müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten.",
-        "color": "#2196F3",
-        "helpKey": "lesen2_exam6_q3"
+      "memoryHighlight": {
+        "connector": "müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten.",
+        "color": 7
       }
     },
     {
@@ -54,10 +51,9 @@
         "c. über das Internet in der ganzen Welt verkauft"
       ],
       "correct": 0,
-      "highlight": {
-        "text": "in unterschiedlichen Geschmacksrichtungen verkauft",
-        "color": "#9C27B0",
-        "helpKey": "lesen2_exam6_q4"
+      "memoryHighlight": {
+        "connector": "in unterschiedlichen Geschmacksrichtungen verkauft",
+        "color": 11
       }
     },
     {
@@ -68,10 +64,9 @@
         "c. keinen Röstkaffee mehr verkaufen."
       ],
       "correct": 0,
-      "highlight": {
-        "text": "die Kaffeerösterei in ein Museum umwandeln.",
-        "color": "#F44336",
-        "helpKey": "lesen2_exam6_q5"
+      "memoryHighlight": {
+        "connector": "die Kaffeerösterei in ein Museum umwandeln.",
+        "color": 4
       }
     }
   ]
