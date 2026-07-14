@@ -1082,7 +1082,7 @@ async function openExam(examId, examTitle, skill) {
   console.log("📂 المسار الكامل:", `data/${skill}/${fileName}`);
   
   try {
-    const response = await fetch(`data/${skill}/${fileName}`);
+    const response = await fetch(`./data/${skill}/${fileName}`);
     if (!response.ok) {
       alert(`⚠️ الامتحان "${examTitle}" سيتم إضافته قريباً.\nالملف المطلوب: data/${skill}/${fileName}`);
       return;
@@ -1898,7 +1898,7 @@ for (const examId of examIds) {
     if (!exam || !exam.hasFile) continue;
     const fileName = getActualFileName(exam.id);
     try {
-        const response = await fetch(`data/${skill}/${fileName}`);
+       const response = await fetch(`./data/${skill}/${fileName}`);
         if (response.ok) {
             const data = await response.json();
             let questions = [];
@@ -1972,7 +1972,7 @@ if ((skill === 'lesen1' || skill === 'lesen3') && examIds.length > 0) {
     if (firstExam && firstExam.hasFile) {
         try {
             const fileName = getActualFileName(firstExamId);
-            const response = await fetch(`data/${skill}/${fileName}`);
+         const response = await fetch(`./data/${skill}/${fileName}`);
             if (response.ok) {
                 const data = await response.json();
                 // لـ Lesen 1: نأخذ sharedOptions
