@@ -11,7 +11,8 @@
         "b. kann durch eine Vielzahl von Faktoren ausgelöst werden",
         "c. wird von meisten Patienten als Grund für einen Arztbesuch genannt"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "kann durch eine Vielzahl von Faktoren ausgelöst werden", "color": 2 }
     },
     {
       "text": "Rückenbeschwerden",
@@ -20,7 +21,8 @@
         "b. kommen in allen Altersstufen gleichmäßig vor",
         "c. sind überwiegend auf Schäden am Skelett zurückzuführen"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "entstehen, weil angespannte Muskeln auf nahegelegene Nervenenden drücken", "color": 9 }
     },
     {
       "text": "Bandscheibenvorfälle",
@@ -29,7 +31,8 @@
         "b. können zu Depressionen führen",
         "c. wirken sich in der Regel nicht negativ auf die körperliche Leistungsfähigkeit aus"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "können zu Depressionen führen", "color": 11 }
     },
     {
       "text": "Abnutzungserscheinungen am Skelett",
@@ -38,7 +41,8 @@
         "b. lassen sich häufig auf eine falsche Ernährung zurückführen",
         "c. treten heutzutage verstärkt bei Jugendlichen auf"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "können durch verschiedene Erkrankungen hervorgerufen werden", "color": 6 }
     },
     {
       "text": "Wer Rückenschmerzen hat",
@@ -47,7 +51,8 @@
         "b. sollte nicht zu lange mit dem Arztbesuch warten",
         "c. wird von der Krankenkasse verpflichtet, an einer Rückenschule teilzunehmen"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "sollte nicht zu lange mit dem Arztbesuch warten", "color": 10 }
     }
   ]
 }
