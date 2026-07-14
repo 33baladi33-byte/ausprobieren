@@ -1021,6 +1021,51 @@ async function openExam(examId, examTitle, skill) {
   // ✅ تعيين القيم للاستخدام العام (مطلوب لـ Interleaving و Memory Engine)
   window.currentSkill = skill;
   window.currentExamId = examId;
+  // ============================================================
+  // ✅ ✅ ✅ إخفاء الأزرار حسب نوع الصفحة ✅ ✅ ✅
+  // ============================================================
+  const interleavingRow = document.getElementById('interleavingRow');
+  if (interleavingRow) {
+    // إخفاء الكل افتراضياً
+    interleavingRow.style.display = 'none';
+    
+    // المهارات التي تظهر فيها الأزرار (جميع المهارات المدعومة)
+    const allowedSkills = [
+      'hoeren1', 'hoeren2', 'hoeren3',
+      'lesen1', 'lesen2', 'lesen3',
+      'sprach1', 'sprach2'
+    ];
+    
+    // ✅ الشرط الصحيح: يدخل لكل المهارات المدعومة
+    if (allowedSkills.includes(skill)) {
+      // إظهار الصف بالكامل
+      interleavingRow.style.display = 'flex';
+      
+      // الأزرار
+      const swapBtn = document.getElementById('interleavingBtn');
+      const gameBtn = document.getElementById('rapidGameBtn');
+      const memoryToggleBtn = document.getElementById('memoryToggleBtn');
+      
+      // ✅ Sprachbausteine 1 أو 2: إخفاء swap_vert فقط
+      if (skill === 'sprach1' || skill === 'sprach2') {
+        if (swapBtn) swapBtn.style.display = 'none';
+        if (gameBtn) gameBtn.style.display = '';      // إظهار (إرجاع للقيمة الافتراضية)
+        if (memoryToggleBtn) memoryToggleBtn.style.display = ''; // إظهار
+      } 
+      // ✅ باقي المهارات: إظهار الكل
+      else {
+        if (swapBtn) swapBtn.style.display = '';
+        if (gameBtn) gameBtn.style.display = '';
+        if (memoryToggleBtn) memoryToggleBtn.style.display = '';
+      }
+    } else {
+      // المهارات غير المسموحة (schreiben, mündlich, tips, etc.)
+      interleavingRow.style.display = 'none';
+    }
+  }
+  // ============================================================
+  // ✅ ✅ ✅ نهاية إخفاء الأزرار ✅ ✅ ✅
+  // ============================================================
   
   if (shouldHideHelpButton(skill)) {
     const helpBtn = document.getElementById('globalHelpButton');
