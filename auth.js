@@ -527,7 +527,6 @@ auth.onAuthStateChanged(async user => {
         updateProfile();
     }
 });
-
 // ============================================
 // ربط الأحداث
 // ============================================
@@ -536,6 +535,7 @@ document.addEventListener('DOMContentLoaded', function() {
     togglePasswordVisibility('signupPassword', 'toggleSignupPassword');
     togglePasswordVisibility('resetNewPassword', 'toggleResetPassword');
     
+    // ===== نوافذ المصادقة =====
     if (navLoginBtn) navLoginBtn.addEventListener('click', () => openAuthModal('login'));
     if (closeAuthModal) closeAuthModal.addEventListener('click', closeAuthModalFunc);
     if (authModal) authModal.addEventListener('click', (e) => { if (e.target === authModal) closeAuthModalFunc(); });
@@ -549,6 +549,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (switchToReset) switchToReset.addEventListener('click', () => showForm('reset'));
     if (switchToLoginFromReset) switchToLoginFromReset.addEventListener('click', () => showForm('login'));
     
+    // ===== الملف الشخصي =====
     if (profileIcon) profileIcon.addEventListener('click', (e) => {
         e.stopPropagation();
         if (profileDropdown) profileDropdown.classList.toggle('show');
@@ -556,6 +557,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (profileLogoutBtn) profileLogoutBtn.addEventListener('click', handleLogout);
     
+    // ===== إعدادات العرض =====
     if (settingsBtn && settingsModal) {
         settingsBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -572,6 +574,38 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // ============================================
+    // ✅ أزرار الاشتراك - توجيه إلى subscribe.html
+    // ============================================
+    const navSubscribeBtn = document.getElementById('navSubscribeBtn');
+    if (navSubscribeBtn) {
+        navSubscribeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'subscribe.html';
+        });
+        console.log('✅ زر اشترك (navSubscribeBtn) مربوط');
+    }
+    
+    const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
+    if (featuresSubscribeBtn) {
+        featuresSubscribeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'subscribe.html';
+        });
+        console.log('✅ زر اشترك (featuresSubscribeBtn) مربوط');
+    }
+    
+    // زر الترقية في القائمة المنسدلة (يظهر بعد updateProfile)
+    const dropdownUpgradeBtn = document.getElementById('dropdownUpgradeBtn');
+    if (dropdownUpgradeBtn) {
+        dropdownUpgradeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'subscribe.html';
+        });
+        console.log('✅ زر الترقية (dropdownUpgradeBtn) مربوط');
+    }
+    
+    // ===== إغلاق القائمة المنسدلة عند النقر خارجها =====
     document.addEventListener('click', (e) => {
         if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileIcon) {
             profileDropdown.classList.remove('show');
