@@ -12,10 +12,9 @@
         "c. überwiegend alte Menschen"
       ],
       "correct": 1,
-      "highlight": {
-        "text": "junge und alte Menschen gleichermaßen",
-        "color": "#4CAF50",
-        "helpKey": "lesen2_exam9_q1"
+      "memoryHighlight": {
+        "connector": "junge und alte Menschen gleichermaßen",
+        "color": 1
       }
     },
     {
@@ -26,10 +25,9 @@
         "c. sich von den vielen Informationen überfordert fühlen"
       ],
       "correct": 2,
-      "highlight": {
-        "text": "sich von den vielen Informationen überfordert fühlen",
-        "color": "#FF9800",
-        "helpKey": "lesen2_exam9_q2"
+      "memoryHighlight": {
+        "connector": "sich von den vielen Informationen überfordert fühlen",
+        "color": 9
       }
     },
     {
@@ -40,10 +38,9 @@
         "c. vergisst die meisten Informationen innerhalb kürzester Zeit"
       ],
       "correct": 2,
-      "highlight": {
-        "text": "vergisst die meisten Informationen innerhalb kürzester Zeit",
-        "color": "#2196F3",
-        "helpKey": "lesen2_exam9_q3"
+      "memoryHighlight": {
+        "connector": "vergisst die meisten Informationen innerhalb kürzester Zeit",
+        "color": 4
       }
     },
     {
@@ -54,10 +51,9 @@
         "c. emotional aufgeladene Situationen merken"
       ],
       "correct": 2,
-      "highlight": {
-        "text": "emotional aufgeladene Situationen merken",
-        "color": "#9C27B0",
-        "helpKey": "lesen2_exam9_q4"
+      "memoryHighlight": {
+        "connector": "emotional aufgeladene Situationen merken",
+        "color": 11
       }
     },
     {
@@ -68,10 +64,9 @@
         "c. verwendet für ihre Aktenablage nur Tiersymbole"
       ],
       "correct": 1,
-      "highlight": {
-        "text": "verbindet Informationen mit Bildern",
-        "color": "#F44336",
-        "helpKey": "lesen2_exam9_q5"
+      "memoryHighlight": {
+        "connector": "verbindet Informationen mit Bildern",
+        "color": 6
       }
     }
   ]
