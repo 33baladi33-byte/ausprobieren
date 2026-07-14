@@ -1195,8 +1195,8 @@ body.dark-mode .mobile-banner span {
             
 <!-- وضع القراءة - متعدد الدرجات -->
 <div class="reading-mode-control">
-    <button id="readingModeBtn" class="reading-mode-btn" title="🌙 وضع القراءة: إيقاف">
-        🌙 وضع القراءة: <span id="readingModeStatus">إيقاف</span>
+    <button id="readingModeBtn" class="reading-mode-btn" title=" وضع القراءة: إيقاف">
+         وضع القراءة: <span id="readingModeStatus">إيقاف</span>
     </button>
 </div>
         </div>
@@ -2051,7 +2051,7 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         
         // تحديث النص
         if (statusSpan) statusSpan.textContent = levelData.label;
-        if (readingBtn) readingBtn.title = `🌙 وضع القراءة: ${levelData.label}`;
+        if (readingBtn) readingBtn.title = ` وضع القراءة: ${levelData.label}`;
         
         // حفظ في localStorage
         localStorage.setItem('readingMode', level);
@@ -2079,7 +2079,7 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
             
             // إشعار صغير
             const levelData = LEVELS[nextLevel];
-            showToast(`📖 وضع القراءة: ${levelData.label}`, 'info');
+            showToast(` وضع القراءة: ${levelData.label}`, 'info');
         });
     }
     
