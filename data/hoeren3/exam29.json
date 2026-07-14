@@ -7,5 +7,10 @@
     { "text": "Sie erfahren ausschließlich im Internet, ob Sie gewonnen haben.", "correct": false },
     { "text": "Am Freitag müssen Sie in den Mittelgebirgen mit vielen Pollen rechnen.", "correct": true },
     { "text": "Bayern Radio hat computergestützte Fahrschulprogramme getestet.", "correct": true }
+  ],
+  "memoryHighlights": [
+    { "color": 4, "parts": [ "Beim Informationsdienst der Telekom können Sie sich auch über Aktienkurse informieren." ] },
+    { "color": 10, "parts": [ "Am Freitag müssen Sie in den Mittelgebirgen mit vielen Pollen rechnen." ] },
+    { "color": 2, "parts": [ "Bayern Radio hat computergestützte Fahrschulprogramme getestet." ] }
   ]
 }
