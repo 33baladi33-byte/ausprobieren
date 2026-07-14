@@ -462,48 +462,63 @@ class MemoryTrainer {
         `);
     }
 
-    showIntroCardList() {
-        const percent = this.getOverallProgressForSkill(this.currentSkill);
-        const total = this.trainingQueue.length;
-        let currentStage = 1, totalStages = 1;
-        if (window.getCurrentStage && window.getTotalStages) {
-            currentStage = window.getCurrentStage(this.currentSkill);
-            totalStages = window.getTotalStages(this.currentSkill);
-        }
-        let skillLabel = this.currentSkill;
-        if (this.examType === 'matching') {
-            if (this.currentSkill === 'lesen3') {
-                skillLabel = 'Lesen 3';
-            } else {
-                skillLabel = 'Lesen 1';
-            }
-        } else if (this.examType === 'multiple') {
-            skillLabel = 'Lesen 2';
-        } else if (this.examType === 'sprach1') {
-            skillLabel = 'Sprachbausteine 1';
-        } else if (this.examType === 'sprach2') {
-            skillLabel = 'Sprachbausteine 2';
-        }
-        this.updateCard(`
-            <div class="memory-trainer-intro">
-                <div class="memory-trainer-icon">🧩</div>
-                <h2>استدعاء متقدم</h2>
-                <p style="font-size:14px;color:#334155;margin:4px 0 2px 0;">تدريب المرحلة ${currentStage} من ${skillLabel}.</p>
-                <p style="font-size:13px;color:#64748B;margin:2px 0 12px 0;">كلما تدربت أكثر، أصبح النظام أكثر ذكاءً في اختيار النصوص المناسبة لك.</p>
-                <div style="margin:10px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;text-align:left;">
-                    <div style="display:flex;align-items:center;gap:10px;">
-                        <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
-                            <div style="width:${percent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
-                        </div>
-                        <span style="font-size:13px;font-weight:600;color:#1565C0;min-width:40px;text-align:right;">${percent}%</span>
-                    </div>
-                </div>
-                <p style="font-size:12px;color:#94A3B8;margin:4px 0 4px 0;">${total} نص للتدريب</p>
-                <p style="font-size:11px;color:#94A3B8;margin:0 0 12px 0;">المرحلة ${currentStage} / ${totalStages}</p>
-                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.showMemoryCard()">ابدأ التدريب</button>
-            </div>
-        `);
+showIntroCardList() {
+    const percent = this.getOverallProgressForSkill(this.currentSkill);
+    const total = this.trainingQueue.length;
+    let currentStage = 1, totalStages = 1;
+    if (window.getCurrentStage && window.getTotalStages) {
+        currentStage = window.getCurrentStage(this.currentSkill);
+        totalStages = window.getTotalStages(this.currentSkill);
     }
+
+    // ✅ تحويل اسم المهارة إلى الاسم المعروض المطلوب
+    const displayName = this.getSkillDisplayName(this.currentSkill);
+
+    this.updateCard(`
+        <div class="memory-trainer-intro">
+            <h2 style="font-size: 20px; font-weight: 700; color: #2c3e66; margin: 0 0 6px 0; text-align: center;">
+                استدعاء متقدم 🧩
+            </h2>
+            <p style="font-size: 15px; color: #334155; margin: 6px 0 2px 0; text-align: center; line-height: 1.6;">
+                هاد الميزة غدي تخليك تتدرب على جميع أسئلة امتحانات ${displayName}.
+            </p>
+            <p style="font-size: 14px; color: #64748B; margin: 2px 0 14px 0; text-align: center; line-height: 1.5;">
+                كلما تدربت أكثر، أصبح النظام أكثر ذكاءً في اختيار الأسئلة.
+            </p>
+
+            <!-- شريط التقدم (نفس التصميم القديم) -->
+            <div style="margin: 10px 0 14px 0; background: #FFFFFF; border: 1px solid #E8EEF5; border-radius: 6px; padding: 6px 10px; text-align: left;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="flex: 1; height: 5px; background: #e9eef5; border-radius: 6px; overflow: hidden;">
+                        <div style="width: ${percent}%; height: 100%; background: linear-gradient(90deg, #1565C0, #38bdf8); border-radius: 6px;"></div>
+                    </div>
+                    <span style="font-size: 13px; font-weight: 600; color: #1565C0; min-width: 40px; text-align: right;">${percent}%</span>
+                </div>
+            </div>
+
+            <p style="font-size: 12px; color: #94A3B8; margin: 4px 0 4px 0; text-align: center;">${total} نص للتدريب</p>
+            <p style="font-size: 11px; color: #94A3B8; margin: 0 0 12px 0; text-align: center;">المرحلة ${currentStage} / ${totalStages}</p>
+
+            <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.showMemoryCard()" style="
+                padding: 10px 24px;
+                border: none;
+                border-radius: 30px;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
+                background: #1565C0;
+                color: white;
+                box-shadow: 0 2px 6px rgba(21, 101, 192, 0.15);
+                transition: background 0.2s ease;
+                display: inline-block;
+                width: auto;
+                margin-top: 4px;
+            ">
+                ابدأ التدريب
+            </button>
+        </div>
+    `);
+}
 
     // ============================================
     // عرض البطاقات - تخطيط خاص لكل نوع
