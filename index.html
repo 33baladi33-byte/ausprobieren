@@ -1842,21 +1842,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 2. زر الشعار (Logo) - للعودة للرئيسية
-    const logoBtn = document.getElementById('logoHomeBtn');
-    if (logoBtn) {
-        logoBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (typeof goHome === 'function') {
-                goHome();
-                console.log('✅ تم العودة للرئيسية عبر الشعار');
-            } else {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                console.log('✅ تم التمرير للأعلى عبر الشعار');
-            }
-        });
-        console.log('✅ زر الشعار (🖼️) مربوط');
-    } else {
+// 2. زر الشعار (Logo) - للعودة للرئيسية
+const logoBtn = document.getElementById('logoHomeBtn');
+if (logoBtn) {
+    logoBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.location.href = "index.html";
+    });
+    console.log('✅ زر الشعار (🖼️) مربوط');
+} else {
         console.warn('⚠️ لم يتم العثور على زر الشعار');
     }
 
