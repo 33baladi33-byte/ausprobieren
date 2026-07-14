@@ -11,7 +11,8 @@
         "b. kommunizieren, ohne die Regelwerke der Sprachen zu durchschauen",
         "c. mehr Offenheit und Flexibilität in ihrem Verhalten zeigen"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "mehr Offenheit und Flexibilität in ihrem Verhalten zeigen", "color": 2 }
     },
     {
       "text": "Susanne Hilt",
@@ -20,7 +21,8 @@
         "b. ist davon überzeugt, dass mehrsprachige Erziehung in jedem Fall Erfolg bringt",
         "c. meint, dass man Mehrsprachigkeit nur durch Kontakte zu Muttersprachlern erreichen kann"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "äußert Kritik an bestimmten Erziehungsabsichten der Eltern", "color": 9 }
     },
     {
       "text": "Damit ein Kind mehrsprachig aufwächst",
@@ -29,7 +31,8 @@
         "b. reicht es, im Grundschulalter mit der Zweitsprache zu beginnen",
         "c. sollte unbedingt im Kindergarten mit der Sprachvermittlung begonnen werden"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "reicht es, im Grundschulalter mit der Zweitsprache zu beginnen", "color": 11 }
     },
     {
       "text": "Mehrsprachige Erziehung gelingt, wenn",
@@ -38,7 +41,8 @@
         "b. die Sprachen spontan variiert werden",
         "c. man die zweite oder dritte Sprache wiederholt und ungezwungen spricht"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "man die zweite oder dritte Sprache wiederholt und ungezwungen spricht", "color": 6 }
     },
     {
       "text": "Sollten Kinder nur ab und zu Kontakt zur Zweitsprache haben",
@@ -47,7 +51,8 @@
         "b. könnte es zu einer Störung der Sprachentwicklung kommen",
         "c. wird auf jeden Fall eine Neigung zum Sprachlernen bestehen bleiben"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "wird auf jeden Fall eine Neigung zum Sprachlernen bestehen bleiben", "color": 10 }
     }
   ]
 }
