@@ -12,5 +12,12 @@
     { "text": "Eine andere Attraktion ist das Filmscreening des Films 'Traceable'.", "correct": true },
     { "text": "Nach dem Film ist die Veranstaltung zu Ende.", "correct": false },
     { "text": "Weitere Informationen können auf der Webseite traceable.org abgerufen werden.", "correct": false }
+  ],
+  "memoryHighlights": [
+    { "color": 4, "parts": [ "Am 24. April ist der Fashion Revolution Day." ] },
+    { "color": 8, "parts": [ "Der Anlass für den Fashion Revolution Day ist der Einsturz des Fabrikgebäudes in Bangladesch." ] },
+    { "color": 1, "parts": [ "Eine Näherin verdient dort ca. 20 Cent." ] },
+    { "color": 11, "parts": [ "The Clean Clothes Kampagne fordert bereits seit Jahren einen existenzsichernden Lohn." ] },
+    { "color": 6, "parts": [ "Eine andere Attraktion ist das Filmscreening des Films 'Traceable'." ] }
   ]
 }
