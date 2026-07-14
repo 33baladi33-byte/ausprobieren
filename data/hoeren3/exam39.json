@@ -7,5 +7,9 @@
     { "text": "Sitzplatzreservierungen im ICE sind wegen technischer Probleme in den Wagen 24-38 ungültig.", "correct": false },
     { "text": "Selma schlägt vor, die Verabredung auf Samstag zu verschieben.", "correct": false },
     { "text": "Die lange Nacht der Architektur ist kostenlos, wenn man sich vorher online anmeldet.", "correct": true }
+  ],
+  "memoryHighlights": [
+    { "color": 3, "parts": [ "Die Fahrradtouren von 'Berlin auf zwei Rädern' können nicht nur privat, sondern auch im beruflichen Kontext gebucht werden." ] },
+    { "color": 10, "parts": [ "Die lange Nacht der Architektur ist kostenlos, wenn man sich vorher online anmeldet." ] }
   ]
 }
