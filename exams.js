@@ -1209,6 +1209,13 @@ if (skill.startsWith('hoeren') && typeof window.rebuildTrueFalseCards === 'funct
 }  // ✅ هذا القوس يغلق دالة openExam
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
+  // ✅ استخدام نظام التوجيه إذا كان موجوداً
+  if (typeof navigateTo === 'function') {
+    navigateTo('list');
+    return;
+  }
+  
+  // الحل البديل (الكود القديم)
   if (currentSkill) {
     if (currentSkill === "mündlich1") {
       document.getElementById("home").classList.remove("active");
@@ -1532,15 +1539,25 @@ function showTeil(teilNumber) {
 }
 
 function goHome() {
-  document.getElementById("home").classList.add("active");
-  document.getElementById("list").classList.remove("active");
-  document.getElementById("exam").classList.remove("active");
+  // استخدام نظام التوجيه إذا كان موجوداً
+  if (typeof navigateTo === 'function') {
+    navigateTo('home');
+  } else {
+    document.getElementById("home").classList.add("active");
+    document.getElementById("list").classList.remove("active");
+    document.getElementById("exam").classList.remove("active");
+  }
 }
 
 function goList() {
-  document.getElementById("home").classList.remove("active");
-  document.getElementById("list").classList.add("active");
-  document.getElementById("exam").classList.remove("active");
+  // استخدام نظام التوجيه إذا كان موجوداً
+  if (typeof navigateTo === 'function') {
+    navigateTo('list');
+  } else {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("list").classList.add("active");
+    document.getElementById("exam").classList.remove("active");
+  }
   
   renderTeileList();
   
