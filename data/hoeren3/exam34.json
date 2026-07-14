@@ -7,5 +7,9 @@
     { "text": "Am 9. Juli kann man den Opel-Zoo nachts besuchen.", "correct": true },
     { "text": "Für die Wanderung zur Ronneburg sollte man unbedingt genügend Verpflegung mitnehmen.", "correct": false },
     { "text": "Auf der A7 Ulm - Füssen ist der linke Fahrstreifen gesperrt.", "correct": false }
+  ],
+  "memoryHighlights": [
+    { "color": 1, "parts": [ "Am Donnerstag ist in der Uckermark mit Birkenpollen zu rechnen." ] },
+    { "color": 7, "parts": [ "Am 9. Juli kann man den Opel-Zoo nachts besuchen." ] }
   ]
 }
