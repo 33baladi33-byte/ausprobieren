@@ -12,10 +12,9 @@
         "c. macht es möglich, mit dem Handy zu bezahlen."
       ],
       "correct": 0,
-      "highlight": {
-        "text": "gibt es für Jugendliche schon bei zahlreichen Geldinstituten.",
-        "color": "#4CAF50",
-        "helpKey": "lesen2_exam8_q1"
+      "memoryHighlight": {
+        "connector": "gibt es für Jugendliche schon bei zahlreichen Geldinstituten.",
+        "color": 5
       }
     },
     {
@@ -26,10 +25,9 @@
         "c. weil die Ausgaben durch das Guthaben begrenzt sind"
       ],
       "correct": 2,
-      "highlight": {
-        "text": "weil die Ausgaben durch das Guthaben begrenzt sind",
-        "color": "#FF9800",
-        "helpKey": "lesen2_exam8_q2"
+      "memoryHighlight": {
+        "connector": "weil die Ausgaben durch das Guthaben begrenzt sind",
+        "color": 10
       }
     },
     {
@@ -40,10 +38,9 @@
         "c. Menschen mit einem eigenen Bankkonto"
       ],
       "correct": 1,
-      "highlight": {
-        "text": "Jugendliche ohne festes Einkommen",
-        "color": "#2196F3",
-        "helpKey": "lesen2_exam8_q3"
+      "memoryHighlight": {
+        "connector": "Jugendliche ohne festes Einkommen",
+        "color": 2
       }
     },
     {
@@ -54,10 +51,9 @@
         "c. werden als Zahlungsmittel ebenso akzeptiert wie klassische"
       ],
       "correct": 0,
-      "highlight": {
-        "text": "kosten ähnlich viel wie klassische Kreditkarten",
-        "color": "#9C27B0",
-        "helpKey": "lesen2_exam8_q4"
+      "memoryHighlight": {
+        "connector": "kosten ähnlich viel wie klassische Kreditkarten",
+        "color": 8
       }
     },
     {
@@ -68,10 +64,9 @@
         "c. Kunden zwischen 18 und 21 Jahren noch nichts"
       ],
       "correct": 0,
-      "highlight": {
-        "text": "Erwachsene ab 21 Jahren eine höhere Jahresgebühr als Jugendliche",
-        "color": "#F44336",
-        "helpKey": "lesen2_exam8_q5"
+      "memoryHighlight": {
+        "connector": "Erwachsene ab 21 Jahren eine höhere Jahresgebühr als Jugendliche",
+        "color": 11
       }
     }
   ]
