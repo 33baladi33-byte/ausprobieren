@@ -2,35 +2,14 @@
   "title": "Hörverstehen Teil 3 - Ehrenamts (Mittel)",
   "type": "truefalse",
   "questions": [
-    {
-      "text": "Man kann am 'Tag des Ehrenamts' probeweise mithelfen.",
-      "correct": true,
-      "highlight": {
-        "text": "Man kann am 'Tag des Ehrenamts' probeweise mithelfen.",
-        "color": "#4CAF50",
-        "helpKey": "hoeren3_exam9_q1"
-      }
-    },
-    {
-      "text": "Die Skateboard-Vorführung fällt dieses Mal aus.",
-      "correct": false
-    },
-    {
-      "text": "Vor Passwort-Programmen wird gewarnt.",
-      "correct": false
-    },
-    {
-      "text": "Es wird empfohlen, mit dem Fahrrad zum Volkspark zu fahren.",
-      "correct": false
-    },
-    {
-      "text": "Wenn man das Training ausprobieren möchte, sollte man vorher Bescheid sagen.",
-      "correct": true,
-      "highlight": {
-        "text": "Wenn man das Training ausprobieren möchte, sollte man vorher Bescheid sagen.",
-        "color": "#FF9800",
-        "helpKey": "hoeren3_exam9_q5"
-      }
-    }
+    { "text": "Man kann am 'Tag des Ehrenamts' probeweise mithelfen.", "correct": true },
+    { "text": "Die Skateboard-Vorführung fällt dieses Mal aus.", "correct": false },
+    { "text": "Vor Passwort-Programmen wird gewarnt.", "correct": false },
+    { "text": "Es wird empfohlen, mit dem Fahrrad zum Volkspark zu fahren.", "correct": false },
+    { "text": "Wenn man das Training ausprobieren möchte, sollte man vorher Bescheid sagen.", "correct": true }
+  ],
+  "memoryHighlights": [
+    { "color": 3, "parts": [ "Man kann am 'Tag des Ehrenamts' probeweise mithelfen." ] },
+    { "color": 9, "parts": [ "Wenn man das Training ausprobieren möchte, sollte man vorher Bescheid sagen." ] }
   ]
 }
