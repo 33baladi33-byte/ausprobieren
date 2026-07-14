@@ -714,7 +714,7 @@ class MemoryTrainer {
     background: transparent;
     border-radius: 6px;
 ">
-    ✅ ${connector}
+    ✅ ${optionText}
 </div>
                     </div>
 
