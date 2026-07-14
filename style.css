@@ -1506,23 +1506,32 @@ body:has(#exam.active) .top-bar {
     direction: ltr;
 }
 
-/* ترتيب الأزرار من اليمين إلى اليسار */
-.left-side .profile-icon {
-    order: 1;  /* أقصى اليمين */
+/* ترتيب الأزرار من اليمين إلى اليسار في صفحات الامتحانات */
+body:has(#list.active) .left-side .profile-icon,
+body:has(#exam.active) .left-side .profile-icon {
+    order: 1;  /* 👤 أقصى اليمين */
 }
 
-.left-side .settings-icon-btn {
-    order: 2;  /* ثاني من اليمين */
+body:has(#list.active) .left-side .settings-icon-btn,
+body:has(#exam.active) .left-side .settings-icon-btn {
+    order: 2;  /* ⚙️ ثاني من اليمين */
 }
 
-.left-side .subscribe-text-btn {
-    order: 3;  /* ثالث من اليمين */
+body:has(#list.active) .left-side .subscribe-text-btn,
+body:has(#exam.active) .left-side .subscribe-text-btn {
+    order: 3;  /* اشترك ثالث من اليمين */
 }
 
-.left-side .btn-login-top {
-    order: 4;  /* أقصى اليسار (في حال ظهوره) */
+body:has(#list.active) .left-side .btn-login-top,
+body:has(#exam.active) .left-side .btn-login-top {
+    display: none !important;  /* إخفاء زر تسجيل الدخول في صفحات الامتحانات */
 }
+
 /* ===== الصفحة الرئيسية فقط ===== */
+
+.home-page .left-side .profile-icon {
+    display: none !important;  /* إخفاء أيقونة الملف الشخصي في الرئيسية */
+}
 
 .home-page .left-side .subscribe-text-btn {
     order: 1;
@@ -1539,6 +1548,7 @@ body:has(#exam.active) .top-bar {
 .home-page .left-side .profile-icon {
     order: 4;
 }
+
 /* ========================================
    تحسينات الهواتف
    ======================================== */
