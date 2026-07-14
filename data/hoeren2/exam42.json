@@ -12,5 +12,12 @@
     { "text": "Die spezielle Uhr ist für Eva Küpper nicht nur im Training, sondern auch im Wettkampf wichtig.", "correct": true },
     { "text": "Solange der Körper gesund ist, will Eva Küpper weiterhin Ultramarathons laufen.", "correct": true },
     { "text": "Nach dem Berlin Marathon kann Eva Küpper dem Lauf-Club offiziell beitreten.", "correct": false }
+  ],
+  "memoryHighlights": [
+    { "color": 0, "parts": [ "Eva Küpper läuft im Training wenigstens einmal pro Woche auch über die Marathondistanz." ] },
+    { "color": 7, "parts": [ "Nach der Ausbildung hat Eva Küpper ihren Lebensstil radikal verändert." ] },
+    { "color": 11, "parts": [ "Eva Küpper kommt ursprünglich aus München." ] },
+    { "color": 2, "parts": [ "Die spezielle Uhr ist für Eva Küpper nicht nur im Training, sondern auch im Wettkampf wichtig." ] },
+    { "color": 10, "parts": [ "Solange der Körper gesund ist, will Eva Küpper weiterhin Ultramarathons laufen." ] }
   ]
 }
