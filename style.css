@@ -1,92 +1,7 @@
-/* ============================================
-   CSS Variables - نظام الألوان المتقدم
-   ============================================ */
-
-:root {
-    /* الألوان الأساسية - الوضع العادي (Light) */
-    --bg-primary: #f5f5f5;
-    --bg-secondary: #ffffff;
-    --bg-card: #ffffff;
-    --bg-hero: #0a0e1a;
-    --bg-topbar: linear-gradient(135deg, #161922 0%, #202534 50%, #262D40 100%);
-    --bg-modal: #0f172a;
-    --bg-dropdown: #0f172a;
-    --bg-input: #1e293b;
-    --bg-overlay: rgba(0, 0, 0, 0.7);
-    
-    --text-primary: #111827;
-    --text-secondary: #475569;
-    --text-white: #ffffff;
-    --text-muted: #94a3b8;
-    --text-light: #cbd5e1;
-    --text-dark: #0a0e1a;
-    
-    --border-color: #e2e8f0;
-    --border-light: #d1d5db;
-    --border-dark: #334155;
-    
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --shadow-heavy: rgba(0, 0, 0, 0.3);
-    
-    --primary: #38bdf8;
-    --primary-dark: #0ea5e9;
-    --primary-gradient: linear-gradient(135deg, #38bdf8, #0ea5e9);
-    
-    --success: #10b981;
-    --danger: #ef4444;
-    --warning: #f59e0b;
-    
-    --card-bg: #ffffff;
-    --card-border: #e2e8f0;
-    --card-hover: #f1f5f9;
-}
-
-/* ============================================
-   الوضع الليلي (Dark Mode) - باستخدام CSS Variables
-   ============================================ */
-
-body.dark-mode {
-    --bg-primary: #0a0a0f;
-    --bg-secondary: #0f0f1a;
-    --bg-card: #0f172a;
-    --bg-hero: #0a0e1a;
-    --bg-topbar: linear-gradient(135deg, #0a0a12 0%, #14141f 50%, #1a1a28 100%);
-    --bg-modal: #0f0f1a;
-    --bg-dropdown: #0f0f1a;
-    --bg-input: #1e293b;
-    --bg-overlay: rgba(0, 0, 0, 0.85);
-    
-    --text-primary: #f1f5f9;
-    --text-secondary: #94a3b8;
-    --text-white: #ffffff;
-    --text-muted: #64748b;
-    --text-light: #cbd5e1;
-    --text-dark: #0a0e1a;
-    
-    --border-color: #2d3748;
-    --border-light: #3b3b3b;
-    --border-dark: #334155;
-    
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --shadow-heavy: rgba(0, 0, 0, 0.5);
-    
-    --primary: #38bdf8;
-    --primary-dark: #0ea5e9;
-    --primary-gradient: linear-gradient(135deg, #38bdf8, #0ea5e9);
-    
-    --success: #10b981;
-    --danger: #ef4444;
-    --warning: #f59e0b;
-    
-    --card-bg: #0f172a;
-    --card-border: #2d3748;
-    --card-hover: #1a1a2e;
-}
-
 body {
     margin: 0;
     font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
-    background: var(--bg-primary);
+    background: #f5f5f5;
 }
 
 .page {
@@ -104,7 +19,7 @@ body {
    ======================================== */
 
 #home {
-    background: var(--bg-hero);
+    background: #0a0e1a;
     min-height: calc(100vh - 70px);
     position: relative;
     overflow: hidden;
@@ -199,12 +114,12 @@ body {
     font-weight: 800;
     margin-bottom: 25px;
     line-height: 1.2;
-    color: var(--text-white);
+    color: #ffffff;
     letter-spacing: -0.5px;
 }
 
 .blue-text {
-    color: var(--primary);
+    color: #38bdf8;
     text-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
 }
 
@@ -246,14 +161,14 @@ body {
 }
 
 .info-text {
-    color: var(--text-light);
+    color: #cbd5e1;
     font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 0.3px;
 }
 
 .hero-btn-primary {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
     border: none;
     padding: 15px 32px;
     border-radius: 50px;
@@ -290,7 +205,7 @@ body {
 
 .features-section {
     padding: 80px 5%;
-    background: var(--bg-secondary);
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
     position: relative;
     margin-top: 60px;
     border-radius: 40px 40px 0 0;
@@ -317,13 +232,13 @@ body {
     font-weight: 800;
     margin-bottom: 28px;
     line-height: 1.3;
-    color: var(--text-primary);
+    color: #0a0e1a;
 }
 
 .features-description {
     font-size: 1rem;
     line-height: 1.75;
-    color: var(--text-secondary);
+    color: #475569;
     margin-bottom: 18px;
     letter-spacing: 0.2px;
 }
@@ -333,7 +248,7 @@ body {
 }
 
 .features-btn {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
     border: none;
     padding: 14px 32px;
     border-radius: 50px;
@@ -380,10 +295,10 @@ body {
 }
 
 .image-card-feature {
-    background: var(--bg-card);
+    background: white;
     border-radius: 20px;
     padding: 15px;
-    box-shadow: 0 20px 35px var(--shadow-color);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
     transition: all 0.35s ease;
     overflow: hidden;
     width: 100%;
@@ -391,7 +306,7 @@ body {
 
 .image-card-feature:hover {
     transform: translateY(-5px);
-    box-shadow: 0 25px 45px var(--shadow-color);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
 }
 
 .image-top {
@@ -417,9 +332,9 @@ body {
     height: auto;
     border-radius: 16px;
     display: block;
-    background: var(--bg-card);
+    background: white;
     object-fit: contain;
-    box-shadow: 0 4px 12px var(--shadow-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* ========================================
@@ -430,8 +345,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 12px 30px;
-    background: var(--bg-topbar);
-    box-shadow: 0 1px 0 rgba(255,255,255,0.03), 0 8px 25px var(--shadow-color);
+    background: linear-gradient(135deg, #161922 0%, #202534 50%, #262D40 100%);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.03), 0 8px 25px rgba(0,0,0,0.15);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -502,7 +417,7 @@ body {
     position: absolute;
     top: -5px;
     right: -8px;
-    background: var(--danger);
+    background: #dc3545;
     color: white;
     font-size: 10px;
     font-weight: bold;
@@ -513,7 +428,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 0 4px;
-    box-shadow: 0 1px 3px var(--shadow-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .notification-dropdown {
@@ -522,9 +437,9 @@ body {
     right: 0;
     width: 340px;
     max-height: 400px;
-    background: var(--bg-dropdown);
+    background: #0f172a;
     border-radius: 16px;
-    box-shadow: 0 15px 40px var(--shadow-heavy);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
     z-index: 1001;
     display: none;
     overflow: hidden;
@@ -546,7 +461,7 @@ body {
 }
 
 .notification-header span {
-    color: var(--primary);
+    color: #38bdf8;
     font-weight: bold;
     font-size: 14px;
 }
@@ -554,7 +469,7 @@ body {
 .mark-all-read {
     background: rgba(56, 189, 248, 0.15);
     border: none;
-    color: var(--primary);
+    color: #38bdf8;
     font-size: 11px;
     cursor: pointer;
     padding: 5px 10px;
@@ -563,7 +478,7 @@ body {
 }
 
 .mark-all-read:hover {
-    background: var(--primary);
+    background: #38bdf8;
     color: #0a0e1a;
 }
 
@@ -582,7 +497,7 @@ body {
 }
 
 .notification-list::-webkit-scrollbar-thumb {
-    background: var(--primary);
+    background: #38bdf8;
     border-radius: 5px;
 }
 
@@ -600,7 +515,7 @@ body {
 
 .notification-item.unread {
     background: rgba(56, 189, 248, 0.05);
-    border-right: 3px solid var(--primary);
+    border-right: 3px solid #38bdf8;
 }
 
 .notification-icon {
@@ -622,7 +537,7 @@ body {
 
 .notification-message {
     font-size: 12px;
-    color: var(--text-muted);
+    color: #94a3b8;
     margin-bottom: 4px;
     line-height: 1.4;
 }
@@ -635,7 +550,7 @@ body {
 .notification-empty {
     text-align: center;
     padding: 30px 20px;
-    color: var(--text-muted);
+    color: #64748b;
     font-size: 13px;
 }
 
@@ -650,8 +565,8 @@ body {
 .show-all-btn,
 .show-less-btn {
     background: rgba(56, 189, 248, 0.15);
-    border: 1px solid var(--primary);
-    color: var(--primary);
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
     font-size: 12px;
     padding: 8px 15px;
     border-radius: 25px;
@@ -662,13 +577,13 @@ body {
 
 .show-all-btn:hover,
 .show-less-btn:hover {
-    background: var(--primary);
+    background: #38bdf8;
     color: #0a0e1a;
 }
 
 .subscribe-text-btn {
     padding: 8px 20px;
-    background: linear-gradient(135deg, var(--success), #059669);
+    background: linear-gradient(135deg, #10b981, #059669);
     border: none;
     border-radius: 25px;
     font-weight: 600;
@@ -703,14 +618,14 @@ body {
 .profile-icon {
     width: 40px;
     height: 40px;
-    background: var(--bg-input);
+    background: #1e293b;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: 0.3s;
-    color: var(--primary);
+    color: #38bdf8;
     font-size: 20px;
 }
 
@@ -763,24 +678,19 @@ body:has(#exam.active) .profile-icon {
 
 body:has(#list.active) .top-bar,
 body:has(#exam.active) .top-bar {
-    background: var(--bg-topbar);
+    background: rgba(22, 25, 34, 0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 18px var(--shadow-color);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
 }
-
-/* ========================================
-   Settings Modal
-   ======================================== */
-
 .settings-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--bg-overlay);
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(8px);
     z-index: 10001;
     display: flex;
@@ -797,12 +707,12 @@ body:has(#exam.active) .top-bar {
 }
 
 .settings-modal-content {
-    background: var(--bg-modal);
+    background: #0f172a;
     border-radius: 28px;
     padding: 25px 30px;
     width: 90%;
     max-width: 380px;
-    box-shadow: 0 25px 50px var(--shadow-heavy);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(56, 189, 248, 0.2);
     direction: rtl;
 }
@@ -817,7 +727,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .settings-modal-header h3 {
-    color: var(--primary);
+    color: #38bdf8;
     margin: 0;
     font-size: 1.2rem;
 }
@@ -825,7 +735,7 @@ body:has(#exam.active) .top-bar {
 .close-settings-btn {
     background: none;
     border: none;
-    color: var(--text-muted);
+    color: #94a3b8;
     font-size: 24px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -834,12 +744,11 @@ body:has(#exam.active) .top-bar {
 }
 
 .close-settings-btn:hover {
-    color: var(--primary);
+    color: #38bdf8;
     transform: scale(1.1);
 }
-
 .settings-desc {
-    color: var(--text-light);
+    color: #cbd5e1;
     font-size: 0.85rem;
     text-align: center;
     margin-bottom: 20px;
@@ -855,8 +764,8 @@ body:has(#exam.active) .top-bar {
 
 .font-size-btn {
     background: rgba(56, 189, 248, 0.15);
-    border: 1px solid var(--primary);
-    color: var(--primary);
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
     font-size: 1.2rem;
     font-weight: bold;
     padding: 8px 18px;
@@ -866,16 +775,16 @@ body:has(#exam.active) .top-bar {
 }
 
 .font-size-btn:hover {
-    background: var(--primary);
+    background: #38bdf8;
     color: #0a0e1a;
     transform: scale(1.05);
 }
 
 .font-size-value {
-    color: var(--text-white);
+    color: white;
     font-size: 1rem;
     font-weight: bold;
-    background: var(--bg-input);
+    background: #1e293b;
     padding: 5px 15px;
     border-radius: 30px;
 }
@@ -883,7 +792,7 @@ body:has(#exam.active) .top-bar {
 .reset-font-btn {
     background: rgba(100, 116, 139, 0.3);
     border: 1px solid #64748b;
-    color: var(--text-light);
+    color: #cbd5e1;
     font-size: 0.85rem;
     padding: 8px 18px;
     border-radius: 40px;
@@ -916,7 +825,7 @@ body:has(#exam.active) .top-bar {
     text-decoration: none;
     background: transparent;
     border-radius: 12px;
-    box-shadow: 0 4px 15px var(--shadow-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
 }
 
@@ -929,7 +838,7 @@ body:has(#exam.active) .top-bar {
 
 .whatsapp-float:hover {
     transform: scale(1.1);
-    box-shadow: 0 8px 25px var(--shadow-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
 /* ========================================
@@ -978,12 +887,12 @@ body:has(#exam.active) .top-bar {
     border-radius: 50px;
     padding: 8px 16px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px var(--shadow-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .widget-bubble:hover {
     transform: scale(1.02);
-    border-color: var(--primary);
+    border-color: #38bdf8;
     box-shadow: 0 6px 18px rgba(56, 189, 248, 0.2);
 }
 
@@ -993,12 +902,12 @@ body:has(#exam.active) .top-bar {
 
 .widget-text {
     font-size: 0.8rem;
-    color: var(--text-light);
+    color: #cbd5e1;
     font-weight: 500;
 }
 
 .widget-badge {
-    background: var(--primary);
+    background: #38bdf8;
     color: #0a0e1a;
     font-size: 0.7rem;
     font-weight: bold;
@@ -1012,7 +921,7 @@ body:has(#exam.active) .top-bar {
     border: 1px solid rgba(56, 189, 248, 0.3);
     border-radius: 24px;
     padding: 15px 20px;
-    box-shadow: 0 15px 35px var(--shadow-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes widgetExpand {
@@ -1040,12 +949,12 @@ body:has(#exam.active) .top-bar {
 .widget-header-title {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--primary);
+    color: #38bdf8;
 }
 
 .widget-subtitle {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: #94a3b8;
     margin: 0 0 12px 0;
 }
 
@@ -1075,12 +984,12 @@ body:has(#exam.active) .top-bar {
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid rgba(56, 189, 248, 0.2);
-    background: var(--bg-input);
+    background: #1e293b;
 }
 
 .widget-slide:hover {
     transform: scale(1.05);
-    border-color: var(--primary);
+    border-color: #38bdf8;
 }
 
 .widget-slide img {
@@ -1134,7 +1043,7 @@ body:has(#exam.active) .top-bar {
     max-width: 100%;
     max-height: 80vh;
     border-radius: 20px;
-    box-shadow: 0 25px 50px var(--shadow-heavy);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
 }
 
 .modal-close {
@@ -1210,7 +1119,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .reviews-modal-content {
-    background: var(--bg-dropdown);
+    background: rgba(15, 23, 42, 0.8);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(56, 189, 248, 0.3);
     border-radius: 32px;
@@ -1219,7 +1128,7 @@ body:has(#exam.active) .top-bar {
     max-width: 1000px;
     max-height: 85vh;
     position: relative;
-    box-shadow: 0 25px 50px var(--shadow-heavy);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
 }
 
 .reviews-modal-header {
@@ -1229,13 +1138,13 @@ body:has(#exam.active) .top-bar {
 
 .reviews-modal-header h3 {
     font-size: 1.5rem;
-    color: var(--primary);
+    color: #38bdf8;
     margin: 0 0 8px 0;
 }
 
 .reviews-modal-header p {
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: #94a3b8;
     margin: 0;
 }
 
@@ -1245,14 +1154,14 @@ body:has(#exam.active) .top-bar {
     right: 25px;
     background: none;
     border: none;
-    color: var(--text-muted);
+    color: #94a3b8;
     font-size: 28px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .close-reviews-modal:hover {
-    color: var(--primary);
+    color: #38bdf8;
     transform: scale(1.1);
 }
 
@@ -1275,7 +1184,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .reviews-modal-slider-container::-webkit-scrollbar-thumb {
-    background: var(--primary);
+    background: #38bdf8;
     border-radius: 10px;
 }
 
@@ -1294,12 +1203,12 @@ body:has(#exam.active) .top-bar {
     border-radius: 20px;
     overflow: hidden;
     border: 2px solid rgba(56, 189, 248, 0.2);
-    background: var(--bg-input);
+    background: #1e293b;
 }
 
 .reviews-modal-item:hover {
     transform: translateY(-5px);
-    border-color: var(--primary);
+    border-color: #38bdf8;
     box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
 }
 
@@ -1320,8 +1229,8 @@ body:has(#exam.active) .top-bar {
 
 .modal-control-btn {
     background: rgba(56, 189, 248, 0.15);
-    border: 1px solid var(--primary);
-    color: var(--primary);
+    border: 1px solid #38bdf8;
+    color: #38bdf8;
     font-size: 1.3rem;
     padding: 10px 18px;
     border-radius: 50%;
@@ -1330,18 +1239,20 @@ body:has(#exam.active) .top-bar {
 }
 
 .modal-control-btn:hover {
-    background: var(--primary);
+    background: #38bdf8;
     color: #0a0e1a;
     transform: scale(1.05);
 }
 
 .modal-counter-text {
-    color: var(--text-light);
+    color: #cbd5e1;
     font-size: 0.9rem;
     background: rgba(0, 0, 0, 0.5);
     padding: 6px 15px;
     border-radius: 30px;
 }
+
+
 
 /* ========================================
    Exam List & Teile Styles
@@ -1370,7 +1281,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .teile-row::-webkit-scrollbar-thumb {
-    background: var(--primary) !important;
+    background: #38bdf8 !important;
     border-radius: 10px !important;
 }
 
@@ -1400,7 +1311,7 @@ body:has(#exam.active) .top-bar {
 
 .teil-item:hover {
     background: rgba(56, 189, 248, 0.2) !important;
-    border-color: var(--primary) !important;
+    border-color: #38bdf8 !important;
     transform: translateY(-2px) !important;
     color: #ffffff !important;
 }
@@ -1410,13 +1321,13 @@ body:has(#exam.active) .top-bar {
 }
 
 .exam-box {
-    background: var(--bg-card);
+    background: white;
     padding: 20px;
     border-radius: 10px;
 }
 
 .back-home-btn {
-    background: var(--primary-gradient);
+    background: #38bdf8;
     color: #0a0e1a;
     border: none;
     padding: 12px 25px;
@@ -1427,11 +1338,11 @@ body:has(#exam.active) .top-bar {
 }
 
 .back-home-btn:hover {
-    background: var(--primary-dark);
+    background: #0ea5e9;
 }
 
 .back-list-btn {
-    background: var(--primary-gradient);
+    background: #38bdf8;
     color: #0a0e1a;
     border: none;
     padding: 12px 25px;
@@ -1441,7 +1352,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .back-list-btn:hover {
-    background: var(--primary-dark);
+    background: #0ea5e9;
 }
 
 .arrow-back-btn {
@@ -1449,13 +1360,13 @@ body:has(#exam.active) .top-bar {
     border: none !important;
     font-size: 28px !important;
     cursor: pointer !important;
-    color: var(--primary) !important;
+    color: #38bdf8 !important;
     padding: 0 !important;
 }
 
 .arrow-back-btn:hover {
     transform: scale(1.1);
-    color: var(--primary-dark) !important;
+    color: #0ea5e9 !important;
 }
 
 #prevExamBtn, #nextExamBtn {
@@ -1473,7 +1384,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .item {
-    background: var(--bg-card);
+    background: white;
     padding: 8px 12px !important;
     margin-bottom: 8px;
     border-radius: 10px;
@@ -1482,13 +1393,13 @@ body:has(#exam.active) .top-bar {
     justify-content: space-between;
     align-items: center;
     transition: all 0.25s ease;
-    border: 1px solid var(--border-color);
+    border: 1px solid #e2e8f0;
     min-height: 44px;
     height: auto;
 }
 
 .item:hover {
-    background: var(--card-hover);
+    background: #f1f5f9;
     transform: translateX(5px);
     border-color: #2F80ED;
     box-shadow: 0 2px 8px rgba(47, 128, 237, 0.15);
@@ -1540,7 +1451,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .item:hover .exam-title {
-    color: var(--text-primary);
+    color: #1e293b;
 }
 
 /* ========================================
@@ -1552,7 +1463,7 @@ body:has(#exam.active) .top-bar {
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--danger);
+    background: #ff6b6b;
     color: white;
     padding: 12px 25px;
     border-radius: 40px;
@@ -1560,7 +1471,7 @@ body:has(#exam.active) .top-bar {
     font-weight: bold;
     font-size: 16px;
     z-index: 1000;
-    box-shadow: 0 4px 15px var(--shadow-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     width: auto;
     min-width: 180px;
     animation: fadeInUp 0.3s ease;
@@ -1762,7 +1673,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     
     select:focus, .teil3-original-select:focus {
         outline: none !important;
-        border-color: var(--primary) !important;
+        border-color: #38bdf8 !important;
         box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25) !important;
     }
     
@@ -1934,13 +1845,13 @@ body:has(#exam.active) .left-side .btn-login-top {
     /* ألوان التصحيح */
     .correct-answer-card select {
         background: #d4edda !important;
-        border: 2px solid var(--success) !important;
+        border: 2px solid #28a745 !important;
         color: #155724 !important;
     }
     
     .wrong-answer-card select {
         background: #fef0e0 !important;
-        border: 2px solid var(--warning) !important;
+        border: 2px solid #e67e22 !important;
         color: #856404 !important;
     }
     
@@ -1964,7 +1875,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         cursor: pointer !important;
         transition: all 0.25s ease !important;
         color: #334155 !important;
-        box-shadow: 0 1px 2px var(--shadow-color) !important;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
     }
     
     /* تأثير الضغط على الزر (للهاتف - بديل hover) */
@@ -1979,7 +1890,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     .dropdown-arrow {
         font-size: 0.65rem !important;
         transition: transform 0.25s ease !important;
-        color: var(--text-muted) !important;
+        color: #94a3b8 !important;
     }
     
     /* القائمة المنسدلة - خلفية رمادية فاتحة */
@@ -1991,7 +1902,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         border: 1px solid #dce3e8 !important;
         border-radius: 14px !important;
         overflow: hidden !important;
-        box-shadow: 0 4px 12px var(--shadow-color) !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
         animation: fadeInDown 0.25s ease !important;
     }
     
@@ -2043,7 +1954,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         margin-bottom: 0 !important;
         border-radius: 14px !important;
         background: #f8fafc !important;
-        border: 1px solid var(--border-color) !important;
+        border: 1px solid #e2e8f0 !important;
     }
     
     /* إخفاء العمود الأيمن (Situationen) */
@@ -2069,9 +1980,9 @@ body:has(#exam.active) .left-side .btn-login-top {
     #teil1 .question-card {
         padding: 12px !important;
         margin-bottom: 12px !important;
-        background: var(--bg-card) !important;
+        background: #ffffff !important;
         border-radius: 16px !important;
-        border: 1px solid var(--border-color) !important;
+        border: 1px solid #e2e8f0 !important;
     }
     
     /* نص السؤال */
@@ -2080,7 +1991,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         font-size: 0.75rem !important;
         font-weight: 600 !important;
         margin-bottom: 10px !important;
-        color: var(--text-primary) !important;
+        color: #1e293b !important;
         line-height: 1.4 !important;
     }
     
@@ -2089,14 +2000,14 @@ body:has(#exam.active) .left-side .btn-login-top {
         font-size: 0.6rem !important;
         line-height: 1.4 !important;
         margin-bottom: 8px !important;
-        color: var(--text-secondary) !important;
+        color: #475569 !important;
     }
     
     /* عنوان الفقرة */
     #teil3 div[style*="font-weight: bold"] {
         font-size: 0.65rem !important;
         margin-bottom: 6px !important;
-        color: var(--primary) !important;
+        color: #3b82f6 !important;
     }
 }
 
@@ -2150,6 +2061,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     }
 }
 
+
 /* تأثير التمرير السلس لقائمة الامتحانات */
 #examsList {
     scroll-behavior: smooth !important;
@@ -2158,11 +2070,10 @@ body:has(#exam.active) .left-side .btn-login-top {
 
 /* تأثير عند الضغط على عنصر القائمة */
 .item:active {
-    background-color: var(--card-hover) !important;
+    background-color: #e2e8f0 !important;
     transform: scale(0.99) !important;
     transition: all 0.05s ease !important;
 }
-
 /* ============================================
    تصميم Premium Access الاحترافي
    ============================================ */
@@ -2190,13 +2101,13 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .premium-card {
-    background: var(--bg-card);
+    background: #ffffff;
     border-radius: 28px;
     max-width: 380px;
     width: 85%;
     padding: 0;
-    box-shadow: 0 20px 35px -10px var(--shadow-color);
-    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
     transform: scale(0.95);
     transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
@@ -2208,7 +2119,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 .premium-card-header {
     text-align: center;
     padding: 32px 24px 20px 24px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .premium-badge {
@@ -2217,7 +2128,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     justify-content: center;
     gap: 8px;
     background: #f8fafc;
-    border: 1px solid var(--border-color);
+    border: 1px solid #e2e8f0;
     border-radius: 40px;
     padding: 6px 16px;
     margin-bottom: 20px;
@@ -2237,14 +2148,14 @@ body:has(#exam.active) .left-side .btn-login-top {
 .premium-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #0f172a;
     margin: 0 0 8px 0;
     letter-spacing: -0.3px;
 }
 
 .premium-subtitle {
     font-size: 0.8rem;
-    color: var(--text-secondary);
+    color: #64748b;
     margin: 0;
     line-height: 1.5;
 }
@@ -2267,8 +2178,8 @@ body:has(#exam.active) .left-side .btn-login-top {
     gap: 10px;
     padding: 8px 0;
     font-size: 0.85rem;
-    color: var(--text-secondary);
-    border-bottom: 1px solid var(--border-color);
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .premium-features li:last-child {
@@ -2276,7 +2187,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .premium-features .check {
-    color: var(--success);
+    color: #10b981;
     font-size: 0.9rem;
 }
 
@@ -2308,15 +2219,16 @@ body:has(#exam.active) .left-side .btn-login-top {
     border: none;
     padding: 10px 20px;
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: #94a3b8;
     cursor: pointer;
     transition: color 0.2s ease;
     width: 100%;
 }
 
 .premium-later:hover {
-    color: var(--text-secondary);
+    color: #64748b;
 }
+
 
 /* توحيد حجم الامتحانات في الحاسوب */
 .item .exam-title,
@@ -2368,7 +2280,6 @@ body:has(#exam.active) .left-side .btn-login-top {
     color: #FFFFFF !important;
     transform: none !important;
 }
-
 /* ============================================
    زر 💎 لماذا؟ - مع بطاقة منبثقة أنيقة
    ============================================ */
@@ -2411,7 +2322,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     border: 1px solid rgba(120, 170, 255, 0.16);
     border-radius: 18px;
     padding: 14px 16px;
-    box-shadow: 0 10px 30px var(--shadow-heavy);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px) scale(0.98);
@@ -2481,7 +2392,6 @@ body:has(#exam.active) .left-side .btn-login-top {
         font-size: 11px;
     }
 }
-
 /* ============================================
    نافذة الاشتراك المنبثقة (Subscription Modal)
    ============================================ */
@@ -2514,7 +2424,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     width: 90%;
     max-width: 380px;
     padding: 28px 24px;
-    box-shadow: 0 20px 35px -10px var(--shadow-color);
+    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.3);
     transform: scale(0.95);
     transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -2533,7 +2443,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 
 .subscription-subtitle {
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: #9CA3AF;
     margin-bottom: 28px;
     line-height: 1.5;
 }
@@ -2565,7 +2475,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 .subscription-btn.primary {
     background: #FFFFFF;
     color: #1A1D27;
-    border: 1px solid var(--border-color);
+    border: 1px solid #E2E8F0;
 }
 
 .subscription-btn.primary:hover {
@@ -2602,7 +2512,6 @@ body:has(#exam.active) .left-side .btn-login-top {
     background: rgba(255, 255, 255, 0.15);
     color: #FFFFFF;
 }
-
 /* تحسين البطاقة */
 .subscription-card {
     background: linear-gradient(135deg, #1A1D27 0%, #252A35 50%, #1A1D27 100%);
@@ -2610,7 +2519,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     width: 90%;
     max-width: 360px;
     padding: 24px 22px;
-    box-shadow: 0 25px 45px -12px var(--shadow-heavy);
+    box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.4);
     transform: scale(0.95);
     transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -2626,11 +2535,10 @@ body:has(#exam.active) .left-side .btn-login-top {
 
 .subscription-subtitle {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: #9CA3AF;
     margin-bottom: 24px;
     line-height: 1.5;
 }
-
 /* ============================================
    نافذة نقل الحساب - تصميم أنيق
    ============================================ */
@@ -2664,7 +2572,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     max-width: 400px;
     width: 90%;
     border: 1px solid rgba(56, 189, 248, 0.2);
-    box-shadow: 0 25px 50px var(--shadow-heavy);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
     transform: scale(0.95);
     transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -2687,7 +2595,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .transfer-subtitle {
-    color: var(--text-muted);
+    color: #94a3b8;
     font-size: 0.85rem;
     margin-bottom: 24px;
     line-height: 1.6;
@@ -2712,18 +2620,18 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .transfer-btn.confirm {
-    background: var(--primary);
+    background: #38bdf8;
     color: #0a0e1a;
 }
 
 .transfer-btn.confirm:hover {
-    background: var(--primary-dark);
+    background: #0ea5e9;
     transform: translateY(-2px);
 }
 
 .transfer-btn.cancel {
     background: rgba(255, 255, 255, 0.08);
-    color: var(--text-muted);
+    color: #94a3b8;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -2731,7 +2639,6 @@ body:has(#exam.active) .left-side .btn-login-top {
     background: rgba(255, 255, 255, 0.15);
     color: #e2e8f0;
 }
-
 /* ============================================
    Toast Notifications
    ============================================ */
@@ -2791,7 +2698,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     max-width: 420px;
     width: 90%;
     border: 1px solid rgba(56, 189, 248, 0.2);
-    box-shadow: 0 30px 60px var(--shadow-heavy);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
     transform: scale(0.95) translateY(10px);
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -2814,7 +2721,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .zertiva-modal .modal-text {
-    color: var(--text-muted);
+    color: #94a3b8;
     font-size: 0.9rem;
     line-height: 1.7;
     margin-bottom: 28px;
@@ -2839,7 +2746,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .zertiva-modal .modal-btn.primary {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
     color: #0a0e1a;
 }
 
@@ -2850,7 +2757,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 
 .zertiva-modal .modal-btn.secondary {
     background: rgba(255, 255, 255, 0.06);
-    color: var(--text-muted);
+    color: #94a3b8;
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -2913,7 +2820,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     width: 90%;
     max-width: 340px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 50px var(--shadow-heavy);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     transform: scale(0.92) translateY(10px);
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -2956,7 +2863,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .welcome-status span {
-    color: var(--primary);
+    color: #38bdf8;
     font-weight: 600;
 }
 
@@ -2969,7 +2876,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 
 .welcome-subscribe-btn {
     margin-top: 10px;
-    background: var(--primary);
+    background: #38bdf8;
     color: #0a0e1a;
     border: none;
     padding: 5px 14px;
@@ -2982,7 +2889,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .welcome-subscribe-btn:hover {
-    background: var(--primary-dark);
+    background: #0ea5e9;
     transform: translateY(-1px);
 }
 
@@ -3046,13 +2953,13 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .premium-card {
-    background: var(--bg-card);
+    background: #ffffff;
     border-radius: 28px;
     max-width: 380px;
     width: 85%;
     padding: 0;
-    box-shadow: 0 20px 35px -10px var(--shadow-color);
-    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e5e7eb;
     transform: scale(0.95);
     transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
@@ -3064,7 +2971,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 .premium-card-header {
     text-align: center;
     padding: 28px 24px 16px 24px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .premium-badge {
@@ -3073,7 +2980,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     justify-content: center;
     gap: 8px;
     background: #f8fafc;
-    border: 1px solid var(--border-color);
+    border: 1px solid #e2e8f0;
     border-radius: 40px;
     padding: 4px 14px;
     margin-bottom: 16px;
@@ -3093,14 +3000,14 @@ body:has(#exam.active) .left-side .btn-login-top {
 .premium-title {
     font-size: 1.3rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #0f172a;
     margin: 0 0 6px 0;
     letter-spacing: -0.3px;
 }
 
 .premium-subtitle {
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: #64748b;
     margin: 0;
     line-height: 1.5;
 }
@@ -3123,8 +3030,8 @@ body:has(#exam.active) .left-side .btn-login-top {
     gap: 8px;
     padding: 6px 0;
     font-size: 0.8rem;
-    color: var(--text-secondary);
-    border-bottom: 1px solid var(--border-color);
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .premium-features li:last-child {
@@ -3132,7 +3039,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .premium-features .check {
-    color: var(--success);
+    color: #10b981;
     font-size: 0.85rem;
 }
 
@@ -3164,14 +3071,14 @@ body:has(#exam.active) .left-side .btn-login-top {
     border: none;
     padding: 8px 16px;
     font-size: 0.7rem;
-    color: var(--text-muted);
+    color: #94a3b8;
     cursor: pointer;
     transition: color 0.2s ease;
     width: 100%;
 }
 
 .premium-later:hover {
-    color: var(--text-secondary);
+    color: #64748b;
 }
 
 /* ============================================
@@ -3207,7 +3114,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     max-width: 400px;
     width: 90%;
     border: 1px solid rgba(56, 189, 248, 0.2);
-    box-shadow: 0 30px 60px var(--shadow-heavy);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
     transform: scale(0.95) translateY(10px);
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -3230,7 +3137,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .zertiva-modal .modal-text {
-    color: var(--text-muted);
+    color: #94a3b8;
     font-size: 0.85rem;
     line-height: 1.6;
     margin-bottom: 20px;
@@ -3255,7 +3162,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .zertiva-modal .modal-btn.primary {
-    background: var(--primary-gradient);
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
     color: #0a0e1a;
 }
 
@@ -3266,7 +3173,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 
 .zertiva-modal .modal-btn.secondary {
     background: rgba(255, 255, 255, 0.06);
-    color: var(--text-muted);
+    color: #94a3b8;
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -3296,7 +3203,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     font-size: 12px;
     line-height: 1.5;
     text-align: center;
-    box-shadow: 0 8px 30px var(--shadow-color);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
     font-weight: 500;
     opacity: 0;
     transition: all 0.15s ease;
@@ -3316,7 +3223,6 @@ body:has(#exam.active) .left-side .btn-login-top {
         border-radius: 12px;
     }
 }
-
 /* ============================================
    Toast Notifications - نظام حديث (أعلى الشاشة)
    ============================================ */
@@ -3333,13 +3239,13 @@ body:has(#exam.active) .left-side .btn-login-top {
     width: 100%;
     pointer-events: none;
 }
-
+/* باقي الأنماط المفقودة 🔽 */
 .toast-item {
     background: #111827;
     border-radius: 14px;
     padding: 14px 18px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 30px var(--shadow-heavy);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -3399,19 +3305,19 @@ body:has(#exam.active) .left-side .btn-login-top {
 
 /* ألوان الأيقونات */
 .toast-item.success .toast-icon {
-    color: var(--success);
+    color: #22c55e;
 }
 
 .toast-item.warning .toast-icon {
-    color: var(--warning);
+    color: #ffd54f;
 }
 
 .toast-item.error .toast-icon {
-    color: var(--danger);
+    color: #ef4444;
 }
 
 .toast-item.info .toast-icon {
-    color: var(--primary);
+    color: #38bdf8;
 }
 
 /* Animation */
@@ -3471,10 +3377,9 @@ body:has(#exam.active) .left-side .btn-login-top {
 .zertiva-center-toast {
     display: none !important;
 }
-
-/* ============================================
+/* ========================================
    MEMORY TRAINER V3 - تحسينات السرعة V2
-   ============================================ */
+   ======================================== */
 
 /* الخلفية - أخف وأسرع */
 .memory-trainer-overlay {
@@ -3516,14 +3421,14 @@ body:has(#exam.active) .left-side .btn-login-top {
 .memory-trainer-card,
 .memory-trainer-recall,
 .memory-trainer-results {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: #FFFFFF;
+    border: 1px solid #E8EEF5;
     border-radius: 12px;
     padding: 20px 24px;
     max-width: 440px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 4px 16px var(--shadow-color);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
     position: relative;
 }
 
@@ -3569,7 +3474,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 
 .memory-trainer-intro p,
 .memory-trainer-hint {
-    color: var(--text-muted);
+    color: #64748B;
     font-size: 13px;
     margin-bottom: 10px;
 }
@@ -3581,12 +3486,12 @@ body:has(#exam.active) .left-side .btn-login-top {
     align-items: center;
     margin-bottom: 10px;
     padding-bottom: 8px;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid #F1F5F9;
 }
 
 .memory-trainer-progress {
     font-size: 12px;
-    color: var(--text-muted);
+    color: #94A3B8;
     font-weight: 500;
 }
 
@@ -3618,7 +3523,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .memory-trainer-question {
-    color: var(--text-secondary);
+    color: #334155;
     font-size: 15px;
     font-weight: 500;
     margin-bottom: 10px;
@@ -3636,20 +3541,20 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .memory-trainer-option {
-    background: var(--bg-card);
-    border: 1.5px solid var(--border-color);
+    background: #FFFFFF;
+    border: 1.5px solid #E8EEF5;
     border-radius: 10px;
     padding: 9px 14px;
     font-size: 14px;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: #334155;
     cursor: pointer;
     transition: all 0.08s ease !important;
     text-align: left;
 }
 
 .memory-trainer-option:hover:not(:disabled) {
-    border-color: var(--primary) !important;
+    border-color: #38bdf8 !important;
     background: #f0f7ff !important;
     box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12) !important;
     transform: none !important;
@@ -3662,12 +3567,12 @@ body:has(#exam.active) .left-side .btn-login-top {
 
 /* ألوان التصحيح الصامتة */
 .memory-trainer-option.correct {
-    border-color: var(--success) !important;
+    border-color: #28a745 !important;
     background-color: #d4edda !important;
 }
 
 .memory-trainer-option.wrong {
-    border-color: var(--warning) !important;
+    border-color: #e67e22 !important;
     background-color: #fef0e0 !important;
 }
 
@@ -3697,7 +3602,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .memory-trainer-btn.secondary {
-    background: var(--warning);
+    background: #F59E0B;
     color: white;
     box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
 }
@@ -3721,8 +3626,8 @@ body:has(#exam.active) .left-side .btn-login-top {
     justify-content: space-around;
     margin: 10px 0 14px 0;
     padding: 8px 0;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
+    border-top: 1px solid #F1F5F9;
+    border-bottom: 1px solid #F1F5F9;
 }
 
 .stat-item {
@@ -3732,7 +3637,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 .stat-label {
     display: block;
     font-size: 10px;
-    color: var(--text-muted);
+    color: #94A3B8;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -3772,8 +3677,8 @@ body:has(#exam.active) .left-side .btn-login-top {
     border-radius: 6px;
     overflow: hidden;
     position: relative;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-card);
+    border: 1px solid #E2E8F0;
+    background-color: #FFFFFF;
     padding: 1px;
 }
 
@@ -3781,7 +3686,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 .memory-progress-fill {
     height: 100%;
     border-radius: 6px;
-    background: linear-gradient(90deg, #1565C0, var(--primary));
+    background: linear-gradient(90deg, #1565C0, #38bdf8);
     transition: width 0.3s ease;
     width: 0%;
 }
@@ -3805,7 +3710,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     padding: 2px 6px;
     border-radius: 6px;
     transition: all 0.15s ease;
-    color: var(--text-muted);
+    color: #94A3B8;
     line-height: 1;
 }
 
@@ -3823,8 +3728,8 @@ body:has(#exam.active) .left-side .btn-login-top {
    ============================================ */
 
 .memory-trainer-intro .progress-box {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
+    background: #FFFFFF;
+    border: 1px solid #E8EEF5;
     border-radius: 6px;
     padding: 6px 10px;
     margin: 10px 0 14px 0;
@@ -3841,7 +3746,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 .memory-trainer-intro .progress-box .fill {
     height: 100%;
     border-radius: 6px;
-    background: linear-gradient(90deg, #1565C0, var(--primary));
+    background: linear-gradient(90deg, #1565C0, #38bdf8);
     transition: width 0.3s ease;
 }
 
@@ -3912,7 +3817,6 @@ body:has(#exam.active) .left-side .btn-login-top {
         width: auto;
     }
 }
-
 /* ============================================
    Sentence Puzzle - أداة ترتيب الجمل (النسخة النهائية)
    ============================================ */
@@ -3952,18 +3856,18 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 #sentencePuzzleCard {
-    background: var(--bg-card);
+    background: #ffffff;
     border-radius: 14px;
     padding: 24px 28px;
     max-width: 620px;
     width: 92%;
-    box-shadow: 0 20px 50px var(--shadow-color);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
     transform: scale(0.96) translateY(8px);
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     position: relative;
     max-height: 90vh;
     overflow-y: auto;
-    border: 1px solid var(--border-color);
+    border: 1px solid #e8edf4;
 }
 
 /* الخانات - أفقي */
@@ -3994,8 +3898,8 @@ body:has(#exam.active) .left-side .btn-login-top {
 
 .sentence-slot[data-has-part="true"] {
     border-style: solid;
-    background: var(--bg-card);
-    color: var(--text-primary);
+    background: #ffffff;
+    color: #1e293b;
 }
 
 /* البطاقات - أفقي ومستطيلة */
@@ -4003,14 +3907,14 @@ body:has(#exam.active) .left-side .btn-login-top {
     flex: 1;
     min-width: 120px;
     padding: 12px 18px;
-    background: var(--bg-card);
+    background: #ffffff;
     border: 1px solid #dce2ec;
     border-radius: 8px;
     cursor: grab;
     font-size: 0.85rem;
-    color: var(--text-primary);
+    color: #1e293b;
     transition: all 0.2s ease;
-    box-shadow: 0 1px 3px var(--shadow-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     user-select: none;
     font-weight: 400;
     text-align: center;
@@ -4077,23 +3981,26 @@ body:has(#exam.active) .left-side .btn-login-top {
     }
 }
 
+
 /* ============================================
    نافذة تسجيل الدخول الجديدة (مودال موحد)
    ============================================ */
 #authModal .settings-modal-content {
-    background: var(--bg-modal);
+    background: #0f172a;
     border: 1px solid rgba(56, 189, 248, 0.15);
 }
 
 #authModal input:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: #38bdf8;
     box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
 }
 
 #authModal .settings-modal-body label {
-    color: var(--text-muted);
+    color: #94a3b8;
 }
+
+
 
 /* ============================================
    Password Wrapper - حل المشكلة النهائي
@@ -4129,10 +4036,9 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 .password-wrapper .password-toggle-icon:hover {
-    color: var(--primary);
+    color: #38bdf8;
     transform: scale(1.1);
 }
-
 /* ============================================
    توسيط عنوان نافذة تسجيل الدخول
    ============================================ */
