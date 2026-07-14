@@ -11,7 +11,8 @@
         "b. für die ersten großen Kaufhäuser produziert",
         "c. Anfang des 20. Jahrhunderts von einem Puppenmacher erschaffen"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "von einem französischen Schneider erfunden", "color": 0 }
     },
     {
       "text": "Bei der Restaurierung der Schaufensterpuppen",
@@ -20,7 +21,8 @@
         "b. können keine Luxusmarken eingesetzt werden",
         "c. darf er keinen normalen Nagellack auftragen"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "darf er keinen normalen Nagellack auftragen", "color": 8 }
     },
     {
       "text": "Der Puppenmacher",
@@ -29,7 +31,8 @@
         "b. konnte seine erste Schaufensterpuppe nicht auf einmal zahlen",
         "c. hat schon als Kind gerne mit Puppen gespielt"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "konnte seine erste Schaufensterpuppe nicht auf einmal zahlen", "color": 11 }
     },
     {
       "text": "Herr Bauerfeind",
@@ -38,7 +41,8 @@
         "b. handelt mit Schaufensterpuppen anderer Produzenten",
         "c. eröffnete die erste Linzer Firma für Schaufensterpuppen"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "handelt mit Schaufensterpuppen anderer Produzenten", "color": 4 }
     },
     {
       "text": "Schaufensterpuppen",
@@ -47,7 +51,8 @@
         "b. sind nicht von Tendenzen der Mode abhängig",
         "c. können mit umweltfreundlichen Farben bemalt werden"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "können mit umweltfreundlichen Farben bemalt werden", "color": 10 }
     }
   ]
 }
