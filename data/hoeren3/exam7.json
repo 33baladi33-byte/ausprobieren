@@ -2,35 +2,14 @@
   "title": "Hörverstehen Teil 3 - Internet prüfen",
   "type": "truefalse",
   "questions": [
-    {
-      "text": "Sie können im Internet prüfen, ob Ihre aktuelle Bestellung schon unterwegs ist.",
-      "correct": true,
-      "highlight": {
-        "text": "Sie können im Internet prüfen, ob Ihre aktuelle Bestellung schon unterwegs ist.",
-        "color": "#4CAF50",
-        "helpKey": "hoeren3_exam7_q1"
-      }
-    },
-    {
-      "text": "Man kann für die Nachtveranstaltung noch Karten im Internet kaufen.",
-      "correct": false
-    },
-    {
-      "text": "Die Teilnahme an der Party im Burghof kostet nichts.",
-      "correct": false
-    },
-    {
-      "text": "In Bamberg kann man in der nächsten Woche besonders günstig Mitglied in einem Sportverein werden.",
-      "correct": false
-    },
-    {
-      "text": "Wer ein wichtiges Anliegen hat, soll eine andere Nummer wählen.",
-      "correct": true,
-      "highlight": {
-        "text": "Wer ein wichtiges Anliegen hat, soll eine andere Nummer wählen.",
-        "color": "#FF9800",
-        "helpKey": "hoeren3_exam7_q5"
-      }
-    }
+    { "text": "Sie können im Internet prüfen, ob Ihre aktuelle Bestellung schon unterwegs ist.", "correct": true },
+    { "text": "Man kann für die Nachtveranstaltung noch Karten im Internet kaufen.", "correct": false },
+    { "text": "Die Teilnahme an der Party im Burghof kostet nichts.", "correct": false },
+    { "text": "In Bamberg kann man in der nächsten Woche besonders günstig Mitglied in einem Sportverein werden.", "correct": false },
+    { "text": "Wer ein wichtiges Anliegen hat, soll eine andere Nummer wählen.", "correct": true }
+  ],
+  "memoryHighlights": [
+    { "color": 1, "parts": [ "Sie können im Internet prüfen, ob Ihre aktuelle Bestellung schon unterwegs ist." ] },
+    { "color": 7, "parts": [ "Wer ein wichtiges Anliegen hat, soll eine andere Nummer wählen." ] }
   ]
 }
