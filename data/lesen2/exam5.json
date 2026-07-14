@@ -12,10 +12,9 @@
         "c. handeln nur noch internationale Gesellschaften mit Kaffee."
       ],
       "correct": 1,
-      "highlight": {
-        "text": "gibt es nur noch wenige traditionelle Kaffeeröstereien.",
-        "color": "#4CAF50",
-        "helpKey": "lesen2_exam5_q1"
+      "memoryHighlight": {
+        "connector": "gibt es nur noch wenige traditionelle Kaffeeröstereien.",
+        "color": 5
       }
     },
     {
@@ -26,10 +25,9 @@
         "c. steht eher die Qualität des Kaffees als der Preis im Vordergrund"
       ],
       "correct": 2,
-      "highlight": {
-        "text": "steht eher die Qualität des Kaffees als der Preis im Vordergrund.",
-        "color": "#FF9800",
-        "helpKey": "lesen2_exam5_q2"
+      "memoryHighlight": {
+        "connector": "steht eher die Qualität des Kaffees als der Preis im Vordergrund.",
+        "color": 10
       }
     },
     {
@@ -40,10 +38,9 @@
         "c. müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten."
       ],
       "correct": 2,
-      "highlight": {
-        "text": "müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten.",
-        "color": "#2196F3",
-        "helpKey": "lesen2_exam5_q3"
+      "memoryHighlight": {
+        "connector": "müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten.",
+        "color": 1
       }
     },
     {
@@ -54,10 +51,9 @@
         "c. zusätzlich online vermarktet"
       ],
       "correct": 2,
-      "highlight": {
-        "text": "zusätzlich online vermarktet.",
-        "color": "#9C27B0",
-        "helpKey": "lesen2_exam5_q4"
+      "memoryHighlight": {
+        "connector": "zusätzlich online vermarktet.",
+        "color": 8
       }
     },
     {
@@ -68,10 +64,9 @@
         "c. keinen Röstkaffee mehr verkaufen."
       ],
       "correct": 0,
-      "highlight": {
-        "text": "die Kaffeerösterei in ein Museum umwandeln.",
-        "color": "#F44336",
-        "helpKey": "lesen2_exam5_q5"
+      "memoryHighlight": {
+        "connector": "die Kaffeerösterei in ein Museum umwandeln.",
+        "color": 11
       }
     }
   ]
