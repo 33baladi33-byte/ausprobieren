@@ -2157,4 +2157,56 @@ window.startMemoryTrainerFromList = startMemoryTrainerFromList;
 window.startMemoryTrainerForExam = startMemoryTrainerForExam;
 
 console.log('🧠 نظام التقدم المتوازن (المراحل لكل مهارة) تم تحميله بنجاح');
+// ============================================
+// ✅ تصدير الدوال للاستخدام العالمي (لـ window)
+// ============================================
+
+// دوال رئيسية
+window.openExam = openExam;
+window.goList = goList;
+window.goHome = goHome;
+window.goBackToExamsList = goBackToExamsList;
+window.renderExamListForSkill = renderExamListForSkill;
+window.getUserStatusForExam = getUserStatusForExam;
+window.getExamResult = getExamResult;
+window.saveExamResult = saveExamResult;
+window.saveExamResultGlobal = saveExamResultGlobal;
+
+// دوال بناء الامتحانات
+window.buildTrueFalseExam = buildTrueFalseExam;
+window.loadMatchingExam = loadMatchingExam;
+window.loadTeil2Exam = loadTeil2Exam;
+window.loadTeil3Exam = loadTeil3Exam;
+window.loadSprach1Exam = loadSprach1Exam;
+window.loadSprach2Exam = loadSprach2Exam;
+window.loadSchreibenExam = loadSchreibenExam;
+
+// دوال Memory Trainer
+window.loadStageExams = loadStageExams;
+window.startMemoryTrainerFromList = startMemoryTrainerFromList;
+window.startMemoryTrainerForExam = startMemoryTrainerForExam;
+
+// دوال المراحل
+window.SKILL_CONFIG = SKILL_CONFIG;
+window.getCurrentStage = getCurrentStage;
+window.getOverallProgress = getOverallProgress;
+window.getExamProgress = getExamProgress;
+window.getStageProgress = getStageProgress;
+window.getTotalStages = getTotalStages;
+window.getExamsForStage = getExamsForStage;
+window.setCurrentStage = setCurrentStage;
+window.resetStages = resetStages;
+window.goToNextStage = goToNextStage;
+window.resetAllLevels = resetAllLevels;
+
+// دوال Interleaving
+window.rebuildTrueFalseCards = rebuildTrueFalseCards;
+window.rebuildLesen1 = rebuildLesen1;
+window.rebuildLesen2 = rebuildLesen2;
+window.rebuildLesen3 = rebuildLesen3;
+window.resetInterleaving = resetInterleaving;
+window.initInterleaving = initInterleaving;
+window.toggleInterleaving = toggleInterleaving;
+
+console.log('✅ exams.js: جميع الدوال تم تصديرها عالمياً');
 console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));
