@@ -12,5 +12,12 @@
     { "text": "Durch den Lieferdienst können auch Menschen erreicht werden, die nicht regelmäßig auf den Wochenmarkt gehen können.", "correct": false },
     { "text": "Für kleinere Bio-Betriebe ist es schwierig, gleichzeitig nachhaltig und preislich konkurrenzfähig zu bleiben.", "correct": true },
     { "text": "Der Sprecher geht davon aus, dass regionale Lieferangebote für Bio-Lebensmittel in Zukunft weiter an Bedeutung gewinnen werden.", "correct": false }
+  ],
+  "memoryHighlights": [
+    { "color": 5, "parts": [ "Die Nachfrage nach regionalem Bio-Obst und Bio-Gemüse hat sich in den letzten Jahren spürbar verändert." ] },
+    { "color": 10, "parts": [ "Nicht alle angebotenen Bio-Produkte stammen direkt aus der eigenen Produktion." ] },
+    { "color": 2, "parts": [ "Digitale Bestellsysteme spielen beim Verkauf von Obst und Gemüse mittlerweile eine wichtige Rolle." ] },
+    { "color": 8, "parts": [ "Der persönliche Kontakt zu den Kundinnen und Kunden bleibt trotz Online-Bestellungen ein wichtiger Bestandteil des Geschäfts." ] },
+    { "color": 11, "parts": [ "Für kleinere Bio-Betriebe ist es schwierig, gleichzeitig nachhaltig und preislich konkurrenzfähig zu bleiben." ] }
   ]
 }
