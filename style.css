@@ -1,7 +1,92 @@
+/* ============================================
+   CSS Variables - نظام الألوان المتقدم
+   ============================================ */
+
+:root {
+    /* الألوان الأساسية - الوضع العادي (Light) */
+    --bg-primary: #f5f5f5;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --bg-hero: #0a0e1a;
+    --bg-topbar: linear-gradient(135deg, #161922 0%, #202534 50%, #262D40 100%);
+    --bg-modal: #0f172a;
+    --bg-dropdown: #0f172a;
+    --bg-input: #1e293b;
+    --bg-overlay: rgba(0, 0, 0, 0.7);
+    
+    --text-primary: #111827;
+    --text-secondary: #475569;
+    --text-white: #ffffff;
+    --text-muted: #94a3b8;
+    --text-light: #cbd5e1;
+    --text-dark: #0a0e1a;
+    
+    --border-color: #e2e8f0;
+    --border-light: #d1d5db;
+    --border-dark: #334155;
+    
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --shadow-heavy: rgba(0, 0, 0, 0.3);
+    
+    --primary: #38bdf8;
+    --primary-dark: #0ea5e9;
+    --primary-gradient: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --card-hover: #f1f5f9;
+}
+
+/* ============================================
+   الوضع الليلي (Dark Mode) - باستخدام CSS Variables
+   ============================================ */
+
+body.dark-mode {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #0f0f1a;
+    --bg-card: #0f172a;
+    --bg-hero: #0a0e1a;
+    --bg-topbar: linear-gradient(135deg, #0a0a12 0%, #14141f 50%, #1a1a28 100%);
+    --bg-modal: #0f0f1a;
+    --bg-dropdown: #0f0f1a;
+    --bg-input: #1e293b;
+    --bg-overlay: rgba(0, 0, 0, 0.85);
+    
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-white: #ffffff;
+    --text-muted: #64748b;
+    --text-light: #cbd5e1;
+    --text-dark: #0a0e1a;
+    
+    --border-color: #2d3748;
+    --border-light: #3b3b3b;
+    --border-dark: #334155;
+    
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --shadow-heavy: rgba(0, 0, 0, 0.5);
+    
+    --primary: #38bdf8;
+    --primary-dark: #0ea5e9;
+    --primary-gradient: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    
+    --card-bg: #0f172a;
+    --card-border: #2d3748;
+    --card-hover: #1a1a2e;
+}
+
 body {
     margin: 0;
     font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
-    background: #f5f5f5;
+    background: var(--bg-primary);
 }
 
 .page {
@@ -19,7 +104,7 @@ body {
    ======================================== */
 
 #home {
-    background: #0a0e1a;
+    background: var(--bg-hero);
     min-height: calc(100vh - 70px);
     position: relative;
     overflow: hidden;
@@ -114,12 +199,12 @@ body {
     font-weight: 800;
     margin-bottom: 25px;
     line-height: 1.2;
-    color: #ffffff;
+    color: var(--text-white);
     letter-spacing: -0.5px;
 }
 
 .blue-text {
-    color: #38bdf8;
+    color: var(--primary);
     text-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
 }
 
@@ -161,14 +246,14 @@ body {
 }
 
 .info-text {
-    color: #cbd5e1;
+    color: var(--text-light);
     font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 0.3px;
 }
 
 .hero-btn-primary {
-    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    background: var(--primary-gradient);
     border: none;
     padding: 15px 32px;
     border-radius: 50px;
@@ -205,7 +290,7 @@ body {
 
 .features-section {
     padding: 80px 5%;
-    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    background: var(--bg-secondary);
     position: relative;
     margin-top: 60px;
     border-radius: 40px 40px 0 0;
@@ -232,13 +317,13 @@ body {
     font-weight: 800;
     margin-bottom: 28px;
     line-height: 1.3;
-    color: #0a0e1a;
+    color: var(--text-primary);
 }
 
 .features-description {
     font-size: 1rem;
     line-height: 1.75;
-    color: #475569;
+    color: var(--text-secondary);
     margin-bottom: 18px;
     letter-spacing: 0.2px;
 }
@@ -248,7 +333,7 @@ body {
 }
 
 .features-btn {
-    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    background: var(--primary-gradient);
     border: none;
     padding: 14px 32px;
     border-radius: 50px;
@@ -295,10 +380,10 @@ body {
 }
 
 .image-card-feature {
-    background: white;
+    background: var(--bg-card);
     border-radius: 20px;
     padding: 15px;
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 35px var(--shadow-color);
     transition: all 0.35s ease;
     overflow: hidden;
     width: 100%;
@@ -306,7 +391,7 @@ body {
 
 .image-card-feature:hover {
     transform: translateY(-5px);
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 25px 45px var(--shadow-color);
 }
 
 .image-top {
@@ -332,9 +417,9 @@ body {
     height: auto;
     border-radius: 16px;
     display: block;
-    background: white;
+    background: var(--bg-card);
     object-fit: contain;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 /* ========================================
@@ -345,8 +430,8 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 12px 30px;
-    background: linear-gradient(135deg, #161922 0%, #202534 50%, #262D40 100%);
-    box-shadow: 0 1px 0 rgba(255,255,255,0.03), 0 8px 25px rgba(0,0,0,0.15);
+    background: var(--bg-topbar);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.03), 0 8px 25px var(--shadow-color);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -417,7 +502,7 @@ body {
     position: absolute;
     top: -5px;
     right: -8px;
-    background: #dc3545;
+    background: var(--danger);
     color: white;
     font-size: 10px;
     font-weight: bold;
@@ -428,7 +513,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 0 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 3px var(--shadow-color);
 }
 
 .notification-dropdown {
@@ -437,9 +522,9 @@ body {
     right: 0;
     width: 340px;
     max-height: 400px;
-    background: #0f172a;
+    background: var(--bg-dropdown);
     border-radius: 16px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 40px var(--shadow-heavy);
     z-index: 1001;
     display: none;
     overflow: hidden;
@@ -461,7 +546,7 @@ body {
 }
 
 .notification-header span {
-    color: #38bdf8;
+    color: var(--primary);
     font-weight: bold;
     font-size: 14px;
 }
@@ -469,7 +554,7 @@ body {
 .mark-all-read {
     background: rgba(56, 189, 248, 0.15);
     border: none;
-    color: #38bdf8;
+    color: var(--primary);
     font-size: 11px;
     cursor: pointer;
     padding: 5px 10px;
@@ -478,7 +563,7 @@ body {
 }
 
 .mark-all-read:hover {
-    background: #38bdf8;
+    background: var(--primary);
     color: #0a0e1a;
 }
 
@@ -497,7 +582,7 @@ body {
 }
 
 .notification-list::-webkit-scrollbar-thumb {
-    background: #38bdf8;
+    background: var(--primary);
     border-radius: 5px;
 }
 
@@ -515,7 +600,7 @@ body {
 
 .notification-item.unread {
     background: rgba(56, 189, 248, 0.05);
-    border-right: 3px solid #38bdf8;
+    border-right: 3px solid var(--primary);
 }
 
 .notification-icon {
@@ -537,7 +622,7 @@ body {
 
 .notification-message {
     font-size: 12px;
-    color: #94a3b8;
+    color: var(--text-muted);
     margin-bottom: 4px;
     line-height: 1.4;
 }
@@ -550,7 +635,7 @@ body {
 .notification-empty {
     text-align: center;
     padding: 30px 20px;
-    color: #64748b;
+    color: var(--text-muted);
     font-size: 13px;
 }
 
@@ -565,8 +650,8 @@ body {
 .show-all-btn,
 .show-less-btn {
     background: rgba(56, 189, 248, 0.15);
-    border: 1px solid #38bdf8;
-    color: #38bdf8;
+    border: 1px solid var(--primary);
+    color: var(--primary);
     font-size: 12px;
     padding: 8px 15px;
     border-radius: 25px;
@@ -577,13 +662,13 @@ body {
 
 .show-all-btn:hover,
 .show-less-btn:hover {
-    background: #38bdf8;
+    background: var(--primary);
     color: #0a0e1a;
 }
 
 .subscribe-text-btn {
     padding: 8px 20px;
-    background: linear-gradient(135deg, #10b981, #059669);
+    background: linear-gradient(135deg, var(--success), #059669);
     border: none;
     border-radius: 25px;
     font-weight: 600;
@@ -618,14 +703,14 @@ body {
 .profile-icon {
     width: 40px;
     height: 40px;
-    background: #1e293b;
+    background: var(--bg-input);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: 0.3s;
-    color: #38bdf8;
+    color: var(--primary);
     font-size: 20px;
 }
 
@@ -678,19 +763,24 @@ body:has(#exam.active) .profile-icon {
 
 body:has(#list.active) .top-bar,
 body:has(#exam.active) .top-bar {
-    background: rgba(22, 25, 34, 0.95);
+    background: var(--bg-topbar);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 18px var(--shadow-color);
     transition: all 0.3s ease;
 }
+
+/* ========================================
+   Settings Modal
+   ======================================== */
+
 .settings-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: var(--bg-overlay);
     backdrop-filter: blur(8px);
     z-index: 10001;
     display: flex;
@@ -707,12 +797,12 @@ body:has(#exam.active) .top-bar {
 }
 
 .settings-modal-content {
-    background: #0f172a;
+    background: var(--bg-modal);
     border-radius: 28px;
     padding: 25px 30px;
     width: 90%;
     max-width: 380px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 25px 50px var(--shadow-heavy);
     border: 1px solid rgba(56, 189, 248, 0.2);
     direction: rtl;
 }
@@ -727,7 +817,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .settings-modal-header h3 {
-    color: #38bdf8;
+    color: var(--primary);
     margin: 0;
     font-size: 1.2rem;
 }
@@ -735,7 +825,7 @@ body:has(#exam.active) .top-bar {
 .close-settings-btn {
     background: none;
     border: none;
-    color: #94a3b8;
+    color: var(--text-muted);
     font-size: 24px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -744,11 +834,12 @@ body:has(#exam.active) .top-bar {
 }
 
 .close-settings-btn:hover {
-    color: #38bdf8;
+    color: var(--primary);
     transform: scale(1.1);
 }
+
 .settings-desc {
-    color: #cbd5e1;
+    color: var(--text-light);
     font-size: 0.85rem;
     text-align: center;
     margin-bottom: 20px;
@@ -764,8 +855,8 @@ body:has(#exam.active) .top-bar {
 
 .font-size-btn {
     background: rgba(56, 189, 248, 0.15);
-    border: 1px solid #38bdf8;
-    color: #38bdf8;
+    border: 1px solid var(--primary);
+    color: var(--primary);
     font-size: 1.2rem;
     font-weight: bold;
     padding: 8px 18px;
@@ -775,16 +866,16 @@ body:has(#exam.active) .top-bar {
 }
 
 .font-size-btn:hover {
-    background: #38bdf8;
+    background: var(--primary);
     color: #0a0e1a;
     transform: scale(1.05);
 }
 
 .font-size-value {
-    color: white;
+    color: var(--text-white);
     font-size: 1rem;
     font-weight: bold;
-    background: #1e293b;
+    background: var(--bg-input);
     padding: 5px 15px;
     border-radius: 30px;
 }
@@ -792,7 +883,7 @@ body:has(#exam.active) .top-bar {
 .reset-font-btn {
     background: rgba(100, 116, 139, 0.3);
     border: 1px solid #64748b;
-    color: #cbd5e1;
+    color: var(--text-light);
     font-size: 0.85rem;
     padding: 8px 18px;
     border-radius: 40px;
@@ -825,7 +916,7 @@ body:has(#exam.active) .top-bar {
     text-decoration: none;
     background: transparent;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 15px var(--shadow-color);
     transition: all 0.3s ease;
 }
 
@@ -838,7 +929,7 @@ body:has(#exam.active) .top-bar {
 
 .whatsapp-float:hover {
     transform: scale(1.1);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 8px 25px var(--shadow-color);
 }
 
 /* ========================================
@@ -887,12 +978,12 @@ body:has(#exam.active) .top-bar {
     border-radius: 50px;
     padding: 8px 16px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .widget-bubble:hover {
     transform: scale(1.02);
-    border-color: #38bdf8;
+    border-color: var(--primary);
     box-shadow: 0 6px 18px rgba(56, 189, 248, 0.2);
 }
 
@@ -902,12 +993,12 @@ body:has(#exam.active) .top-bar {
 
 .widget-text {
     font-size: 0.8rem;
-    color: #cbd5e1;
+    color: var(--text-light);
     font-weight: 500;
 }
 
 .widget-badge {
-    background: #38bdf8;
+    background: var(--primary);
     color: #0a0e1a;
     font-size: 0.7rem;
     font-weight: bold;
@@ -921,7 +1012,7 @@ body:has(#exam.active) .top-bar {
     border: 1px solid rgba(56, 189, 248, 0.3);
     border-radius: 24px;
     padding: 15px 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 35px var(--shadow-color);
 }
 
 @keyframes widgetExpand {
@@ -949,12 +1040,12 @@ body:has(#exam.active) .top-bar {
 .widget-header-title {
     font-size: 0.9rem;
     font-weight: 600;
-    color: #38bdf8;
+    color: var(--primary);
 }
 
 .widget-subtitle {
     font-size: 0.75rem;
-    color: #94a3b8;
+    color: var(--text-muted);
     margin: 0 0 12px 0;
 }
 
@@ -984,12 +1075,12 @@ body:has(#exam.active) .top-bar {
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid rgba(56, 189, 248, 0.2);
-    background: #1e293b;
+    background: var(--bg-input);
 }
 
 .widget-slide:hover {
     transform: scale(1.05);
-    border-color: #38bdf8;
+    border-color: var(--primary);
 }
 
 .widget-slide img {
@@ -1043,7 +1134,7 @@ body:has(#exam.active) .top-bar {
     max-width: 100%;
     max-height: 80vh;
     border-radius: 20px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px var(--shadow-heavy);
 }
 
 .modal-close {
@@ -1119,7 +1210,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .reviews-modal-content {
-    background: rgba(15, 23, 42, 0.8);
+    background: var(--bg-dropdown);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(56, 189, 248, 0.3);
     border-radius: 32px;
@@ -1128,7 +1219,7 @@ body:has(#exam.active) .top-bar {
     max-width: 1000px;
     max-height: 85vh;
     position: relative;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 25px 50px var(--shadow-heavy);
 }
 
 .reviews-modal-header {
@@ -1138,13 +1229,13 @@ body:has(#exam.active) .top-bar {
 
 .reviews-modal-header h3 {
     font-size: 1.5rem;
-    color: #38bdf8;
+    color: var(--primary);
     margin: 0 0 8px 0;
 }
 
 .reviews-modal-header p {
     font-size: 0.9rem;
-    color: #94a3b8;
+    color: var(--text-muted);
     margin: 0;
 }
 
@@ -1154,14 +1245,14 @@ body:has(#exam.active) .top-bar {
     right: 25px;
     background: none;
     border: none;
-    color: #94a3b8;
+    color: var(--text-muted);
     font-size: 28px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .close-reviews-modal:hover {
-    color: #38bdf8;
+    color: var(--primary);
     transform: scale(1.1);
 }
 
@@ -1184,7 +1275,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .reviews-modal-slider-container::-webkit-scrollbar-thumb {
-    background: #38bdf8;
+    background: var(--primary);
     border-radius: 10px;
 }
 
@@ -1203,12 +1294,12 @@ body:has(#exam.active) .top-bar {
     border-radius: 20px;
     overflow: hidden;
     border: 2px solid rgba(56, 189, 248, 0.2);
-    background: #1e293b;
+    background: var(--bg-input);
 }
 
 .reviews-modal-item:hover {
     transform: translateY(-5px);
-    border-color: #38bdf8;
+    border-color: var(--primary);
     box-shadow: 0 10px 30px rgba(56, 189, 248, 0.2);
 }
 
@@ -1229,8 +1320,8 @@ body:has(#exam.active) .top-bar {
 
 .modal-control-btn {
     background: rgba(56, 189, 248, 0.15);
-    border: 1px solid #38bdf8;
-    color: #38bdf8;
+    border: 1px solid var(--primary);
+    color: var(--primary);
     font-size: 1.3rem;
     padding: 10px 18px;
     border-radius: 50%;
@@ -1239,20 +1330,18 @@ body:has(#exam.active) .top-bar {
 }
 
 .modal-control-btn:hover {
-    background: #38bdf8;
+    background: var(--primary);
     color: #0a0e1a;
     transform: scale(1.05);
 }
 
 .modal-counter-text {
-    color: #cbd5e1;
+    color: var(--text-light);
     font-size: 0.9rem;
     background: rgba(0, 0, 0, 0.5);
     padding: 6px 15px;
     border-radius: 30px;
 }
-
-
 
 /* ========================================
    Exam List & Teile Styles
@@ -1281,7 +1370,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .teile-row::-webkit-scrollbar-thumb {
-    background: #38bdf8 !important;
+    background: var(--primary) !important;
     border-radius: 10px !important;
 }
 
@@ -1311,7 +1400,7 @@ body:has(#exam.active) .top-bar {
 
 .teil-item:hover {
     background: rgba(56, 189, 248, 0.2) !important;
-    border-color: #38bdf8 !important;
+    border-color: var(--primary) !important;
     transform: translateY(-2px) !important;
     color: #ffffff !important;
 }
@@ -1321,13 +1410,13 @@ body:has(#exam.active) .top-bar {
 }
 
 .exam-box {
-    background: white;
+    background: var(--bg-card);
     padding: 20px;
     border-radius: 10px;
 }
 
 .back-home-btn {
-    background: #38bdf8;
+    background: var(--primary-gradient);
     color: #0a0e1a;
     border: none;
     padding: 12px 25px;
@@ -1338,11 +1427,11 @@ body:has(#exam.active) .top-bar {
 }
 
 .back-home-btn:hover {
-    background: #0ea5e9;
+    background: var(--primary-dark);
 }
 
 .back-list-btn {
-    background: #38bdf8;
+    background: var(--primary-gradient);
     color: #0a0e1a;
     border: none;
     padding: 12px 25px;
@@ -1352,7 +1441,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .back-list-btn:hover {
-    background: #0ea5e9;
+    background: var(--primary-dark);
 }
 
 .arrow-back-btn {
@@ -1360,13 +1449,13 @@ body:has(#exam.active) .top-bar {
     border: none !important;
     font-size: 28px !important;
     cursor: pointer !important;
-    color: #38bdf8 !important;
+    color: var(--primary) !important;
     padding: 0 !important;
 }
 
 .arrow-back-btn:hover {
     transform: scale(1.1);
-    color: #0ea5e9 !important;
+    color: var(--primary-dark) !important;
 }
 
 #prevExamBtn, #nextExamBtn {
@@ -1384,7 +1473,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .item {
-    background: white;
+    background: var(--bg-card);
     padding: 8px 12px !important;
     margin-bottom: 8px;
     border-radius: 10px;
@@ -1393,13 +1482,13 @@ body:has(#exam.active) .top-bar {
     justify-content: space-between;
     align-items: center;
     transition: all 0.25s ease;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     min-height: 44px;
     height: auto;
 }
 
 .item:hover {
-    background: #f1f5f9;
+    background: var(--card-hover);
     transform: translateX(5px);
     border-color: #2F80ED;
     box-shadow: 0 2px 8px rgba(47, 128, 237, 0.15);
@@ -1451,7 +1540,7 @@ body:has(#exam.active) .top-bar {
 }
 
 .item:hover .exam-title {
-    color: #1e293b;
+    color: var(--text-primary);
 }
 
 /* ========================================
@@ -1463,7 +1552,7 @@ body:has(#exam.active) .top-bar {
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background: #ff6b6b;
+    background: var(--danger);
     color: white;
     padding: 12px 25px;
     border-radius: 40px;
@@ -1471,7 +1560,7 @@ body:has(#exam.active) .top-bar {
     font-weight: bold;
     font-size: 16px;
     z-index: 1000;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px var(--shadow-color);
     width: auto;
     min-width: 180px;
     animation: fadeInUp 0.3s ease;
@@ -1673,7 +1762,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     
     select:focus, .teil3-original-select:focus {
         outline: none !important;
-        border-color: #38bdf8 !important;
+        border-color: var(--primary) !important;
         box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25) !important;
     }
     
@@ -1845,13 +1934,13 @@ body:has(#exam.active) .left-side .btn-login-top {
     /* ألوان التصحيح */
     .correct-answer-card select {
         background: #d4edda !important;
-        border: 2px solid #28a745 !important;
+        border: 2px solid var(--success) !important;
         color: #155724 !important;
     }
     
     .wrong-answer-card select {
         background: #fef0e0 !important;
-        border: 2px solid #e67e22 !important;
+        border: 2px solid var(--warning) !important;
         color: #856404 !important;
     }
     
@@ -1875,7 +1964,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         cursor: pointer !important;
         transition: all 0.25s ease !important;
         color: #334155 !important;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.03) !important;
+        box-shadow: 0 1px 2px var(--shadow-color) !important;
     }
     
     /* تأثير الضغط على الزر (للهاتف - بديل hover) */
@@ -1890,7 +1979,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     .dropdown-arrow {
         font-size: 0.65rem !important;
         transition: transform 0.25s ease !important;
-        color: #94a3b8 !important;
+        color: var(--text-muted) !important;
     }
     
     /* القائمة المنسدلة - خلفية رمادية فاتحة */
@@ -1902,7 +1991,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         border: 1px solid #dce3e8 !important;
         border-radius: 14px !important;
         overflow: hidden !important;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+        box-shadow: 0 4px 12px var(--shadow-color) !important;
         animation: fadeInDown 0.25s ease !important;
     }
     
@@ -1954,7 +2043,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         margin-bottom: 0 !important;
         border-radius: 14px !important;
         background: #f8fafc !important;
-        border: 1px solid #e2e8f0 !important;
+        border: 1px solid var(--border-color) !important;
     }
     
     /* إخفاء العمود الأيمن (Situationen) */
@@ -1980,9 +2069,9 @@ body:has(#exam.active) .left-side .btn-login-top {
     #teil1 .question-card {
         padding: 12px !important;
         margin-bottom: 12px !important;
-        background: #ffffff !important;
+        background: var(--bg-card) !important;
         border-radius: 16px !important;
-        border: 1px solid #e2e8f0 !important;
+        border: 1px solid var(--border-color) !important;
     }
     
     /* نص السؤال */
@@ -1991,7 +2080,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         font-size: 0.75rem !important;
         font-weight: 600 !important;
         margin-bottom: 10px !important;
-        color: #1e293b !important;
+        color: var(--text-primary) !important;
         line-height: 1.4 !important;
     }
     
@@ -2000,14 +2089,14 @@ body:has(#exam.active) .left-side .btn-login-top {
         font-size: 0.6rem !important;
         line-height: 1.4 !important;
         margin-bottom: 8px !important;
-        color: #475569 !important;
+        color: var(--text-secondary) !important;
     }
     
     /* عنوان الفقرة */
     #teil3 div[style*="font-weight: bold"] {
         font-size: 0.65rem !important;
         margin-bottom: 6px !important;
-        color: #3b82f6 !important;
+        color: var(--primary) !important;
     }
 }
 
@@ -2061,37 +2150,6 @@ body:has(#exam.active) .left-side .btn-login-top {
     }
 }
 
-/* الوضع الليلي */
-body.dark-mode .premium-card {
-    background: #0f172a;
-    border-color: #1e293b;
-}
-
-body.dark-mode .premium-card-header {
-    border-bottom-color: #1e293b;
-}
-
-body.dark-mode .premium-badge {
-    background: #1e293b;
-    border-color: #334155;
-}
-
-body.dark-mode .premium-badge span {
-    color: #94a3b8;
-}
-
-body.dark-mode .premium-title {
-    color: #f1f5f9;
-}
-
-body.dark-mode .premium-subtitle {
-    color: #94a3b8;
-}
-
-body.dark-mode .premium-features li {
-    color: #cbd5e1;
-    border-bottom-color: #1e293b;
-}
 /* تأثير التمرير السلس لقائمة الامتحانات */
 #examsList {
     scroll-behavior: smooth !important;
@@ -2100,10 +2158,11 @@ body.dark-mode .premium-features li {
 
 /* تأثير عند الضغط على عنصر القائمة */
 .item:active {
-    background-color: #e2e8f0 !important;
+    background-color: var(--card-hover) !important;
     transform: scale(0.99) !important;
     transition: all 0.05s ease !important;
 }
+
 /* ============================================
    تصميم Premium Access الاحترافي
    ============================================ */
@@ -2131,13 +2190,13 @@ body.dark-mode .premium-features li {
 }
 
 .premium-card {
-    background: #ffffff;
+    background: var(--bg-card);
     border-radius: 28px;
     max-width: 380px;
     width: 85%;
     padding: 0;
-    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e5e7eb;
+    box-shadow: 0 20px 35px -10px var(--shadow-color);
+    border: 1px solid var(--border-color);
     transform: scale(0.95);
     transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
@@ -2149,7 +2208,7 @@ body.dark-mode .premium-features li {
 .premium-card-header {
     text-align: center;
     padding: 32px 24px 20px 24px;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .premium-badge {
@@ -2158,7 +2217,7 @@ body.dark-mode .premium-features li {
     justify-content: center;
     gap: 8px;
     background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     border-radius: 40px;
     padding: 6px 16px;
     margin-bottom: 20px;
@@ -2178,14 +2237,14 @@ body.dark-mode .premium-features li {
 .premium-title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--text-primary);
     margin: 0 0 8px 0;
     letter-spacing: -0.3px;
 }
 
 .premium-subtitle {
     font-size: 0.8rem;
-    color: #64748b;
+    color: var(--text-secondary);
     margin: 0;
     line-height: 1.5;
 }
@@ -2208,8 +2267,8 @@ body.dark-mode .premium-features li {
     gap: 10px;
     padding: 8px 0;
     font-size: 0.85rem;
-    color: #334155;
-    border-bottom: 1px solid #f1f5f9;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .premium-features li:last-child {
@@ -2217,7 +2276,7 @@ body.dark-mode .premium-features li {
 }
 
 .premium-features .check {
-    color: #10b981;
+    color: var(--success);
     font-size: 0.9rem;
 }
 
@@ -2249,47 +2308,16 @@ body.dark-mode .premium-features li {
     border: none;
     padding: 10px 20px;
     font-size: 0.75rem;
-    color: #94a3b8;
+    color: var(--text-muted);
     cursor: pointer;
     transition: color 0.2s ease;
     width: 100%;
 }
 
 .premium-later:hover {
-    color: #64748b;
+    color: var(--text-secondary);
 }
 
-/* الوضع الليلي */
-body.dark-mode .premium-card {
-    background: #0f172a;
-    border-color: #1e293b;
-}
-
-body.dark-mode .premium-card-header {
-    border-bottom-color: #1e293b;
-}
-
-body.dark-mode .premium-badge {
-    background: #1e293b;
-    border-color: #334155;
-}
-
-body.dark-mode .premium-badge span {
-    color: #94a3b8;
-}
-
-body.dark-mode .premium-title {
-    color: #f1f5f9;
-}
-
-body.dark-mode .premium-subtitle {
-    color: #94a3b8;
-}
-
-body.dark-mode .premium-features li {
-    color: #cbd5e1;
-    border-bottom-color: #1e293b;
-}
 /* توحيد حجم الامتحانات في الحاسوب */
 .item .exam-title,
 .exam-title {
@@ -2340,6 +2368,7 @@ body.dark-mode .premium-features li {
     color: #FFFFFF !important;
     transform: none !important;
 }
+
 /* ============================================
    زر 💎 لماذا؟ - مع بطاقة منبثقة أنيقة
    ============================================ */
@@ -2382,7 +2411,7 @@ body.dark-mode .premium-features li {
     border: 1px solid rgba(120, 170, 255, 0.16);
     border-radius: 18px;
     padding: 14px 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+    box-shadow: 0 10px 30px var(--shadow-heavy);
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px) scale(0.98);
@@ -2452,6 +2481,7 @@ body.dark-mode .premium-features li {
         font-size: 11px;
     }
 }
+
 /* ============================================
    نافذة الاشتراك المنبثقة (Subscription Modal)
    ============================================ */
@@ -2484,7 +2514,7 @@ body.dark-mode .premium-features li {
     width: 90%;
     max-width: 380px;
     padding: 28px 24px;
-    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 35px -10px var(--shadow-color);
     transform: scale(0.95);
     transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -2503,7 +2533,7 @@ body.dark-mode .premium-features li {
 
 .subscription-subtitle {
     font-size: 0.8rem;
-    color: #9CA3AF;
+    color: var(--text-muted);
     margin-bottom: 28px;
     line-height: 1.5;
 }
@@ -2535,7 +2565,7 @@ body.dark-mode .premium-features li {
 .subscription-btn.primary {
     background: #FFFFFF;
     color: #1A1D27;
-    border: 1px solid #E2E8F0;
+    border: 1px solid var(--border-color);
 }
 
 .subscription-btn.primary:hover {
@@ -2572,6 +2602,7 @@ body.dark-mode .premium-features li {
     background: rgba(255, 255, 255, 0.15);
     color: #FFFFFF;
 }
+
 /* تحسين البطاقة */
 .subscription-card {
     background: linear-gradient(135deg, #1A1D27 0%, #252A35 50%, #1A1D27 100%);
@@ -2579,7 +2610,7 @@ body.dark-mode .premium-features li {
     width: 90%;
     max-width: 360px;
     padding: 24px 22px;
-    box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 25px 45px -12px var(--shadow-heavy);
     transform: scale(0.95);
     transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -2595,10 +2626,11 @@ body.dark-mode .premium-features li {
 
 .subscription-subtitle {
     font-size: 0.75rem;
-    color: #9CA3AF;
+    color: var(--text-muted);
     margin-bottom: 24px;
     line-height: 1.5;
 }
+
 /* ============================================
    نافذة نقل الحساب - تصميم أنيق
    ============================================ */
@@ -2632,7 +2664,7 @@ body.dark-mode .premium-features li {
     max-width: 400px;
     width: 90%;
     border: 1px solid rgba(56, 189, 248, 0.2);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 25px 50px var(--shadow-heavy);
     transform: scale(0.95);
     transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -2655,7 +2687,7 @@ body.dark-mode .premium-features li {
 }
 
 .transfer-subtitle {
-    color: #94a3b8;
+    color: var(--text-muted);
     font-size: 0.85rem;
     margin-bottom: 24px;
     line-height: 1.6;
@@ -2680,18 +2712,18 @@ body.dark-mode .premium-features li {
 }
 
 .transfer-btn.confirm {
-    background: #38bdf8;
+    background: var(--primary);
     color: #0a0e1a;
 }
 
 .transfer-btn.confirm:hover {
-    background: #0ea5e9;
+    background: var(--primary-dark);
     transform: translateY(-2px);
 }
 
 .transfer-btn.cancel {
     background: rgba(255, 255, 255, 0.08);
-    color: #94a3b8;
+    color: var(--text-muted);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -2699,6 +2731,7 @@ body.dark-mode .premium-features li {
     background: rgba(255, 255, 255, 0.15);
     color: #e2e8f0;
 }
+
 /* ============================================
    Toast Notifications
    ============================================ */
@@ -2758,7 +2791,7 @@ body.dark-mode .premium-features li {
     max-width: 420px;
     width: 90%;
     border: 1px solid rgba(56, 189, 248, 0.2);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 30px 60px var(--shadow-heavy);
     transform: scale(0.95) translateY(10px);
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -2781,7 +2814,7 @@ body.dark-mode .premium-features li {
 }
 
 .zertiva-modal .modal-text {
-    color: #94a3b8;
+    color: var(--text-muted);
     font-size: 0.9rem;
     line-height: 1.7;
     margin-bottom: 28px;
@@ -2806,7 +2839,7 @@ body.dark-mode .premium-features li {
 }
 
 .zertiva-modal .modal-btn.primary {
-    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    background: var(--primary-gradient);
     color: #0a0e1a;
 }
 
@@ -2817,7 +2850,7 @@ body.dark-mode .premium-features li {
 
 .zertiva-modal .modal-btn.secondary {
     background: rgba(255, 255, 255, 0.06);
-    color: #94a3b8;
+    color: var(--text-muted);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -2880,7 +2913,7 @@ body.dark-mode .premium-features li {
     width: 90%;
     max-width: 340px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 50px var(--shadow-heavy);
     transform: scale(0.92) translateY(10px);
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -2923,7 +2956,7 @@ body.dark-mode .premium-features li {
 }
 
 .welcome-status span {
-    color: #38bdf8;
+    color: var(--primary);
     font-weight: 600;
 }
 
@@ -2936,7 +2969,7 @@ body.dark-mode .premium-features li {
 
 .welcome-subscribe-btn {
     margin-top: 10px;
-    background: #38bdf8;
+    background: var(--primary);
     color: #0a0e1a;
     border: none;
     padding: 5px 14px;
@@ -2949,7 +2982,7 @@ body.dark-mode .premium-features li {
 }
 
 .welcome-subscribe-btn:hover {
-    background: #0ea5e9;
+    background: var(--primary-dark);
     transform: translateY(-1px);
 }
 
@@ -3013,13 +3046,13 @@ body.dark-mode .premium-features li {
 }
 
 .premium-card {
-    background: #ffffff;
+    background: var(--bg-card);
     border-radius: 28px;
     max-width: 380px;
     width: 85%;
     padding: 0;
-    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e5e7eb;
+    box-shadow: 0 20px 35px -10px var(--shadow-color);
+    border: 1px solid var(--border-color);
     transform: scale(0.95);
     transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
@@ -3031,7 +3064,7 @@ body.dark-mode .premium-features li {
 .premium-card-header {
     text-align: center;
     padding: 28px 24px 16px 24px;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .premium-badge {
@@ -3040,7 +3073,7 @@ body.dark-mode .premium-features li {
     justify-content: center;
     gap: 8px;
     background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     border-radius: 40px;
     padding: 4px 14px;
     margin-bottom: 16px;
@@ -3060,14 +3093,14 @@ body.dark-mode .premium-features li {
 .premium-title {
     font-size: 1.3rem;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--text-primary);
     margin: 0 0 6px 0;
     letter-spacing: -0.3px;
 }
 
 .premium-subtitle {
     font-size: 0.75rem;
-    color: #64748b;
+    color: var(--text-secondary);
     margin: 0;
     line-height: 1.5;
 }
@@ -3090,8 +3123,8 @@ body.dark-mode .premium-features li {
     gap: 8px;
     padding: 6px 0;
     font-size: 0.8rem;
-    color: #334155;
-    border-bottom: 1px solid #f1f5f9;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .premium-features li:last-child {
@@ -3099,7 +3132,7 @@ body.dark-mode .premium-features li {
 }
 
 .premium-features .check {
-    color: #10b981;
+    color: var(--success);
     font-size: 0.85rem;
 }
 
@@ -3131,14 +3164,14 @@ body.dark-mode .premium-features li {
     border: none;
     padding: 8px 16px;
     font-size: 0.7rem;
-    color: #94a3b8;
+    color: var(--text-muted);
     cursor: pointer;
     transition: color 0.2s ease;
     width: 100%;
 }
 
 .premium-later:hover {
-    color: #64748b;
+    color: var(--text-secondary);
 }
 
 /* ============================================
@@ -3174,7 +3207,7 @@ body.dark-mode .premium-features li {
     max-width: 400px;
     width: 90%;
     border: 1px solid rgba(56, 189, 248, 0.2);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 30px 60px var(--shadow-heavy);
     transform: scale(0.95) translateY(10px);
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
@@ -3197,7 +3230,7 @@ body.dark-mode .premium-features li {
 }
 
 .zertiva-modal .modal-text {
-    color: #94a3b8;
+    color: var(--text-muted);
     font-size: 0.85rem;
     line-height: 1.6;
     margin-bottom: 20px;
@@ -3222,7 +3255,7 @@ body.dark-mode .premium-features li {
 }
 
 .zertiva-modal .modal-btn.primary {
-    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    background: var(--primary-gradient);
     color: #0a0e1a;
 }
 
@@ -3233,7 +3266,7 @@ body.dark-mode .premium-features li {
 
 .zertiva-modal .modal-btn.secondary {
     background: rgba(255, 255, 255, 0.06);
-    color: #94a3b8;
+    color: var(--text-muted);
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -3263,7 +3296,7 @@ body.dark-mode .premium-features li {
     font-size: 12px;
     line-height: 1.5;
     text-align: center;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 30px var(--shadow-color);
     font-weight: 500;
     opacity: 0;
     transition: all 0.15s ease;
@@ -3283,6 +3316,7 @@ body.dark-mode .premium-features li {
         border-radius: 12px;
     }
 }
+
 /* ============================================
    Toast Notifications - نظام حديث (أعلى الشاشة)
    ============================================ */
@@ -3299,13 +3333,13 @@ body.dark-mode .premium-features li {
     width: 100%;
     pointer-events: none;
 }
-/* باقي الأنماط المفقودة 🔽 */
+
 .toast-item {
     background: #111827;
     border-radius: 14px;
     padding: 14px 18px;
     border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 30px var(--shadow-heavy);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -3365,19 +3399,19 @@ body.dark-mode .premium-features li {
 
 /* ألوان الأيقونات */
 .toast-item.success .toast-icon {
-    color: #22c55e;
+    color: var(--success);
 }
 
 .toast-item.warning .toast-icon {
-    color: #ffd54f;
+    color: var(--warning);
 }
 
 .toast-item.error .toast-icon {
-    color: #ef4444;
+    color: var(--danger);
 }
 
 .toast-item.info .toast-icon {
-    color: #38bdf8;
+    color: var(--primary);
 }
 
 /* Animation */
@@ -3437,9 +3471,10 @@ body.dark-mode .premium-features li {
 .zertiva-center-toast {
     display: none !important;
 }
-/* ========================================
+
+/* ============================================
    MEMORY TRAINER V3 - تحسينات السرعة V2
-   ======================================== */
+   ============================================ */
 
 /* الخلفية - أخف وأسرع */
 .memory-trainer-overlay {
@@ -3481,14 +3516,14 @@ body.dark-mode .premium-features li {
 .memory-trainer-card,
 .memory-trainer-recall,
 .memory-trainer-results {
-    background: #FFFFFF;
-    border: 1px solid #E8EEF5;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 20px 24px;
     max-width: 440px;
     width: 90%;
     text-align: center;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 16px var(--shadow-color);
     position: relative;
 }
 
@@ -3534,7 +3569,7 @@ body.dark-mode .premium-features li {
 
 .memory-trainer-intro p,
 .memory-trainer-hint {
-    color: #64748B;
+    color: var(--text-muted);
     font-size: 13px;
     margin-bottom: 10px;
 }
@@ -3546,12 +3581,12 @@ body.dark-mode .premium-features li {
     align-items: center;
     margin-bottom: 10px;
     padding-bottom: 8px;
-    border-bottom: 1px solid #F1F5F9;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .memory-trainer-progress {
     font-size: 12px;
-    color: #94A3B8;
+    color: var(--text-muted);
     font-weight: 500;
 }
 
@@ -3583,7 +3618,7 @@ body.dark-mode .premium-features li {
 }
 
 .memory-trainer-question {
-    color: #334155;
+    color: var(--text-secondary);
     font-size: 15px;
     font-weight: 500;
     margin-bottom: 10px;
@@ -3601,20 +3636,20 @@ body.dark-mode .premium-features li {
 }
 
 .memory-trainer-option {
-    background: #FFFFFF;
-    border: 1.5px solid #E8EEF5;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-color);
     border-radius: 10px;
     padding: 9px 14px;
     font-size: 14px;
     font-weight: 500;
-    color: #334155;
+    color: var(--text-secondary);
     cursor: pointer;
     transition: all 0.08s ease !important;
     text-align: left;
 }
 
 .memory-trainer-option:hover:not(:disabled) {
-    border-color: #38bdf8 !important;
+    border-color: var(--primary) !important;
     background: #f0f7ff !important;
     box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12) !important;
     transform: none !important;
@@ -3627,12 +3662,12 @@ body.dark-mode .premium-features li {
 
 /* ألوان التصحيح الصامتة */
 .memory-trainer-option.correct {
-    border-color: #28a745 !important;
+    border-color: var(--success) !important;
     background-color: #d4edda !important;
 }
 
 .memory-trainer-option.wrong {
-    border-color: #e67e22 !important;
+    border-color: var(--warning) !important;
     background-color: #fef0e0 !important;
 }
 
@@ -3662,7 +3697,7 @@ body.dark-mode .premium-features li {
 }
 
 .memory-trainer-btn.secondary {
-    background: #F59E0B;
+    background: var(--warning);
     color: white;
     box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);
 }
@@ -3686,8 +3721,8 @@ body.dark-mode .premium-features li {
     justify-content: space-around;
     margin: 10px 0 14px 0;
     padding: 8px 0;
-    border-top: 1px solid #F1F5F9;
-    border-bottom: 1px solid #F1F5F9;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .stat-item {
@@ -3697,7 +3732,7 @@ body.dark-mode .premium-features li {
 .stat-label {
     display: block;
     font-size: 10px;
-    color: #94A3B8;
+    color: var(--text-muted);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -3737,8 +3772,8 @@ body.dark-mode .premium-features li {
     border-radius: 6px;
     overflow: hidden;
     position: relative;
-    border: 1px solid #E2E8F0;
-    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
     padding: 1px;
 }
 
@@ -3746,7 +3781,7 @@ body.dark-mode .premium-features li {
 .memory-progress-fill {
     height: 100%;
     border-radius: 6px;
-    background: linear-gradient(90deg, #1565C0, #38bdf8);
+    background: linear-gradient(90deg, #1565C0, var(--primary));
     transition: width 0.3s ease;
     width: 0%;
 }
@@ -3770,7 +3805,7 @@ body.dark-mode .premium-features li {
     padding: 2px 6px;
     border-radius: 6px;
     transition: all 0.15s ease;
-    color: #94A3B8;
+    color: var(--text-muted);
     line-height: 1;
 }
 
@@ -3788,8 +3823,8 @@ body.dark-mode .premium-features li {
    ============================================ */
 
 .memory-trainer-intro .progress-box {
-    background: #FFFFFF;
-    border: 1px solid #E8EEF5;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 6px 10px;
     margin: 10px 0 14px 0;
@@ -3806,7 +3841,7 @@ body.dark-mode .premium-features li {
 .memory-trainer-intro .progress-box .fill {
     height: 100%;
     border-radius: 6px;
-    background: linear-gradient(90deg, #1565C0, #38bdf8);
+    background: linear-gradient(90deg, #1565C0, var(--primary));
     transition: width 0.3s ease;
 }
 
@@ -3877,6 +3912,7 @@ body.dark-mode .premium-features li {
         width: auto;
     }
 }
+
 /* ============================================
    Sentence Puzzle - أداة ترتيب الجمل (النسخة النهائية)
    ============================================ */
@@ -3916,18 +3952,18 @@ body.dark-mode .premium-features li {
 }
 
 #sentencePuzzleCard {
-    background: #ffffff;
+    background: var(--bg-card);
     border-radius: 14px;
     padding: 24px 28px;
     max-width: 620px;
     width: 92%;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 50px var(--shadow-color);
     transform: scale(0.96) translateY(8px);
     transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     position: relative;
     max-height: 90vh;
     overflow-y: auto;
-    border: 1px solid #e8edf4;
+    border: 1px solid var(--border-color);
 }
 
 /* الخانات - أفقي */
@@ -3958,8 +3994,8 @@ body.dark-mode .premium-features li {
 
 .sentence-slot[data-has-part="true"] {
     border-style: solid;
-    background: #ffffff;
-    color: #1e293b;
+    background: var(--bg-card);
+    color: var(--text-primary);
 }
 
 /* البطاقات - أفقي ومستطيلة */
@@ -3967,14 +4003,14 @@ body.dark-mode .premium-features li {
     flex: 1;
     min-width: 120px;
     padding: 12px 18px;
-    background: #ffffff;
+    background: var(--bg-card);
     border: 1px solid #dce2ec;
     border-radius: 8px;
     cursor: grab;
     font-size: 0.85rem;
-    color: #1e293b;
+    color: var(--text-primary);
     transition: all 0.2s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px var(--shadow-color);
     user-select: none;
     font-weight: 400;
     text-align: center;
@@ -4041,26 +4077,23 @@ body.dark-mode .premium-features li {
     }
 }
 
-
 /* ============================================
    نافذة تسجيل الدخول الجديدة (مودال موحد)
    ============================================ */
 #authModal .settings-modal-content {
-    background: #0f172a;
+    background: var(--bg-modal);
     border: 1px solid rgba(56, 189, 248, 0.15);
 }
 
 #authModal input:focus {
     outline: none;
-    border-color: #38bdf8;
+    border-color: var(--primary);
     box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
 }
 
 #authModal .settings-modal-body label {
-    color: #94a3b8;
+    color: var(--text-muted);
 }
-
-
 
 /* ============================================
    Password Wrapper - حل المشكلة النهائي
@@ -4096,9 +4129,10 @@ body.dark-mode .premium-features li {
 }
 
 .password-wrapper .password-toggle-icon:hover {
-    color: #38bdf8;
+    color: var(--primary);
     transform: scale(1.1);
 }
+
 /* ============================================
    توسيط عنوان نافذة تسجيل الدخول
    ============================================ */
