@@ -2,35 +2,14 @@
   "title": "Hörverstehen Teil 3 - Demonstration",
   "type": "truefalse",
   "questions": [
-    {
-      "text": "Die Demonstration findet in Frankfurt vor der Alten Oper statt.",
-      "correct": false
-    },
-    {
-      "text": "In der kommenden Saison wird eine Symphonie von Mahler aufgeführt.",
-      "correct": true,
-      "highlight": {
-        "text": "In der kommenden Saison wird eine Symphonie von Mahler aufgeführt.",
-        "color": "#4CAF50",
-        "helpKey": "hoeren3_exam10_q2"
-      }
-    },
-    {
-      "text": "Die Weltmeisterschaften im Eiskunstlauf finden in der Dortmunder Helmut-Körnig-Halle statt.",
-      "correct": false
-    },
-    {
-      "text": "Die Autobahn A980 ist mit Schneeketten befahrbar.",
-      "correct": false
-    },
-    {
-      "text": "Für die Vermittlung einer Mitfahrgelegenheit per E-Mail erhebt 'fahre mit' keine Gebühren.",
-      "correct": true,
-      "highlight": {
-        "text": "Für die Vermittlung einer Mitfahrgelegenheit per E-Mail erhebt 'fahre mit' keine Gebühren.",
-        "color": "#FF9800",
-        "helpKey": "hoeren3_exam10_q5"
-      }
-    }
+    { "text": "Die Demonstration findet in Frankfurt vor der Alten Oper statt.", "correct": false },
+    { "text": "In der kommenden Saison wird eine Symphonie von Mahler aufgeführt.", "correct": true },
+    { "text": "Die Weltmeisterschaften im Eiskunstlauf finden in der Dortmunder Helmut-Körnig-Halle statt.", "correct": false },
+    { "text": "Die Autobahn A980 ist mit Schneeketten befahrbar.", "correct": false },
+    { "text": "Für die Vermittlung einer Mitfahrgelegenheit per E-Mail erhebt 'fahre mit' keine Gebühren.", "correct": true }
+  ],
+  "memoryHighlights": [
+    { "color": 0, "parts": [ "In der kommenden Saison wird eine Symphonie von Mahler aufgeführt." ] },
+    { "color": 8, "parts": [ "Für die Vermittlung einer Mitfahrgelegenheit per E-Mail erhebt 'fahre mit' keine Gebühren." ] }
   ]
 }
