@@ -11,7 +11,8 @@
         "b. ideenreicher",
         "c. sensibler"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "kommunikativer", "color": 0 }
     },
     {
       "text": "Mehrsprachige Erziehung gelingt, wenn",
@@ -20,7 +21,8 @@
         "b. die Eltern aus dem Zielsprachenland kommen",
         "c. die Eltern die Bildungsziele konsequent verfolgen"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "das Kind einen emotionalen Bezug zur Sprache hat", "color": 8 }
     },
     {
       "text": "Damit ein Kind eine weitere Sprache zweisprachig erlernt",
@@ -29,7 +31,8 @@
         "b. reicht es, im Grundschulalter mit der Zweitsprache zu beginnen",
         "c. sollte im Kindergarten mit der Sprachvermittlung begonnen werden"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "sollte im Kindergarten mit der Sprachvermittlung begonnen werden", "color": 11 }
     },
     {
       "text": "Wechselt die Bezugsperson zwischen zwei Sprachen, lernt das Kind die Zweitsprache",
@@ -38,7 +41,8 @@
         "b. sofern es versteht, wann die Sprachen gewechselt werden",
         "c. wahrscheinlich nicht"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "bei systematischer Vermittlung der Sprache", "color": 4 }
     },
     {
       "text": "Sollten Kinder nur alle paar Tage Kontakt zur Zweitsprache haben",
@@ -47,7 +51,8 @@
         "b. kann das Interesse an anderen Sprachen verloren gehen",
         "c. schadet dies der Entwicklung der Zweitsprache nicht"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "schadet dies der Entwicklung der Zweitsprache nicht", "color": 10 }
     }
   ]
 }
