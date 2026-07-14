@@ -12,5 +12,12 @@
     { "text": "Künstliche Intelligenz nutzt Maria bereits gezielt, um ihre Arbeit effizienter zu organisieren.", "correct": true },
     { "text": "Maria möchte jungen Menschen zeigen, dass Erfolg im Internet auch mit Verantwortung verbunden ist.", "correct": false },
     { "text": "In Zukunft plant Maria, ihre Tätigkeit in den sozialen Medien vollständig aufzugeben.", "correct": false }
+  ],
+  "memoryHighlights": [
+    { "color": 4, "parts": [ "Maria war am Anfang überrascht, wie schnell ihre Beiträge im Internet Aufmerksamkeit bekamen." ] },
+    { "color": 9, "parts": [ "Ihre Familie stand ihrer Tätigkeit als Influencerin von Beginn an ohne Zweifel positiv gegenüber." ] },
+    { "color": 11, "parts": [ "Maria prüft Werbeangebote genau, bevor sie eine Zusammenarbeit annimmt." ] },
+    { "color": 1, "parts": [ "Große Treffen mit Followern empfindet Maria immer als völlig entspannt." ] },
+    { "color": 6, "parts": [ "Künstliche Intelligenz nutzt Maria bereits gezielt, um ihre Arbeit effizienter zu organisieren." ] }
   ]
 }
