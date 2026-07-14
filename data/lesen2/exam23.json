@@ -11,7 +11,8 @@
         "b. wechselte in ihrer beruflichen Laufbahn mehrmals die Schule",
         "c. wurde schon mehrfach für Auszeichnungen vorgeschlagen"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "erhielt kurz vor Eintritt in den Ruhestand einen Preis", "color": 2 }
     },
     {
       "text": "Frau Vollmers Eltern vermuteten, dass ihre Tochter",
@@ -20,7 +21,8 @@
         "b. mit ihrem Studium gute Perspektiven haben werde",
         "c. womöglich nicht genug für ihren Lebensunterhalt verdienen könne"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "womöglich nicht genug für ihren Lebensunterhalt verdienen könne", "color": 9 }
     },
     {
       "text": "Frau Vollmer befürchtete, dass",
@@ -29,7 +31,8 @@
         "b. die Schüler wenig Interesse an ihren Fächern hätten",
         "c. sie kein Talent für das Unterrichten hätte"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "die Schüler sich im Unterricht schlecht benehmen würden", "color": 11 }
     },
     {
       "text": "Frau Vollmers Schüler",
@@ -38,7 +41,8 @@
         "b. reichten für den Wettbewerb verschiedene Einzelbeiträge ein",
         "c. wollten ihr für die gelungene Prüfungsvorbereitung Anerkennung zeigen"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "wollten ihr für die gelungene Prüfungsvorbereitung Anerkennung zeigen", "color": 6 }
     },
     {
       "text": "Brigitte Vollmer freut sich darauf",
@@ -47,7 +51,8 @@
         "b. mit ehemaligen Schülern ein Projekt zu planen",
         "c. nun endlich in Pension gehen zu können"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "mit ehemaligen Schülern ein Projekt zu planen", "color": 10 }
     }
   ]
 }
