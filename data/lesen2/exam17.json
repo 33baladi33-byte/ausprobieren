@@ -11,7 +11,8 @@
         "b. spielen schon als Achtjährige in der deutschen Nationalmannschaft mit",
         "c. unterstützen die deutsche Nationalmannschaft"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "bilden die deutsche Nationalmannschaft", "color": 3 }
     },
     {
       "text": "Die Basketball-Körbe",
@@ -20,7 +21,8 @@
         "b. sind mit dem Netz nach oben aufgehängt",
         "c. sind so gedreht, dass ihre Öffnungen nach der Seite zeigen"
       ],
-      "correct": 2
+      "correct": 2,
+      "memoryHighlight": { "connector": "sind so gedreht, dass ihre Öffnungen nach der Seite zeigen", "color": 9 }
     },
     {
       "text": "Wer an einem Horse-Ball-Lehrgang teilnimmt",
@@ -29,7 +31,8 @@
         "b. kann sein eigenes Pferd einsetzen",
         "c. muss sein Pferd jedes Mal mitbringen"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "kann sein eigenes Pferd einsetzen", "color": 11 }
     },
     {
       "text": "Beim Horse-Ball-Spiel",
@@ -38,7 +41,8 @@
         "b. darf der Ball in die Hand genommen werden",
         "c. darf der Ball nicht auf den Boden fallen"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "darf der Ball in die Hand genommen werden", "color": 5 }
     },
     {
       "text": "Das Training ist so streng, dass",
@@ -47,7 +51,8 @@
         "b. die Tiere ihre naturgegebenen Anlagen nicht ausleben können",
         "c. es Pferden und Reitern oft kein Vergnügen macht"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "die Reiter oft mehr Stress zu empfinden scheinen als die Tiere", "color": 7 }
     }
   ]
 }
