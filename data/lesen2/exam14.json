@@ -11,7 +11,8 @@
         "b. damit sie lernten, einen Haushalt zu führen",
         "c. damit sie besser beaufsichtigt waren als zu Hause"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "damit sie lernten, einen Haushalt zu führen", "color": 5 }
     },
     {
       "text": "Die Stellen fanden die Mädchen zumeist",
@@ -20,7 +21,8 @@
         "b. alleine",
         "c. mit Hilfe ihrer Eltern"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "alleine", "color": 11 }
     },
     {
       "text": "Dienstmädchen gab es",
@@ -29,7 +31,8 @@
         "b. auch bei den weniger reichen Leuten",
         "c. in jedem Haus in der Stadt"
       ],
-      "correct": 1
+      "correct": 1,
+      "memoryHighlight": { "connector": "auch bei den weniger reichen Leuten", "color": 3 }
     },
     {
       "text": "Dienstmädchen",
@@ -38,7 +41,8 @@
         "b. konnten sich am Sonntag zwei Stunden mit anderen Dienstmädchen treffen",
         "c. durften nicht alleine einkaufen gehen"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "mussten länger arbeiten als Fabrikarbeiter", "color": 9 }
     },
     {
       "text": "Dienstmädchen bekamen",
@@ -47,7 +51,8 @@
         "b. ein eigenes Zimmer",
         "c. Geld, um für später zu sparen"
       ],
-      "correct": 0
+      "correct": 0,
+      "memoryHighlight": { "connector": "fast kein Geld", "color": 7 }
     }
   ]
 }
