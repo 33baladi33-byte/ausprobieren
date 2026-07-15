@@ -2146,7 +2146,7 @@ console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `$
 // ============================================
 
 // ===== الزر الأول: leaderboard ↔ 123 ↔ shuffle =====
-const VIEW_ICONS_1 = ['leaderboard', '123', 'shuffle'];  // ← تم التعديل هنا
+const VIEW_ICONS_1 = ['leaderboard', '123', 'shuffle'];
 const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
 
 function getViewModeIndex1() {
@@ -2163,8 +2163,8 @@ function setViewModeIndex1(index) {
     } catch {}
 }
 
-// ===== الزر الثاني: view_day ↔ grid_view ↔ view_module =====
-const VIEW_ICONS_2 = ['view_day', 'grid_view', 'view_module'];
+// ===== الزر الثاني: view_day ↔ grid_view (فقط أيقونتين) =====
+const VIEW_ICONS_2 = ['view_day', 'grid_view'];  // ← تم إزالة view_module
 const VIEW_MODE_KEY_2 = 'viewModeIconIndex2';
 
 function getViewModeIndex2() {
@@ -2230,7 +2230,7 @@ function createViewModeToggles() {
 
     header.appendChild(btn1);
 
-    // ===== الزر الثاني (view_day ↔ grid_view ↔ view_module) =====
+    // ===== الزر الثاني (view_day ↔ grid_view) =====
     const btn2 = document.createElement('button');
     btn2.id = 'viewModeToggleBtn2';
     btn2.className = 'view-mode-toggle-btn-2';
@@ -2279,4 +2279,4 @@ if (originalRenderExamList) {
 // تصدير الدوال
 window.createViewModeToggles = createViewModeToggles;
 
-console.log('🔄 زرين للتبديل (leaderboard↔123↔shuffle) و (view_day↔grid_view↔view_module) تم تحميلهما');
+console.log('🔄 زرين للتبديل (leaderboard↔123↔shuffle) و (view_day↔grid_view) تم تحميلهما');
