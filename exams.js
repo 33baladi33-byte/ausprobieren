@@ -2145,7 +2145,7 @@ console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `$
 // أزرار تبديل الأيقونة (زرين جنب بعض)
 // ============================================
 
-// ===== الزر الأول: leaderboard ↔ 123 (تم إزالة shuffle) =====
+// ===== الزر الأول: leaderboard ↔ 123 =====
 const VIEW_ICONS_1 = ['leaderboard', '123'];
 const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
 
@@ -2218,13 +2218,17 @@ function restoreOriginalOrder() {
     console.log("📋 تم استعادة الترتيب الأصلي حسب الأرقام");
 }
 
-// ✅ تطبيق ترتيب leaderboard - نفس الكود الذي يعمل في Console تماماً
+// ✅ تطبيق ترتيب leaderboard - يعمل مع List و Grid معاً
 function applyLeaderboardOrder() {
     const list = document.getElementById("examsList");
     if (!list) return console.log("❌ examsList غير موجود");
 
-    // جميع الامتحانات فقط
-    const exams = [...list.querySelectorAll(".item")].filter(el =>
+    // التحقق من وجود Grid Container
+    const gridContainer = document.getElementById("examGridContainer");
+    const targetContainer = gridContainer || list;
+
+    // جميع الامتحانات فقط - نأخذها من الـ container المناسب
+    const exams = [...targetContainer.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
     );
@@ -2259,8 +2263,8 @@ function applyLeaderboardOrder() {
         return a.score - b.score;
     });
 
-    // إعادة ترتيب داخل نفس القائمة
-    data.forEach(item => list.appendChild(item.el));
+    // إعادة ترتيب داخل نفس الـ container
+    data.forEach(item => targetContainer.appendChild(item.el));
 
     console.log("✅ تم ترتيب الامتحانات من الأضعف إلى الأقوى");
 }
@@ -2472,14 +2476,18 @@ function createViewModeToggles() {
     const oldBtn2 = document.getElementById('viewModeToggleBtn2');
     if (oldBtn2) oldBtn2.remove();
 
-    // ===== الزر الأول (leaderboard ↔ 123) - تم إزالة shuffle =====
+    // ===== الزر الأول (leaderboard ↔ 123) =====
     const btn1 = document.createElement('button');
     btn1.id = 'viewModeToggleBtn1';
     btn1.className = 'view-mode-toggle-btn-1';
     btn1.title = 'تبديل ترتيب القائمة';
 
+    // ✅ الأيقونة الظاهرة = المعاكسة للوضع الحالي
     let currentIndex1 = getViewModeIndex1();
-    const iconName1 = VIEW_ICONS_1[currentIndex1];
+    // إذا كان الوضع الحالي 0 (leaderboard) → نعرض 123
+    // إذا كان الوضع الحالي 1 (123) → نعرض leaderboard
+    const displayIndex1 = currentIndex1 === 0 ? 1 : 0;
+    const iconName1 = VIEW_ICONS_1[displayIndex1];
     btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
     
     btn1.onclick = function(e) {
@@ -2489,20 +2497,23 @@ function createViewModeToggles() {
         currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
         setViewModeIndex1(currentIndex1);
         
+        // تحديث الأيقونة إلى المعاكس للوضع الجديد
+        const newDisplayIndex = currentIndex1 === 0 ? 1 : 0;
         const span = this.querySelector('.material-symbols-outlined');
         if (span) {
-            span.textContent = VIEW_ICONS_1[currentIndex1];
+            span.textContent = VIEW_ICONS_1[newDisplayIndex];
         }
         
-        const currentIcon = VIEW_ICONS_1[currentIndex1];
-        
-        if (currentIcon === 'leaderboard') {
+        // تنفيذ الإجراء المناسب
+        if (currentIndex1 === 0) {
+            // الوضع أصبح leaderboard → نطبق الترتيب
             applyLeaderboardOrder();
-        } else if (currentIcon === '123') {
+        } else {
+            // الوضع أصبح 123 → نستعيد الترتيب الأصلي
             restoreOriginalOrder();
         }
         
-        console.log(`🔄 الزر1 تم التبديل إلى: ${currentIcon}`);
+        console.log(`🔄 الزر1 تم التبديل إلى الوضع: ${VIEW_ICONS_1[currentIndex1]}`);
     };
 
     header.appendChild(btn1);
@@ -2513,21 +2524,29 @@ function createViewModeToggles() {
     btn2.className = 'view-mode-toggle-btn-2';
     btn2.title = 'تبديل شكل العرض';
 
+    // ✅ الأيقونة الظاهرة = المعاكسة للوضع الحالي
     let currentIndex2 = getViewModeIndex2();
-    const iconName2 = VIEW_ICONS_2[currentIndex2];
+    // إذا كان الوضع الحالي 0 (view_day/List) → نعرض grid_view
+    // إذا كان الوضع الحالي 1 (grid_view/Grid) → نعرض view_day
+    const displayIndex2 = currentIndex2 === 0 ? 1 : 0;
+    const iconName2 = VIEW_ICONS_2[displayIndex2];
     btn2.innerHTML = `<span class="material-symbols-outlined">${iconName2}</span>`;
 
     btn2.onclick = function(e) {
         e.stopPropagation();
         
+        // التبديل إلى الوضع التالي
         currentIndex2 = (currentIndex2 + 1) % VIEW_ICONS_2.length;
         setViewModeIndex2(currentIndex2);
         
+        // تحديث الأيقونة إلى المعاكس للوضع الجديد
+        const newDisplayIndex = currentIndex2 === 0 ? 1 : 0;
         const span = this.querySelector('.material-symbols-outlined');
         if (span) {
-            span.textContent = VIEW_ICONS_2[currentIndex2];
+            span.textContent = VIEW_ICONS_2[newDisplayIndex];
         }
         
+        // تطبيق الشكل المناسب
         if (currentIndex2 === 1) {
             setExamListMode("grid");
             applyExamListView("grid");
