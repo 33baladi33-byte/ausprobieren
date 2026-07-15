@@ -11,8 +11,7 @@
         "b. durch eine einfache Idee reich geworden",
         "c. durch eine einfache Idee und mit der finanziellen Hilfe ihres Bruders reich geworden"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "durch eine einfache Idee und mit der finanziellen Hilfe ihres Bruders reich geworden", "color": 5 }
+      "correct": 2
     },
     {
       "text": "Ähnliche Internetseiten sind heutzutage",
@@ -21,8 +20,7 @@
         "b. sowohl in den USA als auch in Deutschland erfolgreich",
         "c. überall sehr populär"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "sowohl in den USA als auch in Deutschland erfolgreich", "color": 11 }
+      "correct": 1
     },
     {
       "text": "Die Idee von Catherine und David Cook wurde erfolgreich, weil",
@@ -31,8 +29,7 @@
         "b. sie eine Internetseite gegründet haben, die ihrem Schulhof ähnlich ist",
         "c. alle für die Schüler wichtigen Sachen auf dieser Seite genauso passieren, als wäre es in der eigenen Schule"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "alle für die Schüler wichtigen Sachen auf dieser Seite genauso passieren, als wäre es in der eigenen Schule", "color": 3 }
+      "correct": 2
     },
     {
       "text": "Die Jugendlichen in den USA benutzen solche Netzwerke",
@@ -41,8 +38,7 @@
         "b. um ihre Freizeit virtuell verbringen zu können",
         "c. um mit Freunden chatten zu können"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "um ihre Freizeit virtuell verbringen zu können", "color": 9 }
+      "correct": 1
     },
     {
       "text": "Catherine ist",
@@ -51,8 +47,14 @@
         "b. noch immer an ihrer Seite angemeldet",
         "c. mit den 3065 Jungs auf ihrer Profilseite beschäftigt"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "noch immer an ihrer Seite angemeldet", "color": 7 }
+      "correct": 1
     }
+  ],
+  "memoryHighlights": [
+    { "color": 2, "parts": ["durch eine einfache Idee und mit der finanziellen Hilfe ihres Bruders reich geworden"] },
+    { "color": 9, "parts": ["sowohl in den USA als auch in Deutschland erfolgreich"] },
+    { "color": 11, "parts": ["alle für die Schüler wichtigen Sachen auf dieser Seite genauso passieren, als wäre es in der eigenen Schule"] },
+    { "color": 6, "parts": ["um ihre Freizeit virtuell verbringen zu können"] },
+    { "color": 10, "parts": ["noch immer an ihrer Seite angemeldet"] }
   ]
 }
