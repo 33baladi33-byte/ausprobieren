@@ -11,8 +11,7 @@
         "b. in der Schweiz und in Schweden",
         "c. in Deutschland und in Schweden"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "in der Schweiz und in Schweden", "color": 0 }
+      "correct": 1
     },
     {
       "text": "Früher wurden in Duisburg die Parkgebühren verwendet, um",
@@ -21,38 +20,7 @@
         "b. Dauerparker aus den Stadtzentren zu vertreiben",
         "c. Löcher im städtischen Haushalt zu stopfen"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "Bedürftige zu unterstützen", "color": 8 }
+      "correct": 0
     },
     {
-      "text": "Die ersten Parkuhren",
-      "options": [
-        "a. bezeichnete man als Knöllchen",
-        "b. funktionierten nur mit Münzen",
-        "c. gaben nur Groschen zurück"
-      ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "funktionierten nur mit Münzen", "color": 11 }
-    },
-    {
-      "text": "Die neuen Parkscheinautomaten",
-      "options": [
-        "a. akzeptieren nur Karten als Zahlungsmittel",
-        "b. müssen mit hohem Aufwand gewartet werden",
-        "c. versorgen sich selbst mit Strom"
-      ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "versorgen sich selbst mit Strom", "color": 4 }
-    },
-    {
-      "text": "In Berlin und in Düsseldorf",
-      "options": [
-        "a. fließen die Parkgebühren nur in den Straßenbau",
-        "b. nimmt die Zahl der Parkscheinautomaten zu",
-        "c. werden die höchsten Parkgebühren verlangt"
-      ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "werden die höchsten Parkgebühren verlangt", "color": 10 }
-    }
-  ]
-}
+      "text": "
