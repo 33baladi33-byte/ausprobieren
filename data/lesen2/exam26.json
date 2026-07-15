@@ -11,8 +11,7 @@
         "b. die geänderten Erziehungsmethoden begrüßen",
         "c. als Kind glücklich waren"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "als Kind glücklich waren", "color": 2 }
+      "correct": 2
     },
     {
       "text": "Die meisten Jugendlichen",
@@ -21,8 +20,7 @@
         "b. haben keine Meinung zu Erziehungsfragen",
         "c. denken, dass man auch ohne Familie glücklich sein kann"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "verstehen sich mit ihren Eltern gut", "color": 9 }
+      "correct": 0
     },
     {
       "text": "Heute gibt es zwischen Eltern und Kindern",
@@ -31,8 +29,7 @@
         "b. kaum Unterschiede in der Lebensart",
         "c. immer wieder Probleme wegen zu engen Wohnraums"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "kaum Unterschiede in der Lebensart", "color": 11 }
+      "correct": 1
     },
     {
       "text": "Mütter haben heute mehr Zeit für ihre Kinder, weil",
@@ -41,8 +38,7 @@
         "b. Geräte die Hausarbeit leichter machen",
         "c. die Großeltern ihnen Arbeit abnehmen"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "Geräte die Hausarbeit leichter machen", "color": 6 }
+      "correct": 1
     },
     {
       "text": "In der Öffentlichkeit",
@@ -51,8 +47,14 @@
         "b. ist das Thema Familie nicht interessant",
         "c. entsteht oft ein falsches Bild der Familie"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "entsteht oft ein falsches Bild der Familie", "color": 10 }
+      "correct": 2
     }
+  ],
+  "memoryHighlights": [
+    { "color": 2, "parts": ["als Kind glücklich waren"] },
+    { "color": 9, "parts": ["verstehen sich mit ihren Eltern gut"] },
+    { "color": 11, "parts": ["kaum Unterschiede in der Lebensart"] },
+    { "color": 6, "parts": ["Geräte die Hausarbeit leichter machen"] },
+    { "color": 10, "parts": ["entsteht oft ein falsches Bild der Familie"] }
   ]
 }
