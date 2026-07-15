@@ -2145,12 +2145,12 @@ console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `$
 // أزرار تبديل الأيقونة (زرين جنب بعض)
 // ============================================
 
-// ===== الزر الأول: leaderboard ↔ 123 ↔ shuffle =====
-const VIEW_ICONS_1 = ['leaderboard', '123', 'shuffle'];
+// ===== الزر الأول: leaderboard ↔ 123 (تم إزالة shuffle) =====
+const VIEW_ICONS_1 = ['leaderboard', '123'];
 const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
 
-// تخزين الترتيب الأصلي للامتحانات
-let originalExamOrder = [];
+// تخزين الترتيب الأصلي كأرقام امتحانات (وليس عناصر DOM)
+let originalOrderNumbers = [];
 
 // حفظ الترتيب الأصلي عند تحميل القائمة
 function saveOriginalOrder() {
@@ -2162,26 +2162,60 @@ function saveOriginalOrder() {
         !el.classList.contains("memory-progress-bar-container")
     );
     
-    originalExamOrder = exams.map(el => el);
+    // حفظ أرقام الامتحانات بالترتيب الأصلي
+    originalOrderNumbers = exams.map(el => {
+        const title = el.querySelector(".exam-title");
+        if (!title) return null;
+        const text = title.textContent || '';
+        const match = text.match(/^(\d+):/);
+        return match ? parseInt(match[1], 10) : null;
+    }).filter(num => num !== null);
+    
+    console.log("📋 تم حفظ الترتيب الأصلي:", originalOrderNumbers);
 }
 
-// استعادة الترتيب الأصلي
+// استعادة الترتيب الأصلي حسب أرقام الامتحانات
 function restoreOriginalOrder() {
     const list = document.getElementById("examsList");
-    if (!list || originalExamOrder.length === 0) return;
+    if (!list || originalOrderNumbers.length === 0) return;
     
-    // التحقق من وجود Grid Container
-    const gridContainer = document.getElementById("examGridContainer");
-    const targetContainer = gridContainer || list;
+    // الحصول على جميع عناصر الامتحانات الحالية
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
     
-    // إعادة ترتيب العناصر حسب الترتيب الأصلي
-    originalExamOrder.forEach(el => {
-        if (el && el.parentNode) {
-            targetContainer.appendChild(el);
+    if (!exams.length) return;
+    
+    // إنشاء خريطة للعناصر حسب رقم الامتحان
+    const examMap = {};
+    exams.forEach(el => {
+        const title = el.querySelector(".exam-title");
+        if (!title) return;
+        const text = title.textContent || '';
+        const match = text.match(/^(\d+):/);
+        if (match) {
+            const num = parseInt(match[1], 10);
+            examMap[num] = el;
         }
     });
     
-    console.log("📋 تم استعادة الترتيب الأصلي");
+    // إعادة ترتيب العناصر حسب الأرقام المحفوظة
+    const fragment = document.createDocumentFragment();
+    originalOrderNumbers.forEach(num => {
+        if (examMap[num]) {
+            fragment.appendChild(examMap[num]);
+            delete examMap[num];
+        }
+    });
+    
+    // إضافة أي عناصر متبقية (جديدة) في نهاية القائمة
+    Object.keys(examMap).map(Number).sort((a, b) => a - b).forEach(num => {
+        fragment.appendChild(examMap[num]);
+    });
+    
+    list.appendChild(fragment);
+    console.log("📋 تم استعادة الترتيب الأصلي حسب الأرقام");
 }
 
 // ✅ تطبيق ترتيب leaderboard - نفس الكود الذي يعمل في Console تماماً
@@ -2438,11 +2472,11 @@ function createViewModeToggles() {
     const oldBtn2 = document.getElementById('viewModeToggleBtn2');
     if (oldBtn2) oldBtn2.remove();
 
-    // ===== الزر الأول (leaderboard ↔ 123 ↔ shuffle) =====
+    // ===== الزر الأول (leaderboard ↔ 123) - تم إزالة shuffle =====
     const btn1 = document.createElement('button');
     btn1.id = 'viewModeToggleBtn1';
     btn1.className = 'view-mode-toggle-btn-1';
-    btn1.title = 'تبديل شكل العرض (ترتيب)';
+    btn1.title = 'تبديل ترتيب القائمة';
 
     let currentIndex1 = getViewModeIndex1();
     const iconName1 = VIEW_ICONS_1[currentIndex1];
@@ -2451,6 +2485,7 @@ function createViewModeToggles() {
     btn1.onclick = function(e) {
         e.stopPropagation();
         
+        // التبديل إلى الأيقونة التالية (0→1→0→1...)
         currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
         setViewModeIndex1(currentIndex1);
         
@@ -2465,8 +2500,6 @@ function createViewModeToggles() {
             applyLeaderboardOrder();
         } else if (currentIcon === '123') {
             restoreOriginalOrder();
-        } else if (currentIcon === 'shuffle') {
-            console.log("🔀 Shuffle - سيتم إضافته لاحقاً");
         }
         
         console.log(`🔄 الزر1 تم التبديل إلى: ${currentIcon}`);
@@ -2478,7 +2511,7 @@ function createViewModeToggles() {
     const btn2 = document.createElement('button');
     btn2.id = 'viewModeToggleBtn2';
     btn2.className = 'view-mode-toggle-btn-2';
-    btn2.title = 'تبديل شكل العرض (عرض)';
+    btn2.title = 'تبديل شكل العرض';
 
     let currentIndex2 = getViewModeIndex2();
     const iconName2 = VIEW_ICONS_2[currentIndex2];
@@ -2546,4 +2579,4 @@ window.saveOriginalOrder = saveOriginalOrder;
 window.restoreOriginalOrder = restoreOriginalOrder;
 window.applyLeaderboardOrder = applyLeaderboardOrder;
 
-console.log('🔄 زرين للتبديل (leaderboard↔123↔shuffle) و (view_day↔grid_view) مع وظائف الترتيب تم تحميلهما');
+console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view) مع وظائف الترتيب تم تحميلهما');
