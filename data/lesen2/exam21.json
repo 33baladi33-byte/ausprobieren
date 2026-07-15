@@ -11,8 +11,7 @@
         "b. für die ersten großen Kaufhäuser produziert",
         "c. von einem französischen Schneider erfunden"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "von einem französischen Schneider erfunden", "color": 5 }
+      "correct": 2
     },
     {
       "text": "Bei der Restaurierung der Schaufensterpuppen",
@@ -21,8 +20,7 @@
         "b. können keine Luxusmarken eingesetzt werden",
         "c. verwendet er nur billige Produkte"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "darf Herr Bauerfeind keinen normalen Nagellack auftragen", "color": 11 }
+      "correct": 0
     },
     {
       "text": "Der Puppenmacher",
@@ -31,8 +29,7 @@
         "b. konnte seine erste Schaufensterpuppe nicht auf einmal zahlen",
         "c. organisierte eine Ausstellung mit Schaufensterpuppen"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "konnte seine erste Schaufensterpuppe nicht auf einmal zahlen", "color": 3 }
+      "correct": 1
     },
     {
       "text": "Herr Bauerfeind",
@@ -41,8 +38,7 @@
         "b. handelt mit Schaufensterpuppen anderer Produzenten",
         "c. stellt heute keine Schaufensterpuppen mehr her"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "handelt mit Schaufensterpuppen anderer Produzenten", "color": 9 }
+      "correct": 1
     },
     {
       "text": "Schaufensterpuppen",
@@ -51,8 +47,14 @@
         "b. sind nicht von Tendenzen der Mode abhängig",
         "c. sollen immer die gleiche Figur haben"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "können mit umweltfreundlichen Farben bemalt werden", "color": 7 }
+      "correct": 0
     }
+  ],
+  "memoryHighlights": [
+    { "color": 3, "parts": ["von einem französischen Schneider erfunden"] },
+    { "color": 8, "parts": ["darf Herr Bauerfeind keinen normalen Nagellack auftragen"] },
+    { "color": 11, "parts": ["konnte seine erste Schaufensterpuppe nicht auf einmal zahlen"] },
+    { "color": 5, "parts": ["handelt mit Schaufensterpuppen anderer Produzenten"] },
+    { "color": 10, "parts": ["können mit umweltfreundlichen Farben bemalt werden"] }
   ]
 }
