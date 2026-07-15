@@ -2220,7 +2220,7 @@ function applyExamListView(mode) {
         return;
     }
 
-    // ===== Grid View - مطابق تماماً لكود Console =====
+    // ===== Grid View - مطابق تماماً لكود Console مع تأثيرات Hover و Active =====
     const exams = [...list.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
@@ -2259,17 +2259,81 @@ function applyExamListView(mode) {
             box-shadow: none;
             text-align: center;
             font-size: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
         `;
 
-        // ✅ نفس الكود تماماً كما في Console
+        // ✅ إضافة تأثير Hover (المرور بالماوس)
+        item.addEventListener('mouseenter', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            if (isPremium) {
+                this.style.backgroundColor = "rgba(255,255,255,0.95)";
+                this.style.transform = "translateY(-3px)";
+                this.style.borderColor = "#60a5fa";
+                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+            } else {
+                this.style.backgroundColor = "#f1f5f9";
+                this.style.transform = "translateY(-3px)";
+                this.style.borderColor = "#2F80ED";
+                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+            }
+            const title = this.querySelector('.exam-title');
+            if (title) {
+                const isPremium = this.querySelector('.premium-badge') !== null;
+                title.style.color = isPremium ? "#4b5563" : "#1e293b";
+            }
+            const premiumSpan = this.querySelector('.premium-badge');
+            if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+        });
+
+        item.addEventListener('mouseleave', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            if (isPremium) {
+                this.style.backgroundColor = "rgba(255,255,255,0.75)";
+                this.style.transform = "translateY(0)";
+                this.style.borderColor = "#e2e8f0";
+                this.style.boxShadow = "none";
+            } else {
+                this.style.backgroundColor = "#fafbfc";
+                this.style.transform = "translateY(0)";
+                this.style.borderColor = "#e8ecef";
+                this.style.boxShadow = "none";
+            }
+            const title = this.querySelector('.exam-title');
+            if (title) {
+                const isPremium = this.querySelector('.premium-badge') !== null;
+                title.style.color = isPremium ? "#6b7280" : "#1a202c";
+            }
+            const premiumSpan = this.querySelector('.premium-badge');
+            if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+        });
+
+        // ✅ إضافة تأثير Active (الضغط)
+        item.addEventListener('mousedown', function() {
+            this.style.transform = "scale(0.98)";
+            this.style.backgroundColor = "#e2e8f0";
+            this.style.transition = "all 0.05s ease";
+        });
+
+        item.addEventListener('mouseup', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            this.style.transform = "scale(1)";
+            this.style.backgroundColor = isPremium ? "rgba(255,255,255,0.95)" : "#f1f5f9";
+            this.style.transition = "all 0.25s ease";
+        });
+
+        // ✅ نفس الكود للعنوان والنتيجة
         const title = item.querySelector(".exam-title");
-        if (title) title.style.fontSize = "11px";
+        if (title) {
+            title.style.fontSize = "11px";
+            title.style.transition = "color 0.25s ease";
+        }
 
         const badge = item.querySelector(".exam-result-badge");
         if (badge) badge.style.fontSize = "8px";
     });
 
-    console.log("🟦 Grid View - مطابق لكود Console");
+    console.log("🟦 Grid View - مطابق لكود Console مع تأثيرات Hover و Active");
 }
 // ============================================
 // إنشاء الأزرار
