@@ -26,4 +26,19 @@
       "highlightColor": 11
     },
     {
-      "text": "Text 3: Nach den Unwettern der letzten Sommer sprechen Meteorologen in ganz Europa davon, dass sich das Klima weltweit dramatisch verändert. Stabile Sommer mit Sonnenschein pur von Juni bis August sollen selbst am Mittelmeer in Zukunft passé sein. Die durch Treibhausgase aufge
+      "text": "Text 3: Nach den Unwettern der letzten Sommer sprechen Meteorologen in ganz Europa davon, dass sich das Klima weltweit dramatisch verändert. Stabile Sommer mit Sonnenschein pur von Juni bis August sollen selbst am Mittelmeer in Zukunft passé sein. Die durch Treibhausgase aufgeheizte Atmosphäre hat sich erwärmt, mehr Wasser verdunstet durch die höheren Temperaturen aus den Ozeanen und prasselt in extrem starken Unwettern mit Donner, Blitz und Hagel auf die Erde. Dort kann die Erde nicht mehr solche Mengen Wassers aufnehmen, wie in kürzester Zeit fallen. Die Folge davon sind Überschwemmungen. Kurze Sonnenscheinperioden werden sich mit Unwetterfronten abwechseln.",
+      "correct": 3,
+      "highlightColor": 2
+    },
+    {
+      "text": "Text 4: Wozu noch Kästen mit Mineralwasserflaschen nach Hause schleppen, wenn es sich doch bequem zu Hause zubereiten lässt. Tatsächlich ist das Leitungswasser, das aus den Wasserhähnen في deutschen Wohnungen fließt, von guter bis sehr guter Qualität. Einzig das Prickeln auf der Zunge, das durch das Hinzufügen von Kohlensäure in viele Mineralwässer entsteht, fehlt bei dem Leitungswasser. Doch auch hier gibt es bereits eine preiswerte Möglichkeit, dies selbst zu tun: mit einer Sodamaschine. Damit lassen sich Sprudel und Limonaden selbst herstellen, ganz nach dem individuellen Geschmack des Nutzers: mal mit mehr, mal mit weniger Prickeln, mal süßer, mal fruchtiger.",
+      "correct": 2,
+      "highlightColor": 10
+    },
+    {
+      "text": "Text 5: 'Wasser ist zum Waschen da' lautete ein deutscher Schlager Mitte der 1950er, in dem es weiter hieß: 'Auch zum Zähneputzen kann man es benutzen.' Wasser zu trinken schien damals manchen Leuten nicht in die neue Wohlstandswelt zu passen. Süße Limonaden galten als besser als einfach nur Wasser. Dabei raten heute die meisten Ärzte zum Wassertrinken: 'Trinken Sie täglich mindestens 2,5 Liter davon', steht auch in nahezu allen medizinischen Ratgebern von heute. Mineralwasser hat durch seine mineralischen Inhaltsstoffe Natrium, Kalium, Magnesium, Kalzium und Spurenelemente für den menschlichen Körper viele Vorteile: Es gleicht den Mineral- und Flüssigkeitsverlust beim Schwitzen aus, es fördert die Verdauung - und das alles ohne Zucker und Kalorien.",
+      "correct": 1,
+      "highlightColor": 8
+    }
+  ]
+}
