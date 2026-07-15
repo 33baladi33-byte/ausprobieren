@@ -11,8 +11,7 @@
         "b. welche Einflüsse bestimmte Faktoren auf das Kaufverhalten haben",
         "c. warum Menschen so viel über das eigene Einkaufsverhalten nachdenken."
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "welche Einflüsse bestimmte Faktoren auf das Kaufverhalten haben", "color": 3 }
+      "correct": 1
     },
     {
       "text": "Es gibt Hinweise darauf, dass",
@@ -21,8 +20,7 @@
         "b. Forscher bei ihren Experimenten die Konsumenten manipulierten",
         "c. das Empfinden von Kälte zum Kauf romantischer Filme animiert"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "das Empfinden von Kälte zum Kauf romantischer Filme animiert", "color": 9 }
+      "correct": 2
     },
     {
       "text": "Forscher haben untersucht",
@@ -31,8 +29,7 @@
         "b. welche Kunden bei Sonderangeboten größere Mengen kaufen",
         "c. ob die Reihenfolge von Produktinformationen das Kaufverhalten beeinflusst"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "ob die Reihenfolge von Produktinformationen das Kaufverhalten beeinflusst", "color": 11 }
+      "correct": 2
     },
     {
       "text": "Unser Gehirn",
@@ -41,8 +38,7 @@
         "b. nutzt unter Zeitdruck vor allem die erste Information einer Botschaft",
         "c. kann unter Zeitdruck mathematische Aufgaben schneller lösen"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "nutzt unter Zeitdruck vor allem die erste Information einer Botschaft", "color": 5 }
+      "correct": 1
     },
     {
       "text": "Großpackungen können besser verkauft werden, wenn die",
@@ -51,8 +47,14 @@
         "b. Produkte täglich beworben werden",
         "c. Mengenangabe vor dem Preis genannt wird"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "Mengenangabe vor dem Preis genannt wird", "color": 7 }
+      "correct": 2
     }
+  ],
+  "memoryHighlights": [
+    { "color": 3, "parts": [ "welche Einflüsse bestimmte Faktoren auf das Kaufverhalten haben" ] },
+    { "color": 9, "parts": [ "das Empfinden von Kälte zum Kauf romantischer Filme animiert" ] },
+    { "color": 11, "parts": [ "ob die Reihenfolge von Produktinformationen das Kaufverhalten beeinflusst" ] },
+    { "color": 5, "parts": [ "nutzt unter Zeitdruck vor allem die erste Information einer Botschaft" ] },
+    { "color": 7, "parts": [ "Mengenangabe vor dem Preis genannt wird" ] }
   ]
 }
