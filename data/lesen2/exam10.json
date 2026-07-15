@@ -11,11 +11,7 @@
         "b. sowohl aus jungen als auch alten Menschen",
         "c. hauptsächlich aus berufstätigen Frauen"
       ],
-      "correct": 1,
-      "memoryHighlight": {
-        "connector": "sowohl aus jungen als auch alten Menschen",
-        "color": 3
-      }
+      "correct": 1
     },
     {
       "text": "Die Teilnehmer besuchen Frau Winklers Seminar, weil sie",
@@ -24,11 +20,7 @@
         "b. sich alles bewusst merken wollen",
         "c. das Gefühl haben, dass ihr Gedächtnis nachlässt"
       ],
-      "correct": 0,
-      "memoryHighlight": {
-        "connector": "sich von den vielen Informationen überfordert fühlen",
-        "color": 9
-      }
+      "correct": 0
     },
     {
       "text": "Jeder Mensch",
@@ -37,11 +29,7 @@
         "b. kann über einen Zeitraum von 20 Minuten alles behalten",
         "c. kann sich alle erdenklichen Geräusche und Gerüche merken"
       ],
-      "correct": 0,
-      "memoryHighlight": {
-        "connector": "vergisst die meisten Informationen innerhalb kürzester Zeit",
-        "color": 2
-      }
+      "correct": 0
     },
     {
       "text": "Besonders gut kann man sich",
@@ -50,11 +38,7 @@
         "b. an Daten und Begriffe erinnern",
         "c. als Kind etwas merken"
       ],
-      "correct": 0,
-      "memoryHighlight": {
-        "connector": "intensive Gefühle merken",
-        "color": 7
-      }
+      "correct": 0
     },
     {
       "text": "Jenny Helfer",
@@ -63,11 +47,14 @@
         "b. verbindet Informationen mit Bildern",
         "c. lehrt andere, wie man sich \"Eselsbrücken\" ausdenkt"
       ],
-      "correct": 1,
-      "memoryHighlight": {
-        "connector": "verbindet Informationen mit Bildern",
-        "color": 11
-      }
+      "correct": 1
     }
+  ],
+  "memoryHighlights": [
+    { "color": 2, "parts": [ "sowohl aus jungen als auch alten Menschen" ] },
+    { "color": 9, "parts": [ "sich von den vielen Informationen überfordert fühlen" ] },
+    { "color": 11, "parts": [ "vergisst die meisten Informationen innerhalb kürzester Zeit" ] },
+    { "color": 4, "parts": [ "intensive Gefühle merken" ] },
+    { "color": 7, "parts": [ "verbindet Informationen mit Bildern" ] }
   ]
 }
