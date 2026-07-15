@@ -2141,3 +2141,360 @@ window.startMemoryTrainerForExam = startMemoryTrainerForExam;
 
 console.log('🧠 نظام التقدم المتوازن (المراحل لكل مهارة) تم تحميله بنجاح');
 console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));
+// ============================================
+// نظام تبديل شكل القائمة (List / Grid / Compact)
+// ============================================
+
+// الحالة الحالية للتنسيق (تخزن في localStorage)
+const VIEW_MODE_KEY = 'examListViewMode';
+
+// الأيقونات الثلاثة
+const VIEW_MODES = [
+    { id: 'list', icon: 'view_agenda', label: 'قائمة' },
+    { id: 'grid', icon: 'grid_view', label: 'مربعات' },
+    { id: 'compact', icon: 'view_module', label: 'مدمج' }
+];
+
+// الحصول على الوضع الحالي
+function getCurrentViewMode() {
+    try {
+        const saved = localStorage.getItem(VIEW_MODE_KEY);
+        if (saved && VIEW_MODES.some(m => m.id === saved)) return saved;
+    } catch {}
+    return 'list'; // الوضع الافتراضي
+}
+
+// حفظ الوضع الحالي
+function setCurrentViewMode(mode) {
+    try {
+        localStorage.setItem(VIEW_MODE_KEY, mode);
+    } catch {}
+}
+
+// الحصول على الوضع التالي (دوران)
+function getNextViewMode(currentId) {
+    const currentIndex = VIEW_MODES.findIndex(m => m.id === currentId);
+    const nextIndex = (currentIndex + 1) % VIEW_MODES.length;
+    return VIEW_MODES[nextIndex].id;
+}
+
+// الحصول على أيقونة الوضع الحالي
+function getViewModeIcon(modeId) {
+    const mode = VIEW_MODES.find(m => m.id === modeId);
+    return mode ? mode.icon : VIEW_MODES[0].icon;
+}
+
+// ============================================
+// دالة إنشاء زر تبديل الشكل
+// ============================================
+
+function createViewModeToggle() {
+    // البحث عن الـ header
+    const header = document.querySelector('.teil-header');
+    if (!header) {
+        console.warn('⚠️ .teil-header غير موجود، سيتم المحاولة مرة أخرى');
+        setTimeout(createViewModeToggle, 500);
+        return;
+    }
+
+    // التأكد من أن الـ header position: relative
+    header.style.position = 'relative';
+
+    // إزالة الزر القديم إذا كان موجوداً
+    const oldBtn = document.getElementById('viewModeToggleBtn');
+    if (oldBtn) oldBtn.remove();
+
+    // إنشاء الزر
+    const btn = document.createElement('button');
+    btn.id = 'viewModeToggleBtn';
+    btn.title = 'تبديل شكل القائمة';
+
+    const currentMode = getCurrentViewMode();
+    const iconName = getViewModeIcon(currentMode);
+
+    btn.innerHTML = `
+        <span class="material-symbols-outlined" style="font-size: 22px; line-height: 1;">
+            ${iconName}
+        </span>
+    `;
+
+    btn.style.cssText = `
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        color: #6b7a8f;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        z-index: 10;
+        padding: 0;
+        font-family: inherit;
+    `;
+
+    // تأثير hover
+    btn.onmouseenter = () => {
+        btn.style.background = 'rgba(0,0,0,0.06)';
+        btn.style.color = '#2c3e66';
+        btn.style.transform = 'translateY(-50%) scale(1.08)';
+    };
+
+    btn.onmouseleave = () => {
+        btn.style.background = 'transparent';
+        btn.style.color = '#6b7a8f';
+        btn.style.transform = 'translateY(-50%) scale(1)';
+    };
+
+    // حدث الضغط - تبديل الوضع
+    btn.onclick = (e) => {
+        e.stopPropagation();
+        toggleViewMode();
+    };
+
+    // إضافة الزر إلى الـ header
+    header.appendChild(btn);
+
+    console.log('✅ زر تبديل شكل القائمة تم إضافته في أقصى يمين .teil-header');
+}
+
+// ============================================
+// دالة تبديل الوضع وتطبيقه على القائمة
+// ============================================
+
+function toggleViewMode() {
+    const currentMode = getCurrentViewMode();
+    const nextMode = getNextViewMode(currentMode);
+    setCurrentViewMode(nextMode);
+
+    // تحديث أيقونة الزر
+    const btn = document.getElementById('viewModeToggleBtn');
+    if (btn) {
+        const iconName = getViewModeIcon(nextMode);
+        btn.innerHTML = `
+            <span class="material-symbols-outlined" style="font-size: 22px; line-height: 1;">
+                ${iconName}
+            </span>
+        `;
+        btn.title = `تبديل شكل القائمة (${nextMode})`;
+    }
+
+    // تطبيق الشكل على قائمة الامتحانات
+    applyViewMode(nextMode);
+
+    // حفظ الحالة
+    console.log(`🔄 تم التبديل إلى وضع: ${nextMode}`);
+}
+
+// ============================================
+// دالة تطبيق الشكل على قائمة الامتحانات
+// ============================================
+
+function applyViewMode(mode) {
+    const container = document.getElementById('examsList');
+    if (!container) return;
+
+    // الحصول على جميع عناصر الامتحانات (باستثناء الـ header وشريط التقدم)
+    const items = container.querySelectorAll('.item:not(.teil-header)');
+
+    if (mode === 'list') {
+        // ✅ وضع القائمة (واحد تحت الآخر) - الشكل الحالي
+        container.style.display = 'block';
+        items.forEach(item => {
+            item.style.display = 'flex';
+            item.style.flexDirection = 'row';
+            item.style.flexWrap = 'wrap';
+            item.style.alignItems = 'center';
+            item.style.justifyContent = 'space-between';
+            item.style.width = '100%';
+            item.style.padding = '12px 16px';
+            item.style.marginBottom = '6px';
+            item.style.borderRadius = '10px';
+            item.style.border = '1px solid #e8ecef';
+            item.style.background = '#ffffff';
+            item.style.boxShadow = 'none';
+            // إعادة ترتيب العناصر الداخلية
+            const titleSpan = item.querySelector('.exam-title');
+            const rightSide = item.querySelector('.exam-right-icons');
+            if (titleSpan) {
+                titleSpan.style.flex = '1';
+                titleSpan.style.fontSize = '14px';
+                titleSpan.style.fontWeight = '500';
+            }
+            if (rightSide) {
+                rightSide.style.marginLeft = 'auto';
+                rightSide.style.display = 'flex';
+                rightSide.style.alignItems = 'center';
+                rightSide.style.gap = '8px';
+            }
+            // إزالة أي تأثيرات سابقة
+            item.style.gridColumn = 'auto';
+        });
+    } 
+    else if (mode === 'grid') {
+        // ✅ وضع المربعات (شبكة متساوية)
+        container.style.display = 'grid';
+        container.style.gridTemplateColumns = 'repeat(auto-fill, minmax(200px, 1fr))';
+        container.style.gap = '12px';
+        container.style.padding = '4px 0';
+
+        items.forEach(item => {
+            item.style.display = 'flex';
+            item.style.flexDirection = 'column';
+            item.style.alignItems = 'center';
+            item.style.justifyContent = 'center';
+            item.style.width = '100%';
+            item.style.padding = '16px 12px';
+            item.style.marginBottom = '0';
+            item.style.borderRadius = '12px';
+            item.style.border = '1px solid #e8ecef';
+            item.style.background = '#ffffff';
+            item.style.boxShadow = '0 2px 8px rgba(0,0,0,0.04)';
+            item.style.minHeight = '80px';
+            item.style.textAlign = 'center';
+            item.style.transition = 'all 0.2s ease';
+
+            // ترتيب العناصر الداخلية عمودياً
+            const titleSpan = item.querySelector('.exam-title');
+            const rightSide = item.querySelector('.exam-right-icons');
+            if (titleSpan) {
+                titleSpan.style.flex = 'none';
+                titleSpan.style.fontSize = '13px';
+                titleSpan.style.fontWeight = '500';
+                titleSpan.style.width = '100%';
+                titleSpan.style.textAlign = 'center';
+                titleSpan.style.wordBreak = 'break-word';
+            }
+            if (rightSide) {
+                rightSide.style.marginLeft = '0';
+                rightSide.style.marginTop = '6px';
+                rightSide.style.display = 'flex';
+                rightSide.style.alignItems = 'center';
+                rightSide.style.justifyContent = 'center';
+                rightSide.style.gap = '6px';
+                rightSide.style.flexWrap = 'wrap';
+            }
+            // إزالة أي grid خاص
+            item.style.gridColumn = 'auto';
+        });
+    } 
+    else if (mode === 'compact') {
+        // ✅ وضع المربعات الصغيرة المدمجة
+        container.style.display = 'grid';
+        container.style.gridTemplateColumns = 'repeat(auto-fill, minmax(80px, 1fr))';
+        container.style.gap = '6px';
+        container.style.padding = '2px 0';
+
+        items.forEach(item => {
+            item.style.display = 'flex';
+            item.style.flexDirection = 'column';
+            item.style.alignItems = 'center';
+            item.style.justifyContent = 'center';
+            item.style.width = '100%';
+            item.style.padding = '8px 4px';
+            item.style.marginBottom = '0';
+            item.style.borderRadius = '8px';
+            item.style.border = '1px solid #e8ecef';
+            item.style.background = '#f8fafc';
+            item.style.boxShadow = 'none';
+            item.style.minHeight = '50px';
+            item.style.textAlign = 'center';
+            item.style.transition = 'all 0.15s ease';
+
+            const titleSpan = item.querySelector('.exam-title');
+            const rightSide = item.querySelector('.exam-right-icons');
+            const badge = item.querySelector('.exam-result-badge');
+            const progressSpan = item.querySelector('.exam-progress-mini');
+
+            if (titleSpan) {
+                titleSpan.style.flex = 'none';
+                titleSpan.style.fontSize = '11px';
+                titleSpan.style.fontWeight = '600';
+                titleSpan.style.width = '100%';
+                titleSpan.style.textAlign = 'center';
+                titleSpan.style.wordBreak = 'break-word';
+                titleSpan.style.lineHeight = '1.3';
+                // اختصار النص: فقط رقم الامتحان
+                const text = titleSpan.textContent || '';
+                const match = text.match(/^(\d+):/);
+                if (match) {
+                    titleSpan.textContent = match[1];
+                } else {
+                    titleSpan.textContent = text.substring(0, 6);
+                }
+            }
+
+            // إخفاء البادج والنتيجة في الوضع المدمج
+            if (badge) badge.style.display = 'none';
+            if (progressSpan) progressSpan.style.display = 'none';
+
+            if (rightSide) {
+                rightSide.style.marginLeft = '0';
+                rightSide.style.marginTop = '2px';
+                rightSide.style.display = 'flex';
+                rightSide.style.alignItems = 'center';
+                rightSide.style.justifyContent = 'center';
+                rightSide.style.gap = '3px';
+                rightSide.style.flexWrap = 'wrap';
+                // إخفاء نص Premium في الوضع المدمج
+                const premiumSpan = rightSide.querySelector('.premium-badge');
+                if (premiumSpan) premiumSpan.style.display = 'none';
+            }
+
+            // إزالة أي grid خاص
+            item.style.gridColumn = 'auto';
+        });
+    }
+
+    // إعادة تطبيق شريط التقدم إذا كان موجوداً (يبقى كما هو)
+    const progressBar = container.querySelector('.memory-progress-bar-container');
+    if (progressBar) {
+        progressBar.style.gridColumn = '1 / -1';
+        progressBar.style.width = '100%';
+    }
+}
+
+// ============================================
+// استدعاء دالة إنشاء الزر عند تحميل الصفحة
+// ============================================
+
+// إنشاء الزر فوراً إذا كان الـ header موجوداً
+document.addEventListener('DOMContentLoaded', function() {
+    // ننتظر قليلاً للتأكد من تحميل القائمة
+    setTimeout(() => {
+        createViewModeToggle();
+        // تطبيق الوضع المحفوظ
+        const savedMode = getCurrentViewMode();
+        applyViewMode(savedMode);
+    }, 300);
+});
+
+// أيضاً عند تغيير القائمة (عند الضغط على Teil جديد)
+// نعدل دالة renderExamListForSkill لإعادة إنشاء الزر وتطبيق الوضع
+const originalRenderExamList = window.renderExamListForSkill;
+if (originalRenderExamList) {
+    window.renderExamListForSkill = function(skill, teilName) {
+        originalRenderExamList(skill, teilName);
+        // بعد إنشاء القائمة، نعيد إنشاء الزر ونطبق الوضع
+        setTimeout(() => {
+            createViewModeToggle();
+            const savedMode = getCurrentViewMode();
+            applyViewMode(savedMode);
+        }, 100);
+    };
+}
+
+// تصدير الدوال للاستخدام العام
+window.createViewModeToggle = createViewModeToggle;
+window.toggleViewMode = toggleViewMode;
+window.applyViewMode = applyViewMode;
+window.getCurrentViewMode = getCurrentViewMode;
+window.setCurrentViewMode = setCurrentViewMode;
+
+console.log('🔄 نظام تبديل شكل القائمة (List / Grid / Compact) تم تحميله');
