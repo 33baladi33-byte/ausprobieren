@@ -11,8 +11,7 @@
         "b. in unsicheren Zeiten weniger investiert wird",
         "c. mehr Leute einen Pool bauen, weil Pools billiger geworden sind"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "mehr Leute einen Pool bauen, weil Pools billiger geworden sind", "color": 1 }
+      "correct": 2
     },
     {
       "text": "Laut einer Studie",
@@ -21,8 +20,7 @@
         "b. steht ein Pool nicht an erster Stelle auf der Wunschliste",
         "c. wünschen sich 10 Prozent der Österreicher einen Pool"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "steht ein Pool nicht an erster Stelle auf der Wunschliste", "color": 8 }
+      "correct": 1
     },
     {
       "text": "Rija ist der Meinung, dass",
@@ -31,8 +29,7 @@
         "b. ihr Pool ein Anziehungspunkt für Freunde geworden ist",
         "c. ihre Freunde beim Poolbau helfen sollen"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "ihr Pool ein Anziehungspunkt für Freunde geworden ist", "color": 11 }
+      "correct": 1
     },
     {
       "text": "Naturpools",
@@ -41,8 +38,7 @@
         "b. müssen häufig geputzt werden",
         "c. sehen genauso aus wie Schwimmteiche"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "brauchen keine chemischen Reinigungsmittel", "color": 4 }
+      "correct": 0
     },
     {
       "text": "In Wien",
@@ -51,8 +47,14 @@
         "b. führt das Befüllen von Pools regelmäßig zu Wasserknappheit",
         "c. wird manchmal Wasser zum Befüllen von Pools gestohlen"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "wird manchmal Wasser zum Befüllen von Pools gestohlen", "color": 10 }
+      "correct": 2
     }
+  ],
+  "memoryHighlights": [
+    { "color": 1, "parts": [ "mehr Leute einen Pool bauen, weil Pools billiger geworden sind" ] },
+    { "color": 8, "parts": [ "steht ein Pool nicht an erster Stelle auf der Wunschliste" ] },
+    { "color": 11, "parts": [ "ihr Pool ein Anziehungspunkt für Freunde geworden ist" ] },
+    { "color": 4, "parts": [ "brauchen keine chemischen Reinigungsmittel" ] },
+    { "color": 10, "parts": [ "wird manchmal Wasser zum Befüllen von Pools gestohlen" ] }
   ]
 }
