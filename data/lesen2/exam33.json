@@ -11,8 +11,7 @@
         "b. gesund sein sollte",
         "c. vor allem gut schmecken muss"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "gesund sein sollte", "color": 0 }
+      "correct": 1
     },
     {
       "text": "Das Kriterium kalorienarm",
@@ -21,8 +20,7 @@
         "b. steht bei Übergewichtigen an erster Stelle",
         "c. war früher wichtiger"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "war früher wichtiger", "color": 8 }
+      "correct": 2
     },
     {
       "text": "Experten glauben, dass Menschen ungesund essen, weil",
@@ -31,8 +29,7 @@
         "b. sie sich nicht genug informieren",
         "c. zu viele ungesunde Lebensmittel auf dem Markt sind"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "zu viele ungesunde Lebensmittel auf dem Markt sind", "color": 11 }
+      "correct": 2
     },
     {
       "text": "Das Wegwerfen von Lebensmitteln",
@@ -41,8 +38,7 @@
         "b. lehnen jüngere Menschen vollkommen ab",
         "c. passiert bei älteren Menschen fast nie"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "passiert bei älteren Menschen fast nie", "color": 4 }
+      "correct": 2
     },
     {
       "text": "Der Fleischkonsum",
@@ -51,8 +47,14 @@
         "b. kommt für dreizehn Prozent der Jugendlichen nicht in Frage",
         "c. nimmt mit dem Alter zu"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "ist nicht in allen Altersgruppen gleich", "color": 10 }
+      "correct": 0
     }
+  ],
+  "memoryHighlights": [
+    { "color": 1, "parts": ["gesund sein sollte"] },
+    { "color": 9, "parts": ["war früher wichtiger"] },
+    { "color": 11, "parts": ["zu viele ungesunde Lebensmittel auf dem Markt sind"] },
+    { "color": 4, "parts": ["passiert bei älteren Menschen fast nie"] },
+    { "color": 10, "parts": ["ist nicht in allen Altersgruppen gleich"] }
   ]
 }
