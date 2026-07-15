@@ -11,11 +11,7 @@
         "b. sind für die Milchproduktion wenig geeignet",
         "c. wurden ursprünglich in Norddeutschland gezüchtet."
       ],
-      "correct": 0,
-      "memoryHighlight": {
-        "connector": "dominieren als Rinderrasse die Milchviehwirtschaft",
-        "color": 5
-      }
+      "correct": 0
     },
     {
       "text": "Die Kuh Krista",
@@ -24,11 +20,7 @@
         "b. war Siegerin bei einer Veranstaltung in Italien.",
         "c. wurde als schönste Kuh Europas ausgezeichnet."
       ],
-      "correct": 0,
-      "memoryHighlight": {
-        "connector": "hat bereits einige Preise gewonnen.",
-        "color": 10
-      }
+      "correct": 0
     },
     {
       "text": "Während der Filmaufnahmen",
@@ -37,11 +29,7 @@
         "b. wäre Krista fast gestorben.",
         "c. wurde Krista ärztlich behandelt."
       ],
-      "correct": 2,
-      "memoryHighlight": {
-        "connector": "wurde Krista ärztlich behandelt.",
-        "color": 1
-      }
+      "correct": 2
     },
     {
       "text": "Die wirtschaftlichen Probleme von Milchbetrieben",
@@ -50,11 +38,7 @@
         "b. sind eine Folge des Verbraucherverhaltens.",
         "c. werden im Film ausführlich behandelt."
       ],
-      "correct": 1,
-      "memoryHighlight": {
-        "connector": "sind eine Folge des Verbraucherverhaltens.",
-        "color": 8
-      }
+      "correct": 1
     },
     {
       "text": "Die schöne Krista",
@@ -63,11 +47,14 @@
         "b. könnte die Kritiker nicht überzeugen.",
         "c. wurde als beste Dokumentation ausgezeichnet."
       ],
-      "correct": 0,
-      "memoryHighlight": {
-        "connector": "begeistert Kinobetreiber bislang nicht.",
-        "color": 11
-      }
+      "correct": 0
     }
+  ],
+  "memoryHighlights": [
+    { "color": 3, "parts": [ "dominieren als Rinderrasse die Milchviehwirtschaft" ] },
+    { "color": 9, "parts": [ "hat bereits einige Preise gewonnen." ] },
+    { "color": 11, "parts": [ "wurde Krista ärztlich behandelt." ] },
+    { "color": 5, "parts": [ "sind eine Folge des Verbraucherverhaltens." ] },
+    { "color": 7, "parts": [ "begeistert Kinobetreiber bislang nicht." ] }
   ]
 }
