@@ -2141,6 +2141,7 @@ window.startMemoryTrainerForExam = startMemoryTrainerForExam;
 
 console.log('🧠 نظام التقدم المتوازن (المراحل لكل مهارة) تم تحميله بنجاح');
 console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));
+
 // ============================================
 // أزرار تبديل الأيقونة (زرين جنب بعض)
 // ============================================
@@ -2188,84 +2189,6 @@ function getExamNumber(el) {
     const text = title.textContent || '';
     const match = text.match(/^(\d+):/);
     return match ? parseInt(match[1], 10) : null;
-}
-
-// ============================================
-// تنسيق ثابت للعناصر الداخلية (لا يتغير أبداً)
-// ============================================
-
-function applyCardContentStyles(item) {
-    // تنسيق العنوان - ثابت في كل الأوضاع
-    const title = item.querySelector(".exam-title");
-    if (title) {
-        title.style.fontSize = "14px";
-        title.style.fontWeight = "500";
-        title.style.flex = "1";
-        title.style.textAlign = "left";
-        title.style.whiteSpace = "normal";
-        title.style.overflow = "visible";
-        title.style.wordBreak = "normal";
-        title.style.lineHeight = "normal";
-        title.style.maxWidth = "100%";
-        title.style.display = "inline-block";
-        title.style.padding = "0";
-        title.style.margin = "0";
-    }
-    
-    // تنسيق النتيجة - ثابت في كل الأوضاع
-    const badge = item.querySelector(".exam-result-badge");
-    if (badge) {
-        badge.style.display = "inline-block";
-        badge.style.fontSize = "11px";
-        badge.style.padding = "3px 8px";
-        badge.style.minWidth = "55px";
-        badge.style.textAlign = "center";
-        badge.style.borderRadius = "20px";
-        badge.style.fontWeight = "bold";
-        badge.style.color = "white";
-        badge.style.marginLeft = "8px";
-        badge.style.marginTop = "0";
-        badge.style.marginBottom = "0";
-    }
-    
-    // تنسيق Premium - ثابت في كل الأوضاع
-    const premiumSpan = item.querySelector('.premium-badge');
-    if (premiumSpan) {
-        premiumSpan.style.display = "inline-block";
-        premiumSpan.style.fontSize = "10px";
-        premiumSpan.style.fontWeight = "600";
-        premiumSpan.style.color = "#f59e0b";
-        premiumSpan.style.background = "#fef3c7";
-        premiumSpan.style.padding = "2px 8px";
-        premiumSpan.style.borderRadius = "12px";
-        premiumSpan.style.margin = "0";
-    }
-    
-    // تنسيق أيقونات الجانب الأيمن - ثابت في كل الأوضاع
-    const rightSide = item.querySelector('.exam-right-icons');
-    if (rightSide) {
-        rightSide.style.display = "flex";
-        rightSide.style.alignItems = "center";
-        rightSide.style.gap = "8px";
-        rightSide.style.marginLeft = "auto";
-        rightSide.style.marginTop = "0";
-        rightSide.style.justifyContent = "flex-end";
-    }
-    
-    // تنسيق شريط التقدم الصغير - ثابت في كل الأوضاع
-    const progressSpan = item.querySelector('.exam-progress-mini');
-    if (progressSpan) {
-        progressSpan.style.display = "inline-block";
-        progressSpan.style.fontSize = "10px";
-        progressSpan.style.color = "#1565C0";
-        progressSpan.style.marginLeft = "8px";
-        progressSpan.style.fontWeight = "500";
-        progressSpan.style.background = "#f0f7ff";
-        progressSpan.style.padding = "2px 6px";
-        progressSpan.style.borderRadius = "10px";
-        progressSpan.style.marginTop = "0";
-        progressSpan.style.marginBottom = "0";
-    }
 }
 
 // ============================================
@@ -2342,7 +2265,7 @@ function applyLeaderboardOrder() {
 }
 
 // ============================================
-// نظام العرض (مستقل) - يغير فقط Layout
+// نظام العرض (مستقل) - يحافظ على وظيفة الضغط
 // ============================================
 
 function getExamListMode() {
@@ -2353,7 +2276,7 @@ function setExamListMode(mode) {
     localStorage.setItem(EXAM_LIST_MODE_KEY, mode);
 }
 
-// ✅ تطبيق List View - يغير فقط Layout مع الحفاظ على المحتوى
+// ✅ تطبيق List View - يحافظ على وظيفة الضغط
 function applyListView() {
     const list = document.getElementById("examsList");
     if (!list) return;
@@ -2367,10 +2290,16 @@ function applyListView() {
         oldGrid.remove();
     }
     
-    // 2. تطبيق Layout فقط على البطاقات (بدون تغيير المحتوى الداخلي)
+    // 2. الحصول على العناصر
     const items = getExamItems(list);
+    if (!items.length) return;
+    
+    // 3. تطبيق تنسيق List على البطاقات (مع الحفاظ على الـ onclick)
     items.forEach(el => {
-        // فقط تغيير تنسيق البطاقة نفسها (Layout)
+        // نحتفظ بالـ onclick الأصلي ولا نمسحه
+        const originalOnClick = el.onclick;
+        
+        // تطبيق التنسيق فقط
         el.style.display = "flex";
         el.style.flexDirection = "row";
         el.style.flexWrap = "wrap";
@@ -2388,21 +2317,93 @@ function applyListView() {
         el.style.fontSize = "inherit";
         el.style.overflow = "visible";
         el.style.transform = "none";
+        el.style.cursor = "pointer";
         el.style.transition = "all 0.25s ease";
         
-        // ✅ المحتوى الداخلي يبقى كما هو - نطبق التنسيق الثابت
-        applyCardContentStyles(el);
+        // إعادة الـ onclick إذا كان موجوداً
+        if (originalOnClick) {
+            el.onclick = originalOnClick;
+        }
+        
+        // تنسيق العنوان في List
+        const title = el.querySelector(".exam-title");
+        if (title) {
+            title.style.cssText = "";
+            title.style.flex = "1";
+            title.style.fontSize = "14px";
+            title.style.fontWeight = "500";
+            title.style.textAlign = "left";
+            title.style.whiteSpace = "normal";
+            title.style.overflow = "visible";
+            title.style.wordBreak = "normal";
+            title.style.lineHeight = "normal";
+            title.style.maxWidth = "100%";
+            title.style.display = "inline-block";
+            title.style.padding = "0";
+        }
+        
+        // تنسيق النتيجة في List
+        const badge = el.querySelector(".exam-result-badge");
+        if (badge) {
+            badge.style.cssText = "";
+            badge.style.display = "inline-block";
+            badge.style.fontSize = "11px";
+            badge.style.padding = "3px 8px";
+            badge.style.minWidth = "55px";
+            badge.style.textAlign = "center";
+            badge.style.borderRadius = "20px";
+            badge.style.fontWeight = "bold";
+            badge.style.color = "white";
+            badge.style.marginLeft = "8px";
+        }
+        
+        // تنسيق Premium في List
+        const premiumSpan = el.querySelector('.premium-badge');
+        if (premiumSpan) {
+            premiumSpan.style.cssText = "";
+            premiumSpan.style.display = "inline-block";
+            premiumSpan.style.fontSize = "10px";
+            premiumSpan.style.fontWeight = "600";
+            premiumSpan.style.color = "#f59e0b";
+            premiumSpan.style.background = "#fef3c7";
+            premiumSpan.style.padding = "2px 8px";
+            premiumSpan.style.borderRadius = "12px";
+        }
+        
+        // تنسيق الجانب الأيمن في List
+        const rightSide = el.querySelector('.exam-right-icons');
+        if (rightSide) {
+            rightSide.style.cssText = "";
+            rightSide.style.display = "flex";
+            rightSide.style.alignItems = "center";
+            rightSide.style.gap = "8px";
+            rightSide.style.marginLeft = "auto";
+        }
+        
+        // تنسيق شريط التقدم في List
+        const progressSpan = el.querySelector('.exam-progress-mini');
+        if (progressSpan) {
+            progressSpan.style.cssText = "";
+            progressSpan.style.display = "inline-block";
+            progressSpan.style.fontSize = "10px";
+            progressSpan.style.color = "#1565C0";
+            progressSpan.style.marginLeft = "8px";
+            progressSpan.style.fontWeight = "500";
+            progressSpan.style.background = "#f0f7ff";
+            progressSpan.style.padding = "2px 6px";
+            progressSpan.style.borderRadius = "10px";
+        }
     });
     
-    // 3. إعادة تطبيق الترتيب إذا كان leaderboard
+    // 4. إعادة تطبيق الترتيب إذا كان leaderboard
     if (currentOrderState === 'leaderboard') {
         applyLeaderboardOrder();
     }
     
-    console.log("📄 List View (Layout فقط)");
+    console.log("📄 List View (مع الحفاظ على وظيفة الضغط)");
 }
 
-// ✅ تطبيق Grid View - يغير فقط Layout مع الحفاظ على المحتوى
+// ✅ تطبيق Grid View - يحافظ على وظيفة الضغط
 function applyGridView() {
     const list = document.getElementById("examsList");
     if (!list) return;
@@ -2433,11 +2434,14 @@ function applyGridView() {
     const firstExam = exams[0];
     list.insertBefore(grid, firstExam);
     
-    // 4. نقل العناصر إلى الـ Grid مع تنسيق Layout فقط
+    // 4. نقل العناصر إلى الـ Grid مع تنسيقها
     exams.forEach(item => {
         grid.appendChild(item);
         
-        // فقط تغيير تنسيق البطاقة نفسها (Layout)
+        // نحتفظ بالـ onclick الأصلي
+        const originalOnClick = item.onclick;
+        
+        // تنسيق البطاقة في Grid
         item.style.cssText = `
             display: flex;
             flex-direction: column;
@@ -2458,45 +2462,63 @@ function applyGridView() {
             width: 100%;
         `;
         
-        // ✅ المحتوى الداخلي يبقى كما هو - نطبق التنسيق الثابت
-        // لكن في Grid، نضبط بعض الخصائص الخاصة بالعرض فقط
-        const title = item.querySelector(".exam-title");
-        if (title) {
-            // فقط تغيير الخصائص المتعلقة بالعرض في Grid
-            title.style.textAlign = "center";
-            title.style.whiteSpace = "normal";
-            title.style.overflowWrap = "anywhere";
-            title.style.wordBreak = "break-word";
-            title.style.lineHeight = "1.15";
-            title.style.maxWidth = "100%";
-            title.style.display = "block";
-            title.style.padding = "0 2px";
-            // باقي الخصائص محفوظة من applyCardContentStyles
+        // إعادة الـ onclick إذا كان موجوداً
+        if (originalOnClick) {
+            item.onclick = originalOnClick;
         }
         
+        // تنسيق العنوان في Grid
+        const title = item.querySelector(".exam-title");
+        if (title) {
+            title.style.cssText = `
+                font-size: 11px;
+                transition: color 0.25s ease;
+                white-space: normal;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+                line-height: 1.15;
+                text-align: center;
+                max-width: 100%;
+                display: block;
+                padding: 0 2px;
+            `;
+        }
+        
+        // تنسيق النتيجة في Grid
         const badge = item.querySelector(".exam-result-badge");
         if (badge) {
-            // فقط تغيير الخصائص المتعلقة بالعرض في Grid
+            badge.style.fontSize = "8px";
+            badge.style.padding = "2px 6px";
+            badge.style.minWidth = "auto";
             badge.style.marginLeft = "0";
             badge.style.marginTop = "2px";
         }
         
+        // تنسيق Premium في Grid
+        const premiumSpan = item.querySelector('.premium-badge');
+        if (premiumSpan) {
+            premiumSpan.style.fontSize = "7px";
+            premiumSpan.style.padding = "1px 4px";
+        }
+        
+        // تنسيق الجانب الأيمن في Grid
         const rightSide = item.querySelector('.exam-right-icons');
         if (rightSide) {
+            rightSide.style.display = "flex";
+            rightSide.style.alignItems = "center";
+            rightSide.style.justifyContent = "center";
+            rightSide.style.gap = "4px";
             rightSide.style.marginLeft = "0";
             rightSide.style.marginTop = "2px";
-            rightSide.style.justifyContent = "center";
         }
         
+        // تنسيق شريط التقدم في Grid
         const progressSpan = item.querySelector('.exam-progress-mini');
         if (progressSpan) {
+            progressSpan.style.fontSize = "8px";
+            progressSpan.style.padding = "1px 4px";
             progressSpan.style.marginLeft = "0";
         }
-        
-        // إزالة event listeners القديمة وإضافة جديدة
-        const newItem = item.cloneNode(true);
-        item.parentNode.replaceChild(newItem, item);
-        setupItemEvents(newItem);
     });
     
     // 5. إعادة تطبيق الترتيب إذا كان leaderboard
@@ -2504,7 +2526,7 @@ function applyGridView() {
         applyLeaderboardOrder();
     }
     
-    console.log("🟦 Grid View (Layout فقط)");
+    console.log("🟦 Grid View (مع الحفاظ على وظيفة الضغط)");
 }
 
 // ============================================
@@ -2517,71 +2539,6 @@ function applyExamListView(mode) {
     } else {
         applyGridView();
     }
-}
-
-// ============================================
-// إعداد Event Listeners للعناصر
-// ============================================
-
-function setupItemEvents(item) {
-    // Hover
-    item.addEventListener('mouseenter', function() {
-        const isPremium = this.querySelector('.premium-badge') !== null;
-        if (isPremium) {
-            this.style.backgroundColor = "rgba(255,255,255,0.95)";
-            this.style.transform = "translateY(-3px)";
-            this.style.borderColor = "#60a5fa";
-            this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
-        } else {
-            this.style.backgroundColor = "#f1f5f9";
-            this.style.transform = "translateY(-3px)";
-            this.style.borderColor = "#2F80ED";
-            this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
-        }
-        const titleEl = this.querySelector('.exam-title');
-        if (titleEl) {
-            const isPremium = this.querySelector('.premium-badge') !== null;
-            titleEl.style.color = isPremium ? "#4b5563" : "#1e293b";
-        }
-        const premiumSpan = this.querySelector('.premium-badge');
-        if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
-    });
-
-    item.addEventListener('mouseleave', function() {
-        const isPremium = this.querySelector('.premium-badge') !== null;
-        if (isPremium) {
-            this.style.backgroundColor = "rgba(255,255,255,0.75)";
-            this.style.transform = "translateY(0)";
-            this.style.borderColor = "#e2e8f0";
-            this.style.boxShadow = "none";
-        } else {
-            this.style.backgroundColor = "#fafbfc";
-            this.style.transform = "translateY(0)";
-            this.style.borderColor = "#e8ecef";
-            this.style.boxShadow = "none";
-        }
-        const titleEl = this.querySelector('.exam-title');
-        if (titleEl) {
-            const isPremium = this.querySelector('.premium-badge') !== null;
-            titleEl.style.color = isPremium ? "#6b7280" : "#1a202c";
-        }
-        const premiumSpan = this.querySelector('.premium-badge');
-        if (premiumSpan) premiumSpan.style.transform = "scale(1)";
-    });
-
-    // Active
-    item.addEventListener('mousedown', function() {
-        this.style.transform = "scale(0.98)";
-        this.style.backgroundColor = "#e2e8f0";
-        this.style.transition = "all 0.05s ease";
-    });
-
-    item.addEventListener('mouseup', function() {
-        const isPremium = this.querySelector('.premium-badge') !== null;
-        this.style.transform = "scale(1)";
-        this.style.backgroundColor = isPremium ? "rgba(255,255,255,0.95)" : "#f1f5f9";
-        this.style.transition = "all 0.25s ease";
-    });
 }
 
 // ============================================
@@ -2745,4 +2702,4 @@ window.applyLeaderboardOrder = applyLeaderboardOrder;
 window.getCurrentContainer = getCurrentContainer;
 window.getExamItems = getExamItems;
 
-console.log('🔄 نظامين مستقلين (ترتيب + عرض) تم تحميلهما');
+console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view) مع وظائف الترتيب تم تحميلهما');
