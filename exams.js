@@ -2174,13 +2174,17 @@ function saveOriginalOrder() {
     console.log("📋 تم حفظ الترتيب الأصلي:", originalOrderNumbers);
 }
 
-// استعادة الترتيب الأصلي حسب أرقام الامتحانات
+// ✅ استعادة الترتيب الأصلي - مع الحفاظ على شكل العرض الحالي (List أو Grid)
 function restoreOriginalOrder() {
     const list = document.getElementById("examsList");
     if (!list || originalOrderNumbers.length === 0) return;
     
-    // الحصول على جميع عناصر الامتحانات الحالية
-    const exams = [...list.querySelectorAll(".item")].filter(el =>
+    // ✅ التحقق من وجود Grid Container
+    const gridContainer = document.getElementById("examGridContainer");
+    const targetContainer = gridContainer || list;
+    
+    // الحصول على جميع عناصر الامتحانات الحالية من الـ container المناسب
+    const exams = [...targetContainer.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
     );
@@ -2214,8 +2218,9 @@ function restoreOriginalOrder() {
         fragment.appendChild(examMap[num]);
     });
     
-    list.appendChild(fragment);
-    console.log("📋 تم استعادة الترتيب الأصلي حسب الأرقام");
+    // ✅ نضيف العناصر إلى نفس الـ container (وليس بالضرورة list)
+    targetContainer.appendChild(fragment);
+    console.log("📋 تم استعادة الترتيب الأصلي مع الحفاظ على شكل العرض");
 }
 
 // ✅ تطبيق ترتيب leaderboard - يعمل مع List و Grid معاً
