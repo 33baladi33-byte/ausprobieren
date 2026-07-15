@@ -4139,7 +4139,7 @@ body:has(#exam.active) .left-side .btn-login-top {
 .view-mode-toggle-btn {
     position: absolute;
     right: 5px;
-    top: 40%;
+    top: 35%;
     transform: translateY(-50%);
     width: 30px;
     height: 30px;
