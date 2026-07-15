@@ -11,8 +11,7 @@
         "b. man dort leicht mit Mitreisenden ins Gespräch kommt",
         "c. sie während der Fahrt meistens gut schlafen kann"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "man dort leicht mit Mitreisenden ins Gespräch kommt", "color": 3 }
+      "correct": 1
     },
     {
       "text": "Einige Bahnunternehmen",
@@ -21,8 +20,7 @@
         "b. möchten kurzfristig zahlreiche zusätzliche Nachtverbindungen anbieten",
         "c. verzichteten aus wirtschaftlichen Gründen zeitweise auf eigene Nachtzüge"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "verzichteten aus wirtschaftlichen Gründen zeitweise auf eigene Nachtzüge", "color": 9 }
+      "correct": 2
     },
     {
       "text": "Die Reise mit dem Nachtzug",
@@ -31,8 +29,7 @@
         "b. hat den jüngsten Sohn der Familie begeistert",
         "c. möchte die Familie Winterfeld auf keinen Fall wiederholen"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "hat den jüngsten Sohn der Familie begeistert", "color": 11 }
+      "correct": 1
     },
     {
       "text": "Jonas Falk verzichtet auf längere Zugreisen, weil",
@@ -41,8 +38,7 @@
         "b. er mit dem Flugzeug deutlich Zeit spart",
         "c. es ihm vor allem an Bequemlichkeit fehlt"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "er mit dem Flugzeug deutlich Zeit spart", "color": 5 }
+      "correct": 1
     },
     {
       "text": "Im Vergleich zum Fliegen gilt im Text, dass",
@@ -51,8 +47,14 @@
         "b. Nachtzüge in der Regel schneller sind als Flugzeuge",
         "c. beide Verkehrsmittel preislich und zeitlich ungefähr gleich sind"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "Fliegen schneller und auf vielen Strecken sogar günstiger ist", "color": 7 }
+      "correct": 0
     }
+  ],
+  "memoryHighlights": [
+    { "color": 3, "parts": ["man dort leicht mit Mitreisenden ins Gespräch kommt"] },
+    { "color": 8, "parts": ["verzichteten aus wirtschaftlichen Gründen zeitweise auf eigene Nachtzüge"] },
+    { "color": 11, "parts": ["hat den jüngsten Sohn der Familie begeistert"] },
+    { "color": 5, "parts": ["er mit dem Flugzeug deutlich Zeit spart"] },
+    { "color": 10, "parts": ["Fliegen schneller und auf vielen Strecken sogar günstiger ist"] }
   ]
 }
