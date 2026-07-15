@@ -2146,7 +2146,7 @@ console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `$
 // ============================================
 
 // الأيقونات الثلاثة
-const VIEW_ICONS = ['view_agenda', 'grid_view', 'view_module'];
+const VIEW_ICONS = ['view_day', 'grid_view', 'view_module'];
 const VIEW_MODE_KEY = 'viewModeIconIndex';
 
 // الحصول على الوضع الحالي
