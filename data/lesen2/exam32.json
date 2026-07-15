@@ -11,8 +11,7 @@
         "b. von einigen Ländern ein genaueres Abbild bietet als früher",
         "c. zunächst nur in deutscher Sprache bedient werden kann"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "von einigen Ländern ein genaueres Abbild bietet als früher", "color": 3 }
+      "correct": 1
     },
     {
       "text": "Die Bilder von \"Google Earth\"",
@@ -21,8 +20,7 @@
         "b. sind alle nicht ganz neu",
         "c. werden bald als aktuelle Bilder zur Verfügung stehen"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "sind alle nicht ganz neu", "color": 9 }
+      "correct": 1
     },
     {
       "text": "Für \"Google Earth\" interessieren sich heute",
@@ -31,8 +29,7 @@
         "b. Menschen aus vielen Berufsgruppen",
         "c. vorwiegend die Nutzer der Enzyklopädie \"Wikipedia\""
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "Menschen aus vielen Berufsgruppen", "color": 11 }
+      "correct": 1
     },
     {
       "text": "Negativ an \"Google Earth\" ist laut Text, dass",
@@ -41,8 +38,7 @@
         "b. persönliche Daten öffentlich verfügbar sind",
         "c. Verbrecher es nutzen"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "persönliche Daten öffentlich verfügbar sind", "color": 5 }
+      "correct": 1
     },
     {
       "text": "Positiv an \"Google Earth\" ist laut Text, dass",
@@ -51,8 +47,14 @@
         "b. man damit lokale Suche betreiben kann",
         "c. man sich damit orientieren kann"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "man sich damit orientieren kann", "color": 7 }
+      "correct": 2
     }
+  ],
+  "memoryHighlights": [
+    { "color": 3, "parts": ["von einigen Ländern ein genaueres Abbild bietet als früher"] },
+    { "color": 8, "parts": ["sind alle nicht ganz neu"] },
+    { "color": 11, "parts": ["Menschen aus vielen Berufsgruppen"] },
+    { "color": 5, "parts": ["persönliche Daten öffentlich verfügbar sind"] },
+    { "color": 10, "parts": ["man sich damit orientieren kann"] }
   ]
 }
