@@ -2184,16 +2184,12 @@ function restoreOriginalOrder() {
     console.log("📋 تم استعادة الترتيب الأصلي");
 }
 
-// تطبيق ترتيب leaderboard (من الأضعف إلى الأقوى)
+// ✅ تطبيق ترتيب leaderboard - نفس الكود الذي يعمل في Console تماماً
 function applyLeaderboardOrder() {
     const list = document.getElementById("examsList");
     if (!list) return console.log("❌ examsList غير موجود");
 
-    // حفظ الترتيب الأصلي إذا لم يكن محفوظاً
-    if (originalExamOrder.length === 0) {
-        saveOriginalOrder();
-    }
-
+    // جميع الامتحانات فقط
     const exams = [...list.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
@@ -2201,77 +2197,38 @@ function applyLeaderboardOrder() {
 
     if (!exams.length) return console.log("❌ لا توجد امتحانات");
 
-    // التحقق من وجود Grid Container
-    const gridContainer = document.getElementById("examGridContainer");
-    const targetContainer = gridContainer || list;
-
-    // استخراج النقطة مع حفظ البيانات
+    // استخراج النقطة
     const data = exams.map((el, index) => {
         const badge = el.querySelector(".exam-result-badge");
-        const titleSpan = el.querySelector(".exam-title");
-        
-        // استخراج النص الأصلي للعنوان (بدون الرقم) للحفاظ عليه
-        let originalTitle = '';
-        let originalNumber = 0;
-        if (titleSpan) {
-            const text = titleSpan.textContent || '';
-            const match = text.match(/^(\d+):\s*(.*)/);
-            if (match) {
-                originalNumber = parseInt(match[1], 10);
-                originalTitle = match[2] || text;
-            } else {
-                originalTitle = text;
-            }
-        }
 
         let score = Infinity;
+
         if (badge) {
             const txt = badge.textContent.trim();
             const m = txt.match(/^(\d+)\s*\/\s*\d+/);
+
             if (m) score = parseInt(m[1], 10);
         }
 
         return {
             el,
             score,
-            originalIndex: index,
-            originalNumber,
-            originalTitle,
-            titleSpan,
-            badge
+            originalIndex: index
         };
     });
 
-    // ترتيب Stable (الأضعف أولاً)
+    // ترتيب Stable
     data.sort((a, b) => {
-        // الامتحانات بدون نتيجة (score = Infinity) تذهب إلى النهاية
-        if (a.score === Infinity && b.score === Infinity) {
-            return a.originalNumber - b.originalNumber;
-        }
-        if (a.score === Infinity) return 1;
-        if (b.score === Infinity) return -1;
-        if (a.score === b.score) {
-            return a.originalNumber - b.originalNumber;
-        }
+        if (a.score === b.score)
+            return a.originalIndex - b.originalIndex;
+
         return a.score - b.score;
     });
 
-    // إعادة الترتيب مع تحديث الأرقام
-    const fragment = document.createDocumentFragment();
-    
-    data.forEach((item, newIndex) => {
-        const newNumber = newIndex + 1;
-        
-        // تحديث رقم الامتحان في العنوان
-        if (item.titleSpan) {
-            item.titleSpan.textContent = `${newNumber}: ${item.originalTitle}`;
-        }
-        
-        fragment.appendChild(item.el);
-    });
+    // إعادة ترتيب داخل نفس القائمة
+    data.forEach(item => list.appendChild(item.el));
 
-    targetContainer.appendChild(fragment);
-    console.log("🏆 تم ترتيب الامتحانات من الأضعف إلى الأقوى");
+    console.log("✅ تم ترتيب الامتحانات من الأضعف إلى الأقوى");
 }
 
 function getViewModeIndex1() {
@@ -2346,7 +2303,7 @@ function applyExamListView(mode) {
         return;
     }
 
-    // ===== Grid View - مطابق تماماً لكود Console مع تأثيرات Hover و Active =====
+    // ===== Grid View =====
     const exams = [...list.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
@@ -2457,7 +2414,7 @@ function applyExamListView(mode) {
         if (badge) badge.style.fontSize = "8px";
     });
 
-    console.log("🟦 Grid View - مطابق لكود Console مع تأثيرات Hover و Active");
+    console.log("🟦 Grid View");
 }
 
 // ============================================
@@ -2494,7 +2451,6 @@ function createViewModeToggles() {
     btn1.onclick = function(e) {
         e.stopPropagation();
         
-        // التبديل إلى الأيقونة التالية
         currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
         setViewModeIndex1(currentIndex1);
         
@@ -2503,17 +2459,13 @@ function createViewModeToggles() {
             span.textContent = VIEW_ICONS_1[currentIndex1];
         }
         
-        // تنفيذ الوظيفة حسب الأيقونة الحالية
         const currentIcon = VIEW_ICONS_1[currentIndex1];
         
         if (currentIcon === 'leaderboard') {
-            // ترتيب من الأضعف إلى الأقوى
             applyLeaderboardOrder();
         } else if (currentIcon === '123') {
-            // العودة للترتيب الأصلي
             restoreOriginalOrder();
         } else if (currentIcon === 'shuffle') {
-            // 🔄 لا يفعل أي شيء حالياً - سنضيفه لاحقاً
             console.log("🔀 Shuffle - سيتم إضافته لاحقاً");
         }
         
@@ -2556,10 +2508,7 @@ function createViewModeToggles() {
 
     header.appendChild(btn2);
 
-    // حفظ الترتيب الأصلي عند تحميل القائمة
     setTimeout(saveOriginalOrder, 200);
-    
-    // تطبيق الشكل المخزن
     applyExamListView(getExamListMode());
 
     console.log('✅ زرين للتبديل تم إضافتهما في أقصى يمين .teil-header');
@@ -2575,14 +2524,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300);
 });
 
-// عند تغيير القسم (Teil) - نطبق الشكل المخزن ونحفظ الترتيب الأصلي
+// عند تغيير القسم (Teil)
 const originalRenderExamList = window.renderExamListForSkill;
 if (originalRenderExamList) {
     window.renderExamListForSkill = function(skill, teilName) {
         originalRenderExamList(skill, teilName);
         setTimeout(() => {
             createViewModeToggles();
-            // حفظ الترتيب الأصلي للقائمة الجديدة
             saveOriginalOrder();
             applyExamListView(getExamListMode());
         }, 200);
