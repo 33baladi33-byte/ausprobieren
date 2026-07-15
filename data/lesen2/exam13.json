@@ -11,8 +11,7 @@
         "b. lassen das Frühstück aus Zeitmangel ausfallen",
         "c. schaufeln das Frühstück einfach in sich hinein"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "lassen das Frühstück aus Zeitmangel ausfallen", "color": 2 }
+      "correct": 1
     },
     {
       "text": "Ein gesundes Frühstück",
@@ -21,8 +20,7 @@
         "b. muss mindestens aus einem Glas Kakao oder Milch bestehen",
         "c. sollte gemeinsam in der Schule eingenommen werden."
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "erhöht die Leistungen des Kindes", "color": 9 }
+      "correct": 0
     },
     {
       "text": "Milch",
@@ -31,8 +29,7 @@
         "b. gehört zum Angebot der Schulkantinen",
         "c. wird in verschiedenen Geschmacksrichtungen angeboten"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "wird in verschiedenen Geschmacksrichtungen angeboten", "color": 11 }
+      "correct": 2
     },
     {
       "text": "Kinder",
@@ -41,8 +38,7 @@
         "b. dürfen während des Unterrichts nichts trinken",
         "c. können sich auch noch gut konzentrieren, wenn sie nicht genug trinken"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "denken von alleine nicht immer daran, genug zu trinken", "color": 6 }
+      "correct": 0
     },
     {
       "text": "Mittagessen",
@@ -51,8 +47,14 @@
         "b. sollten die Kinder von zu Hause mitbringen",
         "c. sollten Kinder bei den Eltern zu Hause bekommen"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "sollte in der Schule angeboten werden", "color": 10 }
+      "correct": 0
     }
+  ],
+  "memoryHighlights": [
+    { "color": 2, "parts": [ "lassen das Frühstück aus Zeitmangel ausfallen" ] },
+    { "color": 9, "parts": [ "erhöht die Leistungen des Kindes" ] },
+    { "color": 11, "parts": [ "wird in verschiedenen Geschmacksrichtungen angeboten" ] },
+    { "color": 6, "parts": [ "denken von alleine nicht immer daran, genug zu trinken" ] },
+    { "color": 10, "parts": [ "sollte في der Schule angeboten werden" ] }
   ]
 }
