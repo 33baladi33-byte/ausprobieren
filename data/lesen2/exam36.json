@@ -11,8 +11,7 @@
         "b. man dort leicht mit anderen Fahrgästen ins Gespräch kommt",
         "c. sie während der Fahrt meist gut schlafen kann"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "man dort leicht mit anderen Fahrgästen ins Gespräch kommt", "color": 0 }
+      "correct": 1
     },
     {
       "text": "Die Deutsche Bahn",
@@ -21,8 +20,7 @@
         "b. möchte mehr Fahrten über Nacht anbieten",
         "c. verzichtet aus ökonomischen Gründen auf eigene Nachtzüge"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "verzichtet aus ökonomischen Gründen auf eigene Nachtzüge", "color": 8 }
+      "correct": 2
     },
     {
       "text": "Die Reise mit dem Nachtzug",
@@ -31,8 +29,7 @@
         "b. hat Tom Schneiders Sohn begeistert",
         "c. möchte Tom Schneider nicht wiederholen"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "hat Tom Schneiders Sohn begeistert", "color": 11 }
+      "correct": 1
     },
     {
       "text": "Florian Kirsch verzichtet auf längere Zugreisen, weil",
@@ -41,8 +38,7 @@
         "b. er mit dem Flugzeug Zeit spart",
         "c. es ihm an Bequemlichkeit fehlt"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "er mit dem Flugzeug Zeit spart", "color": 4 }
+      "correct": 1
     },
     {
       "text": "Die Züge des französischen Start-ups sollen",
@@ -51,8 +47,14 @@
         "b. vor allem eine finanzkräftige Zielgruppe ansprechen",
         "c. zunächst Zielorte nördlich von Frankreich anfahren"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "den Fahrgästen viel Privatsphäre bieten", "color": 10 }
+      "correct": 0
     }
+  ],
+  "memoryHighlights": [
+    { "color": 1, "parts": ["man dort leicht mit anderen Fahrgästen ins Gespräch kommt"] },
+    { "color": 9, "parts": ["verzichtet aus ökonomischen Gründen auf eigene Nachtzüge"] },
+    { "color": 11, "parts": ["hat Tom Schneiders Sohn begeistert"] },
+    { "color": 4, "parts": ["er mit dem Flugzeug Zeit spart"] },
+    { "color": 10, "parts": ["den Fahrgästen viel Privatsphäre bieten"] }
   ]
 }
