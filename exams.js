@@ -2142,37 +2142,53 @@ window.startMemoryTrainerForExam = startMemoryTrainerForExam;
 console.log('🧠 نظام التقدم المتوازن (المراحل لكل مهارة) تم تحميله بنجاح');
 console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));
 // ============================================
-// زر تبديل الأيقونة فقط (بدون أي وظيفة أخرى)
+// أزرار تبديل الأيقونة (زرين جنب بعض)
 // ============================================
 
-// الأيقونات الثلاثة
-const VIEW_ICONS = ['view_day', 'grid_view', 'view_module'];
-const VIEW_MODE_KEY = 'viewModeIconIndex';
+// ===== الزر الأول: leaderboard ↔ 123 =====
+const VIEW_ICONS_1 = ['leaderboard', '123'];
+const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
 
-// الحصول على الوضع الحالي
-function getViewModeIndex() {
+function getViewModeIndex1() {
     try {
-        const saved = localStorage.getItem(VIEW_MODE_KEY);
+        const saved = localStorage.getItem(VIEW_MODE_KEY_1);
         if (saved !== null) return parseInt(saved);
     } catch {}
     return 0;
 }
 
-// حفظ الوضع
-function setViewModeIndex(index) {
+function setViewModeIndex1(index) {
     try {
-        localStorage.setItem(VIEW_MODE_KEY, String(index));
+        localStorage.setItem(VIEW_MODE_KEY_1, String(index));
+    } catch {}
+}
+
+// ===== الزر الثاني: view_day ↔ grid_view ↔ view_module =====
+const VIEW_ICONS_2 = ['view_day', 'grid_view', 'view_module'];
+const VIEW_MODE_KEY_2 = 'viewModeIconIndex2';
+
+function getViewModeIndex2() {
+    try {
+        const saved = localStorage.getItem(VIEW_MODE_KEY_2);
+        if (saved !== null) return parseInt(saved);
+    } catch {}
+    return 0;
+}
+
+function setViewModeIndex2(index) {
+    try {
+        localStorage.setItem(VIEW_MODE_KEY_2, String(index));
     } catch {}
 }
 
 // ============================================
-// إنشاء زر تبديل الأيقونة
+// إنشاء الأزرار
 // ============================================
 
-function createViewModeToggle() {
+function createViewModeToggles() {
     const header = document.querySelector('.teil-header');
     if (!header) {
-        setTimeout(createViewModeToggle, 500);
+        setTimeout(createViewModeToggles, 500);
         return;
     }
 
@@ -2181,52 +2197,74 @@ function createViewModeToggle() {
         header.style.position = 'relative';
     }
 
-    // إزالة الزر القديم
-    const oldBtn = document.getElementById('viewModeToggleBtn');
-    if (oldBtn) oldBtn.remove();
+    // ===== إزالة الأزرار القديمة =====
+    const oldBtn1 = document.getElementById('viewModeToggleBtn1');
+    if (oldBtn1) oldBtn1.remove();
+    
+    const oldBtn2 = document.getElementById('viewModeToggleBtn2');
+    if (oldBtn2) oldBtn2.remove();
 
-    // إنشاء الزر
-    const btn = document.createElement('button');
-    btn.id = 'viewModeToggleBtn';
-    btn.className = 'view-mode-toggle-btn';
-    btn.title = 'تبديل شكل العرض';
+    // ===== الزر الأول (leaderboard ↔ 123) =====
+    const btn1 = document.createElement('button');
+    btn1.id = 'viewModeToggleBtn1';
+    btn1.className = 'view-mode-toggle-btn-1';
+    btn1.title = 'تبديل شكل العرض (ترتيب)';
 
-    let currentIndex = getViewModeIndex();
-    const iconName = VIEW_ICONS[currentIndex];
+    let currentIndex1 = getViewModeIndex1();
+    const iconName1 = VIEW_ICONS_1[currentIndex1];
 
-    btn.innerHTML = `
-        <span class="material-symbols-outlined">${iconName}</span>
+    btn1.innerHTML = `
+        <span class="material-symbols-outlined">${iconName1}</span>
     `;
 
-    // حدث الضغط - يغير الأيقونة فقط
-    btn.onclick = function(e) {
+    btn1.onclick = function(e) {
         e.stopPropagation();
-        
-        // التبديل إلى الأيقونة التالية
-        currentIndex = (currentIndex + 1) % VIEW_ICONS.length;
-        setViewModeIndex(currentIndex);
-        
-        // تحديث الأيقونة فقط
+        currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
+        setViewModeIndex1(currentIndex1);
         const span = this.querySelector('.material-symbols-outlined');
         if (span) {
-            span.textContent = VIEW_ICONS[currentIndex];
+            span.textContent = VIEW_ICONS_1[currentIndex1];
         }
-        
-        console.log(`🔄 تم التبديل إلى: ${VIEW_ICONS[currentIndex]}`);
+        console.log(`🔄 الزر1 تم التبديل إلى: ${VIEW_ICONS_1[currentIndex1]}`);
     };
 
-    // إضافة الزر
-    header.appendChild(btn);
-    console.log('✅ زر تبديل الأيقونة تم إضافته في أقصى يمين .teil-header');
+    header.appendChild(btn1);
+
+    // ===== الزر الثاني (view_day ↔ grid_view ↔ view_module) =====
+    const btn2 = document.createElement('button');
+    btn2.id = 'viewModeToggleBtn2';
+    btn2.className = 'view-mode-toggle-btn-2';
+    btn2.title = 'تبديل شكل العرض (عرض)';
+
+    let currentIndex2 = getViewModeIndex2();
+    const iconName2 = VIEW_ICONS_2[currentIndex2];
+
+    btn2.innerHTML = `
+        <span class="material-symbols-outlined">${iconName2}</span>
+    `;
+
+    btn2.onclick = function(e) {
+        e.stopPropagation();
+        currentIndex2 = (currentIndex2 + 1) % VIEW_ICONS_2.length;
+        setViewModeIndex2(currentIndex2);
+        const span = this.querySelector('.material-symbols-outlined');
+        if (span) {
+            span.textContent = VIEW_ICONS_2[currentIndex2];
+        }
+        console.log(`🔄 الزر2 تم التبديل إلى: ${VIEW_ICONS_2[currentIndex2]}`);
+    };
+
+    header.appendChild(btn2);
+
+    console.log('✅ زرين للتبديل تم إضافتهما في أقصى يمين .teil-header');
 }
 
 // ============================================
-// تشغيل الزر عند تحميل الصفحة
+// تشغيل الأزرار عند تحميل الصفحة
 // ============================================
 
-// عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(createViewModeToggle, 300);
+    setTimeout(createViewModeToggles, 300);
 });
 
 // عند تغيير القسم (Teil)
@@ -2234,11 +2272,11 @@ const originalRenderExamList = window.renderExamListForSkill;
 if (originalRenderExamList) {
     window.renderExamListForSkill = function(skill, teilName) {
         originalRenderExamList(skill, teilName);
-        setTimeout(createViewModeToggle, 150);
+        setTimeout(createViewModeToggles, 150);
     };
 }
 
 // تصدير الدوال
-window.createViewModeToggle = createViewModeToggle;
+window.createViewModeToggles = createViewModeToggles;
 
-console.log('🔄 زر تبديل الأيقونة (view_agenda → grid_view → view_module) تم تحميله');
+console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view↔view_module) تم تحميلهما');
