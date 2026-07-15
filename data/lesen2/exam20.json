@@ -11,8 +11,7 @@
         "b. nur in speziellen Läden verkauft",
         "c. von den Kunden meist vollständig verbraucht"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "von den Kunden meist vollständig verbraucht", "color": 5 }
+      "correct": 2
     },
     {
       "text": "Supermarktinhaber Dieter Hieber",
@@ -21,8 +20,7 @@
         "b. möchte mehr umweltfreundliche Verpackungen verwenden",
         "c. will in seinen Supermärkten auf Einwegverpackungen ganz verzichten"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "möchte mehr umweltfreundliche Verpackungen verwenden", "color": 11 }
+      "correct": 1
     },
     {
       "text": "Die Verwendung von Frischhaltedosen in Supermärkten",
@@ -31,8 +29,7 @@
         "b. könnte eine praktikable Möglichkeit sein, Müll zu vermeiden",
         "c. wird genau durch gesetzliche Vorgaben geregelt"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "könnte eine praktikable Möglichkeit sein, Müll zu vermeiden", "color": 3 }
+      "correct": 1
     },
     {
       "text": "Hiebers Angebot, Mehrwegbehälter zu nutzen",
@@ -41,8 +38,7 @@
         "b. nehmen Kunden auch bei spontanen Einkäufen an",
         "c. rief allgemeine Zustimmung hervor"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "rief allgemeine Zustimmung hervor", "color": 9 }
+      "correct": 2
     },
     {
       "text": "Das verpackungsfreie Einkaufen wird",
@@ -51,8 +47,14 @@
         "b. künftig von allen Verbrauchern genutzt werden",
         "c. sich nur langsam durchsetzen"
       ],
-      "correct": 2,
-      "memoryHighlight": { "connector": "sich nur langsam durchsetzen", "color": 7 }
+      "correct": 2
     }
+  ],
+  "memoryHighlights": [
+    { "color": 3, "parts": [ "von den Kunden meist vollständig verbraucht" ] },
+    { "color": 9, "parts": [ "möchte mehr umweltfreundliche Verpackungen verwenden" ] },
+    { "color": 11, "parts": [ "könnte eine praktikable Möglichkeit sein, Müll zu vermeiden" ] },
+    { "color": 5, "parts": [ "rief allgemeine Zustimmung hervor" ] },
+    { "color": 7, "parts": [ "sich nur langsam durchsetzen" ] }
   ]
 }
