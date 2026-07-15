@@ -2191,6 +2191,84 @@ function getExamNumber(el) {
 }
 
 // ============================================
+// تنسيق ثابت للعناصر الداخلية (لا يتغير أبداً)
+// ============================================
+
+function applyCardContentStyles(item) {
+    // تنسيق العنوان - ثابت في كل الأوضاع
+    const title = item.querySelector(".exam-title");
+    if (title) {
+        title.style.fontSize = "14px";
+        title.style.fontWeight = "500";
+        title.style.flex = "1";
+        title.style.textAlign = "left";
+        title.style.whiteSpace = "normal";
+        title.style.overflow = "visible";
+        title.style.wordBreak = "normal";
+        title.style.lineHeight = "normal";
+        title.style.maxWidth = "100%";
+        title.style.display = "inline-block";
+        title.style.padding = "0";
+        title.style.margin = "0";
+    }
+    
+    // تنسيق النتيجة - ثابت في كل الأوضاع
+    const badge = item.querySelector(".exam-result-badge");
+    if (badge) {
+        badge.style.display = "inline-block";
+        badge.style.fontSize = "11px";
+        badge.style.padding = "3px 8px";
+        badge.style.minWidth = "55px";
+        badge.style.textAlign = "center";
+        badge.style.borderRadius = "20px";
+        badge.style.fontWeight = "bold";
+        badge.style.color = "white";
+        badge.style.marginLeft = "8px";
+        badge.style.marginTop = "0";
+        badge.style.marginBottom = "0";
+    }
+    
+    // تنسيق Premium - ثابت في كل الأوضاع
+    const premiumSpan = item.querySelector('.premium-badge');
+    if (premiumSpan) {
+        premiumSpan.style.display = "inline-block";
+        premiumSpan.style.fontSize = "10px";
+        premiumSpan.style.fontWeight = "600";
+        premiumSpan.style.color = "#f59e0b";
+        premiumSpan.style.background = "#fef3c7";
+        premiumSpan.style.padding = "2px 8px";
+        premiumSpan.style.borderRadius = "12px";
+        premiumSpan.style.margin = "0";
+    }
+    
+    // تنسيق أيقونات الجانب الأيمن - ثابت في كل الأوضاع
+    const rightSide = item.querySelector('.exam-right-icons');
+    if (rightSide) {
+        rightSide.style.display = "flex";
+        rightSide.style.alignItems = "center";
+        rightSide.style.gap = "8px";
+        rightSide.style.marginLeft = "auto";
+        rightSide.style.marginTop = "0";
+        rightSide.style.justifyContent = "flex-end";
+    }
+    
+    // تنسيق شريط التقدم الصغير - ثابت في كل الأوضاع
+    const progressSpan = item.querySelector('.exam-progress-mini');
+    if (progressSpan) {
+        progressSpan.style.display = "inline-block";
+        progressSpan.style.fontSize = "10px";
+        progressSpan.style.color = "#1565C0";
+        progressSpan.style.marginLeft = "8px";
+        progressSpan.style.fontWeight = "500";
+        progressSpan.style.background = "#f0f7ff";
+        progressSpan.style.padding = "2px 6px";
+        progressSpan.style.borderRadius = "10px";
+        progressSpan.style.marginTop = "0";
+        progressSpan.style.marginBottom = "0";
+    }
+}
+
+// ============================================
 // نظام الترتيب (مستقل)
 // ============================================
 
@@ -2264,7 +2342,7 @@ function applyLeaderboardOrder() {
 }
 
 // ============================================
-// نظام العرض (مستقل)
+// نظام العرض (مستقل) - يغير فقط Layout
 // ============================================
 
 function getExamListMode() {
@@ -2275,7 +2353,7 @@ function setExamListMode(mode) {
     localStorage.setItem(EXAM_LIST_MODE_KEY, mode);
 }
 
-// ✅ تطبيق List View - يحافظ على الترتيب الحالي
+// ✅ تطبيق List View - يغير فقط Layout مع الحفاظ على المحتوى
 function applyListView() {
     const list = document.getElementById("examsList");
     if (!list) return;
@@ -2289,10 +2367,10 @@ function applyListView() {
         oldGrid.remove();
     }
     
-    // 2. إعادة تعيين تنسيقات العناصر إلى وضع List (وليس مسح كامل)
+    // 2. تطبيق Layout فقط على البطاقات (بدون تغيير المحتوى الداخلي)
     const items = getExamItems(list);
     items.forEach(el => {
-        // نعيد تعيين التنسيقات الأساسية فقط، ولا نمسح كل شيء
+        // فقط تغيير تنسيق البطاقة نفسها (Layout)
         el.style.display = "flex";
         el.style.flexDirection = "row";
         el.style.flexWrap = "wrap";
@@ -2310,75 +2388,10 @@ function applyListView() {
         el.style.fontSize = "inherit";
         el.style.overflow = "visible";
         el.style.transform = "none";
+        el.style.transition = "all 0.25s ease";
         
-        // إعادة تعيين تنسيق العنوان
-        const title = el.querySelector(".exam-title");
-        if (title) {
-            title.style.cssText = "";
-            title.style.flex = "1";
-            title.style.fontSize = "14px";
-            title.style.fontWeight = "500";
-            title.style.textAlign = "left";
-            title.style.whiteSpace = "normal";
-            title.style.overflow = "visible";
-            title.style.wordBreak = "normal";
-            title.style.lineHeight = "normal";
-            title.style.maxWidth = "100%";
-            title.style.display = "inline-block";
-            title.style.padding = "0";
-        }
-        
-        // إعادة تعيين تنسيق النتيجة
-        const badge = el.querySelector(".exam-result-badge");
-        if (badge) {
-            badge.style.cssText = "";
-            badge.style.display = "inline-block";
-            badge.style.fontSize = "11px";
-            badge.style.padding = "3px 8px";
-            badge.style.minWidth = "55px";
-            badge.style.textAlign = "center";
-            badge.style.borderRadius = "20px";
-            badge.style.fontWeight = "bold";
-            badge.style.color = "white";
-            badge.style.marginLeft = "8px";
-        }
-        
-        // إعادة تعيين تنسيق Premium
-        const premiumSpan = el.querySelector('.premium-badge');
-        if (premiumSpan) {
-            premiumSpan.style.cssText = "";
-            premiumSpan.style.display = "inline-block";
-            premiumSpan.style.fontSize = "10px";
-            premiumSpan.style.fontWeight = "600";
-            premiumSpan.style.color = "#f59e0b";
-            premiumSpan.style.background = "#fef3c7";
-            premiumSpan.style.padding = "2px 8px";
-            premiumSpan.style.borderRadius = "12px";
-        }
-        
-        // إعادة تعيين أيقونات الجانب الأيمن
-        const rightSide = el.querySelector('.exam-right-icons');
-        if (rightSide) {
-            rightSide.style.cssText = "";
-            rightSide.style.display = "flex";
-            rightSide.style.alignItems = "center";
-            rightSide.style.gap = "8px";
-            rightSide.style.marginLeft = "auto";
-        }
-        
-        // إعادة تعيين شريط التقدم الصغير
-        const progressSpan = el.querySelector('.exam-progress-mini');
-        if (progressSpan) {
-            progressSpan.style.cssText = "";
-            progressSpan.style.display = "inline-block";
-            progressSpan.style.fontSize = "10px";
-            progressSpan.style.color = "#1565C0";
-            progressSpan.style.marginLeft = "8px";
-            progressSpan.style.fontWeight = "500";
-            progressSpan.style.background = "#f0f7ff";
-            progressSpan.style.padding = "2px 6px";
-            progressSpan.style.borderRadius = "10px";
-        }
+        // ✅ المحتوى الداخلي يبقى كما هو - نطبق التنسيق الثابت
+        applyCardContentStyles(el);
     });
     
     // 3. إعادة تطبيق الترتيب إذا كان leaderboard
@@ -2386,10 +2399,10 @@ function applyListView() {
         applyLeaderboardOrder();
     }
     
-    console.log("📄 List View (مع الحفاظ على الترتيب)");
+    console.log("📄 List View (Layout فقط)");
 }
 
-// ✅ تطبيق Grid View - يحافظ على الترتيب الحالي
+// ✅ تطبيق Grid View - يغير فقط Layout مع الحفاظ على المحتوى
 function applyGridView() {
     const list = document.getElementById("examsList");
     if (!list) return;
@@ -2420,11 +2433,11 @@ function applyGridView() {
     const firstExam = exams[0];
     list.insertBefore(grid, firstExam);
     
-    // 4. نقل العناصر إلى الـ Grid مع تنسيقها
+    // 4. نقل العناصر إلى الـ Grid مع تنسيق Layout فقط
     exams.forEach(item => {
         grid.appendChild(item);
         
-        // تنسيق البطاقة في Grid
+        // فقط تغيير تنسيق البطاقة نفسها (Layout)
         item.style.cssText = `
             display: flex;
             flex-direction: column;
@@ -2442,56 +2455,41 @@ function applyGridView() {
             cursor: pointer;
             transition: all 0.25s ease;
             overflow: hidden;
+            width: 100%;
         `;
         
-        // تنسيق العنوان في Grid (مع تفاف النص)
+        // ✅ المحتوى الداخلي يبقى كما هو - نطبق التنسيق الثابت
+        // لكن في Grid، نضبط بعض الخصائص الخاصة بالعرض فقط
         const title = item.querySelector(".exam-title");
         if (title) {
-            title.style.cssText = `
-                font-size: 11px;
-                transition: color 0.25s ease;
-                white-space: normal;
-                overflow-wrap: anywhere;
-                word-break: break-word;
-                line-height: 1.15;
-                text-align: center;
-                max-width: 100%;
-                display: block;
-                padding: 0 2px;
-            `;
+            // فقط تغيير الخصائص المتعلقة بالعرض في Grid
+            title.style.textAlign = "center";
+            title.style.whiteSpace = "normal";
+            title.style.overflowWrap = "anywhere";
+            title.style.wordBreak = "break-word";
+            title.style.lineHeight = "1.15";
+            title.style.maxWidth = "100%";
+            title.style.display = "block";
+            title.style.padding = "0 2px";
+            // باقي الخصائص محفوظة من applyCardContentStyles
         }
         
-        // تنسيق النتيجة في Grid
         const badge = item.querySelector(".exam-result-badge");
         if (badge) {
-            badge.style.fontSize = "8px";
-            badge.style.padding = "2px 6px";
-            badge.style.minWidth = "auto";
+            // فقط تغيير الخصائص المتعلقة بالعرض في Grid
+            badge.style.marginLeft = "0";
+            badge.style.marginTop = "2px";
         }
         
-        // تنسيق Premium في Grid
-        const premiumSpan = item.querySelector('.premium-badge');
-        if (premiumSpan) {
-            premiumSpan.style.fontSize = "7px";
-            premiumSpan.style.padding = "1px 4px";
-        }
-        
-        // تنسيق أيقونات الجانب الأيمن في Grid
         const rightSide = item.querySelector('.exam-right-icons');
         if (rightSide) {
-            rightSide.style.display = "flex";
-            rightSide.style.alignItems = "center";
-            rightSide.style.justifyContent = "center";
-            rightSide.style.gap = "4px";
             rightSide.style.marginLeft = "0";
             rightSide.style.marginTop = "2px";
+            rightSide.style.justifyContent = "center";
         }
         
-        // تنسيق شريط التقدم في Grid
         const progressSpan = item.querySelector('.exam-progress-mini');
         if (progressSpan) {
-            progressSpan.style.fontSize = "8px";
-            progressSpan.style.padding = "1px 4px";
             progressSpan.style.marginLeft = "0";
         }
         
@@ -2506,7 +2504,7 @@ function applyGridView() {
         applyLeaderboardOrder();
     }
     
-    console.log("🟦 Grid View (مع الحفاظ على الترتيب)");
+    console.log("🟦 Grid View (Layout فقط)");
 }
 
 // ============================================
