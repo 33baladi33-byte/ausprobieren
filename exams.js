@@ -2163,8 +2163,8 @@ function setViewModeIndex1(index) {
     } catch {}
 }
 
-// ===== الزر الثاني: view_day ↔ grid_view ↔ view_module =====
-const VIEW_ICONS_2 = ['view_day', 'grid_view', 'view_module'];
+// ===== الزر الثاني: view_day ↔ grid_view ↔ shuffle =====
+const VIEW_ICONS_2 = ['view_day', 'grid_view', 'shuffle'];  // ← تم التعديل هنا
 const VIEW_MODE_KEY_2 = 'viewModeIconIndex2';
 
 function getViewModeIndex2() {
@@ -2230,7 +2230,7 @@ function createViewModeToggles() {
 
     header.appendChild(btn1);
 
-    // ===== الزر الثاني (view_day ↔ grid_view ↔ view_module) =====
+    // ===== الزر الثاني (view_day ↔ grid_view ↔ shuffle) =====
     const btn2 = document.createElement('button');
     btn2.id = 'viewModeToggleBtn2';
     btn2.className = 'view-mode-toggle-btn-2';
@@ -2279,4 +2279,4 @@ if (originalRenderExamList) {
 // تصدير الدوال
 window.createViewModeToggles = createViewModeToggles;
 
-console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view↔view_module) تم تحميلهما');
+console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view↔shuffle) تم تحميلهما');
