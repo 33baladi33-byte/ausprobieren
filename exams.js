@@ -2265,7 +2265,7 @@ function applyLeaderboardOrder() {
 }
 
 // ============================================
-// نظام العرض (مستقل) - يحافظ على وظيفة الضغط
+// نظام العرض (مستقل)
 // ============================================
 
 function getExamListMode() {
@@ -2276,7 +2276,7 @@ function setExamListMode(mode) {
     localStorage.setItem(EXAM_LIST_MODE_KEY, mode);
 }
 
-// ✅ تطبيق List View - يحافظ على وظيفة الضغط
+// ✅ تطبيق List View - يحافظ على الترتيب الحالي
 function applyListView() {
     const list = document.getElementById("examsList");
     if (!list) return;
@@ -2290,16 +2290,10 @@ function applyListView() {
         oldGrid.remove();
     }
     
-    // 2. الحصول على العناصر
+    // 2. إعادة تعيين تنسيقات العناصر إلى وضع List (وليس مسح كامل)
     const items = getExamItems(list);
-    if (!items.length) return;
-    
-    // 3. تطبيق تنسيق List على البطاقات (مع الحفاظ على الـ onclick)
     items.forEach(el => {
-        // نحتفظ بالـ onclick الأصلي ولا نمسحه
-        const originalOnClick = el.onclick;
-        
-        // تطبيق التنسيق فقط
+        // نعيد تعيين التنسيقات الأساسية فقط، ولا نمسح كل شيء
         el.style.display = "flex";
         el.style.flexDirection = "row";
         el.style.flexWrap = "wrap";
@@ -2317,15 +2311,8 @@ function applyListView() {
         el.style.fontSize = "inherit";
         el.style.overflow = "visible";
         el.style.transform = "none";
-        el.style.cursor = "pointer";
-        el.style.transition = "all 0.25s ease";
         
-        // إعادة الـ onclick إذا كان موجوداً
-        if (originalOnClick) {
-            el.onclick = originalOnClick;
-        }
-        
-        // تنسيق العنوان في List
+        // إعادة تعيين تنسيق العنوان
         const title = el.querySelector(".exam-title");
         if (title) {
             title.style.cssText = "";
@@ -2342,7 +2329,7 @@ function applyListView() {
             title.style.padding = "0";
         }
         
-        // تنسيق النتيجة في List
+        // إعادة تعيين تنسيق النتيجة
         const badge = el.querySelector(".exam-result-badge");
         if (badge) {
             badge.style.cssText = "";
@@ -2357,7 +2344,7 @@ function applyListView() {
             badge.style.marginLeft = "8px";
         }
         
-        // تنسيق Premium في List
+        // إعادة تعيين تنسيق Premium
         const premiumSpan = el.querySelector('.premium-badge');
         if (premiumSpan) {
             premiumSpan.style.cssText = "";
@@ -2370,7 +2357,7 @@ function applyListView() {
             premiumSpan.style.borderRadius = "12px";
         }
         
-        // تنسيق الجانب الأيمن في List
+        // إعادة تعيين أيقونات الجانب الأيمن
         const rightSide = el.querySelector('.exam-right-icons');
         if (rightSide) {
             rightSide.style.cssText = "";
@@ -2380,7 +2367,7 @@ function applyListView() {
             rightSide.style.marginLeft = "auto";
         }
         
-        // تنسيق شريط التقدم في List
+        // إعادة تعيين شريط التقدم الصغير
         const progressSpan = el.querySelector('.exam-progress-mini');
         if (progressSpan) {
             progressSpan.style.cssText = "";
@@ -2395,15 +2382,15 @@ function applyListView() {
         }
     });
     
-    // 4. إعادة تطبيق الترتيب إذا كان leaderboard
+    // 3. إعادة تطبيق الترتيب إذا كان leaderboard
     if (currentOrderState === 'leaderboard') {
         applyLeaderboardOrder();
     }
     
-    console.log("📄 List View (مع الحفاظ على وظيفة الضغط)");
+    console.log("📄 List View (مع الحفاظ على الترتيب)");
 }
 
-// ✅ تطبيق Grid View - يحافظ على وظيفة الضغط
+// ✅ تطبيق Grid View - يحافظ على الترتيب الحالي
 function applyGridView() {
     const list = document.getElementById("examsList");
     if (!list) return;
@@ -2438,9 +2425,6 @@ function applyGridView() {
     exams.forEach(item => {
         grid.appendChild(item);
         
-        // نحتفظ بالـ onclick الأصلي
-        const originalOnClick = item.onclick;
-        
         // تنسيق البطاقة في Grid
         item.style.cssText = `
             display: flex;
@@ -2459,15 +2443,9 @@ function applyGridView() {
             cursor: pointer;
             transition: all 0.25s ease;
             overflow: hidden;
-            width: 100%;
         `;
         
-        // إعادة الـ onclick إذا كان موجوداً
-        if (originalOnClick) {
-            item.onclick = originalOnClick;
-        }
-        
-        // تنسيق العنوان في Grid
+        // تنسيق العنوان في Grid (مع تفاف النص)
         const title = item.querySelector(".exam-title");
         if (title) {
             title.style.cssText = `
@@ -2490,8 +2468,6 @@ function applyGridView() {
             badge.style.fontSize = "8px";
             badge.style.padding = "2px 6px";
             badge.style.minWidth = "auto";
-            badge.style.marginLeft = "0";
-            badge.style.marginTop = "2px";
         }
         
         // تنسيق Premium في Grid
@@ -2501,7 +2477,7 @@ function applyGridView() {
             premiumSpan.style.padding = "1px 4px";
         }
         
-        // تنسيق الجانب الأيمن في Grid
+        // تنسيق أيقونات الجانب الأيمن في Grid
         const rightSide = item.querySelector('.exam-right-icons');
         if (rightSide) {
             rightSide.style.display = "flex";
@@ -2519,6 +2495,11 @@ function applyGridView() {
             progressSpan.style.padding = "1px 4px";
             progressSpan.style.marginLeft = "0";
         }
+        
+        // إزالة event listeners القديمة وإضافة جديدة
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
+        setupItemEvents(newItem);
     });
     
     // 5. إعادة تطبيق الترتيب إذا كان leaderboard
@@ -2526,7 +2507,7 @@ function applyGridView() {
         applyLeaderboardOrder();
     }
     
-    console.log("🟦 Grid View (مع الحفاظ على وظيفة الضغط)");
+    console.log("🟦 Grid View (مع الحفاظ على الترتيب)");
 }
 
 // ============================================
@@ -2539,6 +2520,71 @@ function applyExamListView(mode) {
     } else {
         applyGridView();
     }
+}
+
+// ============================================
+// إعداد Event Listeners للعناصر
+// ============================================
+
+function setupItemEvents(item) {
+    // Hover
+    item.addEventListener('mouseenter', function() {
+        const isPremium = this.querySelector('.premium-badge') !== null;
+        if (isPremium) {
+            this.style.backgroundColor = "rgba(255,255,255,0.95)";
+            this.style.transform = "translateY(-3px)";
+            this.style.borderColor = "#60a5fa";
+            this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+        } else {
+            this.style.backgroundColor = "#f1f5f9";
+            this.style.transform = "translateY(-3px)";
+            this.style.borderColor = "#2F80ED";
+            this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+        }
+        const titleEl = this.querySelector('.exam-title');
+        if (titleEl) {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            titleEl.style.color = isPremium ? "#4b5563" : "#1e293b";
+        }
+        const premiumSpan = this.querySelector('.premium-badge');
+        if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+    });
+
+    item.addEventListener('mouseleave', function() {
+        const isPremium = this.querySelector('.premium-badge') !== null;
+        if (isPremium) {
+            this.style.backgroundColor = "rgba(255,255,255,0.75)";
+            this.style.transform = "translateY(0)";
+            this.style.borderColor = "#e2e8f0";
+            this.style.boxShadow = "none";
+        } else {
+            this.style.backgroundColor = "#fafbfc";
+            this.style.transform = "translateY(0)";
+            this.style.borderColor = "#e8ecef";
+            this.style.boxShadow = "none";
+        }
+        const titleEl = this.querySelector('.exam-title');
+        if (titleEl) {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            titleEl.style.color = isPremium ? "#6b7280" : "#1a202c";
+        }
+        const premiumSpan = this.querySelector('.premium-badge');
+        if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+    });
+
+    // Active
+    item.addEventListener('mousedown', function() {
+        this.style.transform = "scale(0.98)";
+        this.style.backgroundColor = "#e2e8f0";
+        this.style.transition = "all 0.05s ease";
+    });
+
+    item.addEventListener('mouseup', function() {
+        const isPremium = this.querySelector('.premium-badge') !== null;
+        this.style.transform = "scale(1)";
+        this.style.backgroundColor = isPremium ? "rgba(255,255,255,0.95)" : "#f1f5f9";
+        this.style.transition = "all 0.25s ease";
+    });
 }
 
 // ============================================
@@ -2702,4 +2748,5 @@ window.applyLeaderboardOrder = applyLeaderboardOrder;
 window.getCurrentContainer = getCurrentContainer;
 window.getExamItems = getExamItems;
 
-console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view) مع وظائف الترتيب تم تحميلهما');
+console.log('🔄 نظامين مستقلين (ترتيب + عرض) تم تحميلهما');
+
