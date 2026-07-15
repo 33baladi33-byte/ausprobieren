@@ -2195,7 +2195,6 @@ function getExamListMode() {
 function setExamListMode(mode) {
     localStorage.setItem(EXAM_LIST_MODE_KEY, mode);
 }
-
 // تطبيق الشكل
 function applyExamListView(mode) {
     const list = document.getElementById("examsList");
@@ -2212,7 +2211,47 @@ function applyExamListView(mode) {
 
     // إعادة جميع التنسيقات إلى الوضع الطبيعي
     [...list.querySelectorAll(".item")].forEach(el => {
+        // نعيد تعيين الأنماط لكن نحافظ على بعض الخصائص الأساسية
         el.style.cssText = "";
+        // إعادة تعيين العرض الافتراضي
+        el.style.display = "flex";
+        el.style.flexDirection = "row";
+        el.style.flexWrap = "wrap";
+        el.style.alignItems = "center";
+        el.style.justifyContent = "space-between";
+        el.style.width = "100%";
+        el.style.padding = "12px 16px";
+        el.style.marginBottom = "6px";
+        el.style.borderRadius = "10px";
+        el.style.border = "1px solid #e8ecef";
+        el.style.background = "#ffffff";
+        el.style.boxShadow = "none";
+        el.style.minHeight = "auto";
+        el.style.textAlign = "left";
+        el.style.fontSize = "inherit";
+        el.style.cursor = "pointer";
+        
+        // إعادة تعيين العناصر الداخلية
+        const title = el.querySelector(".exam-title");
+        if (title) {
+            title.style.cssText = "flex:1; font-size:14px; font-weight:500; text-align:left;";
+        }
+        const badge = el.querySelector(".exam-result-badge");
+        if (badge) {
+            badge.style.cssText = "";
+        }
+        const rightSide = el.querySelector('.exam-right-icons');
+        if (rightSide) {
+            rightSide.style.cssText = "display:flex; align-items:center; gap:8px; margin-left:auto;";
+        }
+        const progressSpan = el.querySelector('.exam-progress-mini');
+        if (progressSpan) {
+            progressSpan.style.cssText = "";
+        }
+        const premiumSpan = el.querySelector('.premium-badge');
+        if (premiumSpan) {
+            premiumSpan.style.cssText = "";
+        }
     });
 
     // الوضع العادي (List)
@@ -2221,7 +2260,7 @@ function applyExamListView(mode) {
         return;
     }
 
-    // ===== Grid View =====
+    // ===== Grid View - مطابق تماماً لكود Console =====
     const exams = [...list.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
@@ -2239,11 +2278,15 @@ function applyExamListView(mode) {
         margin-top: 8px;
     `;
 
-    list.insertBefore(grid, exams[0]);
+    // إدراج الـ Grid قبل أول امتحان
+    const firstExam = exams[0];
+    list.insertBefore(grid, firstExam);
 
     exams.forEach(item => {
+        // نقل العنصر إلى الـ Grid
         grid.appendChild(item);
 
+        // تطبيق نفس التنسيق تماماً كما في كود Console
         item.style.cssText = `
             display: flex;
             flex-direction: column;
@@ -2268,17 +2311,25 @@ function applyExamListView(mode) {
         const badge = item.querySelector(".exam-result-badge");
         if (badge) badge.style.fontSize = "8px";
 
-        // إخفاء العناصر الزائدة في وضع Grid
+        // التأكد من إظهار العناصر بشكل صحيح في وضع Grid
         const rightSide = item.querySelector('.exam-right-icons');
-        if (rightSide) rightSide.style.display = 'flex';
+        if (rightSide) {
+            rightSide.style.cssText = "display:flex; align-items:center; justify-content:center; gap:4px; margin:2px 0 0 0;";
+        }
         
         const progressSpan = item.querySelector('.exam-progress-mini');
-        if (progressSpan) progressSpan.style.display = 'inline-block';
+        if (progressSpan) {
+            progressSpan.style.cssText = "font-size:8px; color:#1565C0; font-weight:500; background:#f0f7ff; padding:1px 4px; border-radius:8px; display:inline-block;";
+        }
+        
+        const premiumSpan = item.querySelector('.premium-badge');
+        if (premiumSpan) {
+            premiumSpan.style.cssText = "font-size:7px; font-weight:600; color:#f59e0b; background:#fef3c7; padding:1px 4px; border-radius:8px; display:inline-block;";
+        }
     });
 
-    console.log("🟦 Grid View");
+    console.log("🟦 Grid View - مطابق لكود Console");
 }
-
 // ============================================
 // إنشاء الأزرار
 // ============================================
