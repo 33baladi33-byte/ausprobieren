@@ -23,4 +23,38 @@
       "correct": 0
     },
     {
-      "text": "
+      "text": "Die ersten Parkuhren",
+      "options": [
+        "a. bezeichnete man als Knöllchen",
+        "b. funktionierten nur mit Münzen",
+        "c. gaben nur Groschen zurück"
+      ],
+      "correct": 1
+    },
+    {
+      "text": "Die neuen Parkscheinautomaten",
+      "options": [
+        "a. akzeptieren nur Karten als Zahlungsmittel",
+        "b. müssen mit hohem Aufwand gewartet werden",
+        "c. versorgen sich selbst mit Strom"
+      ],
+      "correct": 2
+    },
+    {
+      "text": "In Berlin und in Düsseldorf",
+      "options": [
+        "a. fließen die Parkgebühren nur in den Straßenbau",
+        "b. nimmt die Zahl der Parkscheinautomaten zu",
+        "c. werden die höchsten Parkgebühren verlangt"
+      ],
+      "correct": 2
+    }
+  ],
+  "memoryHighlights": [
+    { "color": 1, "parts": ["in der Schweiz und in Schweden"] },
+    { "color": 9, "parts": ["Bedürftige zu unterstützen"] },
+    { "color": 11, "parts": ["funktionierten nur mit Münzen"] },
+    { "color": 4, "parts": ["versorgen sich selbst mit Strom"] },
+    { "color": 10, "parts": ["werden die höchsten Parkgebühren verlangt"] }
+  ]
+}
