@@ -2346,7 +2346,7 @@ function applyExamListView(mode) {
         return;
     }
 
-    // ===== Grid View =====
+    // ===== Grid View - مع تفاف النص للعناوين الطويلة =====
     const exams = [...list.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
@@ -2370,6 +2370,7 @@ function applyExamListView(mode) {
     exams.forEach(item => {
         grid.appendChild(item);
 
+        // ✅ إضافة overflow: hidden للبطاقة لمنع خروج النص
         item.style.cssText = `
             display: flex;
             flex-direction: column;
@@ -2386,7 +2387,31 @@ function applyExamListView(mode) {
             font-size: 12px;
             cursor: pointer;
             transition: all 0.25s ease;
+            overflow: hidden;
         `;
+
+        // ✅ تفاف النص للعناوين الطويلة في Grid View فقط
+        const title = item.querySelector(".exam-title");
+        if (title) {
+            title.style.cssText = `
+                font-size: 11px;
+                transition: color 0.25s ease;
+                white-space: normal;
+                overflow-wrap: anywhere;
+                word-break: break-word;
+                line-height: 1.15;
+                text-align: center;
+                max-width: 100%;
+                display: block;
+                padding: 0 2px;
+            `;
+        }
+
+        // ✅ الحفاظ على النتيجة بحجم صغير
+        const badge = item.querySelector(".exam-result-badge");
+        if (badge) {
+            badge.style.fontSize = "8px";
+        }
 
         // تأثير Hover
         item.addEventListener('mouseenter', function() {
@@ -2402,10 +2427,10 @@ function applyExamListView(mode) {
                 this.style.borderColor = "#2F80ED";
                 this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
             }
-            const title = this.querySelector('.exam-title');
-            if (title) {
+            const titleEl = this.querySelector('.exam-title');
+            if (titleEl) {
                 const isPremium = this.querySelector('.premium-badge') !== null;
-                title.style.color = isPremium ? "#4b5563" : "#1e293b";
+                titleEl.style.color = isPremium ? "#4b5563" : "#1e293b";
             }
             const premiumSpan = this.querySelector('.premium-badge');
             if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
@@ -2424,10 +2449,10 @@ function applyExamListView(mode) {
                 this.style.borderColor = "#e8ecef";
                 this.style.boxShadow = "none";
             }
-            const title = this.querySelector('.exam-title');
-            if (title) {
+            const titleEl = this.querySelector('.exam-title');
+            if (titleEl) {
                 const isPremium = this.querySelector('.premium-badge') !== null;
-                title.style.color = isPremium ? "#6b7280" : "#1a202c";
+                titleEl.style.color = isPremium ? "#6b7280" : "#1a202c";
             }
             const premiumSpan = this.querySelector('.premium-badge');
             if (premiumSpan) premiumSpan.style.transform = "scale(1)";
@@ -2446,18 +2471,9 @@ function applyExamListView(mode) {
             this.style.backgroundColor = isPremium ? "rgba(255,255,255,0.95)" : "#f1f5f9";
             this.style.transition = "all 0.25s ease";
         });
-
-        const title = item.querySelector(".exam-title");
-        if (title) {
-            title.style.fontSize = "11px";
-            title.style.transition = "color 0.25s ease";
-        }
-
-        const badge = item.querySelector(".exam-result-badge");
-        if (badge) badge.style.fontSize = "8px";
     });
 
-    console.log("🟦 Grid View");
+    console.log("🟦 Grid View - مع تفاف النص للعناوين الطويلة");
 }
 
 // ============================================
