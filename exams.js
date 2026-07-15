@@ -2150,75 +2150,58 @@ console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `$
 const VIEW_ICONS_1 = ['leaderboard', '123'];
 const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
 
-// تخزين الترتيب الأصلي كأرقام امتحانات
+// تخزين الترتيب الأصلي كأرقام امتحانات (وليس عناصر DOM)
 let originalOrderNumbers = [];
-let currentOrderState = 'original'; // 'original' | 'leaderboard'
 
-// ===== الزر الثاني: view_day ↔ grid_view =====
-const VIEW_ICONS_2 = ['view_day', 'grid_view'];
-const VIEW_MODE_KEY_2 = 'viewModeIconIndex2';
-
-// ============================================
-// الحالة العامة
-// ============================================
-
-const EXAM_LIST_MODE_KEY = "examListViewMode";
-
-// ============================================
-// دوال مساعدة عامة
-// ============================================
-
-function getCurrentContainer() {
+// حفظ الترتيب الأصلي عند تحميل القائمة
+function saveOriginalOrder() {
     const list = document.getElementById("examsList");
-    if (!list) return null;
-    const gridContainer = document.getElementById("examGridContainer");
-    return gridContainer || list;
-}
-
-function getExamItems(container) {
-    if (!container) return [];
-    return [...container.querySelectorAll(".item")].filter(el =>
+    if (!list) return;
+    
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
     );
-}
-
-function getExamNumber(el) {
-    const title = el.querySelector(".exam-title");
-    if (!title) return null;
-    const text = title.textContent || '';
-    const match = text.match(/^(\d+):/);
-    return match ? parseInt(match[1], 10) : null;
-}
-
-// ============================================
-// نظام الترتيب (مستقل)
-// ============================================
-
-function saveOriginalOrder() {
-    const container = getCurrentContainer();
-    if (!container) return;
     
-    const exams = getExamItems(container);
-    if (!exams.length) return;
+    // حفظ أرقام الامتحانات بالترتيب الأصلي
+    originalOrderNumbers = exams.map(el => {
+        const title = el.querySelector(".exam-title");
+        if (!title) return null;
+        const text = title.textContent || '';
+        const match = text.match(/^(\d+):/);
+        return match ? parseInt(match[1], 10) : null;
+    }).filter(num => num !== null);
     
-    originalOrderNumbers = exams.map(el => getExamNumber(el)).filter(num => num !== null);
     console.log("📋 تم حفظ الترتيب الأصلي:", originalOrderNumbers);
 }
 
+// استعادة الترتيب الأصلي حسب أرقام الامتحانات
 function restoreOriginalOrder() {
-    const container = getCurrentContainer();
-    if (!container || originalOrderNumbers.length === 0) return;
+    const list = document.getElementById("examsList");
+    if (!list || originalOrderNumbers.length === 0) return;
     
-    const exams = getExamItems(container);
+    // الحصول على جميع عناصر الامتحانات الحالية
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+    
     if (!exams.length) return;
     
+    // إنشاء خريطة للعناصر حسب رقم الامتحان
     const examMap = {};
     exams.forEach(el => {
-        const num = getExamNumber(el);
-        if (num !== null) examMap[num] = el;
+        const title = el.querySelector(".exam-title");
+        if (!title) return;
+        const text = title.textContent || '';
+        const match = text.match(/^(\d+):/);
+        if (match) {
+            const num = parseInt(match[1], 10);
+            examMap[num] = el;
+        }
     });
     
+    // إعادة ترتيب العناصر حسب الأرقام المحفوظة
     const fragment = document.createDocumentFragment();
     originalOrderNumbers.forEach(num => {
         if (examMap[num]) {
@@ -2227,47 +2210,105 @@ function restoreOriginalOrder() {
         }
     });
     
+    // إضافة أي عناصر متبقية (جديدة) في نهاية القائمة
     Object.keys(examMap).map(Number).sort((a, b) => a - b).forEach(num => {
         fragment.appendChild(examMap[num]);
     });
     
-    container.appendChild(fragment);
-    currentOrderState = 'original';
-    console.log("📋 تم استعادة الترتيب الأصلي");
+    list.appendChild(fragment);
+    console.log("📋 تم استعادة الترتيب الأصلي حسب الأرقام");
 }
 
+// ✅ تطبيق ترتيب leaderboard - يعمل مع List و Grid معاً
 function applyLeaderboardOrder() {
-    const container = getCurrentContainer();
-    if (!container) return console.log("❌ لا توجد حاوية");
+    const list = document.getElementById("examsList");
+    if (!list) return console.log("❌ examsList غير موجود");
 
-    const exams = getExamItems(container);
+    // التحقق من وجود Grid Container
+    const gridContainer = document.getElementById("examGridContainer");
+    const targetContainer = gridContainer || list;
+
+    // جميع الامتحانات فقط - نأخذها من الـ container المناسب
+    const exams = [...targetContainer.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+
     if (!exams.length) return console.log("❌ لا توجد امتحانات");
 
+    // استخراج النقطة
     const data = exams.map((el, index) => {
         const badge = el.querySelector(".exam-result-badge");
+
         let score = Infinity;
+
         if (badge) {
             const txt = badge.textContent.trim();
             const m = txt.match(/^(\d+)\s*\/\s*\d+/);
+
             if (m) score = parseInt(m[1], 10);
         }
-        return { el, score, originalIndex: index };
+
+        return {
+            el,
+            score,
+            originalIndex: index
+        };
     });
 
+    // ترتيب Stable
     data.sort((a, b) => {
-        if (a.score === b.score) return a.originalIndex - b.originalIndex;
+        if (a.score === b.score)
+            return a.originalIndex - b.originalIndex;
+
         return a.score - b.score;
     });
 
-    data.forEach(item => container.appendChild(item.el));
-    currentOrderState = 'leaderboard';
+    // إعادة ترتيب داخل نفس الـ container
+    data.forEach(item => targetContainer.appendChild(item.el));
+
     console.log("✅ تم ترتيب الامتحانات من الأضعف إلى الأقوى");
 }
 
+function getViewModeIndex1() {
+    try {
+        const saved = localStorage.getItem(VIEW_MODE_KEY_1);
+        if (saved !== null) return parseInt(saved);
+    } catch {}
+    return 0;
+}
+
+function setViewModeIndex1(index) {
+    try {
+        localStorage.setItem(VIEW_MODE_KEY_1, String(index));
+    } catch {}
+}
+
+// ===== الزر الثاني: view_day ↔ grid_view =====
+const VIEW_ICONS_2 = ['view_day', 'grid_view'];
+const VIEW_MODE_KEY_2 = 'viewModeIconIndex2';
+
+function getViewModeIndex2() {
+    try {
+        const saved = localStorage.getItem(VIEW_MODE_KEY_2);
+        if (saved !== null) return parseInt(saved);
+    } catch {}
+    return 0;
+}
+
+function setViewModeIndex2(index) {
+    try {
+        localStorage.setItem(VIEW_MODE_KEY_2, String(index));
+    } catch {}
+}
+
 // ============================================
-// نظام العرض (مستقل)
+// Exam List View Mode - نظام تبديل شكل القائمة
 // ============================================
 
+const EXAM_LIST_MODE_KEY = "examListViewMode";
+
+// الوضع الحالي
 function getExamListMode() {
     return localStorage.getItem(EXAM_LIST_MODE_KEY) || "list";
 }
@@ -2276,126 +2317,12 @@ function setExamListMode(mode) {
     localStorage.setItem(EXAM_LIST_MODE_KEY, mode);
 }
 
-// ✅ تطبيق List View - يحافظ على الترتيب الحالي
-function applyListView() {
+// تطبيق الشكل
+function applyExamListView(mode) {
     const list = document.getElementById("examsList");
     if (!list) return;
-    
-    // 1. إزالة أي Grid سابق مع الحفاظ على العناصر
-    const oldGrid = document.getElementById("examGridContainer");
-    if (oldGrid) {
-        while (oldGrid.firstChild) {
-            list.appendChild(oldGrid.firstChild);
-        }
-        oldGrid.remove();
-    }
-    
-    // 2. إعادة تعيين تنسيقات العناصر إلى وضع List (وليس مسح كامل)
-    const items = getExamItems(list);
-    items.forEach(el => {
-        // نعيد تعيين التنسيقات الأساسية فقط، ولا نمسح كل شيء
-        el.style.display = "flex";
-        el.style.flexDirection = "row";
-        el.style.flexWrap = "wrap";
-        el.style.alignItems = "center";
-        el.style.justifyContent = "space-between";
-        el.style.width = "100%";
-        el.style.padding = "12px 16px";
-        el.style.marginBottom = "6px";
-        el.style.borderRadius = "10px";
-        el.style.border = "1px solid #e8ecef";
-        el.style.background = "#ffffff";
-        el.style.boxShadow = "none";
-        el.style.minHeight = "auto";
-        el.style.textAlign = "left";
-        el.style.fontSize = "inherit";
-        el.style.overflow = "visible";
-        el.style.transform = "none";
-        
-        // إعادة تعيين تنسيق العنوان
-        const title = el.querySelector(".exam-title");
-        if (title) {
-            title.style.cssText = "";
-            title.style.flex = "1";
-            title.style.fontSize = "14px";
-            title.style.fontWeight = "500";
-            title.style.textAlign = "left";
-            title.style.whiteSpace = "normal";
-            title.style.overflow = "visible";
-            title.style.wordBreak = "normal";
-            title.style.lineHeight = "normal";
-            title.style.maxWidth = "100%";
-            title.style.display = "inline-block";
-            title.style.padding = "0";
-        }
-        
-        // إعادة تعيين تنسيق النتيجة
-        const badge = el.querySelector(".exam-result-badge");
-        if (badge) {
-            badge.style.cssText = "";
-            badge.style.display = "inline-block";
-            badge.style.fontSize = "11px";
-            badge.style.padding = "3px 8px";
-            badge.style.minWidth = "55px";
-            badge.style.textAlign = "center";
-            badge.style.borderRadius = "20px";
-            badge.style.fontWeight = "bold";
-            badge.style.color = "white";
-            badge.style.marginLeft = "8px";
-        }
-        
-        // إعادة تعيين تنسيق Premium
-        const premiumSpan = el.querySelector('.premium-badge');
-        if (premiumSpan) {
-            premiumSpan.style.cssText = "";
-            premiumSpan.style.display = "inline-block";
-            premiumSpan.style.fontSize = "10px";
-            premiumSpan.style.fontWeight = "600";
-            premiumSpan.style.color = "#f59e0b";
-            premiumSpan.style.background = "#fef3c7";
-            premiumSpan.style.padding = "2px 8px";
-            premiumSpan.style.borderRadius = "12px";
-        }
-        
-        // إعادة تعيين أيقونات الجانب الأيمن
-        const rightSide = el.querySelector('.exam-right-icons');
-        if (rightSide) {
-            rightSide.style.cssText = "";
-            rightSide.style.display = "flex";
-            rightSide.style.alignItems = "center";
-            rightSide.style.gap = "8px";
-            rightSide.style.marginLeft = "auto";
-        }
-        
-        // إعادة تعيين شريط التقدم الصغير
-        const progressSpan = el.querySelector('.exam-progress-mini');
-        if (progressSpan) {
-            progressSpan.style.cssText = "";
-            progressSpan.style.display = "inline-block";
-            progressSpan.style.fontSize = "10px";
-            progressSpan.style.color = "#1565C0";
-            progressSpan.style.marginLeft = "8px";
-            progressSpan.style.fontWeight = "500";
-            progressSpan.style.background = "#f0f7ff";
-            progressSpan.style.padding = "2px 6px";
-            progressSpan.style.borderRadius = "10px";
-        }
-    });
-    
-    // 3. إعادة تطبيق الترتيب إذا كان leaderboard
-    if (currentOrderState === 'leaderboard') {
-        applyLeaderboardOrder();
-    }
-    
-    console.log("📄 List View (مع الحفاظ على الترتيب)");
-}
 
-// ✅ تطبيق Grid View - يحافظ على الترتيب الحالي
-function applyGridView() {
-    const list = document.getElementById("examsList");
-    if (!list) return;
-    
-    // 1. إزالة أي Grid سابق مع الحفاظ على العناصر
+    // إزالة أي Grid قديم
     const oldGrid = document.getElementById("examGridContainer");
     if (oldGrid) {
         while (oldGrid.firstChild) {
@@ -2403,29 +2330,42 @@ function applyGridView() {
         }
         oldGrid.remove();
     }
-    
-    // 2. الحصول على العناصر
-    const exams = getExamItems(list);
+
+    // إعادة جميع التنسيقات إلى الوضع الطبيعي
+    [...list.querySelectorAll(".item")].forEach(el => {
+        el.style.cssText = "";
+    });
+
+    // الوضع العادي (List)
+    if (mode === "list") {
+        console.log("📄 List View");
+        return;
+    }
+
+    // ===== Grid View =====
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+
     if (!exams.length) return;
-    
-    // 3. إنشاء Grid Container جديد
+
     const grid = document.createElement("div");
     grid.id = "examGridContainer";
+
     grid.style.cssText = `
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 6px;
         margin-top: 8px;
     `;
-    
+
     const firstExam = exams[0];
     list.insertBefore(grid, firstExam);
-    
-    // 4. نقل العناصر إلى الـ Grid مع تنسيقها
+
     exams.forEach(item => {
         grid.appendChild(item);
-        
-        // تنسيق البطاقة في Grid
+
         item.style.cssText = `
             display: flex;
             flex-direction: column;
@@ -2442,181 +2382,78 @@ function applyGridView() {
             font-size: 12px;
             cursor: pointer;
             transition: all 0.25s ease;
-            overflow: hidden;
         `;
-        
-        // تنسيق العنوان في Grid (مع تفاف النص)
+
+        // تأثير Hover
+        item.addEventListener('mouseenter', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            if (isPremium) {
+                this.style.backgroundColor = "rgba(255,255,255,0.95)";
+                this.style.transform = "translateY(-3px)";
+                this.style.borderColor = "#60a5fa";
+                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+            } else {
+                this.style.backgroundColor = "#f1f5f9";
+                this.style.transform = "translateY(-3px)";
+                this.style.borderColor = "#2F80ED";
+                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+            }
+            const title = this.querySelector('.exam-title');
+            if (title) {
+                const isPremium = this.querySelector('.premium-badge') !== null;
+                title.style.color = isPremium ? "#4b5563" : "#1e293b";
+            }
+            const premiumSpan = this.querySelector('.premium-badge');
+            if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+        });
+
+        item.addEventListener('mouseleave', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            if (isPremium) {
+                this.style.backgroundColor = "rgba(255,255,255,0.75)";
+                this.style.transform = "translateY(0)";
+                this.style.borderColor = "#e2e8f0";
+                this.style.boxShadow = "none";
+            } else {
+                this.style.backgroundColor = "#fafbfc";
+                this.style.transform = "translateY(0)";
+                this.style.borderColor = "#e8ecef";
+                this.style.boxShadow = "none";
+            }
+            const title = this.querySelector('.exam-title');
+            if (title) {
+                const isPremium = this.querySelector('.premium-badge') !== null;
+                title.style.color = isPremium ? "#6b7280" : "#1a202c";
+            }
+            const premiumSpan = this.querySelector('.premium-badge');
+            if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+        });
+
+        // تأثير Active
+        item.addEventListener('mousedown', function() {
+            this.style.transform = "scale(0.98)";
+            this.style.backgroundColor = "#e2e8f0";
+            this.style.transition = "all 0.05s ease";
+        });
+
+        item.addEventListener('mouseup', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            this.style.transform = "scale(1)";
+            this.style.backgroundColor = isPremium ? "rgba(255,255,255,0.95)" : "#f1f5f9";
+            this.style.transition = "all 0.25s ease";
+        });
+
         const title = item.querySelector(".exam-title");
         if (title) {
-            title.style.cssText = `
-                font-size: 11px;
-                transition: color 0.25s ease;
-                white-space: normal;
-                overflow-wrap: anywhere;
-                word-break: break-word;
-                line-height: 1.15;
-                text-align: center;
-                max-width: 100%;
-                display: block;
-                padding: 0 2px;
-            `;
+            title.style.fontSize = "11px";
+            title.style.transition = "color 0.25s ease";
         }
-        
-        // تنسيق النتيجة في Grid
+
         const badge = item.querySelector(".exam-result-badge");
-        if (badge) {
-            badge.style.fontSize = "8px";
-            badge.style.padding = "2px 6px";
-            badge.style.minWidth = "auto";
-        }
-        
-        // تنسيق Premium في Grid
-        const premiumSpan = item.querySelector('.premium-badge');
-        if (premiumSpan) {
-            premiumSpan.style.fontSize = "7px";
-            premiumSpan.style.padding = "1px 4px";
-        }
-        
-        // تنسيق أيقونات الجانب الأيمن في Grid
-        const rightSide = item.querySelector('.exam-right-icons');
-        if (rightSide) {
-            rightSide.style.display = "flex";
-            rightSide.style.alignItems = "center";
-            rightSide.style.justifyContent = "center";
-            rightSide.style.gap = "4px";
-            rightSide.style.marginLeft = "0";
-            rightSide.style.marginTop = "2px";
-        }
-        
-        // تنسيق شريط التقدم في Grid
-        const progressSpan = item.querySelector('.exam-progress-mini');
-        if (progressSpan) {
-            progressSpan.style.fontSize = "8px";
-            progressSpan.style.padding = "1px 4px";
-            progressSpan.style.marginLeft = "0";
-        }
-        
-        // إزالة event listeners القديمة وإضافة جديدة
-        const newItem = item.cloneNode(true);
-        item.parentNode.replaceChild(newItem, item);
-        setupItemEvents(newItem);
-    });
-    
-    // 5. إعادة تطبيق الترتيب إذا كان leaderboard
-    if (currentOrderState === 'leaderboard') {
-        applyLeaderboardOrder();
-    }
-    
-    console.log("🟦 Grid View (مع الحفاظ على الترتيب)");
-}
-
-// ============================================
-// تطبيق الشكل حسب الوضع المخزن
-// ============================================
-
-function applyExamListView(mode) {
-    if (mode === "list") {
-        applyListView();
-    } else {
-        applyGridView();
-    }
-}
-
-// ============================================
-// إعداد Event Listeners للعناصر
-// ============================================
-
-function setupItemEvents(item) {
-    // Hover
-    item.addEventListener('mouseenter', function() {
-        const isPremium = this.querySelector('.premium-badge') !== null;
-        if (isPremium) {
-            this.style.backgroundColor = "rgba(255,255,255,0.95)";
-            this.style.transform = "translateY(-3px)";
-            this.style.borderColor = "#60a5fa";
-            this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
-        } else {
-            this.style.backgroundColor = "#f1f5f9";
-            this.style.transform = "translateY(-3px)";
-            this.style.borderColor = "#2F80ED";
-            this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
-        }
-        const titleEl = this.querySelector('.exam-title');
-        if (titleEl) {
-            const isPremium = this.querySelector('.premium-badge') !== null;
-            titleEl.style.color = isPremium ? "#4b5563" : "#1e293b";
-        }
-        const premiumSpan = this.querySelector('.premium-badge');
-        if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+        if (badge) badge.style.fontSize = "8px";
     });
 
-    item.addEventListener('mouseleave', function() {
-        const isPremium = this.querySelector('.premium-badge') !== null;
-        if (isPremium) {
-            this.style.backgroundColor = "rgba(255,255,255,0.75)";
-            this.style.transform = "translateY(0)";
-            this.style.borderColor = "#e2e8f0";
-            this.style.boxShadow = "none";
-        } else {
-            this.style.backgroundColor = "#fafbfc";
-            this.style.transform = "translateY(0)";
-            this.style.borderColor = "#e8ecef";
-            this.style.boxShadow = "none";
-        }
-        const titleEl = this.querySelector('.exam-title');
-        if (titleEl) {
-            const isPremium = this.querySelector('.premium-badge') !== null;
-            titleEl.style.color = isPremium ? "#6b7280" : "#1a202c";
-        }
-        const premiumSpan = this.querySelector('.premium-badge');
-        if (premiumSpan) premiumSpan.style.transform = "scale(1)";
-    });
-
-    // Active
-    item.addEventListener('mousedown', function() {
-        this.style.transform = "scale(0.98)";
-        this.style.backgroundColor = "#e2e8f0";
-        this.style.transition = "all 0.05s ease";
-    });
-
-    item.addEventListener('mouseup', function() {
-        const isPremium = this.querySelector('.premium-badge') !== null;
-        this.style.transform = "scale(1)";
-        this.style.backgroundColor = isPremium ? "rgba(255,255,255,0.95)" : "#f1f5f9";
-        this.style.transition = "all 0.25s ease";
-    });
-}
-
-// ============================================
-// دوال الأزرار
-// ============================================
-
-function getViewModeIndex1() {
-    try {
-        const saved = localStorage.getItem(VIEW_MODE_KEY_1);
-        if (saved !== null) return parseInt(saved);
-    } catch {}
-    return 0;
-}
-
-function setViewModeIndex1(index) {
-    try {
-        localStorage.setItem(VIEW_MODE_KEY_1, String(index));
-    } catch {}
-}
-
-function getViewModeIndex2() {
-    try {
-        const saved = localStorage.getItem(VIEW_MODE_KEY_2);
-        if (saved !== null) return parseInt(saved);
-    } catch {}
-    return 0;
-}
-
-function setViewModeIndex2(index) {
-    try {
-        localStorage.setItem(VIEW_MODE_KEY_2, String(index));
-    } catch {}
+    console.log("🟦 Grid View");
 }
 
 // ============================================
@@ -2634,6 +2471,7 @@ function createViewModeToggles() {
         header.style.position = 'relative';
     }
 
+    // إزالة الأزرار القديمة
     const oldBtn1 = document.getElementById('viewModeToggleBtn1');
     if (oldBtn1) oldBtn1.remove();
     const oldBtn2 = document.getElementById('viewModeToggleBtn2');
@@ -2645,29 +2483,38 @@ function createViewModeToggles() {
     btn1.className = 'view-mode-toggle-btn-1';
     btn1.title = 'تبديل ترتيب القائمة';
 
+    // ✅ الأيقونة الظاهرة = المعاكسة للوضع الحالي
     let currentIndex1 = getViewModeIndex1();
+    // إذا كان الوضع الحالي 0 (leaderboard) → نعرض 123
+    // إذا كان الوضع الحالي 1 (123) → نعرض leaderboard
     const displayIndex1 = currentIndex1 === 0 ? 1 : 0;
-    btn1.innerHTML = `<span class="material-symbols-outlined">${VIEW_ICONS_1[displayIndex1]}</span>`;
+    const iconName1 = VIEW_ICONS_1[displayIndex1];
+    btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
     
     btn1.onclick = function(e) {
         e.stopPropagation();
         
+        // التبديل إلى الأيقونة التالية (0→1→0→1...)
         currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
         setViewModeIndex1(currentIndex1);
         
+        // تحديث الأيقونة إلى المعاكس للوضع الجديد
         const newDisplayIndex = currentIndex1 === 0 ? 1 : 0;
         const span = this.querySelector('.material-symbols-outlined');
         if (span) {
             span.textContent = VIEW_ICONS_1[newDisplayIndex];
         }
         
+        // تنفيذ الإجراء المناسب
         if (currentIndex1 === 0) {
+            // الوضع أصبح leaderboard → نطبق الترتيب
             applyLeaderboardOrder();
         } else {
+            // الوضع أصبح 123 → نستعيد الترتيب الأصلي
             restoreOriginalOrder();
         }
         
-        console.log(`🔄 الزر1 تم التبديل إلى: ${VIEW_ICONS_1[currentIndex1]}`);
+        console.log(`🔄 الزر1 تم التبديل إلى الوضع: ${VIEW_ICONS_1[currentIndex1]}`);
     };
 
     header.appendChild(btn1);
@@ -2678,39 +2525,46 @@ function createViewModeToggles() {
     btn2.className = 'view-mode-toggle-btn-2';
     btn2.title = 'تبديل شكل العرض';
 
+    // ✅ الأيقونة الظاهرة = المعاكسة للوضع الحالي
     let currentIndex2 = getViewModeIndex2();
+    // إذا كان الوضع الحالي 0 (view_day/List) → نعرض grid_view
+    // إذا كان الوضع الحالي 1 (grid_view/Grid) → نعرض view_day
     const displayIndex2 = currentIndex2 === 0 ? 1 : 0;
-    btn2.innerHTML = `<span class="material-symbols-outlined">${VIEW_ICONS_2[displayIndex2]}</span>`;
+    const iconName2 = VIEW_ICONS_2[displayIndex2];
+    btn2.innerHTML = `<span class="material-symbols-outlined">${iconName2}</span>`;
 
     btn2.onclick = function(e) {
         e.stopPropagation();
         
+        // التبديل إلى الوضع التالي
         currentIndex2 = (currentIndex2 + 1) % VIEW_ICONS_2.length;
         setViewModeIndex2(currentIndex2);
         
+        // تحديث الأيقونة إلى المعاكس للوضع الجديد
         const newDisplayIndex = currentIndex2 === 0 ? 1 : 0;
         const span = this.querySelector('.material-symbols-outlined');
         if (span) {
             span.textContent = VIEW_ICONS_2[newDisplayIndex];
         }
         
-        const mode = currentIndex2 === 1 ? "grid" : "list";
-        setExamListMode(mode);
-        applyExamListView(mode);
+        // تطبيق الشكل المناسب
+        if (currentIndex2 === 1) {
+            setExamListMode("grid");
+            applyExamListView("grid");
+        } else {
+            setExamListMode("list");
+            applyExamListView("list");
+        }
         
         console.log(`🔄 الزر2 تم التبديل إلى: ${VIEW_ICONS_2[currentIndex2]}`);
     };
 
     header.appendChild(btn2);
 
-    // تهيئة القائمة
-    setTimeout(() => {
-        saveOriginalOrder();
-        const savedMode = getExamListMode();
-        applyExamListView(savedMode);
-    }, 200);
+    setTimeout(saveOriginalOrder, 200);
+    applyExamListView(getExamListMode());
 
-    console.log('✅ زرين للتبديل تم إضافتهما');
+    console.log('✅ زرين للتبديل تم إضافتهما في أقصى يمين .teil-header');
 }
 
 // ============================================
@@ -2731,13 +2585,12 @@ if (originalRenderExamList) {
         setTimeout(() => {
             createViewModeToggles();
             saveOriginalOrder();
-            const savedMode = getExamListMode();
-            applyExamListView(savedMode);
+            applyExamListView(getExamListMode());
         }, 200);
     };
 }
 
-// تصدير الدوال
+// تصدير الدوال للاستخدام العام
 window.createViewModeToggles = createViewModeToggles;
 window.applyExamListView = applyExamListView;
 window.getExamListMode = getExamListMode;
@@ -2745,8 +2598,6 @@ window.setExamListMode = setExamListMode;
 window.saveOriginalOrder = saveOriginalOrder;
 window.restoreOriginalOrder = restoreOriginalOrder;
 window.applyLeaderboardOrder = applyLeaderboardOrder;
-window.getCurrentContainer = getCurrentContainer;
-window.getExamItems = getExamItems;
 
-console.log('🔄 نظامين مستقلين (ترتيب + عرض) تم تحميلهما');
+console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view) مع وظائف الترتيب تم تحميلهما');
 
