@@ -2163,8 +2163,8 @@ function setViewModeIndex1(index) {
     } catch {}
 }
 
-// ===== الزر الثاني: view_day ↔ grid_view (فقط أيقونتين) =====
-const VIEW_ICONS_2 = ['view_day', 'grid_view'];  // ← تم إزالة view_module
+// ===== الزر الثاني: view_day ↔ grid_view (التحكم في شكل القائمة) =====
+const VIEW_ICONS_2 = ['view_day', 'grid_view'];
 const VIEW_MODE_KEY_2 = 'viewModeIconIndex2';
 
 function getViewModeIndex2() {
@@ -2182,7 +2182,197 @@ function setViewModeIndex2(index) {
 }
 
 // ============================================
-// إنشاء الأزرار
+// ✅ دالتا تطبيق الشكل (List / Grid)
+// ============================================
+
+function applyListView() {
+    const container = document.getElementById('examsList');
+    if (!container) return;
+    
+    // استثناء الـ Header وشريط التقدم
+    const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
+    if (!items.length) return;
+
+    // 1. إعادة ضبط الحاوية للشكل العادي (List)
+    container.style.display = 'block';
+    container.style.gridTemplateColumns = '';
+    container.style.gap = '';
+    container.style.padding = '';
+
+    // 2. إعادة ضبط كل بطاقة للشكل الأصلي (واحد تحت الآخر)
+    items.forEach(item => {
+        // إزالة أي تنسيق Grid سابق وإعادة الحالة الأصلية
+        item.style.cssText = `
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 6px;
+            border-radius: 10px;
+            border: 1px solid #e8ecef;
+            background: #ffffff;
+            box-shadow: none;
+            min-height: auto;
+            text-align: left;
+            font-size: inherit;
+        `;
+
+        // إعادة ضبط العناصر الداخلية
+        const title = item.querySelector('.exam-title');
+        if (title) {
+            title.style.fontSize = '';
+            title.style.flex = '1';
+            title.style.textAlign = '';
+            title.style.fontWeight = '';
+            // استعادة النص الأصلي (إذا كان قد تم اختصاره مسبقاً)
+            // لكن الأفضل عدم تعديل النص هنا، بل الاعتماد على `renderExamList`.
+            // بما أننا لا نعيد بناء القائمة، سنترك النص كما هو.
+            // لكن لتجنب المشاكل، نعرض النص كاملاً إذا كان مختصراً (اختياري).
+        }
+
+        const badge = item.querySelector('.exam-result-badge');
+        if (badge) {
+            badge.style.fontSize = '';
+            badge.style.padding = '';
+            badge.style.minWidth = '';
+            badge.style.display = 'inline-block';
+        }
+
+        const rightSide = item.querySelector('.exam-right-icons');
+        if (rightSide) {
+            rightSide.style.display = 'flex';
+            rightSide.style.marginLeft = 'auto';
+            rightSide.style.marginTop = '0';
+            rightSide.style.justifyContent = '';
+        }
+
+        const progressSpan = item.querySelector('.exam-progress-mini');
+        if (progressSpan) {
+            progressSpan.style.display = 'inline-block';
+        }
+
+        // إظهار أي عناصر Premium مخفية
+        const premiumSpan = item.querySelector('.premium-badge');
+        if (premiumSpan) {
+            premiumSpan.style.display = '';
+        }
+    });
+
+    // حفظ الحالة
+    localStorage.setItem('examListView', 'list');
+    console.log('📋 تم التبديل إلى الشكل: List');
+}
+
+function applyGridView() {
+    const container = document.getElementById('examsList');
+    if (!container) return;
+
+    const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
+    if (!items.length) return;
+
+    // 1. تطبيق Grid على الحاوية
+    container.style.display = 'grid';
+    container.style.gridTemplateColumns = 'repeat(auto-fill, minmax(120px, 1fr))';
+    container.style.gap = '8px';
+    container.style.padding = '4px 0';
+
+    // 2. تنسيق كل بطاقة كـ Card صغيرة
+    items.forEach(item => {
+        // إزالة تنسيق List السابق
+        item.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 70px;
+            padding: 8px 4px;
+            background: #fafbfc;
+            border: 1px solid #e8ecef;
+            border-radius: 6px;
+            margin: 0;
+            box-shadow: none;
+            text-align: center;
+            width: 100%;
+            font-size: 12px;
+        `;
+
+        // تنسيق العنوان (يظهر مختصراً أو كاملاً ولكن بحجم صغير)
+        const title = item.querySelector('.exam-title');
+        if (title) {
+            title.style.fontSize = '11px';
+            title.style.fontWeight = '500';
+            title.style.flex = 'none';
+            title.style.textAlign = 'center';
+            title.style.width = '100%';
+            title.style.whiteSpace = 'nowrap';
+            title.style.overflow = 'hidden';
+            title.style.textOverflow = 'ellipsis';
+        }
+
+        // تنسيق النتيجة
+        const badge = item.querySelector('.exam-result-badge');
+        if (badge) {
+            badge.style.fontSize = '8px';
+            badge.style.padding = '2px 6px';
+            badge.style.minWidth = 'auto';
+            badge.style.display = 'inline-block';
+        }
+
+        // إخفاء أو إظهار العناصر الجانبية (Premium, progress)
+        const rightSide = item.querySelector('.exam-right-icons');
+        if (rightSide) {
+            rightSide.style.display = 'flex';
+            rightSide.style.marginLeft = '0';
+            rightSide.style.marginTop = '4px';
+            rightSide.style.justifyContent = 'center';
+            rightSide.style.gap = '4px';
+        }
+
+        const progressSpan = item.querySelector('.exam-progress-mini');
+        if (progressSpan) {
+            progressSpan.style.display = 'inline-block';
+            progressSpan.style.fontSize = '8px';
+        }
+
+        const premiumSpan = item.querySelector('.premium-badge');
+        if (premiumSpan) {
+            premiumSpan.style.fontSize = '7px';
+            premiumSpan.style.padding = '1px 4px';
+        }
+    });
+
+    // حفظ الحالة
+    localStorage.setItem('examListView', 'grid');
+    console.log('🧩 تم التبديل إلى الشكل: Grid');
+}
+
+// ============================================
+// دالة تطبيق الوضع بناءً على القيمة المخزنة
+// ============================================
+
+function applyStoredViewMode() {
+    const mode = localStorage.getItem('examListView') || 'list';
+    if (mode === 'grid') {
+        applyGridView();
+    } else {
+        applyListView();
+    }
+    
+    // تحديث أيقونة الزر لتتناسب مع الوضع
+    const btn2 = document.getElementById('viewModeToggleBtn2');
+    if (btn2) {
+        const span = btn2.querySelector('.material-symbols-outlined');
+        if (span) {
+            span.textContent = mode === 'grid' ? 'grid_view' : 'view_day';
+        }
+    }
+}
+
+// ============================================
+// إنشاء الأزرار (مع ربط الزر الثاني بالدوال الجديدة)
 // ============================================
 
 function createViewModeToggles() {
@@ -2192,15 +2382,13 @@ function createViewModeToggles() {
         return;
     }
 
-    // التأكد من أن الـ header position: relative
     if (header.style.position !== 'relative') {
         header.style.position = 'relative';
     }
 
-    // ===== إزالة الأزرار القديمة =====
+    // إزالة الأزرار القديمة
     const oldBtn1 = document.getElementById('viewModeToggleBtn1');
     if (oldBtn1) oldBtn1.remove();
-    
     const oldBtn2 = document.getElementById('viewModeToggleBtn2');
     if (oldBtn2) oldBtn2.remove();
 
@@ -2212,46 +2400,54 @@ function createViewModeToggles() {
 
     let currentIndex1 = getViewModeIndex1();
     const iconName1 = VIEW_ICONS_1[currentIndex1];
-
-    btn1.innerHTML = `
-        <span class="material-symbols-outlined">${iconName1}</span>
-    `;
-
+    btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
     btn1.onclick = function(e) {
         e.stopPropagation();
         currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
         setViewModeIndex1(currentIndex1);
         const span = this.querySelector('.material-symbols-outlined');
-        if (span) {
-            span.textContent = VIEW_ICONS_1[currentIndex1];
-        }
+        if (span) span.textContent = VIEW_ICONS_1[currentIndex1];
         console.log(`🔄 الزر1 تم التبديل إلى: ${VIEW_ICONS_1[currentIndex1]}`);
     };
-
     header.appendChild(btn1);
 
-    // ===== الزر الثاني (view_day ↔ grid_view) =====
+    // ===== الزر الثاني (view_day ↔ grid_view) - مع وظيفة تغيير الشكل =====
     const btn2 = document.createElement('button');
     btn2.id = 'viewModeToggleBtn2';
     btn2.className = 'view-mode-toggle-btn-2';
     btn2.title = 'تبديل شكل العرض (عرض)';
 
-    let currentIndex2 = getViewModeIndex2();
-    const iconName2 = VIEW_ICONS_2[currentIndex2];
-
-    btn2.innerHTML = `
-        <span class="material-symbols-outlined">${iconName2}</span>
-    `;
+    // تحديد الأيقونة الأولية بناءً على localStorage
+    const savedMode = localStorage.getItem('examListView') || 'list';
+    const initialIcon = savedMode === 'grid' ? 'grid_view' : 'view_day';
+    btn2.innerHTML = `<span class="material-symbols-outlined">${initialIcon}</span>`;
 
     btn2.onclick = function(e) {
         e.stopPropagation();
-        currentIndex2 = (currentIndex2 + 1) % VIEW_ICONS_2.length;
-        setViewModeIndex2(currentIndex2);
+        
+        // معرفة الوضع الحالي
+        const currentMode = localStorage.getItem('examListView') || 'list';
+        let nextMode;
+        
+        if (currentMode === 'list') {
+            applyGridView();
+            nextMode = 'grid';
+        } else {
+            applyListView();
+            nextMode = 'list';
+        }
+        
+        // تحديث الأيقونة
         const span = this.querySelector('.material-symbols-outlined');
         if (span) {
-            span.textContent = VIEW_ICONS_2[currentIndex2];
+            span.textContent = nextMode === 'grid' ? 'grid_view' : 'view_day';
         }
-        console.log(`🔄 الزر2 تم التبديل إلى: ${VIEW_ICONS_2[currentIndex2]}`);
+        
+        // تحديث الفهرس المخزن (للتزامن مع localStorage)
+        const newIndex = nextMode === 'grid' ? 1 : 0;
+        setViewModeIndex2(newIndex);
+        
+        console.log(`🔄 الزر2 تم التبديل إلى: ${nextMode}`);
     };
 
     header.appendChild(btn2);
@@ -2260,23 +2456,33 @@ function createViewModeToggles() {
 }
 
 // ============================================
-// تشغيل الأزرار عند تحميل الصفحة
+// تشغيل الأزرار عند تحميل الصفحة و عند تغيير الأقسام
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(createViewModeToggles, 300);
+    setTimeout(() => {
+        createViewModeToggles();
+        // تطبيق الشكل المخزن بعد إنشاء القائمة مباشرة
+        setTimeout(applyStoredViewMode, 100);
+    }, 300);
 });
 
-// عند تغيير القسم (Teil)
+// عند تغيير القسم (Teil) - نطبق الشكل المخزن تلقائياً
 const originalRenderExamList = window.renderExamListForSkill;
 if (originalRenderExamList) {
     window.renderExamListForSkill = function(skill, teilName) {
         originalRenderExamList(skill, teilName);
-        setTimeout(createViewModeToggles, 150);
+        setTimeout(() => {
+            createViewModeToggles();
+            applyStoredViewMode();
+        }, 150);
     };
 }
 
-// تصدير الدوال
+// تصدير الدوال للاستخدام العام
 window.createViewModeToggles = createViewModeToggles;
+window.applyListView = applyListView;
+window.applyGridView = applyGridView;
+window.applyStoredViewMode = applyStoredViewMode;
 
-console.log('🔄 زرين للتبديل (leaderboard↔123↔shuffle) و (view_day↔grid_view) تم تحميلهما');
+console.log('🔄 زرين للتبديل (leaderboard↔123↔shuffle) و (view_day↔grid_view) مع وظيفة تغيير الشكل تم تحميلهما');
