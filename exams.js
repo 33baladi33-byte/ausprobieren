@@ -2149,45 +2149,24 @@ console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `$
 const VIEW_ICONS_1 = ['leaderboard', '123'];
 const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
 
+// تخزين الترتيب الأصلي كأرقام امتحانات
+let originalOrderNumbers = [];
+let currentOrderState = 'original'; // 'original' | 'leaderboard'
+
 // ===== الزر الثاني: view_day ↔ grid_view =====
 const VIEW_ICONS_2 = ['view_day', 'grid_view'];
 const VIEW_MODE_KEY_2 = 'viewModeIconIndex2';
 
 // ============================================
-// الحالة العامة للقائمة
+// الحالة العامة
 // ============================================
 
 const EXAM_LIST_MODE_KEY = "examListViewMode";
-const EXAM_ORDER_STATE_KEY = "examOrderState";
-
-// تخزين الترتيب الأصلي كأرقام امتحانات
-let originalOrderNumbers = [];
-let currentOrderState = 'original'; // 'original' | 'leaderboard'
 
 // ============================================
-// نظام ترتيب الامتحانات (مستقل تماماً)
+// دوال مساعدة عامة
 // ============================================
 
-// حفظ الترتيب الأصلي
-function saveOriginalOrder() {
-    const container = getCurrentContainer();
-    if (!container) return;
-    
-    const exams = getExamItems(container);
-    if (!exams.length) return;
-    
-    originalOrderNumbers = exams.map(el => {
-        const title = el.querySelector(".exam-title");
-        if (!title) return null;
-        const text = title.textContent || '';
-        const match = text.match(/^(\d+):/);
-        return match ? parseInt(match[1], 10) : null;
-    }).filter(num => num !== null);
-    
-    console.log("📋 تم حفظ الترتيب الأصلي:", originalOrderNumbers);
-}
-
-// الحصول على الحاوية الحالية (List أو Grid)
 function getCurrentContainer() {
     const list = document.getElementById("examsList");
     if (!list) return null;
@@ -2195,7 +2174,6 @@ function getCurrentContainer() {
     return gridContainer || list;
 }
 
-// الحصول على عناصر الامتحانات من حاوية معينة
 function getExamItems(container) {
     if (!container) return [];
     return [...container.querySelectorAll(".item")].filter(el =>
@@ -2204,13 +2182,29 @@ function getExamItems(container) {
     );
 }
 
-// تنظيف أي تأثيرات ترتيب سابقة (إزالة أي fragment أو تغييرات)
-function cleanupOrderEffects(container) {
-    // لا نحتاج إلى تنظيف خاص، فقط نعيد ترتيب العناصر
-    // لكن نتأكد من أن العناصر في المكان الصحيح
+function getExamNumber(el) {
+    const title = el.querySelector(".exam-title");
+    if (!title) return null;
+    const text = title.textContent || '';
+    const match = text.match(/^(\d+):/);
+    return match ? parseInt(match[1], 10) : null;
 }
 
-// تطبيق الترتيب الأصلي (123)
+// ============================================
+// نظام الترتيب (مستقل)
+// ============================================
+
+function saveOriginalOrder() {
+    const container = getCurrentContainer();
+    if (!container) return;
+    
+    const exams = getExamItems(container);
+    if (!exams.length) return;
+    
+    originalOrderNumbers = exams.map(el => getExamNumber(el)).filter(num => num !== null);
+    console.log("📋 تم حفظ الترتيب الأصلي:", originalOrderNumbers);
+}
+
 function restoreOriginalOrder() {
     const container = getCurrentContainer();
     if (!container || originalOrderNumbers.length === 0) return;
@@ -2218,20 +2212,12 @@ function restoreOriginalOrder() {
     const exams = getExamItems(container);
     if (!exams.length) return;
     
-    // إنشاء خريطة للعناصر حسب رقم الامتحان
     const examMap = {};
     exams.forEach(el => {
-        const title = el.querySelector(".exam-title");
-        if (!title) return;
-        const text = title.textContent || '';
-        const match = text.match(/^(\d+):/);
-        if (match) {
-            const num = parseInt(match[1], 10);
-            examMap[num] = el;
-        }
+        const num = getExamNumber(el);
+        if (num !== null) examMap[num] = el;
     });
     
-    // إعادة ترتيب العناصر حسب الأرقام المحفوظة
     const fragment = document.createDocumentFragment();
     originalOrderNumbers.forEach(num => {
         if (examMap[num]) {
@@ -2240,7 +2226,6 @@ function restoreOriginalOrder() {
         }
     });
     
-    // إضافة أي عناصر متبقية في النهاية
     Object.keys(examMap).map(Number).sort((a, b) => a - b).forEach(num => {
         fragment.appendChild(examMap[num]);
     });
@@ -2250,7 +2235,6 @@ function restoreOriginalOrder() {
     console.log("📋 تم استعادة الترتيب الأصلي");
 }
 
-// تطبيق ترتيب leaderboard (من الأضعف إلى الأقوى)
 function applyLeaderboardOrder() {
     const container = getCurrentContainer();
     if (!container) return console.log("❌ لا توجد حاوية");
@@ -2258,7 +2242,6 @@ function applyLeaderboardOrder() {
     const exams = getExamItems(container);
     if (!exams.length) return console.log("❌ لا توجد امتحانات");
 
-    // استخراج النقطة
     const data = exams.map((el, index) => {
         const badge = el.querySelector(".exam-result-badge");
         let score = Infinity;
@@ -2270,83 +2253,161 @@ function applyLeaderboardOrder() {
         return { el, score, originalIndex: index };
     });
 
-    // ترتيب Stable
     data.sort((a, b) => {
         if (a.score === b.score) return a.originalIndex - b.originalIndex;
         return a.score - b.score;
     });
 
-    // إعادة الترتيب
     data.forEach(item => container.appendChild(item.el));
     currentOrderState = 'leaderboard';
     console.log("✅ تم ترتيب الامتحانات من الأضعف إلى الأقوى");
 }
 
 // ============================================
-// نظام عرض القائمة (مستقل تماماً)
+// نظام العرض (مستقل)
 // ============================================
 
-// الحصول على الوضع المخزن
 function getExamListMode() {
     return localStorage.getItem(EXAM_LIST_MODE_KEY) || "list";
 }
 
-// حفظ الوضع
 function setExamListMode(mode) {
     localStorage.setItem(EXAM_LIST_MODE_KEY, mode);
 }
 
-// تنظيف أي Grid سابق (إزالة الـ Grid Container وإعادة العناصر إلى list)
-function cleanupGridView(list) {
+// ✅ تطبيق List View - يحافظ على الترتيب الحالي
+function applyListView() {
+    const list = document.getElementById("examsList");
+    if (!list) return;
+    
+    // 1. إزالة أي Grid سابق مع الحفاظ على العناصر
     const oldGrid = document.getElementById("examGridContainer");
     if (oldGrid) {
-        // نقل جميع العناصر من الـ Grid إلى الـ list
         while (oldGrid.firstChild) {
             list.appendChild(oldGrid.firstChild);
         }
         oldGrid.remove();
     }
-}
-
-// تطبيق وضع List
-function applyListView(container) {
-    const list = document.getElementById("examsList");
-    if (!list) return;
     
-    // تنظيف أي Grid سابق
-    cleanupGridView(list);
-    
-    // إعادة تعيين تنسيقات العناصر إلى الوضع الطبيعي
+    // 2. إعادة تعيين تنسيقات العناصر إلى وضع List (وليس مسح كامل)
     const items = getExamItems(list);
     items.forEach(el => {
-        el.style.cssText = "";
-        // إعادة تعيين أي تنسيقات إضافية
+        // نعيد تعيين التنسيقات الأساسية فقط، ولا نمسح كل شيء
+        el.style.display = "flex";
+        el.style.flexDirection = "row";
+        el.style.flexWrap = "wrap";
+        el.style.alignItems = "center";
+        el.style.justifyContent = "space-between";
+        el.style.width = "100%";
+        el.style.padding = "12px 16px";
+        el.style.marginBottom = "6px";
+        el.style.borderRadius = "10px";
+        el.style.border = "1px solid #e8ecef";
+        el.style.background = "#ffffff";
+        el.style.boxShadow = "none";
+        el.style.minHeight = "auto";
+        el.style.textAlign = "left";
+        el.style.fontSize = "inherit";
+        el.style.overflow = "visible";
+        el.style.transform = "none";
+        
+        // إعادة تعيين تنسيق العنوان
         const title = el.querySelector(".exam-title");
         if (title) {
             title.style.cssText = "";
+            title.style.flex = "1";
+            title.style.fontSize = "14px";
+            title.style.fontWeight = "500";
+            title.style.textAlign = "left";
+            title.style.whiteSpace = "normal";
+            title.style.overflow = "visible";
+            title.style.wordBreak = "normal";
+            title.style.lineHeight = "normal";
+            title.style.maxWidth = "100%";
+            title.style.display = "inline-block";
+            title.style.padding = "0";
         }
+        
+        // إعادة تعيين تنسيق النتيجة
         const badge = el.querySelector(".exam-result-badge");
         if (badge) {
             badge.style.cssText = "";
+            badge.style.display = "inline-block";
+            badge.style.fontSize = "11px";
+            badge.style.padding = "3px 8px";
+            badge.style.minWidth = "55px";
+            badge.style.textAlign = "center";
+            badge.style.borderRadius = "20px";
+            badge.style.fontWeight = "bold";
+            badge.style.color = "white";
+            badge.style.marginLeft = "8px";
+        }
+        
+        // إعادة تعيين تنسيق Premium
+        const premiumSpan = el.querySelector('.premium-badge');
+        if (premiumSpan) {
+            premiumSpan.style.cssText = "";
+            premiumSpan.style.display = "inline-block";
+            premiumSpan.style.fontSize = "10px";
+            premiumSpan.style.fontWeight = "600";
+            premiumSpan.style.color = "#f59e0b";
+            premiumSpan.style.background = "#fef3c7";
+            premiumSpan.style.padding = "2px 8px";
+            premiumSpan.style.borderRadius = "12px";
+        }
+        
+        // إعادة تعيين أيقونات الجانب الأيمن
+        const rightSide = el.querySelector('.exam-right-icons');
+        if (rightSide) {
+            rightSide.style.cssText = "";
+            rightSide.style.display = "flex";
+            rightSide.style.alignItems = "center";
+            rightSide.style.gap = "8px";
+            rightSide.style.marginLeft = "auto";
+        }
+        
+        // إعادة تعيين شريط التقدم الصغير
+        const progressSpan = el.querySelector('.exam-progress-mini');
+        if (progressSpan) {
+            progressSpan.style.cssText = "";
+            progressSpan.style.display = "inline-block";
+            progressSpan.style.fontSize = "10px";
+            progressSpan.style.color = "#1565C0";
+            progressSpan.style.marginLeft = "8px";
+            progressSpan.style.fontWeight = "500";
+            progressSpan.style.background = "#f0f7ff";
+            progressSpan.style.padding = "2px 6px";
+            progressSpan.style.borderRadius = "10px";
         }
     });
     
-    console.log("📄 List View");
+    // 3. إعادة تطبيق الترتيب إذا كان leaderboard
+    if (currentOrderState === 'leaderboard') {
+        applyLeaderboardOrder();
+    }
+    
+    console.log("📄 List View (مع الحفاظ على الترتيب)");
 }
 
-// تطبيق وضع Grid
-function applyGridView(container) {
+// ✅ تطبيق Grid View - يحافظ على الترتيب الحالي
+function applyGridView() {
     const list = document.getElementById("examsList");
     if (!list) return;
     
-    // تنظيف أي Grid سابق
-    cleanupGridView(list);
+    // 1. إزالة أي Grid سابق مع الحفاظ على العناصر
+    const oldGrid = document.getElementById("examGridContainer");
+    if (oldGrid) {
+        while (oldGrid.firstChild) {
+            list.appendChild(oldGrid.firstChild);
+        }
+        oldGrid.remove();
+    }
     
-    // الحصول على عناصر الامتحانات
+    // 2. الحصول على العناصر
     const exams = getExamItems(list);
     if (!exams.length) return;
     
-    // إنشاء Grid Container جديد
+    // 3. إنشاء Grid Container جديد
     const grid = document.createElement("div");
     grid.id = "examGridContainer";
     grid.style.cssText = `
@@ -2359,7 +2420,7 @@ function applyGridView(container) {
     const firstExam = exams[0];
     list.insertBefore(grid, firstExam);
     
-    // نقل العناصر إلى الـ Grid مع تنسيقها
+    // 4. نقل العناصر إلى الـ Grid مع تنسيقها
     exams.forEach(item => {
         grid.appendChild(item);
         
@@ -2404,17 +2465,60 @@ function applyGridView(container) {
         const badge = item.querySelector(".exam-result-badge");
         if (badge) {
             badge.style.fontSize = "8px";
+            badge.style.padding = "2px 6px";
+            badge.style.minWidth = "auto";
         }
         
-        // إزالة أي event listeners سابقة وإضافة جديدة
+        // تنسيق Premium في Grid
+        const premiumSpan = item.querySelector('.premium-badge');
+        if (premiumSpan) {
+            premiumSpan.style.fontSize = "7px";
+            premiumSpan.style.padding = "1px 4px";
+        }
+        
+        // تنسيق أيقونات الجانب الأيمن في Grid
+        const rightSide = item.querySelector('.exam-right-icons');
+        if (rightSide) {
+            rightSide.style.display = "flex";
+            rightSide.style.alignItems = "center";
+            rightSide.style.justifyContent = "center";
+            rightSide.style.gap = "4px";
+            rightSide.style.marginLeft = "0";
+            rightSide.style.marginTop = "2px";
+        }
+        
+        // تنسيق شريط التقدم في Grid
+        const progressSpan = item.querySelector('.exam-progress-mini');
+        if (progressSpan) {
+            progressSpan.style.fontSize = "8px";
+            progressSpan.style.padding = "1px 4px";
+            progressSpan.style.marginLeft = "0";
+        }
+        
+        // إزالة event listeners القديمة وإضافة جديدة
         const newItem = item.cloneNode(true);
         item.parentNode.replaceChild(newItem, item);
-        
-        // إضافة event listeners للعنصر الجديد
         setupItemEvents(newItem);
     });
     
-    console.log("🟦 Grid View - مع تفاف النص للعناوين الطويلة");
+    // 5. إعادة تطبيق الترتيب إذا كان leaderboard
+    if (currentOrderState === 'leaderboard') {
+        applyLeaderboardOrder();
+    }
+    
+    console.log("🟦 Grid View (مع الحفاظ على الترتيب)");
+}
+
+// ============================================
+// تطبيق الشكل حسب الوضع المخزن
+// ============================================
+
+function applyExamListView(mode) {
+    if (mode === "list") {
+        applyListView();
+    } else {
+        applyGridView();
+    }
 }
 
 // ============================================
@@ -2483,39 +2587,6 @@ function setupItemEvents(item) {
 }
 
 // ============================================
-// تطبيق الشكل مع الحفاظ على الترتيب الحالي
-// ============================================
-
-function applyExamListView(mode) {
-    // حفظ الترتيب الحالي قبل تغيير الشكل
-    const currentContainer = getCurrentContainer();
-    const currentExams = currentContainer ? getExamItems(currentContainer) : [];
-    const currentOrder = currentExams.map(el => {
-        const title = el.querySelector(".exam-title");
-        if (!title) return null;
-        const text = title.textContent || '';
-        const match = text.match(/^(\d+):/);
-        return match ? parseInt(match[1], 10) : null;
-    }).filter(num => num !== null);
-    
-    // تطبيق الشكل الجديد
-    if (mode === "list") {
-        applyListView();
-    } else {
-        applyGridView();
-    }
-    
-    // استعادة الترتيب إذا كان leaderboard
-    if (currentOrderState === 'leaderboard') {
-        // نطبق الترتيب مرة أخرى على الشكل الجديد
-        applyLeaderboardOrder();
-    }
-    // إذا كان original، لا حاجة لفعل شيء لأن applyListView/applyGridView يحافظان على الترتيب الحالي
-    
-    console.log(`📋 تم تطبيق الشكل: ${mode} مع الحفاظ على الترتيب`);
-}
-
-// ============================================
 // دوال الأزرار
 // ============================================
 
@@ -2562,7 +2633,6 @@ function createViewModeToggles() {
         header.style.position = 'relative';
     }
 
-    // إزالة الأزرار القديمة
     const oldBtn1 = document.getElementById('viewModeToggleBtn1');
     if (oldBtn1) oldBtn1.remove();
     const oldBtn2 = document.getElementById('viewModeToggleBtn2');
@@ -2576,8 +2646,7 @@ function createViewModeToggles() {
 
     let currentIndex1 = getViewModeIndex1();
     const displayIndex1 = currentIndex1 === 0 ? 1 : 0;
-    const iconName1 = VIEW_ICONS_1[displayIndex1];
-    btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
+    btn1.innerHTML = `<span class="material-symbols-outlined">${VIEW_ICONS_1[displayIndex1]}</span>`;
     
     btn1.onclick = function(e) {
         e.stopPropagation();
@@ -2610,8 +2679,7 @@ function createViewModeToggles() {
 
     let currentIndex2 = getViewModeIndex2();
     const displayIndex2 = currentIndex2 === 0 ? 1 : 0;
-    const iconName2 = VIEW_ICONS_2[displayIndex2];
-    btn2.innerHTML = `<span class="material-symbols-outlined">${iconName2}</span>`;
+    btn2.innerHTML = `<span class="material-symbols-outlined">${VIEW_ICONS_2[displayIndex2]}</span>`;
 
     btn2.onclick = function(e) {
         e.stopPropagation();
@@ -2625,13 +2693,9 @@ function createViewModeToggles() {
             span.textContent = VIEW_ICONS_2[newDisplayIndex];
         }
         
-        if (currentIndex2 === 1) {
-            setExamListMode("grid");
-            applyExamListView("grid");
-        } else {
-            setExamListMode("list");
-            applyExamListView("list");
-        }
+        const mode = currentIndex2 === 1 ? "grid" : "list";
+        setExamListMode(mode);
+        applyExamListView(mode);
         
         console.log(`🔄 الزر2 تم التبديل إلى: ${VIEW_ICONS_2[currentIndex2]}`);
     };
@@ -2641,10 +2705,11 @@ function createViewModeToggles() {
     // تهيئة القائمة
     setTimeout(() => {
         saveOriginalOrder();
-        applyExamListView(getExamListMode());
+        const savedMode = getExamListMode();
+        applyExamListView(savedMode);
     }, 200);
 
-    console.log('✅ زرين للتبديل تم إضافتهما في أقصى يمين .teil-header');
+    console.log('✅ زرين للتبديل تم إضافتهما');
 }
 
 // ============================================
@@ -2665,14 +2730,13 @@ if (originalRenderExamList) {
         setTimeout(() => {
             createViewModeToggles();
             saveOriginalOrder();
-            // إعادة تطبيق الحالة المخزنة
             const savedMode = getExamListMode();
             applyExamListView(savedMode);
         }, 200);
     };
 }
 
-// تصدير الدوال للاستخدام العام
+// تصدير الدوال
 window.createViewModeToggles = createViewModeToggles;
 window.applyExamListView = applyExamListView;
 window.getExamListMode = getExamListMode;
@@ -2683,4 +2747,4 @@ window.applyLeaderboardOrder = applyLeaderboardOrder;
 window.getCurrentContainer = getCurrentContainer;
 window.getExamItems = getExamItems;
 
-console.log('🔄 نظامين مستقلين (ترتيب + عرض) تم تحميلهما بنجاح');
+console.log('🔄 نظامين مستقلين (ترتيب + عرض) تم تحميلهما');
