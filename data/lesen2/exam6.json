@@ -11,11 +11,7 @@
         "b. nur noch eine geringe Zahl von Kaffeeröstereien.",
         "c. nur noch Kaffee, der von internationalen Gesellschaften vermarktet wird."
       ],
-      "correct": 1,
-      "memoryHighlight": {
-        "connector": "nur noch eine geringe Zahl von Kaffeeröstereien.",
-        "color": 2
-      }
+      "correct": 1
     },
     {
       "text": "Für die Kaffeerösterei Münchhausen",
@@ -24,11 +20,7 @@
         "b. spielt der günstige Einkaufspreis eine wichtige Rolle",
         "c. steht eher die Qualität des Kaffees als der Preis im Vordergrund"
       ],
-      "correct": 2,
-      "memoryHighlight": {
-        "connector": "steht eher die Qualität des Kaffees als der Preis im Vordergrund.",
-        "color": 9
-      }
+      "correct": 2
     },
     {
       "text": "Kaffeebohnen",
@@ -37,11 +29,7 @@
         "b. können nach der Röstung ohne Geschmacksverlust lange Zeit gelagert werden",
         "c. müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten."
       ],
-      "correct": 2,
-      "memoryHighlight": {
-        "connector": "müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten.",
-        "color": 7
-      }
+      "correct": 2
     },
     {
       "text": "Die gerösteten Kaffeebohnen werden",
@@ -50,11 +38,7 @@
         "b. im Kontor nur an Stammkunden abgegeben",
         "c. über das Internet in der ganzen Welt verkauft"
       ],
-      "correct": 0,
-      "memoryHighlight": {
-        "connector": "in unterschiedlichen Geschmacksrichtungen verkauft",
-        "color": 11
-      }
+      "correct": 0
     },
     {
       "text": "In Zukunft wollen die Besitzer",
@@ -63,11 +47,14 @@
         "b. ein Museum über den Kaffeeanbau eröffnen",
         "c. keinen Röstkaffee mehr verkaufen."
       ],
-      "correct": 0,
-      "memoryHighlight": {
-        "connector": "die Kaffeerösterei in ein Museum umwandeln.",
-        "color": 4
-      }
+      "correct": 0
     }
+  ],
+  "memoryHighlights": [
+    { "color": 2, "parts": [ "nur noch eine geringe Zahl von Kaffeeröstereien." ] },
+    { "color": 8, "parts": [ "steht eher die Qualität des Kaffees als der Preis im Vordergrund." ] },
+    { "color": 11, "parts": [ "müssen nach dem Rösten handverlesen werden, um eine gleichbleibend hohe Qualität zu gewährleisten." ] },
+    { "color": 3, "parts": [ "in unterschiedlichen Geschmacksrichtungen verkauft" ] },
+    { "color": 10, "parts": [ "die Kaffeerösterei in ein Museum umwandeln." ] }
   ]
 }
