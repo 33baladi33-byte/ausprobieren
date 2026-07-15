@@ -11,8 +11,7 @@
         "b. ist bei Frauen deutlich stärker ausgeprägt als bei Männern",
         "c. wird von meisten Patienten als Grund für einen Arztbesuch genannt"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "ist bei Frauen deutlich stärker ausgeprägt als bei Männern", "color": 2 }
+      "correct": 1
     },
     {
       "text": "Rückenbeschwerden",
@@ -21,8 +20,7 @@
         "b. sind überwiegend auf Schäden am Skelett zurückzuführen",
         "c. verschwinden mit der Beseitigung der Ursache"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "entstehen, weil angespannte Muskeln auf nahegelegene Nervenenden drücken", "color": 9 }
+      "correct": 0
     },
     {
       "text": "Bandscheibenvorfälle",
@@ -31,8 +29,7 @@
         "b. sind in den letzten Jahren stark zurückgegangen",
         "c. sollten im Sitzen und Liegen therapiert werden"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "können unterschiedliche Auslöser haben", "color": 11 }
+      "correct": 0
     },
     {
       "text": "Abnutzungserscheinungen am Skelett",
@@ -41,8 +38,7 @@
         "b. lassen sich häufig auf eine falsche Ernährung zurückführen",
         "c. treten heutzutage verstärkt bei Jugendlichen auf"
       ],
-      "correct": 0,
-      "memoryHighlight": { "connector": "können durch verschiedene Erkrankungen hervorgerufen werden", "color": 6 }
+      "correct": 0
     },
     {
       "text": "Wer Rückenschmerzen hat",
@@ -51,8 +47,14 @@
         "b. sollte nicht zu lange mit dem Arztbesuch warten",
         "c. wird von der Krankenkasse verpflichtet, an einer Rückenschule teilzunehmen"
       ],
-      "correct": 1,
-      "memoryHighlight": { "connector": "sollte nicht zu lange mit dem Arztbesuch warten", "color": 10 }
+      "correct": 1
     }
+  ],
+  "memoryHighlights": [
+    { "color": 2, "parts": ["ist bei Frauen deutlich stärker ausgeprägt als bei Männern"] },
+    { "color": 9, "parts": ["entstehen, weil angespannte Muskeln auf nahegelegene Nervenenden drücken"] },
+    { "color": 11, "parts": ["können unterschiedliche Auslöser haben"] },
+    { "color": 6, "parts": ["können durch verschiedene Erkrankungen hervorgerufen werden"] },
+    { "color": 10, "parts": ["sollte nicht zu lange mit dem Arztbesuch warten"] }
   ]
 }
