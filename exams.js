@@ -2149,6 +2149,131 @@ console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `$
 const VIEW_ICONS_1 = ['leaderboard', '123', 'shuffle'];
 const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
 
+// تخزين الترتيب الأصلي للامتحانات
+let originalExamOrder = [];
+
+// حفظ الترتيب الأصلي عند تحميل القائمة
+function saveOriginalOrder() {
+    const list = document.getElementById("examsList");
+    if (!list) return;
+    
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+    
+    originalExamOrder = exams.map(el => el);
+}
+
+// استعادة الترتيب الأصلي
+function restoreOriginalOrder() {
+    const list = document.getElementById("examsList");
+    if (!list || originalExamOrder.length === 0) return;
+    
+    // التحقق من وجود Grid Container
+    const gridContainer = document.getElementById("examGridContainer");
+    const targetContainer = gridContainer || list;
+    
+    // إعادة ترتيب العناصر حسب الترتيب الأصلي
+    originalExamOrder.forEach(el => {
+        if (el && el.parentNode) {
+            targetContainer.appendChild(el);
+        }
+    });
+    
+    console.log("📋 تم استعادة الترتيب الأصلي");
+}
+
+// تطبيق ترتيب leaderboard (من الأضعف إلى الأقوى)
+function applyLeaderboardOrder() {
+    const list = document.getElementById("examsList");
+    if (!list) return console.log("❌ examsList غير موجود");
+
+    // حفظ الترتيب الأصلي إذا لم يكن محفوظاً
+    if (originalExamOrder.length === 0) {
+        saveOriginalOrder();
+    }
+
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+
+    if (!exams.length) return console.log("❌ لا توجد امتحانات");
+
+    // التحقق من وجود Grid Container
+    const gridContainer = document.getElementById("examGridContainer");
+    const targetContainer = gridContainer || list;
+
+    // استخراج النقطة مع حفظ البيانات
+    const data = exams.map((el, index) => {
+        const badge = el.querySelector(".exam-result-badge");
+        const titleSpan = el.querySelector(".exam-title");
+        
+        // استخراج النص الأصلي للعنوان (بدون الرقم) للحفاظ عليه
+        let originalTitle = '';
+        let originalNumber = 0;
+        if (titleSpan) {
+            const text = titleSpan.textContent || '';
+            const match = text.match(/^(\d+):\s*(.*)/);
+            if (match) {
+                originalNumber = parseInt(match[1], 10);
+                originalTitle = match[2] || text;
+            } else {
+                originalTitle = text;
+            }
+        }
+
+        let score = Infinity;
+        if (badge) {
+            const txt = badge.textContent.trim();
+            const m = txt.match(/^(\d+)\s*\/\s*\d+/);
+            if (m) score = parseInt(m[1], 10);
+        }
+
+        return {
+            el,
+            score,
+            originalIndex: index,
+            originalNumber,
+            originalTitle,
+            titleSpan,
+            badge
+        };
+    });
+
+    // ترتيب Stable (الأضعف أولاً)
+    data.sort((a, b) => {
+        // الامتحانات بدون نتيجة (score = Infinity) تذهب إلى النهاية
+        if (a.score === Infinity && b.score === Infinity) {
+            return a.originalNumber - b.originalNumber;
+        }
+        if (a.score === Infinity) return 1;
+        if (b.score === Infinity) return -1;
+        if (a.score === b.score) {
+            return a.originalNumber - b.originalNumber;
+        }
+        return a.score - b.score;
+    });
+
+    // إعادة الترتيب مع تحديث الأرقام
+    const fragment = document.createDocumentFragment();
+    
+    data.forEach((item, newIndex) => {
+        const newNumber = newIndex + 1;
+        
+        // تحديث رقم الامتحان في العنوان
+        if (item.titleSpan) {
+            item.titleSpan.textContent = `${newNumber}: ${item.originalTitle}`;
+        }
+        
+        fragment.appendChild(item.el);
+    });
+
+    targetContainer.appendChild(fragment);
+    console.log("🏆 تم ترتيب الامتحانات من الأضعف إلى الأقوى");
+}
+
 function getViewModeIndex1() {
     try {
         const saved = localStorage.getItem(VIEW_MODE_KEY_1);
@@ -2195,6 +2320,7 @@ function getExamListMode() {
 function setExamListMode(mode) {
     localStorage.setItem(EXAM_LIST_MODE_KEY, mode);
 }
+
 // تطبيق الشكل
 function applyExamListView(mode) {
     const list = document.getElementById("examsList");
@@ -2244,7 +2370,6 @@ function applyExamListView(mode) {
     exams.forEach(item => {
         grid.appendChild(item);
 
-        // ✅ نفس الكود تماماً كما في Console
         item.style.cssText = `
             display: flex;
             flex-direction: column;
@@ -2263,7 +2388,7 @@ function applyExamListView(mode) {
             transition: all 0.25s ease;
         `;
 
-        // ✅ إضافة تأثير Hover (المرور بالماوس)
+        // تأثير Hover
         item.addEventListener('mouseenter', function() {
             const isPremium = this.querySelector('.premium-badge') !== null;
             if (isPremium) {
@@ -2308,7 +2433,7 @@ function applyExamListView(mode) {
             if (premiumSpan) premiumSpan.style.transform = "scale(1)";
         });
 
-        // ✅ إضافة تأثير Active (الضغط)
+        // تأثير Active
         item.addEventListener('mousedown', function() {
             this.style.transform = "scale(0.98)";
             this.style.backgroundColor = "#e2e8f0";
@@ -2322,7 +2447,6 @@ function applyExamListView(mode) {
             this.style.transition = "all 0.25s ease";
         });
 
-        // ✅ نفس الكود للعنوان والنتيجة
         const title = item.querySelector(".exam-title");
         if (title) {
             title.style.fontSize = "11px";
@@ -2335,6 +2459,7 @@ function applyExamListView(mode) {
 
     console.log("🟦 Grid View - مطابق لكود Console مع تأثيرات Hover و Active");
 }
+
 // ============================================
 // إنشاء الأزرار
 // ============================================
@@ -2365,17 +2490,39 @@ function createViewModeToggles() {
     let currentIndex1 = getViewModeIndex1();
     const iconName1 = VIEW_ICONS_1[currentIndex1];
     btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
+    
     btn1.onclick = function(e) {
         e.stopPropagation();
+        
+        // التبديل إلى الأيقونة التالية
         currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
         setViewModeIndex1(currentIndex1);
+        
         const span = this.querySelector('.material-symbols-outlined');
-        if (span) span.textContent = VIEW_ICONS_1[currentIndex1];
-        console.log(`🔄 الزر1 تم التبديل إلى: ${VIEW_ICONS_1[currentIndex1]}`);
+        if (span) {
+            span.textContent = VIEW_ICONS_1[currentIndex1];
+        }
+        
+        // تنفيذ الوظيفة حسب الأيقونة الحالية
+        const currentIcon = VIEW_ICONS_1[currentIndex1];
+        
+        if (currentIcon === 'leaderboard') {
+            // ترتيب من الأضعف إلى الأقوى
+            applyLeaderboardOrder();
+        } else if (currentIcon === '123') {
+            // العودة للترتيب الأصلي
+            restoreOriginalOrder();
+        } else if (currentIcon === 'shuffle') {
+            // 🔄 لا يفعل أي شيء حالياً - سنضيفه لاحقاً
+            console.log("🔀 Shuffle - سيتم إضافته لاحقاً");
+        }
+        
+        console.log(`🔄 الزر1 تم التبديل إلى: ${currentIcon}`);
     };
+
     header.appendChild(btn1);
 
-    // ===== الزر الثاني (view_day ↔ grid_view) - مع وظيفة تغيير الشكل =====
+    // ===== الزر الثاني (view_day ↔ grid_view) =====
     const btn2 = document.createElement('button');
     btn2.id = 'viewModeToggleBtn2';
     btn2.className = 'view-mode-toggle-btn-2';
@@ -2388,7 +2535,6 @@ function createViewModeToggles() {
     btn2.onclick = function(e) {
         e.stopPropagation();
         
-        // التبديل إلى الأيقونة التالية
         currentIndex2 = (currentIndex2 + 1) % VIEW_ICONS_2.length;
         setViewModeIndex2(currentIndex2);
         
@@ -2397,7 +2543,6 @@ function createViewModeToggles() {
             span.textContent = VIEW_ICONS_2[currentIndex2];
         }
         
-        // تطبيق الشكل المناسب
         if (currentIndex2 === 1) {
             setExamListMode("grid");
             applyExamListView("grid");
@@ -2411,7 +2556,10 @@ function createViewModeToggles() {
 
     header.appendChild(btn2);
 
-    // 🔥 تطبيق الشكل المخزن فوراً بعد إنشاء الأزرار
+    // حفظ الترتيب الأصلي عند تحميل القائمة
+    setTimeout(saveOriginalOrder, 200);
+    
+    // تطبيق الشكل المخزن
     applyExamListView(getExamListMode());
 
     console.log('✅ زرين للتبديل تم إضافتهما في أقصى يمين .teil-header');
@@ -2427,16 +2575,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 300);
 });
 
-// عند تغيير القسم (Teil) - نطبق الشكل المخزن تلقائياً
+// عند تغيير القسم (Teil) - نطبق الشكل المخزن ونحفظ الترتيب الأصلي
 const originalRenderExamList = window.renderExamListForSkill;
 if (originalRenderExamList) {
     window.renderExamListForSkill = function(skill, teilName) {
         originalRenderExamList(skill, teilName);
         setTimeout(() => {
             createViewModeToggles();
-            // بعد إعادة إنشاء الأزرار، نطبق الشكل المخزن
+            // حفظ الترتيب الأصلي للقائمة الجديدة
+            saveOriginalOrder();
             applyExamListView(getExamListMode());
-        }, 150);
+        }, 200);
     };
 }
 
@@ -2445,5 +2594,8 @@ window.createViewModeToggles = createViewModeToggles;
 window.applyExamListView = applyExamListView;
 window.getExamListMode = getExamListMode;
 window.setExamListMode = setExamListMode;
+window.saveOriginalOrder = saveOriginalOrder;
+window.restoreOriginalOrder = restoreOriginalOrder;
+window.applyLeaderboardOrder = applyLeaderboardOrder;
 
-console.log('🔄 زرين للتبديل (leaderboard↔123↔shuffle) و (view_day↔grid_view) مع وظيفة تغيير الشكل تم تحميلهما');
+console.log('🔄 زرين للتبديل (leaderboard↔123↔shuffle) و (view_day↔grid_view) مع وظائف الترتيب تم تحميلهما');
