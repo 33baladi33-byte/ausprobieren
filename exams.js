@@ -2802,3 +2802,4 @@ function showVersionsPopup(versions, mainTitle) {
 
 // ✅ تصدير الدوال للاستخدام العام
 window.showVersionsPopup = showVersionsPopup;
+} 
