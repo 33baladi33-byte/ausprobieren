@@ -2795,14 +2795,12 @@ window.openExam = openExam;
 // ============================================
 // ✅ نظام Badge التعديلات - النسخة النهائية
 // ============================================
-
-// ✅ الدالة الرئيسية لإضافة البادج - تعتمد على بيانات الامتحان نفسه
 function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
     if (!container) return;
     
     const skill = window.currentSkill || 'lesen1';
-    if (skill !== 'lesen1') return; // نطبق فقط على Lesen 1
+    if (skill !== 'lesen1') return;
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
     if (!items.length) return;
@@ -2811,12 +2809,10 @@ function addVersionBadgesFixed() {
         const title = el.querySelector('.exam-title');
         if (!title) return;
         
-        // نستخرج رقم الامتحان من النص
         const match = title.textContent.match(/^(\d+):/);
         if (!match) return;
         const examId = parseInt(match[1]);
         
-        // نبحث عن الامتحان في القائمة المعروضة (تم تعديلها بواسطة getMainExams)
         const exam = currentExamsList.find(e => e.id === examId);
         if (!exam || !exam.versions || exam.versions.length <= 1) return;
         
@@ -2841,7 +2837,6 @@ function addVersionBadgesFixed() {
             border-radius: 999px !important;
             padding: 0 8px 0 4px !important;
             height: 22px !important;
-            margin-left: auto !important;
             flex-shrink: 0 !important;
             cursor: pointer !important;
             transition: all 0.2s ease !important;
@@ -2855,6 +2850,38 @@ function addVersionBadgesFixed() {
         badge.onmouseenter = () => { badge.style.transform = 'scale(1.08)'; };
         badge.onmouseleave = () => { badge.style.transform = 'scale(1)'; };
         
+        // ============================================
+        // ✅ التعديل: وضع البادج بعد شارة Premium
+        // ============================================
+        
+        // البحث عن حاوية الجهة اليمنى (exam-right-icons)
+        let rightSide = el.querySelector('.exam-right-icons');
+        
+        if (rightSide) {
+            // ✅ نضيف البادج في نهاية الحاوية (بعد شارة Premium)
+            rightSide.appendChild(badge);
+        } else {
+            // ✅ إذا لم توجد حاوية، ننشئها ونضيف البادج فيها
+            rightSide = document.createElement('span');
+            rightSide.className = 'exam-right-icons';
+            rightSide.style.cssText = `
+                display: flex !important;
+                align-items: center !important;
+                gap: 6px !important;
+                flex-shrink: 0 !important;
+                margin-right: 4px !important;
+            `;
+            
+            // نضيف البادج في الحاوية الجديدة
+            rightSide.appendChild(badge);
+            
+            // نضيف الحاوية إلى الـ div الرئيسي
+            el.appendChild(rightSide);
+        }
+        
+        // ============================================
+        // ✅ إضافة حدث النقر على البادج
+        // ============================================
         badge.onclick = (e) => {
             e.stopPropagation();
             
@@ -2926,6 +2953,8 @@ function addVersionBadgesFixed() {
                 document.head.appendChild(style);
             }
         };
+    });
+}
         
         // نضع البادج داخل الـ title بجانب النص
         title.appendChild(badge);
