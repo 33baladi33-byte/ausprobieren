@@ -48,7 +48,7 @@ function getResultColor(score) {
   return "#adb5bd";
 }
 
-// ========== دالة عرض النتيجة بجانب عنوان الامتحان (معدلة للهواتف) ==========
+// ========== دالة عرض النتيجة بجانب عنوان الامتحان ==========
 function createResultBadge(score) {
   if (score === null) return null;
   
@@ -89,7 +89,7 @@ let currentMündlichPart = 2;
 let examUserStatusCache = null;
 let examLastStatusCheck = 0;
 
-// ========== دوال التحقق من حالة المستخدم (قراءة فقط) ==========
+// ========== دوال التحقق من حالة المستخدم ==========
 async function getUserStatusForExam() {
     try {
         if (typeof window.getUserStatusGlobal === 'function') {
@@ -102,7 +102,7 @@ async function getUserStatusForExam() {
     return 'free';
 }
 
-// ========== قائمة Tips (نصائح) ==========
+// ========== قائمة Tips ==========
 const tipsExams = [
   { id: 1, title: "كيفاش تنجح بدكاء", enabled: true, hasFile: true }
 ];
@@ -175,7 +175,7 @@ const lesenExams = [
 ];
 
 // ============================================
-// ✅ جدول الإصدارات اليدوي لـ Lesen 1 فقط - النسخة النهائية مع جميع المجموعات
+// ✅ جدول الإصدارات اليدوي لـ Lesen 1
 // ============================================
 const VERSION_GROUPS = {
   'lesen1': {
@@ -326,7 +326,7 @@ const schreibenExams = [
   { id: 36, title: "Nachbarschaft.net", enabled: true, hasFile: true }
 ];
 
-// ========== قائمة امتحانات Mündlich Teil 1 (دليل تعريفي) ==========
+// ========== قائمة امتحانات Mündlich Teil 1 ==========
 const mündlich1Exams = [
   { id: 1, title: " تقديم وتكلم عن موضوع  ", enabled: true, hasFile: true, skillPath: "mündlich1" }
 ];
@@ -1413,77 +1413,1491 @@ async function openExam(examId, examTitle, skill, fileName = null) {
   }
 }
 
-// ============================================
-// ✅ addVersionBadgesFixed - إضافة البادج فقط (بدون حدث نقر)
-// ============================================
-function addVersionBadgesFixed() {
-  const container = document.getElementById('examsList');
-  if (!container) return;
-  
-  const skill = window.currentSkill || 'lesen1';
-  if (skill !== 'lesen1') return;
-  
-  const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
-  if (!items.length) return;
-  
-  items.forEach(el => {
-    const title = el.querySelector('.exam-title');
-    if (!title) return;
-    
-    const match = title.textContent.match(/^(\d+):/);
-    if (!match) return;
-    const examId = parseInt(match[1]);
-    
-    const exam = currentExamsList.find(e => e.id === examId);
-    if (!exam || !exam.versions || exam.versions.length <= 1) return;
-    
-    const oldBadge = el.querySelector('.custom-badge');
-    if (oldBadge) oldBadge.remove();
-    
-    const badge = document.createElement('span');
-    badge.className = 'custom-badge';
-    badge.innerHTML = `
-      <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
-      <span style="font-size:9px; font-weight:600;">${exam.versions.length}</span>
-    `;
-    badge.style.cssText = `
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 2px !important;
-      background: linear-gradient(135deg, #334155, #1e293b) !important;
-      color: #f1f5f9 !important;
-      border-radius: 999px !important;
-      padding: 0 8px 0 4px !important;
-      height: 22px !important;
-      flex-shrink: 0 !important;
-      pointer-events: none !important;
-      user-select: none !important;
-      line-height: 1 !important;
-      border: 1px solid #475569 !important;
-    `;
-    badge.title = `${exam.versions.length} تعديلات`;
-    
-    let rightSide = el.querySelector('.exam-right-icons');
-    
-    if (rightSide) {
-      rightSide.appendChild(badge);
-    } else {
-      rightSide = document.createElement('span');
-      rightSide.className = 'exam-right-icons';
-      rightSide.style.cssText = `
-        display: flex !important;
-        align-items: center !important;
-        gap: 6px !important;
-        flex-shrink: 0 !important;
-        margin-right: 4px !important;
-      `;
-      rightSide.appendChild(badge);
-      el.appendChild(rightSide);
+// دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
+function goBackToExamsList() {
+  if (currentSkill) {
+    if (currentSkill === "mündlich1") {
+      document.getElementById("home").classList.remove("active");
+      document.getElementById("exam").classList.remove("active");
+      document.getElementById("list").classList.add("active");
+      renderExamListForSkill("mündlich1", "Mündlich - Teil 1 📖");
+    } 
+    else if (currentSkill === "mündlich2") {
+      document.getElementById("home").classList.remove("active");
+      document.getElementById("exam").classList.remove("active");
+      document.getElementById("list").classList.add("active");
+      renderExamListForSkill("mündlich2", "Mündlich - Teil 2 🗣️");
     }
+    else if (currentSkill === "mündlich3") {
+      document.getElementById("home").classList.remove("active");
+      document.getElementById("exam").classList.remove("active");
+      document.getElementById("list").classList.add("active");
+      renderExamListForSkill("mündlich3", "Mündlich - Teil 3 🎯");
+    }
+    else if (currentSkill.startsWith('mündlich')) {
+      renderExamListForSkill('mündlich', getTeilNameBySkill('mündlich'));
+    }
+    else {
+      const teil = teile.find(t => t.skill === currentSkill);
+      if (teil) {
+        document.getElementById("home").classList.remove("active");
+        document.getElementById("exam").classList.remove("active");
+        document.getElementById("list").classList.add("active");
+        renderExamListForSkill(teil.skill, teil.name);
+      } else {
+        goList();
+      }
+    }
+  } else {
+    goList();
+  }
+}
+
+// وظيفة عرض الامتحانات من نوع info (Teil 1 و Teil 3)
+function renderInfoExam(examData) {
+  let containerId = currentSkill;
+  if (currentSkill === "mündlich1" || currentSkill === "mündlich3") {
+    containerId = "mündlich";
+  }
+  
+  const container = document.getElementById(containerId);
+  if (!container) {
+    console.error("❌ الحاوية غير موجودة:", containerId);
+    return;
+  }
+  
+  container.innerHTML = "";
+  
+  const content = examData.content;
+  if (!content) {
+    container.innerHTML = "<div class='error'>⚠️ لا يوجد محتوى للعرض</div>";
+    return;
+  }
+  
+  let html = `
+    <div style="max-width: 1300px; margin: 0 auto; padding: 20px;">
+      <div style="background: #ffffff; padding: 14px 20px; border-radius: 12px; border: 1px solid #e0e4e8; color: #5a6874; font-size: 0.85rem; margin-bottom: 20px;">
+        💡 هذه الأمثلة فقط لكي تفهموا طريقة سير الامتحان، وليس مطلوبًا منكم حفظ نفس الاقتراحات أو استعمالها حرفيًا.
+      </div>
+  `;
+  
+  if (content.phase1) {
+    html += `<div style="margin-bottom: 35px;"><div style="font-size: 1.3rem; font-weight: 600; color: #2c3e66; border-right: 3px solid #4a6fa5; padding-right: 12px; margin-bottom: 20px;">📖 ${content.phase1.title}</div>`;
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">`;
+    content.phase1.questions.forEach(q => {
+      html += `
+        <div style="background: #ffffff; border-radius: 16px; padding: 18px; border: 1px solid #e8ecef;">
+          <div style="font-weight: 600; color: #2c3e66; margin-bottom: 8px;">${q.german}</div>
+          <div style="color: #6c7a89; font-size: 0.85rem; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #e8ecef;">${q.arabic}</div>
+          <div style="background: #f8fafc; padding: 12px; border-radius: 12px; font-size: 0.8rem; color: #2c3e66; line-height: 1.5;">
+            <div style="font-weight: 600; color: #4a6fa5; margin-bottom: 6px; font-size: 0.75rem;">📋 مثال:</div>
+            <div>${q.example.replace(/\n/g, '<br>')}</div>
+          </div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+  
+  if (content.phase2) {
+    html += `<div style="margin-bottom: 35px;"><div style="font-size: 1.3rem; font-weight: 600; color: #2c3e66; border-right: 3px solid #4a6fa5; padding-right: 12px; margin-bottom: 20px;">🎯 ${content.phase2.title}</div>`;
+    if (content.phase2.note) {
+      html += `<div style="background: #ffffff; padding: 12px 18px; border-radius: 12px; border: 1px solid #e0e4e8; margin-bottom: 20px; font-size: 0.85rem; color: #4a6fa5; text-align: center;">📝 ${content.phase2.note}</div>`;
+    }
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px;">`;
+    content.phase2.topics.forEach(topic => {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 18px; border: 1px solid #e8ecef;">
+          <div style="font-size: 1.1rem; font-weight: 600; color: #2c3e66;">📚 ${topic.title}</div>
+          <ul style="list-style: none; padding: 0; margin: 16px 0;">
+            ${topic.points.map(p => `<li style="font-size: 0.8rem; color: #5a6874; margin-bottom: 6px; padding-right: 12px; position: relative;">• ${p}</li>`).join('')}
+          </ul>
+          <div style="background: #ffffff; padding: 12px; border-radius: 12px; margin-top: 12px; border-right: 2px solid #4a6fa5;">
+            <div style="font-size: 0.7rem; font-weight: 600; color: #4a6fa5; margin-bottom: 6px;">💬 أسئلة قد يطرحها الشريك عليك:</div>
+            ${topic.partnerQuestions.map(q => `<div style="font-size: 0.75rem; color: #2c3e66; margin-bottom: 6px;">📌 ${q.german}<br><small style="color: #8a9aa8;">${q.arabic}</small></div>`).join('')}
+          </div>
+        </div>
+      `;
+    });
+    html += `</div></div>`;
+  }
+  
+  if (content.groups) {
+    html += `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 24px; margin-bottom: 40px;">`;
+    content.groups.forEach(group => {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef; display: flex; flex-direction: column;">
+          <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e66; margin-bottom: 12px;">${group.title}</div>
+          <div style="font-size: 0.85rem; color: #6c7a89; margin-bottom: 20px;">${group.topics}</div>
+          <button class="toggle-suggestions-btn" style="background: transparent; border: 1px solid #4a6fa5; padding: 8px 18px; border-radius: 30px; cursor: pointer; color: #4a6fa5; width: fit-content; margin-top: auto;" data-group="${group.id}">أمثلة →</button>
+          <div class="suggestions-content" data-group="${group.id}" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e8ecef;">
+            <ul style="list-style: none; padding: 0;">
+              ${group.suggestions.map((s, idx) => `<li style="background: #ffffff; padding: 10px 14px; margin-bottom: 8px; border-radius: 12px; border-right: 2px solid #cbd5e1;"><span style="font-weight: 600; color: #4a6fa5;">${idx+1}.</span> ${s}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `;
+    });
+    html += `</div>`;
+    
+    if (content.methodology) {
+      html += `
+        <div style="background: #f8f9fb; border-radius: 16px; padding: 20px; border: 1px solid #e8ecef;">
+          <div style="font-size: 1.2rem; font-weight: 600; color: #2c3e66;">📌 ${content.methodology.title}</div>
+          <div style="font-size: 0.85rem; color: #6c7a89; margin: 12px 0;">${content.methodology.description}</div>
+          <button id="toggleDialogBtn" style="background: transparent; border: 1px solid #4a6fa5; padding: 8px 18px; border-radius: 30px; cursor: pointer; color: #4a6fa5;">مثال →</button>
+          <div id="dialogContent" style="display: none; margin-top: 16px; background: #ffffff; padding: 16px; border-radius: 16px; border: 1px solid #e8ecef;">
+            ${content.methodology.dialog.map(line => `<div style="margin-bottom: 12px;"><span style="font-weight: 700; color: #4a6fa5;">${line.speaker}:</span> ${line.text}</div>`).join('')}
+          </div>
+        </div>
+      `;
+    }
+  }
+  
+  if (content.footerMessage) {
+    html += `<div style="text-align: center; padding: 20px; margin-top: 20px; border-top: 1px solid #e0e4e8;"><div style="font-size: 0.9rem; color: #5a6874; background: #ffffff; display: inline-block; padding: 10px 25px; border-radius: 40px; border: 1px solid #e0e4e8;">${content.footerMessage}</div></div>`;
+  }
+  
+  html += `</div>`;
+  container.innerHTML = html;
+  
+  document.querySelectorAll('.toggle-suggestions-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const groupId = btn.getAttribute('data-group');
+      const contentDiv = document.querySelector(`.suggestions-content[data-group="${groupId}"]`);
+      if (contentDiv) {
+        const isOpen = contentDiv.style.display === 'block';
+        contentDiv.style.display = isOpen ? 'none' : 'block';
+        btn.textContent = isOpen ? 'أمثلة →' : 'إخفاء ←';
+      }
+    });
+  });
+  
+  const dialogBtn = document.getElementById('toggleDialogBtn');
+  if (dialogBtn) {
+    dialogBtn.addEventListener('click', () => {
+      const dialogDiv = document.getElementById('dialogContent');
+      if (dialogDiv) {
+        const isOpen = dialogDiv.style.display === 'block';
+        dialogDiv.style.display = isOpen ? 'none' : 'block';
+        dialogBtn.textContent = isOpen ? 'مثال →' : 'إخفاء ←';
+      }
+    });
+  }
+}
+
+function renderTipsExam(examData) {
+  const container = document.getElementById("tips");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  const content = examData.content || "";
+  const paragraphs = content.split('\n\n');
+  
+  for (let i = 0; i < paragraphs.length; i++) {
+    const p = paragraphs[i];
+    if (p.trim() === "") continue;
+    
+    const card = document.createElement("div");
+    card.style.cssText = `
+      background: #f8f9fa;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-right: 4px solid #28a745;
+      border-left: 1px solid #e0e0e0;
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      font-size: 16px;
+      line-height: 1.7;
+      color: #333;
+      white-space: pre-wrap;
+    `;
+    
+    let formattedText = p;
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    formattedText = formattedText.replace(/^(.*?):/gm, '<strong>$1:</strong>');
+    
+    card.innerHTML = formattedText;
+    container.appendChild(card);
+  }
+}
+
+function renderMündlichExam(examData) {
+  const container = document.getElementById("mündlich");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  const parts = examData.parts || {};
+  
+  const allgemeinCard = createMündlichCard("📖 الفكرة العامة (Allgemeine Idee)", parts.allgemein || "لا يوجد نص");
+  container.appendChild(allgemeinCard);
+  
+  const meinungCard = createMündlichCard("💭 الرأي (Meinung)", parts.meinung || "لا يوجد نص");
+  container.appendChild(meinungCard);
+  
+  const erfahrungCard = createMündlichCard("✨ التجربة (Erfahrung)", parts.erfahrung || "لا يوجد نص");
+  container.appendChild(erfahrungCard);
+}
+
+function createMündlichCard(title, text) {
+  const card = document.createElement("div");
+  card.style.cssText = `
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  `;
+  
+  const titleDiv = document.createElement("div");
+  titleDiv.style.cssText = `
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e66;
+    border-right: 4px solid #007bff;
+    padding-right: 12px;
+    margin-bottom: 15px;
+  `;
+  titleDiv.innerHTML = title;
+  card.appendChild(titleDiv);
+  
+  const textDiv = document.createElement("div");
+  textDiv.style.cssText = `
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    white-space: pre-wrap;
+  `;
+  textDiv.innerHTML = text;
+  card.appendChild(textDiv);
+  
+  return card;
+}
+
+function updateExamNavButtons() {
+    const prevBtn = document.getElementById("prevExamBtn");
+    const nextBtn = document.getElementById("nextExamBtn");
+    const memoryBtn = document.getElementById("memoryTrainerBtn");
+    
+    if (!prevBtn || !nextBtn) return;
+    
+    const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
+    const hasPrev = currentIndex > 0;
+    const hasNext = currentIndex < currentExamsList.length - 1;
+    
+    if (hasPrev) {
+        prevBtn.style.display = "inline-block";
+        prevBtn.onclick = () => {
+            const prevExam = currentExamsList[currentIndex - 1];
+            openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
+        };
+    } else {
+        prevBtn.style.display = "none";
+    }
+    
+    if (hasNext) {
+        nextBtn.style.display = "inline-block";
+        nextBtn.onclick = () => {
+            const nextExam = currentExamsList[currentIndex + 1];
+            openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
+        };
+    } else {
+        nextBtn.style.display = "none";
+    }
+    
+// ============================================
+// ✅ إظهار زر Memory Trainer داخل الامتحان
+// ============================================
+if (memoryBtn) {
+    // ✅ دعم جميع المهارات التي لها إعدادات مراحل
+    if (currentSkill && SKILL_CONFIG[currentSkill]) {
+        memoryBtn.style.display = 'inline-flex';
+        memoryBtn.onclick = function() {
+            // ✅ استدعاء دالة الامتحان الفردي (وليس القائمة) مع تمرير المهارة الحالية
+            if (window.startMemoryTrainerForExam) {
+                window.startMemoryTrainerForExam(currentSkill);
+            } else {
+                alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
+            }
+        };
+    } else {
+        memoryBtn.style.display = 'none';
+    }
+}
+    
+    setupLockedNextButton();
+}
+
+function showTeil(teilNumber) {
+  teile.forEach((teil, idx) => {
+    const container = document.getElementById(teil.container);
+    if (container) container.style.display = (idx + 1 === teilNumber) ? "block" : "none";
   });
 }
 
+function goHome() {
+  document.getElementById("home").classList.add("active");
+  document.getElementById("list").classList.remove("active");
+  document.getElementById("exam").classList.remove("active");
+}
+
+function goList() {
+  document.getElementById("home").classList.remove("active");
+  document.getElementById("list").classList.add("active");
+  document.getElementById("exam").classList.remove("active");
+  
+  renderTeileList();
+  
+  setTimeout(() => {
+    const examsContainer = document.getElementById("examsList");
+    if (examsContainer) {
+      const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+      if (hoeren1Teil) {
+        renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+      } else {
+        examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
+      }
+    }
+  }, 50);
+}
+
+// ============================================
+// ✅ دالة buildTeil1 المُعدّلة - تعتمد على ID ثابت
+// ============================================
+function buildTeil1(questions) {
+  const container = document.getElementById("teil1");
+  if (!container) {
+    console.warn('⚠️ buildTeil1: الحاوية teil1 غير موجودة');
+    return;
+  }
+  
+  // ✅ التحقق من وجود الأسئلة
+  if (!questions || !Array.isArray(questions) || questions.length === 0) {
+    console.warn('⚠️ buildTeil1: لا توجد أسئلة لعرضها');
+    container.innerHTML = '<div style="text-align:center; padding:20px; color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
+    return;
+  }
+  
+  container.innerHTML = "";
+  
+  let userAnswers = {};
+  
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    // ✅ استخدام ID ثابت من البيانات
+    const questionId = q.id !== undefined ? q.id : i;
+    
+    const card = document.createElement("div");
+    card.className = "question-card";
+    card.dataset.questionId = questionId;
+    card.id = `q_${questionId}`;
+    
+    const questionText = document.createElement("div");
+    questionText.className = "question-text";
+    questionText.innerHTML = `<strong>${i + 1}. ${q.text}</strong>`;
+    card.appendChild(questionText);
+    
+    const optionsDiv = document.createElement("div");
+    optionsDiv.className = "options-container";
+    for (let j = 0; j < q.options.length; j++) {
+      const label = document.createElement("label");
+      label.className = "option-label";
+      const radioId = `q_${questionId}_${j}`;
+      label.innerHTML = `<input type="radio" name="q_${questionId}" value="${j}" class="option-input" id="${radioId}"> <span>${q.options[j]}</span>`;
+      label.onclick = (function(qId, ansIdx) {
+        return function() {
+          userAnswers[qId] = ansIdx;
+        };
+      })(questionId, j);
+      optionsDiv.appendChild(label);
+    }
+    card.appendChild(optionsDiv);
+    container.appendChild(card);
+  }
+  
+  const checkBtn = document.createElement("button");
+  checkBtn.innerText = "✅ تصحيح";
+  checkBtn.className = "check-btn";
+  checkBtn.onclick = function() {
+    checkTeil1(questions, userAnswers);
+  };
+  container.appendChild(checkBtn);
+  
+  const resultDiv = document.createElement("div");
+  resultDiv.id = "teil1Result";
+  resultDiv.className = "result-box";
+  resultDiv.style.display = "none";
+  container.appendChild(resultDiv);
+}
+
+// ============================================
+// ✅ دالة checkTeil1 المُعدّلة - تعتمد على ID ثابت
+// ============================================
+function checkTeil1(questions, answers) {
+  let score = 0;
+  const total = questions.length;
+  const pointsPerQuestion = 25 / total;
+  
+  for (let i = 0; i < questions.length; i++) {
+    const q = questions[i];
+    const questionId = q.id !== undefined ? q.id : i;
+    const card = document.getElementById(`q_${questionId}`);
+    const userAnswer = answers[questionId];
+    const isCorrect = (userAnswer === q.correct);
+    
+    if (isCorrect) {
+      score++;
+      if (card) {
+        card.classList.add("correct-answer-card");
+        card.classList.remove("wrong-answer-card");
+        const oldMsg = card.querySelector(".correct-message");
+        if (oldMsg) oldMsg.remove();
+      }
+    } else {
+      if (card) {
+        card.classList.add("wrong-answer-card");
+        card.classList.remove("correct-answer-card");
+        
+        let correctMsg = card.querySelector(".correct-message");
+        if (!correctMsg) {
+          correctMsg = document.createElement("div");
+          correctMsg.className = "correct-message";
+          card.appendChild(correctMsg);
+        }
+        correctMsg.innerHTML = "✅ الإجابة الصحيحة: " + q.options[q.correct];
+      }
+    }
+  }
+  
+  const finalScore = (score * pointsPerQuestion).toFixed(2);
+  const resultDiv = document.getElementById("teil1Result");
+  if (resultDiv) {
+    resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
+    resultDiv.style.display = "block";
+  }
+  
+  saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
+  
+  if (document.getElementById("list").classList.contains("active")) {
+    renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
+  }
+}
+
+window.saveExamResultGlobal = function(skill, examId, score) {
+  saveExamResult(skill, examId, score);
+  if (document.getElementById("list").classList.contains("active") && currentSkill === skill) {
+    renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
+  }
+};
+
+document.addEventListener("DOMContentLoaded", function() {
+  const startBtn = document.getElementById("startBtn");
+  const backHomeBtn = document.getElementById("backHomeBtn");
+  const backToListBtn = document.getElementById("backToListBtn");
+  const backArrowFromExam = document.getElementById("backArrowFromExam");
+  
+  if (startBtn) startBtn.onclick = function() { 
+    goList();
+  };
+  
+  if (backHomeBtn) backHomeBtn.onclick = function() { goHome(); };
+  if (backToListBtn) backToListBtn.onclick = function() { goList(); };
+  
+  if (backArrowFromExam) {
+    backArrowFromExam.onclick = function() { 
+      goBackToExamsList();
+    };
+  }
+  
+  const examsContainer = document.getElementById("examsList");
+  if (examsContainer) {
+    examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
+  }
+});
+
+renderTeileList();
+
+// ============================================
+// نظام المراحل المتوازن (لجميع المهارات)
+// ============================================
+
+// ✅ إعدادات المراحل حسب الأرقام الحقيقية
+const SKILL_CONFIG = {
+    hoeren1: { totalExams: 45, examsPerStage: 15, totalSentences: 108 },
+    hoeren2: { totalExams: 55, examsPerStage: 15, totalSentences: 273 },
+    hoeren3: { totalExams: 48, examsPerStage: 15, totalSentences: 105 },
+    lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 },
+    lesen2: { totalExams: 37, examsPerStage: 15, totalSentences: 185 },
+    lesen3: { totalExams: 37, examsPerStage: 15, totalSentences: 120 },
+    sprach1: { totalExams: 41, examsPerStage: 15, totalSentences: 205 },
+    sprach2: { totalExams: 49, examsPerStage: 15, totalSentences: 245 }
+};
+
+// ✅ دوال المراحل العامة (تعمل مع أي مهارة)
+function getStageKey(skill) {
+    return `${skill}_stage`;
+}
+
+function getCurrentStage(skill) {
+    const key = getStageKey(skill);
+    try {
+        const stage = parseInt(localStorage.getItem(key)) || 1;
+        const config = SKILL_CONFIG[skill];
+        const totalStages = config ? Math.ceil(config.totalExams / config.examsPerStage) : 1;
+        return Math.max(1, Math.min(stage, totalStages));
+    } catch { return 1; }
+}
+
+function setCurrentStage(skill, stage) {
+    try {
+        localStorage.setItem(getStageKey(skill), String(stage));
+    } catch(e) { console.warn('⚠️ لا يمكن حفظ المرحلة:', e); }
+}
+
+function getTotalStages(skill) {
+    const config = SKILL_CONFIG[skill];
+    if (!config) return 1;
+    return Math.ceil(config.totalExams / config.examsPerStage);
+}
+
+function getExamsForStage(skill, stage) {
+    const config = SKILL_CONFIG[skill];
+    if (!config) return [];
+    const start = (stage - 1) * config.examsPerStage;
+    const end = Math.min(start + config.examsPerStage, config.totalExams);
+    const exams = [];
+    for (let i = start + 1; i <= end; i++) exams.push(i);
+    return exams;
+}
+
+// ============================================
+// نظام المستويات (معرفات ثابتة)
+// ============================================
+
+const LEVELS_KEY = 'memory_levels';
+const MAX_LEVEL = 5;
+
+function buildSentenceId(skill, examId, questionIndex) {
+    return `${skill}_exam${examId}_${questionIndex}`;
+}
+
+function getSentenceLevel(skill, examId, questionIndex) {
+    const key = buildSentenceId(skill, examId, questionIndex);
+    try {
+        const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
+        return data[key] !== undefined ? data[key] : 0;
+    } catch { return 0; }
+}
+
+function setSentenceLevel(skill, examId, questionIndex, level) {
+    const key = buildSentenceId(skill, examId, questionIndex);
+    try {
+        const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
+        let newLevel = Math.max(0, Math.min(MAX_LEVEL, level));
+        data[key] = newLevel;
+        localStorage.setItem(LEVELS_KEY, JSON.stringify(data));
+    } catch (e) { console.error('❌ خطأ في حفظ المستوى:', e); }
+}
+
+function increaseLevel(skill, examId, questionIndex) {
+    const current = getSentenceLevel(skill, examId, questionIndex);
+    if (current < MAX_LEVEL) setSentenceLevel(skill, examId, questionIndex, current + 1);
+}
+
+function decreaseLevel(skill, examId, questionIndex) {
+    const current = getSentenceLevel(skill, examId, questionIndex);
+    if (current > 0) setSentenceLevel(skill, examId, questionIndex, current - 1);
+}
+
+// ============================================
+// دوال حساب النسب (المتوازنة)
+// ============================================
+
+// نسبة امتحان واحد (تعتمد على جمل ذلك الامتحان فقط)
+function getExamProgress(skill, examId) {
+    const prefix = `${skill}_exam${examId}_`;
+    try {
+        const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
+        let totalLevels = 0, count = 0;
+        for (const key in data) {
+            if (key.startsWith(prefix)) { totalLevels += data[key]; count++; }
+        }
+        if (count === 0) return 0;
+        return Math.min(100, Math.round((totalLevels / (count * MAX_LEVEL)) * 100));
+    } catch { return 0; }
+}
+
+// نسبة المرحلة الحالية (مجموع مستويات جمل المرحلة / عدد جمل المرحلة × 5)
+function getStageProgress(skill) {
+    const config = SKILL_CONFIG[skill];
+    if (!config) return 0;
+    const currentStage = getCurrentStage(skill);
+    const examIds = getExamsForStage(skill, currentStage);
+    if (examIds.length === 0) return 0;
+
+    const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
+    let totalLevels = 0, count = 0;
+    for (const examId of examIds) {
+        const prefix = `${skill}_exam${examId}_`;
+        for (const key in data) {
+            if (key.startsWith(prefix)) { totalLevels += data[key]; count++; }
+        }
+    }
+    if (count === 0) return 0;
+    return Math.min(100, Math.round((totalLevels / (count * MAX_LEVEL)) * 100));
+}
+
+// النسبة العامة للجزء بالكامل (تعتمد على المراحل، وليس العدد الكلي للجمل)
+function getOverallProgress(skill) {
+    const totalStages = getTotalStages(skill);
+    if (totalStages <= 0) return 0;
+    const currentStage = getCurrentStage(skill);
+    const stageProgress = getStageProgress(skill);
+    
+    // معادلة متوازنة: (المرحلة الحالية - 1 + نسبة المرحلة) / إجمالي المراحل × 100
+    const overall = ((currentStage - 1) + (stageProgress / 100)) / totalStages * 100;
+    return Math.min(100, Math.round(overall));
+}
+
+// ============================================
+// تحميل بيانات المرحلة الحالية (لأي مهارة)
+// ============================================
+
+window.loadStageExams = async function(skill) {
+    const config = SKILL_CONFIG[skill];
+    if (!config) {
+        console.warn(`⚠️ لا توجد إعدادات للمهارة: ${skill}`);
+        return;
+    }
+
+    const exams = examsDatabase[skill] || [];
+    const totalExams = config.totalExams;
+    const currentStage = getCurrentStage(skill);
+    const examIds = getExamsForStage(skill, currentStage);
+    
+    console.log(`📚 تحميل المرحلة ${currentStage} من ${getTotalStages(skill)} لـ ${skill}`);
+    console.log(`📋 الامتحانات: ${examIds.join(', ')}`);
+
+    const allCorrect = [], allWrong = [], allQuestions = [];
+for (const examId of examIds) {
+    const exam = exams.find(e => e.id === examId);
+    if (!exam || !exam.hasFile) continue;
+    const fileName = getActualFileName(exam.id);
+    try {
+        const response = await fetch(`data/${skill}/${fileName}`);
+        if (response.ok) {
+            const data = await response.json();
+            let questions = [];
+            if (skill === 'lesen3') {
+                questions = data.items || [];
+            } else if (skill === 'sprach1' || skill === 'sprach2') {
+                // ✅ لـ sprach1 و sprach2: نأخذ من options أو questions
+                if (data.options && Array.isArray(data.options)) {
+                    questions = data.options;
+                } else if (data.questions && Array.isArray(data.questions)) {
+                    questions = data.questions;
+                } else {
+                    questions = [];
+                }
+                // نأخذ فقط الأسئلة التي تحتوي على memoryHighlight
+                questions = questions.filter(q => q.memoryHighlight);
+            } else {
+                questions = data.questions || [];
+            }
+
+            questions.forEach((q, idx) => {
+                let entry;
+                if (skill === 'sprach1' || skill === 'sprach2') {
+                    // ✅ بناء entry خاص لـ sprach1 و sprach2 باستخدام memoryHighlight
+                    const highlight = q.memoryHighlight || {};
+                    entry = {
+                        text: q.text || '',
+                        correct: q.correct,
+                        options: q.options || [],
+                        examId: examId,
+                        questionIndex: idx,
+                        originalQuestion: q,
+                        memoryHighlight: highlight,
+                        id: q.id,
+                        before: highlight.before || '',
+                        connector: highlight.connector || '',
+                        after: highlight.after || '',
+                        color: 0  // ✅ لا نستخدم اللون لـ sprach1 و sprach2
+                    };
+                } else {
+                    entry = {
+                        text: q.text,
+                        correct: q.correct,
+                        options: q.options || [],
+                        examId: examId,
+                        questionIndex: idx,
+                        originalQuestion: q
+                    };
+                }
+                allQuestions.push(entry);
+
+                // ✅ إذا كانت المهارة sprach1 أو sprach2 أو lesen1/2/3، كل الأسئلة صالحة للتدريب
+                if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1' || skill === 'sprach2') {
+                    allCorrect.push(entry);
+                } else {
+                    if (q.correct === true) allCorrect.push(entry);
+                    else allWrong.push(entry);
+                }
+            });
+            console.log(`✅ تم تحميل ${skill} exam${examId}`);
+        }
+    } catch (e) {
+        console.warn(`⚠️ لا يمكن تحميل ${skill} exam${examId}`);
+    }
+}
+// ✅ إضافة sharedOptions (لـ Lesen 1 و Lesen 3)
+let sharedOptions = [];
+if ((skill === 'lesen1' || skill === 'lesen3') && examIds.length > 0) {
+    const firstExamId = examIds[0];
+    const firstExam = exams.find(e => e.id === firstExamId);
+    if (firstExam && firstExam.hasFile) {
+        try {
+            const fileName = getActualFileName(firstExamId);
+            const response = await fetch(`data/${skill}/${fileName}`);
+            if (response.ok) {
+                const data = await response.json();
+                // لـ Lesen 1: نأخذ sharedOptions
+                if (skill === 'lesen1' && data.sharedOptions) {
+                    sharedOptions = data.sharedOptions;
+                    console.log(`✅ تم استخراج sharedOptions لـ ${skill} (${sharedOptions.length} عنوان)`);
+                }
+                // لـ Lesen 3: نأخذ situations كـ sharedOptions
+                else if (skill === 'lesen3' && data.situations) {
+                    sharedOptions = data.situations;
+                    console.log(`✅ تم استخراج situations لـ ${skill} كـ sharedOptions (${sharedOptions.length} حالة)`);
+                }
+            }
+        } catch (e) {
+            console.warn(`⚠️ لا يمكن تحميل sharedOptions لـ ${skill}`);
+        }
+    }
+}
+
+    // تخزين البيانات المدمجة تحت مفتاح المهارة
+    window[`_${skill}_combinedData`] = {
+        questions: allCorrect,
+        wrongQuestions: allWrong,
+        allQuestions: allQuestions,
+        sharedOptions: sharedOptions,
+        totalExams: examIds.length,
+        totalCorrect: allCorrect.length,
+        totalWrong: allWrong.length,
+        totalQuestions: allCorrect.length + allWrong.length,
+        currentStage: currentStage,
+        totalStages: getTotalStages(skill),
+        examIds: examIds,
+        isLastStage: currentStage >= getTotalStages(skill)
+    };
+
+    console.log(`✅ تم تحميل ${examIds.length} امتحان، ${allCorrect.length} جملة صحيحة، ${allWrong.length} جملة خاطئة`);
+};
+
+// ============================================
+// الانتقال إلى المرحلة التالية (لأي مهارة)
+// ============================================
+
+window.goToNextStage = function(skill) {
+    const totalStages = getTotalStages(skill);
+    let currentStage = getCurrentStage(skill);
+    if (currentStage < totalStages) {
+        currentStage++;
+        setCurrentStage(skill, currentStage);
+        console.log(`➡️ الانتقال إلى المرحلة ${currentStage} لـ ${skill}`);
+        window.loadStageExams(skill).then(() => {
+            if (window.memoryTrainer && window.memoryTrainer.currentSkill === skill) {
+                window.memoryTrainer.start('list');
+            }
+        });
+        return true;
+    } else {
+        console.log(`🏆 تم إكمال جميع مراحل ${skill}!`);
+        return false;
+    }
+};
+
+window.resetStages = function(skill) {
+    setCurrentStage(skill, 1);
+    console.log(`🔄 إعادة تعيين مراحل ${skill} إلى 1`);
+    window.loadStageExams(skill);
+};
+
+// ============================================
+// عرض شريط التقدم في القائمة
+// ============================================
+
+function renderMemoryProgressBar(skill, container) {
+    const percent = getOverallProgress(skill);
+    const currentStage = getCurrentStage(skill);
+    const totalStages = getTotalStages(skill);
+    
+    const bar = document.createElement('div');
+    bar.className = 'memory-progress-bar-container';
+    bar.innerHTML = `
+        <span class="memory-progress-label">🧠 الذاكرة</span>
+        <div style="display:flex; align-items:center; gap:8px; flex:1;">
+            <div class="memory-progress-track" style="flex:1;">
+                <div class="memory-progress-fill" style="width: ${percent}%;"></div>
+            </div>
+            <span class="memory-progress-percent">${percent}%</span>
+        </div>
+        <span style="font-size:11px; color:#64748B; min-width:60px; text-align:left;">
+            المرحلة ${currentStage}/${totalStages}
+        </span>
+        <button class="memory-progress-btn" title="متابعة التدريب" onclick="window.startMemoryTrainerFromList('${skill}')">
+            ▶
+        </button>
+        <button class="memory-progress-btn reset" title="إعادة تعيين التقدم" onclick="window.resetAllLevels();">
+            ↺
+        </button>
+    `;
+    container.insertBefore(bar, container.firstChild);
+}
+
+// ============================================
+// إعادة تعيين جميع المستويات (للمهارات كافة)
+// ============================================
+
+function resetAllLevels() {
+    if (confirm('⚠️ هل أنت متأكد من إعادة تعيين جميع مستويات الذاكرة؟')) {
+        localStorage.removeItem(LEVELS_KEY);
+        location.reload();
+    }
+}
+
+// ============================================
+// تشغيل Memory Trainer من القائمة (يدعم جميع المهارات)
+// ============================================
+
+window.startMemoryTrainerFromList = function(skill = 'hoeren1') {
+    // التأكد من تحميل بيانات المهارة
+    const combinedKey = `_${skill}_combinedData`;
+    if (!window[combinedKey]) {
+        // إذا لم تكن محملة، نحملها ثم نبدأ
+        window.loadStageExams(skill).then(() => {
+            if (window.memoryTrainer) {
+                window.memoryTrainer.currentSkill = skill;
+                window.memoryTrainer.start('list');
+            }
+        });
+        return;
+    }
+    if (window.memoryTrainer) {
+        window.memoryTrainer.currentSkill = skill;
+        window.memoryTrainer.start('list');
+    } else {
+        alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
+    }
+};
+
+// ============================================
+// دالة تشغيل Memory Trainer لامتحان فردي (تُستدعى من زر 🧠 داخل الامتحان)
+// ============================================
+
+window.startMemoryTrainerForExam = function(skill) {
+    if (window.memoryTrainer) {
+        window.memoryTrainer.currentSkill = skill || window.currentSkill || 'hoeren1';
+        window.memoryTrainer.currentExamId = window.currentExamId || 1;
+        window.memoryTrainer.start('single');
+    } else {
+        alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
+    }
+};
+
+// ============================================
+// تحميل جميع المهارات المدعومة عند بدء التشغيل
+// ============================================
+
+setTimeout(() => {
+    for (const skill in SKILL_CONFIG) {
+        window.loadStageExams(skill);
+    }
+}, 500);
+
+// ============================================
+// تصدير الدوال للاستخدام العالمي
+// ============================================
+
+window.buildSentenceId = buildSentenceId;
+window.getSentenceLevel = getSentenceLevel;
+window.setSentenceLevel = setSentenceLevel;
+window.increaseLevel = increaseLevel;
+window.decreaseLevel = decreaseLevel;
+window.getExamProgress = getExamProgress;
+window.getStageProgress = getStageProgress;
+window.getOverallProgress = getOverallProgress;
+window.getCurrentStage = getCurrentStage;
+window.setCurrentStage = setCurrentStage;
+window.getTotalStages = getTotalStages;
+window.getExamsForStage = getExamsForStage;
+window.SKILL_CONFIG = SKILL_CONFIG;
+window.resetAllLevels = resetAllLevels;
+window.loadStageExams = loadStageExams;
+window.goToNextStage = goToNextStage;
+window.resetStages = resetStages;
+window.startMemoryTrainerFromList = startMemoryTrainerFromList;
+window.startMemoryTrainerForExam = startMemoryTrainerForExam;
+
+console.log('🧠 نظام التقدم المتوازن (المراحل لكل مهارة) تم تحميله بنجاح');
+console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));
+
+// ============================================
+// أزرار تبديل الأيقونة (زرين جنب بعض)
+// ============================================
+
+// ===== الزر الأول: leaderboard ↔ 123 =====
+const VIEW_ICONS_1 = ['leaderboard', '123'];
+const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
+
+// تخزين الترتيب الأصلي كأرقام امتحانات (وليس عناصر DOM)
+let originalOrderNumbers = [];
+
+// حفظ الترتيب الأصلي عند تحميل القائمة
+function saveOriginalOrder() {
+    const list = document.getElementById("examsList");
+    if (!list) return;
+    
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+    
+    // حفظ أرقام الامتحانات بالترتيب الأصلي
+    originalOrderNumbers = exams.map(el => {
+        const title = el.querySelector(".exam-title");
+        if (!title) return null;
+        const text = title.textContent || '';
+        const match = text.match(/^(\d+):/);
+        return match ? parseInt(match[1], 10) : null;
+    }).filter(num => num !== null);
+    
+    console.log("📋 تم حفظ الترتيب الأصلي:", originalOrderNumbers);
+}
+
+// استعادة الترتيب الأصلي حسب أرقام الامتحانات
+function restoreOriginalOrder() {
+    const list = document.getElementById("examsList");
+    if (!list || originalOrderNumbers.length === 0) return;
+    
+    // الحصول على جميع عناصر الامتحانات الحالية
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+    
+    if (!exams.length) return;
+    
+    // إنشاء خريطة للعناصر حسب رقم الامتحان
+    const examMap = {};
+    exams.forEach(el => {
+        const title = el.querySelector(".exam-title");
+        if (!title) return;
+        const text = title.textContent || '';
+        const match = text.match(/^(\d+):/);
+        if (match) {
+            const num = parseInt(match[1], 10);
+            examMap[num] = el;
+        }
+    });
+    
+    // إعادة ترتيب العناصر حسب الأرقام المحفوظة
+    const fragment = document.createDocumentFragment();
+    originalOrderNumbers.forEach(num => {
+        if (examMap[num]) {
+            fragment.appendChild(examMap[num]);
+            delete examMap[num];
+        }
+    });
+    
+    // إضافة أي عناصر متبقية (جديدة) في نهاية القائمة
+    Object.keys(examMap).map(Number).sort((a, b) => a - b).forEach(num => {
+        fragment.appendChild(examMap[num]);
+    });
+    
+    list.appendChild(fragment);
+    console.log("📋 تم استعادة الترتيب الأصلي حسب الأرقام");
+}
+
+// ✅ تطبيق ترتيب leaderboard - يعمل مع List و Grid معاً
+function applyLeaderboardOrder() {
+    const list = document.getElementById("examsList");
+    if (!list) return console.log("❌ examsList غير موجود");
+
+    // التحقق من وجود Grid Container
+    const gridContainer = document.getElementById("examGridContainer");
+    const targetContainer = gridContainer || list;
+
+    // جميع الامتحانات فقط - نأخذها من الـ container المناسب
+    const exams = [...targetContainer.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+
+    if (!exams.length) return console.log("❌ لا توجد امتحانات");
+
+    // استخراج النقطة
+    const data = exams.map((el, index) => {
+        const badge = el.querySelector(".exam-result-badge");
+
+        let score = Infinity;
+
+        if (badge) {
+            const txt = badge.textContent.trim();
+            const m = txt.match(/^(\d+)\s*\/\s*\d+/);
+
+            if (m) score = parseInt(m[1], 10);
+        }
+
+        return {
+            el,
+            score,
+            originalIndex: index
+        };
+    });
+
+    // ترتيب Stable
+    data.sort((a, b) => {
+        if (a.score === b.score)
+            return a.originalIndex - b.originalIndex;
+
+        return a.score - b.score;
+    });
+
+    // إعادة ترتيب داخل نفس الـ container
+    data.forEach(item => targetContainer.appendChild(item.el));
+
+    console.log("✅ تم ترتيب الامتحانات من الأضعف إلى الأقوى");
+}
+
+function getViewModeIndex1() {
+    try {
+        const saved = localStorage.getItem(VIEW_MODE_KEY_1);
+        if (saved !== null) return parseInt(saved);
+    } catch {}
+    return 0;
+}
+
+function setViewModeIndex1(index) {
+    try {
+        localStorage.setItem(VIEW_MODE_KEY_1, String(index));
+    } catch {}
+}
+
+// ===== الزر الثاني: view_day ↔ grid_view =====
+const VIEW_ICONS_2 = ['view_day', 'grid_view'];
+const VIEW_MODE_KEY_2 = 'viewModeIconIndex2';
+
+function getViewModeIndex2() {
+    try {
+        const saved = localStorage.getItem(VIEW_MODE_KEY_2);
+        if (saved !== null) return parseInt(saved);
+    } catch {}
+    return 0;
+}
+
+function setViewModeIndex2(index) {
+    try {
+        localStorage.setItem(VIEW_MODE_KEY_2, String(index));
+    } catch {}
+}
+
+// ============================================
+// Exam List View Mode - نظام تبديل شكل القائمة
+// ============================================
+
+const EXAM_LIST_MODE_KEY = "examListViewMode";
+
+// الوضع الحالي
+function getExamListMode() {
+    return localStorage.getItem(EXAM_LIST_MODE_KEY) || "list";
+}
+
+function setExamListMode(mode) {
+    localStorage.setItem(EXAM_LIST_MODE_KEY, mode);
+}
+
+// تطبيق الشكل
+function applyExamListView(mode) {
+    const list = document.getElementById("examsList");
+    if (!list) return;
+
+    // إزالة أي Grid قديم
+    const oldGrid = document.getElementById("examGridContainer");
+    if (oldGrid) {
+        while (oldGrid.firstChild) {
+            list.appendChild(oldGrid.firstChild);
+        }
+        oldGrid.remove();
+    }
+
+    // إعادة جميع التنسيقات إلى الوضع الطبيعي
+    [...list.querySelectorAll(".item")].forEach(el => {
+        el.style.cssText = "";
+    });
+
+    // الوضع العادي (List)
+    if (mode === "list") {
+        console.log("📄 List View");
+        return;
+    }
+
+    // ===== Grid View =====
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+
+    if (!exams.length) return;
+
+    const grid = document.createElement("div");
+    grid.id = "examGridContainer";
+
+    grid.style.cssText = `
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 6px;
+        margin-top: 8px;
+    `;
+
+    const firstExam = exams[0];
+    list.insertBefore(grid, firstExam);
+
+    exams.forEach(item => {
+        grid.appendChild(item);
+
+        item.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 42px;
+            padding: 8px 4px;
+            background: #fafbfc;
+            border: 1px solid #e8ecef;
+            border-radius: 6px;
+            margin: 0;
+            box-shadow: none;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        `;
+
+        // تأثير Hover
+        item.addEventListener('mouseenter', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            if (isPremium) {
+                this.style.backgroundColor = "rgba(255,255,255,0.95)";
+                this.style.transform = "translateY(-3px)";
+                this.style.borderColor = "#60a5fa";
+                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+            } else {
+                this.style.backgroundColor = "#f1f5f9";
+                this.style.transform = "translateY(-3px)";
+                this.style.borderColor = "#2F80ED";
+                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+            }
+            const title = this.querySelector('.exam-title');
+            if (title) {
+                const isPremium = this.querySelector('.premium-badge') !== null;
+                title.style.color = isPremium ? "#4b5563" : "#1e293b";
+            }
+            const premiumSpan = this.querySelector('.premium-badge');
+            if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+        });
+
+        item.addEventListener('mouseleave', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            if (isPremium) {
+                this.style.backgroundColor = "rgba(255,255,255,0.75)";
+                this.style.transform = "translateY(0)";
+                this.style.borderColor = "#e2e8f0";
+                this.style.boxShadow = "none";
+            } else {
+                this.style.backgroundColor = "#fafbfc";
+                this.style.transform = "translateY(0)";
+                this.style.borderColor = "#e8ecef";
+                this.style.boxShadow = "none";
+            }
+            const title = this.querySelector('.exam-title');
+            if (title) {
+                const isPremium = this.querySelector('.premium-badge') !== null;
+                title.style.color = isPremium ? "#6b7280" : "#1a202c";
+            }
+            const premiumSpan = this.querySelector('.premium-badge');
+            if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+        });
+
+        // تأثير Active
+        item.addEventListener('mousedown', function() {
+            this.style.transform = "scale(0.98)";
+            this.style.backgroundColor = "#e2e8f0";
+            this.style.transition = "all 0.05s ease";
+        });
+
+        item.addEventListener('mouseup', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            this.style.transform = "scale(1)";
+            this.style.backgroundColor = isPremium ? "rgba(255,255,255,0.95)" : "#f1f5f9";
+            this.style.transition = "all 0.25s ease";
+        });
+
+        const title = item.querySelector(".exam-title");
+        if (title) {
+            title.style.fontSize = "11px";
+            title.style.transition = "color 0.25s ease";
+        }
+
+        const badge = item.querySelector(".exam-result-badge");
+        if (badge) badge.style.fontSize = "8px";
+    });
+
+    console.log("🟦 Grid View");
+}
+
+// ============================================
+// إنشاء الأزرار
+// ============================================
+
+function createViewModeToggles() {
+    const header = document.querySelector('.teil-header');
+    if (!header) {
+        setTimeout(createViewModeToggles, 500);
+        return;
+    }
+
+    if (header.style.position !== 'relative') {
+        header.style.position = 'relative';
+    }
+
+    // إزالة الأزرار القديمة
+    const oldBtn1 = document.getElementById('viewModeToggleBtn1');
+    if (oldBtn1) oldBtn1.remove();
+    const oldBtn2 = document.getElementById('viewModeToggleBtn2');
+    if (oldBtn2) oldBtn2.remove();
+
+    // ===== الزر الأول (leaderboard ↔ 123) =====
+    const btn1 = document.createElement('button');
+    btn1.id = 'viewModeToggleBtn1';
+    btn1.className = 'view-mode-toggle-btn-1';
+    btn1.title = 'تبديل ترتيب القائمة';
+
+    // ✅ الأيقونة الظاهرة = المعاكسة للوضع الحالي
+    let currentIndex1 = getViewModeIndex1();
+    // إذا كان الوضع الحالي 0 (leaderboard) → نعرض 123
+    // إذا كان الوضع الحالي 1 (123) → نعرض leaderboard
+    const displayIndex1 = currentIndex1 === 0 ? 1 : 0;
+    const iconName1 = VIEW_ICONS_1[displayIndex1];
+    btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
+    
+    btn1.onclick = function(e) {
+        e.stopPropagation();
+        
+        // التبديل إلى الأيقونة التالية (0→1→0→1...)
+        currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
+        setViewModeIndex1(currentIndex1);
+        
+        // تحديث الأيقونة إلى المعاكس للوضع الجديد
+        const newDisplayIndex = currentIndex1 === 0 ? 1 : 0;
+        const span = this.querySelector('.material-symbols-outlined');
+        if (span) {
+            span.textContent = VIEW_ICONS_1[newDisplayIndex];
+        }
+        
+        // تنفيذ الإجراء المناسب
+        if (currentIndex1 === 0) {
+            // الوضع أصبح leaderboard → نطبق الترتيب
+            applyLeaderboardOrder();
+        } else {
+            // الوضع أصبح 123 → نستعيد الترتيب الأصلي
+            restoreOriginalOrder();
+        }
+        
+        console.log(`🔄 الزر1 تم التبديل إلى الوضع: ${VIEW_ICONS_1[currentIndex1]}`);
+    };
+
+    header.appendChild(btn1);
+
+    // ===== الزر الثاني (view_day ↔ grid_view) =====
+    const btn2 = document.createElement('button');
+    btn2.id = 'viewModeToggleBtn2';
+    btn2.className = 'view-mode-toggle-btn-2';
+    btn2.title = 'تبديل شكل العرض';
+
+    // ✅ الأيقونة الظاهرة = المعاكسة للوضع الحالي
+    let currentIndex2 = getViewModeIndex2();
+    // إذا كان الوضع الحالي 0 (view_day/List) → نعرض grid_view
+    // إذا كان الوضع الحالي 1 (grid_view/Grid) → نعرض view_day
+    const displayIndex2 = currentIndex2 === 0 ? 1 : 0;
+    const iconName2 = VIEW_ICONS_2[displayIndex2];
+    btn2.innerHTML = `<span class="material-symbols-outlined">${iconName2}</span>`;
+
+    btn2.onclick = function(e) {
+        e.stopPropagation();
+        
+        // التبديل إلى الوضع التالي
+        currentIndex2 = (currentIndex2 + 1) % VIEW_ICONS_2.length;
+        setViewModeIndex2(currentIndex2);
+        
+        // تحديث الأيقونة إلى المعاكس للوضع الجديد
+        const newDisplayIndex = currentIndex2 === 0 ? 1 : 0;
+        const span = this.querySelector('.material-symbols-outlined');
+        if (span) {
+            span.textContent = VIEW_ICONS_2[newDisplayIndex];
+        }
+        
+        // تطبيق الشكل المناسب
+        if (currentIndex2 === 1) {
+            setExamListMode("grid");
+            applyExamListView("grid");
+        } else {
+            setExamListMode("list");
+            applyExamListView("list");
+        }
+        
+        console.log(`🔄 الزر2 تم التبديل إلى: ${VIEW_ICONS_2[currentIndex2]}`);
+    };
+
+    header.appendChild(btn2);
+
+    setTimeout(saveOriginalOrder, 200);
+    applyExamListView(getExamListMode());
+
+    console.log('✅ زرين للتبديل تم إضافتهما في أقصى يمين .teil-header');
+}
+
+// ============================================
+// تشغيل الأزرار عند تحميل الصفحة وعند تغيير الأقسام
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        createViewModeToggles();
+    }, 300);
+});
+
+// عند تغيير القسم (Teil)
+const originalRenderExamList = window.renderExamListForSkill;
+if (originalRenderExamList) {
+    window.renderExamListForSkill = function(skill, teilName) {
+        originalRenderExamList(skill, teilName);
+        setTimeout(() => {
+            createViewModeToggles();
+            saveOriginalOrder();
+            applyExamListView(getExamListMode());
+        }, 200);
+    };
+}
+
+// تصدير الدوال للاستخدام العام
+window.createViewModeToggles = createViewModeToggles;
+window.applyExamListView = applyExamListView;
+window.getExamListMode = getExamListMode;
+window.setExamListMode = setExamListMode;
+window.saveOriginalOrder = saveOriginalOrder;
+window.restoreOriginalOrder = restoreOriginalOrder;
+window.applyLeaderboardOrder = applyLeaderboardOrder;
+
+console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view) مع وظائف الترتيب تم تحميلهما');
+
+// ============================================
+// تصدير openExam للاستخدام العالمي
+// ============================================
+window.openExam = openExam;
+
+// ============================================
+// ✅ نظام Badge التعديلات - النسخة النهائية
+// ============================================
+
+function addVersionBadgesFixed() {
+    const container = document.getElementById('examsList');
+    if (!container) return;
+    
+    const skill = window.currentSkill || 'lesen1';
+    if (skill !== 'lesen1') return;
+    
+    const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
+    if (!items.length) return;
+    
+    items.forEach(el => {
+        const title = el.querySelector('.exam-title');
+        if (!title) return;
+        
+        const match = title.textContent.match(/^(\d+):/);
+        if (!match) return;
+        const examId = parseInt(match[1]);
+        
+        const exam = currentExamsList.find(e => e.id === examId);
+        if (!exam || !exam.versions || exam.versions.length <= 1) return;
+        
+        const oldBadge = el.querySelector('.custom-badge');
+        if (oldBadge) oldBadge.remove();
+        
+        const badge = document.createElement('span');
+        badge.className = 'custom-badge';
+        badge.innerHTML = `
+            <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
+            <span style="font-size:9px; font-weight:600;">${exam.versions.length}</span>
+        `;
+        badge.style.cssText = `
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 2px !important;
+            background: linear-gradient(135deg, #334155, #1e293b) !important;
+            color: #f1f5f9 !important;
+            border-radius: 999px !important;
+            padding: 0 8px 0 4px !important;
+            height: 22px !important;
+            flex-shrink: 0 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+            border: 1px solid #475569 !important;
+            user-select: none !important;
+            line-height: 1 !important;
+        `;
+        badge.title = `${exam.versions.length} تعديلات`;
+        
+        badge.onmouseenter = () => { badge.style.transform = 'scale(1.08)'; };
+        badge.onmouseleave = () => { badge.style.transform = 'scale(1)'; };
+        
+        // ============================================
+        // ✅ التعديل: نقل البادج إلى جهة اليمين بعد Premium
+        // ============================================
+        
+        // البحث عن حاوية الجهة اليمنى (exam-right-icons)
+        let rightSide = el.querySelector('.exam-right-icons');
+        
+        if (rightSide) {
+            // ✅ نضيف البادج في نهاية الحاوية (بعد شارة Premium)
+            rightSide.appendChild(badge);
+        } else {
+            // ✅ إذا لم توجد حاوية، ننشئها ونضيف البادج فيها
+            rightSide = document.createElement('span');
+            rightSide.className = 'exam-right-icons';
+            rightSide.style.cssText = `
+                display: flex !important;
+                align-items: center !important;
+                gap: 6px !important;
+                flex-shrink: 0 !important;
+                margin-right: 4px !important;
+            `;
+            
+            // نضيف البادج في الحاوية الجديدة
+            rightSide.appendChild(badge);
+            
+            // نضيف الحاوية إلى الـ div الرئيسي
+            el.appendChild(rightSide);
+        }
+        
         // ============================================
         // ✅ إضافة حدث النقر على البادج
         // ============================================
