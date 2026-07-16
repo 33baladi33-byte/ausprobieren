@@ -2749,3 +2749,205 @@ function showVersionsPopup(versions, mainTitle) {
         document.head.appendChild(style);
     }
 }
+// ============================================
+// نظام Badge التعديلات التلقائي - يعمل في جميع الأقسام
+// ============================================
+
+// تعريف الامتحانات التي لها تعديلات في جميع الأقسام
+const EXAM_VERSIONS = {
+    // Hören 1
+    'hoeren1_2': { versions: ['الإصدار الأساسي', 'التعديل الأول', 'التعديل الثاني'] },
+    'hoeren1_5': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
+    // Lesen 1
+    'lesen1_2': { versions: ['الإصدار الأساسي', 'التعديل الأول', 'التعديل الثاني'] },
+    'lesen1_5': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
+    // Hören 2
+    'hoeren2_3': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
+    // Lesen 2
+    'lesen2_1': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
+    // Hören 3
+    'hoeren3_4': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
+    // Lesen 3
+    'lesen3_6': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
+    // Sprach 1
+    'sprach1_2': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
+    // Sprach 2
+    'sprach2_3': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
+};
+
+// دالة إضافة Badge للامتحانات في جميع الأقسام
+function addVersionBadges() {
+    const container = document.getElementById('examsList');
+    if (!container) return;
+    
+    const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
+    if (!items.length) return;
+    
+    const skill = window.currentSkill || 'lesen1';
+    
+    items.forEach(el => {
+        const title = el.querySelector('.exam-title');
+        if (!title) return;
+        
+        const match = title.textContent.match(/^(\d+):/);
+        if (!match) return;
+        const examId = parseInt(match[1]);
+        
+        // التحقق من وجود تعديلات في EXAM_VERSIONS
+        const key = `${skill}_${examId}`;
+        const versionData = EXAM_VERSIONS[key];
+        if (!versionData) return;
+        
+        // إزالة Badge قديم
+        const oldBadge = el.querySelector('.version-badge-auto');
+        if (oldBadge) oldBadge.remove();
+        
+        // إنشاء Badge جديد
+        const badge = document.createElement('span');
+        badge.className = 'version-badge-auto';
+        badge.innerHTML = `
+            <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
+            <span style="font-size:9px; font-weight:600;">${versionData.versions.length}</span>
+        `;
+        badge.style.cssText = `
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            background: linear-gradient(135deg, #334155, #1e293b);
+            color: #f1f5f9;
+            border-radius: 999px;
+            padding: 0 8px 0 4px;
+            height: 22px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 8px;
+            cursor: pointer;
+            flex-shrink: 0;
+            border: 1px solid #475569;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            transition: all 0.2s ease;
+        `;
+        badge.title = `${versionData.versions.length} تعديلات`;
+        
+        badge.onmouseenter = () => {
+            badge.style.transform = 'scale(1.08)';
+            badge.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+        };
+        badge.onmouseleave = () => {
+            badge.style.transform = 'scale(1)';
+            badge.style.boxShadow = '0 2px 6px rgba(0,0,0,0.15)';
+        };
+        
+        badge.onclick = (e) => {
+            e.stopPropagation();
+            showVersionsPopupAuto(versionData.versions, title.textContent);
+        };
+        
+        title.appendChild(badge);
+    });
+}
+
+// دالة عرض نافذة التعديلات (مطابقة للتصميم)
+function showVersionsPopupAuto(versions, mainTitle) {
+    const oldPopup = document.getElementById('versionsPopupAuto');
+    if (oldPopup) oldPopup.remove();
+    
+    const overlay = document.createElement('div');
+    overlay.id = 'versionsPopupAuto';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.3);
+        backdrop-filter: blur(3px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        animation: fadeIn 0.2s ease;
+    `;
+    
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        background: #1a1f2e;
+        border-radius: 20px;
+        padding: 28px 24px;
+        max-width: 340px;
+        width: 90%;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        border: 1px solid #2a3042;
+        animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        color: #e2e8f0;
+        text-align: center;
+    `;
+    
+    modal.innerHTML = `
+        <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${versions.length} تعديلات</h4>
+        <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
+        ${versions.map((v, i) => `
+            <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;">
+                <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
+                <span style="font-size:13px; font-weight:500; text-align:left;">${v}</span>
+            </div>
+        `).join('')}
+        <button style="margin-top:16px; width:100%; padding:10px; background:#334155; border:1px solid #475569; border-radius:40px; color:#e2e8f0; font-weight:600; cursor:pointer; transition:0.2s;" onclick="this.closest('#versionsPopupAuto').remove()">إغلاق</button>
+    `;
+    
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    
+    overlay.onclick = (e) => {
+        if (e.target === overlay) {
+            overlay.style.opacity = '0';
+            modal.style.transform = 'scale(0.9)';
+            setTimeout(() => overlay.remove(), 200);
+        }
+    };
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const popup = document.getElementById('versionsPopupAuto');
+            if (popup) popup.remove();
+        }
+    }, { once: true });
+    
+    if (!document.getElementById('modal-style-auto')) {
+        const style = document.createElement('style');
+        style.id = 'modal-style-auto';
+        style.textContent = `
+            @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+            @keyframes scaleIn { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+// ✅ ربط النظام مع renderExamListForSkill
+const originalRenderExamListForBadge = window.renderExamListForSkill;
+if (originalRenderExamListForBadge) {
+    window.renderExamListForSkill = function(skill, teilName) {
+        originalRenderExamListForBadge(skill, teilName);
+        setTimeout(addVersionBadges, 200);
+    };
+}
+
+// ✅ استدعاء عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(addVersionBadges, 600);
+});
+
+// ✅ استدعاء عند تغيير القسم
+const observerForBadges = new MutationObserver(function() {
+    if (document.getElementById('list')?.classList.contains('active')) {
+        setTimeout(addVersionBadges, 300);
+    }
+});
+observerForBadges.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+// تصدير الدوال
+window.addVersionBadges = addVersionBadges;
+window.showVersionsPopupAuto = showVersionsPopupAuto;
+
+console.log('✅ نظام Badge التعديلات التلقائي تم تحميله (يعمل في جميع الأقسام)');
