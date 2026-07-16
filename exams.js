@@ -1035,10 +1035,9 @@ setTimeout(function() {
     } else {
         applyExamListView("list");
     }
-    
+}, 50);  // ✅ هنا قوس الإغلاق و 50ms
 
 setTimeout(setupLockedNextButton, 100);
-}
 
 function setupLockedNextButton() {
   const nextBtn = document.getElementById('nextExamBtn');
