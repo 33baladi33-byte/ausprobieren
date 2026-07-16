@@ -2684,7 +2684,9 @@ function createViewModeToggles() {
         console.log(`🔄 الزر2 تم التبديل إلى: ${VIEW_ICONS_2[currentIndex2]}`);
     };
 
-    header.appendChild(btn2);
+       header.appendChild(btn2);
+
+}  // ← أضف هذا القوس هنا
 
     setTimeout(saveOriginalOrder, 200);
     applyExamListView(getExamListMode());
