@@ -2679,14 +2679,44 @@ window.openExam = openExam;
 // ✅ نظام Badge التعديلات - النسخة النهائية
 // ============================================
 
-// تعريف الامتحانات التي لها تعديلات
 const EXAM_VERSIONS_FIX = {
-    'hoeren1_2': { versions: ['الإصدار الأساسي', 'التعديل الأول', 'التعديل الثاني'] },
-    'hoeren1_5': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
-    'lesen1_2': { versions: ['الإصدار الأساسي', 'التعديل الأول', 'التعديل الثاني'] },
-    'lesen1_5': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
-    'hoeren2_3': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
-    'lesen2_1': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
+    'hoeren1_2': { 
+        versions: [
+            { id: 2, file: "exam2.json", title: "Die Piloten der Lufthansa" },
+            { id: 3, file: "exam3.json", title: "Die Stadt Friedrichsberg" },
+            { id: 4, file: "exam4.json", title: "Erdbeben" }
+        ]
+    },
+    'hoeren1_5': { 
+        versions: [
+            { id: 5, file: "exam5.json", title: "Bierkonsum" },
+            { id: 6, file: "exam6.json", title: "Bierkonsum (Mittel)" }
+        ]
+    },
+    'lesen1_2': { 
+        versions: [
+            { id: 2, file: "exam2.json", title: "sport ist gesund" },
+            { id: 3, file: "exam3.json", title: "sport ist gesund (التعديل 1)" }
+        ]
+    },
+    'lesen1_5': { 
+        versions: [
+            { id: 5, file: "exam5.json", title: "Tanzkurs (التعديل 1)" },
+            { id: 4, file: "exam4.json", title: "Tanzkurs" }
+        ]
+    },
+    'hoeren2_3': { 
+        versions: [
+            { id: 3, file: "exam3.json", title: "Suza Hotop (Mittel)" },
+            { id: 2, file: "exam2.json", title: "Suza Hotop" }
+        ]
+    },
+    'lesen2_1': { 
+        versions: [
+            { id: 1, file: "exam1.json", title: "Krista" },
+            { id: 2, file: "exam2.json", title: "Krista (معدل)" }
+        ]
+    },
 };
 
 // ✅ دالة عرض النافذة - تقرأ العناوين من versions مباشرة
