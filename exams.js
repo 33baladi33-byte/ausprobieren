@@ -182,6 +182,7 @@ const lesenExams = [
 // ============================================
 const VERSION_GROUPS = {
   'lesen1': {
+    // المجموعة 1: exam1 + exam1b
     1: {
       main: 1,
       versions: [
@@ -189,6 +190,8 @@ const VERSION_GROUPS = {
         { id: 101, file: "exam1b.json", title: "kellner (Jugend Forscher) (التعديل 1)" }
       ]
     },
+    
+    // المجموعة 2: exam2 + exam3 + exam3b
     2: {
       main: 2,
       versions: [
@@ -197,14 +200,19 @@ const VERSION_GROUPS = {
         { id: 103, file: "exam3b.json", title: "sport ist gesund (التعديل 2)" }
       ]
     },
+    
+    // المجموعة 4: exam4 + exam5 + exam5b + exam5c
     4: {
       main: 4,
       versions: [
         { id: 4, file: "exam4.json", title: "Tanzkurs" },
         { id: 5, file: "exam5.json", title: "Tanzkurs (التعديل 1)" },
-        { id: 102, file: "exam5b.json", title: "Tanzkurs (التعديل 2)" }
+        { id: 102, file: "exam5b.json", title: "Tanzkurs (التعديل 2)" },
+        { id: 106, file: "exam5c.json", title: "Tanzkurs (التعديل 3)" }
       ]
     },
+    
+    // المجموعة 8: exam8 + exam8b
     8: {
       main: 8,
       versions: [
@@ -212,17 +220,101 @@ const VERSION_GROUPS = {
         { id: 104, file: "exam8b.json", title: "Bilder (التعديل 1)" }
       ]
     },
+    
+    // المجموعة 9: exam9 + exam9b
     9: {
       main: 9,
       versions: [
         { id: 9, file: "exam9.json", title: "Grundschule" },
         { id: 105, file: "exam9b.json", title: "Grundschule (التعديل 1)" }
       ]
+    },
+    
+    // المجموعة 10: exam10 + exam10b
+    10: {
+      main: 10,
+      versions: [
+        { id: 10, file: "exam10.json", title: "Österreich - Naschmarkt" },
+        { id: 107, file: "exam10b.json", title: "Österreich - Naschmarkt (التعديل 1)" }
+      ]
+    },
+    
+    // المجموعة 11: exam11 + exam12
+    11: {
+      main: 11,
+      versions: [
+        { id: 11, file: "exam11.json", title: "Insekten" },
+        { id: 12, file: "exam12.json", title: "Insekten (التعديل 1)" }
+      ]
+    },
+    
+    // المجموعة 15: exam15 + exam16 + exam17
+    15: {
+      main: 15,
+      versions: [
+        { id: 15, file: "exam15.json", title: "Programmierer" },
+        { id: 16, file: "exam16.json", title: "Programmierer (التعديل 1)" },
+        { id: 17, file: "exam17.json", title: "Programmierer (التعديل 2)" }
+      ]
+    },
+    
+    // المجموعة 21: exam21 + exam22
+    21: {
+      main: 21,
+      versions: [
+        { id: 21, file: "exam21.json", title: "Licht" },
+        { id: 22, file: "exam22.json", title: "Licht (التعديل 1)" }
+      ]
+    },
+    
+    // المجموعة 23: exam23 + exam24
+    23: {
+      main: 23,
+      versions: [
+        { id: 23, file: "exam23.json", title: "Kartoffel" },
+        { id: 24, file: "exam24.json", title: "Kartoffel (التعديل 1)" }
+      ]
+    },
+    
+    // المجموعة 30: exam30 + exam31 + exam32
+    30: {
+      main: 30,
+      versions: [
+        { id: 30, file: "exam30.json", title: "Alpen" },
+        { id: 31, file: "exam31.json", title: "Alpen (التعديل 1)" },
+        { id: 32, file: "exam32.json", title: "Alpen (التعديل 2)" }
+      ]
+    },
+    
+    // المجموعة 35: exam35 + exam36
+    35: {
+      main: 35,
+      versions: [
+        { id: 35, file: "exam35.json", title: "kein Zeit" },
+        { id: 36, file: "exam36.json", title: "kein Zeit (التعديل 1)" }
+      ]
+    },
+    
+    // المجموعة 37: exam37 + exam38 + exam39
+    37: {
+      main: 37,
+      versions: [
+        { id: 37, file: "exam37.json", title: "Limonade" },
+        { id: 38, file: "exam38.json", title: "Limonade (التعديل 1)" },
+        { id: 39, file: "exam39.json", title: "Limonade (التعديل 2)" }
+      ]
+    },
+    
+    // المجموعة 41: exam41 + exam42
+    41: {
+      main: 41,
+      versions: [
+        { id: 41, file: "exam41.json", title: "Schlafzug" },
+        { id: 42, file: "exam42.json", title: "Schlafzug (التعديل 1)" }
+      ]
     }
-    // يمكنك إضافة المزيد من المجموعات هنا حسب الحاجة
   }
 };
-
 // ========== قائمة امتحانات Schreiben ==========
 const schreibenExams = [
   { id: 1, title: "Fotobuch", enabled: true, hasFile: true },
@@ -352,7 +444,10 @@ const actualFileNames = {
   102: "exam5b.json",
   103: "exam3b.json",
   104: "exam8b.json",
-  105: "exam9b.json"
+  105: "exam9b.json",
+  106: "exam5c.json",
+  107: "exam10b.json",
+  108: "exam15c.json"  // إذا كان هناك ملف exam15c.json
 };
 
 // ========== قاعدة بيانات الامتحانات ==========
