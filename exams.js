@@ -175,7 +175,7 @@ const lesenExams = [
 ];
 
 // ============================================
-// ✅ جدول الإصدارات اليدوي لـ Lesen 1 و Lesen 2
+// ✅ جدول الإصدارات اليدوي لـ Lesen 1 و Lesen 2 و Lesen 3
 // ============================================
 const VERSION_GROUPS = {
   'lesen1': {
@@ -363,6 +363,85 @@ const VERSION_GROUPS = {
         { id: 36, file: "exam36.json", title: "Nachtzug (معدل)" }
       ]
     }
+  },
+  'lesen3': {
+    1: {
+      main: 1,
+      versions: [
+        { id: 1, file: "exam1.json", title: "Filme - Fernsehprogramme" },
+        { id: 2, file: "exam2.json", title: "Filme - Fernsehprogramme (معدل)" }
+      ]
+    },
+    3: {
+      main: 3,
+      versions: [
+        { id: 3, file: "exam3.json", title: "Im Katalog eines Buchversands" },
+        { id: 109, file: "exam3b.json", title: "Im Katalog eines Buchversands (معدل)" }
+      ]
+    },
+    4: {
+      main: 4,
+      versions: [
+        { id: 4, file: "exam4.json", title: "kein Zeit" },
+        { id: 5, file: "exam5.json", title: "kein Zeit (معدل)" }
+      ]
+    },
+    6: {
+      main: 6,
+      versions: [
+        { id: 6, file: "exam6.json", title: "Musik - spielt Gitarre" },
+        { id: 110, file: "exam6b.json", title: "Musik - spielt Gitarre (معدل)" }
+      ]
+    },
+    7: {
+      main: 7,
+      versions: [
+        { id: 7, file: "exam7.json", title: "Die schwangere Frau" },
+        { id: 8, file: "exam8.json", title: "Die schwangere Frau (معدل)" }
+      ]
+    },
+    10: {
+      main: 10,
+      versions: [
+        { id: 10, file: "exam10.json", title: "Ganztagesausflug" },
+        { id: 111, file: "exam10b.json", title: "Ganztagesausflug (معدل)" }
+      ]
+    },
+    12: {
+      main: 12,
+      versions: [
+        { id: 12, file: "exam12.json", title: "Rechtsanwalt" },
+        { id: 13, file: "exam13.json", title: "Rechtsanwalt (معدل)" }
+      ]
+    },
+    21: {
+      main: 21,
+      versions: [
+        { id: 21, file: "exam21.json", title: "Sport" },
+        { id: 22, file: "exam22.json", title: "Sport (معدل)" }
+      ]
+    },
+    24: {
+      main: 24,
+      versions: [
+        { id: 24, file: "exam24.json", title: "Reiseführer" },
+        { id: 112, file: "exam24b.json", title: "Reiseführer (معدل)" }
+      ]
+    },
+    28: {
+      main: 28,
+      versions: [
+        { id: 28, file: "exam28.json", title: "Musikinstrumente" },
+        { id: 29, file: "exam29.json", title: "Musikinstrumente (معدل)" }
+      ]
+    },
+    33: {
+      main: 33,
+      versions: [
+        { id: 33, file: "exam33.json", title: "ein paar Tage in Berlin" },
+        { id: 34, file: "exam34.json", title: "ein paar Tage in Berlin (معدل)" }
+      ]
+    }
   }
 };
 // ========== قائمة امتحانات Schreiben ==========
@@ -499,7 +578,11 @@ const actualFileNames = {
   106: "exam5c.json",
   107: "exam10b.json",
   108: "exam15c.json",
-  108: "exam16b.json"
+  108: "exam16b.json",
+  109: "exam3b.json",
+  110: "exam6b.json",
+  111: "exam10b.json",
+  112: "exam24b.json"
 };
 
 // ========== قاعدة بيانات الامتحانات ==========
@@ -1002,7 +1085,7 @@ async function renderExamListForSkill(skill, teilName) {
   let targetExams = examsDatabase[skill] || [];
   
  // ✅ التعديل: إخفاء الامتحانات التي هي نسخ (versions) وإضافة versions للامتحانات الأساسية
-if (skill === 'lesen1' || skill === 'lesen2') {
+if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3') {
     const groups = VERSION_GROUPS[skill] || {};
     const versionIds = new Set();
     
@@ -2901,7 +2984,7 @@ function addVersionBadgesFixed() {
     if (!container) return;
     
     const skill = window.currentSkill || 'lesen1';
- if (skill !== 'lesen1' && skill !== 'lesen2') return;
+if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3') return;
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
     if (!items.length) return;
