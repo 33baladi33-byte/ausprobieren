@@ -1134,7 +1134,7 @@ function showVersionsPopup(exam, skill) {
   `;
   
   modal.innerHTML = `
-    <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${exam.versions.length} تعديلات</h4>
+    <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;"> هذا الامتحان له ${exam.versions.length} تعديلات</h4>
     <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
     ${exam.versions.map((v, i) => `
       <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
@@ -2936,7 +2936,7 @@ function addVersionBadgesFixed() {
             `;
             
             modal.innerHTML = `
-                <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${exam.versions.length} تعديلات</h4>
+                <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;"> هذا الامتحان له ${exam.versions.length} تعديلات</h4>
                 <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
                 ${exam.versions.map((v, i) => `
                     <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
