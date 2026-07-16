@@ -795,26 +795,35 @@ function renderMündlichPartTabs() {
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
 // ===== معالجة الامتحانات ذات التعديلات =====
-// إنشاء مجموعة من الامتحانات الأساسية فقط (تلك التي ليس لها parent)
+// إنشاء مجموعة من الامتحانات الأساسية فقط (مع الاحتفاظ بالامتحانات التي لها versions)
 function getMainExams(exams) {
     const mainExams = [];
     const versionIds = new Set();
+    const mainExamIds = new Set();
     
-    // أولاً: جمع كل الـ IDs التي تظهر كتعديلات
+    // أولاً: تحديد الامتحانات الرئيسية (تلك التي لها versions)
     exams.forEach(exam => {
         if (exam.versions && exam.versions.length > 1) {
+            // هذا امتحان رئيسي، نحتفظ به
+            mainExamIds.add(exam.id);
+            // نجمع IDs التعديلات (جميع الإصدارات ما عدا الأول)
             exam.versions.forEach((v, idx) => {
                 if (idx > 0) versionIds.add(v.id);
             });
         }
     });
     
-    // ثانياً: إضافة الامتحانات الأساسية فقط
+    // ثانياً: إضافة الامتحانات
     exams.forEach(exam => {
-        // إذا كان هذا الامتحان ليس تعديلاً (أي ليس في versionIds)
-        if (!versionIds.has(exam.id)) {
+        // إذا كان هذا الامتحان رئيسي (لديه versions) → نحتفظ به
+        if (mainExamIds.has(exam.id)) {
             mainExams.push(exam);
         }
+        // إذا كان هذا الامتحان ليس تعديلاً لامتحان آخر → نحتفظ به
+        else if (!versionIds.has(exam.id)) {
+            mainExams.push(exam);
+        }
+        // وإلا (إذا كان تعديلاً) → نتجاهله
     });
     
     return mainExams;
@@ -2802,4 +2811,4 @@ function showVersionsPopup(versions, mainTitle) {
 
 // ✅ تصدير الدوال للاستخدام العام
 window.showVersionsPopup = showVersionsPopup;
-} 
+
