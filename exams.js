@@ -112,15 +112,7 @@ const tipsExams = [
 
 // ========== قائمة امتحانات Lesen Teil 1 ==========
 const lesenExams = [
-  { 
-    id: 1, 
-    title: "Jugend Forscher", 
-    enabled: true, 
-    hasFile: true,
-    versions: [
-      { id: 1, file: "exam1.json", title: "Jugend Forscher" }
-    ]
-  },
+   { id: 1, title: "kellner (Jugend Forscher)", enabled: true, hasFile: true },  
   { 
     id: 2, 
     title: "sport ist gesund", 
@@ -2678,43 +2670,11 @@ window.openExam = openExam;
 // ============================================
 // ✅ نظام Badge التعديلات - النسخة النهائية
 // ============================================
-
 const EXAM_VERSIONS_FIX = {
-    'hoeren1_2': { 
-        versions: [
-            { id: 2, file: "exam2.json", title: "Die Piloten der Lufthansa" },
-            { id: 3, file: "exam3.json", title: "Die Stadt Friedrichsberg" },
-            { id: 4, file: "exam4.json", title: "Erdbeben" }
-        ]
-    },
-    'hoeren1_5': { 
-        versions: [
-            { id: 5, file: "exam5.json", title: "Bierkonsum" },
-            { id: 6, file: "exam6.json", title: "Bierkonsum (Mittel)" }
-        ]
-    },
     'lesen1_2': { 
         versions: [
             { id: 2, file: "exam2.json", title: "sport ist gesund" },
             { id: 3, file: "exam3.json", title: "sport ist gesund (التعديل 1)" }
-        ]
-    },
-    'lesen1_5': { 
-        versions: [
-            { id: 5, file: "exam5.json", title: "Tanzkurs (التعديل 1)" },
-            { id: 4, file: "exam4.json", title: "Tanzkurs" }
-        ]
-    },
-    'hoeren2_3': { 
-        versions: [
-            { id: 3, file: "exam3.json", title: "Suza Hotop (Mittel)" },
-            { id: 2, file: "exam2.json", title: "Suza Hotop" }
-        ]
-    },
-    'lesen2_1': { 
-        versions: [
-            { id: 1, file: "exam1.json", title: "Krista" },
-            { id: 2, file: "exam2.json", title: "Krista (معدل)" }
         ]
     },
 };
@@ -2797,8 +2757,7 @@ function showVersionsPopupAuto(versions, mainTitle) {
         document.head.appendChild(style);
     }
 }
-
-// ✅ الدالة الرئيسية لإضافة البادج
+// ✅ الدالة الرئيسية لإضافة البادج - بالشكل المطلوب (مع أيقونة layers)
 function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
     if (!container) return;
@@ -2821,40 +2780,28 @@ function addVersionBadgesFixed() {
         const versionData = EXAM_VERSIONS_FIX[key];
         if (!versionData) return;
         
-        const oldBadge = el.querySelector('.version-badge-auto');
+        // إزالة أي بادج قديم
+        const oldBadge = el.querySelector('.custom-badge');
         if (oldBadge) oldBadge.remove();
         
+        // إنشاء البادج الجديد بالشكل المطلوب
         const badge = document.createElement('span');
-        badge.className = 'version-badge-auto';
-        badge.textContent = versionData.versions.length;
+        badge.className = 'custom-badge';
+        badge.innerHTML = `
+            <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
+            <span style="font-size:9px; font-weight:600;">${versionData.versions.length}</span>
+        `;
         badge.style.cssText = `
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-flex; align-items: center; justify-content: center; gap: 1px;
             background: linear-gradient(135deg, #334155, #1e293b);
-            color: #f1f5f9;
-            border-radius: 999px;
-            padding: 0 8px;
-            height: 20px;
-            font-size: 9px;
-            font-weight: 600;
-            margin-left: 6px;
-            cursor: pointer;
-            flex-shrink: 0;
-            border: 1px solid #475569;
-            transition: all 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: #f1f5f9; border-radius: 999px; padding: 0 8px 0 4px; height: 22px;
+            margin-left: auto; flex-shrink: 0; cursor: pointer; transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15); border: 1px solid #475569;
         `;
         badge.title = `${versionData.versions.length} تعديلات`;
         
-        badge.onmouseenter = () => {
-            badge.style.transform = 'scale(1.08)';
-            badge.style.boxShadow = '0 4px 8px rgba(0,0,0,0.2)';
-        };
-        badge.onmouseleave = () => {
-            badge.style.transform = 'scale(1)';
-            badge.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
-        };
+        badge.onmouseenter = () => { badge.style.transform = 'scale(1.08)'; };
+        badge.onmouseleave = () => { badge.style.transform = 'scale(1)'; };
         
         badge.onclick = (e) => {
             e.stopPropagation();
@@ -2865,9 +2812,8 @@ function addVersionBadgesFixed() {
         addedCount++;
     });
     
-    if (addedCount > 0) console.log(`✅ تم إضافة ${addedCount} Badge`);
+    if (addedCount > 0) console.log(`✅ تم إضافة ${addedCount} Badge (مع أيقونة layers)`);
 }
-
 // ✅ تصدير الدوال للاستخدام العام
 window.addVersionBadgesFixed = addVersionBadgesFixed;
 window.showVersionsPopupAuto = showVersionsPopupAuto;
