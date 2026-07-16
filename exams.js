@@ -442,6 +442,80 @@ const VERSION_GROUPS = {
         { id: 34, file: "exam34.json", title: "ein paar Tage in Berlin (معدل)" }
       ]
     }
+  },
+  'sprach1': {
+    1: {
+      main: 1,
+      versions: [
+        { id: 1, file: "exam1.json", title: "Hallo Ferdinand" },
+        { id: 2, file: "exam2.json", title: "Hallo Ferdinand (معدل)" }
+      ]
+    },
+    5: {
+      main: 5,
+      versions: [
+        { id: 5, file: "exam5.json", title: "Liebe Karin" },
+        { id: 6, file: "exam6.json", title: "Liebe Karin (معدل)" },
+        { id: 113, file: "exam6b.json", title: "Liebe Karin (معدل 2)" }
+      ]
+    },
+    8: {
+      main: 8,
+      versions: [
+        { id: 8, file: "exam8.json", title: "Sehr geehrter Herr Martini" },
+        { id: 9, file: "exam9.json", title: "Sehr geehrter Herr Martini (معدل)" }
+      ]
+    },
+    11: {
+      main: 11,
+      versions: [
+        { id: 11, file: "exam11.json", title: "Lieber Justus" },
+        { id: 12, file: "exam12.json", title: "Lieber Justus (معدل)" }
+      ]
+    },
+    17: {
+      main: 17,
+      versions: [
+        { id: 17, file: "exam17.json", title: "Sehr geehrter Herr Dr. Moosberger (معدل)" },
+        { id: 18, file: "exam18.json", title: "Sehr geehrter Herr Dr. Dobromil" }
+      ]
+    },
+    20: {
+      main: 20,
+      versions: [
+        { id: 20, file: "exam20.json", title: "Liebes Julian" },
+        { id: 114, file: "exam20b.json", title: "Liebes Julian (معدل)" }
+      ]
+    },
+    22: {
+      main: 22,
+      versions: [
+        { id: 22, file: "exam22.json", title: "Liebe Corinna (معدل)" },
+        { id: 23, file: "exam23.json", title: "Liebe Corinna" }
+      ]
+    },
+    28: {
+      main: 28,
+      versions: [
+        { id: 28, file: "exam28.json", title: "Liebe Andrea" },
+        { id: 29, file: "exam29.json", title: "Liebe Andrea (معدل)" },
+        { id: 115, file: "exam29b.json", title: "Liebe Andrea (معدل 2)" }
+      ]
+    },
+    31: {
+      main: 31,
+      versions: [
+        { id: 31, file: "exam31.json", title: "Sehr geehrte Frau Szabo" },
+        { id: 32, file: "exam32.json", title: "Sehr geehrte Frau Szabo (معدل)" }
+      ]
+    },
+    40: {
+      main: 40,
+      versions: [
+        { id: 40, file: "exam40.json", title: "Liebe Sandra" },
+        { id: 116, file: "exam40b.json", title: "Liebe Sandra (معدل)" }
+      ]
+    }
   }
 };
 // ========== قائمة امتحانات Schreiben ==========
@@ -582,7 +656,16 @@ const actualFileNames = {
   109: "exam3b.json",
   110: "exam6b.json",
   111: "exam10b.json",
-  112: "exam24b.json"
+  112: "exam24b.json",
+  108: "exam16b.json",
+  109: "exam3b.json",
+  110: "exam6b.json",
+  111: "exam10b.json",
+  112: "exam24b.json",
+  113: "exam6b.json",
+  114: "exam20b.json",
+  115: "exam29b.json",
+  116: "exam40b.json"
 };
 
 // ========== قاعدة بيانات الامتحانات ==========
@@ -1085,7 +1168,7 @@ async function renderExamListForSkill(skill, teilName) {
   let targetExams = examsDatabase[skill] || [];
   
  // ✅ التعديل: إخفاء الامتحانات التي هي نسخ (versions) وإضافة versions للامتحانات الأساسية
-if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3') {
+if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1') {
     const groups = VERSION_GROUPS[skill] || {};
     const versionIds = new Set();
     
@@ -2984,7 +3067,7 @@ function addVersionBadgesFixed() {
     if (!container) return;
     
     const skill = window.currentSkill || 'lesen1';
-if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3') return;
+if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 'sprach1') return;
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
     if (!items.length) return;
