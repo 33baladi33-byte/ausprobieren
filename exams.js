@@ -2757,7 +2757,7 @@ function showVersionsPopupAuto(versions, mainTitle) {
         document.head.appendChild(style);
     }
 }
-// ✅ الدالة الرئيسية لإضافة البادج - بالشكل المطلوب (مع أيقونة layers)
+// ✅ الدالة الرئيسية لإضافة البادج - بالشكل المطلوب
 function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
     if (!container) return;
@@ -2765,7 +2765,15 @@ function addVersionBadgesFixed() {
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
     if (!items.length) return;
     
+    // ✅ نأخذ المهارة الحالية
     const skill = window.currentSkill || 'lesen1';
+    
+    // ✅ فقط إذا كانت المهارة هي lesen1 نضيف البادج
+    if (skill !== 'lesen1') {
+        console.log(`⏭️ تخطي إضافة Badge لـ ${skill} (مخصص فقط لـ lesen1)`);
+        return;
+    }
+    
     let addedCount = 0;
     
     items.forEach(el => {
@@ -2776,15 +2784,17 @@ function addVersionBadgesFixed() {
         if (!match) return;
         const examId = parseInt(match[1]);
         
-        const key = `${skill}_${examId}`;
-        const versionData = EXAM_VERSIONS_FIX[key];
+        // ✅ فقط الامتحان رقم 2
+        if (examId !== 2) return;
+        
+        const versionData = EXAM_VERSIONS_FIX['lesen1_2'];
         if (!versionData) return;
         
         // إزالة أي بادج قديم
         const oldBadge = el.querySelector('.custom-badge');
         if (oldBadge) oldBadge.remove();
         
-        // إنشاء البادج الجديد بالشكل المطلوب
+        // إنشاء البادج الجديد
         const badge = document.createElement('span');
         badge.className = 'custom-badge';
         badge.innerHTML = `
@@ -2792,11 +2802,23 @@ function addVersionBadgesFixed() {
             <span style="font-size:9px; font-weight:600;">${versionData.versions.length}</span>
         `;
         badge.style.cssText = `
-            display: inline-flex; align-items: center; justify-content: center; gap: 1px;
-            background: linear-gradient(135deg, #334155, #1e293b);
-            color: #f1f5f9; border-radius: 999px; padding: 0 8px 0 4px; height: 22px;
-            margin-left: auto; flex-shrink: 0; cursor: pointer; transition: all 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15); border: 1px solid #475569;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 2px !important;
+            background: linear-gradient(135deg, #334155, #1e293b) !important;
+            color: #f1f5f9 !important;
+            border-radius: 999px !important;
+            padding: 0 8px 0 4px !important;
+            height: 22px !important;
+            margin-left: auto !important;
+            flex-shrink: 0 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+            border: 1px solid #475569 !important;
+            user-select: none !important;
+            line-height: 1 !important;
         `;
         badge.title = `${versionData.versions.length} تعديلات`;
         
@@ -2805,9 +2827,78 @@ function addVersionBadgesFixed() {
         
         badge.onclick = (e) => {
             e.stopPropagation();
-            showVersionsPopupAuto(versionData.versions, title.textContent);
+            
+            // ✅ نافذة بدون زر إغلاق - فقط الضغط خارج البطاقة
+            const overlay = document.createElement('div');
+            overlay.id = 'versionsPopupAuto';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.3);
+                backdrop-filter: blur(3px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 99999;
+                animation: fadeIn 0.2s ease;
+            `;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                background: #1a1f2e;
+                border-radius: 20px;
+                padding: 28px 24px;
+                max-width: 340px;
+                width: 90%;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                border: 1px solid #2a3042;
+                animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+                color: #e2e8f0;
+                text-align: center;
+            `;
+            
+            modal.innerHTML = `
+                <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${versionData.versions.length} تعديلات</h4>
+                <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
+                ${versionData.versions.map((v, i) => `
+                    <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
+                         onclick="window.openExam(${v.id}, '${v.title}', 'lesen1')"
+                         onmouseenter="this.style.background='#1a2340'"
+                         onmouseleave="this.style.background='#0f1421'">
+                        <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
+                        <span style="font-size:13px; font-weight:500; text-align:left;">${v.title}</span>
+                    </div>
+                `).join('')}
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            // ✅ إغلاق بالضغط خارج البطاقة فقط
+            const close = () => {
+                overlay.style.opacity = '0';
+                modal.style.transform = 'scale(0.9)';
+                setTimeout(() => overlay.remove(), 200);
+            };
+            
+            overlay.onclick = (e) => { if (e.target === overlay) close(); };
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }, { once: true });
+            
+            if (!document.getElementById('modal-style-auto')) {
+                const style = document.createElement('style');
+                style.id = 'modal-style-auto';
+                style.textContent = `
+                    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+                    @keyframes scaleIn { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
+                `;
+                document.head.appendChild(style);
+            }
         };
         
+        // ✅ نضع البادج بعد كل شيء في titleSpan
         title.appendChild(badge);
         addedCount++;
     });
