@@ -1,0 +1,140 @@
+{
+  "title": "Sprachbausteine Teil 1 - Exam 6: Liebe Karin (معدل 2)",
+  "skill": "sprach1",
+  "type": "sprach1",
+  "text": "Liebe Karin,\nvielen Dank für deine letzte E-Mail! Ich habe mich wirklich sehr gefreut zu lesen, ⌄ __ (1) __ ⌄ es dir in München so gut gefällt. Endlich kannst du auch das studieren, was du möchtest – das ist doch super! Wie ist es denn so an der Uni dort? Hast du schon ⌄ __ (2) __ ⌄ Leute kennengelernt? Und wie sieht deine Woche aus? Hast du viele Veranstaltungen? Musst du zuhause auch noch viel lernen? Jobbst du eigentlich noch nebenbei?\nDu siehst, ich habe ⌄ __ (3) __ ⌄ Menge Fragen an dich!\nDeshalb würde ich deine Einladung wirklich gerne ⌄ __ (4) __ ⌄ und dich demnächst in München besuchen kommen. Im Moment habe ich noch nicht so viel Zeit, weil ich mich viel ⌄ __ (5) __ ⌄ Jonas kümmern muss – er ist ja erst sechs Monate alt – und Thomas leider keinen Urlaub nehmen kann. Aber ⌄ __ (6) __ ⌄ frei hat, komme ich mal für ein, zwei Tage zu dir. Ich bin ja so gespannt, wie du wohnst! In einer Wohngemeinschaft zu leben, ist bestimmt toll, ⌄ __ (7) __ ⌄ es mal Streit gibt. Aber du hast ja geschrieben, dass deine beiden Mitbewohnerinnen sehr nett sind und ihr euch ⌄ __ (8) __ ⌄ gut versteht. Das freut mich wirklich für dich!\nBei mir gibt es gar nicht viel Neues. Wir hatten neulich mal überlegt, in eine größere Wohnung zu ziehen, ⌄ __ (9) __ ⌄ die Mieten sind ja hier في Köln recht hoch und wir wollen uns nicht viel zumuten – also bleiben wir lieber erst mal in dieser Wohnung. ⌄ __ (10) __ ⌄ kann man ja auch später noch.\nAlso, meld' dich doch mal wieder!\nLiebe Grüße,\nHeike",
+  "options": [
+    {
+      "id": 1,
+      "options": ["dass", "das", "da"],
+      "correct": 0,
+      "highlightColor": 0
+    },
+    {
+      "id": 2,
+      "options": ["neue", "neu", "neuen"],
+      "correct": 0,
+      "highlightColor": 1
+    },
+    {
+      "id": 3,
+      "options": ["jede", "jeden", "jedes"],
+      "correct": 0,
+      "highlightColor": 2
+    },
+    {
+      "id": 4,
+      "options": ["annehmen", "abnehmen", "nehmen"],
+      "correct": 0,
+      "highlightColor": 3
+    },
+    {
+      "id": 5,
+      "options": ["für", "über", "um"],
+      "correct": 2,
+      "highlightColor": 4
+    },
+    {
+      "id": 6,
+      "options": ["sobald", "bevor", "bis"],
+      "correct": 0,
+      "highlightColor": 5
+    },
+    {
+      "id": 7,
+      "options": ["auch wenn", "wenn", "wenn auch"],
+      "correct": 0,
+      "highlightColor": 6
+    },
+    {
+      "id": 8,
+      "options": ["alle", "alles", "all"],
+      "correct": 0,
+      "highlightColor": 7
+    },
+    {
+      "id": 9,
+      "options": ["aber", "denn", "und"],
+      "correct": 0,
+      "highlightColor": 8
+    },
+    {
+      "id": 10,
+      "options": ["Umziehen", "Einziehen", "Ausziehen"],
+      "correct": 0,
+      "highlightColor": 9
+    }
+  ],
+  "memoryHighlights": [
+    {
+      "color": 0,
+      "parts": [
+        "gefreut zu lesen, dass es dir",
+        "dass ... gefällt"
+      ]
+    },
+    {
+      "color": 1,
+      "parts": [
+        "schon neue Leute kennengelernt",
+        "neue Leute"
+      ]
+    },
+    {
+      "color": 2,
+      "parts": [
+        "jede Menge Fragen",
+        "jede Menge"
+      ]
+    },
+    {
+      "color": 3,
+      "parts": [
+        "Einladung wirklich gerne annehmen",
+        "annehmen"
+      ]
+    },
+    {
+      "color": 4,
+      "parts": [
+        "mich viel um Jonas kümmern",
+        "um ... kümmern"
+      ]
+    },
+    {
+      "color": 5,
+      "parts": [
+        "Aber sobald frei hat",
+        "sobald"
+      ]
+    },
+    {
+      "color": 6,
+      "parts": [
+        "toll, auch wenn es mal Streit gibt",
+        "auch wenn"
+      ]
+    },
+    {
+      "color": 7,
+      "parts": [
+        "ihr euch alle gut versteht",
+        "alle"
+      ]
+    },
+    {
+      "color": 8,
+      "parts": [
+        "in eine größere Wohnung zu ziehen, aber die Mieten",
+        "aber"
+      ]
+    },
+    {
+      "color": 9,
+      "parts": [
+        "Umziehen kann man ja auch später",
+        "Umziehen"
+      ]
+    }
+  ]
+}
