@@ -876,7 +876,53 @@ if (skill === 'lesen1') {
     
     const titleSpan = document.createElement("span");
     titleSpan.className = "exam-title";
+// ✅ التحقق من وجود إصدارات (Versions)
+const hasVersions = exam.versions && exam.versions.length > 1;
 
+if (hasVersions) {
+    // ✅ إضافة Badge يدل على عدد الإصدارات
+    const versionBadge = document.createElement('span');
+    versionBadge.className = 'custom-badge';
+    versionBadge.innerHTML = `
+        <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
+        <span style="font-size:9px; font-weight:600;">${exam.versions.length}</span>
+    `;
+    versionBadge.style.cssText = `
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        background: linear-gradient(135deg, #334155, #1e293b) !important;
+        color: #f1f5f9 !important;
+        border-radius: 999px !important;
+        padding: 0 8px 0 4px !important;
+        height: 22px !important;
+        margin-left: auto !important;
+        flex-shrink: 0 !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+        border: 1px solid #475569 !important;
+        user-select: none !important;
+        line-height: 1 !important;
+    `;
+    versionBadge.title = `${exam.versions.length} تعديلات`;
+    
+    versionBadge.onmouseenter = () => { versionBadge.style.transform = 'scale(1.08)'; };
+    versionBadge.onmouseleave = () => { versionBadge.style.transform = 'scale(1)'; };
+    
+    versionBadge.onclick = (e) => {
+        e.stopPropagation();
+        showVersionsPopup(exam.versions, exam.title);
+    };
+    
+    titleSpan.appendChild(versionBadge);
+    
+    // ✅ عند الضغط على البطاقة نفسها، نفتح أول إصدار
+    div.onclick = () => {
+        openExam(exam.versions[0].id, exam.versions[0].title, targetSkill);
+    };
+}
 
     if (skill === "tips") {
       titleSpan.textContent = `${exam.title}`;
