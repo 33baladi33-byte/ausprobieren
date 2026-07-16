@@ -2795,6 +2795,7 @@ window.openExam = openExam;
 // ============================================
 // ✅ نظام Badge التعديلات - النسخة النهائية
 // ============================================
+
 function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
     if (!container) return;
@@ -2816,11 +2817,9 @@ function addVersionBadgesFixed() {
         const exam = currentExamsList.find(e => e.id === examId);
         if (!exam || !exam.versions || exam.versions.length <= 1) return;
         
-        // إزالة أي بادج قديم
         const oldBadge = el.querySelector('.custom-badge');
         if (oldBadge) oldBadge.remove();
         
-        // إنشاء البادج الجديد
         const badge = document.createElement('span');
         badge.className = 'custom-badge';
         badge.innerHTML = `
@@ -2851,7 +2850,7 @@ function addVersionBadgesFixed() {
         badge.onmouseleave = () => { badge.style.transform = 'scale(1)'; };
         
         // ============================================
-        // ✅ التعديل: وضع البادج بعد شارة Premium
+        // ✅ التعديل: نقل البادج إلى جهة اليمين بعد Premium
         // ============================================
         
         // البحث عن حاوية الجهة اليمنى (exam-right-icons)
@@ -2885,7 +2884,6 @@ function addVersionBadgesFixed() {
         badge.onclick = (e) => {
             e.stopPropagation();
             
-            // نافذة الإصدارات
             const overlay = document.createElement('div');
             overlay.id = 'versionsPopupAuto';
             overlay.style.cssText = `
@@ -2955,12 +2953,6 @@ function addVersionBadgesFixed() {
         };
     });
 }
-        
-        // نضع البادج داخل الـ title بجانب النص
-        title.appendChild(badge);
-    });
-}
-
 // ✅ تصدير الدوال للاستخدام العام
 window.addVersionBadgesFixed = addVersionBadgesFixed;
 
