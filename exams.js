@@ -175,7 +175,7 @@ const lesenExams = [
 ];
 
 // ============================================
-// ✅ جدول الإصدارات اليدوي لـ Lesen 1
+// ✅ جدول الإصدارات اليدوي لـ Lesen 1 و Lesen 2
 // ============================================
 const VERSION_GROUPS = {
   'lesen1': {
@@ -283,9 +283,88 @@ const VERSION_GROUPS = {
         { id: 42, file: "exam42.json", title: "Schlafzug (التعديل 1)" }
       ]
     }
+  },
+  'lesen2': {
+    1: {
+      main: 1,
+      versions: [
+        { id: 1, file: "exam1.json", title: "Krista" },
+        { id: 2, file: "exam2.json", title: "Krista (معدل)" }
+      ]
+    },
+    3: {
+      main: 3,
+      versions: [
+        { id: 3, file: "exam3.json", title: "Der Ein-Personen-Karneval" },
+        { id: 4, file: "exam4.json", title: "Der Ein-Personen-Karneval (معدل)" }
+      ]
+    },
+    5: {
+      main: 5,
+      versions: [
+        { id: 5, file: "exam5.json", title: "ein leben für den Kaffee" },
+        { id: 6, file: "exam6.json", title: "ein leben für den Kaffee (معدل 1)" },
+        { id: 7, file: "exam7.json", title: "ein leben für den Kaffee (معدل 2)" }
+      ]
+    },
+    9: {
+      main: 9,
+      versions: [
+        { id: 9, file: "exam9.json", title: "Gedächtnis" },
+        { id: 10, file: "exam10.json", title: "Gedächtnis (معدل)" }
+      ]
+    },
+    16: {
+      main: 16,
+      versions: [
+        { id: 16, file: "exam16.json", title: "Großraumbüros" },
+        { id: 108, file: "exam16b.json", title: "Großraumbüros (معدل)" }
+      ]
+    },
+    18: {
+      main: 18,
+      versions: [
+        { id: 18, file: "exam18.json", title: "Mehrsprachige Erziehung" },
+        { id: 19, file: "exam19.json", title: "Mehrsprachige Erziehung (معدل)" }
+      ]
+    },
+    21: {
+      main: 21,
+      versions: [
+        { id: 21, file: "exam21.json", title: "Der Puppenmacher" },
+        { id: 22, file: "exam22.json", title: "Der Puppenmacher (معدل)" }
+      ]
+    },
+    24: {
+      main: 24,
+      versions: [
+        { id: 24, file: "exam24.json", title: "Wer parkt, muss zahlen" },
+        { id: 25, file: "exam25.json", title: "Wer parkt, muss zahlen (معدل)" }
+      ]
+    },
+    27: {
+      main: 27,
+      versions: [
+        { id: 27, file: "exam27.json", title: "Traumfrau und Traummann gesucht" },
+        { id: 28, file: "exam28.json", title: "Traumfrau und Traummann gesucht (معدل)" }
+      ]
+    },
+    30: {
+      main: 30,
+      versions: [
+        { id: 30, file: "exam30.json", title: "Volkskrankheit Rückenschmerz" },
+        { id: 31, file: "exam31.json", title: "Volkskrankheit Rückenschmerz (معدل)" }
+      ]
+    },
+    35: {
+      main: 35,
+      versions: [
+        { id: 35, file: "exam35.json", title: "Nachtzug" },
+        { id: 36, file: "exam36.json", title: "Nachtzug (معدل)" }
+      ]
+    }
   }
 };
-
 // ========== قائمة امتحانات Schreiben ==========
 const schreibenExams = [
   { id: 1, title: "Fotobuch", enabled: true, hasFile: true },
@@ -419,7 +498,8 @@ const actualFileNames = {
   105: "exam9b.json",
   106: "exam5c.json",
   107: "exam10b.json",
-  108: "exam15c.json"
+  108: "exam15c.json",
+  108: "exam16b.json"
 };
 
 // ========== قاعدة بيانات الامتحانات ==========
@@ -921,9 +1001,9 @@ async function renderExamListForSkill(skill, teilName) {
   let targetSkill = skill;
   let targetExams = examsDatabase[skill] || [];
   
-  // ✅ التعديل: إخفاء الامتحانات التي هي نسخ (versions) وإضافة versions للامتحانات الأساسية
-  if (skill === 'lesen1') {
-    const groups = VERSION_GROUPS['lesen1'] || {};
+ // ✅ التعديل: إخفاء الامتحانات التي هي نسخ (versions) وإضافة versions للامتحانات الأساسية
+if (skill === 'lesen1' || skill === 'lesen2') {
+    const groups = VERSION_GROUPS[skill] || {};
     const versionIds = new Set();
     
     Object.values(groups).forEach(group => {
@@ -943,7 +1023,7 @@ async function renderExamListForSkill(skill, teilName) {
         return exam;
       })
       .filter(exam => !versionIds.has(exam.id));
-  }
+}
   
   if (skill === "mündlich") {
     if (currentMündlichPart === 1) {
@@ -2821,7 +2901,7 @@ function addVersionBadgesFixed() {
     if (!container) return;
     
     const skill = window.currentSkill || 'lesen1';
-    if (skill !== 'lesen1') return;
+ if (skill !== 'lesen1' && skill !== 'lesen2') return;
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
     if (!items.length) return;
