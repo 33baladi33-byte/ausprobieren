@@ -555,7 +555,13 @@ const schreibenExams = [
   { id: 33, title: "Online-Training für guten Schlaf", enabled: true, hasFile: true },
   { id: 34, title: "Hollandblumen-Onlineshop", enabled: true, hasFile: true },
   { id: 35, title: "In Offenbach zu Hause", enabled: true, hasFile: true },
-  { id: 36, title: "Nachbarschaft.net", enabled: true, hasFile: true }
+  { id: 36, title: "Nachbarschaft.net", enabled: true, hasFile: true },
+    { id: 37, title: "Zeitschrift - Abonnentenservice", enabled: true, hasFile: true },
+  { id: 38, title: "Fotografieren für Fortgeschrittene", enabled: true, hasFile: true },
+  { id: 39, title: "Umzugsunternehmen Bühler", enabled: true, hasFile: true },
+  { id: 40, title: "Schlüsseldienst", enabled: true, hasFile: true },
+  { id: 41, title: "T & W Elektronikversicherung", enabled: true, hasFile: true },
+  { id: 42, title: "Waldschwimmbad Langen", enabled: true, hasFile: true }
 ];
 
 // ========== قائمة امتحانات Mündlich Teil 1 ==========
@@ -665,7 +671,13 @@ const actualFileNames = {
   113: "exam6b.json",
   114: "exam20b.json",
   115: "exam29b.json",
-  116: "exam40b.json"
+  116: "exam40b.json",
+    117: "exam37.json",
+  118: "exam38.json",
+  119: "exam39.json",
+  120: "exam40.json",
+  121: "exam41.json",
+  122: "exam42.json"
 };
 
 // ========== قاعدة بيانات الامتحانات ==========
