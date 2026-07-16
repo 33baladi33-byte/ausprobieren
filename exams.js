@@ -2689,7 +2689,7 @@ const EXAM_VERSIONS_FIX = {
     'lesen2_1': { versions: ['الإصدار الأساسي', 'التعديل الأول'] },
 };
 
-// ✅ دالة عرض النافذة
+// ✅ دالة عرض النافذة - تقرأ العناوين من versions مباشرة
 function showVersionsPopupAuto(versions, mainTitle) {
     const oldPopup = document.getElementById('versionsPopupAuto');
     if (oldPopup) oldPopup.remove();
@@ -2729,9 +2729,12 @@ function showVersionsPopupAuto(versions, mainTitle) {
         <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${versions.length} تعديلات</h4>
         <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
         ${versions.map((v, i) => `
-            <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;">
+            <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
+                 onclick="window.openExam(${v.id}, '${v.title}', 'lesen1')"
+                 onmouseenter="this.style.background='#1a2340'"
+                 onmouseleave="this.style.background='#0f1421'">
                 <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
-                <span style="font-size:13px; font-weight:500; text-align:left;">${v}</span>
+                <span style="font-size:13px; font-weight:500; text-align:left;">${v.title}</span>
             </div>
         `).join('')}
         <button style="margin-top:16px; width:100%; padding:10px; background:#334155; border:1px solid #475569; border-radius:40px; color:#e2e8f0; font-weight:600; cursor:pointer; transition:0.2s;" onclick="this.closest('#versionsPopupAuto').remove()">إغلاق</button>
