@@ -2757,22 +2757,17 @@ function showVersionsPopupAuto(versions, mainTitle) {
         document.head.appendChild(style);
     }
 }
-// ✅ الدالة الرئيسية لإضافة البادج - بالشكل المطلوب
+// ✅ الدالة الرئيسية لإضافة البادج - تعتمد على بيانات الامتحان نفسه
 function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
     if (!container) return;
     
-    const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
-    if (!items.length) return;
-    
-    // ✅ نأخذ المهارة الحالية
+    // نأخذ المهارة الحالية
     const skill = window.currentSkill || 'lesen1';
     
-    // ✅ فقط إذا كانت المهارة هي lesen1 نضيف البادج
-    if (skill !== 'lesen1') {
-        console.log(`⏭️ تخطي إضافة Badge لـ ${skill} (مخصص فقط لـ lesen1)`);
-        return;
-    }
+    // ✅ نبحث عن الامتحانات في القائمة الحالية فقط
+    const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
+    if (!items.length) return;
     
     let addedCount = 0;
     
@@ -2780,15 +2775,17 @@ function addVersionBadgesFixed() {
         const title = el.querySelector('.exam-title');
         if (!title) return;
         
+        // نستخرج رقم الامتحان من النص
         const match = title.textContent.match(/^(\d+):/);
         if (!match) return;
         const examId = parseInt(match[1]);
         
-        // ✅ فقط الامتحان رقم 2
-        if (examId !== 2) return;
+        // ✅ نبحث عن الامتحان في قاعدة البيانات الحالية
+        const examList = examsDatabase[skill] || [];
+        const exam = examList.find(e => e.id === examId);
         
-        const versionData = EXAM_VERSIONS_FIX['lesen1_2'];
-        if (!versionData) return;
+        // ✅ إذا كان الامتحان يحتوي على versions (وليس مجرد رقم 2)
+        if (!exam || !exam.versions || exam.versions.length <= 1) return;
         
         // إزالة أي بادج قديم
         const oldBadge = el.querySelector('.custom-badge');
@@ -2799,7 +2796,7 @@ function addVersionBadgesFixed() {
         badge.className = 'custom-badge';
         badge.innerHTML = `
             <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
-            <span style="font-size:9px; font-weight:600;">${versionData.versions.length}</span>
+            <span style="font-size:9px; font-weight:600;">${exam.versions.length}</span>
         `;
         badge.style.cssText = `
             display: inline-flex !important;
@@ -2820,7 +2817,7 @@ function addVersionBadgesFixed() {
             user-select: none !important;
             line-height: 1 !important;
         `;
-        badge.title = `${versionData.versions.length} تعديلات`;
+        badge.title = `${exam.versions.length} تعديلات`;
         
         badge.onmouseenter = () => { badge.style.transform = 'scale(1.08)'; };
         badge.onmouseleave = () => { badge.style.transform = 'scale(1)'; };
@@ -2828,7 +2825,7 @@ function addVersionBadgesFixed() {
         badge.onclick = (e) => {
             e.stopPropagation();
             
-            // ✅ نافذة بدون زر إغلاق - فقط الضغط خارج البطاقة
+            // نافذة بدون زر إغلاق
             const overlay = document.createElement('div');
             overlay.id = 'versionsPopupAuto';
             overlay.style.cssText = `
@@ -2861,11 +2858,11 @@ function addVersionBadgesFixed() {
             `;
             
             modal.innerHTML = `
-                <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${versionData.versions.length} تعديلات</h4>
+                <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${exam.versions.length} تعديلات</h4>
                 <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
-                ${versionData.versions.map((v, i) => `
+                ${exam.versions.map((v, i) => `
                     <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
-                         onclick="window.openExam(${v.id}, '${v.title}', 'lesen1')"
+                         onclick="window.openExam(${v.id}, '${v.title}', '${skill}')"
                          onmouseenter="this.style.background='#1a2340'"
                          onmouseleave="this.style.background='#0f1421'">
                         <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
@@ -2877,7 +2874,6 @@ function addVersionBadgesFixed() {
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
             
-            // ✅ إغلاق بالضغط خارج البطاقة فقط
             const close = () => {
                 overlay.style.opacity = '0';
                 modal.style.transform = 'scale(0.9)';
@@ -2898,7 +2894,6 @@ function addVersionBadgesFixed() {
             }
         };
         
-        // ✅ نضع البادج بعد كل شيء في titleSpan
         title.appendChild(badge);
         addedCount++;
     });
