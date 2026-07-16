@@ -178,7 +178,7 @@ const lesenExams = [
 ];
 
 // ============================================
-// ✅ جدول الإصدارات اليدوي لـ Lesen 1 فقط - النسخة الصحيحة
+// ✅ جدول الإصدارات اليدوي لـ Lesen 1 فقط - النسخة النهائية مع جميع المجموعات
 // ============================================
 const VERSION_GROUPS = {
   'lesen1': {
@@ -197,11 +197,26 @@ const VERSION_GROUPS = {
         { id: 103, file: "exam3b.json", title: "sport ist gesund (التعديل 2)" }
       ]
     },
-    5: {
-      main: 5,
+    4: {
+      main: 4,
       versions: [
+        { id: 4, file: "exam4.json", title: "Tanzkurs" },
         { id: 5, file: "exam5.json", title: "Tanzkurs (التعديل 1)" },
         { id: 102, file: "exam5b.json", title: "Tanzkurs (التعديل 2)" }
+      ]
+    },
+    8: {
+      main: 8,
+      versions: [
+        { id: 8, file: "exam8.json", title: "Bilder" },
+        { id: 104, file: "exam8b.json", title: "Bilder (التعديل 1)" }
+      ]
+    },
+    9: {
+      main: 9,
+      versions: [
+        { id: 9, file: "exam9.json", title: "Grundschule" },
+        { id: 105, file: "exam9b.json", title: "Grundschule (التعديل 1)" }
       ]
     }
     // يمكنك إضافة المزيد من المجموعات هنا حسب الحاجة
@@ -303,8 +318,6 @@ const mündlich2Exams = [
 const mündlich3Exams = [
   { id: 1, title: " التخطيط وحل مشكل ", enabled: true, hasFile: true, skillPath: "mündlich3" }
 ];
-
-// أسماء الملفات الحقيقية
 const actualFileNames = {
   1: "exam1.json", 2: "exam2.json", 3: "exam3.json",
   4: "exam4.json", 5: "exam5.json", 6: "exam6.json",
@@ -337,7 +350,9 @@ const actualFileNames = {
   85: "exam85.json", 86: "exam86.json",
   101: "exam1b.json",
   102: "exam5b.json",
-  103: "exam3b.json"
+  103: "exam3b.json",
+  104: "exam8b.json",
+  105: "exam9b.json"
 };
 
 // ========== قاعدة بيانات الامتحانات ==========
