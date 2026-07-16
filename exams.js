@@ -516,6 +516,116 @@ const VERSION_GROUPS = {
         { id: 116, file: "exam40b.json", title: "Liebe Sandra (معدل)" }
       ]
     }
+  },
+    'sprach2': {
+    1: {
+      main: 1,
+      versions: [
+        { id: 1, file: "exam1.json", title: "Das Fahrrad" },
+        { id: 2, file: "exam2.json", title: "Das Fahrrad (معدل)" }
+      ]
+    },
+    3: {
+      main: 3,
+      versions: [
+        { id: 3, file: "exam3.json", title: "Man(n) kocht selbst" },
+        { id: 117, file: "exam3b.json", title: "Man(n) kocht selbst (معدل)" }
+      ]
+    },
+    4: {
+      main: 4,
+      versions: [
+        { id: 4, file: "exam4.json", title: "Jugend diskutiert - mach mit!" },
+        { id: 118, file: "exam4b.json", title: "Jugend diskutiert - mach mit! (معدل 1)" },
+        { id: 119, file: "exam4c.json", title: "Jugend diskutiert - mach mit! (معدل 2)" }
+      ]
+    },
+    7: {
+      main: 7,
+      versions: [
+        { id: 7, file: "exam7.json", title: "Liebesgrüße aus der Kühltruhe" },
+        { id: 8, file: "exam8.json", title: "Liebesgrüße aus der Kühltruhe (معدل)" }
+      ]
+    },
+    10: {
+      main: 10,
+      versions: [
+        { id: 10, file: "exam10.json", title: "Deutschland – ein Paradies für Kinder?" },
+        { id: 11, file: "exam11.json", title: "Deutschland – ein Paradies für Kinder? (معدل 1)" },
+        { id: 12, file: "exam12.json", title: "Deutschland – ein Paradies für Kinder? (معدل 2)" }
+      ]
+    },
+    13: {
+      main: 13,
+      versions: [
+        { id: 13, file: "exam13.json", title: "Das Schicksal des Braunbären" },
+        { id: 14, file: "exam14.json", title: "Das Schicksal des Braunbären (معدل)" }
+      ]
+    },
+    15: {
+      main: 15,
+      versions: [
+        { id: 15, file: "exam15.json", title: "Was steckt hinter Bio?" },
+        { id: 16, file: "exam16.json", title: "Was genau sind eigentlich Bio-Lebensmittel (معدل)" }
+      ]
+    },
+    22: {
+      main: 22,
+      versions: [
+        { id: 22, file: "exam22.json", title: "Schwarzarbeit kann teuer werden" },
+        { id: 23, file: "exam23.json", title: "Schwarzarbeit kann teuer werden (معدل 1)" }
+      ]
+    },
+    27: {
+      main: 27,
+      versions: [
+        { id: 27, file: "exam27.json", title: "Wie Handschrift wieder cool wird (معدل)" },
+        { id: 28, file: "exam28.json", title: "Wie Handschrift wieder cool wird" }
+      ]
+    },
+    32: {
+      main: 32,
+      versions: [
+        { id: 32, file: "exam32.json", title: "Der klügste Freund des Menschen" },
+        { id: 33, file: "exam33.json", title: "Der klügste Freund des Menschen (معدل)" }
+      ]
+    },
+    35: {
+      main: 35,
+      versions: [
+        { id: 35, file: "exam35.json", title: "Maßgeschneidert nach Bodyscanning" },
+        { id: 36, file: "exam36.json", title: "Maßgeschneidert nach Bodyscanning (معدل)" }
+      ]
+    },
+    37: {
+      main: 37,
+      versions: [
+        { id: 37, file: "exam37.json", title: "Im Restaurant" },
+        { id: 38, file: "exam38.json", title: "Im Restaurant (معدل)" }
+      ]
+    },
+    39: {
+      main: 39,
+      versions: [
+        { id: 39, file: "exam39.json", title: "Lernen ist kein Privileg der Jugend" },
+        { id: 40, file: "exam40.json", title: "Lernen ist kein Privileg der Jugend (معدل)" }
+      ]
+    },
+    45: {
+      main: 45,
+      versions: [
+        { id: 45, file: "exam45.json", title: "Teleshopping – nicht immer gut und günstig" },
+        { id: 46, file: "exam46.json", title: "Die Rückkehr des Nachtzugs" },
+        { id: 47, file: "exam47.json", title: "Die Reise im Schlafwagen" }
+      ]
+    },
+    48: {
+      main: 48,
+      versions: [
+        { id: 48, file: "exam48.json", title: "Theaterprojekt für Kinder (المعدل 1)" },
+        { id: 49, file: "exam49.json", title: "Theater für Kinder und Jugendliche (المعدل 2)" }
+      ]
+    }
   }
 };
 // ========== قائمة امتحانات Schreiben ==========
@@ -677,7 +787,19 @@ const actualFileNames = {
   119: "exam39.json",
   120: "exam40.json",
   121: "exam41.json",
-  122: "exam42.json"
+  122: "exam42.json",
+    108: "exam16b.json",
+  109: "exam3b.json",
+  110: "exam6b.json",
+  111: "exam10b.json",
+  112: "exam24b.json",
+  113: "exam6b.json",
+  114: "exam20b.json",
+  115: "exam29b.json",
+  116: "exam40b.json",
+  117: "exam3b.json",
+  118: "exam4b.json",
+  119: "exam4c.json"
 };
 
 // ========== قاعدة بيانات الامتحانات ==========
@@ -1180,7 +1302,7 @@ async function renderExamListForSkill(skill, teilName) {
   let targetExams = examsDatabase[skill] || [];
   
  // ✅ التعديل: إخفاء الامتحانات التي هي نسخ (versions) وإضافة versions للامتحانات الأساسية
-if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1') {
+if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1' || skill === 'sprach2') {
     const groups = VERSION_GROUPS[skill] || {};
     const versionIds = new Set();
     
@@ -3079,7 +3201,7 @@ function addVersionBadgesFixed() {
     if (!container) return;
     
     const skill = window.currentSkill || 'lesen1';
-if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 'sprach1') return;
+if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 'sprach1' && skill !== 'sprach2') return;
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
     if (!items.length) return;
