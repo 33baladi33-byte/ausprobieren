@@ -92,6 +92,7 @@ function clearErrors() {
     if (signupError) signupError.textContent = '';
     if (resetError) resetError.textContent = '';
 }
+
 function togglePasswordVisibility(inputId, toggleId) {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
@@ -104,6 +105,7 @@ function togglePasswordVisibility(inputId, toggleId) {
         });
     }
 }
+
 // ============================================
 // تهيئة أيقونات إظهار كلمة المرور (Material Symbols)
 // ============================================
@@ -131,6 +133,7 @@ function initPasswordToggles() {
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(initPasswordToggles, 100);
 });
+
 // ============================================
 // 🔧 دالة إنشاء Session ID عشوائي
 // ============================================
@@ -192,19 +195,21 @@ async function updateUserSession(uid) {
     try {
         const sessionId = generateSessionId();
         await db.collection('users').doc(uid).update({
-            currentSession: sessionId
+            currentSession: sessionId,
+            lastLogin: firebase.firestore.FieldValue.serverTimestamp()
         });
         localStorage.setItem('zertiva_session', sessionId);
         console.log('✅ تم تحديث الجلسة:', sessionId.substring(0, 12) + '...');
         return sessionId;
     } catch (error) {
         console.error('❌ فشل تحديث الجلسة:', error);
+        // نستمر حتى لو فشل تحديث الجلسة (لا نمنع المستخدم من الدخول)
         return null;
     }
 }
 
 // ============================================
-// 🔧 دالة التحقق من صحة الجلسة (لمنع مشاركة الحساب)
+// 🔧 دالة التحقق من صحة الجلسة (محسنة)
 // ============================================
 async function validateSession(user) {
     if (!user) return false;
@@ -214,24 +219,43 @@ async function validateSession(user) {
         const docSnap = await docRef.get();
         
         if (!docSnap.exists) {
-            console.log('⚠️ المستند غير موجود');
-            return false;
+            console.log('⚠️ المستند غير موجود، سنقوم بإنشائه');
+            await createUserDocument(user);
+            return true;
         }
         
         const data = docSnap.data();
         const firestoreSession = data.currentSession || null;
         const localSession = localStorage.getItem('zertiva_session');
         
-        if (firestoreSession && localSession && firestoreSession === localSession) {
+        // ✅ إذا لم توجد جلسة في Firestore، نقوم بإنشاء واحدة جديدة
+        if (!firestoreSession) {
+            console.log('🔄 لا توجد جلسة في Firestore، نقوم بإنشاء واحدة جديدة');
+            await updateUserSession(user.uid);
+            return true;
+        }
+        
+        // ✅ إذا لم توجد جلسة محلية، نقوم بإنشاء واحدة جديدة
+        if (!localSession) {
+            console.log('🔄 لا توجد جلسة محلية، نقوم بإنشاء واحدة جديدة');
+            await updateUserSession(user.uid);
+            return true;
+        }
+        
+        // ✅ التحقق من تطابق الجلسات
+        if (firestoreSession === localSession) {
             console.log('✅ الجلسة صالحة');
             return true;
         }
         
-        console.log('⚠️ جلسة غير صالحة - تم تسجيل الدخول من جهاز آخر');
-        return false;
+        // ✅ إذا اختلفت الجلسات، نسمح بالدخول ونقوم بتحديث الجلسة
+        console.log('⚠️ جلسة مختلفة، نقوم بتحديث الجلسة الحالية');
+        await updateUserSession(user.uid);
+        return true;
         
     } catch (error) {
         console.error('❌ خطأ في التحقق من الجلسة:', error);
+        // ✅ في حالة الخطأ، نسمح للمستخدم بالدخول
         return true;
     }
 }
@@ -284,10 +308,15 @@ async function handleLogin() {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
         const user = userCredential.user;
         
+        // ✅ تحديث الجلسة
         await updateUserSession(user.uid);
         
         closeAuthModalFunc();
         showToast('✅ تم تسجيل الدخول بنجاح', 'success');
+        
+        // ✅ تحديث الملف الشخصي
+        setTimeout(updateProfile, 500);
+        
     } catch (error) {
         authError.textContent = getFirebaseErrorMessage(error.code);
     }
@@ -316,9 +345,14 @@ async function handleSignup() {
         localStorage.setItem('userPass_' + user.uid, password);
         
         await createUserDocument(user, { username, firstname, lastname });
+        await updateUserSession(user.uid);
         
         closeAuthModalFunc();
         showToast('✅ تم إنشاء الحساب بنجاح', 'success');
+        
+        // ✅ تحديث الملف الشخصي
+        setTimeout(updateProfile, 500);
+        
     } catch (error) {
         signupError.textContent = getFirebaseErrorMessage(error.code);
     }
@@ -348,7 +382,6 @@ async function handleReset() {
 async function handleLogout() {
     try {
         localStorage.removeItem('zertiva_session');
-        
         await auth.signOut();
         if (profileDropdown) profileDropdown.classList.remove('show');
         showToast('✅ تم تسجيل الخروج بنجاح', 'success');
@@ -402,7 +435,7 @@ function showToast(message, type = 'info') {
 }
 
 // ============================================
-// ✅ تحديث الملف الشخصي
+// ✅ تحديث الملف الشخصي (محسن)
 // ============================================
 async function updateProfile() {
     const user = auth.currentUser;
@@ -496,37 +529,61 @@ async function checkSessionOnLoad() {
         const isValid = await validateSession(user);
         
         if (!isValid) {
-            localStorage.removeItem('zertiva_session');
-            await auth.signOut();
+            // ✅ في حالة عدم صحة الجلسة، نقوم بإنشاء جلسة جديدة بدلاً من تسجيل الخروج
+            console.log('🔄 إنشاء جلسة جديدة للمستخدم');
+            await updateUserSession(user.uid);
             
-            showToast('⚠️ تم تسجيل الدخول من جهاز آخر. سيتم تسجيل الخروج.', 'error');
+            // ✅ تحديث الملف الشخصي
+            await updateProfile();
             
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 1500);
+            showToast('🔄 تم تحديث الجلسة', 'info');
+        } else {
+            // ✅ تحديث الملف الشخصي
+            await updateProfile();
         }
     } catch (error) {
         console.error('❌ خطأ في التحقق من الجلسة:', error);
+        // ✅ في حالة الخطأ، نسمح للمستخدم بالدخول
+        await updateProfile();
     }
 }
 
 // ============================================
-// مراقب حالة المستخدم
+// مراقب حالة المستخدم (محسن)
 // ============================================
 auth.onAuthStateChanged(async user => {
     if (user) {
+        // ✅ التحقق من الجلسة وتحديثها إذا لزم الأمر
         await checkSessionOnLoad();
         
-        updateProfile();
+        // ✅ تحديث واجهة المستخدم
         if (navLoginBtn) navLoginBtn.style.display = 'none';
         if (profileIcon) profileIcon.style.display = 'flex';
+        if (navSubscribeBtn) {
+            // نتحقق من حالة الاشتراك
+            const status = await window.getUserStatusGlobal();
+            if (status === 'premium') {
+                navSubscribeBtn.style.display = 'none';
+            } else {
+                navSubscribeBtn.style.display = 'inline-flex';
+            }
+        }
+        
+        // ✅ تحديث الملف الشخصي
+        await updateProfile();
+        
     } else {
+        // ✅ المستخدم غير مسجل
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (profileIcon) profileIcon.style.display = 'flex';
         if (profileDropdown) profileDropdown.classList.remove('show');
-        updateProfile();
+        if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+        
+        // ✅ تحديث الملف الشخصي للحالة guest
+        await updateProfile();
     }
 });
+
 // ============================================
 // ربط الأحداث
 // ============================================
@@ -611,6 +668,9 @@ document.addEventListener('DOMContentLoaded', function() {
             profileDropdown.classList.remove('show');
         }
     });
+    
+    // ===== تحميل الملف الشخصي عند بدء الصفحة =====
+    setTimeout(updateProfile, 500);
 });
 
-console.log('✅ auth.js (النظام الجديد مع الجلسات ومنع مشاركة الحساب) تم تحميله بنجاح');
+console.log('✅ auth.js (النظام الجديد مع الجلسات المحسنة) تم تحميله بنجاح');
