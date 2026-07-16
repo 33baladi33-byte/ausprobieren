@@ -1,5 +1,5 @@
 {
-  "title": "Lesen Teil 3 - Exam 3: Sport Ist Gesund اعلانات",
+  "title": "Lesen Teil 3 - Exam 3: Sport Ist Gesund اعلانات (معدل)",
   "skill": "lesen3",
   "type": "teil3",
   "items": [
@@ -79,13 +79,13 @@
   "situations": [
     "Eine Bekannte interessiert sich für Bücher über den Tennissport.",
     "Ein befreundetes Ehepaar steht andauernd unter Stress und möchte wieder mehr Zeit für sich und andere haben.",
-    "Eine Bekannte möchte bei ihren Partys eine perfekte Gastgeberin sein.",
+    "Eine Bekannte möchte ihre Wohnung renovieren und sucht Tipps zu Tapeten und Wandfarben.",
     "Eine Studentin sucht Informationen, wie sie besser und systematischer lernen kann.",
     "Ein Bekannter möchte wissen, welche Botschaften durch Gestik und Mimik transportiert werden.",
-    "Eine Bekannte möchte ihr äußeres Erscheinungsbild optimieren.",
+    "Eine Bekannte möchte ihren Kleidungsstil verbessern.",
     "Ein Bekannter ist sich noch unsicher, wie er sich bei einem Vorstellungsgespräch am besten präsentiert.",
-    "Ein Bekannter schreibt an einer Hausarbeit über gesellschaftliche Normen und Verhaltensregeln verschiedener Jahrhunderte.",
-    "Ein Bekannter möchte Kalligraphie (Schmuckschriften) lernen.",
+    "Ein Bekannter schreibt an einer Hausarbeit über Höflichkeit und Benimmregeln in früheren Jahrhunderten.",
+    "Ein Bekannter möchte lernen, wie man gute Geschäftsbriefe schreibt.",
     "Eine Bekannte ist sehr verunsichert, weil sie auf Konferenzen immer wieder Angst hat, frei zu sprechen."
   ],
   "note": "⚠️ ملاحظة: هناك فقرات ليس لها عنوان مناسب (d, f, g, j, k). سيتم اعتبارها صحيحة إذا تركت بدون اختيار.",
@@ -94,7 +94,7 @@
       "color": 0,
       "parts": [
         "Die Nachfrage nach individueller Farb- und Stilberatung",
-        "Eine Bekannte möchte ihr äußeres Erscheinungsbild optimieren."
+        "Eine Bekannte möchte ihren Kleidungsstil verbessern."
       ]
     },
     {
@@ -108,7 +108,7 @@
       "color": 2,
       "parts": [
         "Dieses erstmals 1788 erschienene Buch",
-        "Ein Bekannter schreibt an einer Hausarbeit über gesellschaftliche Normen und Verhaltensregeln verschiedener Jahrhunderte."
+        "Ein Bekannter schreibt an einer Hausarbeit über Höflichkeit und Benimmregeln in früheren Jahrhunderten."
       ]
     },
     {
