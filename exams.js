@@ -109,21 +109,10 @@ async function getUserStatusForExam() {
 const tipsExams = [
   { id: 1, title: "كيفاش تنجح بدكاء", enabled: true, hasFile: true }
 ];
+
 // ========== قائمة امتحانات Lesen Teil 1 ==========
 const lesenExams = [
-  // ✅ بطاقة 1: exam1.json + exam1b.json
-  { 
-    id: 1, 
-    title: "kellner (Jugend Forscher)", 
-    enabled: true, 
-    hasFile: true,
-    versions: [
-      { id: 1, file: "exam1.json", title: "kellner (Jugend Forscher)" },
-      { id: 1, file: "exam1b.json", title: "kellner (Jugend Forscher) (التعديل 1)" }
-    ]
-  },
-  
-  // ✅ بطاقة 2: exam2.json + exam3.json + exam3b.json
+   { id: 1, title: "kellner (Jugend Forscher)", enabled: true, hasFile: true },  
   { 
     id: 2, 
     title: "sport ist gesund", 
@@ -131,12 +120,9 @@ const lesenExams = [
     hasFile: true,
     versions: [
       { id: 2, file: "exam2.json", title: "sport ist gesund" },
-      { id: 3, file: "exam3.json", title: "sport ist gesund (التعديل 1)" },
-      { id: 3, file: "exam3b.json", title: "sport ist gesund (التعديل 2)" }
+      { id: 3, file: "exam3.json", title: "sport ist gesund (التعديل 1)" }
     ]
   },
-  
-  // ✅ باقي الامتحانات العادية (بدون تعديلات)
   { id: 4, title: "Tanzkurs", enabled: true, hasFile: true },
   { id: 5, title: "Tanzkurs (التعديل 1)", enabled: true, hasFile: true },
   { id: 6, title: "Impfung", enabled: true, hasFile: true },
@@ -190,6 +176,37 @@ const lesenExams = [
   { id: 54, title: "Gedächtnis", enabled: true, hasFile: true },
   { id: 55, title: "Wohnen", enabled: true, hasFile: true }
 ];
+
+// ============================================
+// ✅ جدول الإصدارات اليدوي لـ Lesen 1 فقط
+// ============================================
+const VERSION_GROUPS = {
+  'lesen1': {
+    1: {
+      main: 1,
+      versions: [
+        { id: 1, file: "exam1.json", title: "kellner (Jugend Forscher)" },
+        { id: 101, file: "exam1b.json", title: "kellner (Jugend Forscher) (التعديل 1)" }
+      ]
+    },
+    2: {
+      main: 2,
+      versions: [
+        { id: 2, file: "exam2.json", title: "sport ist gesund" },
+        { id: 3, file: "exam3.json", title: "sport ist gesund (التعديل 1)" }
+      ]
+    },
+    5: {
+      main: 5,
+      versions: [
+        { id: 5, file: "exam5.json", title: "Tanzkurs (التعديل 1)" },
+        { id: 102, file: "exam5b.json", title: "Tanzkurs (التعديل 2)" }
+      ]
+    }
+    // يمكنك إضافة المزيد من المجموعات هنا حسب الحاجة
+  }
+};
+
 // ========== قائمة امتحانات Schreiben ==========
 const schreibenExams = [
   { id: 1, title: "Fotobuch", enabled: true, hasFile: true },
@@ -316,7 +333,9 @@ const actualFileNames = {
   76: "exam76.json", 77: "exam77.json", 78: "exam78.json",
   79: "exam79.json", 80: "exam80.json", 81: "exam81.json",
   82: "exam82.json", 83: "exam83.json", 84: "exam84.json",
-  85: "exam85.json", 86: "exam86.json"
+  85: "exam85.json", 86: "exam86.json",
+  101: "exam1b.json",
+  102: "exam5b.json"
 };
 
 // ========== قاعدة بيانات الامتحانات ==========
@@ -792,42 +811,45 @@ function renderMündlichPartTabs() {
   
   container.insertBefore(tabsDiv, container.firstChild);
 }
-async function renderExamListForSkill(skill, teilName) {
-  currentSkill = skill;
-// ===== معالجة الامتحانات ذات التعديلات =====
-// إنشاء مجموعة من الامتحانات الأساسية فقط (مع الاحتفاظ بالامتحانات التي لها versions)
-function getMainExams(exams) {
-    const mainExams = [];
+
+// ===== دالة getMainExams المعدلة =====
+function getMainExams(exams, skill = 'lesen1') {
+    // إذا لم تكن المهارة هي lesen1، نرجع القائمة كما هي (بدون تغيير)
+    if (skill !== 'lesen1') return exams;
+
+    const groups = VERSION_GROUPS['lesen1'] || {};
     const versionIds = new Set();
-    const mainExamIds = new Set();
     
-    // أولاً: تحديد الامتحانات الرئيسية (تلك التي لها versions)
-    exams.forEach(exam => {
-        if (exam.versions && exam.versions.length > 1) {
-            // هذا امتحان رئيسي، نحتفظ به
-            mainExamIds.add(exam.id);
-            // نجمع IDs التعديلات (جميع الإصدارات ما عدا الأول)
-            exam.versions.forEach((v, idx) => {
-                if (idx > 0) versionIds.add(v.id);
-            });
-        }
+    // 1. جمع كل معرفات الإصدارات من الجدول
+    Object.values(groups).forEach(group => {
+        group.versions.forEach(v => versionIds.add(v.id));
     });
-    
-    // ثانياً: إضافة الامتحانات
+
+    // 2. بناء القائمة النهائية
+    const mainExams = [];
+
     exams.forEach(exam => {
-        // إذا كان هذا الامتحان رئيسي (لديه versions) → نحتفظ به
-        if (mainExamIds.has(exam.id)) {
+        // إذا كان هذا الامتحان هو نسخة (id في versionIds) نتجاوزه
+        if (versionIds.has(exam.id)) return;
+
+        // إذا كان هذا الامتحان هو أساسي (له مجموعة في VERSION_GROUPS)
+        if (groups[exam.id]) {
+            const group = groups[exam.id];
+            // نضيف الامتحان الأساسي مع إضافة خاصية versions
+            const mainExam = { ...exam, versions: group.versions };
+            mainExams.push(mainExam);
+        } else {
+            // امتحان عادي (بدون إصدارات) نضيفه كما هو
             mainExams.push(exam);
         }
-        // إذا كان هذا الامتحان ليس تعديلاً لامتحان آخر → نحتفظ به
-        else if (!versionIds.has(exam.id)) {
-            mainExams.push(exam);
-        }
-        // وإلا (إذا كان تعديلاً) → نتجاهله
     });
-    
+
     return mainExams;
 }
+
+async function renderExamListForSkill(skill, teilName) {
+  currentSkill = skill;
+  
   const container = document.getElementById("examsList");
   if (!container) return;
   container.innerHTML = "";
@@ -847,10 +869,12 @@ function getMainExams(exams) {
   
   let targetSkill = skill;
   let targetExams = examsDatabase[skill] || [];
+  
   // إذا كانت المهارة هي lesen1، نطبق نظام التعديلات
-if (skill === 'lesen1') {
-    targetExams = getMainExams(targetExams);
-}
+  if (skill === 'lesen1') {
+      targetExams = getMainExams(targetExams, skill);
+  }
+  
   if (skill === "mündlich") {
     if (currentMündlichPart === 1) {
       targetSkill = "mündlich1";
@@ -885,53 +909,6 @@ if (skill === 'lesen1') {
     
     const titleSpan = document.createElement("span");
     titleSpan.className = "exam-title";
-// ✅ التحقق من وجود إصدارات (Versions)
-const hasVersions = exam.versions && exam.versions.length > 1;
-
-if (hasVersions) {
-    // ✅ إضافة Badge يدل على عدد الإصدارات
-    const versionBadge = document.createElement('span');
-    versionBadge.className = 'custom-badge';
-    versionBadge.innerHTML = `
-        <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
-        <span style="font-size:9px; font-weight:600;">${exam.versions.length}</span>
-    `;
-    versionBadge.style.cssText = `
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 2px !important;
-        background: linear-gradient(135deg, #334155, #1e293b) !important;
-        color: #f1f5f9 !important;
-        border-radius: 999px !important;
-        padding: 0 8px 0 4px !important;
-        height: 22px !important;
-        margin-left: auto !important;
-        flex-shrink: 0 !important;
-        cursor: pointer !important;
-        transition: all 0.2s ease !important;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
-        border: 1px solid #475569 !important;
-        user-select: none !important;
-        line-height: 1 !important;
-    `;
-    versionBadge.title = `${exam.versions.length} تعديلات`;
-    
-    versionBadge.onmouseenter = () => { versionBadge.style.transform = 'scale(1.08)'; };
-    versionBadge.onmouseleave = () => { versionBadge.style.transform = 'scale(1)'; };
-    
-    versionBadge.onclick = (e) => {
-        e.stopPropagation();
-        showVersionsPopup(exam.versions, exam.title);
-    };
-    
-    titleSpan.appendChild(versionBadge);
-    
-    // ✅ عند الضغط على البطاقة نفسها، نفتح أول إصدار
-    div.onclick = () => {
-        openExam(exam.versions[0].id, exam.versions[0].title, targetSkill);
-    };
-}
 
     if (skill === "tips") {
       titleSpan.textContent = `${exam.title}`;
@@ -1044,9 +1021,13 @@ setTimeout(function() {
     } else {
         applyExamListView("list");
     }
-}, 50);  // ✅ هنا قوس الإغلاق و 50ms
+    
+    // 4. إعادة إنشاء Badge التعديلات
+    addVersionBadgesFixed();
+}, 50);
 
 setTimeout(setupLockedNextButton, 100);
+}
 
 function setupLockedNextButton() {
   const nextBtn = document.getElementById('nextExamBtn');
@@ -1123,8 +1104,8 @@ function shouldHideHelpButton(skill) {
   return hiddenSkills.includes(skill);
 }
 
-
-async function openExam(examId, examTitle, skill) {
+// ===== دالة openExam المعدلة لتقبل fileName =====
+async function openExam(examId, examTitle, skill, fileName = null) {
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
   const maxFreeExamId = 6;
@@ -1138,7 +1119,7 @@ async function openExam(examId, examTitle, skill) {
     return;
 }
   
-  console.log("🔍 openExam parameters:", { examId, examTitle, skill });
+  console.log("🔍 openExam parameters:", { examId, examTitle, skill, fileName });
   
   currentExamId = examId;
   currentSkill = skill;
@@ -1200,16 +1181,17 @@ async function openExam(examId, examTitle, skill) {
     if (helpBtn) helpBtn.style.display = "block";
   }
   
-  const fileName = getActualFileName(examId);
+  // استخدام fileName إذا تم تمريره، وإلا استخدم getActualFileName
+  const finalFileName = fileName || getActualFileName(examId);
   
   console.log("🟢 فتح الامتحان:", examId, examTitle, skill);
-  console.log("📁 اسم الملف:", fileName);
-  console.log("📂 المسار الكامل:", `data/${skill}/${fileName}`);
+  console.log("📁 اسم الملف:", finalFileName);
+  console.log("📂 المسار الكامل:", `data/${skill}/${finalFileName}`);
   
   try {
-    const response = await fetch(`data/${skill}/${fileName}`);
+    const response = await fetch(`data/${skill}/${finalFileName}`);
     if (!response.ok) {
-      alert(`⚠️ الامتحان "${examTitle}" سيتم إضافته قريباً.\nالملف المطلوب: data/${skill}/${fileName}`);
+      alert(`⚠️ الامتحان "${examTitle}" سيتم إضافته قريباً.\nالملف المطلوب: data/${skill}/${finalFileName}`);
       return;
     }
     currentExamData = await response.json();
@@ -1285,11 +1267,6 @@ async function openExam(examId, examTitle, skill) {
       showTeil(10);
     }
   
-    
-    // ============================================================
-    // ✅ ✅ ✅ التعديل النهائي لـ Interleaving ✅ ✅ ✅
-    // ============================================================
-    
     // ============================================================
     // ✅ ✅ ✅ التعديل النهائي لـ Interleaving ✅ ✅ ✅
     // ============================================================
@@ -1311,27 +1288,27 @@ async function openExam(examId, examTitle, skill) {
         window.initInterleaving();
     }
 
-// 4. ✅ إعادة بناء البطاقات للمهارات المدعومة
-// 4. ✅ إعادة بناء البطاقات للمهارات المدعومة
-if (skill.startsWith('hoeren') && typeof window.rebuildTrueFalseCards === 'function') {
-    console.log('🔄 إعادة بناء بطاقات Hören بعد تحميل الامتحان');
-    window.rebuildTrueFalseCards();
-} else if (skill === 'lesen1' && typeof window.rebuildLesen1 === 'function') {
-    console.log('🔄 إعادة بناء بطاقات Lesen 1 بعد تحميل الامتحان');
-    window.rebuildLesen1();
-} else if (skill === 'lesen2' && typeof window.rebuildLesen2 === 'function') {
-    console.log('🔄 إعادة بناء بطاقات Lesen 2 بعد تحميل الامتحان');
-    window.rebuildLesen2();
-} else if (skill === 'lesen3' && typeof window.rebuildLesen3 === 'function') {
-    console.log('🔄 إعادة بناء بطاقات Lesen 3 بعد تحميل الامتحان');
-    window.rebuildLesen3();
-}
+    // 4. ✅ إعادة بناء البطاقات للمهارات المدعومة
+    if (skill.startsWith('hoeren') && typeof window.rebuildTrueFalseCards === 'function') {
+        console.log('🔄 إعادة بناء بطاقات Hören بعد تحميل الامتحان');
+        window.rebuildTrueFalseCards();
+    } else if (skill === 'lesen1' && typeof window.rebuildLesen1 === 'function') {
+        console.log('🔄 إعادة بناء بطاقات Lesen 1 بعد تحميل الامتحان');
+        window.rebuildLesen1();
+    } else if (skill === 'lesen2' && typeof window.rebuildLesen2 === 'function') {
+        console.log('🔄 إعادة بناء بطاقات Lesen 2 بعد تحميل الامتحان');
+        window.rebuildLesen2();
+    } else if (skill === 'lesen3' && typeof window.rebuildLesen3 === 'function') {
+        console.log('🔄 إعادة بناء بطاقات Lesen 3 بعد تحميل الامتحان');
+        window.rebuildLesen3();
+    }
     
   } catch(e) {
     console.error("❌ خطأ:", e);
     alert("خطأ في تحميل الامتحان: " + e.message);
   }
 }  // ✅ هذا القوس يغلق دالة openExam
+
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
   if (currentSkill) {
@@ -1595,6 +1572,7 @@ function createMündlichCard(title, text) {
   
   return card;
 }
+
 function updateExamNavButtons() {
     const prevBtn = document.getElementById("prevExamBtn");
     const nextBtn = document.getElementById("nextExamBtn");
@@ -1750,6 +1728,7 @@ function buildTeil1(questions) {
   resultDiv.style.display = "none";
   container.appendChild(resultDiv);
 }
+
 // ============================================
 // ✅ دالة checkTeil1 المُعدّلة - تعتمد على ID ثابت
 // ============================================
@@ -1836,8 +1815,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 renderTeileList();
-
-
 
 // ============================================
 // نظام المراحل المتوازن (لجميع المهارات)
@@ -2684,9 +2661,7 @@ function createViewModeToggles() {
         console.log(`🔄 الزر2 تم التبديل إلى: ${VIEW_ICONS_2[currentIndex2]}`);
     };
 
-       header.appendChild(btn2);
-
-}  // ← أضف هذا القوس هنا
+    header.appendChild(btn2);
 
     setTimeout(saveOriginalOrder, 200);
     applyExamListView(getExamListMode());
@@ -2728,89 +2703,152 @@ window.applyLeaderboardOrder = applyLeaderboardOrder;
 
 console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view) مع وظائف الترتيب تم تحميلهما');
 
-
 // ============================================
 // تصدير openExam للاستخدام العالمي
 // ============================================
 window.openExam = openExam;
 
 // ============================================
-// ✅ نظام الإصدارات (Versions) البسيط
+// ✅ نظام Badge التعديلات - النسخة النهائية
 // ============================================
 
-// ✅ دالة عرض نافذة الإصدارات
-function showVersionsPopup(versions, mainTitle) {
-    const oldPopup = document.getElementById('versionsPopupAuto');
-    if (oldPopup) oldPopup.remove();
+// ✅ الدالة الرئيسية لإضافة البادج - تعتمد على بيانات الامتحان نفسه
+function addVersionBadgesFixed() {
+    const container = document.getElementById('examsList');
+    if (!container) return;
     
-    const overlay = document.createElement('div');
-    overlay.id = 'versionsPopupAuto';
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.3);
-        backdrop-filter: blur(3px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 99999;
-        animation: fadeIn 0.2s ease;
-    `;
+    const skill = window.currentSkill || 'lesen1';
+    if (skill !== 'lesen1') return; // نطبق فقط على Lesen 1
     
-    const modal = document.createElement('div');
-    modal.style.cssText = `
-        background: #1a1f2e;
-        border-radius: 20px;
-        padding: 28px 24px;
-        max-width: 340px;
-        width: 90%;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-        border: 1px solid #2a3042;
-        animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-        color: #e2e8f0;
-        text-align: center;
-    `;
+    const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
+    if (!items.length) return;
     
-    modal.innerHTML = `
-        <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${versions.length} تعديلات</h4>
-        <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
-        ${versions.map((v, i) => `
-            <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
-                 onclick="window.openExam(${v.id}, '${v.title}', 'lesen1')"
-                 onmouseenter="this.style.background='#1a2340'"
-                 onmouseleave="this.style.background='#0f1421'">
-                <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
-                <span style="font-size:13px; font-weight:500; text-align:left;">${v.title}</span>
-            </div>
-        `).join('')}
-    `;
-    
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-    
-    const close = () => {
-        overlay.style.opacity = '0';
-        modal.style.transform = 'scale(0.9)';
-        setTimeout(() => overlay.remove(), 200);
-    };
-    
-    overlay.onclick = (e) => { if (e.target === overlay) close(); };
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }, { once: true });
-    
-    if (!document.getElementById('modal-style-auto')) {
-        const style = document.createElement('style');
-        style.id = 'modal-style-auto';
-        style.textContent = `
-            @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-            @keyframes scaleIn { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
+    items.forEach(el => {
+        const title = el.querySelector('.exam-title');
+        if (!title) return;
+        
+        // نستخرج رقم الامتحان من النص
+        const match = title.textContent.match(/^(\d+):/);
+        if (!match) return;
+        const examId = parseInt(match[1]);
+        
+        // نبحث عن الامتحان في القائمة المعروضة (تم تعديلها بواسطة getMainExams)
+        const exam = currentExamsList.find(e => e.id === examId);
+        if (!exam || !exam.versions || exam.versions.length <= 1) return;
+        
+        // إزالة أي بادج قديم
+        const oldBadge = el.querySelector('.custom-badge');
+        if (oldBadge) oldBadge.remove();
+        
+        // إنشاء البادج الجديد
+        const badge = document.createElement('span');
+        badge.className = 'custom-badge';
+        badge.innerHTML = `
+            <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
+            <span style="font-size:9px; font-weight:600;">${exam.versions.length}</span>
         `;
-        document.head.appendChild(style);
-    }
+        badge.style.cssText = `
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 2px !important;
+            background: linear-gradient(135deg, #334155, #1e293b) !important;
+            color: #f1f5f9 !important;
+            border-radius: 999px !important;
+            padding: 0 8px 0 4px !important;
+            height: 22px !important;
+            margin-left: auto !important;
+            flex-shrink: 0 !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
+            border: 1px solid #475569 !important;
+            user-select: none !important;
+            line-height: 1 !important;
+        `;
+        badge.title = `${exam.versions.length} تعديلات`;
+        
+        badge.onmouseenter = () => { badge.style.transform = 'scale(1.08)'; };
+        badge.onmouseleave = () => { badge.style.transform = 'scale(1)'; };
+        
+        badge.onclick = (e) => {
+            e.stopPropagation();
+            
+            // نافذة الإصدارات
+            const overlay = document.createElement('div');
+            overlay.id = 'versionsPopupAuto';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.3);
+                backdrop-filter: blur(3px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 99999;
+                animation: fadeIn 0.2s ease;
+            `;
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                background: #1a1f2e;
+                border-radius: 20px;
+                padding: 28px 24px;
+                max-width: 340px;
+                width: 90%;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                border: 1px solid #2a3042;
+                animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+                color: #e2e8f0;
+                text-align: center;
+            `;
+            
+            modal.innerHTML = `
+                <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${exam.versions.length} تعديلات</h4>
+                <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
+                ${exam.versions.map((v, i) => `
+                    <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
+                         onclick="window.openExam(${v.id}, '${v.title}', '${skill}', '${v.file}')"
+                         onmouseenter="this.style.background='#1a2340'"
+                         onmouseleave="this.style.background='#0f1421'">
+                        <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
+                        <span style="font-size:13px; font-weight:500; text-align:left;">${v.title}</span>
+                    </div>
+                `).join('')}
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            const close = () => {
+                overlay.style.opacity = '0';
+                modal.style.transform = 'scale(0.9)';
+                setTimeout(() => overlay.remove(), 200);
+            };
+            
+            overlay.onclick = (e) => { if (e.target === overlay) close(); };
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }, { once: true });
+            
+            if (!document.getElementById('modal-style-auto')) {
+                const style = document.createElement('style');
+                style.id = 'modal-style-auto';
+                style.textContent = `
+                    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+                    @keyframes scaleIn { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
+                `;
+                document.head.appendChild(style);
+            }
+        };
+        
+        // نضع البادج داخل الـ title بجانب النص
+        title.appendChild(badge);
+    });
 }
 
 // ✅ تصدير الدوال للاستخدام العام
-window.showVersionsPopup = showVersionsPopup;
+window.addVersionBadgesFixed = addVersionBadgesFixed;
 
+console.log('✅ نظام Badge التعديلات (النسخة النهائية) تم تحميله');
