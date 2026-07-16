@@ -178,7 +178,7 @@ const lesenExams = [
 ];
 
 // ============================================
-// ✅ جدول الإصدارات اليدوي لـ Lesen 1 فقط
+// ✅ جدول الإصدارات اليدوي لـ Lesen 1 فقط - النسخة الصحيحة
 // ============================================
 const VERSION_GROUPS = {
   'lesen1': {
@@ -193,7 +193,8 @@ const VERSION_GROUPS = {
       main: 2,
       versions: [
         { id: 2, file: "exam2.json", title: "sport ist gesund" },
-        { id: 3, file: "exam3.json", title: "sport ist gesund (التعديل 1)" }
+        { id: 3, file: "exam3.json", title: "sport ist gesund (التعديل 1)" },
+        { id: 103, file: "exam3b.json", title: "sport ist gesund (التعديل 2)" }
       ]
     },
     5: {
@@ -335,7 +336,8 @@ const actualFileNames = {
   82: "exam82.json", 83: "exam83.json", 84: "exam84.json",
   85: "exam85.json", 86: "exam86.json",
   101: "exam1b.json",
-  102: "exam5b.json"
+  102: "exam5b.json",
+  103: "exam3b.json"
 };
 
 // ========== قاعدة بيانات الامتحانات ==========
@@ -812,41 +814,6 @@ function renderMündlichPartTabs() {
   container.insertBefore(tabsDiv, container.firstChild);
 }
 
-// ===== دالة getMainExams المعدلة =====
-function getMainExams(exams, skill = 'lesen1') {
-    // إذا لم تكن المهارة هي lesen1، نرجع القائمة كما هي (بدون تغيير)
-    if (skill !== 'lesen1') return exams;
-
-    const groups = VERSION_GROUPS['lesen1'] || {};
-    const versionIds = new Set();
-    
-    // 1. جمع كل معرفات الإصدارات من الجدول
-    Object.values(groups).forEach(group => {
-        group.versions.forEach(v => versionIds.add(v.id));
-    });
-
-    // 2. بناء القائمة النهائية
-    const mainExams = [];
-
-    exams.forEach(exam => {
-        // إذا كان هذا الامتحان هو نسخة (id في versionIds) نتجاوزه
-        if (versionIds.has(exam.id)) return;
-
-        // إذا كان هذا الامتحان هو أساسي (له مجموعة في VERSION_GROUPS)
-        if (groups[exam.id]) {
-            const group = groups[exam.id];
-            // نضيف الامتحان الأساسي مع إضافة خاصية versions
-            const mainExam = { ...exam, versions: group.versions };
-            mainExams.push(mainExam);
-        } else {
-            // امتحان عادي (بدون إصدارات) نضيفه كما هو
-            mainExams.push(exam);
-        }
-    });
-
-    return mainExams;
-}
-
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
   
@@ -870,9 +837,16 @@ async function renderExamListForSkill(skill, teilName) {
   let targetSkill = skill;
   let targetExams = examsDatabase[skill] || [];
   
-  // إذا كانت المهارة هي lesen1، نطبق نظام التعديلات
+  // ✅ التعديل الجديد: لا نعدل القائمة، فقط نضيف versions للامتحانات المحددة
   if (skill === 'lesen1') {
-      targetExams = getMainExams(targetExams, skill);
+      targetExams = targetExams.map(exam => {
+          const group = VERSION_GROUPS['lesen1']?.[exam.id];
+          if (group) {
+              // نضيف خاصية versions مع الاحتفاظ بكل شيء آخر
+              return { ...exam, versions: group.versions };
+          }
+          return exam;
+      });
   }
   
   if (skill === "mündlich") {
@@ -1825,7 +1799,7 @@ const SKILL_CONFIG = {
     hoeren1: { totalExams: 45, examsPerStage: 15, totalSentences: 108 },
     hoeren2: { totalExams: 55, examsPerStage: 15, totalSentences: 273 },
     hoeren3: { totalExams: 48, examsPerStage: 15, totalSentences: 105 },
-    lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 }, // ✅ تمت الإضافة
+    lesen1: { totalExams: 55, examsPerStage: 15, totalSentences: 275 },
     lesen2: { totalExams: 37, examsPerStage: 15, totalSentences: 185 },
     lesen3: { totalExams: 37, examsPerStage: 15, totalSentences: 120 },
     sprach1: { totalExams: 41, examsPerStage: 15, totalSentences: 205 },
