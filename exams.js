@@ -109,10 +109,21 @@ async function getUserStatusForExam() {
 const tipsExams = [
   { id: 1, title: "كيفاش تنجح بدكاء", enabled: true, hasFile: true }
 ];
-
 // ========== قائمة امتحانات Lesen Teil 1 ==========
 const lesenExams = [
-   { id: 1, title: "kellner (Jugend Forscher)", enabled: true, hasFile: true },  
+  // ✅ بطاقة 1: exam1.json + exam1b.json
+  { 
+    id: 1, 
+    title: "kellner (Jugend Forscher)", 
+    enabled: true, 
+    hasFile: true,
+    versions: [
+      { id: 1, file: "exam1.json", title: "kellner (Jugend Forscher)" },
+      { id: 1, file: "exam1b.json", title: "kellner (Jugend Forscher) (التعديل 1)" }
+    ]
+  },
+  
+  // ✅ بطاقة 2: exam2.json + exam3.json + exam3b.json
   { 
     id: 2, 
     title: "sport ist gesund", 
@@ -120,9 +131,12 @@ const lesenExams = [
     hasFile: true,
     versions: [
       { id: 2, file: "exam2.json", title: "sport ist gesund" },
-      { id: 3, file: "exam3.json", title: "sport ist gesund (التعديل 1)" }
+      { id: 3, file: "exam3.json", title: "sport ist gesund (التعديل 1)" },
+      { id: 3, file: "exam3b.json", title: "sport ist gesund (التعديل 2)" }
     ]
   },
+  
+  // ✅ باقي الامتحانات العادية (بدون تعديلات)
   { id: 4, title: "Tanzkurs", enabled: true, hasFile: true },
   { id: 5, title: "Tanzkurs (التعديل 1)", enabled: true, hasFile: true },
   { id: 6, title: "Impfung", enabled: true, hasFile: true },
@@ -176,7 +190,6 @@ const lesenExams = [
   { id: 54, title: "Gedächtnis", enabled: true, hasFile: true },
   { id: 55, title: "Wohnen", enabled: true, hasFile: true }
 ];
-
 // ========== قائمة امتحانات Schreiben ==========
 const schreibenExams = [
   { id: 1, title: "Fotobuch", enabled: true, hasFile: true },
@@ -977,9 +990,6 @@ setTimeout(function() {
         applyExamListView("list");
     }
     
-    // 4. إعادة إنشاء Badge التعديلات
-    addVersionBadgesFixed();
-}, 50);
 
 setTimeout(setupLockedNextButton, 100);
 }
@@ -2667,20 +2677,13 @@ console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔gri
 // تصدير openExam للاستخدام العالمي
 // ============================================
 window.openExam = openExam;
-// ============================================
-// ✅ نظام Badge التعديلات - النسخة النهائية
-// ============================================
-const EXAM_VERSIONS_FIX = {
-    'lesen1_2': { 
-        versions: [
-            { id: 2, file: "exam2.json", title: "sport ist gesund" },
-            { id: 3, file: "exam3.json", title: "sport ist gesund (التعديل 1)" }
-        ]
-    },
-};
 
-// ✅ دالة عرض النافذة - تقرأ العناوين من versions مباشرة
-function showVersionsPopupAuto(versions, mainTitle) {
+// ============================================
+// ✅ نظام الإصدارات (Versions) البسيط
+// ============================================
+
+// ✅ دالة عرض نافذة الإصدارات
+function showVersionsPopup(versions, mainTitle) {
     const oldPopup = document.getElementById('versionsPopupAuto');
     if (oldPopup) oldPopup.remove();
     
@@ -2727,25 +2730,19 @@ function showVersionsPopupAuto(versions, mainTitle) {
                 <span style="font-size:13px; font-weight:500; text-align:left;">${v.title}</span>
             </div>
         `).join('')}
-        <button style="margin-top:16px; width:100%; padding:10px; background:#334155; border:1px solid #475569; border-radius:40px; color:#e2e8f0; font-weight:600; cursor:pointer; transition:0.2s;" onclick="this.closest('#versionsPopupAuto').remove()">إغلاق</button>
     `;
     
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
     
-    overlay.onclick = (e) => {
-        if (e.target === overlay) {
-            overlay.style.opacity = '0';
-            modal.style.transform = 'scale(0.9)';
-            setTimeout(() => overlay.remove(), 200);
-        }
+    const close = () => {
+        overlay.style.opacity = '0';
+        modal.style.transform = 'scale(0.9)';
+        setTimeout(() => overlay.remove(), 200);
     };
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            const popup = document.getElementById('versionsPopupAuto');
-            if (popup) popup.remove();
-        }
-    }, { once: true });
+    
+    overlay.onclick = (e) => { if (e.target === overlay) close(); };
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }, { once: true });
     
     if (!document.getElementById('modal-style-auto')) {
         const style = document.createElement('style');
@@ -2757,151 +2754,6 @@ function showVersionsPopupAuto(versions, mainTitle) {
         document.head.appendChild(style);
     }
 }
-// ✅ الدالة الرئيسية لإضافة البادج - تعتمد على بيانات الامتحان نفسه
-function addVersionBadgesFixed() {
-    const container = document.getElementById('examsList');
-    if (!container) return;
-    
-    // نأخذ المهارة الحالية
-    const skill = window.currentSkill || 'lesen1';
-    
-    // ✅ نبحث عن الامتحانات في القائمة الحالية فقط
-    const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
-    if (!items.length) return;
-    
-    let addedCount = 0;
-    
-    items.forEach(el => {
-        const title = el.querySelector('.exam-title');
-        if (!title) return;
-        
-        // نستخرج رقم الامتحان من النص
-        const match = title.textContent.match(/^(\d+):/);
-        if (!match) return;
-        const examId = parseInt(match[1]);
-        
-        // ✅ نبحث عن الامتحان في قاعدة البيانات الحالية
-        const examList = examsDatabase[skill] || [];
-        const exam = examList.find(e => e.id === examId);
-        
-        // ✅ إذا كان الامتحان يحتوي على versions (وليس مجرد رقم 2)
-        if (!exam || !exam.versions || exam.versions.length <= 1) return;
-        
-        // إزالة أي بادج قديم
-        const oldBadge = el.querySelector('.custom-badge');
-        if (oldBadge) oldBadge.remove();
-        
-        // إنشاء البادج الجديد
-        const badge = document.createElement('span');
-        badge.className = 'custom-badge';
-        badge.innerHTML = `
-            <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
-            <span style="font-size:9px; font-weight:600;">${exam.versions.length}</span>
-        `;
-        badge.style.cssText = `
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 2px !important;
-            background: linear-gradient(135deg, #334155, #1e293b) !important;
-            color: #f1f5f9 !important;
-            border-radius: 999px !important;
-            padding: 0 8px 0 4px !important;
-            height: 22px !important;
-            margin-left: auto !important;
-            flex-shrink: 0 !important;
-            cursor: pointer !important;
-            transition: all 0.2s ease !important;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
-            border: 1px solid #475569 !important;
-            user-select: none !important;
-            line-height: 1 !important;
-        `;
-        badge.title = `${exam.versions.length} تعديلات`;
-        
-        badge.onmouseenter = () => { badge.style.transform = 'scale(1.08)'; };
-        badge.onmouseleave = () => { badge.style.transform = 'scale(1)'; };
-        
-        badge.onclick = (e) => {
-            e.stopPropagation();
-            
-            // نافذة بدون زر إغلاق
-            const overlay = document.createElement('div');
-            overlay.id = 'versionsPopupAuto';
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.3);
-                backdrop-filter: blur(3px);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 99999;
-                animation: fadeIn 0.2s ease;
-            `;
-            
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                background: #1a1f2e;
-                border-radius: 20px;
-                padding: 28px 24px;
-                max-width: 340px;
-                width: 90%;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-                border: 1px solid #2a3042;
-                animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-                color: #e2e8f0;
-                text-align: center;
-            `;
-            
-            modal.innerHTML = `
-                <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${exam.versions.length} تعديلات</h4>
-                <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
-                ${exam.versions.map((v, i) => `
-                    <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
-                         onclick="window.openExam(${v.id}, '${v.title}', '${skill}')"
-                         onmouseenter="this.style.background='#1a2340'"
-                         onmouseleave="this.style.background='#0f1421'">
-                        <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
-                        <span style="font-size:13px; font-weight:500; text-align:left;">${v.title}</span>
-                    </div>
-                `).join('')}
-            `;
-            
-            overlay.appendChild(modal);
-            document.body.appendChild(overlay);
-            
-            const close = () => {
-                overlay.style.opacity = '0';
-                modal.style.transform = 'scale(0.9)';
-                setTimeout(() => overlay.remove(), 200);
-            };
-            
-            overlay.onclick = (e) => { if (e.target === overlay) close(); };
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }, { once: true });
-            
-            if (!document.getElementById('modal-style-auto')) {
-                const style = document.createElement('style');
-                style.id = 'modal-style-auto';
-                style.textContent = `
-                    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-                    @keyframes scaleIn { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
-                `;
-                document.head.appendChild(style);
-            }
-        };
-        
-        title.appendChild(badge);
-        addedCount++;
-    });
-    
-    if (addedCount > 0) console.log(`✅ تم إضافة ${addedCount} Badge (مع أيقونة layers)`);
-}
-// ✅ تصدير الدوال للاستخدام العام
-window.addVersionBadgesFixed = addVersionBadgesFixed;
-window.showVersionsPopupAuto = showVersionsPopupAuto;
 
-console.log('✅ نظام Badge التعديلات (النسخة النهائية) تم تحميله');
+// ✅ تصدير الدوال للاستخدام العام
+window.showVersionsPopup = showVersionsPopup;
