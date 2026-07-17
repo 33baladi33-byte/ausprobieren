@@ -3103,15 +3103,11 @@ console.log('🧠 نظام التقدم المتوازن (المراحل لكل 
 console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));
 
 // ============================================
-// أزرار تبديل الأيقونة (زرين جنب بعض)
+// أزرار تبديل الأيقونة (زرين جنب بعض) - النسخة المحسنة
 // ============================================
 
 const VIEW_ICONS_1 = ['leaderboard', '123'];
 const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
-
-// ============================================
-// إصلاح أزرار Leaderboard و 123 - النسخة المحسنة
-// ============================================
 
 let originalOrderNumbers = [];
 
@@ -3142,8 +3138,7 @@ function saveOriginalOrder() {
     }).filter(num => num !== null);
     
     if (originalOrderNumbers.length === 0) {
-        console.warn("⚠️ saveOriginalOrder: لم يتم العثور على أرقام");
-        // محاولة بديلة: استخدام الفهرس
+        console.warn("⚠️ saveOriginalOrder: لم يتم العثور على أرقام، استخدام الفهرس");
         originalOrderNumbers = exams.map((_, index) => index + 1);
     }
     
@@ -3272,6 +3267,8 @@ function applyLeaderboardOrder() {
     data.forEach(item => targetContainer.appendChild(item.el));
     console.log("✅ تم ترتيب الامتحانات من الأضعف إلى الأقوى");
 }
+
+
 function getViewModeIndex1() {
     try {
         const saved = localStorage.getItem(VIEW_MODE_KEY_1);
