@@ -3109,16 +3109,29 @@ console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `$
 const VIEW_ICONS_1 = ['leaderboard', '123'];
 const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
 
+// ============================================
+// إصلاح أزرار Leaderboard و 123 - النسخة المحسنة
+// ============================================
+
 let originalOrderNumbers = [];
 
 function saveOriginalOrder() {
     const list = document.getElementById("examsList");
     if (!list) return;
     
-    const exams = [...list.querySelectorAll(".item")].filter(el =>
+    // البحث في الحاوية الصحيحة (سواء list أو grid)
+    const gridContainer = document.getElementById("examGridContainer");
+    const targetContainer = gridContainer || list;
+    
+    const exams = [...targetContainer.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
     );
+    
+    if (exams.length === 0) {
+        console.warn("⚠️ saveOriginalOrder: لا توجد عناصر للحفظ");
+        return;
+    }
     
     originalOrderNumbers = exams.map(el => {
         const title = el.querySelector(".exam-title");
@@ -3128,12 +3141,24 @@ function saveOriginalOrder() {
         return match ? parseInt(match[1], 10) : null;
     }).filter(num => num !== null);
     
+    if (originalOrderNumbers.length === 0) {
+        console.warn("⚠️ saveOriginalOrder: لم يتم العثور على أرقام");
+        // محاولة بديلة: استخدام الفهرس
+        originalOrderNumbers = exams.map((_, index) => index + 1);
+    }
+    
     console.log("📋 تم حفظ الترتيب الأصلي:", originalOrderNumbers);
 }
 
 function restoreOriginalOrder() {
     const list = document.getElementById("examsList");
-    if (!list || originalOrderNumbers.length === 0) return;
+    if (!list) return;
+    
+    if (originalOrderNumbers.length === 0) {
+        console.warn("⚠️ restoreOriginalOrder: لا توجد أرقام محفوظة، محاولة الحفظ مجدداً");
+        saveOriginalOrder();
+        return;
+    }
     
     const gridContainer = document.getElementById("examGridContainer");
     const targetContainer = gridContainer || list;
@@ -3143,8 +3168,12 @@ function restoreOriginalOrder() {
         !el.classList.contains("memory-progress-bar-container")
     );
     
-    if (!exams.length) return;
+    if (exams.length === 0) {
+        console.warn("⚠️ restoreOriginalOrder: لا توجد عناصر لترتيبها");
+        return;
+    }
     
+    // إنشاء خريطة للعناصر حسب الرقم
     const examMap = {};
     exams.forEach(el => {
         const title = el.querySelector(".exam-title");
@@ -3157,20 +3186,45 @@ function restoreOriginalOrder() {
         }
     });
     
+    // إذا لم نجد أرقاماً، استخدم الفهرس
+    if (Object.keys(examMap).length === 0) {
+        console.warn("⚠️ restoreOriginalOrder: لم يتم العثور على أرقام، استخدام الفهرس");
+        exams.forEach((el, index) => {
+            el.dataset.originalIndex = index;
+        });
+        originalOrderNumbers = exams.map((_, index) => index + 1);
+        // إعادة تعيين الخريطة
+        exams.forEach(el => {
+            const idx = parseInt(el.dataset.originalIndex);
+            examMap[idx + 1] = el;
+        });
+    }
+    
     const fragment = document.createDocumentFragment();
+    let foundCount = 0;
+    
     originalOrderNumbers.forEach(num => {
         if (examMap[num]) {
             fragment.appendChild(examMap[num]);
             delete examMap[num];
+            foundCount++;
         }
     });
     
+    // إضافة العناصر المتبقية (إذا وجدت)
     Object.keys(examMap).map(Number).sort((a, b) => a - b).forEach(num => {
         fragment.appendChild(examMap[num]);
+        foundCount++;
     });
     
-    targetContainer.appendChild(fragment);
-    console.log("📋 تم استعادة الترتيب الأصلي حسب الأرقام");
+    if (foundCount > 0) {
+        targetContainer.appendChild(fragment);
+        console.log(`📋 تم استعادة الترتيب الأصلي (${foundCount} عنصر)`);
+    } else {
+        console.warn("⚠️ restoreOriginalOrder: لم يتم العثور على أي عنصر للمطابقة");
+        // التراجع: ترتيب بسيط
+        exams.forEach(el => targetContainer.appendChild(el));
+    }
 }
 
 function applyLeaderboardOrder() {
@@ -3185,28 +3239,39 @@ function applyLeaderboardOrder() {
         !el.classList.contains("memory-progress-bar-container")
     );
 
-    if (!exams.length) return;
+    if (exams.length === 0) {
+        console.warn("⚠️ applyLeaderboardOrder: لا توجد عناصر");
+        return;
+    }
 
     const data = exams.map((el, index) => {
         const badge = el.querySelector(".exam-result-badge");
         let score = Infinity;
+        let hasResult = false;
         if (badge) {
             const txt = badge.textContent.trim();
             const m = txt.match(/^(\d+)\s*\/\s*\d+/);
-            if (m) score = parseInt(m[1], 10);
+            if (m) {
+                score = parseInt(m[1], 10);
+                hasResult = true;
+            }
         }
-        return { el, score, originalIndex: index };
+        return { el, score, hasResult, originalIndex: index };
     });
 
+    // العناصر بدون نتيجة تذهب إلى النهاية
     data.sort((a, b) => {
+        if (!a.hasResult && !b.hasResult) return a.originalIndex - b.originalIndex;
+        if (!a.hasResult) return 1;
+        if (!b.hasResult) return -1;
         if (a.score === b.score) return a.originalIndex - b.originalIndex;
         return a.score - b.score;
     });
 
+    // إفراغ الحاوية وإعادة الإدراج
     data.forEach(item => targetContainer.appendChild(item.el));
     console.log("✅ تم ترتيب الامتحانات من الأضعف إلى الأقوى");
 }
-
 function getViewModeIndex1() {
     try {
         const saved = localStorage.getItem(VIEW_MODE_KEY_1);
