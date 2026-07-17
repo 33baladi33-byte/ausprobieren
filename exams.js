@@ -858,6 +858,108 @@ const sprach2Exams = [
   }
 ];
 
+// ========== قائمة امتحانات Schreiben ==========
+const schreibenExams = [
+  { id: 1, title: "Fotobuch", enabled: true, hasFile: true },
+  { id: 2, title: "Abenteuer TIKKI TAKKA", enabled: true, hasFile: true },
+  { id: 3, title: "Informatik-Shop", enabled: true, hasFile: true },
+  { id: 4, title: "Kosmetik-Shop", enabled: true, hasFile: true },
+  { id: 5, title: "Partyservice", enabled: true, hasFile: true },
+  { id: 6, title: "ESS Firma", enabled: true, hasFile: true },
+  { id: 7, title: "Kursbeschreibung (Wohndesign)", enabled: true, hasFile: true },
+  { id: 8, title: "Renovierungskurs", enabled: true, hasFile: true },
+  { id: 9, title: "Engagement für Jugendliche", enabled: true, hasFile: true },
+  { id: 10, title: "Wohnen auf Zeit in Oranienburg", enabled: true, hasFile: true },
+  { id: 11, title: "Autovermietung Neustadt", enabled: true, hasFile: true },
+  { id: 12, title: "Freizeitverein", enabled: true, hasFile: true },
+  { id: 13, title: "Naturmuseum", enabled: true, hasFile: true },
+  { id: 14, title: "Backstage-Musical-Tour", enabled: true, hasFile: true },
+  { id: 15, title: "KULTUR UND KULINARIK", enabled: true, hasFile: true },
+  { id: 16, title: "Mehr bewegen - aber wie? (Fahrradtour)", enabled: true, hasFile: true },
+  { id: 17, title: "Super Clean-Staubsaugroboter", enabled: true, hasFile: true },
+  { id: 18, title: "Apartment-Haus", enabled: true, hasFile: true },
+  { id: 19, title: "Kostenlose Apps für dein Handy!", enabled: true, hasFile: true },
+  { id: 20, title: "Nie mehr schlaflos in Deutschland - Komfort-Matratze", enabled: true, hasFile: true },
+  { id: 21, title: "Schmelzkäse Alpengeschmack", enabled: true, hasFile: true },
+  { id: 22, title: "Meine Kiste: Obst und Gemüse", enabled: true, hasFile: true },
+  { id: 23, title: "Hotel mit Thermen", enabled: true, hasFile: true },
+  { id: 24, title: "Kopfhörer", enabled: true, hasFile: true },
+  { id: 25, title: "Badezimmer renovieren", enabled: true, hasFile: true },
+  { id: 26, title: "FREIZEITBAD MEERESRAUSCHEN", enabled: true, hasFile: true },
+  { id: 27, title: "Reisebüro Sonnenschein", enabled: true, hasFile: true },
+  { id: 28, title: "Kursbeschreibung (sich vorstellen)", enabled: true, hasFile: true },
+  { id: 29, title: "FITWATCH Smartwatch", enabled: true, hasFile: true },
+  { id: 30, title: "Securvia Reisegepäckversicherung", enabled: true, hasFile: true },
+  { id: 31, title: "DIGIBIKE - Das smarte Hightech-Fahrrad", enabled: true, hasFile: true },
+  { id: 32, title: "SPORTHEINPARKPLATZ FÜR KINDER", enabled: true, hasFile: true },
+  { id: 33, title: "Online-Training für guten Schlaf", enabled: true, hasFile: true },
+  { id: 34, title: "Hollandblumen-Onlineshop", enabled: true, hasFile: true },
+  { id: 35, title: "In Offenbach zu Hause", enabled: true, hasFile: true },
+  { id: 36, title: "Nachbarschaft.net", enabled: true, hasFile: true },
+  { id: 37, title: "Zeitschrift - Abonnentenservice", enabled: true, hasFile: true },
+  { id: 38, title: "Fotografieren für Fortgeschrittene", enabled: true, hasFile: true },
+  { id: 39, title: "Umzugsunternehmen Bühler", enabled: true, hasFile: true },
+  { id: 40, title: "Schlüsseldienst", enabled: true, hasFile: true },
+  { id: 41, title: "T & W Elektronikversicherung", enabled: true, hasFile: true },
+  { id: 42, title: "Waldschwimmbad Langen", enabled: true, hasFile: true }
+];
+
+// ========== قائمة امتحانات Mündlich Teil 1 ==========
+const mündlich1Exams = [
+  { id: 1, title: " تقديم وتكلم عن موضوع  ", enabled: true, hasFile: true, skillPath: "mündlich1" }
+];
+
+// ========== قائمة امتحانات Mündlich Teil 2 ==========
+const mündlich2Exams = [
+  { id: 1, title: "Antibiotika – Gibt es Alternativen?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 2, title: "Selbst gekocht", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 3, title: "Arbeiten bis 75", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 4, title: "Praktische Lerntipps", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 5, title: "Schuluniform – Pro und Kontra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 6, title: "Ist 'bequemes Essen' gut für uns?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 7, title: "Alternative Lebensform im Alter", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 8, title: "Glücklich ohne Geld und Karriere", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 9, title: "Schönheitsoperationen bei Minderjährigen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 10, title: "Kinderuniversitäten", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 11, title: "Fast Food", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 12, title: "Zweisprachigkeit bei Kindern", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 13, title: "Blutspende", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 14, title: "Lachen und Gesundheit", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 15, title: "Gefundene Sachen – behalten oder abgeben?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 16, title: "Tiere als Geschenk", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 17, title: "Hausaufgaben – notwendig oder nicht?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 18, title: "Wie lange dürfen Jugendliche abends ausgehen?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 19, title: "Rauchen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 20, title: "Hochbegabte Kinder – Spezialschulen oder Integration", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 21, title: "Hochzeit nur zu zweit", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 22, title: "Stadtwohnung oder Haus im Grünen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 23, title: "Leistungssport und Doping", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 24, title: "Fernsehen bildet", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 25, title: "Kinderkonten", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 26, title: "Haustausch im Urlaub", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 27, title: "Solarium im Winter – gut oder schlecht", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 28, title: "Ist Schulqualität messbar?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 29, title: "Hausfrau auf Lebenszeit", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 30, title: "Fernsehen macht Kinder dumm", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 31, title: "Kinder unterschätzen Gefahren von Handy und Internet", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 32, title: "Sind Klassenfahrten sinnvoll?", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 33, title: "Wo wohnt man am besten im Alter", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 34, title: "Ganztagsschule – Pro und Contra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 35, title: "Verbot von Gewaltspielen – Pro und Kontra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 36, title: "Eine Woche ohne Internet", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 37, title: "Digitales Unterrichtsmaterial in Schulen", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 38, title: "Tierversuche – Pro und Contra", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 39, title: "Englisch als weltweite Unternehmenssprache", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 40, title: "Trinkgeld geben", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 41, title: "Teilzeitarbeit für Männer", enabled: true, hasFile: true, skillPath: "mündlich2" },
+  { id: 42, title: "Nahrungsergänzungsmittel", enabled: true, hasFile: true, skillPath: "mündlich2" }
+];
+
+// ========== قائمة امتحانات Mündlich Teil 3 ==========
+const mündlich3Exams = [
+  { id: 1, title: " التخطيط وحل مشكل ", enabled: true, hasFile: true, skillPath: "mündlich3" }
+];
+
 // ============================================
 // ✅ قاعدة بيانات الامتحانات (باستخدام المصفوفات المعاد تنظيمها)
 // ============================================
@@ -868,41 +970,305 @@ const examsDatabase = {
   sprach1: sprach1Exams,
   sprach2: sprach2Exams,
   hoeren1: [
-    // ... (تبقى كما هي دون تغيير)
+    { id: 1, title: "Die Deutsche Lufthansa", enabled: true, hasFile: true },
+    { id: 2, title: "Die Piloten der Lufthansa", enabled: true, hasFile: true },
+    { id: 3, title: "Die Stadt Friedrichsberg", enabled: true, hasFile: true },
+    { id: 4, title: "Erdbeben", enabled: true, hasFile: true },
+    { id: 5, title: "Bierkonsum", enabled: true, hasFile: true },
+    { id: 6, title: "Bierkonsum (Mittel)", enabled: true, hasFile: true },
+    { id: 7, title: "Deutsches Schiff", enabled: true, hasFile: true },
+    { id: 8, title: "Weniger Vögel - Viele Kunden", enabled: true, hasFile: true },
+    { id: 9, title: "Europäische Union", enabled: true, hasFile: true },
+    { id: 10, title: "Unwetterschäden", enabled: true, hasFile: true },
+    { id: 11, title: "Nicht sicher", enabled: true, hasFile: true },
+    { id: 12, title: "Nicht sicher 2", enabled: true, hasFile: true },
+    { id: 13, title: "Frau Jürgens", enabled: true, hasFile: true },
+    { id: 14, title: "Die Wahlbeteiligung", enabled: true, hasFile: true },
+    { id: 15, title: "Die Wetterlage in den Alpen", enabled: true, hasFile: true },
+    { id: 16, title: "Wetter in den Alpen (Mittel)", enabled: true, hasFile: true },
+    { id: 17, title: "Insel Bali", enabled: true, hasFile: true },
+    { id: 18, title: "Die Fluggesellschaft", enabled: true, hasFile: true },
+    { id: 19, title: "Der Fluggesellschaft (Mittel)", enabled: true, hasFile: true },
+    { id: 20, title: "Der Bau", enabled: true, hasFile: true },
+    { id: 21, title: "50-Euro", enabled: true, hasFile: true },
+    { id: 22, title: "Das Schladminger", enabled: true, hasFile: true },
+    { id: 23, title: "Bei den Europawahlen (Linksparteien)", enabled: true, hasFile: true },
+    { id: 24, title: "Bei den Europawahlen (CDU/CSU)", enabled: true, hasFile: true },
+    { id: 25, title: "Die Bundesländer", enabled: true, hasFile: true },
+    { id: 26, title: "Bio-Siegels", enabled: true, hasFile: true },
+    { id: 27, title: "Berufen (bonbon)", enabled: true, hasFile: true },
+    { id: 28, title: "Die Zahl der Arbeitslosen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 29, title: "BILD AM SONNTAG (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 30, title: "Studentenparty in Frankreich (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 31, title: "Deutsche Filmmuseum (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 32, title: "Ein Treffen bei der Integrationsbeauftragten (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 33, title: "die Konjunkturentwicklung negativ (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 34, title: "internationalen Konferenz (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 35, title: "Um Tickets zu gewinnen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 36, title: "Die tschechische Stadt Pilsen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 37, title: "Laut Statistischem Bundesamt (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 38, title: "In Frankfurt haben Manager (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 39, title: "Für die Polizei in Berlin (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 40, title: "Die Sprecherin ist verheiratet (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 41, title: "Bei der Sportveranstaltung (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 42, title: "Das Bundesfamilienministerium (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 43, title: "Meeresküsten (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 44, title: "Bauern warnen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 45, title: "Nach Ansicht mancher (مواضيع تركيا)", enabled: true, hasFile: true }
   ],
   hoeren2: [
-    // ... (تبقى كما هي دون تغيير)
+    { id: 1, title: "Herr Gasser und Frau Janke", enabled: true, hasFile: true },
+    { id: 2, title: "Suza Hotop", enabled: true, hasFile: true },
+    { id: 3, title: "Suza Hotop (Mittel)", enabled: true, hasFile: true },
+    { id: 4, title: "Professor Steiner", enabled: true, hasFile: true },
+    { id: 5, title: "Professor Steiner (Mittel)", enabled: true, hasFile: true },
+    { id: 6, title: "Mallorca", enabled: true, hasFile: true },
+    { id: 7, title: "Mallorca (Mittel)", enabled: true, hasFile: true },
+    { id: 8, title: "In dem Restaurant", enabled: true, hasFile: true },
+    { id: 9, title: "Julia", enabled: true, hasFile: true },
+    { id: 10, title: "Carina", enabled: true, hasFile: true },
+    { id: 11, title: "Carina (Mittel)", enabled: true, hasFile: true },
+    { id: 12, title: "Frau Schenk", enabled: true, hasFile: true },
+    { id: 13, title: "Frau Schenk (Mittel)", enabled: true, hasFile: true },
+    { id: 14, title: "Herr Karimov", enabled: true, hasFile: true },
+    { id: 15, title: "Nadine", enabled: true, hasFile: true },
+    { id: 16, title: "Markus", enabled: true, hasFile: true },
+    { id: 17, title: "Markus (Mittel)", enabled: true, hasFile: true },
+    { id: 18, title: "Roland (Spielen)", enabled: true, hasFile: true },
+    { id: 19, title: "Roland (aufsteigen)", enabled: true, hasFile: true },
+    { id: 20, title: "Roland (einer höheren Lige)", enabled: true, hasFile: true },
+    { id: 21, title: "Die Deutschen machen", enabled: true, hasFile: true },
+    { id: 22, title: "Herr Scherer", enabled: true, hasFile: true },
+    { id: 23, title: "Beim Wettkampf", enabled: true, hasFile: true },
+    { id: 24, title: "Vanessa", enabled: true, hasFile: true },
+    { id: 25, title: "Zu Beginn", enabled: true, hasFile: true },
+    { id: 26, title: "Die TU Dresden", enabled: true, hasFile: true },
+    { id: 27, title: "Lisa Eisenberg", enabled: true, hasFile: true },
+    { id: 28, title: "Franz Schumacher", enabled: true, hasFile: true },
+    { id: 29, title: "Meron Makeba", enabled: true, hasFile: true },
+    { id: 30, title: "Frau Kedar Malta", enabled: true, hasFile: true },
+    { id: 31, title: "Frau Keder aus Malta", enabled: true, hasFile: true },
+    { id: 32, title: "Nadine Wagner (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 33, title: "Mirjam Pressier (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 34, title: "Mirjam Pressier - ليدعت (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 35, title: "Frau Pesina (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 36, title: "Herr Werner (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 37, title: "Wohnmobil (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 38, title: "Straßenkinder - Die Kinder (Kids) (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 39, title: "Familie - Eltern (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 40, title: "Revolution Day (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 41, title: "Bicycle (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 42, title: "Die Radiosendung (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 43, title: "psychische (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 44, title: "Herr Kemper (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 45, title: "Frau Hahn (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 46, title: "Wohnmobilen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 47, title: "Bibliothek (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 48, title: "Eisschwimmen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 49, title: "Die Ausbildung (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 50, title: "Thomas", enabled: true, hasFile: true },
+    { id: 51, title: "Frau Kiddar 3", enabled: true, hasFile: true },
+    { id: 52, title: "Bio-Essen: Obst, Gemüse und Lieferung", enabled: true, hasFile: true },
+    { id: 53, title: "Influencerin - Maria im Interview", enabled: true, hasFile: true },
+    { id: 54, title: "Vom Marktstand zum eigenen Geschäft", enabled: true, hasFile: true },
+    { id: 55, title: "Interview mit Bauingenieur - Herr Böhm", enabled: true, hasFile: true }
   ],
   hoeren3: [
-    // ... (تبقى كما هي دون تغيير)
+    { id: 1, title: "Telefon", enabled: true, hasFile: true },
+    { id: 2, title: "Musikfestivals", enabled: true, hasFile: true },
+    { id: 3, title: "Musikfestivals (Mittel)", enabled: true, hasFile: true },
+    { id: 4, title: "Fahrschule", enabled: true, hasFile: true },
+    { id: 5, title: "Im Süden Deutschlands (regnen)", enabled: true, hasFile: true },
+    { id: 6, title: "Im Süden Deutschlands (Schnee)", enabled: true, hasFile: true },
+    { id: 7, title: "Internet prüfen", enabled: true, hasFile: true },
+    { id: 8, title: "Ehrenamts", enabled: true, hasFile: true },
+    { id: 9, title: "Ehrenamts (Mittel)", enabled: true, hasFile: true },
+    { id: 10, title: "Demonstration", enabled: true, hasFile: true },
+    { id: 11, title: "Wochenanfang", enabled: true, hasFile: true },
+    { id: 12, title: "Im August", enabled: true, hasFile: true },
+    { id: 13, title: "Fundbüro", enabled: true, hasFile: true },
+    { id: 14, title: "Ausgang 26", enabled: true, hasFile: true },
+    { id: 15, title: "Ausgang 26 (Mittel)", enabled: true, hasFile: true },
+    { id: 16, title: "Blutspenden", enabled: true, hasFile: true },
+    { id: 17, title: "Reitturnier", enabled: true, hasFile: true },
+    { id: 18, title: "Delikatessen", enabled: true, hasFile: true },
+    { id: 19, title: "Für ein Konzert (Bus gratis)", enabled: true, hasFile: true },
+    { id: 20, title: "Für ein Konzert (in der ganzen Stadt)", enabled: true, hasFile: true },
+    { id: 21, title: "In Raum C23", enabled: true, hasFile: true },
+    { id: 22, title: "Trainingsausfahrten", enabled: true, hasFile: true },
+    { id: 23, title: "Das Geschäft", enabled: true, hasFile: true },
+    { id: 24, title: "Nach einer Großdemonstration", enabled: true, hasFile: true },
+    { id: 25, title: "Das Fest (ohne Frankfurt)", enabled: true, hasFile: true },
+    { id: 26, title: "Das Fest (mit Frankfurt)", enabled: true, hasFile: true },
+    { id: 27, title: "Radio Konzert", enabled: true, hasFile: true },
+    { id: 28, title: "Wanderung (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 29, title: "Bayern Radio (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 30, title: "Die Gruppe Die Prinzen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 31, title: "spätestens in Hannover (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 32, title: "Für das Konzert mit Romano (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 33, title: "Gartenausstellung KöGa (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 34, title: "den Opel-Zoo (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 35, title: "Der Christkindlesmarkt in Nürnberg (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 36, title: "Das Geschäft für österreichische Spezialitäten (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 37, title: "Alle Flüge der Fluglinie AirMer (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 38, title: "Auto gewinnen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 39, title: "Die Fahrradtouren von Berlin (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 40, title: "Die Literaturmesse für Kleinverleger (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 41, title: "Fußballspiels im Ostpark (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 42, title: "Das Treffen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 43, title: "im Frankfurter Zoo (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 44, title: "Ein Teil der kostenlosen Veranstaltungen (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 45, title: "Auf der Viktoriabrücke (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 46, title: "Die Buchpräsentation (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 47, title: "Beim Klassik-Radio (مواضيع تركيا)", enabled: true, hasFile: true },
+    { id: 48, title: "Sie Hören Den Anrufbeantworter-Buchhandlung", enabled: true, hasFile: true }
   ],
-  schreiben: schreibenExams,  // لم تتغير
-  mündlich: mündlich2Exams,   // لم تتغير
-  mündlich1: mündlich1Exams,  // لم تتغير
-  mündlich2: mündlich2Exams,  // لم تتغير
-  mündlich3: mündlich3Exams,  // لم تتغير
-  tips: tipsExams             // لم تتغير
+  schreiben: schreibenExams,
+  mündlich: mündlich2Exams,
+  mündlich1: mündlich1Exams,
+  mündlich2: mündlich2Exams,
+  mündlich3: mündlich3Exams,
+  tips: tipsExams
 };
 
-// ========== دوال عرض النتيجة المحفوظة (بدون تغيير) ==========
+// ========== دالة عرض نتيجة محفوظة ==========
 function displaySavedResult(skill, examId, titleSpan, containerDiv) {
-  // ... (نفس الكود السابق)
+  const savedScore = getExamResult(skill, examId);
+  if (savedScore !== null) {
+    const badge = createResultBadge(savedScore);
+    if (badge) {
+      const existingBadge = titleSpan.querySelector('.exam-result-badge');
+      if (existingBadge) existingBadge.remove();
+      titleSpan.appendChild(badge);
+    }
+  }
 }
 
-// ============================================
-// ✅ دوال العرض الأساسية (المعدلة لاستخدام versions)
-// ============================================
+let activeTeilId = null;
 
 function renderTeileList() {
-  // ... (نفس الكود السابق)
+  const container = document.getElementById("teileList");
+  if (!container) return;
+  container.innerHTML = "";
+  
+  container.style.cssText = `
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 30px;
+  `;
+  
+  for (let i = 0; i < teile.length; i++) {
+    const teil = teile[i];
+    const isActive = (activeTeilId === i);
+    
+    const btn = document.createElement("button");
+    btn.textContent = teil.name;
+    btn.style.cssText = `
+      height: 42px;
+      padding: 0 18px;
+      background: ${isActive ? '#FFFFFF' : '#161922'};
+      border: ${isActive ? '1px solid #E2E8F0' : 'none'};
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      color: ${isActive ? '#161922' : '#BFC6D4'};
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
+    `;
+    
+    btn.onmouseenter = () => {
+      if (!isActive) {
+        btn.style.background = '#202534';
+        btn.style.color = '#FFFFFF';
+      }
+    };
+    
+    btn.onmouseleave = () => {
+      if (!isActive) {
+        btn.style.background = '#161922';
+        btn.style.color = '#BFC6D4';
+      }
+    };
+    
+    btn.onclick = (function(skill, teilName, index) {
+      return function() {
+        activeTeilId = index;
+        renderTeileList();
+        renderExamListForSkill(skill, teilName);
+      };
+    })(teil.skill, teil.name, i);
+    
+    container.appendChild(btn);
+  }
 }
 
 function renderMündlichPartTabs() {
-  // ... (نفس الكود السابق)
+  const container = document.getElementById("examsList");
+  if (!container) return;
+  
+  const oldTabs = container.querySelector('.mündlich-tabs');
+  if (oldTabs) oldTabs.remove();
+  
+  const tabsDiv = document.createElement("div");
+  tabsDiv.className = "mündlich-tabs";
+  tabsDiv.style.cssText = `
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px 0;
+  `;
+  
+  const parts = [
+    { id: 1, name: "Teil 1 ", skill: "mündlich1" },
+    { id: 2, name: "Teil 2 ", skill: "mündlich2" },
+    { id: 3, name: "Teil 3 ", skill: "mündlich3" }
+  ];
+  
+  parts.forEach(part => {
+    const btn = document.createElement("button");
+    btn.textContent = part.name;
+    btn.style.cssText = `
+      background: ${currentMündlichPart === part.id ? "#4a6fa5" : "#eef2f7"};
+      color: ${currentMündlichPart === part.id ? "white" : "#2c3e66"};
+      border: none;
+      padding: 8px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    `;
+    btn.onmouseenter = () => {
+      if (currentMündlichPart !== part.id) {
+        btn.style.background = "#dee2e8";
+      }
+    };
+    btn.onmouseleave = () => {
+      if (currentMündlichPart !== part.id) {
+        btn.style.background = "#eef2f7";
+      }
+    };
+    btn.onclick = () => {
+      currentMündlichPart = part.id;
+      const skillToRender = part.skill;
+      const displayName = `Mündlich - ${part.name}`;
+      renderExamListForSkill(skillToRender, displayName);
+    };
+    tabsDiv.appendChild(btn);
+  });
+  
+  container.insertBefore(tabsDiv, container.firstChild);
 }
 
 // ============================================
-// ✅ دالة getFlattenedExamList - توليد قائمة مسطحة للإصدارات
+// ✅ دالة getFlattenedExamList - قائمة مسطحة للتنقل بين الإصدارات
 // ============================================
 function getFlattenedExamList(exams) {
     const flattened = [];
@@ -919,12 +1285,10 @@ function getFlattenedExamList(exams) {
                 });
             });
         } else {
-            // إذا كان لديه versions لكن بطول 1، نأخذ الإصدار الوحيد
-            const version = exam.versions && exam.versions.length === 1 ? exam.versions[0] : null;
             flattened.push({
                 id: exam.id,
                 title: exam.title,
-                file: version ? version.file : (exam.hasFile ? getActualFileName(exam.id) : null),
+                file: exam.hasFile ? getActualFileName(exam.id) : null,
                 skill: currentSkill,
                 isVersion: false,
                 parentId: exam.id
@@ -935,7 +1299,7 @@ function getFlattenedExamList(exams) {
 }
 
 // ============================================
-// ✅ دالة renderExamListForSkill (المعدلة)
+// ✅ دالة renderExamListForSkill المعدلة
 // ============================================
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
@@ -1138,17 +1502,17 @@ async function renderExamListForSkill(skill, teilName) {
     applyExamListView("list");
   }
   
-  // إضافة البادج بعد كل إعادة رسم
+  // ✅ إضافة البادج بعد كل إعادة رسم
   addVersionBadgesFixed();
   
-  // حفظ الترتيب الأصلي
+  // ✅ حفظ الترتيب الأصلي بعد إضافة البادج (لضمان استقرار leaderboard/123)
   saveOriginalOrder();
   
   setupLockedNextButton();
 }
 
 // ============================================
-// ✅ دالة showVersionsPopup (المعدلة)
+// ✅ دالة showVersionsPopup المعدلة - مع عرض النتائج
 // ============================================
 function showVersionsPopup(exam, skill) {
   const overlay = document.createElement('div');
@@ -1182,7 +1546,7 @@ function showVersionsPopup(exam, skill) {
     text-align: center;
   `;
   
-  let versionsHtml = (exam.versions || []).map((v, i) => {
+  let versionsHtml = exam.versions.map((v, i) => {
     const savedScore = getExamResult(skill, v.id);
     let scoreHtml = '';
     if (savedScore !== null) {
@@ -1226,7 +1590,7 @@ function showVersionsPopup(exam, skill) {
 }
 
 // ============================================
-// ✅ دالة setupLockedNextButton (المعدلة)
+// ✅ دالة setupLockedNextButton المعدلة - تدعم الإصدارات
 // ============================================
 function setupLockedNextButton() {
   const nextBtn = document.getElementById('nextExamBtn');
@@ -1287,29 +1651,37 @@ function setupLockedNextButton() {
   });
 }
 
-// ============================================
-// ✅ دالة getActualFileName (مع دعم versions)
-// ============================================
+function getTeilNameBySkill(skill) {
+  if (skill === "mündlich1") return "Mündlich - Teil 1 📖";
+  if (skill === "mündlich2") return "Mündlich - Teil 2 🗣️";
+  if (skill === "mündlich3") return "Mündlich - Teil 3 🎯";
+  const teil = teile.find(t => t.skill === skill);
+  return teil ? teil.name : skill;
+}
+
 function getActualFileName(examId) {
-  // نبحث في جميع المهارات عن الامتحان الذي يحمل هذا id ونستخرج اسم الملف من versions
+  // نبحث في جميع المهارات عن الامتحان الذي يحمل هذا id
   const allSkills = ['lesen1','lesen2','lesen3','sprach1','sprach2','hoeren1','hoeren2','hoeren3','schreiben','mündlich','mündlich1','mündlich2','mündlich3','tips'];
   for (const skill of allSkills) {
     const exams = examsDatabase[skill] || [];
     for (const exam of exams) {
       if (exam.id === examId && exam.versions && exam.versions.length > 0) {
-        // نبحث عن الإصدار الذي يحمل نفس id
         const version = exam.versions.find(v => v.id === examId);
         if (version) return version.file;
-        return exam.versions[0].file; // fallback
+        return exam.versions[0].file;
       }
     }
   }
-  // إذا لم نجد، نستخدم الاسم الافتراضي
   return `exam${examId}.json`;
 }
 
+function shouldHideHelpButton(skill) {
+  const hiddenSkills = ["schreiben", "tips", "mündlich1", "mündlich3"];
+  return hiddenSkills.includes(skill);
+}
+
 // ============================================
-// ✅ دالة openExam (المعدلة)
+// ✅ دالة openExam المعدلة
 // ============================================
 async function openExam(examId, examTitle, skill, fileName = null) {
   const userStatus = await getUserStatusForExam();
@@ -1371,18 +1743,7 @@ async function openExam(examId, examTitle, skill, fileName = null) {
     if (helpBtn) helpBtn.style.display = "block";
   }
   
-  // تحديد اسم الملف
-  let finalFileName = fileName;
-  if (!finalFileName) {
-    // نبحث في القائمة الحالية عن الامتحان
-    const exam = currentExamsList.find(e => e.id === examId);
-    if (exam && exam.versions && exam.versions.length > 0) {
-      const version = exam.versions.find(v => v.id === examId);
-      finalFileName = version ? version.file : exam.versions[0].file;
-    } else {
-      finalFileName = getActualFileName(examId);
-    }
-  }
+  const finalFileName = fileName || getActualFileName(examId);
   
   try {
     const response = await fetch(`data/${skill}/${finalFileName}`);
@@ -1403,7 +1764,7 @@ async function openExam(examId, examTitle, skill, fileName = null) {
     
     updateExamNavButtons();
     
-    // تحميل الامتحان حسب نوعه (نفس الكود السابق)
+    // تحميل الامتحان حسب نوعه
     if (currentExamData.type === "matching") {
       if (typeof window.loadMatchingExam === "function") {
         window.loadMatchingExam(currentExamData);
@@ -1464,6 +1825,7 @@ async function openExam(examId, examTitle, skill, fileName = null) {
       showTeil(10);
     }
     
+    // Interleaving
     const containerEl = document.getElementById(skill);
     if (containerEl) {
       containerEl.style.display = 'block';
@@ -1494,7 +1856,7 @@ async function openExam(examId, examTitle, skill, fileName = null) {
 }
 
 // ============================================
-// ✅ دالة updateExamNavButtons (المعدلة)
+// ✅ دالة updateExamNavButtons المعدلة - تدعم التنقل بين الإصدارات
 // ============================================
 function updateExamNavButtons() {
     const prevBtn = document.getElementById("prevExamBtn");
@@ -1556,14 +1918,273 @@ function updateExamNavButtons() {
 }
 
 // ============================================
-// ✅ دالة addVersionBadgesFixed (المعدلة)
+// ✅ دالة createViewModeToggles المعدلة - إخفاء الأزرار في بعض الأقسام
+// ============================================
+function createViewModeToggles() {
+    const header = document.querySelector('.teil-header');
+    if (!header) {
+        setTimeout(createViewModeToggles, 500);
+        return;
+    }
+
+    const showTogglesSkills = ['hoeren1', 'hoeren2', 'hoeren3', 'lesen1', 'lesen2', 'lesen3', 'sprach1', 'sprach2'];
+    
+    if (!showTogglesSkills.includes(currentSkill)) {
+        const oldBtn1 = document.getElementById('viewModeToggleBtn1');
+        const oldBtn2 = document.getElementById('viewModeToggleBtn2');
+        if (oldBtn1) oldBtn1.style.display = 'none';
+        if (oldBtn2) oldBtn2.style.display = 'none';
+        return;
+    }
+
+    if (header.style.position !== 'relative') {
+        header.style.position = 'relative';
+    }
+
+    const oldBtn1 = document.getElementById('viewModeToggleBtn1');
+    if (oldBtn1) oldBtn1.remove();
+    const oldBtn2 = document.getElementById('viewModeToggleBtn2');
+    if (oldBtn2) oldBtn2.remove();
+
+    // ===== الزر الأول (leaderboard ↔ 123) =====
+    const btn1 = document.createElement('button');
+    btn1.id = 'viewModeToggleBtn1';
+    btn1.className = 'view-mode-toggle-btn-1';
+    btn1.title = 'تبديل ترتيب القائمة';
+
+    let currentIndex1 = getViewModeIndex1();
+    const displayIndex1 = currentIndex1 === 0 ? 1 : 0;
+    const iconName1 = VIEW_ICONS_1[displayIndex1];
+    btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
+    
+    btn1.onclick = function(e) {
+        e.stopPropagation();
+        currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
+        setViewModeIndex1(currentIndex1);
+        const newDisplayIndex = currentIndex1 === 0 ? 1 : 0;
+        const span = this.querySelector('.material-symbols-outlined');
+        if (span) {
+            span.textContent = VIEW_ICONS_1[newDisplayIndex];
+        }
+        if (currentIndex1 === 0) {
+            applyLeaderboardOrder();
+        } else {
+            restoreOriginalOrder();
+        }
+    };
+
+    header.appendChild(btn1);
+
+    // ===== الزر الثاني (view_day ↔ grid_view) =====
+    const btn2 = document.createElement('button');
+    btn2.id = 'viewModeToggleBtn2';
+    btn2.className = 'view-mode-toggle-btn-2';
+    btn2.title = 'تبديل شكل العرض';
+
+    let currentIndex2 = getViewModeIndex2();
+    const displayIndex2 = currentIndex2 === 0 ? 1 : 0;
+    const iconName2 = VIEW_ICONS_2[displayIndex2];
+    btn2.innerHTML = `<span class="material-symbols-outlined">${iconName2}</span>`;
+
+    btn2.onclick = function(e) {
+        e.stopPropagation();
+        currentIndex2 = (currentIndex2 + 1) % VIEW_ICONS_2.length;
+        setViewModeIndex2(currentIndex2);
+        const newDisplayIndex = currentIndex2 === 0 ? 1 : 0;
+        const span = this.querySelector('.material-symbols-outlined');
+        if (span) {
+            span.textContent = VIEW_ICONS_2[newDisplayIndex];
+        }
+        if (currentIndex2 === 1) {
+            setExamListMode("grid");
+            applyExamListView("grid");
+        } else {
+            setExamListMode("list");
+            applyExamListView("list");
+        }
+    };
+
+    header.appendChild(btn2);
+    applyExamListView(getExamListMode());
+}
+
+// ============================================
+// ✅ دالة applyExamListView المعدلة - توحيد ارتفاع البطاقات
+// ============================================
+function applyExamListView(mode) {
+    const list = document.getElementById("examsList");
+    if (!list) return;
+
+    const oldGrid = document.getElementById("examGridContainer");
+    if (oldGrid) {
+        while (oldGrid.firstChild) {
+            list.appendChild(oldGrid.firstChild);
+        }
+        oldGrid.remove();
+    }
+
+    [...list.querySelectorAll(".item")].forEach(el => {
+        el.style.cssText = "";
+    });
+
+    if (mode === "list") {
+        console.log("📄 List View");
+        return;
+    }
+
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+
+    if (!exams.length) return;
+
+    const grid = document.createElement("div");
+    grid.id = "examGridContainer";
+
+    grid.style.cssText = `
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 6px;
+        margin-top: 8px;
+    `;
+
+    const firstExam = exams[0];
+    list.insertBefore(grid, firstExam);
+
+    let maxHeight = 0;
+    exams.forEach(item => {
+        const clone = item.cloneNode(true);
+        clone.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 42px;
+            padding: 8px 4px;
+            background: #fafbfc;
+            border: 1px solid #e8ecef;
+            border-radius: 6px;
+            margin: 0;
+            box-shadow: none;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            visibility: hidden;
+            position: absolute;
+            pointer-events: none;
+        `;
+        document.body.appendChild(clone);
+        const height = clone.offsetHeight;
+        document.body.removeChild(clone);
+        if (height > maxHeight) maxHeight = height;
+    });
+
+    const fixedHeight = Math.min(Math.max(maxHeight, 50), 60);
+
+    exams.forEach(item => {
+        grid.appendChild(item);
+
+        item.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: ${fixedHeight}px;
+            padding: 4px 4px;
+            background: #fafbfc;
+            border: 1px solid #e8ecef;
+            border-radius: 6px;
+            margin: 0;
+            box-shadow: none;
+            text-align: center;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            overflow: hidden;
+        `;
+
+        // تأثيرات Hover
+        item.addEventListener('mouseenter', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            if (isPremium) {
+                this.style.backgroundColor = "rgba(255,255,255,0.95)";
+                this.style.transform = "translateY(-3px)";
+                this.style.borderColor = "#60a5fa";
+                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+            } else {
+                this.style.backgroundColor = "#f1f5f9";
+                this.style.transform = "translateY(-3px)";
+                this.style.borderColor = "#2F80ED";
+                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+            }
+            const title = this.querySelector('.exam-title');
+            if (title) {
+                const isPremium = this.querySelector('.premium-badge') !== null;
+                title.style.color = isPremium ? "#4b5563" : "#1e293b";
+            }
+            const premiumSpan = this.querySelector('.premium-badge');
+            if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+        });
+
+        item.addEventListener('mouseleave', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            if (isPremium) {
+                this.style.backgroundColor = "rgba(255,255,255,0.75)";
+                this.style.transform = "translateY(0)";
+                this.style.borderColor = "#e2e8f0";
+                this.style.boxShadow = "none";
+            } else {
+                this.style.backgroundColor = "#fafbfc";
+                this.style.transform = "translateY(0)";
+                this.style.borderColor = "#e8ecef";
+                this.style.boxShadow = "none";
+            }
+            const title = this.querySelector('.exam-title');
+            if (title) {
+                const isPremium = this.querySelector('.premium-badge') !== null;
+                title.style.color = isPremium ? "#6b7280" : "#1a202c";
+            }
+            const premiumSpan = this.querySelector('.premium-badge');
+            if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+        });
+
+        // تأثير Active
+        item.addEventListener('mousedown', function() {
+            this.style.transform = "scale(0.98)";
+            this.style.backgroundColor = "#e2e8f0";
+            this.style.transition = "all 0.05s ease";
+        });
+
+        item.addEventListener('mouseup', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            this.style.transform = "scale(1)";
+            this.style.backgroundColor = isPremium ? "rgba(255,255,255,0.95)" : "#f1f5f9";
+            this.style.transition = "all 0.25s ease";
+        });
+
+        const title = item.querySelector(".exam-title");
+        if (title) {
+            title.style.fontSize = "11px";
+            title.style.transition = "color 0.25s ease";
+        }
+
+        const badge = item.querySelector(".exam-result-badge");
+        if (badge) badge.style.fontSize = "8px";
+    });
+
+    console.log("🟦 Grid View");
+}
+
+// ============================================
+// ✅ دالة addVersionBadgesFixed - إضافة البادج للتعديلات
 // ============================================
 function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
     if (!container) return;
     
     const skill = currentSkill || 'lesen1';
-    // نطبق البادج فقط على الأقسام التي قد تحتوي على versions
     if (!['lesen1','lesen2','lesen3','sprach1','sprach2'].includes(skill)) return;
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
@@ -1580,17 +2201,17 @@ function addVersionBadgesFixed() {
         const exam = currentExamsList.find(e => e.id === examId);
         if (!exam || !exam.versions || exam.versions.length <= 1) return;
         
-        // التحقق من وجود البادج
+        // ✅ التحقق من وجود البادج
         let badge = el.querySelector('.custom-badge');
         if (badge) {
             const countSpan = badge.querySelector('span:last-child');
             if (countSpan && countSpan.textContent === String(exam.versions.length)) {
                 return; // البادج موجود وصحيح
             }
-            badge.remove();
+            badge.remove(); // البادج قديم
         }
         
-        // إنشاء البادج
+        // إنشاء البادج الجديد
         badge = document.createElement('span');
         badge.className = 'custom-badge';
         badge.innerHTML = `
@@ -1636,10 +2257,9 @@ function addVersionBadgesFixed() {
 }
 
 // ============================================
-// باقي الدوال (goBackToExamsList, renderInfoExam, renderTipsExam, renderMündlichExam, createMündlichCard, showTeil, goHome, goList, buildTeil1, checkTeil1, etc.)
+// باقي الدوال (goBackToExamsList, renderInfoExam, renderTipsExam, renderMündlichExam, ...)
 // ============================================
 
-// دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
   if (currentSkill) {
     if (currentSkill === "mündlich1") {
@@ -1679,7 +2299,6 @@ function goBackToExamsList() {
   }
 }
 
-// وظيفة عرض الامتحانات من نوع info (Teil 1 و Teil 3)
 function renderInfoExam(examData) {
   let containerId = currentSkill;
   if (currentSkill === "mündlich1" || currentSkill === "mündlich3") {
