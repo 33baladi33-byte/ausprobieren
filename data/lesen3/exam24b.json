@@ -6,13 +6,13 @@
     {
       "id": "a",
       "text": "Das Museum der Badekultur lädt große und kleine Besucher zu einer informativen und kurzweiligen Reise durch 2000 Jahre Badekultur ein. Die Besucher können römische Baderäume besichtigen. Sie erfahren auch, wie im Mittelalter auf Burgen und in Städten Körperpflege betrieben wurde und wie in Schlössern der Neuzeit gebadet wurde. Für Kinder ab 8 Jahren gibt es viel zu entdecken: Sie können die Ausstellung mithilfe eines Comics oder einer Museumsrallye erkunden. Multimediastationen führen spielerisch an die Geschichte des Badens heran. Museum der Badekultur, Andreas-Broicher-Platz 1, 53909 Zülpich.",
-      "correct": 10,
+      "correct": 0,
       "highlightColor": 0
     },
     {
       "id": "b",
       "text": "Die Badrenovierung steht vor der Tür? Dann besuchen Sie unsere große Bäderausstellung. Hier finden Sie Anregungen, können Marktneuheiten entdecken und sich von unseren Fachleuten beraten lassen. Über 50 Musterbäder warten darauf, von Ihnen erkundet zu werden. Besuchen Sie unsere Bäder- und Fliesenwelt und flanieren Sie in entspannter Atmosphäre durch unsere Schaubäder. Gemeinsam finden wir eine maßgeschneiderte Lösung für Sie! Dauerhafte Freude an Ihrem neuen Traumbad garantiert! Markus Köfer GmbH & Co. KG, Sanitär- und Heizungshandlung, Georgstraße 3, 67059 Ludwigshafen.",
-      "correct": 18,
+      "correct": 8,
       "highlightColor": 1
     },
     {
@@ -36,7 +36,7 @@
     {
       "id": "f",
       "text": "Ein Blick hinter die Kulissen Entdecken Sie die Welt von 'Alpen-Naturkosmetik'. Besichtigen Sie unsere Fabrik im Allgäu und erfahren Sie mehr über unsere Kosmetik bei einer Führung. Wir zeigen Ihnen die Labore, die Produktionsstätte bis hin zur Verpackung. Seit 1903 stellt Alpen-Naturkosmetik hochwertige Seifen, Haut- und Zusatzprodukte und Cremes her. Jeder Gast erhält gratis ein Kosmetikpröbchen zum Kennenlernen. Firmenführungen jeden Freitag um 16 Uhr & Samstag um 13 Uhr (kostenfrei). Alpen-Naturkosmetik, Memminger Str. 67, 87439 Kempten.",
-      "correct": 16,
+      "correct": 6,
       "highlightColor": 2
     },
     {
@@ -48,7 +48,7 @@
     {
       "id": "h",
       "text": "Rom bei Nacht Erleben Sie die Ewige Stadt nach Einbruch der Dunkelheit bei einer Besichtigungstour in einer kleinen Gruppe. Beginnen Sie Ihren Abend mit einer Pizza in einem klassischen römischen Restaurant und betrachten Sie die antiken Stätten und Monumente bei nächtlicher Beleuchtung. Besichtigen Sie das Kolosseum und spazieren Sie anschließend über die Piazza Navona. Vierstündige Tour zu den wichtigsten Sehenswürdigkeiten von Rom. Sehen Sie eine andere Seite der Stadt, genießen Sie einen Rundgang in den Gässchen. Kleingruppentour im Kleinbus, Hoteltransfers inbegriffen. Kontakt: info@rom-bei-nacht.de",
-      "correct": 14,
+      "correct": 4,
       "highlightColor": 3
     },
     {
@@ -66,13 +66,13 @@
     {
       "id": "k",
       "text": "Werden Sie Botschafter unserer Stadt! Sie kennen sich gut in Koblenz aus, interessieren sich für die Geschichte von Stadt und Region und gehen gerne auf andere zu? Dann ist unsere Ausbildung zum Stadtführer das Richtige für Sie. Die Ausbildung umfasst 100 Stunden in Theorie und Praxis. Vorzugsweise suchen wir Teilnehmer, die eine Fremdsprache fließend beherrschen. Die Kosten liegen bei 400 €. Die Teilnehmer können im Anschluss an diese Ausbildung als Stadtführer von der Koblenz-Tourismus GmbH gebucht werden. Neben den klassischen 1,5-stündigen Stadtführungen bieten wir auch eine Fülle von Themenführungen an. Infos und Anmeldung: info@koblenz-tourismus.net",
-      "correct": 11,
+      "correct": 1,
       "highlightColor": 4
     },
     {
       "id": "l",
       "text": "Zwei Meister am Herd in der Filmkomödie 'Zwei Meister am Herd' dreht sich alles um Gourmets, Sterne und feinste Zutaten. Spitzenkoch Clément hat keine Freude mehr am Kochen - und zu seinem Unglück haben sich gerade Restaurant-Kritiker angekündigt. Da trifft es sich gut, dass er die Bekanntschaft von Oskar macht. Der ist Koch aus Leidenschaft, hält sich aber eher schlecht als recht mit Gelegenheitsjobs in Kneipen und Schnellimbissen über Wasser. Werden die beiden zusammen die Kritiker überzeugen? Ein Feuerwerk aus Witz und Humor! Citykino, täglich um 16 und 20 Uhr.",
-      "correct": 19,
+      "correct": 9,
       "highlightColor": 5
     }
   ],
