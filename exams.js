@@ -23,7 +23,6 @@ function saveExamResult(skill, examId, score) {
   try {
     const key = `exam_result_${skill}_${examId}`;
     localStorage.setItem(key, score.toString());
-    console.log(`✅ تم حفظ النتيجة ${score} لـ ${skill} ${examId}`);
   } catch(e) {
     console.error("❌ خطأ في حفظ النتيجة:", e);
   }
@@ -175,7 +174,7 @@ const lesenExams = [
 ];
 
 // ============================================
-// ✅ جدول الإصدارات اليدوي لـ Lesen 1 و Lesen 2 و Lesen 3
+// ✅ جدول الإصدارات اليدوي
 // ============================================
 const VERSION_GROUPS = {
   'lesen1': {
@@ -517,7 +516,7 @@ const VERSION_GROUPS = {
       ]
     }
   },
-    'sprach2': {
+  'sprach2': {
     1: {
       main: 1,
       versions: [
@@ -628,6 +627,7 @@ const VERSION_GROUPS = {
     }
   }
 };
+
 // ========== قائمة امتحانات Schreiben ==========
 const schreibenExams = [
   { id: 1, title: "Fotobuch", enabled: true, hasFile: true },
@@ -666,7 +666,7 @@ const schreibenExams = [
   { id: 34, title: "Hollandblumen-Onlineshop", enabled: true, hasFile: true },
   { id: 35, title: "In Offenbach zu Hause", enabled: true, hasFile: true },
   { id: 36, title: "Nachbarschaft.net", enabled: true, hasFile: true },
-    { id: 37, title: "Zeitschrift - Abonnentenservice", enabled: true, hasFile: true },
+  { id: 37, title: "Zeitschrift - Abonnentenservice", enabled: true, hasFile: true },
   { id: 38, title: "Fotografieren für Fortgeschrittene", enabled: true, hasFile: true },
   { id: 39, title: "Umzugsunternehmen Bühler", enabled: true, hasFile: true },
   { id: 40, title: "Schlüsseldienst", enabled: true, hasFile: true },
@@ -767,28 +767,7 @@ const actualFileNames = {
   105: "exam9b.json",
   106: "exam5c.json",
   107: "exam10b.json",
-  108: "exam15c.json",
   108: "exam16b.json",
-  109: "exam3b.json",
-  110: "exam6b.json",
-  111: "exam10b.json",
-  112: "exam24b.json",
-  108: "exam16b.json",
-  109: "exam3b.json",
-  110: "exam6b.json",
-  111: "exam10b.json",
-  112: "exam24b.json",
-  113: "exam6b.json",
-  114: "exam20b.json",
-  115: "exam29b.json",
-  116: "exam40b.json",
-    117: "exam37.json",
-  118: "exam38.json",
-  119: "exam39.json",
-  120: "exam40.json",
-  121: "exam41.json",
-  122: "exam42.json",
-    108: "exam16b.json",
   109: "exam3b.json",
   110: "exam6b.json",
   111: "exam10b.json",
@@ -1276,7 +1255,38 @@ function renderMündlichPartTabs() {
 }
 
 // ============================================
-// ✅ دالة renderExamListForSkill المعدلة - مع إخفاء النسخ وجعل البطاقة قابلة للضغط
+// ✅ دالة getFlattenedExamList - قائمة مسطحة للتنقل
+// ============================================
+function getFlattenedExamList(exams) {
+    const flattened = [];
+    exams.forEach(exam => {
+        if (exam.versions && exam.versions.length > 1) {
+            exam.versions.forEach(v => {
+                flattened.push({
+                    id: v.id,
+                    title: v.title,
+                    file: v.file,
+                    skill: currentSkill,
+                    isVersion: true,
+                    parentId: exam.id
+                });
+            });
+        } else {
+            flattened.push({
+                id: exam.id,
+                title: exam.title,
+                file: exam.hasFile ? getActualFileName(exam.id) : null,
+                skill: currentSkill,
+                isVersion: false,
+                parentId: exam.id
+            });
+        }
+    });
+    return flattened;
+}
+
+// ============================================
+// ✅ دالة renderExamListForSkill المعدلة
 // ============================================
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
@@ -1301,8 +1311,7 @@ async function renderExamListForSkill(skill, teilName) {
   let targetSkill = skill;
   let targetExams = examsDatabase[skill] || [];
   
- // ✅ التعديل: إخفاء الامتحانات التي هي نسخ (versions) وإضافة versions للامتحانات الأساسية
-if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1' || skill === 'sprach2') {
+  if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1' || skill === 'sprach2') {
     const groups = VERSION_GROUPS[skill] || {};
     const versionIds = new Set();
     
@@ -1323,7 +1332,7 @@ if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 
         return exam;
       })
       .filter(exam => !versionIds.has(exam.id));
-}
+  }
   
   if (skill === "mündlich") {
     if (currentMündlichPart === 1) {
@@ -1389,7 +1398,6 @@ if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 
       titleSpan.appendChild(progressSpan);
     }
     
-    // ✅ إذا كان الامتحان له versions، نجعله قابل للضغط لفتح النافذة
     if (exam.versions && exam.versions.length > 1) {
       div.style.cursor = 'pointer';
       div.onclick = function(e) {
@@ -1457,7 +1465,6 @@ if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 
     container.appendChild(div);
   }
   
-  // ✅ إعادة تطبيق الميزات - تم إزالة setTimeout غير الضروري
   createViewModeToggles();
   
   const mode1 = getViewModeIndex1();
@@ -1479,7 +1486,7 @@ if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 
 }
 
 // ============================================
-// ✅ دالة showVersionsPopup - عرض نافذة الإصدارات
+// ✅ دالة showVersionsPopup المعدلة - مع عرض النتائج
 // ============================================
 function showVersionsPopup(exam, skill) {
   const overlay = document.createElement('div');
@@ -1513,18 +1520,30 @@ function showVersionsPopup(exam, skill) {
     text-align: center;
   `;
   
-  modal.innerHTML = `
-    <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;"> هذا الامتحان له ${exam.versions.length} تعديلات</h4>
-    <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
-    ${exam.versions.map((v, i) => `
+  let versionsHtml = exam.versions.map((v, i) => {
+    const savedScore = getExamResult(skill, v.id);
+    let scoreHtml = '';
+    if (savedScore !== null) {
+      const color = getResultColor(savedScore);
+      scoreHtml = `<span style="font-size:11px; color:${color}; font-weight:bold; margin-left:8px;">${savedScore} / 25</span>`;
+    }
+    
+    return `
       <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
            onclick="window.openExam(${v.id}, '${v.title}', '${skill}', '${v.file}'); document.getElementById('versionsPopupAuto').remove();"
            onmouseenter="this.style.background='#1a2340'"
            onmouseleave="this.style.background='#0f1421'">
         <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
-        <span style="font-size:13px; font-weight:500; text-align:left;">${v.title}</span>
+        <span style="font-size:13px; font-weight:500; text-align:left; flex:1;">${v.title}</span>
+        ${scoreHtml}
       </div>
-    `).join('')}
+    `;
+  }).join('');
+  
+  modal.innerHTML = `
+    <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${exam.versions.length} تعديلات</h4>
+    <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
+    ${versionsHtml}
   `;
   
   overlay.appendChild(modal);
@@ -1551,8 +1570,9 @@ function setupLockedNextButton() {
   getUserStatusForExam().then(status => {
     const isPremium = (status === 'premium');
     
-    const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
-    const nextExam = currentExamsList[currentIndex + 1];
+    const flatList = getFlattenedExamList(currentExamsList);
+    const currentIndex = flatList.findIndex(e => e.id === currentExamId);
+    const nextExam = flatList[currentIndex + 1];
     
     if (nextExam) {
       const nextExamId = nextExam.id;
@@ -1591,7 +1611,11 @@ function setupLockedNextButton() {
         nextBtn.style.paddingLeft = "";
         
         nextBtn.onclick = () => {
-          openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
+          if (nextExam.isVersion) {
+            openExam(nextExam.id, nextExam.title, nextExam.skill, nextExam.file);
+          } else {
+            openExam(nextExam.id, nextExam.title, nextExam.skill);
+          }
         };
       }
     }
@@ -1619,7 +1643,7 @@ function shouldHideHelpButton(skill) {
 }
 
 // ============================================
-// ✅ دالة openExam المعدلة - سريعة بدون تأخير غير ضروري
+// ✅ دالة openExam المعدلة
 // ============================================
 async function openExam(examId, examTitle, skill, fileName = null) {
   const userStatus = await getUserStatusForExam();
@@ -1792,6 +1816,407 @@ async function openExam(examId, examTitle, skill, fileName = null) {
     alert("خطأ في تحميل الامتحان: " + e.message);
   }
 }
+
+// ============================================
+// ✅ دالة updateExamNavButtons المعدلة
+// ============================================
+function updateExamNavButtons() {
+    const prevBtn = document.getElementById("prevExamBtn");
+    const nextBtn = document.getElementById("nextExamBtn");
+    const memoryBtn = document.getElementById("memoryTrainerBtn");
+    
+    if (!prevBtn || !nextBtn) return;
+    
+    const flatList = getFlattenedExamList(currentExamsList);
+    const currentIndex = flatList.findIndex(e => e.id === currentExamId);
+    
+    const hasPrev = currentIndex > 0;
+    const hasNext = currentIndex < flatList.length - 1;
+    
+    if (hasPrev) {
+        prevBtn.style.display = "inline-block";
+        prevBtn.onclick = () => {
+            const prevExam = flatList[currentIndex - 1];
+            if (prevExam.isVersion) {
+                openExam(prevExam.id, prevExam.title, prevExam.skill, prevExam.file);
+            } else {
+                openExam(prevExam.id, prevExam.title, prevExam.skill);
+            }
+        };
+    } else {
+        prevBtn.style.display = "none";
+    }
+    
+    if (hasNext) {
+        nextBtn.style.display = "inline-block";
+        nextBtn.onclick = () => {
+            const nextExam = flatList[currentIndex + 1];
+            if (nextExam.isVersion) {
+                openExam(nextExam.id, nextExam.title, nextExam.skill, nextExam.file);
+            } else {
+                openExam(nextExam.id, nextExam.title, nextExam.skill);
+            }
+        };
+    } else {
+        nextBtn.style.display = "none";
+    }
+    
+    if (memoryBtn) {
+        if (currentSkill && SKILL_CONFIG[currentSkill]) {
+            memoryBtn.style.display = 'inline-flex';
+            memoryBtn.onclick = function() {
+                if (window.startMemoryTrainerForExam) {
+                    window.startMemoryTrainerForExam(currentSkill);
+                } else {
+                    alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
+                }
+            };
+        } else {
+            memoryBtn.style.display = 'none';
+        }
+    }
+    
+    setupLockedNextButton();
+}
+
+// ============================================
+// ✅ دالة createViewModeToggles المعدلة - إخفاء الأزرار في بعض الأقسام
+// ============================================
+function createViewModeToggles() {
+    const header = document.querySelector('.teil-header');
+    if (!header) {
+        setTimeout(createViewModeToggles, 500);
+        return;
+    }
+
+    const showTogglesSkills = ['hoeren1', 'hoeren2', 'hoeren3', 'lesen1', 'lesen2', 'lesen3', 'sprach1', 'sprach2'];
+    
+    if (!showTogglesSkills.includes(currentSkill)) {
+        const oldBtn1 = document.getElementById('viewModeToggleBtn1');
+        const oldBtn2 = document.getElementById('viewModeToggleBtn2');
+        if (oldBtn1) oldBtn1.style.display = 'none';
+        if (oldBtn2) oldBtn2.style.display = 'none';
+        return;
+    }
+
+    if (header.style.position !== 'relative') {
+        header.style.position = 'relative';
+    }
+
+    const oldBtn1 = document.getElementById('viewModeToggleBtn1');
+    if (oldBtn1) oldBtn1.remove();
+    const oldBtn2 = document.getElementById('viewModeToggleBtn2');
+    if (oldBtn2) oldBtn2.remove();
+
+    // ===== الزر الأول (leaderboard ↔ 123) =====
+    const btn1 = document.createElement('button');
+    btn1.id = 'viewModeToggleBtn1';
+    btn1.className = 'view-mode-toggle-btn-1';
+    btn1.title = 'تبديل ترتيب القائمة';
+
+    let currentIndex1 = getViewModeIndex1();
+    const displayIndex1 = currentIndex1 === 0 ? 1 : 0;
+    const iconName1 = VIEW_ICONS_1[displayIndex1];
+    btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
+    
+    btn1.onclick = function(e) {
+        e.stopPropagation();
+        currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
+        setViewModeIndex1(currentIndex1);
+        const newDisplayIndex = currentIndex1 === 0 ? 1 : 0;
+        const span = this.querySelector('.material-symbols-outlined');
+        if (span) {
+            span.textContent = VIEW_ICONS_1[newDisplayIndex];
+        }
+        if (currentIndex1 === 0) {
+            applyLeaderboardOrder();
+        } else {
+            restoreOriginalOrder();
+        }
+    };
+
+    header.appendChild(btn1);
+
+    // ===== الزر الثاني (view_day ↔ grid_view) =====
+    const btn2 = document.createElement('button');
+    btn2.id = 'viewModeToggleBtn2';
+    btn2.className = 'view-mode-toggle-btn-2';
+    btn2.title = 'تبديل شكل العرض';
+
+    let currentIndex2 = getViewModeIndex2();
+    const displayIndex2 = currentIndex2 === 0 ? 1 : 0;
+    const iconName2 = VIEW_ICONS_2[displayIndex2];
+    btn2.innerHTML = `<span class="material-symbols-outlined">${iconName2}</span>`;
+
+    btn2.onclick = function(e) {
+        e.stopPropagation();
+        currentIndex2 = (currentIndex2 + 1) % VIEW_ICONS_2.length;
+        setViewModeIndex2(currentIndex2);
+        const newDisplayIndex = currentIndex2 === 0 ? 1 : 0;
+        const span = this.querySelector('.material-symbols-outlined');
+        if (span) {
+            span.textContent = VIEW_ICONS_2[newDisplayIndex];
+        }
+        if (currentIndex2 === 1) {
+            setExamListMode("grid");
+            applyExamListView("grid");
+        } else {
+            setExamListMode("list");
+            applyExamListView("list");
+        }
+    };
+
+    header.appendChild(btn2);
+
+    setTimeout(saveOriginalOrder, 200);
+    applyExamListView(getExamListMode());
+}
+
+// ============================================
+// ✅ دالة applyExamListView المعدلة - توحيد ارتفاع البطاقات
+// ============================================
+function applyExamListView(mode) {
+    const list = document.getElementById("examsList");
+    if (!list) return;
+
+    const oldGrid = document.getElementById("examGridContainer");
+    if (oldGrid) {
+        while (oldGrid.firstChild) {
+            list.appendChild(oldGrid.firstChild);
+        }
+        oldGrid.remove();
+    }
+
+    [...list.querySelectorAll(".item")].forEach(el => {
+        el.style.cssText = "";
+    });
+
+    if (mode === "list") {
+        return;
+    }
+
+    const exams = [...list.querySelectorAll(".item")].filter(el =>
+        !el.classList.contains("teil-header") &&
+        !el.classList.contains("memory-progress-bar-container")
+    );
+
+    if (!exams.length) return;
+
+    const grid = document.createElement("div");
+    grid.id = "examGridContainer";
+
+    grid.style.cssText = `
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 6px;
+        margin-top: 8px;
+    `;
+
+    const firstExam = exams[0];
+    list.insertBefore(grid, firstExam);
+
+    let maxHeight = 0;
+    exams.forEach(item => {
+        const clone = item.cloneNode(true);
+        clone.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 42px;
+            padding: 8px 4px;
+            background: #fafbfc;
+            border: 1px solid #e8ecef;
+            border-radius: 6px;
+            margin: 0;
+            box-shadow: none;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            visibility: hidden;
+            position: absolute;
+            pointer-events: none;
+        `;
+        document.body.appendChild(clone);
+        const height = clone.offsetHeight;
+        document.body.removeChild(clone);
+        if (height > maxHeight) maxHeight = height;
+    });
+
+    const fixedHeight = Math.min(Math.max(maxHeight, 50), 60);
+
+    exams.forEach(item => {
+        grid.appendChild(item);
+
+        item.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: ${fixedHeight}px;
+            padding: 4px 4px;
+            background: #fafbfc;
+            border: 1px solid #e8ecef;
+            border-radius: 6px;
+            margin: 0;
+            box-shadow: none;
+            text-align: center;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            overflow: hidden;
+        `;
+
+        // تأثيرات Hover
+        item.addEventListener('mouseenter', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            if (isPremium) {
+                this.style.backgroundColor = "rgba(255,255,255,0.95)";
+                this.style.transform = "translateY(-3px)";
+                this.style.borderColor = "#60a5fa";
+                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+            } else {
+                this.style.backgroundColor = "#f1f5f9";
+                this.style.transform = "translateY(-3px)";
+                this.style.borderColor = "#2F80ED";
+                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
+            }
+            const title = this.querySelector('.exam-title');
+            if (title) {
+                const isPremium = this.querySelector('.premium-badge') !== null;
+                title.style.color = isPremium ? "#4b5563" : "#1e293b";
+            }
+            const premiumSpan = this.querySelector('.premium-badge');
+            if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+        });
+
+        item.addEventListener('mouseleave', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            if (isPremium) {
+                this.style.backgroundColor = "rgba(255,255,255,0.75)";
+                this.style.transform = "translateY(0)";
+                this.style.borderColor = "#e2e8f0";
+                this.style.boxShadow = "none";
+            } else {
+                this.style.backgroundColor = "#fafbfc";
+                this.style.transform = "translateY(0)";
+                this.style.borderColor = "#e8ecef";
+                this.style.boxShadow = "none";
+            }
+            const title = this.querySelector('.exam-title');
+            if (title) {
+                const isPremium = this.querySelector('.premium-badge') !== null;
+                title.style.color = isPremium ? "#6b7280" : "#1a202c";
+            }
+            const premiumSpan = this.querySelector('.premium-badge');
+            if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+        });
+
+        // تأثير Active
+        item.addEventListener('mousedown', function() {
+            this.style.transform = "scale(0.98)";
+            this.style.backgroundColor = "#e2e8f0";
+            this.style.transition = "all 0.05s ease";
+        });
+
+        item.addEventListener('mouseup', function() {
+            const isPremium = this.querySelector('.premium-badge') !== null;
+            this.style.transform = "scale(1)";
+            this.style.backgroundColor = isPremium ? "rgba(255,255,255,0.95)" : "#f1f5f9";
+            this.style.transition = "all 0.25s ease";
+        });
+
+        const title = item.querySelector(".exam-title");
+        if (title) {
+            title.style.fontSize = "11px";
+            title.style.transition = "color 0.25s ease";
+        }
+
+        const badge = item.querySelector(".exam-result-badge");
+        if (badge) badge.style.fontSize = "8px";
+    });
+}
+
+// ============================================
+// ✅ دالة addVersionBadgesFixed المعدلة - مستقرة
+// ============================================
+function addVersionBadgesFixed() {
+    const container = document.getElementById('examsList');
+    if (!container) return;
+    
+    const skill = window.currentSkill || 'lesen1';
+    if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 'sprach1' && skill !== 'sprach2') return;
+    
+    const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
+    if (!items.length) return;
+    
+    items.forEach(el => {
+        const title = el.querySelector('.exam-title');
+        if (!title) return;
+        
+        const match = title.textContent.match(/^(\d+):/);
+        if (!match) return;
+        const examId = parseInt(match[1]);
+        
+        const exam = currentExamsList.find(e => e.id === examId);
+        if (!exam || !exam.versions || exam.versions.length <= 1) return;
+        
+        let badge = el.querySelector('.custom-badge');
+        if (badge) {
+            const countSpan = badge.querySelector('span:last-child');
+            if (countSpan && countSpan.textContent === String(exam.versions.length)) {
+                return;
+            }
+            badge.remove();
+        }
+        
+        badge = document.createElement('span');
+        badge.className = 'custom-badge';
+        badge.innerHTML = `
+            <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
+            <span style="font-size:9px; font-weight:600;">${exam.versions.length}</span>
+        `;
+        badge.style.cssText = `
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 2px !important;
+            background: linear-gradient(135deg, #334155, #1e293b) !important;
+            color: #f1f5f9 !important;
+            border-radius: 999px !important;
+            padding: 0 8px 0 4px !important;
+            height: 22px !important;
+            flex-shrink: 0 !important;
+            pointer-events: none !important;
+            user-select: none !important;
+            line-height: 1 !important;
+            border: 1px solid #475569 !important;
+        `;
+        badge.title = `${exam.versions.length} تعديلات`;
+        
+        let rightSide = el.querySelector('.exam-right-icons');
+        
+        if (rightSide) {
+            rightSide.appendChild(badge);
+        } else {
+            rightSide = document.createElement('span');
+            rightSide.className = 'exam-right-icons';
+            rightSide.style.cssText = `
+                display: flex !important;
+                align-items: center !important;
+                gap: 6px !important;
+                flex-shrink: 0 !important;
+                margin-right: 4px !important;
+            `;
+            rightSide.appendChild(badge);
+            el.appendChild(rightSide);
+        }
+    });
+}
+// ============================================
+// باقي الدوال (goBackToExamsList, renderInfoExam, renderTipsExam, renderMündlichExam, createMündlichCard, showTeil, goHome, goList, buildTeil1, checkTeil1, etc.)
+// ============================================
 
 // دالة العودة إلى قائمة الامتحانات حسب القسم الحالي
 function goBackToExamsList() {
@@ -2055,60 +2480,6 @@ function createMündlichCard(title, text) {
   card.appendChild(textDiv);
   
   return card;
-}
-
-function updateExamNavButtons() {
-    const prevBtn = document.getElementById("prevExamBtn");
-    const nextBtn = document.getElementById("nextExamBtn");
-    const memoryBtn = document.getElementById("memoryTrainerBtn");
-    
-    if (!prevBtn || !nextBtn) return;
-    
-    const currentIndex = currentExamsList.findIndex(e => e.id === currentExamId);
-    const hasPrev = currentIndex > 0;
-    const hasNext = currentIndex < currentExamsList.length - 1;
-    
-    if (hasPrev) {
-        prevBtn.style.display = "inline-block";
-        prevBtn.onclick = () => {
-            const prevExam = currentExamsList[currentIndex - 1];
-            openExam(prevExam.id, prevExam.title, prevExam.skillPath || currentSkill);
-        };
-    } else {
-        prevBtn.style.display = "none";
-    }
-    
-    if (hasNext) {
-        nextBtn.style.display = "inline-block";
-        nextBtn.onclick = () => {
-            const nextExam = currentExamsList[currentIndex + 1];
-            openExam(nextExam.id, nextExam.title, nextExam.skillPath || currentSkill);
-        };
-    } else {
-        nextBtn.style.display = "none";
-    }
-    
-// ============================================
-// ✅ إظهار زر Memory Trainer داخل الامتحان
-// ============================================
-if (memoryBtn) {
-    // ✅ دعم جميع المهارات التي لها إعدادات مراحل
-    if (currentSkill && SKILL_CONFIG[currentSkill]) {
-        memoryBtn.style.display = 'inline-flex';
-        memoryBtn.onclick = function() {
-            // ✅ استدعاء دالة الامتحان الفردي (وليس القائمة) مع تمرير المهارة الحالية
-            if (window.startMemoryTrainerForExam) {
-                window.startMemoryTrainerForExam(currentSkill);
-            } else {
-                alert('⚠️ ميزة تدريب الذاكرة غير متوفرة حالياً.');
-            }
-        };
-    } else {
-        memoryBtn.style.display = 'none';
-    }
-}
-    
-    setupLockedNextButton();
 }
 
 function showTeil(teilNumber) {
@@ -2949,10 +3320,10 @@ function applyExamListView(mode) {
     const firstExam = exams[0];
     list.insertBefore(grid, firstExam);
 
+    let maxHeight = 0;
     exams.forEach(item => {
-        grid.appendChild(item);
-
-        item.style.cssText = `
+        const clone = item.cloneNode(true);
+        clone.style.cssText = `
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -2968,9 +3339,41 @@ function applyExamListView(mode) {
             font-size: 12px;
             cursor: pointer;
             transition: all 0.25s ease;
+            visibility: hidden;
+            position: absolute;
+            pointer-events: none;
+        `;
+        document.body.appendChild(clone);
+        const height = clone.offsetHeight;
+        document.body.removeChild(clone);
+        if (height > maxHeight) maxHeight = height;
+    });
+
+    const fixedHeight = Math.min(Math.max(maxHeight, 50), 60);
+
+    exams.forEach(item => {
+        grid.appendChild(item);
+
+        item.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: ${fixedHeight}px;
+            padding: 4px 4px;
+            background: #fafbfc;
+            border: 1px solid #e8ecef;
+            border-radius: 6px;
+            margin: 0;
+            box-shadow: none;
+            text-align: center;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            overflow: hidden;
         `;
 
-        // تأثير Hover
+        // تأثيرات Hover
         item.addEventListener('mouseenter', function() {
             const isPremium = this.querySelector('.premium-badge') !== null;
             if (isPremium) {
@@ -3038,152 +3441,7 @@ function applyExamListView(mode) {
         const badge = item.querySelector(".exam-result-badge");
         if (badge) badge.style.fontSize = "8px";
     });
-
-    console.log("🟦 Grid View");
 }
-
-// ============================================
-// إنشاء الأزرار
-// ============================================
-
-function createViewModeToggles() {
-    const header = document.querySelector('.teil-header');
-    if (!header) {
-        setTimeout(createViewModeToggles, 500);
-        return;
-    }
-
-    if (header.style.position !== 'relative') {
-        header.style.position = 'relative';
-    }
-
-    // إزالة الأزرار القديمة
-    const oldBtn1 = document.getElementById('viewModeToggleBtn1');
-    if (oldBtn1) oldBtn1.remove();
-    const oldBtn2 = document.getElementById('viewModeToggleBtn2');
-    if (oldBtn2) oldBtn2.remove();
-
-    // ===== الزر الأول (leaderboard ↔ 123) =====
-    const btn1 = document.createElement('button');
-    btn1.id = 'viewModeToggleBtn1';
-    btn1.className = 'view-mode-toggle-btn-1';
-    btn1.title = 'تبديل ترتيب القائمة';
-
-    // ✅ الأيقونة الظاهرة = المعاكسة للوضع الحالي
-    let currentIndex1 = getViewModeIndex1();
-    // إذا كان الوضع الحالي 0 (leaderboard) → نعرض 123
-    // إذا كان الوضع الحالي 1 (123) → نعرض leaderboard
-    const displayIndex1 = currentIndex1 === 0 ? 1 : 0;
-    const iconName1 = VIEW_ICONS_1[displayIndex1];
-    btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
-    
-    btn1.onclick = function(e) {
-        e.stopPropagation();
-        
-        // التبديل إلى الأيقونة التالية (0→1→0→1...)
-        currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
-        setViewModeIndex1(currentIndex1);
-        
-        // تحديث الأيقونة إلى المعاكس للوضع الجديد
-        const newDisplayIndex = currentIndex1 === 0 ? 1 : 0;
-        const span = this.querySelector('.material-symbols-outlined');
-        if (span) {
-            span.textContent = VIEW_ICONS_1[newDisplayIndex];
-        }
-        
-        // تنفيذ الإجراء المناسب
-        if (currentIndex1 === 0) {
-            // الوضع أصبح leaderboard → نطبق الترتيب
-            applyLeaderboardOrder();
-        } else {
-            // الوضع أصبح 123 → نستعيد الترتيب الأصلي
-            restoreOriginalOrder();
-        }
-        
-        console.log(`🔄 الزر1 تم التبديل إلى الوضع: ${VIEW_ICONS_1[currentIndex1]}`);
-    };
-
-    header.appendChild(btn1);
-
-    // ===== الزر الثاني (view_day ↔ grid_view) =====
-    const btn2 = document.createElement('button');
-    btn2.id = 'viewModeToggleBtn2';
-    btn2.className = 'view-mode-toggle-btn-2';
-    btn2.title = 'تبديل شكل العرض';
-
-    // ✅ الأيقونة الظاهرة = المعاكسة للوضع الحالي
-    let currentIndex2 = getViewModeIndex2();
-    // إذا كان الوضع الحالي 0 (view_day/List) → نعرض grid_view
-    // إذا كان الوضع الحالي 1 (grid_view/Grid) → نعرض view_day
-    const displayIndex2 = currentIndex2 === 0 ? 1 : 0;
-    const iconName2 = VIEW_ICONS_2[displayIndex2];
-    btn2.innerHTML = `<span class="material-symbols-outlined">${iconName2}</span>`;
-
-    btn2.onclick = function(e) {
-        e.stopPropagation();
-        
-        // التبديل إلى الوضع التالي
-        currentIndex2 = (currentIndex2 + 1) % VIEW_ICONS_2.length;
-        setViewModeIndex2(currentIndex2);
-        
-        // تحديث الأيقونة إلى المعاكس للوضع الجديد
-        const newDisplayIndex = currentIndex2 === 0 ? 1 : 0;
-        const span = this.querySelector('.material-symbols-outlined');
-        if (span) {
-            span.textContent = VIEW_ICONS_2[newDisplayIndex];
-        }
-        
-        // تطبيق الشكل المناسب
-        if (currentIndex2 === 1) {
-            setExamListMode("grid");
-            applyExamListView("grid");
-        } else {
-            setExamListMode("list");
-            applyExamListView("list");
-        }
-        
-        console.log(`🔄 الزر2 تم التبديل إلى: ${VIEW_ICONS_2[currentIndex2]}`);
-    };
-
-    header.appendChild(btn2);
-
-    setTimeout(saveOriginalOrder, 200);
-    applyExamListView(getExamListMode());
-
-    console.log('✅ زرين للتبديل تم إضافتهما في أقصى يمين .teil-header');
-}
-
-// ============================================
-// تشغيل الأزرار عند تحميل الصفحة وعند تغيير الأقسام
-// ============================================
-
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(() => {
-        createViewModeToggles();
-    }, 300);
-});
-
-// عند تغيير القسم (Teil)
-const originalRenderExamList = window.renderExamListForSkill;
-if (originalRenderExamList) {
-    window.renderExamListForSkill = function(skill, teilName) {
-        originalRenderExamList(skill, teilName);
-        setTimeout(() => {
-            createViewModeToggles();
-            saveOriginalOrder();
-            applyExamListView(getExamListMode());
-        }, 200);
-    };
-}
-
-// تصدير الدوال للاستخدام العام
-window.createViewModeToggles = createViewModeToggles;
-window.applyExamListView = applyExamListView;
-window.getExamListMode = getExamListMode;
-window.setExamListMode = setExamListMode;
-window.saveOriginalOrder = saveOriginalOrder;
-window.restoreOriginalOrder = restoreOriginalOrder;
-window.applyLeaderboardOrder = applyLeaderboardOrder;
 
 console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view) مع وظائف الترتيب تم تحميلهما');
 
@@ -3201,7 +3459,7 @@ function addVersionBadgesFixed() {
     if (!container) return;
     
     const skill = window.currentSkill || 'lesen1';
-if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 'sprach1' && skill !== 'sprach2') return;
+    if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 'sprach1' && skill !== 'sprach2') return;
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
     if (!items.length) return;
@@ -3217,10 +3475,16 @@ if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 
         const exam = currentExamsList.find(e => e.id === examId);
         if (!exam || !exam.versions || exam.versions.length <= 1) return;
         
-        const oldBadge = el.querySelector('.custom-badge');
-        if (oldBadge) oldBadge.remove();
+        let badge = el.querySelector('.custom-badge');
+        if (badge) {
+            const countSpan = badge.querySelector('span:last-child');
+            if (countSpan && countSpan.textContent === String(exam.versions.length)) {
+                return;
+            }
+            badge.remove();
+        }
         
-        const badge = document.createElement('span');
+        badge = document.createElement('span');
         badge.className = 'custom-badge';
         badge.innerHTML = `
             <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
@@ -3237,30 +3501,18 @@ if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 
             padding: 0 8px 0 4px !important;
             height: 22px !important;
             flex-shrink: 0 !important;
-            cursor: pointer !important;
-            transition: all 0.2s ease !important;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15) !important;
-            border: 1px solid #475569 !important;
+            pointer-events: none !important;
             user-select: none !important;
             line-height: 1 !important;
+            border: 1px solid #475569 !important;
         `;
         badge.title = `${exam.versions.length} تعديلات`;
         
-        badge.onmouseenter = () => { badge.style.transform = 'scale(1.08)'; };
-        badge.onmouseleave = () => { badge.style.transform = 'scale(1)'; };
-        
-        // ============================================
-        // ✅ التعديل: نقل البادج إلى جهة اليمين بعد Premium
-        // ============================================
-        
-        // البحث عن حاوية الجهة اليمنى (exam-right-icons)
         let rightSide = el.querySelector('.exam-right-icons');
         
         if (rightSide) {
-            // ✅ نضيف البادج في نهاية الحاوية (بعد شارة Premium)
             rightSide.appendChild(badge);
         } else {
-            // ✅ إذا لم توجد حاوية، ننشئها ونضيف البادج فيها
             rightSide = document.createElement('span');
             rightSide.className = 'exam-right-icons';
             rightSide.style.cssText = `
@@ -3270,89 +3522,12 @@ if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 
                 flex-shrink: 0 !important;
                 margin-right: 4px !important;
             `;
-            
-            // نضيف البادج في الحاوية الجديدة
             rightSide.appendChild(badge);
-            
-            // نضيف الحاوية إلى الـ div الرئيسي
             el.appendChild(rightSide);
         }
-        
-        // ============================================
-        // ✅ إضافة حدث النقر على البادج
-        // ============================================
-        badge.onclick = (e) => {
-            e.stopPropagation();
-            
-            const overlay = document.createElement('div');
-            overlay.id = 'versionsPopupAuto';
-            overlay.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.3);
-                backdrop-filter: blur(3px);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 99999;
-                animation: fadeIn 0.2s ease;
-            `;
-            
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                background: #1a1f2e;
-                border-radius: 20px;
-                padding: 28px 24px;
-                max-width: 340px;
-                width: 90%;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-                border: 1px solid #2a3042;
-                animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-                color: #e2e8f0;
-                text-align: center;
-            `;
-            
-            modal.innerHTML = `
-                <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;"> هذا الامتحان له ${exam.versions.length} تعديلات</h4>
-                <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
-                ${exam.versions.map((v, i) => `
-                    <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
-                         onclick="window.openExam(${v.id}, '${v.title}', '${skill}', '${v.file}')"
-                         onmouseenter="this.style.background='#1a2340'"
-                         onmouseleave="this.style.background='#0f1421'">
-                        <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
-                        <span style="font-size:13px; font-weight:500; text-align:left;">${v.title}</span>
-                    </div>
-                `).join('')}
-            `;
-            
-            overlay.appendChild(modal);
-            document.body.appendChild(overlay);
-            
-            const close = () => {
-                overlay.style.opacity = '0';
-                modal.style.transform = 'scale(0.9)';
-                setTimeout(() => overlay.remove(), 200);
-            };
-            
-            overlay.onclick = (e) => { if (e.target === overlay) close(); };
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); }, { once: true });
-            
-            if (!document.getElementById('modal-style-auto')) {
-                const style = document.createElement('style');
-                style.id = 'modal-style-auto';
-                style.textContent = `
-                    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-                    @keyframes scaleIn { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
-                `;
-                document.head.appendChild(style);
-            }
-        };
     });
 }
+
 // ✅ تصدير الدوال للاستخدام العام
 window.addVersionBadgesFixed = addVersionBadgesFixed;
 
