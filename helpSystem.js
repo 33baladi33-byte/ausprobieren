@@ -8727,7 +8727,49 @@ HELP_DATA["lesen2_exam37_q5"] = {
     simplified: "كاترين لا تزال عضوة في مايريربوك رغم أنها تخرجت",
     imagine: "👩‍🎓💻 خريجة تبتسم أمام شاشة الكمبيوتر"
 };
+// ============================================
+// Exam 16: Großraumbüros / المكاتب الكبيرة (معدل)
+// ============================================
 
+HELP_DATA["lesen2_exam16b_q1"] = {
+    text: "belegt, dass die Mitarbeiter sich über Lärm im Großraumbüro beklagen",
+    meaning: "تثبت أن الموظفين يتذمرون من الضوضاء في المكاتب المفتوحة",
+    keywords: ["Lärm = ضوضاء", "beklagen = يتذمرون", "Großraumbüro = مكتب مفتوح"],
+    simplified: "الدراسة أثبتت أن المكاتب المفتوحة مزعجة للموظفين",
+    imagine: "🔊👂 شخص يضع يديه على أذنيه في مكتب مليء بالضوضاء"
+};
+
+HELP_DATA["lesen2_exam16b_q2"] = {
+    text: "sind kostengünstiger zu beheizen",
+    meaning: "تكلفة تدفئتها أقل",
+    keywords: ["kostengünstiger = أقل تكلفة", "beheizen = تدفئة"],
+    simplified: "المكاتب المفتوحة أرخص في التدفئة",
+    imagine: "🔥🏢 تدفئة مركزية واحدة تدفئ كل المكتب"
+};
+
+HELP_DATA["lesen2_exam16b_q3"] = {
+    text: "bevorzugen Einzelbüros",
+    meaning: "يفضلون المكاتب الفردية",
+    keywords: ["bevorzugen = يفضلون", "Einzelbüros = مكاتب فردية"],
+    simplified: "الموظفون الألمان يفضلون مكاتب منفردة خاصة",
+    imagine: "🚪🏢 شخص يغلق باب مكتبه ويرتاح"
+};
+
+HELP_DATA["lesen2_exam16b_q4"] = {
+    text: "wird in London oft unter mehreren Mitarbeitern aufgeteilt",
+    meaning: "تُقسم غالباً بين عدة موظفين في لندن",
+    keywords: ["aufgeteilt = مقسمة", "mehreren Mitarbeitern = عدة موظفين"],
+    simplified: "مساحة العمل في لندن تُقسم بين عدة موظفين",
+    imagine: "📏👥 عدة أشخاص يجلسون حول مكتب واحد صغير"
+};
+
+HELP_DATA["lesen2_exam16b_q5"] = {
+    text: "gibt es vor allem in Banken und Telekommunikationsunternehmen",
+    meaning: "توجد خاصة في البنوك وشركات الاتصالات",
+    keywords: ["Banken = بنوك", "Telekommunikationsunternehmen = شركات اتصالات"],
+    simplified: "المكاتب المفتوحة موجودة بكثرة في البنوك وشركات الاتصالات",
+    imagine: "🏢📱 مكتب مليء بموظفين يتحدثون على الهواتف"
+};
 // ============================================
 // Exam 38 (exam38.json) - (ملف غير موجود في ملفاتك، سأتخطاه)
 // ============================================
@@ -19154,7 +19196,7 @@ function getCorrectQuestions(skill, examId) {
         'lesen2_exam28': [1,2,3,4,5], 'lesen2_exam29': [1,2,3,4,5], 'lesen2_exam30': [1,2,3,4,5],
         'lesen2_exam31': [1,2,3,4,5], 'lesen2_exam32': [1,2,3,4,5], 'lesen2_exam33': [1,2,3,4,5],
         'lesen2_exam34': [1,2,3,4,5], 'lesen2_exam35': [1,2,3,4,5], 'lesen2_exam36': [1,2,3,4,5],
-        'lesen2_exam37': [1,2,3,4,5],
+        'lesen2_exam37': [1,2,3,4,5],  'lesen2_exam16b': [1,2,3,4,5],
         
         // Lesen Teil 3 (35 امتحان)
         'lesen3_exam1': [1,2,3,4,5,6,7,8,9,10], 'lesen3_exam2': [1,2,3,4,5,6,7,8,9,10],
