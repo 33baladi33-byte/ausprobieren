@@ -618,8 +618,8 @@ function renderUsers(users) {
         const createdAt = formatDate(user.createdAt);
         const lastLogin = user.lastLogin?.toDate ? user.lastLogin.toDate().toLocaleDateString('ar-EG') : '---';
         
-        // حالة الجلسة (محاكاة)
-        const isOnline = user.currentSession ? true : false;
+        // ✅ التعديل: استخدام session.deviceId بدلاً من currentSession
+        const isOnline = user.session?.deviceId ? true : false;
         
         // لون الخطة
         let planBadge = `<span class="badge badge-free">📖 مجاني</span>`;
@@ -892,7 +892,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-console.log('✅ لوحة الإدارة جاهزة');
+console.log('✅ لوحة الإدارة جاهزة (معدلة للتوافق مع نظام session.deviceId)');
 </script>
 </body>
 </html>
