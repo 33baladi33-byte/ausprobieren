@@ -1481,8 +1481,12 @@ async function renderExamListForSkill(skill, teilName) {
     applyExamListView("list");
   }
   
+  // ✅ إضافة البادج بعد كل إعادة رسم
   addVersionBadgesFixed();
-  saveOriginalOrder();   // ✅ حفظ الترتيب بعد إضافة البادج
+  
+  // ✅ حفظ الترتيب الأصلي بعد إضافة البادج (لضمان استقرار leaderboard/123)
+  saveOriginalOrder();
+  
   setupLockedNextButton();
 }
 
@@ -1884,7 +1888,7 @@ function updateExamNavButtons() {
 }
 
 // ============================================
-// ✅ دالة createViewModeToggles المعدلة - إخفاء الأزرار في بعض الأقسام
+// ✅ دالة createViewModeToggles المعدلة - إخفاء الأزرار في بعض الأقسام وإزالة saveOriginalOrder
 // ============================================
 function createViewModeToggles() {
     const header = document.querySelector('.teil-header');
@@ -1972,8 +1976,9 @@ function createViewModeToggles() {
 
     header.appendChild(btn2);
 
-// setTimeout(saveOriginalOrder, 200);   // تم نقل saveOriginalOrder إلى renderExamListForSkill
-applyExamListView(getExamListMode());
+    // ✅ تم إزالة saveOriginalOrder من هنا (تُستدعى الآن في renderExamListForSkill)
+    applyExamListView(getExamListMode());
+}
 
 // ============================================
 // ✅ دالة applyExamListView المعدلة - توحيد ارتفاع البطاقات
@@ -2145,13 +2150,14 @@ function applyExamListView(mode) {
 }
 
 // ============================================
-// ✅ دالة addVersionBadgesFixed المعدلة - مستقرة ولا تختفي
+// ✅ دالة addVersionBadgesFixed المعدلة - تستخدم currentSkill بدلاً من window.currentSkill
 // ============================================
 function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
     if (!container) return;
     
-const skill = currentSkill || 'lesen1';
+    // ✅ استخدم currentSkill (المتغير العام المُحدث في renderExamListForSkill)
+    const skill = currentSkill || 'lesen1';
     if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 'sprach1' && skill !== 'sprach2') return;
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
@@ -2834,97 +2840,97 @@ window.loadStageExams = async function(skill) {
     console.log(`📋 الامتحانات: ${examIds.join(', ')}`);
 
     const allCorrect = [], allWrong = [], allQuestions = [];
-for (const examId of examIds) {
-    const exam = exams.find(e => e.id === examId);
-    if (!exam || !exam.hasFile) continue;
-    const fileName = getActualFileName(exam.id);
-    try {
-        const response = await fetch(`data/${skill}/${fileName}`);
-        if (response.ok) {
-            const data = await response.json();
-            let questions = [];
-            if (skill === 'lesen3') {
-                questions = data.items || [];
-            } else if (skill === 'sprach1' || skill === 'sprach2') {
-                if (data.options && Array.isArray(data.options)) {
-                    questions = data.options;
-                } else if (data.questions && Array.isArray(data.questions)) {
-                    questions = data.questions;
-                } else {
-                    questions = [];
-                }
-                questions = questions.filter(q => q.memoryHighlight);
-            } else {
-                questions = data.questions || [];
-            }
-
-            questions.forEach((q, idx) => {
-                let entry;
-                if (skill === 'sprach1' || skill === 'sprach2') {
-                    const highlight = q.memoryHighlight || {};
-                    entry = {
-                        text: q.text || '',
-                        correct: q.correct,
-                        options: q.options || [],
-                        examId: examId,
-                        questionIndex: idx,
-                        originalQuestion: q,
-                        memoryHighlight: highlight,
-                        id: q.id,
-                        before: highlight.before || '',
-                        connector: highlight.connector || '',
-                        after: highlight.after || '',
-                        color: 0
-                    };
-                } else {
-                    entry = {
-                        text: q.text,
-                        correct: q.correct,
-                        options: q.options || [],
-                        examId: examId,
-                        questionIndex: idx,
-                        originalQuestion: q
-                    };
-                }
-                allQuestions.push(entry);
-
-                if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1' || skill === 'sprach2') {
-                    allCorrect.push(entry);
-                } else {
-                    if (q.correct === true) allCorrect.push(entry);
-                    else allWrong.push(entry);
-                }
-            });
-            console.log(`✅ تم تحميل ${skill} exam${examId}`);
-        }
-    } catch (e) {
-        console.warn(`⚠️ لا يمكن تحميل ${skill} exam${examId}`);
-    }
-}
-let sharedOptions = [];
-if ((skill === 'lesen1' || skill === 'lesen3') && examIds.length > 0) {
-    const firstExamId = examIds[0];
-    const firstExam = exams.find(e => e.id === firstExamId);
-    if (firstExam && firstExam.hasFile) {
+    for (const examId of examIds) {
+        const exam = exams.find(e => e.id === examId);
+        if (!exam || !exam.hasFile) continue;
+        const fileName = getActualFileName(exam.id);
         try {
-            const fileName = getActualFileName(firstExamId);
             const response = await fetch(`data/${skill}/${fileName}`);
             if (response.ok) {
                 const data = await response.json();
-                if (skill === 'lesen1' && data.sharedOptions) {
-                    sharedOptions = data.sharedOptions;
-                    console.log(`✅ تم استخراج sharedOptions لـ ${skill} (${sharedOptions.length} عنوان)`);
+                let questions = [];
+                if (skill === 'lesen3') {
+                    questions = data.items || [];
+                } else if (skill === 'sprach1' || skill === 'sprach2') {
+                    if (data.options && Array.isArray(data.options)) {
+                        questions = data.options;
+                    } else if (data.questions && Array.isArray(data.questions)) {
+                        questions = data.questions;
+                    } else {
+                        questions = [];
+                    }
+                    questions = questions.filter(q => q.memoryHighlight);
+                } else {
+                    questions = data.questions || [];
                 }
-                else if (skill === 'lesen3' && data.situations) {
-                    sharedOptions = data.situations;
-                    console.log(`✅ تم استخراج situations لـ ${skill} كـ sharedOptions (${sharedOptions.length} حالة)`);
-                }
+
+                questions.forEach((q, idx) => {
+                    let entry;
+                    if (skill === 'sprach1' || skill === 'sprach2') {
+                        const highlight = q.memoryHighlight || {};
+                        entry = {
+                            text: q.text || '',
+                            correct: q.correct,
+                            options: q.options || [],
+                            examId: examId,
+                            questionIndex: idx,
+                            originalQuestion: q,
+                            memoryHighlight: highlight,
+                            id: q.id,
+                            before: highlight.before || '',
+                            connector: highlight.connector || '',
+                            after: highlight.after || '',
+                            color: 0
+                        };
+                    } else {
+                        entry = {
+                            text: q.text,
+                            correct: q.correct,
+                            options: q.options || [],
+                            examId: examId,
+                            questionIndex: idx,
+                            originalQuestion: q
+                        };
+                    }
+                    allQuestions.push(entry);
+
+                    if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1' || skill === 'sprach2') {
+                        allCorrect.push(entry);
+                    } else {
+                        if (q.correct === true) allCorrect.push(entry);
+                        else allWrong.push(entry);
+                    }
+                });
+                console.log(`✅ تم تحميل ${skill} exam${examId}`);
             }
         } catch (e) {
-            console.warn(`⚠️ لا يمكن تحميل sharedOptions لـ ${skill}`);
+            console.warn(`⚠️ لا يمكن تحميل ${skill} exam${examId}`);
         }
     }
-}
+    let sharedOptions = [];
+    if ((skill === 'lesen1' || skill === 'lesen3') && examIds.length > 0) {
+        const firstExamId = examIds[0];
+        const firstExam = exams.find(e => e.id === firstExamId);
+        if (firstExam && firstExam.hasFile) {
+            try {
+                const fileName = getActualFileName(firstExamId);
+                const response = await fetch(`data/${skill}/${fileName}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (skill === 'lesen1' && data.sharedOptions) {
+                        sharedOptions = data.sharedOptions;
+                        console.log(`✅ تم استخراج sharedOptions لـ ${skill} (${sharedOptions.length} عنوان)`);
+                    }
+                    else if (skill === 'lesen3' && data.situations) {
+                        sharedOptions = data.situations;
+                        console.log(`✅ تم استخراج situations لـ ${skill} كـ sharedOptions (${sharedOptions.length} حالة)`);
+                    }
+                }
+            } catch (e) {
+                console.warn(`⚠️ لا يمكن تحميل sharedOptions لـ ${skill}`);
+            }
+        }
+    }
 
     window[`_${skill}_combinedData`] = {
         questions: allCorrect,
@@ -3123,7 +3129,10 @@ function restoreOriginalOrder() {
     const list = document.getElementById("examsList");
     if (!list || originalOrderNumbers.length === 0) return;
     
-    const exams = [...list.querySelectorAll(".item")].filter(el =>
+    const gridContainer = document.getElementById("examGridContainer");
+    const targetContainer = gridContainer || list;
+
+    const exams = [...targetContainer.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
     );
@@ -3154,13 +3163,13 @@ function restoreOriginalOrder() {
         fragment.appendChild(examMap[num]);
     });
     
-    list.appendChild(fragment);
+    targetContainer.appendChild(fragment);
     console.log("📋 تم استعادة الترتيب الأصلي حسب الأرقام");
 }
 
 function applyLeaderboardOrder() {
     const list = document.getElementById("examsList");
-    if (!list) return console.log("❌ examsList غير موجود");
+    if (!list) return;
 
     const gridContainer = document.getElementById("examGridContainer");
     const targetContainer = gridContainer || list;
@@ -3170,36 +3179,25 @@ function applyLeaderboardOrder() {
         !el.classList.contains("memory-progress-bar-container")
     );
 
-    if (!exams.length) return console.log("❌ لا توجد امتحانات");
+    if (!exams.length) return;
 
     const data = exams.map((el, index) => {
         const badge = el.querySelector(".exam-result-badge");
-
         let score = Infinity;
-
         if (badge) {
             const txt = badge.textContent.trim();
             const m = txt.match(/^(\d+)\s*\/\s*\d+/);
-
             if (m) score = parseInt(m[1], 10);
         }
-
-        return {
-            el,
-            score,
-            originalIndex: index
-        };
+        return { el, score, originalIndex: index };
     });
 
     data.sort((a, b) => {
-        if (a.score === b.score)
-            return a.originalIndex - b.originalIndex;
-
+        if (a.score === b.score) return a.originalIndex - b.originalIndex;
         return a.score - b.score;
     });
 
     data.forEach(item => targetContainer.appendChild(item.el));
-
     console.log("✅ تم ترتيب الامتحانات من الأضعف إلى الأقوى");
 }
 
