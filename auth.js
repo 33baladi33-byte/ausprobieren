@@ -162,7 +162,7 @@ async function updateSessionInFirestore(uid, deviceId) {
         console.log('✅ تم تحديث session.deviceId في Firestore:', deviceId);
         return true;
     } catch (error) {
-        console.error('❌ فشل تحديث الجلسة في Firestore:', error);
+        console.error(' فشل تحديث الجلسة في Firestore:', error);
         return false;
     }
 }
@@ -183,7 +183,7 @@ async function clearSession(uid) {
             }, { merge: true });
             console.log('🗑️ تم مسح الجلسة من Firestore');
         } catch (error) {
-            console.error('❌ فشل مسح الجلسة من Firestore:', error);
+            console.error('x فشل مسح الجلسة من Firestore:', error);
         }
     }
 }
@@ -231,7 +231,7 @@ async function checkSessionOnLoad() {
         await updateProfile();
 
     } catch (error) {
-        console.error('❌ خطأ في فحص الجلسة:', error);
+        console.error(' خطأ في فحص الجلسة:', error);
         // في حالة خطأ، نسمح بالدخول (لا نطرد المستخدم)
         await updateProfile();
     }
@@ -265,7 +265,7 @@ async function checkAndUpdateSubscription(userData) {
             }
         }
     } catch (error) {
-        console.error('❌ فشل فحص الاشتراك:', error);
+        console.error(' فشل فحص الاشتراك:', error);
     }
 }
 
@@ -309,7 +309,7 @@ async function createUserDocument(user, additionalData = {}) {
         console.log('✅ تم إنشاء مستند المستخدم في Firestore:', user.uid);
         return true;
     } catch (error) {
-        console.error('❌ فشل إنشاء مستند المستخدم:', error);
+        console.error(' فشل إنشاء مستند المستخدم:', error);
         return false;
     }
 }
@@ -341,7 +341,7 @@ window.getUserStatusGlobal = async function() {
             return 'free';
         }
     } catch (error) {
-        console.error('❌ خطأ في جلب حالة المستخدم:', error);
+        console.error(' خطأ في جلب حالة المستخدم:', error);
         return 'free';
     }
 };
@@ -354,7 +354,7 @@ async function handleLogin() {
     const password = authPassword.value;
 
     if (!email || !password) {
-        authError.textContent = '⚠️ يرجى ملء جميع الحقول';
+        authError.textContent = ' يرجى ملء جميع الحقول';
         return;
     }
 
@@ -385,12 +385,12 @@ async function handleSignup() {
     const password = signupPassword.value;
 
     if (!username || !lastname || !firstname || !email || !password) {
-        signupError.textContent = '⚠️ يرجى ملء جميع الحقول';
+        signupError.textContent = ' يرجى ملء جميع الحقول';
         return;
     }
 
     if (password.length < 6) {
-        signupError.textContent = '⚠️ كلمة المرور يجب أن تكون 6 أحرف أو أكثر';
+        signupError.textContent = ' كلمة المرور يجب أن تكون 6 أحرف أو أكثر';
         return;
     }
 
@@ -419,12 +419,12 @@ async function handleReset() {
     const newPassword = resetNewPassword.value;
 
     if (!email || !newPassword) {
-        resetError.textContent = '⚠️ يرجى ملء جميع الحقول';
+        resetError.textContent = ' يرجى ملء جميع الحقول';
         return;
     }
 
     if (newPassword.length < 6) {
-        resetError.textContent = '⚠️ كلمة المرور يجب أن تكون 6 أحرف أو أكثر';
+        resetError.textContent = ' كلمة المرور يجب أن تكون 6 أحرف أو أكثر';
         return;
     }
 
@@ -448,7 +448,7 @@ async function handleLogout() {
         showToast('👋 تم تسجيل الخروج بنجاح. نراكم قريباً!', 'success');
     } catch (error) {
         console.error(error);
-        showToast('⚠️ حدث خطأ أثناء تسجيل الخروج. حاول مرة أخرى.', 'error');
+        showToast(' حدث خطأ أثناء تسجيل الخروج. حاول مرة أخرى.', 'error');
     }
 }
 
