@@ -38,7 +38,7 @@ const resetError = document.getElementById('resetError');
 const toggleResetPassword = document.getElementById('toggleResetPassword');
 
 // ============================================
-// ✅ عناصر الملف الشخصي (التصميم القديم)
+// ✅ عناصر الملف الشخصي
 // ============================================
 const profileIcon = document.getElementById('profileIcon');
 const profileDropdown = document.getElementById('profileDropdown');
@@ -56,6 +56,43 @@ const navSubscribeBtn = document.getElementById('navSubscribeBtn');
 const settingsBtn = document.getElementById('settingsBtn');
 const settingsModal = document.getElementById('settingsModal');
 const closeSettingsModal = document.getElementById('closeSettingsModal');
+
+// ============================================
+// دوال النوافذ (مضافة)
+// ============================================
+function openAuthModal(form = 'login') {
+    showForm(form);
+    if (authModal) authModal.classList.add('active');
+}
+
+function closeAuthModalFunc() {
+    if (authModal) authModal.classList.remove('active');
+    clearErrors();
+}
+
+function showForm(form) {
+    loginForm.style.display = 'none';
+    signupForm.style.display = 'none';
+    resetForm.style.display = 'none';
+    
+    if (form === 'login') {
+        loginForm.style.display = 'block';
+        authModalTitle.textContent = 'تسجيل الدخول';
+    } else if (form === 'signup') {
+        signupForm.style.display = 'block';
+        authModalTitle.textContent = 'إنشاء حساب';
+    } else if (form === 'reset') {
+        resetForm.style.display = 'block';
+        authModalTitle.textContent = 'تغيير كلمة المرور';
+    }
+    clearErrors();
+}
+
+function clearErrors() {
+    if (authError) authError.textContent = '';
+    if (signupError) signupError.textContent = '';
+    if (resetError) resetError.textContent = '';
+}
 
 // ============================================
 // دالة إظهار/إخفاء كلمة المرور (مضافة)
@@ -600,6 +637,7 @@ auth.onAuthStateChanged(async user => {
 // ربط الأحداث
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
+    // ربط دوال إظهار/إخفاء كلمة المرور
     togglePasswordVisibility('authPassword', 'togglePassword');
     togglePasswordVisibility('signupPassword', 'toggleSignupPassword');
     togglePasswordVisibility('resetNewPassword', 'toggleResetPassword');
