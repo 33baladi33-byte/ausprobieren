@@ -11,8 +11,7 @@
         "b. brachte keine eindeutigen Ergebnisse zur Zufriedenheit mit unterschiedlichen Büroformen",
         "c. zeigt, dass Mitarbeiter in Großraumbüros seltener krank sind als andere"
       ],
-      "correct": 0,
-      "highlightColor": 2
+      "correct": 0
     },
     {
       "text": "Großraumbüros",
@@ -21,8 +20,7 @@
         "b. sind kostengünstiger zu beheizen",
         "c. werden immer seltener"
       ],
-      "correct": 1,
-      "highlightColor": 7
+      "correct": 1
     },
     {
       "text": "Die deutschen Angestellten",
@@ -31,8 +29,7 @@
         "b. genießen eine individuell ausgewählte Büromöblierung",
         "c. leiden unter zu engen Einzelbüros"
       ],
-      "correct": 0,
-      "highlightColor": 10
+      "correct": 0
     },
     {
       "text": "Die Arbeitsplatzfläche",
@@ -41,8 +38,7 @@
         "b. schließt die gemeinsam genutzten Flächen aus",
         "c. wird in London oft flexibel eingeteilt"
       ],
-      "correct": 2,
-      "highlightColor": 4
+      "correct": 2
     },
     {
       "text": "Großraumbüros",
@@ -51,8 +47,14 @@
         "b. werden bald in 40% der deutschen Firmen eingeführt",
         "c. werden meist in Einzelzellen unterteilt"
       ],
-      "correct": 0,
-      "highlightColor": 9
+      "correct": 0
     }
+  ],
+  "memoryHighlights": [
+    { "color": 2, "parts": [ "belegt, dass die Mitarbeiter sich über Lärm im Großraumbüro beklagen" ] },
+    { "color": 7, "parts": [ "sind kostengünstiger zu beheizen" ] },
+    { "color": 10, "parts": [ "bevorzugen Einzelbüros" ] },
+    { "color": 4, "parts": [ "wird in London oft flexibel eingeteilt" ] },
+    { "color": 9, "parts": [ "gibt es vor allem in Banken und Telekommunikationsunternehmen" ] }
   ]
 }
