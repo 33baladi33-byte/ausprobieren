@@ -2107,7 +2107,7 @@ function checkTeil2Exam() {
 }
 
 // ============================================
-// نظام Teil 3 (Lesen Teil 3) - مع إضافة الربط المباشر
+// نظام Teil 3 (Lesen Teil 3)
 // ============================================
 
 let currentTeil3Data = null;
@@ -2115,18 +2115,12 @@ let teil3UserAnswers = {};
 let teil3SelectedItem = null;
 let teil3SelectedSit = null;
 
-// ✅ متغيرات الربط المباشر لـ Lesen 3
-let teil3SelectedItemForLink = null;
-let teil3SelectedSitForLink = null;
-
 window.loadTeil3Exam = function(examData) {
   console.log("🟢 loadTeil3Exam", examData.title);
   currentTeil3Data = examData;
   teil3UserAnswers = {};
   teil3SelectedItem = null;
   teil3SelectedSit = null;
-  teil3SelectedItemForLink = null;
-  teil3SelectedSitForLink = null;
   renderTeil3Exam();
 };
 
@@ -2208,14 +2202,11 @@ function updateTeil3RightSideColors() {
       sitDiv.style.color = "#212529";
       sitDiv.classList.add('used');
     } else {
-      if (teil3SelectedSit !== i && teil3SelectedSitForLink !== i) {
+      if (teil3SelectedSit !== i) {
         sitDiv.style.backgroundColor = "white";
         sitDiv.style.border = "1px solid #ddd";
         sitDiv.style.color = "#212529";
         sitDiv.classList.remove('used');
-      } else if (teil3SelectedSitForLink === i) {
-        sitDiv.style.backgroundColor = "#e0f2fe";
-        sitDiv.style.border = "1px solid #7dd3fc";
       }
     }
   }
@@ -2228,7 +2219,7 @@ function updateTeil3CardStyle(idx) {
   if (answer !== undefined && answer !== null && answer !== "") {
     card.style.backgroundColor = "#e9ecef";
     card.style.border = "1px solid #adb5bd";
-  } else if (teil3SelectedItem === idx || teil3SelectedItemForLink === idx) {
+  } else if (teil3SelectedItem === idx) {
     card.style.backgroundColor = "#e0f2fe";
     card.style.border = "1px solid #7dd3fc";
   } else {
@@ -2242,10 +2233,6 @@ function clearTeil3ItemSelection() {
     updateTeil3CardStyle(teil3SelectedItem);
     teil3SelectedItem = null;
   }
-  if (teil3SelectedItemForLink !== null) {
-    updateTeil3CardStyle(teil3SelectedItemForLink);
-    teil3SelectedItemForLink = null;
-  }
 }
 
 function clearTeil3SituationSelection() {
@@ -2257,168 +2244,6 @@ function clearTeil3SituationSelection() {
     }
     teil3SelectedSit = null;
   }
-  if (teil3SelectedSitForLink !== null) {
-    const sitDiv = document.getElementById(`teil3_sit_${teil3SelectedSitForLink}`);
-    if (sitDiv && !sitDiv.classList.contains('used')) {
-      sitDiv.style.backgroundColor = "white";
-      sitDiv.style.border = "1px solid #ddd";
-    }
-    teil3SelectedSitForLink = null;
-  }
-}
-
-// ============================================
-// دوال الربط المباشر لـ Lesen 3
-// ============================================
-
-function handleTeil3ItemClick(itemIdx) {
-    const items = currentTeil3Data.items;
-    const currentAnswer = teil3UserAnswers[itemIdx];
-    
-    // الحالة 1: تم اختيار فقرة بالفعل، نضغط عليها مرة أخرى لإلغاء الربط
-    if (teil3SelectedItemForLink === itemIdx) {
-        teil3SelectedItemForLink = null;
-        updateTeil3CardStyle(itemIdx);
-        return;
-    }
-    
-    // الحالة 2: تم اختيار عنوان من قبل (sit_first)
-    if (teil3SelectedSitForLink !== null) {
-        const sitIdx = teil3SelectedSitForLink;
-        
-        // إذا كانت الفقرة مرتبطة بالفعل بهذا العنوان، نلغي الربط
-        if (currentAnswer === sitIdx) {
-            delete teil3UserAnswers[itemIdx];
-            const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
-            if (selectElem) selectElem.selectedIndex = 0;
-            updateTeil3CardStyle(itemIdx);
-            updateTeil3SelectOptions();
-            updateTeil3RightSideColors();
-            teil3SelectedSitForLink = null;
-            clearTeil3SituationSelection();
-            return;
-        }
-        
-        // ربط الفقرة بالعنوان المختار
-        teil3UserAnswers[itemIdx] = sitIdx;
-        const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
-        if (selectElem) selectElem.value = sitIdx;
-        updateTeil3SelectOptions();
-        updateTeil3RightSideColors();
-        updateTeil3CardStyle(itemIdx);
-        teil3SelectedSitForLink = null;
-        clearTeil3SituationSelection();
-        return;
-    }
-    
-    // الحالة 3: اختيار فقرة (item_first)
-    // إذا كانت الفقرة مرتبطة، نلغي الربط
-    if (currentAnswer !== undefined && currentAnswer !== null && currentAnswer !== "") {
-        delete teil3UserAnswers[itemIdx];
-        const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
-        if (selectElem) selectElem.selectedIndex = 0;
-        updateTeil3CardStyle(itemIdx);
-        updateTeil3SelectOptions();
-        updateTeil3RightSideColors();
-        return;
-    }
-    
-    // اختيار فقرة جديدة
-    if (teil3SelectedItemForLink !== null) {
-        updateTeil3CardStyle(teil3SelectedItemForLink);
-    }
-    teil3SelectedItemForLink = itemIdx;
-    updateTeil3CardStyle(itemIdx);
-    if (teil3SelectedSitForLink !== null) {
-        clearTeil3SituationSelection();
-        teil3SelectedSitForLink = null;
-    }
-}
-
-function handleTeil3SituationClick(sitIdx) {
-    const items = currentTeil3Data.items;
-    const situations = currentTeil3Data.situations;
-    
-    // البحث عن الفقرة المرتبطة بهذا العنوان
-    let linkedItemIdx = null;
-    for (let j = 0; j < items.length; j++) {
-        const answer = teil3UserAnswers[j];
-        if (answer !== undefined && answer !== null && answer !== "" && answer !== "none" && answer === sitIdx) {
-            linkedItemIdx = j;
-            break;
-        }
-    }
-    
-    // الحالة 1: تم اختيار عنوان من قبل، نضغط عليه مرة أخرى لإلغاء الربط
-    if (teil3SelectedSitForLink === sitIdx) {
-        if (linkedItemIdx !== null) {
-            delete teil3UserAnswers[linkedItemIdx];
-            const selectElem = document.getElementById(`teil3_select_${linkedItemIdx}`);
-            if (selectElem) selectElem.selectedIndex = 0;
-            updateTeil3CardStyle(linkedItemIdx);
-            updateTeil3SelectOptions();
-            updateTeil3RightSideColors();
-        }
-        teil3SelectedSitForLink = null;
-        clearTeil3SituationSelection();
-        return;
-    }
-    
-    // الحالة 2: تم اختيار فقرة من قبل (item_first)
-    if (teil3SelectedItemForLink !== null) {
-        const itemIdx = teil3SelectedItemForLink;
-        const currentAnswer = teil3UserAnswers[itemIdx];
-        
-        if (currentAnswer === sitIdx) {
-            delete teil3UserAnswers[itemIdx];
-            const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
-            if (selectElem) selectElem.selectedIndex = 0;
-            updateTeil3CardStyle(itemIdx);
-            updateTeil3SelectOptions();
-            updateTeil3RightSideColors();
-            teil3SelectedItemForLink = null;
-            return;
-        }
-        
-        teil3UserAnswers[itemIdx] = sitIdx;
-        const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
-        if (selectElem) selectElem.value = sitIdx;
-        updateTeil3SelectOptions();
-        updateTeil3RightSideColors();
-        updateTeil3CardStyle(itemIdx);
-        teil3SelectedItemForLink = null;
-        return;
-    }
-    
-    // الحالة 3: اختيار عنوان (sit_first)
-    if (linkedItemIdx !== null) {
-        delete teil3UserAnswers[linkedItemIdx];
-        const selectElem = document.getElementById(`teil3_select_${linkedItemIdx}`);
-        if (selectElem) selectElem.selectedIndex = 0;
-        updateTeil3CardStyle(linkedItemIdx);
-        updateTeil3SelectOptions();
-        updateTeil3RightSideColors();
-        return;
-    }
-    
-    // اختيار عنوان جديد
-    if (teil3SelectedSitForLink !== null) {
-        const prevSitDiv = document.getElementById(`teil3_sit_${teil3SelectedSitForLink}`);
-        if (prevSitDiv && !prevSitDiv.classList.contains('used')) {
-            prevSitDiv.style.backgroundColor = "white";
-            prevSitDiv.style.border = "1px solid #ddd";
-        }
-    }
-    teil3SelectedSitForLink = sitIdx;
-    const sitDiv = document.getElementById(`teil3_sit_${sitIdx}`);
-    if (sitDiv) {
-        sitDiv.style.backgroundColor = "#e0f2fe";
-        sitDiv.style.border = "1px solid #7dd3fc";
-    }
-    if (teil3SelectedItemForLink !== null) {
-        updateTeil3CardStyle(teil3SelectedItemForLink);
-        teil3SelectedItemForLink = null;
-    }
 }
 
 function renderTeil3Exam() {
@@ -2523,22 +2348,12 @@ function renderTeil3Exam() {
         updateTeil3RightSideColors();
         updateTeil3CardStyle(idx);
         
-        clearTeil3ItemSelection();
+        clearTeil3ItemSelection();  
         clearTeil3SituationSelection();
       };
     })(i);
     
     card.appendChild(select);
-    
-    // ✅ إضافة مستمع النقر للربط المباشر (الفقرة)
-    card.addEventListener('click', (function(idx) {
-      return function(e) {
-        // منع التنفيذ إذا كان النقر على الـ select
-        if (e.target.tagName === 'SELECT' || e.target.closest('select')) return;
-        e.stopPropagation();
-        handleTeil3ItemClick(idx);
-      };
-    })(i));
     
     itemsGrid.appendChild(card);
   }
@@ -2583,7 +2398,58 @@ function renderTeil3Exam() {
     sitDiv.onclick = (function(sitIdx) {
       return function(e) {
         e.stopPropagation();
-        handleTeil3SituationClick(sitIdx);
+        
+        let isUsed = false;
+        let usedByItem = null;
+        for (let j = 0; j < items.length; j++) {
+          const answer = teil3UserAnswers[j];
+          if (answer !== undefined && answer !== null && answer !== "" && answer !== "none" && answer === sitIdx) {
+            isUsed = true;
+            usedByItem = j;
+            break;
+          }
+        }
+        
+        if (isUsed && usedByItem !== null) {
+          delete teil3UserAnswers[usedByItem];
+          const selectElem = document.getElementById(`teil3_select_${usedByItem}`);
+          if (selectElem) selectElem.selectedIndex = 0;
+          updateTeil3CardStyle(usedByItem);
+          updateTeil3SelectOptions();
+          updateTeil3RightSideColors();
+          clearTeil3SituationSelection();
+          return;
+        }
+        
+        if (teil3SelectedItem !== null) {
+          teil3UserAnswers[teil3SelectedItem] = sitIdx;
+          
+          const selectElem = document.getElementById(`teil3_select_${teil3SelectedItem}`);
+          if (selectElem) selectElem.value = sitIdx;
+          
+          updateTeil3SelectOptions();
+          updateTeil3RightSideColors();
+          updateTeil3CardStyle(teil3SelectedItem);
+          
+          clearTeil3ItemSelection();
+          return;
+        }
+        
+        if (teil3SelectedSit !== null && teil3SelectedSit !== sitIdx) {
+          const prevSitDiv = document.getElementById(`teil3_sit_${teil3SelectedSit}`);
+          if (prevSitDiv && !prevSitDiv.classList.contains('used')) {
+            prevSitDiv.style.backgroundColor = "white";
+            prevSitDiv.style.border = "1px solid #ddd";
+          }
+        }
+        
+        if (teil3SelectedSit === sitIdx) {
+          clearTeil3SituationSelection();
+        } else {
+          teil3SelectedSit = sitIdx;
+          sitDiv.style.backgroundColor = "#e0f2fe";
+          sitDiv.style.border = "1px solid #7dd3fc";
+        }
       };
     })(i);
     
@@ -2638,9 +2504,6 @@ function renderTeil3Exam() {
     teil3UserAnswers = {};
     teil3SelectedItem = null;
     teil3SelectedSit = null;
-    // ✅ إعادة تعيين متغيرات الربط المباشر
-    teil3SelectedItemForLink = null;
-    teil3SelectedSitForLink = null;
     
     for (let i = 0; i < items.length; i++) {
       const select = document.getElementById(`teil3_select_${i}`);
@@ -3505,7 +3368,7 @@ function colorSelectOptions() {
 }
 
 // ============================================
-// MemoryHighlightEngine - مع دالة removeHighlights المحسّنة
+// MemoryHighlightEngine
 // ============================================
 
 class MemoryHighlightEngine {
@@ -3609,7 +3472,6 @@ class MemoryHighlightEngine {
     removeHighlights() {
         if (!this.container) return;
         
-        // 1. إزالة التلوين من النصوص (spans)
         const highlights = this.container.querySelectorAll('.memory-highlight');
         highlights.forEach(span => {
             const parent = span.parentNode;
@@ -3618,95 +3480,42 @@ class MemoryHighlightEngine {
             parent.normalize();
         });
         
-        // 2. إزالة التلوين من عناصر select (جميع الأقسام)
         const selects = this.container.querySelectorAll('select');
         selects.forEach(select => {
             for (let i = 0; i < select.options.length; i++) {
-                const option = select.options[i];
-                option.style.color = '';
-                option.style.fontWeight = '';
-                option.style.backgroundColor = '';
-                option.style.padding = '';
-                option.style.borderRadius = '';
+                select.options[i].style.color = '';
+                select.options[i].style.fontWeight = '';
             }
         });
         
-        // 3. إزالة التلوين من خيارات Sprachbausteine 1 (الراديوهات)
-        const optionGroups = this.container.querySelectorAll('.sprach1-option-group');
-        optionGroups.forEach(group => {
-            group.style.backgroundColor = '';
-            group.style.border = '';
-        });
-        
-        const optionLabels = this.container.querySelectorAll('.sprach1-option-group .option-label, .sprach1-option-group label');
-        optionLabels.forEach(label => {
-            label.style.backgroundColor = '';
-            label.style.border = '';
-            label.style.color = '';
-            label.style.fontWeight = '';
-        });
-        
-        // 4. إزالة التلوين من بطاقات Sprachbausteine 2 (الكلمات)
-        const wordCards = this.container.querySelectorAll('.sprach2-word-card');
-        wordCards.forEach(card => {
-            const textElement = card.querySelector('span') || card;
-            textElement.style.color = '';
-            textElement.style.fontWeight = '';
-            textElement.style.backgroundColor = '';
-            card.style.backgroundColor = '';
-            card.style.border = '';
-            card.style.color = '';
-        });
-        
-        // 5. إزالة التلوين من أزرار Sprachbausteine 1 و 2
-        const gapBtns = this.container.querySelectorAll('.sprach1-gap-btn, .sprach2-gap-btn, button[id*="sprach1_btn"], button[id*="sprach2_btn"]');
-        gapBtns.forEach(btn => {
-            btn.style.backgroundColor = '';
-            btn.style.color = '';
-            btn.style.border = '';
-            btn.style.fontWeight = '';
-            btn.style.padding = '';
-            btn.style.borderRadius = '';
-            btn.style.opacity = '';
-        });
-        
-        // 6. إزالة التلوين من عناصر option العامة
-        const allElements = this.container.querySelectorAll('.option, .option-btn, .choice, [class*="option"]');
-        allElements.forEach(el => {
-            el.style.color = '';
-            el.style.fontWeight = '';
-            el.style.backgroundColor = '';
-            el.style.border = '';
-            el.style.padding = '';
-            el.style.borderRadius = '';
-            el.style.opacity = '';
-        });
-        
-        // 7. إزالة التلوين من عناصر label
         const labels = this.container.querySelectorAll('label');
         labels.forEach(label => {
             const spans = label.querySelectorAll('span');
             spans.forEach(span => {
                 span.style.color = '';
                 span.style.fontWeight = '';
-                span.style.backgroundColor = '';
-                span.style.border = '';
-                span.style.padding = '';
-                span.style.borderRadius = '';
             });
             label.style.color = '';
             label.style.fontWeight = '';
-            label.style.backgroundColor = '';
-            label.style.border = '';
         });
         
-        // 8. تنظيف الخريطة
+        const wordCards = this.container.querySelectorAll('.sprach2-word-card');
+        wordCards.forEach(card => {
+            const textElement = card.querySelector('span') || card;
+            textElement.style.color = '';
+            textElement.style.fontWeight = '';
+        });
+        
+        const allElements = this.container.querySelectorAll('.option, .option-btn, .choice, [class*="option"]');
+        allElements.forEach(el => {
+            el.style.color = '';
+            el.style.fontWeight = '';
+        });
+        
         if (window._originalTexts) {
             window._originalTexts.clear();
         }
         this.originalTexts.clear();
-        
-        console.log('✅ تم إزالة جميع ألوان التلوين');
     }
 }
 
