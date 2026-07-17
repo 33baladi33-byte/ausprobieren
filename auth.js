@@ -58,7 +58,7 @@ const settingsModal = document.getElementById('settingsModal');
 const closeSettingsModal = document.getElementById('closeSettingsModal');
 
 // ============================================
-// دوال النوافذ (مضافة)
+// دوال النوافذ
 // ============================================
 function openAuthModal(form = 'login') {
     showForm(form);
@@ -95,7 +95,7 @@ function clearErrors() {
 }
 
 // ============================================
-// دالة إظهار/إخفاء كلمة المرور (مضافة)
+// دالة إظهار/إخفاء كلمة المرور
 // ============================================
 function togglePasswordVisibility(inputId, toggleId) {
     const input = document.getElementById(inputId);
@@ -218,9 +218,9 @@ async function checkSessionOnLoad() {
         // ========== مقارنة الأجهزة ==========
         if (firestoreDeviceId !== localDeviceId) {
             // جهاز آخر دخل بهذا الحساب → تسجيل خروج
-            console.warn('⚠️ جهاز مختلف، يتم تسجيل الخروج');
+            console.warn(' جهاز مختلف، يتم تسجيل الخروج');
             await handleLogout();
-            showToast('⚠️ تم تسجيل الدخول من جهاز آخر، تم تسجيل خروجك.', 'error');
+            showToast(' تم تسجيل الدخول من جهاز آخر، .', 'error');
             return;
         }
 
@@ -367,7 +367,7 @@ async function handleLogin() {
         await updateSessionInFirestore(user.uid, deviceId);
 
         closeAuthModalFunc();
-        showToast('✅ تم تسجيل الدخول بنجاح', 'success');
+        showToast('✅ تم تسجيل الدخول بنجاح. مرحباً بك!', 'success');
 
         // ✅ تحديث الملف الشخصي
         setTimeout(updateProfile, 500);
@@ -405,7 +405,7 @@ async function handleSignup() {
         await updateSessionInFirestore(user.uid, deviceId);
 
         closeAuthModalFunc();
-        showToast('✅ تم إنشاء الحساب بنجاح', 'success');
+        showToast('🎉 تم إنشاء الحساب بنجاح!.', 'success');
 
         setTimeout(updateProfile, 500);
 
@@ -432,7 +432,7 @@ async function handleReset() {
     const waUrl = `https://wa.me/212687561491?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
     closeAuthModalFunc();
-    showToast(' تم فتح واتساب', 'info');
+    showToast('📱 تم فتح واتساب. أرسل رسالتك وسنقوم بمساعدتك.', 'info');
 }
 
 async function handleLogout() {
@@ -445,43 +445,60 @@ async function handleLogout() {
         }
         await auth.signOut();
         if (profileDropdown) profileDropdown.classList.remove('show');
-        showToast('✅ تم تسجيل الخروج بنجاح', 'success');
+        showToast('👋 تم تسجيل الخروج بنجاح. نراكم قريباً!', 'success');
     } catch (error) {
         console.error(error);
+        showToast('⚠️ حدث خطأ أثناء تسجيل الخروج. حاول مرة أخرى.', 'error');
     }
 }
 
 // ============================================
-// دالة ترجمة أخطاء Firebase
+// دالة ترجمة أخطاء Firebase (محسنة)
 // ============================================
 function getFirebaseErrorMessage(code) {
     const errors = {
-        'auth/user-not-found': '❌ البريد الإلكتروني غير مسجل',
-        'auth/wrong-password': '❌ كلمة السر غير صحيحة',
-        'auth/email-already-in-use': '❌ البريد الإلكتروني مستخدم بالفعل',
-        'auth/invalid-email': '❌ البريد الإلكتروني غير صحيح',
-        'auth/too-many-requests': '⚠️ حاول مرة أخرى لاحقاً',
-        'auth/weak-password': '⚠️ كلمة المرور ضعيفة (6 أحرف على الأقل)'
+        // ===== أخطاء تسجيل الدخول =====
+        'auth/user-not-found': ' لم يتم العثور على حساب بهذا البريد الإلكتروني.',
+        'auth/wrong-password': ' كلمة المرور غير صحيحة. حاول مرة أخرى.',
+        'auth/invalid-email': ' يرجى إدخال بريد إلكتروني صحيح.',
+        'auth/user-disabled': ' هذا الحساب مُعطّل. يرجى التواصل مع الدعم.',
+        'auth/too-many-requests': ' تم إرسال العديد من المحاولات الفاشلة. يرجى الانتظار قليلاً ثم المحاولة مرة أخرى.',
+        
+        // ===== أخطاء إنشاء الحساب =====
+        'auth/email-already-in-use': ' يوجد حساب بهذا البريد الإلكتروني بالفعل. قم بتسجيل الدخول بدلاً من إنشاء حساب جديد.',
+        'auth/weak-password': ' كلمة المرور ضعيفة. يجب أن تتكون من 6 أحرف على الأقل.',
+        'auth/operation-not-allowed': ' إنشاء الحساب غير متاح حالياً. يرجى المحاولة لاحقاً.',
+        
+        // ===== أخطاء عامة =====
+        'auth/network-request-failed': ' فشل الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت.',
+        'auth/internal-error': ' حدث خطأ داخلي. يرجى المحاولة مرة أخرى.',
+        'auth/invalid-credential': ' بيانات الدخول غير صحيحة. يرجى التحقق من البريد الإلكتروني وكلمة المرور.',
+        'auth/requires-recent-login': ' يُرجى تسجيل الدخول مرة أخرى لتأكيد هويتك.'
     };
-    return errors[code] || '⚠️ حدث خطأ، حاول مرة أخرى';
+    
+    return errors[code] || ' حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.';
 }
 
 // ============================================
-// عرض Toast
+// عرض Toast (محسن)
 // ============================================
 function showToast(message, type = 'info') {
     const toast = document.createElement('div');
     toast.style.cssText = `
         position: fixed; top: 20px; right: 20px;
-        padding: 12px 20px; border-radius: 12px;
-        background: #0f172a; color: white;
+        padding: 14px 24px;
+        border-radius: 12px;
+        background: #0f172a;
+        color: white;
         border: 1px solid rgba(56,189,248,0.2);
         z-index: 99999;
-        font-size: 14px;
-        box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        font-size: 15px;
+        font-weight: 500;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.4);
         animation: slideIn 0.3s ease;
         direction: rtl;
-        max-width: 380px;
+        max-width: 420px;
+        line-height: 1.5;
     `;
     if (type === 'success') toast.style.borderColor = '#22c55e';
     if (type === 'error') toast.style.borderColor = '#ef4444';
@@ -492,7 +509,7 @@ function showToast(message, type = 'info') {
         toast.style.opacity = '0';
         toast.style.transition = 'opacity 0.3s';
         setTimeout(() => toast.remove(), 300);
-    }, 3000);
+    }, 3500);
 }
 
 // ============================================
