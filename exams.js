@@ -1482,6 +1482,7 @@ async function renderExamListForSkill(skill, teilName) {
   }
   
   addVersionBadgesFixed();
+  saveOriginalOrder();   // ✅ حفظ الترتيب بعد إضافة البادج
   setupLockedNextButton();
 }
 
@@ -1971,9 +1972,8 @@ function createViewModeToggles() {
 
     header.appendChild(btn2);
 
-    setTimeout(saveOriginalOrder, 200);
-    applyExamListView(getExamListMode());
-}
+// setTimeout(saveOriginalOrder, 200);   // تم نقل saveOriginalOrder إلى renderExamListForSkill
+applyExamListView(getExamListMode());
 
 // ============================================
 // ✅ دالة applyExamListView المعدلة - توحيد ارتفاع البطاقات
@@ -2151,7 +2151,7 @@ function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
     if (!container) return;
     
-    const skill = window.currentSkill || 'lesen1';
+const skill = currentSkill || 'lesen1';
     if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 'sprach1' && skill !== 'sprach2') return;
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
