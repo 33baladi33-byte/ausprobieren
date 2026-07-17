@@ -58,6 +58,21 @@ const settingsModal = document.getElementById('settingsModal');
 const closeSettingsModal = document.getElementById('closeSettingsModal');
 
 // ============================================
+// دالة إظهار/إخفاء كلمة المرور (مضافة)
+// ============================================
+function togglePasswordVisibility(inputId, toggleId) {
+    const input = document.getElementById(inputId);
+    const toggle = document.getElementById(toggleId);
+    if (input && toggle) {
+        toggle.addEventListener('click', function() {
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            this.textContent = isPassword ? 'visibility_off' : 'visibility';
+        });
+    }
+}
+
+// ============================================
 // ═══════════════════════════════════════════════
 //      نظام الجلسة الجديد (Single Session)
 // ═══════════════════════════════════════════════
