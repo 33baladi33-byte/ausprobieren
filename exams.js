@@ -170,7 +170,9 @@ const lesenExams = [
   { id: 52, title: "Autos", enabled: true, hasFile: true },
   { id: 53, title: "Evolution", enabled: true, hasFile: true },
   { id: 54, title: "Gedächtnis", enabled: true, hasFile: true },
-  { id: 55, title: "Wohnen", enabled: true, hasFile: true }
+  { id: 55, title: "Wohnen", enabled: true, hasFile: true },
+  { id: 56, title: " Lebensmodelle", enabled: true, hasFile: true }
+  
 ];
 
 // ============================================
@@ -778,7 +780,10 @@ const actualFileNames = {
   116: "exam40b.json",
   117: "exam3b.json",
   118: "exam4b.json",
-  119: "exam4c.json"
+  119: "exam4c.json",
+  120: "exam56.json",
+   121: "exam42.json"
+  
 };
 
 // ========== قاعدة بيانات الامتحانات ==========
@@ -903,7 +908,9 @@ const examsDatabase = {
     { id: 38, title: "Liebe Clara", enabled: true, hasFile: true },
     { id: 39, title: "Sehr geehrte Frau Melchior", enabled: true, hasFile: true },
     { id: 40, title: "Liebe Sandra", enabled: true, hasFile: true },
-    { id: 41, title: "Liebe Anna(الجديد)", enabled: true, hasFile: true }
+    { id: 41, title: "Liebe Anna(الجديد)", enabled: true, hasFile: true },
+    { id: 41, title: "hi jens", enabled: true, hasFile: true }
+    
   ],
   sprach2: [
     { id: 1, title: "Das Fahrrad", enabled: true, hasFile: true },
