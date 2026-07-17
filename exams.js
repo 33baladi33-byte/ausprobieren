@@ -1255,7 +1255,7 @@ function renderMündlichPartTabs() {
 }
 
 // ============================================
-// ✅ دالة getFlattenedExamList - قائمة مسطحة للتنقل
+// ✅ دالة getFlattenedExamList - قائمة مسطحة للتنقل بين الإصدارات
 // ============================================
 function getFlattenedExamList(exams) {
     const flattened = [];
@@ -1563,6 +1563,9 @@ function showVersionsPopup(exam, skill) {
   }
 }
 
+// ============================================
+// ✅ دالة setupLockedNextButton المعدلة - تدعم الإصدارات
+// ============================================
 function setupLockedNextButton() {
   const nextBtn = document.getElementById('nextExamBtn');
   if (!nextBtn) return;
@@ -1818,7 +1821,7 @@ async function openExam(examId, examTitle, skill, fileName = null) {
 }
 
 // ============================================
-// ✅ دالة updateExamNavButtons المعدلة
+// ✅ دالة updateExamNavButtons المعدلة - تدعم التنقل بين الإصدارات
 // ============================================
 function updateExamNavButtons() {
     const prevBtn = document.getElementById("prevExamBtn");
@@ -1992,6 +1995,7 @@ function applyExamListView(mode) {
     });
 
     if (mode === "list") {
+        console.log("📄 List View");
         return;
     }
 
@@ -2136,10 +2140,12 @@ function applyExamListView(mode) {
         const badge = item.querySelector(".exam-result-badge");
         if (badge) badge.style.fontSize = "8px";
     });
+
+    console.log("🟦 Grid View");
 }
 
 // ============================================
-// ✅ دالة addVersionBadgesFixed المعدلة - مستقرة
+// ✅ دالة addVersionBadgesFixed المعدلة - مستقرة ولا تختفي
 // ============================================
 function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
@@ -2162,15 +2168,17 @@ function addVersionBadgesFixed() {
         const exam = currentExamsList.find(e => e.id === examId);
         if (!exam || !exam.versions || exam.versions.length <= 1) return;
         
+        // ✅ التحقق من وجود البادج
         let badge = el.querySelector('.custom-badge');
         if (badge) {
             const countSpan = badge.querySelector('span:last-child');
             if (countSpan && countSpan.textContent === String(exam.versions.length)) {
-                return;
+                return; // البادج موجود وصحيح
             }
-            badge.remove();
+            badge.remove(); // البادج قديم
         }
         
+        // إنشاء البادج الجديد
         badge = document.createElement('span');
         badge.className = 'custom-badge';
         badge.innerHTML = `
@@ -2214,6 +2222,7 @@ function addVersionBadgesFixed() {
         }
     });
 }
+
 // ============================================
 // باقي الدوال (goBackToExamsList, renderInfoExam, renderTipsExam, renderMündlichExam, createMündlichCard, showTeil, goHome, goList, buildTeil1, checkTeil1, etc.)
 // ============================================
@@ -2525,7 +2534,6 @@ function buildTeil1(questions) {
     return;
   }
   
-  // ✅ التحقق من وجود الأسئلة
   if (!questions || !Array.isArray(questions) || questions.length === 0) {
     console.warn('⚠️ buildTeil1: لا توجد أسئلة لعرضها');
     container.innerHTML = '<div style="text-align:center; padding:20px; color:#999;">⚠️ لا توجد أسئلة في هذا الامتحان</div>';
@@ -2538,7 +2546,6 @@ function buildTeil1(questions) {
   
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i];
-    // ✅ استخدام ID ثابت من البيانات
     const questionId = q.id !== undefined ? q.id : i;
     
     const card = document.createElement("div");
@@ -2675,7 +2682,6 @@ renderTeileList();
 // نظام المراحل المتوازن (لجميع المهارات)
 // ============================================
 
-// ✅ إعدادات المراحل حسب الأرقام الحقيقية
 const SKILL_CONFIG = {
     hoeren1: { totalExams: 45, examsPerStage: 15, totalSentences: 108 },
     hoeren2: { totalExams: 55, examsPerStage: 15, totalSentences: 273 },
@@ -2687,7 +2693,6 @@ const SKILL_CONFIG = {
     sprach2: { totalExams: 49, examsPerStage: 15, totalSentences: 245 }
 };
 
-// ✅ دوال المراحل العامة (تعمل مع أي مهارة)
 function getStageKey(skill) {
     return `${skill}_stage`;
 }
@@ -2767,7 +2772,6 @@ function decreaseLevel(skill, examId, questionIndex) {
 // دوال حساب النسب (المتوازنة)
 // ============================================
 
-// نسبة امتحان واحد (تعتمد على جمل ذلك الامتحان فقط)
 function getExamProgress(skill, examId) {
     const prefix = `${skill}_exam${examId}_`;
     try {
@@ -2781,7 +2785,6 @@ function getExamProgress(skill, examId) {
     } catch { return 0; }
 }
 
-// نسبة المرحلة الحالية (مجموع مستويات جمل المرحلة / عدد جمل المرحلة × 5)
 function getStageProgress(skill) {
     const config = SKILL_CONFIG[skill];
     if (!config) return 0;
@@ -2801,14 +2804,12 @@ function getStageProgress(skill) {
     return Math.min(100, Math.round((totalLevels / (count * MAX_LEVEL)) * 100));
 }
 
-// النسبة العامة للجزء بالكامل (تعتمد على المراحل، وليس العدد الكلي للجمل)
 function getOverallProgress(skill) {
     const totalStages = getTotalStages(skill);
     if (totalStages <= 0) return 0;
     const currentStage = getCurrentStage(skill);
     const stageProgress = getStageProgress(skill);
     
-    // معادلة متوازنة: (المرحلة الحالية - 1 + نسبة المرحلة) / إجمالي المراحل × 100
     const overall = ((currentStage - 1) + (stageProgress / 100)) / totalStages * 100;
     return Math.min(100, Math.round(overall));
 }
@@ -2845,7 +2846,6 @@ for (const examId of examIds) {
             if (skill === 'lesen3') {
                 questions = data.items || [];
             } else if (skill === 'sprach1' || skill === 'sprach2') {
-                // ✅ لـ sprach1 و sprach2: نأخذ من options أو questions
                 if (data.options && Array.isArray(data.options)) {
                     questions = data.options;
                 } else if (data.questions && Array.isArray(data.questions)) {
@@ -2853,7 +2853,6 @@ for (const examId of examIds) {
                 } else {
                     questions = [];
                 }
-                // نأخذ فقط الأسئلة التي تحتوي على memoryHighlight
                 questions = questions.filter(q => q.memoryHighlight);
             } else {
                 questions = data.questions || [];
@@ -2862,7 +2861,6 @@ for (const examId of examIds) {
             questions.forEach((q, idx) => {
                 let entry;
                 if (skill === 'sprach1' || skill === 'sprach2') {
-                    // ✅ بناء entry خاص لـ sprach1 و sprach2 باستخدام memoryHighlight
                     const highlight = q.memoryHighlight || {};
                     entry = {
                         text: q.text || '',
@@ -2876,7 +2874,7 @@ for (const examId of examIds) {
                         before: highlight.before || '',
                         connector: highlight.connector || '',
                         after: highlight.after || '',
-                        color: 0  // ✅ لا نستخدم اللون لـ sprach1 و sprach2
+                        color: 0
                     };
                 } else {
                     entry = {
@@ -2890,7 +2888,6 @@ for (const examId of examIds) {
                 }
                 allQuestions.push(entry);
 
-                // ✅ إذا كانت المهارة sprach1 أو sprach2 أو lesen1/2/3، كل الأسئلة صالحة للتدريب
                 if (skill === 'lesen1' || skill === 'lesen2' || skill === 'lesen3' || skill === 'sprach1' || skill === 'sprach2') {
                     allCorrect.push(entry);
                 } else {
@@ -2904,7 +2901,6 @@ for (const examId of examIds) {
         console.warn(`⚠️ لا يمكن تحميل ${skill} exam${examId}`);
     }
 }
-// ✅ إضافة sharedOptions (لـ Lesen 1 و Lesen 3)
 let sharedOptions = [];
 if ((skill === 'lesen1' || skill === 'lesen3') && examIds.length > 0) {
     const firstExamId = examIds[0];
@@ -2915,12 +2911,10 @@ if ((skill === 'lesen1' || skill === 'lesen3') && examIds.length > 0) {
             const response = await fetch(`data/${skill}/${fileName}`);
             if (response.ok) {
                 const data = await response.json();
-                // لـ Lesen 1: نأخذ sharedOptions
                 if (skill === 'lesen1' && data.sharedOptions) {
                     sharedOptions = data.sharedOptions;
                     console.log(`✅ تم استخراج sharedOptions لـ ${skill} (${sharedOptions.length} عنوان)`);
                 }
-                // لـ Lesen 3: نأخذ situations كـ sharedOptions
                 else if (skill === 'lesen3' && data.situations) {
                     sharedOptions = data.situations;
                     console.log(`✅ تم استخراج situations لـ ${skill} كـ sharedOptions (${sharedOptions.length} حالة)`);
@@ -2932,7 +2926,6 @@ if ((skill === 'lesen1' || skill === 'lesen3') && examIds.length > 0) {
     }
 }
 
-    // تخزين البيانات المدمجة تحت مفتاح المهارة
     window[`_${skill}_combinedData`] = {
         questions: allCorrect,
         wrongQuestions: allWrong,
@@ -3028,10 +3021,8 @@ function resetAllLevels() {
 // ============================================
 
 window.startMemoryTrainerFromList = function(skill = 'hoeren1') {
-    // التأكد من تحميل بيانات المهارة
     const combinedKey = `_${skill}_combinedData`;
     if (!window[combinedKey]) {
-        // إذا لم تكن محملة، نحملها ثم نبدأ
         window.loadStageExams(skill).then(() => {
             if (window.memoryTrainer) {
                 window.memoryTrainer.currentSkill = skill;
@@ -3103,14 +3094,11 @@ console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `$
 // أزرار تبديل الأيقونة (زرين جنب بعض)
 // ============================================
 
-// ===== الزر الأول: leaderboard ↔ 123 =====
 const VIEW_ICONS_1 = ['leaderboard', '123'];
 const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
 
-// تخزين الترتيب الأصلي كأرقام امتحانات (وليس عناصر DOM)
 let originalOrderNumbers = [];
 
-// حفظ الترتيب الأصلي عند تحميل القائمة
 function saveOriginalOrder() {
     const list = document.getElementById("examsList");
     if (!list) return;
@@ -3120,7 +3108,6 @@ function saveOriginalOrder() {
         !el.classList.contains("memory-progress-bar-container")
     );
     
-    // حفظ أرقام الامتحانات بالترتيب الأصلي
     originalOrderNumbers = exams.map(el => {
         const title = el.querySelector(".exam-title");
         if (!title) return null;
@@ -3132,12 +3119,10 @@ function saveOriginalOrder() {
     console.log("📋 تم حفظ الترتيب الأصلي:", originalOrderNumbers);
 }
 
-// استعادة الترتيب الأصلي حسب أرقام الامتحانات
 function restoreOriginalOrder() {
     const list = document.getElementById("examsList");
     if (!list || originalOrderNumbers.length === 0) return;
     
-    // الحصول على جميع عناصر الامتحانات الحالية
     const exams = [...list.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
@@ -3145,7 +3130,6 @@ function restoreOriginalOrder() {
     
     if (!exams.length) return;
     
-    // إنشاء خريطة للعناصر حسب رقم الامتحان
     const examMap = {};
     exams.forEach(el => {
         const title = el.querySelector(".exam-title");
@@ -3158,7 +3142,6 @@ function restoreOriginalOrder() {
         }
     });
     
-    // إعادة ترتيب العناصر حسب الأرقام المحفوظة
     const fragment = document.createDocumentFragment();
     originalOrderNumbers.forEach(num => {
         if (examMap[num]) {
@@ -3167,7 +3150,6 @@ function restoreOriginalOrder() {
         }
     });
     
-    // إضافة أي عناصر متبقية (جديدة) في نهاية القائمة
     Object.keys(examMap).map(Number).sort((a, b) => a - b).forEach(num => {
         fragment.appendChild(examMap[num]);
     });
@@ -3176,16 +3158,13 @@ function restoreOriginalOrder() {
     console.log("📋 تم استعادة الترتيب الأصلي حسب الأرقام");
 }
 
-// ✅ تطبيق ترتيب leaderboard - يعمل مع List و Grid معاً
 function applyLeaderboardOrder() {
     const list = document.getElementById("examsList");
     if (!list) return console.log("❌ examsList غير موجود");
 
-    // التحقق من وجود Grid Container
     const gridContainer = document.getElementById("examGridContainer");
     const targetContainer = gridContainer || list;
 
-    // جميع الامتحانات فقط - نأخذها من الـ container المناسب
     const exams = [...targetContainer.querySelectorAll(".item")].filter(el =>
         !el.classList.contains("teil-header") &&
         !el.classList.contains("memory-progress-bar-container")
@@ -3193,7 +3172,6 @@ function applyLeaderboardOrder() {
 
     if (!exams.length) return console.log("❌ لا توجد امتحانات");
 
-    // استخراج النقطة
     const data = exams.map((el, index) => {
         const badge = el.querySelector(".exam-result-badge");
 
@@ -3213,7 +3191,6 @@ function applyLeaderboardOrder() {
         };
     });
 
-    // ترتيب Stable
     data.sort((a, b) => {
         if (a.score === b.score)
             return a.originalIndex - b.originalIndex;
@@ -3221,7 +3198,6 @@ function applyLeaderboardOrder() {
         return a.score - b.score;
     });
 
-    // إعادة ترتيب داخل نفس الـ container
     data.forEach(item => targetContainer.appendChild(item.el));
 
     console.log("✅ تم ترتيب الامتحانات من الأضعف إلى الأقوى");
@@ -3241,7 +3217,6 @@ function setViewModeIndex1(index) {
     } catch {}
 }
 
-// ===== الزر الثاني: view_day ↔ grid_view =====
 const VIEW_ICONS_2 = ['view_day', 'grid_view'];
 const VIEW_MODE_KEY_2 = 'viewModeIconIndex2';
 
@@ -3259,13 +3234,8 @@ function setViewModeIndex2(index) {
     } catch {}
 }
 
-// ============================================
-// Exam List View Mode - نظام تبديل شكل القائمة
-// ============================================
-
 const EXAM_LIST_MODE_KEY = "examListViewMode";
 
-// الوضع الحالي
 function getExamListMode() {
     return localStorage.getItem(EXAM_LIST_MODE_KEY) || "list";
 }
@@ -3273,177 +3243,6 @@ function getExamListMode() {
 function setExamListMode(mode) {
     localStorage.setItem(EXAM_LIST_MODE_KEY, mode);
 }
-
-// تطبيق الشكل
-function applyExamListView(mode) {
-    const list = document.getElementById("examsList");
-    if (!list) return;
-
-    // إزالة أي Grid قديم
-    const oldGrid = document.getElementById("examGridContainer");
-    if (oldGrid) {
-        while (oldGrid.firstChild) {
-            list.appendChild(oldGrid.firstChild);
-        }
-        oldGrid.remove();
-    }
-
-    // إعادة جميع التنسيقات إلى الوضع الطبيعي
-    [...list.querySelectorAll(".item")].forEach(el => {
-        el.style.cssText = "";
-    });
-
-    // الوضع العادي (List)
-    if (mode === "list") {
-        console.log("📄 List View");
-        return;
-    }
-
-    // ===== Grid View =====
-    const exams = [...list.querySelectorAll(".item")].filter(el =>
-        !el.classList.contains("teil-header") &&
-        !el.classList.contains("memory-progress-bar-container")
-    );
-
-    if (!exams.length) return;
-
-    const grid = document.createElement("div");
-    grid.id = "examGridContainer";
-
-    grid.style.cssText = `
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 6px;
-        margin-top: 8px;
-    `;
-
-    const firstExam = exams[0];
-    list.insertBefore(grid, firstExam);
-
-    let maxHeight = 0;
-    exams.forEach(item => {
-        const clone = item.cloneNode(true);
-        clone.style.cssText = `
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 42px;
-            padding: 8px 4px;
-            background: #fafbfc;
-            border: 1px solid #e8ecef;
-            border-radius: 6px;
-            margin: 0;
-            box-shadow: none;
-            text-align: center;
-            font-size: 12px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            visibility: hidden;
-            position: absolute;
-            pointer-events: none;
-        `;
-        document.body.appendChild(clone);
-        const height = clone.offsetHeight;
-        document.body.removeChild(clone);
-        if (height > maxHeight) maxHeight = height;
-    });
-
-    const fixedHeight = Math.min(Math.max(maxHeight, 50), 60);
-
-    exams.forEach(item => {
-        grid.appendChild(item);
-
-        item.style.cssText = `
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: ${fixedHeight}px;
-            padding: 4px 4px;
-            background: #fafbfc;
-            border: 1px solid #e8ecef;
-            border-radius: 6px;
-            margin: 0;
-            box-shadow: none;
-            text-align: center;
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            overflow: hidden;
-        `;
-
-        // تأثيرات Hover
-        item.addEventListener('mouseenter', function() {
-            const isPremium = this.querySelector('.premium-badge') !== null;
-            if (isPremium) {
-                this.style.backgroundColor = "rgba(255,255,255,0.95)";
-                this.style.transform = "translateY(-3px)";
-                this.style.borderColor = "#60a5fa";
-                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
-            } else {
-                this.style.backgroundColor = "#f1f5f9";
-                this.style.transform = "translateY(-3px)";
-                this.style.borderColor = "#2F80ED";
-                this.style.boxShadow = "0 4px 12px rgba(47, 128, 237, 0.15)";
-            }
-            const title = this.querySelector('.exam-title');
-            if (title) {
-                const isPremium = this.querySelector('.premium-badge') !== null;
-                title.style.color = isPremium ? "#4b5563" : "#1e293b";
-            }
-            const premiumSpan = this.querySelector('.premium-badge');
-            if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
-        });
-
-        item.addEventListener('mouseleave', function() {
-            const isPremium = this.querySelector('.premium-badge') !== null;
-            if (isPremium) {
-                this.style.backgroundColor = "rgba(255,255,255,0.75)";
-                this.style.transform = "translateY(0)";
-                this.style.borderColor = "#e2e8f0";
-                this.style.boxShadow = "none";
-            } else {
-                this.style.backgroundColor = "#fafbfc";
-                this.style.transform = "translateY(0)";
-                this.style.borderColor = "#e8ecef";
-                this.style.boxShadow = "none";
-            }
-            const title = this.querySelector('.exam-title');
-            if (title) {
-                const isPremium = this.querySelector('.premium-badge') !== null;
-                title.style.color = isPremium ? "#6b7280" : "#1a202c";
-            }
-            const premiumSpan = this.querySelector('.premium-badge');
-            if (premiumSpan) premiumSpan.style.transform = "scale(1)";
-        });
-
-        // تأثير Active
-        item.addEventListener('mousedown', function() {
-            this.style.transform = "scale(0.98)";
-            this.style.backgroundColor = "#e2e8f0";
-            this.style.transition = "all 0.05s ease";
-        });
-
-        item.addEventListener('mouseup', function() {
-            const isPremium = this.querySelector('.premium-badge') !== null;
-            this.style.transform = "scale(1)";
-            this.style.backgroundColor = isPremium ? "rgba(255,255,255,0.95)" : "#f1f5f9";
-            this.style.transition = "all 0.25s ease";
-        });
-
-        const title = item.querySelector(".exam-title");
-        if (title) {
-            title.style.fontSize = "11px";
-            title.style.transition = "color 0.25s ease";
-        }
-
-        const badge = item.querySelector(".exam-result-badge");
-        if (badge) badge.style.fontSize = "8px";
-    });
-}
-
-console.log('🔄 زرين للتبديل (leaderboard↔123) و (view_day↔grid_view) مع وظائف الترتيب تم تحميلهما');
 
 // ============================================
 // تصدير openExam للاستخدام العالمي
@@ -3453,80 +3252,6 @@ window.openExam = openExam;
 // ============================================
 // ✅ نظام Badge التعديلات - النسخة النهائية
 // ============================================
-
-function addVersionBadgesFixed() {
-    const container = document.getElementById('examsList');
-    if (!container) return;
-    
-    const skill = window.currentSkill || 'lesen1';
-    if (skill !== 'lesen1' && skill !== 'lesen2' && skill !== 'lesen3' && skill !== 'sprach1' && skill !== 'sprach2') return;
-    
-    const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
-    if (!items.length) return;
-    
-    items.forEach(el => {
-        const title = el.querySelector('.exam-title');
-        if (!title) return;
-        
-        const match = title.textContent.match(/^(\d+):/);
-        if (!match) return;
-        const examId = parseInt(match[1]);
-        
-        const exam = currentExamsList.find(e => e.id === examId);
-        if (!exam || !exam.versions || exam.versions.length <= 1) return;
-        
-        let badge = el.querySelector('.custom-badge');
-        if (badge) {
-            const countSpan = badge.querySelector('span:last-child');
-            if (countSpan && countSpan.textContent === String(exam.versions.length)) {
-                return;
-            }
-            badge.remove();
-        }
-        
-        badge = document.createElement('span');
-        badge.className = 'custom-badge';
-        badge.innerHTML = `
-            <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
-            <span style="font-size:9px; font-weight:600;">${exam.versions.length}</span>
-        `;
-        badge.style.cssText = `
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 2px !important;
-            background: linear-gradient(135deg, #334155, #1e293b) !important;
-            color: #f1f5f9 !important;
-            border-radius: 999px !important;
-            padding: 0 8px 0 4px !important;
-            height: 22px !important;
-            flex-shrink: 0 !important;
-            pointer-events: none !important;
-            user-select: none !important;
-            line-height: 1 !important;
-            border: 1px solid #475569 !important;
-        `;
-        badge.title = `${exam.versions.length} تعديلات`;
-        
-        let rightSide = el.querySelector('.exam-right-icons');
-        
-        if (rightSide) {
-            rightSide.appendChild(badge);
-        } else {
-            rightSide = document.createElement('span');
-            rightSide.className = 'exam-right-icons';
-            rightSide.style.cssText = `
-                display: flex !important;
-                align-items: center !important;
-                gap: 6px !important;
-                flex-shrink: 0 !important;
-                margin-right: 4px !important;
-            `;
-            rightSide.appendChild(badge);
-            el.appendChild(rightSide);
-        }
-    });
-}
 
 // ✅ تصدير الدوال للاستخدام العام
 window.addVersionBadgesFixed = addVersionBadgesFixed;
