@@ -8,133 +8,111 @@
       "id": 1,
       "options": ["dass", "das", "da"],
       "correct": 0,
-      "highlightColor": 0
+      "memoryHighlight": {
+        "before": "gefreut zu lesen,",
+        "connector": "dass",
+        "after": "es dir",
+        "color": 0
+      }
     },
     {
       "id": 2,
       "options": ["neue", "neu", "neuen"],
       "correct": 0,
-      "highlightColor": 1
+      "memoryHighlight": {
+        "before": "Hast du schon",
+        "connector": "neue",
+        "after": "Leute kennengelernt",
+        "color": 1
+      }
     },
     {
       "id": 3,
       "options": ["jede", "jeden", "jedes"],
       "correct": 0,
-      "highlightColor": 2
+      "memoryHighlight": {
+        "before": "habe",
+        "connector": "jede",
+        "after": "Menge Fragen",
+        "color": 2
+      }
     },
     {
       "id": 4,
       "options": ["annehmen", "abnehmen", "nehmen"],
       "correct": 0,
-      "highlightColor": 3
+      "memoryHighlight": {
+        "before": "Einladung wirklich gerne",
+        "connector": "annehmen",
+        "after": "und dich",
+        "color": 3
+      }
     },
     {
       "id": 5,
       "options": ["für", "über", "um"],
       "correct": 2,
-      "highlightColor": 4
+      "memoryHighlight": {
+        "before": "mich viel",
+        "connector": "um",
+        "after": "Jonas kümmern",
+        "color": 4
+      }
     },
     {
       "id": 6,
       "options": ["sobald", "bevor", "bis"],
       "correct": 0,
-      "highlightColor": 5
+      "memoryHighlight": {
+        "before": "Aber",
+        "connector": "sobald",
+        "after": "frei hat",
+        "color": 5
+      }
     },
     {
       "id": 7,
       "options": ["auch wenn", "wenn", "wenn auch"],
       "correct": 0,
-      "highlightColor": 6
+      "memoryHighlight": {
+        "before": "toll,",
+        "connector": "auch wenn",
+        "after": "es mal Streit gibt",
+        "color": 6
+      }
     },
     {
       "id": 8,
       "options": ["alle", "alles", "all"],
       "correct": 0,
-      "highlightColor": 7
+      "memoryHighlight": {
+        "before": "ihr euch",
+        "connector": "alle",
+        "after": "gut versteht",
+        "color": 7
+      }
     },
     {
       "id": 9,
       "options": ["aber", "denn", "und"],
       "correct": 0,
-      "highlightColor": 8
+      "memoryHighlight": {
+        "before": "zu ziehen,",
+        "connector": "aber",
+        "after": "die Mieten",
+        "color": 8
+      }
     },
     {
       "id": 10,
       "options": ["Umziehen", "Einziehen", "Ausziehen"],
       "correct": 0,
-      "highlightColor": 9
-    }
-  ],
-  "memoryHighlights": [
-    {
-      "color": 0,
-      "parts": [
-        "gefreut zu lesen, dass es dir",
-        "dass ... gefällt"
-      ]
-    },
-    {
-      "color": 1,
-      "parts": [
-        "schon neue Leute kennengelernt",
-        "neue Leute"
-      ]
-    },
-    {
-      "color": 2,
-      "parts": [
-        "jede Menge Fragen",
-        "jede Menge"
-      ]
-    },
-    {
-      "color": 3,
-      "parts": [
-        "Einladung wirklich gerne annehmen",
-        "annehmen"
-      ]
-    },
-    {
-      "color": 4,
-      "parts": [
-        "mich viel um Jonas kümmern",
-        "um ... kümmern"
-      ]
-    },
-    {
-      "color": 5,
-      "parts": [
-        "Aber sobald frei hat",
-        "sobald"
-      ]
-    },
-    {
-      "color": 6,
-      "parts": [
-        "toll, auch wenn es mal Streit gibt",
-        "auch wenn"
-      ]
-    },
-    {
-      "color": 7,
-      "parts": [
-        "ihr euch alle gut versteht",
-        "alle"
-      ]
-    },
-    {
-      "color": 8,
-      "parts": [
-        "in eine größere Wohnung zu ziehen, aber die Mieten",
-        "aber"
-      ]
-    },
-    {
-      "color": 9,
-      "parts": [
-        "Umziehen kann man ja auch später",
-        "Umziehen"
-      ]
+      "memoryHighlight": {
+        "before": "Wohnung.",
+        "connector": "Umziehen",
+        "after": "kann man",
+        "color": 9
+      }
     }
   ]
 }
