@@ -3245,9 +3245,9 @@ function renderMemoryProgressBar(skill, container) {
         <button class="memory-progress-btn" title="متابعة التدريب" onclick="window.startMemoryTrainerFromList('${skill}')">
             ▶
         </button>
-        <button class="memory-progress-btn reset" title="إعادة تعيين التقدم" onclick="window.resetAllLevels();">
-            ↺
-        </button>
+        <button class="memory-progress-btn reset" title="إعادة تعيين التقدم" onclick="window.resetSkillProgress('${skill}');">
+    ↺
+</button>
     `;
     container.insertBefore(bar, container.firstChild);
 }
@@ -3560,5 +3560,165 @@ window.addVersionBadgesFixed = addVersionBadgesFixed;
 window.saveRetryCount = saveRetryCount;
 window.getRetryCount = getRetryCount;
 window.incrementRetryCount = incrementRetryCount;
+window.resetSkillProgress = resetSkillProgress;
+// ============================================
+// ✅ إعادة تعيين تقدم جزء معين فقط (Local Reset)
+// ============================================
 
+function resetSkillProgress(skill) {
+    if (!skill) {
+        console.warn('⚠️ resetSkillProgress: لم يتم تحديد المهارة');
+        return;
+    }
+
+    const skillName = getSkillDisplayName(skill);
+    showResetModal(skill, skillName);
+}
+
+function getSkillDisplayName(skill) {
+    const names = {
+        'hoeren1': 'Hören 1',
+        'hoeren2': 'Hören 2',
+        'hoeren3': 'Hören 3',
+        'lesen1': 'Lesen 1',
+        'lesen2': 'Lesen 2',
+        'lesen3': 'Lesen 3',
+        'sprach1': 'Sprachbausteine 1',
+        'sprach2': 'Sprachbausteine 2'
+    };
+    return names[skill] || skill;
+}
+
+function showResetModal(skill, skillName) {
+    // إزالة أي مودال قديم
+    const oldModal = document.getElementById('resetConfirmModal');
+    if (oldModal) oldModal.remove();
+
+    // إنشاء المودال
+    const overlay = document.createElement('div');
+    overlay.id = 'resetConfirmModal';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100000;
+        animation: fadeIn 0.2s ease;
+    `;
+
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        background: #1a1f2e;
+        border-radius: 20px;
+        padding: 28px 30px;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        border: 1px solid #2a3042;
+        animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        color: #e2e8f0;
+        text-align: center;
+    `;
+
+    modal.innerHTML = `
+        <div style="font-size: 32px; margin-bottom: 10px;">🔄</div>
+        <h3 style="margin: 0 0 6px 0; font-size: 18px; font-weight: 600; color: #f1f5f9;">إعادة تعيين مستوى التدريب</h3>
+        <p style="margin: 6px 0 16px 0; font-size: 14px; color: #94a3b8; line-height: 1.6;">
+            هل أنت متأكد أنك تريد إعادة تعيين تقدمك في<br>
+            <strong style="color: #38bdf8;">${skillName}</strong>؟
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 12px; color: #64748b;">
+            لن يتم حذف أي تقدم في باقي الأجزاء.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center;">
+            <button class="reset-modal-cancel" style="
+                padding: 10px 24px;
+                border: 1px solid #334155;
+                border-radius: 10px;
+                background: transparent;
+                color: #94a3b8;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                flex: 1;
+            "
+            onmouseover="this.style.background='#1e293b'; this.style.borderColor='#475569';"
+            onmouseout="this.style.background='transparent'; this.style.borderColor='#334155';"
+            >
+                إلغاء
+            </button>
+            <button class="reset-modal-confirm" style="
+                padding: 10px 24px;
+                border: none;
+                border-radius: 10px;
+                background: #dc2626;
+                color: white;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                flex: 1;
+            "
+            onmouseover="this.style.background='#b91c1c';"
+            onmouseout="this.style.background='#dc2626';"
+            >
+                إعادة التعيين
+            </button>
+        </div>
+    `;
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    // إغلاق عند النقر خارج المودال
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+
+    // إغلاق عند الضغط على Esc
+    document.addEventListener('keydown', function escHandler(e) {
+        if (e.key === 'Escape') {
+            overlay.remove();
+            document.removeEventListener('keydown', escHandler);
+        }
+    });
+
+    // زر الإلغاء
+    modal.querySelector('.reset-modal-cancel').addEventListener('click', () => {
+        overlay.remove();
+    });
+
+    // زر التأكيد
+    modal.querySelector('.reset-modal-confirm').addEventListener('click', () => {
+        // حذف بيانات المهارة فقط
+        const LEVELS_KEY = 'memory_levels';
+        try {
+            const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
+            const prefix = `${skill}_exam`;
+            const newData = {};
+            for (const key in data) {
+                if (!key.startsWith(prefix)) {
+                    newData[key] = data[key];
+                }
+            }
+            localStorage.setItem(LEVELS_KEY, JSON.stringify(newData));
+            console.log(`✅ تم إعادة تعيين تقدم ${skillName}`);
+            overlay.remove();
+            // إعادة تحميل الصفحة لتحديث الواجهة
+            location.reload();
+        } catch (e) {
+            console.error('❌ خطأ في إعادة التعيين:', e);
+            overlay.remove();
+        }
+    });
+}
 console.log('✅ نظام Badge التعديلات (النسخة النهائية) تم تحميله');
