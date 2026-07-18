@@ -173,6 +173,7 @@ async function updateSessionInFirestore(uid, deviceId) {
  */
 async function clearSession(uid) {
     localStorage.removeItem('zertiva_deviceId');
+    localStorage.removeItem('zertiva_session_valid');
     if (uid) {
         try {
             await db.collection('users').doc(uid).set({
@@ -191,7 +192,7 @@ async function clearSession(uid) {
 /**
  * فحص الجلسة عند تحميل الصفحة (Refresh فقط)
  * - يقرأ deviceId من Firestore ويقارنه مع الجهاز
- * - إذا اختلف → تسجيل خروج فوري
+ * - إذا اختلف → تعيين حالة غير صالحة (بدون تسجيل خروج فوري)
  * - إذا تطابق → يستمر، ويقوم بفحص الاشتراك وتحديثه إذا انتهى
  */
 async function checkSessionOnLoad() {
@@ -207,6 +208,7 @@ async function checkSessionOnLoad() {
             await createUserDocument(user);
             const deviceId = getDeviceId();
             await updateSessionInFirestore(user.uid, deviceId);
+            localStorage.setItem('zertiva_session_valid', 'true');
             await updateProfile();
             return;
         }
@@ -217,12 +219,16 @@ async function checkSessionOnLoad() {
 
         // ========== مقارنة الأجهزة ==========
         if (firestoreDeviceId !== localDeviceId) {
-            // جهاز آخر دخل بهذا الحساب → تسجيل خروج
-            console.warn(' جهاز مختلف، يتم تسجيل الخروج');
-            await handleLogout();
-            showToast(' تم تسجيل الدخول من جهاز آخر، .', 'error');
+            // جهاز آخر دخل بهذا الحساب → تعيين الجلسة غير صالحة (بدون تسجيل خروج فوري)
+            console.warn('⚠️ جهاز مختلف، تعيين الجلسة غير صالحة');
+            localStorage.setItem('zertiva_session_valid', 'false');
+            showToast('⚠️ تم تسجيل الدخول من جهاز آخر. سيتم تسجيل خروجك في المرة القادمة التي تقوم فيها بتحديث الصفحة.', 'error');
+            await updateProfile();
             return;
         }
+
+        // الجلسة صالحة
+        localStorage.setItem('zertiva_session_valid', 'true');
 
         // ========== فحص الاشتراك (مرة واحدة عند الـ Refresh) ==========
         await checkAndUpdateSubscription(data);
@@ -233,6 +239,7 @@ async function checkSessionOnLoad() {
     } catch (error) {
         console.error(' خطأ في فحص الجلسة:', error);
         // في حالة خطأ، نسمح بالدخول (لا نطرد المستخدم)
+        localStorage.setItem('zertiva_session_valid', 'true');
         await updateProfile();
     }
 }
@@ -365,6 +372,7 @@ async function handleLogin() {
         // ✅ إنشاء أو استرجاع deviceId وتحديثه في Firestore
         const deviceId = getDeviceId();
         await updateSessionInFirestore(user.uid, deviceId);
+        localStorage.setItem('zertiva_session_valid', 'true');
 
         closeAuthModalFunc();
         showToast('✅ تم تسجيل الدخول بنجاح. مرحباً بك!', 'success');
@@ -403,6 +411,7 @@ async function handleSignup() {
         const deviceId = getDeviceId();
         await createUserDocument(user, { username, firstname, lastname });
         await updateSessionInFirestore(user.uid, deviceId);
+        localStorage.setItem('zertiva_session_valid', 'true');
 
         closeAuthModalFunc();
         showToast('🎉 تم إنشاء الحساب بنجاح!.', 'success');
@@ -442,6 +451,7 @@ async function handleLogout() {
             await clearSession(user.uid);
         } else {
             localStorage.removeItem('zertiva_deviceId');
+            localStorage.removeItem('zertiva_session_valid');
         }
         await auth.signOut();
         if (profileDropdown) profileDropdown.classList.remove('show');
@@ -526,7 +536,7 @@ async function updateProfile() {
     const profileDropdown = document.getElementById('profileDropdown');
     const navLoginBtn = document.getElementById('navLoginBtn');
     const navSubscribeBtn = document.getElementById('navSubscribeBtn');
-    const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn'); // ✅ جديد
+    const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
     const profileIcon = document.getElementById('profileIcon');
 
     if (!user) {
@@ -537,7 +547,7 @@ async function updateProfile() {
         if (profileLogoutBtn) profileLogoutBtn.style.display = 'none';
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-        if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex'; // ✅ جديد
+        if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
         if (profileIcon) profileIcon.style.display = 'none';
 
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
@@ -578,12 +588,12 @@ async function updateProfile() {
             if (profileExpiry) profileExpiry.textContent = `📅 الصلاحية: حتى ${expiry.toLocaleDateString('en-US')}`;
             if (profileStatus) profileStatus.innerHTML = `<span class="status-premium">✅ مشترك (Pro)</span>`;
             if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
-            if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'none'; // ✅ جديد: يخفي زر المميزات
+            if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'none';
         } else {
             if (profileExpiry) profileExpiry.textContent = '⏰ انتهت الصلاحية أو مجاني';
             if (profileStatus) profileStatus.innerHTML = `<span class="status-free">📖 مجاني</span>`;
             if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-            if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex'; // ✅ جديد: يظهر زر المميزات
+            if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
         }
 
         if (profileUidValue) profileUidValue.textContent = user.uid;
@@ -630,6 +640,14 @@ auth.onAuthStateChanged(async user => {
         // ✅ التحقق من الجلسة عند كل تحميل (Refresh)
         await checkSessionOnLoad();
 
+        // ✅ التحقق من صحة الجلسة المخزنة محلياً، وإذا كانت غير صالحة يتم تسجيل الخروج
+        const sessionValid = localStorage.getItem('zertiva_session_valid');
+        if (sessionValid === 'false') {
+            console.warn('⚠️ الجلسة غير صالحة، تسجيل الخروج');
+            await handleLogout();
+            return;
+        }
+
         // ✅ تحديث واجهة المستخدم
         if (navLoginBtn) navLoginBtn.style.display = 'none';
         if (profileIcon) profileIcon.style.display = 'flex';
@@ -639,9 +657,6 @@ auth.onAuthStateChanged(async user => {
         if (navSubscribeBtn) {
             navSubscribeBtn.style.display = (status === 'premium') ? 'none' : 'inline-flex';
         }
-        
-        // ✅ تحديث زر الاشتراك في قسم المميزات
-        const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
         if (featuresSubscribeBtn) {
             featuresSubscribeBtn.style.display = (status === 'premium') ? 'none' : 'inline-flex';
         }
@@ -655,12 +670,7 @@ auth.onAuthStateChanged(async user => {
         if (profileIcon) profileIcon.style.display = 'flex';
         if (profileDropdown) profileDropdown.classList.remove('show');
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-        
-        // ✅ إظهار زر الاشتراك في قسم المميزات للمستخدم غير المسجل
-        const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
-        if (featuresSubscribeBtn) {
-            featuresSubscribeBtn.style.display = 'inline-flex';
-        }
+        if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
 
         await updateProfile();
     }
