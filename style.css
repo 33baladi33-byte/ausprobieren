@@ -639,9 +639,9 @@ body:has(#exam.active) .btn-login-top {
     display: none !important;
 }
 
-/* زر اشترك يظهر في صفحات الامتحانات */
-body:has(#list.active) .subscribe-text-btn,
-body:has(#exam.active) .subscribe-text-btn {
+/* زر اشترك يظهر في صفحات الامتحانات فقط إذا لم يكن مخفياً بواسطة JavaScript */
+body:has(#list.active) .subscribe-text-btn:not([style*="display: none"]),
+body:has(#exam.active) .subscribe-text-btn:not([style*="display: none"]) {
     display: inline-flex !important;
 }
 
