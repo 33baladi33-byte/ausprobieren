@@ -1794,7 +1794,10 @@ async function openExam(examId, examTitle, skill, fileName = null) {
     document.getElementById("list").classList.remove("active");
     document.getElementById("exam").classList.add("active");
     document.getElementById("examTitle").innerHTML = currentExamData.title;
-    
+        // ✅ إضافة عداد الإعادات
+    if (typeof addRetryCounterToExam === 'function') {
+        addRetryCounterToExam();
+    }
     updateExamNavButtons();
     
     // تحميل الامتحان حسب نوعه
