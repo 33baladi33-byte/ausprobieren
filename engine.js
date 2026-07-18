@@ -4726,11 +4726,16 @@ function triggerPrevExam() {
     }
     return false;
 }
-
-// ✅ دالة إعادة المحاولة (نفس زر ↺)
+// ✅ دالة إعادة المحاولة (تقتصر على منطقة الامتحان فقط)
 function triggerReset() {
+    // البحث عن زر إعادة المحاولة داخل صفحة الامتحان فقط
+    const examContainer = document.getElementById('exam');
+    if (!examContainer) return false;
+    
     let resetBtn = null;
-    const allBtns = document.querySelectorAll('button');
+    
+    // 1. البحث عن زر يحوي رمز ↺ داخل حاوية الامتحان
+    const allBtns = examContainer.querySelectorAll('button');
     for (let btn of allBtns) {
         const text = btn.textContent.trim();
         if (text === '↺' || text.includes('↺')) {
@@ -4738,6 +4743,8 @@ function triggerReset() {
             break;
         }
     }
+    
+    // 2. إذا لم يتم العثور، البحث عن زر يحوي كلمة "إعادة" أو "Reset"
     if (!resetBtn) {
         for (let btn of allBtns) {
             const text = btn.textContent.trim();
@@ -4747,13 +4754,18 @@ function triggerReset() {
             }
         }
     }
+    
+    // 3. البحث عن زر بـ class أو id يحوي reset داخل الامتحان
     if (!resetBtn) {
-        resetBtn = document.querySelector('[class*="reset"], [id*="reset"], [class*="Reset"], [id*="Reset"]');
+        resetBtn = examContainer.querySelector('[class*="reset"], [id*="reset"], [class*="Reset"], [id*="Reset"]');
     }
+    
     if (resetBtn) {
         resetBtn.click();
         return true;
     }
+    
+    console.warn('⚠️ لم يتم العثور على زر إعادة المحاولة داخل صفحة الامتحان');
     return false;
 }
 
