@@ -1626,13 +1626,10 @@ if (hasVersions) {
   
   createViewModeToggles();
   
-  const mode1 = getViewModeIndex1();
-  if (mode1 === 0) {
-    applyLeaderboardOrder();
-  } else {
-    restoreOriginalOrder();
-  }
+  // ✅ الترتيب الطبيعي دائماً (بدون حفظ حالة)
+  restoreOriginalOrder();
   
+  // ✅ تطبيق وضع العرض (list/grid) - قد يبقى محفوظاً في localStorage إذا أردت
   const mode2 = getViewModeIndex2();
   if (mode2 === 1) {
     applyExamListView("grid");
@@ -2133,7 +2130,7 @@ function updateExamNavButtons() {
 }
 
 // ============================================
-// ✅ دالة createViewModeToggles المعدلة - إخفاء الأزرار في بعض الأقسام
+// ✅ دالة createViewModeToggles المعدلة - بدون حفظ حالة
 // ============================================
 function createViewModeToggles() {
     const header = document.querySelector('.teil-header');
@@ -2143,7 +2140,6 @@ function createViewModeToggles() {
     }
 
     const showTogglesSkills = ['hoeren1', 'hoeren2', 'hoeren3', 'lesen1', 'lesen2', 'lesen3', 'sprach1', 'sprach2'];
-    
     if (!showTogglesSkills.includes(currentSkill)) {
         const oldBtn1 = document.getElementById('viewModeToggleBtn1');
         const oldBtn2 = document.getElementById('viewModeToggleBtn2');
@@ -2156,47 +2152,52 @@ function createViewModeToggles() {
         header.style.position = 'relative';
     }
 
+    // إزالة الأزرار القديمة
     const oldBtn1 = document.getElementById('viewModeToggleBtn1');
     if (oldBtn1) oldBtn1.remove();
     const oldBtn2 = document.getElementById('viewModeToggleBtn2');
     if (oldBtn2) oldBtn2.remove();
 
-    // ===== الزر الأول (leaderboard ↔ 123) =====
+    // ===== الزر الأول (leaderboard ↔ 123) - بدون حفظ حالة =====
+    // 0 = طبيعي (123), 1 = Leaderboard
+    let currentIndex1 = 0;
+
     const btn1 = document.createElement('button');
     btn1.id = 'viewModeToggleBtn1';
     btn1.className = 'view-mode-toggle-btn-1';
     btn1.title = 'تبديل ترتيب القائمة';
 
-    let currentIndex1 = getViewModeIndex1();
-    const displayIndex1 = currentIndex1 === 0 ? 1 : 0;
-    const iconName1 = VIEW_ICONS_1[displayIndex1];
+    // الأيقونة المعروضة: إذا كان الحالي 0 نعرض '123' (لأن الضغط سينقل إلى Leaderboard)
+    const iconName1 = currentIndex1 === 0 ? '123' : 'leaderboard';
     btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
-    
+
     btn1.onclick = function(e) {
         e.stopPropagation();
-        currentIndex1 = (currentIndex1 + 1) % VIEW_ICONS_1.length;
-        setViewModeIndex1(currentIndex1);
-        const newDisplayIndex = currentIndex1 === 0 ? 1 : 0;
+        // تبديل الحالة
+        currentIndex1 = currentIndex1 === 0 ? 1 : 0;
+        // تحديث الأيقونة
         const span = this.querySelector('.material-symbols-outlined');
         if (span) {
-            span.textContent = VIEW_ICONS_1[newDisplayIndex];
+            span.textContent = currentIndex1 === 0 ? '123' : 'leaderboard';
         }
+        // تطبيق الترتيب
         if (currentIndex1 === 0) {
-            applyLeaderboardOrder();
-        } else {
             restoreOriginalOrder();
+        } else {
+            applyLeaderboardOrder();
         }
     };
 
     header.appendChild(btn1);
 
     // ===== الزر الثاني (view_day ↔ grid_view) =====
+    // يمكن تركه مع localStorage أو تعديله لنفس المبدأ
     const btn2 = document.createElement('button');
     btn2.id = 'viewModeToggleBtn2';
     btn2.className = 'view-mode-toggle-btn-2';
     btn2.title = 'تبديل شكل العرض';
 
-    let currentIndex2 = getViewModeIndex2();
+    let currentIndex2 = getViewModeIndex2(); // تبقى باستخدام localStorage
     const displayIndex2 = currentIndex2 === 0 ? 1 : 0;
     const iconName2 = VIEW_ICONS_2[displayIndex2];
     btn2.innerHTML = `<span class="material-symbols-outlined">${iconName2}</span>`;
@@ -3351,11 +3352,10 @@ console.log('🧠 نظام التقدم المتوازن (المراحل لكل 
 console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));
 
 // ============================================
-// أزرار تبديل الأيقونة (زرين جنب بعض) - النسخة المحسنة
+// أزرار تبديل الأيقونة (زرين جنب بعض) - بدون حفظ حالة للزر الأول
 // ============================================
 
-const VIEW_ICONS_1 = ['leaderboard', '123'];
-const VIEW_MODE_KEY_1 = 'viewModeIconIndex1';
+const VIEW_ICONS_1 = ['leaderboard', '123']; // لكننا لا نستخدم localStorage له
 
 let originalOrderNumbers = [];
 
@@ -3517,20 +3517,7 @@ function applyLeaderboardOrder() {
 }
 
 
-function getViewModeIndex1() {
-    try {
-        const saved = localStorage.getItem(VIEW_MODE_KEY_1);
-        if (saved !== null) return parseInt(saved);
-    } catch {}
-    return 0;
-}
-
-function setViewModeIndex1(index) {
-    try {
-        localStorage.setItem(VIEW_MODE_KEY_1, String(index));
-    } catch {}
-}
-
+// ===== دوال الزر الثاني (عرض قائمة/شبكة) – قد تبقى مع localStorage =====
 const VIEW_ICONS_2 = ['view_day', 'grid_view'];
 const VIEW_MODE_KEY_2 = 'viewModeIconIndex2';
 
