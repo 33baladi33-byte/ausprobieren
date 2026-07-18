@@ -1481,17 +1481,78 @@ async function renderExamListForSkill(skill, teilName) {
       titleSpan.appendChild(progressSpan);
     }
     
-    // التحقق من وجود تعديلات
-    const hasVersions = exam.versions && exam.versions.length > 1;
-    
-    if (hasVersions) {
-      // عرض البادج وفتح البوب أب
-      div.style.cursor = 'pointer';
-      div.onclick = function(e) {
-        e.stopPropagation();
-        showVersionsPopup(exam, targetSkill);
-      };
+// التحقق من وجود تعديلات
+const hasVersions = exam.versions && exam.versions.length > 1;
+
+if (hasVersions) {
+  // ✅ حساب ما إذا كانت جميع النسخ مقفلة
+  let allVersionsLocked = true;
+  if (exam.versions && exam.versions.length > 1) {
+    for (let v of exam.versions) {
+      const isFree = isExamFree(skill, v.id);
+      if (isFree) {
+        allVersionsLocked = false;
+        break;
+      }
+    }
+    // إذا كان المستخدم Premium، فلا شيء مقفل
+    if (isPremium) {
+      allVersionsLocked = false;
+    }
+  }
+
+  if (allVersionsLocked) {
+    // 🔒 تصميم البطاقة المقفلة (نفس تصميم الامتحانات المقفلة)
+    div.style.backgroundColor = "rgba(255,255,255,0.75)";
+    div.style.border = "1px solid #e2e8f0";
+    div.style.opacity = "1";
+    div.style.transition = "all 0.25s ease";
+    div.style.cursor = "pointer";
+
+    // إضافة شارة Premium
+    const rightSide = document.createElement("span");
+    rightSide.className = "exam-right-icons";
+    const premiumSpan = document.createElement("span");
+    premiumSpan.className = "premium-badge";
+    premiumSpan.innerHTML = "Premium";
+    rightSide.appendChild(premiumSpan);
+    div.appendChild(rightSide);
+
+    // تغيير لون العنوان
+    titleSpan.style.color = "#6b7280";
+    titleSpan.style.transition = "color 0.25s ease";
+
+    // تأثيرات hover (مطابقة للبطاقات المقفلة)
+    div.onmouseenter = function() {
+      this.style.backgroundColor = "rgba(255,255,255,0.95)";
+      this.style.transform = "translateX(5px)";
+      this.style.borderColor = "#60a5fa";
+      titleSpan.style.color = "#4b5563";
+      if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+    };
+    div.onmouseleave = function() {
+      this.style.backgroundColor = "rgba(255,255,255,0.75)";
+      this.style.transform = "translateX(0)";
+      this.style.borderColor = "#e2e8f0";
+      titleSpan.style.color = "#6b7280";
+      if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+    };
+
+    // ✅ عند النقر، نفتح نافذة الإصدارات (وليس الاشتراك مباشرة)
+    div.onclick = function(e) {
+      e.stopPropagation();
+      showVersionsPopup(exam, targetSkill);
+    };
+  } else {
+    // 🟢 إذا كان هناك إصدار مجاني واحد على الأقل، تظهر البطاقة عادية
+    div.style.cursor = 'pointer';
+    div.onclick = function(e) {
+      e.stopPropagation();
+      showVersionsPopup(exam, targetSkill);
+    };
+  }
 } else if (!isPremium && !isFreeExam) {
+
       // قفل Premium
       div.style.backgroundColor = "rgba(255,255,255,0.75)";
       div.style.border = "1px solid #e2e8f0";
