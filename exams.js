@@ -1587,10 +1587,6 @@ async function renderExamListForSkill(skill, teilName) {
   
   setupLockedNextButton();
 }
-
-// ============================================
-// ✅ دالة showVersionsPopup المعدلة - مع عرض النتائج
-// ============================================
 function showVersionsPopup(exam, skill) {
   const overlay = document.createElement('div');
   overlay.id = 'versionsPopupAuto';
@@ -1623,47 +1619,114 @@ function showVersionsPopup(exam, skill) {
     text-align: center;
   `;
   
-  let versionsHtml = exam.versions.map((v, i) => {
-    const savedScore = getExamResult(skill, v.id);
-    let scoreHtml = '';
-    if (savedScore !== null) {
-      const color = getResultColor(savedScore);
-      scoreHtml = `<span style="font-size:11px; color:${color}; font-weight:bold; margin-left:8px;">${savedScore} / 25</span>`;
-    }
+  // الحصول على حالة المستخدم للتحقق من Premium
+  getUserStatusForExam().then(userStatus => {
+    const isPremium = (userStatus === 'premium');
     
-    return `
-      <div style="background:#0f1421; border-radius:10px; padding:10px 14px; margin-bottom:6px; display:flex; align-items:center; gap:10px; border-left:3px solid #4a6fa5; cursor:pointer; transition:0.2s;"
-           onclick="window.openExam(${v.id}, '${v.title}', '${skill}', '${v.file}'); document.getElementById('versionsPopupAuto').remove();"
-           onmouseenter="this.style.background='#1a2340'"
-           onmouseleave="this.style.background='#0f1421'">
-        <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
-        <span style="font-size:13px; font-weight:500; text-align:left; flex:1;">${v.title}</span>
-        ${scoreHtml}
-      </div>
+    let versionsHtml = exam.versions.map((v, i) => {
+      const savedScore = getExamResult(skill, v.id);
+      let scoreHtml = '';
+      if (savedScore !== null) {
+        const color = getResultColor(savedScore);
+        scoreHtml = `<span style="font-size:11px; color:${color}; font-weight:bold; margin-left:8px;">${savedScore} / 25</span>`;
+      }
+      
+      // ✅ تحديد إذا كانت النسخة مجانية أم لا
+      const isFree = isExamFree(skill, v.id);
+      const isLocked = !isPremium && !isFree;
+      
+      // ✅ تصميم البطاقة حسب حالة القفل (مطابق للقائمة الرئيسية)
+      let cardStyle = `
+        background: #0f1421;
+        border-radius: 10px;
+        padding: 10px 14px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-left: 3px solid #4a6fa5;
+        cursor: pointer;
+        transition: 0.2s;
+      `;
+      
+      let titleStyle = `font-size:13px; font-weight:500; text-align:left; flex:1;`;
+      let premiumBadge = '';
+      let onclickHandler = '';
+      
+      if (isLocked) {
+        // 🔒 تصميم البطاقة المقفلة (مطابق للقائمة الرئيسية)
+        cardStyle = `
+          background: rgba(255,255,255,0.75);
+          border-radius: 10px;
+          padding: 10px 14px;
+          margin-bottom: 6px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          border: 1px solid #e2e8f0;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          opacity: 1;
+        `;
+        titleStyle = `font-size:13px; font-weight:500; text-align:left; flex:1; color: #6b7280;`;
+        
+        // شارة Premium (نفس تصميم القائمة الرئيسية)
+        premiumBadge = `
+          <span class="premium-badge" style="
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+          ">Premium</span>
+        `;
+        
+        // عند النقر، نفتح الاشتراك (نفس سلوك القائمة الرئيسية)
+        onclickHandler = `window.showPremiumModal ? window.showPremiumModal('${v.title}') : window.location.href='subscribe.html';`;
+      } else {
+        // 🟢 بطاقة مفتوحة (مجانية)
+        onclickHandler = `window.openExam(${v.id}, '${v.title}', '${skill}', '${v.file}'); document.getElementById('versionsPopupAuto').remove();`;
+      }
+      
+      return `
+        <div style="${cardStyle}"
+             onclick="${onclickHandler}"
+             onmouseenter="this.style.background='${isLocked ? 'rgba(255,255,255,0.95)' : '#1a2340'}'"
+             onmouseleave="this.style.background='${isLocked ? 'rgba(255,255,255,0.75)' : '#0f1421'}'">
+          <span style="display:inline-flex; align-items:center; justify-content:center; background:#2a3042; color:#a8b5d9; border-radius:999px; width:24px; height:24px; font-size:12px; font-weight:600; box-shadow:0 2px 4px rgba(0,0,0,0.2);">${i+1}</span>
+          <span style="${titleStyle}">${v.title}</span>
+          ${scoreHtml}
+          ${premiumBadge}
+        </div>
+      `;
+    }).join('');
+    
+    modal.innerHTML = `
+      <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${exam.versions.length} تعديلات</h4>
+      <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
+      ${versionsHtml}
     `;
-  }).join('');
-  
-  modal.innerHTML = `
-    <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${exam.versions.length} تعديلات</h4>
-    <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
-    ${versionsHtml}
-  `;
-  
-  overlay.appendChild(modal);
-  document.body.appendChild(overlay);
-  
-  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlay.remove(); }, { once: true });
-  
-  if (!document.getElementById('modal-style-auto')) {
-    const style = document.createElement('style');
-    style.id = 'modal-style-auto';
-    style.textContent = `
-      @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-      @keyframes scaleIn { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
-    `;
-    document.head.appendChild(style);
-  }
+    
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlay.remove(); }, { once: true });
+    
+    if (!document.getElementById('modal-style-auto')) {
+      const style = document.createElement('style');
+      style.id = 'modal-style-auto';
+      style.textContent = `
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes scaleIn { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
+      `;
+      document.head.appendChild(style);
+    }
+  });
 }
 
 // ============================================
