@@ -2700,13 +2700,14 @@ function checkTeil1(questions, answers) {
 const finalScore = (score * pointsPerQuestion).toFixed(2);
 const resultDiv = document.getElementById("teil1Result");
 if (resultDiv) {
+    // ✅ عرض النتيجة فقط (بدون عداد)
     resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
     resultDiv.style.display = "block";
     
     // ✅ زيادة العداد وتحديث الواجهة
     const retryCount = incrementRetryCount(currentSkill, currentExamId);
     
-    // ✅ تحديث العداد في أعلى الصفحة
+    // ✅ تحديث العداد في أعلى الصفحة (فوراً)
     if (typeof window.updateRetryCounter === 'function') {
         window.updateRetryCounter();
     }
