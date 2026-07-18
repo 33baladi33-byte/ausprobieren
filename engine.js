@@ -4872,16 +4872,15 @@ document.addEventListener('keydown', function(e) {
         }
         return;
     }
-
-    // ArrowDown: التالي
-    if (key === 'ArrowDown') {
+    // ArrowRight: التالي
+    if (key === 'ArrowRight') {
         e.preventDefault();
         triggerNextExam();
         return;
     }
 
-    // ArrowUp: السابق
-    if (key === 'ArrowUp') {
+    // ArrowLeft: السابق
+    if (key === 'ArrowLeft') {
         e.preventDefault();
         triggerPrevExam();
         return;
