@@ -51,6 +51,21 @@ const closeSettingsModal = document.getElementById('closeSettingsModal');
 window._isAuthenticating = false; 
 
 // ============================================
+// ✅ الحالة العامة للمستخدم (Single Source of Truth)
+// ============================================
+
+// متغير يحمل الحالة الحالية (يتم تحديثه في updateUI)
+let _currentUserStatus = 'free';
+
+/**
+ * دالة عامة تعيد حالة المستخدم الحالية
+ * هذه هي الدالة الوحيدة التي تستخدمها بقية التطبيق (exams.js)
+ */
+window.getUserStatusGlobal = function() {
+    return _currentUserStatus;
+};
+
+// ============================================
 // دوال النوافذ والواجهات (UI Helpers)
 // ============================================
 function openAuthModal(form = 'login') {
@@ -233,6 +248,9 @@ function updateUI(user, data) {
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
+
+        // ✅ تحديث الحالة العامة عند عدم وجود مستخدم
+        _currentUserStatus = 'free';
         return;
     }
 
@@ -246,6 +264,9 @@ function updateUI(user, data) {
     // حساب حالة الاشتراك مرة واحدة بدقة (الحساب الفعلي لـ isPremium)
     const isPremium = data && data.plan === 'premium' && 
                       (!data.premiumUntil || new Date(data.premiumUntil).getTime() > Date.now());
+
+    // ✅ تحديث الحالة العامة
+    _currentUserStatus = isPremium ? 'premium' : 'free';
 
     if (isPremium) {
         if (profileStatus) profileStatus.innerHTML = `<span class="status-premium">✅ مشترك (Pro)</span>`;
