@@ -70,7 +70,33 @@ function createResultBadge(score) {
   `;
   return badge;
 }
+// ========== دوال عداد إعادة الامتحان ==========
+function saveRetryCount(skill, examId, count) {
+    try {
+        const key = `exam_retry_${skill}_${examId}`;
+        localStorage.setItem(key, count.toString());
+    } catch(e) {
+        console.error("❌ خطأ في حفظ عدد الإعادات:", e);
+    }
+}
 
+function getRetryCount(skill, examId) {
+    try {
+        const key = `exam_retry_${skill}_${examId}`;
+        const value = localStorage.getItem(key);
+        return value ? parseInt(value, 10) : 0;
+    } catch(e) {
+        console.error("❌ خطأ في استرجاع عدد الإعادات:", e);
+        return 0;
+    }
+}
+
+function incrementRetryCount(skill, examId) {
+    const current = getRetryCount(skill, examId);
+    const newCount = current + 1;
+    saveRetryCount(skill, examId, newCount);
+    return newCount;
+}
 // ========== عرض بطاقة Premium Access ==========
 function showLockedMessage(examTitle) {
     if (typeof window.showPremiumModal === 'function') {
@@ -1386,7 +1412,14 @@ async function renderExamListForSkill(skill, teilName) {
     div.appendChild(titleSpan);
     
     displaySavedResult(targetSkill, exam.id, titleSpan, div);
-
+// ✅ عرض عدد الإعادات بجانب عنوان الامتحان
+const retryCount = getRetryCount(targetSkill, exam.id);
+if (retryCount > 0) {
+    const retrySpan = document.createElement('span');
+    retrySpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
+    retrySpan.textContent = `🔄 ${retryCount}`;
+    titleSpan.appendChild(retrySpan);
+}
     const progress = getExamProgress(targetSkill, exam.id);
     if (progress > 0) {
       const progressSpan = document.createElement('span');
@@ -2661,12 +2694,19 @@ function checkTeil1(questions, answers) {
     }
   }
   
-  const finalScore = (score * pointsPerQuestion).toFixed(2);
-  const resultDiv = document.getElementById("teil1Result");
-  if (resultDiv) {
+const finalScore = (score * pointsPerQuestion).toFixed(2);
+const resultDiv = document.getElementById("teil1Result");
+if (resultDiv) {
     resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
     resultDiv.style.display = "block";
-  }
+    
+    // ✅ زيادة العداد وعرضه
+    const retryCount = incrementRetryCount(currentSkill, currentExamId);
+    const retryMsg = document.createElement('div');
+    retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
+    retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+    resultDiv.appendChild(retryMsg);
+}
   
   saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
   
@@ -3340,5 +3380,8 @@ window.openExam = openExam;
 
 // ✅ تصدير الدوال للاستخدام العام
 window.addVersionBadgesFixed = addVersionBadgesFixed;
-
+// ✅ تصدير دوال العداد للاستخدام من ملفات أخرى (مثل engine.js)
+window.saveRetryCount = saveRetryCount;
+window.getRetryCount = getRetryCount;
+window.incrementRetryCount = incrementRetryCount;
 console.log('✅ نظام Badge التعديلات (النسخة النهائية) تم تحميله');
