@@ -20,27 +20,33 @@ const teile = [
 ];
 
 // ============================================
-// ✅ قواعد الامتحانات المجانية الجديدة
+// ✅ قواعد الامتحانات المجانية الجديدة (النسخة المصححة)
 // ============================================
 function isExamFree(skill, examNumber) {
-  // تعامل خاص مع Mündlich (يوجد أجزاء فرعية)
+  // 🟢 Mündlich - معالجة خاصة حسب الجزء الحالي
   if (skill === "mündlich1" || skill === "mündlich2" || skill === "mündlich3" || skill === "mündlich") {
     // نأخذ الجزء الحالي من المتغير العام currentMündlichPart
     const part = (typeof currentMündlichPart !== 'undefined') ? currentMündlichPart : 2;
-    if (part === 1 || part === 3) {
-      // Teil 1 و Teil 3 غير موجودة فعلياً في قاعدة البيانات، لكننا نعتبرها مجانية (لأنها مجرد أمثلة)
+    
+    if (part === 1) {
+      // Teil 1: جميع الامتحانات مجانية (يوجد فقط امتحان 1)
+      return true;
+    } else if (part === 2) {
+      // Teil 2: أول 2 امتحانات مجانية
+      return examNumber <= 2;
+    } else if (part === 3) {
+      // Teil 3: جميع الامتحانات مجانية (يوجد فقط امتحان 1)
       return true;
     }
-    // Teil 2: أول 2 مجانية
-    return examNumber <= 2;
+    return false;
   }
 
-  // Schreiben: أول 2 مجانية
+  // 🟢 Schreiben: أول 2 مجانية
   if (skill === "schreiben") {
     return examNumber <= 2;
   }
 
-  // بقية المهارات حسب التوزيع
+  // 🟢 بقية المهارات حسب التوزيع
   switch (skill) {
     case "hoeren1":
       return examNumber <= 4;
