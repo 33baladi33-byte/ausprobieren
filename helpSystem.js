@@ -20034,9 +20034,9 @@ function getCorrectQuestions(skill, examId) {
         'lesen1_exam51': [1,2,3,4,5], 'lesen1_exam52': [1,2,3,4,5], 'lesen1_exam53': [1,2,3,4,5],
         'lesen1_exam54': [1,2,3,4,5], 'lesen1_exam55': [1,2,3,4,5],
         // الامتحانات الجديدة (المعدلة)
-        'lesen1_exam1b': [1,2,3,4,5], 'lesen1_exam3b': [1,2,3,4,5], 'lesen1_exam5b': [1,2,3,4,5],
-        'lesen1_exam5c': [1,2,3,4,5], 'lesen1_exam8b': [1,2,3,4,5], 'lesen1_exam10b': [1,2,3,4,5],
-        'lesen1_exam47b': [1,2,3,4,5], 'lesen1_exam57': [1,2,3,4,5],
+        'lesen1_exam101': [1,2,3,4,5], 'lesen1_exam106': [1,2,3,4,5], 'lesen1_exam107': [1,2,3,4,5],
+        'lesen1_exam103': [1,2,3,4,5], 'lesen1_exam104': [1,2,3,4,5], 'lesen1_exam56': [1,2,3,4,5],
+        'lesen1_exam102': [1,2,3,4,5], 'lesen1_exam105': [1,2,3,4,5],
         
         // Lesen Teil 2 (37 امتحان)
         'lesen2_exam1': [1,2,3,4,5], 'lesen2_exam2': [1,2,3,4,5], 'lesen2_exam3': [1,2,3,4,5],
