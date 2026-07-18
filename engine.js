@@ -4700,20 +4700,17 @@ function addRetryCounterToExam() {
 }
 
 // ============================================
-// دالة تحديث العداد بعد التصحيح (تحديث فوري)
+// دالة تحديث العداد بعد التصحيح
 // ============================================
 function updateRetryCounter() {
     const box = document.getElementById('retryCounterBox');
     if (!box) {
-        // إذا لم يكن موجوداً، نعيد إنشائه (حالة نادرة)
+        // إذا لم يكن موجوداً، نعيد إنشائه
         addRetryCounterToExam();
         return;
     }
 
-    // جلب العدد الجديد من localStorage
     const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
-    
-    // تحديث محتوى الصندوق مباشرة (بدون إعادة إنشاء)
     box.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
 }
 
