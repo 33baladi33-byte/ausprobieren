@@ -4899,6 +4899,37 @@ document.addEventListener('keydown', function(e) {
         return;
     }
 
+    // Backspace: نفس وظيفة Delete
+    if (key === 'Backspace') {
+        e.preventDefault();
+        if (isCorrectionVisible()) {
+            triggerReset();
+        } else {
+            undoLastAnswer();
+        }
+        return;
+    }
+
+    // 1: تبديل زر التلوين الذكي (emoji_objects)
+    if (key === '1') {
+        e.preventDefault();
+        const memoryToggleBtn = document.getElementById('memoryToggleBtn');
+        if (memoryToggleBtn) {
+            memoryToggleBtn.click();
+        }
+        return;
+    }
+
+    // 2: تبديل زر تدريب الذاكرة (أجب بذكاء وفهم)
+    if (key === '2') {
+        e.preventDefault();
+        const memoryTrainerBtn = document.getElementById('memoryTrainerBtn');
+        if (memoryTrainerBtn && memoryTrainerBtn.style.display !== 'none') {
+            memoryTrainerBtn.click();
+        }
+        return;
+    }
+
     // CTRL+Z: أيضاً Undo (اختصار إضافي)
     if ((e.ctrlKey || e.metaKey) && key === 'z') {
         e.preventDefault();
