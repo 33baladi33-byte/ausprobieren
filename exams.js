@@ -2168,7 +2168,7 @@ function createViewModeToggles() {
     btn1.title = 'تبديل ترتيب القائمة';
 
     // الأيقونة المعروضة: إذا كان الحالي 0 نعرض '123' (لأن الضغط سينقل إلى Leaderboard)
-    const iconName1 = currentIndex1 === 0 ? '123' : 'leaderboard';
+  const iconName1 = currentIndex1 === 0 ? 'leaderboard' : '123';
     btn1.innerHTML = `<span class="material-symbols-outlined">${iconName1}</span>`;
 
     btn1.onclick = function(e) {
@@ -2178,7 +2178,7 @@ function createViewModeToggles() {
         // تحديث الأيقونة
         const span = this.querySelector('.material-symbols-outlined');
         if (span) {
-            span.textContent = currentIndex1 === 0 ? '123' : 'leaderboard';
+        span.textContent = currentIndex1 === 0 ? 'leaderboard' : '123';
         }
         // تطبيق الترتيب
         if (currentIndex1 === 0) {
