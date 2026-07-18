@@ -1292,11 +1292,13 @@ body.dark-mode .mobile-banner span {
 
 <div id="exam" class="page">
 <div class="exam-box">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
     <button id="backArrowFromExam" class="arrow-back-btn">↰</button>
     <h2 id="examTitle" style="margin: 0; flex: 1; text-align: center;"></h2>
-    <div style="width: 40px;"></div>
-  </div>
+    <button id="shortcutsToggleBtn" class="shortcuts-toggle-btn" title="اختصارات لوحة المفاتيح">
+        <span class="material-symbols-outlined">keyboard</span>
+    </button>
+</div>
 <div id="examNavButtons" style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
     <button id="prevExamBtn" class="nav-exam-btn">◀ السابق</button>
     <button id="nextExamBtn" class="nav-exam-btn">التالي ▶</button>
@@ -1304,7 +1306,6 @@ body.dark-mode .mobile-banner span {
         😚 خمّن و ماتخافش، حنا معاك
     </button>
 </div>
-
 <!-- ✅ زر التخليط + زر اللعبة + زر التلوين فوق الأسئلة -->
 <div id="interleavingRow" style="display: flex; align-items: center; justify-content: flex-start; margin-bottom: 12px; padding-left: 4px; gap: 8px;">
     <!-- زر التخليط -->
@@ -1321,6 +1322,35 @@ body.dark-mode .mobile-banner span {
     </button>
 </div>
 
+<!-- ✅ Popover اختصارات لوحة المفاتيح -->
+<div id="shortcutsPopover" class="shortcuts-popover" style="display:none;">
+    <div class="shortcuts-popover-header">
+        <span class="material-symbols-outlined">keyboard</span>
+        <span>اختصارات لوحة المفاتيح</span>
+    </div>
+    <div class="shortcuts-popover-content">
+        <div class="shortcut-item">
+            <kbd>⏎ Enter</kbd>
+            <span>تصحيح الامتحان</span>
+        </div>
+        <div class="shortcut-item">
+            <kbd>↑ / ↓</kbd>
+            <span>السؤال السابق / التالي</span>
+        </div>
+        <div class="shortcut-item">
+            <kbd>Delete</kbd>
+            <span>حذف آخر اختيار <span style="color:#94a3b8;font-size:11px;">(أو إعادة المحاولة بعد التصحيح)</span></span>
+        </div>
+        <div class="shortcut-item">
+            <kbd>F</kbd>
+            <span>شاشة كاملة</span>
+        </div>
+        <div class="shortcut-item">
+            <kbd>Esc</kbd>
+            <span>العودة إلى قائمة الامتحانات</span>
+        </div>
+    </div>
+</div>
 <div id="teil1" style="display:none;"></div>
   <div id="teil2" style="display:none;"></div>
   <div id="teil3" style="display:none;"></div>
