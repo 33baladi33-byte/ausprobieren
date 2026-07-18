@@ -1907,38 +1907,34 @@ if (!isPremium && !isFree) {
   
   window.currentSkill = skill;
   window.currentExamId = examId;
-  
-  // إخفاء/إظهار الأزرار حسب نوع الصفحة
-  const interleavingRow = document.getElementById('interleavingRow');
-  if (interleavingRow) {
-    interleavingRow.style.display = 'none';
+ 
+// إخفاء/إظهار الأزرار حسب نوع الصفحة
+const interleavingRow = document.getElementById('interleavingRow');
+if (interleavingRow) {
+    // ❌ إخفاء الأزرار في Schreiben و Mündlich (جميع الأجزاء)
+    const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
+    const isForbidden = forbiddenSkills.includes(skill);
     
-    const allowedSkills = [
-      'hoeren1', 'hoeren2', 'hoeren3',
-      'lesen1', 'lesen2', 'lesen3',
-      'sprach1', 'sprach2'
-    ];
-    
-    if (allowedSkills.includes(skill)) {
-      interleavingRow.style.display = 'flex';
-      
-      const swapBtn = document.getElementById('interleavingBtn');
-      const gameBtn = document.getElementById('rapidGameBtn');
-      const memoryToggleBtn = document.getElementById('memoryToggleBtn');
-      
-      if (skill === 'sprach1' || skill === 'sprach2') {
-        if (swapBtn) swapBtn.style.display = 'none';
-        if (gameBtn) gameBtn.style.display = '';
-        if (memoryToggleBtn) memoryToggleBtn.style.display = '';
-      } else {
-        if (swapBtn) swapBtn.style.display = '';
-        if (gameBtn) gameBtn.style.display = '';
-        if (memoryToggleBtn) memoryToggleBtn.style.display = '';
-      }
+    if (isForbidden) {
+        interleavingRow.style.display = 'none';
     } else {
-      interleavingRow.style.display = 'none';
+        interleavingRow.style.display = 'flex';
+        
+        const swapBtn = document.getElementById('interleavingBtn');
+        const gameBtn = document.getElementById('rapidGameBtn');
+        const memoryToggleBtn = document.getElementById('memoryToggleBtn');
+        
+        if (skill === 'sprach1' || skill === 'sprach2') {
+            if (swapBtn) swapBtn.style.display = 'none';
+            if (gameBtn) gameBtn.style.display = '';
+            if (memoryToggleBtn) memoryToggleBtn.style.display = '';
+        } else {
+            if (swapBtn) swapBtn.style.display = '';
+            if (gameBtn) gameBtn.style.display = '';
+            if (memoryToggleBtn) memoryToggleBtn.style.display = '';
+        }
     }
-  }
+}
   
   if (shouldHideHelpButton(skill)) {
     const helpBtn = document.getElementById('globalHelpButton');
@@ -1967,9 +1963,11 @@ if (!isPremium && !isFree) {
     document.getElementById("exam").classList.add("active");
     document.getElementById("examTitle").innerHTML = currentExamData.title;
         // ✅ إضافة عداد الإعادات
-    if (typeof addRetryCounterToExam === 'function') {
-        addRetryCounterToExam();
-    }
+ // ✅ إضافة عداد الإعادات فقط في المهارات المسموحة
+const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
+if (!forbiddenSkills.includes(skill) && typeof addRetryCounterToExam === 'function') {
+    addRetryCounterToExam();
+}
     updateExamNavButtons();
     
     // تحميل الامتحان حسب نوعه
@@ -3255,11 +3253,17 @@ function renderMemoryProgressBar(skill, container) {
 // ============================================
 // إعادة تعيين جميع المستويات (للمهارات كافة)
 // ============================================
-
+// ============================================
+// ✅ دالة resetAllLevels (للتوافق مع الكود القديم)
+// لكن نعيد توجيهها لتستخدم resetSkillProgress مع currentSkill
+// ============================================
 function resetAllLevels() {
-    if (confirm('⚠️ هل أنت متأكد من إعادة تعيين جميع مستويات الذاكرة؟')) {
-        localStorage.removeItem(LEVELS_KEY);
-        location.reload();
+    const skill = window.currentSkill || window.memoryTrainer?.currentSkill;
+    if (skill) {
+        resetSkillProgress(skill);
+    } else {
+        console.warn('⚠️ resetAllLevels: لم يتم تحديد المهارة الحالية، استخدام hoeren1 كافتراضي');
+        resetSkillProgress('hoeren1');
     }
 }
 
