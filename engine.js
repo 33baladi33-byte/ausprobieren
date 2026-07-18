@@ -5079,14 +5079,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // إصلاح فقدان التركيز
     fixFocusLoss();
 
-    // إعادة تعيين التاريخ عند فتح امتحان جديد
-    const origOpenExam = window.openExam;
-    if (typeof origOpenExam === 'function') {
-        window.openExam = function(examId, examTitle, skill, fileName) {
-            enableHistory();
-            return origOpenExam.call(this, examId, examTitle, skill, fileName);
-        };
-    }
+    // إعادة تعيين التاريخ عند فتح امتحان جديد (مع تأخير لضمان تحميل exams.js)
+    setTimeout(function() {
+        const origOpenExam = window.openExam;
+        if (typeof origOpenExam === 'function') {
+            window.openExam = function(examId, examTitle, skill, fileName) {
+                enableHistory();
+                console.log('✅ [HISTORY] تم تفعيل enableHistory عند فتح الامتحان:', examId, skill);
+                return origOpenExam.call(this, examId, examTitle, skill, fileName);
+            };
+        } else {
+            console.warn('⚠️ [HISTORY] window.openExam غير موجود، إعادة المحاولة بعد 200ms');
+            setTimeout(function() {
+                const origOpenExam2 = window.openExam;
+                if (typeof origOpenExam2 === 'function') {
+                    window.openExam = function(examId, examTitle, skill, fileName) {
+                        enableHistory();
+                        console.log('✅ [HISTORY] تم تفعيل enableHistory (محاولة ثانية)');
+                        return origOpenExam2.call(this, examId, examTitle, skill, fileName);
+                    };
+                }
+            }, 200);
+        }
+    }, 100);
 });
 
 // تصدير الدوال للاستخدام العالمي
