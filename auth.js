@@ -1,6 +1,6 @@
 // ============================================
 // auth.js - نظام المصادقة مع Firebase + Firestore
-// (نسخة معدلة: Single Session + فحص عند Refresh فقط)
+// (نسخة احترافية: Single Session، فحص عند Refresh فقط، بدون Race Condition)
 // ============================================
 
 // ============================================
@@ -13,14 +13,12 @@ const loginForm = document.getElementById('loginForm');
 const signupForm = document.getElementById('signupForm');
 const resetForm = document.getElementById('resetForm');
 
-// عناصر تسجيل الدخول
 const authEmail = document.getElementById('authEmail');
 const authPassword = document.getElementById('authPassword');
 const authLoginBtn = document.getElementById('authLoginBtn');
 const authError = document.getElementById('authError');
 const togglePassword = document.getElementById('togglePassword');
 
-// عناصر إنشاء حساب
 const signupUsername = document.getElementById('signupUsername');
 const signupLastname = document.getElementById('signupLastname');
 const signupFirstname = document.getElementById('signupFirstname');
@@ -30,27 +28,21 @@ const authSignupBtn = document.getElementById('authSignupBtn');
 const signupError = document.getElementById('signupError');
 const toggleSignupPassword = document.getElementById('toggleSignupPassword');
 
-// عناصر نسيت كلمة المرور
 const resetEmail = document.getElementById('resetEmail');
 const resetNewPassword = document.getElementById('resetNewPassword');
 const resetWhatsAppBtn = document.getElementById('resetWhatsAppBtn');
 const resetError = document.getElementById('resetError');
 const toggleResetPassword = document.getElementById('toggleResetPassword');
 
-// ============================================
-// ✅ عناصر الملف الشخصي
-// ============================================
 const profileIcon = document.getElementById('profileIcon');
 const profileDropdown = document.getElementById('profileDropdown');
 const profileLogoutBtn = document.getElementById('profileLogoutBtn');
 
-// أزرار التنقل بين النماذج
 const switchToSignup = document.getElementById('switchToSignup');
 const switchToLogin = document.getElementById('switchToLogin');
 const switchToReset = document.getElementById('switchToReset');
 const switchToLoginFromReset = document.getElementById('switchToLoginFromReset');
 
-// عناصر أخرى
 const navLoginBtn = document.getElementById('navLoginBtn');
 const navSubscribeBtn = document.getElementById('navSubscribeBtn');
 const settingsBtn = document.getElementById('settingsBtn');
@@ -58,7 +50,7 @@ const settingsModal = document.getElementById('settingsModal');
 const closeSettingsModal = document.getElementById('closeSettingsModal');
 
 // ============================================
-// دوال النوافذ
+// دوال النوافذ (UI Helpers)
 // ============================================
 function openAuthModal(form = 'login') {
     showForm(form);
@@ -74,7 +66,7 @@ function showForm(form) {
     loginForm.style.display = 'none';
     signupForm.style.display = 'none';
     resetForm.style.display = 'none';
-    
+
     if (form === 'login') {
         loginForm.style.display = 'block';
         authModalTitle.textContent = 'تسجيل الدخول';
@@ -94,9 +86,6 @@ function clearErrors() {
     if (resetError) resetError.textContent = '';
 }
 
-// ============================================
-// دالة إظهار/إخفاء كلمة المرور
-// ============================================
 function togglePasswordVisibility(inputId, toggleId) {
     const input = document.getElementById(inputId);
     const toggle = document.getElementById(toggleId);
@@ -110,46 +99,27 @@ function togglePasswordVisibility(inputId, toggleId) {
 }
 
 // ============================================
-// ═══════════════════════════════════════════════
-//      نظام الجلسة الجديد (Single Session)
-// ═══════════════════════════════════════════════
+// الجهاز (Device ID) - ثابت مدى الحياة
 // ============================================
-
-/**
- * توليد معرف جهاز فريد (deviceId) وحفظه في localStorage
- * يستخدم مرة واحدة فقط عند أول تسجيل دخول أو عند إنشاء الحساب
- * المفتاح: zertiva_deviceId
- */
-function generateDeviceId() {
-    let deviceId;
-    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
-        deviceId = crypto.randomUUID();
-    } else {
-        deviceId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            const r = Math.random() * 16 | 0;
-            const v = c === 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
-    localStorage.setItem('zertiva_deviceId', deviceId);
-    return deviceId;
-}
-
-/**
- * استرجاع deviceId من localStorage
- * إذا لم يكن موجوداً، يتم إنشاء واحد جديد تلقائياً (للحفاظ على الثبات)
- */
 function getDeviceId() {
     let deviceId = localStorage.getItem('zertiva_deviceId');
     if (!deviceId) {
-        deviceId = generateDeviceId();
+        deviceId = crypto.randomUUID ? crypto.randomUUID() :
+            'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+                const r = Math.random() * 16 | 0;
+                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+        localStorage.setItem('zertiva_deviceId', deviceId);
     }
     return deviceId;
 }
 
+// ============================================
+// نظام الجلسة (Single Session)
+// ============================================
+
 /**
- * تحديث جهاز الجلسة في Firestore (حقل session.deviceId)
- * تُستدعى فقط عند تسجيل الدخول أو إنشاء حساب جديد
+ * تحديث session.deviceId في Firestore (يُستدعى فقط عند تسجيل الدخول/إنشاء حساب)
  */
 async function updateSessionInFirestore(uid, deviceId) {
     try {
@@ -162,122 +132,99 @@ async function updateSessionInFirestore(uid, deviceId) {
         console.log('✅ تم تحديث session.deviceId في Firestore:', deviceId);
         return true;
     } catch (error) {
-        console.error(' فشل تحديث الجلسة في Firestore:', error);
+        console.error('❌ فشل تحديث الجلسة في Firestore:', error);
         return false;
     }
 }
 
 /**
- * مسح بيانات الجلسة من localStorage وFirestore
- * تُستدعى عند تسجيل الخروج
+ * مسح الجلسة من Firestore (يُستدعى عند تسجيل الخروج)
+ * لا يمسح deviceId من localStorage
  */
-async function clearSession(uid) {
-    localStorage.removeItem('zertiva_deviceId');
-    localStorage.removeItem('zertiva_session_valid');
-    if (uid) {
-        try {
-            await db.collection('users').doc(uid).set({
-                session: {
-                    deviceId: null,
-                    lastSeen: null
-                }
-            }, { merge: true });
-            console.log('🗑️ تم مسح الجلسة من Firestore');
-        } catch (error) {
-            console.error('x فشل مسح الجلسة من Firestore:', error);
-        }
+async function clearSessionInFirestore(uid) {
+    if (!uid) return;
+    try {
+        await db.collection('users').doc(uid).set({
+            session: {
+                deviceId: null,
+                lastSeen: null
+            }
+        }, { merge: true });
+        console.log('🗑️ تم مسح الجلسة من Firestore');
+    } catch (error) {
+        console.error('❌ فشل مسح الجلسة من Firestore:', error);
     }
 }
 
 /**
- * فحص الجلسة عند تحميل الصفحة (Refresh فقط)
- * - يقرأ deviceId من Firestore ويقارنه مع الجهاز
- * - إذا اختلف → تعيين حالة غير صالحة (بدون تسجيل خروج فوري)
- * - إذا تطابق → يستمر، ويقوم بفحص الاشتراك وتحديثه إذا انتهى
+ * فحص الجلسة (يُستدعى فقط عند تحميل الصفحة أو Refresh)
+ * - يقارن deviceId في Firestore مع deviceId المحلي
+ * - إذا اختلفا، يُسجل الخروج (باستثناء حالة تسجيل الدخول الجديد)
  */
-async function checkSessionOnLoad() {
+async function checkSession() {
     const user = auth.currentUser;
     if (!user) return;
 
     try {
-        const docRef = db.collection('users').doc(user.uid);
-        const docSnap = await docRef.get();
-
+        const docSnap = await db.collection('users').doc(user.uid).get();
         if (!docSnap.exists) {
-            // المستند غير موجود: ننشئه مع الجهاز الحالي ونعتبر الجلسة صالحة
+            // المستند غير موجود: ننشئه مع الجهاز الحالي ونسجل الجلسة
             await createUserDocument(user);
             const deviceId = getDeviceId();
             await updateSessionInFirestore(user.uid, deviceId);
-            localStorage.setItem('zertiva_session_valid', 'true');
-            await updateProfile();
+            await loadUserData();
             return;
         }
 
         const data = docSnap.data();
         const firestoreDeviceId = data.session?.deviceId || null;
-        const localDeviceId = getDeviceId(); // يضمن وجود deviceId
+        const localDeviceId = getDeviceId();
 
-        // ========== مقارنة الأجهزة ==========
-        if (firestoreDeviceId !== localDeviceId) {
-            // جهاز آخر دخل بهذا الحساب → تعيين الجلسة غير صالحة (بدون تسجيل خروج فوري)
-            console.warn('⚠️ جهاز مختلف، تعيين الجلسة غير صالحة');
-            localStorage.setItem('zertiva_session_valid', 'false');
-            showToast('⚠️ تم تسجيل الدخول من جهاز آخر. سيتم تسجيل خروجك في المرة القادمة التي تقوم فيها بتحديث الصفحة.', 'error');
-            await updateProfile();
+        if (firestoreDeviceId && firestoreDeviceId !== localDeviceId) {
+            // جهاز آخر استخدم هذا الحساب → نسجل الخروج فوراً (لأنه Refresh)
+            console.warn('⚠️ جهاز مختلف، تسجيل الخروج أثناء Refresh');
+            await handleLogout();
+            showToast('⚠️ تم تسجيل الدخول من جهاز آخر. تم تسجيل خروجك.', 'error');
             return;
         }
 
-        // الجلسة صالحة
-        localStorage.setItem('zertiva_session_valid', 'true');
-
-        // ========== فحص الاشتراك (مرة واحدة عند الـ Refresh) ==========
+        // الجلسة صالحة، نفحص الاشتراك ونحدث الواجهة
         await checkAndUpdateSubscription(data);
-
-        // تحديث الواجهة
-        await updateProfile();
+        await loadUserData();
 
     } catch (error) {
-        console.error(' خطأ في فحص الجلسة:', error);
+        console.error('❌ خطأ في فحص الجلسة:', error);
         // في حالة خطأ، نسمح بالدخول (لا نطرد المستخدم)
-        localStorage.setItem('zertiva_session_valid', 'true');
-        await updateProfile();
+        await loadUserData();
     }
 }
 
 /**
- * فحص الاشتراك وتحديثه إذا انتهت صلاحيته
- * تُستدعى فقط من checkSessionOnLoad (مرة واحدة عند الـ Refresh)
+ * فحص الاشتراك وتحديثه إذا انتهت الصلاحية
  */
 async function checkAndUpdateSubscription(userData) {
     const user = auth.currentUser;
     if (!user) return;
 
-    try {
-        const currentPlan = userData.plan || 'free';
-        const premiumUntil = userData.premiumUntil; // تاريخ الانتهاء (timestamp أو string)
+    const plan = userData.plan || 'free';
+    const premiumUntil = userData.premiumUntil;
 
-        // إذا كان الاشتراك ممتازاً ولديه تاريخ انتهاء
-        if (currentPlan === 'premium' && premiumUntil) {
-            const now = Date.now();
-            const expiry = new Date(premiumUntil).getTime();
-
-            if (now > expiry) {
-                // الاشتراك انتهى → تحويل إلى free
-                await db.collection('users').doc(user.uid).update({
-                    plan: 'free',
-                    premiumUntil: null
-                });
-                console.log('⏰ تم تحويل الاشتراك إلى مجاني (انتهت الصلاحية)');
-                showToast('⏰ انتهت صلاحية الاشتراك المميز، تم التحويل إلى مجاني.', 'info');
-            }
+    if (plan === 'premium' && premiumUntil) {
+        const now = Date.now();
+        const expiry = new Date(premiumUntil).getTime();
+        if (now > expiry) {
+            await db.collection('users').doc(user.uid).update({
+                plan: 'free',
+                premiumUntil: null
+            });
+            console.log('⏰ تم تحويل الاشتراك إلى مجاني (انتهت الصلاحية)');
+            showToast('⏰ انتهت صلاحية الاشتراك المميز، تم التحويل إلى مجاني.', 'info');
         }
-    } catch (error) {
-        console.error(' فشل فحص الاشتراك:', error);
     }
 }
 
 // ============================================
-// 🔧 دالة إنشاء مستند المستخدم في Firestore (معدلة)
+// إنشاء مستند المستخدم (أول مرة فقط)
 // ============================================
 async function createUserDocument(user, additionalData = {}) {
     try {
@@ -285,7 +232,7 @@ async function createUserDocument(user, additionalData = {}) {
         const docSnap = await userRef.get();
 
         if (docSnap.exists) {
-            console.log('📝 المستند موجود، تحديث البيانات الأساسية فقط');
+            // تحديث بيانات أساسية فقط
             await userRef.update({
                 username: additionalData.username || user.email.split('@')[0] || 'مستخدم',
                 firstname: additionalData.firstname || '',
@@ -295,8 +242,7 @@ async function createUserDocument(user, additionalData = {}) {
             return true;
         }
 
-        const deviceId = getDeviceId(); // يضمن وجود deviceId
-
+        const deviceId = getDeviceId();
         const userData = {
             email: user.email,
             username: additionalData.username || user.email.split('@')[0] || 'مستخدم',
@@ -316,52 +262,166 @@ async function createUserDocument(user, additionalData = {}) {
         console.log('✅ تم إنشاء مستند المستخدم في Firestore:', user.uid);
         return true;
     } catch (error) {
-        console.error(' فشل إنشاء مستند المستخدم:', error);
+        console.error('❌ فشل إنشاء مستند المستخدم:', error);
         return false;
     }
 }
 
 // ============================================
-// 🔧 دالة جلب حالة المستخدم (قراءة فقط - لا كتابة)
+// جلب بيانات المستخدم وتحديث الواجهة (مركزية)
 // ============================================
-window.getUserStatusGlobal = async function() {
+let cachedUserData = null;
+let lastFetchTime = 0;
+const CACHE_TTL = 5 * 60 * 1000; // 5 دقائق
+
+async function getUserData(forceRefresh = false) {
     const user = auth.currentUser;
-    if (!user) return 'guest';
+    if (!user) return null;
+
+    const now = Date.now();
+    if (!forceRefresh && cachedUserData && (now - lastFetchTime) < CACHE_TTL) {
+        return cachedUserData;
+    }
 
     try {
-        const docRef = db.collection('users').doc(user.uid);
-        const docSnap = await docRef.get();
-
+        const docSnap = await db.collection('users').doc(user.uid).get();
         if (docSnap.exists) {
-            const data = docSnap.data();
-
-            if (data.plan === 'premium' && data.premiumUntil) {
-                const now = Date.now();
-                const expiry = new Date(data.premiumUntil).getTime();
-                if (now <= expiry) {
-                    return 'premium';
-                }
-            }
-            return 'free';
+            cachedUserData = docSnap.data();
+            lastFetchTime = now;
+            return cachedUserData;
         } else {
             await createUserDocument(user);
-            return 'free';
+            const newSnap = await db.collection('users').doc(user.uid).get();
+            cachedUserData = newSnap.data();
+            lastFetchTime = now;
+            return cachedUserData;
         }
     } catch (error) {
-        console.error(' خطأ في جلب حالة المستخدم:', error);
-        return 'free';
+        console.error('❌ خطأ في جلب بيانات المستخدم:', error);
+        return cachedUserData || null;
     }
-};
+}
+
+/**
+ * دالة تحديث الواجهة بالكامل (تستدعي getUserData)
+ */
+async function loadUserData() {
+    const user = auth.currentUser;
+    const data = user ? await getUserData(true) : null;
+    updateUI(user, data);
+}
 
 // ============================================
-// دوال المصادقة (معدلة لتضم تحديث الجلسة)
+// تحديث واجهة المستخدم (UI)
+// ============================================
+function updateUI(user, data) {
+    const profileEmail = document.getElementById('profileEmail');
+    const profileExpiry = document.getElementById('profileExpiry');
+    const profileStatus = document.getElementById('profileStatus');
+    const profileUidValue = document.getElementById('profileUidValue');
+    const profileLogoutBtn = document.getElementById('profileLogoutBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+    const navLoginBtn = document.getElementById('navLoginBtn');
+    const navSubscribeBtn = document.getElementById('navSubscribeBtn');
+    const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
+    const profileIcon = document.getElementById('profileIcon');
+
+    // حالة غير مسجل
+    if (!user) {
+        if (profileEmail) profileEmail.innerHTML = '👤 غير مسجل';
+        if (profileExpiry) profileExpiry.textContent = 'الوصول محدود لبعض الامتحانات';
+        if (profileStatus) profileStatus.innerHTML = '';
+        if (profileUidValue) profileUidValue.textContent = '---';
+        if (profileLogoutBtn) profileLogoutBtn.style.display = 'none';
+        if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
+        if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+        if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
+        if (profileIcon) profileIcon.style.display = 'none';
+
+        // زر الترقية في القائمة المنسدلة (لغير المسجلين)
+        const oldBtn = document.getElementById('dropdownUpgradeBtn');
+        if (oldBtn) oldBtn.remove();
+        if (profileDropdown) {
+            const upgradeBtn = document.createElement('button');
+            upgradeBtn.id = 'dropdownUpgradeBtn';
+            upgradeBtn.innerHTML = 'الترقية إلى الحساب الكامل →';
+            upgradeBtn.style.cssText = `
+                margin-top: 12px;
+                background: #64748B;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 25px;
+                cursor: pointer;
+                width: 100%;
+                font-size: 13px;
+                font-weight: bold;
+                transition: all 0.3s ease;
+            `;
+            upgradeBtn.onclick = () => window.location.href = 'subscribe.html';
+            profileDropdown.appendChild(upgradeBtn);
+        }
+        return;
+    }
+
+    // حالة مسجل
+    if (profileEmail) profileEmail.innerHTML = `📧 ${user.email}`;
+    if (profileUidValue) profileUidValue.textContent = user.uid;
+    if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
+    if (navLoginBtn) navLoginBtn.style.display = 'none';
+    if (profileIcon) profileIcon.style.display = 'flex';
+
+    const isPremium = data && data.plan === 'premium' &&
+        data.premiumUntil && new Date(data.premiumUntil).getTime() > Date.now();
+
+    // معلومات الاشتراك
+    if (isPremium) {
+        const expiry = new Date(data.premiumUntil);
+        if (profileExpiry) profileExpiry.textContent = `📅 الصلاحية: حتى ${expiry.toLocaleDateString('en-US')}`;
+        if (profileStatus) profileStatus.innerHTML = `<span class="status-premium">✅ مشترك (Pro)</span>`;
+        if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
+        if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'none';
+    } else {
+        if (profileExpiry) profileExpiry.textContent = '⏰ انتهت الصلاحية أو مجاني';
+        if (profileStatus) profileStatus.innerHTML = `<span class="status-free">📖 مجاني</span>`;
+        if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+        if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
+    }
+
+    // زر الترقية في القائمة المنسدلة
+    const oldBtn = document.getElementById('dropdownUpgradeBtn');
+    if (oldBtn) oldBtn.remove();
+    if (!isPremium && profileDropdown) {
+        const upgradeBtn = document.createElement('button');
+        upgradeBtn.id = 'dropdownUpgradeBtn';
+        upgradeBtn.innerHTML = 'الترقية إلى الحساب الكامل →';
+        upgradeBtn.style.cssText = `
+            margin-top: 12px;
+            background: #64748B;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        `;
+        upgradeBtn.onclick = () => window.location.href = 'subscribe.html';
+        profileDropdown.appendChild(upgradeBtn);
+    }
+}
+
+// ============================================
+// دوال المصادقة (Login, Signup, Logout, Reset)
 // ============================================
 async function handleLogin() {
     const email = authEmail.value.trim();
     const password = authPassword.value;
 
     if (!email || !password) {
-        authError.textContent = ' يرجى ملء جميع الحقول';
+        authError.textContent = '⚠️ يرجى ملء جميع الحقول';
         return;
     }
 
@@ -369,16 +429,18 @@ async function handleLogin() {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
         const user = userCredential.user;
 
-        // ✅ إنشاء أو استرجاع deviceId وتحديثه في Firestore
+        // تحديث الجلسة في Firestore (باستخدام deviceId الثابت)
         const deviceId = getDeviceId();
         await updateSessionInFirestore(user.uid, deviceId);
-        localStorage.setItem('zertiva_session_valid', 'true');
+
+        // ننتظر قليلاً للتأكد من اكتمال الكتابة
+        await new Promise(resolve => setTimeout(resolve, 150));
 
         closeAuthModalFunc();
         showToast('✅ تم تسجيل الدخول بنجاح. مرحباً بك!', 'success');
 
-        // ✅ تحديث الملف الشخصي
-        setTimeout(updateProfile, 500);
+        // تحديث الواجهة (بدون فحص الجلسة)
+        await loadUserData();
 
     } catch (error) {
         authError.textContent = getFirebaseErrorMessage(error.code);
@@ -393,12 +455,12 @@ async function handleSignup() {
     const password = signupPassword.value;
 
     if (!username || !lastname || !firstname || !email || !password) {
-        signupError.textContent = ' يرجى ملء جميع الحقول';
+        signupError.textContent = '⚠️ يرجى ملء جميع الحقول';
         return;
     }
 
     if (password.length < 6) {
-        signupError.textContent = ' كلمة المرور يجب أن تكون 6 أحرف أو أكثر';
+        signupError.textContent = '⚠️ كلمة المرور يجب أن تكون 6 أحرف أو أكثر';
         return;
     }
 
@@ -407,16 +469,15 @@ async function handleSignup() {
         const user = userCredential.user;
         localStorage.setItem('userPass_' + user.uid, password);
 
-        // ✅ إنشاء المستند مع deviceId
         const deviceId = getDeviceId();
         await createUserDocument(user, { username, firstname, lastname });
         await updateSessionInFirestore(user.uid, deviceId);
-        localStorage.setItem('zertiva_session_valid', 'true');
+        await new Promise(resolve => setTimeout(resolve, 150));
 
         closeAuthModalFunc();
-        showToast('🎉 تم إنشاء الحساب بنجاح!.', 'success');
+        showToast('🎉 تم إنشاء الحساب بنجاح!', 'success');
 
-        setTimeout(updateProfile, 500);
+        await loadUserData();
 
     } catch (error) {
         signupError.textContent = getFirebaseErrorMessage(error.code);
@@ -428,12 +489,12 @@ async function handleReset() {
     const newPassword = resetNewPassword.value;
 
     if (!email || !newPassword) {
-        resetError.textContent = ' يرجى ملء جميع الحقول';
+        resetError.textContent = '⚠️ يرجى ملء جميع الحقول';
         return;
     }
 
     if (newPassword.length < 6) {
-        resetError.textContent = ' كلمة المرور يجب أن تكون 6 أحرف أو أكثر';
+        resetError.textContent = '⚠️ كلمة المرور يجب أن تكون 6 أحرف أو أكثر';
         return;
     }
 
@@ -448,49 +509,60 @@ async function handleLogout() {
     try {
         const user = auth.currentUser;
         if (user) {
-            await clearSession(user.uid);
-        } else {
-            localStorage.removeItem('zertiva_deviceId');
-            localStorage.removeItem('zertiva_session_valid');
+            await clearSessionInFirestore(user.uid);
         }
         await auth.signOut();
         if (profileDropdown) profileDropdown.classList.remove('show');
         showToast('👋 تم تسجيل الخروج بنجاح. نراكم قريباً!', 'success');
     } catch (error) {
         console.error(error);
-        showToast(' حدث خطأ أثناء تسجيل الخروج. حاول مرة أخرى.', 'error');
+        showToast('⚠️ حدث خطأ أثناء تسجيل الخروج. حاول مرة أخرى.', 'error');
     }
 }
 
 // ============================================
-// دالة ترجمة أخطاء Firebase (محسنة)
+// حالة المستخدم العامة (للاستخدام من ملفات أخرى)
+// ============================================
+window.getUserStatusGlobal = async function() {
+    const user = auth.currentUser;
+    if (!user) return 'guest';
+
+    try {
+        const data = await getUserData();
+        if (data && data.plan === 'premium' && data.premiumUntil) {
+            const expiry = new Date(data.premiumUntil).getTime();
+            if (expiry > Date.now()) return 'premium';
+        }
+        return 'free';
+    } catch {
+        return 'free';
+    }
+};
+
+// ============================================
+// ترجمة أخطاء Firebase (محسنة)
 // ============================================
 function getFirebaseErrorMessage(code) {
     const errors = {
-        // ===== أخطاء تسجيل الدخول =====
-        'auth/user-not-found': ' لم يتم العثور على حساب بهذا البريد الإلكتروني.',
-        'auth/wrong-password': ' كلمة المرور غير صحيحة. حاول مرة أخرى.',
-        'auth/invalid-email': ' يرجى إدخال بريد إلكتروني صحيح.',
-        'auth/user-disabled': ' هذا الحساب مُعطّل. يرجى التواصل مع الدعم.',
-        'auth/too-many-requests': ' تم إرسال العديد من المحاولات الفاشلة. يرجى الانتظار قليلاً ثم المحاولة مرة أخرى.',
-        
-        // ===== أخطاء إنشاء الحساب =====
-        'auth/email-already-in-use': ' يوجد حساب بهذا البريد الإلكتروني بالفعل. قم بتسجيل الدخول بدلاً من إنشاء حساب جديد.',
-        'auth/weak-password': ' كلمة المرور ضعيفة. يجب أن تتكون من 6 أحرف على الأقل.',
-        'auth/operation-not-allowed': ' إنشاء الحساب غير متاح حالياً. يرجى المحاولة لاحقاً.',
-        
-        // ===== أخطاء عامة =====
-        'auth/network-request-failed': ' فشل الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت.',
-        'auth/internal-error': ' حدث خطأ داخلي. يرجى المحاولة مرة أخرى.',
-        'auth/invalid-credential': ' بيانات الدخول غير صحيحة. يرجى التحقق من البريد الإلكتروني وكلمة المرور.',
-        'auth/requires-recent-login': ' يُرجى تسجيل الدخول مرة أخرى لتأكيد هويتك.'
+        'auth/user-not-found': '❌ لم يتم العثور على حساب بهذا البريد الإلكتروني.',
+        'auth/wrong-password': '❌ كلمة المرور غير صحيحة. حاول مرة أخرى.',
+        'auth/invalid-email': '❌ يرجى إدخال بريد إلكتروني صحيح.',
+        'auth/user-disabled': '⚠️ هذا الحساب مُعطّل. يرجى التواصل مع الدعم.',
+        'auth/too-many-requests': '⚠️ تم إرسال العديد من المحاولات الفاشلة. يرجى الانتظار قليلاً ثم المحاولة مرة أخرى.',
+        'auth/email-already-in-use': '❌ يوجد حساب بهذا البريد الإلكتروني بالفعل. قم بتسجيل الدخول بدلاً من إنشاء حساب جديد.',
+        'auth/weak-password': '⚠️ كلمة المرور ضعيفة. يجب أن تتكون من 6 أحرف على الأقل.',
+        'auth/operation-not-allowed': '⚠️ إنشاء الحساب غير متاح حالياً. يرجى المحاولة لاحقاً.',
+        'auth/network-request-failed': '⚠️ فشل الاتصال بالخادم. يرجى التحقق من اتصالك بالإنترنت.',
+        'auth/internal-error': '⚠️ حدث خطأ داخلي. يرجى المحاولة مرة أخرى.',
+        'auth/invalid-credential': '❌ بيانات الدخول غير صحيحة. يرجى التحقق من البريد الإلكتروني وكلمة المرور.',
+        'auth/invalid-login-credentials': '❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.',
+        'auth/requires-recent-login': '⚠️ يُرجى تسجيل الدخول مرة أخرى لتأكيد هويتك.'
     };
-    
-    return errors[code] || ' حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.';
+    return errors[code] || '⚠️ حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.';
 }
 
 // ============================================
-// عرض Toast (محسن)
+// Toast Notifications (محسّن)
 // ============================================
 function showToast(message, type = 'info') {
     const toast = document.createElement('div');
@@ -523,161 +595,27 @@ function showToast(message, type = 'info') {
 }
 
 // ============================================
-// ✅ تحديث الملف الشخصي (محسن مع قراءة الاشتراك من المستند)
-// ============================================
-async function updateProfile() {
-    const user = auth.currentUser;
-
-    const profileEmail = document.getElementById('profileEmail');
-    const profileExpiry = document.getElementById('profileExpiry');
-    const profileStatus = document.getElementById('profileStatus');
-    const profileUidValue = document.getElementById('profileUidValue');
-    const profileLogoutBtn = document.getElementById('profileLogoutBtn');
-    const profileDropdown = document.getElementById('profileDropdown');
-    const navLoginBtn = document.getElementById('navLoginBtn');
-    const navSubscribeBtn = document.getElementById('navSubscribeBtn');
-    const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
-    const profileIcon = document.getElementById('profileIcon');
-
-    if (!user) {
-        if (profileEmail) profileEmail.innerHTML = '👤 غير مسجل';
-        if (profileExpiry) profileExpiry.textContent = 'الوصول محدود لبعض الامتحانات';
-        if (profileStatus) profileStatus.innerHTML = '';
-        if (profileUidValue) profileUidValue.textContent = '---';
-        if (profileLogoutBtn) profileLogoutBtn.style.display = 'none';
-        if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
-        if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-        if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
-        if (profileIcon) profileIcon.style.display = 'none';
-
-        const oldBtn = document.getElementById('dropdownUpgradeBtn');
-        if (oldBtn) oldBtn.remove();
-        if (profileDropdown) {
-            const upgradeBtn = document.createElement('button');
-            upgradeBtn.id = 'dropdownUpgradeBtn';
-            upgradeBtn.innerHTML = 'الترقية إلى الحساب الكامل →';
-            upgradeBtn.style.cssText = `
-                margin-top: 12px;
-                background: #64748B;
-                color: white;
-                border: none;
-                padding: 10px 15px;
-                border-radius: 25px;
-                cursor: pointer;
-                width: 100%;
-                font-size: 13px;
-                font-weight: bold;
-                transition: all 0.3s ease;
-            `;
-            upgradeBtn.onclick = () => window.location.href = 'subscribe.html';
-            profileDropdown.appendChild(upgradeBtn);
-        }
-        return;
-    }
-
-    try {
-        const doc = await db.collection('users').doc(user.uid).get();
-        const data = doc.exists ? doc.data() : {};
-
-        if (profileEmail) profileEmail.innerHTML = `📧 ${user.email}`;
-
-        const isPremium = data.plan === 'premium' && data.premiumUntil && new Date(data.premiumUntil).getTime() > Date.now();
-
-        if (isPremium) {
-            const expiry = new Date(data.premiumUntil);
-            if (profileExpiry) profileExpiry.textContent = `📅 الصلاحية: حتى ${expiry.toLocaleDateString('en-US')}`;
-            if (profileStatus) profileStatus.innerHTML = `<span class="status-premium">✅ مشترك (Pro)</span>`;
-            if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
-            if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'none';
-        } else {
-            if (profileExpiry) profileExpiry.textContent = '⏰ انتهت الصلاحية أو مجاني';
-            if (profileStatus) profileStatus.innerHTML = `<span class="status-free">📖 مجاني</span>`;
-            if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-            if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
-        }
-
-        if (profileUidValue) profileUidValue.textContent = user.uid;
-
-        if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
-        if (navLoginBtn) navLoginBtn.style.display = 'none';
-        if (profileIcon) profileIcon.style.display = 'flex';
-
-        const oldBtn = document.getElementById('dropdownUpgradeBtn');
-        if (oldBtn) oldBtn.remove();
-
-        // إذا كان مجانياً، نضيف زر الترقية
-        if (!isPremium && profileDropdown) {
-            const upgradeBtn = document.createElement('button');
-            upgradeBtn.id = 'dropdownUpgradeBtn';
-            upgradeBtn.innerHTML = 'الترقية إلى الحساب الكامل →';
-            upgradeBtn.style.cssText = `
-                margin-top: 12px;
-                background: #64748B;
-                color: white;
-                border: none;
-                padding: 10px 15px;
-                border-radius: 25px;
-                cursor: pointer;
-                width: 100%;
-                font-size: 13px;
-                font-weight: bold;
-                transition: all 0.3s ease;
-            `;
-            upgradeBtn.onclick = () => window.location.href = 'subscribe.html';
-            profileDropdown.appendChild(upgradeBtn);
-        }
-
-    } catch (error) {
-        console.error('خطأ في تحديث الملف الشخصي:', error);
-    }
-}
-
-// ============================================
-// مراقب حالة المستخدم (محسن)
+// مراقب حالة المستخدم (محسّن - بدون فحص الجلسة)
 // ============================================
 auth.onAuthStateChanged(async user => {
     if (user) {
-        // ✅ التحقق من الجلسة عند كل تحميل (Refresh)
-        await checkSessionOnLoad();
-
-        // ✅ التحقق من صحة الجلسة المخزنة محلياً، وإذا كانت غير صالحة يتم تسجيل الخروج
-        const sessionValid = localStorage.getItem('zertiva_session_valid');
-        if (sessionValid === 'false') {
-            console.warn('⚠️ الجلسة غير صالحة، تسجيل الخروج');
-            await handleLogout();
-            return;
+        // فقط إذا كانت الصفحة تُحمّل (أي أننا لسنا في عملية تسجيل دخول جديدة)
+        // نفحص الجلسة، ولكننا نستخدم علامة sessionChecked لتجنب التكرار
+        if (!window._sessionChecked) {
+            window._sessionChecked = true;
+            await checkSession();
+        } else {
+            // إذا كانت الجلسة قد فُحصت مسبقاً (مثل بعد Login)، نحدّث الواجهة فقط
+            await loadUserData();
         }
-
-        // ✅ تحديث واجهة المستخدم
-        if (navLoginBtn) navLoginBtn.style.display = 'none';
-        if (profileIcon) profileIcon.style.display = 'flex';
-
-        // تحديث زر الاشتراك بناءً على الحالة
-        const status = await window.getUserStatusGlobal();
-        if (navSubscribeBtn) {
-            navSubscribeBtn.style.display = (status === 'premium') ? 'none' : 'inline-flex';
-        }
-        if (featuresSubscribeBtn) {
-            featuresSubscribeBtn.style.display = (status === 'premium') ? 'none' : 'inline-flex';
-        }
-
-        // تحديث الملف الشخصي (مرة أخرى للتأكد)
-        await updateProfile();
-
     } else {
-        // ✅ المستخدم غير مسجل
-        if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
-        if (profileIcon) profileIcon.style.display = 'flex';
-        if (profileDropdown) profileDropdown.classList.remove('show');
-        if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
-        if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
-
-        await updateProfile();
+        // المستخدم غير مسجل
+        updateUI(null, null);
     }
 });
 
 // ============================================
-// ربط الأحداث
+// ربط الأحداث (DOMContentLoaded)
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
     // ربط دوال إظهار/إخفاء كلمة المرور
@@ -685,7 +623,7 @@ document.addEventListener('DOMContentLoaded', function() {
     togglePasswordVisibility('signupPassword', 'toggleSignupPassword');
     togglePasswordVisibility('resetNewPassword', 'toggleResetPassword');
 
-    // ===== نوافذ المصادقة =====
+    // نوافذ المصادقة
     if (navLoginBtn) navLoginBtn.addEventListener('click', () => openAuthModal('login'));
     if (closeAuthModal) closeAuthModal.addEventListener('click', closeAuthModalFunc);
     if (authModal) authModal.addEventListener('click', (e) => { if (e.target === authModal) closeAuthModalFunc(); });
@@ -699,7 +637,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (switchToReset) switchToReset.addEventListener('click', () => showForm('reset'));
     if (switchToLoginFromReset) switchToLoginFromReset.addEventListener('click', () => showForm('login'));
 
-    // ===== الملف الشخصي =====
+    // الملف الشخصي
     if (profileIcon) profileIcon.addEventListener('click', (e) => {
         e.stopPropagation();
         if (profileDropdown) profileDropdown.classList.toggle('show');
@@ -707,7 +645,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (profileLogoutBtn) profileLogoutBtn.addEventListener('click', handleLogout);
 
-    // ===== إعدادات العرض =====
+    // إعدادات العرض
     if (settingsBtn && settingsModal) {
         settingsBtn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -724,9 +662,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ============================================
-    // ✅ أزرار الاشتراك - توجيه إلى subscribe.html
-    // ============================================
+    // أزرار الاشتراك
     const navSubscribeBtn = document.getElementById('navSubscribeBtn');
     if (navSubscribeBtn) {
         navSubscribeBtn.addEventListener('click', function(e) {
@@ -745,15 +681,15 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('✅ زر اشترك (featuresSubscribeBtn) مربوط');
     }
 
-    // ===== إغلاق القائمة المنسدلة عند النقر خارجها =====
+    // إغلاق القائمة المنسدلة عند النقر خارجها
     document.addEventListener('click', (e) => {
         if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileIcon) {
             profileDropdown.classList.remove('show');
         }
     });
 
-    // ===== تحميل الملف الشخصي عند بدء الصفحة =====
-    setTimeout(updateProfile, 500);
+    // تحميل الواجهة عند بدء الصفحة
+    setTimeout(loadUserData, 500);
 });
 
-console.log('✅ auth.js (النظام الجديد مع الجلسات المحسنة - Single Session) تم تحميله بنجاح');
+console.log('✅ auth.js (النسخة الاحترافية - Single Session مستقر) تم تحميله بنجاح');
