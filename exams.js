@@ -20,25 +20,17 @@ const teile = [
 ];
 
 // ============================================
-// ✅ قواعد الامتحانات المجانية الجديدة (النسخة المصححة)
+// ✅ قواعد الامتحانات المجانية الجديدة (بعد التعديل)
 // ============================================
 function isExamFree(skill, examNumber) {
-  // 🟢 Mündlich - معالجة خاصة حسب الجزء الحالي
-  if (skill === "mündlich1" || skill === "mündlich2" || skill === "mündlich3" || skill === "mündlich") {
-    // نأخذ الجزء الحالي من المتغير العام currentMündlichPart
-    const part = (typeof currentMündlichPart !== 'undefined') ? currentMündlichPart : 2;
-    
-    if (part === 1) {
-      // Teil 1: جميع الامتحانات مجانية (يوجد فقط امتحان 1)
-      return true;
-    } else if (part === 2) {
-      // Teil 2: أول 2 امتحانات مجانية
-      return examNumber <= 2;
-    } else if (part === 3) {
-      // Teil 3: جميع الامتحانات مجانية (يوجد فقط امتحان 1)
-      return true;
-    }
+  // 🟢 Mündlich - معالجة خاصة
+  if (skill === "mündlich1" || skill === "mündlich3") {
+    // 🔒 جميع امتحانات Teil 1 و Teil 3 مدفوعة بالكامل
     return false;
+  }
+  if (skill === "mündlich2" || skill === "mündlich") {
+    // Teil 2: أول 2 امتحانات مجانية
+    return examNumber <= 2;
   }
 
   // 🟢 Schreiben: أول 2 مجانية
