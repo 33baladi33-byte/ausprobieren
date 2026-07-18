@@ -4517,7 +4517,461 @@ function resetInterleaving() {
 window.toggleInterleaving = toggleInterleaving;
 window.initInterleaving = initInterleaving;
 window.resetInterleaving = resetInterleaving;
-    
+
+// ============================================
+// نظام اختصارات لوحة المفاتيح
+// ============================================
+
+// متغيرات لإدارة التاريخ (Undo)
+let _answerHistory = [];
+let _historyEnabled = false;
+
+// دالة لإضافة إجابة إلى التاريخ
+function pushAnswerToHistory(action) {
+    if (!_historyEnabled) return;
+    _answerHistory.push(action);
+    // حد أقصى 50 عملية
+    if (_answerHistory.length > 50) _answerHistory.shift();
+}
+
+// دالة لتراجع آخر إجابة
+function undoLastAnswer() {
+    if (_answerHistory.length === 0) return false;
+    const lastAction = _answerHistory.pop();
+    // تنفيذ التراجع حسب نوع الامتحان
+    const skill = window.currentSkill || '';
+    if (skill.startsWith('hoeren')) {
+        // True/False: إلغاء تحديد الراديو
+        if (lastAction.type === 'radio') {
+            const radio = document.querySelector(`input[name="${lastAction.name}"]:checked`);
+            if (radio) radio.checked = false;
+            // حذف الإجابة من المتغير العام
+            if (window._trueFalseUserAnswers) {
+                const qId = parseInt(lastAction.name.replace('q_', ''));
+                delete window._trueFalseUserAnswers[qId];
+            }
+        }
+    } else if (skill === 'lesen1' || skill === 'teil1') {
+        // Matching: إعادة تعيين الـ select إلى الخيار الافتراضي
+        if (lastAction.type === 'select') {
+            const select = document.getElementById(lastAction.id);
+            if (select) {
+                select.value = '';
+                // تحديث المتغيرات الخاصة بـ matching
+                if (typeof matchingSelectedAnswers !== 'undefined') {
+                    const idx = parseInt(lastAction.id.replace('matching_q_', ''));
+                    delete matchingSelectedAnswers[idx];
+                    // إعادة الخيار إلى القائمة المتاحة
+                    if (typeof matchingAvailableOptions !== 'undefined') {
+                        const oldVal = lastAction.oldValue;
+                        if (oldVal && !matchingAvailableOptions.includes(oldVal)) {
+                            matchingAvailableOptions.push(oldVal);
+                        }
+                    }
+                    // إعادة بناء الخيارات
+                    if (typeof renderMatchingQuestions === 'function') {
+                        renderMatchingQuestions();
+                    }
+                }
+            }
+        }
+    } else if (skill === 'lesen2' || skill === 'teil2') {
+        // Multiple choice: إلغاء تحديد الراديو
+        if (lastAction.type === 'radio') {
+            const radio = document.querySelector(`input[name="${lastAction.name}"]:checked`);
+            if (radio) radio.checked = false;
+            if (typeof teil2UserAnswers !== 'undefined') {
+                const idx = parseInt(lastAction.name.replace('teil2_q', ''));
+                delete teil2UserAnswers[idx];
+            }
+        }
+    } else if (skill === 'lesen3' || skill === 'teil3') {
+        // Lesen 3: إعادة تعيين الـ select
+        if (lastAction.type === 'select') {
+            const select = document.getElementById(lastAction.id);
+            if (select) {
+                select.value = '';
+                if (typeof teil3UserAnswers !== 'undefined') {
+                    const idx = parseInt(lastAction.id.replace('teil3_select_', ''));
+                    delete teil3UserAnswers[idx];
+                    // تحديث الواجهة
+                    if (typeof updateTeil3SelectOptions === 'function') {
+                        updateTeil3SelectOptions();
+                    }
+                    if (typeof updateTeil3RightSideColors === 'function') {
+                        updateTeil3RightSideColors();
+                    }
+                    if (typeof updateTeil3CardStyle === 'function') {
+                        updateTeil3CardStyle(idx);
+                    }
+                }
+            }
+        }
+    } else if (skill === 'sprach1' || skill === 'sprach2') {
+        // Sprachbausteine: إعادة تعيين الزر أو الراديو
+        if (lastAction.type === 'sprach') {
+            const btn = document.getElementById(lastAction.id);
+            if (btn) {
+                const qId = parseInt(lastAction.id.replace('sprach1_btn_', '').replace('sprach2_btn_', ''));
+                if (skill === 'sprach1' && typeof sprach1UserAnswers !== 'undefined') {
+                    delete sprach1UserAnswers[qId];
+                    btn.textContent = `__(${qId})__`;
+                    btn.style.backgroundColor = '#e0e0e0';
+                    btn.style.color = '#333';
+                    // إلغاء تحديد الراديو
+                    const radioName = `sprach1_q${qId}`;
+                    document.querySelectorAll(`input[name="${radioName}"]`).forEach(r => r.checked = false);
+                } else if (skill === 'sprach2' && typeof sprach2UserAnswers !== 'undefined') {
+                    const word = sprach2UserAnswers[qId];
+                    delete sprach2UserAnswers[qId];
+                    btn.textContent = `__( ${qId} )__`;
+                    btn.style.backgroundColor = '#e0e0e0';
+                    btn.style.color = '#333';
+                    // إعادة الكلمة إلى القائمة
+                    if (word) {
+                        const card = document.getElementById(`sprach2_word_${word}`);
+                        if (card) {
+                            card.style.backgroundColor = '#ffffff';
+                            card.style.border = '1px solid #7c6ce6';
+                            card.style.color = '#4a4a4a';
+                            card.style.cursor = 'pointer';
+                            card.style.opacity = '1';
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return true;
+}
+
+// ربط الاختيارات بالتاريخ
+function hookAnswerSelection() {
+    // Hören (True/False)
+    document.addEventListener('change', function(e) {
+        if (e.target.type === 'radio' && e.target.name && e.target.name.startsWith('q_')) {
+            if (e.target.checked) {
+                pushAnswerToHistory({ type: 'radio', name: e.target.name, value: e.target.value });
+            }
+        }
+    });
+
+    // Lesen 1 (Matching)
+    document.addEventListener('change', function(e) {
+        if (e.target.tagName === 'SELECT' && e.target.id && e.target.id.startsWith('matching_q_')) {
+            if (e.target.value) {
+                pushAnswerToHistory({ type: 'select', id: e.target.id, oldValue: e.target.dataset.oldValue || '' });
+                e.target.dataset.oldValue = e.target.value;
+            }
+        }
+    });
+
+    // Lesen 2 (Multiple)
+    document.addEventListener('change', function(e) {
+        if (e.target.type === 'radio' && e.target.name && e.target.name.startsWith('teil2_q')) {
+            if (e.target.checked) {
+                pushAnswerToHistory({ type: 'radio', name: e.target.name, value: e.target.value });
+            }
+        }
+    });
+
+    // Lesen 3
+    document.addEventListener('change', function(e) {
+        if (e.target.tagName === 'SELECT' && e.target.id && e.target.id.startsWith('teil3_select_')) {
+            pushAnswerToHistory({ type: 'select', id: e.target.id, oldValue: e.target.dataset.oldValue || '' });
+            e.target.dataset.oldValue = e.target.value;
+        }
+    });
+
+    // Sprachbausteine 1 & 2 (الأزرار والراديوهات)
+    document.addEventListener('click', function(e) {
+        if (e.target.id && e.target.id.startsWith('sprach1_btn_')) {
+            const qId = parseInt(e.target.id.replace('sprach1_btn_', ''));
+            if (sprach1UserAnswers && sprach1UserAnswers[qId]) {
+                pushAnswerToHistory({ type: 'sprach', id: e.target.id });
+            }
+        }
+        if (e.target.id && e.target.id.startsWith('sprach2_btn_')) {
+            const qId = parseInt(e.target.id.replace('sprach2_btn_', ''));
+            if (sprach2UserAnswers && sprach2UserAnswers[qId]) {
+                pushAnswerToHistory({ type: 'sprach', id: e.target.id });
+            }
+        }
+        // راديو Sprach1
+        if (e.target.type === 'radio' && e.target.name && e.target.name.startsWith('sprach1_q')) {
+            if (e.target.checked) {
+                pushAnswerToHistory({ type: 'sprach', id: 'sprach1_btn_' + e.target.name.replace('sprach1_q', '') });
+            }
+        }
+    });
+
+    // Sprach2: نضيف مستمع للكلمات
+    document.addEventListener('click', function(e) {
+        if (e.target.classList && e.target.classList.contains('sprach2-word-card')) {
+            // عند اختيار كلمة، سيتم إضافتها للتاريخ عبر مستمع آخر
+        }
+    });
+}
+
+// تفعيل التاريخ عند بدء الامتحان
+function enableHistory() {
+    _historyEnabled = true;
+    _answerHistory = [];
+}
+
+// تعطيل التاريخ عند الخروج
+function disableHistory() {
+    _historyEnabled = false;
+    _answerHistory = [];
+}
+
+// دالة للكشف عن وجود نتيجة تصحيح
+function isCorrectionVisible() {
+    const resultDiv = document.querySelector('.result-box:not([style*="display: none"])');
+    return resultDiv && resultDiv.style.display !== 'none';
+}
+
+// دالة لتنفيذ التصحيح
+function triggerCorrection() {
+    const checkBtn = document.querySelector('.check-btn');
+    if (checkBtn) {
+        checkBtn.click();
+        return true;
+    }
+    // محاولة بديلة: البحث عن زر "تصحيح" أو "Prüfen"
+    const btn = document.querySelector('button:contains("تصحيح"), button:contains("Prüfen")');
+    if (btn) { btn.click(); return true; }
+    return false;
+}
+
+// دالة للذهاب للسؤال التالي
+function triggerNextExam() {
+    const nextBtn = document.getElementById('nextExamBtn');
+    if (nextBtn && nextBtn.style.display !== 'none') {
+        nextBtn.click();
+        return true;
+    }
+    return false;
+}
+
+// دالة للذهاب للسؤال السابق
+function triggerPrevExam() {
+    const prevBtn = document.getElementById('prevExamBtn');
+    if (prevBtn && prevBtn.style.display !== 'none') {
+        prevBtn.click();
+        return true;
+    }
+    return false;
+}
+
+// دالة لإعادة المحاولة (Reset)
+function triggerReset() {
+    const resetBtn = document.querySelector('button:contains("↺")');
+    if (resetBtn) {
+        resetBtn.click();
+        return true;
+    }
+    return false;
+}
+
+// دالة للخروج من الامتحان
+function exitExam() {
+    if (typeof window.goBackToExamsList === 'function') {
+        window.goBackToExamsList();
+    } else {
+        // محاولة العودة عبر زر الرجوع
+        const backBtn = document.getElementById('backArrowFromExam');
+        if (backBtn) backBtn.click();
+    }
+}
+
+// دالة لتبديل الشاشة الكاملة
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+        document.exitFullscreen().catch(() => {});
+    }
+}
+
+// ============================================
+// مستمع الأحداث الرئيسي
+// ============================================
+
+document.addEventListener('keydown', function(e) {
+    // ❌ لا تعمل الاختصارات إذا كان المستخدم يكتب في Input أو Textarea
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+        return;
+    }
+
+    // ❌ لا تعمل إذا كان هناك Modal مفتوح
+    if (document.querySelector('.modal.active, .memory-trainer-overlay, #versionsPopupAuto, #resetConfirmModal')) {
+        // ولكن نسمح لـ Esc بإغلاق بعض النوافذ إذا كانت مفتوحة
+        if (e.key === 'Escape') {
+            // إغلاق Popover إذا كان مفتوحاً
+            const popover = document.getElementById('shortcutsPopover');
+            if (popover && popover.style.display !== 'none') {
+                popover.style.display = 'none';
+                e.preventDefault();
+                return;
+            }
+            // إغلاق Memory Trainer إذا كان مفتوحاً
+            if (window.memoryTrainer && window.memoryTrainer.overlay) {
+                window.memoryTrainer.close();
+                e.preventDefault();
+                return;
+            }
+            // إغلاق Modal الإصدارات
+            const versionsPopup = document.getElementById('versionsPopupAuto');
+            if (versionsPopup) {
+                versionsPopup.remove();
+                e.preventDefault();
+                return;
+            }
+            // إغلاق Modal إعادة التعيين
+            const resetModal = document.getElementById('resetConfirmModal');
+            if (resetModal) {
+                resetModal.remove();
+                e.preventDefault();
+                return;
+            }
+        }
+        return;
+    }
+
+    // ❌ لا تعمل إذا لم تكن صفحة الامتحان نشطة
+    const examPage = document.getElementById('exam');
+    if (!examPage || !examPage.classList.contains('active')) {
+        return;
+    }
+
+    // التعامل مع المفاتيح
+    const key = e.key;
+
+    // ESC: خروج
+    if (key === 'Escape') {
+        e.preventDefault();
+        exitExam();
+        return;
+    }
+
+    // F: شاشة كاملة
+    if (key === 'f' || key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+        return;
+    }
+
+    // Enter: تصحيح أو التالي
+    if (key === 'Enter') {
+        e.preventDefault();
+        if (isCorrectionVisible()) {
+            triggerNextExam();
+        } else {
+            triggerCorrection();
+        }
+        return;
+    }
+
+    // ArrowDown: التالي
+    if (key === 'ArrowDown') {
+        e.preventDefault();
+        triggerNextExam();
+        return;
+    }
+
+    // ArrowUp: السابق
+    if (key === 'ArrowUp') {
+        e.preventDefault();
+        triggerPrevExam();
+        return;
+    }
+
+    // Delete: Undo أو Reset
+    if (key === 'Delete' || key === 'Del') {
+        e.preventDefault();
+        if (isCorrectionVisible()) {
+            // بعد التصحيح: إعادة المحاولة
+            triggerReset();
+        } else {
+            // قبل التصحيح: Undo
+            undoLastAnswer();
+        }
+        return;
+    }
+
+    // CTRL+Z: أيضاً Undo (اختصار إضافي)
+    if ((e.ctrlKey || e.metaKey) && key === 'z') {
+        e.preventDefault();
+        if (!isCorrectionVisible()) {
+            undoLastAnswer();
+        }
+        return;
+    }
+});
+
+// ============================================
+// ربط زر اختصارات لوحة المفاتيح
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('shortcutsToggleBtn');
+    const popover = document.getElementById('shortcutsPopover');
+
+    if (toggleBtn && popover) {
+        // فتح/إغلاق Popover
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isVisible = popover.style.display !== 'none';
+            popover.style.display = isVisible ? 'none' : 'block';
+        });
+
+        // إغلاق عند الضغط خارج Popover
+        document.addEventListener('click', function(e) {
+            if (popover.style.display !== 'none' &&
+                !popover.contains(e.target) &&
+                e.target !== toggleBtn &&
+                !toggleBtn.contains(e.target)) {
+                popover.style.display = 'none';
+            }
+        });
+
+        // إغلاق عند الضغط على Esc
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && popover.style.display !== 'none') {
+                popover.style.display = 'none';
+            }
+        });
+    }
+
+    // تفعيل التاريخ عند تحميل الامتحان
+    enableHistory();
+    hookAnswerSelection();
+
+    // إعادة تعيين التاريخ عند فتح امتحان جديد
+    const origOpenExam = window.openExam;
+    if (typeof origOpenExam === 'function') {
+        window.openExam = function(examId, examTitle, skill, fileName) {
+            enableHistory();
+            return origOpenExam.call(this, examId, examTitle, skill, fileName);
+        };
+    }
+});
+
+// تصدير الدوال للاستخدام العالمي
+window.triggerCorrection = triggerCorrection;
+window.triggerNextExam = triggerNextExam;
+window.triggerPrevExam = triggerPrevExam;
+window.triggerReset = triggerReset;
+window.exitExam = exitExam;
+window.toggleFullscreen = toggleFullscreen;
+window.undoLastAnswer = undoLastAnswer;
+window.pushAnswerToHistory = pushAnswerToHistory;
+window.enableHistory = enableHistory;
+window.disableHistory = disableHistory;
+
+console.log('✅ نظام اختصارات لوحة المفاتيح تم تحميله بنجاح');
+
 console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3 و Lesen 1 و Lesen 2');
 
 // تم إلغاء زر "🧠 تثبيت الذاكرة" بعد التصحيح - أصبح الزر موجوداً في شريط التنقل
