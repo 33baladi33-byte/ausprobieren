@@ -4920,12 +4920,12 @@ document.addEventListener('keydown', function(e) {
         return;
     }
 
-    // 2: تبديل زر تدريب الذاكرة (أجب بذكاء وفهم)
+    // 2: تبديل زر المساعدة (help system - 😂 اجي ضحك وفهم)
     if (key === '2') {
         e.preventDefault();
-        const memoryTrainerBtn = document.getElementById('memoryTrainerBtn');
-        if (memoryTrainerBtn && memoryTrainerBtn.style.display !== 'none') {
-            memoryTrainerBtn.click();
+        const helpBtn = document.getElementById('globalHelpButton');
+        if (helpBtn && helpBtn.style.display !== 'none') {
+            helpBtn.click();
         }
         return;
     }
@@ -5001,7 +5001,6 @@ window.enableHistory = enableHistory;
 window.disableHistory = disableHistory;
 
 console.log('✅ نظام اختصارات لوحة المفاتيح تم تحميله بنجاح');
-
 console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3 و Lesen 1 و Lesen 2');
 
 // تم إلغاء زر "🧠 تثبيت الذاكرة" بعد التصحيح - أصبح الزر موجوداً في شريط التنقل
