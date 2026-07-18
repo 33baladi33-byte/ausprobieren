@@ -20212,61 +20212,56 @@ function getActiveSection() {
     if (document.getElementById('mündlich')?.style.display === 'block') return document.getElementById('mündlich');
     return null;
 }
-
-// دالة البحث المرنة عن البيانات في HELP_DATA (تدعم الأسماء مع حروف)
 function findHelpData(skill, examId, questionNumber) {
     if (typeof HELP_DATA === 'undefined') {
         console.warn('HELP_DATA غير موجود');
         return null;
     }
     
+    // ✅ تحويل examId إلى نص للتأكد من وجود replace
+    const examIdStr = String(examId);
+    
     // المحاولة الأولى: البحث بالاسم الكامل (مثل lesen1_exam3b_q1)
-    const fullKey = `${skill}_exam${examId}_q${questionNumber}`;
+    const fullKey = `${skill}_exam${examIdStr}_q${questionNumber}`;
     if (HELP_DATA[fullKey]) {
         return HELP_DATA[fullKey];
     }
     
     // المحاولة الثانية: البحث بصيغة أخرى (مثل lesen1_exam3b_1)
-    const altKey = `${skill}_exam${examId}_${questionNumber}`;
+    const altKey = `${skill}_exam${examIdStr}_${questionNumber}`;
     if (HELP_DATA[altKey]) {
         return HELP_DATA[altKey];
     }
     
     // المحاولة الثالثة: البحث بحرف (مثل lesen1_exam3b_a)
-    const letterKey = `${skill}_exam${examId}_${String.fromCharCode(96 + questionNumber)}`;
+    const letterKey = `${skill}_exam${examIdStr}_${String.fromCharCode(96 + questionNumber)}`;
     if (HELP_DATA[letterKey]) {
         return HELP_DATA[letterKey];
     }
     
-    // المحاولة الرابعة: البحث المرن - لو لم يجد بالاسم الكامل، جرب البحث في كل المفاتيح
-    // التي تبدأ بنفس skill و examId (مع تجاهل الحروف الإضافية)
+    // المحاولة الرابعة: البحث المرن
     for (let key in HELP_DATA) {
-        // التحقق مما إذا كان المفتاح يبدأ بـ "skill_exam" الرقمي
-        // باستخدام regex للسماح بأي حروف بعد الرقم
-        const regex = new RegExp(`^${skill}_exam${examId}[a-z]?_q${questionNumber}$`);
+        const regex = new RegExp(`^${skill}_exam${examIdStr}[a-z]?_q${questionNumber}$`);
         if (regex.test(key)) {
             return HELP_DATA[key];
         }
-        // محاولة أخرى بصيغة بدون q
-        const regex2 = new RegExp(`^${skill}_exam${examId}[a-z]?_${questionNumber}$`);
+        const regex2 = new RegExp(`^${skill}_exam${examIdStr}[a-z]?_${questionNumber}$`);
         if (regex2.test(key)) {
             return HELP_DATA[key];
         }
-        // محاولة بحرف
         const letter = String.fromCharCode(96 + questionNumber);
-        const regex3 = new RegExp(`^${skill}_exam${examId}[a-z]?_${letter}$`);
+        const regex3 = new RegExp(`^${skill}_exam${examIdStr}[a-z]?_${letter}$`);
         if (regex3.test(key)) {
             return HELP_DATA[key];
         }
     }
     
     // المحاولة الخامسة: البحث عن البيانات الأساسية (بدون حرف)
-    // مثلاً: الامتحان 3b يبحث عن البيانات الموجودة تحت exam3
-    const baseId = examId.replace(/[a-z]$/, ''); // يزيل الحرف الأخير إذا كان موجوداً
-    if (baseId !== examId) {
+    const baseId = examIdStr.replace(/[a-z]$/, '');
+    if (baseId !== examIdStr) {
         const fallbackKey = `${skill}_exam${baseId}_q${questionNumber}`;
         if (HELP_DATA[fallbackKey]) {
-            console.warn(`⚠️ تم استخدام البيانات الأساسية للامتحان ${baseId} بدلاً من ${examId}`);
+            console.warn(`⚠️ تم استخدام البيانات الأساسية للامتحان ${baseId} بدلاً من ${examIdStr}`);
             return HELP_DATA[fallbackKey];
         }
     }
