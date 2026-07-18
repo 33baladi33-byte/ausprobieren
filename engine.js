@@ -721,12 +721,13 @@ function checkSprach2Exam() {
     resultDiv.style.color = "#721c24";
   }
 
-  // ✅ زيادة العداد وعرضه
+  // ✅ زيادة العداد وتحديث الواجهة
   const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-  const retryMsg = document.createElement('div');
-  retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
-  retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
-  resultDiv.appendChild(retryMsg);
+  
+  // ✅ تحديث العداد في أعلى الصفحة
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
+  }
 
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentSprach2Data.id || window.currentExamId || 1;
@@ -4630,3 +4631,89 @@ function addSentencePuzzleIcons(container, questions) {
 // نبحث عن resetBtn.onclick ونضيف الكود التالي:
 
 console.log('✅ تم ربط SentenceReorder مع engine.js (مع دعم Reset)');
+// ============================================
+// دالة عداد الإعادات - تظهر في أقصى يمين الأزرار
+// ============================================
+function addRetryCounterToExam() {
+    // حذف العداد القديم إذا كان موجوداً
+    const oldCounter = document.getElementById('retryCounterBox');
+    if (oldCounter) oldCounter.remove();
+
+    // جلب العدد الحالي
+    const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
+
+    // إنشاء الصندوق
+    const box = document.createElement('div');
+    box.id = 'retryCounterBox';
+    box.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+    box.style.cssText = `
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #1e293b;
+        display: inline-block;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        margin-right: 0;
+        margin-left: auto;
+        flex-shrink: 0;
+    `;
+
+    // البحث عن حاوية الأزرار (interleavingRow)
+    const interleavingRow = document.getElementById('interleavingRow');
+
+    if (interleavingRow) {
+        // جعل الحاوية مرنة
+        interleavingRow.style.display = 'flex';
+        interleavingRow.style.alignItems = 'center';
+        interleavingRow.style.justifyContent = 'space-between';
+        interleavingRow.style.flexWrap = 'wrap';
+        interleavingRow.style.gap = '10px';
+        
+        // إضافة الصندوق في نهاية الحاوية (أقصى يمين)
+        interleavingRow.appendChild(box);
+        console.log('✅ تم إضافة عداد الإعادات في أقصى يمين الأزرار');
+    } else {
+        // إذا لم نجد interleavingRow، نبحث عن حاوية أخرى
+        const btnContainer = document.querySelector('#exam .exam-controls, .exam-controls, .controls-row, [style*="gap: 10px"]');
+        if (btnContainer) {
+            btnContainer.style.display = 'flex';
+            btnContainer.style.alignItems = 'center';
+            btnContainer.style.justifyContent = 'space-between';
+            btnContainer.style.flexWrap = 'wrap';
+            btnContainer.appendChild(box);
+            console.log('✅ تم إضافة عداد الإعادات في أقصى يمين الأزرار (بديل)');
+        } else {
+            // وضع في أعلى الصفحة يمين
+            const container = document.querySelector('#exam, .exam-content, .exam-box, .page.active');
+            if (container) {
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'display: flex; justify-content: flex-end; margin: 0 0 15px 0;';
+                wrapper.appendChild(box);
+                container.prepend(wrapper);
+                console.log('✅ تم إضافة عداد الإعادات في أعلى يمين المحتوى');
+            }
+        }
+    }
+}
+
+// ============================================
+// دالة تحديث العداد بعد التصحيح
+// ============================================
+function updateRetryCounter() {
+    const box = document.getElementById('retryCounterBox');
+    if (!box) {
+        // إذا لم يكن موجوداً، نعيد إنشائه
+        addRetryCounterToExam();
+        return;
+    }
+
+    const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
+    box.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+}
+
+// تصدير الدوال للاستخدام العام
+window.addRetryCounterToExam = addRetryCounterToExam;
+window.updateRetryCounter = updateRetryCounter;
