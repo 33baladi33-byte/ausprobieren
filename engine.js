@@ -4665,18 +4665,14 @@ function addRetryCounterToExam() {
     const interleavingRow = document.getElementById('interleavingRow');
 
     if (interleavingRow) {
-        // جعل الحاوية مرنة
         interleavingRow.style.display = 'flex';
         interleavingRow.style.alignItems = 'center';
         interleavingRow.style.justifyContent = 'space-between';
         interleavingRow.style.flexWrap = 'wrap';
         interleavingRow.style.gap = '10px';
-        
-        // إضافة الصندوق في نهاية الحاوية (أقصى يمين)
         interleavingRow.appendChild(box);
         console.log('✅ تم إضافة عداد الإعادات في أقصى يمين الأزرار');
     } else {
-        // إذا لم نجد interleavingRow، نبحث عن حاوية أخرى
         const btnContainer = document.querySelector('#exam .exam-controls, .exam-controls, .controls-row, [style*="gap: 10px"]');
         if (btnContainer) {
             btnContainer.style.display = 'flex';
@@ -4686,7 +4682,6 @@ function addRetryCounterToExam() {
             btnContainer.appendChild(box);
             console.log('✅ تم إضافة عداد الإعادات في أقصى يمين الأزرار (بديل)');
         } else {
-            // وضع في أعلى الصفحة يمين
             const container = document.querySelector('#exam, .exam-content, .exam-box, .page.active');
             if (container) {
                 const wrapper = document.createElement('div');
@@ -4700,16 +4695,16 @@ function addRetryCounterToExam() {
 }
 
 // ============================================
-// دالة تحديث العداد بعد التصحيح
+// دالة تحديث العداد بعد التصحيح (تحديث فوري)
 // ============================================
 function updateRetryCounter() {
     const box = document.getElementById('retryCounterBox');
     if (!box) {
-        // إذا لم يكن موجوداً، نعيد إنشائه
         addRetryCounterToExam();
         return;
     }
 
+    // ✅ جلب العدد الجديد وتحديث النص فوراً
     const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
     box.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
 }
