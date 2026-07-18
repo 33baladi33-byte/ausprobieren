@@ -526,6 +526,7 @@ async function updateProfile() {
     const profileDropdown = document.getElementById('profileDropdown');
     const navLoginBtn = document.getElementById('navLoginBtn');
     const navSubscribeBtn = document.getElementById('navSubscribeBtn');
+    const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn'); // ✅ جديد
     const profileIcon = document.getElementById('profileIcon');
 
     if (!user) {
@@ -536,6 +537,7 @@ async function updateProfile() {
         if (profileLogoutBtn) profileLogoutBtn.style.display = 'none';
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+        if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex'; // ✅ جديد
         if (profileIcon) profileIcon.style.display = 'none';
 
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
@@ -576,10 +578,12 @@ async function updateProfile() {
             if (profileExpiry) profileExpiry.textContent = `📅 الصلاحية: حتى ${expiry.toLocaleDateString('en-US')}`;
             if (profileStatus) profileStatus.innerHTML = `<span class="status-premium">✅ مشترك (Pro)</span>`;
             if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
+            if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'none'; // ✅ جديد: يخفي زر المميزات
         } else {
             if (profileExpiry) profileExpiry.textContent = '⏰ انتهت الصلاحية أو مجاني';
             if (profileStatus) profileStatus.innerHTML = `<span class="status-free">📖 مجاني</span>`;
             if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+            if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex'; // ✅ جديد: يظهر زر المميزات
         }
 
         if (profileUidValue) profileUidValue.textContent = user.uid;
@@ -635,6 +639,12 @@ auth.onAuthStateChanged(async user => {
         if (navSubscribeBtn) {
             navSubscribeBtn.style.display = (status === 'premium') ? 'none' : 'inline-flex';
         }
+        
+        // ✅ تحديث زر الاشتراك في قسم المميزات
+        const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
+        if (featuresSubscribeBtn) {
+            featuresSubscribeBtn.style.display = (status === 'premium') ? 'none' : 'inline-flex';
+        }
 
         // تحديث الملف الشخصي (مرة أخرى للتأكد)
         await updateProfile();
@@ -645,6 +655,12 @@ auth.onAuthStateChanged(async user => {
         if (profileIcon) profileIcon.style.display = 'flex';
         if (profileDropdown) profileDropdown.classList.remove('show');
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
+        
+        // ✅ إظهار زر الاشتراك في قسم المميزات للمستخدم غير المسجل
+        const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
+        if (featuresSubscribeBtn) {
+            featuresSubscribeBtn.style.display = 'inline-flex';
+        }
 
         await updateProfile();
     }
