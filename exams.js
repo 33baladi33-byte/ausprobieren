@@ -1769,7 +1769,7 @@ async function openExam(examId, examTitle, skill, fileName = null) {
   // ✅ استخدم الدالة الجديدة للتحقق
   const isFree = isExamFree(skill, examId);
   
-  if (!isPremium && !isFree && skill !== "mündlich1" && skill !== "mündlich3") {
+if (!isPremium && !isFree) {
     if (typeof window.showPremiumModal === 'function') {
       window.showPremiumModal(examTitle + " (" + examId + ")");
     } else {
