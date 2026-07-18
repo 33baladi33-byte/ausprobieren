@@ -2700,12 +2700,13 @@ if (resultDiv) {
     resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
     resultDiv.style.display = "block";
     
-    // ✅ زيادة العداد وعرضه
+    // ✅ زيادة العداد وتحديث الواجهة
     const retryCount = incrementRetryCount(currentSkill, currentExamId);
-    const retryMsg = document.createElement('div');
-    retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
-    retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
-    resultDiv.appendChild(retryMsg);
+    
+    // ✅ تحديث العداد في أعلى الصفحة
+    if (typeof window.updateRetryCounter === 'function') {
+        window.updateRetryCounter();
+    }
 }
   
   saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
