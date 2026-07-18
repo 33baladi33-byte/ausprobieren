@@ -709,7 +709,7 @@ function checkSprach2Exam() {
     resultDiv.innerHTML = `النتيجة: ${finalScore} / 25`;
     resultDiv.style.display = "block";
   }
-  
+
   if (finalScore >= 20) {
     resultDiv.style.backgroundColor = "#d4edda";
     resultDiv.style.color = "#155724";
@@ -720,7 +720,14 @@ function checkSprach2Exam() {
     resultDiv.style.backgroundColor = "#f8d7da";
     resultDiv.style.color = "#721c24";
   }
-  
+
+  // ✅ زيادة العداد وعرضه
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  const retryMsg = document.createElement('div');
+  retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
+  retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+  resultDiv.appendChild(retryMsg);
+
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentSprach2Data.id || window.currentExamId || 1;
     window.saveExamResultGlobal("sprach2", examId, parseFloat(finalScore));
@@ -1098,14 +1105,13 @@ function checkSprach1Exam() {
       }
     }
   }
-  
   const finalScore = (score * pointsPerQuestion).toFixed(2);
   const resultDiv = document.getElementById("sprach1Result");
   if (resultDiv) {
     resultDiv.innerHTML = `النتيجة: ${finalScore} / 25`;
     resultDiv.style.display = "block";
   }
-  
+
   if (finalScore >= 20) {
     resultDiv.style.backgroundColor = "#d4edda";
     resultDiv.style.color = "#155724";
@@ -1116,7 +1122,14 @@ function checkSprach1Exam() {
     resultDiv.style.backgroundColor = "#f8d7da";
     resultDiv.style.color = "#721c24";
   }
-  
+
+  // ✅ زيادة العداد وعرضه
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  const retryMsg = document.createElement('div');
+  retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
+  retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+  resultDiv.appendChild(retryMsg);
+
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentSprach1Data.id || window.currentExamId || 1;
     window.saveExamResultGlobal("sprach1", examId, parseFloat(finalScore));
@@ -1593,6 +1606,13 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         resultDiv.style.color = 'white';
     }
     
+    // ✅ زيادة العداد وعرضه
+    const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+    const retryMsg = document.createElement('div');
+    retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
+    retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+    resultDiv.appendChild(retryMsg);
+    
     // ✅ استخدام saveExamResultGlobal (القراءة فقط)
     if (typeof window.saveExamResultGlobal === "function") {
         const skill = container.id || "hoeren";
@@ -1823,6 +1843,13 @@ function checkMatchingExam() {
     resultDiv.style.backgroundColor = "#f8d7da";
     resultDiv.style.color = "#721c24";
   }
+
+  // ✅ زيادة العداد وعرضه
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  const retryMsg = document.createElement('div');
+  retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
+  retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+  resultDiv.appendChild(retryMsg);
 
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentMatchingExamData.id || window.currentExamId || 1;
@@ -2088,7 +2115,7 @@ function checkTeil2Exam() {
     resultDiv.innerHTML = `النتيجة: ${finalScore} / 25`;
     resultDiv.style.display = "block";
   }
-  
+
   if (finalScore >= 20) {
     resultDiv.style.backgroundColor = "#d4edda";
     resultDiv.style.color = "#155724";
@@ -2099,7 +2126,14 @@ function checkTeil2Exam() {
     resultDiv.style.backgroundColor = "#f8d7da";
     resultDiv.style.color = "#721c24";
   }
-  
+
+  // ✅ زيادة العداد وعرضه
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  const retryMsg = document.createElement('div');
+  retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
+  retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+  resultDiv.appendChild(retryMsg);
+
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentTeil2Data.id || window.currentExamId || 1;
     window.saveExamResultGlobal("lesen2", examId, parseFloat(finalScore));
@@ -2757,6 +2791,13 @@ function checkTeil3Exam() {
     resultDiv.style.backgroundColor = "#f8d7da";
     resultDiv.style.color = "#721c24";
   }
+
+  // ✅ زيادة العداد وعرضه
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  const retryMsg = document.createElement('div');
+  retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
+  retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+  resultDiv.appendChild(retryMsg);
 
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentTeil3Data.id || window.currentExamId || 1;
