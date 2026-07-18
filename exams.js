@@ -748,7 +748,7 @@ const sprach1Exams = [
     ]
   },
   { id: 41, title: "Liebe Anna(الجديد)", enabled: true, hasFile: true, versions: [{ id: 41, file: "exam41.json", title: "Liebe Anna(الجديد)" }] },
-  { id: 41, title: "hi jens", enabled: true, hasFile: true, versions: [{ id: 41, file: "exam41.json", title: "hi jens" }] }
+{ id: 42, title: "Hi Jens", enabled: true, hasFile: true, versions: [{ id: 42, file: "exam42.json", title: "Hi Jens" }] }
 ];
 
 // ---------- Sprach 2 ----------
