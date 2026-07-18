@@ -1935,7 +1935,16 @@ if (interleavingRow) {
         }
     }
 }
-  
+  // إخفاء/إظهار زر اختصارات لوحة المفاتيح
+const shortcutsBtn = document.getElementById('shortcutsToggleBtn');
+if (shortcutsBtn) {
+    const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
+    if (forbiddenSkills.includes(skill)) {
+        shortcutsBtn.style.display = 'none';
+    } else {
+        shortcutsBtn.style.display = 'flex';
+    }
+}
   if (shouldHideHelpButton(skill)) {
     const helpBtn = document.getElementById('globalHelpButton');
     if (helpBtn) helpBtn.style.display = "none";
