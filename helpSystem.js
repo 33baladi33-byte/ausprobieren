@@ -15625,6 +15625,173 @@ HELP_DATA["sprach1_exam116_q30"] = {
     simplified: "وشو أخبارك؟",
     imagine: "📱❓ شخص يرسل رسالة يسأل عن الأخبار"
 };
+
+// ============================================
+// Exam 41 (exam41.json) - Liebe Anna (الجديد)
+// ============================================
+
+HELP_DATA["sprach1_exam41_q1"] = {
+    text: "Brief, den ich letzte",
+    meaning: "الرسالة التي تلقيتها الأسبوع الماضي",
+    keywords: ["den = التي (ضمير موصول للمذكر)", "Brief = رسالة", "letzte Woche = الأسبوع الماضي"],
+    simplified: "شكراً على رسالتك اللي وصلتني الأسبوع الماضي",
+    imagine: "🐌✉️ حلزون يحمل رسالة ويحاول يوصلها بسرعة"
+};
+
+HELP_DATA["sprach1_exam41_q2"] = {
+    text: "verbracht hast. Bestimmt wirst",
+    meaning: "قضيتِ. بالتأكيد ستسافرين",
+    keywords: ["hast = قضيتِ (فعل مساعد)", "verbracht = قضى", "Bestimmt = بالتأكيد"],
+    simplified: "أكيد راح تسافري لإيطاليا أكثر بعدين",
+    imagine: "🍕✈️ بيتزا تطير بطائرة وتنادي تعالوا إيطاليا"
+};
+
+HELP_DATA["sprach1_exam41_q3"] = {
+    text: "Du hast mich gefragt, was",
+    meaning: "لقد سألتني عن رأيي",
+    keywords: ["mich = لي (مفعول به)", "gefragt = سأل", "was = ماذا"],
+    simplified: "سألتيني عن رأيي بتعلم الإيطالية",
+    imagine: "🙋‍♀️❓ ست بيتزا تسأل صديقتها علامة استفهام"
+};
+
+HELP_DATA["sprach1_exam41_q4"] = {
+    text: "Allerjüngsten, doch zum Sprachenlernen",
+    meaning: "الأصغر سناً، لكن لتعلم اللغات",
+    keywords: ["doch = لكن/مع ذلك", "Sprachenlernen = تعلم اللغات", "Allerjüngsten = الأصغر سناً"],
+    simplified: "لسنا شباب لكن للتعلم لسنا كباراً",
+    imagine: "👴🐣 جد كبير يحاول أن يفقس من بيضة ويقول أنا لسه صغير"
+};
+
+HELP_DATA["sprach1_exam41_q5"] = {
+    text: "bestimmt noch jung genug",
+    meaning: "بالتأكيد ما زلنا صغاراً بما يكفي",
+    keywords: ["noch = ما زال", "jung = صغير", "genug = بما يكفي"],
+    simplified: "لسه صغار عالتعلم",
+    imagine: "🧓🦷 رجل كبير طاح سنّه الأخير وهو يضحك يقول لسه صغير"
+};
+
+HELP_DATA["sprach1_exam41_q6"] = {
+    text: "Computer bedient. Und heute",
+    meaning: "تتعامل مع الكمبيوتر. واليوم أنتِ خبيرة",
+    keywords: ["bedient = يتعامل مع/يشغل", "Computer = كمبيوتر", "heute = اليوم"],
+    simplified: "تعلمتي الكمبيوتر بخمسين واليوم صرتي خبيرة",
+    imagine: "💻🐵 قرد يضرب الكمبيوتر بالمطرقة ويصرخ أنا خبير"
+};
+
+HELP_DATA["sprach1_exam41_q7"] = {
+    text: "Neues zu lernen?",
+    meaning: "شيئاً جديداً لتتعلميه؟",
+    keywords: ["zu lernen = لتتعلم", "Neues = شيء جديد", "Angst = خوف"],
+    simplified: "تخافي إنك تتعلمي جديد؟",
+    imagine: "📚👻 كتب تطير وشبح خائف يركض منها"
+};
+
+HELP_DATA["sprach1_exam41_q8"] = {
+    text: "praktisch einsetzen. Du hast",
+    meaning: "تستخدميها عملياً. لديكِ",
+    keywords: ["einsetzen = يستخدم/يطبق", "praktisch = عملياً", "Kenntnisse = معرفة"],
+    simplified: "تستخدمي اللي تتعلميه بخططك للسفر",
+    imagine: "🗺️🐫 خريطة وجمل يحمل حقائب سفر"
+};
+
+HELP_DATA["sprach1_exam41_q9"] = {
+    text: "ist. Wenn du mich",
+    meaning: "هي. إذا سألتني",
+    keywords: ["Wenn = إذا", "fragst = تسأل", "mich = لي"],
+    simplified: "لو سألتني، قولي ابداي كورس إيطالي",
+    imagine: "🇮🇹🍝 معكرونة تركض إلى الكتاب وتقول تعال اتعلم إيطالي"
+};
+
+HELP_DATA["sprach1_exam41_q10"] = {
+    text: "ich muss nämlich gleich in",
+    meaning: "لأنه يجب أن أذهب الآن",
+    keywords: ["nämlich = لأن (توضيح)", "muss = يجب", "gleich = حالاً"],
+    simplified: "لازم أروح الكورس عشان ما أتأخر",
+    imagine: "🏃‍♂️🕺 شخص يركض وسرواله ينزل وهو يضحك"
+};
+// ============================================
+// Exam 7 (exam7.json) - Hi Jens
+// ============================================
+
+HELP_DATA["sprach1_exam42_q1"] = {
+    text: "warten lassen und schreibe",
+    meaning: "أنتظر وأرد حالاً",
+    keywords: ["lassen = أترك/أدع", "warten = أنتظر", "schreibe = أكتب"],
+    simplified: "ما رح أخليك تنتظرني هالمرة",
+    imagine: "⏳🦥 حمار ينتظر رسالة وسلحفاة تجري لتوصيل الرد"
+};
+
+HELP_DATA["sprach1_exam42_q2"] = {
+    text: "Nicht zuletzt, weil ich gern",
+    meaning: "ليس آخراً، لأنني أرغب",
+    keywords: ["weil = لأن", "gern = برغبة", "erfahren = أعرف"],
+    simplified: "خصوصاً إني ودي أعرف عن شغلك الجديد",
+    imagine: "⚽🕵️ رجل يرتدي نظارة سوداء ويتجسس على مدرب كرة قدم"
+};
+
+HELP_DATA["sprach1_exam42_q3"] = {
+    text: "Job als Fußballtrainer",
+    meaning: "وظيفة كمدرب كرة قدم",
+    keywords: ["als = كـ", "Fußballtrainer = مدرب كرة قدم", "Job = وظيفة"],
+    simplified: "وظيفتك الجديدة كمدرب كرة قدم للأطفال",
+    imagine: "⚽🐧 طيور البطريق تلعب كرة قدم وواحد منهم يصفّر"
+};
+
+HELP_DATA["sprach1_exam42_q4"] = {
+    text: "Ich wusste gar nicht, dass Du so",
+    meaning: "لم أكن أعلم أنك بهذا الحب لكرة القدم",
+    keywords: ["dass = أن", "wusste = كنت أعلم", "so = بهذا"],
+    simplified: "ما كنت أدري إنك تحب كرة القدم لهالدرجة",
+    imagine: "⚽😱 رجل يسقط من الصدمة حين رأى صديقه يلعب كرة"
+};
+
+HELP_DATA["sprach1_exam42_q5"] = {
+    text: "zurzeit ziemlich viel Stress",
+    meaning: "حالياً ضغط كثير جداً",
+    keywords: ["ziemlich = جداً/كثيراً", "Stress = ضغط", "zurzeit = حالياً"],
+    simplified: "عندي ضغط كثير هالفترة بحصص الرياضة",
+    imagine: "😩🍔 رجل سمين يحاول الجري وعرق يتطاير منه"
+};
+
+HELP_DATA["sprach1_exam42_q6"] = {
+    text: "aber beim Schulpraktikum",
+    meaning: "لكن في التدريب العملي بالمدرسة",
+    keywords: ["beim = في (في التدريب)", "Schulpraktikum = تدريب عملي مدرسي", "aber = لكن"],
+    simplified: "بس بالتدريب العملي بالمدرسة واجهت مشكلة",
+    imagine: "🏫🐒 قرد يلبس نظارة ويدخل فصل ويضحك على المعلم"
+};
+
+HELP_DATA["sprach1_exam42_q7"] = {
+    text: "mich durchzusetzen.",
+    meaning: "أثبت وجودي/أفرض نفسي",
+    keywords: ["durchzusetzen = يفرض نفسه", "mich = نفسي", "nicht geschafft = لم أستطع"],
+    simplified: "ما قدرت أسيطر على الطلاب المشاغبين",
+    imagine: "🦁🐭 أسد يحاول أن يزأر وفأر صغير يضحك عليه ويصفعه"
+};
+
+HELP_DATA["sprach1_exam42_q8"] = {
+    text: "nur das gemacht, was sie wollten",
+    meaning: "فقط فعلوا ما يريدونه هم",
+    keywords: ["was = ما", "wollten = أرادوا", "gemacht = فعلوا"],
+    simplified: "الطلاب سمعوا كلامي؟ لا، سووا اللي هم يبونه",
+    imagine: "👨‍🏫🐱 معلم يحاول أن يأمر القطط وهم يلعبون كرة"
+};
+
+HELP_DATA["sprach1_exam42_q9"] = {
+    text: "einem totalen Chaos",
+    meaning: "فوضى كاملة/شاملة",
+    keywords: ["totalen = كامل/شامل", "Chaos = فوضى", "endete = انتهى"],
+    simplified: "الحصة انتهت بفوضى عارمة",
+    imagine: "🎪😂 سيرك ينهار وكل الحيوانات تركض في كل اتجاه"
+};
+
+HELP_DATA["sprach1_exam42_q10"] = {
+    text: "kann mir gar nicht",
+    meaning: "لا أستطيع أن أتخيل نفسي",
+    keywords: ["mir = لنفسي", "kann = أستطيع", "vorstellen = أتخيل"],
+    simplified: "ما عاد أقدر أتخيل نفسي معلم بعد اللي صار",
+    imagine: "👨‍🏫😵 معلم يجلس في زاوية الفصل وطلابه يرقصون على طاولته"
+};
 // ============================================
 // sprach2.js - جميع شروحات Sprachbausteine Teil 2
 // ============================================
@@ -19494,7 +19661,7 @@ HELP_DATA["sprach2_exam46_q10"] = {
 // Exam 3b (exam3b.json) - Man(n) kocht selbst
 // ============================================
 
-HELP_DATA["sprach2_exam3b_q1"] = {
+HELP_DATA["sprach2_exam117_q1"] = {
     text: "greifen jetzt selbst zum Kochlöffel",
     meaning: "يلجأون الآن بأنفسهم إلى ملعقة الطبخ",
     keywords: ["zum = إلى", "Kochlöffel = ملعقة طبخ", "greifen = يلجأون"],
@@ -19502,7 +19669,7 @@ HELP_DATA["sprach2_exam3b_q1"] = {
     imagine: "👨‍🍳🥄 رجل يمسك ملعقة طبخ ويبتسم"
 };
 
-HELP_DATA["sprach2_exam3b_q2"] = {
+HELP_DATA["sprach2_exam117_q2"] = {
     text: "Ein Grund für diese Entwicklung",
     meaning: "سبب لهذا التطور",
     keywords: ["für = لـ", "Grund = سبب", "Entwicklung = تطور"],
@@ -19510,7 +19677,7 @@ HELP_DATA["sprach2_exam3b_q2"] = {
     imagine: "📈🤔 رسم بياني صاعد وعلامة استفهام"
 };
 
-HELP_DATA["sprach2_exam3b_q3"] = {
+HELP_DATA["sprach2_exam117_q3"] = {
     text: "besteht zwischen den Ansprüchen",
     meaning: "يوجد فرق بين المتطلبات",
     keywords: ["zwischen = بين", "Ansprüchen = متطلبات", "besteht = يوجد"],
@@ -19518,7 +19685,7 @@ HELP_DATA["sprach2_exam3b_q3"] = {
     imagine: "⚖️👩‍🍳👨‍🍳 ميزان بين امرأة ورجل في المطبخ"
 };
 
-HELP_DATA["sprach2_exam3b_q4"] = {
+HELP_DATA["sprach2_exam117_q4"] = {
     text: "traditionellen Hausfrau und denen eines Hobbykochs",
     meaning: "ربة المنزل التقليدية وتلك الخاصة بالطاهي الهواة",
     keywords: ["denen = تلك", "Hobbykochs = طاهي هاوٍ", "traditionellen = تقليدية"],
@@ -19526,7 +19693,7 @@ HELP_DATA["sprach2_exam3b_q4"] = {
     imagine: "🍳🔪 مقلاة وسكين فاخرة مقابل عادية"
 };
 
-HELP_DATA["sprach2_exam3b_q5"] = {
+HELP_DATA["sprach2_exam117_q5"] = {
     text: "gilt als stillos",
     meaning: "يعتبر غير أنيق",
     keywords: ["als = كـ", "stillos = غير أنيق", "gilt = يعتبر"],
@@ -19534,7 +19701,7 @@ HELP_DATA["sprach2_exam3b_q5"] = {
     imagine: "🚫👔 علامة منع وربطة عنق"
 };
 
-HELP_DATA["sprach2_exam3b_q6"] = {
+HELP_DATA["sprach2_exam117_q6"] = {
     text: "hängt es nur noch davon ab, was",
     meaning: "يعتمد الأمر فقط على ما",
     keywords: ["davon = على ذلك", "hängt ab = يعتمد", "nur noch = فقط"],
@@ -19542,7 +19709,7 @@ HELP_DATA["sprach2_exam3b_q6"] = {
     imagine: "🎯📖 هدف وكتاب طبخ"
 };
 
-HELP_DATA["sprach2_exam3b_q7"] = {
+HELP_DATA["sprach2_exam117_q7"] = {
     text: "zum Dönerstand um die Ecke gegangen",
     meaning: "ذهب إلى كشك الدونر خلف الزاوية",
     keywords: ["um = حول", "Ecke = زاوية", "Dönerstand = كشك دونر"],
@@ -19550,7 +19717,7 @@ HELP_DATA["sprach2_exam3b_q7"] = {
     imagine: "🥙🤷 دونر وعلامة استفهام"
 };
 
-HELP_DATA["sprach2_exam3b_q8"] = {
+HELP_DATA["sprach2_exam117_q8"] = {
     text: "Das führt dazu, dass man(n)",
     meaning: "هذا يؤدي إلى أن المرء",
     keywords: ["dazu = إلى ذلك", "führt = يؤدي", "dass = أن"],
@@ -19558,7 +19725,7 @@ HELP_DATA["sprach2_exam3b_q8"] = {
     imagine: "🌍🍲 أطباق من حول العالم"
 };
 
-HELP_DATA["sprach2_exam3b_q9"] = {
+HELP_DATA["sprach2_exam117_q9"] = {
     text: "aber, dass es viel zu aufwändig ist",
     meaning: "لكن أنه معقد جداً",
     keywords: ["dass = أن", "aufwändig = معقد", "viel = جداً"],
@@ -19566,7 +19733,7 @@ HELP_DATA["sprach2_exam3b_q9"] = {
     imagine: "😓🍳 شخص متعب أمام قدر كبير"
 };
 
-HELP_DATA["sprach2_exam3b_q10"] = {
+HELP_DATA["sprach2_exam117_q10"] = {
     text: "weniger Aufwand genauso gut ein Festmahl",
     meaning: "بجهد أقل وبنفس الجودة وليمة",
     keywords: ["genauso = بنفس", "gut = جودة", "Aufwand = جهد"],
@@ -19577,7 +19744,7 @@ HELP_DATA["sprach2_exam3b_q10"] = {
 // Exam 4b (exam4b.json) - Jugend diskutiert – mach mit!
 // ============================================
 
-HELP_DATA["sprach2_exam4b_q1"] = {
+HELP_DATA["sprach2_exam118_q1"] = {
     text: "gibt es bereits seit Herbst 2002",
     meaning: "موجودة بالفعل منذ خريف 2002",
     keywords: ["seit = منذ", "Herbst = خريف", "2002 = 2002"],
@@ -19585,7 +19752,7 @@ HELP_DATA["sprach2_exam4b_q1"] = {
     imagine: "📅🏆 تقويم وكأس"
 };
 
-HELP_DATA["sprach2_exam4b_q2"] = {
+HELP_DATA["sprach2_exam118_q2"] = {
     text: "Wie immer bereiten sich die Teilnehmer",
     meaning: "كالعادة يستعد المشاركون",
     keywords: ["Wie = كما", "immer = دائماً", "bereiten sich = يستعدون"],
@@ -19593,7 +19760,7 @@ HELP_DATA["sprach2_exam4b_q2"] = {
     imagine: "📚🏫 كتب ومدرسة"
 };
 
-HELP_DATA["sprach2_exam4b_q3"] = {
+HELP_DATA["sprach2_exam118_q3"] = {
     text: "Du fragst dich, warum du teilnehmen solltest",
     meaning: "تتساءل لماذا يجب أن تشارك",
     keywords: ["warum = لماذا", "teilnehmen = تشارك", "fragst dich = تتساءل"],
@@ -19601,7 +19768,7 @@ HELP_DATA["sprach2_exam4b_q3"] = {
     imagine: "❓🤔 علامة استفهام وشخص يفكر"
 };
 
-HELP_DATA["sprach2_exam4b_q4"] = {
+HELP_DATA["sprach2_exam118_q4"] = {
     text: "Außerdem bietet dir \"Jugend diskutiert\" die Chance",
     meaning: "بالإضافة إلى ذلك، تمنحك المسابقة فرصة",
     keywords: ["Außerdem = بالإضافة إلى ذلك", "Chance = فرصة", "bietet = تمنح"],
@@ -19609,7 +19776,7 @@ HELP_DATA["sprach2_exam4b_q4"] = {
     imagine: "🏃‍♂️🏆 سباق وشارة فوز"
 };
 
-HELP_DATA["sprach2_exam4b_q5"] = {
+HELP_DATA["sprach2_exam118_q5"] = {
     text: "die dann an Regionalwettbewerben teilnehmen",
     meaning: "الذين يشاركون بعدها في مسابقات المناطق",
     keywords: ["an = في", "Regionalwettbewerben = مسابقات مناطق", "teilnehmen = يشاركون"],
@@ -19617,7 +19784,7 @@ HELP_DATA["sprach2_exam4b_q5"] = {
     imagine: "🗺️📍 مراحل على خريطة"
 };
 
-HELP_DATA["sprach2_exam4b_q6"] = {
+HELP_DATA["sprach2_exam118_q6"] = {
     text: "treten im Bundesfinale an",
     meaning: "يشاركون في النهائي على المستوى الفيدرالي",
     keywords: ["im = في", "Bundesfinale = نهائي وطني", "treten an = يشاركون"],
@@ -19625,7 +19792,7 @@ HELP_DATA["sprach2_exam4b_q6"] = {
     imagine: "🏅🇩🇪 ميدالية وعلم ألمانيا"
 };
 
-HELP_DATA["sprach2_exam4b_q7"] = {
+HELP_DATA["sprach2_exam118_q7"] = {
     text: "Bei \"Jugend diskutiert\" kannst du viel lernen",
     meaning: "في 'شباب يناقشون' يمكنك تعلم الكثير",
     keywords: ["Bei = في", "lernen = تعلم", "viel = الكثير"],
@@ -19633,7 +19800,7 @@ HELP_DATA["sprach2_exam4b_q7"] = {
     imagine: "🧠📖 عقل وكتاب"
 };
 
-HELP_DATA["sprach2_exam4b_q8"] = {
+HELP_DATA["sprach2_exam118_q8"] = {
     text: "auf sich aufmerksam macht",
     meaning: "يلفت الانتباه إلى نفسه",
     keywords: ["macht = يلفت", "aufmerksam = انتباه", "auf sich = إلى نفسه"],
@@ -19641,7 +19808,7 @@ HELP_DATA["sprach2_exam4b_q8"] = {
     imagine: "👋🌟 شخص يلوح ونجوم حوله"
 };
 
-HELP_DATA["sprach2_exam4b_q9"] = {
+HELP_DATA["sprach2_exam118_q9"] = {
     text: "da du eigene Argumente finden",
     meaning: "لأنك تستطيع إيجاد حججك الخاصة",
     keywords: ["eigene = خاصة", "Argumente = حجج", "finden = إيجاد"],
@@ -19649,7 +19816,7 @@ HELP_DATA["sprach2_exam4b_q9"] = {
     imagine: "🔍💡 بحث ومصباح"
 };
 
-HELP_DATA["sprach2_exam4b_q10"] = {
+HELP_DATA["sprach2_exam118_q10"] = {
     text: "auch eine Chance, Jugendliche aus ganz Deutschland",
     meaning: "أيضاً فرصة للتعرف على شباب من كل ألمانيا",
     keywords: ["Chance = فرصة", "Jugendliche = شباب", "ganz Deutschland = كل ألمانيا"],
@@ -19660,7 +19827,7 @@ HELP_DATA["sprach2_exam4b_q10"] = {
 // Exam 4c (exam4c.json) - Jugend diskutiert – mach mit! (2 المعدل)
 // ============================================
 
-HELP_DATA["sprach2_exam4c_q1"] = {
+HELP_DATA["sprach2_exam119_q1"] = {
     text: "gibt es bereits seit Herbst 2002",
     meaning: "موجودة بالفعل منذ خريف 2002",
     keywords: ["seit = منذ", "Herbst = خريف", "2002 = 2002"],
@@ -19668,7 +19835,7 @@ HELP_DATA["sprach2_exam4c_q1"] = {
     imagine: "📅🏆 تقويم وكأس"
 };
 
-HELP_DATA["sprach2_exam4c_q2"] = {
+HELP_DATA["sprach2_exam119_q2"] = {
     text: "an dem Wettbewerb teilnehmen möchten",
     meaning: "يريدون المشاركة في المسابقة",
     keywords: ["teilnehmen = يشاركون", "Wettbewerb = مسابقة", "möchten = يريدون"],
@@ -19676,7 +19843,7 @@ HELP_DATA["sprach2_exam4c_q2"] = {
     imagine: "🙋‍♂️🏫 طلاب يرفعون أيديهم في المدرسة"
 };
 
-HELP_DATA["sprach2_exam4c_q3"] = {
+HELP_DATA["sprach2_exam119_q3"] = {
     text: "Du fragst dich, warum du teilnehmen solltest",
     meaning: "تتساءل لماذا يجب أن تشارك",
     keywords: ["warum = لماذا", "teilnehmen = تشارك", "fragst dich = تتساءل"],
@@ -19684,7 +19851,7 @@ HELP_DATA["sprach2_exam4c_q3"] = {
     imagine: "❓🤔 علامة استفهام وشخص يفكر"
 };
 
-HELP_DATA["sprach2_exam4c_q4"] = {
+HELP_DATA["sprach2_exam119_q4"] = {
     text: "Außerdem bietet dir \"Jugend diskutiert\" die Chance",
     meaning: "بالإضافة إلى ذلك، تمنحك المسابقة فرصة",
     keywords: ["Außerdem = بالإضافة إلى ذلك", "Chance = فرصة", "bietet = تمنح"],
@@ -19692,7 +19859,7 @@ HELP_DATA["sprach2_exam4c_q4"] = {
     imagine: "🏃‍♂️🏆 سباق وشارة فوز"
 };
 
-HELP_DATA["sprach2_exam4c_q5"] = {
+HELP_DATA["sprach2_exam119_q5"] = {
     text: "treten im Bundesfinale an",
     meaning: "يشاركون في النهائي على المستوى الفيدرالي",
     keywords: ["im = في", "Bundesfinale = نهائي وطني", "treten an = يشاركون"],
@@ -19700,7 +19867,7 @@ HELP_DATA["sprach2_exam4c_q5"] = {
     imagine: "🏅🇩🇪 ميدالية وعلم ألمانيا"
 };
 
-HELP_DATA["sprach2_exam4c_q6"] = {
+HELP_DATA["sprach2_exam119_q6"] = {
     text: "Bei \"Jugend diskutiert\" kannst du viel lernen",
     meaning: "في 'شباب يناقشون' يمكنك تعلم الكثير",
     keywords: ["Bei = في", "lernen = تعلم", "viel = الكثير"],
@@ -19708,7 +19875,7 @@ HELP_DATA["sprach2_exam4c_q6"] = {
     imagine: "🧠📖 عقل وكتاب"
 };
 
-HELP_DATA["sprach2_exam4c_q7"] = {
+HELP_DATA["sprach2_exam119_q7"] = {
     text: "auf sich aufmerksam macht",
     meaning: "يلفت الانتباه إلى نفسه",
     keywords: ["macht = يلفت", "aufmerksam = انتباه", "auf sich = إلى نفسه"],
@@ -19716,7 +19883,7 @@ HELP_DATA["sprach2_exam4c_q7"] = {
     imagine: "👋🌟 شخص يلوح ونجوم حوله"
 };
 
-HELP_DATA["sprach2_exam4c_q8"] = {
+HELP_DATA["sprach2_exam119_q8"] = {
     text: "da du eigene Argumente finden",
     meaning: "لأنك تستطيع إيجاد حججك الخاصة",
     keywords: ["eigene = خاصة", "Argumente = حجج", "finden = إيجاد"],
@@ -19724,7 +19891,7 @@ HELP_DATA["sprach2_exam4c_q8"] = {
     imagine: "🔍💡 بحث ومصباح"
 };
 
-HELP_DATA["sprach2_exam4c_q9"] = {
+HELP_DATA["sprach2_exam119_q9"] = {
     text: "Argumente anderer genau prüfen kannst",
     meaning: "يمكنك فحص حجج الآخرين بدقة",
     keywords: ["prüfen = تفحص", "anderer = الآخرين", "genau = بدقة"],
@@ -19732,12 +19899,261 @@ HELP_DATA["sprach2_exam4c_q9"] = {
     imagine: "🔎📋 عدسة مكبرة وقائمة"
 };
 
-HELP_DATA["sprach2_exam4c_q10"] = {
+HELP_DATA["sprach2_exam119_q10"] = {
     text: "auch eine Chance, Jugendliche aus ganz Deutschland",
     meaning: "أيضاً فرصة للتعرف على شباب من كل ألمانيا",
     keywords: ["Chance = فرصة", "Jugendliche = شباب", "ganz Deutschland = كل ألمانيا"],
     simplified: "المسابقة فرصة لتكوين صداقات من كل أنحاء ألمانيا",
     imagine: "🤝🗺️ مصافحة وخريطة ألمانيا"
+};
+// ============================================
+// Exam 47 (exam47.json) - Die Reise im Schlafwagen
+// ============================================
+
+HELP_DATA["sprach2_exam47_q1"] = {
+    text: "wurden eingestellt. Noch in",
+    meaning: "تم إيقافها. لا يزال في",
+    keywords: ["EINGESTELLT = تم إيقافه (الكلمة الصحيحة)", "wurden = تم", "Noch = لا يزال"],
+    simplified: "خدمات قطار الليل توقفت بسبب الرحلات الرخيصة",
+    imagine: "🚂😢 قطار يبكي وعليه لافتة مكتوب عليها 'توقفت'"
+};
+
+HELP_DATA["sprach2_exam47_q2"] = {
+    text: "neue Kunden, erklärt Sprecher",
+    meaning: "عملاء جدد، يوضح المتحدث",
+    keywords: ["KUNDEN = عملاء (الكلمة الصحيحة)", "neue = جدد", "erklärt = يوضح"],
+    simplified: "النمساويين أكبر مزود قطارات ليلية بأوروبا",
+    imagine: "🧑‍🤝‍🧑🚂 مجموعة من الرجال يركضون خلف القطار وبأيديهم تذاكر"
+};
+
+HELP_DATA["sprach2_exam47_q3"] = {
+    text: "aus Gründen des Umweltschutzes",
+    meaning: "لأسباب تتعلق بحماية البيئة",
+    keywords: ["GRÜNDEN = أسباب (الكلمة الصحيحة)", "aus = من أجل/بسبب", "Umweltschutzes = حماية البيئة"],
+    simplified: "البيئة تخلي الناس ترجع تفكر بقطار الليل",
+    imagine: "🌿🚂 شجرة تركض خلف القطار وتصرخ 'خذني معك'"
+};
+
+HELP_DATA["sprach2_exam47_q4"] = {
+    text: "in Mode? Und könnten",
+    meaning: "رائج/موضة؟ وهل يمكن",
+    keywords: ["MODE = موضة/رائج (الكلمة الصحيحة)", "in Mode = رائج", "könnten = يمكن"],
+    simplified: "هل قطار الليل رجع موضة تاني؟",
+    imagine: "🕺🚂 قطار يرتدي جينز ضيق ويرقص على أنغام موسيقى"
+};
+
+HELP_DATA["sprach2_exam47_q5"] = {
+    text: "Reisemittel Konkurrenz machen? Stefan",
+    meaning: "ينافس وسائل النقل الأخرى؟ ستيفان",
+    keywords: ["KONKURRENZ = منافسة (الكلمة الصحيحة)", "Reisemittel = وسائل النقل", "machen = يفعل"],
+    simplified: "هل يقدر قطار الليل ينافس الطيارة؟",
+    imagine: "🥊✈️ قطار يلبس قفازات ملاكمة ويتحدى طائرة في الحلبة"
+};
+
+HELP_DATA["sprach2_exam47_q6"] = {
+    text: "manchmal ganz schön ungemütlich",
+    meaning: "أحياناً غير مريح تماماً",
+    keywords: ["GANZ = تماماً/كلياً (الكلمة الصحيحة)", "manchmal = أحياناً", "ungemütlich = غير مريح"],
+    simplified: "عربات النوم ضيقة وغير مريحة أحياناً",
+    imagine: "🦒🚂 زرافة تحاول النوم في سرير صغير ورجلها خارج الشباك"
+};
+
+HELP_DATA["sprach2_exam47_q7"] = {
+    text: "stickig. Außerdem schrecke die",
+    meaning: "خانق. بالإضافة إلى ذلك، وقت السفر الطويل يردع الكثيرين",
+    keywords: ["AUSSERDEM = بالإضافة إلى ذلك (الكلمة الصحيحة)", "stickig = خانق", "schrecke = يردع"],
+    simplified: "وكمان وقت السفر الطويل يخوف الركاب",
+    imagine: "⏰😱 راكب ينظر للساعة ووجهه أصفر من الخوف"
+};
+
+HELP_DATA["sprach2_exam47_q8"] = {
+    text: "sein. Als umweltschonendes Transportmittel",
+    meaning: "يكون. كوسيلة نقل صديقة للبيئة",
+    keywords: ["ALS = كـ/بصفة (الكلمة الصحيحة)", "umweltschonendes = صديق للبيئة", "Transportmittel = وسيلة نقل"],
+    simplified: "قطار الليل وسيلة نقل خضراء وصديقة للبيئة",
+    imagine: "🌱🚂 قطار ينبت منه ورد وأزهار وهو يسير"
+};
+
+HELP_DATA["sprach2_exam47_q9"] = {
+    text: "vorbei, während man von",
+    meaning: "تمر، بينما يتم تهدئة الراكب",
+    keywords: ["WÄHREND = بينما (الكلمة الصحيحة)", "vorbei = تمر", "von = من"],
+    simplified: "المناظر تمر والنوم يغلبك وأنت تسمع صوت القطار الهادي",
+    imagine: "😴🎵 راكب يغط في نوم عميق والقطار يهدهد مثل أم"
+};
+
+HELP_DATA["sprach2_exam47_q10"] = {
+    text: "etwas voreilig. Als sanfte",
+    meaning: "متسرعاً بعض الشيء. كبديل لطيف",
+    keywords: ["VOREILIG = متسرع (الكلمة الصحيحة)", "etwas = بعض الشيء", "sanfte = لطيف"],
+    simplified: "اللي قالوا قطار الليل مات كانوا متسرعين",
+    imagine: "🔮👴 رجل عجوز ينظر في كرة بلورية ويقول 'آه أنا متسرع'"
+};
+// ============================================
+// Exam 48 (exam48.json) - Theaterprojekt für Kinder (المعدل 1)
+// ============================================
+
+HELP_DATA["sprach2_exam48_q1"] = {
+    text: "nur die sondern auch die",
+    meaning: "ليس فقط... بل أيضاً",
+    keywords: ["sondern = بل (الكلمة الصحيحة)", "nur = فقط", "auch = أيضاً"],
+    simplified: "المسرح مفيد للخيال وللجسم كمان",
+    imagine: "🎭🦵 ممثل يرقص على خشبة المسرح ويداه ترسمان أشكالاً في الهواء"
+};
+
+HELP_DATA["sprach2_exam48_q2"] = {
+    text: "arbeitet seit vielen Jahren",
+    meaning: "يعمل منذ سنوات عديدة",
+    keywords: ["seit = منذ (الكلمة الصحيحة)", "arbeitet = يعمل", "vielen Jahren = سنوات عديدة"],
+    simplified: "النادي شغال في دعم الشباب من زمان",
+    imagine: "👴🧒 رجل عجوز يلعب مع أطفال ويقول 'أنا معكم من 20 سنة'"
+};
+
+HELP_DATA["sprach2_exam48_q3"] = {
+    text: "die wegen familiärer und",
+    meaning: "الذين بسبب مشاكل عائلية",
+    keywords: ["wegen = بسبب (الكلمة الصحيحة)", "familiärer = عائلية", "Probleme = مشاكل"],
+    simplified: "أطفال عندهم مشاكل عائلية أو غيرها يحتاجوا مساعدة",
+    imagine: "🏠😢 منزل يبكي وأطفال يحملون حقائب ويخرجون منه"
+};
+
+HELP_DATA["sprach2_exam48_q4"] = {
+    text: "werden ab dem kommenden",
+    meaning: "سيبدأون من العام القادم",
+    keywords: ["ab = من/اعتباراً من (الكلمة الصحيحة)", "werden = سوف", "kommenden = القادم"],
+    simplified: "العام الجاي راح تبدأ ورشة المسرح",
+    imagine: "📅🚀 تقويم يطير ويضرب المسرح"
+};
+
+HELP_DATA["sprach2_exam48_q5"] = {
+    text: "Ende des Projekts werden",
+    meaning: "في نهاية المشروع سوف",
+    keywords: ["des = (أداة تعريف للمذكر) (الكلمة الصحيحة)", "Ende = نهاية", "Projekts = المشروع"],
+    simplified: "بعد ما يخلص المشروع راح يعملوا عرض",
+    imagine: "🏁🎭 علم نهاية السباق يرفرف على خشبة المسرح"
+};
+
+HELP_DATA["sprach2_exam48_q6"] = {
+    text: "Schauspieler Wolfgang Neuhausen. Er",
+    meaning: "الممثل فولفغانغ نوهاوزن. هو",
+    keywords: ["Wolfgang = فولفغانغ (اسم صحيح) (الكلمة الصحيحة)", "Schauspieler = ممثل", "Neuhausen = نوهاوزن"],
+    simplified: "الممثل فولفغانغ نوهاوزن راح يدير المجموعة",
+    imagine: "🎭🕺 ممثل يرتدي باروكة ويقف على يده اليمنى"
+};
+
+HELP_DATA["sprach2_exam48_q7"] = {
+    text: "Stadt keine Gelder vorhanden",
+    meaning: "المدينة لم يكن لديها أموال",
+    keywords: ["keine = لا يوجد (الكلمة الصحيحة)", "Gelder = أموال", "vorhanden = متوفرة"],
+    simplified: "البلدية ما عندها فلوس فالمشروع استنى دعم",
+    imagine: "💰😱 محفظة فارغة تبكي وأوراق نقدية تطير بعيداً"
+};
+
+HELP_DATA["sprach2_exam48_q8"] = {
+    text: "Plakate aufgehängt, mit denen",
+    meaning: "ملصقات معلقة، والتي",
+    keywords: ["aufgehängt = معلقة (الكلمة الصحيحة)", "Plakate = ملصقات", "mit denen = والتي"],
+    simplified: "علقوا ملصقات في مسارح المدينة عشان يدعموا المشروع",
+    imagine: "🖼️🔨 رجل يعلق ملصقاً كبيراً وهو واقف على سلم طويل"
+};
+
+HELP_DATA["sprach2_exam48_q9"] = {
+    text: "hofft, auf diese Weise",
+    meaning: "يأمل، بهذه الطريقة",
+    keywords: ["auf = على/بواسطة (الكلمة الصحيحة)", "hofft = يأمل", "diese Weise = هذه الطريقة"],
+    simplified: "يا رب بهالطريقة نلاقي دعم أكبر",
+    imagine: "🙏📢 رجل يرفع يديه للسماء ويمسك مكبر صوت"
+};
+
+HELP_DATA["sprach2_exam48_q10"] = {
+    text: "Aufführungen noch ehrenamtliche Helfer",
+    meaning: "العروض لا تزال بحاجة لمتطوعين",
+    keywords: ["noch = لا يزال/أيضاً (الكلمة الصحيحة)", "Aufführungen = عروض", "ehrenamtliche Helfer = متطوعين"],
+    simplified: "لسه بدهم متطوعين يساعدوا بالفعاليات",
+    imagine: "🙋‍♂️🙋‍♀️ أيدٍ كثيرة ترتفع في الهواء وأحدهم يصرخ 'أنا متطوع'"
+}; 
+// ============================================
+// Exam 49 (exam49.json) - Theater für Kinder und Jugendliche (المعدل 2)
+// ============================================
+
+HELP_DATA["sprach2_exam49_q1"] = {
+    text: "nur die sondern auch die",
+    meaning: "ليس فقط... بل أيضاً",
+    keywords: ["sondern = بل (الكلمة الصحيحة)", "nur = فقط", "auch = أيضاً"],
+    simplified: "المسرح مفيد للخيال وللجسم كمان",
+    imagine: "🎭🦵 ممثل يرقص على رجل واحدة ويداه ترسم هلالاً في الهواء"
+};
+
+HELP_DATA["sprach2_exam49_q2"] = {
+    text: "arbeitet seit vielen Jahren",
+    meaning: "يعمل منذ سنوات عديدة",
+    keywords: ["seit = منذ (الكلمة الصحيحة)", "arbeitet = يعمل", "vielen Jahren = سنوات عديدة"],
+    simplified: "النادي شغال في دعم الشباب من زمان طويل",
+    imagine: "🧓🎭 رجل عجوز يحمل لافتة مكتوب عليها 'من 30 سنة وأنا مع المسرح'"
+};
+
+HELP_DATA["sprach2_exam49_q3"] = {
+    text: "Hilfe brauchen. Bis zu",
+    meaning: "يحتاجون مساعدة. حتى",
+    keywords: ["brauchen = يحتاجون (الكلمة الصحيحة)", "Hilfe = مساعدة", "Bis zu = حتى"],
+    simplified: "الأطفال اللي عندهم مشاكل يحتاجوا دعم",
+    imagine: "🆘🤲 أيادٍ ممدودة تطلب المساعدة ووجه حزين"
+};
+
+HELP_DATA["sprach2_exam49_q4"] = {
+    text: "Jungen werden ab dem",
+    meaning: "سوف يبدأ الأولاد من",
+    keywords: ["werden = سوف (الكلمة الصحيحة)", "Jungen = أولاد", "ab dem = من"],
+    simplified: "العشرين ولد وبنت راح يبدوا يتعلموا المسرح السنة الجاية",
+    imagine: "👦👧🎭 أطفال يركضون نحو المسرح وقبعاتهم تطير"
+};
+
+HELP_DATA["sprach2_exam49_q5"] = {
+    text: "kennenlernen. am Ende des",
+    meaning: "يتعلمون. في نهاية",
+    keywords: ["am = في (حرف جر مع المذكر) (الكلمة الصحيحة)", "Ende = نهاية", "des = (أداة تعريف)"],
+    simplified: "بنهاية المشروع راح يعملوا عرض في مهرجان مسرحي",
+    imagine: "🏁🎭 علم السباحة يرفرف على المسرح والممثلين يرقصون"
+};
+
+HELP_DATA["sprach2_exam49_q6"] = {
+    text: "ist es wichtig, dass",
+    meaning: "من المهم أن",
+    keywords: ["es = (ضمير محايد) (الكلمة الصحيحة)", "wichtig = مهم", "dass = أن"],
+    simplified: "المهم إن الأطفال يحسوا بالتقدير على خشبة المسرح",
+    imagine: "🌟👏 نجوم تتساقط على المسرح والأطفال يصفقون"
+};
+
+HELP_DATA["sprach2_exam49_q7"] = {
+    text: "unmöglich, da bei der",
+    meaning: "مستحيل، لأن",
+    keywords: ["da = لأن (الكلمة الصحيحة)", "unmöglich = مستحيل", "bei der = في/عند"],
+    simplified: "المشروع كان مستحيل بدون دعم مالي لأن البلدية ما عندها فلوس",
+    imagine: "💰😱 خزينة فارغة وعليها شبكة عنكبوت وسمكة تموت"
+};
+
+HELP_DATA["sprach2_exam49_q8"] = {
+    text: "Projekte bekannt zu machen",
+    meaning: "جعل المشاريع معروفة",
+    keywords: ["bekannt = معروفة (الكلمة الصحيحة)", "Projekte = مشاريع", "zu machen = لجعل"],
+    simplified: "النادي يهتم يعرف الناس بالمشاريع مش بس بالفلوس",
+    imagine: "📢🎺 رجل ينفخ في بوق كبير ومكتوب عليه 'مسرح شباب'"
+};
+
+HELP_DATA["sprach2_exam49_q9"] = {
+    text: "hofft, auf diese Weise",
+    meaning: "يأمل، بهذه الطريقة",
+    keywords: ["auf = عبر/بواسطة (الكلمة الصحيحة)", "hofft = يأمل", "diese Weise = هذه الطريقة"],
+    simplified: "يا رب بهالطريقة نلاقي داعمين أكثر",
+    imagine: "🙏📢 رجل راكع يمسك مكبر صوت ويصرخ 'ساعدونا'"
+};
+
+HELP_DATA["sprach2_exam49_q10"] = {
+    text: "Spenden, um weitere Projekte",
+    meaning: "تبرعات، لتمويل مشاريع أخرى",
+    keywords: ["um = لكي/من أجل (الكلمة الصحيحة)", "Spenden = تبرعات", "weitere Projekte = مشاريع أخرى"],
+    simplified: "بيجمعوا تبرعات عشان يمولو مشاريع جديدة",
+    imagine: "💰🤲 يد تحمل نقوداً وتطير بها نحو المسرح"
 };
 // ============================================
 // Mündlich (Teil 1-42) - السلسلة السحرية
@@ -20141,7 +20557,8 @@ function getCorrectQuestions(skill, examId) {
         'sprach1_exam35': [1,2,3,4,5,6,7,8,9,10], 'sprach1_exam36': [1,2,3,4,5,6,7,8,9,10],
         'sprach1_exam37': [1,2,3,4,5,6,7,8,9,10], 'sprach1_exam38': [1,2,3,4,5,6,7,8,9,10],
         'sprach1_exam39': [1,2,3,4,5,6,7,8,9,10], 'sprach1_exam40': [1,2,3,4,5,6,7,8,9,10],
-        'sprach1_exam6b': [1,2,3,4,5,6,7,8,9,10],
+        'sprach1_exam41': [1,2,3,4,5,6,7,8,9,10],
+        'sprach1_exam6b': [1,2,3,4,5,6,7,8,9,10], 'sprach1_exam42': [1,2,3,4,5,6,7,8,9,10],
         'sprach1_exam114': [1,2,3,4,5,6,7,8,9,10],
         'sprach1_exam115': [1,2,3,4,5,6,7,8,9,10],
         'sprach1_exam116': [1,2,3,4,5,6,7,8,9,10],
@@ -20170,9 +20587,9 @@ function getCorrectQuestions(skill, examId) {
         'sprach2_exam41': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam42': [1,2,3,4,5,6,7,8,9,10],
         'sprach2_exam43': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam44': [1,2,3,4,5,6,7,8,9,10],
         'sprach2_exam45': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam46': [1,2,3,4,5,6,7,8,9,10],
-        'sprach2_exam3b': [1,2,3,4,5,6,7,8,9,10],
-        'sprach2_exam4b': [1,2,3,4,5,6,7,8,9,10],
-        'sprach2_exam4c': [1,2,3,4,5,6,7,8,9,10],
+        'sprach2_exam117': [1,2,3,4,5,6,7,8,9,10],
+        'sprach2_exam118': [1,2,3,4,5,6,7,8,9,10],
+        'sprach2_exam119': [1,2,3,4,5,6,7,8,9,10],
         
         // Mündlich Teil 1-42
         'mündlich_exam1': [1,2,3], 'mündlich_exam2': [1,2,3], 'mündlich_exam3': [1,2,3],
