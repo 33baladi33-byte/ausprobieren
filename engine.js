@@ -4886,20 +4886,7 @@ document.addEventListener('keydown', function(e) {
         return;
     }
 
-    // Delete: Undo أو Reset
-    if (key === 'Delete' || key === 'Del') {
-        e.preventDefault();
-        if (isCorrectionVisible()) {
-            // بعد التصحيح: إعادة المحاولة
-            triggerReset();
-        } else {
-            // قبل التصحيح: Undo
-            undoLastAnswer();
-        }
-        return;
-    }
-
-    // Backspace: نفس وظيفة Delete
+    // Backspace: Undo قبل التصحيح / Reset بعد التصحيح
     if (key === 'Backspace') {
         e.preventDefault();
         if (isCorrectionVisible()) {
