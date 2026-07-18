@@ -19938,7 +19938,6 @@ HELP_DATA["mündlich_exam41_q3"] = { text: "Freund → Teilzeit → Kinder → g
 HELP_DATA["mündlich_exam42_q1"] = { text: "Vitamine → Mineralstoffe → Gesundheit → Ergänzung → ausgewogen → Ernährung → Experten → Stress → Zeitmangel", meaning: "المكملات الغذائية: فيتامينات ومعادن، قد تكون مفيدة عند نقصها بسبب التوتر أو ضيق الوقت", keywords: ["Nahrungsergänzungsmittel", "Ernährung", "Stress"], simplified: "المكملات قد تساعد إذا كنت لا تأكل جيدًا أو تعاني من توتر، لكنها ليست ضرورية دائمًا", imagine: "🧠 تخيل شخصًا متعبًا 😩 يمسك بعلبة فيتامينات 💊، ويدًا أخرى تمسك بطبق خضروات 🥗. تتنافس اليدان ثم تتصافحان 🤝. ثم تظهر لافتة: 'الغذاء أولاً، ثم المكملات!'" };
 HELP_DATA["mündlich_exam42_q2"] = { text: "nicht notwendig → gesunde Ernährung → wichtiger → manchmal sinnvoll", meaning: "المكملات ليست ضرورية، فالغذاء الصحي أهم، لكنها قد تفيد أحيانًا", keywords: ["nicht notwendig", "gesund", "vorsichtig"], simplified: "الطعام الصحي هو الأساس، والمكملات مجرد مساعد مؤقت", imagine: "🧠 تخيل ميزانًا ⚖️، في كفة طبق سلطة 🥗 وفي الكفة الأخرى علبة فيتامينات 💊. تطيش كفة السلطة للأسفل 💪، وتعلو المكملات إلى الأعلى. ثم تظهر لافتة: 'الطبيعة هي المصدر!'" };
 HELP_DATA["mündlich_exam42_q3"] = { text: "Vitamine → müde → genommen → kurz → besser → Ernährung → verbessert → Gefühl gut", meaning: "تجربة: كنت متعبًا، تناولت فيتامينات، ثم حسنت غذائي فشعرت بتحسن", keywords: ["Vitamine", "müde", "Ernährung"], simplified: "حسنت غذائي وتناولت فيتامينات فاختفي التعب، وهذا يؤكد أهمية الغذاء", imagine: "🧠 تخيل شخصًا نائمًا 😴 وفوقه علامة 'تعب'. فجأة، يأكل تفاحة 🍎 ويشرب عصيرًا 🥤 فينتعش ✨. ثم يركض ويقفز 🏃. ثم تظهر لافتة: 'الغذاء هو وقود الجسم!'" };
-
 // ============================================
 // helpSystem.js - نظام المساعدة المتكامل (الإصدار النهائي)
 // يدعم: hören1, hören2, hören3, lesen1, lesen2, lesen3, sprach1, sprach2, mündlich
@@ -20014,7 +20013,7 @@ function getCorrectQuestions(skill, examId) {
         'hoeren3_exam43': [1, 5], 'hoeren3_exam44': [2, 3], 'hoeren3_exam45': [3, 4],
         'hoeren3_exam46': [1, 4, 5], 'hoeren3_exam47': [1, 3],
         
-      // Lesen Teil 1 (47 امتحان)
+        // Lesen Teil 1 (47 امتحان)
         'lesen1_exam1': [1,2,3,4,5], 'lesen1_exam2': [1,2,3,4,5], 'lesen1_exam3': [1,2,3,4,5],
         'lesen1_exam4': [1,2,3,4,5], 'lesen1_exam5': [1,2,3,4,5], 'lesen1_exam6': [1,2,3,4,5],
         'lesen1_exam7': [1,2,3,4,5], 'lesen1_exam8': [1,2,3,4,5], 'lesen1_exam9': [1,2,3,4,5],
@@ -20030,7 +20029,8 @@ function getCorrectQuestions(skill, examId) {
         'lesen1_exam37': [1,2,3,4,5], 'lesen1_exam38': [1,2,3,4,5], 'lesen1_exam39': [1,2,3,4,5],
         'lesen1_exam40': [1,2,3,4,5], 'lesen1_exam41': [1,2,3,4,5], 'lesen1_exam42': [1,2,3,4,5],
         'lesen1_exam43': [1,2,3,4,5], 'lesen1_exam44': [1,2,3,4,5], 'lesen1_exam45': [1,2,3,4,5],
-        'lesen1_exam46': [1,2,3,4,5], 'lesen1_exam47': [1,2,3,4,5], 'lesen1_exam48': [1,2,3,4,5], 'lesen1_exam49': [1,2,3,4,5], 'lesen1_exam50': [1,2,3,4,5],
+        'lesen1_exam46': [1,2,3,4,5], 'lesen1_exam47': [1,2,3,4,5], 'lesen1_exam48': [1,2,3,4,5],
+        'lesen1_exam49': [1,2,3,4,5], 'lesen1_exam50': [1,2,3,4,5],
         'lesen1_exam51': [1,2,3,4,5], 'lesen1_exam52': [1,2,3,4,5], 'lesen1_exam53': [1,2,3,4,5],
         'lesen1_exam54': [1,2,3,4,5], 'lesen1_exam55': [1,2,3,4,5],
         // الامتحانات الجديدة (المعدلة)
@@ -20051,7 +20051,7 @@ function getCorrectQuestions(skill, examId) {
         'lesen2_exam28': [1,2,3,4,5], 'lesen2_exam29': [1,2,3,4,5], 'lesen2_exam30': [1,2,3,4,5],
         'lesen2_exam31': [1,2,3,4,5], 'lesen2_exam32': [1,2,3,4,5], 'lesen2_exam33': [1,2,3,4,5],
         'lesen2_exam34': [1,2,3,4,5], 'lesen2_exam35': [1,2,3,4,5], 'lesen2_exam36': [1,2,3,4,5],
-        'lesen2_exam37': [1,2,3,4,5],  'lesen2_exam16b': [1,2,3,4,5],
+        'lesen2_exam37': [1,2,3,4,5], 'lesen2_exam16b': [1,2,3,4,5],
         
         // Lesen Teil 3 (35 امتحان)
         'lesen3_exam1': [1,2,3,4,5,6,7,8,9,10], 'lesen3_exam2': [1,2,3,4,5,6,7,8,9,10],
@@ -20071,10 +20071,10 @@ function getCorrectQuestions(skill, examId) {
         'lesen3_exam29': [1,2,3,4,5,6,7,8,9,10], 'lesen3_exam30': [1,2,3,4,5,6,7,8,9,10],
         'lesen3_exam31': [1,2,3,4,5,6,7,8,9,10], 'lesen3_exam32': [1,2,3,4,5,6,7,8,9,10],
         'lesen3_exam33': [1,2,3,4,5,6,7,8,9,10], 'lesen3_exam34': [1,2,3,4,5,6,7,8,9,10],
-        'lesen3_exam35': [1,2,3,4,5,6,7,8,9,10],  'lesen3_exam3b': [1,2,3,4,5,6,7],
-'lesen3_exam6b': [1,2,3,4,5,6,7,8],
-'lesen3_exam10b': [1,2,3,4,5,6,7,8],
-'lesen3_exam24b': [1,2,3,4,5,6],
+        'lesen3_exam35': [1,2,3,4,5,6,7,8,9,10], 'lesen3_exam3b': [1,2,3,4,5,6,7],
+        'lesen3_exam6b': [1,2,3,4,5,6,7,8],
+        'lesen3_exam10b': [1,2,3,4,5,6,7,8],
+        'lesen3_exam24b': [1,2,3,4,5,6],
         
         // Sprach Teil 1 (40 امتحان)
         'sprach1_exam1': [1,2,3,4,5,6,7,8,9,10], 'sprach1_exam2': [1,2,3,4,5,6,7,8,9,10],
@@ -20098,11 +20098,10 @@ function getCorrectQuestions(skill, examId) {
         'sprach1_exam37': [1,2,3,4,5,6,7,8,9,10], 'sprach1_exam38': [1,2,3,4,5,6,7,8,9,10],
         'sprach1_exam39': [1,2,3,4,5,6,7,8,9,10], 'sprach1_exam40': [1,2,3,4,5,6,7,8,9,10],
         'sprach1_exam6b': [1,2,3,4,5,6,7,8,9,10],
-'sprach1_exam20b': [1,2,3,4,5,6,7,8,9,10],
-'sprach1_exam29b': [1,2,3,4,5,6,7,8,9,10],
-'sprach1_exam40b': [1,2,3,4,5,6,7,8,9,10],
-'sprach1_exam6b': [1,2,3,4,5,6,7,8,9,10],
-
+        'sprach1_exam20b': [1,2,3,4,5,6,7,8,9,10],
+        'sprach1_exam29b': [1,2,3,4,5,6,7,8,9,10],
+        'sprach1_exam40b': [1,2,3,4,5,6,7,8,9,10],
+        
         // Sprach Teil 2 (45 امتحان)
         'sprach2_exam1': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam2': [1,2,3,4,5,6,7,8,9,10],
         'sprach2_exam3': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam4': [1,2,3,4,5,6,7,8,9,10],
@@ -20127,10 +20126,10 @@ function getCorrectQuestions(skill, examId) {
         'sprach2_exam41': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam42': [1,2,3,4,5,6,7,8,9,10],
         'sprach2_exam43': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam44': [1,2,3,4,5,6,7,8,9,10],
         'sprach2_exam45': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam46': [1,2,3,4,5,6,7,8,9,10],
-        // أضف هذه الأسطر إلى قسم sprach2 في correctMap
-'sprach2_exam3b': [1,2,3,4,5,6,7,8,9,10],
-'sprach2_exam4b': [1,2,3,4,5,6,7,8,9,10],
-'sprach2_exam4c': [1,2,3,4,5,6,7,8,9,10],
+        'sprach2_exam3b': [1,2,3,4,5,6,7,8,9,10],
+        'sprach2_exam4b': [1,2,3,4,5,6,7,8,9,10],
+        'sprach2_exam4c': [1,2,3,4,5,6,7,8,9,10],
+        
         // Mündlich Teil 1-42
         'mündlich_exam1': [1,2,3], 'mündlich_exam2': [1,2,3], 'mündlich_exam3': [1,2,3],
         'mündlich_exam4': [1,2,3], 'mündlich_exam5': [1,2,3], 'mündlich_exam6': [1,2,3],
@@ -20150,15 +20149,40 @@ function getCorrectQuestions(skill, examId) {
     return correctMap[`${skill}_exam${examId}`] || [];
 }
 
-// الحصول على رقم الامتحان الحالي
+// الحصول على رقم الامتحان الحالي مع الاحتفاظ بالحروف (مثل 3b, 5c, 12b)
 function getCurrentExamId() {
-    if (window.currentExamId && window.currentExamId > 0) return window.currentExamId;
+    // 1. التحقق من المتغير العام أولاً
+    if (window.currentExamId && window.currentExamId !== '') {
+        return window.currentExamId;
+    }
+    
+    // 2. محاولة استخراج المعرف من عنوان الصفحة
     const title = document.getElementById('examTitle')?.textContent || '';
-    const match = title.match(/Exam\s+(\d+)/i);
-    if (match) return parseInt(match[1]);
-    const numMatch = title.match(/\d+/);
-    if (numMatch) return parseInt(numMatch[0]);
-    return 1;
+    // يدعم: Exam 3, Exam 3b, Exam 12c, Exam 7c, Exam 10b
+    const match = title.match(/Exam\s+([\d]+[a-z]?)/i);
+    if (match) {
+        return match[1]; // يرجع "3b" أو "3" أو "12c" الخ
+    }
+    
+    // 3. محاولة استخراج المعرف من اسم ملف الـ JSON الحالي
+    const scriptTags = document.querySelectorAll('script');
+    for (let script of scriptTags) {
+        const src = script.src || '';
+        // البحث عن نمط exam متبوعاً برقم وحرف اختياري
+        const fileMatch = src.match(/exam([\d]+[a-z]?)\.json/i);
+        if (fileMatch) {
+            return fileMatch[1];
+        }
+    }
+    
+    // 4. البحث في أي عنصر يحمل معرف الامتحان
+    const examContainer = document.querySelector('[data-exam-id]');
+    if (examContainer) {
+        return examContainer.dataset.examId;
+    }
+    
+    // 5. القيمة الافتراضية
+    return '1';
 }
 
 // الحصول على نوع المهارة الحالي
@@ -20189,31 +20213,61 @@ function getActiveSection() {
     return null;
 }
 
-// دالة البحث المرنة عن البيانات في HELP_DATA
+// دالة البحث المرنة عن البيانات في HELP_DATA (تدعم الأسماء مع حروف)
 function findHelpData(skill, examId, questionNumber) {
     if (typeof HELP_DATA === 'undefined') {
         console.warn('HELP_DATA غير موجود');
         return null;
     }
     
-    const patterns = [
-        `${skill}_exam${examId}_q${questionNumber}`,
-        `${skill}_exam${examId}_${questionNumber}`,
-        `${skill}_exam${examId}_${String.fromCharCode(96 + questionNumber)}`
-    ];
+    // المحاولة الأولى: البحث بالاسم الكامل (مثل lesen1_exam3b_q1)
+    const fullKey = `${skill}_exam${examId}_q${questionNumber}`;
+    if (HELP_DATA[fullKey]) {
+        return HELP_DATA[fullKey];
+    }
     
-    for (let pattern of patterns) {
-        if (HELP_DATA[pattern]) {
-            return HELP_DATA[pattern];
+    // المحاولة الثانية: البحث بصيغة أخرى (مثل lesen1_exam3b_1)
+    const altKey = `${skill}_exam${examId}_${questionNumber}`;
+    if (HELP_DATA[altKey]) {
+        return HELP_DATA[altKey];
+    }
+    
+    // المحاولة الثالثة: البحث بحرف (مثل lesen1_exam3b_a)
+    const letterKey = `${skill}_exam${examId}_${String.fromCharCode(96 + questionNumber)}`;
+    if (HELP_DATA[letterKey]) {
+        return HELP_DATA[letterKey];
+    }
+    
+    // المحاولة الرابعة: البحث المرن - لو لم يجد بالاسم الكامل، جرب البحث في كل المفاتيح
+    // التي تبدأ بنفس skill و examId (مع تجاهل الحروف الإضافية)
+    for (let key in HELP_DATA) {
+        // التحقق مما إذا كان المفتاح يبدأ بـ "skill_exam" الرقمي
+        // باستخدام regex للسماح بأي حروف بعد الرقم
+        const regex = new RegExp(`^${skill}_exam${examId}[a-z]?_q${questionNumber}$`);
+        if (regex.test(key)) {
+            return HELP_DATA[key];
+        }
+        // محاولة أخرى بصيغة بدون q
+        const regex2 = new RegExp(`^${skill}_exam${examId}[a-z]?_${questionNumber}$`);
+        if (regex2.test(key)) {
+            return HELP_DATA[key];
+        }
+        // محاولة بحرف
+        const letter = String.fromCharCode(96 + questionNumber);
+        const regex3 = new RegExp(`^${skill}_exam${examId}[a-z]?_${letter}$`);
+        if (regex3.test(key)) {
+            return HELP_DATA[key];
         }
     }
     
-    for (let key in HELP_DATA) {
-        if (key.includes(`exam${examId}`)) {
-            if (key.includes(`q${questionNumber}`)) return HELP_DATA[key];
-            if (key.includes(`_${questionNumber}`)) return HELP_DATA[key];
-            const letter = String.fromCharCode(96 + questionNumber);
-            if (key.endsWith(`_${letter}`)) return HELP_DATA[key];
+    // المحاولة الخامسة: البحث عن البيانات الأساسية (بدون حرف)
+    // مثلاً: الامتحان 3b يبحث عن البيانات الموجودة تحت exam3
+    const baseId = examId.replace(/[a-z]$/, ''); // يزيل الحرف الأخير إذا كان موجوداً
+    if (baseId !== examId) {
+        const fallbackKey = `${skill}_exam${baseId}_q${questionNumber}`;
+        if (HELP_DATA[fallbackKey]) {
+            console.warn(`⚠️ تم استخدام البيانات الأساسية للامتحان ${baseId} بدلاً من ${examId}`);
+            return HELP_DATA[fallbackKey];
         }
     }
     
@@ -20385,9 +20439,8 @@ function addHelpButton() {
     
     const btn = document.createElement('button');
     btn.id = 'globalHelpButton';
-    btn.className = 'memory-btn btn-blue';  // استخدم الكلاس الموحد
-    btn.textContent = '😂 اجي ضحك وفهم';   // النص الجديد مع أيقونة مختلفة
-    // btn.style.cssText = ...  // تم الاستغناء عن الأنماط المباشرة لأن الكلاسات تغطيها
+    btn.className = 'memory-btn btn-blue';
+    btn.textContent = '😂 اجي ضحك وفهم';
     btn.onmouseenter = () => { btn.style.transform = 'scale(1.02)'; btn.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)'; };
     btn.onmouseleave = () => { btn.style.transform = 'scale(1)'; btn.style.boxShadow = '0 2px 5px rgba(0,0,0,0.05)'; };
     btn.onclick = (e) => { e.stopPropagation(); toggleHelp(); };
