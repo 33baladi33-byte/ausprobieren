@@ -2317,47 +2317,52 @@ function handleTeil3ItemClick(itemIdx) {
         return;
     }
     
-    // الحالة 2: تم اختيار عنوان من قبل (sit_first)
-    if (teil3SelectedSitForLink !== null) {
-        const sitIdx = teil3SelectedSitForLink;
-        
-        // إذا كانت الفقرة مرتبطة بالفعل بهذا العنوان، نلغي الربط
-        if (currentAnswer === sitIdx) {
-            delete teil3UserAnswers[itemIdx];
-            const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
-            if (selectElem) selectElem.selectedIndex = 0;
-            updateTeil3CardStyle(itemIdx);
-            updateTeil3SelectOptions();
-            updateTeil3RightSideColors();
-            teil3SelectedSitForLink = null;
-            clearTeil3SituationSelection();
-            return;
-        }
-        
-        // ربط الفقرة بالعنوان المختار
-        teil3UserAnswers[itemIdx] = sitIdx;
-        const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
-        if (selectElem) selectElem.value = sitIdx;
-        updateTeil3SelectOptions();
-        updateTeil3RightSideColors();
-        updateTeil3CardStyle(itemIdx);
-        teil3SelectedSitForLink = null;
-        clearTeil3SituationSelection();
-        return;
-    }
+   // في حالة الربط (عند وجود sitIdx محدد)
+if (teil3SelectedSitForLink !== null) {
+    const sitIdx = teil3SelectedSitForLink;
     
-    // الحالة 3: اختيار فقرة (item_first)
-    // إذا كانت الفقرة مرتبطة، نلغي الربط
-    if (currentAnswer !== undefined && currentAnswer !== null && currentAnswer !== "") {
+    // إذا كانت الفقرة مرتبطة بالفعل بهذا العنوان، نلغي الربط
+    if (currentAnswer === sitIdx) {
+        // ✅ تسجيل عملية الإلغاء
+        pushTeil3LinkToHistory(itemIdx, null, 'remove', currentAnswer);
         delete teil3UserAnswers[itemIdx];
         const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
         if (selectElem) selectElem.selectedIndex = 0;
         updateTeil3CardStyle(itemIdx);
         updateTeil3SelectOptions();
         updateTeil3RightSideColors();
+        teil3SelectedSitForLink = null;
+        clearTeil3SituationSelection();
         return;
     }
     
+    // ربط الفقرة بالعنوان المختار
+    // ✅ تسجيل عملية الإضافة (مع القيمة القديمة إن وجدت)
+    pushTeil3LinkToHistory(itemIdx, sitIdx, 'add', teil3UserAnswers[itemIdx]);
+    teil3UserAnswers[itemIdx] = sitIdx;
+    const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
+    if (selectElem) selectElem.value = sitIdx;
+    updateTeil3SelectOptions();
+    updateTeil3RightSideColors();
+    updateTeil3CardStyle(itemIdx);
+    teil3SelectedSitForLink = null;
+    clearTeil3SituationSelection();
+    return;
+}
+
+// الحالة: اختيار فقرة (item_first)
+// إذا كانت الفقرة مرتبطة، نلغي الربط
+if (currentAnswer !== undefined && currentAnswer !== null && currentAnswer !== "") {
+    // ✅ تسجيل عملية الإلغاء
+    pushTeil3LinkToHistory(itemIdx, null, 'remove', currentAnswer);
+    delete teil3UserAnswers[itemIdx];
+    const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
+    if (selectElem) selectElem.selectedIndex = 0;
+    updateTeil3CardStyle(itemIdx);
+    updateTeil3SelectOptions();
+    updateTeil3RightSideColors();
+    return;
+}
     // اختيار فقرة جديدة
     if (teil3SelectedItemForLink !== null) {
         updateTeil3CardStyle(teil3SelectedItemForLink);
@@ -2384,57 +2389,67 @@ function handleTeil3SituationClick(sitIdx) {
         }
     }
     
-    // الحالة 1: تم اختيار عنوان من قبل، نضغط عليه مرة أخرى لإلغاء الربط
-    if (teil3SelectedSitForLink === sitIdx) {
-        if (linkedItemIdx !== null) {
-            delete teil3UserAnswers[linkedItemIdx];
-            const selectElem = document.getElementById(`teil3_select_${linkedItemIdx}`);
-            if (selectElem) selectElem.selectedIndex = 0;
-            updateTeil3CardStyle(linkedItemIdx);
-            updateTeil3SelectOptions();
-            updateTeil3RightSideColors();
-        }
-        teil3SelectedSitForLink = null;
-        clearTeil3SituationSelection();
-        return;
-    }
-    
-    // الحالة 2: تم اختيار فقرة من قبل (item_first)
-    if (teil3SelectedItemForLink !== null) {
-        const itemIdx = teil3SelectedItemForLink;
-        const currentAnswer = teil3UserAnswers[itemIdx];
-        
-        if (currentAnswer === sitIdx) {
-            delete teil3UserAnswers[itemIdx];
-            const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
-            if (selectElem) selectElem.selectedIndex = 0;
-            updateTeil3CardStyle(itemIdx);
-            updateTeil3SelectOptions();
-            updateTeil3RightSideColors();
-            teil3SelectedItemForLink = null;
-            return;
-        }
-        
-        teil3UserAnswers[itemIdx] = sitIdx;
-        const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
-        if (selectElem) selectElem.value = sitIdx;
-        updateTeil3SelectOptions();
-        updateTeil3RightSideColors();
-        updateTeil3CardStyle(itemIdx);
-        teil3SelectedItemForLink = null;
-        return;
-    }
-    
-    // الحالة 3: اختيار عنوان (sit_first)
+// الحالة 1: تم اختيار عنوان من قبل، نضغط عليه مرة أخرى لإلغاء الربط
+if (teil3SelectedSitForLink === sitIdx) {
     if (linkedItemIdx !== null) {
+        // ✅ تسجيل عملية الإلغاء
+        const previousSit = teil3UserAnswers[linkedItemIdx];
+        pushTeil3LinkToHistory(linkedItemIdx, null, 'remove', previousSit);
         delete teil3UserAnswers[linkedItemIdx];
         const selectElem = document.getElementById(`teil3_select_${linkedItemIdx}`);
         if (selectElem) selectElem.selectedIndex = 0;
         updateTeil3CardStyle(linkedItemIdx);
         updateTeil3SelectOptions();
         updateTeil3RightSideColors();
+    }
+    teil3SelectedSitForLink = null;
+    clearTeil3SituationSelection();
+    return;
+}
+
+// الحالة 2: تم اختيار فقرة من قبل (item_first)
+if (teil3SelectedItemForLink !== null) {
+    const itemIdx = teil3SelectedItemForLink;
+    const currentAnswer = teil3UserAnswers[itemIdx];
+    
+    if (currentAnswer === sitIdx) {
+        // ✅ تسجيل عملية الإلغاء (إلغاء الربط الحالي)
+        pushTeil3LinkToHistory(itemIdx, null, 'remove', currentAnswer);
+        delete teil3UserAnswers[itemIdx];
+        const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
+        if (selectElem) selectElem.selectedIndex = 0;
+        updateTeil3CardStyle(itemIdx);
+        updateTeil3SelectOptions();
+        updateTeil3RightSideColors();
+        teil3SelectedItemForLink = null;
         return;
     }
+    
+    // ✅ تسجيل عملية الإضافة (ربط جديد)
+    pushTeil3LinkToHistory(itemIdx, sitIdx, 'add', teil3UserAnswers[itemIdx]);
+    teil3UserAnswers[itemIdx] = sitIdx;
+    const selectElem = document.getElementById(`teil3_select_${itemIdx}`);
+    if (selectElem) selectElem.value = sitIdx;
+    updateTeil3SelectOptions();
+    updateTeil3RightSideColors();
+    updateTeil3CardStyle(itemIdx);
+    teil3SelectedItemForLink = null;
+    return;
+}
+
+// الحالة 3: اختيار عنوان (sit_first)
+if (linkedItemIdx !== null) {
+    // ✅ تسجيل عملية الإلغاء (إلغاء الربط الحالي)
+    const previousSit = teil3UserAnswers[linkedItemIdx];
+    pushTeil3LinkToHistory(linkedItemIdx, null, 'remove', previousSit);
+    delete teil3UserAnswers[linkedItemIdx];
+    const selectElem = document.getElementById(`teil3_select_${linkedItemIdx}`);
+    if (selectElem) selectElem.selectedIndex = 0;
+    updateTeil3CardStyle(linkedItemIdx);
+    updateTeil3SelectOptions();
+    updateTeil3RightSideColors();
+    return;
+}
     
     // اختيار عنوان جديد
     if (teil3SelectedSitForLink !== null) {
@@ -4517,12 +4532,11 @@ function resetInterleaving() {
 window.toggleInterleaving = toggleInterleaving;
 window.initInterleaving = initInterleaving;
 window.resetInterleaving = resetInterleaving;
-
 // ============================================
-// نظام اختصارات لوحة المفاتيح - النسخة المبسطة
+// نظام اختصارات لوحة المفاتيح - النسخة النهائية
 // ============================================
 
-// متغيرات لإدارة التاريخ (Undo) - تُستخدم فقط لـ Ctrl+Z
+// متغيرات لإدارة التاريخ (Undo)
 let _answerHistory = [];
 let _historyEnabled = false;
 
@@ -4533,11 +4547,15 @@ function pushAnswerToHistory(action) {
     if (_answerHistory.length > 50) _answerHistory.shift();
 }
 
-// دالة لتراجع آخر إجابة (تُستخدم فقط لـ Ctrl+Z)
+// ============================================
+// دالة التراجع عن آخر إجابة - معدلة لدعم Lesen3
+// ============================================
 function undoLastAnswer() {
     if (_answerHistory.length === 0) return false;
     const lastAction = _answerHistory.pop();
     const skill = window.currentSkill || '';
+    
+    // ---- Hören (True/False) ----
     if (skill.startsWith('hoeren')) {
         if (lastAction.type === 'radio') {
             const radio = document.querySelector(`input[name="${lastAction.name}"]:checked`);
@@ -4547,7 +4565,10 @@ function undoLastAnswer() {
                 delete window._trueFalseUserAnswers[qId];
             }
         }
-    } else if (skill === 'lesen1' || skill === 'teil1') {
+    }
+    
+    // ---- Lesen 1 (Matching) ----
+    else if (skill === 'lesen1' || skill === 'teil1') {
         if (lastAction.type === 'select') {
             const select = document.getElementById(lastAction.id);
             if (select) {
@@ -4567,7 +4588,10 @@ function undoLastAnswer() {
                 }
             }
         }
-    } else if (skill === 'lesen2' || skill === 'teil2') {
+    }
+    
+    // ---- Lesen 2 (Multiple Choice) ----
+    else if (skill === 'lesen2' || skill === 'teil2') {
         if (lastAction.type === 'radio') {
             const radio = document.querySelector(`input[name="${lastAction.name}"]:checked`);
             if (radio) radio.checked = false;
@@ -4576,7 +4600,11 @@ function undoLastAnswer() {
                 delete teil2UserAnswers[idx];
             }
         }
-    } else if (skill === 'lesen3' || skill === 'teil3') {
+    }
+    
+    // ---- Lesen 3 (الربط بين العنوان والفقرة) ----
+    else if (skill === 'lesen3' || skill === 'teil3') {
+        // حالة الـ select العادي (اختيار من القائمة)
         if (lastAction.type === 'select') {
             const select = document.getElementById(lastAction.id);
             if (select) {
@@ -4590,7 +4618,33 @@ function undoLastAnswer() {
                 }
             }
         }
-    } else if (skill === 'sprach1' || skill === 'sprach2') {
+        // حالة الربط المباشر (type: 'teil3_link')
+        else if (lastAction.type === 'teil3_link') {
+            const { itemIdx, sitIdx, action, previousSit } = lastAction;
+            if (action === 'add') {
+                // إلغاء الربط: حذف الإجابة لهذه الفقرة
+                delete teil3UserAnswers[itemIdx];
+                const select = document.getElementById(`teil3_select_${itemIdx}`);
+                if (select) select.value = '';
+                if (typeof updateTeil3SelectOptions === 'function') updateTeil3SelectOptions();
+                if (typeof updateTeil3RightSideColors === 'function') updateTeil3RightSideColors();
+                if (typeof updateTeil3CardStyle === 'function') updateTeil3CardStyle(itemIdx);
+            } else if (action === 'remove') {
+                // إعادة الربط: استرجاع القيمة القديمة
+                if (previousSit !== null && previousSit !== undefined && previousSit !== '') {
+                    teil3UserAnswers[itemIdx] = previousSit;
+                    const select = document.getElementById(`teil3_select_${itemIdx}`);
+                    if (select) select.value = previousSit;
+                    if (typeof updateTeil3SelectOptions === 'function') updateTeil3SelectOptions();
+                    if (typeof updateTeil3RightSideColors === 'function') updateTeil3RightSideColors();
+                    if (typeof updateTeil3CardStyle === 'function') updateTeil3CardStyle(itemIdx);
+                }
+            }
+        }
+    }
+    
+    // ---- Sprachbausteine 1 & 2 ----
+    else if (skill === 'sprach1' || skill === 'sprach2') {
         if (lastAction.type === 'sprach') {
             const btn = document.getElementById(lastAction.id);
             if (btn) {
@@ -4622,11 +4676,28 @@ function undoLastAnswer() {
             }
         }
     }
+    
     return true;
 }
 
+// ============================================
+// دوال مساعدة لتسجيل عمليات الربط في Lesen3
+// ============================================
+function pushTeil3LinkToHistory(itemIdx, sitIdx, action, previousSit) {
+    pushAnswerToHistory({
+        type: 'teil3_link',
+        itemIdx: itemIdx,
+        sitIdx: sitIdx,
+        action: action,   // 'add' أو 'remove'
+        previousSit: previousSit !== undefined ? previousSit : null
+    });
+}
+
+// ============================================
 // ربط الاختيارات بالتاريخ (لـ Ctrl+Z)
+// ============================================
 function hookAnswerSelection() {
+    // Hören (True/False)
     document.addEventListener('change', function(e) {
         if (e.target.type === 'radio' && e.target.name && e.target.name.startsWith('q_')) {
             if (e.target.checked) {
@@ -4634,14 +4705,24 @@ function hookAnswerSelection() {
             }
         }
     });
+
+    // Lesen 1 (Matching) - تحسين التسجيل
     document.addEventListener('change', function(e) {
         if (e.target.tagName === 'SELECT' && e.target.id && e.target.id.startsWith('matching_q_')) {
-            if (e.target.value) {
-                pushAnswerToHistory({ type: 'select', id: e.target.id, oldValue: e.target.dataset.oldValue || '' });
-                e.target.dataset.oldValue = e.target.value;
+            const oldVal = e.target.dataset.oldValue || '';
+            const newVal = e.target.value;
+            if (newVal) {
+                pushAnswerToHistory({ type: 'select', id: e.target.id, oldValue: oldVal });
+                e.target.dataset.oldValue = newVal;
+            } else {
+                // إذا تم إلغاء التحديد، سجل ذلك أيضاً
+                pushAnswerToHistory({ type: 'select', id: e.target.id, oldValue: oldVal });
+                e.target.dataset.oldValue = '';
             }
         }
     });
+
+    // Lesen 2 (Multiple Choice)
     document.addEventListener('change', function(e) {
         if (e.target.type === 'radio' && e.target.name && e.target.name.startsWith('teil2_q')) {
             if (e.target.checked) {
@@ -4649,12 +4730,23 @@ function hookAnswerSelection() {
             }
         }
     });
+
+    // Lesen 3 (select من القائمة)
     document.addEventListener('change', function(e) {
         if (e.target.tagName === 'SELECT' && e.target.id && e.target.id.startsWith('teil3_select_')) {
-            pushAnswerToHistory({ type: 'select', id: e.target.id, oldValue: e.target.dataset.oldValue || '' });
-            e.target.dataset.oldValue = e.target.value;
+            const oldVal = e.target.dataset.oldValue || '';
+            const newVal = e.target.value;
+            if (newVal) {
+                pushAnswerToHistory({ type: 'select', id: e.target.id, oldValue: oldVal });
+                e.target.dataset.oldValue = newVal;
+            } else {
+                pushAnswerToHistory({ type: 'select', id: e.target.id, oldValue: oldVal });
+                e.target.dataset.oldValue = '';
+            }
         }
     });
+
+    // Sprachbausteine 1 & 2 (الأزرار والراديوهات)
     document.addEventListener('click', function(e) {
         if (e.target.id && e.target.id.startsWith('sprach1_btn_')) {
             const qId = parseInt(e.target.id.replace('sprach1_btn_', ''));
@@ -4676,6 +4768,51 @@ function hookAnswerSelection() {
     });
 }
 
+// ============================================
+// إصلاح فقدان التركيز (Focus) بعد الاختيار
+// ============================================
+function fixFocusLoss() {
+    const examContainer = document.getElementById('exam');
+    if (!examContainer) return;
+
+    // إعادة التركيز إلى حاوية الامتحان بعد أي تفاعل داخل الامتحان
+    document.addEventListener('click', function(e) {
+        if (examContainer.contains(e.target)) {
+            setTimeout(() => {
+                // لا نتدخل إذا كان المستخدم يكتب في input/textarea
+                if (document.activeElement?.tagName === 'INPUT' || 
+                    document.activeElement?.tagName === 'TEXTAREA') {
+                    return;
+                }
+                // إذا كان التركيز خارج الامتحان أو على body، أعده إلى الامتحان
+                if (!document.activeElement?.closest?.('#exam')) {
+                    examContainer.setAttribute('tabindex', '-1');
+                    examContainer.focus({ preventScroll: true });
+                }
+            }, 10);
+        }
+    }, true);
+
+    // أيضاً عند تغيير select أو radio
+    document.addEventListener('change', function(e) {
+        if (e.target.closest && e.target.closest('#exam')) {
+            setTimeout(() => {
+                if (document.activeElement?.tagName === 'INPUT' || 
+                    document.activeElement?.tagName === 'TEXTAREA') {
+                    return;
+                }
+                if (!document.activeElement?.closest?.('#exam')) {
+                    examContainer.setAttribute('tabindex', '-1');
+                    examContainer.focus({ preventScroll: true });
+                }
+            }, 10);
+        }
+    }, true);
+}
+
+// ============================================
+// دوال التنفيذ الأساسية
+// ============================================
 function enableHistory() {
     _historyEnabled = true;
     _answerHistory = [];
@@ -4691,7 +4828,6 @@ function isCorrectionVisible() {
     return resultDiv && resultDiv.style.display !== 'none';
 }
 
-// دالة لتنفيذ التصحيح
 function triggerCorrection() {
     const checkBtn = document.querySelector('.check-btn');
     if (checkBtn) {
@@ -4726,15 +4862,12 @@ function triggerPrevExam() {
     }
     return false;
 }
-// ✅ دالة إعادة المحاولة (تقتصر على منطقة الامتحان فقط)
+
 function triggerReset() {
-    // البحث عن زر إعادة المحاولة داخل صفحة الامتحان فقط
     const examContainer = document.getElementById('exam');
     if (!examContainer) return false;
     
     let resetBtn = null;
-    
-    // 1. البحث عن زر يحوي رمز ↺ داخل حاوية الامتحان
     const allBtns = examContainer.querySelectorAll('button');
     for (let btn of allBtns) {
         const text = btn.textContent.trim();
@@ -4743,8 +4876,6 @@ function triggerReset() {
             break;
         }
     }
-    
-    // 2. إذا لم يتم العثور، البحث عن زر يحوي كلمة "إعادة" أو "Reset"
     if (!resetBtn) {
         for (let btn of allBtns) {
             const text = btn.textContent.trim();
@@ -4754,17 +4885,13 @@ function triggerReset() {
             }
         }
     }
-    
-    // 3. البحث عن زر بـ class أو id يحوي reset داخل الامتحان
     if (!resetBtn) {
         resetBtn = examContainer.querySelector('[class*="reset"], [id*="reset"], [class*="Reset"], [id*="Reset"]');
     }
-    
     if (resetBtn) {
         resetBtn.click();
         return true;
     }
-    
     console.warn('⚠️ لم يتم العثور على زر إعادة المحاولة داخل صفحة الامتحان');
     return false;
 }
@@ -4787,9 +4914,8 @@ function toggleFullscreen() {
 }
 
 // ============================================
-// مستمع الأحداث الرئيسي
+// مستمع الأحداث الرئيسي (مع useCapture = true)
 // ============================================
-
 document.addEventListener('keydown', function(e) {
     // ❌ لا تعمل الاختصارات إذا كان المستخدم يكتب في Input أو Textarea
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
@@ -4873,7 +4999,7 @@ document.addEventListener('keydown', function(e) {
         return;
     }
 
-    // ✅ Backspace = زر ↺ فقط (بدون شروط)
+    // Backspace = زر ↺
     if (key === 'Backspace') {
         e.preventDefault();
         e.stopPropagation();
@@ -4881,7 +5007,7 @@ document.addEventListener('keydown', function(e) {
         return false;
     }
 
-    // 1: تبديل زر التلوين الذكي
+    // 1: تبديل التلوين الذكي
     if (key === '1') {
         e.preventDefault();
         const memoryToggleBtn = document.getElementById('memoryToggleBtn');
@@ -4889,7 +5015,7 @@ document.addEventListener('keydown', function(e) {
         return;
     }
 
-    // 2: تبديل زر المساعدة
+    // 2: تبديل المساعدة
     if (key === '2') {
         e.preventDefault();
         const helpBtn = document.getElementById('globalHelpButton');
@@ -4899,21 +5025,27 @@ document.addEventListener('keydown', function(e) {
         return;
     }
 
-    // Ctrl+Z: Undo (اختصار إضافي)
+    // Ctrl+Z: Undo (مع إصلاح التركيز)
     if ((e.ctrlKey || e.metaKey) && key === 'z') {
         e.preventDefault();
         if (!isCorrectionVisible()) {
             undoLastAnswer();
+            // بعد التراجع، أعد التركيز إلى الامتحان لضمان استمرار العمل
+            const examContainer = document.getElementById('exam');
+            if (examContainer) {
+                examContainer.setAttribute('tabindex', '-1');
+                examContainer.focus({ preventScroll: true });
+            }
         }
         return;
     }
 }, true); // useCapture = true
 
 // ============================================
-// ربط زر اختصارات لوحة المفاتيح
+// تهيئة النظام
 // ============================================
-
 document.addEventListener('DOMContentLoaded', function() {
+    // زر اختصارات لوحة المفاتيح
     const toggleBtn = document.getElementById('shortcutsToggleBtn');
     const popover = document.getElementById('shortcutsPopover');
 
@@ -4940,9 +5072,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // تفعيل التاريخ وربط الاختيارات
     enableHistory();
     hookAnswerSelection();
+    
+    // إصلاح فقدان التركيز
+    fixFocusLoss();
 
+    // إعادة تعيين التاريخ عند فتح امتحان جديد
     const origOpenExam = window.openExam;
     if (typeof origOpenExam === 'function') {
         window.openExam = function(examId, examTitle, skill, fileName) {
@@ -4963,9 +5100,9 @@ window.undoLastAnswer = undoLastAnswer;
 window.pushAnswerToHistory = pushAnswerToHistory;
 window.enableHistory = enableHistory;
 window.disableHistory = disableHistory;
+window.pushTeil3LinkToHistory = pushTeil3LinkToHistory;
 
 console.log('✅ نظام اختصارات لوحة المفاتيح تم تحميله بنجاح');
-
 
 console.log('✅ نظام Interleaving جاهز - يعمل على Hören Teil 1,2,3 و Lesen 1 و Lesen 2');
 
