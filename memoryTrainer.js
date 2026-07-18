@@ -46,6 +46,24 @@ class MemoryTrainer {
     }
 
     // ============================================
+    // ✅ دالة الحصول على حالة المستخدم (مصدر واحد)
+    // ============================================
+    async getUserStatus() {
+        try {
+            if (typeof window.getUserStatusGlobal === 'function') {
+                return await window.getUserStatusGlobal();
+            }
+            if (typeof window.getUserStatusForExam === 'function') {
+                return await window.getUserStatusForExam();
+            }
+            return 'free';
+        } catch (e) {
+            console.warn('⚠️ فشل جلب حالة المستخدم:', e);
+            return 'free';
+        }
+    }
+
+    // ============================================
     // START - نقطة الدخول
     // ============================================
 
@@ -462,47 +480,103 @@ class MemoryTrainer {
         `);
     }
 
+    // ============================================
+    // ✅ شاشة البداية من القائمة (مع زر مقفل للمجاني)
+    // ============================================
     showIntroCardList() {
-        const percent = this.getOverallProgressForSkill(this.currentSkill);
-        const total = this.trainingQueue.length;
-        let currentStage = 1, totalStages = 1;
-        if (window.getCurrentStage && window.getTotalStages) {
-            currentStage = window.getCurrentStage(this.currentSkill);
-            totalStages = window.getTotalStages(this.currentSkill);
-        }
-        let skillLabel = this.currentSkill;
-        if (this.examType === 'matching') {
-            if (this.currentSkill === 'lesen3') {
-                skillLabel = 'Lesen 3';
-            } else {
-                skillLabel = 'Lesen 1';
+        // ✅ نتحقق من حالة المستخدم أولاً
+        this.getUserStatus().then(status => {
+            const isPremium = (status === 'premium');
+            const percent = this.getOverallProgressForSkill(this.currentSkill);
+            const total = this.trainingQueue.length;
+            let currentStage = 1, totalStages = 1;
+            if (window.getCurrentStage && window.getTotalStages) {
+                currentStage = window.getCurrentStage(this.currentSkill);
+                totalStages = window.getTotalStages(this.currentSkill);
             }
-        } else if (this.examType === 'multiple') {
-            skillLabel = 'Lesen 2';
-        } else if (this.examType === 'sprach1') {
-            skillLabel = 'Sprachbausteine 1';
-        } else if (this.examType === 'sprach2') {
-            skillLabel = 'Sprachbausteine 2';
-        }
-        this.updateCard(`
-            <div class="memory-trainer-intro">
-            
-                <h2>استدعاء متقدم 🧩 </h2>
-                <p style="font-size:14px;color:#334155;margin:4px 0 2px 0;">هاد الميزة غدي تخليك تتدرب على جميع أسئلة امتحانات المرحلة ${currentStage} من ${skillLabel}.</p>
-                <p style="font-size:13px;color:#64748B;margin:2px 0 12px 0;">كلما تدربت أكثر، أصبح النظام أكثر ذكاءً في اختيار الأسئلة.</p>
-                <div style="margin:10px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;text-align:left;">
-                    <div style="display:flex;align-items:center;gap:10px;">
-                        <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
-                            <div style="width:${percent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
+            let skillLabel = this.currentSkill;
+            if (this.examType === 'matching') {
+                if (this.currentSkill === 'lesen3') {
+                    skillLabel = 'Lesen 3';
+                } else {
+                    skillLabel = 'Lesen 1';
+                }
+            } else if (this.examType === 'multiple') {
+                skillLabel = 'Lesen 2';
+            } else if (this.examType === 'sprach1') {
+                skillLabel = 'Sprachbausteine 1';
+            } else if (this.examType === 'sprach2') {
+                skillLabel = 'Sprachbausteine 2';
+            }
+
+            // ✅ بناء الزر حسب الحالة
+            let buttonHtml = '';
+            if (isPremium) {
+                buttonHtml = `<button class="memory-trainer-btn primary" onclick="window.memoryTrainer.showMemoryCard()">ابدأ التدريب</button>`;
+            } else {
+                buttonHtml = `
+                    <button class="memory-trainer-btn locked" onclick="window.location.href='subscribe.html'" style="
+                        padding: 8px 20px;
+                        border: none;
+                        border-radius: 10px;
+                        font-size: 14px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.15s ease;
+                        margin-top: 12px;
+                        background: #64748B;
+                        color: #cbd5e1;
+                        box-shadow: none;
+                        display: inline-block;
+                        width: auto;
+                        opacity: 0.7;
+                    "
+                    onmouseover="this.style.opacity='0.9'"
+                    onmouseout="this.style.opacity='0.7'"
+                    >
+                        🔒 متاح للحساب الكامل
+                    </button>
+                `;
+            }
+
+            this.updateCard(`
+                <div class="memory-trainer-intro">
+                    <h2>استدعاء متقدم 🧩</h2>
+                    <p style="font-size:14px;color:#334155;margin:4px 0 2px 0;">هاد الميزة غدي تخليك تتدرب على جميع أسئلة امتحانات المرحلة ${currentStage} من ${skillLabel}.</p>
+                    <p style="font-size:13px;color:#64748B;margin:2px 0 12px 0;">كلما تدربت أكثر، أصبح النظام أكثر ذكاءً في اختيار الأسئلة.</p>
+                    <div style="margin:10px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;text-align:left;">
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
+                                <div style="width:${percent}%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
+                            </div>
+                            <span style="font-size:13px;font-weight:600;color:#1565C0;min-width:40px;text-align:right;">${percent}%</span>
                         </div>
-                        <span style="font-size:13px;font-weight:600;color:#1565C0;min-width:40px;text-align:right;">${percent}%</span>
                     </div>
+                    <p style="font-size:12px;color:#94A3B8;margin:4px 0 4px 0;">${total} نص للتدريب</p>
+                    <p style="font-size:11px;color:#94A3B8;margin:0 0 12px 0;">المرحلة ${currentStage} / ${totalStages}</p>
+                    ${buttonHtml}
                 </div>
-                <p style="font-size:12px;color:#94A3B8;margin:4px 0 4px 0;">${total} نص للتدريب</p>
-                <p style="font-size:11px;color:#94A3B8;margin:0 0 12px 0;">المرحلة ${currentStage} / ${totalStages}</p>
-                <button class="memory-trainer-btn primary" onclick="window.memoryTrainer.showMemoryCard()">ابدأ التدريب</button>
-            </div>
-        `);
+            `);
+        }).catch(() => {
+            // ✅ في حالة الخطأ نعرض الزر كمقفل افتراضياً
+            this.updateCard(`
+                <div class="memory-trainer-intro">
+                    <h2>استدعاء متقدم 🧩</h2>
+                    <p style="font-size:14px;color:#334155;margin:4px 0 2px 0;">هاد الميزة غدي تخليك تتدرب على جميع أسئلة امتحانات المرحلة.</p>
+                    <p style="font-size:13px;color:#64748B;margin:2px 0 12px 0;">كلما تدربت أكثر، أصبح النظام أكثر ذكاءً في اختيار الأسئلة.</p>
+                    <div style="margin:10px 0 14px 0;background:#FFFFFF;border:1px solid #E8EEF5;border-radius:6px;padding:6px 10px;text-align:left;">
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <div style="flex:1;height:5px;background:#e9eef5;border-radius:6px;overflow:hidden;">
+                                <div style="width:0%;height:100%;background:linear-gradient(90deg,#1565C0,#38bdf8);border-radius:6px;"></div>
+                            </div>
+                            <span style="font-size:13px;font-weight:600;color:#1565C0;min-width:40px;text-align:right;">0%</span>
+                        </div>
+                    </div>
+                    <p style="font-size:12px;color:#94A3B8;margin:4px 0 4px 0;">جاري التحميل...</p>
+                    <button class="memory-trainer-btn locked" onclick="window.location.href='subscribe.html'" style="padding:8px 20px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;margin-top:12px;background:#64748B;color:#cbd5e1;opacity:0.7;">🔒 متاح للحساب الكامل</button>
+                </div>
+            `);
+        });
     }
 
     // ============================================
