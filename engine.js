@@ -1124,12 +1124,13 @@ function checkSprach1Exam() {
     resultDiv.style.color = "#721c24";
   }
 
-  // ✅ زيادة العداد وعرضه
+  // ✅ زيادة العداد وتحديث الواجهة
   const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-  const retryMsg = document.createElement('div');
-  retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
-  retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
-  resultDiv.appendChild(retryMsg);
+  
+  // ✅ تحديث العداد في أعلى الصفحة (فوراً)
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
+  }
 
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentSprach1Data.id || window.currentExamId || 1;
@@ -1606,14 +1607,13 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         resultDiv.style.backgroundColor = '#dc3545';
         resultDiv.style.color = 'white';
     }
-    
-    // ✅ زيادة العداد وعرضه
-    const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-    const retryMsg = document.createElement('div');
-    retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
-    retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
-    resultDiv.appendChild(retryMsg);
-    
+  // ✅ زيادة العداد وتحديث الواجهة
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  
+  // ✅ تحديث العداد في أعلى الصفحة (فوراً)
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
+  }
     // ✅ استخدام saveExamResultGlobal (القراءة فقط)
     if (typeof window.saveExamResultGlobal === "function") {
         const skill = container.id || "hoeren";
@@ -1845,13 +1845,13 @@ function checkMatchingExam() {
     resultDiv.style.color = "#721c24";
   }
 
-  // ✅ زيادة العداد وعرضه
-  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-  const retryMsg = document.createElement('div');
-  retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
-  retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
-  resultDiv.appendChild(retryMsg);
-
+    // ✅ زيادة العداد وتحديث الواجهة
+    const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+    
+    // ✅ تحديث العداد في أعلى الصفحة (فوراً)
+    if (typeof window.updateRetryCounter === 'function') {
+        window.updateRetryCounter();
+    }
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentMatchingExamData.id || window.currentExamId || 1;
     window.saveExamResultGlobal("lesen1", examId, parseFloat(finalScore));
@@ -2128,13 +2128,13 @@ function checkTeil2Exam() {
     resultDiv.style.color = "#721c24";
   }
 
-  // ✅ زيادة العداد وعرضه
+  // ✅ زيادة العداد وتحديث الواجهة
   const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-  const retryMsg = document.createElement('div');
-  retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
-  retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
-  resultDiv.appendChild(retryMsg);
-
+  
+  // ✅ تحديث العداد في أعلى الصفحة (فوراً)
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
+  }
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentTeil2Data.id || window.currentExamId || 1;
     window.saveExamResultGlobal("lesen2", examId, parseFloat(finalScore));
@@ -2793,13 +2793,13 @@ function checkTeil3Exam() {
     resultDiv.style.color = "#721c24";
   }
 
-  // ✅ زيادة العداد وعرضه
+  // ✅ زيادة العداد وتحديث الواجهة
   const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-  const retryMsg = document.createElement('div');
-  retryMsg.style.cssText = 'margin-top:10px; font-size:14px; color:#6c7a89; text-align:center;';
-  retryMsg.innerHTML = `🔄 عاودت هذا الامتحان <strong>${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
-  resultDiv.appendChild(retryMsg);
-
+  
+  // ✅ تحديث العداد في أعلى الصفحة (فوراً)
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
+  }
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentTeil3Data.id || window.currentExamId || 1;
     window.saveExamResultGlobal("lesen3", examId, parseFloat(finalScore));
