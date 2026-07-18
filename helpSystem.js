@@ -6795,7 +6795,7 @@ HELP_DATA["lesen1_exam101_q5"] = {
 // Exam 3b: sport ist gesund (معدل 2)
 // ============================================
 
-HELP_DATA["lesen1_exam102_q1"] = {
+HELP_DATA["lesen1_exam103_q1"] = {
     text: "An der Ostküste Attikas in Griechenland - Eine Disziplin, die für alle Altersgruppen geeignet ist",
     meaning: "الماراثون رياضة قديمة تعود لليونان القديمة وتناسب جميع الأعمار",
     keywords: ["Marathonlauf = ماراثون", "Antike = العصور القديمة", "Legende = أسطورة", "Evolution = تطور", "Genen = جينات"],
@@ -11507,7 +11507,7 @@ HELP_DATA["lesen3_exam35_q8"] = {
 
 // ========== Exam 35: Möbel für die neue Wohnung (الصحيح: 0,1,2,3,5,6,7,9) ==========
 
-HELP_DATA["lesen3_exam35_q1"] = {
+HELP_DATA["lesen3_exam36_q1"] = {
     text: "Ihr Kleiderschrank platzt aus allen Nähten? Kein Problem! - Eine Bekannte sucht Möbel für ihre neue Wohnung und wünscht sich viel Platz für ihre Kleidung.",
     meaning: "نظام خزانة ملابس متكامل قابل للتوسيع مع خدمة استشارة منزلية مجانية",
     keywords: ["begehbarer Kleiderschrank = خزانة ملابس يمكن المشي فيها", "flexibles Schranksystem = نظام خزانة مرن", "Beratungstermin kostenlos = استشارة مجانية", "Platz = مساحة"],
@@ -11516,7 +11516,7 @@ HELP_DATA["lesen3_exam35_q1"] = {
     correct: 0
 };
 
-HELP_DATA["lesen3_exam35_q2"] = {
+HELP_DATA["lesen3_exam36_q2"] = {
     text: "Der perfekte Kleiderschrank - Eine Freundin hat viele Sachen zum Anziehen, die sie nie trägt. Sie möchte einen guten Kleidungsstil entwickeln.",
     meaning: "كتاب يساعدك على اكتشاف ما يناسبك وما لا يناسبك لبناء خزانة ملابس مثالية",
     keywords: ["Kleiderschrank = خزانة ملابس", "Modetrends = صيحات الموضة", "Qualität erkennen = التعرف على الجودة", "Garderobe = خزانة ملابس"],
@@ -11525,7 +11525,7 @@ HELP_DATA["lesen3_exam35_q2"] = {
     correct: 1
 };
 
-HELP_DATA["lesen3_exam35_q3"] = {
+HELP_DATA["lesen3_exam36_q3"] = {
     text: "www.selbstgemacht-info.net - Eine Nachbarin ist sehr kreativ und stellt Kleidung selbst her. Sie überlegt, ob sie diese auch verkaufen könnte.",
     meaning: "موقع إلكتروني يعلمك كيفية تسويق وبيع المنتجات اليدوية عبر الإنترنت",
     keywords: ["selbstgemacht = صنع يدوي", "online vermarkten = تسويق عبر الإنترنت", "eigenen Online-Shop = متجر إلكتروني خاص", "rechtliche Bestimmungen = القوانين"],
@@ -11534,7 +11534,7 @@ HELP_DATA["lesen3_exam35_q3"] = {
     correct: 2
 };
 
-HELP_DATA["lesen3_exam35_q4"] = {
+HELP_DATA["lesen3_exam36_q4"] = {
     text: "Regionale Musicalstars gesucht - Ihr 18-jähriger Bruder singt gerne in seiner Freizeit und träumt davon, mal auf der Bühne zu stehen.",
     meaning: "فرصة للمواهب الشابة للمشاركة في أوبرا موسيقية جديدة من خلال اختبارات أداء",
     keywords: ["Casting = اختبار أداء", "Musical = أوبرا موسيقية", "talentiere Anfänger = مبتدئين موهوبين", "Bühne = خشبة المسرح"],
@@ -11543,7 +11543,7 @@ HELP_DATA["lesen3_exam35_q4"] = {
     correct: 3
 };
 
-HELP_DATA["lesen3_exam35_q5"] = {
+HELP_DATA["lesen3_exam36_q5"] = {
     text: "25 Jahre in Hamburg - Ihre Cousine schaut sich gerne Bühnenshows an und möchte wissen, welche Arbeiten hinter den Kulissen erledigt werden.",
     meaning: "جولة خلف كواليس عرض موسيقي ناجح للاطلاع على كيفية عمل 200 موظف",
     keywords: ["hinter die Bühne = خلف الكواليس", "Mitarbeiter = موظفين", "Show entsteht = كيف تُصنع", "Einblicke = نظرة خلف الستار"],
@@ -11552,7 +11552,7 @@ HELP_DATA["lesen3_exam35_q5"] = {
     correct: 5
 };
 
-HELP_DATA["lesen3_exam35_q6"] = {
+HELP_DATA["lesen3_exam36_q6"] = {
     text: "Streifzug durch die Modewelt - Ihre Schwester studiert Geschichte und interessiert sich für Zeitschriften von früher.",
     meaning: "معرض للأزياء التاريخية من عام 1900 مع وثائق وتسجيلات وصور قديمة",
     keywords: ["Pariser Mode = أزياء باريسية", "historische Kleidungsstücke = ملابس تاريخية", "Dokumente = وثائق", "Museum = متحف", "um 1900 = حوالي 1900"],
@@ -11561,7 +11561,7 @@ HELP_DATA["lesen3_exam35_q6"] = {
     correct: 6
 };
 
-HELP_DATA["lesen3_exam35_q7"] = {
+HELP_DATA["lesen3_exam36_q7"] = {
     text: "Mode, Stars, Lifestyle - Ihre Tochter ist Studentin und würde gerne Moderedakteurin werden. Sie möchte erste Erfahrungen in diesem Beruf sammeln.",
     meaning: "فرصة تدريب في مجلة أزياء عالمية للتعرف على العمل في مجال الإعلام",
     keywords: ["Praktikum = تدريب", "Moderedakteurin = محررة أزياء", "Medien = إعلام", "Trends = صيحات", "Bewerbung = تقديم طلب"],
@@ -11570,7 +11570,7 @@ HELP_DATA["lesen3_exam35_q7"] = {
     correct: 7
 };
 
-HELP_DATA["lesen3_exam35_q8"] = {
+HELP_DATA["lesen3_exam36_q8"] = {
     text: "Filmhit als Musikspektakel - Sie möchten sich eine unterhaltsame Bühnenshow ansehen.",
     meaning: "تحويل فيلم كوميدي ناجح إلى أوبرا موسيقية من إعداد نجم موسيقي عالمي",
     keywords: ["Musical = أوبرا موسيقية", "Komödie = كوميديا", "Pop-Weltstar = نجم بوب عالمي", "Bühne = خشبة المسرح"],
@@ -11581,7 +11581,7 @@ HELP_DATA["lesen3_exam35_q8"] = {
 
 // ========== Exam: Geschäftsreisen (الصحيح: 0,1,2,3,4,6,7,9) ==========
 
-HELP_DATA["lesen3_exam36_q1"] = {
+HELP_DATA["lesen3_exam37_q1"] = {
     text: "Leb wohl, Stau. Leb wohl, erfolglose Hotelsuche - Ein Bekannter möchte auf seinen Geschäftsreisen mit seinem Auto immer schnell vorankommen.",
     meaning: "نظام ملاحة ذكي يحذر من الازدحام ويقترح طرق بديلة",
     keywords: ["Stau = زحمة", "Alternativrouten = طرق بديلة", "Navigationssystem = نظام ملاحة", "Assist = مساعد"],
@@ -11590,7 +11590,7 @@ HELP_DATA["lesen3_exam36_q1"] = {
     correct: 0
 };
 
-HELP_DATA["lesen3_exam36_q2"] = {
+HELP_DATA["lesen3_exam37_q2"] = {
     text: "EINFACH GUT STATT NUR GÜNSTIG - Eine bekannte Familie sucht eine leistungsstarke Krankenversicherung.",
     meaning: "تأمين صحي عائلي متميز يوفر رعاية مثالية وليس فقط أرخص سعر",
     keywords: ["Krankenversicherung = تأمين صحي", "Familie = عائلة", "optimale Versorgung = رعاية مثالية", "24 Stunden = 24 ساعة"],
@@ -11599,7 +11599,7 @@ HELP_DATA["lesen3_exam36_q2"] = {
     correct: 1
 };
 
-HELP_DATA["lesen3_exam36_q3"] = {
+HELP_DATA["lesen3_exam37_q3"] = {
     text: "Statistisch gesehen arbeitet ein Mensch 35,7 Jahre - Ein Bekannter sucht eine private Rentenversicherung, die ihm etwas auszahlt, wenn er 50 ist.",
     meaning: "تأمين تقاعدي يتيح لك تقرير متى تريد التقاعد وبناء ثروتك بنفسك",
     keywords: ["Altersvorsorge = تأمين تقاعدي", "Ruhestand = تقاعد", "Vermögen = ثروة", "entscheiden selbst = تقرر بنفسك"],
@@ -11608,7 +11608,7 @@ HELP_DATA["lesen3_exam36_q3"] = {
     correct: 2
 };
 
-HELP_DATA["lesen3_exam36_q4"] = {
+HELP_DATA["lesen3_exam37_q4"] = {
     text: "Trigana bietet die komplette Reisewelt auf einen Klick - Eine Bekannte möchte sich über Urlaubsangebote informieren, hat aber keine Zeit, in ein Reisebüro zu gehen.",
     meaning: "موقع سفر شامل للحجز والاستعلام أونلاين دون الحاجة لزيارة مكتب",
     keywords: ["online vergleichen = مقارنة أونلاين", "buchen = حجز", "Reisebüro = مكتب سفر", "von zu Hause = من المنزل"],
@@ -11617,7 +11617,7 @@ HELP_DATA["lesen3_exam36_q4"] = {
     correct: 3
 };
 
-HELP_DATA["lesen3_exam36_q5"] = {
+HELP_DATA["lesen3_exam37_q5"] = {
     text: "Ein Fest für die Sinne! - Ihre Eltern möchten eine Kreuzfahrt im Mittelmeer unternehmen.",
     meaning: "رحلة بحرية فاخرة تشمل مطاعم راقية ومسرح وسبا على الأنهار والبحار",
     keywords: ["Schiffsreise = رحلة بحرية", "Kreuzfahrt = كروز", "Mittelmeer = البحر المتوسط", "Luxus = فخامة", "ohne Kleiderzwang = بدون قواعد ملابس صارمة"],
@@ -11626,7 +11626,7 @@ HELP_DATA["lesen3_exam36_q5"] = {
     correct: 4
 };
 
-HELP_DATA["lesen3_exam36_q6"] = {
+HELP_DATA["lesen3_exam37_q6"] = {
     text: "Für alle, die in Kellern nicht nur Discos suchen - Ein Bekannter interessiert sich für Geschichte sowie Kultur und möchte Urlaub in einer deutschen Weinregion machen.",
     meaning: "سياحة ثقافية وتاريخية في منطقة Pfalz الألمانية مع زيارات لبيوت النبيذ",
     keywords: ["Historie = تاريخ", "Speyerer Dom = كاتدرائية", "Weinkeller = أقبية نبيذ", "Pfalz = منطقة بالاتينات", "Weinregion = منطقة نبيذ"],
@@ -11635,7 +11635,7 @@ HELP_DATA["lesen3_exam36_q6"] = {
     correct: 6
 };
 
-HELP_DATA["lesen3_exam36_q7"] = {
+HELP_DATA["lesen3_exam37_q7"] = {
     text: "Was immer Sie von einem kompakten Automobil erwarten - Sie suchen ein Auto mit Platz für bis zu 5 Personen, aber einem möglichst geringen Benzinverbrauch.",
     meaning: "سيارة مدمجة موفرة للوقود مع مساحة داخلية كبيرة لخمسة أشخاص",
     keywords: ["niedrigen Kraftstoffverbrauch = استهلاك وقود منخفض", "Platz = مساحة", "Familie = عائلة", "kompakten Automobil = سيارة مدمجة"],
@@ -11644,7 +11644,7 @@ HELP_DATA["lesen3_exam36_q7"] = {
     correct: 7
 };
 
-HELP_DATA["lesen3_exam36_q8"] = {
+HELP_DATA["lesen3_exam37_q8"] = {
     text: "SCHIFFSREISE ... mal anders! - Eine bekannte Familie möchte einen Urlaub machen, der auch für ihre 3- und 5-jährigen Kinder interessant ist.",
     meaning: "رحلة بحرية عائلية مع برامج أطفال ومتحف تفاعلي ومطعم للقراصنة",
     keywords: ["Familie = عائلة", "Kinder = أطفال", "Entdeckermuseum = متحف استكشافي", "Betreuer = مشرفين", "Pippi Langstrumpf = بيبي لونغسترومب"],
@@ -11656,7 +11656,7 @@ HELP_DATA["lesen3_exam36_q8"] = {
 // Exam 3b: Sport Ist Gesund اعلانات (معدل)
 // ============================================
 
-HELP_DATA["lesen3_exam3b_q1"] = {
+HELP_DATA["lesen3_exam103_q1"] = {
     text: "Die Nachfrage nach individueller Farb- und Stilberatung - Eine Bekannte möchte ihren Kleidungsstil verbessern.",
     meaning: "الطلب على استشارات الألوان والأساليب الفردية - إحدى المعارف تريد تحسين أسلوب ملابسها",
     keywords: ["Farbberatung = استشارة ألوان", "Stilberatung = استشارة أناقة", "Outfit = ملابس", "Selbstdarstellung = تقديم الذات"],
@@ -11665,7 +11665,7 @@ HELP_DATA["lesen3_exam3b_q1"] = {
     correct: 5
 };
 
-HELP_DATA["lesen3_exam3b_q2"] = {
+HELP_DATA["lesen3_exam103_q2"] = {
     text: "Die meisten Menschen kennen keine Strategien - Eine Studentin sucht Informationen, wie sie besser und systematischer lernen kann.",
     meaning: "معظم الناس لا يعرفون استراتيجيات - طالبة تبحث عن معلومات حول التعلم بشكل أفضل ومنتظم",
     keywords: ["Gedächtnis = ذاكرة", "Lernverhalten = سلوك تعلم", "Techniken = تقنيات", "Informationen = معلومات"],
@@ -11674,7 +11674,7 @@ HELP_DATA["lesen3_exam3b_q2"] = {
     correct: 3
 };
 
-HELP_DATA["lesen3_exam3b_q3"] = {
+HELP_DATA["lesen3_exam103_q3"] = {
     text: "Dieses erstmals 1788 erschienene Buch - Ein Bekannter schreibt an einer Hausarbeit über Höflichkeit und Benimmregeln in früheren Jahrhunderten.",
     meaning: "هذا الكتاب الذي صدر لأول مرة عام 1788 - أحد المعارف يكتب بحثاً عن آداب السلوك في القرون الماضية",
     keywords: ["Benehmen = سلوك", "Umgang = تعامل", "Verhaltensregeln = قواعد سلوك", "Jahrhunderten = قرون"],
@@ -11683,7 +11683,7 @@ HELP_DATA["lesen3_exam3b_q3"] = {
     correct: 7
 };
 
-HELP_DATA["lesen3_exam3b_q4"] = {
+HELP_DATA["lesen3_exam103_q4"] = {
     text: "Jeder Mensch kann seine kommunikativen Möglichkeiten entdecken - Eine Bekannte ist sehr verunsichert wegen ihrer Angst vor Reden auf Konferenzen.",
     meaning: "كل إنسان يمكنه اكتشاف قدراته التواصلية - إحدى المعارف قلقة بسبب خوفها من التحدث في المؤتمرات",
     keywords: ["kommunikativ = تواصلي", "Rede = خطاب", "Vortrag = محاضرة", "Redeängste = مخاوف الكلام"],
@@ -11692,7 +11692,7 @@ HELP_DATA["lesen3_exam3b_q4"] = {
     correct: 9
 };
 
-HELP_DATA["lesen3_exam3b_q5"] = {
+HELP_DATA["lesen3_exam103_q5"] = {
     text: "Der Körper lügt nicht, Gesten und Gebärden - Ein Bekannter möchte wissen, welche Botschaften durch Gestik und Mimik transportiert werden.",
     meaning: "الجسد لا يكذب والإيماءات - أحد المعارف يريد معرفة الرسائل التي تنقلها الإيماءات وتعبيرات الوجه",
     keywords: ["Gesten = إيماءات", "Mimik = تعابير وجه", "Körpersprache = لغة جسد", "Signale = إشارات"],
@@ -11701,7 +11701,7 @@ HELP_DATA["lesen3_exam3b_q5"] = {
     correct: 4
 };
 
-HELP_DATA["lesen3_exam3b_q6"] = {
+HELP_DATA["lesen3_exam103_q6"] = {
     text: "Rolph Barth 'Basiswissen: Bewerbungstraining' - Ein Bekannter ist sich unsicher, wie er sich bei einem Vorstellungsgespräch am besten präsentiert.",
     meaning: "رولف بارث 'أساسيات: تدريب التقديم' - أحد المعارف غير متأكد كيف يقدم نفسه في مقابلة العمل",
     keywords: ["Bewerbung = تقديم", "Vorstellungsgespräch = مقابلة عمل", "Arbeitsmarkt = سوق عمل", "Anschreiben = رسالة تقديم"],
@@ -11710,7 +11710,7 @@ HELP_DATA["lesen3_exam3b_q6"] = {
     correct: 6
 };
 
-HELP_DATA["lesen3_exam3b_q7"] = {
+HELP_DATA["lesen3_exam103_q7"] = {
     text: "Viele Menschen wissen nicht mehr, wo Ihnen der Kopf steht - Ein befreundetes Ehepaar steht andauernd unter Stress und möchte wieder mehr Zeit für sich und andere haben.",
     meaning: "كثير من الناس لا يعرفون أين رؤوسهم - زوجان صديقان تحت ضغط مستمر ويريدان وقتاً لنفسهما",
     keywords: ["Zeitdruck = ضغط وقت", "Zeitmanagement = إدارة وقت", "Prioritäten = أولويات", "Zeitfalle = فخ الوقت"],
@@ -11723,7 +11723,7 @@ HELP_DATA["lesen3_exam3b_q7"] = {
 // Exam 6b: Musik und Gitarre (معدل)
 // ============================================
 
-HELP_DATA["lesen3_exam6b_q1"] = {
+HELP_DATA["lesen3_exam110_q1"] = {
     text: "Die Veranstaltungsprofis - Ein Bekannter hat bei der Veranstaltung Frankfurt gearbeitet und sucht eine andere Stelle in diesem Bereich.",
     meaning: "محترفو الفعاليات - أحد المعارف عمل في مجال تنظيم الفعاليات ويبحث عن وظيفة أخرى",
     keywords: ["Messen = معارض", "Veranstaltungsorganisation = تنظيم فعاليات", "Ausbildung = تدريب", "reisefreudig = محب للسفر"],
@@ -11732,7 +11732,7 @@ HELP_DATA["lesen3_exam6b_q1"] = {
     correct: 2
 };
 
-HELP_DATA["lesen3_exam6b_q2"] = {
+HELP_DATA["lesen3_exam110_q2"] = {
     text: "Gemeinsam mehr erleben - Ein Kollege möchte mit sechs Freunden eine mehrtägige Musikveranstaltung besuchen.",
     meaning: "تجربة المزيد معاً - زميل يريد مع ستة أصدقاء زيارة فعالية موسيقية لعدة أيام",
     keywords: ["Gruppenreisen = رحلات جماعية", "Jazzfestival = مهرجان جاز", "Klassikwoche = أسبوع كلاسيكي", "Veranstaltungen = فعاليات"],
@@ -11741,7 +11741,7 @@ HELP_DATA["lesen3_exam6b_q2"] = {
     correct: 1
 };
 
-HELP_DATA["lesen3_exam6b_q3"] = {
+HELP_DATA["lesen3_exam110_q3"] = {
     text: "Musikfestival Taubertal - Sie mögen Musik und möchten in diesem Bereich einen Job.",
     meaning: "مهرجان تاوبرتال الموسيقي - تحب الموسيقى وتريد وظيفة في هذا المجال",
     keywords: ["Musikfestival = مهرجان موسيقي", "Job = وظيفة", "Ticketkontrolle = فحص تذاكر", "Musiker = موسيقيين"],
@@ -11750,7 +11750,7 @@ HELP_DATA["lesen3_exam6b_q3"] = {
     correct: 7
 };
 
-HELP_DATA["lesen3_exam6b_q4"] = {
+HELP_DATA["lesen3_exam110_q4"] = {
     text: "Alle Veranstaltungen aus einer Hand - Sie möchten einer Freundin Eintrittskarten für eine Musikveranstaltung schenken.",
     meaning: "جميع الفعاليات من يد واحدة - تريد إهداء صديقتك تذاكر دخول لفعالية موسيقية",
     keywords: ["Veranstaltungen = فعاليات", "Geschenkgutscheine = بطاقات هدايا", "Online-Shop = متجر إلكتروني", "Tickets = تذاكر"],
@@ -11759,7 +11759,7 @@ HELP_DATA["lesen3_exam6b_q4"] = {
     correct: 3
 };
 
-HELP_DATA["lesen3_exam6b_q5"] = {
+HELP_DATA["lesen3_exam110_q5"] = {
     text: "Wir organisieren Veranstaltungen in verschiedenen Größenordnungen - Ein Bekannter muss eine Jubiläumsfeier organisieren und sucht Unterstützung.",
     meaning: "نحن ننظم فعاليات بأحجام مختلفة - أحد المعارف عليه تنظيم حفل ذكرى سنوية ويبحث عن دعم",
     keywords: ["Veranstaltungen = فعاليات", "Familienfeier = حفل عائلي", "Firmenveranstaltungen = فعاليات شركات", "Beratung = استشارة"],
@@ -11768,7 +11768,7 @@ HELP_DATA["lesen3_exam6b_q5"] = {
     correct: 6
 };
 
-HELP_DATA["lesen3_exam6b_q6"] = {
+HELP_DATA["lesen3_exam110_q6"] = {
     text: "Rhein/Ruhr-Festival - Eine Bekannte ist Musikerin und sucht Möglichkeiten, mit ihrer Gruppe aufzutreten.",
     meaning: "مهرجان الراين/الرور - إحدى المعارف موسيقية وتبحث عن فرص لتقديم عروض مع فرقتها",
     keywords: ["Festival = مهرجان", "Künstler = فنانين", "Bühnen = مسارح", "Musikgruppen = فرق موسيقية"],
@@ -11777,7 +11777,7 @@ HELP_DATA["lesen3_exam6b_q6"] = {
     correct: 9
 };
 
-HELP_DATA["lesen3_exam6b_q7"] = {
+HELP_DATA["lesen3_exam110_q7"] = {
     text: "I Gitarre, Violine & Co. - Die sechsjährige Tochter eines Nachbarn würde gerne mit anderen Kindern Musik machen.",
     meaning: "أنا جيتار وكمان وشركاه - ابنة الجيران البالغة ست سنوات تحب صنع الموسيقى مع أطفال آخرين",
     keywords: ["Musikverein = جمعية موسيقية", "Instrumente = آلات موسيقية", "Kinder = أطفال", "Probestunden = حصص تجريبية"],
@@ -11786,7 +11786,7 @@ HELP_DATA["lesen3_exam6b_q7"] = {
     correct: 5
 };
 
-HELP_DATA["lesen3_exam6b_q8"] = {
+HELP_DATA["lesen3_exam110_q8"] = {
     text: "Musiker gesucht - Ein Bekannter 55 Jahre alt spielt Gitarre und möchte ein weiteres Instrument lernen.",
     meaning: "مطلوب موسيقيون - أحد المعارف يعزف الجيتار ويريد تعلم آلة موسيقية أخرى",
     keywords: ["Musiktandems = ثنائيات موسيقية", "Unterricht = دروس", "Instrument = آلة موسيقية", "registrieren = تسجيل"],
@@ -11799,7 +11799,7 @@ HELP_DATA["lesen3_exam6b_q8"] = {
 // Exam 10b: Ganztagesausflug (معدل)
 // ============================================
 
-HELP_DATA["lesen3_exam10b_q1"] = {
+HELP_DATA["lesen3_exam111_q1"] = {
     text: "Neues Angebot der VHS - Sie sind neu in der Stadt und möchten Ihren Stadtteil kennenlernen.",
     meaning: "عرض جديد لمدرسة الشعب - أنت جديد في المدينة وتريد التعرف على منطقتك السكنية",
     keywords: ["VHS = مدرسة شعب", "Führungen = جولات إرشادية", "Stadtteil = منطقة سكنية", "kostenfrei = مجاني"],
@@ -11808,7 +11808,7 @@ HELP_DATA["lesen3_exam10b_q1"] = {
     correct: 7
 };
 
-HELP_DATA["lesen3_exam10b_q2"] = {
+HELP_DATA["lesen3_exam111_q2"] = {
     text: "Kurzreise nach München - Sie interessieren sich für Technikgeschichte.",
     meaning: "رحلة قصيرة إلى ميونيخ - أنت مهتم بتاريخ التكنولوجيا",
     keywords: ["Deutsches Museum = متحف ألماني", "Technik = تقنية", "Führung = جولة إرشادية", "Geschichte = تاريخ"],
@@ -11817,7 +11817,7 @@ HELP_DATA["lesen3_exam10b_q2"] = {
     correct: 3
 };
 
-HELP_DATA["lesen3_exam10b_q3"] = {
+HELP_DATA["lesen3_exam111_q3"] = {
     text: "Entspannung am Wasser - Sie möchten einen Ganztagesausflug machen und sich dabei bewegen.",
     meaning: "استرخاء على الماء - تريد القيام برحلة ليوم كامل وتحريك جسمك فيها",
     keywords: ["Bootsverleih = تأجير قوارب", "Ruderboot = قارب تجديف", "Tretboot = قارب بدواسات", "Motorboot = قارب بمحرك", "Sport = رياضة"],
@@ -11826,7 +11826,7 @@ HELP_DATA["lesen3_exam10b_q3"] = {
     correct: 0
 };
 
-HELP_DATA["lesen3_exam10b_q4"] = {
+HELP_DATA["lesen3_exam111_q4"] = {
     text: "Schiffe versenken, Marmorkuchen und selbstgebastelte Papierhüte - Ihr Sohn möchte einen Kindergeburtstag feiern und braucht Hilfe bei der Organisation.",
     meaning: "إغراق السفن وكعكة الرخام وقبعات ورقية مصنوعة يدوياً - ابنك يريد الاحتفال بعيد ميلاده ويحتاج مساعدة في التنظيم",
     keywords: ["Kindergeburtstag = عيد ميلاد طفل", "Dekoration = زينة", "Spiele = ألعاب", "Speisen = أطعمة"],
@@ -11835,7 +11835,7 @@ HELP_DATA["lesen3_exam10b_q4"] = {
     correct: 2
 };
 
-HELP_DATA["lesen3_exam10b_q5"] = {
+HELP_DATA["lesen3_exam111_q5"] = {
     text: "Nur auf Reisen lernt der Mensch - Ein Freund möchte mehr über die Geschichte deutscher Städte erfahren.",
     meaning: "فقط في السفر يتعلم الإنسان - صديق يريد معرفة المزيد عن تاريخ المدن الألمانية",
     keywords: ["Bildungsakademie = أكاديمية تعليمية", "Ausflüge = رحلات", "Geschichte = تاريخ", "Berlin = برلين", "Köln = كولونيا", "München = ميونيخ"],
@@ -11844,7 +11844,7 @@ HELP_DATA["lesen3_exam10b_q5"] = {
     correct: 8
 };
 
-HELP_DATA["lesen3_exam10b_q6"] = {
+HELP_DATA["lesen3_exam111_q6"] = {
     text: "Deutschland aus einer anderen Perspektive - Ein Freund möchte gerne eine Schiffsreise machen.",
     meaning: "ألمانيا من منظور آخر - صديق يود القيام برحلة بحرية",
     keywords: ["Flusskreuzfahrten = رحلات نهرية", "Rhein = راين", "Mosel = موزيل", "Donau = دانوب", "Natur = طبيعة"],
@@ -11853,7 +11853,7 @@ HELP_DATA["lesen3_exam10b_q6"] = {
     correct: 4
 };
 
-HELP_DATA["lesen3_exam10b_q7"] = {
+HELP_DATA["lesen3_exam111_q7"] = {
     text: "Unser Stadtteil ist lebendig - Sie möchten helfen, Ihren Stadtteil zu gestalten.",
     meaning: "منطقتنا السكنية حية - تريد المساعدة في تصميم منطقتك السكنية",
     keywords: ["Stadtteil = منطقة سكنية", "Fest = مهرجان", "Helfer = مساعدين", "Planung = تخطيط"],
@@ -11862,7 +11862,7 @@ HELP_DATA["lesen3_exam10b_q7"] = {
     correct: 5
 };
 
-HELP_DATA["lesen3_exam10b_q8"] = {
+HELP_DATA["lesen3_exam111_q8"] = {
     text: "Technik - spannend und verständlich - Sie möchten etwas mit Ihrer 6-jährigen Nichte unternehmen, die gerne ins Museum geht.",
     meaning: "التقنية - مثيرة ومفهومة - تريد القيام بنشاط مع ابنة أختك البالغة 6 سنوات والتي تحب الذهاب إلى المتاحف",
     keywords: ["Technik-Museum = متحف تقني", "Kinder = أطفال", "spielerisch = بطريقة مرحة", "Führungen = جولات إرشادية"],
@@ -11872,10 +11872,10 @@ HELP_DATA["lesen3_exam10b_q8"] = {
 };
 
 // ============================================
-// Exam 24b: المرشد السياحي (معدل)
+// Exam 112: المرشد السياحي (معدل)
 // ============================================
 
-HELP_DATA["lesen3_exam24b_q1"] = {
+HELP_DATA["lesen3_exam112_q1"] = {
     text: "Museum der Badekultur - Eine Frau möchte mit ihrem 10-jährigen Sohn eine Aktivität durchführen.",
     meaning: "متحف ثقافة الاستحمام - امرأة تريد القيام بنشاط مع ابنها البالغ 10 سنوات",
     keywords: ["Museum = متحف", "Badekultur = ثقافة استحمام", "Kinder = أطفال", "Comic = كوميكس", "Rallye = رالي"],
@@ -11884,7 +11884,7 @@ HELP_DATA["lesen3_exam24b_q1"] = {
     correct: 10
 };
 
-HELP_DATA["lesen3_exam24b_q2"] = {
+HELP_DATA["lesen3_exam112_q2"] = {
     text: "Badrenovierung - Ihre Schwester erneuert ihr Badezimmer und sucht nach modernen Badezimmermodellen.",
     meaning: "تجديد الحمام - أختك تجدد حمامها وتبحث عن موديلات حديثة",
     keywords: ["Badrenovierung = تجديد حمام", "Musterbäder = حمامات نموذجية", "Beratung = استشارة", "Fliesen = بلاط"],
@@ -11893,7 +11893,7 @@ HELP_DATA["lesen3_exam24b_q2"] = {
     correct: 18
 };
 
-HELP_DATA["lesen3_exam24b_q3"] = {
+HELP_DATA["lesen3_exam112_q3"] = {
     text: "Alpen-Naturkosmetik - Sie möchten wissen, wie man aus der Natur gewonnene Kosmetik zubereitet.",
     meaning: "مستحضرات تجميل طبيعية من الألب - تريد معرفة كيفية تحضير مستحضرات تجميل من الطبيعة",
     keywords: ["Alpen-Naturkosmetik = مستحضرات طبيعية", "Fabrik = مصنع", "Führung = جولة إرشادية", "kostenfrei = مجاني"],
@@ -11902,7 +11902,7 @@ HELP_DATA["lesen3_exam24b_q3"] = {
     correct: 16
 };
 
-HELP_DATA["lesen3_exam24b_q4"] = {
+HELP_DATA["lesen3_exam112_q4"] = {
     text: "Rom bei Nacht - Sie möchten irgendwo einen Urlaub mit besonderen Aktivitäten verbringen.",
     meaning: "روما ليلاً - تريد قضاء عطلة مع أنشطة مميزة",
     keywords: ["Rom = روما", "Nacht = ليل", "Pizza = بيتزا", "Kolosseum = كولوسيوم", "Kleingruppentour = جولة مجموعات صغيرة"],
@@ -11911,7 +11911,7 @@ HELP_DATA["lesen3_exam24b_q4"] = {
     correct: 14
 };
 
-HELP_DATA["lesen3_exam24b_q5"] = {
+HELP_DATA["lesen3_exam112_q5"] = {
     text: "Ausbildung zum Stadtführer - Ihr Freund möchte als Stadtführer arbeiten und hat keine Erfahrungen.",
     meaning: "تدريب كمرشد سياحي - صديقك يريد العمل كمرشد سياحي وليس لديه خبرة",
     keywords: ["Ausbildung = تدريب", "Stadtführer = مرشد سياحي", "Theorie = نظرية", "Praxis = تطبيق", "Fremdsprache = لغة أجنبية"],
@@ -11920,7 +11920,7 @@ HELP_DATA["lesen3_exam24b_q5"] = {
     correct: 11
 };
 
-HELP_DATA["lesen3_exam24b_q6"] = {
+HELP_DATA["lesen3_exam112_q6"] = {
     text: "Zwei Meister am Herd - Sie mögen leichte Unterhaltung und würden gerne mal wieder richtig lachen.",
     meaning: "سيدان في المطبخ - تحب الترفيه الخفيف وتريد الضحك من قلبك",
     keywords: ["Filmkomödie = فيلم كوميدي", "Spitzenkoch = طباخ نجم", "Kritiker = نقاد", "Witz = نكتة", "Humor = فكاهة"],
@@ -15297,7 +15297,7 @@ HELP_DATA["sprach1_exam40_q10"] = {
 // Exam 6b (exam6b.json) - Liebe Karin
 // ============================================
 
-HELP_DATA["sprach1_exam6b_q1"] = {
+HELP_DATA["sprach1_exam113_q1"] = {
     text: "gefreut zu lesen, dass es dir in München so gut gefällt",
     meaning: "سعدت جداً لقراءة أن ميونخ تعجبك كثيراً",
     keywords: ["dass = أن", "gefreut = سعيد", "gefällt = يعجب", "München = ميونخ"],
@@ -15305,7 +15305,7 @@ HELP_DATA["sprach1_exam6b_q1"] = {
     imagine: "😊✉️ شخص يقرأ رسالة ويبتسم"
 };
 
-HELP_DATA["sprach1_exam6b_q2"] = {
+HELP_DATA["sprach1_exam113_q2"] = {
     text: "Hast du schon neue Leute kennengelernt?",
     meaning: "هل تعرفت على أناس جدد؟",
     keywords: ["neue = جدد/جديدة", "Leute = أناس/ناس", "kennengelernt = تعرفت"],
@@ -15313,7 +15313,7 @@ HELP_DATA["sprach1_exam6b_q2"] = {
     imagine: "👋👥 شخص يصافح مجموعة من الأشخاص"
 };
 
-HELP_DATA["sprach1_exam6b_q3"] = {
+HELP_DATA["sprach1_exam113_q3"] = {
     text: "ich habe jede Menge Fragen an dich",
     meaning: "لدي الكثير من الأسئلة لك",
     keywords: ["jede Menge = الكثير من", "Fragen = أسئلة", "habe = لدي"],
@@ -15321,7 +15321,7 @@ HELP_DATA["sprach1_exam6b_q3"] = {
     imagine: "❓❓❓ شخص لديه ورق مكتوب عليه علامات استفهام"
 };
 
-HELP_DATA["sprach1_exam6b_q4"] = {
+HELP_DATA["sprach1_exam113_q4"] = {
     text: "Einladung wirklich gerne annehmen",
     meaning: "أقبل الدعوة بكل سرور",
     keywords: ["annehmen = يقبل/يوافق", "Einladung = دعوة", "gerne = بكل سرور"],
@@ -15329,7 +15329,7 @@ HELP_DATA["sprach1_exam6b_q4"] = {
     imagine: "🤝✅ شخص يمد يده للموافقة"
 };
 
-HELP_DATA["sprach1_exam6b_q5"] = {
+HELP_DATA["sprach1_exam113_q5"] = {
     text: "mich viel um Jonas kümmern muss",
     meaning: "يجب أن أعتني بيوناس كثيراً",
     keywords: ["um ... kümmern = يعتني بـ", "muss = يجب", "Jonas = يوناس"],
@@ -15337,7 +15337,7 @@ HELP_DATA["sprach1_exam6b_q5"] = {
     imagine: "👶🤱 أم تعتني بطفلها الرضيع"
 };
 
-HELP_DATA["sprach1_exam6b_q6"] = {
+HELP_DATA["sprach1_exam113_q6"] = {
     text: "Aber sobald frei hat, komme ich mal für ein, zwei Tage zu dir",
     meaning: "لكن بمجرد أن يكون لدي وقت فراغ، سآتي إليك ليوم أو يومين",
     keywords: ["sobald = بمجرد أن", "frei = حر/متفرغ", "komme = سآتي"],
@@ -15345,7 +15345,7 @@ HELP_DATA["sprach1_exam6b_q6"] = {
     imagine: "🗓️✈️ شخص ينظر إلى التقويم ويخطط للسفر"
 };
 
-HELP_DATA["sprach1_exam6b_q7"] = {
+HELP_DATA["sprach1_exam113_q7"] = {
     text: "toll, auch wenn es mal Streit gibt",
     meaning: "رائع، حتى لو حدث خلاف أحياناً",
     keywords: ["auch wenn = حتى لو", "Streit = خلاف/شجار", "toll = رائع"],
@@ -15353,7 +15353,7 @@ HELP_DATA["sprach1_exam6b_q7"] = {
     imagine: "🏠😤😊 بيت فيه ناس يتناقشون لكن في النهاية يضحكون"
 };
 
-HELP_DATA["sprach1_exam6b_q8"] = {
+HELP_DATA["sprach1_exam113_q8"] = {
     text: "ihr euch alle gut versteht",
     meaning: "أنكم تتفقون جميعاً بشكل جيد",
     keywords: ["alle = جميعاً/كل", "gut versteht = تتفقون جيداً", "euch = أنتم"],
@@ -15361,7 +15361,7 @@ HELP_DATA["sprach1_exam6b_q8"] = {
     imagine: "🤝👥 مجموعة من الأصدقاء يتصافحون"
 };
 
-HELP_DATA["sprach1_exam6b_q9"] = {
+HELP_DATA["sprach1_exam113_q9"] = {
     text: "in eine größere Wohnung zu ziehen, aber die Mieten sind ja hier in Köln recht hoch",
     meaning: "أن ننتقل إلى شقة أكبر، لكن الإيجارات هنا في كولونيا مرتفعة جداً",
     keywords: ["aber = لكن", "Mieten = إيجارات", "Köln = كولونيا", "hoch = مرتفع"],
@@ -15369,7 +15369,7 @@ HELP_DATA["sprach1_exam6b_q9"] = {
     imagine: "🏠💰 شخص ينظر إلى شقة جميلة لكنه يتردد بسبب السعر"
 };
 
-HELP_DATA["sprach1_exam6b_q10"] = {
+HELP_DATA["sprach1_exam113_q10"] = {
     text: "Umziehen kann man ja auch später",
     meaning: "يمكن الانتقال في وقت لاحق أيضاً",
     keywords: ["Umziehen = الانتقال/يغير السكن", "später = لاحقاً", "kann = يمكن"],
@@ -15377,10 +15377,10 @@ HELP_DATA["sprach1_exam6b_q10"] = {
     imagine: "📦⏳ صناديق نقل وانتظار"
 };
 // ============================================
-// Exam 20b (exam20b.json) - Liebes Julian
+// Exam 114 (exam114.json) - Liebes Julian
 // ============================================
 
-HELP_DATA["sprach1_exam20b_q1"] = {
+HELP_DATA["sprach1_exam114_q1"] = {
     text: "Ich würde ja auch gerne mal wieder ans Meer fahren",
     meaning: "أنا أيضاً أرغب في الذهاب إلى البحر مرة أخرى",
     keywords: ["würde = أرغب/سوف (صيغة مهذبة)", "ans Meer = إلى البحر", "fahren = يذهب"],
@@ -15388,7 +15388,7 @@ HELP_DATA["sprach1_exam20b_q1"] = {
     imagine: "🌊😎 شخص ينظر إلى البحر ويتمنى الذهاب"
 };
 
-HELP_DATA["sprach1_exam20b_q2"] = {
+HELP_DATA["sprach1_exam114_q2"] = {
     text: "ans Meer fahren, aber im Moment habe ich leider keine Zeit für Urlaub",
     meaning: "أذهب إلى البحر، لكن للأسف ليس لدي وقت للإجازة حالياً",
     keywords: ["aber = لكن", "im Moment = حالياً", "keine Zeit = لا وقت"],
@@ -15396,7 +15396,7 @@ HELP_DATA["sprach1_exam20b_q2"] = {
     imagine: "🌊⏰ شخص ينظر للبحر ثم ينظر للساعة بحسرة"
 };
 
-HELP_DATA["sprach1_exam20b_q3"] = {
+HELP_DATA["sprach1_exam114_q3"] = {
     text: "Wie du dir bestimmt vorstellen kannst",
     meaning: "كما يمكنك أن تتخيل بالتأكيد",
     keywords: ["Wie = كما", "vorstellen = يتخيل", "bestimmt = بالتأكيد"],
@@ -15404,7 +15404,7 @@ HELP_DATA["sprach1_exam20b_q3"] = {
     imagine: "🤔💭 شخص يضع يده على ذقنه ويتخيل"
 };
 
-HELP_DATA["sprach1_exam20b_q4"] = {
+HELP_DATA["sprach1_exam114_q4"] = {
     text: "zuerst ziemlich skeptisch war",
     meaning: "كنت متشككاً جداً في البداية",
     keywords: ["skeptisch = متشكك", "zuerst = في البداية", "ziemlich = جداً"],
@@ -15412,7 +15412,7 @@ HELP_DATA["sprach1_exam20b_q4"] = {
     imagine: "🤨❓ شخص ينظر بشك إلى شيء جديد"
 };
 
-HELP_DATA["sprach1_exam20b_q5"] = {
+HELP_DATA["sprach1_exam114_q5"] = {
     text: "wie ich inzwischen festgestellt habe",
     meaning: "كما اكتشفت في هذه الأثناء",
     keywords: ["festgestellt = اكتشف/تأكد", "inzwischen = في هذه الأثناء", "habe = لقد"],
@@ -15420,7 +15420,7 @@ HELP_DATA["sprach1_exam20b_q5"] = {
     imagine: "💡🔍 شخص وجد شيئاً وفهمه"
 };
 
-HELP_DATA["sprach1_exam20b_q6"] = {
+HELP_DATA["sprach1_exam114_q6"] = {
     text: "mit typisch fränkischen Spezialitäten",
     meaning: "مع أطباق فرانكونية تقليدية",
     keywords: ["fränkischen = فرانكونية (نسبة إلى منطقة فرانكونيا)", "Spezialitäten = أطباق خاصة/تقليدية", "typisch = تقليدي"],
@@ -15428,7 +15428,7 @@ HELP_DATA["sprach1_exam20b_q6"] = {
     imagine: "🍖🍺 أطباق ألمانية تقليدية على طاولة"
 };
 
-HELP_DATA["sprach1_exam20b_q7"] = {
+HELP_DATA["sprach1_exam114_q7"] = {
     text: "Wenn du willst, zeige ich dir gerne mal die Stadt",
     meaning: "إذا أردت، سأريك المدينة بكل سرور",
     keywords: ["Wenn = إذا", "willst = تريد", "zeige = سأري", "gerne = بكل سرور"],
@@ -15436,7 +15436,7 @@ HELP_DATA["sprach1_exam20b_q7"] = {
     imagine: "🗺️👋 شخص يلوح بيده ليرشد آخر في المدينة"
 };
 
-HELP_DATA["sprach1_exam20b_q8"] = {
+HELP_DATA["sprach1_exam114_q8"] = {
     text: "ausgepackt werden müssen",
     meaning: "يجب أن يتم تفريغها",
     keywords: ["ausgepackt = مفرغة/مفكوكة", "werden = يتم (للمجهول)", "müssen = يجب"],
@@ -15444,7 +15444,7 @@ HELP_DATA["sprach1_exam20b_q8"] = {
     imagine: "📦🔓 صناديق مغلقة تنتظر من يفتحها"
 };
 
-HELP_DATA["sprach1_exam20b_q9"] = {
+HELP_DATA["sprach1_exam114_q9"] = {
     text: "ausgepackt werden müssen",
     meaning: "يجب أن يتم تفريغها",
     keywords: ["müssen = يجب", "ausgepackt = مفرغة", "werden = يتم"],
@@ -15452,7 +15452,7 @@ HELP_DATA["sprach1_exam20b_q9"] = {
     imagine: "📦💪 شخص يفتح صناديق ويخرج محتوياتها"
 };
 
-HELP_DATA["sprach1_exam20b_q10"] = {
+HELP_DATA["sprach1_exam114_q10"] = {
     text: "Glück gehabt, weil sie geräumig und zentral gelegen ist",
     meaning: "محظوظ لأنها واسعة وتقع في موقع مركزي",
     keywords: ["weil = لأن", "geräumig = واسع", "zentral = مركزي", "gelegen = يقع"],
@@ -15460,10 +15460,10 @@ HELP_DATA["sprach1_exam20b_q10"] = {
     imagine: "🏠📍 شقة واسعة في وسط المدينة"
 };
 // ============================================
-// Exam 29b (exam29b.json) - Liebe Andrea
+// Exam 115 (exam115.json) - Liebe Andrea
 // ============================================
 
-HELP_DATA["sprach1_exam29b_q1"] = {
+HELP_DATA["sprach1_exam115_q1"] = {
     text: "dass ich erst jetzt antworte",
     meaning: "أنني أرد فقط الآن",
     keywords: ["erst = فقط/لأول مرة", "jetzt = الآن", "antworte = أرد"],
@@ -15471,7 +15471,7 @@ HELP_DATA["sprach1_exam29b_q1"] = {
     imagine: "⏰✉️ شخص يكتب رسالة متأخراً"
 };
 
-HELP_DATA["sprach1_exam29b_q2"] = {
+HELP_DATA["sprach1_exam115_q2"] = {
     text: "gebracht, damit er mir ein neues Betriebssystem installiert",
     meaning: "أخذته إليه لكي يثبت لي نظام تشغيل جديد",
     keywords: ["damit = لكي", "installiert = يثبت", "Betriebssystem = نظام تشغيل"],
@@ -15479,7 +15479,7 @@ HELP_DATA["sprach1_exam29b_q2"] = {
     imagine: "💻🔧 شخص يصلح كمبيوتر لآخر"
 };
 
-HELP_DATA["sprach1_exam29b_q3"] = {
+HELP_DATA["sprach1_exam115_q3"] = {
     text: "mal zu uns kommen",
     meaning: "تأتي إلينا مرة",
     keywords: ["zu = إلى", "uns = نحن/إلينا", "kommen = يأتي"],
@@ -15487,7 +15487,7 @@ HELP_DATA["sprach1_exam29b_q3"] = {
     imagine: "🏠🚪 شخص يطرق باب منزل أصدقائه"
 };
 
-HELP_DATA["sprach1_exam29b_q4"] = {
+HELP_DATA["sprach1_exam115_q4"] = {
     text: "bist ziemlich spät dran",
     meaning: "أنت متأخر جداً",
     keywords: ["ziemlich = جداً", "spät dran = متأخر", "bist = أنت"],
@@ -15495,7 +15495,7 @@ HELP_DATA["sprach1_exam29b_q4"] = {
     imagine: "⏰🏃 شخص يركض متأخراً"
 };
 
-HELP_DATA["sprach1_exam29b_q5"] = {
+HELP_DATA["sprach1_exam115_q5"] = {
     text: "Erfahrung dafür ; nur Englisch ist zwingende Voraussetzung",
     meaning: "خبرة لذلك؛ فقط اللغة الإنجليزية شرط أساسي",
     keywords: ["dafür = لذلك", "Erfahrung = خبرة", "zwingende Voraussetzung = شرط إلزامي"],
@@ -15503,7 +15503,7 @@ HELP_DATA["sprach1_exam29b_q5"] = {
     imagine: "📋✅ قائمة شروط وعليها علامة صح للغة الإنجليزية"
 };
 
-HELP_DATA["sprach1_exam29b_q6"] = {
+HELP_DATA["sprach1_exam115_q6"] = {
     text: "eine weitere Fremdsprache wäre noch besser",
     meaning: "لغة أجنبية إضافية ستكون أفضل",
     keywords: ["weitere = إضافية/أخرى", "Fremdsprache = لغة أجنبية", "besser = أفضل"],
@@ -15511,7 +15511,7 @@ HELP_DATA["sprach1_exam29b_q6"] = {
     imagine: "🗣️🌍 شخص يتحدث عدة لغات"
 };
 
-HELP_DATA["sprach1_exam29b_q7"] = {
+HELP_DATA["sprach1_exam115_q7"] = {
     text: "dich bewerben, am besten noch heute",
     meaning: "تتقدم بطلبك، الأفضل اليوم",
     keywords: ["bewerben = يتقدم بطلب", "am besten = الأفضل", "heute = اليوم"],
@@ -15519,7 +15519,7 @@ HELP_DATA["sprach1_exam29b_q7"] = {
     imagine: "📝✍️ شخص يملأ استمارة طلب عمل"
 };
 
-HELP_DATA["sprach1_exam29b_q8"] = {
+HELP_DATA["sprach1_exam115_q8"] = {
     text: "persönlich, sonst hätte ich mich natürlich sofort für dich eingesetzt",
     meaning: "شخصياً، وإلا كنت سأتدخل لصالحك فوراً",
     keywords: ["sonst = وإلا", "hätte eingesetzt = كنت سأتدخل", "sofort = فوراً"],
@@ -15527,7 +15527,7 @@ HELP_DATA["sprach1_exam29b_q8"] = {
     imagine: "🤷‍♂️📞 شخص يريد المساعدة لكن لا يستطيع"
 };
 
-HELP_DATA["sprach1_exam29b_q9"] = {
+HELP_DATA["sprach1_exam115_q9"] = {
     text: "werde übrigens wieder im Kinder-Feriencamp arbeiten",
     meaning: "بالمناسبة، سأعمل مجدداً في مخيم الأطفال الصيفي",
     keywords: ["übrigens = بالمناسبة", "wieder = مجدداً", "Kinder-Feriencamp = مخيم صيفي للأطفال"],
@@ -15535,7 +15535,7 @@ HELP_DATA["sprach1_exam29b_q9"] = {
     imagine: "🏕️👦👧 أطفال في مخيم صيفي"
 };
 
-HELP_DATA["sprach1_exam29b_q10"] = {
+HELP_DATA["sprach1_exam115_q10"] = {
     text: "dieses Jahr ins Ausland",
     meaning: "هذا العام إلى الخارج",
     keywords: ["ins Ausland = إلى الخارج", "dieses Jahr = هذا العام", "wollte = أردت"],
@@ -15543,10 +15543,10 @@ HELP_DATA["sprach1_exam29b_q10"] = {
     imagine: "✈️🌍 طائرة تتجه إلى الخارج"
 };
 // ============================================
-// Exam 40b (exam40b.json) - Liebe Sandra
+// Exam 116 (exam116.json) - Liebe Sandra
 // ============================================
 
-HELP_DATA["sprach1_exam40b_q21"] = {
+HELP_DATA["sprach1_exam116_q21"] = {
     text: "zieht es mich ja immer in den Süden",
     meaning: "إنه يجذبني دائماً إلى الجنوب",
     keywords: ["es = إنه (ضمير فاعل)", "zieht ... in = يجذب إلى", "Süden = الجنوب"],
@@ -15554,7 +15554,7 @@ HELP_DATA["sprach1_exam40b_q21"] = {
     imagine: "🧭⬇️ بوصلة تشير إلى الجنوب"
 };
 
-HELP_DATA["sprach1_exam40b_q22"] = {
+HELP_DATA["sprach1_exam116_q22"] = {
     text: "gedacht, dass ein Urlaub ganz ohne Partyleben das Richtige für mich sein könnte",
     meaning: "اعتقدت أن عطلة بدون حياة حفلات قد تكون مناسبة لي",
     keywords: ["dass = أن", "Urlaub = عطلة", "Partyleben = حياة الحفلات", "das Richtige = الشيء المناسب"],
@@ -15562,7 +15562,7 @@ HELP_DATA["sprach1_exam40b_q22"] = {
     imagine: "🏖️😌 شخص يسترخي على الشاطئ بعيداً عن الضوضاء"
 };
 
-HELP_DATA["sprach1_exam40b_q23"] = {
+HELP_DATA["sprach1_exam116_q23"] = {
     text: "Arbeit viel Stress",
     meaning: "ضغط كثير في العمل",
     keywords: ["viel = كثير (غير معدود)", "Stress = ضغط/توتر", "Arbeit = عمل"],
@@ -15570,7 +15570,7 @@ HELP_DATA["sprach1_exam40b_q23"] = {
     imagine: "💼😰 شخص مرهق في المكتب"
 };
 
-HELP_DATA["sprach1_exam40b_q24"] = {
+HELP_DATA["sprach1_exam116_q24"] = {
     text: "heiß, was ich als sehr angenehm empfinde",
     meaning: "حار، وهو ما أشعر به كمريح جداً",
     keywords: ["was = الذي/وهو ما", "angenehm = مريح/لطيف", "empfinde = أشعر"],
@@ -15578,7 +15578,7 @@ HELP_DATA["sprach1_exam40b_q24"] = {
     imagine: "🌡️😊 شخص يشعر بالدفء المريح"
 };
 
-HELP_DATA["sprach1_exam40b_q25"] = {
+HELP_DATA["sprach1_exam116_q25"] = {
     text: "besteht aus zwei Inseln",
     meaning: "تتكون من جزيرتين",
     keywords: ["besteht aus = يتكون من", "zwei = اثنتين", "Inseln = جزر"],
@@ -15586,7 +15586,7 @@ HELP_DATA["sprach1_exam40b_q25"] = {
     imagine: "🏝️🏝️ جزيرتان بجانب بعض"
 };
 
-HELP_DATA["sprach1_exam40b_q26"] = {
+HELP_DATA["sprach1_exam116_q26"] = {
     text: "zu erreichen ist",
     meaning: "يمكن الوصول إليها",
     keywords: ["erreichen = يصل إلى", "zu erreichen = يمكن الوصول", "ist = هي"],
@@ -15594,7 +15594,7 @@ HELP_DATA["sprach1_exam40b_q26"] = {
     imagine: "⛴️🏝️ عبارة تقترب من الجزيرة"
 };
 
-HELP_DATA["sprach1_exam40b_q27"] = {
+HELP_DATA["sprach1_exam116_q27"] = {
     text: "wild lebende Tiere",
     meaning: "حيوانات برية",
     keywords: ["lebende = حية/تعيش", "wild = بري", "Tiere = حيوانات"],
@@ -15602,7 +15602,7 @@ HELP_DATA["sprach1_exam40b_q27"] = {
     imagine: "🦭🐧 حيوانات برية في الطبيعة"
 };
 
-HELP_DATA["sprach1_exam40b_q28"] = {
+HELP_DATA["sprach1_exam116_q28"] = {
     text: "nur wenige Stunden",
     meaning: "بضع ساعات فقط",
     keywords: ["wenige = بضع/قليلة (جمع)", "Stunden = ساعات", "nur = فقط"],
@@ -15610,7 +15610,7 @@ HELP_DATA["sprach1_exam40b_q28"] = {
     imagine: "⏱️👀 شخص ينظر إلى ساعته"
 };
 
-HELP_DATA["sprach1_exam40b_q29"] = {
+HELP_DATA["sprach1_exam116_q29"] = {
     text: "Sobald die Tagesausflüger wieder abgefahren sind, kehrt Ruhe ein",
     meaning: "بمجرد أن يغادر زوار اليوم الواحد، يعود الهدوء",
     keywords: ["Sobald = بمجرد أن", "Tagesausflüger = زوار اليوم الواحد", "Ruhe kehrt ein = يعود الهدوء"],
@@ -15618,7 +15618,7 @@ HELP_DATA["sprach1_exam40b_q29"] = {
     imagine: "🏝️🚶‍♂️🚶‍♀️ سياح يغادرون ثم هدوء تام"
 };
 
-HELP_DATA["sprach1_exam40b_q30"] = {
+HELP_DATA["sprach1_exam116_q30"] = {
     text: "hört. was gibt es bei dir denn Neues?",
     meaning: "يسمع. ما هي الأخبار عندك؟",
     keywords: ["was = ماذا", "Neues = جديد/أخبار", "gibt es = هناك"],
@@ -20117,8 +20117,8 @@ function getCorrectQuestions(skill, examId) {
         'lesen3_exam33': [1,2,3,4,5,6,7,8,9,10], 'lesen3_exam34': [1,2,3,4,5,6,7,8,9,10],
         'lesen3_exam35': [1,2,3,4,5,6,7,8,9,10], 'lesen3_exam3b': [1,2,3,4,5,6,7],
         'lesen3_exam6b': [1,2,3,4,5,6,7,8],
-        'lesen3_exam10b': [1,2,3,4,5,6,7,8],
-        'lesen3_exam24b': [1,2,3,4,5,6],
+        'lesen3_exam111': [1,2,3,4,5,6,7,8],
+        'lesen3_exam112': [1,2,3,4,5,6],
         
         // Sprach Teil 1 (40 امتحان)
         'sprach1_exam1': [1,2,3,4,5,6,7,8,9,10], 'sprach1_exam2': [1,2,3,4,5,6,7,8,9,10],
@@ -20142,9 +20142,9 @@ function getCorrectQuestions(skill, examId) {
         'sprach1_exam37': [1,2,3,4,5,6,7,8,9,10], 'sprach1_exam38': [1,2,3,4,5,6,7,8,9,10],
         'sprach1_exam39': [1,2,3,4,5,6,7,8,9,10], 'sprach1_exam40': [1,2,3,4,5,6,7,8,9,10],
         'sprach1_exam6b': [1,2,3,4,5,6,7,8,9,10],
-        'sprach1_exam20b': [1,2,3,4,5,6,7,8,9,10],
-        'sprach1_exam29b': [1,2,3,4,5,6,7,8,9,10],
-        'sprach1_exam40b': [1,2,3,4,5,6,7,8,9,10],
+        'sprach1_exam114': [1,2,3,4,5,6,7,8,9,10],
+        'sprach1_exam115': [1,2,3,4,5,6,7,8,9,10],
+        'sprach1_exam116': [1,2,3,4,5,6,7,8,9,10],
         
         // Sprach Teil 2 (45 امتحان)
         'sprach2_exam1': [1,2,3,4,5,6,7,8,9,10], 'sprach2_exam2': [1,2,3,4,5,6,7,8,9,10],
