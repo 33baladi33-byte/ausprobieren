@@ -1491,7 +1491,7 @@ async function renderExamListForSkill(skill, teilName) {
         e.stopPropagation();
         showVersionsPopup(exam, targetSkill);
       };
-    } else if (!isPremium && !isFreeExam && targetSkill !== "mündlich1" && targetSkill !== "mündlich3") {
+} else if (!isPremium && !isFreeExam) {
       // قفل Premium
       div.style.backgroundColor = "rgba(255,255,255,0.75)";
       div.style.border = "1px solid #e2e8f0";
