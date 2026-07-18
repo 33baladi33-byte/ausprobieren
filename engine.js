@@ -349,6 +349,14 @@ function renderSprach2Exam() {
             const oldWord = sprach2UserAnswers[qId];
             delete sprach2UserAnswers[qId];
             
+            // ✅ تسجيل عملية الإلغاء في الـ History
+            pushAnswerToHistory({
+                type: 'sprach2_link',
+                qId: qId,
+                word: oldWord,
+                action: 'remove'
+            });
+            
             const wordCard = document.getElementById(`sprach2_word_${oldWord}`);
             if (wordCard) {
               wordCard.style.backgroundColor = "#e0f2fe";
@@ -421,6 +429,19 @@ function renderSprach2Exam() {
             const parentDiv = btn.parentElement;
             const existingMsg = parentDiv.querySelector('.correct-answer-hint');
             if (existingMsg) existingMsg.remove();
+            
+            // سحب التركيز فوراً
+            setTimeout(() => {
+                if (document.activeElement === btn) {
+                    btn.blur();
+                }
+                const examContainer = document.getElementById('exam');
+                if (examContainer && !document.activeElement?.closest?.('#exam')) {
+                    examContainer.setAttribute('tabindex', '-1');
+                    examContainer.focus({ preventScroll: true });
+                }
+            }, 5);
+            
             return;
           }
           
@@ -438,6 +459,14 @@ function renderSprach2Exam() {
             btn.style.border = "2px solid #28a745";
             btn.style.color = "#155724";
             
+            // ✅ تسجيل عملية الإضافة في الـ History
+            pushAnswerToHistory({
+                type: 'sprach2_link',
+                qId: qId,
+                word: word,
+                action: 'add'
+            });
+            
             const wordCard = document.getElementById(`sprach2_word_${word}`);
             if (wordCard) {
               wordCard.style.backgroundColor = "#d4edda";
@@ -448,6 +477,18 @@ function renderSprach2Exam() {
             }
             sprach2SelectedWordForLinking = null;
             clearSprach2WordSelection();
+            
+            // سحب التركيز فوراً
+            setTimeout(() => {
+                if (document.activeElement === btn) {
+                    btn.blur();
+                }
+                const examContainer = document.getElementById('exam');
+                if (examContainer && !document.activeElement?.closest?.('#exam')) {
+                    examContainer.setAttribute('tabindex', '-1');
+                    examContainer.focus({ preventScroll: true });
+                }
+            }, 5);
           } else {
             clearSprach2ButtonSelection();
             btn.classList.add('selected-for-link');
@@ -535,8 +576,29 @@ function renderSprach2Exam() {
               cardEl.style.cursor = "default";
               cardEl.style.opacity = "0.85";
             }
+            
+            // ✅ تسجيل عملية الإضافة في الـ History
+            pushAnswerToHistory({
+                type: 'sprach2_link',
+                qId: sprach2SelectedQuestionId,
+                word: w,
+                action: 'add'
+            });
+            
             sprach2SelectedQuestionId = null;
             clearSprach2ButtonSelection();
+            
+            // سحب التركيز فوراً
+            setTimeout(() => {
+                if (document.activeElement === this) {
+                    this.blur();
+                }
+                const examContainer = document.getElementById('exam');
+                if (examContainer && !document.activeElement?.closest?.('#exam')) {
+                    examContainer.setAttribute('tabindex', '-1');
+                    examContainer.focus({ preventScroll: true });
+                }
+            }, 5);
           } else {
             clearSprach2WordSelection();
             wordCard.classList.add('selected-for-link');
@@ -4548,7 +4610,7 @@ function pushAnswerToHistory(action) {
 }
 
 // ============================================
-// دالة التراجع عن آخر إجابة - معدلة لدعم Lesen3
+// دالة التراجع عن آخر إجابة - معدلة لدعم Lesen3 و sprach2
 // ============================================
 function undoLastAnswer() {
     if (_answerHistory.length === 0) return false;
@@ -4643,20 +4705,81 @@ function undoLastAnswer() {
         }
     }
     
-    // ---- Sprachbausteine 1 & 2 ----
-    else if (skill === 'sprach1' || skill === 'sprach2') {
+    // ---- Sprachbausteine 1 ----
+    else if (skill === 'sprach1') {
         if (lastAction.type === 'sprach') {
             const btn = document.getElementById(lastAction.id);
             if (btn) {
-                const qId = parseInt(lastAction.id.replace('sprach1_btn_', '').replace('sprach2_btn_', ''));
-                if (skill === 'sprach1' && typeof sprach1UserAnswers !== 'undefined') {
+                const qId = parseInt(lastAction.id.replace('sprach1_btn_', ''));
+                if (typeof sprach1UserAnswers !== 'undefined') {
                     delete sprach1UserAnswers[qId];
                     btn.textContent = `__(${qId})__`;
                     btn.style.backgroundColor = '#e0e0e0';
                     btn.style.color = '#333';
                     const radioName = `sprach1_q${qId}`;
                     document.querySelectorAll(`input[name="${radioName}"]`).forEach(r => r.checked = false);
-                } else if (skill === 'sprach2' && typeof sprach2UserAnswers !== 'undefined') {
+                }
+            }
+        }
+    }
+    
+    // ---- Sprachbausteine 2 (الربط بين الكلمة والرقم) ----
+    else if (skill === 'sprach2') {
+        if (lastAction.type === 'sprach2_link') {
+            const { qId, word, action } = lastAction;
+            
+            if (action === 'add') {
+                // فك الربط: حذف الكلمة من الفجوة
+                delete sprach2UserAnswers[qId];
+                
+                // تحديث الزر
+                const btn = document.getElementById(`sprach2_btn_${qId}`);
+                if (btn) {
+                    btn.textContent = `__( ${qId} )__`;
+                    btn.style.backgroundColor = '#e0e0e0';
+                    btn.style.color = '#333';
+                    btn.classList.remove('selected-for-link');
+                    btn.style.border = 'none';
+                }
+                
+                // إعادة الكلمة إلى القائمة
+                const card = document.getElementById(`sprach2_word_${word}`);
+                if (card) {
+                    card.style.backgroundColor = '#ffffff';
+                    card.style.border = '1px solid #7c6ce6';
+                    card.style.color = '#4a4a4a';
+                    card.style.cursor = 'pointer';
+                    card.style.opacity = '1';
+                    card.classList.remove('selected-for-link');
+                }
+            } else if (action === 'remove') {
+                // إعادة الربط: استرجاع الكلمة
+                sprach2UserAnswers[qId] = word;
+                
+                const btn = document.getElementById(`sprach2_btn_${qId}`);
+                if (btn) {
+                    btn.textContent = word;
+                    btn.style.backgroundColor = '#d4edda';
+                    btn.style.border = '2px solid #28a745';
+                    btn.style.color = '#155724';
+                }
+                
+                const card = document.getElementById(`sprach2_word_${word}`);
+                if (card) {
+                    card.style.backgroundColor = '#d4edda';
+                    card.style.border = '2px solid #28a745';
+                    card.style.color = '#155724';
+                    card.style.cursor = 'default';
+                    card.style.opacity = '0.85';
+                }
+            }
+        }
+        // في حالة التراجع عن اختيار عادي (إذا كان قد تم تسجيله)
+        else if (lastAction.type === 'sprach') {
+            const btn = document.getElementById(lastAction.id);
+            if (btn) {
+                const qId = parseInt(lastAction.id.replace('sprach2_btn_', ''));
+                if (typeof sprach2UserAnswers !== 'undefined') {
                     const word = sprach2UserAnswers[qId];
                     delete sprach2UserAnswers[qId];
                     btn.textContent = `__( ${qId} )__`;
@@ -4706,7 +4829,7 @@ function hookAnswerSelection() {
         }
     });
 
-    // Lesen 1 (Matching) - تحسين التسجيل
+    // Lesen 1 (Matching) - تحسين التسجيل + سحب التركيز
     document.addEventListener('change', function(e) {
         if (e.target.tagName === 'SELECT' && e.target.id && e.target.id.startsWith('matching_q_')) {
             const oldVal = e.target.dataset.oldValue || '';
@@ -4719,6 +4842,18 @@ function hookAnswerSelection() {
                 pushAnswerToHistory({ type: 'select', id: e.target.id, oldValue: oldVal });
                 e.target.dataset.oldValue = '';
             }
+            
+            // ✅ سحب التركيز فوراً لضمان عمل Ctrl+Z
+            setTimeout(() => {
+                if (document.activeElement === e.target) {
+                    e.target.blur();
+                }
+                const examContainer = document.getElementById('exam');
+                if (examContainer && !document.activeElement?.closest?.('#exam')) {
+                    examContainer.setAttribute('tabindex', '-1');
+                    examContainer.focus({ preventScroll: true });
+                }
+            }, 5);
         }
     });
 
@@ -4727,6 +4862,17 @@ function hookAnswerSelection() {
         if (e.target.type === 'radio' && e.target.name && e.target.name.startsWith('teil2_q')) {
             if (e.target.checked) {
                 pushAnswerToHistory({ type: 'radio', name: e.target.name, value: e.target.value });
+                // سحب التركيز
+                setTimeout(() => {
+                    if (document.activeElement === e.target) {
+                        e.target.blur();
+                    }
+                    const examContainer = document.getElementById('exam');
+                    if (examContainer && !document.activeElement?.closest?.('#exam')) {
+                        examContainer.setAttribute('tabindex', '-1');
+                        examContainer.focus({ preventScroll: true });
+                    }
+                }, 5);
             }
         }
     });
@@ -4743,6 +4889,16 @@ function hookAnswerSelection() {
                 pushAnswerToHistory({ type: 'select', id: e.target.id, oldValue: oldVal });
                 e.target.dataset.oldValue = '';
             }
+            setTimeout(() => {
+                if (document.activeElement === e.target) {
+                    e.target.blur();
+                }
+                const examContainer = document.getElementById('exam');
+                if (examContainer && !document.activeElement?.closest?.('#exam')) {
+                    examContainer.setAttribute('tabindex', '-1');
+                    examContainer.focus({ preventScroll: true });
+                }
+            }, 5);
         }
     });
 
@@ -4763,6 +4919,36 @@ function hookAnswerSelection() {
         if (e.target.type === 'radio' && e.target.name && e.target.name.startsWith('sprach1_q')) {
             if (e.target.checked) {
                 pushAnswerToHistory({ type: 'sprach', id: 'sprach1_btn_' + e.target.name.replace('sprach1_q', '') });
+                // سحب التركيز
+                setTimeout(() => {
+                    if (document.activeElement === e.target) {
+                        e.target.blur();
+                    }
+                    const examContainer = document.getElementById('exam');
+                    if (examContainer && !document.activeElement?.closest?.('#exam')) {
+                        examContainer.setAttribute('tabindex', '-1');
+                        examContainer.focus({ preventScroll: true });
+                    }
+                }, 5);
+            }
+        }
+    });
+
+    // Hören (راديو) إضافة سحب التركيز
+    document.addEventListener('change', function(e) {
+        if (e.target.type === 'radio' && e.target.name && e.target.name.startsWith('q_')) {
+            if (e.target.checked) {
+                // التأكد من التسجيل (تم في المستمع الأول)
+                setTimeout(() => {
+                    if (document.activeElement === e.target) {
+                        e.target.blur();
+                    }
+                    const examContainer = document.getElementById('exam');
+                    if (examContainer && !document.activeElement?.closest?.('#exam')) {
+                        examContainer.setAttribute('tabindex', '-1');
+                        examContainer.focus({ preventScroll: true });
+                    }
+                }, 5);
             }
         }
     });
