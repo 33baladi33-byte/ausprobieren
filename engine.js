@@ -4517,9 +4517,8 @@ function resetInterleaving() {
 window.toggleInterleaving = toggleInterleaving;
 window.initInterleaving = initInterleaving;
 window.resetInterleaving = resetInterleaving;
-
 // ============================================
-// نظام اختصارات لوحة المفاتيح
+// نظام اختصارات لوحة المفاتيح - النسخة النهائية
 // ============================================
 
 // متغيرات لإدارة التاريخ (Undo)
@@ -4739,8 +4738,14 @@ function triggerCorrection() {
         return true;
     }
     // محاولة بديلة: البحث عن زر "تصحيح" أو "Prüfen"
-    const btn = document.querySelector('button:contains("تصحيح"), button:contains("Prüfen")');
-    if (btn) { btn.click(); return true; }
+    const allBtns = document.querySelectorAll('button');
+    for (let btn of allBtns) {
+        const text = btn.textContent.trim();
+        if (text === 'تصحيح' || text === 'Prüfen' || text === '✅ تصحيح' || text === '📝 Prüfen') {
+            btn.click();
+            return true;
+        }
+    }
     return false;
 }
 
@@ -4764,9 +4769,37 @@ function triggerPrevExam() {
     return false;
 }
 
-// دالة لإعادة المحاولة (Reset)
+// دالة لإعادة المحاولة (Reset) - النسخة المحسنة بدون :contains()
 function triggerReset() {
-    const resetBtn = document.querySelector('button:contains("↺")');
+    // البحث عن زر إعادة المحاولة بطرق متعددة
+    let resetBtn = null;
+    
+    // 1. البحث عن زر يحوي رمز ↺
+    const allBtns = document.querySelectorAll('button');
+    for (let btn of allBtns) {
+        const text = btn.textContent.trim();
+        if (text === '↺' || text.includes('↺')) {
+            resetBtn = btn;
+            break;
+        }
+    }
+    
+    // 2. إذا لم يتم العثور، البحث عن زر يحوي كلمة "إعادة" أو "Reset"
+    if (!resetBtn) {
+        for (let btn of allBtns) {
+            const text = btn.textContent.trim();
+            if (text.includes('إعادة') || text.includes('Reset') || text.includes('reset')) {
+                resetBtn = btn;
+                break;
+            }
+        }
+    }
+    
+    // 3. البحث عن زر بـ class أو id يحوي reset
+    if (!resetBtn) {
+        resetBtn = document.querySelector('[class*="reset"], [id*="reset"], [class*="Reset"], [id*="Reset"]');
+    }
+    
     if (resetBtn) {
         resetBtn.click();
         return true;
@@ -4872,6 +4905,7 @@ document.addEventListener('keydown', function(e) {
         }
         return;
     }
+    
     // ArrowRight: التالي
     if (key === 'ArrowRight') {
         e.preventDefault();
@@ -4886,15 +4920,17 @@ document.addEventListener('keydown', function(e) {
         return;
     }
 
-    // Backspace: Undo قبل التصحيح / Reset بعد التصحيح
+    // ✅ Backspace: Undo قبل التصحيح / Reset بعد التصحيح (مع منع السلوك الافتراضي)
     if (key === 'Backspace') {
         e.preventDefault();
+        e.stopPropagation();
+        
         if (isCorrectionVisible()) {
             triggerReset();
         } else {
             undoLastAnswer();
         }
-        return;
+        return false;
     }
 
     // 1: تبديل زر التلوين الذكي (emoji_objects)
@@ -4925,7 +4961,7 @@ document.addEventListener('keydown', function(e) {
         }
         return;
     }
-});
+}, true); // ✅ useCapture = true للتقاط الحدث قبل المتصفح
 
 // ============================================
 // ربط زر اختصارات لوحة المفاتيح
