@@ -6752,7 +6752,7 @@ HELP_DATA["lesen1_exam55_q5"] = {
 // Exam 1b: Jugend Forscher / Kellner (معدل)
 // ============================================
 
-HELP_DATA["lesen1_exam1b_q1"] = {
+HELP_DATA["lesen1_exam101_q1"] = {
     text: "Die Zahlen wirken auf den ersten - Wenn aus Erdbeeren Tomaten werden",
     meaning: "الأطفال لا يعرفون الطبخ ويخلطون بين الفراولة والطماطم بسبب قلة الخبرة العملية",
     keywords: ["übergewichtig = زيادة وزن", "Kochstudio = استوديو طبخ", "Erdbeeren = فراولة", "Tomaten = طماطم", "stumpfen Messer = سكين غير حاد"],
@@ -6760,7 +6760,7 @@ HELP_DATA["lesen1_exam1b_q1"] = {
     imagine: "🧠 تخيل طفلًا يمسك فراولة حمراء ويصرخ 'طماطم!'، وآخر يرفع كوسا صفراء ويقول 'موز!'، والمعلم يسقط على الأرض من الضحك 🍓🍅🥒🍌🤣"
 };
 
-HELP_DATA["lesen1_exam1b_q2"] = {
+HELP_DATA["lesen1_exam101_q2"] = {
     text: "Immer mehr Mädchen leiden an - Mädchen abnehmen krankheiten",
     meaning: "الفتيات يصبن بأمراض أكل خطيرة تبدأ بحمية بسيطة وتنتهي بمرض خطير",
     keywords: ["Essstörungen = اضطرابات أكل", "Diät = حمية", "Mädchen = فتيات", "Schlankheitswahn = هوس النحافة", "Therapieplatz = مكان علاج"],
@@ -6768,7 +6768,7 @@ HELP_DATA["lesen1_exam1b_q2"] = {
     imagine: "🧠 تخيل فتاة تضع قدمها على الميزان، وفجأة يتحول الميزان إلى وحش يبتلعها ويطلق عليها 'نحيفة جدًا!'، ثم يظهر طبيب ويقول: 'الحمية بدأت بسيطة، لكن النهاية كانت مستشفى!' ⚖️😱🏥"
 };
 
-HELP_DATA["lesen1_exam1b_q3"] = {
+HELP_DATA["lesen1_exam101_q3"] = {
     text: "Energiesparlampen, umweltfreundliche Elektrogeräte, Bio-Nagellack - Schülerwettbewerb Umweltschutz",
     meaning: "الشباب يشاركون في مسابقة 'Jugend forscht' لحماية البيئة بحلول مبتكرة",
     keywords: ["Energiesparlampen = لمبات موفرة", "umweltfreundlich = صديق للبيئة", "Jugend forscht = شباب يبحثون", "Ökobilanz = موازنة بيئية", "Laubbläser = منفاخ أوراق"],
@@ -6776,7 +6776,7 @@ HELP_DATA["lesen1_exam1b_q3"] = {
     imagine: "🧠 تخيل شابًا يركب محركًا على منفاخ أوراق، فجأة تخرج منه زهور بدل الدخان، وتصفق له اللجنة وتقول 'المركز الثاني!' 🌿🔧🏆"
 };
 
-HELP_DATA["lesen1_exam1b_q4"] = {
+HELP_DATA["lesen1_exam101_q4"] = {
     text: "13,5 Meter lang und leuchtend gelb - Jugend forscht - auch auf dem Meer",
     meaning: "تلاميذ يركبون سفينة لدراسة تلوث بحر الشمال بالبلاستيك",
     keywords: ["Aldebaran = اسم سفينة", "Nordsee = بحر الشمال", "Plastikteilchen = جزيئات بلاستيك", "Meeresforscher = باحثون بحريون", "Umwelt-Arbeitsgruppe = مجموعة عمل بيئية"],
@@ -6784,7 +6784,7 @@ HELP_DATA["lesen1_exam1b_q4"] = {
     imagine: "🧠 تخيل ثلاثة مراهقين بقبعات قراصنة على سفينة صفراء، يصطادون البلاستيك بشبكة ويصرخون 'قبضنا على مجرم!' والبلاستيك يرد: 'أنا مجرد كيس تسوق!' 🏴‍☠️🛳️🪣"
 };
 
-HELP_DATA["lesen1_exam1b_q5"] = {
+HELP_DATA["lesen1_exam101_q5"] = {
     text: "Mobbing ist kein neues Phänomen - Psychoterror an der Schule",
     meaning: "التنمر النفسي منتشر في المدارس ويحدث غالبًا خارج الفصل الدراسي",
     keywords: ["Mobbing = تنمر", "Psychoterror = إرهاب نفسي", "Schulweg = طريق المدرسة", "soziale Isolation = عزلة اجتماعية", "Lehrkräfte = معلمين"],
