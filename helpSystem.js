@@ -6795,7 +6795,7 @@ HELP_DATA["lesen1_exam101_q5"] = {
 // Exam 3b: sport ist gesund (معدل 2)
 // ============================================
 
-HELP_DATA["lesen1_exam3b_q1"] = {
+HELP_DATA["lesen1_exam102_q1"] = {
     text: "An der Ostküste Attikas in Griechenland - Eine Disziplin, die für alle Altersgruppen geeignet ist",
     meaning: "الماراثون رياضة قديمة تعود لليونان القديمة وتناسب جميع الأعمار",
     keywords: ["Marathonlauf = ماراثون", "Antike = العصور القديمة", "Legende = أسطورة", "Evolution = تطور", "Genen = جينات"],
@@ -6803,7 +6803,7 @@ HELP_DATA["lesen1_exam3b_q1"] = {
     imagine: "🧠 تخيل يونانيًا قديمًا يركض ليخبر خبر النصر، ثم يسقط ميتًا. اليوم، جدك يركض الماراثون ويضحك! 🏃💀➡️🏃😄"
 };
 
-HELP_DATA["lesen1_exam3b_q2"] = {
+HELP_DATA["lesen1_exam103_q2"] = {
     text: "Warum soll sich der Mensch nun - Sportbegeisterte Eltern - und auch die Babys sind beim Joggen dabei",
     meaning: "آباء رياضيون يجرون وعربات أطفالهم المصممة خصيصًا للجري",
     keywords: ["Jogging-Stroller = عربة جري", "Kinderwagen = عربة أطفال", "TÜV = جهاز فحص", "kippen = تميل/تنقلب", "Schwerpunkt = مركز الثقل"],
@@ -6811,7 +6811,7 @@ HELP_DATA["lesen1_exam3b_q2"] = {
     imagine: "🧠 تخيل أبًا يركض كالمجنون وعربة طفل تطير خلفه، والطفل يضحك، ثم تنقلب العربة وتتوقف، والطفل يقول: 'مرة أخرى!' 👨‍👦💨🤸"
 };
 
-HELP_DATA["lesen1_exam3b_q3"] = {
+HELP_DATA["lesen1_exam103_q3"] = {
     text: "Schweizer Forscher haben herausgefunden - Fitness auch mit wenig Zeitaufwand erreichbar",
     meaning: "6 دقائق تدريب مكثف أسبوعيًا تكفي للياقة البدنية",
     keywords: ["Hochleistungstraining = تدريب عالٍ", "Sauerstoff = أكسجين", "Zitratenzym = إنزيم", "Radsprints = ركض سريع على دراجة", "traditionelles Ausdauertraining = تدريب تحمل تقليدي"],
@@ -6819,7 +6819,7 @@ HELP_DATA["lesen1_exam3b_q3"] = {
     imagine: "🧠 تخيل رجلًا يركض دراجة لمدة 60 ثانية ثم يجلس ويقول 'انتهى تدريبي لليوم!'، وكل من حوله يصفقون له معجبين 🚴💨⏱️👏"
 };
 
-HELP_DATA["lesen1_exam3b_q4"] = {
+HELP_DATA["lesen1_exam103_q4"] = {
     text: "Mehr Bewegung als Ausgleich für - Sport ist gesund - wenn man einige wichtige Regeln beachtet",
     meaning: "للرياضة قواعد مهمة خاصة للمبتدئين لتجنب الإصابات",
     keywords: ["Grundregeln = قواعد أساسية", "Einsteiger = مبتدئين", "Puls = نبض", "Fett verbrannt = حرق دهون", "Bluthochdruck = ضغط دم مرتفع"],
@@ -6827,7 +6827,7 @@ HELP_DATA["lesen1_exam3b_q4"] = {
     imagine: "🧠 تخيل رجلاً يركض وقلبه يكاد ينفجر، ساعته تصرخ 'توقف!'، فيتوقف ويقول 'طيب طيب، هدئ أعصابك!' ⌚💓😱"
 };
 
-HELP_DATA["lesen1_exam3b_q5"] = {
+HELP_DATA["lesen1_exam103_q5"] = {
     text: "Viele frischgebackene Eltern stehen einem - Geprüfte Qualität für Babys",
     meaning: "نصائح لاختيار عربة أطفال آمنة ومختبرة من TÜV",
     keywords: ["Kinderwagen = عربة أطفال", "Matratze = مرتبة", "kippsicher = مقاوم للانقلاب", "Prüfzeichen = علامة فحص", "TÜV = جهاز فحص ألماني"],
@@ -6838,7 +6838,7 @@ HELP_DATA["lesen1_exam3b_q5"] = {
 // Exam 5b: tanzkurs (معدل 2)
 // ============================================
 
-HELP_DATA["lesen1_exam5b_q1"] = {
+HELP_DATA["lesen1_exam102_q1"] = {
     text: "Der Begriff Extremsport wird oft subjektiv verwendet - Höher, schneller, weiter: Suche nach dem Nervenkitzel",
     meaning: "الرياضات الخطيرة يبحث فيها عن الإثارة والمخاطرة، وقد تسبب إدمانًا",
     keywords: ["Extremsport = رياضة خطيرة", "Risiko = خطر", "Adrenalinschub = دفعة أدرينالين", "Freeclimbing = تسلق بدون حبال", "Sportsucht = إدمان رياضة"],
@@ -6846,7 +6846,7 @@ HELP_DATA["lesen1_exam5b_q1"] = {
     imagine: "🧠 تخيل رجلاً يتسلق جبلًا بدون حبال، وفجأة يظهر شيطان صغير على كتفه يقول 'أعلى! أعلى!'، ثم يسقط... 🧗💀👿"
 };
 
-HELP_DATA["lesen1_exam5b_q2"] = {
+HELP_DATA["lesen1_exam102_q2"] = {
     text: "Musik, Sport, ehrenamtliches Engagement - Verändertes Freizeitverhalten von Jugendlichen",
     meaning: "سلوك أوقات فراغ الشباب تغير نحو الأنشطة التعليمية والتطوعية",
     keywords: ["bildungsorientiert = تعليمي", "Freizeitaktivitäten = أنشطة فراغ", "ehrenamtliches Engagement = عمل تطوعي", "musizieren = عزف موسيقى", "sozial schwächere Haushalte = أسر أقل دخلًا"],
@@ -6854,7 +6854,7 @@ HELP_DATA["lesen1_exam5b_q2"] = {
     imagine: "🧠 تخيل مراهقًا يقول لأمه 'أنا ذاهب للتطوع!'، والأم تسقط من الصدمة، ثم يخرج ويعزف على البيانو 🎵🧑‍🎓😲"
 };
 
-HELP_DATA["lesen1_exam5b_q3"] = {
+HELP_DATA["lesen1_exam102_q3"] = {
     text: "In Firmen gibt es sie schon - Schulen unterstützen die Konzentration",
     meaning: "دورات استرخاء في المدارس لمساعدة الطلاب على التركيز وتخفيف التوتر",
     keywords: ["Entspannungskurse = دورات استرخاء", "Stress = توتر", "Konzentration = تركيز", "Pädagogen = معلمون", "Neurowissenschaftler = علماء أعصاب"],
@@ -6862,7 +6862,7 @@ HELP_DATA["lesen1_exam5b_q3"] = {
     imagine: "🧠 تخيل طالبًا ينام أثناء حصة الاسترخاء، ثم يستيقظ ويقول 'لقد فهمت كل شيء!'، والمعلم يصفق له 😴📚👏"
 };
 
-HELP_DATA["lesen1_exam5b_q4"] = {
+HELP_DATA["lesen1_exam102_q4"] = {
     text: "Tanja Kleist ist von modernem Tanz absolut begeistert - Freie Plätze im Tanzkurs",
     meaning: "أماكن شاغرة في دورة رقص الهيب هوب لليافعين من 14 سنة فما فوق",
     keywords: ["Tanzgruppe = فرقة رقص", "Hip-Hop = هيب هوب", "Choreografien = رقصات مصممة", "akrobatische Grundelemente = حركات بهلوانية أساسية", "öffentliche Auftritte = عروض عامة"],
@@ -6870,7 +6870,7 @@ HELP_DATA["lesen1_exam5b_q4"] = {
     imagine: "🧠 تخيل راقصة تقول 'تعالوا نرقص'، وفجأة يظهر كلب ويرقص معها، والجميع يصفقون له 🐕💃🕺"
 };
 
-HELP_DATA["lesen1_exam5b_q5"] = {
+HELP_DATA["lesen1_exam102_q5"] = {
     text: "Montags Tennis, dienstags Klavierunterricht - Keine Zeit für Langeweile",
     meaning: "الأطفال مشغولون بأنشطة كثيرة جدًا لدرجة أنهم لا يملكون وقتًا للملل",
     keywords: ["Freizeitstress = ضغط وقت فراغ", "Eltern = أهل", "Kinder = أطفال", "Terminkalender = جدول مواعيد", "Langeweile = ملل"],
@@ -6881,7 +6881,7 @@ HELP_DATA["lesen1_exam5b_q5"] = {
 // Exam 5c: tanzkurs (معدل 3)
 // ============================================
 
-HELP_DATA["lesen1_exam5c_q1"] = {
+HELP_DATA["lesen1_exam106_q1"] = {
     text: "Der Begriff Extremsport wird oft subjektiv verwendet - Höher, schneller, weiter: Suche nach dem Nervenkitzel",
     meaning: "الرياضات الخطيرة يبحث فيها عن الإثارة والمخاطرة، وقد تسبب إدمانًا",
     keywords: ["Extremsport = رياضة خطيرة", "Risiko = خطر", "Adrenalinschub = دفعة أدرينالين", "Freeclimbing = تسلق بدون حبال", "Sportsucht = إدمان رياضة"],
@@ -6889,7 +6889,7 @@ HELP_DATA["lesen1_exam5c_q1"] = {
     imagine: "🧠 تخيل رجلاً يتسلق جبلًا بدون حبال، وفجأة يظهر شيطان صغير على كتفه يقول 'أعلى! أعلى!'، ثم يسقط... 🧗💀👿"
 };
 
-HELP_DATA["lesen1_exam5c_q2"] = {
+HELP_DATA["lesen1_exam106_q2"] = {
     text: "Musik, Sport, ehrenamtliches Engagement - Verändertes Freizeitverhalten von Jugendlichen",
     meaning: "سلوك أوقات فراغ الشباب تغير نحو الأنشطة التعليمية والتطوعية",
     keywords: ["bildungsorientiert = تعليمي", "Freizeitaktivitäten = أنشطة فراغ", "ehrenamtliches Engagement = عمل تطوعي", "musizieren = عزف موسيقى", "sozial schwächere Haushalte = أسر أقل دخلًا"],
@@ -6897,7 +6897,7 @@ HELP_DATA["lesen1_exam5c_q2"] = {
     imagine: "🧠 تخيل مراهقًا يقول لأمه 'أنا ذاهب للتطوع!'، والأم تسقط من الصدمة، ثم يخرج ويعزف على البيانو 🎵🧑‍🎓😲"
 };
 
-HELP_DATA["lesen1_exam5c_q3"] = {
+HELP_DATA["lesen1_exam106_q3"] = {
     text: "In Firmen gibt es sie schon - wie Schüler ihre Konzentrationsfähigkeit verbessern können",
     meaning: "دورات استرخاء في المدارس تساعد الطلاب على التركيز وتخفيف التوتر",
     keywords: ["Entspannungskurse = دورات استرخاء", "Stress = توتر", "Konzentration = تركيز", "Pädagogen = معلمون", "Neurowissenschaftler = علماء أعصاب"],
@@ -6905,7 +6905,7 @@ HELP_DATA["lesen1_exam5c_q3"] = {
     imagine: "🧠 تخيل طالبًا ينام أثناء حصة الاسترخاء، ثم يستيقظ ويقول 'لقد فهمت كل شيء!'، والمعلم يصفق له 😴📚👏"
 };
 
-HELP_DATA["lesen1_exam5c_q4"] = {
+HELP_DATA["lesen1_exam106_q4"] = {
     text: "Tanja Kleist ist von modernem Tanz absolut begeistert - Freie Plätze im Tanzkurs",
     meaning: "أماكن شاغرة في دورة رقص الهيب هوب لليافعين من 14 سنة فما فوق",
     keywords: ["Tanzgruppe = فرقة رقص", "Hip-Hop = هيب هوب", "Choreografien = رقصات مصممة", "akrobatische Grundelemente = حركات بهلوانية أساسية", "öffentliche Auftritte = عروض عامة"],
@@ -6913,7 +6913,7 @@ HELP_DATA["lesen1_exam5c_q4"] = {
     imagine: "🧠 تخيل راقصة تقول 'تعالوا نرقص'، وفجأة يظهر كلب ويرقص معها، والجميع يصفقون له 🐕💃🕺"
 };
 
-HELP_DATA["lesen1_exam5c_q5"] = {
+HELP_DATA["lesen1_exam106_q5"] = {
     text: "Montags Tennis, dienstags Klavierunterricht - Keine Zeit für Langeweile",
     meaning: "الأطفال مشغولون بأنشطة كثيرة جدًا لدرجة أنهم لا يملكون وقتًا للملل",
     keywords: ["Freizeitstress = ضغط وقت فراغ", "Eltern = أهل", "Kinder = أطفال", "Terminkalender = جدول مواعيد", "Langeweile = ملل"],
@@ -6924,7 +6924,7 @@ HELP_DATA["lesen1_exam5c_q5"] = {
 // Exam 8b: Bilder (معدل)
 // ============================================
 
-HELP_DATA["lesen1_exam8b_q1"] = {
+HELP_DATA["lesen1_exam104_q1"] = {
     text: "Der Buchtitel erinnert an eine Horrorgeschichte - Das Ende der Dunkelheit",
     meaning: "كتاب يتحدث عن اختفاء الظلام الطبيعي بسبب الإضاءة الصناعية",
     keywords: ["Nacht = ليل", "Dunkelheit = ظلام", "künstliches Licht = إضاءة صناعية", "Glühlampe = لمبة متوهجة", "Sterne = نجوم"],
@@ -6932,7 +6932,7 @@ HELP_DATA["lesen1_exam8b_q1"] = {
     imagine: "🧠 تخيل رجلاً ينظر إلى السماء ولا يرى سوى لمبة واحدة، فيصرخ 'أين النجوم؟!'، واللمبة ترد 'أنا هنا!' 🌃💡😱"
 };
 
-HELP_DATA["lesen1_exam8b_q2"] = {
+HELP_DATA["lesen1_exam104_q2"] = {
     text: "Fotos machen ist heute nicht schwer - Fotografie - aber richtig: Einführung",
     meaning: "كتاب ممتاز لتعلم أساسيات التصوير الحديث بطريقة سهلة وممتعة",
     keywords: ["Fotografie = تصوير", "Ratgeber = دليل", "Basiswissen = معرفة أساسية", "Beispielbilder = صور نموذجية", "Nachbearbeitung = تعديل لاحق"],
@@ -6940,7 +6940,7 @@ HELP_DATA["lesen1_exam8b_q2"] = {
     imagine: "🧠 تخيل جدًا يحمل كاميرا ويقرأ الكتاب، ثم يصور نفسه ويقول 'أنا فنان!' 📸👴🖼️"
 };
 
-HELP_DATA["lesen1_exam8b_q3"] = {
+HELP_DATA["lesen1_exam104_q3"] = {
     text: "Bilder der Fotografin Annie Leibovitz - Bilder einer bedeutenden Künstlerin",
     meaning: "معرض لصور آني ليبوفيتز يشمل مشاهير وعائلتها",
     keywords: ["Annie Leibovitz = آني ليبوفيتز", "Ausstellung = معرض", "Portraits = صور شخصية", "Kunsthaus Wien = متحف فنون فيينا", "Karriere = مهنة"],
@@ -6948,7 +6948,7 @@ HELP_DATA["lesen1_exam8b_q3"] = {
     imagine: "🧠 تخيل آني تصور ملكة إنجلترا، ثم تلتفت وتصور قطتها، والملكة تغار! 👑📸🐱"
 };
 
-HELP_DATA["lesen1_exam8b_q4"] = {
+HELP_DATA["lesen1_exam104_q4"] = {
     text: "Die Abkürzung TWAN klingt nach einem - Erde, Mond und Sterne - wie man sie noch nie gesehen hat",
     meaning: "صور مذهلة للنجوم فوق مناظر الأرض بطريقة فنية فريدة",
     keywords: ["TWAN = طريقة تصوير", "Sterne = نجوم", "Landschaften = مناظر طبيعية", "Milchstraße = درب التبانة", "Dämmerung = غسق/شفق"],
@@ -6956,7 +6956,7 @@ HELP_DATA["lesen1_exam8b_q4"] = {
     imagine: "🧠 تخيل رجلاً يصور النجوم، وفجأة تبتسم نجمة في الصورة وتغمز له! 🌟📸😉"
 };
 
-HELP_DATA["lesen1_exam8b_q5"] = {
+HELP_DATA["lesen1_exam104_q5"] = {
     text: "Er gehörte zu den ganz Großen seines Fachs - Die bemerkenswerte Karriere eines Fotografen",
     meaning: "قصة حياة المصور أندرياس فاينينغر الذي بدأ كمهندس معماري",
     keywords: ["Andreas Feininger = أندرياس فاينينغر", "Biografie = سيرة ذاتية", "Architekt = مهندس معماري", "New York = نيويورك", "Durchbruch = انطلاقة/نجاح"],
@@ -6967,7 +6967,7 @@ HELP_DATA["lesen1_exam8b_q5"] = {
 // Exam 10b: Österreich / النمسا (معدل)
 // ============================================
 
-HELP_DATA["lesen1_exam10b_q1"] = {
+HELP_DATA["lesen1_exam107_q1"] = {
     text: "Das Lesemagazin MENU hat eine Umfrage - Österreichs beliebteste Marktplätze",
     meaning: "أكثر أسواق النمسا شعبية حسب استطلاع لقراء مجلة MENU",
     keywords: ["Umfrage = استطلاع", "Märkte = أسواق", "Österreich = النمسا", "populär = شعبي", "Lebensqualität = جودة حياة"],
@@ -6975,7 +6975,7 @@ HELP_DATA["lesen1_exam10b_q1"] = {
     imagine: "🧠 تخيل سوقًا تتنافس فيه الخضروات على الكاميرا، وتفوز طماطة وتضع تاجًا! 🍅👑🏆"
 };
 
-HELP_DATA["lesen1_exam10b_q2"] = {
+HELP_DATA["lesen1_exam107_q2"] = {
     text: "Sie sind der Meinung, dass Ihre Qualifikationen ausreichen - Schulung zum Erfolg im Beruf",
     meaning: "دورات لتعلم التسويق الذاتي للنجاح في العمل، لأن المؤهلات وحدها لا تكفي",
     keywords: ["Selbstmarketing = تسويق ذاتي", "Karriere = مهنة", "Qualifikationen = مؤهلات", "Bewerbung = طلب وظيفة", "Vorstellungsgespräch = مقابلة عمل"],
@@ -6983,7 +6983,7 @@ HELP_DATA["lesen1_exam10b_q2"] = {
     imagine: "🧠 تخيل رجلاً يضع لافتة على صدره مكتوب 'أنا أفضل موظف'، ويمشي في المكتب بثقة 💼📢😎"
 };
 
-HELP_DATA["lesen1_exam10b_q3"] = {
+HELP_DATA["lesen1_exam107_q3"] = {
     text: "Der Wiener Naschmarkt gehört zu Österreichs - Wissenswertes über Wiens größten innerstädtischen Markt",
     meaning: "معلومات عن سوق ناش في فيينا، أكبر سوق داخلي في المدينة",
     keywords: ["Naschmarkt = سوق ناش", "Wien = فيينا", "Sehenswürdigkeit = معلم سياحي", "Otto Wagner = أوتو فاغنر", "Wienzeilenhäuser = مباني فينزيل"],
@@ -6991,7 +6991,7 @@ HELP_DATA["lesen1_exam10b_q3"] = {
     imagine: "🧠 تخيل سوقًا عمره 200 سنة، وفجأة تخرج من أرضه نقانق وتطير في الهواء 🌭🏛️✨"
 };
 
-HELP_DATA["lesen1_exam10b_q4"] = {
+HELP_DATA["lesen1_exam107_q4"] = {
     text: "Wer bloggt, zeigt neben Fachkompetenz - Schreiben im Internet für die Karriere",
     meaning: "كتابة المدونات على الإنترنت تعزز فرصك في العمل، لكن احذر من كتابة أسرار الشركة",
     keywords: ["bloggt = يدون", "Kreativität = إبداع", "Arbeitgeber = أرباب عمل", "Bewerbung = تقديم وظيفة", "Firmeninterna = أسرار الشركة"],
@@ -6999,7 +6999,7 @@ HELP_DATA["lesen1_exam10b_q4"] = {
     imagine: "🧠 تخيل شابًا يكتب مدونة عن عمله، ثم يفضح سرًا، فيأتي مديره ويضربه بالوسادة! 💻🖊️😱"
 };
 
-HELP_DATA["lesen1_exam10b_q5"] = {
+HELP_DATA["lesen1_exam107_q5"] = {
     text: "Bis Herbst soll ein neues Marktkonzept - Erneuerungskur für alten Markt",
     meaning: "خطة لتجديد سوق سالزبورغ القديم بمنتجات عضوية محلية",
     keywords: ["Salzburger Grünmarkt = سوق سالزبورغ", "Marktkonzept = مفهوم سوق", "nachhaltig = مستدام", "Biologische Lebensmittel = أطعمة عضوية", "Foodbloggerin = مدونة طعام"],
@@ -7053,7 +7053,7 @@ HELP_DATA["lesen1_exam47b_q5"] = {
 // Exam 57: Lebensmodelle
 // ============================================
 
-HELP_DATA["lesen1_exam57_q1"] = {
+HELP_DATA["lesen1_exam56_q1"] = {
     text: "Viele Menschen in der Mitte ihres Lebens - Wenn die Eltern Hilfe brauchen",
     meaning: "كثيرون في منتصف العمر يواجهون ضغطًا مزدوجًا: رعاية الأطفال ورعاية الآباء المسنين",
     keywords: ["doppelte Belastung = ضغط مزدوج", "gebrechlich = ضعيف/واهن", "professionelle Pflegedienste = خدمات رعاية مهنية", "entlasten = يخفف العبء", "Überforderung = إرهاق/ضغط زائد"],
@@ -7061,7 +7061,7 @@ HELP_DATA["lesen1_exam57_q1"] = {
     imagine: "🧠 تخيل رجلاً يحمل طفلاً على ظهره وأماً على صدره، والميزان يئن تحت الثقل، ويقول 'أحتاج إجازة من الاثنين!' 👨‍👧‍👦💪😫"
 };
 
-HELP_DATA["lesen1_exam57_q2"] = {
+HELP_DATA["lesen1_exam56_q2"] = {
     text: "Immer mehr Paare entscheiden sich heute - Weniger ist mehr",
     meaning: "أزواج يختارون التخلي عن الفائض والاكتفاء بالأساسيات لتخفيف ضغوط الحياة",
     keywords: ["Verzicht = تخلي/تضحية", "Überfluss = فائض/وفرة", "entrümpeln = تنظيف/ترتيب", "Alltagsstress = ضغط يومي", "Miteinander = التعايش/العيش معًا"],
@@ -7069,7 +7069,7 @@ HELP_DATA["lesen1_exam57_q2"] = {
     imagine: "🧠 تخيل عائلة ترمي الأثاث من النافذة وتصرخ 'حرية!'، ثم يجلسون على الأرض ويضحكون لأنهم وجدوا السعادة 🪑🚀😄"
 };
 
-HELP_DATA["lesen1_exam57_q3"] = {
+HELP_DATA["lesen1_exam56_q3"] = {
     text: "Wenn zwei Menschen mit Kindern aus früheren Beziehungen - Patchwork: Reiz und Risiko",
     meaning: "تكوين أسرة جديدة من علاقات سابقة يحتاج صبرًا ودبلوماسية عائلية",
     keywords: ["Patchwork = أسرة ممتدة", "Geduld = صبر", "diplomatisches Geschick = مهارة دبلوماسية", "Konflikte = صراعات", "Ex-Partner = شريك سابق"],
@@ -7077,7 +7077,7 @@ HELP_DATA["lesen1_exam57_q3"] = {
     imagine: "🧠 تخيل خياطًا يحاول خياطة عائلتين معًا، والخيط ينقطع باستمرار، والأطفال يركضون في كل اتجاه 🧵👨‍👩‍👧‍👦😅"
 };
 
-HELP_DATA["lesen1_exam57_q4"] = {
+HELP_DATA["lesen1_exam56_q4"] = {
     text: "Früher war es ganz normal, dass mehrere Generationen - Alt und Jung vereint",
     meaning: "بيوت الأجيال المتعددة تعود من جديد، حيث يعيش كبار السن مع العائلات الشابة ويتعاونون",
     keywords: ["Mehrgenerationenhaus = بيت متعدد الأجيال", "Generationen = أجيال", "Einsamkeit = وحدة", "Kinderbetreuung = رعاية أطفال", "Babysitter = جليسة أطفال"],
@@ -7085,14 +7085,58 @@ HELP_DATA["lesen1_exam57_q4"] = {
     imagine: "🧠 تخيل جدًا يلعب بالكرة مع حفيده، بينما الجدة تطعم الأم، والكل يضحك في بيت واحد مليء بالحياة 🏠👴🧒😊"
 };
 
-HELP_DATA["lesen1_exam57_q5"] = {
+HELP_DATA["lesen1_exam56_q5"] = {
     text: "Die Frage, wo die Kinder aufwachsen sollen - Die Suche nach dem idealen Wohnort",
     meaning: "المدينة توفر خدمات وثقافة لكن مكلفة وصاخبة، والريف هادئ لكن يحتاج سيارة ووقت تنقل أطول",
     keywords: ["Metropole = مدينة كبرى", "Mieten = إيجارات", "Infrastruktur = بنية تحتية", "Pendeln = تنقل يومي", "Lebensqualität = جودة حياة"],
     simplified: "المدينة أو الريف؟ تختار بين صخب المال وهدوء المسافات الطويلة",
     imagine: "🧠 تخيل رجلاً واقفًا عند مفترق طرق: جهة مدينة بها صخب وناطحات سحاب، وجهة ريف به أشجار وهدوء، وهو يحاول الاختيار بينهما 🏙️🌳🤔"
 };
+// ========== Exam 6: Grundschule (معدل) (صحيح: f, g, e, c, a) ==========
+HELP_DATA["lesen1_exam105_q1"] = {
+    text: "Berlin wird in 10 Jahren rund 5.000 Lehrkräfte weniger brauchen - Gewerkschaft erwartet Lehrermangel in Berlin",
+    meaning: "نقابة المعلمين تتوقع نقصاً حاداً في المعلمين ببرلين",
+    keywords: ["GEW = نقابة", "Lehrermangel = نقص معلمين", "Berlin = برلين", "Ruhestand = تقاعد", "befristete Verträge = عقود محددة"],
+    simplified: "برلين تعاني نقصاً كبيراً في المعلمين خلال 10 سنوات",
+    imagine: "فصل دراسي مكتظ بالطلاب ومعلم واحد يجري بينهم يحاول تدريس الجميع",
+    correct: "f"
+};
 
+HELP_DATA["lesen1_exam105_q2"] = {
+    text: "Wer sich in Berlin um eine Stelle als Lehrer bewirbt - GEW befürchtet Abwanderung von gut ausgebildeten Lehrkräften",
+    meaning: "نقابة المعلمين تخاف هجرة المعلمين الجيدين من برلين",
+    keywords: ["Abwanderung = هجرة", "Lehrkräfte = معلمين", "Berlin = برلين", "Hamburg = هامبورغ", "Beamtenverhältnis = وظيفة دائمة"],
+    simplified: "معلمون جيدون يغادرون برلين إلى مدن أخرى",
+    imagine: "معلم يحمل حقيبته ويصعد قطارا خارجا من برلين ويده تلوح وداعاً",
+    correct: "g"
+};
+
+HELP_DATA["lesen1_exam105_q3"] = {
+    text: "Eltern über Stundenausfall und Schulleiter über fehlende Bewerber - Experten befürchten zunehmenden Lehrermangel in Deutschland",
+    meaning: "خبراء يخافون من نقص كبير في المعلمين بألمانيا",
+    keywords: ["Lehrermangel = نقص معلمين", "Deutschland = ألمانيا", "Pensionierung = تقاعد", "VBE = نقابة المعلمين"],
+    simplified: "نقص في المعلمين بألمانيا يصل 400 ألف خلال 15 سنة",
+    imagine: "فصل دراسي بدون معلم والطلاب يلعبون كرة ورقية فوق رؤوسهم",
+    correct: "e"
+};
+
+HELP_DATA["lesen1_exam105_q4"] = {
+    text: "Bildungspolitiker und Lehrervertreter wollen Abiturienten scharenweise - Bildungsforscher: Lehrermangel wird nicht überall eintreten",
+    meaning: "باحثون يقولون لن يكون هناك نقص عام في المعلمين",
+    keywords: ["Bildungsforscher = باحثون تعليم", "ausgeglichene Bilanz = ميزان متوازن", "Lehrermangel = نقص معلمين", "Lehrerüberschuss = فائض معلمين"],
+    simplified: "باحثون يتوقعون توازنا بين المعلمين والحاجة",
+    imagine: "ميزان ذهبي متساو بين معلمين وطلاب وفوقه كرة أرضية تدور",
+    correct: "c"
+};
+
+HELP_DATA["lesen1_exam105_q5"] = {
+    text: "Mädchen haben tendenziell bessere Noten und stellen 56 Prozent - An deutschen Grundschulen sind männliche Lehrkräfte selten",
+    meaning: "المعلمون الرجال نادرون في المدارس الابتدائية الألمانية",
+    keywords: ["Grundschulen = مدارس ابتدائية", "männliche Lehrkräfte = معلمين رجال", "Frauenanteil = نسبة نساء", "Vorbilder = قدوات"],
+    simplified: "قلة الرجال في تدريس المرحلة الابتدائية",
+    imagine: "رجل يدخل مدرسة ابتدائية وكل المعلمات ينظرن إليه وكأنه ديناصور نادر",
+    correct: "a"
+};
 
 // ============================================
 // lesen2.js - جميع شروحات Lesen Teil 2
@@ -8731,7 +8775,7 @@ HELP_DATA["lesen2_exam37_q5"] = {
 // Exam 16: Großraumbüros / المكاتب الكبيرة (معدل)
 // ============================================
 
-HELP_DATA["lesen2_exam16b_q1"] = {
+HELP_DATA["lesen2_exam108_q1"] = {
     text: "belegt, dass die Mitarbeiter sich über Lärm im Großraumbüro beklagen",
     meaning: "تثبت أن الموظفين يتذمرون من الضوضاء في المكاتب المفتوحة",
     keywords: ["Lärm = ضوضاء", "beklagen = يتذمرون", "Großraumbüro = مكتب مفتوح"],
@@ -8739,7 +8783,7 @@ HELP_DATA["lesen2_exam16b_q1"] = {
     imagine: "🔊👂 شخص يضع يديه على أذنيه في مكتب مليء بالضوضاء"
 };
 
-HELP_DATA["lesen2_exam16b_q2"] = {
+HELP_DATA["lesen2_exam108_q2"] = {
     text: "sind kostengünstiger zu beheizen",
     meaning: "تكلفة تدفئتها أقل",
     keywords: ["kostengünstiger = أقل تكلفة", "beheizen = تدفئة"],
@@ -8747,7 +8791,7 @@ HELP_DATA["lesen2_exam16b_q2"] = {
     imagine: "🔥🏢 تدفئة مركزية واحدة تدفئ كل المكتب"
 };
 
-HELP_DATA["lesen2_exam16b_q3"] = {
+HELP_DATA["lesen2_exam108_q3"] = {
     text: "bevorzugen Einzelbüros",
     meaning: "يفضلون المكاتب الفردية",
     keywords: ["bevorzugen = يفضلون", "Einzelbüros = مكاتب فردية"],
@@ -8755,7 +8799,7 @@ HELP_DATA["lesen2_exam16b_q3"] = {
     imagine: "🚪🏢 شخص يغلق باب مكتبه ويرتاح"
 };
 
-HELP_DATA["lesen2_exam16b_q4"] = {
+HELP_DATA["lesen2_exam108_q4"] = {
     text: "wird in London oft unter mehreren Mitarbeitern aufgeteilt",
     meaning: "تُقسم غالباً بين عدة موظفين في لندن",
     keywords: ["aufgeteilt = مقسمة", "mehreren Mitarbeitern = عدة موظفين"],
@@ -8763,7 +8807,7 @@ HELP_DATA["lesen2_exam16b_q4"] = {
     imagine: "📏👥 عدة أشخاص يجلسون حول مكتب واحد صغير"
 };
 
-HELP_DATA["lesen2_exam16b_q5"] = {
+HELP_DATA["lesen2_exam108_q5"] = {
     text: "gibt es vor allem in Banken und Telekommunikationsunternehmen",
     meaning: "توجد خاصة في البنوك وشركات الاتصالات",
     keywords: ["Banken = بنوك", "Telekommunikationsunternehmen = شركات اتصالات"],
@@ -20051,7 +20095,7 @@ function getCorrectQuestions(skill, examId) {
         'lesen2_exam28': [1,2,3,4,5], 'lesen2_exam29': [1,2,3,4,5], 'lesen2_exam30': [1,2,3,4,5],
         'lesen2_exam31': [1,2,3,4,5], 'lesen2_exam32': [1,2,3,4,5], 'lesen2_exam33': [1,2,3,4,5],
         'lesen2_exam34': [1,2,3,4,5], 'lesen2_exam35': [1,2,3,4,5], 'lesen2_exam36': [1,2,3,4,5],
-        'lesen2_exam37': [1,2,3,4,5], 'lesen2_exam16b': [1,2,3,4,5],
+        'lesen2_exam37': [1,2,3,4,5], 'lesen2_exam108': [1,2,3,4,5],
         
         // Lesen Teil 3 (35 امتحان)
         'lesen3_exam1': [1,2,3,4,5,6,7,8,9,10], 'lesen3_exam2': [1,2,3,4,5,6,7,8,9,10],
