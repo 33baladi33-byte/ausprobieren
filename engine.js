@@ -4631,10 +4631,18 @@ function addSentencePuzzleIcons(container, questions) {
 // نبحث عن resetBtn.onclick ونضيف الكود التالي:
 
 console.log('✅ تم ربط SentenceReorder مع engine.js (مع دعم Reset)');
-// ============================================
-// دالة عداد الإعادات - تظهر في أقصى يمين الأزرار
-// ============================================
+
+
 function addRetryCounterToExam() {
+    // ❌ إخفاء العداد في Schreiben و Mündlich
+    const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
+    if (forbiddenSkills.includes(currentSkill)) {
+        // حذف العداد إذا كان موجوداً (للتأكد)
+        const oldCounter = document.getElementById('retryCounterBox');
+        if (oldCounter) oldCounter.remove();
+        return;
+    }
+
     // حذف العداد القديم إذا كان موجوداً
     const oldCounter = document.getElementById('retryCounterBox');
     if (oldCounter) oldCounter.remove();
@@ -4698,13 +4706,20 @@ function addRetryCounterToExam() {
 // دالة تحديث العداد بعد التصحيح (تحديث فوري)
 // ============================================
 function updateRetryCounter() {
+    // ❌ إخفاء العداد في Schreiben و Mündlich
+    const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
+    if (forbiddenSkills.includes(currentSkill)) {
+        const oldCounter = document.getElementById('retryCounterBox');
+        if (oldCounter) oldCounter.remove();
+        return;
+    }
+
     const box = document.getElementById('retryCounterBox');
     if (!box) {
         addRetryCounterToExam();
         return;
     }
 
-    // ✅ جلب العدد الجديد وتحديث النص فوراً
     const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
     box.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
 }
