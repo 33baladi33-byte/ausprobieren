@@ -21,6 +21,25 @@ const teile = [
 // متغير لمنع تكرار عرض القائمة الأولية
 let _initialListRendered = false;
 
+// ✅ دالة تحاكي الضغط على Hören 1 بالكامل (بما في ذلك تحديث الحالة النشطة للأزرار)
+function activateHoeren1() {
+    if (_initialListRendered) return;
+    _initialListRendered = true;
+    
+    const hoeren1Index = teile.findIndex(t => t.skill === "hoeren1");
+    if (hoeren1Index === -1) return;
+    
+    // ✅ تحديث activeTeilId بنفس الطريقة التي تحدث عند الضغط اليدوي
+    activeTeilId = hoeren1Index;
+    
+    // ✅ إعادة رسم الأزرار (لتحديث الحالة النشطة)
+    renderTeileList();
+    
+    // ✅ عرض قائمة الامتحانات
+    const hoeren1Teil = teile[hoeren1Index];
+    renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+}
+
 // دالة عرض القائمة الأولية (محاكاة الضغط على Hören 1) مع إعادة المحاولة
 window.renderInitialExamList = function() {
     if (_initialListRendered) return;
@@ -28,11 +47,7 @@ window.renderInitialExamList = function() {
     // نتحقق من وجود دالة حالة المستخدم
     if (typeof window.getUserStatusGlobal !== 'function') {
         // إذا لم تكن متوفرة، نعرض مباشرة (حالة طوارئ)
-        _initialListRendered = true;
-        const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
-        if (hoeren1Teil) {
-            renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
-        }
+        activateHoeren1();
         return;
     }
 
@@ -51,18 +66,13 @@ window.renderInitialExamList = function() {
         }
 
         // إذا وصلنا هنا، إما أن المستخدم غير مسجل، أو الحالة أصبحت صحيحة، أو انتهت المحاولات
-        _initialListRendered = true;
-        const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
-        if (hoeren1Teil) {
-            console.log('[EXAMS] renderInitialExamList: عرض القائمة (محاولة ' + attempts + ')');
-            renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
-        }
+        console.log('[EXAMS] renderInitialExamList: تفعيل Hören 1 (محاولة ' + attempts + ')');
+        activateHoeren1();
     };
 
     // نبدأ المحاولة بعد تأخير 100 مللي (لإعطاء فرصة لـ auth.js)
     setTimeout(tryRender, 100);
 };
-
 // ============================================
 // ✅ قواعد الامتحانات المجانية الجديدة (بعد التعديل)
 // ============================================
@@ -1280,6 +1290,8 @@ function renderTeileList() {
     
     const btn = document.createElement("button");
     btn.textContent = teil.name;
+    btn.dataset.index = i;
+    btn.dataset.skill = teil.skill;
     btn.style.cssText = `
       height: 42px;
       padding: 0 18px;
