@@ -2436,15 +2436,13 @@ function applyExamListView(mode) {
 }
 
 // ============================================
-// ✅ دالة addVersionBadgesFixed - إضافة البادج للتعديلات
+// ✅ دالة addVersionBadgesFixed - إضافة البادج للتعديلات (لجميع المهارات)
 // ============================================
 function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
     if (!container) return;
     
-    const skill = currentSkill || 'lesen1';
-    if (!['lesen1','lesen2','lesen3','sprach1','sprach2'].includes(skill)) return;
-    
+    // ✅ إزالة الشرط المحدد للمهارات، نسمح لجميع المهارات
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
     if (!items.length) return;
     
