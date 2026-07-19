@@ -306,9 +306,6 @@ function updateUI(user, data) {
     }
 }
 
-// ============================================
-// دالات المصادقة الأساسية (مع حماية الحسابات الشبحية والتحديثات الشاملة)
-// ============================================
 async function handleLogin() {
     const email = authEmail.value.trim();
     const password = authPassword.value;
@@ -317,6 +314,12 @@ async function handleLogin() {
         authError.textContent = '⚠️ يرجى ملء جميع الحقول';
         return;
     }
+
+    // ✅ إظهار مؤشر التحميل على الزر
+    const originalText = authLoginBtn.innerHTML;
+    authLoginBtn.disabled = true;
+    authLoginBtn.innerHTML = '⏳ جاري...';
+    authLoginBtn.style.opacity = '0.7';
 
     window._isAuthenticating = true; 
 
@@ -327,7 +330,6 @@ async function handleLogin() {
 
         const userRef = db.collection('users').doc(user.uid);
         
-        // تحديث شامل للجلسة، أوقات الدخول، وآخر ظهور للمشرفين (النقاط 9، 11، 13، 14)
         await userRef.set({
             session: {
                 deviceId: deviceId,
@@ -347,10 +349,13 @@ async function handleLogin() {
     } catch (error) {
         authError.textContent = getFirebaseErrorMessage(error.code);
     } finally {
-        window._isAuthenticating = false; // الإغلاق داخل الـ finally لحماية النظام دائماً
+        window._isAuthenticating = false;
+        // ✅ إعادة الزر إلى حالته الأصلية
+        authLoginBtn.disabled = false;
+        authLoginBtn.innerHTML = originalText;
+        authLoginBtn.style.opacity = '1';
     }
 }
-
 async function handleSignup() {
     const username = signupUsername.value.trim();
     const lastname = signupLastname.value.trim();
@@ -362,6 +367,12 @@ async function handleSignup() {
         signupError.textContent = '⚠️ يرجى ملء جميع الحقول';
         return;
     }
+
+    // ✅ إظهار مؤشر التحميل على الزر
+    const originalText = authSignupBtn.innerHTML;
+    authSignupBtn.disabled = true;
+    authSignupBtn.innerHTML = '⏳ جاري...';
+    authSignupBtn.style.opacity = '0.7';
 
     window._isAuthenticating = true;
     let createdUser = null;
@@ -388,7 +399,6 @@ async function handleSignup() {
             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
         };
 
-        // محاولة إنشاء المستند في Firestore
         await db.collection('users').doc(createdUser.uid).set(userData);
 
         closeAuthModalFunc();
@@ -396,14 +406,17 @@ async function handleSignup() {
         updateUI(createdUser, userData);
 
     } catch (error) {
-        // [التراجع التلقائي الصارم] لمنع بقاء الحسابات ناقصة أو معلقة (النقطة 6)
         if (createdUser) {
             console.warn('⚠️ فشل إنشاء مستند Firestore، يتم حذف الحساب من Auth تراجعاً عن الخطأ...');
             try { await createdUser.delete(); } catch(e) { console.error('فشل حذف حساب الـ Auth المعلق:', e); }
         }
         signupError.textContent = getFirebaseErrorMessage(error.code);
     } finally {
-        window._isAuthenticating = false; 
+        window._isAuthenticating = false;
+        // ✅ إعادة الزر إلى حالته الأصلية
+        authSignupBtn.disabled = false;
+        authSignupBtn.innerHTML = originalText;
+        authSignupBtn.style.opacity = '1';
     }
 }
 
@@ -496,9 +509,6 @@ auth.onAuthStateChanged(async user => {
     await checkSessionAndInitialize();
 });
 
-// ============================================
-// ربط الأحداث عند تحميل المستند (DOMContentLoaded)
-// ============================================
 document.addEventListener('DOMContentLoaded', function() {
     togglePasswordVisibility('authPassword', 'togglePassword');
     togglePasswordVisibility('signupPassword', 'toggleSignupPassword');
@@ -536,6 +546,37 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', (e) => {
         if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileIcon) {
             profileDropdown.classList.remove('show');
+        }
+    });
+
+    // ✅ التعديل الثاني: جعل زر Enter يعمل كضغط على الزر المناسب
+    // في نموذج تسجيل الدخول
+    const loginInputs = [authEmail, authPassword];
+    loginInputs.forEach(input => {
+        if (input) {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (authLoginBtn && !authLoginBtn.disabled) {
+                        authLoginBtn.click();
+                    }
+                }
+            });
+        }
+    });
+
+    // في نموذج إنشاء الحساب
+    const signupInputs = [signupUsername, signupLastname, signupFirstname, signupEmail, signupPassword];
+    signupInputs.forEach(input => {
+        if (input) {
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (authSignupBtn && !authSignupBtn.disabled) {
+                        authSignupBtn.click();
+                    }
+                }
+            });
         }
     });
 });
