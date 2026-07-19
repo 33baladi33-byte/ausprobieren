@@ -3744,23 +3744,30 @@ class MemoryHighlightEngine {
             // تنظيف خصائص style من جميع عناصر <option> داخل هذا الـ select
             const options = select.querySelectorAll('option');
             options.forEach(option => {
-                option.style.backgroundColor = '';
-                option.style.color = '';
-                option.style.fontWeight = '';
-                option.style.padding = '';
-                option.style.borderRadius = '';
-                option.style.opacity = '';
-                // إزالة أي خصائص إضافية قد تكون أضيفت
-                option.style.background = '';
-                option.style.border = '';
+                // إزالة الخصائص التي قد تكون أضيفت أثناء التلوين
+                option.style.removeProperty('backgroundColor');
+                option.style.removeProperty('color');
+                option.style.removeProperty('fontWeight');
+                option.style.removeProperty('padding');
+                option.style.removeProperty('borderRadius');
+                option.style.removeProperty('opacity');
+                option.style.removeProperty('background');
+                option.style.removeProperty('border');
+                // إذا لم يتبق أي خصائص، نزيل السمة style بالكامل لتجنب أي تأثير
+                if (option.style.length === 0) {
+                    option.removeAttribute('style');
+                }
             });
             // تنظيف الـ select نفسه أيضًا (احتياطي)
-            select.style.backgroundColor = '';
-            select.style.color = '';
-            select.style.fontWeight = '';
-            select.style.border = '';
-            select.style.padding = '';
-            select.style.borderRadius = '';
+            select.style.removeProperty('backgroundColor');
+            select.style.removeProperty('color');
+            select.style.removeProperty('fontWeight');
+            select.style.removeProperty('border');
+            select.style.removeProperty('padding');
+            select.style.removeProperty('borderRadius');
+            if (select.style.length === 0) {
+                select.removeAttribute('style');
+            }
         });
         
         const labels = this.container.querySelectorAll('label');
