@@ -305,20 +305,19 @@ function updateUI(user, data) {
         }
     }
 }
-
 async function handleLogin() {
     const email = authEmail.value.trim();
     const password = authPassword.value;
 
     if (!email || !password) {
-        authError.textContent = '⚠️ يرجى ملء جميع الحقول';
+        authError.textContent = ' يرجى ملء جميع الحقول';
         return;
     }
 
-    // ✅ إظهار مؤشر التحميل على الزر
+    // ✅ إظهار مؤشر التحميل الدائري على الزر
     const originalText = authLoginBtn.innerHTML;
     authLoginBtn.disabled = true;
-    authLoginBtn.innerHTML = '⏳ جاري...';
+    authLoginBtn.innerHTML = '<span class="loading-spinner"></span>';
     authLoginBtn.style.opacity = '0.7';
 
     window._isAuthenticating = true; 
@@ -364,14 +363,14 @@ async function handleSignup() {
     const password = signupPassword.value;
 
     if (!username || !lastname || !firstname || !email || !password) {
-        signupError.textContent = '⚠️ يرجى ملء جميع الحقول';
+        signupError.textContent = ' يرجى ملء جميع الخانات';
         return;
     }
 
-    // ✅ إظهار مؤشر التحميل على الزر
+    // ✅ إظهار مؤشر التحميل الدائري على الزر
     const originalText = authSignupBtn.innerHTML;
     authSignupBtn.disabled = true;
-    authSignupBtn.innerHTML = '⏳ جاري...';
+    authSignupBtn.innerHTML = '<span class="loading-spinner"></span>';
     authSignupBtn.style.opacity = '0.7';
 
     window._isAuthenticating = true;
@@ -467,16 +466,16 @@ async function handleReset() {
 // ============================================
 function getFirebaseErrorMessage(code) {
     const errors = {
-        'auth/user-not-found': '❌ لا يوجد حساب بهذا البريد الإلكتروني. قم بإنشاء حساب أولاً.',
-        'auth/invalid-credential': '❌ البريد الإلكتروني أو كلمة المرور غير صحيحة. يرجى التأكد أو إنشاء حساب جديد إن لم تكن مسجلاً.',
-        'auth/wrong-password': '❌ كلمة المرور غير صحيحة.',
-        'auth/invalid-email': '❌ البريد الإلكتروني غير صالح.',
-        'auth/email-already-in-use': '❌ هذا البريد الإلكتروني مستخدم بالفعل.',
-        'auth/weak-password': '❌ كلمة المرور قصيرة جداً (يجب ألا تقل عن 6 أحرف).',
-        'auth/network-request-failed': '❌ تحقق من اتصال الإنترنت الخاص بك.',
-        'auth/too-many-requests': '⚠️ محاولات كثيرة خاطئة ومتتالية. يرجى الانتظار قليلاً لحماية حسابك.'
+        'auth/user-not-found': ' لا يوجد حساب بهذا البريد الإلكتروني.',
+        'auth/invalid-credential': ' البريد الإلكتروني أو كلمة المرور غير صحيحة.',
+        'auth/wrong-password': ' كلمة المرور غير صحيحة.',
+        'auth/invalid-email': ' البريد الإلكتروني غير صالح.',
+        'auth/email-already-in-use': ' هذا البريد الإلكتروني مستخدم بالفعل.',
+        'auth/weak-password': ' كلمة المرور قصيرة جداً (يجب ألا تقل عن 6 أحرف).',
+        'auth/network-request-failed': ' تحقق من اتصال الإنترنت الخاص بك.',
+        'auth/too-many-requests': ' محاولات كثيرة خاطئة ومتتالية. يرجى الانتظار قليلاً لحماية حسابك.'
     };
-    return errors[code] || '⚠️ حدث خطأ غير متوقع أثناء معالجة البيانات، يرجى المحاولة لاحقاً.';
+    return errors[code] || ' حدث خطأ غير متوقع أثناء معالجة البيانات، يرجى المحاولة لاحقاً.';
 }
 
 // ============================================
