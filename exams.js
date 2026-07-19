@@ -18,49 +18,27 @@ const teile = [
   { id: 9, name: "Schreiben", container: "schreiben", skill: "schreiben" },
   { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" }
 ];
-// متغير لمنع تكرار عرض القائمة الأولية
-let _initialListRendered = false;
 
-// دالة عرض القائمة الأولية (محاكاة الضغط على Hören 1) مع إعادة المحاولة
-window.renderInitialExamList = function() {
-    if (_initialListRendered) return;
+// ✅ دالة لتفعيل Hören 1 بشكل كامل (محاكاة الضغط اليدوي)
+function activateHoeren1() {
+    const hoeren1Index = teile.findIndex(t => t.skill === "hoeren1");
+    if (hoeren1Index === -1) return;
     
-    // نتحقق من وجود دالة حالة المستخدم
-    if (typeof window.getUserStatusGlobal !== 'function') {
-        // إذا لم تكن متوفرة، نعرض مباشرة (حالة طوارئ)
-        _initialListRendered = true;
-        const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
-        if (hoeren1Teil) {
-            renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
-        }
-        return;
+    activeTeilId = hoeren1Index;
+    renderTeileList();
+    const hoeren1Teil = teile[hoeren1Index];
+    renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+}
+
+// ✅ استدعاء أولي لـ Hören 1 بعد تحميل الصفحة (سيتم إعادة الرسم عند تغير الحالة)
+window.renderInitialExamList = function() {
+    // نتحقق من وجود auth و getUserStatusGlobal
+    if (typeof window.getUserStatusGlobal === 'function' && typeof window.auth !== 'undefined') {
+        // ننتظر حتى يتم تحديث الحالة من auth.js
+        // لكننا سنعتمد على حدث auth.onAuthStateChanged لإعادة الرسم
     }
-
-    let attempts = 0;
-    const maxAttempts = 10;  // 10 محاولات كل 200 مللي = 2 ثانية كحد أقصى
-    const delay = 200;
-
-    const tryRender = () => {
-        attempts++;
-        const status = window.getUserStatusGlobal();
-
-        // إذا كان المستخدم مسجلاً (auth.currentUser موجود) وما زالت الحالة 'free'، نعيد المحاولة
-        if (window.auth && window.auth.currentUser && status === 'free' && attempts < maxAttempts) {
-            setTimeout(tryRender, delay);
-            return;
-        }
-
-        // إذا وصلنا هنا، إما أن المستخدم غير مسجل، أو الحالة أصبحت صحيحة، أو انتهت المحاولات
-        _initialListRendered = true;
-        const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
-        if (hoeren1Teil) {
-            console.log('[EXAMS] renderInitialExamList: عرض القائمة (محاولة ' + attempts + ')');
-            renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
-        }
-    };
-
-    // نبدأ المحاولة بعد تأخير 100 مللي (لإعطاء فرصة لـ auth.js)
-    setTimeout(tryRender, 100);
+    // نعرض القائمة فوراً بأي حالة (سيتم تصحيحها لاحقاً)
+    activateHoeren1();
 };
 // ============================================
 // ✅ قواعد الامتحانات المجانية الجديدة (بعد التعديل)
@@ -2799,9 +2777,24 @@ function goList() {
   
   renderTeileList();
   
-  // ✅ استخدم الدالة الجديدة بدلاً من setTimeout القديم
+  // عرض القائمة الأولية بعد تحميل الصفحة
   window.renderInitialExamList();
-}
+
+  // ✅ إضافة مستمع لتغيير حالة المستخدم لإعادة رسم القائمة تلقائياً
+  if (typeof auth !== 'undefined' && auth.onAuthStateChanged) {
+      auth.onAuthStateChanged(function(user) {
+          // إذا كانت صفحة القائمة نشطة، أعد رسم القائمة الحالية
+          const listPage = document.getElementById('list');
+          if (listPage && listPage.classList.contains('active')) {
+              const currentSkill_ = currentSkill || 'hoeren1';
+              const teil = teile.find(t => t.skill === currentSkill_);
+              if (teil) {
+                  // إعادة رسم القائمة مع الحالة المحدثة
+                  renderExamListForSkill(teil.skill, teil.name);
+              }
+          }
+      });
+  }
 // ============================================
 // ✅ دالة buildTeil1 المُعدّلة - تعتمد على ID ثابت
 // ============================================
