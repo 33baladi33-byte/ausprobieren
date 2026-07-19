@@ -304,7 +304,21 @@ function updateUI(user, data) {
             profileDropdown.appendChild(upgradeBtn);
         }
     }
+
+    // ✅ بعد تحديث الحالة، قم بتحديث القائمة إذا كانت صفحة القائمة نشطة
+    if (typeof window.renderInitialExamList === 'function') {
+        const listPage = document.getElementById('list');
+        if (listPage && listPage.classList.contains('active')) {
+            setTimeout(() => {
+                window.renderInitialExamList();
+            }, 50);
+        }
+    }
 }
+
+// ============================================
+// دوال المصادقة (Login, Signup, Logout, Reset)
+// ============================================
 async function handleLogin() {
     const email = authEmail.value.trim();
     const password = authPassword.value;
@@ -314,7 +328,6 @@ async function handleLogin() {
         return;
     }
 
-    // ✅ إظهار مؤشر التحميل الدائري على الزر
     const originalText = authLoginBtn.innerHTML;
     authLoginBtn.disabled = true;
     authLoginBtn.innerHTML = '<span class="loading-spinner"></span>';
@@ -349,12 +362,12 @@ async function handleLogin() {
         authError.textContent = getFirebaseErrorMessage(error.code);
     } finally {
         window._isAuthenticating = false;
-        // ✅ إعادة الزر إلى حالته الأصلية
         authLoginBtn.disabled = false;
         authLoginBtn.innerHTML = originalText;
         authLoginBtn.style.opacity = '1';
     }
 }
+
 async function handleSignup() {
     const username = signupUsername.value.trim();
     const lastname = signupLastname.value.trim();
@@ -367,7 +380,6 @@ async function handleSignup() {
         return;
     }
 
-    // ✅ إظهار مؤشر التحميل الدائري على الزر
     const originalText = authSignupBtn.innerHTML;
     authSignupBtn.disabled = true;
     authSignupBtn.innerHTML = '<span class="loading-spinner"></span>';
@@ -412,7 +424,6 @@ async function handleSignup() {
         signupError.textContent = getFirebaseErrorMessage(error.code);
     } finally {
         window._isAuthenticating = false;
-        // ✅ إعادة الزر إلى حالته الأصلية
         authSignupBtn.disabled = false;
         authSignupBtn.innerHTML = originalText;
         authSignupBtn.style.opacity = '1';
@@ -423,16 +434,14 @@ async function handleLogout(clearLocalDevice = true) {
     try {
         const user = auth.currentUser;
         
-        // خروج يدوي نظامي بناءً على رغبة المستخدم
         if (clearLocalDevice) {
             if (user) {
-                // تصفير الجلسة في السيرفر فقط إذا كان الخروج يدوياً
                 await db.collection('users').doc(user.uid).set({
                     session: { deviceId: null, loginAt: null },
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                 }, { merge: true });
             }
-            localStorage.removeItem('zertiva_deviceId'); // حذف الـ ID المحلي
+            localStorage.removeItem('zertiva_deviceId');
         }
         
         await auth.signOut();
@@ -506,8 +515,18 @@ function showToast(message, type = 'info') {
 // ============================================
 auth.onAuthStateChanged(async user => {
     await checkSessionAndInitialize();
+    
+    // ✅ بعد تحديث حالة المستخدم، استدعِ عرض القائمة الأولية (مرة واحدة فقط)
+    if (typeof window.renderInitialExamList === 'function') {
+        setTimeout(() => {
+            window.renderInitialExamList();
+        }, 50);
+    }
 });
 
+// ============================================
+// ربط الأحداث عند تحميل المستند
+// ============================================
 document.addEventListener('DOMContentLoaded', function() {
     togglePasswordVisibility('authPassword', 'togglePassword');
     togglePasswordVisibility('signupPassword', 'toggleSignupPassword');
@@ -549,7 +568,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ✅ التعديل الثاني: جعل زر Enter يعمل كضغط على الزر المناسب
-    // في نموذج تسجيل الدخول
     const loginInputs = [authEmail, authPassword];
     loginInputs.forEach(input => {
         if (input) {
@@ -564,7 +582,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // في نموذج إنشاء الحساب
     const signupInputs = [signupUsername, signupLastname, signupFirstname, signupEmail, signupPassword];
     signupInputs.forEach(input => {
         if (input) {
