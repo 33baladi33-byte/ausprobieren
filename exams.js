@@ -3788,8 +3788,31 @@ function showResetModal(skill, skillName) {
     });
 }
 console.log('✅ نظام Badge التعديلات (النسخة النهائية) تم تحميله');
-// ✅ تصدير متغيرات Lesen1 للاستخدام من engine.js
-window.matchingSelectedAnswers = matchingSelectedAnswers;
-window.matchingAvailableOptions = matchingAvailableOptions;
-window.currentMatchingExamData = currentMatchingExamData;
-window.renderMatchingQuestions = renderMatchingQuestions;
+// ✅ تصدير متغيرات Lesen1 للاستخدام من engine.js (مع التحقق من وجودها)
+if (typeof matchingSelectedAnswers !== 'undefined') {
+    window.matchingSelectedAnswers = matchingSelectedAnswers;
+} else {
+    window.matchingSelectedAnswers = null;
+    console.warn('⚠️ matchingSelectedAnswers غير معرف، سيتم تعيينه إلى null');
+}
+
+if (typeof matchingAvailableOptions !== 'undefined') {
+    window.matchingAvailableOptions = matchingAvailableOptions;
+} else {
+    window.matchingAvailableOptions = null;
+    console.warn('⚠️ matchingAvailableOptions غير معرف، سيتم تعيينه إلى null');
+}
+
+if (typeof currentMatchingExamData !== 'undefined') {
+    window.currentMatchingExamData = currentMatchingExamData;
+} else {
+    window.currentMatchingExamData = null;
+    console.warn('⚠️ currentMatchingExamData غير معرف، سيتم تعيينه إلى null');
+}
+
+if (typeof renderMatchingQuestions !== 'undefined') {
+    window.renderMatchingQuestions = renderMatchingQuestions;
+} else {
+    window.renderMatchingQuestions = null;
+    console.warn('⚠️ renderMatchingQuestions غير معرف، سيتم تعيينه إلى null');
+}
