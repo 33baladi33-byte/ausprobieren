@@ -3675,12 +3675,9 @@ class MemoryHighlightEngine {
             this.applyHighlights();
         }
     }
+
     applyHighlights() {
         if (this._isApplying) return;
-        if (!this.isActive) {
-            console.log('⏭️ التلوين معطل، تخطي التطبيق');
-            return;
-        }
         
         const examData = this.currentExamData || window.currentExamData || {};
         const examId = examData.id || examData.title || 'unknown';
