@@ -20,15 +20,11 @@ const teile = [
 ];
 // متغير لمنع تكرار عرض القائمة الأولية
 let _initialListRendered = false;
-
-// دالة عرض القائمة الأولية (محاكاة الضغط على Hören 1) مع إعادة المحاولة
+// دالة عرض القائمة الأولية (محاكاة الضغط على Hören 1) مع إعادة المحاولة وإعادة الرسم عند تغير الحالة
 window.renderInitialExamList = function() {
-    if (_initialListRendered) return;
-    
     // نتحقق من وجود دالة حالة المستخدم
     if (typeof window.getUserStatusGlobal !== 'function') {
         // إذا لم تكن متوفرة، نعرض مباشرة (حالة طوارئ)
-        _initialListRendered = true;
         const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
         if (hoeren1Teil) {
             renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
@@ -36,31 +32,53 @@ window.renderInitialExamList = function() {
         return;
     }
 
-    let attempts = 0;
-    const maxAttempts = 10;  // 10 محاولات كل 200 مللي = 2 ثانية كحد أقصى
-    const delay = 200;
+    let firstRenderDone = false; // هل تم الرسم الأول؟
+    let lastStatus = window.getUserStatusGlobal(); // تخزين آخر حالة معروفة
 
-    const tryRender = () => {
-        attempts++;
-        const status = window.getUserStatusGlobal();
+    // دالة مسؤولة عن الرسم الفعلي (مع التحقق من الحالة)
+    const performRender = (force = false) => {
+        const currentStatus = window.getUserStatusGlobal();
+        // إذا لم تتغير الحالة ولم يكن هناك طلب إجبار، لا نعيد الرسم
+        if (!force && currentStatus === lastStatus && firstRenderDone) return;
 
-        // إذا كان المستخدم مسجلاً (auth.currentUser موجود) وما زالت الحالة 'free'، نعيد المحاولة
-        if (window.auth && window.auth.currentUser && status === 'free' && attempts < maxAttempts) {
-            setTimeout(tryRender, delay);
-            return;
-        }
-
-        // إذا وصلنا هنا، إما أن المستخدم غير مسجل، أو الحالة أصبحت صحيحة، أو انتهت المحاولات
-        _initialListRendered = true;
         const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
         if (hoeren1Teil) {
-            console.log('[EXAMS] renderInitialExamList: عرض القائمة (محاولة ' + attempts + ')');
+            console.log(`[EXAMS] renderInitialExamList: رسم القائمة (الحالة: ${currentStatus})`);
             renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+            firstRenderDone = true;
+            lastStatus = currentStatus;
         }
     };
 
-    // نبدأ المحاولة بعد تأخير 100 مللي (لإعطاء فرصة لـ auth.js)
-    setTimeout(tryRender, 100);
+    // أول رسم فوري (بأي حالة)
+    performRender(true);
+
+    // إذا كانت الحالة الأولى 'free' والمستخدم مسجل، نراقب تغير الحالة إلى 'premium'
+    if (window.auth && window.auth.currentUser && lastStatus === 'free') {
+        // نستخدم setInterval للتحقق من تغير الحالة
+        const checkInterval = setInterval(() => {
+            const newStatus = window.getUserStatusGlobal();
+            if (newStatus !== lastStatus) {
+                // تغيرت الحالة، نعيد الرسم
+                performRender(true);
+                // إذا أصبحت الحالة 'premium'، نوقف المراقبة (لأنها الحالة النهائية)
+                if (newStatus === 'premium') {
+                    clearInterval(checkInterval);
+                    console.log('[EXAMS] تم التبديل إلى premium، توقف المراقبة');
+                }
+            }
+            // إذا أصبحت الحالة 'premium'، نوقف المراقبة أيضاً (للتأكد)
+            if (newStatus === 'premium') {
+                clearInterval(checkInterval);
+            }
+        }, 200); // فحص كل 200 مللي
+
+        // إيقاف المراقبة بعد 5 ثواني كحد أقصى (لتفادي أي تسريب)
+        setTimeout(() => {
+            clearInterval(checkInterval);
+            console.log('[EXAMS] توقف المراقبة بعد المهلة');
+        }, 5000);
+    }
 };
 // ============================================
 // ✅ قواعد الامتحانات المجانية الجديدة (بعد التعديل)
@@ -1409,10 +1427,11 @@ function getFlattenedExamList(exams) {
     return flattened;
 }
 
-// ✅ بعد التعديل الصحيح
+// ============================================
+// ✅ دالة renderExamListForSkill المعدلة (مع القواعد الجديدة)
+// ============================================
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
-  window.currentSkill = skill; // 🌟 السطر المضاف لتهيئة المهارة عالمياً للكود الخارجي
   
   const container = document.getElementById("examsList");
   if (!container) return;
@@ -2433,66 +2452,38 @@ function applyExamListView(mode) {
 
     console.log("🟦 Grid View");
 }
+
+// ============================================
+// ✅ دالة addVersionBadgesFixed - إضافة البادج للتعديلات
+// ============================================
 function addVersionBadgesFixed() {
-    console.log("ENTER addVersionBadgesFixed");
-    
     const container = document.getElementById('examsList');
-    if (!container) {
-        console.log("RETURN: no container");
-        return;
-    }
+    if (!container) return;
     
     const skill = currentSkill || 'lesen1';
-    if (!['lesen1','lesen2','lesen3','sprach1','sprach2'].includes(skill)) {
-        console.log("RETURN: skill not allowed -", skill);
-        return;
-    }
+    if (!['lesen1','lesen2','lesen3','sprach1','sprach2'].includes(skill)) return;
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
-    if (!items.length) {
-        console.log("RETURN: no items");
-        return;
-    }
-    
-    console.log("items found:", items.length);
-    
-    let badgesCreated = 0;
+    if (!items.length) return;
     
     items.forEach(el => {
         const title = el.querySelector('.exam-title');
-        if (!title) {
-            console.log("SKIP: no title element");
-            return;
-        }
+        if (!title) return;
         
         const match = title.textContent.match(/^(\d+):/);
-        if (!match) {
-            console.log("SKIP: title doesn't start with number -", title.textContent);
-            return;
-        }
+        if (!match) return;
         const examId = parseInt(match[1]);
         
         const exam = currentExamsList.find(e => e.id === examId);
-        if (!exam) {
-            console.log("SKIP: exam not found in currentExamsList -", examId);
-            return;
-        }
-        if (!exam.versions || exam.versions.length <= 1) {
-            console.log("SKIP: exam has no versions or only 1 -", examId, exam.versions?.length);
-            return;
-        }
-        
-        console.log("CREATE BADGE", exam.id, exam.versions.length);
+        if (!exam || !exam.versions || exam.versions.length <= 1) return;
         
         // ✅ التحقق من وجود البادج
         let badge = el.querySelector('.custom-badge');
         if (badge) {
             const countSpan = badge.querySelector('span:last-child');
             if (countSpan && countSpan.textContent === String(exam.versions.length)) {
-                console.log("SKIP: badge already exists and is correct -", examId);
                 return; // البادج موجود وصحيح
             }
-            console.log("REMOVE: old badge -", examId);
             badge.remove(); // البادج قديم
         }
         
@@ -2525,7 +2516,6 @@ function addVersionBadgesFixed() {
         
         if (rightSide) {
             rightSide.appendChild(badge);
-            console.log("BADGE APPENDED to existing rightSide -", examId);
         } else {
             rightSide = document.createElement('span');
             rightSide.className = 'exam-right-icons';
@@ -2538,13 +2528,10 @@ function addVersionBadgesFixed() {
             `;
             rightSide.appendChild(badge);
             el.appendChild(rightSide);
-            console.log("BADGE APPENDED with new rightSide -", examId);
         }
-        badgesCreated++;
     });
-    
-    console.log("EXIT addVersionBadgesFixed - badges created:", badgesCreated);
 }
+
 // ============================================
 // باقي الدوال (goBackToExamsList, renderInfoExam, renderTipsExam, renderMündlichExam, ...)
 // ============================================
@@ -3788,31 +3775,8 @@ function showResetModal(skill, skillName) {
     });
 }
 console.log('✅ نظام Badge التعديلات (النسخة النهائية) تم تحميله');
-// ✅ تصدير متغيرات Lesen1 للاستخدام من engine.js (مع التحقق من وجودها)
-if (typeof matchingSelectedAnswers !== 'undefined') {
-    window.matchingSelectedAnswers = matchingSelectedAnswers;
-} else {
-    window.matchingSelectedAnswers = null;
-    console.warn('⚠️ matchingSelectedAnswers غير معرف، سيتم تعيينه إلى null');
-}
-
-if (typeof matchingAvailableOptions !== 'undefined') {
-    window.matchingAvailableOptions = matchingAvailableOptions;
-} else {
-    window.matchingAvailableOptions = null;
-    console.warn('⚠️ matchingAvailableOptions غير معرف، سيتم تعيينه إلى null');
-}
-
-if (typeof currentMatchingExamData !== 'undefined') {
-    window.currentMatchingExamData = currentMatchingExamData;
-} else {
-    window.currentMatchingExamData = null;
-    console.warn('⚠️ currentMatchingExamData غير معرف، سيتم تعيينه إلى null');
-}
-
-if (typeof renderMatchingQuestions !== 'undefined') {
-    window.renderMatchingQuestions = renderMatchingQuestions;
-} else {
-    window.renderMatchingQuestions = null;
-    console.warn('⚠️ renderMatchingQuestions غير معرف، سيتم تعيينه إلى null');
-}
+// ✅ تصدير متغيرات Lesen1 للاستخدام من engine.js
+window.matchingSelectedAnswers = matchingSelectedAnswers;
+window.matchingAvailableOptions = matchingAvailableOptions;
+window.currentMatchingExamData = currentMatchingExamData;
+window.renderMatchingQuestions = renderMatchingQuestions;
