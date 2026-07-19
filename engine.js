@@ -3728,7 +3728,6 @@ class MemoryHighlightEngine {
         if (!this.container) return;
         highlightTextInContainer(this.container, searchText, colorIndex);
     }
-
     removeHighlights() {
         if (!this.container) return;
         
@@ -3742,10 +3741,26 @@ class MemoryHighlightEngine {
         
         const selects = this.container.querySelectorAll('select');
         selects.forEach(select => {
-            for (let i = 0; i < select.options.length; i++) {
-                select.options[i].style.color = '';
-                select.options[i].style.fontWeight = '';
-            }
+            // تنظيف خصائص style من جميع عناصر <option> داخل هذا الـ select
+            const options = select.querySelectorAll('option');
+            options.forEach(option => {
+                option.style.backgroundColor = '';
+                option.style.color = '';
+                option.style.fontWeight = '';
+                option.style.padding = '';
+                option.style.borderRadius = '';
+                option.style.opacity = '';
+                // إزالة أي خصائص إضافية قد تكون أضيفت
+                option.style.background = '';
+                option.style.border = '';
+            });
+            // تنظيف الـ select نفسه أيضًا (احتياطي)
+            select.style.backgroundColor = '';
+            select.style.color = '';
+            select.style.fontWeight = '';
+            select.style.border = '';
+            select.style.padding = '';
+            select.style.borderRadius = '';
         });
         
         const labels = this.container.querySelectorAll('label');
