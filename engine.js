@@ -4628,85 +4628,48 @@ function undoLastAnswer() {
             }
         }
     }
-        // ---- Lesen 1 (Matching) ----
+    // ---- Lesen 1 (Matching) ----
     else if (skill === 'lesen1' || skill === 'teil1') {
         if (lastAction.type === 'select') {
-            const select = document.getElementById(lastAction.id);
-            if (select) {
-                // 1. إعادة القيمة السابقة
-                const oldVal = lastAction.oldValue || '';
-                select.value = oldVal;
-                select.dataset.oldValue = oldVal;
-                
-                // 2. تحديث matchingSelectedAnswers
-                if (typeof matchingSelectedAnswers !== 'undefined') {
-                    const idx = parseInt(lastAction.id.replace('matching_q_', ''));
-                    if (oldVal) {
-                        matchingSelectedAnswers[idx] = oldVal;
-                    } else {
-                        delete matchingSelectedAnswers[idx];
-                    }
-                }
-                
-                // 3. إعادة الخيار إلى matchingAvailableOptions إذا كان محجوزاً
-                if (typeof matchingAvailableOptions !== 'undefined' && lastAction.newValue) {
-                    const newVal = lastAction.newValue;
-                    if (!matchingAvailableOptions.includes(newVal)) {
-                        matchingAvailableOptions.push(newVal);
-                    }
-                }
-                
-                // 4. إعادة بناء الخيارات في جميع القوائم
-                if (typeof renderMatchingQuestions === 'function') {
-                    renderMatchingQuestions();
+            const selectId = lastAction.id;
+            const oldVal = lastAction.oldValue || '';
+            
+            // استخراج مؤشر السؤال
+            const idx = parseInt(selectId.replace('matching_q_', ''));
+            
+            // 1. تحديث matchingSelectedAnswers
+            if (typeof matchingSelectedAnswers !== 'undefined') {
+                if (oldVal) {
+                    matchingSelectedAnswers[idx] = oldVal;
                 } else {
-                    // إعادة بناء يدوي
-                    const container = document.getElementById('teil1');
-                    if (container) {
-                        const allSelects = container.querySelectorAll('select');
-                        allSelects.forEach((sel, sidx) => {
-                            const currentVal = sel.value;
-                            const currentId = sel.id;
-                            const match = currentId.match(/matching_q_(\d+)/);
-                            if (match) {
-                                const qIdx = parseInt(match[1]);
-                                // إذا كان هذا هو الـ select الذي نعيد تعيينه، نضبطه على القيمة القديمة
-                                if (currentId === lastAction.id) {
-                                    // تم التعامل معه أعلاه
-                                } else {
-                                    // إعادة بناء الخيارات للقوائم الأخرى
-                                    sel.innerHTML = "";
-                                    const optDefault = document.createElement("option");
-                                    optDefault.value = "";
-                                    optDefault.textContent = "-- اختر الإجابة --";
-                                    sel.appendChild(optDefault);
-                                    
-                                    for (let k = 0; k < matchingAvailableOptions.length; k++) {
-                                        const opt = document.createElement("option");
-                                        opt.value = matchingAvailableOptions[k];
-                                        opt.textContent = matchingAvailableOptions[k];
-                                        if (currentVal === matchingAvailableOptions[k]) {
-                                            opt.selected = true;
-                                        }
-                                        sel.appendChild(opt);
-                                    }
-                                    
-                                    if (currentVal && !matchingAvailableOptions.includes(currentVal)) {
-                                        const hiddenOpt = document.createElement("option");
-                                        hiddenOpt.value = currentVal;
-                                        hiddenOpt.textContent = currentVal;
-                                        hiddenOpt.selected = true;
-                                        sel.appendChild(hiddenOpt);
-                                    }
-                                }
-                            }
-                        });
-                    }
+                    delete matchingSelectedAnswers[idx];
                 }
-                
-                console.log(`✅ تم التراجع عن اختيار ${lastAction.id}`);
-                return true;
             }
+            
+            // 2. إعادة الخيار إلى matchingAvailableOptions إذا كان محجوزاً
+            if (typeof matchingAvailableOptions !== 'undefined' && lastAction.newValue) {
+                const newVal = lastAction.newValue;
+                if (!matchingAvailableOptions.includes(newVal)) {
+                    matchingAvailableOptions.push(newVal);
+                }
+            }
+            
+            // 3. إعادة بناء الواجهة
+            if (typeof window.renderMatchingQuestions === 'function') {
+                window.renderMatchingQuestions();
+            } else if (typeof renderMatchingQuestions === 'function') {
+                renderMatchingQuestions();
+            }
+            
+            // 4. بعد إعادة البناء، نضبط القيمة الصحيحة في الـ select
+            const newSelect = document.getElementById(selectId);
+            if (newSelect) {
+                newSelect.value = oldVal;
+                newSelect.dataset.oldValue = oldVal;
+            }
+            
+            console.log(`✅ تم التراجع عن اختيار ${selectId}`);
+            return true;
         }
     }
     
