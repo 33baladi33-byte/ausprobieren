@@ -2433,38 +2433,66 @@ function applyExamListView(mode) {
 
     console.log("🟦 Grid View");
 }
-
-// ============================================
-// ✅ دالة addVersionBadgesFixed - إضافة البادج للتعديلات
-// ============================================
 function addVersionBadgesFixed() {
+    console.log("ENTER addVersionBadgesFixed");
+    
     const container = document.getElementById('examsList');
-    if (!container) return;
+    if (!container) {
+        console.log("RETURN: no container");
+        return;
+    }
     
     const skill = currentSkill || 'lesen1';
-    if (!['lesen1','lesen2','lesen3','sprach1','sprach2'].includes(skill)) return;
+    if (!['lesen1','lesen2','lesen3','sprach1','sprach2'].includes(skill)) {
+        console.log("RETURN: skill not allowed -", skill);
+        return;
+    }
     
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
-    if (!items.length) return;
+    if (!items.length) {
+        console.log("RETURN: no items");
+        return;
+    }
+    
+    console.log("items found:", items.length);
+    
+    let badgesCreated = 0;
     
     items.forEach(el => {
         const title = el.querySelector('.exam-title');
-        if (!title) return;
+        if (!title) {
+            console.log("SKIP: no title element");
+            return;
+        }
         
         const match = title.textContent.match(/^(\d+):/);
-        if (!match) return;
+        if (!match) {
+            console.log("SKIP: title doesn't start with number -", title.textContent);
+            return;
+        }
         const examId = parseInt(match[1]);
         
         const exam = currentExamsList.find(e => e.id === examId);
-        if (!exam || !exam.versions || exam.versions.length <= 1) return;
+        if (!exam) {
+            console.log("SKIP: exam not found in currentExamsList -", examId);
+            return;
+        }
+        if (!exam.versions || exam.versions.length <= 1) {
+            console.log("SKIP: exam has no versions or only 1 -", examId, exam.versions?.length);
+            return;
+        }
+        
+        console.log("CREATE BADGE", exam.id, exam.versions.length);
         
         // ✅ التحقق من وجود البادج
         let badge = el.querySelector('.custom-badge');
         if (badge) {
             const countSpan = badge.querySelector('span:last-child');
             if (countSpan && countSpan.textContent === String(exam.versions.length)) {
+                console.log("SKIP: badge already exists and is correct -", examId);
                 return; // البادج موجود وصحيح
             }
+            console.log("REMOVE: old badge -", examId);
             badge.remove(); // البادج قديم
         }
         
@@ -2497,6 +2525,7 @@ function addVersionBadgesFixed() {
         
         if (rightSide) {
             rightSide.appendChild(badge);
+            console.log("BADGE APPENDED to existing rightSide -", examId);
         } else {
             rightSide = document.createElement('span');
             rightSide.className = 'exam-right-icons';
@@ -2509,10 +2538,13 @@ function addVersionBadgesFixed() {
             `;
             rightSide.appendChild(badge);
             el.appendChild(rightSide);
+            console.log("BADGE APPENDED with new rightSide -", examId);
         }
+        badgesCreated++;
     });
+    
+    console.log("EXIT addVersionBadgesFixed - badges created:", badgesCreated);
 }
-
 // ============================================
 // باقي الدوال (goBackToExamsList, renderInfoExam, renderTipsExam, renderMündlichExam, ...)
 // ============================================
