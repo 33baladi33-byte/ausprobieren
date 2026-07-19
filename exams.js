@@ -1409,11 +1409,10 @@ function getFlattenedExamList(exams) {
     return flattened;
 }
 
-// ============================================
-// ✅ دالة renderExamListForSkill المعدلة (مع القواعد الجديدة)
-// ============================================
+// ✅ بعد التعديل الصحيح
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
+  window.currentSkill = skill; // 🌟 السطر المضاف لتهيئة المهارة عالمياً للكود الخارجي
   
   const container = document.getElementById("examsList");
   if (!container) return;
@@ -2436,13 +2435,15 @@ function applyExamListView(mode) {
 }
 
 // ============================================
-// ✅ دالة addVersionBadgesFixed - إضافة البادج للتعديلات (لجميع المهارات)
+// ✅ دالة addVersionBadgesFixed - إضافة البادج للتعديلات
 // ============================================
 function addVersionBadgesFixed() {
     const container = document.getElementById('examsList');
     if (!container) return;
     
-    // ✅ إزالة الشرط المحدد للمهارات، نسمح لجميع المهارات
+    const skill = currentSkill || 'lesen1';
+    if (!['lesen1','lesen2','lesen3','sprach1','sprach2'].includes(skill)) return;
+    
     const items = container.querySelectorAll('.item:not(.teil-header):not(.memory-progress-bar-container)');
     if (!items.length) return;
     
