@@ -3541,8 +3541,13 @@ function getFirstWords(text, wordCount = 7) {
 // ============================================
 // تلوين خيارات القائمة المنسدلة
 // ============================================
-
 function colorSelectOptions() {
+    // منع التلوين إذا كان التلوين الذكي معطلاً (السبب الحقيقي لإبقاء الألوان في الخيارات)
+    if (window.memoryEngine && !window.memoryEngine.isActive) {
+        console.log('⏭️ colorSelectOptions: التلوين معطل، تخطي تلوين الخيارات');
+        return;
+    }
+    
     const examData = window.currentExamData || 
                      (window.memoryEngine ? window.memoryEngine.currentExamData : null);
     
