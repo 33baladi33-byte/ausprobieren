@@ -18,10 +18,55 @@ const teile = [
   { id: 9, name: "Schreiben", container: "schreiben", skill: "schreiben" },
   { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" }
 ];
+// متغير لمنع تكرار عرض القائمة الأولية
+let _initialListRendered = false;
+
+// دالة عرض القائمة الأولية (محاكاة الضغط على Hören 1) مع إعادة المحاولة
+window.renderInitialExamList = function() {
+    if (_initialListRendered) return;
+    
+    // نتحقق من وجود دالة حالة المستخدم
+    if (typeof window.getUserStatusGlobal !== 'function') {
+        // إذا لم تكن متوفرة، نعرض مباشرة (حالة طوارئ)
+        _initialListRendered = true;
+        const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+        if (hoeren1Teil) {
+            renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+        }
+        return;
+    }
+
+    let attempts = 0;
+    const maxAttempts = 10;  // 10 محاولات كل 200 مللي = 2 ثانية كحد أقصى
+    const delay = 200;
+
+    const tryRender = () => {
+        attempts++;
+        const status = window.getUserStatusGlobal();
+
+        // إذا كان المستخدم مسجلاً (auth.currentUser موجود) وما زالت الحالة 'free'، نعيد المحاولة
+        if (window.auth && window.auth.currentUser && status === 'free' && attempts < maxAttempts) {
+            setTimeout(tryRender, delay);
+            return;
+        }
+
+        // إذا وصلنا هنا، إما أن المستخدم غير مسجل، أو الحالة أصبحت صحيحة، أو انتهت المحاولات
+        _initialListRendered = true;
+        const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
+        if (hoeren1Teil) {
+            console.log('[EXAMS] renderInitialExamList: عرض القائمة (محاولة ' + attempts + ')');
+            renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
+        }
+    };
+
+    // نبدأ المحاولة بعد تأخير 100 مللي (لإعطاء فرصة لـ auth.js)
+    setTimeout(tryRender, 100);
+};
 
 // ============================================
 // ✅ قواعد الامتحانات المجانية الجديدة (بعد التعديل)
 // ============================================
+
 function isExamFree(skill, examNumber) {
   // 🟢 Mündlich - معالجة خاصة
   if (skill === "mündlich1" || skill === "mündlich3") {
@@ -2750,7 +2795,6 @@ function goHome() {
   document.getElementById("list").classList.remove("active");
   document.getElementById("exam").classList.remove("active");
 }
-
 function goList() {
   document.getElementById("home").classList.remove("active");
   document.getElementById("list").classList.add("active");
@@ -2758,19 +2802,9 @@ function goList() {
   
   renderTeileList();
   
-  setTimeout(() => {
-    const examsContainer = document.getElementById("examsList");
-    if (examsContainer) {
-      const hoeren1Teil = teile.find(t => t.skill === "hoeren1");
-      if (hoeren1Teil) {
-        renderExamListForSkill(hoeren1Teil.skill, hoeren1Teil.name);
-      } else {
-        examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
-      }
-    }
-  }, 50);
+  // ✅ استخدم الدالة الجديدة بدلاً من setTimeout القديم
+  window.renderInitialExamList();
 }
-
 // ============================================
 // ✅ دالة buildTeil1 المُعدّلة - تعتمد على ID ثابت
 // ============================================
@@ -2929,6 +2963,9 @@ document.addEventListener("DOMContentLoaded", function() {
   if (examsContainer) {
     examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
   }
+  
+  // عرض القائمة الأولية بعد تحميل الصفحة
+  window.renderInitialExamList();
 });
 
 renderTeileList();
@@ -3347,6 +3384,7 @@ window.goToNextStage = goToNextStage;
 window.resetStages = resetStages;
 window.startMemoryTrainerFromList = startMemoryTrainerFromList;
 window.startMemoryTrainerForExam = startMemoryTrainerForExam;
+window.renderInitialExamList = renderInitialExamList;
 
 console.log('🧠 نظام التقدم المتوازن (المراحل لكل مهارة) تم تحميله بنجاح');
 console.log('📊 عدد المراحل:', Object.keys(SKILL_CONFIG).map(s => `${s}: ${getTotalStages(s)}`).join(', '));
