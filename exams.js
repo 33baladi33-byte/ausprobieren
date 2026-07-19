@@ -2954,7 +2954,6 @@ window.saveExamResultGlobal = function(skill, examId, score) {
     renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
   }
 };
-
 document.addEventListener("DOMContentLoaded", function() {
   const startBtn = document.getElementById("startBtn");
   const backHomeBtn = document.getElementById("backHomeBtn");
@@ -2979,10 +2978,9 @@ document.addEventListener("DOMContentLoaded", function() {
     examsContainer.innerHTML = '<div class="welcome-message">👈 اختر القسم (Teil) من الأعلى لعرض الامتحانات</div>';
   }
   
-  // عرض القائمة الأولية بعد تحميل الصفحة
-  window.renderInitialExamList();
+  // ✅ تم إزالة الاستدعاء المبكر لـ renderInitialExamList()
+  // سيتم استدعاؤها من auth.js بعد اكتمال تهيئة حالة المستخدم
 });
-
 renderTeileList();
 
 // ============================================
