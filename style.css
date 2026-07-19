@@ -4601,3 +4601,23 @@ body:has(#exam.active) .left-side .btn-login-top {
 #shortcutsToggleBtn {
     display: none;
 }
+/* ============================================
+   Loading Spinner داخل الزر
+   ============================================ */
+
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
