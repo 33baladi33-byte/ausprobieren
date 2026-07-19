@@ -3760,8 +3760,8 @@ function showResetModal(skill, skillName) {
     });
 }
 console.log('✅ نظام Badge التعديلات (النسخة النهائية) تم تحميله');
-
 // ✅ تصدير متغيرات Lesen1 للاستخدام من engine.js
 window.matchingSelectedAnswers = matchingSelectedAnswers;
 window.matchingAvailableOptions = matchingAvailableOptions;
 window.currentMatchingExamData = currentMatchingExamData;
+window.renderMatchingQuestions = renderMatchingQuestions;
