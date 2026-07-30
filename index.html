@@ -949,7 +949,8 @@ body.dark-mode .mobile-banner span {
             font-size: 0.7rem;
         }
     }
-
+<!-- أيقونات Material Symbols (إذا لم تكن موجودة) -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         /* ============================================
    نافذة تسجيل الدخول الجديدة
    ============================================ */
@@ -2335,6 +2336,154 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('🚀 أزرار الاشتراك جاهزة');
 });
 </script>
+<script>
+// ============================================
+// 🧠 نظام Ask AI (الاتصال بالخادم الخلفي)
+// ============================================
+(function() {
+    const floatingBtn = document.getElementById('askAIFloatingBtn');
+    const chatWindow = document.getElementById('askAIChatWindow');
+    const closeBtn = document.getElementById('askAIChatClose');
+    const sendBtn = document.getElementById('askAISendBtn');
+    const userInput = document.getElementById('askAIUserInput');
+    const messagesContainer = document.getElementById('askAIChatMessages');
 
+    let isOpen = false;
+    let isLoading = false;
+
+    // فتح/إغلاق النافذة
+    function toggleChat() {
+        isOpen = !isOpen;
+        chatWindow.classList.toggle('active', isOpen);
+        if (isOpen) {
+            userInput.focus();
+        }
+    }
+
+    // إضافة رسالة إلى النافذة
+    function addMessage(text, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `ask-ai-msg ${sender}`;
+        const label = sender === 'user' ? '👤 أنت' : '🤖 المساعد';
+        msgDiv.innerHTML = `<span class="msg-label">${label}</span>${text}`;
+        messagesContainer.appendChild(msgDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // عرض حالة التحميل
+    function showLoading() {
+        isLoading = true;
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'ask-ai-loading';
+        loadingDiv.id = 'askAILoading';
+        loadingDiv.innerHTML = `
+            <span>جاري التفكير</span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        `;
+        messagesContainer.appendChild(loadingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function hideLoading() {
+        isLoading = false;
+        const loading = document.getElementById('askAILoading');
+        if (loading) loading.remove();
+    }
+
+    // إرسال الرسالة
+    async function sendMessage() {
+        const text = userInput.value.trim();
+        if (!text || isLoading) return;
+
+        // إضافة رسالة المستخدم
+        addMessage(text, 'user');
+        userInput.value = '';
+        userInput.disabled = true;
+
+        // الحصول على سياق الامتحان (الفقرة الحالية)
+        let context = '';
+        const paragraphElem = document.getElementById('current-paragraph');
+        if (paragraphElem) {
+            context = paragraphElem.innerText;
+        } else {
+            // محاولة العثور على أي نص فقرة في الصفحة
+            const possibleParagraph = document.querySelector('.exam-content p, .hero-desc, .exam-box p');
+            if (possibleParagraph) context = possibleParagraph.innerText;
+        }
+
+        showLoading();
+
+        try {
+            const response = await fetch('http://localhost:3000/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    question: text,
+                    context: context
+                })
+            });
+            const data = await response.json();
+            hideLoading();
+            addMessage(data.reply || 'عذراً، لم أستطع معالجة طلبك.', 'assistant');
+        } catch (error) {
+            console.error('❌ خطأ في الاتصال:', error);
+            hideLoading();
+            addMessage('⚠️ لا يمكن الاتصال بالخادم. تأكد من تشغيل السيرفر (node server.js)', 'assistant');
+        }
+
+        userInput.disabled = false;
+        userInput.focus();
+    }
+
+    // ===== ربط الأحداث =====
+    floatingBtn.addEventListener('click', toggleChat);
+    closeBtn.addEventListener('click', toggleChat);
+    sendBtn.addEventListener('click', sendMessage);
+
+    userInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    // إغلاق النافذة عند الضغط خارجها (اختياري)
+    document.addEventListener('click', function(e) {
+        if (isOpen && !chatWindow.contains(e.target) && e.target !== floatingBtn) {
+            toggleChat();
+        }
+    });
+
+    console.log('✅ Ask AI جاهز!');
+})();
+</script>
+         <!-- ===== زر Ask AI العائم ===== -->
+<button id="askAIFloatingBtn">
+    <span class="material-symbols-outlined" style="font-size: 22px;">smart_toy</span>
+    <span class="btn-text">Ask AI</span>
+</button>
+
+<!-- ===== نافذة الدردشة ===== -->
+<div id="askAIChatWindow">
+    <div id="askAIChatHeader">
+        <span>
+            <span class="material-symbols-outlined" style="font-size: 20px;">auto_awesome</span>
+            المساعد الذكي
+        </span>
+        <button id="askAIChatClose">✕</button>
+    </div>
+    <div id="askAIChatMessages">
+        <!-- سيتم إضافة الرسائل هنا بواسطة JavaScript -->
+        <div class="ask-ai-msg assistant">
+            <span class="msg-label">🤖 المساعد</span>
+            مرحباً! أنا هنا لمساعدتك في فهم النصوص والأسئلة. اسألني عن أي كلمة أو فقرة، وسأشرحها لك دون إعطاء الإجابة النهائية.
+        </div>
+    </div>
+    <div id="askAIChatInputArea">
+        <input type="text" id="askAIUserInput" placeholder="اكتب سؤالك هنا...">
+        <button id="askAISendBtn">
+            <span class="material-symbols-outlined" style="font-size: 22px;">send</span>
+        </button>
+    </div>
+</div>
 </body>
 </html>
