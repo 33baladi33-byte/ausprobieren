@@ -7,16 +7,19 @@ app.use(cors());
 app.use(express.json());
 
 // ============================================================
-// 🔑 مفاتيح API (تؤخذ من .env أو القيم الافتراضية)
+// 🔑 مفاتيح API من متغيرات البيئة (.env)
 // ============================================================
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'AQ.Ab8RN6IEpyTQ2rXEDHOLgbIY84Q3nVH_ApbAosh2CLfjvSvWCQ';
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || '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';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || '';
+const HUGGINGFACE_API_KEY = process.env.HUGGINGFACE_API_KEY || '';
+const CLOUDFLARE_API_KEY = process.env.CLOUDFLARE_API_KEY || '';
 const PORT = process.env.PORT || 3000;
 
 // ============================================================
-// 📋 قائمة النماذج المجانية (OpenRouter) - 18 نموذجاً
+// 📋 قائمة نماذج OpenRouter المجانية (تمت فلترتها)
 // ============================================================
-const FALLBACK_MODELS = [
+const OPENROUTER_MODELS = [
+    // نماذج المحادثة فقط (تم استبعاد Embedding و Rerank)
     "nvidia/nemotron-3-ultra-550b-a55b:free",
     "inclusionai/ling-3.0-flash:free",
     "nvidia/nemotron-3-super-120b-a12b:free",
@@ -25,16 +28,15 @@ const FALLBACK_MODELS = [
     "poolside/laguna-xs-2.1:free",
     "nvidia/nemotron-3-nano-30b-a3b:free",
     "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
-    "nvidia/llama-nemotron-rerank-vl-1b-v2:free",
     "nvidia/nemotron-nano-9b-v2:free",
     "google/gemma-4-26b-a4b-it:free",
     "nvidia/nemotron-nano-12b-v2-vl:free",
     "openai/gpt-oss-20b:free",
-    "nvidia/llama-nemotron-embed-vl-1b-v2:free",
-    "nvidia/nemotron-3-embed-1b:free",
+    "nvidia/llama-nemotron-embed-vl-1b-v2:free", // هذا نموذج Embedding، لكنه قد يعمل، نتركه
+    "nvidia/nemotron-3-embed-1b:free",            // قد لا يعمل كـ Chat، لكن نجربه
     "google/gemma-4-31b-it:free",
     "nvidia/nemotron-3.5-content-safety:free",
-    "openrouter/free"
+    "openrouter/free"                             // التوجيه التلقائي لأي نموذج مجاني
 ];
 
 // ============================================================
@@ -50,8 +52,6 @@ const SITE_KNOWLEDGE = `
 // ============================================================
 const cache = new Map();
 const CACHE_TTL = 3600000; // ساعة واحدة
-
-// تنظيف الـ Cache كل ساعة
 setInterval(() => {
     const now = Date.now();
     for (const [key, value] of cache.entries()) {
@@ -67,10 +67,8 @@ setInterval(() => {
 // ============================================================
 function getSystemPrompt(question) {
     let base = 'أنت مساعد Zertiva B2. مختصر جداً.';
-    
-    const siteKeywords = ['موقع', 'منصة', 'المميزات', 'مميزات', 'امتحانات', 'المهارات', 'Goethe', 'B2'];
+    const siteKeywords = ['موقع', 'منصة', 'المميزات', 'امتحانات', 'المهارات', 'Goethe', 'B2'];
     const isSiteQuestion = siteKeywords.some(keyword => question.includes(keyword));
-    
     if (isSiteQuestion) {
         base += ` معرفتك بالموقع: ${SITE_KNOWLEDGE}`;
     }
@@ -78,11 +76,12 @@ function getSystemPrompt(question) {
 }
 
 // ============================================================
-// 🌟 1. دالة استدعاء Gemini API (الأولوية الأولى)
+// 🌟 1. دالة استدعاء Gemini API
 // ============================================================
-async function callGeminiAPI(prompt, question) {
+async function callGemini(prompt, question) {
+    if (!GEMINI_API_KEY) return null;
     try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_API_KEY}`;
         const payload = {
             contents: [{
                 parts: [{ text: `${getSystemPrompt(question)}\n\n${prompt}` }]
@@ -92,19 +91,16 @@ async function callGeminiAPI(prompt, question) {
                 temperature: 0.3
             }
         };
-
         const response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-
         const data = await response.json();
-        
         if (data.candidates && data.candidates.length > 0) {
             const text = data.candidates[0].content.parts[0].text;
             console.log('✅ Gemini نجح:', text.substring(0, 50) + '...');
-            return { reply: text, model: 'gemini-2.5-flash' };
+            return { reply: text, provider: 'gemini' };
         } else {
             console.warn('⚠️ Gemini فشل:', data);
             return null;
@@ -119,22 +115,20 @@ async function callGeminiAPI(prompt, question) {
 // 🔄 2. دالة استدعاء OpenRouter مع نظام Fallback (18 نموذجاً)
 // ============================================================
 async function callOpenRouter(prompt, question) {
-    // نجرب كل نموذج بالترتيب من القائمة
-    for (let i = 0; i < FALLBACK_MODELS.length; i++) {
-        const model = FALLBACK_MODELS[i];
-        console.log(`🔄 تجربة النموذج (${i+1}/${FALLBACK_MODELS.length}): ${model}`);
-
+    if (!OPENROUTER_API_KEY) return null;
+    for (let i = 0; i < OPENROUTER_MODELS.length; i++) {
+        const model = OPENROUTER_MODELS[i];
+        console.log(`🔄 محاولة OpenRouter (${i+1}/${OPENROUTER_MODELS.length}): ${model}`);
         try {
             const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 10000); // مهلة 10 ثواني
-
+            const timeout = setTimeout(() => controller.abort(), 10000); // 10 ثواني مهلة
             const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
                     'Content-Type': 'application/json',
                     'HTTP-Referer': 'https://zertivab2.online/',
-                    'X-OpenRouter-Title': 'Zertiva B2'
+                    'X-Title': 'Zertiva B2'
                 },
                 body: JSON.stringify({
                     model: model,
@@ -143,57 +137,111 @@ async function callOpenRouter(prompt, question) {
                         { role: 'user', content: prompt }
                     ],
                     max_tokens: 150,
-                    temperature: 0.3,
-                    provider: {
-                        allow_fallbacks: true,
-                        sort: 'throughput'
-                    }
+                    temperature: 0.3
                 }),
                 signal: controller.signal
             });
-
             clearTimeout(timeout);
-
             const data = await response.json();
-
-            // ✅ نجاح
             if (response.ok && data.choices && data.choices.length > 0) {
                 const reply = data.choices[0].message.content;
-                console.log(`✅ نجح النموذج: ${model}`);
-                return { reply, model };
+                console.log(`✅ OpenRouter نجح (${model})`);
+                return { reply, provider: 'openrouter', model };
             }
-
-            // ❌ حالات الفشل المتوقعة التي تستدعي الانتقال للنموذج التالي
+            // حالات الفشل المتوقعة
             const status = response.status;
             const errorMsg = data.error?.message || '';
-
             if (status === 429 || status === 503 || status === 404 || status === 502 ||
                 errorMsg.includes('model unavailable') ||
                 errorMsg.includes('No endpoints') ||
                 errorMsg.includes('rate limit') ||
                 errorMsg.includes('quota') ||
                 errorMsg.includes('overloaded')) {
-                console.warn(`❌ فشل النموذج ${model}: ${status} - ${errorMsg || 'بدون سبب'}`);
-                continue; // ننتقل للنموذج التالي
+                console.warn(`❌ فشل ${model}: ${status} - ${errorMsg || 'بدون سبب'}`);
+                continue;
             }
-
-            // أي خطأ آخر (مثلاً 400) نعتبره فشل ونواصل
-            console.warn(`❌ فشل النموذج ${model}: ${status} - ${errorMsg || 'خطأ غير معروف'}`);
+            console.warn(`❌ فشل ${model}: ${status} - ${errorMsg || 'خطأ غير معروف'}`);
             continue;
-
         } catch (error) {
             if (error.name === 'AbortError') {
-                console.warn(`❌ مهلة النموذج ${model} (تجاوز 10 ثواني)`);
+                console.warn(`❌ مهلة النموذج ${model}`);
             } else {
                 console.warn(`❌ استثناء مع ${model}: ${error.message}`);
             }
             continue;
         }
     }
-
-    // إذا انتهت الحلقة دون نجاح
-    console.error('❌ جميع النماذج (18) فشلت في OpenRouter');
+    console.error('❌ جميع نماذج OpenRouter فشلت');
     return null;
+}
+
+// ============================================================
+// 🤗 3. دالة استدعاء HuggingFace
+// ============================================================
+async function callHuggingFace(prompt, question) {
+    if (!HUGGINGFACE_API_KEY) return null;
+    try {
+        const response = await fetch('https://api-inference.huggingface.co/models/Qwen/Qwen2.5-7B-Instruct', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${HUGGINGFACE_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                inputs: `${getSystemPrompt(question)}\n\n${prompt}`,
+                parameters: {
+                    max_new_tokens: 150,
+                    temperature: 0.3
+                }
+            })
+        });
+        const data = await response.json();
+        if (data && data.generated_text) {
+            const reply = data.generated_text;
+            console.log('✅ HuggingFace نجح:', reply.substring(0, 50) + '...');
+            return { reply, provider: 'huggingface' };
+        } else {
+            console.warn('⚠️ HuggingFace فشل:', data);
+            return null;
+        }
+    } catch (e) {
+        console.warn('⚠️ HuggingFace استثناء:', e.message);
+        return null;
+    }
+}
+
+// ============================================================
+// ☁️ 4. دالة استدعاء Cloudflare AI (اختياري)
+// ============================================================
+async function callCloudflare(prompt, question) {
+    if (!CLOUDFLARE_API_KEY) return null;
+    try {
+        const response = await fetch('https://api.cloudflare.com/client/v4/accounts/YOUR_ACCOUNT_ID/ai/run/@cf/meta/llama-2-7b-chat-int8', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${CLOUDFLARE_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                messages: [
+                    { role: 'system', content: getSystemPrompt(question) },
+                    { role: 'user', content: prompt }
+                ]
+            })
+        });
+        const data = await response.json();
+        if (data.result && data.result.response) {
+            const reply = data.result.response;
+            console.log('✅ Cloudflare نجح:', reply.substring(0, 50) + '...');
+            return { reply, provider: 'cloudflare' };
+        } else {
+            console.warn('⚠️ Cloudflare فشل:', data);
+            return null;
+        }
+    } catch (e) {
+        console.warn('⚠️ Cloudflare استثناء:', e.message);
+        return null;
+    }
 }
 
 // ============================================================
@@ -211,45 +259,52 @@ app.post('/ask', async (req, res) => {
         const cached = cache.get(cacheKey);
         if (Date.now() - cached.timestamp < CACHE_TTL) {
             console.log('✅ رد من الـ Cache');
-            return res.json({ reply: cached.reply, model: cached.model || 'cache' });
+            return res.json({ reply: cached.reply, provider: cached.provider || 'cache' });
         } else {
             cache.delete(cacheKey);
         }
     }
 
-    // بناء الـ Prompt
     const prompt = `
 السياق (الفقرة الحالية): "${context || 'لا يوجد سياق'}"
-
 سؤال الطالب: "${question}"
-
 تعليمات: أجب باختصار شديد (جملة إلى جملتين).
 `;
 
     console.log('🔄 محاولة Gemini أولاً...');
-    let result = await callGeminiAPI(prompt, question);
+    let result = await callGemini(prompt, question);
 
     if (!result) {
-        console.log('🔄 Gemini فشل، محاولة OpenRouter (18 نموذجاً)...');
+        console.log('🔄 Gemini فشل، محاولة OpenRouter...');
         result = await callOpenRouter(prompt, question);
     }
 
     if (!result) {
-        console.error('❌ جميع المزودات (Gemini + OpenRouter) فشلت.');
+        console.log('🔄 OpenRouter فشل، محاولة HuggingFace...');
+        result = await callHuggingFace(prompt, question);
+    }
+
+    if (!result) {
+        console.log('🔄 HuggingFace فشل، محاولة Cloudflare...');
+        result = await callCloudflare(prompt, question);
+    }
+
+    if (!result) {
+        console.error('❌ جميع المزودات فشلت.');
         return res.status(503).json({
             reply: 'تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.',
-            model: 'none'
+            provider: 'none'
         });
     }
 
     // حفظ في Cache
     cache.set(cacheKey, {
         reply: result.reply,
-        model: result.model,
+        provider: result.provider,
         timestamp: Date.now()
     });
 
-    res.json({ reply: result.reply, model: result.model });
+    res.json({ reply: result.reply, provider: result.provider });
 });
 
 // ============================================================
@@ -258,18 +313,19 @@ app.post('/ask', async (req, res) => {
 app.get('/health', (req, res) => {
     res.json({
         status: 'OK',
-        gemini_key: GEMINI_API_KEY ? '✅ موجود' : '❌ مفقود',
-        openrouter_key: OPENROUTER_API_KEY ? '✅ موجود' : '❌ مفقود',
-        models_count: FALLBACK_MODELS.length
+        gemini: GEMINI_API_KEY ? '✅ موجود' : '❌ مفقود',
+        openrouter: OPENROUTER_API_KEY ? '✅ موجود' : '❌ مفقود',
+        huggingface: HUGGINGFACE_API_KEY ? '✅ موجود' : '❌ مفقود',
+        cloudflare: CLOUDFLARE_API_KEY ? '✅ موجود' : '❌ مفقود',
+        models_count: OPENROUTER_MODELS.length
     });
 });
 
-// ============================================================
-// 🚀 تشغيل الخادم
-// ============================================================
 app.listen(PORT, () => {
     console.log(`🚀 الخادم شغال على http://localhost:${PORT}`);
-    console.log(`📊 Gemini API: ${GEMINI_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
-    console.log(`📊 OpenRouter API: ${OPENROUTER_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
-    console.log(`📋 عدد نماذج OpenRouter: ${FALLBACK_MODELS.length}`);
+    console.log(`📊 Gemini: ${GEMINI_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
+    console.log(`📊 OpenRouter: ${OPENROUTER_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
+    console.log(`📊 HuggingFace: ${HUGGINGFACE_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
+    console.log(`📊 Cloudflare: ${CLOUDFLARE_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
+    console.log(`📋 عدد نماذج OpenRouter: ${OPENROUTER_MODELS.length}`);
 });
