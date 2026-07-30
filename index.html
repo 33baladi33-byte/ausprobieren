@@ -2385,6 +2385,30 @@ const db = firebase.firestore();
 window.auth = auth;
 window.db = db;
 console.log("✅ Firebase initialized");
+    // ============================================
+// 🧠 السياق الذكي لـ Ask AI
+// ============================================
+window.askAIContext = {
+    skill: '',
+    part: 0,
+    examNumber: 0,
+    questionText: '',
+    paragraph: '',
+    options: [],
+    userAnswer: '',
+    pageType: 'home',
+    language: 'de',
+    examType: 'goethe-b2',
+    mode: 'exam'
+};
+
+// دالة تحديث السياق
+window.updateAskAIContext = function(newData) {
+    if (newData) {
+        Object.assign(window.askAIContext, newData);
+        console.log('✅ Ask AI Context Updated:', window.askAIContext);
+    }
+};
 </script>
 <script src="sentenceReorder.js"></script>
 <script type="module" src="./helpSystem.js"></script>
@@ -2662,16 +2686,33 @@ document.addEventListener("DOMContentLoaded", function() {
         if (loading) loading.remove();
     }
 
-    async function sendMessage() {
-        const text = userInput.value.trim();
-        if (!text || isLoading) return;
+async function sendMessage() {
+    const text = userInput.value.trim();
+    if (!text || isLoading) return;
 
-        addMessage(text, 'user');
-        userInput.value = '';
-        userInput.disabled = true;
+    addMessage(text, 'user');
+    userInput.value = '';
+    userInput.disabled = true;
 
-        // ===== استخراج السياق =====
-        let context = '';
+    // ===== استخراج السياق من النظام (أولوية قصوى) =====
+    let context = '';
+
+    if (window.askAIContext && window.askAIContext.skill) {
+        // ✅ استخدام السياق الذكي
+        const ctx = window.askAIContext;
+        context = `
+المهارة: ${ctx.skill}
+الجزء: ${ctx.part}
+الامتحان: ${ctx.examNumber}
+السؤال: ${ctx.questionText}
+${ctx.paragraph ? `النص: ${ctx.paragraph}` : ''}
+${ctx.options.length ? `الخيارات: ${ctx.options.join(' | ')}` : ''}
+${ctx.userAnswer ? `إجابة المستخدم: ${ctx.userAnswer}` : ''}
+نوع الصفحة: ${ctx.pageType}
+المستوى: ${ctx.examType}
+`;
+    } else {
+        // ⚠️ حل احتياطي: استخراج من DOM
         const paragraphElem = document.getElementById('current-paragraph');
         if (paragraphElem) {
             context = paragraphElem.innerText;
@@ -2679,35 +2720,37 @@ document.addEventListener("DOMContentLoaded", function() {
             const possibleParagraph = document.querySelector('.exam-content p, .hero-desc, .exam-box p, .question-text');
             if (possibleParagraph) context = possibleParagraph.innerText;
         }
+        // إذا لم نجد شيئاً، نعطي سياقاً افتراضياً
+        if (!context || context.trim().length < 5) {
+            context = 'لا يوجد سياق محدد. المستخدم يسأل سؤالاً عاماً.';
+        }
+    }
 
-        // ===== هل السؤال كلمة واحدة؟ =====
-        const isSingleWord = text.trim().split(/\s+/).length === 1;
-        const shouldSendContext = !isSingleWord && context && context.length > 10;
-
-        // ===== بناء الـ Prompt =====
-        const prompt = `
-السياق (الفقرة الحالية): "${shouldSendContext ? context : 'لا يوجد سياق'}"
+    // ===== بناء الـ Prompt (مع السياق المحسَّن) =====
+    const prompt = `
+السياق (بيانات الامتحان الحالية): "${context}"
 
 سؤال الطالب: "${text}"
 
-تعليمات: أجب باختصار شديد (جملة إلى جملتين).
+تعليمات: أجب باختصار شديد (جملة إلى جملتين). إذا طلب المستخدم شرحاً مفصلاً، أخبره أنه يمكنه طلب التفاصيل.
 `;
 
-        console.log('📤 إرسال طلب إلى OpenRouter...');
-        console.log('📝 السؤال:', text);
+    console.log('📤 إرسال طلب إلى OpenRouter...');
+    console.log('📝 السؤال:', text);
+    console.log('📚 السياق المرسل:', context);
 
-        showLoading();
+    showLoading();
 
-        let success = false;
+    let success = false;
 
-        for (const model of FALLBACK_MODELS) {
-            if (success) break;
+    for (const model of FALLBACK_MODELS) {
+        if (success) break;
 
-            try {
-                console.log(`🔄 محاولة النموذج: ${model}`);
+        try {
+            console.log(`🔄 محاولة النموذج: ${model}`);
 
-                const controller = new AbortController();
-                const timeout = setTimeout(() => controller.abort(), 10000);
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 10000);
 
            const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
@@ -2727,31 +2770,31 @@ document.addEventListener("DOMContentLoaded", function() {
     signal: controller.signal
 });
 
-                clearTimeout(timeout);
-                const data = await response.json();
+            clearTimeout(timeout);
+            const data = await response.json();
 
-                if (response.ok && data.choices?.length > 0) {
-                    const reply = data.choices[0].message.content;
-                    console.log(`✅ نجاح مع النموذج: ${model}`);
-                    hideLoading();
-                    addMessage(reply, 'assistant');
-                    success = true;
-                } else {
-                    console.warn(`⚠️ فشل ${model}:`, data.error?.message || 'خطأ غير معروف');
-                }
-            } catch (error) {
-                console.warn(`⚠️ استثناء مع ${model}:`, error.message);
+            if (response.ok && data.choices?.length > 0) {
+                const reply = data.choices[0].message.content;
+                console.log(`✅ نجاح مع النموذج: ${model}`);
+                hideLoading();
+                addMessage(reply, 'assistant');
+                success = true;
+            } else {
+                console.warn(`⚠️ فشل ${model}:`, data.error?.message || 'خطأ غير معروف');
             }
+        } catch (error) {
+            console.warn(`⚠️ استثناء مع ${model}:`, error.message);
         }
-
-        if (!success) {
-            hideLoading();
-            addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
-        }
-
-        userInput.disabled = false;
-        userInput.focus();
     }
+
+    if (!success) {
+        hideLoading();
+        addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
+    }
+
+    userInput.disabled = false;
+    userInput.focus();
+}
 
     // ===== ربط الأحداث =====
     floatingBtn.addEventListener('click', toggleChat);
