@@ -4621,3 +4621,236 @@ body:has(#exam.active) .left-side .btn-login-top {
         transform: rotate(360deg);
     }
 }
+/* ===== زر Ask AI العائم ===== */
+#askAIFloatingBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 14px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+    z-index: 999;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
+}
+#askAIFloatingBtn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(56, 189, 248, 0.5);
+}
+#askAIFloatingBtn:active {
+    transform: scale(0.97);
+}
+
+/* ===== نافذة الدردشة ===== */
+#askAIChatWindow {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 380px;
+    height: 500px;
+    background: #0f172a;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+    direction: rtl;
+    backdrop-filter: blur(12px);
+}
+#askAIChatWindow.active {
+    display: flex;
+}
+
+#askAIChatHeader {
+    background: linear-gradient(135deg, #1a2a4a, #2c3e66);
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+    flex-shrink: 0;
+}
+#askAIChatHeader span {
+    color: #38bdf8;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+#askAIChatClose {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0 6px;
+}
+#askAIChatClose:hover {
+    color: #ef4444;
+    transform: scale(1.1);
+}
+
+#askAIChatMessages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(15, 23, 42, 0.6);
+}
+#askAIChatMessages::-webkit-scrollbar {
+    width: 4px;
+}
+#askAIChatMessages::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+    border-radius: 4px;
+}
+#askAIChatMessages::-webkit-scrollbar-thumb {
+    background: #38bdf8;
+    border-radius: 4px;
+}
+
+.ask-ai-msg {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    word-wrap: break-word;
+    animation: msgFadeIn 0.3s ease;
+}
+.ask-ai-msg.user {
+    background: #1e293b;
+    color: #e2e8f0;
+    align-self: flex-end;
+    border-bottom-left-radius: 4px;
+}
+.ask-ai-msg.assistant {
+    background: #1a2a4a;
+    color: #e2e8f0;
+    align-self: flex-start;
+    border-bottom-right-radius: 4px;
+    border: 1px solid rgba(56, 189, 248, 0.1);
+}
+.ask-ai-msg .msg-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 4px;
+    display: block;
+}
+.ask-ai-msg.assistant .msg-label {
+    color: #38bdf8;
+}
+.ask-ai-msg.user .msg-label {
+    color: #94a3b8;
+}
+
+@keyframes msgFadeIn {
+    0% { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+#askAIChatInputArea {
+    display: flex;
+    padding: 12px 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    gap: 10px;
+    background: #0f172a;
+    flex-shrink: 0;
+}
+#askAIUserInput {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #334155;
+    border-radius: 30px;
+    background: #1e293b;
+    color: #e2e8f0;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s;
+    font-family: inherit;
+}
+#askAIUserInput::placeholder {
+    color: #64748b;
+}
+#askAIUserInput:focus {
+    border-color: #38bdf8;
+}
+#askAISendBtn {
+    background: #38bdf8;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    color: #0a0e1a;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+#askAISendBtn:hover {
+    background: #0ea5e9;
+    transform: scale(1.05);
+}
+#askAISendBtn:active {
+    transform: scale(0.95);
+}
+
+.ask-ai-loading {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #94a3b8;
+    font-size: 13px;
+    padding: 8px 0;
+}
+.ask-ai-loading .dot {
+    width: 8px;
+    height: 8px;
+    background: #38bdf8;
+    border-radius: 50%;
+    animation: dotBounce 1.2s infinite ease-in-out;
+}
+.ask-ai-loading .dot:nth-child(2) { animation-delay: 0.2s; }
+.ask-ai-loading .dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotBounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 768px) {
+    #askAIChatWindow {
+        width: 92%;
+        right: 4%;
+        bottom: 80px;
+        height: 65vh;
+        border-radius: 20px;
+    }
+    #askAIFloatingBtn {
+        bottom: 20px;
+        right: 20px;
+        padding: 12px 18px;
+        font-size: 14px;
+    }
+    #askAIFloatingBtn .btn-text {
+        display: none;
+    }
+}
