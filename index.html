@@ -2600,7 +2600,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script>
 // ============================================
-// 🧠 نظام Ask AI (يتصل بالخادم فقط)
+// 🧠 نظام Ask AI (يعمل من المتصفح مباشرة)
 // ============================================
 (function() {
     const floatingBtn = document.getElementById('askAIFloatingBtn');
@@ -2617,6 +2617,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let isOpen = false;
     let isLoading = false;
+
+    // ===== المفتاح (ظاهر في المتصفح - للتجربة فقط) =====
+    const API_KEY = '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';
+
+    // ===== قائمة النماذج المجانية =====
+    const FALLBACK_MODELS = [
+        'google/gemma-4-26b-a4b-it:free',
+        'google/gemma-3-27b-it:free',
+        'google/gemma-3-12b-it:free',
+    ];
 
     function toggleChat() {
         isOpen = !isOpen;
@@ -2660,7 +2670,7 @@ document.addEventListener("DOMContentLoaded", function() {
         userInput.value = '';
         userInput.disabled = true;
 
-        // استخراج السياق (الفقرة الحالية)
+        // ===== استخراج السياق =====
         let context = '';
         const paragraphElem = document.getElementById('current-paragraph');
         if (paragraphElem) {
@@ -2670,33 +2680,80 @@ document.addEventListener("DOMContentLoaded", function() {
             if (possibleParagraph) context = possibleParagraph.innerText;
         }
 
+        // ===== هل السؤال كلمة واحدة؟ =====
+        const isSingleWord = text.trim().split(/\s+/).length === 1;
+        const shouldSendContext = !isSingleWord && context && context.length > 10;
+
+        // ===== بناء الـ Prompt =====
+        const prompt = `
+السياق (الفقرة الحالية): "${shouldSendContext ? context : 'لا يوجد سياق'}"
+
+سؤال الطالب: "${text}"
+
+تعليمات: أجب باختصار شديد (جملة إلى جملتين).
+`;
+
+        console.log('📤 إرسال طلب إلى OpenRouter...');
+        console.log('📝 السؤال:', text);
+
         showLoading();
 
-        try {
-           const response = await fetch('https://your-server.onrender.com/ask', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: text, context })
-            });
+        let success = false;
 
-            const data = await response.json();
-            hideLoading();
+        for (const model of FALLBACK_MODELS) {
+            if (success) break;
 
-            if (data.reply) {
-                addMessage(data.reply, 'assistant');
-            } else {
-                addMessage('تعذر الحصول على الرد حالياً. حاول مرة أخرى.', 'assistant');
+            try {
+                console.log(`🔄 محاولة النموذج: ${model}`);
+
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 10000);
+
+                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: model,
+                        messages: [
+                            { role: 'system', content: 'أنت مساعد Zertiva B2. أجب باختصار.' },
+                            { role: 'user', content: prompt }
+                        ],
+                        max_tokens: 150,
+                        temperature: 0.3
+                    }),
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeout);
+                const data = await response.json();
+
+                if (response.ok && data.choices?.length > 0) {
+                    const reply = data.choices[0].message.content;
+                    console.log(`✅ نجاح مع النموذج: ${model}`);
+                    hideLoading();
+                    addMessage(reply, 'assistant');
+                    success = true;
+                } else {
+                    console.warn(`⚠️ فشل ${model}:`, data.error?.message || 'خطأ غير معروف');
+                }
+            } catch (error) {
+                console.warn(`⚠️ استثناء مع ${model}:`, error.message);
             }
-        } catch (error) {
-            console.error('❌ خطأ في الاتصال بالخادم:', error);
+        }
+
+        if (!success) {
             hideLoading();
-            addMessage('تعذر الاتصال بالخادم. تأكد من تشغيله.', 'assistant');
+            addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
         }
 
         userInput.disabled = false;
         userInput.focus();
     }
 
+    // ===== ربط الأحداث =====
     floatingBtn.addEventListener('click', toggleChat);
     closeBtn.addEventListener('click', toggleChat);
     sendBtn.addEventListener('click', sendMessage);
@@ -2708,7 +2765,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    console.log('✅ Ask AI (نسخة العميل) جاهز!');
+    console.log('✅ Ask AI (نسخة المتصفح) جاهز!');
 })();
 </script>
 </body>
