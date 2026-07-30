@@ -2600,7 +2600,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script>
 // ============================================
-// 🧠 نظام Ask AI (الاتصال بالخادم الخلفي)
+// 🧠 نظام Ask AI (الاتصال بـ OpenRouter مباشرة)
 // ============================================
 (function() {
     const floatingBtn = document.getElementById('askAIFloatingBtn');
@@ -2673,11 +2673,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (possibleParagraph) context = possibleParagraph.innerText;
         }
 
-        showLoading();
-
-try {
-    // بناء الـ Prompt
-    const prompt = `
+        const prompt = `
 أنت مدرس مساعد في منصة اختبارات Zertiva.
 السياق (الفقرة الحالية في الامتحان): "${context}"
 
@@ -2690,26 +2686,51 @@ try {
 4. كن مشجعاً وبلغة عربية فصحى.
 `;
 
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer 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',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-           model: 'google/gemini-2.0-flash-exp:free',
-            messages: [{ role: 'user', content: prompt }]
-        })
-    });
-    const data = await response.json();
-    hideLoading();
-    const reply = data.choices?.[0]?.message?.content || 'عذراً، لم أستطع معالجة طلبك.';
-    addMessage(reply, 'assistant');
-} catch (error) {
-    console.error('❌ خطأ في الاتصال:', error);
-    hideLoading();
-    addMessage('⚠️ حدث خطأ في الاتصال بـ OpenRouter. حاول مجدداً.', 'assistant');
-}
+        console.log('📤 إرسال طلب إلى OpenRouter...');
+        console.log('📝 السؤال:', text);
+        console.log('📚 السياق:', context);
+
+        showLoading();
+
+        try {
+            const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer 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',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'google/gemini-2.0-flash-exp:free',
+                    messages: [
+                        { role: 'system', content: 'أنت مساعد تعليمي للغة الألمانية. أجب بالعربية وبأسلوب مبسط.' },
+                        { role: 'user', content: prompt }
+                    ]
+                })
+            });
+
+            console.log('📡 حالة الاستجابة:', response.status);
+
+            const data = await response.json();
+            console.log('📦 البيانات المستلمة:', JSON.stringify(data, null, 2));
+
+            hideLoading();
+
+            if (data.choices && data.choices.length > 0) {
+                const reply = data.choices[0].message.content;
+                console.log('✅ الرد:', reply);
+                addMessage(reply, 'assistant');
+            } else if (data.error) {
+                console.error('❌ خطأ من OpenRouter:', data.error);
+                addMessage(`❌ خطأ: ${data.error.message || 'خطأ غير معروف'}`, 'assistant');
+            } else {
+                console.error('❌ استجابة غير متوقعة:', data);
+                addMessage('عذراً، لم أستطع معالجة طلبك. حاول مرة أخرى.', 'assistant');
+            }
+        } catch (error) {
+            console.error('❌ خطأ في الاتصال:', error);
+            hideLoading();
+            addMessage(`⚠️ خطأ: ${error.message || 'خطأ غير معروف'}`, 'assistant');
+        }
 
         userInput.disabled = false;
         userInput.focus();
@@ -2729,9 +2750,8 @@ try {
         }
     });
 
-    console.log('✅ Ask AI جاهز!');
+    console.log('✅ Ask AI جاهز مع Console.log!');
 })();
 </script>
-
 </body>
 </html>
