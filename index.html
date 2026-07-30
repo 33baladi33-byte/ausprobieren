@@ -2869,7 +2869,7 @@ async function tryOpenRouter(systemMessage, userMessage) {
 async function tryCloudflare(systemMessage, userMessage) {
     if (!CLOUDFLARE_API_KEY) return null;
     try {
-        const response = await fetch('https://api.cloudflare.com/client/v4/accounts/YOUR_ACCOUNT_ID/ai/run/' + CLOUDFLARE_MODEL, {
+        const response = await fetch('https://api.cloudflare.com/client/v4/accounts/cb5d2e42ac30e5ef952555d733790ee8/ai/run/' + CLOUDFLARE_MODEL, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${CLOUDFLARE_API_KEY}`,
