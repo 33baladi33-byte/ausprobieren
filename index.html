@@ -2656,9 +2656,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const CLOUDFLARE_API_KEY = 'cfut_hXTWGAnkZCMBFMfwxm3IXg1sz5E1PeFZLOhitQDofccd36c4';
     const CLOUDFLARE_MODEL = '@cf/meta/llama-2-7b-chat-int8';
 
-        // 4. HuggingFace
-    const HUGGINGFACE_API_KEY = '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';
 
+    // 4. HuggingFace
+const HUGGINGFACE_API_KEY = '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';
     function toggleChat() {
         isOpen = !isOpen;
         chatWindow.classList.toggle('active', isOpen);
@@ -2896,6 +2896,7 @@ async function tryCloudflare(systemMessage, userMessage) {
 async function tryHuggingFace(systemMessage, userMessage) {
     if (!HUGGINGFACE_API_KEY) return null;
     try {
+        console.log("HF KEY:", HUGGINGFACE_API_KEY); // ✅ أضف هذا السطر للتأكد
         const response = await fetch('https://router.huggingface.co/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -2903,7 +2904,7 @@ async function tryHuggingFace(systemMessage, userMessage) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: "Qwen/Qwen3-235B-A22B-Instruct-2507",
+                model: "Qwen/Qwen2.5-7B-Instruct", // جرب نموذجاً مجانياً بدلاً من Qwen3-235B
                 messages: [
                     { role: "system", content: systemMessage },
                     { role: "user", content: userMessage }
@@ -2912,7 +2913,9 @@ async function tryHuggingFace(systemMessage, userMessage) {
                 temperature: 0.3
             })
         });
+        console.log("HF Response Status:", response.status); // ✅ أضف هذا السطر
         const data = await response.json();
+        console.log("HF Data:", data); // ✅ أضف هذا السطر
         if (data.choices && data.choices.length > 0) {
             const reply = data.choices[0].message.content;
             console.log('✅ HuggingFace نجح:', reply);
