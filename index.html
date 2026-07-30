@@ -2760,42 +2760,32 @@ async function sendMessage() {
     console.log('📤 إرسال طلب مع بيانات:', promptData);
 
     showLoading();
-
-// ===== تجربة المزودات بالترتيب =====
+// ===== استخدام الخادم الخلفي =====
 let reply = null;
-
-// 1. حاول Gemini أولاً
-reply = await tryGemini(systemMessage, userMessage);
-
-// 2. إذا فشل Gemini، جرب OpenRouter
-if (!reply) {
-    console.log('🔄 Gemini فشل، محاولة OpenRouter...');
-    reply = await tryOpenRouter(systemMessage, userMessage);
+try {
+    const response = await fetch('http://localhost:3000/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            question: text,
+            context: JSON.stringify(promptData)
+        })
+    });
+    const data = await response.json();
+    if (data.reply) {
+        reply = data.reply;
+        console.log('✅ رد من الخادم:', reply);
+    }
+} catch (error) {
+    console.warn('⚠️ فشل الاتصال بالخادم:', error.message);
 }
 
-// 3. إذا فشل OpenRouter، جرب HuggingFace
-if (!reply) {
-    console.log('🔄 OpenRouter فشل، محاولة HuggingFace...');
-    reply = await tryHuggingFace(systemMessage, userMessage);
-}
-
-// 4. إذا فشل HuggingFace، جرب Cloudflare (إذا كان مفعلاً)
-if (!reply && CLOUDFLARE_API_KEY) {
-    console.log('🔄 HuggingFace فشل، محاولة Cloudflare...');
-    reply = await tryCloudflare(systemMessage, userMessage);
-}
-
-// 5. إذا فشل الكل
 if (!reply) {
     hideLoading();
-    addMessage('تعذر الحصول على الرد حالياً. جميع المزودات غير متاحة. حاول مرة أخرى بعد قليل.', 'assistant');
+    addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
 } else {
     hideLoading();
     addMessage(reply, 'assistant');
-}
-
-    userInput.disabled = false;
-    userInput.focus();
 }
 
 // ===== دوال المزودات =====
