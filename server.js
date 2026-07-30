@@ -44,7 +44,6 @@ setInterval(() => {
 function getSystemPrompt(question) {
     let base = 'أنت مساعد Zertiva B2. مختصر جداً.';
     
-    // كلمات مفتاحية للتعرف على أسئلة الموقع
     const siteKeywords = ['موقع', 'منصة', 'المميزات', 'مميزات', 'امتحانات', 'المهارات', 'Goethe', 'B2'];
     const isSiteQuestion = siteKeywords.some(keyword => question.includes(keyword));
     
@@ -57,7 +56,7 @@ function getSystemPrompt(question) {
 // ===== 1. دالة استدعاء Gemini API =====
 async function callGeminiAPI(prompt, question) {
     try {
-     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
         const payload = {
             contents: [{
                 parts: [{ text: `${getSystemPrompt(question)}\n\n${prompt}` }]
@@ -79,7 +78,7 @@ async function callGeminiAPI(prompt, question) {
         if (data.candidates && data.candidates.length > 0) {
             const text = data.candidates[0].content.parts[0].text;
             console.log('✅ Gemini نجح:', text.substring(0, 50) + '...');
-            return { reply: text, model: 'gemini-2.0-flash-exp' };
+            return { reply: text, model: 'gemini-2.5-flash' };
         } else {
             console.warn('⚠️ Gemini فشل:', data);
             return null;
@@ -146,7 +145,6 @@ app.post('/ask', async (req, res) => {
     const { question, context } = req.body;
     if (!question) return res.status(400).json({ error: 'السؤال مطلوب' });
 
-    // 1. التحقق من الـ Cache
     const cacheKey = question + (context || '');
     if (cache.has(cacheKey)) {
         const cached = cache.get(cacheKey);
@@ -166,17 +164,14 @@ app.post('/ask', async (req, res) => {
 تعليمات: أجب باختصار شديد (جملة إلى جملتين).
 `;
 
-    // 2. المحاولة الأولى: Gemini API
     console.log('🔄 محاولة Gemini أولاً...');
     let result = await callGeminiAPI(prompt, question);
 
-    // 3. إذا فشل Gemini، جرب OpenRouter
     if (!result) {
         console.log('🔄 Gemini فشل، محاولة OpenRouter...');
         result = await callOpenRouter(prompt, question);
     }
 
-    // 4. إذا فشل الكل
     if (!result) {
         console.error('❌ جميع المزودات فشلت.');
         return res.status(503).json({
@@ -185,7 +180,6 @@ app.post('/ask', async (req, res) => {
         });
     }
 
-    // 5. حفظ في الـ Cache
     cache.set(cacheKey, { 
         reply: result.reply, 
         model: result.model, 
