@@ -18,17 +18,22 @@ const teile = [
   { id: 9, name: "Schreiben", container: "schreiben", skill: "schreiben" },
   { id: 10, name: "Mündlich", container: "mündlich", skill: "mündlich" }
 ];
-// ===== دالة تحديد رقم الجزء حسب المهارة =====
-function getPartNumber(skill) {
-    const partMap = {
-        'hoeren1': 1, 'hoeren2': 2, 'hoeren3': 3,
-        'lesen1': 1, 'lesen2': 2, 'lesen3': 3,
-        'sprach1': 1, 'sprach2': 2,
-        'schreiben': 1,
-        'mündlich': 1, 'mündlich1': 1, 'mündlich2': 2, 'mündlich3': 3
-    };
-    return partMap[skill] || 1;
-}
+// ===== المتغيرات العامة للسياق (نسخة مبسطة) =====
+window.currentSkill = '';
+window.currentExamId = null;
+window.currentExamData = null;
+
+window.askAIContext = {
+    questionIndex: 0
+};
+
+// دالة تحديث السياق (مبسطة)
+window.updateAskAIContext = function(skill, examId) {
+    window.currentSkill = skill;
+    window.currentExamId = examId;
+    window.askAIContext.questionIndex = 0;
+    console.log('🔄 AskAI Context: skill=' + skill + ', exam=' + examId);
+};
 // متغير لمنع تكرار عرض القائمة الأولية
 let _initialListRendered = false;
 // دالة عرض القائمة الأولية (محاكاة الضغط على Hören 1) مع إعادة المحاولة وإعادة الرسم عند تغير الحالة
@@ -2032,21 +2037,14 @@ if (shortcutsBtn) {
 currentExamData = await response.json();
 window.currentExamData = currentExamData;
 window.currentExamId = examId;
+window.currentSkill = skill;
+
 if (window.memoryEngine) {
   window.memoryEngine.setExamData(currentExamData);
 }
 
-// ===== تحديث سياق Ask AI =====
-window.updateAskAIContext({
-    skill: skill,
-    part: getPartNumber(skill),
-    examNumber: examId,
-    questionText: currentExamData.title || examTitle,
-    paragraph: currentExamData.paragraph || currentExamData.text || '',
-    options: [],
-    userAnswer: '',
-    pageType: 'exam'
-});
+// ===== تحديث سياق Ask AI (نسخة مبسطة) =====
+window.updateAskAIContext(skill, examId);
     document.getElementById("home").classList.remove("active");
     document.getElementById("list").classList.remove("active");
     document.getElementById("exam").classList.add("active");
@@ -3623,7 +3621,19 @@ function setExamListMode(mode) {
 // تصدير openExam للاستخدام العالمي
 // ============================================
 window.openExam = openExam;
-
+// ===== تهيئة السياق إذا لم تكن موجودة =====
+if (!window.askAIContext) {
+    window.askAIContext = { questionIndex: 0 };
+}
+if (!window.currentSkill) {
+    window.currentSkill = '';
+}
+if (!window.currentExamId) {
+    window.currentExamId = null;
+}
+if (!window.currentExamData) {
+    window.currentExamData = null;
+}
 // ============================================
 // ✅ نظام Badge التعديلات - النسخة النهائية
 // ============================================
