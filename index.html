@@ -2691,31 +2691,58 @@ async function sendMessage() {
     // ===== استخراج السياق من المتغيرات العامة =====
     const skill = window.currentSkill || 'unknown';
     const examNumber = window.currentExamId || 1;
-    const questionIndex = window.askAIContext?.questionIndex ?? 0;
     const examData = window.currentExamData || null;
 
-    // ===== بناء الكائن المرسل =====
+    // ===== بناء الكائن المرسل (جميع الأسئلة) =====
     let promptData = {
         skill: skill,
         exam: examNumber,
-        questionIndex: questionIndex,
         type: examData?.type || 'unknown',
         paragraph: '',
-        question: '',
-        options: []
+        questions: [],     // جميع الأسئلة (بدون correct)
+        options: [],       // للـ Sprachbausteine
+        items: [],         // للإعلانات (Lesen 3)
+        situations: [],    // للمواقف (Lesen 3)
+        allOptions: [],    // للـ Sprachbausteine 2
+        totalQuestions: 0
     };
 
-    if (examData && examData.questions && examData.questions.length > 0) {
-        const currentQ = examData.questions[questionIndex] || null;
-        if (currentQ) {
-            promptData.question = currentQ.text || '';
-            promptData.options = currentQ.options || [];
-        }
-        // استخراج النص (مرن)
+    if (examData) {
+        // النص الكامل
         promptData.paragraph = examData.paragraph || examData.text || examData.dialog || examData.audioText || '';
-        // إذا لم نجد نصاً، نأخذ من أول سؤال (احتياطي)
-        if (!promptData.paragraph && examData.questions.length > 0) {
-            promptData.paragraph = examData.questions[0].text || '';
+
+        // ===== 1. جميع الأسئلة (Hören, Lesen 1, Lesen 2) =====
+        if (examData.questions && Array.isArray(examData.questions) && examData.questions.length > 0) {
+            promptData.questions = examData.questions.map(q => ({
+                number: q.id || q.displayNumber || 0,
+                text: q.text || '',
+                options: q.options || []
+            }));
+            promptData.totalQuestions = examData.questions.length;
+        }
+
+        // ===== 2. Lesen 3 (الإعلانات والمواقف) =====
+        if (examData.items && Array.isArray(examData.items) && examData.items.length > 0) {
+            promptData.items = examData.items.map(item => ({
+                id: item.id || '',
+                text: item.text || ''
+            }));
+            promptData.situations = examData.situations || [];
+        }
+
+        // ===== 3. Sprachbausteine (1 و 2) =====
+        if (examData.options && Array.isArray(examData.options) && examData.options.length > 0) {
+            promptData.options = examData.options.map(opt => ({
+                id: opt.id,
+                options: opt.options || []
+            }));
+            if (examData.allOptions) {
+                promptData.allOptions = examData.allOptions;
+            }
+            // النص مع الفراغات
+            if (examData.text) {
+                promptData.paragraph = examData.text;
+            }
         }
     }
 
