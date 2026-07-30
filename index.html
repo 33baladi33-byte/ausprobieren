@@ -2381,9 +2381,9 @@ const firebaseConfig = {
 };
  firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-const db = firebase.firestore(); // ✅ أضف هذا السطر
+const db = firebase.firestore();
 window.auth = auth;
-window.db = db;                 // ✅ وأضف هذا السطر أيضاً
+window.db = db;
 console.log("✅ Firebase initialized");
 </script>
 <script src="sentenceReorder.js"></script>
@@ -2396,6 +2396,7 @@ console.log("✅ Firebase initialized");
 <script type="module" src="./notifications.js"></script>
 <script type="module" src="./rapidGame.js"></script>
 <script type="module" src="./studySession.js"></script>
+
 <!-- نافذة خطوات الاشتراك -->
 <div id="subscribeGuideModal" class="subscribe-guide-modal">
     <div class="modal-container">
@@ -2432,7 +2433,8 @@ console.log("✅ Firebase initialized");
         </div>
     </div>
 </div>
-    <script>
+
+<script>
 /* ============================================ */
 (function() {
     const guideBtn = document.getElementById('subscribeGuideBtn');
@@ -2519,7 +2521,8 @@ console.log("✅ Firebase initialized");
     
     console.log("✅ زر 💡 طريقة الاشتراك الجديد جاهز");
 })();
- // ============================================
+
+// ============================================
 // نظام الاشتراك المنبثق (Subscription Modal) - تم إلغاؤه
 // ============================================
 // جميع أزرار الاشتراك تذهب الآن إلى subscribe.html
@@ -2529,13 +2532,11 @@ console.log("✅ Firebase initialized");
 // ============================================
 document.addEventListener("DOMContentLoaded", function() {
 
-    // دالة الانتقال إلى صفحة الاشتراك (نفس المنطق المستخدم في زر الترقية)
     function goToSubscribe(e) {
         if (e) e.preventDefault();
         window.location.href = "subscribe.html";
     }
 
-    // قائمة بأزرار الاشتراك
     var subscribeButtons = [
         "navSubscribeBtn",
         "featuresSubscribeBtn"
@@ -2544,7 +2545,6 @@ document.addEventListener("DOMContentLoaded", function() {
     subscribeButtons.forEach(function(id) {
         var btn = document.getElementById(id);
         if (btn) {
-            // إزالة أي مستمعات قديمة
             btn.onclick = null;
             btn.addEventListener('click', goToSubscribe);
             console.log('✅ تم ربط زر:', id);
@@ -2553,7 +2553,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // ✅ مراقبة إضافة أزرار ديناميكية (للتأكد من ربطها لاحقاً)
     var observer = new MutationObserver(function() {
         subscribeButtons.forEach(function(id) {
             var btn = document.getElementById(id);
@@ -2569,8 +2568,8 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('🚀 أزرار الاشتراك جاهزة');
 });
 </script>
-<script>
-    <!-- ===== زر Ask AI العائم ===== -->
+
+<!-- ===== زر Ask AI العائم ===== -->
 <button id="askAIFloatingBtn">
     <span class="material-symbols-outlined" style="font-size: 22px;">smart_toy</span>
     <span class="btn-text">Ask AI</span>
@@ -2611,7 +2610,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const userInput = document.getElementById('askAIUserInput');
     const messagesContainer = document.getElementById('askAIChatMessages');
 
-    // التحقق من وجود العناصر
     if (!floatingBtn || !chatWindow || !closeBtn || !sendBtn || !userInput || !messagesContainer) {
         console.error('❌ Ask AI: بعض العناصر غير موجودة!');
         return;
@@ -2716,5 +2714,6 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log('✅ Ask AI جاهز!');
 })();
 </script>
+
 </body>
 </html>
