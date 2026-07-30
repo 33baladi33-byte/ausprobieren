@@ -57,7 +57,7 @@ function getSystemPrompt(question) {
 // ===== 1. دالة استدعاء Gemini API =====
 async function callGeminiAPI(prompt, question) {
     try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_API_KEY}`;
+     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
         const payload = {
             contents: [{
                 parts: [{ text: `${getSystemPrompt(question)}\n\n${prompt}` }]
