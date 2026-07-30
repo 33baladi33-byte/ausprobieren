@@ -2744,18 +2744,27 @@ async function sendMessage() {
 
     showLoading();
 
-    // ===== 1. محاولة Gemini أولاً =====
-    let reply = await tryGemini(systemMessage, userMessage);
-    
-    // ===== 2. إذا فشل Gemini، جرب Cloudflare (إذا كان مفعلاً) =====
-    if (!reply && CLOUDFLARE_API_KEY) {
-        reply = await tryCloudflare(systemMessage, userMessage);
+// ===== الاتصال بالخادم المحلي =====
+let reply = null;
+try {
+    const response = await fetch('http://localhost:3000/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            question: text,
+            context: JSON.stringify(promptData)
+        })
+    });
+    const data = await response.json();
+    if (data.reply) {
+        reply = data.reply;
+        console.log('✅ رد من الخادم:', reply);
+    } else {
+        console.warn('⚠️ الخادم لم يعد برد:', data);
     }
-    
-    // ===== 3. إذا فشل Cloudflare، جرب HuggingFace (إذا كان مفعلاً) =====
-    if (!reply && HUGGINGFACE_API_KEY) {
-        reply = await tryHuggingFace(systemMessage, userMessage);
-    }
+} catch (error) {
+    console.warn('⚠️ فشل الاتصال بالخادم:', error.message);
+}
 
     // ===== 4. إذا فشل الكل =====
     if (!reply) {
