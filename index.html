@@ -2760,7 +2760,7 @@ async function sendMessage() {
     console.log('📤 إرسال طلب مع بيانات:', promptData);
 
     showLoading();
-// ===== استخدام الخادم الخلفي =====
+// ===== استخدام الخادم الخلفي (إن وجد) =====
 let reply = null;
 try {
     const response = await fetch('http://localhost:3000/ask', {
@@ -2777,15 +2777,31 @@ try {
         console.log('✅ رد من الخادم:', reply);
     }
 } catch (error) {
-    console.warn('⚠️ فشل الاتصال بالخادم:', error.message);
+    console.warn('⚠️ فشل الاتصال بالخادم، استخدام البدائل...', error.message);
+}
+
+// ===== إذا فشل الخادم، جرّب البدائل =====
+if (!reply) {
+    console.log('🔄 محاولة Gemini...');
+    reply = await tryGemini(systemMessage, userMessage);
 }
 
 if (!reply) {
-    hideLoading();
-    addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
-} else {
-    hideLoading();
+    console.log('🔄 محاولة OpenRouter...');
+    reply = await tryOpenRouter(systemMessage, userMessage);
+}
+
+if (!reply) {
+    console.log('🔄 محاولة HuggingFace...');
+    reply = await tryHuggingFace(systemMessage, userMessage);
+}
+
+// ===== عرض الرد =====
+hideLoading();
+if (reply) {
     addMessage(reply, 'assistant');
+} else {
+    addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
 }
 } // هذا القوس يغلق دالة sendMessage
 
