@@ -2636,10 +2636,27 @@ document.addEventListener("DOMContentLoaded", function() {
     let isOpen = false;
     let isLoading = false;
 
-    // ===== مفاتيح API (متعددة المزودات) =====
+        // ============================================
+    // 🔑 مفاتيح API (متعددة المزودات)
+    // ============================================
+    
+    // 1. Gemini API
     const GEMINI_API_KEY = 'AQ.Ab8RN6IEpyTQ2rXEDHOLgbIY84Q3nVH_ApbAosh2CLfjvSvWCQ';
-    // يمكنك إضافة مفاتيح أخرى لاحقاً (Cloudflare, HuggingFace)
+    
+    // 2. OpenRouter API (احتياطي)
+    const OPENROUTER_API_KEY = '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';
+    const OPENROUTER_MODELS = [
+        'google/gemma-4-26b-a4b-it:free',
+        'google/gemma-3-27b-it:free',
+        'google/gemma-3-12b-it:free',
+        'meta-llama/llama-3.2-3b-instruct:free',
+    ];
+    
+    // 3. Cloudflare AI (اختياري)
     const CLOUDFLARE_API_KEY = '';   // اختياري
+    const CLOUDFLARE_MODEL = '@cf/meta/llama-2-7b-chat-int8';
+    
+    // 4. HuggingFace (اختياري)
     const HUGGINGFACE_API_KEY = '';  // اختياري
 
     function toggleChat() {
@@ -2744,17 +2761,38 @@ async function sendMessage() {
 
     showLoading();
 
-// ===== استخدام Gemini مباشرة =====
-let reply = await tryGemini(systemMessage, userMessage);
+// ===== تجربة المزودات بالترتيب =====
+let reply = null;
 
-    // ===== 4. إذا فشل الكل =====
-    if (!reply) {
-        hideLoading();
-        addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
-    } else {
-        hideLoading();
-        addMessage(reply, 'assistant');
-    }
+// 1. حاول Gemini أولاً
+reply = await tryGemini(systemMessage, userMessage);
+
+// 2. إذا فشل Gemini، جرب OpenRouter
+if (!reply) {
+    console.log('🔄 Gemini فشل، محاولة OpenRouter...');
+    reply = await tryOpenRouter(systemMessage, userMessage);
+}
+
+// 3. إذا فشل OpenRouter، جرب Cloudflare (إذا كان مفعلاً)
+if (!reply && CLOUDFLARE_API_KEY) {
+    console.log('🔄 OpenRouter فشل، محاولة Cloudflare...');
+    reply = await tryCloudflare(systemMessage, userMessage);
+}
+
+// 4. إذا فشل Cloudflare، جرب HuggingFace (إذا كان مفعلاً)
+if (!reply && HUGGINGFACE_API_KEY) {
+    console.log('🔄 Cloudflare فشل، محاولة HuggingFace...');
+    reply = await tryHuggingFace(systemMessage, userMessage);
+}
+
+// 5. إذا فشل الكل
+if (!reply) {
+    hideLoading();
+    addMessage('تعذر الحصول على الرد حالياً. جميع المزودات غير متاحة. حاول مرة أخرى بعد قليل.', 'assistant');
+} else {
+    hideLoading();
+    addMessage(reply, 'assistant');
+}
 
     userInput.disabled = false;
     userInput.focus();
@@ -2796,18 +2834,90 @@ async function tryGemini(systemMessage, userMessage) {
         return null;
     }
 }
+async function tryOpenRouter(systemMessage, userMessage) {
+    for (const model of OPENROUTER_MODELS) {
+        try {
+            const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                    'Content-Type': 'application/json',
+                    'HTTP-Referer': 'https://zertivab2.online/',
+                },
+                body: JSON.stringify({
+                    model: model,
+                    messages: [
+                        { role: 'system', content: systemMessage },
+                        { role: 'user', content: userMessage }
+                    ],
+                    max_tokens: 150,
+                    temperature: 0.3
+                })
+            });
+            const data = await response.json();
+            if (data.choices && data.choices.length > 0) {
+                console.log(`✅ OpenRouter نجح (${model}):`, data.choices[0].message.content);
+                return data.choices[0].message.content;
+            }
+        } catch (e) {
+            console.warn(`⚠️ OpenRouter فشل (${model}):`, e.message);
+        }
+    }
+    return null;
+}
 
 async function tryCloudflare(systemMessage, userMessage) {
-    // سيتم إضافته لاحقاً عند الحاجة
-    console.log('⏭️ Cloudflare غير مفعل حالياً');
+    if (!CLOUDFLARE_API_KEY) return null;
+    try {
+        const response = await fetch('https://api.cloudflare.com/client/v4/accounts/YOUR_ACCOUNT_ID/ai/run/' + CLOUDFLARE_MODEL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${CLOUDFLARE_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                messages: [
+                    { role: 'system', content: systemMessage },
+                    { role: 'user', content: userMessage }
+                ]
+            })
+        });
+        const data = await response.json();
+        if (data.result && data.result.response) {
+            console.log('✅ Cloudflare نجح:', data.result.response);
+            return data.result.response;
+        }
+    } catch (e) {
+        console.warn('⚠️ Cloudflare فشل:', e.message);
+    }
     return null;
 }
 
 async function tryHuggingFace(systemMessage, userMessage) {
-    // سيتم إضافته لاحقاً عند الحاجة
-    console.log('⏭️ HuggingFace غير مفعل حالياً');
+    if (!HUGGINGFACE_API_KEY) return null;
+    try {
+        const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.1', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${HUGGINGFACE_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                inputs: `${systemMessage}\n\n${userMessage}`,
+                parameters: { max_new_tokens: 150, temperature: 0.3 }
+            })
+        });
+        const data = await response.json();
+        if (data && data[0] && data[0].generated_text) {
+            console.log('✅ HuggingFace نجح:', data[0].generated_text);
+            return data[0].generated_text;
+        }
+    } catch (e) {
+        console.warn('⚠️ HuggingFace فشل:', e.message);
+    }
     return null;
 }
+
 
     // ===== ربط الأحداث =====
     floatingBtn.addEventListener('click', toggleChat);
