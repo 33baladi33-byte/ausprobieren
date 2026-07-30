@@ -2600,7 +2600,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script>
 // ============================================
-// 🧠 نظام Ask AI (نسخة محسّنة - Fallback + مختصر + سريع)
+// 🧠 نظام Ask AI (يتصل بالخادم فقط)
 // ============================================
 (function() {
     const floatingBtn = document.getElementById('askAIFloatingBtn');
@@ -2615,49 +2615,13 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    // ===== قائمة النماذج المجانية (الترتيب حسب الأفضلية) =====
-    const FALLBACK_MODELS = [
-        'google/gemma-4-26b-a4b-it:free',
-        'google/gemma-3-27b-it:free',
-        'google/gemma-3-12b-it:free',
-        'openai/gpt-oss-20b:free',
-        'qwen/qwen-2.5-7b-instruct:free',
-        'mistralai/mistral-7b-instruct:free',
-        'meta-llama/llama-3.2-3b-instruct:free'
-    ];
-
-    // ===== معرفة الموقع (Knowledge Base) =====
-    const SITE_KNOWLEDGE = `
-منصة Zertiva B2 لامتحانات Goethe B2.
-المهارات: Lesen (قراءة) أجزاء 1 و2 و3، Hören (استماع) أجزاء 1 و2 و3، Sprachbausteine (قواعد) أجزاء 1 و2، Schreiben (كتابة)، Mündlich (محادثة).
-المميزات: تصحيح تلقائي، تلوين الأجوبة الذكي، لعبة التحدي السريع (Rapid Game)، تدريب إعادة ترتيب الجمل (Sentence Reorder)، Memory Trainer للحفظ، نظام اشتراكات.
-الهدف: مساعدة الطلاب على اجتياز امتحان B2 بسهولة.
-`;
-
-    // ===== رسالة النظام (مختصرة وسريعة) =====
-    function getSystemPrompt() {
-        return `أنت مساعد Zertiva B2.
-معرفتك بالموقع: ${SITE_KNOWLEDGE}
-
-قواعد الإجابة الصارمة:
-1. أجب باختصار شديد (جملة إلى جملتين كحد أقصى).
-2. اشرح المعنى مباشرة دون مقدمات طويلة.
-3. إذا طلب المستخدم شرحاً مفصلاً صراحة، فقط عندها أطلِق الإجابة.
-4. لا تعطِ الإجابة النهائية للأسئلة الامتحانية، بل قدم تلميحات.
-5. استخدم العربية الفصحى السهلة.`;
-    }
-
-    // ===== متغيرات الحالة =====
     let isOpen = false;
     let isLoading = false;
 
-    // ===== دوال الواجهة =====
     function toggleChat() {
         isOpen = !isOpen;
         chatWindow.classList.toggle('active', isOpen);
-        if (isOpen) {
-            userInput.focus();
-        }
+        if (isOpen) userInput.focus();
     }
 
     function addMessage(text, sender) {
@@ -2676,9 +2640,7 @@ document.addEventListener("DOMContentLoaded", function() {
         loadingDiv.id = 'askAILoading';
         loadingDiv.innerHTML = `
             <span>جاري التفكير</span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
         `;
         messagesContainer.appendChild(loadingDiv);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -2690,17 +2652,15 @@ document.addEventListener("DOMContentLoaded", function() {
         if (loading) loading.remove();
     }
 
-    // ===== الدالة الأساسية (مع Fallback التلقائي) =====
     async function sendMessage() {
         const text = userInput.value.trim();
         if (!text || isLoading) return;
 
-        // إضافة رسالة المستخدم
         addMessage(text, 'user');
         userInput.value = '';
         userInput.disabled = true;
 
-        // ===== استخراج سياق الصفحة (الفقرة الحالية) =====
+        // استخراج السياق (الفقرة الحالية)
         let context = '';
         const paragraphElem = document.getElementById('current-paragraph');
         if (paragraphElem) {
@@ -2710,100 +2670,45 @@ document.addEventListener("DOMContentLoaded", function() {
             if (possibleParagraph) context = possibleParagraph.innerText;
         }
 
-        // ===== بناء الـ Prompt المختصر =====
-        const userPrompt = `
-السياق (الفقرة الحالية في الامتحان): "${context}"
-
-سؤال الطالب: "${text}"
-
-ملاحظة: أجب باختصار شديد (جملة أو جملتين). إذا طلب المستخدم شرحاً مفصلاً، أخبره أنه يمكنه طلب التفاصيل.
-`;
-
         showLoading();
 
-        // ===== تجربة النماذج واحداً تلو الآخر =====
-        let lastError = null;
-        let success = false;
+        try {
+           const response = await fetch('https://your-server.onrender.com/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: text, context })
+            });
 
-        for (let i = 0; i < FALLBACK_MODELS.length; i++) {
-            const model = FALLBACK_MODELS[i];
-            console.log(`🔄 محاولة النموذج ${i+1}/${FALLBACK_MODELS.length}: ${model}`);
-
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 ثانية مهلة
-
-                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer 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',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: model,
-                        messages: [
-                            { role: 'system', content: getSystemPrompt() },
-                            { role: 'user', content: userPrompt }
-                        ],
-                        max_tokens: 150, // ✅ يحد من طول الرد (سريع ومختصر)
-                        provider: {
-                            allow_fallbacks: true,
-                            sort: 'throughput' // ✅ يختار أسرع مزود
-                        }
-                    }),
-                    signal: controller.signal
-                });
-
-                clearTimeout(timeoutId);
-                const data = await response.json();
-
-                if (response.ok && data.choices && data.choices.length > 0) {
-                    const reply = data.choices[0].message.content;
-                    console.log(`✅ نجاح مع النموذج: ${model}`);
-                    hideLoading();
-                    addMessage(reply, 'assistant');
-                    success = true;
-                    break; // ✅ نخرج من الحلقة عند النجاح
-                } else if (data.error) {
-                    console.warn(`⚠️ فشل النموذج ${model}: ${data.error.message || 'خطأ غير معروف'}`);
-                    lastError = data.error;
-                    // نستمر للتالي
-                }
-            } catch (error) {
-                console.warn(`⚠️ استثناء مع ${model}: ${error.message}`);
-                lastError = error;
-                // نستمر للتالي
-            }
-        }
-
-        // ===== إذا فشلت جميع النماذج =====
-        if (!success) {
+            const data = await response.json();
             hideLoading();
-            console.error('❌ جميع النماذج فشلت.');
-            // ✅ رسالة جميلة للمستخدم بدون تفاصيل تقنية
-            addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
+
+            if (data.reply) {
+                addMessage(data.reply, 'assistant');
+            } else {
+                addMessage('تعذر الحصول على الرد حالياً. حاول مرة أخرى.', 'assistant');
+            }
+        } catch (error) {
+            console.error('❌ خطأ في الاتصال بالخادم:', error);
+            hideLoading();
+            addMessage('تعذر الاتصال بالخادم. تأكد من تشغيله.', 'assistant');
         }
 
         userInput.disabled = false;
         userInput.focus();
     }
 
-    // ===== ربط الأحداث =====
     floatingBtn.addEventListener('click', toggleChat);
     closeBtn.addEventListener('click', toggleChat);
     sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
-    userInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') sendMessage();
-    });
-
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', (e) => {
         if (isOpen && !chatWindow.contains(e.target) && e.target !== floatingBtn) {
             toggleChat();
         }
     });
 
-    console.log('✅ Ask AI (النسخة المحسّنة) جاهز!');
+    console.log('✅ Ask AI (نسخة العميل) جاهز!');
 })();
 </script>
 </body>
