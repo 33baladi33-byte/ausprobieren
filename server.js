@@ -16,10 +16,9 @@ const CLOUDFLARE_API_KEY = process.env.CLOUDFLARE_API_KEY || '';
 const PORT = process.env.PORT || 3000;
 
 // ============================================================
-// 📋 قائمة نماذج OpenRouter المجانية (تمت فلترتها)
+// 📋 قائمة نماذج OpenRouter المجانية (18 نموذجاً)
 // ============================================================
 const OPENROUTER_MODELS = [
-    // نماذج المحادثة فقط (تم استبعاد Embedding و Rerank)
     "nvidia/nemotron-3-ultra-550b-a55b:free",
     "inclusionai/ling-3.0-flash:free",
     "nvidia/nemotron-3-super-120b-a12b:free",
@@ -32,11 +31,11 @@ const OPENROUTER_MODELS = [
     "google/gemma-4-26b-a4b-it:free",
     "nvidia/nemotron-nano-12b-v2-vl:free",
     "openai/gpt-oss-20b:free",
-    "nvidia/llama-nemotron-embed-vl-1b-v2:free", // هذا نموذج Embedding، لكنه قد يعمل، نتركه
-    "nvidia/nemotron-3-embed-1b:free",            // قد لا يعمل كـ Chat، لكن نجربه
+    "nvidia/llama-nemotron-embed-vl-1b-v2:free",
+    "nvidia/nemotron-3-embed-1b:free",
     "google/gemma-4-31b-it:free",
     "nvidia/nemotron-3.5-content-safety:free",
-    "openrouter/free"                             // التوجيه التلقائي لأي نموذج مجاني
+    "openrouter/free"
 ];
 
 // ============================================================
@@ -121,7 +120,7 @@ async function callOpenRouter(prompt, question) {
         console.log(`🔄 محاولة OpenRouter (${i+1}/${OPENROUTER_MODELS.length}): ${model}`);
         try {
             const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 10000); // 10 ثواني مهلة
+            const timeout = setTimeout(() => controller.abort(), 10000);
             const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -148,7 +147,6 @@ async function callOpenRouter(prompt, question) {
                 console.log(`✅ OpenRouter نجح (${model})`);
                 return { reply, provider: 'openrouter', model };
             }
-            // حالات الفشل المتوقعة
             const status = response.status;
             const errorMsg = data.error?.message || '';
             if (status === 429 || status === 503 || status === 404 || status === 502 ||
@@ -211,37 +209,12 @@ async function callHuggingFace(prompt, question) {
 }
 
 // ============================================================
-// ☁️ 4. دالة استدعاء Cloudflare AI (اختياري)
+// ☁️ 4. دالة استدعاء Cloudflare AI (معطل)
 // ============================================================
 async function callCloudflare(prompt, question) {
-    if (!CLOUDFLARE_API_KEY) return null;
-    try {
-        const response = await fetch('https://api.cloudflare.com/client/v4/accounts/YOUR_ACCOUNT_ID/ai/run/@cf/meta/llama-2-7b-chat-int8', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${CLOUDFLARE_API_KEY}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                messages: [
-                    { role: 'system', content: getSystemPrompt(question) },
-                    { role: 'user', content: prompt }
-                ]
-            })
-        });
-        const data = await response.json();
-        if (data.result && data.result.response) {
-            const reply = data.result.response;
-            console.log('✅ Cloudflare نجح:', reply.substring(0, 50) + '...');
-            return { reply, provider: 'cloudflare' };
-        } else {
-            console.warn('⚠️ Cloudflare فشل:', data);
-            return null;
-        }
-    } catch (e) {
-        console.warn('⚠️ Cloudflare استثناء:', e.message);
-        return null;
-    }
+    // ❌ تم تعطيل Cloudflare لأنه يحتاج إلى Account ID
+    // إذا أردت تفعيله، استبدل YOUR_ACCOUNT_ID بالمعرف الفعلي من Cloudflare
+    return null;
 }
 
 // ============================================================
@@ -253,7 +226,6 @@ app.post('/ask', async (req, res) => {
         return res.status(400).json({ error: 'السؤال مطلوب' });
     }
 
-    // التحقق من Cache
     const cacheKey = question + (context || '');
     if (cache.has(cacheKey)) {
         const cached = cache.get(cacheKey);
@@ -297,7 +269,6 @@ app.post('/ask', async (req, res) => {
         });
     }
 
-    // حفظ في Cache
     cache.set(cacheKey, {
         reply: result.reply,
         provider: result.provider,
@@ -316,7 +287,7 @@ app.get('/health', (req, res) => {
         gemini: GEMINI_API_KEY ? '✅ موجود' : '❌ مفقود',
         openrouter: OPENROUTER_API_KEY ? '✅ موجود' : '❌ مفقود',
         huggingface: HUGGINGFACE_API_KEY ? '✅ موجود' : '❌ مفقود',
-        cloudflare: CLOUDFLARE_API_KEY ? '✅ موجود' : '❌ مفقود',
+        cloudflare: CLOUDFLARE_API_KEY ? '✅ موجود (لكن معطل)' : '❌ مفقود',
         models_count: OPENROUTER_MODELS.length
     });
 });
@@ -326,6 +297,6 @@ app.listen(PORT, () => {
     console.log(`📊 Gemini: ${GEMINI_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
     console.log(`📊 OpenRouter: ${OPENROUTER_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
     console.log(`📊 HuggingFace: ${HUGGINGFACE_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
-    console.log(`📊 Cloudflare: ${CLOUDFLARE_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
+    console.log(`📊 Cloudflare: ${CLOUDFLARE_API_KEY ? '✅ موجود (معطل)' : '❌ مفقود'}`);
     console.log(`📋 عدد نماذج OpenRouter: ${OPENROUTER_MODELS.length}`);
 });
