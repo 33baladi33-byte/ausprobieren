@@ -1,16 +1,13 @@
 /**
- * studyPlanner.js - المدرب الذكي TELC B2 (الإصدار 9.0 - مع إصلاح قراءة البيانات)
+ * studyPlanner.js - المدرب الذكي TELC B2 (الإصدار 9.1)
  * 
  * التغييرات الرئيسية:
- * 1. إصلاح دوال قراءة البيانات لتستخدم المفاتيح الصحيحة:
- *    - getRawResults(): تجمع من exam_result_* و exam_retry_*
- *    - getMemoryData(): تقرأ من memory_levels
- *    - getPlanHistory(): تقرأ من studyPlannerData (أو تنشئ كائن فارغ)
- *    - savePlanHistory(): تحفظ في study_planner_history_v3
- * 2. تحسين analyzeExam للتعامل مع البيانات الجديدة (لا توجد مصفوفة scores، فقط نتيجة واحدة)
- * 3. تحسين calculatePriority للتعامل مع الحالات التي تكون فيها average = 0
- * 4. استخدام window.getExamResult و window.getRetryCount إن وجدت، وإلا قراءة مباشرة من localStorage
- * 5. الحفاظ على جميع دوال واجهة المستخدم كما هي
+ * 1. إصلاح دالة getRawResults() لتجمع البيانات من exam_result_* و exam_retry_*.
+ * 2. إصلاح analyzeExam() للتعامل مع الحالة التي لا تحتوي على scores.
+ * 3. إصلاح getMemoryData() لقراءة memory_levels بشكل صحيح.
+ * 4. إصلاح getPlanHistory() و savePlanHistory() للعمل مع studyPlannerData.
+ * 5. تحسين showPurePlan() لضمان وجود الأزرار وتجنب أخطاء null.
+ * 6. إضافة معالجة للحالة التي يكون فيها averageScore = 0 (امتحان جديد).
  */
 
 (function() {
@@ -947,8 +944,7 @@
         }, 2000);
     }
 
-
-function showPurePlan(plan) {
+    function showPurePlan(plan) {
         const overlay = createOverlay();
         const card = document.createElement('div');
         card.style.cssText = `
@@ -1060,7 +1056,7 @@ function showPurePlan(plan) {
         if (btn) {
             btn.removeEventListener('click', window.openStudyPlanner);
             btn.addEventListener('click', window.openStudyPlanner);
-            console.log('✅ المدرب الذكي TELC B2 جاهز (الإصدار 9.0 - إصلاح قراءة البيانات)');
+            console.log('✅ المدرب الذكي TELC B2 جاهز (الإصدار 9.1 - إصلاح قراءة البيانات النهائي)');
         } else {
             console.warn('⚠️ الزر studyPlannerBtn غير موجود.');
         }
