@@ -139,17 +139,17 @@ function isExamFree(skill, examNumber) {
   }
 }
 
-// ========== دالة حفظ آخر نتيجة ==========
 function saveExamResult(skill, examId, score) {
   try {
     const key = `exam_result_${skill}_${examId}`;
     localStorage.setItem(key, score.toString());
+    // حفظ السجل والتاريخ أيضاً
+    saveExamHistory(skill, examId, score);
   } catch(e) {
     console.error("❌ خطأ في حفظ النتيجة:", e);
   }
 }
 
-// ========== دالة استرجاع آخر نتيجة ==========
 function getExamResult(skill, examId) {
   try {
     const key = `exam_result_${skill}_${examId}`;
@@ -218,6 +218,44 @@ function incrementRetryCount(skill, examId) {
     saveRetryCount(skill, examId, newCount);
     return newCount;
 }
+
+// ========== دوال تاريخ آخر مراجعة وسجل النتائج ==========
+function saveExamHistory(skill, examId, score) {
+    try {
+        const historyKey = `exam_history_${skill}_${examId}`;
+        const history = getExamHistory(skill, examId);
+        const timestamp = new Date().toISOString();
+        history.push({ score: score, date: timestamp });
+        localStorage.setItem(historyKey, JSON.stringify(history));
+    } catch(e) {
+        console.error("❌ خطأ في حفظ سجل الامتحان:", e);
+    }
+}
+
+function getExamHistory(skill, examId) {
+    try {
+        const historyKey = `exam_history_${skill}_${examId}`;
+        const data = localStorage.getItem(historyKey);
+        return data ? JSON.parse(data) : [];
+    } catch(e) {
+        console.error("❌ خطأ في استرجاع سجل الامتحان:", e);
+        return [];
+    }
+}
+
+function getLastAttemptDate(skill, examId) {
+    const history = getExamHistory(skill, examId);
+    if (history.length === 0) return null;
+    return history[history.length - 1].date;
+}
+
+function getAllScores(skill, examId) {
+    const history = getExamHistory(skill, examId);
+    return history.map(item => item.score);
+}
+
+// تعديل دالة saveExamResult لتخزين التاريخ أيضاً
+// (نقوم بتعديل saveExamResult الأصلية، والتي سيتم استبدالها في التعديل التالي)
 // ========== عرض بطاقة Premium Access ==========
 function showLockedMessage(examTitle) {
     if (typeof window.showPremiumModal === 'function') {
@@ -3814,3 +3852,11 @@ window.renderMatchingQuestions = renderMatchingQuestions;
 // تصدير قواعد البيانات للملفات الأخرى
 window.examsDatabase = examsDatabase;
 window.teile = teile;
+
+// تصدير دوال سجل الامتحانات للمدرب الذكي
+window.saveExamHistory = saveExamHistory;
+window.getExamHistory = getExamHistory;
+window.getLastAttemptDate = getLastAttemptDate;
+window.getAllScores = getAllScores;
+window.saveExamResult = saveExamResult;
+window.getExamResult = getExamResult;
