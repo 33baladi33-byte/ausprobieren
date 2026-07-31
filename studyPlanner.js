@@ -947,7 +947,8 @@
         }, 2000);
     }
 
-    function showPurePlan(plan) {
+
+function showPurePlan(plan) {
         const overlay = createOverlay();
         const card = document.createElement('div');
         card.style.cssText = `
@@ -961,6 +962,10 @@
 
         if (plan.isRestPeriod) {
             html = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3 style="margin: 0; color: #38bdf8;">📅 خطة اليوم</h3>
+                    <button id="closePlanBtn" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">✕</button>
+                </div>
                 <div style="text-align: center; padding: 20px 0;">
                     <div style="font-size: 3rem; margin-bottom: 10px;">🧘</div>
                     <p style="font-size: 1.1rem; color: #f1f5f9;">${plan.message}</p>
@@ -987,6 +992,7 @@
             }
         }
 
+        // الأزرار تضاف دائماً (حتى في حالة الراحة)
         html += `
             <button id="startReviewBtn" style="
                 width: 100%; margin-top: 16px; padding: 14px;
@@ -1006,12 +1012,24 @@
         overlay.appendChild(card);
         document.body.appendChild(overlay);
 
-        document.getElementById('closePlanBtn').onclick = () => overlay.remove();
-        document.getElementById('startReviewBtn').onclick = () => overlay.remove();
-        document.getElementById('backToMenuBtn').onclick = () => {
-            overlay.remove();
-            showMainMenu();
-        };
+        // ربط الأحداث مع التحقق من وجود العناصر
+        const closeBtn = document.getElementById('closePlanBtn');
+        if (closeBtn) {
+            closeBtn.onclick = () => overlay.remove();
+        }
+
+        const startBtn = document.getElementById('startReviewBtn');
+        if (startBtn) {
+            startBtn.onclick = () => overlay.remove();
+        }
+
+        const backBtn = document.getElementById('backToMenuBtn');
+        if (backBtn) {
+            backBtn.onclick = () => {
+                overlay.remove();
+                showMainMenu();
+            };
+        }
 
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) overlay.remove();
