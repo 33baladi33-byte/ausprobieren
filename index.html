@@ -2617,9 +2617,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <script>
-
- // ============================================
-// 🧠 نظام Ask AI المتطور (يدعم 6 مزودات مع تجاوز تلقائي)
+// ============================================
+// 🧠 نظام Ask AI المتطور (يدعم 6 مزودات + حد يومي + Prompt مختصر)
 // ============================================
 (function() {
     const floatingBtn = document.getElementById('askAIFloatingBtn');
@@ -2715,7 +2714,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function getLastSuccessfulKey(provider) {
         try {
             const data = JSON.parse(localStorage.getItem(LAST_KEY_STORAGE) || '{}');
-            return data[provider] || 0; // index
+            return data[provider] || 0;
         } catch { return 0; }
     }
     function setLastSuccessfulKey(provider, index) {
@@ -2825,27 +2824,28 @@ document.addEventListener("DOMContentLoaded", function() {
             throw e;
         }
     }
-async function callCerebras(prompt, systemMsg, key, timeout = 15000) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeout);
-    try {
-        const res = await fetch('https://api.cerebras.ai/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${key}`
-            },
-            body: JSON.stringify({
-                model: 'gpt-oss-120b',   // ✅ تم التغيير إلى نموذج موجود فعلاً
-                messages: [
-                    { role: 'system', content: systemMsg },
-                    { role: 'user', content: prompt }
-                ],
-                max_tokens: 150,
-                temperature: 0.3
-            }),
-            signal: controller.signal
-        });
+
+    async function callCerebras(prompt, systemMsg, key, timeout = 15000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeout);
+        try {
+            const res = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${key}`
+                },
+                body: JSON.stringify({
+                    model: 'gpt-oss-120b',
+                    messages: [
+                        { role: 'system', content: systemMsg },
+                        { role: 'user', content: prompt }
+                    ],
+                    max_tokens: 150,
+                    temperature: 0.3
+                }),
+                signal: controller.signal
+            });
             clearTimeout(timer);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
@@ -2931,127 +2931,245 @@ async function callCerebras(prompt, systemMsg, key, timeout = 15000) {
     // 🧠 المزودات (مع مفاتيحها ودوال الاتصال)
     // ============================================
     const PROVIDERS = [
-        {
-            id: 'gemini',
-            name: 'Gemini',
-            keys: GEMINI_KEYS,
-            call: callGemini,
-            // Gemini لا يحتاج نموذج إضافي
-        },
-        {
-            id: 'groq',
-            name: 'Groq',
-            keys: GROQ_KEYS,
-            call: callGroq,
-        },
-        {
-            id: 'openrouter',
-            name: 'OpenRouter',
-            keys: OPENROUTER_KEYS,
-            call: callOpenRouter,
-            models: OPENROUTER_MODELS, // سنمرر أول نموذج فقط
-        },
-        {
-            id: 'cerebras',
-            name: 'Cerebras',
-            keys: CEREBRAS_KEYS,
-            call: callCerebras,
-        },
-        {
-            id: 'sambanova',
-            name: 'SambaNova',
-            keys: SAMBANOVA_KEYS,
-            call: callSambaNova,
-        },
-        {
-            id: 'together',
-            name: 'Together AI',
-            keys: TOGETHER_KEYS,
-            call: callTogether,
-        }
+        { id: 'gemini', name: 'Gemini', keys: GEMINI_KEYS, call: callGemini },
+        { id: 'groq', name: 'Groq', keys: GROQ_KEYS, call: callGroq },
+        { id: 'openrouter', name: 'OpenRouter', keys: OPENROUTER_KEYS, call: callOpenRouter, models: OPENROUTER_MODELS },
+        { id: 'cerebras', name: 'Cerebras', keys: CEREBRAS_KEYS, call: callCerebras },
+        { id: 'sambanova', name: 'SambaNova', keys: SAMBANOVA_KEYS, call: callSambaNova },
+        { id: 'together', name: 'Together AI', keys: TOGETHER_KEYS, call: callTogether }
     ];
 
     // فلترة المزودات التي لديها مفاتيح
     const activeProviders = PROVIDERS.filter(p => p.keys && p.keys.length > 0);
-    console.log(`🧠 عدد المزودات النشطة: ${activeProviders.length}`);
 
     // ============================================
     // 🚀 الدالة الرئيسية لتجربة جميع المزودات
     // ============================================
     async function tryAllProviders(prompt, systemMsg) {
         let lastError = null;
-        // نبدأ من أول مزود
         for (let pIdx = 0; pIdx < activeProviders.length; pIdx++) {
             const provider = activeProviders[pIdx];
             const keys = provider.keys;
-            const startIndex = getLastSuccessfulKey(provider.id) % keys.length; // تذكر آخر مفتاح ناجح
-for (let k = 0; k < keys.length; k++) {
-    const keyIndex = (startIndex + k) % keys.length;
-    const key = keys[keyIndex];
-    
-    // تحديد النموذج المستخدم (للتوثيق)
-    let modelUsed = 'default';
-    if (provider.id === 'openrouter') {
-        modelUsed = provider.models ? provider.models[0] : 'nvidia/nemotron-3-ultra-550b-a55b:free';
-    } else if (provider.id === 'cerebras') {
-        modelUsed = 'gpt-oss-120b';  // النموذج الجديد
-    } else if (provider.id === 'groq') {
-        modelUsed = 'mixtral-8x7b-32768';
-    } else if (provider.id === 'gemini') {
-        modelUsed = 'gemini-2.0-flash-exp';
-    }
-    
-    console.log(`🧠 Using Provider: ${provider.name} | Key ${keyIndex + 1}/${keys.length} | Model: ${modelUsed}`);
+            const startIndex = getLastSuccessfulKey(provider.id) % keys.length;
 
-    try {
-        let reply;
-        if (provider.id === 'openrouter') {
-            reply = await provider.call(prompt, systemMsg, key, modelUsed);
-        } else {
-            reply = await provider.call(prompt, systemMsg, key);
-        }
-        console.log(`✅ ${provider.name} Key ${keyIndex + 1} Success`);
-        setLastSuccessfulKey(provider.id, keyIndex);
-        return reply;
-    } catch (error) {
-        const msg = error.message || '';
-        const lower = msg.toLowerCase();
-        
-        // ✅ تم إضافة 404 و ACCESS_TOKEN_TYPE_UNSUPPORTED
-        const isFailure = 
-            msg.includes('401') || msg.includes('403') || msg.includes('404') ||
-            msg.includes('429') || msg.includes('quota') || msg.includes('rate limit') ||
-            msg.includes('credits') || msg.includes('expired') || msg.includes('timeout') ||
-            msg.includes('network') || msg.includes('503') || msg.includes('502') ||
-            msg.includes('500') || msg.includes('model unavailable') || msg.includes('overloaded') ||
-            msg.includes('no endpoints') || msg.includes('ACCESS_TOKEN_TYPE_UNSUPPORTED');
+            for (let k = 0; k < keys.length; k++) {
+                const keyIndex = (startIndex + k) % keys.length;
+                const key = keys[keyIndex];
 
-        // استخراج رمز الخطأ إن أمكن
-        let errorCode = '';
-        if (msg.includes('HTTP 401')) errorCode = '401 Unauthorized';
-        else if (msg.includes('HTTP 403')) errorCode = '403 Forbidden';
-        else if (msg.includes('HTTP 404')) errorCode = '404 Not Found (Model/Endpoint)';
-        else if (msg.includes('HTTP 429')) errorCode = '429 Rate Limit / Quota';
-        else if (msg.includes('Timeout') || msg.includes('AbortError')) errorCode = 'Timeout';
-        else if (msg.includes('Failed to fetch') || msg.includes('Network')) errorCode = 'Network Error (CORS/DNS)';
-        else if (msg.includes('ACCESS_TOKEN_TYPE_UNSUPPORTED')) errorCode = 'OAuth Token (Invalid Key Type)';
-        else if (msg.includes('quota') || msg.includes('rate limit')) errorCode = 'Quota Exceeded';
-        else errorCode = msg.substring(0, 30);
+                let modelUsed = 'default';
+                if (provider.id === 'openrouter') {
+                    modelUsed = provider.models ? provider.models[0] : 'nvidia/nemotron-3-ultra-550b-a55b:free';
+                } else if (provider.id === 'cerebras') {
+                    modelUsed = 'gpt-oss-120b';
+                } else if (provider.id === 'groq') {
+                    modelUsed = 'mixtral-8x7b-32768';
+                } else if (provider.id === 'gemini') {
+                    modelUsed = 'gemini-2.0-flash-exp';
+                }
 
-        if (isFailure) {
-            console.error(`❌ ${provider.name} Key ${keyIndex + 1} Failed: ${errorCode}`);
-        } else {
-            console.warn(`⚠️ ${provider.name} Key ${keyIndex + 1} Unexpected Error: ${errorCode}`);
-        }
-        lastError = error;
-        // استمر إلى المفتاح التالي
-    }
-}
-            // انتهت مفاتيح هذا المزود، ننتقل للتالي
+                console.log(`🧠 Using Provider: ${provider.name} | Key ${keyIndex + 1}/${keys.length} | Model: ${modelUsed}`);
+
+                try {
+                    let reply;
+                    if (provider.id === 'openrouter') {
+                        reply = await provider.call(prompt, systemMsg, key, modelUsed);
+                    } else {
+                        reply = await provider.call(prompt, systemMsg, key);
+                    }
+                    console.log(`✅ ${provider.name} Key ${keyIndex + 1} Success`);
+                    setLastSuccessfulKey(provider.id, keyIndex);
+                    return reply;
+                } catch (error) {
+                    const msg = error.message || '';
+                    const isFailure = 
+                        msg.includes('401') || msg.includes('403') || msg.includes('404') ||
+                        msg.includes('429') || msg.includes('quota') || msg.includes('rate limit') ||
+                        msg.includes('credits') || msg.includes('expired') || msg.includes('timeout') ||
+                        msg.includes('network') || msg.includes('503') || msg.includes('502') ||
+                        msg.includes('500') || msg.includes('model unavailable') || msg.includes('overloaded') ||
+                        msg.includes('no endpoints') || msg.includes('ACCESS_TOKEN_TYPE_UNSUPPORTED');
+
+                    let errorCode = '';
+                    if (msg.includes('HTTP 401')) errorCode = '401 Unauthorized';
+                    else if (msg.includes('HTTP 403')) errorCode = '403 Forbidden';
+                    else if (msg.includes('HTTP 404')) errorCode = '404 Not Found (Model/Endpoint)';
+                    else if (msg.includes('HTTP 429')) errorCode = '429 Rate Limit / Quota';
+                    else if (msg.includes('Timeout') || msg.includes('AbortError')) errorCode = 'Timeout';
+                    else if (msg.includes('Failed to fetch') || msg.includes('Network')) errorCode = 'Network Error (CORS/DNS)';
+                    else if (msg.includes('ACCESS_TOKEN_TYPE_UNSUPPORTED')) errorCode = 'OAuth Token (Invalid Key Type)';
+                    else if (msg.includes('quota') || msg.includes('rate limit')) errorCode = 'Quota Exceeded';
+                    else errorCode = msg.substring(0, 30);
+
+                    if (isFailure) {
+                        console.error(`❌ ${provider.name} Key ${keyIndex + 1} Failed: ${errorCode}`);
+                    } else {
+                        console.warn(`⚠️ ${provider.name} Key ${keyIndex + 1} Unexpected Error: ${errorCode}`);
+                    }
+                    lastError = error;
+                }
+            }
             console.warn(`⏭️ انتهت مفاتيح ${provider.name}، ننتقل إلى المزود التالي`);
         }
-        // إذا وصلنا هنا، كل المزودات فشلت
         throw new Error('جميع المزودات غير متاحة حالياً');
+    }
+
+    // ============================================
+    // 📊 نظام الحد اليومي (15 رسالة) مع Firebase + LocalStorage
+    // ============================================
+
+    const DAILY_LIMIT = 15;
+    const GUEST_STORAGE_KEY = 'zertiva_guest_usage';
+
+    // عرض مودال انتهاء الحصة اليومية (تصميم جميل)
+    function showDailyLimitModal() {
+        // إزالة أي مودال قديم
+        const oldModal = document.getElementById('dailyLimitModal');
+        if (oldModal) oldModal.remove();
+
+        const overlay = document.createElement('div');
+        overlay.id = 'dailyLimitModal';
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(6px);
+            z-index: 100000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        `;
+
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            background: #1a1f2e;
+            border-radius: 24px;
+            padding: 35px 30px;
+            max-width: 400px;
+            width: 90%;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            text-align: center;
+            animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            color: #e2e8f0;
+            direction: rtl;
+        `;
+
+        modal.innerHTML = `
+            <div style="font-size: 48px; margin-bottom: 12px;">🌙</div>
+            <h3 style="color: #f1f5f9; font-size: 20px; font-weight: 700; margin: 0 0 8px 0;"> انتهت حصتك اليومية</h3>
+            <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 6px 0;">
+                يمكنك استخدام المساعد مرة أخرى غداً.
+            </p>
+            <p style="color: #64748b; font-size: 13px; margin: 0 0 20px 0;">
+                شكراً لتفهمك ❤️
+            </p>
+            <button onclick="this.closest('#dailyLimitModal').remove()" style="
+                background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+                border: none;
+                padding: 10px 32px;
+                border-radius: 40px;
+                font-size: 15px;
+                font-weight: 600;
+                color: #0a0e1a;
+                cursor: pointer;
+                transition: all 0.2s;
+            " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                حسناً
+            </button>
+        `;
+
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        // إغلاق عند الضغط خارج المودال
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.remove();
+        });
+
+        // إضافة الـ Keyframes إذا لم تكن موجودة
+        if (!document.getElementById('dailyLimitStyles')) {
+            const style = document.createElement('style');
+            style.id = 'dailyLimitStyles';
+            style.textContent = `
+                @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+                @keyframes scaleIn { from { transform:scale(0.9); opacity:0; } to { transform:scale(1); opacity:1; } }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+
+    // دالة التحقق من الحد وزيادة العداد
+    async function checkAndIncrementUsage() {
+        const user = window.auth?.currentUser;
+        const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+        // --- حالة المستخدم المسجل ---
+        if (user) {
+            try {
+                const userRef = window.db.collection('users').doc(user.uid);
+                const doc = await userRef.get();
+
+                let currentCount = 0;
+                let savedDate = today;
+
+                if (doc.exists) {
+                    const data = doc.data();
+                    const usage = data.aiUsage || {};
+                    savedDate = usage.date || today;
+                    currentCount = usage.count || 0;
+                }
+
+                // إذا كان التاريخ مختلفاً، إعادة التعيين
+                if (savedDate !== today) {
+                    currentCount = 0;
+                    await userRef.set({
+                        aiUsage: { date: today, count: 0 }
+                    }, { merge: true });
+                    return true; // يمكنه الإرسال
+                }
+
+                // التحقق من الحد
+                if (currentCount >= DAILY_LIMIT) {
+                    return false; // تجاوز الحد
+                }
+
+                // زيادة العداد
+                await userRef.set({
+                    aiUsage: { date: today, count: currentCount + 1 }
+                }, { merge: true });
+                return true;
+
+            } catch (error) {
+                console.warn('⚠️ فشل في قراءة/كتابة Firestore، التبديل إلى LocalStorage:', error);
+                // في حالة فشل Firebase، ننتقل إلى LocalStorage كـ Fallback
+            }
+        }
+
+        // --- حالة الزائر (غير مسجل) أو فشل Firebase ---
+        try {
+            const stored = localStorage.getItem(GUEST_STORAGE_KEY);
+            let data = stored ? JSON.parse(stored) : { date: today, count: 0 };
+
+            if (data.date !== today) {
+                data = { date: today, count: 0 };
+            }
+
+            if (data.count >= DAILY_LIMIT) {
+                return false;
+            }
+
+            data.count += 1;
+            localStorage.setItem(GUEST_STORAGE_KEY, JSON.stringify(data));
+            return true;
+
+        } catch (error) {
+            console.warn('⚠️ فشل في LocalStorage، السماح مؤقتاً:', error);
+            return true; // في حالة فشل التخزين، نسمح له (حتى لا ينقطع الموقع)
+        }
     }
 
     // ============================================
@@ -3093,17 +3211,25 @@ for (let k = 0; k < keys.length; k++) {
     }
 
     // ============================================
-    // 💬 دالة إرسال الرسالة (المعدلة)
+    // 💬 دالة إرسال الرسالة (المعدلة بالكامل)
     // ============================================
     async function sendMessage() {
         const text = userInput.value.trim();
         if (!text || isLoading) return;
 
+        // ⏳ 1. التحقق من الحد اليومي (قبل أي شيء)
+        const canProceed = await checkAndIncrementUsage();
+        if (!canProceed) {
+            showDailyLimitModal(); // رسالة جميلة
+            return; // ⛔ لا يتم استدعاء أي Provider
+        }
+
+        // ✅ 2. إضافة رسالة المستخدم
         addMessage(text, 'user');
         userInput.value = '';
         userInput.disabled = true;
 
-        // استخراج السياق (نفس الكود القديم)
+        // 📦 3. استخراج السياق
         const skill = window.currentSkill || 'unknown';
         const examNumber = window.currentExamId || 1;
         const examData = window.currentExamData || null;
@@ -3148,30 +3274,40 @@ for (let k = 0; k < keys.length; k++) {
             }
         }
 
-        const systemMessage = 'أنت مساعد Zertiva B2. أجب باختصار شديد (جملة إلى جملتين). استخدم السياق المقدم.';
+        // 🧠 4. System Prompt المختصر جداً (لتقليل Tokens)
+        const systemMessage = `
+أنت مساعد ذكي في تطبيق Zertiva B2 لتعلم اللغة الألمانية.
+تعليمات صارمة:
+1. أجب فقط على المطلوب بدقة.
+2. لا تكتب مقدمات، لا تحية، لا شروحات طويلة.
+3. إذا كان السؤال ترجمة، أعط الترجمة فقط. إذا كان تصحيحاً، أعط الإجابة الصحيحة فقط.
+4. إذا كان السؤال يحتاج شرحاً، اجعل الشرح في 3 إلى 6 أسطر كحد أقصى.
+5. لا تضف أي معلومات إضافية لم يطلبها المستخدم.
+`.trim();
+
         const userMessage = `السياق (بيانات الامتحان الحالية): ${JSON.stringify(promptData)}\n\nسؤال الطالب: "${text}"`;
 
         console.log('📤 إرسال طلب:', { question: text, context: promptData });
 
+        // ⏳ 5. عرض التحميل
         showLoading();
 
         let reply = null;
         try {
-           reply = await tryAllProviders(userMessage, systemMessage);
-// سيتم طباعة سجل النجاح من داخل tryAllProviders نفسها
+            reply = await tryAllProviders(userMessage, systemMessage);
         } catch (error) {
             console.error('❌ فشل جميع المزودات:', error.message);
             reply = null;
         }
 
-hideLoading();
+        hideLoading();
 
-if (reply) {
-    console.log(`💬 AI Response received successfully`);   // ✅ سطر جديد
-    addMessage(reply, 'assistant');
-} else {
-    addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
-}
+        if (reply) {
+            console.log(`💬 AI Response received successfully`);
+            addMessage(reply, 'assistant');
+        } else {
+            addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
+        }
 
         userInput.disabled = false;
         userInput.focus();
@@ -3189,9 +3325,8 @@ if (reply) {
         }
     });
 
-    console.log('✅ Ask AI جاهز (يدعم 6 مزودات مع تجاوز تلقائي)');
+    console.log('✅ Ask AI جاهز (يدعم 6 مزودات + حد يومي 15 رسالة + Prompt مختصر)');
 })();
-    
 </script>
 </body>
 </html>
