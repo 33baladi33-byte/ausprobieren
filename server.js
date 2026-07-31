@@ -218,7 +218,7 @@ async function callCerebras(prompt, systemMsg, key, timeout = 15000) {
                 'Authorization': `Bearer ${key}`
             },
             body: JSON.stringify({
-                model: 'llama3.1-8b',
+                model: 'gpt-oss-120b',   // ✅ النموذج الصحيح
                 messages: [
                     { role: 'system', content: systemMsg },
                     { role: 'user', content: prompt }
