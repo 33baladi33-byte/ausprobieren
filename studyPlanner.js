@@ -1,23 +1,18 @@
 /**
  * studyPlanner.js - Full Mathematical Scheduler & Dynamic Coverage Engine for TELC B2
  * 
- * Features:
- * - Pure Mathematical Load Calculation (Total Reps Deficit / Remaining Days)
- * - Dynamic Section Distribution based on Weakness Index & TELC Weights
- * - Spaced Repetition Intervals (Wave System: 1, 3, 7, 14, 30 days)
- * - Progress Predictor & Exam Coverage % Estimator
- * - Calendar & Continuity Tracker (Remembers yesterday's unfinished tasks)
- * - Burnout Protection & Forgotten Exam Recovery
+ * Compatibility: Global Browser Script (No ES Modules, Compatible with plain <script src="...">)
+ * Exposes: window.DeepStudyPlannerCoach & window.studyPlanner
  */
 
-export class MathematicalStudyScheduler {
+class DeepStudyPlannerCoach {
     constructor(options = {}) {
         this.storageKeyDate = options.storageKeyDate || 'user_exam_date';
         this.storageKeyData = options.storageKeyData || 'user_exam_results_v1';
         this.storageKeyMemory = options.storageKeyMemory || 'memory_trainer_progress';
         this.storageKeyCalendar = options.storageKeyCalendar || 'study_calendar_tracker_v1';
 
-        // Full TELC Blueprint (160 total exam units assumed as 20 tests x 8 sections)
+        // Full TELC Blueprint (160 total exam units: 20 tests x 8 sections)
         this.sectionHierarchy = [
             { id: 'hoeren_1', name: 'Hören 1', priority: 1, weight: 1.6, totalTests: 20, estMin: 10 },
             { id: 'hoeren_2', name: 'Hören 2', priority: 2, weight: 1.6, totalTests: 20, estMin: 12 },
@@ -29,7 +24,7 @@ export class MathematicalStudyScheduler {
             { id: 'sprach_2', name: 'Sprach 2', priority: 8, weight: 0.8, totalTests: 20, estMin: 10 }
         ];
 
-        this.targetRepetitions = 6; // Mandatory 6 repetitions per test
+        this.targetRepetitions = 6; // Mandatory 6 repetitions per test before exam
     }
 
     // ==========================================
@@ -40,11 +35,16 @@ export class MathematicalStudyScheduler {
         return localStorage.getItem(this.storageKeyDate) || null;
     }
 
+    setExamDate(dateStr) {
+        localStorage.setItem(this.storageKeyDate, dateStr);
+    }
+
     getRawExamData() {
         try {
             const raw = localStorage.getItem(this.storageKeyData);
             return raw ? JSON.parse(raw) : {};
         } catch (e) {
+            console.error("Error reading exam data:", e);
             return {};
         }
     }
@@ -79,8 +79,8 @@ export class MathematicalStudyScheduler {
 
     getEffectiveStudyDays() {
         const days = this.getDaysRemaining();
-        if (days === null) return 30; // Fallback default
-        const effective = days - 2; // Last 2 days reserved for rest/light review
+        if (days === null) return 30; // Default fallback
+        const effective = days - 2; // Reserve last 2 days for light review/rest
         return effective > 0 ? effective : 1;
     }
 
@@ -88,9 +88,6 @@ export class MathematicalStudyScheduler {
     // 2. SPACED REPETITION WAVES & DECAY
     // ==========================================
 
-    /**
-     * Calculates interval in days required before next review based on score
-     */
     getSpacedIntervalDays(score) {
         if (score < 50) return 1;   // Wave 1: Next day
         if (score < 65) return 2;   // Wave 2: After 2 days
@@ -101,12 +98,9 @@ export class MathematicalStudyScheduler {
     }
 
     // ==========================================
-    // 3. COVERAGE & MATHEMATICAL LOAD ENGINE
+    // 3. MATHEMATICAL LOAD & COVERAGE ENGINE
     // ==========================================
 
-    /**
-     * Calculates mathematical coverage, total remaining repetitions, and daily target load
-     */
     calculateCoverageAndLoad() {
         const rawData = this.getRawExamData();
         const effectiveDays = this.getEffectiveStudyDays();
@@ -120,13 +114,12 @@ export class MathematicalStudyScheduler {
         this.sectionHierarchy.forEach(sec => {
             const secData = rawData[sec.id] || [];
             const totalTests = sec.totalTests;
-            const targetRepsSec = totalTests * this.targetRepetitions; // e.g. 20 * 6 = 120 reps
+            const targetRepsSec = totalTests * this.targetRepetitions;
             
             let completedRepsSec = 0;
             let scoreSum = 0;
             let solvedTestsCount = 0;
 
-            // Analyze solved tests in this section
             const testMap = {};
             secData.forEach(t => {
                 const id = t.id || t.title;
@@ -146,19 +139,16 @@ export class MathematicalStudyScheduler {
                 };
             });
 
-            // Account for completely unsolved tests
-            const unsolvedCount = totalTests - solvedTestsCount;
-
             const remainingRepsSec = targetRepsSec - completedRepsSec;
             const avgScore = solvedTestsCount > 0 ? Math.round(scoreSum / solvedTestsCount) : 0;
 
-            // Weakness Multiplier: Lower scores increase section priority weight
+            // Weakness index modifier
             const weaknessIndex = avgScore === 0 ? 1.5 : Math.max(0.5, (100 - avgScore) / 40);
 
             sectionStats[sec.id] = {
                 ...sec,
                 solvedTestsCount,
-                unsolvedCount,
+                unsolvedCount: totalTests - solvedTestsCount,
                 completedReps: completedRepsSec,
                 targetReps: targetRepsSec,
                 remainingReps: remainingRepsSec,
@@ -173,13 +163,8 @@ export class MathematicalStudyScheduler {
             remainingRepsAll += remainingRepsSec;
         });
 
-        // Global Coverage Percentage
         const coveragePercentage = Math.round((completedRepsAll / totalTargetRepsAll) * 100);
-
-        // Exact Mathematical Daily Required Load
         const rawDailyRequiredLoad = Math.ceil(remainingRepsAll / effectiveDays);
-
-        // Progress Predictor
         const totalPossibleReps = rawDailyRequiredLoad * effectiveDays;
         const predictedCoverage = Math.min(100, Math.round(((completedRepsAll + totalPossibleReps) / totalTargetRepsAll) * 100));
 
@@ -196,12 +181,9 @@ export class MathematicalStudyScheduler {
     }
 
     // ==========================================
-    // 4. DISTRIBUTION ENGINE & SCHEDULER
+    // 4. GENERATE SCHEDULED DAILY PLAN
     // ==========================================
 
-    /**
-     * Generates exact scheduled test plan using mathematical distribution
-     */
     generateScheduledPlan() {
         const coverage = this.calculateCoverageAndLoad();
         const { effectiveDays, rawDailyRequiredLoad, sectionStats, coveragePercentage } = coverage;
@@ -215,25 +197,20 @@ export class MathematicalStudyScheduler {
             };
         }
 
-        // Apply Burnout Protection & Realistic Daily Caps
-        // Min threshold = 4 tests/day, Cap max at 18 tests/day to prevent mental exhaustion
+        // Cap load to protect against burnout (min 4, max 18 tests daily)
         const targetDailyCount = Math.max(4, Math.min(18, rawDailyRequiredLoad));
 
-        // Calculate sum of effective weights across all sections
         let sumEffectiveWeights = 0;
         Object.values(sectionStats).forEach(s => {
-            // Exclude sections if mastered (92%+ avg AND at least 50% reps done)
             if (!(s.avgScore >= 92 && s.completedReps >= s.targetReps * 0.5)) {
                 sumEffectiveWeights += s.effectiveWeight;
             }
         });
 
-        // Distribute targetDailyCount across sections
         const scheduledTests = [];
         const now = Date.now();
 
         Object.values(sectionStats).forEach(sec => {
-            // Calculate exact mathematical quota for this section
             const isMastered = sec.avgScore >= 92 && sec.completedReps >= sec.targetReps * 0.5;
             const quota = isMastered 
                 ? 0 
@@ -243,12 +220,10 @@ export class MathematicalStudyScheduler {
 
             const secCandidates = [];
 
-            // Evaluate all test slots (1 to totalTests)
             for (let testId = 1; testId <= sec.totalTests; testId++) {
                 const tObj = sec.testMap[testId];
 
                 if (!tObj) {
-                    // Unsolved test -> High priority
                     secCandidates.push({
                         testId,
                         sectionId: sec.id,
@@ -267,10 +242,9 @@ export class MathematicalStudyScheduler {
                     
                     const requiredInterval = this.getSpacedIntervalDays(tObj.score);
 
-                    // Check if test is due for review based on Spaced Repetition Wave
                     if (daysSince >= requiredInterval) {
                         let urgency = (100 - tObj.score) * 1.5 + (tObj.remainingReps * 10);
-                        if (daysSince >= 20) urgency += 40; // Forgotten test recovery booster
+                        if (daysSince >= 20) urgency += 40;
 
                         secCandidates.push({
                             testId,
@@ -289,13 +263,11 @@ export class MathematicalStudyScheduler {
                 }
             }
 
-            // Sort candidates by urgency and take exact section quota
             secCandidates.sort((a, b) => b.urgency - a.urgency);
             const selectedForSec = secCandidates.slice(0, Math.max(1, quota));
             scheduledTests.push(...selectedForSec);
         });
 
-        // Grouping plan by section for structured display
         const groupedBySection = {};
         let totalEstMinutes = 0;
 
@@ -320,6 +292,33 @@ export class MathematicalStudyScheduler {
             scheduledList: scheduledTests
         };
     }
+
+    // ==========================================
+    // 5. SIMULATED ANALYSIS FOR UX THINKING EFFECT
+    // ==========================================
+
+    async runSimulatedAnalysis(onStepCallback) {
+        const steps = [
+            { progress: 20, text: "🎯 جاري الاتصال بمحرك التحليل..." },
+            { progress: 45, text: "📊 تحليل نتائج الامتحانات وعدد الإعادات لكل قسم..." },
+            { progress: 70, text: "🔍 حساب الأيام المتبقية وحجم الضغط اليومي..." },
+            { progress: 90, text: "📝 توزيع المراجعات ومنع التكرار المجهد..." },
+            { progress: 100, text: "✨ اكتمل بناء الخطة اليومية!" }
+        ];
+
+        for (const step of steps) {
+            if (typeof onStepCallback === 'function') {
+                onStepCallback(step);
+            }
+            await new Promise(res => setTimeout(res, 200));
+        }
+
+        return this.generateScheduledPlan();
+    }
 }
 
-export const studyScheduler = new MathematicalStudyScheduler();
+// ==========================================
+// GLOBAL WINDOW EXPOSURE (NO MODULE EXPORTS)
+// ==========================================
+window.DeepStudyPlannerCoach = DeepStudyPlannerCoach;
+window.studyPlanner = new DeepStudyPlannerCoach();
