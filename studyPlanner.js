@@ -1,8 +1,8 @@
 /**
  * studyPlanner.js - Full Mathematical Scheduler & Dynamic Coverage Engine for TELC B2
  * 
- * Compatibility: Global Browser Script (No ES Modules, Compatible with plain <script src="...">)
- * Exposes: window.DeepStudyPlannerCoach & window.studyPlanner
+ * Compatibility: Global Browser Script (No ES Modules)
+ * Exposes: window.DeepStudyPlannerCoach, window.studyPlanner & window.showDailyPlan
  */
 
 class DeepStudyPlannerCoach {
@@ -292,33 +292,241 @@ class DeepStudyPlannerCoach {
             scheduledList: scheduledTests
         };
     }
+}
 
-    // ==========================================
-    // 5. SIMULATED ANALYSIS FOR UX THINKING EFFECT
-    // ==========================================
+// Global Objects Exposure
+window.DeepStudyPlannerCoach = DeepStudyPlannerCoach;
+window.studyPlanner = new DeepStudyPlannerCoach();
 
-    async runSimulatedAnalysis(onStepCallback) {
-        const steps = [
-            { progress: 20, text: "🎯 جاري الاتصال بمحرك التحليل..." },
-            { progress: 45, text: "📊 تحليل نتائج الامتحانات وعدد الإعادات لكل قسم..." },
-            { progress: 70, text: "🔍 حساب الأيام المتبقية وحجم الضغط اليومي..." },
-            { progress: 90, text: "📝 توزيع المراجعات ومنع التكرار المجهد..." },
-            { progress: 100, text: "✨ اكتمل بناء الخطة اليومية!" }
-        ];
+// ==========================================
+// 5. UI LAYER & EVENT BINDING
+// ==========================================
 
-        for (const step of steps) {
-            if (typeof onStepCallback === 'function') {
-                onStepCallback(step);
+function renderSimplePlan(plan) {
+    const oldOverlay = document.getElementById('plannerSimpleOverlay');
+    if (oldOverlay) oldOverlay.remove();
+
+    const overlay = document.createElement('div');
+    overlay.id = 'plannerSimpleOverlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(5px);
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.2s ease;
+    `;
+
+    const card = document.createElement('div');
+    card.style.cssText = `
+        background: #1a1f2e;
+        border-radius: 24px;
+        padding: 28px 30px;
+        max-width: 560px;
+        width: 90%;
+        max-height: 85vh;
+        overflow-y: auto;
+        border: 1px solid #2a3042;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        color: #e2e8f0;
+        direction: rtl;
+        font-family: inherit;
+        animation: slideUp 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    `;
+
+    let html = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="margin: 0; font-size: 1.4rem; color: #38bdf8;">🎯 المدرب الذكي (خطة اليوم)</h2>
+            <button id="closeSimplePlanBtn" style="background: none; border: none; color: #94a3b8; font-size: 24px; cursor: pointer;">✕</button>
+        </div>
+    `;
+
+    if (plan.isRestPeriod) {
+        html += `
+            <div style="text-align: center; padding: 20px 0;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px;">🧘</div>
+                <p style="font-size: 1.1rem; color: #f1f5f9;">${plan.message}</p>
+            </div>
+        `;
+    } else {
+        html += `
+            <div style="background: #0f1421; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; display: flex; justify-content: space-between;">
+                <span style="color: #94a3b8;">📅 تبقى (أيام دراسة):</span>
+                <span style="font-weight: 700; color: #38bdf8;">${plan.effectiveDays} يوم</span>
+            </div>
+            
+            <div style="background: #0f1421; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                    <span style="color: #94a3b8;">📊 التغطية الحالية:</span>
+                    <span style="font-weight: 700; color: #4ade80;">${plan.coveragePercentage}%</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span style="color: #94a3b8;">📈 المتوقعة بعد الخطة:</span>
+                    <span style="font-weight: 700; color: #38bdf8;">${plan.predictedCoverage}%</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: #2a3042; border-radius: 6px; margin-top: 6px;">
+                    <div style="width: ${plan.coveragePercentage}%; height: 100%; background: linear-gradient(90deg, #38bdf8, #4ade80); border-radius: 6px;"></div>
+                </div>
+            </div>
+
+            <div style="background: #0f1421; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; display: flex; justify-content: space-between;">
+                <span style="color: #94a3b8;">📝 عدد الامتحانات اليوم:</span>
+                <span style="font-weight: 700; color: #f1f5f9;">${plan.actualScheduledCount} امتحان</span>
+            </div>
+        `;
+
+        if (plan.groupedBySection && Object.keys(plan.groupedBySection).length > 0) {
+            html += `<div style="margin: 12px 0 8px 0; font-weight: 600; color: #f1f5f9;">📋 الخطة اليومية:</div>`;
+            for (const [sectionName, tests] of Object.entries(plan.groupedBySection)) {                html += `
+                    <div style="background: #0f1421; border-radius: 12px; padding: 10px 14px; margin-bottom: 8px; border-right: 3px solid #38bdf8;">
+                        <div style="font-weight: 500; color: #f1f5f9;">${sectionName}</div>
+                        <div style="font-size: 0.85rem; color: #94a3b8; margin-top: 4px;">امتحانات: ${tests.join('، ')}</div>
+                    </div>
+                `;
             }
-            await new Promise(res => setTimeout(res, 200));
         }
 
-        return this.generateScheduledPlan();
+        if (plan.estimatedTotalMinutes) {
+            const hours = Math.floor(plan.estimatedTotalMinutes / 60);
+            const mins = plan.estimatedTotalMinutes % 60;
+            html += `
+                <div style="margin-top: 12px; font-size: 0.85rem; color: #94a3b8;">
+                    ⏱️ المدة المتوقعة: ${hours > 0 ? hours + ' ساعة و ' : ''}${mins} دقيقة
+                </div>
+            `;
+        }
+    }
+
+    html += `
+        <button id="closeSimplePlanBtn2" style="
+            width: 100%;
+            margin-top: 16px;
+            padding: 12px;
+            background: #38bdf8;
+            border: none;
+            border-radius: 12px;
+            color: #0a0e1a;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        " onmouseover="this.style.background='#0ea5e9'" onmouseout="this.style.background='#38bdf8'">
+            حسناً
+        </button>
+    `;
+
+    card.innerHTML = html;
+    overlay.appendChild(card);
+    document.body.appendChild(overlay);
+
+    const close1 = document.getElementById('closeSimplePlanBtn');
+    const close2 = document.getElementById('closeSimplePlanBtn2');
+    const closeFn = () => overlay.remove();
+    
+    if (close1) close1.addEventListener('click', closeFn);
+    if (close2) close2.addEventListener('click', closeFn);
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.remove();
+    });
+
+    document.addEventListener('keydown', function escHandler(e) {
+        if (e.key === 'Escape') {
+            overlay.remove();
+            document.removeEventListener('keydown', escHandler);
+        }
+    });
+
+    if (!document.getElementById('plannerSimpleStyles')) {
+        const style = document.createElement('style');
+        style.id = 'plannerSimpleStyles';
+        style.textContent = `
+            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+            @keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+            @keyframes spin { to { transform: rotate(360deg); } }
+        `;
+        document.head.appendChild(style);
     }
 }
 
-// ==========================================
-// GLOBAL WINDOW EXPOSURE (NO MODULE EXPORTS)
-// ==========================================
-window.DeepStudyPlannerCoach = DeepStudyPlannerCoach;
-window.studyPlanner = new DeepStudyPlannerCoach();
+// Global Main Execution Function Called By The Button
+window.showDailyPlan = function() {
+    const planner = window.studyPlanner;
+    if (!planner) {
+        alert('⚠️ المدرب الذكي غير جاهز بعد، حاول مرة أخرى.');
+        return;
+    }
+
+    if (!planner.getExamDate()) {
+        const defaultDate = new Date();
+        defaultDate.setDate(defaultDate.getDate() + 30);
+        const dateStr = prompt('📅 يرجى إدخال تاريخ الامتحان (YYYY-MM-DD):', defaultDate.toISOString().slice(0, 10));
+        if (dateStr) {
+            planner.setExamDate(dateStr);
+        } else {
+            return;
+        }
+    }
+
+    const loadingOverlay = document.createElement('div');
+    loadingOverlay.id = 'plannerLoadingOverlay';
+    loadingOverlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(5px);
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    `;
+
+    const loadingCard = document.createElement('div');
+    loadingCard.style.cssText = `
+        background: #1a1f2e;
+        border-radius: 24px;
+        padding: 28px 30px;
+        max-width: 420px;
+        width: 90%;
+        text-align: center;
+        color: #e2e8f0;
+        direction: rtl;
+    `;
+
+    loadingCard.innerHTML = `
+        <div style="font-size: 2.5rem; margin-bottom: 16px;">⏳</div>
+        <h3 style="color: #f1f5f9; margin: 0 0 10px 0;">جارٍ تحليل تقدمك...</h3>
+        <div style="width: 40px; height: 40px; margin: 20px auto; border: 4px solid #2a3042; border-top-color: #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+        <p style="color: #94a3b8; font-size: 0.9rem; margin: 0;">نحسب أفضل خطة يومية لحجم الضغط ونسبة التغطية...</p>
+    `;
+
+    loadingOverlay.appendChild(loadingCard);
+    document.body.appendChild(loadingOverlay);
+
+    setTimeout(() => {
+        loadingOverlay.remove();
+        const plan = planner.generateScheduledPlan();
+        renderSimplePlan(plan);
+    }, 600);
+};
+
+// Auto Event Binding on DOM Ready
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('studyPlannerBtn');
+    if (btn) {
+        btn.removeEventListener('click', window.showDailyPlan);
+        btn.addEventListener('click', window.showDailyPlan);
+        console.log('✅ زر المدرب الذكي مربوط بنجاح.');
+    } else {
+        console.warn('⚠️ ملاحظة: الزر studyPlannerBtn غير موجود في هذه الصفحة حالياً.');
+    }
+});
