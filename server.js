@@ -10,33 +10,50 @@ app.use(express.json());
 // 🔑 مفاتيح API من متغيرات البيئة (.env)
 // ============================================================
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || '';
 const HUGGINGFACE_API_KEY = process.env.HUGGINGFACE_API_KEY || '';
 const CLOUDFLARE_API_KEY = process.env.CLOUDFLARE_API_KEY || '';
 const PORT = process.env.PORT || 3000;
 
 // ============================================================
-// 📋 قائمة نماذج OpenRouter المجانية (18 نموذجاً)
+// 🔑 قائمة مفاتيح OpenRouter (6 مفاتيح من .env)
+// ============================================================
+const OPENROUTER_KEYS = [
+    process.env.OPENROUTER_API_KEY_1 || '',
+    process.env.OPENROUTER_API_KEY_2 || '',
+    process.env.OPENROUTER_API_KEY_3 || '',
+    process.env.OPENROUTER_API_KEY_4 || '',
+    process.env.OPENROUTER_API_KEY_5 || '',
+    process.env.OPENROUTER_API_KEY_6 || ''
+].filter(key => key !== '');
+
+// إذا لم توجد مفاتيح، استخدم المفتاح القديم للتوافق
+if (OPENROUTER_KEYS.length === 0 && process.env.OPENROUTER_API_KEY) {
+    OPENROUTER_KEYS.push(process.env.OPENROUTER_API_KEY);
+}
+
+// ============================================================
+// 📋 قائمة نماذج OpenRouter المجانية (مرتبة حسب الجودة)
 // ============================================================
 const OPENROUTER_MODELS = [
     "nvidia/nemotron-3-ultra-550b-a55b:free",
-    "inclusionai/ling-3.0-flash:free",
     "nvidia/nemotron-3-super-120b-a12b:free",
-    "cohere/north-mini-code:free",
-    "poolside/laguna-s-2.1:free",
     "poolside/laguna-xs-2.1:free",
-    "nvidia/nemotron-3-nano-30b-a3b:free",
-    "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free",
-    "nvidia/nemotron-nano-9b-v2:free",
-    "google/gemma-4-26b-a4b-it:free",
-    "nvidia/nemotron-nano-12b-v2-vl:free",
-    "openai/gpt-oss-20b:free",
-    "nvidia/llama-nemotron-embed-vl-1b-v2:free",
-    "nvidia/nemotron-3-embed-1b:free",
+    "poolside/laguna-s-2.1:free",
     "google/gemma-4-31b-it:free",
-    "nvidia/nemotron-3.5-content-safety:free",
-    "openrouter/free"
+    "google/gemma-4-26b-a4b-it:free",
+    "openai/gpt-oss-20b:free",
+    "cohere/north-mini-code:free",
+    "inclusionai/ling-3.0-flash:free",
+    "nvidia/nemotron-nano-9b-v2:free",
+    "nvidia/nemotron-3-nano-30b-a3b:free",
+    "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
 ];
+
+// ============================================================
+// 🧠 متغيرات حفظ آخر مفتاح ونموذج ناجحين
+// ============================================================
+let LAST_WORKING_KEY = null;
+let LAST_WORKING_MODEL = null;
 
 // ============================================================
 // 📚 معرفة الموقع (تُستخدم في السياق)
@@ -111,66 +128,121 @@ async function callGemini(prompt, question) {
 }
 
 // ============================================================
-// 🔄 2. دالة استدعاء OpenRouter مع نظام Fallback (18 نموذجاً)
+// 🔄 2. دالة استدعاء OpenRouter مع نظام Fallback متعدد المفاتيح
 // ============================================================
 async function callOpenRouter(prompt, question) {
-    if (!OPENROUTER_API_KEY) return null;
-    for (let i = 0; i < OPENROUTER_MODELS.length; i++) {
-        const model = OPENROUTER_MODELS[i];
-        console.log(`🔄 محاولة OpenRouter (${i+1}/${OPENROUTER_MODELS.length}): ${model}`);
-        try {
-            const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 10000);
-            const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-                    'Content-Type': 'application/json',
-                    'HTTP-Referer': 'https://zertivab2.online/',
-                    'X-Title': 'Zertiva B2'
-                },
-                body: JSON.stringify({
-                    model: model,
-                    messages: [
-                        { role: 'system', content: getSystemPrompt(question) },
-                        { role: 'user', content: prompt }
-                    ],
-                    max_tokens: 150,
-                    temperature: 0.3
-                }),
-                signal: controller.signal
-            });
-            clearTimeout(timeout);
-            const data = await response.json();
-            if (response.ok && data.choices && data.choices.length > 0) {
-                const reply = data.choices[0].message.content;
-                console.log(`✅ OpenRouter نجح (${model})`);
-                return { reply, provider: 'openrouter', model };
-            }
-            const status = response.status;
-            const errorMsg = data.error?.message || '';
-            if (status === 429 || status === 503 || status === 404 || status === 502 ||
-                errorMsg.includes('model unavailable') ||
-                errorMsg.includes('No endpoints') ||
-                errorMsg.includes('rate limit') ||
-                errorMsg.includes('quota') ||
-                errorMsg.includes('overloaded')) {
-                console.warn(`❌ فشل ${model}: ${status} - ${errorMsg || 'بدون سبب'}`);
-                continue;
-            }
-            console.warn(`❌ فشل ${model}: ${status} - ${errorMsg || 'خطأ غير معروف'}`);
-            continue;
-        } catch (error) {
-            if (error.name === 'AbortError') {
-                console.warn(`❌ مهلة النموذج ${model}`);
-            } else {
-                console.warn(`❌ استثناء مع ${model}: ${error.message}`);
-            }
-            continue;
+    if (!OPENROUTER_KEYS || OPENROUTER_KEYS.length === 0) return null;
+
+    // إذا كان هناك مفتاح ونموذج ناجحين سابقاً، جرّبهما أولاً
+    if (LAST_WORKING_KEY && LAST_WORKING_MODEL) {
+        console.log(`🔄 محاولة النموذج المحفوظ (${LAST_WORKING_MODEL}) بالمفتاح المحفوظ...`);
+        const result = await tryModelWithKey(LAST_WORKING_MODEL, LAST_WORKING_KEY, prompt, question);
+        if (result) {
+            return result;
+        } else {
+            console.warn(`⚠️ المفتاح أو النموذج المحفوظ فشل، سنبحث عن بديل...`);
+            LAST_WORKING_KEY = null;
+            LAST_WORKING_MODEL = null;
         }
     }
-    console.error('❌ جميع نماذج OpenRouter فشلت');
+
+    // تجربة جميع المفاتيح والنماذج
+    for (let keyIndex = 0; keyIndex < OPENROUTER_KEYS.length; keyIndex++) {
+        const key = OPENROUTER_KEYS[keyIndex];
+        for (let modelIndex = 0; modelIndex < OPENROUTER_MODELS.length; modelIndex++) {
+            const model = OPENROUTER_MODELS[modelIndex];
+            console.log(`🔄 محاولة (مفتاح ${keyIndex+1}/${OPENROUTER_KEYS.length}, نموذج ${modelIndex+1}/${OPENROUTER_MODELS.length}): ${model}`);
+
+            const result = await tryModelWithKey(model, key, prompt, question);
+            if (result) {
+                // نجاح: حفظ المفتاح والنموذج للاستخدام القادم
+                LAST_WORKING_KEY = key;
+                LAST_WORKING_MODEL = model;
+                return result;
+            }
+            // فشل، نستمر
+        }
+        // بعد تجربة كل النماذج مع هذا المفتاح، ننتقل للمفتاح التالي
+        console.log(`⏭️ انتهى المفتاح ${keyIndex+1}، ننتقل إلى التالي...`);
+    }
+
+    console.error('❌ جميع المفاتيح والنماذج فشلت في OpenRouter');
     return null;
+}
+
+// ============================================================
+// 🧪 دالة مساعدة لتجربة نموذج مع مفتاح محدد
+// ============================================================
+async function tryModelWithKey(model, key, prompt, question) {
+    try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 10000);
+
+        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${key}`,
+                'Content-Type': 'application/json',
+                'HTTP-Referer': 'https://zertivab2.online/',
+                'X-Title': 'Zertiva B2'
+            },
+            body: JSON.stringify({
+                model: model,
+                messages: [
+                    { role: 'system', content: getSystemPrompt(question) },
+                    { role: 'user', content: prompt }
+                ],
+                max_tokens: 150,
+                temperature: 0.3
+            }),
+            signal: controller.signal
+        });
+
+        clearTimeout(timeout);
+        const data = await response.json();
+
+        // ✅ نجاح
+        if (response.ok && data.choices && data.choices.length > 0) {
+            const reply = data.choices[0].message.content;
+            console.log(`✅ نجح المفتاح والنموذج: ${model}`);
+            return { reply, provider: 'openrouter', model };
+        }
+
+        // ❌ فشل: تحليل الأخطاء
+        const status = response.status;
+        const errorMsg = data.error?.message || '';
+
+        // الأخطاء التي تستدعي تغيير المفتاح أو النموذج
+        if (status === 401 || status === 403 || status === 429 ||
+            errorMsg.includes('quota exceeded') ||
+            errorMsg.includes('credits exceeded') ||
+            errorMsg.includes('rate limit') ||
+            errorMsg.includes('insufficient_quota')) {
+            console.warn(`⛔ فشل المفتاح أو النموذج: ${status} - ${errorMsg}`);
+            return null; // فشل هذا المفتاح/النموذج
+        }
+
+        // أخطاء أخرى قد تكون مؤقتة (503, 404, 502, إلخ) → نعتبرها فشل وننتقل
+        if (status === 503 || status === 404 || status === 502 ||
+            errorMsg.includes('model unavailable') ||
+            errorMsg.includes('No endpoints') ||
+            errorMsg.includes('overloaded')) {
+            console.warn(`❌ فشل النموذج ${model}: ${status} - ${errorMsg || 'بدون سبب'}`);
+            return null;
+        }
+
+        // أي خطأ آخر
+        console.warn(`❌ فشل غير متوقع: ${status} - ${errorMsg}`);
+        return null;
+
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            console.warn(`❌ مهلة النموذج ${model} (تجاوز 10 ثواني)`);
+        } else {
+            console.warn(`❌ استثناء مع ${model}: ${error.message}`);
+        }
+        return null;
+    }
 }
 
 // ============================================================
@@ -212,8 +284,6 @@ async function callHuggingFace(prompt, question) {
 // ☁️ 4. دالة استدعاء Cloudflare AI (معطل)
 // ============================================================
 async function callCloudflare(prompt, question) {
-    // ❌ تم تعطيل Cloudflare لأنه يحتاج إلى Account ID
-    // إذا أردت تفعيله، استبدل YOUR_ACCOUNT_ID بالمعرف الفعلي من Cloudflare
     return null;
 }
 
@@ -285,9 +355,9 @@ app.get('/health', (req, res) => {
     res.json({
         status: 'OK',
         gemini: GEMINI_API_KEY ? '✅ موجود' : '❌ مفقود',
-        openrouter: OPENROUTER_API_KEY ? '✅ موجود' : '❌ مفقود',
+        openrouter_keys: OPENROUTER_KEYS.length,
         huggingface: HUGGINGFACE_API_KEY ? '✅ موجود' : '❌ مفقود',
-        cloudflare: CLOUDFLARE_API_KEY ? '✅ موجود (لكن معطل)' : '❌ مفقود',
+        cloudflare: CLOUDFLARE_API_KEY ? '✅ موجود (معطل)' : '❌ مفقود',
         models_count: OPENROUTER_MODELS.length
     });
 });
@@ -295,7 +365,7 @@ app.get('/health', (req, res) => {
 app.listen(PORT, () => {
     console.log(`🚀 الخادم شغال على http://localhost:${PORT}`);
     console.log(`📊 Gemini: ${GEMINI_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
-    console.log(`📊 OpenRouter: ${OPENROUTER_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
+    console.log(`📊 OpenRouter: ${OPENROUTER_KEYS.length} مفاتيح`);
     console.log(`📊 HuggingFace: ${HUGGINGFACE_API_KEY ? '✅ جاهز' : '❌ مفقود'}`);
     console.log(`📊 Cloudflare: ${CLOUDFLARE_API_KEY ? '✅ موجود (معطل)' : '❌ مفقود'}`);
     console.log(`📋 عدد نماذج OpenRouter: ${OPENROUTER_MODELS.length}`);
