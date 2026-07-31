@@ -3811,3 +3811,6 @@ window.matchingSelectedAnswers = matchingSelectedAnswers;
 window.matchingAvailableOptions = matchingAvailableOptions;
 window.currentMatchingExamData = currentMatchingExamData;
 window.renderMatchingQuestions = renderMatchingQuestions;
+// تصدير قواعد البيانات للملفات الأخرى
+window.examsDatabase = examsDatabase;
+window.teile = teile;
