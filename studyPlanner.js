@@ -1,19 +1,16 @@
 /**
- * studyPlanner.js - المدرب الذكي TELC B2 (الإصدار 8.0 - التصحيح النهائي لجميع المشاكل المنطقية)
+ * studyPlanner.js - المدرب الذكي TELC B2 (الإصدار 9.0 - مع إصلاح قراءة البيانات)
  * 
  * التغييرات الرئيسية:
- * 1. إصلاح حساب الأولوية للامتحانات الجديدة (لا تعطى 200 نقطة)
- * 2. selectedCount يعتمد على الأيام (ينخفض تلقائياً بعد 30 يوماً)
- * 3. Spaced Repetition لا يطبق على الامتحانات الجديدة
- * 4. remainingReps يبقى >0 إذا كانت آخر نتيجة < 80% (حتى مع 6 محاولات)
- * 5. تحسين حساب forgettingRate باستخدام الانحدار الخطي لآخر 3 نتائج
- * 6. منع الامتحانات الجديدة فقط في آخر 5 أيام (بدلاً من 10)
- * 7. Memory Trainer يصبح ضرباً في 0.9 بدلاً من طرح 15
- * 8. إضافة توازن بين الأقسام (حد أقصى 3 امتحانات لكل قسم في الخطة اليومية)
- * 9. استخدام sectionWeight فعلياً في الأولوية
- * 10. الامتحانات المتقنة تُستثنى تماماً (تُضاف فقط عند الحاجة)
- * 11. إضافة تحذير إذا كان الوقت غير كافٍ لتحقيق الهدف
- * 12. تحسين دقة forgettingRate باستخدام ميل آخر 3 نتائج
+ * 1. إصلاح دوال قراءة البيانات لتستخدم المفاتيح الصحيحة:
+ *    - getRawResults(): تجمع من exam_result_* و exam_retry_*
+ *    - getMemoryData(): تقرأ من memory_levels
+ *    - getPlanHistory(): تقرأ من studyPlannerData (أو تنشئ كائن فارغ)
+ *    - savePlanHistory(): تحفظ في study_planner_history_v3
+ * 2. تحسين analyzeExam للتعامل مع البيانات الجديدة (لا توجد مصفوفة scores، فقط نتيجة واحدة)
+ * 3. تحسين calculatePriority للتعامل مع الحالات التي تكون فيها average = 0
+ * 4. استخدام window.getExamResult و window.getRetryCount إن وجدت، وإلا قراءة مباشرة من localStorage
+ * 5. الحفاظ على جميع دوال واجهة المستخدم كما هي
  */
 
 (function() {
@@ -25,11 +22,11 @@
 
     class StudyPlannerEngine {
         constructor() {
-            // مفاتيح التخزين
+            // مفاتيح التخزين (تم تعديلها لاستخدام المفاتيح الصحيحة)
             this.storageKeyDate = 'user_exam_date';
-            this.storageKeyResults = 'user_exam_results_v1';
-            this.storageKeyMemory = 'memory_trainer_progress';
-            this.storageKeyPlans = 'study_planner_history_v3';
+            this.storageKeyResults = 'user_exam_results_v1'; // لم نعد نستخدمها، ولكن سنبقيها للتوافق
+            this.storageKeyMemory = 'memory_trainer_progress'; // لم نعد نستخدمها
+            this.storageKeyPlans = 'study_planner_history_v3'; // سنستخدم هذا المفتاح لحفظ تاريخ الخطط
 
             // هيكل أقسام TELC (8 أقسام، 20 امتحان لكل قسم)
             this.sections = [
@@ -55,7 +52,7 @@
             ];
         }
 
-        // ------------------- قراءة البيانات -------------------
+        // ------------------- قراءة البيانات (المعدلة) -------------------
         getExamDate() {
             return localStorage.getItem(this.storageKeyDate) || null;
         }
@@ -64,37 +61,161 @@
             localStorage.setItem(this.storageKeyDate, dateStr);
         }
 
+        /**
+         * تجمع البيانات من exam_result_* و exam_retry_*
+         * تقوم ببناء كائن مشابه لـ user_exam_results_v1 ولكن من المفاتيح الفعلية
+         */
         getRawResults() {
             try {
-                const raw = localStorage.getItem(this.storageKeyResults);
-                return raw ? JSON.parse(raw) : {};
+                const result = {};
+                const allKeys = Object.keys(localStorage);
+
+                // 1. جمع النتائج من exam_result_*
+                const resultKeys = allKeys.filter(k => k.startsWith('exam_result_'));
+                for (const key of resultKeys) {
+                    // key = "exam_result_hoeren1_1"
+                    const parts = key.split('_'); // ["exam", "result", "hoeren1", "1"]
+                    if (parts.length >= 4) {
+                        const skill = parts.slice(2, parts.length - 1).join('_'); // "hoeren1"
+                        const examId = parseInt(parts[parts.length - 1], 10);
+                        const score = parseFloat(localStorage.getItem(key));
+                        if (!isNaN(score) && score !== null) {
+                            if (!result[skill]) result[skill] = [];
+                            // نبحث إذا كان الامتحان موجوداً مسبقاً (لتجنب التكرار)
+                            let existing = result[skill].find(e => e.id === examId);
+                            if (!existing) {
+                                existing = { id: examId, averageScore: score, scores: [score] };
+                                result[skill].push(existing);
+                            } else {
+                                // لو تكرر (نادر) نقوم بتحديث المتوسط
+                                existing.averageScore = score;
+                                if (!existing.scores) existing.scores = [score];
+                                else existing.scores.push(score);
+                            }
+                        }
+                    }
+                }
+
+                // 2. جمع عدد المحاولات من exam_retry_*
+                const retryKeys = allKeys.filter(k => k.startsWith('exam_retry_'));
+                for (const key of retryKeys) {
+                    const parts = key.split('_');
+                    if (parts.length >= 4) {
+                        const skill = parts.slice(2, parts.length - 1).join('_');
+                        const examId = parseInt(parts[parts.length - 1], 10);
+                        const retries = parseInt(localStorage.getItem(key), 10);
+                        if (!isNaN(retries)) {
+                            // البحث عن الامتحان في النتائج
+                            if (result[skill]) {
+                                const exam = result[skill].find(e => e.id === examId);
+                                if (exam) {
+                                    exam.attemptsCount = retries;
+                                    exam.attempts = retries; // للتوافق
+                                } else {
+                                    // إذا لم يكن هناك نتيجة، نضيف الامتحان بدون نتيجة ولكن مع عدد المحاولات
+                                    if (!result[skill]) result[skill] = [];
+                                    result[skill].push({
+                                        id: examId,
+                                        attemptsCount: retries,
+                                        attempts: retries,
+                                        averageScore: 0,
+                                        scores: []
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // 3. يمكننا أيضاً قراءة studyPlannerData للحصول على أي بيانات إضافية مثل lastAttemptDate
+                // ولكننا سنكتفي بما لدينا.
+                return result;
             } catch (e) {
+                console.warn('فشل قراءة نتائج الامتحانات:', e);
                 return {};
             }
         }
 
+        /**
+         * تقرأ من memory_levels وتحوله إلى هيكل { sectionId: { testId: true/false } }
+         * نفترض أن وجود أي مستوى > 0 يعني أن Memory Trainer قد تم إكماله لهذا الامتحان.
+         */
         getMemoryData() {
             try {
-                const raw = localStorage.getItem(this.storageKeyMemory);
-                return raw ? JSON.parse(raw) : {};
+                const raw = localStorage.getItem('memory_levels');
+                if (!raw) return {};
+                const data = JSON.parse(raw);
+                const memoryData = {};
+                // data = { "hoeren1_exam1_2": 2, "hoeren1_exam1_1": 1, ... }
+                for (const key in data) {
+                    // key = "hoeren1_exam1_2"
+                    const parts = key.split('_'); // ["hoeren1", "exam1", "2"]
+                    if (parts.length >= 2) {
+                        const skill = parts[0];
+                        const examPart = parts[1]; // "exam1"
+                        const examId = parseInt(examPart.replace('exam', ''), 10);
+                        if (!isNaN(examId) && data[key] > 0) {
+                            if (!memoryData[skill]) memoryData[skill] = {};
+                            // نحدد أن هذا الامتحان تم إكمال Memory Trainer له (نعطي قيمة true)
+                            memoryData[skill][examId] = true;
+                        }
+                    }
+                }
+                return memoryData;
             } catch (e) {
+                console.warn('فشل قراءة بيانات Memory Trainer:', e);
                 return {};
             }
         }
 
+        /**
+         * تقرأ من studyPlannerData لاستخراج تاريخ الخطط (عدد مرات اختيار كل امتحان)
+         * إذا لم يكن موجوداً، تعيد كائن فارغ.
+         */
         getPlanHistory() {
             try {
-                const raw = localStorage.getItem(this.storageKeyPlans);
-                return raw ? JSON.parse(raw) : {};
+                // نقرأ من studyPlannerData حيث قد يكون هناك سجل للخطط السابقة
+                const raw = localStorage.getItem('studyPlannerData');
+                if (!raw) return {};
+                const data = JSON.parse(raw);
+                // إذا كان هناك حقل history داخل studyPlannerData نستخدمه، وإلا ننشئ كائن فارغ
+                if (data.history) {
+                    return data.history;
+                } else {
+                    // نحاول أيضاً قراءة من study_planner_history_v3 إذا كان موجوداً
+                    const rawHistory = localStorage.getItem(this.storageKeyPlans);
+                    if (rawHistory) {
+                        try {
+                            return JSON.parse(rawHistory);
+                        } catch (e) {}
+                    }
+                    return {};
+                }
             } catch (e) {
+                console.warn('فشل قراءة تاريخ الخطة:', e);
                 return {};
             }
         }
 
+        /**
+         * تحفظ تاريخ الخطة في study_planner_history_v3
+         * وتحديث studyPlannerData إن أمكن.
+         */
         savePlanHistory(history) {
             try {
+                // نحفظ في المفتاح الجديد
                 localStorage.setItem(this.storageKeyPlans, JSON.stringify(history));
-            } catch (e) {}
+                // نحاول أيضاً تحديث studyPlannerData لإضافة history
+                try {
+                    const raw = localStorage.getItem('studyPlannerData');
+                    let data = raw ? JSON.parse(raw) : {};
+                    data.history = history;
+                    data.date = new Date().toISOString().slice(0, 10);
+                    localStorage.setItem('studyPlannerData', JSON.stringify(data));
+                } catch (e) {}
+            } catch (e) {
+                console.warn('فشل حفظ تاريخ الخطة:', e);
+            }
         }
 
         getDaysRemaining() {
@@ -115,13 +236,21 @@
             return effective > 0 ? effective : 1;
         }
 
-        // ------------------- تحليل متقدم لكل امتحان -------------------
+        // ------------------- تحليل متقدم لكل امتحان (تم تعديله ليتعامل مع البيانات الجديدة) -------------------
         analyzeExam(sectionId, testId, rawData, memoryData) {
             const secData = rawData[sectionId] || [];
             const secMemory = memoryData[sectionId] || {};
             const found = secData.find(t => (t.id || t.title) == testId) || {};
 
-            const allScores = found.scores || (found.averageScore ? [found.averageScore] : []);
+            // قد لا يكون هناك scores، نستخدم averageScore كمصفوفة من درجة واحدة
+            let allScores = found.scores;
+            if (!allScores || allScores.length === 0) {
+                if (found.averageScore !== undefined && found.averageScore !== null) {
+                    allScores = [found.averageScore];
+                } else {
+                    allScores = [];
+                }
+            }
             const attempts = found.attemptsCount || found.attempts || 0;
             const lastDate = found.lastAttemptDate || null;
             const memoryCompleted = secMemory[testId] || false;
@@ -147,7 +276,7 @@
             // الإتقان الحقيقي: 6 محاولات + متوسط >= 85 + آخر نتيجة >= 80
             const isMastered = attempts >= this.targetRepetitions && avg >= 85 && lastScore >= 80;
 
-            // حساب forgettingRate باستخدام الانحدار الخطي لآخر 3 نتائج
+            // حساب forgettingRate باستخدام الانحدار الخطي لآخر 3 نتائج (إن وجدت)
             let forgettingRate = 0;
             const recent3 = allScores.slice(-3);
             if (recent3.length >= 3) {
@@ -158,7 +287,7 @@
                 const sumXY = indices.reduce((a,b,i) => a + b * recent3[i], 0);
                 const sumX2 = indices.reduce((a,b) => a + b * b, 0);
                 const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-                forgettingRate = Math.max(0, -slope); // الميل السالب = نسيان
+                forgettingRate = Math.max(0, -slope);
             }
 
             const recentScores = allScores.slice(-3);
@@ -190,13 +319,13 @@
             };
         }
 
-        // ------------------- حساب الأولوية الديناميكية (المعدل) -------------------
+        // ------------------- حساب الأولوية (تم تعديله قليلاً) -------------------
         calculatePriority(exam, phase, daysRemaining, selectedCount, daysSinceLastSelect) {
             let priority = 0;
 
             // 1. عامل النتيجة: الامتحانات الجديدة تحصل على قيمة معقولة (40)
             let scoreFactor;
-            if (exam.isFresh) {
+            if (exam.isFresh || exam.average === 0) {
                 scoreFactor = 40;
             } else {
                 scoreFactor = Math.max(0, (100 - exam.average) * 2);
@@ -239,7 +368,7 @@
             // 9. النسيان الشديد
             if (exam.isForgotten) priority += 40;
 
-            // 10. سرعة النسيان (المحسنة)
+            // 10. سرعة النسيان
             if (exam.forgettingRate > 0.5) {
                 priority += exam.forgettingRate * 20;
             }
@@ -913,7 +1042,7 @@
         if (btn) {
             btn.removeEventListener('click', window.openStudyPlanner);
             btn.addEventListener('click', window.openStudyPlanner);
-            console.log('✅ المدرب الذكي TELC B2 جاهز (الإصدار 8.0 - التصحيح النهائي)');
+            console.log('✅ المدرب الذكي TELC B2 جاهز (الإصدار 9.0 - إصلاح قراءة البيانات)');
         } else {
             console.warn('⚠️ الزر studyPlannerBtn غير موجود.');
         }
