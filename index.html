@@ -2617,8 +2617,9 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <script>
-// ============================================
-// 🧠 نظام Ask AI (يعمل عبر الخادم /ask)
+
+ // ============================================
+// 🧠 نظام Ask AI المتطور (يدعم 6 مزودات مع تجاوز تلقائي)
 // ============================================
 (function() {
     const floatingBtn = document.getElementById('askAIFloatingBtn');
@@ -2635,6 +2636,408 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let isOpen = false;
     let isLoading = false;
+
+    // ============================================
+    // 🔑 جميع المفاتيح (مرتبة حسب المزود)
+    // ============================================
+
+    // Gemini (مفاتيح متعددة)
+    const GEMINI_KEYS = [
+        'AQ.Ab8RN6IEpyTQ2rXEDHOLgbIY84Q3nVH_ApbAosh2CLfjvSvWCQ',
+        'AQ.Ab8RN6JvGQBQQnUp9DMNdL8rk0PKqm-f9GaT6yLGHjqc8MXFGw',
+        'AQ.Ab8RN6KNZ6d32-pXvfue95-_UfptNLdN-5kfF-wYDAQ1rTVvdQ',
+        'AQ.Ab8RN6Jy7LA6Am3EGq53Nw9g7U9fn93yD7D5Eba6MPpDmamXsA'
+    ];
+
+    // Groq
+    const GROQ_KEYS = [
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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'
+    ];
+
+    // OpenRouter
+    const OPENROUTER_KEYS = [
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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'
+    ];
+
+    // Cerebras
+    const CEREBRAS_KEYS = [
+        'csk-xfkw8djtw3eexwwerxkefyw6dnv364jmpkxhvvwf98ym44wd',
+        'csk-mw9ntxxc6vmdr4k6mjnrchj9eecm3cepwe5kwyxr3pfxf6td',
+        'csk-96v983y9md9pp3kpt246wxyv8re2w3dnmh2nywnyxehpyhet',
+        'csk-n32yr2revhk999wjrd5e3e9pkhrywd49hvx388yv44xwm89v',
+        'csk-vfm2xhtrd4mcxfydy6y4txh9m5cxjh34pred39xj8mr9f4e4',
+        'csk-53jd4p4n8dpppmj8jpdk62v422d25ep4hp3e2x346x8n2kj2'
+    ];
+
+    // SambaNova
+    const SAMBANOVA_KEYS = [
+        '88aa271a-3254-44cf-8f61-070d7771a3ed',
+        '048687a1-df97-4135-b446-af580887206e',
+        'd047e95c-2da4-451d-83e0-97c0b209fa39'
+    ];
+
+    // Together AI
+    const TOGETHER_KEYS = [
+        'key_CdZKM6Puk4TKFkMJ2PW8Q',
+        'key_CdZKb8qszpjHqzoGAxBPT'
+    ];
+
+    // نماذج OpenRouter المجانية (للاختيار)
+    const OPENROUTER_MODELS = [
+        'nvidia/nemotron-3-ultra-550b-a55b:free',
+        'nvidia/nemotron-3-super-120b-a12b:free',
+        'poolside/laguna-xs-2.1:free',
+        'poolside/laguna-s-2.1:free',
+        'google/gemma-4-31b-it:free',
+        'google/gemma-4-26b-a4b-it:free',
+        'openai/gpt-oss-20b:free',
+        'cohere/north-mini-code:free',
+        'inclusionai/ling-3.0-flash:free',
+        'nvidia/nemotron-nano-9b-v2:free',
+        'nvidia/nemotron-3-nano-30b-a3b:free',
+        'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free'
+    ];
+
+    // ============================================
+    // 🔄 نظام التذكر (Last Successful Key لكل مزود)
+    // ============================================
+    const LAST_KEY_STORAGE = 'zertiva_last_successful_key';
+    function getLastSuccessfulKey(provider) {
+        try {
+            const data = JSON.parse(localStorage.getItem(LAST_KEY_STORAGE) || '{}');
+            return data[provider] || 0; // index
+        } catch { return 0; }
+    }
+    function setLastSuccessfulKey(provider, index) {
+        try {
+            const data = JSON.parse(localStorage.getItem(LAST_KEY_STORAGE) || '{}');
+            data[provider] = index;
+            localStorage.setItem(LAST_KEY_STORAGE, JSON.stringify(data));
+        } catch {}
+    }
+
+    // ============================================
+    // ⚙️ دوال استدعاء كل مزود (مع معالجة الأخطاء)
+    // ============================================
+
+    async function callGemini(prompt, systemMsg, key, timeout = 15000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeout);
+        try {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${key}`;
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: `${systemMsg}\n\n${prompt}` }] }],
+                    generationConfig: { maxOutputTokens: 150, temperature: 0.3 }
+                }),
+                signal: controller.signal
+            });
+            clearTimeout(timer);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            if (data.candidates && data.candidates.length > 0) {
+                return data.candidates[0].content.parts[0].text;
+            }
+            throw new Error('Empty response');
+        } catch (e) {
+            clearTimeout(timer);
+            throw e;
+        }
+    }
+
+    async function callGroq(prompt, systemMsg, key, timeout = 15000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeout);
+        try {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${key}`
+                },
+                body: JSON.stringify({
+                    model: 'mixtral-8x7b-32768',
+                    messages: [
+                        { role: 'system', content: systemMsg },
+                        { role: 'user', content: prompt }
+                    ],
+                    max_tokens: 150,
+                    temperature: 0.3
+                }),
+                signal: controller.signal
+            });
+            clearTimeout(timer);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            if (data.choices && data.choices.length > 0) {
+                return data.choices[0].message.content;
+            }
+            throw new Error('Empty response');
+        } catch (e) {
+            clearTimeout(timer);
+            throw e;
+        }
+    }
+
+    async function callOpenRouter(prompt, systemMsg, key, model, timeout = 15000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeout);
+        try {
+            const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${key}`,
+                    'Content-Type': 'application/json',
+                    'HTTP-Referer': 'https://zertivab2.online/'
+                },
+                body: JSON.stringify({
+                    model: model,
+                    messages: [
+                        { role: 'system', content: systemMsg },
+                        { role: 'user', content: prompt }
+                    ],
+                    max_tokens: 150,
+                    temperature: 0.3
+                }),
+                signal: controller.signal
+            });
+            clearTimeout(timer);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            if (data.choices && data.choices.length > 0) {
+                return data.choices[0].message.content;
+            }
+            throw new Error('Empty response');
+        } catch (e) {
+            clearTimeout(timer);
+            throw e;
+        }
+    }
+
+    async function callCerebras(prompt, systemMsg, key, timeout = 15000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeout);
+        try {
+            const res = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${key}`
+                },
+                body: JSON.stringify({
+                    model: 'llama3.1-8b',
+                    messages: [
+                        { role: 'system', content: systemMsg },
+                        { role: 'user', content: prompt }
+                    ],
+                    max_tokens: 150,
+                    temperature: 0.3
+                }),
+                signal: controller.signal
+            });
+            clearTimeout(timer);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            if (data.choices && data.choices.length > 0) {
+                return data.choices[0].message.content;
+            }
+            throw new Error('Empty response');
+        } catch (e) {
+            clearTimeout(timer);
+            throw e;
+        }
+    }
+
+    async function callSambaNova(prompt, systemMsg, key, timeout = 15000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeout);
+        try {
+            const res = await fetch('https://api.sambanova.ai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${key}`
+                },
+                body: JSON.stringify({
+                    model: 'Meta-Llama-3.1-8B-Instruct',
+                    messages: [
+                        { role: 'system', content: systemMsg },
+                        { role: 'user', content: prompt }
+                    ],
+                    max_tokens: 150,
+                    temperature: 0.3
+                }),
+                signal: controller.signal
+            });
+            clearTimeout(timer);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            if (data.choices && data.choices.length > 0) {
+                return data.choices[0].message.content;
+            }
+            throw new Error('Empty response');
+        } catch (e) {
+            clearTimeout(timer);
+            throw e;
+        }
+    }
+
+    async function callTogether(prompt, systemMsg, key, timeout = 15000) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), timeout);
+        try {
+            const res = await fetch('https://api.together.xyz/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${key}`
+                },
+                body: JSON.stringify({
+                    model: 'meta-llama/Llama-3.2-3B-Instruct-Turbo',
+                    messages: [
+                        { role: 'system', content: systemMsg },
+                        { role: 'user', content: prompt }
+                    ],
+                    max_tokens: 150,
+                    temperature: 0.3
+                }),
+                signal: controller.signal
+            });
+            clearTimeout(timer);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const data = await res.json();
+            if (data.choices && data.choices.length > 0) {
+                return data.choices[0].message.content;
+            }
+            throw new Error('Empty response');
+        } catch (e) {
+            clearTimeout(timer);
+            throw e;
+        }
+    }
+
+    // ============================================
+    // 🧠 المزودات (مع مفاتيحها ودوال الاتصال)
+    // ============================================
+    const PROVIDERS = [
+        {
+            id: 'gemini',
+            name: 'Gemini',
+            keys: GEMINI_KEYS,
+            call: callGemini,
+            // Gemini لا يحتاج نموذج إضافي
+        },
+        {
+            id: 'groq',
+            name: 'Groq',
+            keys: GROQ_KEYS,
+            call: callGroq,
+        },
+        {
+            id: 'openrouter',
+            name: 'OpenRouter',
+            keys: OPENROUTER_KEYS,
+            call: callOpenRouter,
+            models: OPENROUTER_MODELS, // سنمرر أول نموذج فقط
+        },
+        {
+            id: 'cerebras',
+            name: 'Cerebras',
+            keys: CEREBRAS_KEYS,
+            call: callCerebras,
+        },
+        {
+            id: 'sambanova',
+            name: 'SambaNova',
+            keys: SAMBANOVA_KEYS,
+            call: callSambaNova,
+        },
+        {
+            id: 'together',
+            name: 'Together AI',
+            keys: TOGETHER_KEYS,
+            call: callTogether,
+        }
+    ];
+
+    // فلترة المزودات التي لديها مفاتيح
+    const activeProviders = PROVIDERS.filter(p => p.keys && p.keys.length > 0);
+    console.log(`🧠 عدد المزودات النشطة: ${activeProviders.length}`);
+
+    // ============================================
+    // 🚀 الدالة الرئيسية لتجربة جميع المزودات
+    // ============================================
+    async function tryAllProviders(prompt, systemMsg) {
+        let lastError = null;
+        // نبدأ من أول مزود
+        for (let pIdx = 0; pIdx < activeProviders.length; pIdx++) {
+            const provider = activeProviders[pIdx];
+            const keys = provider.keys;
+            const startIndex = getLastSuccessfulKey(provider.id) % keys.length; // تذكر آخر مفتاح ناجح
+
+            // جرب جميع مفاتيح هذا المزود بدءاً من startIndex
+            for (let k = 0; k < keys.length; k++) {
+                const keyIndex = (startIndex + k) % keys.length;
+                const key = keys[keyIndex];
+                try {
+                    console.log(`🔄 محاولة ${provider.name} Key ${keyIndex + 1}`);
+                    let reply;
+                    if (provider.id === 'openrouter') {
+                        // اختر نموذجاً (نستخدم الأول أو نموذج محفوظ)
+                        const model = provider.models ? provider.models[0] : 'nvidia/nemotron-3-ultra-550b-a55b:free';
+                        reply = await provider.call(prompt, systemMsg, key, model);
+                    } else {
+                        reply = await provider.call(prompt, systemMsg, key);
+                    }
+                    // نجاح!
+                    console.log(`✅ ${provider.name} Key ${keyIndex + 1} نجح`);
+                    // حفظ آخر مفتاح ناجح لهذا المزود
+                    setLastSuccessfulKey(provider.id, keyIndex);
+                    return reply;
+                } catch (error) {
+                    const msg = error.message || '';
+                    const lower = msg.toLowerCase();
+                    // الأخطاء التي نعتبرها فشل للمفتاح (جميع الأخطاء المطلوبة)
+                    const isFailure = 
+                        msg.includes('401') || msg.includes('403') || msg.includes('429') ||
+                        msg.includes('quota') || msg.includes('rate limit') || msg.includes('credits') ||
+                        msg.includes('expired') || msg.includes('timeout') || msg.includes('network') ||
+                        msg.includes('503') || msg.includes('502') || msg.includes('500') ||
+                        msg.includes('model unavailable') || msg.includes('overloaded') ||
+                        msg.includes('no endpoints');
+                    if (isFailure) {
+                        console.warn(`❌ ${provider.name} Key ${keyIndex + 1} فشل: ${error.message}`);
+                        // نستمر للمفتاح التالي
+                    } else {
+                        // خطأ غير متوقع، نعتبره فشل ونستمر
+                        console.warn(`⚠️ ${provider.name} Key ${keyIndex + 1} خطأ غير متوقع: ${error.message}`);
+                    }
+                    lastError = error;
+                    // نستمر في تجربة المفاتيح التالية
+                }
+            }
+            // انتهت مفاتيح هذا المزود، ننتقل للتالي
+            console.warn(`⏭️ انتهت مفاتيح ${provider.name}، ننتقل إلى المزود التالي`);
+        }
+        // إذا وصلنا هنا، كل المزودات فشلت
+        throw new Error('جميع المزودات غير متاحة حالياً');
+    }
+
+    // ============================================
+    // 💬 وظائف واجهة الدردشة
+    // ============================================
 
     function toggleChat() {
         isOpen = !isOpen;
@@ -2670,7 +3073,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (loading) loading.remove();
     }
 
-    // ===== دالة إرسال الرسالة إلى الخادم =====
+    // ============================================
+    // 💬 دالة إرسال الرسالة (المعدلة)
+    // ============================================
     async function sendMessage() {
         const text = userInput.value.trim();
         if (!text || isLoading) return;
@@ -2679,12 +3084,12 @@ document.addEventListener("DOMContentLoaded", function() {
         userInput.value = '';
         userInput.disabled = true;
 
-        // ===== استخراج السياق =====
+        // استخراج السياق (نفس الكود القديم)
         const skill = window.currentSkill || 'unknown';
         const examNumber = window.currentExamId || 1;
         const examData = window.currentExamData || null;
 
-        let context = {
+        let promptData = {
             skill: skill,
             exam: examNumber,
             type: examData?.type || 'unknown',
@@ -2698,59 +3103,55 @@ document.addEventListener("DOMContentLoaded", function() {
         };
 
         if (examData) {
-            context.paragraph = examData.paragraph || examData.text || examData.dialog || examData.audioText || '';
-            if (examData.questions && Array.isArray(examData.questions)) {
-                context.questions = examData.questions.map(q => ({
+            promptData.paragraph = examData.paragraph || examData.text || examData.dialog || examData.audioText || '';
+            if (examData.questions && Array.isArray(examData.questions) && examData.questions.length > 0) {
+                promptData.questions = examData.questions.map(q => ({
                     number: q.id || q.displayNumber || 0,
                     text: q.text || '',
                     options: q.options || []
                 }));
-                context.totalQuestions = examData.questions.length;
+                promptData.totalQuestions = examData.questions.length;
             }
-            if (examData.items && Array.isArray(examData.items)) {
-                context.items = examData.items.map(item => ({
+            if (examData.items && Array.isArray(examData.items) && examData.items.length > 0) {
+                promptData.items = examData.items.map(item => ({
                     id: item.id || '',
                     text: item.text || ''
                 }));
-                context.situations = examData.situations || [];
+                promptData.situations = examData.situations || [];
             }
-            if (examData.options && Array.isArray(examData.options)) {
-                context.options = examData.options.map(opt => ({
+            if (examData.options && Array.isArray(examData.options) && examData.options.length > 0) {
+                promptData.options = examData.options.map(opt => ({
                     id: opt.id,
                     options: opt.options || []
                 }));
-                if (examData.allOptions) context.allOptions = examData.allOptions;
-                if (examData.text) context.paragraph = examData.text;
+                if (examData.allOptions) promptData.allOptions = examData.allOptions;
+                if (examData.text) promptData.paragraph = examData.text;
             }
         }
 
-        console.log('📤 إرسال طلب إلى الخادم:', { question: text, context });
+        const systemMessage = 'أنت مساعد Zertiva B2. أجب باختصار شديد (جملة إلى جملتين). استخدم السياق المقدم.';
+        const userMessage = `السياق (بيانات الامتحان الحالية): ${JSON.stringify(promptData)}\n\nسؤال الطالب: "${text}"`;
+
+        console.log('📤 إرسال طلب:', { question: text, context: promptData });
 
         showLoading();
 
+        let reply = null;
         try {
-            const response = await fetch('/ask', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    question: text,
-                    context: JSON.stringify(context) // أو يمكن إرسال السياق ككائن عادي
-                })
-            });
-
-            const data = await response.json();
-
-            if (response.ok && data.reply) {
-                addMessage(data.reply, 'assistant');
-            } else {
-                addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
-            }
+            reply = await tryAllProviders(userMessage, systemMessage);
         } catch (error) {
-            console.error('❌ خطأ في الاتصال بالخادم:', error);
-            addMessage('حدث خطأ في الاتصال بالخادم. تأكد من أن الخادم يعمل.', 'assistant');
+            console.error('❌ فشل جميع المزودات:', error.message);
+            reply = null;
         }
 
         hideLoading();
+
+        if (reply) {
+            addMessage(reply, 'assistant');
+        } else {
+            addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
+        }
+
         userInput.disabled = false;
         userInput.focus();
     }
@@ -2767,8 +3168,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    console.log('✅ Ask AI جاهز (يعمل عبر الخادم)');
+    console.log('✅ Ask AI جاهز (يدعم 6 مزودات مع تجاوز تلقائي)');
 })();
+    
 </script>
 </body>
 </html>
