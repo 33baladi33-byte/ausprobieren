@@ -1,6 +1,6 @@
 // ============================================
 // studyPlanner.js - المدرب الذكي (Smart Study Planner)
-// الإصدار 3.0 - النظام الديناميكي الكامل
+// الإصدار 4.0 - المدرب الشخصي الذكي الكامل
 // ============================================
 
 (function() {
@@ -25,8 +25,10 @@
             low: 2,          // ≥ 40%
             veryLow: 1       // < 40%
         },
+        // الهدف: 6 مرات لكل امتحان قبل الامتحان بيومين
+        targetRetriesPerExam: 6,
         // الحد الأقصى للامتحانات اليومية
-        maxDailyExams: 10,
+        maxDailyExams: 12,
         // الأوزان الثابتة للأجزاء (تستخدم كقاعدة)
         defaultWeights: {
             hoeren1: 10, hoeren2: 10, hoeren3: 10,
@@ -34,7 +36,18 @@
             sprach1: 5, sprach2: 3
         },
         // الأجزاء النشطة
-        activeSkills: ['hoeren1', 'hoeren2', 'hoeren3', 'lesen1', 'lesen2', 'lesen3', 'sprach1', 'sprach2']
+        activeSkills: ['hoeren1', 'hoeren2', 'hoeren3', 'lesen1', 'lesen2', 'lesen3', 'sprach1', 'sprach2'],
+        // أسماء الأجزاء للعرض
+        skillNames: {
+            hoeren1: 'Hören 1',
+            hoeren2: 'Hören 2',
+            hoeren3: 'Hören 3',
+            lesen1: 'Lesen 1',
+            lesen2: 'Lesen 2',
+            lesen3: 'Lesen 3',
+            sprach1: 'Sprachbausteine 1',
+            sprach2: 'Sprachbausteine 2'
+        }
     };
 
     // ============================================
@@ -110,19 +123,6 @@
         } catch (e) { /* ignore */ }
     }
 
-    function getDailyGoal() {
-        try {
-            const raw = localStorage.getItem(DAILY_GOAL_KEY);
-            return raw ? JSON.parse(raw) : null;
-        } catch (e) { return null; }
-    }
-
-    function saveDailyGoal(goal) {
-        try {
-            localStorage.setItem(DAILY_GOAL_KEY, JSON.stringify(goal));
-        } catch (e) { /* ignore */ }
-    }
-
     // ============================================
     // 3. تحليل متقدم للمستخدم
     // ============================================
@@ -137,27 +137,27 @@
             averageScore: 0,
             totalRetries: 0,
             overallProgress: 0,
-            stability: 0,       // الانحراف المعياري (كلما قل، كان أفضل)
-            volatility: 0,      // الفرق بين أعلى وأدنى درجة
-            trend: 0,           // ميل المنحنى (موجب = تحسن)
+            stability: 0,
+            volatility: 0,
+            trend: 0,
             masteredSections: [],
             weakSections: [],
             summary: {}
         };
 
-        // حساب الأيام المتبقية
+        // حساب الأيام المتبقية (مع مراعاة يومين قبل الامتحان)
         if (examDate) {
             const today = new Date();
             const exam = new Date(examDate);
             const diff = Math.ceil((exam - today) / (1000 * 60 * 60 * 24));
-            result.daysRemaining = diff > 0 ? diff : 0;
+            // آخر يوم دراسة هو قبل الامتحان بيومين
+            result.daysRemaining = diff > 2 ? diff - 2 : 0;
         }
 
         const skills = CONFIG.activeSkills;
         let totalScoreSum = 0, totalScoreCount = 0, totalRetriesSum = 0;
         let allScores = [];
 
-        // تحليل كل جزء
         skills.forEach(skill => {
             const sectionData = {
                 exams: [],
@@ -174,7 +174,9 @@
                 trend: 0,
                 isMastered: false,
                 needsReview: false,
-                recentScores: []
+                recentScores: [],
+                notStartedExams: 0,
+                remainingRetriesNeeded: 0
             };
 
             const examList = window.examsDatabase && window.examsDatabase[skill] ? window.examsDatabase[skill] : [];
@@ -194,13 +196,14 @@
                     sectionData.completedExams++;
                     totalScoreSum += result;
                     totalScoreCount++;
+                } else {
+                    sectionData.notStartedExams++;
                 }
                 if (retries > 0) {
                     totalRetries += retries;
                     totalRetriesSum += retries;
                 }
 
-                // آخر مراجعة (تقريبية)
                 const lastReview = window.getLastReviewDate ? window.getLastReviewDate(skill, examId) : null;
                 if (lastReview) {
                     const days = Math.floor((Date.now() - new Date(lastReview)) / (1000 * 60 * 60 * 24));
@@ -210,17 +213,12 @@
                 }
             });
 
-            // المتوسط
             if (examScores.length > 0) {
                 sectionData.average = examScores.reduce((a, b) => a + b, 0) / examScores.length;
                 sectionData.scores = examScores.slice();
-                // آخر 10 نتائج للتحليل
                 sectionData.recentScores = examScores.slice(-10);
-                // حساب الاستقرار (الانحراف المعياري)
                 sectionData.stability = calculateStability(examScores);
-                // حساب التذبذب (الفرق بين الأعلى والأدنى)
                 sectionData.volatility = Math.max(...examScores) - Math.min(...examScores);
-                // حساب المنحنى (الاتجاه)
                 sectionData.trend = calculateTrend(examScores);
             }
 
@@ -230,22 +228,24 @@
             sectionData.retryCount = totalRetries;
             sectionData.progress = sectionData.totalExams > 0 ? (sectionData.completedExams / sectionData.totalExams) * 100 : 0;
 
-            // تحديد إذا كان الجزء متقناً (آخر 15 امتحان > 90%)
+            // حساب عدد المراجعات المتبقية للوصول إلى 6 مرات لكل امتحان
+            const totalRetriesNeeded = sectionData.totalExams * CONFIG.targetRetriesPerExam;
+            const currentRetries = examList.reduce((sum, exam) => {
+                return sum + (window.getRetryCount ? window.getRetryCount(skill, exam.id) : 0);
+            }, 0);
+            sectionData.remainingRetriesNeeded = Math.max(0, totalRetriesNeeded - currentRetries);
+
             const recent15 = examScores.slice(-15);
             sectionData.isMastered = recent15.length >= 15 && recent15.every(s => s >= 90);
-
-            // يحتاج مراجعة إذا كان المتوسط < 60 أو آخر مراجعة > 10 أيام
             sectionData.needsReview = sectionData.average < 60 || (sectionData.lastReviewDays !== null && sectionData.lastReviewDays > 10);
 
             result.sections[skill] = sectionData;
         });
 
-        // الإحصائيات العامة
         result.totalExamsCompleted = totalScoreCount;
         result.averageScore = totalScoreCount > 0 ? totalScoreSum / totalScoreCount : 0;
         result.totalRetries = totalRetriesSum;
 
-        // التقدم الكلي
         let totalProgress = 0, count = 0;
         skills.forEach(skill => {
             if (result.sections[skill]) {
@@ -255,7 +255,6 @@
         });
         result.overallProgress = count > 0 ? totalProgress / count : 0;
 
-        // الاستقرار الكلي (متوسط استقرار الأجزاء)
         let totalStability = 0, stabilityCount = 0;
         skills.forEach(skill => {
             const sec = result.sections[skill];
@@ -266,7 +265,6 @@
         });
         result.stability = stabilityCount > 0 ? totalStability / stabilityCount : 0;
 
-        // التذبذب الكلي
         let totalVolatility = 0, volCount = 0;
         skills.forEach(skill => {
             const sec = result.sections[skill];
@@ -277,7 +275,6 @@
         });
         result.volatility = volCount > 0 ? totalVolatility / volCount : 0;
 
-        // المنحنى الكلي (متوسط الاتجاه)
         let totalTrend = 0, trendCount = 0;
         skills.forEach(skill => {
             const sec = result.sections[skill];
@@ -288,7 +285,6 @@
         });
         result.trend = trendCount > 0 ? totalTrend / trendCount : 0;
 
-        // الأجزاء المتقنة والضعيفة
         skills.forEach(skill => {
             const sec = result.sections[skill];
             if (sec) {
@@ -297,17 +293,15 @@
             }
         });
 
-        // ===== حساب الأولويات المتقدمة =====
+        // حساب الأولويات
         const dynamicWeights = getDynamicWeights();
 
         skills.forEach(skill => {
             const sec = result.sections[skill];
             if (!sec) return;
 
-            // 1. عامل الدرجات (40%) - مع الأخذ بالاعتبار التذبذب
             let scoreFactor = 0;
             if (sec.average > 0) {
-                // نضيف عامل التذبذب: إذا كان التذبذب عالياً، نزيد الأولوية
                 const volatilityPenalty = Math.min(10, sec.volatility / 2);
                 scoreFactor = Math.max(0, (100 - sec.average) / 100 * 40) + volatilityPenalty;
             } else {
@@ -315,22 +309,18 @@
             }
             scoreFactor = Math.min(40, scoreFactor);
 
-            // 2. عامل المراجعة (20%) - مع الأخذ بالاعتبار Spaced Repetition
             let reviewFactor = 0;
             if (sec.lastReviewDays !== null) {
-                // كلما كانت المراجعة أقدم، زادت الأولوية (بحد أقصى 20)
                 reviewFactor = Math.min(20, sec.lastReviewDays * 1.5);
             } else {
                 reviewFactor = 20;
             }
 
-            // 3. عامل الإعادات (15%)
             let retryFactor = 0;
             if (sec.retryCount > 0) {
                 retryFactor = Math.min(15, sec.retryCount * 2.5);
             }
 
-            // 4. عامل التقدم (10%)
             let progressFactor = 0;
             if (sec.progress > 0) {
                 progressFactor = Math.max(0, (100 - sec.progress) / 100 * 10);
@@ -338,7 +328,6 @@
                 progressFactor = 10;
             }
 
-            // 5. عامل المنحنى (5%) - إذا كان يتراجع، نزيد الأولوية
             let trendFactor = 0;
             if (sec.trend < -0.5) {
                 trendFactor = 5;
@@ -348,16 +337,16 @@
                 trendFactor = 2.5;
             }
 
-            // 6. عامل الوزن الديناميكي (10%) - يتكيف مع أداء المستخدم
             const baseWeight = CONFIG.defaultWeights[skill] || 5;
             const dynamicWeight = dynamicWeights[skill] || baseWeight;
             const weightFactor = (Math.min(15, dynamicWeight) / 10) * 10;
 
-            // المجموع النهائي (0-100)
-            let priority = Math.round(scoreFactor + reviewFactor + retryFactor + progressFactor + trendFactor + weightFactor);
+            // عامل عدد الامتحانات غير المنجزة
+            const notStartedFactor = Math.min(10, sec.notStartedExams * 2);
+
+            let priority = Math.round(scoreFactor + reviewFactor + retryFactor + progressFactor + trendFactor + weightFactor + notStartedFactor);
             sec.priority = Math.min(100, Math.max(0, priority));
 
-            // تخزين المعلومات للعرض
             result.summary[skill] = {
                 average: sec.average,
                 progress: sec.progress,
@@ -368,14 +357,16 @@
                 trend: sec.trend,
                 isMastered: sec.isMastered,
                 needsReview: sec.needsReview,
-                // أسباب الأولوية
+                notStartedExams: sec.notStartedExams,
+                remainingRetriesNeeded: sec.remainingRetriesNeeded,
                 reasons: {
                     score: Math.round(scoreFactor),
                     review: Math.round(reviewFactor),
                     retry: Math.round(retryFactor),
                     progress: Math.round(progressFactor),
                     trend: Math.round(trendFactor),
-                    weight: Math.round(weightFactor)
+                    weight: Math.round(weightFactor),
+                    notStarted: Math.round(notStartedFactor)
                 }
             };
         });
@@ -394,7 +385,6 @@
 
     function calculateTrend(scores) {
         if (scores.length < 3) return 0;
-        // الانحدار الخطي البسيط
         const n = scores.length;
         const indices = scores.map((_, i) => i);
         const sumX = indices.reduce((a, b) => a + b, 0);
@@ -406,10 +396,10 @@
     }
 
     // ============================================
-    // 4. توليد الخطة الذكية
+    // 4. توليد الخطة الذكية (لجزء معين أو الكل)
     // ============================================
 
-    function generateDailyPlan(analysis) {
+    function generateDailyPlan(analysis, targetSkill = null) {
         if (!analysis) return null;
 
         const plan = {
@@ -427,129 +417,90 @@
             message: '',
             warnings: [],
             dailyGoal: null,
-            tips: []
+            tips: [],
+            timeBreakdown: {}
         };
 
-        // التحقق من وجود تاريخ
         if (!analysis.daysRemaining || analysis.daysRemaining <= 0) {
-            plan.message = '📅 يرجى تحديد تاريخ الامتحان في الإعدادات للحصول على خطة يومية دقيقة.';
+            plan.message = '📅 يرجى تحديد تاريخ الامتحان أولاً.';
             return plan;
         }
 
-        // ===== حساب السعة اليومية =====
+        // حساب السعة اليومية
         let dailyCapacity = getDailyCapacity(analysis);
 
-        // التحقق من الإرهاق
         const todayCompleted = getTodayCompleted();
         if (todayCompleted >= CONFIG.maxDailyExams) {
-            plan.message = `😊 أحسنت! لقد أنهيت ${todayCompleted} امتحاناً اليوم. خذ راحة الآن، راجع فقط المفردات.`;
-            plan.tips.push('🛑 توقف عن حل الامتحانات اليوم، ركز على المراجعة الخفيفة.');
+            plan.message = `😊 أحسنت! لقد أنهيت ${todayCompleted} امتحاناً اليوم. خذ راحة الآن.`;
+            plan.tips.push('🛑 توقف عن حل الامتحانات اليوم.');
             return plan;
         }
-
-        // تعديل السعة إذا كان اليوم متعباً
         if (todayCompleted > 5) {
             dailyCapacity = Math.min(dailyCapacity, CONFIG.maxDailyExams - todayCompleted);
-            plan.tips.push(`⏳ أنجزت ${todayCompleted} امتحاناً اليوم، خذ استراحة بين كل امتحان.`);
+            plan.tips.push(`⏳ أنجزت ${todayCompleted} امتحاناً اليوم، خذ استراحة.`);
         }
 
-        // ===== تحديد الأجزاء المستهدفة =====
-        const skills = CONFIG.activeSkills;
-        const sortedSkills = skills.slice().sort((a, b) => {
+        // اختيار المهارات المستهدفة
+        let targetSkills = CONFIG.activeSkills;
+        if (targetSkill && targetSkills.includes(targetSkill)) {
+            targetSkills = [targetSkill];
+            plan.message = `📚 تحليل مخصص لـ ${CONFIG.skillNames[targetSkill] || targetSkill}`;
+        }
+
+        // ترتيب المهارات حسب الأولوية
+        const sortedSkills = targetSkills.slice().sort((a, b) => {
             const pA = analysis.sections[a]?.priority || 0;
             const pB = analysis.sections[b]?.priority || 0;
             return pB - pA;
         });
 
-        // ===== توزيع الامتحانات بين الأجزاء =====
+        // توزيع الامتحانات
         const selectedExams = {};
         let totalSelected = 0;
 
-        // 1. أولوية للأجزاء الضعيفة (priority > 70)
-        const weakSkills = sortedSkills.filter(s => (analysis.sections[s]?.priority || 0) > 70);
-        const mediumSkills = sortedSkills.filter(s => {
-            const p = analysis.sections[s]?.priority || 0;
-            return p > 40 && p <= 70;
-        });
-        const strongSkills = sortedSkills.filter(s => (analysis.sections[s]?.priority || 0) <= 40);
-
-        // توزيع: 50% للأجزاء الضعيفة، 30% للمتوسطة، 20% للقوية
-        const weakCount = Math.min(weakSkills.length, Math.ceil(dailyCapacity * 0.5));
-        const mediumCount = Math.min(mediumSkills.length, Math.ceil(dailyCapacity * 0.3));
-        const strongCount = Math.min(strongSkills.length, Math.ceil(dailyCapacity * 0.2));
-
-        const distribution = [
-            ...weakSkills.slice(0, weakCount).map(s => ({ skill: s, priority: 'high' })),
-            ...mediumSkills.slice(0, mediumCount).map(s => ({ skill: s, priority: 'medium' })),
-            ...strongSkills.slice(0, strongCount).map(s => ({ skill: s, priority: 'low' }))
-        ];
-
-        // خلط الترتيب قليلاً لضمان التنوع
-        distribution.sort((a, b) => {
-            if (a.priority === b.priority) return Math.random() - 0.5;
-            return a.priority === 'high' ? -1 : (a.priority === 'medium' ? -1 : 1);
-        });
-
-        for (const entry of distribution) {
+        for (const skill of sortedSkills) {
             if (totalSelected >= dailyCapacity) break;
-            const skill = entry.skill;
             const sec = analysis.sections[skill];
             if (!sec) continue;
 
-            // تحديد عدد الامتحانات من هذا الجزء
             let count = 1;
-            if (entry.priority === 'high') count = 2;
-            if (entry.priority === 'high' && sec.priority > 85) count = 3;
+            if (sec.priority > 70) count = 2;
+            if (sec.priority > 85) count = 3;
             if (analysis.daysRemaining < 10) count = Math.min(count + 1, 3);
+            if (sec.isMastered) count = Math.min(count, 1);
 
-            // إذا كان الجزء متقناً، نعطي امتحان مراجعة واحد فقط
-            if (sec.isMastered) {
-                count = 1;
-            }
-
-            // اختيار الامتحانات المناسبة
             const availableExams = window.examsDatabase && window.examsDatabase[skill] ? window.examsDatabase[skill] : [];
             const examIds = availableExams.map(e => e.id);
 
-            // ترتيب الامتحانات حسب الأولوية: الأضعف أولاً، ثم الأقدم
             const sortedExams = examIds.slice().sort((a, b) => {
                 const aResult = window.getExamResult ? window.getExamResult(skill, a) : null;
                 const bResult = window.getExamResult ? window.getExamResult(skill, b) : null;
                 const aRetry = window.getRetryCount ? window.getRetryCount(skill, a) : 0;
                 const bRetry = window.getRetryCount ? window.getRetryCount(skill, b) : 0;
-                // إذا لم تكن هناك نتيجة، أولوية عالية
                 if (aResult === null && bResult !== null) return -1;
                 if (bResult === null && aResult !== null) return 1;
-                // إذا كانت النتيجة موجودة، الأقل أولاً
                 if (aResult !== null && bResult !== null) return aResult - bResult;
-                // إذا كانت النتيجة متساوية، الأكثر إعادة أولاً
                 return bRetry - aRetry;
             });
 
-            // اختيار الامتحانات مع تجنب التكرار
             let selected = 0;
             const skillExams = [];
             for (const id of sortedExams) {
                 if (selected >= count) break;
-                // تجنب الامتحانات التي تم اختيارها مسبقاً في هذا الجزء
                 if (!selectedExams[skill]) selectedExams[skill] = [];
                 if (!selectedExams[skill].includes(id)) {
-                    // التحقق من Spaced Repetition: إذا كان الامتحان متقناً (نتيجة > 90%) ولا يحتاج مراجعة
                     const score = window.getExamResult ? window.getExamResult(skill, id) : null;
                     const lastReview = window.getLastReviewDate ? window.getLastReviewDate(skill, id) : null;
                     if (score !== null && score >= 90) {
-                        // التحقق من أن المراجعة ليست قريبة جداً
                         let daysSince = 999;
                         if (lastReview) {
                             daysSince = Math.floor((Date.now() - new Date(lastReview)) / (1000 * 60 * 60 * 24));
                         }
-                        // إذا كانت المراجعة قريبة (أقل من 7 أيام) والجزء متقن، نتجاوز
                         if (daysSince < 7 && sec.isMastered) continue;
                     }
                     selectedExams[skill].push(id);
                     selected++;
                     totalSelected++;
-                    // تخزين سبب اختيار هذا الامتحان
                     skillExams.push({
                         id: id,
                         reason: getExamReason(skill, id, analysis)
@@ -557,7 +508,6 @@
                 }
             }
 
-            // تخزين الامتحانات المختارة مع الأسباب
             if (skillExams.length > 0) {
                 plan.sections.push({
                     skill: skill,
@@ -569,17 +519,15 @@
             }
         }
 
-        // ===== إذا لم يتم اختيار أي امتحان =====
         if (plan.sections.length === 0) {
-            plan.message = '🎉 مبروك! يبدو أنك أنهيت جميع الامتحانات أو أن مستواك ممتاز. ركز على المراجعة الخفيفة.';
+            plan.message = '🎉 مبروك! لا توجد امتحانات للتدريب اليوم.';
             return plan;
         }
 
-        // ===== حساب الوقت المتوقع =====
         plan.totalExams = plan.sections.reduce((sum, s) => sum + s.exams.length, 0);
         plan.estimatedTime = plan.totalExams * 15;
 
-        // ===== تحديد هدف اليوم =====
+        // هدف اليوم
         const dailyGoal = calculateDailyGoal(analysis);
         if (dailyGoal) {
             plan.dailyGoal = dailyGoal;
@@ -588,21 +536,24 @@
             plan.message = `📋 خطة اليوم: ${plan.totalExams} امتحان${plan.totalExams > 1 ? 'ات' : ''} (حوالي ${Math.ceil(plan.estimatedTime / 60)} ساعة و ${plan.estimatedTime % 60} دقيقة).`;
         }
 
-        // ===== إضافة تحذيرات =====
+        // تحذيرات
         for (const skill of CONFIG.activeSkills) {
             const sec = analysis.sections[skill];
             if (sec && sec.lastReviewDays !== null && sec.lastReviewDays > 14) {
-                plan.warnings.push(`⚠️ ${skill} لم تراجع منذ ${sec.lastReviewDays} يوماً، أنصح بمراجعته قريباً.`);
+                plan.warnings.push(`⚠️ ${CONFIG.skillNames[skill] || skill} لم تراجع منذ ${sec.lastReviewDays} يوماً.`);
             }
             if (sec && sec.isMastered) {
-                plan.tips.push(`✅ ${skill} متقن (${Math.round(sec.average)}%)، يكفي مراجعة أسبوعية.`);
+                plan.tips.push(`✅ ${CONFIG.skillNames[skill] || skill} متقن (${Math.round(sec.average)}%)، مراجعة أسبوعية كافية.`);
             }
             if (sec && sec.trend < -1) {
-                plan.warnings.push(`📉 ${skill} يتراجع! آخر امتحانات: ${sec.recentScores.slice(-3).join(' → ')}. ركز عليه اليوم.`);
+                plan.warnings.push(`📉 ${CONFIG.skillNames[skill] || skill} يتراجع! آخر نتائج: ${sec.recentScores.slice(-3).join(' → ')}.`);
+            }
+            if (sec && sec.remainingRetriesNeeded > 0) {
+                plan.tips.push(`🔄 ${CONFIG.skillNames[skill] || skill}: تحتاج ${sec.remainingRetriesNeeded} مراجعة إضافية للوصول إلى 6 مرات.`);
             }
         }
 
-        // ===== نصائح إضافية =====
+        // نصائح إضافية
         if (analysis.daysRemaining < 10) {
             plan.tips.push('⏰ تبقى أقل من 10 أيام! ركز على المراجعة المكثفة.');
         }
@@ -611,6 +562,13 @@
         } else if (analysis.overallProgress < 40) {
             plan.tips.push('💪 تحتاج إلى المزيد من الجهد! اتبع الخطة بدقة.');
         }
+
+        // توزيع الوقت
+        plan.timeBreakdown = {};
+        plan.sections.forEach(s => {
+            const time = s.exams.length * 15;
+            plan.timeBreakdown[s.skill] = time;
+        });
 
         return plan;
     }
@@ -621,23 +579,21 @@
         const days = analysis.daysRemaining || 30;
         const progress = analysis.overallProgress || 0;
         const weakCount = analysis.weakSections ? analysis.weakSections.length : 0;
+        const totalRetriesNeeded = Object.values(analysis.sections).reduce((sum, sec) => sum + (sec.remainingRetriesNeeded || 0), 0);
 
         let base = 4;
-        // تعديل حسب الأيام المتبقية
-        if (days < 5) base = 6;
-        else if (days < 10) base = 5;
-        else if (days < 20) base = 4;
-        else if (days < 40) base = 3;
-        else base = 2;
+        if (days < 5) base = 8;
+        else if (days < 10) base = 6;
+        else if (days < 20) base = 5;
+        else if (days < 40) base = 4;
+        else base = 3;
 
-        // تعديل حسب التقدم
         if (progress > 80) base = Math.max(2, base - 1);
-        else if (progress < 40) base = Math.min(8, base + 2);
+        else if (progress < 40) base = Math.min(10, base + 2);
 
-        // تعديل حسب الأجزاء الضعيفة
-        if (weakCount > 3) base = Math.min(8, base + 1);
+        if (weakCount > 3) base = Math.min(10, base + 1);
+        if (totalRetriesNeeded > 50) base = Math.min(10, base + 2);
 
-        // الحد الأقصى
         return Math.min(CONFIG.maxDailyExams, Math.max(1, base));
     }
 
@@ -646,17 +602,13 @@
     function calculateDailyGoal(analysis) {
         const weakSections = analysis.weakSections || [];
         if (weakSections.length === 0) return null;
-
-        // أضعف جزء
         const weakest = weakSections[0];
         const sec = analysis.sections[weakest];
         if (!sec || sec.average === 0) return null;
-
         const current = sec.average;
         const target = Math.min(100, current + 5);
-
         return {
-            section: weakest,
+            section: CONFIG.skillNames[weakest] || weakest,
             from: current,
             to: target
         };
@@ -687,7 +639,6 @@
         }
 
         if (retries > 2) reasons.push(`أعدته ${retries} مرات، يحتاج تركيزاً`);
-
         if (progress > 0 && progress < 50) reasons.push(`تقدمك في هذا الجزء منخفض (${Math.round(progress)}%)`);
 
         return reasons.join(' ⬅ ');
@@ -708,20 +659,13 @@
             const baseWeight = CONFIG.defaultWeights[skill] || 5;
             let currentWeight = weights[skill] || baseWeight;
 
-            // إذا كان الجزء ضعيفاً (متوسط < 50 أو تذبذب عالٍ)، نزيد الوزن
             if (sec.average < 50 || sec.volatility > 30) {
                 currentWeight = Math.min(15, currentWeight + 1);
-            }
-            // إذا كان الجزء متقناً (متوسط > 85 ومستقر)، نخفض الوزن
-            else if (sec.average > 85 && sec.stability < 10) {
+            } else if (sec.average > 85 && sec.stability < 10) {
                 currentWeight = Math.max(1, currentWeight - 1);
-            }
-            // إذا كان المستخدم يتحسن بسرعة، نخفض الوزن قليلاً
-            else if (sec.trend > 1) {
+            } else if (sec.trend > 1) {
                 currentWeight = Math.max(1, currentWeight - 0.5);
-            }
-            // إذا كان يتراجع، نزيد الوزن
-            else if (sec.trend < -1) {
+            } else if (sec.trend < -1) {
                 currentWeight = Math.min(15, currentWeight + 0.5);
             }
 
@@ -819,7 +763,7 @@
             if (selectedDate) {
                 setExamDate(selectedDate);
                 overlay.remove();
-                showLoadingAndPlan();
+                showMainMenu();
             } else {
                 showSimpleMessage('⚠️ يرجى اختيار تاريخ صحيح.', 'error');
             }
@@ -831,7 +775,185 @@
         });
     }
 
-    function showLoadingAndPlan() {
+    // ===== القائمة الرئيسية (خياران) =====
+
+    function showMainMenu() {
+        const overlay = createOverlay();
+        const card = document.createElement('div');
+        card.style.cssText = `
+            background: #1a1f2e;
+            border-radius: 24px;
+            padding: 28px 30px;
+            max-width: 480px;
+            width: 90%;
+            border: 1px solid #2a3042;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            animation: slideUp 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            color: #e2e8f0;
+            direction: rtl;
+        `;
+
+        let html = `
+            <div style="text-align: center; margin-bottom: 24px;">
+                <div style="font-size: 2.5rem; margin-bottom: 8px;">🎯</div>
+                <h2 style="margin: 0; font-size: 1.4rem; color: #38bdf8;">المدرب الذكي</h2>
+                <p style="margin: 6px 0 0 0; color: #94a3b8; font-size: 0.85rem;">اختر طريقة التخطيط</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <button id="plannerChooseSkillBtn" style="
+                    padding: 14px 20px;
+                    background: rgba(56, 189, 248, 0.12);
+                    border: 1px solid rgba(56, 189, 248, 0.25);
+                    border-radius: 14px;
+                    color: #e2e8f0;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    text-align: center;
+                " onmouseover="this.style.background='rgba(56, 189, 248, 0.2)'" onmouseout="this.style.background='rgba(56, 189, 248, 0.12)'">
+                    📚 اختر جزءاً
+                    <div style="font-size: 0.75rem; font-weight: 400; color: #94a3b8; margin-top: 4px;">اختر جزءاً واحداً لتحليل مخصص</div>
+                </button>
+                <button id="plannerFullPlanBtn" style="
+                    padding: 14px 20px;
+                    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+                    border: none;
+                    border-radius: 14px;
+                    color: #0a0e1a;
+                    font-size: 1rem;
+                    font-weight: 700;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    text-align: center;
+                " onmouseover="this.style.background='linear-gradient(135deg, #0ea5e9, #0284c7)'" onmouseout="this.style.background='linear-gradient(135deg, #38bdf8, #0ea5e9)'">
+                    ⭐ اختر لي خطة اليوم
+                    <div style="font-size: 0.75rem; font-weight: 400; color: #1a2a4a; margin-top: 4px;">يحلل جميع الأجزاء ويعطيك خطة متوازنة</div>
+                </button>
+            </div>
+            <button id="plannerChangeDateBtn" style="
+                width: 100%;
+                margin-top: 16px;
+                padding: 8px;
+                background: transparent;
+                border: 1px solid #334155;
+                border-radius: 12px;
+                color: #94a3b8;
+                font-size: 0.8rem;
+                cursor: pointer;
+                transition: all 0.2s;
+            " onmouseover="this.style.borderColor='#475569'; this.style.color='#cbd5e1'" onmouseout="this.style.borderColor='#334155'; this.style.color='#94a3b8'">
+                📅 تغيير تاريخ الامتحان
+            </button>
+        `;
+
+        card.innerHTML = html;
+        overlay.appendChild(card);
+        document.body.appendChild(overlay);
+
+        // ربط الأحداث
+        const chooseSkillBtn = document.getElementById('plannerChooseSkillBtn');
+        const fullPlanBtn = document.getElementById('plannerFullPlanBtn');
+        const changeDateBtn = document.getElementById('plannerChangeDateBtn');
+
+        chooseSkillBtn.addEventListener('click', () => {
+            overlay.remove();
+            renderSkillSelection();
+        });
+
+        fullPlanBtn.addEventListener('click', () => {
+            overlay.remove();
+            showLoadingAndPlan(null);
+        });
+
+        changeDateBtn.addEventListener('click', () => {
+            overlay.remove();
+            renderDatePicker();
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.remove();
+        });
+    }
+
+    // ===== اختيار جزء (الخيار الأول) =====
+
+    function renderSkillSelection() {
+        const overlay = createOverlay();
+        const card = document.createElement('div');
+        card.style.cssText = `
+            background: #1a1f2e;
+            border-radius: 24px;
+            padding: 28px 30px;
+            max-width: 480px;
+            width: 90%;
+            border: 1px solid #2a3042;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            animation: slideUp 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            color: #e2e8f0;
+            direction: rtl;
+        `;
+
+        const skills = CONFIG.activeSkills;
+        let html = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0; font-size: 1.2rem; color: #38bdf8;">📚 اختر الجزء</h2>
+                <button id="skillBackBtn" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">✕</button>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        `;
+
+        skills.forEach(skill => {
+            const name = CONFIG.skillNames[skill] || skill;
+            html += `
+                <button class="skill-option-btn" data-skill="${skill}" style="
+                    padding: 12px 10px;
+                    background: rgba(56, 189, 248, 0.08);
+                    border: 1px solid rgba(56, 189, 248, 0.15);
+                    border-radius: 12px;
+                    color: #e2e8f0;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    text-align: center;
+                " onmouseover="this.style.background='rgba(56, 189, 248, 0.15)'" onmouseout="this.style.background='rgba(56, 189, 248, 0.08)'">
+                    ${name}
+                </button>
+            `;
+        });
+
+        html += `</div>`;
+        card.innerHTML = html;
+        overlay.appendChild(card);
+        document.body.appendChild(overlay);
+
+        const backBtn = document.getElementById('skillBackBtn');
+        backBtn.addEventListener('click', () => {
+            overlay.remove();
+            showMainMenu();
+        });
+
+        const skillBtns = card.querySelectorAll('.skill-option-btn');
+        skillBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const skill = btn.dataset.skill;
+                overlay.remove();
+                showLoadingAndPlan(skill);
+            });
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.remove();
+                showMainMenu();
+            }
+        });
+    }
+
+    // ===== عرض التحميل والخطة =====
+
+    function showLoadingAndPlan(targetSkill = null) {
         const overlay = createOverlay();
         const card = document.createElement('div');
         card.style.cssText = `
@@ -879,22 +1001,23 @@
             } else {
                 analysis = analyzeUserProgress();
                 if (analysis) {
-                    // تحديث الأوزان الديناميكية
                     updateDynamicWeights(analysis);
-                    plan = generateDailyPlan(analysis);
+                    plan = generateDailyPlan(analysis, targetSkill);
                     savePlannerData({ analysis, plan });
                 }
             }
 
             if (plan) {
-                renderPlan(plan, true);
+                renderPlan(plan, true, targetSkill);
             } else {
                 showSimpleMessage('⚠️ تعذر إنشاء الخطة، حاول مرة أخرى.', 'error');
             }
         }, 500);
     }
 
-    function renderPlan(plan, showChangeDate = false) {
+    // ===== عرض الخطة =====
+
+    function renderPlan(plan, showChangeDate = false, targetSkill = null) {
         const overlay = createOverlay();
         const card = document.createElement('div');
         card.style.cssText = `
@@ -914,22 +1037,20 @@
 
         let html = `
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2 style="margin: 0; font-size: 1.4rem; color: #38bdf8;">🎯 المدرب الذكي</h2>
+                <h2 style="margin: 0; font-size: 1.4rem; color: #38bdf8;">🎯 ${targetSkill ? CONFIG.skillNames[targetSkill] || targetSkill : 'المدرب الذكي'}</h2>
                 <button id="closePlannerBtn" style="background: none; border: none; color: #94a3b8; font-size: 24px; cursor: pointer;">✕</button>
             </div>
         `;
 
-        // الأيام المتبقية
         if (plan.daysRemaining !== null && plan.daysRemaining > 0) {
             html += `
                 <div style="background: #0f1421; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.9rem; color: #94a3b8;">📅 تبقى حتى الامتحان:</span>
+                    <span style="font-size: 0.9rem; color: #94a3b8;">📅 تبقى حتى الامتحان (أيام دراسة):</span>
                     <span style="font-size: 1.2rem; font-weight: 700; color: #38bdf8;">${plan.daysRemaining} يوم</span>
                 </div>
             `;
         }
 
-        // التقدم الكلي + الاستقرار
         const stabilityLabel = plan.stability < 10 ? 'مستقر ✅' : (plan.stability < 20 ? 'متوسط التذبذب' : 'غير مستقر ⚠️');
         const trendLabel = plan.trend > 1 ? 'يتحسن بسرعة 📈' : (plan.trend > 0.5 ? 'يتحسن تدريجياً' : (plan.trend > -0.5 ? 'ثابت' : 'يتراجع 📉'));
 
@@ -950,16 +1071,14 @@
             </div>
         `;
 
-        // الأجزاء الضعيفة
         if (plan.weakSections && plan.weakSections.length > 0) {
             html += `
                 <div style="background: rgba(251, 191, 36, 0.1); border-radius: 12px; padding: 8px 14px; margin-bottom: 12px; border: 1px solid #fbbf24;">
-                    <span style="font-size: 0.8rem; color: #fbbf24;">⚠️ يحتاج تركيزاً: ${plan.weakSections.join('، ')}</span>
+                    <span style="font-size: 0.8rem; color: #fbbf24;">⚠️ يحتاج تركيزاً: ${plan.weakSections.map(s => CONFIG.skillNames[s] || s).join('، ')}</span>
                 </div>
             `;
         }
 
-        // هدف اليوم
         if (plan.dailyGoal) {
             const goal = plan.dailyGoal;
             html += `
@@ -976,12 +1095,11 @@
             `;
         }
 
-        // قائمة الامتحانات مع الأسباب
         if (plan.sections && plan.sections.length > 0) {
             html += `<div style="margin: 12px 0 8px 0; font-size: 0.95rem; font-weight: 600; color: #f1f5f9;">📋 خطة اليوم (${plan.totalExams} امتحان):</div>`;
 
             plan.sections.forEach(section => {
-                const skillName = section.skill;
+                const skillName = CONFIG.skillNames[section.skill] || section.skill;
                 const examsHtml = section.exams.map(exam => {
                     const reasonText = exam.reason || 'تحتاج إلى مراجعة';
                     return `<div style="font-size: 0.75rem; color: #94a3b8; margin-top: 2px; padding-right: 12px;">• امتحان ${exam.id} ⬅ ${reasonText}</div>`;
@@ -1010,7 +1128,6 @@
             `;
         }
 
-        // النصائح
         if (plan.tips && plan.tips.length > 0) {
             html += `<div style="margin-top: 14px; padding: 10px 14px; background: rgba(56, 189, 248, 0.06); border-radius: 12px;">`;
             plan.tips.forEach(tip => {
@@ -1019,7 +1136,6 @@
             html += `</div>`;
         }
 
-        // التحذيرات
         if (plan.warnings && plan.warnings.length > 0) {
             html += `<div style="margin-top: 12px; padding: 10px 14px; background: rgba(251, 191, 36, 0.1); border-radius: 12px; border: 1px solid #fbbf24;">`;
             plan.warnings.forEach(w => {
@@ -1028,30 +1144,10 @@
             html += `</div>`;
         }
 
-        // أزرار
-        if (showChangeDate) {
-            html += `
-                <button id="changeDateBtn" style="
-                    width: 100%;
-                    margin-top: 16px;
-                    padding: 10px;
-                    background: rgba(56, 189, 248, 0.12);
-                    border: 1px solid rgba(56, 189, 248, 0.25);
-                    border-radius: 12px;
-                    color: #38bdf8;
-                    font-size: 0.85rem;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                " onmouseover="this.style.background='rgba(56, 189, 248, 0.2)'" onmouseout="this.style.background='rgba(56, 189, 248, 0.12)'">
-                    📅 تغيير تاريخ الامتحان
-                </button>
-            `;
-        }
-
         html += `
             <button id="closePlannerBtn2" style="
                 width: 100%;
-                margin-top: 12px;
+                margin-top: 16px;
                 padding: 10px;
                 background: #38bdf8;
                 border: none;
@@ -1064,6 +1160,20 @@
             " onmouseover="this.style.background='#0ea5e9'" onmouseout="this.style.background='#38bdf8'">
                 حسناً
             </button>
+            <button id="plannerBackMenuBtn" style="
+                width: 100%;
+                margin-top: 8px;
+                padding: 8px;
+                background: transparent;
+                border: 1px solid #334155;
+                border-radius: 12px;
+                color: #94a3b8;
+                font-size: 0.8rem;
+                cursor: pointer;
+                transition: all 0.2s;
+            " onmouseover="this.style.borderColor='#475569'; this.style.color='#cbd5e1'" onmouseout="this.style.borderColor='#334155'; this.style.color='#94a3b8'">
+                ⬅ العودة للقائمة
+            </button>
         `;
 
         card.innerHTML = html;
@@ -1073,21 +1183,24 @@
         // ربط الأحداث
         const closeBtn1 = card.querySelector('#closePlannerBtn');
         const closeBtn2 = card.querySelector('#closePlannerBtn2');
-        const changeDateBtn = card.querySelector('#changeDateBtn');
+        const backMenuBtn = card.querySelector('#plannerBackMenuBtn');
         const closeFunc = () => overlay.remove();
 
         if (closeBtn1) closeBtn1.addEventListener('click', closeFunc);
         if (closeBtn2) closeBtn2.addEventListener('click', closeFunc);
 
-        if (changeDateBtn) {
-            changeDateBtn.addEventListener('click', () => {
+        if (backMenuBtn) {
+            backMenuBtn.addEventListener('click', () => {
                 overlay.remove();
-                renderDatePicker();
+                showMainMenu();
             });
         }
 
         overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) overlay.remove();
+            if (e.target === overlay) {
+                overlay.remove();
+                showMainMenu();
+            }
         });
 
         document.addEventListener('keydown', function escHandler(e) {
@@ -1164,52 +1277,31 @@
     // 8. الدوال العامة
     // ============================================
 
-    // الدالة الرئيسية التي تُستدعى من الزر
     window.showDailyPlan = function() {
         const examDate = getExamDate();
         if (!examDate) {
             renderDatePicker();
             return;
         }
-
-        let cached = getPlannerData();
-        let analysis = null, plan = null;
-
-        if (cached && cached.analysis && cached.plan) {
-            analysis = cached.analysis;
-            plan = cached.plan;
-            console.log('📦 استخدام الخطة المخزنة مؤقتاً');
-        } else {
-            console.log('🔄 جارٍ تحليل التقدم...');
-            analysis = analyzeUserProgress();
-            if (!analysis) {
-                showSimpleMessage('⚠️ لم نتمكن من تحليل بياناتك، تأكد من وجود امتحانات.', 'error');
-                return;
-            }
-            updateDynamicWeights(analysis);
-            plan = generateDailyPlan(analysis);
-            savePlannerData({ analysis, plan });
-            console.log('✅ تم حفظ الخطة في الكاش');
-        }
-
-        if (plan) {
-            renderPlan(plan, true);
-        } else {
-            showSimpleMessage('⚠️ تعذر إنشاء الخطة، حاول مرة أخرى.', 'error');
-        }
+        // التحقق من الكاش: إذا كان هناك خطة محفوظة بنفس اليوم، نعرضها مباشرة مع القائمة؟
+        // لكن الأفضل عرض القائمة الرئيسية دائماً، والخطة تُحسب عند اختيار الخيار
+        showMainMenu();
     };
 
-    // دالة لإعادة الحساب بعد كل امتحان (تُستدعى من engine.js)
-    window.refreshDailyPlan = function() {
-        // حذف الكاش لإعادة الحساب
+    // دالة تحديث الخطة بدون عرض (تُستدعى من engine.js بعد كل امتحان)
+    window.updateDailyPlanSilent = function() {
         localStorage.removeItem(PLANNER_KEY);
-        // زيادة عداد الامتحانات المنجزة اليوم
-        incrementTodayCompleted();
-        // إعادة العرض
-        window.showDailyPlan();
+        const analysis = analyzeUserProgress();
+        if (analysis) {
+            updateDynamicWeights(analysis);
+            // لا نقوم بحفظ الخطة هنا، بل نكتفي بحذف الكاش لإعادة الحساب عند الطلب
+            // ولكن نحتفظ بالتحليل في الكاش لتسريع العرض
+            savePlannerData({ analysis, plan: null });
+        }
+        console.log('🔄 تم تحديث خطة المدرب الذكي (كاش محذوف)');
     };
 
-    // دالة لإعادة تعيين الإرهاق اليومي (تُستدعى في منتصف الليل أو عند بدء يوم جديد)
+    // دالة لإعادة تعيين الإرهاق اليومي
     window.resetDailyFatigue = function() {
         resetTodayCompleted();
     };
@@ -1224,7 +1316,7 @@
             console.log('ℹ️ زر المدرب الذكي لم يوجد بعد.');
         }
 
-        // إعادة تعيين الإرهاق يومياً (عند منتصف الليل)
+        // إعادة تعيين الإرهاق يومياً
         const now = new Date();
         const night = new Date(now);
         night.setHours(24, 0, 0, 0);
@@ -1248,10 +1340,6 @@
     window.analyzeUserProgress = analyzeUserProgress;
     window.generateDailyPlan = generateDailyPlan;
     window.renderPlan = renderPlan;
-    window.getDailyCapacity = getDailyCapacity;
-    window.calculateDailyGoal = calculateDailyGoal;
-    window.updateDynamicWeights = updateDynamicWeights;
-    window.getExamReason = getExamReason;
 
-    console.log('🧠 studyPlanner.js جاهز (المدرب الذكي - الإصدار 3.0)');
+    console.log('🧠 studyPlanner.js جاهز (المدرب الذكي - الإصدار 4.0)');
 })();
