@@ -4622,3 +4622,52 @@ body:has(#exam.active) .left-side .btn-login-top {
     }
 }
 
+/* ============================================
+   زر المدرب الذكي (Study Planner)
+   ============================================ */
+
+#studyPlannerBtn {
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    font-size: 16px;
+    padding: 6px 14px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #E5E7EB;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+#studyPlannerBtn:hover {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: rgba(56, 189, 248, 0.4);
+    transform: scale(1.04);
+}
+
+#studyPlannerBtn:active {
+    transform: scale(0.96);
+}
+
+/* للهواتف: تصغير الزر */
+@media (max-width: 768px) {
+    #studyPlannerBtn {
+        font-size: 12px;
+        padding: 4px 10px;
+        gap: 4px;
+    }
+}
+
+/* ============================================
+   تحسينات إضافية لنافذة المدرب (اختيارية)
+   ============================================ */
+
+/* جعل النافذة تظهر بشكل أفضل على الشاشات الصغيرة */
+@media (max-width: 480px) {
+    #studyPlannerOverlay .study-planner-card {
+        padding: 18px 16px !important;
+        max-width: 96% !important;
+    }
+}
