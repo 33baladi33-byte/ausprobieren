@@ -2825,28 +2825,27 @@ document.addEventListener("DOMContentLoaded", function() {
             throw e;
         }
     }
-
-    async function callCerebras(prompt, systemMsg, key, timeout = 15000) {
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), timeout);
-        try {
-            const res = await fetch('https://api.cerebras.ai/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${key}`
-                },
-                body: JSON.stringify({
-                    model: 'llama3.1-8b',
-                    messages: [
-                        { role: 'system', content: systemMsg },
-                        { role: 'user', content: prompt }
-                    ],
-                    max_tokens: 150,
-                    temperature: 0.3
-                }),
-                signal: controller.signal
-            });
+async function callCerebras(prompt, systemMsg, key, timeout = 15000) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeout);
+    try {
+        const res = await fetch('https://api.cerebras.ai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${key}`
+            },
+            body: JSON.stringify({
+                model: 'gpt-oss-120b',   // ✅ تم التغيير إلى نموذج موجود فعلاً
+                messages: [
+                    { role: 'system', content: systemMsg },
+                    { role: 'user', content: prompt }
+                ],
+                max_tokens: 150,
+                temperature: 0.3
+            }),
+            signal: controller.signal
+        });
             clearTimeout(timer);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const data = await res.json();
@@ -2986,48 +2985,68 @@ document.addEventListener("DOMContentLoaded", function() {
             const provider = activeProviders[pIdx];
             const keys = provider.keys;
             const startIndex = getLastSuccessfulKey(provider.id) % keys.length; // تذكر آخر مفتاح ناجح
+for (let k = 0; k < keys.length; k++) {
+    const keyIndex = (startIndex + k) % keys.length;
+    const key = keys[keyIndex];
+    
+    // تحديد النموذج المستخدم (للتوثيق)
+    let modelUsed = 'default';
+    if (provider.id === 'openrouter') {
+        modelUsed = provider.models ? provider.models[0] : 'nvidia/nemotron-3-ultra-550b-a55b:free';
+    } else if (provider.id === 'cerebras') {
+        modelUsed = 'gpt-oss-120b';  // النموذج الجديد
+    } else if (provider.id === 'groq') {
+        modelUsed = 'mixtral-8x7b-32768';
+    } else if (provider.id === 'gemini') {
+        modelUsed = 'gemini-2.0-flash-exp';
+    }
+    
+    console.log(`🧠 Using Provider: ${provider.name} | Key ${keyIndex + 1}/${keys.length} | Model: ${modelUsed}`);
 
-            // جرب جميع مفاتيح هذا المزود بدءاً من startIndex
-            for (let k = 0; k < keys.length; k++) {
-                const keyIndex = (startIndex + k) % keys.length;
-                const key = keys[keyIndex];
-                try {
-                    console.log(`🔄 محاولة ${provider.name} Key ${keyIndex + 1}`);
-                    let reply;
-                    if (provider.id === 'openrouter') {
-                        // اختر نموذجاً (نستخدم الأول أو نموذج محفوظ)
-                        const model = provider.models ? provider.models[0] : 'nvidia/nemotron-3-ultra-550b-a55b:free';
-                        reply = await provider.call(prompt, systemMsg, key, model);
-                    } else {
-                        reply = await provider.call(prompt, systemMsg, key);
-                    }
-                    // نجاح!
-                    console.log(`✅ ${provider.name} Key ${keyIndex + 1} نجح`);
-                    // حفظ آخر مفتاح ناجح لهذا المزود
-                    setLastSuccessfulKey(provider.id, keyIndex);
-                    return reply;
-                } catch (error) {
-                    const msg = error.message || '';
-                    const lower = msg.toLowerCase();
-                    // الأخطاء التي نعتبرها فشل للمفتاح (جميع الأخطاء المطلوبة)
-                    const isFailure = 
-                        msg.includes('401') || msg.includes('403') || msg.includes('429') ||
-                        msg.includes('quota') || msg.includes('rate limit') || msg.includes('credits') ||
-                        msg.includes('expired') || msg.includes('timeout') || msg.includes('network') ||
-                        msg.includes('503') || msg.includes('502') || msg.includes('500') ||
-                        msg.includes('model unavailable') || msg.includes('overloaded') ||
-                        msg.includes('no endpoints');
-                    if (isFailure) {
-                        console.warn(`❌ ${provider.name} Key ${keyIndex + 1} فشل: ${error.message}`);
-                        // نستمر للمفتاح التالي
-                    } else {
-                        // خطأ غير متوقع، نعتبره فشل ونستمر
-                        console.warn(`⚠️ ${provider.name} Key ${keyIndex + 1} خطأ غير متوقع: ${error.message}`);
-                    }
-                    lastError = error;
-                    // نستمر في تجربة المفاتيح التالية
-                }
-            }
+    try {
+        let reply;
+        if (provider.id === 'openrouter') {
+            reply = await provider.call(prompt, systemMsg, key, modelUsed);
+        } else {
+            reply = await provider.call(prompt, systemMsg, key);
+        }
+        console.log(`✅ ${provider.name} Key ${keyIndex + 1} Success`);
+        setLastSuccessfulKey(provider.id, keyIndex);
+        return reply;
+    } catch (error) {
+        const msg = error.message || '';
+        const lower = msg.toLowerCase();
+        
+        // ✅ تم إضافة 404 و ACCESS_TOKEN_TYPE_UNSUPPORTED
+        const isFailure = 
+            msg.includes('401') || msg.includes('403') || msg.includes('404') ||
+            msg.includes('429') || msg.includes('quota') || msg.includes('rate limit') ||
+            msg.includes('credits') || msg.includes('expired') || msg.includes('timeout') ||
+            msg.includes('network') || msg.includes('503') || msg.includes('502') ||
+            msg.includes('500') || msg.includes('model unavailable') || msg.includes('overloaded') ||
+            msg.includes('no endpoints') || msg.includes('ACCESS_TOKEN_TYPE_UNSUPPORTED');
+
+        // استخراج رمز الخطأ إن أمكن
+        let errorCode = '';
+        if (msg.includes('HTTP 401')) errorCode = '401 Unauthorized';
+        else if (msg.includes('HTTP 403')) errorCode = '403 Forbidden';
+        else if (msg.includes('HTTP 404')) errorCode = '404 Not Found (Model/Endpoint)';
+        else if (msg.includes('HTTP 429')) errorCode = '429 Rate Limit / Quota';
+        else if (msg.includes('Timeout') || msg.includes('AbortError')) errorCode = 'Timeout';
+        else if (msg.includes('Failed to fetch') || msg.includes('Network')) errorCode = 'Network Error (CORS/DNS)';
+        else if (msg.includes('ACCESS_TOKEN_TYPE_UNSUPPORTED')) errorCode = 'OAuth Token (Invalid Key Type)';
+        else if (msg.includes('quota') || msg.includes('rate limit')) errorCode = 'Quota Exceeded';
+        else errorCode = msg.substring(0, 30);
+
+        if (isFailure) {
+            console.error(`❌ ${provider.name} Key ${keyIndex + 1} Failed: ${errorCode}`);
+        } else {
+            console.warn(`⚠️ ${provider.name} Key ${keyIndex + 1} Unexpected Error: ${errorCode}`);
+        }
+        lastError = error;
+        // استمر إلى المفتاح التالي
+    }
+}
             // انتهت مفاتيح هذا المزود، ننتقل للتالي
             console.warn(`⏭️ انتهت مفاتيح ${provider.name}، ننتقل إلى المزود التالي`);
         }
@@ -3138,19 +3157,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
         let reply = null;
         try {
-            reply = await tryAllProviders(userMessage, systemMessage);
+           reply = await tryAllProviders(userMessage, systemMessage);
+// سيتم طباعة سجل النجاح من داخل tryAllProviders نفسها
         } catch (error) {
             console.error('❌ فشل جميع المزودات:', error.message);
             reply = null;
         }
 
-        hideLoading();
+hideLoading();
 
-        if (reply) {
-            addMessage(reply, 'assistant');
-        } else {
-            addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
-        }
+if (reply) {
+    console.log(`💬 AI Response received successfully`);   // ✅ سطر جديد
+    addMessage(reply, 'assistant');
+} else {
+    addMessage('تعذر الحصول على الرد حالياً. يرجى المحاولة مرة أخرى بعد قليل.', 'assistant');
+}
 
         userInput.disabled = false;
         userInput.focus();
