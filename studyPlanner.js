@@ -1,477 +1,352 @@
 /**
- * studyPlanner.js - المدرب الذكي TELC B2 (الإصدار 11.2 - المُحسَّن)
- *
- * الإصلاحات:
- * 1. تحديث سجل الاختيار يتم عند الضغط على "ابدأ المراجعة" وليس عند إنشاء الخطة.
- * 2. جمع الدرجات بشكل صحيح مع الحفاظ على الترتيب الزمني (من exam_history و exam_result).
- * 3. حساب المتوسط والاتجاه والاستقرار من البيانات الحقيقية.
- * 4. نظام أولوية متوازن: الجديد، الضعيف، المتوسط، المتقن.
- * 5. منع التكرار المفرط (حد أقصى 3 أيام متتالية).
- * 6. توزيع متوازن للامتحانات المختارة.
- * 7. كسر التعادل بطريقة ثابتة (حتمية).
- * 8. Debug مفصل مع عرض أسباب الأولوية.
- * 9. شاشة تفكير تعتمد على الخطة الفعلية.
- * 10. أيام منذ آخر حل = null للجديدة.
+ * studyPlanner.js - المدرب الذكي (الإصدار 1.0)
+ * 
+ * الفلسفة:
+ * - لا يخزن أي تحليل أو أولوية أو خطة.
+ * - Stateless: يُعيد الحساب في كل مرة من الصفر.
+ * - يعتمد فقط على البيانات الحقيقية المخزنة مسبقاً:
+ *   1. النتيجة (exam_result_hoeren1_*)
+ *   2. عدد الإعادات (exam_retry_hoeren1_*)
+ *   3. عدد الأيام منذ آخر مراجعة (exam_last_review_hoeren1_*)
+ * - يعمل حالياً على Hören 1 فقط.
+ * - لا يضيف أي مفاتيح جديدة في localStorage، بل يستخدم المفاتيح الموجودة.
+ * 
+ * الخوارزمية:
+ *   1. حساب عدد الامتحانات المطلوبة اليوم (Daily Count).
+ *   2. اختيار الامتحانات وفقاً لثلاثة معايير مرتبة حسب الأهمية:
+ *      - أقل نتيجة أولاً.
+ *      - عند التساوي: أقل عدد إعادات أولاً.
+ *      - عند التساوي: أقدم تاريخ مراجعة أولاً.
+ *   3. عرض الخطة.
  */
 
 (function() {
     "use strict";
 
     // ================================================================
-    // 1. المحرك المُحسَّن
+    // 1. الإعدادات والتخزين
     // ================================================================
 
-    class SimplePlanner {
-        constructor() {
-            this.storageKeyDate = 'user_exam_date';
-            this.storageKeyPlans = 'study_planner_history_v3';
-            this.storageKeySettings = 'study_planner_settings';
-            this.targetSection = 'hoeren1';
-            this.minExams = 4;
-            this.maxExams = 10;
-            this.settings = this.loadSettings();
+    const STORAGE_KEY_SETTINGS = 'study_planner_settings'; // يستخدم لتخزين تاريخ الامتحان وساعات الدراسة
+    const SECTION_ID = 'hoeren1'; // المرحلة الأولى: Hören 1 فقط
 
-            // تنظيف history القديمة (احذف سجل اليوم السابق إذا لم يتم البدء)
-            this.cleanPendingHistory();
+    // القيم الافتراضية
+    const DEFAULT_HOURS_PER_DAY = 2;
+    const TARGET_RETRIES = 6;
+    const MIN_DAILY_EXAMS = 3;
+
+    // ================================================================
+    // 2. دوال الإعدادات
+    // ================================================================
+
+    function loadSettings() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_SETTINGS);
+            if (raw) {
+                const settings = JSON.parse(raw);
+                if (settings.examDate && settings.hoursPerDay) {
+                    return settings;
+                }
+            }
+        } catch (e) {}
+        return { examDate: null, hoursPerDay: DEFAULT_HOURS_PER_DAY };
+    }
+
+    function saveSettings(examDate, hoursPerDay) {
+        const settings = { examDate, hoursPerDay };
+        localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
+        // أيضاً نحفظ تاريخ الامتحان في المفتاح القديم للتوافق
+        if (examDate) {
+            localStorage.setItem('user_exam_date', examDate);
         }
+    }
 
-        // ------------------- تنظيف السجل المعلق -------------------
-        cleanPendingHistory() {
-            // إذا كان هناك سجل اختيار لم يتم البدء فيه (لا يوجد مفتاح "started")، نحذفه
-            // لكننا لا نخزن حالة البدء، لذلك سنحذف أي سجل تم إنشاؤه في نفس اليوم إذا لم يتم البدء
-            // لكننا سنعتمد على آلية "ابدأ المراجعة" لحفظ السجل.
-            // لا حاجة لهذه الدالة حالياً، سنحفظ السجل فقط عند بدء المراجعة.
+    function getExamDate() {
+        return loadSettings().examDate;
+    }
+
+    function getHoursPerDay() {
+        return loadSettings().hoursPerDay;
+    }
+
+    function setExamDate(date) {
+        const settings = loadSettings();
+        saveSettings(date, settings.hoursPerDay);
+    }
+
+    function setHoursPerDay(hours) {
+        const settings = loadSettings();
+        saveSettings(settings.examDate, hours);
+    }
+
+    // ================================================================
+    // 3. حساب الأيام المتبقية وأيام العمل
+    // ================================================================
+
+    function getDaysRemaining() {
+        const dateStr = getExamDate();
+        if (!dateStr) return null;
+        const now = new Date();
+        const exam = new Date(dateStr);
+        now.setHours(0, 0, 0, 0);
+        exam.setHours(0, 0, 0, 0);
+        const diff = Math.ceil((exam - now) / (1000 * 3600 * 24));
+        return diff > 0 ? diff : 0;
+    }
+
+    function getWorkingDays() {
+        const days = getDaysRemaining();
+        if (days === null) return 30; // إذا لم يكن التاريخ محدداً، نستخدم قيمة افتراضية
+        const working = days - 2; // آخر يومين محجوزان للمراجعة النهائية
+        return working > 0 ? working : 1;
+    }
+
+    // ================================================================
+    // 4. جمع بيانات الامتحانات (Hören 1 فقط)
+    // ================================================================
+
+    function getExamList() {
+        // نستفيد من examsDatabase الموجودة في window
+        const db = window.examsDatabase;
+        if (!db || !db.hoeren1) {
+            console.warn('⚠️ examsDatabase.hoeren1 غير موجودة');
+            return [];
         }
+        return db.hoeren1; // مصفوفة من { id, title, ... }
+    }
 
-        // ------------------- الإعدادات -------------------
-        loadSettings() {
-            try {
-                const raw = localStorage.getItem(this.storageKeySettings);
-                if (raw) {
-                    const s = JSON.parse(raw);
-                    if (s.examDate && s.hoursPerDay) return s;
-                }
-            } catch (e) {}
-            return { examDate: null, hoursPerDay: 2 };
+    function getExamScore(examId) {
+        const key = `exam_result_${SECTION_ID}_${examId}`;
+        const val = localStorage.getItem(key);
+        return val !== null ? parseFloat(val) : null; // null تعني لم يُحل بعد
+    }
+
+    function getExamRetry(examId) {
+        const key = `exam_retry_${SECTION_ID}_${examId}`;
+        const val = localStorage.getItem(key);
+        return val !== null ? parseInt(val, 10) || 0 : 0;
+    }
+
+    function getExamLastReviewDays(examId) {
+        // نستخدم الدالة الموجودة في window (المضافة في exams.js)
+        if (typeof window.getLastReviewDays === 'function') {
+            const days = window.getLastReviewDays(SECTION_ID, examId);
+            return days !== null ? days : 999; // إذا لم يُراجع أبداً، نعطي قيمة كبيرة
         }
+        // بديل: نحاول قراءة المفتاح مباشرة
+        const key = `exam_last_review_${SECTION_ID}_${examId}`;
+        const dateStr = localStorage.getItem(key);
+        if (!dateStr) return 999;
+        const now = new Date();
+        const last = new Date(dateStr);
+        now.setHours(0,0,0,0);
+        last.setHours(0,0,0,0);
+        const diff = Math.floor((now - last) / (1000*3600*24));
+        return diff >= 0 ? diff : 999;
+    }
 
-        saveSettings(examDate, hoursPerDay) {
-            this.settings = { examDate, hoursPerDay };
-            localStorage.setItem(this.storageKeySettings, JSON.stringify(this.settings));
-            if (examDate) localStorage.setItem(this.storageKeyDate, examDate);
+    // ================================================================
+    // 5. حساب عدد الامتحانات اليومية
+    // ================================================================
+
+    function computeDailyCount() {
+        const workingDays = getWorkingDays();
+        // عدد الامتحانات التي لم تصل إلى 6 إعادات
+        const allExams = getExamList();
+        let remainingExams = 0;
+        for (const exam of allExams) {
+            const retry = getExamRetry(exam.id);
+            if (retry < TARGET_RETRIES) {
+                remainingExams++;
+            }
         }
+        // إذا لم يبقَ شيء، نرجع 0 (أو الحد الأدنى)
+        if (remainingExams === 0) return 0;
+        let daily = Math.ceil(remainingExams / workingDays);
+        // الحد الأدنى
+        if (daily < MIN_DAILY_EXAMS) daily = MIN_DAILY_EXAMS;
+        // لا نتجاوز عدد الامتحانات المتبقية
+        if (daily > remainingExams) daily = remainingExams;
+        return daily;
+    }
 
-        getExamDate() {
-            return this.settings.examDate || localStorage.getItem(this.storageKeyDate) || null;
-        }
-        getHoursPerDay() {
-            return this.settings.hoursPerDay || 2;
-        }
-        getDaysRemaining() {
-            const d = this.getExamDate();
-            if (!d) return null;
-            const now = new Date();
-            now.setHours(0, 0, 0, 0);
-            const exam = new Date(d);
-            exam.setHours(0, 0, 0, 0);
-            const diff = Math.ceil((exam - now) / (1000 * 3600 * 24));
-            return diff > 0 ? diff : 0;
-        }
+    // ================================================================
+    // 6. اختيار الامتحانات (ترتيب حسب النتيجة، الإعادات، آخر مراجعة)
+    // ================================================================
 
-        // ------------------- جمع البيانات الحقيقية (مُحسَّن) -------------------
-        gatherRealData() {
-            const db = window.examsDatabase;
-            if (!db || !db[this.targetSection]) {
-                console.error('❌ Hören 1 غير موجود');
-                return null;
-            }
+    function selectExams(dailyCount) {
+        const allExams = getExamList();
+        if (allExams.length === 0) return [];
 
-            const allExams = db[this.targetSection];
-            const result = [];
-
-            for (const exam of allExams) {
-                const id = exam.id;
-                // 1. جمع كل الدرجات من history مع التواريخ
-                const historyKey = `exam_history_${this.targetSection}_${id}`;
-                const historyRaw = localStorage.getItem(historyKey);
-                let historyEntries = [];
-                if (historyRaw) {
-                    try {
-                        const hist = JSON.parse(historyRaw);
-                        if (Array.isArray(hist)) {
-                            historyEntries = hist.filter(e => e.score !== undefined && !isNaN(e.score));
-                        }
-                    } catch (e) {}
-                }
-
-                // 2. قراءة الدرجة الحالية من exam_result
-                const resultKey = `exam_result_${this.targetSection}_${id}`;
-                const resultRaw = localStorage.getItem(resultKey);
-                let currentScore = null;
-                if (resultRaw !== null) {
-                    const s = parseFloat(resultRaw);
-                    if (!isNaN(s)) currentScore = s;
-                }
-
-                // 3. دمج history و currentScore مع الحفاظ على الترتيب الزمني
-                // نقوم ببناء مصفوفة من الكائنات {score, date}
-                let allEntries = [];
-                for (const entry of historyEntries) {
-                    allEntries.push({ score: entry.score, date: entry.date || null });
-                }
-                // إذا كان currentScore غير موجود في history (أو موجود ولكن نضيفه للتأكد)
-                // نبحث عن آخر تاريخ في history، ونضيف currentScore كإدخال جديد إذا لم يكن مكرراً
-                // لكن الأسهل: نأخذ جميع scores من history، ثم نضيف currentScore إذا كان مختلفاً عن آخرها
-                // (لأن exam_result قد يكون محدثاً أكثر من history في بعض الحالات)
-                if (currentScore !== null) {
-                    const lastHistory = historyEntries.length > 0 ? historyEntries[historyEntries.length - 1] : null;
-                    if (!lastHistory || lastHistory.score !== currentScore) {
-                        // نضيفه مع تاريخ اليوم كتقدير
-                        allEntries.push({ score: currentScore, date: new Date().toISOString() });
-                    }
-                }
-
-                // ترتيب حسب التاريخ (إذا كان التاريخ موجوداً، نضعه في المقدمة)
-                allEntries.sort((a, b) => {
-                    if (!a.date && !b.date) return 0;
-                    if (!a.date) return 1;
-                    if (!b.date) return -1;
-                    return new Date(a.date) - new Date(b.date);
-                });
-
-                const scores = allEntries.map(e => e.score);
-                const lastDate = allEntries.length > 0 ? allEntries[allEntries.length - 1].date : null;
-
-                // 4. عدد الإعادات
-                const retryKey = `exam_retry_${this.targetSection}_${id}`;
-                const retryVal = localStorage.getItem(retryKey);
-                const retryCount = retryVal ? parseInt(retryVal, 10) || 0 : 0;
-
-                // 5. تاريخ آخر اختيار من Planner
-                let lastSelectedDate = null;
-                let selectedCount = 0;
-                try {
-                    const plansRaw = localStorage.getItem(this.storageKeyPlans);
-                    if (plansRaw) {
-                        const plans = JSON.parse(plansRaw);
-                        const key = `${this.targetSection}_${id}`;
-                        if (plans[key]) {
-                            selectedCount = plans[key].count || 0;
-                            lastSelectedDate = plans[key].lastDate || null;
-                        }
-                    }
-                } catch (e) {}
-
-                // 6. حساب الإحصائيات
-                const avg = scores.length > 0 ? scores.reduce((a, b) => a + b, 0) / scores.length : 0;
-                const lastScore = scores.length > 0 ? scores[scores.length - 1] : 0;
-                const attempts = scores.length;
-                const isFresh = scores.length === 0;
-
-                // أيام منذ آخر حل (null للجديدة)
-                let daysSinceSolve = null;
-                if (lastDate) {
-                    daysSinceSolve = Math.floor((Date.now() - new Date(lastDate).getTime()) / (1000 * 3600 * 24));
-                }
-
-                // أيام منذ آخر اختيار
-                let daysSinceSelect = null;
-                if (lastSelectedDate) {
-                    daysSinceSelect = Math.floor((Date.now() - new Date(lastSelectedDate).getTime()) / (1000 * 3600 * 24));
-                }
-
-                // الاتجاه (Trend) من آخر 3 نتائج
-                let trend = 0;
-                if (scores.length >= 2) {
-                    const recent = scores.slice(-3);
-                    if (recent.length >= 2) {
-                        trend = recent[recent.length - 1] - recent[0];
-                    }
-                }
-
-                // التباين (Standard Deviation) كمقياس للاستقرار
-                let stddev = 0;
-                if (scores.length >= 2) {
-                    const mean = avg;
-                    const squaredDiffs = scores.map(s => Math.pow(s - mean, 2));
-                    const variance = squaredDiffs.reduce((a, b) => a + b, 0) / scores.length;
-                    stddev = Math.sqrt(variance);
-                }
-
-                result.push({
-                    id,
-                    scores,
-                    avg,
-                    lastScore,
-                    attempts,
-                    retryCount,
-                    lastDate,
-                    daysSinceSolve,
-                    lastSelectedDate,
-                    daysSinceSelect,
-                    selectedCount,
-                    isFresh,
-                    trend,
-                    stddev,
-                    enabled: exam.enabled !== false
-                });
-            }
-
-            return result;
-        }
-
-        // ------------------- حساب الأولوية (مع توازن) -------------------
-        computePriority(exam, daysRemaining, hoursPerDay) {
-            let priority = 0;
-            const reasons = [];
-
-            // 1. الامتحانات الجديدة: أعلى أولوية، لكن مع حد أقصى
-            if (exam.isFresh) {
-                priority += 100;
-                reasons.push('جديد (+100)');
-            }
-
-            // 2. عامل المتوسط: كلما انخفض، زادت الأولوية (باستخدام معادلة نسبية)
-            if (!exam.isFresh && exam.avg > 0) {
-                // نعطي وزن يتناسب عكسياً مع المتوسط (0-25)
-                const avgWeight = Math.max(0, (25 - exam.avg) * 2.5);
-                priority += avgWeight;
-                reasons.push(`متوسط منخفض (${exam.avg.toFixed(1)}) → +${avgWeight.toFixed(0)}`);
-            }
-
-            // 3. أيام منذ آخر حل: كلما زادت، زادت الأولوية (ولكن ليس بشكل خطي)
-            if (exam.daysSinceSolve !== null) {
-                const days = Math.min(exam.daysSinceSolve, 60);
-                const daysWeight = days * 1.2;
-                priority += daysWeight;
-                reasons.push(`مر ${days} يوم → +${daysWeight.toFixed(0)}`);
-            } else {
-                // إذا كانت جديدة، نعطي 0 لأنها بالفعل حصلت على +100
-            }
-
-            // 4. التكرار المفرط: إذا أعيد أكثر من 5 مرات ومتوسطه جيد، نخفض الأولوية
-            if (exam.retryCount > 5 && exam.avg >= 18) {
-                priority -= 20;
-                reasons.push(`أعيد ${exam.retryCount} مرات بمتوسط جيد (-20)`);
-            } else if (exam.retryCount > 3 && exam.avg < 12) {
-                // إذا أعيد كثيراً لكنه ضعيف، نعطي دفعة
-                priority += 15;
-                reasons.push(`أعيد ${exam.retryCount} مرات وضعيف (+15)`);
-            }
-
-            // 5. الاتجاه (Trend): إذا كان الأداء يتحسن، نعطي دفعة صغيرة؛ وإذا يتراجع، نعطي دفعة أكبر
-            if (exam.trend > 5) {
-                priority += 8;
-                reasons.push(`تحسن ملحوظ (+8)`);
-            } else if (exam.trend < -5) {
-                priority += 20;
-                reasons.push(`تراجع ملحوظ (+20)`);
-            }
-
-            // 6. عدم الاستقرار (stddev كبير): يعني أداء متقلب، نعطي دفعة
-            if (exam.stddev > 8) {
-                priority += 12;
-                reasons.push(`أداء متقلب (+12)`);
-            }
-
-            // 7. معاقبة التكرار المفرط من Planner: إذا اختير مرات كثيرة ومؤخراً
-            if (exam.daysSinceSelect !== null && exam.daysSinceSelect < 3 && exam.selectedCount > 2) {
-                priority -= 25;
-                reasons.push(`اختير ${exam.selectedCount} مرات مؤخراً (-25)`);
-            } else if (exam.daysSinceSelect !== null && exam.daysSinceSelect < 7 && exam.selectedCount > 3) {
-                priority -= 15;
-                reasons.push(`اختير ${exam.selectedCount} مرات مؤخراً (-15)`);
-            }
-
-            // 8. الوقت المتبقي: إذا كان قصيراً، نعطي أولوية للجديد والضعيف
-            if (daysRemaining !== null && daysRemaining < 10) {
-                if (exam.isFresh) {
-                    priority += 20;
-                    reasons.push('وقت قصير + جديد (+20)');
-                } else if (exam.avg < 12) {
-                    priority += 15;
-                    reasons.push('وقت قصير + ضعيف (+15)');
-                }
-            }
-
-            // 9. المتقن: نخفض كثيراً إذا كان متوسطه >= 20 وعدد محاولات >= 5
-            if (exam.avg >= 20 && exam.attempts >= 5) {
-                priority -= 30;
-                reasons.push('متقن (-30)');
-            }
-
-            // 10. كسر التعادل بطريقة حتمية (باستخدام id)
-            // نضيف قيمة صغيرة تعتمد على id لتوزيع متساوٍ
-            const tieBreaker = (exam.id * 0.01) % 0.1;
-            priority += tieBreaker;
-
-            return { priority: Math.round(Math.max(0, priority)), reasons };
-        }
-
-        // ------------------- اختيار الخطة مع توازن الفئات -------------------
-        buildPlan() {
-            const exams = this.gatherRealData();
-            if (!exams) return null;
-
-            const daysRemaining = this.getDaysRemaining();
-            const hoursPerDay = this.getHoursPerDay();
-
-            // عدد الامتحانات اليومية
-            let dailyCount = Math.round(hoursPerDay * 2.5);
-            dailyCount = Math.max(this.minExams, Math.min(this.maxExams, dailyCount));
-            if (daysRemaining !== null && daysRemaining < 15) {
-                dailyCount = Math.min(this.maxExams, dailyCount + 2);
-            }
-            if (daysRemaining !== null && daysRemaining < 7) {
-                dailyCount = Math.min(this.maxExams, dailyCount + 2);
-            }
-
-            // حساب الأولوية لكل امتحان
-            const withPriority = exams.map(exam => {
-                const { priority, reasons } = this.computePriority(exam, daysRemaining, hoursPerDay);
-                return { ...exam, priority, reasons };
-            });
-
-            // تصفية المفعل
-            const enabled = withPriority.filter(e => e.enabled);
-
-            // تقسيم إلى فئات
-            const fresh = enabled.filter(e => e.isFresh);
-            const weak = enabled.filter(e => !e.isFresh && e.avg < 10);
-            const medium = enabled.filter(e => !e.isFresh && e.avg >= 10 && e.avg < 18);
-            const good = enabled.filter(e => !e.isFresh && e.avg >= 18);
-
-            // ترتيب كل فئة حسب الأولوية
-            const sortByPriority = (arr) => arr.sort((a, b) => b.priority - a.priority);
-            sortByPriority(fresh);
-            sortByPriority(weak);
-            sortByPriority(medium);
-            sortByPriority(good);
-
-            // استراتيجية التوزيع: نأخذ من كل فئة بحيث يكون هناك توازن
-            const selected = [];
-            const maxFresh = Math.min(3, Math.ceil(dailyCount * 0.4));
-            const maxWeak = Math.min(3, Math.ceil(dailyCount * 0.4));
-            const maxMedium = Math.min(2, Math.ceil(dailyCount * 0.3));
-            const maxGood = Math.min(1, Math.ceil(dailyCount * 0.2));
-
-            // دالة مساعدة للإضافة مع مراعاة الحدود
-            const addWithLimit = (pool, limit, target) => {
-                let added = 0;
-                for (const exam of pool) {
-                    if (added >= limit) break;
-                    if (!selected.some(e => e.id === exam.id)) {
-                        selected.push(exam);
-                        added++;
-                    }
-                }
-            };
-
-            // 1. نبدأ بالجديد والضعيف (الأولوية القصوى)
-            addWithLimit(fresh, maxFresh, selected);
-            addWithLimit(weak, maxWeak, selected);
-
-            // 2. ثم المتوسط
-            addWithLimit(medium, maxMedium, selected);
-
-            // 3. ثم الجيد (إذا بقي مكان)
-            addWithLimit(good, maxGood, selected);
-
-            // 4. إذا لم نكمل العدد، نضيف من الباقي حسب الأولوية (بدون حدود)
-            if (selected.length < dailyCount) {
-                const remaining = enabled.filter(e => !selected.some(s => s.id === e.id));
-                sortByPriority(remaining);
-                for (const exam of remaining) {
-                    if (selected.length >= dailyCount) break;
-                    if (!selected.some(e => e.id === exam.id)) {
-                        selected.push(exam);
-                    }
-                }
-            }
-
-            // إحصائيات
-            const stats = {
-                total: enabled.length,
-                solved: enabled.filter(e => !e.isFresh).length,
-                never: enabled.filter(e => e.isFresh).length,
-                weak: enabled.filter(e => !e.isFresh && e.avg < 10).length,
-                medium: enabled.filter(e => !e.isFresh && e.avg >= 10 && e.avg < 18).length,
-                good: enabled.filter(e => !e.isFresh && e.avg >= 18).length
-            };
-
-            // ترتيب المختارين حسب الأولوية (للعرض)
-            selected.sort((a, b) => b.priority - a.priority);
-
+        // بناء مصفوفة تحتوي على بيانات كل امتحان
+        const examData = allExams.map(exam => {
+            const id = exam.id;
+            const score = getExamScore(id);
+            const retry = getExamRetry(id);
+            const lastReview = getExamLastReviewDays(id);
+            // النتيجة: إذا كانت null نعتبرها 0 (ضعيفة جداً)
+            const effectiveScore = (score !== null) ? score : 0;
             return {
-                selected,
-                sorted: enabled, // جميع الامتحانات مرتبة حسب الأولوية (لـ Debug)
-                dailyCount,
-                daysRemaining,
-                hoursPerDay,
-                stats
+                id: id,
+                title: exam.title,
+                score: effectiveScore,
+                retry: retry,
+                lastReview: lastReview,
+                // نحتفظ بالبيانات الأصلية لاستخدامها في العرض
             };
-        }
+        });
 
-        // ------------------- حفظ سجل الاختيار (يُستدعى عند "ابدأ المراجعة") -------------------
-        saveSelectionHistory(selectedExams) {
-            const today = new Date().toISOString().slice(0, 10);
-            let history = {};
-            try {
-                const raw = localStorage.getItem(this.storageKeyPlans);
-                if (raw) history = JSON.parse(raw);
-            } catch (e) {}
-            for (const exam of selectedExams) {
-                const key = `${this.targetSection}_${exam.id}`;
-                if (!history[key]) history[key] = { count: 0, lastDate: null };
-                history[key].count = (history[key].count || 0) + 1;
-                history[key].lastDate = today;
-            }
-            localStorage.setItem(this.storageKeyPlans, JSON.stringify(history));
-        }
+        // ترتيب حسب الأولوية: النتيجة تصاعدياً، ثم الإعادات تصاعدياً، ثم آخر مراجعة تصاعدياً
+        examData.sort((a, b) => {
+            if (a.score !== b.score) return a.score - b.score;
+            if (a.retry !== b.retry) return a.retry - b.retry;
+            return a.lastReview - b.lastReview;
+        });
+
+        // اختيار أول dailyCount امتحان
+        const selected = examData.slice(0, dailyCount);
+        return selected;
     }
 
     // ================================================================
-    // 2. واجهة المستخدم
+    // 7. عرض الخطة (UI)
     // ================================================================
 
-    const planner = new SimplePlanner();
-
-    // دوال مساعدة للـ UI
-    function createOverlay() {
-        const old = document.querySelector('.planner-overlay');
-        if (old) old.remove();
-        const overlay = document.createElement('div');
-        overlay.className = 'planner-overlay';
-        overlay.style.cssText = `
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
-            z-index: 99999; display: flex; align-items: center; justify-content: center;
-            animation: fadeIn 0.2s ease;
-        `;
-        return overlay;
-    }
-
-    function showInitialSetup() {
+    function showPlan(selectedExams, dailyCount) {
         const overlay = createOverlay();
         const card = document.createElement('div');
         card.style.cssText = `
-            background: #1a1f2e; border-radius: 24px; padding: 28px 30px;
-            max-width: 420px; width: 90%; border: 1px solid #2a3042;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4); color: #e2e8f0;
-            animation: slideUp 0.25s ease; direction: rtl; text-align: center;
+            background: #1a1f2e;
+            border-radius: 24px;
+            padding: 28px 30px;
+            max-width: 460px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid #2a3042;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            color: #e2e8f0;
+            animation: slideUp 0.25s ease;
+            direction: rtl;
         `;
 
-        const today = new Date().toISOString().slice(0, 10);
-        const currentDate = planner.getExamDate() || today;
-        const currentHours = planner.getHoursPerDay();
+        const remainingDays = getDaysRemaining();
+        const workingDays = getWorkingDays();
+
+        let html = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="margin: 0; color: #38bdf8;">📅 خطة اليوم</h3>
+                <button id="closePlanBtn" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">✕</button>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
+                <span style="background: #1e293b; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem;">🎯 ${dailyCount} امتحان</span>
+                <span style="background: #1e293b; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem;">⏰ ${getHoursPerDay()} ساعة/يوم</span>
+                ${remainingDays !== null ? `<span style="background: #1e293b; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem;">📅 ${remainingDays} يوم متبقي</span>` : ''}
+                <span style="background: #1e293b; padding: 2px 10px; border-radius: 20px; font-size: 0.75rem;">⚙️ أيام العمل: ${workingDays}</span>
+            </div>
+            <div style="margin-bottom: 14px; color: #94a3b8; font-size: 0.85rem;">اليوم عليك مراجعة:</div>
+        `;
+
+        if (selectedExams.length === 0) {
+            html += `
+                <div style="background: #0f1421; border-radius: 12px; padding: 16px; text-align: center; color: #4ade80;">
+                    ✅ جميع الامتحانات حققت 6 مراجعات! لا حاجة للمراجعة اليوم.
+                </div>
+            `;
+        } else {
+            html += `<div style="background: #0f1421; border-radius: 12px; padding: 12px 16px; border-right: 3px solid #4ade80;">`;
+            html += `<div style="font-weight: bold; color: #f1f5f9; margin-bottom: 4px;">Hören 1</div>`;
+            const examIds = selectedExams.map(e => e.id);
+            html += `<div style="color: #e2e8f0; font-size: 0.95rem;">امتحان: <span style="color: #4ade80; font-weight: bold;">${examIds.join(' ، ')}</span></div>`;
+            html += `</div>`;
+
+            // عرض أسباب بسيطة (اختياري)
+            html += `<div style="margin-top: 10px; font-size: 0.75rem; color: #64748b;">ملاحظات:</div>`;
+            for (const exam of selectedExams) {
+                let reason = '';
+                if (exam.score === 0) reason = 'لم يُحل أبداً';
+                else if (exam.score < 10) reason = `نتيجة منخفضة (${exam.score})`;
+                else if (exam.retry < 3) reason = `إعادات قليلة (${exam.retry})`;
+                else if (exam.lastReview > 20) reason = `مراجعة قديمة (منذ ${exam.lastReview} يوم)`;
+                else reason = `أولوية`;
+                html += `
+                    <div style="background: #0f1421; border-radius: 8px; padding: 4px 12px; margin-top: 4px; font-size: 0.8rem; color: #cbd5e1; border-right: 2px solid #4ade80;">
+                        <strong>امتحان ${exam.id}</strong> — ${reason}
+                    </div>
+                `;
+            }
+        }
+
+        html += `
+            <button id="startReviewBtn" style="
+                width: 100%; margin-top: 16px; padding: 12px;
+                background: #38bdf8; border: none; border-radius: 12px;
+                color: #0a0e1a; font-size: 0.95rem; font-weight: 700; cursor: pointer;
+            ">ابدأ المراجعة</button>
+            <button id="backBtn" style="
+                width: 100%; margin-top: 6px; padding: 6px;
+                background: transparent; border: 1px solid #334155; border-radius: 12px;
+                color: #94a3b8; font-size: 0.75rem; cursor: pointer;
+            ">⬅ العودة</button>
+        `;
+
+        card.innerHTML = html;
+        overlay.appendChild(card);
+        document.body.appendChild(overlay);
+
+        document.getElementById('closePlanBtn').onclick = () => overlay.remove();
+        document.getElementById('startReviewBtn').onclick = () => {
+            overlay.remove();
+            // التوجيه إلى قائمة Hören 1
+            const teil = window.teile?.find(t => t.id === 1);
+            if (teil && typeof window.renderExamListForSkill === 'function') {
+                window.renderExamListForSkill(teil.skill, teil.name);
+                document.getElementById('home')?.classList.remove('active');
+                document.getElementById('exam')?.classList.remove('active');
+                document.getElementById('list')?.classList.add('active');
+            }
+        };
+        document.getElementById('backBtn').onclick = () => {
+            overlay.remove();
+            showMainMenu();
+        };
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.remove();
+        });
+    }
+
+    // ================================================================
+    // 8. شاشة الإعدادات الأولية
+    // ================================================================
+
+    function showSettingsScreen() {
+        const overlay = createOverlay();
+        const card = document.createElement('div');
+        card.style.cssText = `
+            background: #1a1f2e;
+            border-radius: 24px;
+            padding: 28px 30px;
+            max-width: 420px;
+            width: 90%;
+            border: 1px solid #2a3042;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            color: #e2e8f0;
+            animation: slideUp 0.25s ease;
+            direction: rtl;
+            text-align: center;
+        `;
+
+        const currentDate = getExamDate() || new Date().toISOString().slice(0, 10);
+        const currentHours = getHoursPerDay();
 
         card.innerHTML = `
-            <div style="font-size: 2.5rem; margin-bottom: 8px;">🎯</div>
+            <div style="font-size: 2.5rem; margin-bottom: 8px;">⚙️</div>
             <h2 style="margin: 0 0 4px 0; color: #38bdf8;">الإعدادات الأولية</h2>
             <p style="margin: 0 0 20px 0; color: #94a3b8; font-size: 0.9rem;">تُحفظ هذه الإعدادات ولا تظهر مرة أخرى</p>
             <div style="text-align: right; margin-bottom: 16px;">
                 <label style="display: block; font-size: 0.85rem; color: #94a3b8; margin-bottom: 4px;">📅 تاريخ الامتحان</label>
-                <input type="date" id="setupDate" value="${currentDate}" min="${today}" style="
+                <input type="date" id="settingsExamDate" value="${currentDate}" min="${new Date().toISOString().slice(0,10)}" style="
                     width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #334155;
                     background: #0f1421; color: #e2e8f0; font-size: 1rem; box-sizing: border-box;
                 ">
@@ -489,7 +364,7 @@
                     `).join('')}
                 </div>
             </div>
-            <button id="setupSaveBtn" style="
+            <button id="settingsSaveBtn" style="
                 width: 100%; padding: 12px; background: #38bdf8; border: none; border-radius: 12px;
                 color: #0a0e1a; font-size: 1rem; font-weight: 700; cursor: pointer;
             ">حفظ وبدء</button>
@@ -513,187 +388,87 @@
             };
         });
 
-        document.getElementById('setupSaveBtn').onclick = () => {
-            const date = document.getElementById('setupDate').value;
+        document.getElementById('settingsSaveBtn').onclick = () => {
+            const date = document.getElementById('settingsExamDate').value;
             if (date) {
-                planner.saveSettings(date, selectedHours);
+                saveSettings(date, selectedHours);
                 overlay.remove();
-                showThinkingScreen();
+                runPlanner();
             }
         };
 
-        overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.remove();
+        });
     }
 
-    function showThinkingScreen() {
-        const overlay = createOverlay();
-        const card = document.createElement('div');
-        card.style.cssText = `
-            background: #1a1f2e; border-radius: 24px; padding: 30px;
-            max-width: 480px; width: 92%; border: 1px solid #2a3042;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            color: #e2e8f0; animation: slideUp 0.25s ease;
-        `;
+    // ================================================================
+    // 9. تشغيل المدرب
+    // ================================================================
 
-        card.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-                <div style="font-size: 1.5rem;">🧠</div>
-                <div>
-                    <div style="font-size: 0.75rem; color: #64748b;">تحليل Hören 1...</div>
-                    <div style="font-size: 0.9rem; font-weight: 500; color: #38bdf8;">جاري التفكير</div>
-                </div>
-                <div style="margin-left: auto; display: flex; gap: 4px;">
-                    <span class="thinking-dot" style="display:inline-block; width:6px; height:6px; background:#38bdf8; border-radius:50%; animation-delay:0s;"></span>
-                    <span class="thinking-dot" style="display:inline-block; width:6px; height:6px; background:#38bdf8; border-radius:50%; animation-delay:0.3s;"></span>
-                    <span class="thinking-dot" style="display:inline-block; width:6px; height:6px; background:#38bdf8; border-radius:50%; animation-delay:0.6s;"></span>
-                </div>
-            </div>
-            <div id="thinkingLog" style="max-height: 200px; overflow-y: auto; padding: 0 4px; direction: ltr;"></div>
-            <div style="margin-top: 16px; background: #0f1421; height: 3px; border-radius: 2px; overflow: hidden;">
-                <div id="thinkingProgress" style="width: 0%; height: 100%; background: linear-gradient(90deg, #38bdf8, #4ade80); border-radius: 2px; transition: width 0.5s ease;"></div>
-            </div>
-        `;
-
-        overlay.appendChild(card);
-        document.body.appendChild(overlay);
-
-        // بناء الخطة فعلياً
-        const plan = planner.buildPlan();
-        if (!plan) {
-            document.getElementById('thinkingLog').innerHTML = '<div style="color:#f87171;">❌ حدث خطأ</div>';
+    function runPlanner() {
+        // 1. التحقق من وجود الإعدادات
+        if (!getExamDate()) {
+            showSettingsScreen();
             return;
         }
 
-        // رسائل تعتمد على الخطة
-        const log = document.getElementById('thinkingLog');
-        const progress = document.getElementById('thinkingProgress');
-        const msgs = [
-            `📂 قراءة بيانات Hören 1... ${plan.stats.total} امتحان.`,
-            `📊 تم حل ${plan.stats.solved} امتحان، ${plan.stats.never} لم يُفتح.`,
-            plan.stats.weak > 0 ? `⚠️ ${plan.stats.weak} امتحان ضعيف (avg < 10).` : '✅ لا توجد امتحانات ضعيفة.',
-            `📈 متوسط الأداء: ${plan.stats.solved > 0 ? (plan.selected.reduce((s,e) => s + e.avg, 0) / plan.selected.length).toFixed(1) : 0}%`,
-            `🎯 اختيار ${plan.dailyCount} امتحان لليوم.`
-        ];
+        // 2. حساب عدد الامتحانات اليومية
+        const dailyCount = computeDailyCount();
 
-        let idx = 0, pct = 0;
-        function showNext() {
-            if (idx >= msgs.length) {
-                setTimeout(() => { overlay.remove(); showPlan(plan); }, 400);
-                return;
-            }
-            const line = document.createElement('div');
-            line.style.cssText = 'padding: 6px 0; font-size: 0.85rem; color: #cbd5e1; border-bottom: 1px solid rgba(255,255,255,0.04);';
-            line.textContent = msgs[idx];
-            log.appendChild(line);
-            pct += (100 / msgs.length);
-            progress.style.width = pct + '%';
-            log.scrollTop = log.scrollHeight;
-            idx++;
-            setTimeout(showNext, 600);
-        }
-        setTimeout(showNext, 300);
+        // 3. اختيار الامتحانات
+        const selected = selectExams(dailyCount);
+
+        // 4. عرض الخطة
+        showPlan(selected, dailyCount);
     }
 
-    function showPlan(plan) {
-        const overlay = createOverlay();
-        const card = document.createElement('div');
-        card.style.cssText = `
-            background: #1a1f2e; border-radius: 24px; padding: 28px 30px;
-            max-width: 500px; width: 92%; max-height: 85vh; overflow-y: auto;
-            border: 1px solid #2a3042; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            color: #e2e8f0; animation: slideUp 0.25s ease; direction: rtl;
+    // ================================================================
+    // 10. القائمة الرئيسية والـ UI
+    // ================================================================
+
+    function createOverlay() {
+        const old = document.querySelector('.planner-overlay');
+        if (old) old.remove();
+        const overlay = document.createElement('div');
+        overlay.className = 'planner-overlay';
+        overlay.style.cssText = `
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+            z-index: 99999; display: flex; align-items: center; justify-content: center;
+            animation: fadeIn 0.2s ease;
         `;
-
-        let html = `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <h3 style="margin: 0; color: #38bdf8;">📅 خطة اليوم</h3>
-                <button id="closePlanBtn" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">✕</button>
-            </div>
-            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
-                <span style="background:#1e293b; padding:2px 10px; border-radius:20px; font-size:0.75rem;">🎯 ${plan.dailyCount} امتحان</span>
-                <span style="background:#1e293b; padding:2px 10px; border-radius:20px; font-size:0.75rem;">⏰ ${plan.hoursPerDay} ساعة/يوم</span>
-                ${plan.daysRemaining !== null ? `<span style="background:#1e293b; padding:2px 10px; border-radius:20px; font-size:0.75rem;">📅 ${plan.daysRemaining} يوم متبقي</span>` : ''}
-            </div>
-            <div style="margin-bottom: 14px; color: #94a3b8; font-size: 0.85rem;">اليوم عليك مراجعة:</div>
-        `;
-
-        // عرض الامتحانات المختارة
-        const selected = plan.selected;
-        html += `<div style="background: #0f1421; border-radius: 12px; padding: 12px 16px; margin-bottom: 12px; border-right: 3px solid #4ade80;">`;
-        html += `<div style="font-weight: bold; color: #f1f5f9; margin-bottom: 4px;">Hören 1</div>`;
-        html += `<div style="color: #e2e8f0; font-size: 0.95rem;">امتحان: <span style="color: #4ade80; font-weight: bold;">${selected.map(e => e.id).join(' ، ')}</span></div>`;
-        html += `</div>`;
-
-        // أسباب مختصرة لأول 4 امتحانات
-        html += `<div style="margin-top: 8px; font-size: 0.75rem; color: #64748b;">لماذا هذه الامتحانات؟</div>`;
-        for (let i = 0; i < Math.min(selected.length, 4); i++) {
-            const e = selected[i];
-            let reason = '';
-            if (e.isFresh) reason = 'لم يُحل أبداً';
-            else if (e.avg < 10) reason = `ضعيف (المتوسط ${e.avg.toFixed(1)})`;
-            else if (e.daysSinceSolve !== null && e.daysSinceSolve > 30) reason = `مر ${e.daysSinceSolve} يوم دون مراجعة`;
-            else if (e.retryCount > 3) reason = `أعيد ${e.retryCount} مرات`;
-            else reason = `أولوية عالية`;
-            html += `
-                <div style="background:#0f1421; border-radius:8px; padding:4px 12px; margin-top:4px; font-size:0.8rem; color:#cbd5e1; border-right:2px solid #4ade80;">
-                    <strong>امتحان ${e.id}</strong> — ${reason}
-                </div>
+        if (!document.getElementById('plannerStyles')) {
+            const style = document.createElement('style');
+            style.id = 'plannerStyles';
+            style.textContent = `
+                @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+                @keyframes slideUp { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
             `;
+            document.head.appendChild(style);
         }
-
-        // زر "ابدأ المراجعة" مع حفظ السجل
-        html += `
-            <button id="startReviewBtn" style="
-                width: 100%; margin-top: 14px; padding: 12px;
-                background: #38bdf8; border: none; border-radius: 12px;
-                color: #0a0e1a; font-size: 0.95rem; font-weight: 700; cursor: pointer;
-            ">🚀 ابدأ المراجعة</button>
-            <button id="backBtn" style="
-                width: 100%; margin-top: 6px; padding: 6px;
-                background: transparent; border: 1px solid #334155; border-radius: 12px;
-                color: #94a3b8; font-size: 0.75rem; cursor: pointer;
-            ">⬅ العودة للقائمة</button>
-        `;
-
-        card.innerHTML = html;
-        overlay.appendChild(card);
-        document.body.appendChild(overlay);
-
-        document.getElementById('closePlanBtn').onclick = () => overlay.remove();
-
-        document.getElementById('startReviewBtn').onclick = () => {
-            // حفظ سجل الاختيار
-            planner.saveSelectionHistory(selected);
-            overlay.remove();
-            // فتح قائمة Hören 1
-            const teil = window.teile?.find(t => t.id === 1);
-            if (teil && typeof window.renderExamListForSkill === 'function') {
-                window.renderExamListForSkill(teil.skill, teil.name);
-                document.getElementById('home')?.classList.remove('active');
-                document.getElementById('exam')?.classList.remove('active');
-                document.getElementById('list')?.classList.add('active');
-            }
-        };
-
-        document.getElementById('backBtn').onclick = () => {
-            overlay.remove();
-            showMainMenu();
-        };
-        overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+        return overlay;
     }
 
     function showMainMenu() {
         const overlay = createOverlay();
         const card = document.createElement('div');
         card.style.cssText = `
-            background: #1a1f2e; border-radius: 24px; padding: 28px 30px;
-            max-width: 440px; width: 90%; border: 1px solid #2a3042;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4); color: #e2e8f0;
-            animation: slideUp 0.25s ease; direction: rtl;
+            background: #1a1f2e;
+            border-radius: 24px;
+            padding: 28px 30px;
+            max-width: 440px;
+            width: 90%;
+            border: 1px solid #2a3042;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            color: #e2e8f0;
+            animation: slideUp 0.25s ease;
+            direction: rtl;
         `;
 
-        const date = planner.getExamDate();
-        const hours = planner.getHoursPerDay();
+        const date = getExamDate();
+        const hours = getHoursPerDay();
+
         card.innerHTML = `
             <div style="text-align:center; margin-bottom:20px;">
                 <div style="font-size:2.5rem;">🎯</div>
@@ -710,9 +485,8 @@
             ">🎧 خطة Hören 1</button>
             <div style="display:flex; gap:8px; margin-top:12px;">
                 <button id="settingsBtn" style="flex:1; padding:8px; background:transparent; border:1px solid #334155; border-radius:12px; color:#94a3b8; font-size:0.75rem; cursor:pointer;">⚙️ الإعدادات</button>
-                <button id="debugBtn" style="flex:1; padding:8px; background:transparent; border:1px solid #334155; border-radius:12px; color:#94a3b8; font-size:0.75rem; cursor:pointer;">🐞 Debug</button>
+                <button id="closeBtn" style="flex:1; padding:8px; background:transparent; border:1px solid #334155; border-radius:12px; color:#94a3b8; font-size:0.75rem; cursor:pointer;">إغلاق</button>
             </div>
-            <button id="closeBtn" style="width:100%; margin-top:8px; padding:6px; background:transparent; border:none; color:#64748b; font-size:0.7rem; cursor:pointer;">إغلاق</button>
         `;
 
         overlay.appendChild(card);
@@ -720,84 +494,39 @@
 
         document.getElementById('planBtn').onclick = () => {
             overlay.remove();
-            if (!planner.getExamDate()) showInitialSetup();
-            else showThinkingScreen();
+            runPlanner();
         };
-        document.getElementById('settingsBtn').onclick = () => { overlay.remove(); showInitialSetup(); };
-        document.getElementById('debugBtn').onclick = () => { overlay.remove(); debugPlanner(); };
+        document.getElementById('settingsBtn').onclick = () => {
+            overlay.remove();
+            showSettingsScreen();
+        };
         document.getElementById('closeBtn').onclick = () => overlay.remove();
-        overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) overlay.remove();
+        });
     }
 
     // ================================================================
-    // 3. Debug مع تفصيل الأولوية
-    // ================================================================
-
-    function debugPlanner() {
-        const plan = planner.buildPlan();
-        if (!plan) { console.error('❌ فشل'); return; }
-
-        console.log('%c=========================', 'font-weight:bold; font-size:16px;');
-        console.log('%cDEBUG PLANNER V2 - HÖREN 1', 'font-weight:bold; font-size:18px; color:#38bdf8;');
-        console.log('%c=========================', 'font-weight:bold; font-size:16px;');
-        console.log(`📅 تاريخ الامتحان:`, planner.getExamDate() || 'غير محدد');
-        console.log(`⏰ ساعات الدراسة:`, planner.getHoursPerDay());
-        console.log(`📊 أيام متبقية:`, plan.daysRemaining !== null ? plan.daysRemaining : 'غير محدد');
-        console.log(`%c`, '');
-
-        console.log(`%c📈 STATS`, 'font-weight:bold; font-size:14px; color:#fbbf24;');
-        console.log(`  الإجمالي: ${plan.stats.total}`);
-        console.log(`  محلولة: ${plan.stats.solved}`);
-        console.log(`  جديدة: ${plan.stats.never}`);
-        console.log(`  ضعيفة (avg<10): ${plan.stats.weak}`);
-        console.log(`  متوسطة (10-18): ${plan.stats.medium}`);
-        console.log(`  جيدة (>=18): ${plan.stats.good}`);
-        console.log(`%c`, '');
-
-        console.log(`%c🏆 المختارة (${plan.dailyCount})`, 'font-weight:bold; font-size:14px; color:#4ade80;');
-        for (let i = 0; i < plan.selected.length; i++) {
-            const e = plan.selected[i];
-            console.log(`  ${i+1}. Exam ${e.id} — priority: ${e.priority}`);
-            console.log(`     Scores:`, e.scores);
-            console.log(`     Avg: ${e.avg.toFixed(1)}, Last: ${e.lastScore}`);
-            console.log(`     Attempts: ${e.attempts}, Retry: ${e.retryCount}`);
-            console.log(`     Days since solve: ${e.daysSinceSolve !== null ? e.daysSinceSolve : 'N/A'}`);
-            console.log(`     Trend: ${e.trend}, StdDev: ${e.stddev.toFixed(2)}`);
-            console.log(`     Fresh: ${e.isFresh}`);
-            console.log(`     Reasons:`, e.reasons.join(' | '));
-        }
-
-        console.log(`%c📋 ALL (مرتبة)`, 'font-weight:bold; font-size:14px; color:#60a5fa;');
-        for (let i = 0; i < Math.min(plan.sorted.length, 20); i++) {
-            const e = plan.sorted[i];
-            console.log(`  ${i+1}. Exam ${e.id} — priority: ${e.priority} | avg: ${e.avg.toFixed(1)} | fresh: ${e.isFresh} | trend: ${e.trend}`);
-        }
-
-        console.log(`%c=========================`, 'font-weight:bold; font-size:16px;');
-        console.log(`%c✅ انتهى`, 'font-weight:bold; font-size:14px; color:#4ade80;');
-
-        // عرض الخطة في الواجهة
-        showPlan(plan);
-    }
-
-    // ================================================================
-    // 4. ربط الزر
+    // 11. ربط الزر العام
     // ================================================================
 
     window.openStudyPlanner = function() {
-        if (!planner.getExamDate()) showInitialSetup();
-        else showMainMenu();
+        if (!getExamDate()) {
+            showSettingsScreen();
+        } else {
+            showMainMenu();
+        }
     };
 
-    window.debugPlannerV2 = debugPlanner;
-    window.planner = planner;
-
+    // عند تحميل الصفحة، ربط الزر (إن وجد)
     document.addEventListener('DOMContentLoaded', function() {
         const btn = document.getElementById('studyPlannerBtn');
         if (btn) {
             btn.removeEventListener('click', window.openStudyPlanner);
             btn.addEventListener('click', window.openStudyPlanner);
-            console.log('✅ Study Planner V2 (مُحسَّن) جاهز');
+            console.log('✅ Study Planner v1.0 (تجريبي Hören 1) جاهز');
+        } else {
+            console.warn('⚠️ الزر studyPlannerBtn غير موجود.');
         }
     });
 
