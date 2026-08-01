@@ -2602,20 +2602,31 @@ window.updateAskAIContext = function(skill, examId) {
     function generateAndRenderPlan() {
         // قراءة البيانات من localStorage (حيث يتم حفظ اختيارات المستخدم)
         const skill = localStorage.getItem('zertiva_selected_skill') || 'hoeren1';
-        const examDateStr = localStorage.getItem('zertiva_exam_date');
+        let examDateStr = localStorage.getItem('zertiva_exam_date');
         const dailyHours = parseInt(localStorage.getItem('zertiva_daily_hours')) || 4;
 
-        // ✅ التحقق من وجود التاريخ
+        // ✅ إذا لم يوجد تاريخ، نضع تاريخاً افتراضياً مؤقتاً (بعد 30 يوماً)
         if (!examDateStr) {
+            const defaultDate = new Date();
+            defaultDate.setDate(defaultDate.getDate() + 30);
+            examDateStr = defaultDate.toISOString().slice(0, 10);
+            localStorage.setItem('zertiva_exam_date', examDateStr);
+            console.log('📅 [StudyPlanner] تم تعيين تاريخ افتراضي:', examDateStr);
+
+            // عرض رسالة للمستخدم
             container.innerHTML = `
-                <div style="text-align:center; padding:30px; color:#f59e0b; font-size:1rem;">
-                    ⚠️ يرجى تحديد تاريخ الامتحان أولاً في الإعدادات.
+                <div style="text-align:center; padding:20px; color:#38bdf8; font-size:0.9rem;">
+                    📅 تم تعيين تاريخ افتراضي للامتحان: <strong>${examDateStr}</strong>
                 </div>
-                <div style="text-align:center; font-size:0.8rem; color:#94a3b8; margin-top:8px;">
-                    🔧 سيتم إضافة واجهة اختيار التاريخ قريباً.
+                <div style="text-align:center; font-size:0.75rem; color:#94a3b8; margin-top:4px;">
+                    يمكنك تغييره لاحقاً عبر الإعدادات.
                 </div>
             `;
-            console.warn('⚠️ [StudyPlanner] لا يوجد تاريخ امتحان في localStorage');
+
+            // إعادة توليد الخطة بعد 1.5 ثانية (بعد حفظ التاريخ)
+            setTimeout(() => {
+                generateAndRenderPlan();
+            }, 1500);
             return;
         }
 
