@@ -254,6 +254,18 @@ function getAllScores(skill, examId) {
     return history.map(item => item.score);
 }
 
+function getLastReviewDays(skill, examId) {
+    const lastDate = getLastAttemptDate(skill, examId);
+    if (!lastDate) return null;
+    const now = new Date();
+    const last = new Date(lastDate);
+    // ضبط الوقت لتجنب مشاكل التوقيت
+    now.setHours(0, 0, 0, 0);
+    last.setHours(0, 0, 0, 0);
+    const diff = Math.floor((now - last) / (1000 * 3600 * 24));
+    return diff;
+}
+
 // تعديل دالة saveExamResult لتخزين التاريخ أيضاً
 // (نقوم بتعديل saveExamResult الأصلية، والتي سيتم استبدالها في التعديل التالي)
 // ========== عرض بطاقة Premium Access ==========
@@ -1577,6 +1589,24 @@ async function renderExamListForSkill(skill, teilName) {
         retrySpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
         retrySpan.textContent = `🔄 ${retryCount}`;
         titleSpan.appendChild(retrySpan);
+    }
+    // ✅ عرض تاريخ آخر مراجعة
+    const reviewDays = getLastReviewDays(targetSkill, exam.id);
+    if (reviewDays !== null) {
+        const reviewSpan = document.createElement('span');
+        reviewSpan.style.cssText = 'font-size:10px; color:#64748b; margin-right:6px;';
+        if (reviewDays === 0) {
+            reviewSpan.textContent = `📅 اليوم`;
+        } else {
+            reviewSpan.textContent = `📅 منذ ${reviewDays} يوم`;
+        }
+        titleSpan.appendChild(reviewSpan);
+    } else {
+        // لم يُصحح أبداً
+        const reviewSpan = document.createElement('span');
+        reviewSpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
+        reviewSpan.textContent = `📅 لم يُراجع`;
+        titleSpan.appendChild(reviewSpan);
     }
     const progress = getExamProgress(targetSkill, exam.id);
     if (progress > 0) {
@@ -3856,7 +3886,7 @@ window.getLastAttemptDate = getLastAttemptDate;
 window.getAllScores = getAllScores;
 window.saveExamResult = saveExamResult;
 window.getExamResult = getExamResult;
-
+window.getLastReviewDays = getLastReviewDays;
 // تصدير متغيرات Lesen1 للاستخدام من engine.js (مع التحقق من وجودها)
 try {
     if (typeof matchingSelectedAnswers !== 'undefined') {
