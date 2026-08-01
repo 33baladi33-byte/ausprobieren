@@ -2582,19 +2582,19 @@ window.updateAskAIContext = function(skill, examId) {
 
     let loaderOverlay = null;
 
-    function showLoader(callback) {
-        if (!loaderOverlay) {
-            loaderOverlay = document.createElement('div');
-            loaderOverlay.className = 'planner-loader-overlay';
-            loaderOverlay.innerHTML = `<div class="planner-loader-spinner"></div>`;
-            document.body.appendChild(loaderOverlay);
-        }
-        loaderOverlay.classList.add('active');
-        setTimeout(() => {
-            loaderOverlay.classList.remove('active');
-            if (callback) callback();
-        }, 800);
+   function showLoader(callback) {
+    if (!loaderOverlay) {
+        loaderOverlay = document.createElement('div');
+        loaderOverlay.className = 'planner-loader-overlay';
+        loaderOverlay.innerHTML = `<div class="planner-loader-spinner"></div>`;
+        document.body.appendChild(loaderOverlay);
     }
+    loaderOverlay.classList.add('active');
+    setTimeout(() => {
+        loaderOverlay.classList.remove('active');
+        if (callback) callback();
+    }, 4000); // ← تم تغيير المدة إلى 4 ثوانٍ
+}
 
     function showPopup(title, content) {
         const existing = document.querySelector('.planner-popup-overlay');
@@ -2743,15 +2743,18 @@ window.updateAskAIContext = function(skill, examId) {
             </div>
         `;
 
-        document.querySelectorAll('.planner-section-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const skill = this.dataset.skill;
-                localStorage.setItem('zertiva_selected_skill', skill);
-                savedSkill = skill;
-                currentState = STATE.PLAN;
-                renderCurrentState();
-            });
+   document.querySelectorAll('.planner-section-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const skill = this.dataset.skill;
+        localStorage.setItem('zertiva_selected_skill', skill);
+        savedSkill = skill;
+        // ✅ إظهار Loader لمدة 4 ثوانٍ قبل الانتقال للخطة
+        showLoader(() => {
+            currentState = STATE.PLAN;
+            renderCurrentState();
         });
+    });
+});
 
         document.getElementById('plannerSettingsBtn').addEventListener('click', function(e) {
             e.stopPropagation();
