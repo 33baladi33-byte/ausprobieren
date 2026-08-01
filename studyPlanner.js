@@ -1,20 +1,25 @@
 /**
- * studyPlanner.js - المدرب الذكي TELC B2 (الإصدار 10.0)
+ * studyPlanner.js - المدرب الذكي TELC B2 (الإصدار 10.1)
  * 
- * فلسفة التصميم الجديدة:
+ * فلسفة التصميم:
  * - لا يحفظ خطة ثابتة (Queue)، بل يعيد الحساب في كل مرة من الصفر.
  * - يعتمد فقط على البيانات الحقيقية من localStorage.
  * - الإنجاز الحقيقي = فتح الامتحان + التصحيح (ظهور نتيجة جديدة).
  * - يعيد ترتيب الأولويات بعد كل إنجاز.
  * - يعرض عملية التفكير للمستخدم (مثل DeepSeek) مع رسائل حقيقية مبنية على البيانات.
  * - كل ضغطة على الزر = تحليل جديد + خطة جديدة.
+ * 
+ * التغييرات في الإصدار 10.1:
+ * - إصلاح totalTests ليقرأ ديناميكياً من examsDatabase الفعلية (45 لـ Hören 1).
+ * - تحسين gatherAllData() لتهيئة جميع الامتحانات من examsDatabase.
+ * - إضافة دوال debug متقدمة: debugFullSection, compareExamSource.
  */
 
 (function() {
     "use strict";
 
     // ================================================================
-    // 1. محرك القرار الذكي (Decision Engine) - إصدار 10.0
+    // 1. محرك القرار الذكي (Decision Engine) - إصدار 10.1
     // ================================================================
 
     class StudyPlannerEngine {
@@ -22,15 +27,16 @@
             this.storageKeyDate = 'user_exam_date';
             this.storageKeyPlans = 'study_planner_history_v3';
 
+            // سيتم تحديث totalTests ديناميكياً من examsDatabase
             this.sections = [
-                { id: 'hoeren1', name: 'Hören 1', weight: 1.6, priority: 1, totalTests: 20 },
-                { id: 'hoeren2', name: 'Hören 2', weight: 1.6, priority: 2, totalTests: 20 },
-                { id: 'hoeren3', name: 'Hören 3', weight: 1.5, priority: 3, totalTests: 20 },
-                { id: 'lesen1',  name: 'Lesen 1',  weight: 1.3, priority: 4, totalTests: 20 },
-                { id: 'lesen2',  name: 'Lesen 2',  weight: 1.3, priority: 5, totalTests: 20 },
-                { id: 'lesen3',  name: 'Lesen 3',  weight: 1.1, priority: 6, totalTests: 20 },
-                { id: 'sprach1', name: 'Sprach 1', weight: 0.9, priority: 7, totalTests: 20 },
-                { id: 'sprach2', name: 'Sprach 2', weight: 0.8, priority: 8, totalTests: 20 }
+                { id: 'hoeren1', name: 'Hören 1', weight: 1.6, priority: 1 },
+                { id: 'hoeren2', name: 'Hören 2', weight: 1.6, priority: 2 },
+                { id: 'hoeren3', name: 'Hören 3', weight: 1.5, priority: 3 },
+                { id: 'lesen1',  name: 'Lesen 1',  weight: 1.3, priority: 4 },
+                { id: 'lesen2',  name: 'Lesen 2',  weight: 1.3, priority: 5 },
+                { id: 'lesen3',  name: 'Lesen 3',  weight: 1.1, priority: 6 },
+                { id: 'sprach1', name: 'Sprach 1', weight: 0.9, priority: 7 },
+                { id: 'sprach2', name: 'Sprach 2', weight: 0.8, priority: 8 }
             ];
 
             this.targetRepetitions = 6;
@@ -42,6 +48,29 @@
                 { name: 'تثبيت', days: 30, focus: ['lesen1','lesen2','lesen3'], weightBoost: 1.3 },
                 { name: 'مراجعة نهائية', days: 10, focus: ['sprach1','sprach2','hoeren1','lesen1'], weightBoost: 1.4 }
             ];
+
+            // جلب العدد الفعلي للامتحانات من examsDatabase
+            this.updateSectionTotals();
+        }
+
+        updateSectionTotals() {
+            // نحاول جلب examsDatabase من window (التي يتم تصديرها من exams.js)
+            const db = window.examsDatabase;
+            if (!db) {
+                console.warn('⚠️ examsDatabase غير متوفرة، استخدام القيم الافتراضية 20');
+                this.sections.forEach(sec => { sec.totalTests = 20; });
+                return;
+            }
+            this.sections.forEach(sec => {
+                const exams = db[sec.id];
+                if (exams && Array.isArray(exams)) {
+                    sec.totalTests = exams.length;
+                    console.log(`📊 ${sec.id}: تم تحديث totalTests إلى ${sec.totalTests}`);
+                } else {
+                    sec.totalTests = 20; // قيمة افتراضية
+                    console.warn(`⚠️ ${sec.id}: غير موجود في examsDatabase، استخدام 20`);
+                }
+            });
         }
 
         // ------------------- دوال أساسية -------------------
@@ -98,7 +127,26 @@
             const allKeys = Object.keys(localStorage);
             const results = {};
 
-            // 1. نتائج الامتحانات
+            // 1. تهيئة جميع الامتحانات من examsDatabase (لضمان تغطية كل الامتحانات)
+            const db = window.examsDatabase;
+            if (db) {
+                for (const sectionId in db) {
+                    const exams = db[sectionId];
+                    if (Array.isArray(exams)) {
+                        results[sectionId] = [];
+                        for (const exam of exams) {
+                            results[sectionId].push({
+                                id: exam.id,
+                                scores: [],
+                                attemptsCount: 0,
+                                lastDate: null
+                            });
+                        }
+                    }
+                }
+            }
+
+            // 2. نتائج الامتحانات
             const resultKeys = allKeys.filter(k => k.startsWith('exam_result_'));
             for (const key of resultKeys) {
                 const parts = key.split('_');
@@ -119,7 +167,7 @@
                 }
             }
 
-            // 2. عدد الإعادات
+            // 3. عدد الإعادات (exam_retry_*)
             const retryKeys = allKeys.filter(k => k.startsWith('exam_retry_'));
             for (const key of retryKeys) {
                 const parts = key.split('_');
@@ -127,12 +175,12 @@
                     const skill = parts.slice(2, parts.length - 1).join('_');
                     const examId = parseInt(parts[parts.length - 1], 10);
                     const retries = parseInt(localStorage.getItem(key), 10);
-                    if (!isNaN(retries) && retries > 0) {
+                    if (!isNaN(retries)) {
                         if (results[skill]) {
                             const exam = results[skill].find(e => e.id === examId);
-                            if (exam) exam.attemptsCount = retries;
-                            else {
-                                if (!results[skill]) results[skill] = [];
+                            if (exam) {
+                                exam.attemptsCount = retries;
+                            } else {
                                 results[skill].push({ id: examId, scores: [], attemptsCount: retries, lastDate: null });
                             }
                         } else {
@@ -142,7 +190,7 @@
                 }
             }
 
-            // 3. تاريخ آخر مراجعة (من سجل النتائج الكامل)
+            // 4. تاريخ آخر مراجعة (من exam_history_*)
             const historyKeys = allKeys.filter(k => k.startsWith('exam_history_'));
             for (const key of historyKeys) {
                 const parts = key.split('_');
@@ -167,7 +215,7 @@
                 }
             }
 
-            // 4. مستويات Memory (نسبة الإكمال)
+            // 5. مستويات Memory (نسبة الإكمال)
             const memoryLevels = localStorage.getItem('memory_levels');
             const memoryCompletion = {};
             if (memoryLevels) {
@@ -200,7 +248,7 @@
                 } catch (e) {}
             }
 
-            // 5. تاريخ الخطط السابقة (كم مرة اختير كل امتحان)
+            // 6. تاريخ الخطط السابقة (study_planner_history_v3)
             let history = {};
             try {
                 const raw = localStorage.getItem(this.storageKeyPlans);
@@ -1476,7 +1524,7 @@
         if (btn) {
             btn.removeEventListener('click', window.openStudyPlanner);
             btn.addEventListener('click', window.openStudyPlanner);
-            console.log('✅ المدرب الذكي TELC B2 جاهز (الإصدار 10.0 - إعادة الحساب الكامل + شاشة التفكير)');
+            console.log('✅ المدرب الذكي TELC B2 جاهز (الإصدار 10.1 - إصلاح totalTests + دوال Debug)');
         } else {
             console.warn('⚠️ الزر studyPlannerBtn غير موجود.');
         }
@@ -1710,9 +1758,139 @@
         console.log(`%c`, '');
     }
 
+    // ================================================================
+    // 5. دوال Debug المتقدمة
+    // ================================================================
+
+    function debugFullSection(sectionId) {
+        const db = window.examsDatabase;
+        if (!db || !db[sectionId]) {
+            console.error(`القسم "${sectionId}" غير موجود في examsDatabase.`);
+            return;
+        }
+
+        const allData = engine.gatherAllData();
+        const results = allData.results[sectionId] || [];
+        const history = allData.history || {};
+        const memory = allData.memory[sectionId] || {};
+
+        console.log(`%c==========================`, 'font-weight:bold; font-size:16px;');
+        console.log(`%cFULL SECTION DEBUG: ${sectionId.toUpperCase()}`, 'font-weight:bold; font-size:18px; color:#38bdf8;');
+        console.log(`%c==========================`, 'font-weight:bold; font-size:16px;');
+
+        const allExams = db[sectionId];
+        for (const exam of allExams) {
+            const examId = exam.id;
+            const found = results.find(e => e.id === examId) || { scores: [], attemptsCount: 0, lastDate: null };
+            const key = `${sectionId}_${examId}`;
+            const histEntry = history[key] || { count: 0, lastDate: null };
+            const memPercent = memory[examId] || 0;
+
+            console.log(`%cExam ${examId}`, 'font-weight:bold; font-size:14px; color:#fbbf24;');
+            console.log(`  Exists in exams.js: true`);
+            console.log(`  Enabled:`, exam.enabled !== false);
+            console.log(`  Stored Scores:`, found.scores || []);
+            console.log(`  Stored Attempts (exam_retry_*):`, found.attemptsCount || 0);
+            console.log(`  Retry Counter:`, found.attemptsCount || 0);
+            console.log(`  History (exam_history_*):`, found.lastDate || 'Never');
+            console.log(`  Last Played:`, found.lastDate || 'Never');
+            console.log(`  Last Selected (study_planner_history_v3):`, histEntry.lastDate || 'Never');
+            console.log(`  Memory Strength:`, memPercent + '%');
+            console.log(`  Coverage:`, (found.scores && found.scores.length > 0) ? 'true' : 'false');
+            console.log(`  Priority:`, engine.calculatePriority(
+                engine.analyzeExam(sectionId, examId, allData),
+                null,
+                engine.getDaysRemaining(),
+                engine.calculateDataScore(allData),
+                'neutral'
+            ));
+            console.log(`  Selected By Planner:`, histEntry.count > 0 ? 'YES (' + histEntry.count + ' times)' : 'NO');
+            // سبب الاختيار
+            const examAnalysis = engine.analyzeExam(sectionId, examId, allData);
+            const reasons = [];
+            if (examAnalysis.isWeak) reasons.push('Weak');
+            if (examAnalysis.isForgotten) reasons.push('Forgotten');
+            if (examAnalysis.isFresh) reasons.push('New');
+            if (examAnalysis.remainingReps > 0) reasons.push('Retry (' + examAnalysis.remainingReps + ' left)');
+            if (examAnalysis.isMastered) reasons.push('Mastered');
+            if (!examAnalysis.isFresh && examAnalysis.attempts === 0) reasons.push('Has score but no attempts');
+            console.log(`  Reason:`, reasons.length ? reasons.join(', ') : 'Normal');
+            console.log(`%c`, '');
+        }
+
+        // ملخص القسم
+        const totalExams = allExams.length;
+        const solved = results.filter(e => e.scores && e.scores.length > 0).length;
+        const neverOpened = results.filter(e => !e.scores || e.scores.length === 0).length;
+        const weak = results.filter(e => {
+            const avg = e.scores && e.scores.length > 0 ? e.scores.reduce((a,b) => a+b,0) / e.scores.length : 0;
+            return avg > 0 && avg < 50;
+        }).length;
+        const forgotten = results.filter(e => {
+            if (!e.lastDate) return false;
+            const days = Math.floor((Date.now() - new Date(e.lastDate).getTime()) / (1000 * 3600 * 24));
+            return days > 20;
+        }).length;
+        const covered = results.filter(e => e.scores && e.scores.length > 0).length;
+        const avgScore = solved > 0 ? results.reduce((sum, e) => {
+            const avg = e.scores && e.scores.length > 0 ? e.scores.reduce((a,b) => a+b,0) / e.scores.length : 0;
+            return sum + avg;
+        }, 0) / solved : 0;
+
+        console.log(`%c======================`, 'font-weight:bold; font-size:16px;');
+        console.log(`%cSECTION REPORT`, 'font-weight:bold; font-size:16px; color:#38bdf8;');
+        console.log(`%c======================`, 'font-weight:bold; font-size:16px;');
+        console.log(`Total exams in exams.js:`, totalExams);
+        console.log(`Planner loaded:`, results.length);
+        console.log(`Solved (has scores):`, solved);
+        console.log(`Never opened:`, neverOpened);
+        console.log(`Weak exams:`, weak);
+        console.log(`Forgotten exams:`, forgotten);
+        console.log(`Covered:`, ((covered / totalExams) * 100).toFixed(1) + '%');
+        console.log(`Average Score:`, avgScore.toFixed(1));
+        console.log(`Memory Average:`, Object.values(memory).length > 0 ? (Object.values(memory).reduce((a,b) => a+b,0) / Object.values(memory).length).toFixed(1) + '%' : '0%');
+        console.log(`%c`, '');
+    }
+
+    function compareExamSource(sectionId) {
+        const db = window.examsDatabase;
+        if (!db || !db[sectionId]) {
+            console.error(`القسم "${sectionId}" غير موجود في examsDatabase.`);
+            return;
+        }
+
+        const allData = engine.gatherAllData();
+        const results = allData.results[sectionId] || [];
+        const history = allData.history || {};
+
+        console.log(`%c==========================`, 'font-weight:bold; font-size:16px;');
+        console.log(`%cCOMPARE EXAM SOURCES: ${sectionId.toUpperCase()}`, 'font-weight:bold; font-size:18px; color:#38bdf8;');
+        console.log(`%c==========================`, 'font-weight:bold; font-size:16px;');
+
+        const allExams = db[sectionId];
+        for (const exam of allExams) {
+            const examId = exam.id;
+            const found = results.find(e => e.id === examId) || { scores: [], attemptsCount: 0, lastDate: null };
+            const key = `${sectionId}_${examId}`;
+            const histEntry = history[key] || { count: 0, lastDate: null };
+
+            console.log(`%cExam ${examId}`, 'font-weight:bold; font-size:14px; color:#fbbf24;');
+            console.log(`  exams.js:`, `id=${examId}, title="${exam.title}", enabled=${exam.enabled !== false}`);
+            console.log(`  Planner:`, found.scores && found.scores.length > 0 ? 'found' : 'not found');
+            console.log(`  Progress:`, found.scores ? found.scores.join(', ') : 'none');
+            console.log(`  History (exam_history_*):`, found.lastDate || 'missing');
+            console.log(`  Review (exam_retry_*):`, found.attemptsCount || 0);
+            console.log(`  Queue (study_planner_history_v3):`, histEntry.count > 0 ? `${histEntry.count} times` : 'missing');
+            console.log(`  Selection:`, histEntry.lastDate || 'never');
+            console.log(`%c`, '');
+        }
+    }
+
     // تصدير دوال Debug للاستخدام العالمي
     window.debugPlannerData = debugPlannerData;
     window.debugPlanner = debugPlanner;
     window.debugExam = debugExam;
+    window.debugFullSection = debugFullSection;
+    window.compareExamSource = compareExamSource;
 
 })();
