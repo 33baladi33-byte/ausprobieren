@@ -2596,33 +2596,29 @@ window.updateAskAIContext = function(skill, examId) {
     }, 4000); // ← تم تغيير المدة إلى 4 ثوانٍ
 }
 
-    function showPopup(title, content) {
-        const existing = document.querySelector('.planner-popup-overlay');
-        if (existing) existing.remove();
+function showPopup(title, content) {
+    const existing = document.querySelector('.planner-popup-overlay');
+    if (existing) existing.remove();
 
-        const overlay = document.createElement('div');
-        overlay.className = 'planner-popup-overlay';
-        overlay.innerHTML = `
-            <div class="planner-popup-card">
-                <div class="planner-popup-title">${title}</div>
-                <div class="planner-popup-body">${content}</div>
-                <button class="planner-popup-close-btn">حسناً</button>
-            </div>
-        `;
-        document.body.appendChild(overlay);
-        setTimeout(() => overlay.classList.add('active'), 10);
+    const overlay = document.createElement('div');
+    overlay.className = 'planner-popup-overlay';
+    overlay.innerHTML = `
+        <div class="planner-popup-card">
+            <div class="planner-popup-title">${title}</div>
+            <div class="planner-popup-body">${content}</div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    setTimeout(() => overlay.classList.add('active'), 10);
 
-        overlay.querySelector('.planner-popup-close-btn').addEventListener('click', () => {
+    // إغلاق عند النقر على الخلفية (overlay)
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
             overlay.classList.remove('active');
             setTimeout(() => overlay.remove(), 300);
-        });
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) {
-                overlay.classList.remove('active');
-                setTimeout(() => overlay.remove(), 300);
-            }
-        });
-    }
+        }
+    });
+}
 
     function openPlanner() {
         modal.style.display = 'flex';
@@ -2806,13 +2802,13 @@ window.updateAskAIContext = function(skill, examId) {
             });
         });
 
-        document.getElementById('plannerInfoBtn').addEventListener('click', function(e) {
-            e.stopPropagation();
-            showPopup(
-                '📖 كيف تعمل الميزة؟',
-                'هذه الميزة مخصصة خصيصاً لتعطيك نظاماً مخصصاً لك. بناءً على تاريخ الامتحان وعدد ساعات دراستك اليومية، نقوم بحساب الخطة المثلى التي تركز على الامتحانات الأكثر احتياجاً للمراجعة. اختر القسم الذي ترغب في البدء به، وسنقدم لك قائمة بالامتحانات التي يجب أن تراجعها اليوم.'
-            );
-        });
+      document.getElementById('plannerInfoBtn').addEventListener('click', function(e) {
+    e.stopPropagation();
+    showPopup(
+        '📖 كيف يعمل المدرب الذكي؟',
+        'يعتمد النظام على خوارزمية دقيقة لتصميم خطتك اليومية بناءً على موعد امتحانك. يحسب النظام أولاً عدد الامتحانات المطلوب إنجازها اليوم لضمان وصولك إلى 6 مراجعات على الأقل لكل امتحان قبل يومين من الامتحان.<br><br>بعد تحديد العدد، يختار النظام تلقائياً الامتحانات الأكثر أولوية بناءً على 3 قواعد أساسية:<br><br>• <strong>النتيجة:</strong> التركيز على الامتحانات ذات الدرجات المنخفضة.<br>• <strong>عدد المراجعات:</strong> إعطاء الأولوية للامتحانات التي لم تُعد تصحيحها كثيراً.<br>• <strong>تاريخ آخر مراجعة:</strong> ضمان عدم إهمال أي امتحان لفترة طويلة.<br><br>اختر القسم الآن، ودع النظام يحدد لك المسار الأسرع والأضمن للنجاح.'
+    );
+});
     }
 
     // ===== 3. صفحة الخطة =====
