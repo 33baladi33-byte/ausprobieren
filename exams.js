@@ -1602,6 +1602,9 @@ async function renderExamListForSkill(skill, teilName) {
         titleSpan.appendChild(retrySpan);
     }
     // ✅ عرض تاريخ آخر مراجعة
+// ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
+const forbiddenSkills = ['schreiben', 'mündlich1', 'mündlich2', 'mündlich3'];
+if (!forbiddenSkills.includes(targetSkill)) {
     const reviewDays = getLastReviewDays(targetSkill, exam.id);
     if (reviewDays !== null) {
         const reviewSpan = document.createElement('span');
@@ -1619,6 +1622,7 @@ async function renderExamListForSkill(skill, teilName) {
         reviewSpan.textContent = `📅 لم يُراجع`;
         titleSpan.appendChild(reviewSpan);
     }
+}
     const progress = getExamProgress(targetSkill, exam.id);
     if (progress > 0) {
       const progressSpan = document.createElement('span');
