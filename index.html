@@ -2603,11 +2603,11 @@ function showPopup(title, content) {
     overlay.className = 'planner-popup-overlay';
     overlay.innerHTML = `
         <div class="planner-popup-card" style="
-            max-width: 260px;
+            max-width: 380px;
             width: 92%;
-            max-height: 48vh;
-            padding: 14px 14px 12px;
-            border-radius: 14px;
+            max-height: 38vh;
+            padding: 16px 20px 14px;
+            border-radius: 16px;
             box-shadow: 0 6px 24px rgba(0,0,0,0.04);
             background: #ffffff;
             border: 1px solid #edf1f7;
@@ -2615,10 +2615,10 @@ function showPopup(title, content) {
             transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         ">
             <div style="
-                font-size: 0.85rem;
+                font-size: 0.9rem;
                 font-weight: 500;
                 color: #2c3e66;
-                margin-bottom: 8px;
+                margin-bottom: 10px;
                 text-align: center;
                 letter-spacing: -0.1px;
                 font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -2626,8 +2626,8 @@ function showPopup(title, content) {
                 ${title}
             </div>
             <div style="
-                font-size: 0.7rem;
-                line-height: 1.6;
+                font-size: 0.75rem;
+                line-height: 1.7;
                 color: #334155;
                 text-align: right;
                 font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -2646,7 +2646,6 @@ function showPopup(title, content) {
         }
     });
 }
-
     function openPlanner() {
         modal.style.display = 'flex';
         if (savedDate && localStorage.getItem('zertiva_selected_skill')) {
