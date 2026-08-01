@@ -2827,32 +2827,23 @@ function showPopup(title, content) {
                 }
             });
         });
-       document.getElementById('plannerInfoBtn').addEventListener('click', function(e) {
+     document.getElementById('plannerInfoBtn').addEventListener('click', function(e) {
     e.stopPropagation();
     showPopup(
         'كيف يعمل المدرب الذكي؟',
         `
-        <p style="margin: 0 0 10px 0; color: #475569; line-height: 1.7; font-size: 0.7rem;">
+        <p style="margin: 0 0 10px 0; color: #475569; line-height: 1.7; font-size: 0.75rem; text-align: right;">
             يعتمد النظام على خوارزمية دقيقة لتصميم خطتك اليومية بناءً على موعد امتحانك. يحسب النظام أولاً عدد الامتحانات المطلوب إنجازها اليوم لضمان وصولك إلى <strong style="color: #2c3e66; font-weight: 500;">6 مراجعات</strong> على الأقل لكل امتحان قبل يومين من الامتحان.
         </p>
-        <p style="margin: 0 0 8px 0; color: #1e293b; font-weight: 500; font-size: 0.75rem;">
+        <p style="margin: 0 0 8px 0; color: #1e293b; font-weight: 500; font-size: 0.75rem; text-align: right;">
             بعد تحديد العدد، يختار النظام تلقائياً الامتحانات الأكثر أولوية بناءً على 3 قواعد أساسية:
         </p>
-        <div style="margin: 0 0 12px 0; font-size: 0.7rem; line-height: 1.7; color: #475569;">
-            <div style="display: flex; align-items: baseline; gap: 2px; margin-bottom: 2px;">
-                <span style="color: #2c3e66; font-weight: 500; flex-shrink: 0;">النتيجة:</span>
-                <span style="color: #64748b;">التركيز على الامتحانات ذات الدرجات المنخفضة.</span>
-            </div>
-            <div style="display: flex; align-items: baseline; gap: 2px; margin-bottom: 2px;">
-                <span style="color: #2c3e66; font-weight: 500; flex-shrink: 0;">عدد المراجعات:</span>
-                <span style="color: #64748b;">إعطاء الأولوية للامتحانات التي لم تُراجع كثيراً.</span>
-            </div>
-            <div style="display: flex; align-items: baseline; gap: 2px;">
-                <span style="color: #2c3e66; font-weight: 500; flex-shrink: 0;">آخر مراجعة:</span>
-                <span style="color: #64748b;">ضمان عدم إهمال أي امتحان لفترة طويلة.</span>
-            </div>
+        <div style="margin: 0 0 12px 0; font-size: 0.75rem; line-height: 1.8; color: #475569; text-align: right;">
+            <p style="margin: 0 0 2px 0;"><strong style="font-weight: 500; color: #2c3e66;">النتيجة:</strong> <span style="color: #64748b;">التركيز على الامتحانات ذات الدرجات المنخفضة</span></p>
+            <p style="margin: 0 0 2px 0;"><strong style="font-weight: 500; color: #2c3e66;">عدد المراجعات:</strong> <span style="color: #64748b;">إعطاء الأولوية للامتحانات التي لم تُراجع كثيراً</span></p>
+            <p style="margin: 0 0 2px 0;"><strong style="font-weight: 500; color: #2c3e66;">آخر مراجعة:</strong> <span style="color: #64748b;">ضمان عدم إهمال أي امتحان لفترة طويلة</span></p>
         </div>
-        <p style="margin: 12px 0 0 0; color: #1e293b; font-weight: 400; text-align: center; font-size: 0.7rem; line-height: 1.5;">
+        <p style="margin: 12px 0 0 0; color: #1e293b; font-weight: 400; text-align: center; font-size: 0.75rem; line-height: 1.5;">
             اختر القسم الآن، ودع النظام يحدد لك المسار الأسرع والأضمن للنجاح.
         </p>
         `
