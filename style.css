@@ -4737,299 +4737,254 @@ body.dark-mode #studyPlannerModal h3 {
     }
 }
 /* ============================================
-   تصميم خطة اليوم الجديد - Study Planner V2
+   خطة اليوم - التصميم النهائي
    ============================================ */
 
-/* ===== البطاقة العلوية ===== */
-.planner-header-card {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    border: 1px solid #e8ecf0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+/* تنسيق الأيقونات */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    font-size: 18px;
+    color: #94a3b8;
 }
 
-.planner-header-row {
+/* الحاوية الرئيسية */
+.planner-card {
+    font-family: 'Segoe UI', 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 4px 0;
+    color: #1e293b;
+}
+
+/* الصف العلوي - التاريخ والمتبقي */
+.planner-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #eef2f6;
+    margin-bottom: 0;
 }
 
-.planner-header-item {
+.planner-date {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.planner-header-label {
-    font-size: 0.75rem;
+    gap: 6px;
+    font-size: 0.8rem;
     font-weight: 500;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-}
-
-.planner-header-value {
-    font-size: 1.1rem;
-    font-weight: 600;
     color: #1e293b;
 }
 
-.planner-edit-date-btn {
-    background: none;
-    border: none;
-    font-size: 0.9rem;
+.planner-date .material-symbols-outlined {
+    font-size: 18px;
     color: #94a3b8;
-    cursor: pointer;
-    padding: 2px 6px;
-    border-radius: 6px;
-    transition: all 0.2s;
 }
 
-.planner-edit-date-btn:hover {
-    background: #f1f4f8;
+.planner-remaining {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.planner-remaining .material-symbols-outlined {
+    font-size: 18px;
+    color: #94a3b8;
+}
+
+.planner-remaining .days-number {
     color: #2c3e66;
+    font-weight: 600;
 }
 
-/* ===== قسم المهارة ===== */
-.planner-skill-section {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 16px 20px 20px;
+/* العنوان الرئيسي */
+.planner-title {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1e293b;
+    margin: 16px 0 2px 0;
+}
+
+.planner-subtitle {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #94a3b8;
     margin-bottom: 16px;
+}
+
+.planner-subtitle strong {
+    color: #2c3e66;
+    font-weight: 600;
+}
+
+/* قائمة الامتحانات */
+.exam-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* بطاقة الامتحان الواحدة */
+.exam-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    border: 1px solid #eef2f6;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.exam-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+.exam-card:active {
+    transform: scale(0.99);
+}
+
+/* عنوان البطاقة */
+.exam-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.exam-id {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.exam-badge-new {
+    font-size: 0.55rem;
+    color: #94a3b8;
+    background: #f1f4f8;
+    padding: 0 8px;
+    border-radius: 8px;
     border: 1px solid #e8ecf0;
 }
 
-.planner-skill-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #f1f4f8;
-}
-
-.planner-skill-stats {
+/* صف المعلومات - الأيقونات والقيم */
+.exam-info {
     display: flex;
+    align-items: center;
     gap: 12px;
     flex-wrap: wrap;
 }
 
-.planner-stat-card {
-    flex: 1;
-    min-width: 70px;
-    background: #f8fafc;
-    border-radius: 10px;
-    padding: 10px 12px;
-    text-align: center;
-    border: 1px solid #e8ecf0;
-}
-
-.planner-stat-value {
-    display: block;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #2c3e66;
-    line-height: 1.3;
-}
-
-.planner-stat-label {
-    display: block;
-    font-size: 0.6rem;
-    font-weight: 500;
-    color: #94a3b8;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    margin-top: 2px;
-}
-
-/* ===== قائمة الامتحانات ===== */
-.planner-exams-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 16px;
-}
-
-.planner-exam-card {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 16px 18px;
-    border: 1px solid #e8ecf0;
-    transition: all 0.2s ease;
-}
-
-.planner-exam-card:hover {
-    border-color: #cbd5e1;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
-
-.planner-exam-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.planner-exam-number {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #1e293b;
-}
-
-.planner-exam-badge-new {
-    font-size: 0.6rem;
-    font-weight: 600;
-    color: #94a3b8;
-    background: #f1f4f8;
-    padding: 2px 10px;
-    border-radius: 20px;
-    border: 1px solid #e2e8f0;
-}
-
-.planner-exam-details {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
-}
-
-.planner-exam-detail {
+.exam-info-item {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
-}
-
-.planner-detail-label {
-    color: #94a3b8;
-    font-weight: 400;
-}
-
-.planner-detail-value {
-    color: #1e293b;
-    font-weight: 500;
-}
-
-.planner-exam-start-btn {
-    background: #2c3e66;
-    border: none;
-    border-radius: 30px;
-    padding: 6px 18px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: white;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: inherit;
-}
-
-.planner-exam-start-btn:hover {
-    background: #1a2a4a;
-    transform: translateX(4px);
-}
-
-/* ===== تذييل ===== */
-.planner-footer {
-    text-align: center;
+    gap: 4px;
     font-size: 0.7rem;
-    color: #cbd5e1;
-    padding-top: 12px;
-    border-top: 1px solid #e8ecf0;
+    color: #64748b;
 }
+
+.exam-info-item .material-symbols-outlined {
+    font-size: 16px;
+    color: #94a3b8;
+}
+
+.exam-info-item .score-value {
+    font-weight: 500;
+}
+
+/* ===== ألوان النتيجة ===== */
+.score-red { color: #ef4444; }
+.score-orange { color: #f59e0b; }
+.score-yellow { color: #eab308; }
+.score-green { color: #22c55e; }
+
+/* ===== ألوان آخر مراجعة ===== */
+.review-green { color: #22c55e; }
+.review-lightgreen { color: #4ade80; }
+.review-gold { color: #eab308; }
+.review-red { color: #ef4444; }
+.review-gray { color: #94a3b8; }
 
 /* ===== الوضع الليلي ===== */
-body.dark-mode .planner-header-card,
-body.dark-mode .planner-skill-section,
-body.dark-mode .planner-exam-card {
+body.dark-mode .planner-card {
+    color: #e8ecf0;
+}
+
+body.dark-mode .planner-header {
+    border-bottom-color: #2a2a3a;
+}
+
+body.dark-mode .planner-date,
+body.dark-mode .planner-remaining {
+    color: #e8ecf0;
+}
+
+body.dark-mode .planner-title {
+    color: #e8ecf0;
+}
+
+body.dark-mode .planner-subtitle {
+    color: #94a3b8;
+}
+
+body.dark-mode .exam-card {
     background: #14141e;
     border-color: #2a2a3a;
 }
 
-body.dark-mode .planner-header-value,
-body.dark-mode .planner-skill-title,
-body.dark-mode .planner-exam-number,
-body.dark-mode .planner-detail-value {
+body.dark-mode .exam-card:hover {
+    border-color: #3a3a4a;
+}
+
+body.dark-mode .exam-id {
     color: #e8ecf0;
 }
 
-body.dark-mode .planner-stat-card {
-    background: #1e1e2e;
-    border-color: #2a2a3a;
-}
-
-body.dark-mode .planner-stat-value {
-    color: #38bdf8;
-}
-
-body.dark-mode .planner-exam-badge-new {
+body.dark-mode .exam-badge-new {
     background: #1e1e2e;
     color: #94a3b8;
     border-color: #2a2a3a;
 }
 
-body.dark-mode .planner-exam-start-btn {
-    background: #4a6fa5;
+body.dark-mode .exam-info-item {
+    color: #94a3b8;
 }
 
-body.dark-mode .planner-exam-start-btn:hover {
-    background: #5a7fb5;
-}
-
-body.dark-mode .planner-footer {
-    border-top-color: #2a2a3a;
+body.dark-mode .exam-info-item .material-symbols-outlined {
     color: #64748b;
 }
 
-/* ===== للهواتف ===== */
+/* ===== الهواتف ===== */
 @media (max-width: 768px) {
-    .planner-header-card {
-        padding: 14px 16px;
+    .planner-card {
+        padding: 2px 0;
     }
     
-    .planner-header-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-    }
-    
-    .planner-header-item {
-        justify-content: space-between;
-    }
-    
-    .planner-header-value {
-        font-size: 1rem;
-    }
-    
-    .planner-skill-section {
-        padding: 12px 14px 16px;
-    }
-    
-    .planner-stat-card {
-        padding: 8px 10px;
-        min-width: 60px;
-    }
-    
-    .planner-stat-value {
-        font-size: 1rem;
-    }
-    
-    .planner-exam-card {
-        padding: 12px 14px;
-    }
-    
-    .planner-exam-details {
-        gap: 12px;
-    }
-    
-    .planner-exam-detail {
+    .planner-date,
+    .planner-remaining {
         font-size: 0.7rem;
+    }
+    
+    .planner-title {
+        font-size: 0.9rem;
+    }
+    
+    .exam-card {
+        padding: 8px 12px;
+    }
+    
+    .exam-id {
+        font-size: 0.75rem;
+    }
+    
+    .exam-info-item {
+        font-size: 0.6rem;
+        gap: 3px;
+    }
+    
+    .exam-info-item .material-symbols-outlined {
+        font-size: 14px;
     }
 }
