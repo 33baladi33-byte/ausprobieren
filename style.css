@@ -5130,8 +5130,8 @@ body.dark-mode .exam-info-item .material-symbols-outlined {
 
 .planner-section-btn {
     padding: 10px 6px;
-    background: #f8fafc;
-    border: 1px solid #e8ecf0;
+    background: #ffffff;
+    border: 1px solid #dce3e8;
     border-radius: 10px;
     font-size: 0.75rem;
     font-weight: 500;
@@ -5140,16 +5140,19 @@ body.dark-mode .exam-info-item .material-symbols-outlined {
     transition: all 0.2s ease;
     text-align: center;
     font-family: inherit;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .planner-section-btn:hover {
-    background: #f1f4f8;
-    border-color: #cbd5e1;
-    transform: translateY(-1px);
+    background: #f8fafc;
+    border-color: #b8c5d0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
 .planner-section-btn:active {
     transform: scale(0.97);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 /* ===== الشريط العلوي (الصفحة الرئيسية) ===== */
@@ -5157,30 +5160,30 @@ body.dark-mode .exam-info-item .material-symbols-outlined {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 12px;
+    padding-top: 2px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #eef2f6;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .planner-top-bar .left-icons {
     display: flex;
     gap: 8px;
 }
-
 .planner-top-bar .left-icons button {
     background: none;
     border: none;
-    font-size: 20px;
+    font-size: 18px;
     color: #94a3b8;
     cursor: pointer;
-    padding: 4px;
+    padding: 2px;
     border-radius: 6px;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
 }
 
 .planner-top-bar .left-icons button:hover {
