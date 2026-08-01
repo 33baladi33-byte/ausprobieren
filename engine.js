@@ -784,16 +784,17 @@ function checkSprach2Exam() {
   }
 
   // ✅ زيادة العداد وتحديث الواجهة
-  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-  
-  // ✅ تحديث العداد في أعلى الصفحة
-  if (typeof window.updateRetryCounter === 'function') {
-      window.updateRetryCounter();
-  }
-
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentSprach2Data.id || window.currentExamId || 1;
     window.saveExamResultGlobal("sprach2", examId, parseFloat(finalScore));
+  }
+
+  // ✅ زيادة العداد وتحديث الواجهة (بعد حفظ البيانات)
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  
+  // ✅ تحديث البطاقات فوراً (بعد تغيير localStorage)
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
   }
 
   // ✅ تحديث خطة المدرب الذكي (تحديث الكاش)
@@ -1192,16 +1193,17 @@ function checkSprach1Exam() {
   }
 
   // ✅ زيادة العداد وتحديث الواجهة
-  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-  
-  // ✅ تحديث العداد في أعلى الصفحة (فوراً)
-  if (typeof window.updateRetryCounter === 'function') {
-      window.updateRetryCounter();
-  }
-
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentSprach1Data.id || window.currentExamId || 1;
     window.saveExamResultGlobal("sprach1", examId, parseFloat(finalScore));
+  }
+
+  // ✅ زيادة العداد وتحديث الواجهة (بعد حفظ البيانات)
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  
+  // ✅ تحديث البطاقات فوراً (بعد تغيير localStorage)
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
   }
 
   // ✅ تحديث خطة المدرب الذكي (تحديث الكاش)
@@ -1676,17 +1678,19 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         resultDiv.style.color = 'white';
     }
   // ✅ زيادة العداد وتحديث الواجهة
-  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-  
-  // ✅ تحديث العداد في أعلى الصفحة (فوراً)
-  if (typeof window.updateRetryCounter === 'function') {
-      window.updateRetryCounter();
-  }
-    // ✅ استخدام saveExamResultGlobal (القراءة فقط)
+    // ✅ استخدام saveExamResultGlobal (القراءة فقط) - **يجب أن يكون أولاً**
     if (typeof window.saveExamResultGlobal === "function") {
         const skill = container.id || "hoeren";
         const examId = window.currentExamId || 1;
         window.saveExamResultGlobal(skill, examId, parseFloat(finalScore));
+    }
+    
+    // ✅ زيادة العداد وتحديث الواجهة (بعد حفظ البيانات)
+    const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+    
+    // ✅ تحديث البطاقات فوراً (بعد تغيير localStorage)
+    if (typeof window.updateRetryCounter === 'function') {
+        window.updateRetryCounter();
     }
     
     // ✅ تحديث خطة المدرب الذكي (تحديث الكاش)
@@ -1920,15 +1924,17 @@ function checkMatchingExam() {
   }
 
     // ✅ زيادة العداد وتحديث الواجهة
-    const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-    
-    // ✅ تحديث العداد في أعلى الصفحة (فوراً)
-    if (typeof window.updateRetryCounter === 'function') {
-        window.updateRetryCounter();
-    }
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentMatchingExamData.id || window.currentExamId || 1;
     window.saveExamResultGlobal("lesen1", examId, parseFloat(finalScore));
+  }
+
+  // ✅ زيادة العداد وتحديث الواجهة (بعد حفظ البيانات)
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  
+  // ✅ تحديث البطاقات فوراً (بعد تغيير localStorage)
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
   }
 
   // ✅ تحديث خطة المدرب الذكي (تحديث الكاش)
@@ -2214,15 +2220,17 @@ function checkTeil2Exam() {
   }
 
   // ✅ زيادة العداد وتحديث الواجهة
-  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-  
-  // ✅ تحديث العداد في أعلى الصفحة (فوراً)
-  if (typeof window.updateRetryCounter === 'function') {
-      window.updateRetryCounter();
-  }
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentTeil2Data.id || window.currentExamId || 1;
     window.saveExamResultGlobal("lesen2", examId, parseFloat(finalScore));
+  }
+
+  // ✅ زيادة العداد وتحديث الواجهة (بعد حفظ البيانات)
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  
+  // ✅ تحديث البطاقات فوراً (بعد تغيير localStorage)
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
   }
 
   // ✅ تحديث خطة المدرب الذكي (تحديث الكاش)
@@ -2899,15 +2907,17 @@ function checkTeil3Exam() {
   }
 
   // ✅ زيادة العداد وتحديث الواجهة
-  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-  
-  // ✅ تحديث العداد في أعلى الصفحة (فوراً)
-  if (typeof window.updateRetryCounter === 'function') {
-      window.updateRetryCounter();
-  }
   if (typeof window.saveExamResultGlobal === "function") {
     const examId = currentTeil3Data.id || window.currentExamId || 1;
     window.saveExamResultGlobal("lesen3", examId, parseFloat(finalScore));
+  }
+
+  // ✅ زيادة العداد وتحديث الواجهة (بعد حفظ البيانات)
+  const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
+  
+  // ✅ تحديث البطاقات فوراً (بعد تغيير localStorage)
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
   }
 
   // ✅ تحديث خطة المدرب الذكي (تحديث الكاش)
@@ -5503,98 +5513,3 @@ function addSentencePuzzleIcons(container, questions) {
 
 console.log('✅ تم ربط SentenceReorder مع engine.js (مع دعم Reset)');
 
-
-function addRetryCounterToExam() {
-    // ❌ إخفاء العداد في Schreiben و Mündlich
-    const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
-    if (forbiddenSkills.includes(currentSkill)) {
-        // حذف العداد إذا كان موجوداً (للتأكد)
-        const oldCounter = document.getElementById('retryCounterBox');
-        if (oldCounter) oldCounter.remove();
-        return;
-    }
-
-    // حذف العداد القديم إذا كان موجوداً
-    const oldCounter = document.getElementById('retryCounterBox');
-    if (oldCounter) oldCounter.remove();
-
-    // جلب العدد الحالي
-    const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
-
-    // إنشاء الصندوق
-    const box = document.createElement('div');
-    box.id = 'retryCounterBox';
-    box.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
-    box.style.cssText = `
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 8px 16px;
-        font-size: 14px;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        color: #1e293b;
-        display: inline-block;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        margin-right: 0;
-        margin-left: auto;
-        flex-shrink: 0;
-    `;
-
-    // البحث عن حاوية الأزرار (interleavingRow)
-    const interleavingRow = document.getElementById('interleavingRow');
-
-    if (interleavingRow) {
-        interleavingRow.style.display = 'flex';
-        interleavingRow.style.alignItems = 'center';
-        interleavingRow.style.justifyContent = 'space-between';
-        interleavingRow.style.flexWrap = 'wrap';
-        interleavingRow.style.gap = '10px';
-        interleavingRow.appendChild(box);
-        console.log('✅ تم إضافة عداد الإعادات في أقصى يمين الأزرار');
-    } else {
-        const btnContainer = document.querySelector('#exam .exam-controls, .exam-controls, .controls-row, [style*="gap: 10px"]');
-        if (btnContainer) {
-            btnContainer.style.display = 'flex';
-            btnContainer.style.alignItems = 'center';
-            btnContainer.style.justifyContent = 'space-between';
-            btnContainer.style.flexWrap = 'wrap';
-            btnContainer.appendChild(box);
-            console.log('✅ تم إضافة عداد الإعادات في أقصى يمين الأزرار (بديل)');
-        } else {
-            const container = document.querySelector('#exam, .exam-content, .exam-box, .page.active');
-            if (container) {
-                const wrapper = document.createElement('div');
-                wrapper.style.cssText = 'display: flex; justify-content: flex-end; margin: 0 0 15px 0;';
-                wrapper.appendChild(box);
-                container.prepend(wrapper);
-                console.log('✅ تم إضافة عداد الإعادات في أعلى يمين المحتوى');
-            }
-        }
-    }
-}
-
-// ============================================
-// دالة تحديث العداد بعد التصحيح (تحديث فوري)
-// ============================================
-function updateRetryCounter() {
-    // ❌ إخفاء العداد في Schreiben و Mündlich
-    const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
-    if (forbiddenSkills.includes(currentSkill)) {
-        const oldCounter = document.getElementById('retryCounterBox');
-        if (oldCounter) oldCounter.remove();
-        return;
-    }
-
-    const box = document.getElementById('retryCounterBox');
-    if (!box) {
-        addRetryCounterToExam();
-        return;
-    }
-
-    const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
-    box.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
-}
-
-// تصدير الدوال للاستخدام العام
-window.addRetryCounterToExam = addRetryCounterToExam;
-window.updateRetryCounter = updateRetryCounter;
