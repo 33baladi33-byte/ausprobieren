@@ -3912,7 +3912,6 @@ window.getLastReviewDays = getLastReviewDays;
 // ============================================
 // ✅ دوال بطاقة الإعادات وآخر مراجعة داخل الامتحان
 // ============================================
-
 function addRetryCounterToExam() {
     // ❌ إخفاء العداد في Schreiben و Mündlich
     const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
@@ -3980,6 +3979,7 @@ function addRetryCounterToExam() {
         white-space: nowrap;
         width: 100%;
         box-sizing: border-box;
+        text-align: right;
     `;
 
     // ===== البطاقة الثانية: الإعادات (في الأسفل) =====
@@ -3997,6 +3997,7 @@ function addRetryCounterToExam() {
         white-space: nowrap;
         width: 100%;
         box-sizing: border-box;
+        text-align: right;
     `;
 
     container.appendChild(reviewBox);
