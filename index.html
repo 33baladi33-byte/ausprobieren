@@ -2765,13 +2765,13 @@ window.updateAskAIContext = function(skill, examId) {
             overlay.className = 'planner-popup-overlay';
             overlay.innerHTML = `
                 <div class="planner-popup-card">
-                    <div class="planner-popup-title">⚙️ تعديل الإعدادات</div>
+                    <div class="planner-popup-title">تعديل المعلومات الخاصة بي</div>
                     <div style="margin-bottom:12px;">
-                        <label style="display:block;font-size:0.7rem;color:#94a3b8;margin-bottom:4px;">📅 تاريخ الامتحان</label>
+                        <label style="display:block;font-size:0.7rem;color:#94a3b8;margin-bottom:4px;">تاريخ الامتحان</label>
                         <input type="date" id="popupExamDate" value="${currentDate}" style="width:100%;padding:8px 10px;border:1px solid #e8ecf0;border-radius:8px;font-size:0.8rem;color:#1e293b;background:#ffffff;font-family:inherit;box-sizing:border-box;">
                     </div>
                     <div style="margin-bottom:16px;">
-                        <label style="display:block;font-size:0.7rem;color:#94a3b8;margin-bottom:4px;">⏰ ساعات المراجعة يومياً</label>
+                        <label style="display:block;font-size:0.7rem;color:#94a3b8;margin-bottom:4px;">كم ساعة تراجع يومياً</label>
                         <input type="number" id="popupDailyHours" value="${currentHours}" min="1" max="12" step="1" style="width:100%;padding:8px 10px;border:1px solid #e8ecf0;border-radius:8px;font-size:0.8rem;color:#1e293b;background:#ffffff;font-family:inherit;box-sizing:border-box;">
                     </div>
                     <button id="popupSaveBtn" class="planner-check-btn" style="margin-bottom:8px;">فحص</button>
@@ -2942,7 +2942,7 @@ window.updateAskAIContext = function(skill, examId) {
                 </div>
 
                 <div style="font-size:1.1rem; font-weight:500; text-align:center; margin:12px 0 16px 0; color:#1e293b;">
-                    خطتنا لهذا اليوم <strong>${result.dailyCount}</strong> امتحان${result.dailyCount > 1 ? 'ات' : ''}
+                خطتنا لهذا اليوم <strong>${result.dailyCount}</strong> امتحان${result.dailyCount > 1 ? 'ات' : ''}
                 </div>
 
                 <div class="exam-list" style="display:flex; flex-direction:column; gap:8px;">
