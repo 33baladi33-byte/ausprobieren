@@ -5,7 +5,7 @@
  * 1. إصلاح دالة getRawResults() لتجمع البيانات من exam_result_* و exam_retry_*.
  * 2. إصلاح analyzeExam() للتعامل مع الحالة التي لا تحتوي على scores.
  * 3. إصلاح getMemoryData() لقراءة memory_levels بشكل صحيح.
- * 4. إصلاح getPlanHistory() و savePlanHistory() للعمل مع studyPlannerData.
+ * 4. إصلاح getPlanHistory() و savePlanHistory() للعمل مع study_planner_history_v3 فقط.
  * 5. تحسين showPurePlan() لضمان وجود الأزرار وتجنب أخطاء null.
  * 6. إضافة معالجة للحالة التي يكون فيها averageScore = 0 (امتحان جديد).
  */
@@ -23,7 +23,7 @@
             this.storageKeyDate = 'user_exam_date';
             this.storageKeyResults = 'user_exam_results_v1'; // لم نعد نستخدمها، ولكن سنبقيها للتوافق
             this.storageKeyMemory = 'memory_trainer_progress'; // لم نعد نستخدمها
-            this.storageKeyPlans = 'study_planner_history_v3'; // سنستخدم هذا المفتاح لحفظ تاريخ الخطط
+            this.storageKeyPlans = 'study_planner_history_v3'; // المصدر الوحيد لتاريخ الخطط
 
             // هيكل أقسام TELC (8 أقسام، 20 امتحان لكل قسم)
             this.sections = [
@@ -166,52 +166,35 @@
         }
 
         /**
-         * تقرأ من studyPlannerData لاستخراج تاريخ الخطط (عدد مرات اختيار كل امتحان)
+         * تقرأ من study_planner_history_v3 فقط (المصدر الوحيد الحقيقي).
          * إذا لم يكن موجوداً، تعيد كائن فارغ.
          */
         getPlanHistory() {
             try {
-                // نقرأ من studyPlannerData حيث قد يكون هناك سجل للخطط السابقة
-                const raw = localStorage.getItem('studyPlannerData');
-                if (!raw) return {};
-                const data = JSON.parse(raw);
-                // إذا كان هناك حقل history داخل studyPlannerData نستخدمه، وإلا ننشئ كائن فارغ
-                if (data.history) {
-                    return data.history;
-                } else {
-                    // نحاول أيضاً قراءة من study_planner_history_v3 إذا كان موجوداً
-                    const rawHistory = localStorage.getItem(this.storageKeyPlans);
-                    if (rawHistory) {
-                        try {
-                            return JSON.parse(rawHistory);
-                        } catch (e) {}
+                const rawHistory = localStorage.getItem(this.storageKeyPlans);
+                if (rawHistory) {
+                    const parsed = JSON.parse(rawHistory);
+                    // نتأكد من أن البيانات صالحة (كائن وليس مصفوفة)
+                    if (typeof parsed === 'object' && !Array.isArray(parsed)) {
+                        return parsed;
                     }
-                    return {};
                 }
+                return {};
             } catch (e) {
-                console.warn('فشل قراءة تاريخ الخطة:', e);
+                console.warn('فشل قراءة تاريخ الخطة من study_planner_history_v3:', e);
                 return {};
             }
         }
 
         /**
-         * تحفظ تاريخ الخطة في study_planner_history_v3
-         * وتحديث studyPlannerData إن أمكن.
+         * تحفظ تاريخ الخطة في study_planner_history_v3 فقط.
+         * لا تمس studyPlannerData نهائياً (لأنها ليست مصدراً للحقيقة).
          */
         savePlanHistory(history) {
             try {
-                // نحفظ في المفتاح الجديد
                 localStorage.setItem(this.storageKeyPlans, JSON.stringify(history));
-                // نحاول أيضاً تحديث studyPlannerData لإضافة history
-                try {
-                    const raw = localStorage.getItem('studyPlannerData');
-                    let data = raw ? JSON.parse(raw) : {};
-                    data.history = history;
-                    data.date = new Date().toISOString().slice(0, 10);
-                    localStorage.setItem('studyPlannerData', JSON.stringify(data));
-                } catch (e) {}
             } catch (e) {
-                console.warn('فشل حفظ تاريخ الخطة:', e);
+                console.warn('فشل حفظ تاريخ الخطة في study_planner_history_v3:', e);
             }
         }
 
