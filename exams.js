@@ -3887,6 +3887,186 @@ window.getAllScores = getAllScores;
 window.saveExamResult = saveExamResult;
 window.getExamResult = getExamResult;
 window.getLastReviewDays = getLastReviewDays;
+
+// ============================================
+// ✅ دوال بطاقة الإعادات وآخر مراجعة داخل الامتحان
+// ============================================
+
+function addRetryCounterToExam() {
+    // ❌ إخفاء العداد في Schreiben و Mündlich
+    const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
+    if (forbiddenSkills.includes(currentSkill)) {
+        const oldCounter = document.getElementById('retryCounterBox');
+        if (oldCounter) oldCounter.remove();
+        return;
+    }
+
+    // حذف القديم إن وجد
+    const oldCounter = document.getElementById('retryCounterBox');
+    if (oldCounter) oldCounter.remove();
+
+    // جلب البيانات
+    const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
+    const reviewDays = window.getLastReviewDays ? window.getLastReviewDays(currentSkill, currentExamId) : null;
+
+    let reviewText = '';
+    if (reviewDays === null) {
+        reviewText = 'لم يُراجع';
+    } else if (reviewDays === 0) {
+        reviewText = 'اليوم';
+    } else {
+        reviewText = `منذ ${reviewDays} يوم`;
+    }
+
+    // الحاوية الرئيسية
+    const container = document.createElement('div');
+    container.id = 'retryCounterBox';
+    container.style.cssText = `
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 8px 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        margin-right: 0;
+        margin-left: auto;
+        flex-shrink: 0;
+    `;
+
+    // البطاقة الأولى: الإعادات
+    const retryBox = document.createElement('span');
+    retryBox.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+    retryBox.style.cssText = `
+        font-size: 14px;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #1e293b;
+        white-space: nowrap;
+    `;
+
+    // الفاصل العمودي
+    const divider = document.createElement('span');
+    divider.style.cssText = `
+        width: 1px;
+        height: 24px;
+        background: #e2e8f0;
+        flex-shrink: 0;
+    `;
+
+    // البطاقة الثانية: آخر مراجعة
+    const reviewBox = document.createElement('span');
+    let reviewColor = '#64748b';
+    if (reviewDays === null) {
+        reviewColor = '#94a3b8';
+    } else if (reviewDays === 0) {
+        reviewColor = '#22c55e';
+    } else if (reviewDays <= 3) {
+        reviewColor = '#22c55e';
+    } else if (reviewDays <= 7) {
+        reviewColor = '#eab308';
+    } else {
+        reviewColor = '#ef4444';
+    }
+
+    reviewBox.innerHTML = `آخر مراجعة: <strong style="color:${reviewColor};font-weight:700;">${reviewText}</strong>`;
+    reviewBox.style.cssText = `
+        font-size: 14px;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #1e293b;
+        white-space: nowrap;
+    `;
+
+    container.appendChild(retryBox);
+    container.appendChild(divider);
+    container.appendChild(reviewBox);
+
+    // إضافة إلى الواجهة
+    const interleavingRow = document.getElementById('interleavingRow');
+    if (interleavingRow) {
+        interleavingRow.style.display = 'flex';
+        interleavingRow.style.alignItems = 'center';
+        interleavingRow.style.justifyContent = 'space-between';
+        interleavingRow.style.flexWrap = 'wrap';
+        interleavingRow.style.gap = '10px';
+        interleavingRow.appendChild(container);
+    } else {
+        const btnContainer = document.querySelector('#exam .exam-controls, .exam-controls, .controls-row, [style*="gap: 10px"]');
+        if (btnContainer) {
+            btnContainer.style.display = 'flex';
+            btnContainer.style.alignItems = 'center';
+            btnContainer.style.justifyContent = 'space-between';
+            btnContainer.style.flexWrap = 'wrap';
+            btnContainer.appendChild(container);
+        } else {
+            const containerEl = document.querySelector('#exam, .exam-content, .exam-box, .page.active');
+            if (containerEl) {
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'display: flex; justify-content: flex-end; margin: 0 0 15px 0;';
+                wrapper.appendChild(container);
+                containerEl.prepend(wrapper);
+            }
+        }
+    }
+}
+
+function updateRetryCounter() {
+    // ❌ إخفاء العداد في Schreiben و Mündlich
+    const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
+    if (forbiddenSkills.includes(currentSkill)) {
+        const oldCounter = document.getElementById('retryCounterBox');
+        if (oldCounter) oldCounter.remove();
+        return;
+    }
+
+    const container = document.getElementById('retryCounterBox');
+    if (!container) {
+        addRetryCounterToExam();
+        return;
+    }
+
+    // تحديث البيانات
+    const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
+    const reviewDays = window.getLastReviewDays ? window.getLastReviewDays(currentSkill, currentExamId) : null;
+
+    let reviewText = '';
+    if (reviewDays === null) {
+        reviewText = 'لم يُراجع';
+    } else if (reviewDays === 0) {
+        reviewText = 'اليوم';
+    } else {
+        reviewText = `منذ ${reviewDays} يوم`;
+    }
+
+    // تحديث الإعادات
+    const retryBox = container.querySelector('span:first-child');
+    if (retryBox) {
+        retryBox.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+    }
+
+    // تحديث آخر مراجعة
+    const reviewBox = container.querySelector('span:last-child');
+    if (reviewBox) {
+        let reviewColor = '#64748b';
+        if (reviewDays === null) {
+            reviewColor = '#94a3b8';
+        } else if (reviewDays === 0) {
+            reviewColor = '#22c55e';
+        } else if (reviewDays <= 3) {
+            reviewColor = '#22c55e';
+        } else if (reviewDays <= 7) {
+            reviewColor = '#eab308';
+        } else {
+            reviewColor = '#ef4444';
+        }
+        reviewBox.innerHTML = `آخر مراجعة: <strong style="color:${reviewColor};font-weight:700;">${reviewText}</strong>`;
+    }
+}
+
+// تصدير الدوال للاستخدام من openExam
+window.addRetryCounterToExam = addRetryCounterToExam;
+window.updateRetryCounter = updateRetryCounter;
+
 // تصدير متغيرات Lesen1 للاستخدام من engine.js (مع التحقق من وجودها)
 try {
     if (typeof matchingSelectedAnswers !== 'undefined') {
@@ -3902,5 +4082,6 @@ try {
         window.renderMatchingQuestions = renderMatchingQuestions;
     }
 } catch (e) {
-    console.warn('⚠️ بعض متغيرات Lesen1 غير معرفة بعد، سيتم تصديرها لاحقاً من engine.js');
+    // هذه المتغيرات ستُصدّر من engine.js لاحقاً
+    console.log('ℹ️ متغيرات Lesen1 ستُصدّر من engine.js');
 }
