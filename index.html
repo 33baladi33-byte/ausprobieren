@@ -2602,11 +2602,36 @@ function showPopup(title, content) {
     const overlay = document.createElement('div');
     overlay.className = 'planner-popup-overlay';
     overlay.innerHTML = `
-        <div class="planner-popup-card" style="max-width: 360px; width: 90%; max-height: 70vh; padding: 24px 22px 20px; border-radius: 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.06); background: #ffffff; border: 1px solid #e8ecf0; overflow-y: auto; transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);">
-            <div style="font-size: 0.95rem; font-weight: 600; color: #2c3e66; margin-bottom: 14px; text-align: center; letter-spacing: -0.2px; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;">
+        <div class="planner-popup-card" style="
+            max-width: 260px;
+            width: 92%;
+            max-height: 48vh;
+            padding: 14px 14px 12px;
+            border-radius: 14px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.04);
+            background: #ffffff;
+            border: 1px solid #edf1f7;
+            overflow-y: auto;
+            transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        ">
+            <div style="
+                font-size: 0.85rem;
+                font-weight: 500;
+                color: #2c3e66;
+                margin-bottom: 8px;
+                text-align: center;
+                letter-spacing: -0.1px;
+                font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            ">
                 ${title}
             </div>
-            <div style="font-size: 0.8rem; line-height: 1.7; color: #334155; text-align: right; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;">
+            <div style="
+                font-size: 0.7rem;
+                line-height: 1.6;
+                color: #334155;
+                text-align: right;
+                font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            ">
                 ${content}
             </div>
         </div>
@@ -2803,32 +2828,32 @@ function showPopup(title, content) {
                 }
             });
         });
-document.getElementById('plannerInfoBtn').addEventListener('click', function(e) {
+       document.getElementById('plannerInfoBtn').addEventListener('click', function(e) {
     e.stopPropagation();
     showPopup(
         'كيف يعمل المدرب الذكي؟',
         `
-        <p style="margin: 0 0 16px 0; color: #475569; line-height: 1.8;">
-            يعتمد النظام على خوارزمية دقيقة لتصميم خطتك اليومية بناءً على موعد امتحانك. يحسب النظام أولاً عدد الامتحانات المطلوب إنجازها اليوم لضمان وصولك إلى <strong style="color: #2c3e66;">6 مراجعات</strong> على الأقل لكل امتحان قبل يومين من الامتحان.
+        <p style="margin: 0 0 10px 0; color: #475569; line-height: 1.7; font-size: 0.7rem;">
+            يعتمد النظام على خوارزمية دقيقة لتصميم خطتك اليومية بناءً على موعد امتحانك. يحسب النظام أولاً عدد الامتحانات المطلوب إنجازها اليوم لضمان وصولك إلى <strong style="color: #2c3e66; font-weight: 500;">6 مراجعات</strong> على الأقل لكل امتحان قبل يومين من الامتحان.
         </p>
-        <p style="margin: 0 0 14px 0; color: #1e293b; font-weight: 600; font-size: 0.85rem;">
+        <p style="margin: 0 0 8px 0; color: #1e293b; font-weight: 500; font-size: 0.75rem;">
             بعد تحديد العدد، يختار النظام تلقائياً الامتحانات الأكثر أولوية بناءً على 3 قواعد أساسية:
         </p>
-        <div style="margin: 0 0 18px 0; font-size: 0.8rem; line-height: 1.9; color: #475569;">
-            <div style="display: flex; align-items: baseline; gap: 4px; margin-bottom: 6px;">
-                <span style="color: #2c3e66; font-weight: 600; min-width: 95px;">النتيجة:</span>
+        <div style="margin: 0 0 12px 0; font-size: 0.7rem; line-height: 1.7; color: #475569;">
+            <div style="display: flex; align-items: baseline; gap: 2px; margin-bottom: 2px;">
+                <span style="color: #2c3e66; font-weight: 500; flex-shrink: 0;">النتيجة:</span>
                 <span style="color: #64748b;">التركيز على الامتحانات ذات الدرجات المنخفضة.</span>
             </div>
-            <div style="display: flex; align-items: baseline; gap: 4px; margin-bottom: 6px;">
-                <span style="color: #2c3e66; font-weight: 600; min-width: 95px;">عدد المراجعات:</span>
+            <div style="display: flex; align-items: baseline; gap: 2px; margin-bottom: 2px;">
+                <span style="color: #2c3e66; font-weight: 500; flex-shrink: 0;">عدد المراجعات:</span>
                 <span style="color: #64748b;">إعطاء الأولوية للامتحانات التي لم تُراجع كثيراً.</span>
             </div>
-            <div style="display: flex; align-items: baseline; gap: 4px;">
-                <span style="color: #2c3e66; font-weight: 600; min-width: 95px;">آخر مراجعة:</span>
+            <div style="display: flex; align-items: baseline; gap: 2px;">
+                <span style="color: #2c3e66; font-weight: 500; flex-shrink: 0;">آخر مراجعة:</span>
                 <span style="color: #64748b;">ضمان عدم إهمال أي امتحان لفترة طويلة.</span>
             </div>
         </div>
-        <p style="margin: 18px 0 0 0; color: #1e293b; font-weight: 500; text-align: center; font-size: 0.8rem; line-height: 1.6;">
+        <p style="margin: 12px 0 0 0; color: #1e293b; font-weight: 400; text-align: center; font-size: 0.7rem; line-height: 1.5;">
             اختر القسم الآن، ودع النظام يحدد لك المسار الأسرع والأضمن للنجاح.
         </p>
         `
