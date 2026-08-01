@@ -978,46 +978,53 @@
                 isContinuation: true
             };
         }
+    // ------------------- دوال مساعدة -------------------
 
-        // ------------------- دوال مساعدة -------------------
+    getExamDate() {
+        return localStorage.getItem(this.storageKeyDate) || null;
+    }
 
-        getDaysRemaining() {
-            const dateStr = this.getExamDate();
-            if (!dateStr) return null;
-            const now = new Date();
-            const exam = new Date(dateStr);
-            now.setHours(0, 0, 0, 0);
-            exam.setHours(0, 0, 0, 0);
-            const diff = Math.ceil((exam - now) / (1000 * 3600 * 24));
-            return diff > 0 ? diff : 0;
-        }
+    setExamDate(dateStr) {
+        localStorage.setItem(this.storageKeyDate, dateStr);
+    }
 
-        getEffectiveStudyDays() {
-            const days = this.getDaysRemaining();
-            if (days === null) return 30;
-            const effective = days - 2;
-            return effective > 0 ? effective : 1;
-        }
+    getDaysRemaining() {
+        const dateStr = this.getExamDate();
+        if (!dateStr) return null;
+        const now = new Date();
+        const exam = new Date(dateStr);
+        now.setHours(0, 0, 0, 0);
+        exam.setHours(0, 0, 0, 0);
+        const diff = Math.ceil((exam - now) / (1000 * 3600 * 24));
+        return diff > 0 ? diff : 0;
+    }
 
-        getDynamicMaxExams(daysRemaining, totalRemainingReps) {
-            if (daysRemaining === null || daysRemaining <= 0) return 25;
-            const effectiveDays = this.getEffectiveStudyDays();
-            const required = Math.ceil(totalRemainingReps / effectiveDays);
-            let max = Math.max(8, Math.min(30, required * 2));
-            if (daysRemaining < 5) max = Math.min(35, max + 5);
-            if (daysRemaining < 3) max = 40;
-            return Math.round(max);
-        }
+    getEffectiveStudyDays() {
+        const days = this.getDaysRemaining();
+        if (days === null) return 30;
+        const effective = days - 2;
+        return effective > 0 ? effective : 1;
+    }
 
-        getNextReviewDays(score, attempts) {
-            if (attempts === 0) return 1;
-            if (score >= 95) return 14;
-            if (score >= 85) return 7;
-            if (score >= 70) return 4;
-            if (score >= 55) return 2;
-            if (score >= 40) return 1;
-            return 0;
-        }
+    getDynamicMaxExams(daysRemaining, totalRemainingReps) {
+        if (daysRemaining === null || daysRemaining <= 0) return 25;
+        const effectiveDays = this.getEffectiveStudyDays();
+        const required = Math.ceil(totalRemainingReps / effectiveDays);
+        let max = Math.max(8, Math.min(30, required * 2));
+        if (daysRemaining < 5) max = Math.min(35, max + 5);
+        if (daysRemaining < 3) max = 40;
+        return Math.round(max);
+    }
+
+    getNextReviewDays(score, attempts) {
+        if (attempts === 0) return 1;
+        if (score >= 95) return 14;
+        if (score >= 85) return 7;
+        if (score >= 70) return 4;
+        if (score >= 55) return 2;
+        if (score >= 40) return 1;
+        return 0;
+      }
     }
 
     // ================================================================
