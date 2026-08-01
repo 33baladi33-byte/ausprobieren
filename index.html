@@ -2330,7 +2330,6 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
 </script>
 
 <!-- ========== عناصر جلسة المراجعة (يجب أن تكون قبل الـ Scripts التي تحتاجها) ========== -->
-
 <!-- نافذة جلسة المراجعة -->
 <div id="studySessionModal" class="session-modal">
     <div class="session-modal-content">
@@ -2366,6 +2365,39 @@ if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeF
         <div class="session-end-sub">مراجعة موفقة ✨</div>
         <div class="session-end-message">خذ راحة صغيرة ☕</div>
         <button id="closeEndOverlayBtn" class="end-overlay-btn">حسناً</button>
+    </div>
+</div>
+
+<!-- ===== نافذة خطة اليوم (Study Planner) ===== -->
+<div id="studyPlannerModal" class="session-modal">
+    <div class="session-modal-content" style="max-width: 480px;">
+        <button id="closeStudyPlannerBtn" style="
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 4px 8px;
+            border-radius: 6px;
+        " onmouseover="this.style.background='#e8ecf0'" onmouseout="this.style.background='transparent'">✕</button>
+        <h3 style="
+            margin: 0 0 16px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-align: center;
+        ">📅 خطة اليوم</h3>
+        <div id="studyPlannerContainer" style="
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 4px;
+        ">
+            <div style="text-align:center; padding:20px; color:#94a3b8;">⏳ جاري تحميل الخطة...</div>
+        </div>
     </div>
 </div>
 
@@ -2457,7 +2489,6 @@ window.updateAskAIContext = function(skill, examId) {
         </div>
     </div>
 </div>
-
 <script>
 /* ============================================ */
 (function() {
@@ -2544,6 +2575,154 @@ window.updateAskAIContext = function(skill, examId) {
     setTimeout(setupLightbox, 500);
     
     console.log("✅ زر 💡 طريقة الاشتراك الجديد جاهز");
+})();
+
+// ============================================
+// 🚀 تشغيل زر خطة اليوم (Study Planner)
+// ============================================
+(function() {
+    const plannerBtn = document.getElementById('studyPlannerBtn');
+    const modal = document.getElementById('studyPlannerModal');
+    const closeBtn = document.getElementById('closeStudyPlannerBtn');
+    const container = document.getElementById('studyPlannerContainer');
+
+    if (!plannerBtn || !modal || !container) {
+        console.warn('⚠️ بعض عناصر Study Planner غير موجودة');
+        return;
+    }
+
+    function openPlanner() {
+        modal.style.display = 'flex';
+        generateAndRenderPlan();
+    }
+
+    function closePlanner() {
+        modal.style.display = 'none';
+    }
+
+    function generateAndRenderPlan() {
+        try {
+            const skill = 'hoeren1';
+            const examDate = new Date('2026-08-01');
+            const dailyHours = 4;
+            const result = window.generateStudyPlan(skill, examDate, dailyHours);
+            renderPlan(result);
+        } catch (error) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:20px; color:#ef4444;">❌ ${error.message}</div>
+            `;
+            console.error('❌ خطأ في توليد الخطة:', error);
+        }
+    }
+
+    function renderPlan(result) {
+        container.innerHTML = '';
+
+        if (result.isFinalReview) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:30px; color:#f59e0b; font-size:1.1rem;">⏰ ${result.message}</div>
+                <div style="text-align:center; font-size:0.9rem; color:#64748b;">الأيام المتبقية: ${result.remainingDays} يوم</div>
+            `;
+            return;
+        }
+
+        if (result.selectedExams.length === 0) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:30px; color:#22c55e; font-size:1.1rem;">✅ ${result.message}</div>
+            `;
+            return;
+        }
+
+        const stats = document.createElement('div');
+        stats.style.cssText = `
+            display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+            margin-bottom: 16px; padding: 10px 12px; background: #f1f4f8; border-radius: 10px;
+            font-size: 0.8rem;
+        `;
+        stats.innerHTML = `
+            <span>🎯 <strong>${result.dailyCount}</strong> امتحان${result.dailyCount > 1 ? 'ات' : ''}</span>
+            <span>📅 <strong>${result.remainingDays}</strong> يوم</span>
+            <span>⚙️ <strong>${result.workingDays}</strong> يوم عمل</span>
+            <span>⏳ <strong>${result.totalRemaining}</strong> متبقي</span>
+        `;
+        container.appendChild(stats);
+
+        result.selectedExams.forEach((exam, index) => {
+            const card = document.createElement('div');
+            card.style.cssText = `
+                background: white; border-radius: 10px; padding: 10px 14px; margin-bottom: 6px;
+                border: 1px solid #e8ecf0; display: flex; justify-content: space-between;
+                align-items: center; cursor: pointer; transition: all 0.2s; font-size: 0.85rem;
+            `;
+            card.addEventListener('mouseenter', () => {
+                card.style.background = '#f8fafc';
+                card.style.borderColor = '#2c3e66';
+                card.style.transform = 'translateX(4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'white';
+                card.style.borderColor = '#e8ecf0';
+                card.style.transform = 'translateX(0)';
+            });
+            card.addEventListener('click', () => {
+                closePlanner();
+                if (typeof window.openExam === 'function') {
+                    window.openExam(exam.id, `Hören 1 - امتحان ${exam.id}`, 'hoeren1');
+                } else {
+                    alert('⚠️ دالة openExam غير متوفرة');
+                }
+            });
+
+            const left = document.createElement('span');
+            left.style.cssText = 'display:flex; align-items:center; gap:8px;';
+            left.innerHTML = `
+                <span style="font-weight:700; color:#2c3e66; min-width:24px;">${index + 1}</span>
+                <span>امتحان ${exam.id}</span>
+                ${exam.isNew ? '<span style="font-size:0.6rem; color:#94a3b8; background:#f1f4f8; padding:0 6px; border-radius:4px;">جديد</span>' : ''}
+            `;
+
+            const right = document.createElement('span');
+            right.style.cssText = 'display:flex; gap:10px; font-size:0.7rem; color:#64748b;';
+            const scoreDisplay = exam.isNew ? 'لم يُحل' : `${exam.score} / 25`;
+            const reviewDisplay = exam.lastReviewDays !== null ? `منذ ${exam.lastReviewDays} يوم` : 'لم يُراجع';
+            right.innerHTML = `
+                <span>📊 ${scoreDisplay}</span>
+                <span>🔄 ${exam.retries}</span>
+                <span>📅 ${reviewDisplay}</span>
+            `;
+
+            card.appendChild(left);
+            card.appendChild(right);
+            container.appendChild(card);
+        });
+
+        const footer = document.createElement('div');
+        footer.style.cssText = `
+            text-align: center; font-size: 0.7rem; color: #94a3b8;
+            margin-top: 12px; padding-top: 10px; border-top: 1px solid #e8ecf0;
+        `;
+        footer.textContent = '🔄 يتم تحديث الخطة تلقائياً عند كل فتحة';
+        container.appendChild(footer);
+    }
+
+    plannerBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🔥 تم الضغط على زر خطة اليوم');
+        openPlanner();
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closePlanner);
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) closePlanner();
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.style.display === 'flex') closePlanner();
+    });
+
+    console.log('✅ زر خطة اليوم مرتبط بنجاح');
 })();
 
 // ============================================
