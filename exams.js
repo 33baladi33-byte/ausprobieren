@@ -3938,44 +3938,22 @@ function addRetryCounterToExam() {
         reviewText = `منذ ${reviewDays} يوم`;
     }
 
-    // الحاوية الرئيسية
+    // الحاوية الرئيسية (عمودية)
     const container = document.createElement('div');
     container.id = 'retryCounterBox';
     container.style.cssText = `
         display: flex;
-        align-items: center;
-        gap: 12px;
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 8px 16px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        background: transparent;
         margin-right: 0;
         margin-left: auto;
         flex-shrink: 0;
     `;
 
-    // البطاقة الأولى: الإعادات
-    const retryBox = document.createElement('span');
-    retryBox.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
-    retryBox.style.cssText = `
-        font-size: 14px;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        color: #1e293b;
-        white-space: nowrap;
-    `;
-
-    // الفاصل العمودي
-    const divider = document.createElement('span');
-    divider.style.cssText = `
-        width: 1px;
-        height: 24px;
-        background: #e2e8f0;
-        flex-shrink: 0;
-    `;
-
-    // البطاقة الثانية: آخر مراجعة
-    const reviewBox = document.createElement('span');
+    // ===== البطاقة الأولى: آخر مراجعة (في الأعلى) =====
+    const reviewBox = document.createElement('div');
     let reviewColor = '#64748b';
     if (reviewDays === null) {
         reviewColor = '#94a3b8';
@@ -3988,18 +3966,40 @@ function addRetryCounterToExam() {
     } else {
         reviewColor = '#ef4444';
     }
-
     reviewBox.innerHTML = `آخر مراجعة: <strong style="color:${reviewColor};font-weight:700;">${reviewText}</strong>`;
     reviewBox.style.cssText = `
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 8px 16px;
         font-size: 14px;
         font-family: 'Segoe UI', Arial, sans-serif;
         color: #1e293b;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         white-space: nowrap;
+        width: 100%;
+        box-sizing: border-box;
     `;
 
-    container.appendChild(retryBox);
-    container.appendChild(divider);
+    // ===== البطاقة الثانية: الإعادات (في الأسفل) =====
+    const retryBox = document.createElement('div');
+    retryBox.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+    retryBox.style.cssText = `
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #1e293b;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        white-space: nowrap;
+        width: 100%;
+        box-sizing: border-box;
+    `;
+
     container.appendChild(reviewBox);
+    container.appendChild(retryBox);
 
     // إضافة إلى الواجهة
     const interleavingRow = document.getElementById('interleavingRow');
@@ -4022,7 +4022,7 @@ function addRetryCounterToExam() {
             const containerEl = document.querySelector('#exam, .exam-content, .exam-box, .page.active');
             if (containerEl) {
                 const wrapper = document.createElement('div');
-                wrapper.style.cssText = 'display: flex; justify-content: flex-end; margin: 0 0 15px 0;';
+                wrapper.style.cssText = 'display: flex; flex-direction: column; align-items: flex-end; margin: 0 0 15px 0;';
                 wrapper.appendChild(container);
                 containerEl.prepend(wrapper);
             }
@@ -4058,14 +4058,14 @@ function updateRetryCounter() {
         reviewText = `منذ ${reviewDays} يوم`;
     }
 
-    // تحديث الإعادات
-    const retryBox = container.querySelector('span:first-child');
+    // 🔹 تحديث بطاقة الإعادات (البطاقة الثانية)
+    const retryBox = container.querySelectorAll('div')[1];
     if (retryBox) {
         retryBox.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
     }
 
-    // تحديث آخر مراجعة
-    const reviewBox = container.querySelector('span:last-child');
+    // 🔹 تحديث بطاقة آخر مراجعة (البطاقة الأولى)
+    const reviewBox = container.querySelectorAll('div')[0];
     if (reviewBox) {
         let reviewColor = '#64748b';
         if (reviewDays === null) {
