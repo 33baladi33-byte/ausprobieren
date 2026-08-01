@@ -123,36 +123,26 @@ function validateInputs(skill, examDate) {
     // ============================================
     // 5. حساب العدد اليومي للامتحانات
     // ============================================
+function calculateDailyCount(remainingExams, workingDays, dailyHours) {
+    if (remainingExams === 0) return 0;
+    if (workingDays === 0) return 0;
 
-    function calculateDailyCount(remainingExams, workingDays, dailyHours) {
-        // إذا كان عدد الامتحانات المتبقية 0
-        if (remainingExams === 0) return 0;
+    let dailyCount = Math.ceil(remainingExams / workingDays);
 
-        // إذا لم تبق أيام عمل، نرجع 0 (فترة مراجعة نهائية)
-        if (workingDays === 0) return 0;
-
-        // حساب العدد الأساسي (Ceil)
-        let dailyCount = Math.ceil(remainingExams / workingDays);
-
-        // الحد الأدنى (3) مع إمكانية تعديله حسب ساعات الدراسة اليومية
-        let minDaily = 3;
-        if (dailyHours && typeof dailyHours === 'number' && dailyHours > 0) {
-            // إذا كان عدد الساعات عالياً، نزيد الحد الأدنى قليلاً
-            if (dailyHours >= 4) minDaily = 4;
-            if (dailyHours >= 6) minDaily = 5;
-        }
-
-        if (dailyCount < minDaily) {
-            dailyCount = minDaily;
-        }
-
-        // لا يمكن أن يتجاوز العدد الامتحانات المتبقية
-        if (dailyCount > remainingExams) {
-            dailyCount = remainingExams;
-        }
-
-        return dailyCount;
+    // الحد الأدنى حسب ساعات الدراسة
+    let minDaily = 4;
+    if (dailyHours >= 2 && dailyHours <= 3) {
+        minDaily = 8;
     }
+    if (dailyHours >= 4) {
+        minDaily = 12;
+    }
+
+    dailyCount = Math.max(dailyCount, minDaily);
+    dailyCount = Math.min(dailyCount, remainingExams);
+
+    return dailyCount;
+}
 
     // ============================================
     // 6. حساب الأولوية (Priority) لكل امتحان
