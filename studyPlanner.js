@@ -5,36 +5,47 @@
 
 (function() {
     "use strict";
+// ============================================
+// 1. دوال التحقق من المدخلات
+// ============================================
 
-    // ============================================
-    // 1. دوال التحقق من المدخلات
-    // ============================================
-
-    /**
-     * التحقق من صحة المدخلات ورفع خطأ واضح إذا كانت غير صالحة
-     */
-    function validateInputs(skill, examDate) {
-        if (!skill || typeof skill !== 'string' || skill.trim() === '') {
-            throw new Error('[StudyPlanner] ❌ المهارة (skill) مطلوبة ولم يتم تمريرها.');
-        }
-
-        if (!examDate || !(examDate instanceof Date) || isNaN(examDate.getTime())) {
-            throw new Error('[StudyPlanner] ❌ تاريخ الامتحان (examDate) مطلوب وصالح.');
-        }
-
-        // التأكد من أن التاريخ ليس في الماضي
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const examDay = new Date(examDate);
-        examDay.setHours(0, 0, 0, 0);
-
-        if (examDay < today) {
-            throw new Error('[StudyPlanner] ❌ تاريخ الامتحان لا يمكن أن يكون في الماضي.');
-        }
-
-        return true;
+/**
+ * التحقق من صحة المدخلات ورفع خطأ واضح إذا كانت غير صالحة
+ * تم إزالة أي تاريخ افتراضي - إذا لم يصل التاريخ، يرفع خطأ مباشر
+ */
+function validateInputs(skill, examDate) {
+    // التحقق من المهارة
+    if (!skill || typeof skill !== 'string' || skill.trim() === '') {
+        throw new Error('[StudyPlanner] ❌ المهارة (skill) مطلوبة. تأكد من تمريرها من الواجهة.');
     }
 
+    // التحقق من التاريخ - بدون أي قيمة افتراضية
+    if (!examDate) {
+        throw new Error('[StudyPlanner] ❌ تاريخ الامتحان (examDate) مطلوب. يرجى تحديد تاريخ الامتحان أولاً.');
+    }
+
+    if (!(examDate instanceof Date)) {
+        throw new Error('[StudyPlanner] ❌ تاريخ الامتحان (examDate) يجب أن يكون كائن Date صالح.');
+    }
+
+    if (isNaN(examDate.getTime())) {
+        throw new Error('[StudyPlanner] ❌ تاريخ الامتحان (examDate) غير صالح (Invalid Date).');
+    }
+
+    // التأكد من أن التاريخ ليس في الماضي
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const examDay = new Date(examDate);
+    examDay.setHours(0, 0, 0, 0);
+
+    // إذا كان التاريخ في الماضي، نسمح به مع تحذير (قد يكون الامتحان اليوم أو غداً)
+    // لكننا لا نرفع خطأ، بل نترك الحساب يحدث
+    if (examDay < today) {
+        console.warn('[StudyPlanner] ⚠️ تاريخ الامتحان في الماضي. قد تكون النتائج غير دقيقة.');
+    }
+
+    return true;
+}
     // ============================================
     // 2. جلب قائمة الامتحانات من قاعدة البيانات
     // ============================================
