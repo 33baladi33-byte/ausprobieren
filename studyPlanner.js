@@ -1484,4 +1484,235 @@
 
     window.StudyPlannerEngine = StudyPlannerEngine;
 
+    // ================================================================
+    // 4. دوال Debug للاختبار والتحقق
+    // ================================================================
+
+    function debugPlannerData(sectionId) {
+        // تجميع البيانات
+        const allData = engine.gatherAllData();
+        const dataScore = engine.calculateDataScore(allData);
+        const memoryData = allData.memory;
+        const results = allData.results;
+        const history = allData.history;
+
+        // التأكد من وجود القسم
+        const section = engine.sections.find(s => s.id === sectionId);
+        if (!section) {
+            console.error(`القسم "${sectionId}" غير موجود.`);
+            return;
+        }
+
+        console.log(`%c=========================`, 'font-weight:bold; font-size:16px;');
+        console.log(`%cDEBUG ${sectionId.toUpperCase()}`, 'font-weight:bold; font-size:18px; color:#38bdf8;');
+        console.log(`%c=========================`, 'font-weight:bold; font-size:16px;');
+
+        const secResults = results[sectionId] || [];
+        const secMemory = memoryData[sectionId] || {};
+
+        let totalScores = [];
+        let weakCount = 0;
+        let forgottenCount = 0;
+        let coveredCount = 0;
+
+        for (let i = 1; i <= section.totalTests; i++) {
+            const exam = engine.analyzeExam(sectionId, i, allData);
+            const key = `${sectionId}_${i}`;
+            const historyEntry = history[key] || {};
+            const selectedCount = historyEntry.count || 0;
+
+            console.log(`%cExam ${i}`, 'font-weight:bold; font-size:14px; color:#fbbf24;');
+            console.log(`---------`);
+            console.log(`Scores:`, exam.scores.length ? exam.scores : '[]');
+            console.log(`Average:`, exam.avg.toFixed(1));
+            console.log(`Last Score:`, exam.lastScore);
+            console.log(`Attempts:`, exam.attempts);
+            console.log(`Retry Count:`, exam.attempts);
+            console.log(`Memory:`, exam.memoryPercent + '%');
+            console.log(`Remaining Repetitions:`, exam.remainingReps);
+            console.log(`Last Review:`, exam.lastDate || 'Never');
+            console.log(`Days Since Review:`, exam.daysSince);
+            console.log(`Trend:`, exam.trend > 0 ? `+${exam.trend}` : exam.trend);
+            console.log(`Forgetting Rate:`, exam.forgettingRate.toFixed(2));
+            console.log(`Stable:`, exam.isStable);
+            console.log(`Weak:`, exam.isWeak);
+            console.log(`Forgotten:`, exam.isForgotten);
+            console.log(`Covered:`, exam.isFresh ? 'false' : 'true');
+            console.log(`Mastered:`, exam.isMastered);
+            console.log(`Priority:`, engine.calculatePriority(exam, null, engine.getDaysRemaining(), dataScore, 'neutral'));
+            console.log(`Selected Count (history):`, selectedCount);
+            console.log(`Days Since Last Select:`, exam.daysSinceLastSelect);
+            console.log(`%c`, '');
+        }
+
+        // ملخص القسم
+        let solved = 0, neverOpened = 0, weakExams = 0, forgottenExams = 0;
+        let totalAvg = 0, totalMemory = 0, covered = 0;
+        let examCount = 0;
+
+        for (let i = 1; i <= section.totalTests; i++) {
+            const exam = engine.analyzeExam(sectionId, i, allData);
+            if (exam.attempts > 0 || exam.scores.length > 0) {
+                solved++;
+                totalAvg += exam.avg;
+                if (exam.avg > 0) examCount++;
+            } else {
+                neverOpened++;
+            }
+            if (exam.isWeak) weakExams++;
+            if (exam.isForgotten) forgottenExams++;
+            if (!exam.isFresh) covered++;
+            if (exam.memoryPercent > 0) totalMemory += exam.memoryPercent;
+        }
+
+        const avgScore = examCount > 0 ? (totalAvg / examCount) : 0;
+        const avgMemory = (solved > 0) ? (totalMemory / solved) : 0;
+        const coveragePercent = (covered / section.totalTests) * 100;
+
+        console.log(`%c=========================`, 'font-weight:bold; font-size:16px;');
+        console.log(`%cSECTION SUMMARY`, 'font-weight:bold; font-size:16px; color:#38bdf8;');
+        console.log(`%c=========================`, 'font-weight:bold; font-size:16px;');
+        console.log(`Total Exams:`, section.totalTests);
+        console.log(`Solved:`, solved);
+        console.log(`Never Opened:`, neverOpened);
+        console.log(`Weak Exams:`, weakExams);
+        console.log(`Forgotten Exams:`, forgottenExams);
+        console.log(`Covered:`, coveragePercent.toFixed(1) + '%');
+        console.log(`Average Score:`, avgScore.toFixed(1));
+        console.log(`Average Memory:`, avgMemory.toFixed(1) + '%');
+
+        // توصيات اليوم (محاكاة اختيار 4 امتحانات بناءً على الأولوية)
+        const plan = engine.buildScheduledPlan(sectionId);
+        if (plan && plan.grouped && plan.grouped[section.name]) {
+            console.log(`Recommended Today:`, plan.grouped[section.name].join(' ، '));
+        } else {
+            console.log(`Recommended Today:`, 'No plan generated');
+        }
+        console.log(`%c`, '');
+    }
+
+    function debugPlanner() {
+        const allData = engine.gatherAllData();
+        const dataScore = engine.calculateDataScore(allData);
+        const daysRemaining = engine.getDaysRemaining();
+        const effectiveDays = engine.getEffectiveStudyDays();
+        const momentum = engine.calculateMomentum(allData);
+        const sectionAnalysis = engine.analyzeSections(allData);
+
+        // حساب الإحصائيات العامة
+        let totalExams = 0, solved = 0, mastered = 0, weak = 0, forgotten = 0, fresh = 0;
+        let covered = 0;
+        for (const sec of engine.sections) {
+            totalExams += sec.totalTests;
+            const secResults = allData.results[sec.id] || [];
+            solved += secResults.length;
+            for (let i = 1; i <= sec.totalTests; i++) {
+                const exam = engine.analyzeExam(sec.id, i, allData);
+                if (exam.isMastered) mastered++;
+                if (exam.isWeak) weak++;
+                if (exam.isForgotten) forgotten++;
+                if (exam.isFresh) fresh++;
+                if (!exam.isFresh) covered++;
+            }
+        }
+
+        const confidence = engine.calculateConfidence(dataScore, 0);
+
+        console.log(`%c=========================`, 'font-weight:bold; font-size:16px;');
+        console.log(`%cPLANNER DEBUG`, 'font-weight:bold; font-size:18px; color:#38bdf8;');
+        console.log(`%c=========================`, 'font-weight:bold; font-size:16px;');
+        console.log(`Exam Date:`, engine.getExamDate() || 'Not set');
+        console.log(`Days Remaining:`, daysRemaining !== null ? daysRemaining : 'No date');
+        console.log(`Effective Days:`, effectiveDays);
+        console.log(`Current Phase:`, 'Calculated per section');
+        console.log(`Data Score:`, dataScore + '%');
+        console.log(`Confidence:`, confidence + '%');
+        console.log(`Momentum:`, momentum);
+        console.log(`Covered Exams:`, covered + ' / ' + totalExams);
+        console.log(`Mastered Exams:`, mastered);
+        console.log(`Weak Exams:`, weak);
+        console.log(`Forgotten Exams:`, forgotten);
+        console.log(`Fresh Exams:`, fresh);
+        // حساب daily target من إحدى الأقسام كمثال (خذ أول قسم)
+        const firstSec = engine.sections[0];
+        const planExample = engine.buildScheduledPlan(firstSec.id);
+        const dailyTarget = planExample && planExample.dailyCount ? planExample.dailyCount : 0;
+        console.log(`Daily Target (example):`, dailyTarget);
+        const maxDaily = engine.getDynamicMaxExams(daysRemaining, 0);
+        console.log(`Max Daily:`, maxDaily);
+        console.log(`%c`, '');
+    }
+
+    function debugExam(skill, examId) {
+        console.log(`%c=========================`, 'font-weight:bold; font-size:16px;');
+        console.log(`%cDEBUG EXAM ${skill.toUpperCase()} ${examId}`, 'font-weight:bold; font-size:18px; color:#38bdf8;');
+        console.log(`%c=========================`, 'font-weight:bold; font-size:16px;');
+
+        const resultKey = `exam_result_${skill}_${examId}`;
+        const retryKey = `exam_retry_${skill}_${examId}`;
+        const historyKey = `exam_history_${skill}_${examId}`;
+
+        console.log(`%cLocalStorage Keys:`, 'font-weight:bold;');
+        console.log(`  ${resultKey}:`, localStorage.getItem(resultKey) || 'null');
+        console.log(`  ${retryKey}:`, localStorage.getItem(retryKey) || 'null');
+        console.log(`  ${historyKey}:`, localStorage.getItem(historyKey) || 'null');
+
+        // قراءة history وتحليلها
+        const historyRaw = localStorage.getItem(historyKey);
+        if (historyRaw) {
+            try {
+                const history = JSON.parse(historyRaw);
+                console.log(`%cHistory:`, 'font-weight:bold;');
+                console.log(`  Entries:`, history.length);
+                history.forEach((entry, idx) => {
+                    console.log(`    ${idx+1}: score=${entry.score}, date=${entry.date}`);
+                });
+                if (history.length > 0) {
+                    const last = history[history.length - 1];
+                    console.log(`  Last Score:`, last.score);
+                    console.log(`  Last Date:`, last.date);
+                }
+            } catch (e) {
+                console.error('Error parsing history:', e);
+            }
+        }
+
+        // تحليل memory levels
+        const memoryKey = `memory_levels`;
+        const memoryRaw = localStorage.getItem(memoryKey);
+        if (memoryRaw) {
+            try {
+                const memoryData = JSON.parse(memoryRaw);
+                const prefix = `${skill}_exam${examId}_`;
+                let total = 0, count = 0;
+                for (const key in memoryData) {
+                    if (key.startsWith(prefix)) {
+                        total += memoryData[key];
+                        count++;
+                    }
+                }
+                if (count > 0) {
+                    const avgLevel = (total / count);
+                    const completion = (avgLevel / 5) * 100;
+                    console.log(`%cMemory:`, 'font-weight:bold;');
+                    console.log(`  Total Cards:`, count);
+                    console.log(`  Average Level:`, avgLevel.toFixed(1));
+                    console.log(`  Completion:`, Math.round(completion) + '%');
+                } else {
+                    console.log(`%cMemory:`, 'font-weight:bold;');
+                    console.log(`  No memory data for this exam.`);
+                }
+            } catch (e) {
+                console.error('Error parsing memory:', e);
+            }
+        }
+
+        console.log(`%c`, '');
+    }
+
+    // تصدير دوال Debug للاستخدام العالمي
+    window.debugPlannerData = debugPlannerData;
+    window.debugPlanner = debugPlanner;
+    window.debugExam = debugExam;
+
 })();
