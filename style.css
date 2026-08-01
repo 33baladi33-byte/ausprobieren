@@ -5174,7 +5174,7 @@ body.dark-mode .exam-info-item .material-symbols-outlined {
 .planner-top-bar .left-icons button {
     background: none;
     border: none;
-    font-size: 16px;
+    font-size: 18px;
     color: #94a3b8;
     cursor: pointer;
     padding: 0;
@@ -5183,8 +5183,6 @@ body.dark-mode .exam-info-item .material-symbols-outlined {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 22px;
-    height: 22px;
     line-height: 1;
 }
 
