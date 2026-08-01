@@ -2651,96 +2651,188 @@ window.updateAskAIContext = function(skill, examId) {
             console.error('❌ خطأ في توليد الخطة:', error);
         }
     }
-
     function renderPlan(result) {
         container.innerHTML = '';
 
         // ✅ إذا كانت فترة مراجعة نهائية (أيام العمل = 0)
         if (result.isFinalReview) {
             container.innerHTML = `
-                <div style="text-align:center; padding:30px; color:#f59e0b; font-size:1.1rem;">⏰ ${result.message}</div>
-                <div style="text-align:center; font-size:0.9rem; color:#64748b;">الأيام المتبقية: ${result.remainingDays} يوم</div>
+                <div style="text-align:center; padding:40px 20px;">
+                    <div style="font-size:2.2rem; margin-bottom:12px;">⏰</div>
+                    <div style="font-size:1rem; color:#f59e0b; font-weight:500;">${result.message}</div>
+                    <div style="font-size:0.85rem; color:#94a3b8; margin-top:6px;">الأيام المتبقية: ${result.remainingDays} يوم</div>
+                </div>
             `;
             return;
         }
 
         if (result.selectedExams.length === 0) {
             container.innerHTML = `
-                <div style="text-align:center; padding:30px; color:#22c55e; font-size:1.1rem;">✅ ${result.message}</div>
+                <div style="text-align:center; padding:40px 20px;">
+                    <div style="font-size:2.2rem; margin-bottom:12px;">🎉</div>
+                    <div style="font-size:1rem; color:#22c55e; font-weight:500;">${result.message}</div>
+                </div>
             `;
             return;
         }
 
-        const stats = document.createElement('div');
-        stats.style.cssText = `
-            display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
-            margin-bottom: 16px; padding: 10px 12px; background: #f1f4f8; border-radius: 10px;
-            font-size: 0.8rem;
-        `;
-        stats.innerHTML = `
-            <span>🎯 <strong>${result.dailyCount}</strong> امتحان${result.dailyCount > 1 ? 'ات' : ''}</span>
-            <span>📅 <strong>${result.remainingDays}</strong> يوم</span>
-            <span>⚙️ <strong>${result.workingDays}</strong> يوم عمل</span>
-            <span>⏳ <strong>${result.totalRemaining}</strong> متبقي</span>
-        `;
-        container.appendChild(stats);
+        // ============================================================
+        // 1. البطاقة العلوية: تاريخ الامتحان والأيام المتبقية
+        // ============================================================
+        const examDateStr = localStorage.getItem('zertiva_exam_date') || 'لم يُحدد';
+        const formattedDate = examDateStr !== 'لم يُحدد' ? 
+            examDateStr.split('-').reverse().join(' / ') : 'لم يُحدد';
 
-        result.selectedExams.forEach((exam, index) => {
-            const card = document.createElement('div');
-            card.style.cssText = `
-                background: white; border-radius: 10px; padding: 10px 14px; margin-bottom: 6px;
-                border: 1px solid #e8ecf0; display: flex; justify-content: space-between;
-                align-items: center; cursor: pointer; transition: all 0.2s; font-size: 0.85rem;
+        const headerCard = document.createElement('div');
+        headerCard.className = 'planner-header-card';
+        headerCard.innerHTML = `
+            <div class="planner-header-row">
+                <div class="planner-header-item">
+                    <span class="planner-header-label">📆 الامتحان</span>
+                    <span class="planner-header-value">${formattedDate}</span>
+                    <button class="planner-edit-date-btn" id="plannerEditDateBtn" title="تغيير التاريخ">✏️</button>
+                </div>
+                <div class="planner-header-item">
+                    <span class="planner-header-label">⏳ المتبقي</span>
+                    <span class="planner-header-value">${result.remainingDays} يوم</span>
+                </div>
+            </div>
+        `;
+        container.appendChild(headerCard);
+
+        // ============================================================
+        // 2. قسم المهارة (Hören 1)
+        // ============================================================
+        const skillName = localStorage.getItem('zertiva_selected_skill') || 'Hören 1';
+        const skillDisplayName = skillName === 'hoeren1' ? 'Hören 1' : skillName;
+
+        const skillSection = document.createElement('div');
+        skillSection.className = 'planner-skill-section';
+        skillSection.innerHTML = `
+            <div class="planner-skill-title">${skillDisplayName}</div>
+            <div class="planner-skill-stats">
+                <div class="planner-stat-card">
+                    <span class="planner-stat-value">${result.dailyCount}</span>
+                    <span class="planner-stat-label">اليوم</span>
+                </div>
+                <div class="planner-stat-card">
+                    <span class="planner-stat-value">${result.totalRemaining}</span>
+                    <span class="planner-stat-label">المتبقي</span>
+                </div>
+                <div class="planner-stat-card">
+                    <span class="planner-stat-value">${result.workingDays}</span>
+                    <span class="planner-stat-label">أيام العمل</span>
+                </div>
+            </div>
+        `;
+        container.appendChild(skillSection);
+
+        // ============================================================
+        // 3. قائمة الامتحانات المختارة
+        // ============================================================
+        const examsList = document.createElement('div');
+        examsList.className = 'planner-exams-list';
+
+        result.selectedExams.forEach((exam) => {
+            const examCard = document.createElement('div');
+            examCard.className = 'planner-exam-card';
+
+            // تحديد لون النتيجة
+            let scoreColor = '#64748b';
+            let scoreDisplay = 'لم يُحل';
+            let isNew = exam.isNew;
+
+            if (!isNew && exam.score !== null) {
+                scoreDisplay = `${exam.score} / 25`;
+                if (exam.score >= 20) scoreColor = '#22c55e';
+                else if (exam.score >= 15) scoreColor = '#eab308';
+                else scoreColor = '#ef4444';
+            }
+
+            // تحديد نص آخر مراجعة
+            let reviewDisplay = 'لم يُراجع بعد';
+            let reviewColor = '#94a3b8';
+            if (exam.lastReviewDays !== null) {
+                if (exam.lastReviewDays === 0) {
+                    reviewDisplay = 'اليوم';
+                    reviewColor = '#22c55e';
+                } else {
+                    reviewDisplay = `منذ ${exam.lastReviewDays} يوم`;
+                    reviewColor = exam.lastReviewDays <= 3 ? '#22c55e' : 
+                                  exam.lastReviewDays <= 7 ? '#eab308' : '#ef4444';
+                }
+            }
+
+            // بناء البطاقة
+            examCard.innerHTML = `
+                <div class="planner-exam-header">
+                    <span class="planner-exam-number">امتحان ${exam.id}</span>
+                    ${exam.isNew ? '<span class="planner-exam-badge-new">جديد</span>' : ''}
+                </div>
+                <div class="planner-exam-details">
+                    <div class="planner-exam-detail">
+                        <span class="planner-detail-label">النتيجة</span>
+                        <span class="planner-detail-value" style="color:${scoreColor}; font-weight:600;">${scoreDisplay}</span>
+                    </div>
+                    <div class="planner-exam-detail">
+                        <span class="planner-detail-label">الإعادات</span>
+                        <span class="planner-detail-value">${exam.retries}</span>
+                    </div>
+                    <div class="planner-exam-detail">
+                        <span class="planner-detail-label">آخر مراجعة</span>
+                        <span class="planner-detail-value" style="color:${reviewColor};">${reviewDisplay}</span>
+                    </div>
+                </div>
+                <button class="planner-exam-start-btn" data-exam-id="${exam.id}">
+                    ابدأ <span style="font-size:0.9rem;">→</span>
+                </button>
             `;
-            card.addEventListener('mouseenter', () => {
-                card.style.background = '#f8fafc';
-                card.style.borderColor = '#2c3e66';
-                card.style.transform = 'translateX(4px)';
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.background = 'white';
-                card.style.borderColor = '#e8ecf0';
-                card.style.transform = 'translateX(0)';
-            });
-            card.addEventListener('click', () => {
+
+            // ربط زر البداية
+            const startBtn = examCard.querySelector('.planner-exam-start-btn');
+            startBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
                 closePlanner();
                 if (typeof window.openExam === 'function') {
-                    window.openExam(exam.id, `Hören 1 - امتحان ${exam.id}`, 'hoeren1');
+                    const skill = localStorage.getItem('zertiva_selected_skill') || 'hoeren1';
+                    window.openExam(exam.id, `Hören 1 - امتحان ${exam.id}`, skill);
                 } else {
                     alert('⚠️ دالة openExam غير متوفرة');
                 }
             });
 
-            const left = document.createElement('span');
-            left.style.cssText = 'display:flex; align-items:center; gap:8px;';
-            left.innerHTML = `
-                <span style="font-weight:700; color:#2c3e66; min-width:24px;">${index + 1}</span>
-                <span>امتحان ${exam.id}</span>
-                ${exam.isNew ? '<span style="font-size:0.6rem; color:#94a3b8; background:#f1f4f8; padding:0 6px; border-radius:4px;">جديد</span>' : ''}
-            `;
-
-            const right = document.createElement('span');
-            right.style.cssText = 'display:flex; gap:10px; font-size:0.7rem; color:#64748b;';
-            const scoreDisplay = exam.isNew ? 'لم يُحل' : `${exam.score} / 25`;
-            const reviewDisplay = exam.lastReviewDays !== null ? `منذ ${exam.lastReviewDays} يوم` : 'لم يُراجع';
-            right.innerHTML = `
-                <span>📊 ${scoreDisplay}</span>
-                <span>🔄 ${exam.retries}</span>
-                <span>📅 ${reviewDisplay}</span>
-            `;
-
-            card.appendChild(left);
-            card.appendChild(right);
-            container.appendChild(card);
+            examsList.appendChild(examCard);
         });
 
+        container.appendChild(examsList);
+
+        // ============================================================
+        // 4. زر تحديث الخطة (اختياري)
+        // ============================================================
         const footer = document.createElement('div');
-        footer.style.cssText = `
-            text-align: center; font-size: 0.7rem; color: #94a3b8;
-            margin-top: 12px; padding-top: 10px; border-top: 1px solid #e8ecf0;
+        footer.className = 'planner-footer';
+        footer.innerHTML = `
+            <span class="planner-footer-text">🔄 يتم تحديث الخطة تلقائياً عند كل فتحة</span>
         `;
-        footer.textContent = '🔄 يتم تحديث الخطة تلقائياً عند كل فتحة';
         container.appendChild(footer);
+
+        // ============================================================
+        // 5. ربط زر تغيير التاريخ
+        // ============================================================
+        const editDateBtn = document.getElementById('plannerEditDateBtn');
+        if (editDateBtn) {
+            editDateBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const currentDate = localStorage.getItem('zertiva_exam_date') || '';
+                const newDate = prompt('أدخل تاريخ الامتحان (YYYY-MM-DD):', currentDate);
+                if (newDate && /^\d{4}-\d{2}-\d{2}$/.test(newDate)) {
+                    localStorage.setItem('zertiva_exam_date', newDate);
+                    generateAndRenderPlan();
+                } else if (newDate !== null) {
+                    alert('⚠️ الصيغة غير صحيحة. استخدم YYYY-MM-DD');
+                }
+            });
+        }
     }
 
     plannerBtn.addEventListener('click', function(e) {
