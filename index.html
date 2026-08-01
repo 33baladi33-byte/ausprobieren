@@ -2779,54 +2779,124 @@ function showPopup(title, content) {
 });
 
         document.getElementById('plannerSettingsBtn').addEventListener('click', function(e) {
-            e.stopPropagation();
-            const currentDate = savedDate || new Date().toISOString().slice(0, 10);
-            const currentHours = savedHours;
+    e.stopPropagation();
+    const currentDate = savedDate || new Date().toISOString().slice(0, 10);
+    const currentHours = savedHours;
 
-            const overlay = document.createElement('div');
-            overlay.className = 'planner-popup-overlay';
-            overlay.innerHTML = `
-                <div class="planner-popup-card">
-                    <div class="planner-popup-title">تعديل المعلومات الخاصة بي</div>
-                    <div style="margin-bottom:12px;">
-                        <label style="display:block;font-size:0.7rem;color:#94a3b8;margin-bottom:4px;">تاريخ الامتحان</label>
-                        <input type="date" id="popupExamDate" value="${currentDate}" style="width:100%;padding:8px 10px;border:1px solid #e8ecf0;border-radius:8px;font-size:0.8rem;color:#1e293b;background:#ffffff;font-family:inherit;box-sizing:border-box;">
-                    </div>
-                    <div style="margin-bottom:16px;">
-                        <label style="display:block;font-size:0.7rem;color:#94a3b8;margin-bottom:4px;">كم ساعة تراجع يومياً</label>
-                        <input type="number" id="popupDailyHours" value="${currentHours}" min="1" max="12" step="1" style="width:100%;padding:8px 10px;border:1px solid #e8ecf0;border-radius:8px;font-size:0.8rem;color:#1e293b;background:#ffffff;font-family:inherit;box-sizing:border-box;">
-                    </div>
-                    <button id="popupSaveBtn" class="planner-check-btn" style="margin-bottom:8px;">فحص</button>
-                    <button class="planner-popup-close-btn">إلغاء</button>
-                </div>
-            `;
-            document.body.appendChild(overlay);
-            setTimeout(() => overlay.classList.add('active'), 10);
+    const overlay = document.createElement('div');
+    overlay.className = 'planner-popup-overlay';
+    overlay.innerHTML = `
+        <div class="planner-popup-card" style="
+            max-width: 300px;
+            width: 90%;
+            padding: 16px 18px 18px;
+            border-radius: 16px;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.04);
+            background: #ffffff;
+            border: 1px solid #edf1f7;
+        ">
+            <div class="planner-popup-title" style="
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #1e293b;
+                text-align: center;
+                margin-bottom: 14px;
+            ">
+                تعديل المعلومات الخاصة بي
+            </div>
 
-            overlay.querySelector('#popupSaveBtn').addEventListener('click', function() {
-                const date = document.getElementById('popupExamDate').value;
-                const hours = parseInt(document.getElementById('popupDailyHours').value) || 4;
-                if (!date) { alert('يرجى اختيار تاريخ.'); return; }
-                if (hours < 1 || hours > 12) { alert('عدد الساعات بين 1 و 12.'); return; }
-                showLoader(() => {
-                    saveUserData(date, hours);
-                    overlay.classList.remove('active');
-                    setTimeout(() => overlay.remove(), 300);
-                    renderCurrentState();
-                });
-            });
+            <div style="margin-bottom: 10px;">
+                <label style="
+                    display: block;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    color: #1e293b;
+                    margin-bottom: 3px;
+                    text-align: right;
+                ">
+                    تاريخ الامتحان
+                </label>
+                <input type="date" id="popupExamDate" value="${currentDate}" style="
+                    width: 100%;
+                    padding: 7px 10px;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 8px;
+                    font-size: 0.8rem;
+                    color: #1e293b;
+                    background: #ffffff;
+                    font-family: inherit;
+                    box-sizing: border-box;
+                    direction: rtl;
+                ">
+            </div>
 
-            overlay.querySelector('.planner-popup-close-btn').addEventListener('click', () => {
-                overlay.classList.remove('active');
-                setTimeout(() => overlay.remove(), 300);
-            });
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    overlay.classList.remove('active');
-                    setTimeout(() => overlay.remove(), 300);
-                }
-            });
+            <div style="margin-bottom: 16px;">
+                <label style="
+                    display: block;
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    color: #1e293b;
+                    margin-bottom: 3px;
+                    text-align: right;
+                ">
+                    كم ساعة تراجع يومياً
+                </label>
+                <input type="number" id="popupDailyHours" value="${currentHours}" min="1" max="12" step="1" style="
+                    width: 100%;
+                    padding: 7px 10px;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 8px;
+                    font-size: 0.8rem;
+                    color: #1e293b;
+                    background: #ffffff;
+                    font-family: inherit;
+                    box-sizing: border-box;
+                    direction: rtl;
+                ">
+            </div>
+
+            <button id="popupSaveBtn" class="planner-section-btn" style="
+                width: 100%;
+                padding: 9px 0;
+                font-size: 0.85rem;
+                font-weight: 600;
+                text-align: center;
+                border: 1px solid #D5E0EC;
+                border-radius: 14px;
+                background: linear-gradient(90deg, #161922 0%, #2D3138 50%, #161922 100%);
+                color: #B0B8C9;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+                cursor: pointer;
+                transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+                font-family: inherit;
+            ">
+                فحص
+            </button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    setTimeout(() => overlay.classList.add('active'), 10);
+
+    overlay.querySelector('#popupSaveBtn').addEventListener('click', function() {
+        const date = document.getElementById('popupExamDate').value;
+        const hours = parseInt(document.getElementById('popupDailyHours').value) || 4;
+        if (!date) { alert('يرجى اختيار تاريخ.'); return; }
+        if (hours < 1 || hours > 12) { alert('عدد الساعات بين 1 و 12.'); return; }
+        showLoader(() => {
+            saveUserData(date, hours);
+            overlay.classList.remove('active');
+            setTimeout(() => overlay.remove(), 300);
+            renderCurrentState();
         });
+    });
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.classList.remove('active');
+            setTimeout(() => overlay.remove(), 300);
+        }
+    });
+});
      document.getElementById('plannerInfoBtn').addEventListener('click', function(e) {
     e.stopPropagation();
     showPopup(
