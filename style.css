@@ -4988,3 +4988,358 @@ body.dark-mode .exam-info-item .material-symbols-outlined {
         font-size: 14px;
     }
 }
+
+
+
+
+/* ============================================
+   Study Planner - تدفق جديد
+   ============================================ */
+
+/* ===== البطاقة العامة ===== */
+.planner-card {
+    font-family: 'Segoe UI', 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 4px 0;
+    color: #1e293b;
+}
+
+/* ===== صفحة إدخال المعلومات ===== */
+.planner-welcome-title {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    color: #1e293b;
+    margin-bottom: 20px;
+}
+
+.planner-input-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.planner-input-group {
+    flex: 1;
+}
+
+.planner-input-group label {
+    display: block;
+    font-size: 0.65rem;
+    color: #94a3b8;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.planner-input-group input[type="date"],
+.planner-input-group input[type="number"] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #e8ecf0;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: #1e293b;
+    background: #ffffff;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.planner-input-group input:focus {
+    outline: none;
+    border-color: #2c3e66;
+    box-shadow: 0 0 0 2px rgba(44, 62, 102, 0.1);
+}
+
+.planner-check-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #2c3e66;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.planner-check-btn:hover {
+    background: #1a2a4a;
+}
+
+/* ===== Loader ===== */
+.planner-loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.planner-loader-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.planner-loader-spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #2c3e66;
+    border-radius: 50%;
+    animation: plannerSpin 0.8s linear infinite;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 12px;
+    border-radius: 50%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes plannerSpin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== صفحة اختيار القسم ===== */
+.planner-section-title {
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-align: center;
+    color: #1e293b;
+    margin: 16px 0 18px 0;
+}
+
+.planner-sections-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.planner-sections-grid.two-col {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.planner-section-btn {
+    padding: 10px 6px;
+    background: #f8fafc;
+    border: 1px solid #e8ecf0;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    font-family: inherit;
+}
+
+.planner-section-btn:hover {
+    background: #f1f4f8;
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+}
+
+.planner-section-btn:active {
+    transform: scale(0.97);
+}
+
+/* ===== الشريط العلوي (الصفحة الرئيسية) ===== */
+.planner-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eef2f6;
+    margin-bottom: 12px;
+}
+
+.planner-top-bar .left-icons {
+    display: flex;
+    gap: 8px;
+}
+
+.planner-top-bar .left-icons button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+
+.planner-top-bar .left-icons button:hover {
+    background: #f1f4f8;
+    color: #2c3e66;
+}
+
+.planner-top-bar .right-date {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.planner-top-bar .right-date .material-symbols-outlined {
+    font-size: 18px;
+    color: #94a3b8;
+}
+
+/* ===== النوافذ المنبثقة (settings + info) ===== */
+.planner-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+}
+
+.planner-popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.planner-popup-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px 22px;
+    max-width: 360px;
+    width: 90%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e8ecf0;
+    transform: scale(0.95);
+    transition: transform 0.2s ease;
+}
+
+.planner-popup-overlay.active .planner-popup-card {
+    transform: scale(1);
+}
+
+.planner-popup-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.planner-popup-body {
+    font-size: 0.8rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.planner-popup-close-btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    background: #f1f4f8;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.planner-popup-close-btn:hover {
+    background: #e2e8f0;
+}
+
+/* ===== الوضع الليلي ===== */
+body.dark-mode .planner-input-group input {
+    background: #1e1e2e;
+    border-color: #2a2a3a;
+    color: #e8ecf0;
+}
+
+body.dark-mode .planner-check-btn {
+    background: #4a6fa5;
+}
+
+body.dark-mode .planner-check-btn:hover {
+    background: #5a7fb5;
+}
+
+body.dark-mode .planner-section-btn {
+    background: #1e1e2e;
+    border-color: #2a2a3a;
+    color: #e8ecf0;
+}
+
+body.dark-mode .planner-section-btn:hover {
+    background: #2a2a3a;
+    border-color: #3a3a4a;
+}
+
+body.dark-mode .planner-top-bar .left-icons button:hover {
+    background: #2a2a3a;
+}
+
+body.dark-mode .planner-top-bar .right-date {
+    color: #e8ecf0;
+}
+
+body.dark-mode .planner-popup-card {
+    background: #14141e;
+    border-color: #2a2a3a;
+}
+
+body.dark-mode .planner-popup-title {
+    color: #e8ecf0;
+}
+
+body.dark-mode .planner-popup-body {
+    color: #94a3b8;
+}
+
+body.dark-mode .planner-popup-close-btn {
+    background: #2a2a3a;
+    color: #e8ecf0;
+}
+
+body.dark-mode .planner-popup-close-btn:hover {
+    background: #3a3a4a;
+}
+
+body.dark-mode .planner-loader-spinner {
+    background: rgba(20, 20, 30, 0.9);
+    border-color: rgba(255, 255, 255, 0.2);
+    border-top-color: #4a6fa5;
+}
+
+body.dark-mode .planner-welcome-title {
+    color: #e8ecf0;
+}
+
+body.dark-mode .planner-section-title {
+    color: #e8ecf0;
+}
