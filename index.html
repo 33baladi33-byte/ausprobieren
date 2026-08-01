@@ -2576,9 +2576,8 @@ window.updateAskAIContext = function(skill, examId) {
     
     console.log("✅ زر 💡 طريقة الاشتراك الجديد جاهز");
 })();
-
 // ============================================
-// 🚀 تشغيل زر خطة اليوم (Study Planner)
+// 🚀 تشغيل زر خطة اليوم (Study Planner) - مع قراءة التاريخ من localStorage
 // ============================================
 (function() {
     const plannerBtn = document.getElementById('studyPlannerBtn');
@@ -2601,10 +2600,37 @@ window.updateAskAIContext = function(skill, examId) {
     }
 
     function generateAndRenderPlan() {
+        // قراءة البيانات من localStorage (حيث يتم حفظ اختيارات المستخدم)
+        const skill = localStorage.getItem('zertiva_selected_skill') || 'hoeren1';
+        const examDateStr = localStorage.getItem('zertiva_exam_date');
+        const dailyHours = parseInt(localStorage.getItem('zertiva_daily_hours')) || 4;
+
+        // ✅ التحقق من وجود التاريخ
+        if (!examDateStr) {
+            container.innerHTML = `
+                <div style="text-align:center; padding:30px; color:#f59e0b; font-size:1rem;">
+                    ⚠️ يرجى تحديد تاريخ الامتحان أولاً في الإعدادات.
+                </div>
+                <div style="text-align:center; font-size:0.8rem; color:#94a3b8; margin-top:8px;">
+                    🔧 سيتم إضافة واجهة اختيار التاريخ قريباً.
+                </div>
+            `;
+            console.warn('⚠️ [StudyPlanner] لا يوجد تاريخ امتحان في localStorage');
+            return;
+        }
+
         try {
-            const skill = 'hoeren1';
-            const examDate = new Date('2026-08-01');
-            const dailyHours = 4;
+            const examDate = new Date(examDateStr);
+            
+            // التحقق من صحة التاريخ
+            if (isNaN(examDate.getTime())) {
+                throw new Error('تاريخ غير صالح: ' + examDateStr);
+            }
+
+            console.log('📅 [StudyPlanner] التاريخ المستخدم:', examDate);
+            console.log('🎯 [StudyPlanner] المهارة:', skill);
+            console.log('⏰ [StudyPlanner] ساعات الدراسة:', dailyHours);
+
             const result = window.generateStudyPlan(skill, examDate, dailyHours);
             renderPlan(result);
         } catch (error) {
@@ -2618,6 +2644,7 @@ window.updateAskAIContext = function(skill, examId) {
     function renderPlan(result) {
         container.innerHTML = '';
 
+        // ✅ إذا كانت فترة مراجعة نهائية (أيام العمل = 0)
         if (result.isFinalReview) {
             container.innerHTML = `
                 <div style="text-align:center; padding:30px; color:#f59e0b; font-size:1.1rem;">⏰ ${result.message}</div>
@@ -2722,7 +2749,7 @@ window.updateAskAIContext = function(skill, examId) {
         if (e.key === 'Escape' && modal.style.display === 'flex') closePlanner();
     });
 
-    console.log('✅ زر خطة اليوم مرتبط بنجاح');
+    console.log('✅ زر خطة اليوم مرتبط بنجاح (يقرأ التاريخ من localStorage)');
 })();
 
 // ============================================
