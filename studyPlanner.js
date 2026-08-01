@@ -1,14 +1,13 @@
 /**
- * studyPlanner.js - المدرب الذكي TELC B2 (الإصدار 9.4)
+ * studyPlanner.js - المدرب الذكي TELC B2 (الإصدار 9.5)
  * 
- * الإضافات الجديدة:
- * - نظام إدارة حالة الخطة (PlanState): Pending → Started → Completed.
- * - قاعدة Coverage: ضمان مراجعة كل امتحان مرة واحدة على الأقل.
- * - قاعدة Recovery: رفع أولوية الأقسام المهملة.
- * - محرك الاستدلال (Inference Engine): يعمل حسب كمية البيانات المتوفرة.
- * - Confidence Score: درجة ثقة في الخطة.
- * - Adaptive Weights: أوزان ديناميكية حسب توفر البيانات.
- * - Momentum: تعديل الصعوبة بناءً على اتجاه الأداء.
+ * الميزات الجديدة:
+ * - نظام Queue ديناميكي مثل Anki: عند إكمال امتحان، يخرج من القائمة ويُضاف جديد.
+ * - memoryStrength (0-10) بدلاً من coverage boolean.
+ * - targetRepetitions ديناميكي حسب صعوبة الامتحان (4-8).
+ * - selectedCount يزيد فقط بعد completeExam().
+ * - إصلاح هيكل الكلاس (جميع الدوال داخله).
+ * - Adaptive Weights محسّنة مع وزن أكبر للـ memoryStrength.
  */
 
 (function() {
@@ -16,9 +15,11 @@
 
     class StudyPlannerEngine {
         constructor() {
+            // مفاتيح التخزين
             this.storageKeyDate = 'user_exam_date';
             this.storageKeyPlans = 'study_planner_history_v3';
-            this.storageKeyState = 'study_planner_state'; // جديد: حالة الخطة الحالية
+            this.storageKeyQueue = 'study_planner_queue_v2'; // قائمة الانتظار الجديدة
+            this.storageKeyMemoryStrength = 'study_planner_memory_strength'; // قوة الذاكرة لكل امتحان
 
             this.sections = [
                 { id: 'hoeren1', name: 'Hören 1', weight: 1.6, priority: 1, totalTests: 20 },
@@ -31,9 +32,9 @@
                 { id: 'sprach2', name: 'Sprach 2', weight: 0.8, priority: 8, totalTests: 20 }
             ];
 
-            this.targetRepetitions = 6;
             this.minDailyExams = 4;
             this.maxExamsPerSection = 3;
+            this.queueSize = 4; // عدد الامتحانات في الطابور دائماً
 
             this.phases = [
                 { name: 'بناء', days: 60, focus: ['hoeren1','hoeren2','hoeren3'], weightBoost: 1.3 },
@@ -41,94 +42,203 @@
                 { name: 'مراجعة نهائية', days: 10, focus: ['sprach1','sprach2','hoeren1','lesen1'], weightBoost: 1.4 }
             ];
 
-            // ===== حالة الخطة الحالية =====
-            this.planState = this.loadPlanState();
+            // تحميل الطابور
+            this.queue = this.loadQueue();
         }
 
-        // ------------------- إدارة حالة الخطة -------------------
+        // ====================== إدارة الطابور ======================
 
-        loadPlanState() {
+        loadQueue() {
             try {
-                const raw = localStorage.getItem(this.storageKeyState);
+                const raw = localStorage.getItem(this.storageKeyQueue);
                 if (raw) {
-                    const state = JSON.parse(raw);
-                    // التأكد من صحة البيانات
-                    if (state && typeof state === 'object' && state.items) {
-                        return state;
+                    const data = JSON.parse(raw);
+                    if (Array.isArray(data)) return data;
+                }
+            } catch (e) {}
+            return []; // طابور فارغ
+        }
+
+        saveQueue() {
+            try {
+                localStorage.setItem(this.storageKeyQueue, JSON.stringify(this.queue));
+            } catch (e) {}
+        }
+
+        // إضافة امتحان إلى الطابور (بحالة pending)
+        enqueue(sectionName, examId, priority = 0) {
+            const key = `${sectionName}_${examId}`;
+            // نتجنب التكرار
+            if (this.queue.some(item => item.key === key)) return false;
+            this.queue.push({
+                key: key,
+                sectionName: sectionName,
+                examId: examId,
+                status: 'pending', // pending | started | completed
+                priority: priority,
+                addedDate: new Date().toISOString().slice(0, 10)
+            });
+            this.saveQueue();
+            return true;
+        }
+
+        // تحديث حالة امتحان في الطابور
+        updateQueueItemStatus(key, status) {
+            const item = this.queue.find(i => i.key === key);
+            if (item) {
+                item.status = status;
+                this.saveQueue();
+            }
+        }
+
+        // إكمال امتحان (يزيله من الطابور ويضيف جديد)
+        completeExam(sectionName, examId) {
+            const key = `${sectionName}_${examId}`;
+            // 1. نزيل الامتحان من الطابور
+            this.queue = this.queue.filter(item => item.key !== key);
+            this.saveQueue();
+
+            // 2. نزيد memoryStrength (قوة الذاكرة) لهذا الامتحان
+            this.incrementMemoryStrength(sectionName, examId);
+
+            // 3. نضيف امتحاناً جديداً (أفضل مرشح)
+            this.addNewExamToQueue();
+
+            // 4. نُحدّث selectedCount في history (للتتبع)
+            this.incrementSelectedCount(sectionName, examId);
+        }
+
+        // بدء امتحان
+        startExam(sectionName, examId) {
+            const key = `${sectionName}_${examId}`;
+            this.updateQueueItemStatus(key, 'started');
+        }
+
+        // إضافة امتحان جديد إلى الطابور (يختاره النظام)
+        addNewExamToQueue() {
+            // نبحث عن أفضل امتحان مرشح (ضعيف، منسي، غير مغطى)
+            const candidate = this.findBestCandidate();
+            if (candidate) {
+                this.enqueue(candidate.sectionName, candidate.examId, candidate.priority);
+            }
+        }
+
+        // ====================== memoryStrength (0-10) ======================
+
+        getMemoryStrength(sectionName, examId) {
+            const key = `${sectionName}_${examId}`;
+            try {
+                const raw = localStorage.getItem(this.storageKeyMemoryStrength);
+                if (raw) {
+                    const data = JSON.parse(raw);
+                    return data[key] !== undefined ? data[key] : 0;
+                }
+            } catch (e) {}
+            return 0;
+        }
+
+        setMemoryStrength(sectionName, examId, value) {
+            const key = `${sectionName}_${examId}`;
+            try {
+                const raw = localStorage.getItem(this.storageKeyMemoryStrength);
+                let data = raw ? JSON.parse(raw) : {};
+                data[key] = Math.max(0, Math.min(10, Math.round(value)));
+                localStorage.setItem(this.storageKeyMemoryStrength, JSON.stringify(data));
+            } catch (e) {}
+        }
+
+        incrementMemoryStrength(sectionName, examId) {
+            const current = this.getMemoryStrength(sectionName, examId);
+            this.setMemoryStrength(sectionName, examId, current + 1);
+        }
+
+        decrementMemoryStrength(sectionName, examId) {
+            const current = this.getMemoryStrength(sectionName, examId);
+            this.setMemoryStrength(sectionName, examId, current - 1);
+        }
+
+        // تنقص قوة الذاكرة مع مرور الأيام (تطبيق Spaced Repetition)
+        decayMemoryStrength(daysSince) {
+            // كل 7 أيام بدون مراجعة تنقص 1
+            if (daysSince > 7) {
+                return -Math.floor((daysSince - 7) / 7);
+            }
+            return 0;
+        }
+
+        // ====================== selectedCount (في history) ======================
+
+        incrementSelectedCount(sectionName, examId) {
+            const key = `${sectionName}_${examId}`;
+            const history = this.getPlanHistory();
+            if (!history[key]) {
+                history[key] = { count: 0, lastDate: null };
+            }
+            history[key].count = (history[key].count || 0) + 1;
+            history[key].lastDate = new Date().toISOString().slice(0, 10);
+            this.savePlanHistory(history);
+        }
+
+        // ====================== دوال مساعدة أساسية ======================
+
+        getExamDate() {
+            return localStorage.getItem(this.storageKeyDate) || null;
+        }
+
+        setExamDate(dateStr) {
+            localStorage.setItem(this.storageKeyDate, dateStr);
+        }
+
+        getDaysRemaining() {
+            const dateStr = this.getExamDate();
+            if (!dateStr) return null;
+            const now = new Date();
+            const exam = new Date(dateStr);
+            now.setHours(0, 0, 0, 0);
+            exam.setHours(0, 0, 0, 0);
+            const diff = Math.ceil((exam - now) / (1000 * 3600 * 24));
+            return diff > 0 ? diff : 0;
+        }
+
+        getEffectiveStudyDays() {
+            const days = this.getDaysRemaining();
+            if (days === null) return 30;
+            const effective = days - 2;
+            return effective > 0 ? effective : 1;
+        }
+
+        getDynamicMaxExams(daysRemaining, totalRemainingReps) {
+            if (daysRemaining === null || daysRemaining <= 0) return 25;
+            const effectiveDays = this.getEffectiveStudyDays();
+            const required = Math.ceil(totalRemainingReps / effectiveDays);
+            let max = Math.max(8, Math.min(30, required * 2));
+            if (daysRemaining < 5) max = Math.min(35, max + 5);
+            if (daysRemaining < 3) max = 40;
+            return Math.round(max);
+        }
+
+        // ====================== تاريخ الخطط (للتتبع فقط) ======================
+
+        getPlanHistory() {
+            try {
+                const raw = localStorage.getItem(this.storageKeyPlans);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (typeof parsed === 'object' && !Array.isArray(parsed)) {
+                        return parsed;
                     }
                 }
             } catch (e) {}
-            return { items: {}, planDate: null, pendingCount: 0 };
+            return {};
         }
 
-        savePlanState(state) {
+        savePlanHistory(history) {
             try {
-                localStorage.setItem(this.storageKeyState, JSON.stringify(state));
-                this.planState = state;
+                localStorage.setItem(this.storageKeyPlans, JSON.stringify(history));
             } catch (e) {}
         }
 
-        // إضافة امتحان إلى الخطة الحالية (بحالة pending)
-        addToPlan(sectionName, examId, priority = 0) {
-            const key = `${sectionName}_${examId}`;
-            if (!this.planState.items[key]) {
-                this.planState.items[key] = {
-                    sectionName: sectionName,
-                    examId: examId,
-                    status: 'pending', // pending | started | completed
-                    priority: priority,
-                    addedDate: new Date().toISOString().slice(0, 10)
-                };
-                this.planState.pendingCount++;
-            }
-        }
-
-        // تحديث حالة امتحان في الخطة
-        updatePlanItemStatus(key, status) {
-            if (this.planState.items[key]) {
-                const oldStatus = this.planState.items[key].status;
-                this.planState.items[key].status = status;
-                if (oldStatus === 'pending' && status !== 'pending') {
-                    this.planState.pendingCount = Math.max(0, this.planState.pendingCount - 1);
-                }
-                if (status === 'pending' && oldStatus !== 'pending') {
-                    this.planState.pendingCount++;
-                }
-                this.savePlanState(this.planState);
-            }
-        }
-
-        // إكمال امتحان (يُستدعى بعد التصحيح)
-        completeExam(sectionName, examId) {
-            const key = `${sectionName}_${examId}`;
-            this.updatePlanItemStatus(key, 'completed');
-            // أيضاً تحديث coverage
-            this.markCovered(sectionName, examId);
-        }
-
-        // بدء امتحان (يُستدعى عند فتح الامتحان)
-        startExam(sectionName, examId) {
-            const key = `${sectionName}_${examId}`;
-            if (this.planState.items[key] && this.planState.items[key].status === 'pending') {
-                this.updatePlanItemStatus(key, 'started');
-            }
-        }
-
-        // ------------------- Coverage -------------------
-
-        getCoverageKey(sectionName, examId) {
-            return `coverage_${sectionName}_${examId}`;
-        }
-
-        isCovered(sectionName, examId) {
-            return localStorage.getItem(this.getCoverageKey(sectionName, examId)) === 'true';
-        }
-
-        markCovered(sectionName, examId) {
-            localStorage.setItem(this.getCoverageKey(sectionName, examId), 'true');
-        }
-
-        // ------------------- جمع البيانات (محسن) -------------------
+        // ====================== جمع البيانات (تحليل) ======================
 
         gatherAllData() {
             const allKeys = Object.keys(localStorage);
@@ -204,7 +314,7 @@
                 }
             }
 
-            // Memory Completion (محسوبة من المستويات الفعلية)
+            // Memory Completion
             const memoryLevels = localStorage.getItem('memory_levels');
             const memoryCompletion = {};
             if (memoryLevels) {
@@ -237,22 +347,13 @@
                 } catch (e) {}
             }
 
-            // تاريخ الخطط السابقة
-            let history = {};
-            try {
-                const raw = localStorage.getItem(this.storageKeyPlans);
-                if (raw) {
-                    const parsed = JSON.parse(raw);
-                    if (typeof parsed === 'object' && !Array.isArray(parsed)) {
-                        history = parsed;
-                    }
-                }
-            } catch (e) {}
+            // تاريخ الخطط
+            const history = this.getPlanHistory();
 
             return { results, memory: memoryCompletion, history };
         }
 
-        // ------------------- حساب درجة توفر البيانات (dataScore) -------------------
+        // ====================== حساب درجة توفر البيانات ======================
 
         calculateDataScore(data) {
             const { results, memory, history } = data;
@@ -269,26 +370,21 @@
                 }
             }
 
-            // حساب النسبة المئوية
             let score = 0;
             if (totalExams > 0) {
-                // 50% من الوزن للنتائج
                 const resultRatio = examsWithData / totalExams;
-                // 30% من الوزن للـ Memory
                 const memoryRatio = examsWithMemory / totalExams;
-                // 20% من الوزن لتاريخ الخطط (عدد الامتحانات المختارة)
                 const historyKeys = Object.keys(history).length;
                 const historyRatio = Math.min(1, historyKeys / totalExams);
-
                 score = (resultRatio * 50) + (memoryRatio * 30) + (historyRatio * 20);
             }
 
             return Math.min(100, Math.round(score));
         }
 
-        // ------------------- تحليل الامتحان (مع Coverage و Recovery) -------------------
+        // ====================== تحليل الامتحان ======================
 
-        analyzeExam(sectionId, testId, data, dataScore) {
+        analyzeExam(sectionId, testId, data) {
             const { results, memory, history } = data;
             const secResults = results[sectionId] || [];
             const found = secResults.find(e => e.id === testId) || {};
@@ -307,16 +403,21 @@
                 daysSince = Math.floor((Date.now() - new Date(lastDate).getTime()) / (1000 * 3600 * 24));
             }
 
-            // remainingReps مع مرونة
-            let remainingReps = Math.max(0, this.targetRepetitions - attempts);
+            // targetRepetitions ديناميكي حسب الصعوبة
+            let targetReps = 6;
+            if (avg > 0 && avg < 40) targetReps = 8;
+            else if (avg < 60) targetReps = 7;
+            else if (avg >= 85) targetReps = 4;
+            else targetReps = 6;
+
+            let remainingReps = Math.max(0, targetReps - attempts);
             if (avg > 0 && avg < 60) {
                 remainingReps = Math.max(remainingReps, 4);
-            } else if (avg < 80 && attempts >= this.targetRepetitions) {
+            } else if (avg < 80 && attempts >= targetReps) {
                 remainingReps = Math.max(remainingReps, 2);
             }
 
-            // الإتقان مع Memory
-            const isMastered = attempts >= this.targetRepetitions && avg >= 85 && lastScore >= 80 && memoryPercent >= 90;
+            const isMastered = attempts >= targetReps && avg >= 85 && lastScore >= 80 && memoryPercent >= 90;
 
             // معدل النسيان
             let forgettingRate = 0;
@@ -332,7 +433,7 @@
                 forgettingRate = Math.max(0, -slope);
             }
 
-            // الاستقرار (انحراف معياري)
+            // الاستقرار
             let isStable = false;
             if (scores.length >= 3) {
                 const std = Math.sqrt(scores.reduce((s, v) => s + (v - avg) ** 2, 0) / scores.length);
@@ -355,10 +456,13 @@
                 daysSinceLastSelect = Math.floor((Date.now() - new Date(lastSelected).getTime()) / (1000 * 3600 * 24));
             }
 
-            // Coverage: هل تمت مراجعة هذا الامتحان من قبل؟
-            const covered = this.isCovered(sectionId, testId);
+            // memoryStrength
+            const memoryStrength = this.getMemoryStrength(sectionId, testId);
+            // تطبيق الـ Decay
+            const decay = this.decayMemoryStrength(daysSince);
+            const effectiveStrength = Math.max(0, memoryStrength + decay);
 
-            // Recovery: هل هذا القسم مهمل؟
+            // هل القسم مهمل؟
             const sectionResults = results[sectionId] || [];
             const sectionCoverage = sectionResults.length / this.sections.find(s => s.id === sectionId)?.totalTests || 0;
             const isSectionNeglected = sectionCoverage < 0.3;
@@ -372,6 +476,7 @@
                 maxScore: maxScore,
                 minScore: minScore,
                 attempts: attempts,
+                targetReps: targetReps,
                 remainingReps: remainingReps,
                 daysSince: daysSince,
                 memoryPercent: memoryPercent,
@@ -385,21 +490,20 @@
                 selectedCount: selectedCount,
                 daysSinceLastSelect: daysSinceLastSelect,
                 key: key,
-                covered: covered,
+                memoryStrength: effectiveStrength,
                 isSectionNeglected: isSectionNeglected,
                 sectionCoverage: sectionCoverage
             };
         }
 
-        // ------------------- حساب الأولوية (مع Adaptive Weights و Momentum) -------------------
+        // ====================== حساب الأولوية ======================
 
         calculatePriority(exam, phase, daysRemaining, dataScore, momentum) {
-            // تحديد الأوزان حسب درجة توفر البيانات
             let weights = this.getAdaptiveWeights(dataScore);
 
             let priority = 0;
 
-            // 1. عامل النتيجة
+            // 1. النتيجة
             if (exam.isFresh) {
                 priority += 40 + Math.random() * 5;
             } else {
@@ -417,41 +521,41 @@
             // 4. Memory
             priority += (100 - exam.memoryPercent) * 1.5 * weights.memory;
 
-            // 5. التذبذب
+            // 5. memoryStrength (الأساسي الجديد)
+            // كلما انخفضت القوة، زادت الأولوية
+            const strengthFactor = (10 - exam.memoryStrength) * 5 * weights.memoryStrength;
+            priority += strengthFactor;
+
+            // 6. التذبذب
             if (!exam.isStable && exam.attempts >= 3) priority += 15 * weights.stability;
 
-            // 6. الاتجاه السلبي
+            // 7. الاتجاه السلبي
             if (exam.trend < -5) priority += 20 * weights.trend;
             else if (exam.trend > 10) priority -= 10 * weights.trend;
 
-            // 7. الجديد: نعطيه فرصة
+            // 8. الجديد
             if (exam.isFresh) {
                 if (daysRemaining > 5) priority += 30 * weights.fresh;
                 else priority -= 50 * weights.fresh;
             }
 
-            // 8. الضعف
+            // 9. الضعف
             if (exam.isWeak) priority += 25 * weights.weak;
 
-            // 9. النسيان الشديد
+            // 10. النسيان الشديد
             if (exam.isForgotten) priority += 40 * weights.forgotten;
 
-            // 10. سرعة النسيان
+            // 11. سرعة النسيان
             if (exam.forgettingRate > 0.5) {
                 priority += exam.forgettingRate * 20 * weights.forgettingRate;
             }
 
-            // 11. Coverage: إذا لم يمر عليه من قبل، نعطيه أولوية عالية
-            if (!exam.covered) {
-                priority += 50 * weights.coverage;
-            }
-
-            // 12. Recovery: إذا كان القسم مهملاً، نرفع الأولوية
+            // 12. القسم المهمل
             if (exam.isSectionNeglected) {
                 priority += 30 * weights.recovery;
             }
 
-            // 13. مرحلة الدراسة
+            // 13. المرحلة
             if (phase && phase.focus.includes(exam.sectionId)) {
                 priority += 30 * weights.phase;
             }
@@ -460,7 +564,7 @@
             if (daysRemaining < 10) priority *= 1.2;
             if (daysRemaining < 5) priority *= 1.4;
 
-            // 15. معاقبة التكرار
+            // 15. معاقبة التكرار (باستخدام selectedCount من history)
             let effectiveCount = exam.selectedCount;
             if (exam.daysSinceLastSelect > 30) effectiveCount = 0;
             else if (exam.daysSinceLastSelect > 14) effectiveCount = Math.max(0, exam.selectedCount - 2);
@@ -473,98 +577,90 @@
             // 16. وزن القسم
             priority *= this.sections.find(s => s.id === exam.sectionId)?.weight || 1;
 
-            // 17. المتقن: نخفضها جداً
+            // 17. المتقن
             if (exam.isMastered) {
                 priority *= 0.05;
             }
 
-            // 18. Momentum: تعديل الصعوبة
-            if (momentum === 'improving') {
-                priority *= 0.9; // خفف قليلاً لأن المستوى جيد
-            } else if (momentum === 'declining') {
-                priority *= 1.1; // زد قليلاً لأن المستوى منخفض
-            }
+            // 18. Momentum
+            if (momentum === 'improving') priority *= 0.9;
+            else if (momentum === 'declining') priority *= 1.1;
 
-            // 19. عامل عشوائي صغير لكسر التعادل
+            // 19. عشوائي
             priority += Math.random() * 0.1;
 
             return Math.round(Math.max(0, priority));
         }
 
-        // ------------------- الأوزان المتكيفة حسب توفر البيانات -------------------
+        // ====================== الأوزان المتكيفة ======================
 
         getAdaptiveWeights(dataScore) {
-            // الأوزان الافتراضية (عندما تكون البيانات كاملة)
             let weights = {
                 result: 1.0,
                 retries: 1.0,
                 forgetting: 1.0,
                 memory: 1.0,
+                memoryStrength: 2.0, // وزن أعلى
                 stability: 1.0,
                 trend: 1.0,
                 fresh: 1.0,
                 weak: 1.0,
                 forgotten: 1.0,
                 forgettingRate: 1.0,
-                coverage: 1.0,
                 recovery: 1.0,
                 phase: 1.0
             };
 
             if (dataScore < 20) {
-                // لا توجد بيانات → خطة تأسيسية
                 weights.result = 0.2;
                 weights.retries = 0.1;
                 weights.forgetting = 0.1;
                 weights.memory = 0.05;
+                weights.memoryStrength = 3.0;
                 weights.stability = 0.1;
                 weights.trend = 0.1;
                 weights.fresh = 1.5;
                 weights.weak = 0.2;
                 weights.forgotten = 0.1;
                 weights.forgettingRate = 0.05;
-                weights.coverage = 2.0; // الأهمية القصوى لتغطية كل الامتحانات
                 weights.recovery = 1.5;
                 weights.phase = 0.5;
             } else if (dataScore < 50) {
-                // بيانات قليلة → اكتشاف المناطق الضعيفة
                 weights.result = 0.7;
                 weights.retries = 0.5;
                 weights.forgetting = 0.3;
                 weights.memory = 0.2;
+                weights.memoryStrength = 2.5;
                 weights.stability = 0.4;
                 weights.trend = 0.3;
                 weights.fresh = 1.2;
                 weights.weak = 0.8;
                 weights.forgotten = 0.5;
                 weights.forgettingRate = 0.3;
-                weights.coverage = 1.5;
                 weights.recovery = 1.2;
                 weights.phase = 0.7;
             } else if (dataScore < 80) {
-                // بيانات متوسطة → استخدام النتائج والإعادات
                 weights.result = 0.9;
                 weights.retries = 0.9;
                 weights.forgetting = 0.7;
                 weights.memory = 0.6;
+                weights.memoryStrength = 2.2;
                 weights.stability = 0.8;
                 weights.trend = 0.7;
                 weights.fresh = 1.0;
                 weights.weak = 1.0;
                 weights.forgotten = 0.9;
                 weights.forgettingRate = 0.7;
-                weights.coverage = 1.2;
                 weights.recovery = 1.0;
                 weights.phase = 0.9;
             } else {
-                // بيانات كاملة → استخدام جميع العوامل
-                // الأوزان الافتراضية تبقى كما هي
+                // بيانات كاملة
             }
 
             return weights;
         }
 
-        // ------------------- حساب Momentum -------------------
+        // ====================== حساب Momentum ======================
 
         calculateMomentum(data) {
             const { results } = data;
@@ -578,7 +674,6 @@
                     }
                 }
             }
-            // نأخذ آخر 5 نتائج
             recentScores = recentScores.slice(-5);
             if (recentScores.length < 3) return 'neutral';
 
@@ -590,66 +685,27 @@
             return 'neutral';
         }
 
-        // ------------------- حساب Confidence Score -------------------
+        // ====================== حساب Confidence ======================
 
-        calculateConfidence(dataScore, planCount) {
-            // 50% من الثقة من كمية البيانات، 30% من عدد الامتحانات في الخطة، 20% من التغطية
+        calculateConfidence(dataScore, queueSize) {
             let base = dataScore * 0.5;
-            let planFactor = Math.min(1, planCount / 10) * 30;
-            let coverageFactor = 0;
-            // يمكن إضافة عامل التغطية هنا
-
-            return Math.min(100, Math.round(base + planFactor + coverageFactor));
+            let planFactor = Math.min(1, queueSize / 10) * 30;
+            // نقيس أيضاً جودة البيانات (وجود نتائج كافية)
+            let qualityFactor = 0;
+            if (dataScore > 80) qualityFactor = 20;
+            else if (dataScore > 50) qualityFactor = 10;
+            return Math.min(100, Math.round(base + planFactor + qualityFactor));
         }
 
-        // ------------------- بناء الخطة التأسيسية (معدلة) -------------------
+        // ====================== البحث عن أفضل مرشح لإضافته للطابور ======================
 
-        buildFoundationPlan(data, targetSectionId = null, count = null) {
-            const targetSections = targetSectionId 
-                ? this.sections.filter(s => s.id === targetSectionId)
-                : this.sections;
-
-            const selected = [];
-            const totalNeeded = count || this.minDailyExams;
-            const perSection = Math.ceil(totalNeeded / targetSections.length);
-
-            for (const sec of targetSections) {
-                let added = 0;
-                for (let i = 1; i <= sec.totalTests && added < perSection; i++) {
-                    const key = `${sec.id}_${i}`;
-                    // نتجنب التكرار في الخطة الحالية
-                    if (this.planState.items[key] && this.planState.items[key].status !== 'pending') continue;
-                    selected.push({
-                        sectionName: sec.name,
-                        id: i,
-                        key: key,
-                        priority: i // ترتيب تصاعدي
-                    });
-                    added++;
-                }
-            }
-
-            selected.sort((a, b) => a.priority - b.priority);
-            if (selected.length > totalNeeded) selected.length = totalNeeded;
-
-            return selected;
-        }
-
-        // ------------------- بناء الخطة (الرئيسية) -------------------
-
-        buildScheduledPlan(targetSectionId = null) {
-            // 1. جمع البيانات
+        findBestCandidate() {
             const allData = this.gatherAllData();
             const daysRemaining = this.getDaysRemaining();
-            const effectiveDays = this.getEffectiveStudyDays();
-
-            // 2. حساب درجة توفر البيانات
             const dataScore = this.calculateDataScore(allData);
-
-            // 3. حساب Momentum
             const momentum = this.calculateMomentum(allData);
 
-            // 4. تحديد المرحلة
+            // تحديد المرحلة
             let phase = null;
             for (const p of this.phases) {
                 if (daysRemaining !== null && daysRemaining <= p.days) {
@@ -659,212 +715,117 @@
             }
             if (!phase && daysRemaining !== null) phase = this.phases[0];
 
+            // تحليل كل الامتحانات
+            const candidates = [];
+            for (const sec of this.sections) {
+                for (let i = 1; i <= sec.totalTests; i++) {
+                    const exam = this.analyzeExam(sec.id, i, allData);
+                    // لا نضيف المتقن
+                    if (exam.isMastered) continue;
+                    // لا نضيف الموجود بالفعل في الطابور
+                    if (this.queue.some(item => item.key === exam.key)) continue;
+                    // لا نضيف إذا كان قد اختير مؤخراً (أقل من 3 أيام)
+                    if (exam.daysSinceLastSelect < 3 && exam.selectedCount > 0) continue;
+
+                    const priority = this.calculatePriority(exam, phase, daysRemaining, dataScore, momentum);
+                    candidates.push({
+                        sectionName: sec.name,
+                        examId: exam.id,
+                        key: exam.key,
+                        priority: priority
+                    });
+                }
+            }
+
+            // نرتب تنازلياً ونأخذ الأعلى
+            candidates.sort((a, b) => b.priority - a.priority);
+            return candidates.length > 0 ? candidates[0] : null;
+        }
+
+        // ====================== بناء الخطة التأسيسية (عند عدم وجود بيانات) ======================
+
+        buildFoundationPlan(targetSectionId = null) {
             const targetSections = targetSectionId 
                 ? this.sections.filter(s => s.id === targetSectionId)
                 : this.sections;
 
-            // 5. التحقق من وجود خطة غير مكتملة
-            const pendingItems = Object.keys(this.planState.items).filter(k => 
-                this.planState.items[k].status === 'pending' || this.planState.items[k].status === 'started'
-            );
-
-            if (pendingItems.length > 0 && dataScore > 20) {
-                // نعطي المستخدم خيار متابعة الخطة السابقة
-                // لكننا نعيد بناء الخطة من العناصر المتبقية مع إضافة امتحانات جديدة حسب الحاجة
-                return this.buildFromPendingPlan(allData, targetSectionId, daysRemaining, effectiveDays, phase, dataScore, momentum);
-            }
-
-            // 6. تحليل جميع الامتحانات
-            const examMap = {};
-            let totalRemainingReps = 0;
-            let totalExamsWithData = 0;
+            const selected = [];
+            const perSection = Math.ceil(this.minDailyExams / targetSections.length);
 
             for (const sec of targetSections) {
-                for (let i = 1; i <= sec.totalTests; i++) {
-                    const exam = this.analyzeExam(sec.id, i, allData, dataScore);
-                    const key = exam.key;
-                    examMap[key] = { ...exam, sectionName: sec.name, sectionWeight: sec.weight };
-                    if (!exam.isFresh && (exam.attempts > 0 || exam.scores.length > 0)) {
-                        totalExamsWithData++;
+                let added = 0;
+                for (let i = 1; i <= sec.totalTests && added < perSection; i++) {
+                    const key = `${sec.id}_${i}`;
+                    if (this.queue.some(item => item.key === key)) continue;
+                    selected.push({
+                        sectionName: sec.name,
+                        examId: i,
+                        key: key,
+                        priority: i
+                    });
+                    added++;
+                }
+            }
+
+            selected.sort((a, b) => a.priority - b.priority);
+            if (selected.length > this.queueSize) selected.length = this.queueSize;
+
+            return selected;
+        }
+
+        // ====================== بناء الخطة (الرئيسية) ======================
+
+        buildScheduledPlan(targetSectionId = null) {
+            const allData = this.gatherAllData();
+            const daysRemaining = this.getDaysRemaining();
+            const effectiveDays = this.getEffectiveStudyDays();
+            const dataScore = this.calculateDataScore(allData);
+            const momentum = this.calculateMomentum(allData);
+
+            // إذا كان الطابور فارغاً، نعبئه
+            if (this.queue.length === 0) {
+                // نتحقق إذا كانت هناك بيانات
+                const hasData = Object.keys(allData.results).length > 0;
+                if (!hasData || dataScore < 20) {
+                    // خطة تأسيسية
+                    const foundation = this.buildFoundationPlan(targetSectionId);
+                    for (const item of foundation) {
+                        this.enqueue(item.sectionName, item.examId, item.priority);
                     }
-                    if (exam.remainingReps > 0 && !exam.isMastered) {
-                        totalRemainingReps += exam.remainingReps;
+                } else {
+                    // نضيف أفضل المرشحين حتى نملأ الطابور
+                    for (let i = 0; i < this.queueSize; i++) {
+                        this.addNewExamToQueue();
                     }
                 }
             }
 
-            // 7. إذا كانت البيانات قليلة جداً (foundation)
-            if (dataScore < 20 || totalExamsWithData === 0) {
-                const foundationPlan = this.buildFoundationPlan(allData, targetSectionId);
-                const grouped = {};
-                foundationPlan.forEach(item => {
-                    if (!grouped[item.sectionName]) grouped[item.sectionName] = [];
-                    grouped[item.sectionName].push(item.id);
-                    // إضافة إلى الخطة الحالية
-                    this.addToPlan(item.sectionName, item.id, item.priority);
-                });
-                this.savePlanState(this.planState);
-
-                const confidence = this.calculateConfidence(dataScore, foundationPlan.length);
+            // إذا كان الطابور لا يزال فارغاً (نادر)
+            if (this.queue.length === 0) {
                 return {
                     isRestPeriod: false,
-                    grouped: grouped,
-                    totalTests: foundationPlan.length,
+                    grouped: {},
+                    totalTests: 0,
                     daysRemaining: daysRemaining,
                     effectiveDays: effectiveDays,
-                    phase: 'تأسيسي',
-                    totalRemainingReps: 0,
-                    dailyCount: foundationPlan.length,
-                    isTimeInsufficient: false,
+                    phase: 'لا توجد بيانات',
                     isFoundation: true,
                     dataScore: dataScore,
-                    confidence: confidence,
+                    confidence: 0,
                     momentum: momentum,
-                    pendingCount: this.planState.pendingCount
+                    pendingCount: 0
                 };
             }
 
-            // 8. البيانات كافية → استخدام الأولويات
-            let dailyCount = Math.ceil(totalRemainingReps / effectiveDays);
-            dailyCount = Math.max(this.minDailyExams, dailyCount);
-            const maxDaily = this.getDynamicMaxExams(daysRemaining, totalRemainingReps);
-            dailyCount = Math.min(dailyCount, maxDaily);
-
-            // تصفية الامتحانات المؤهلة
-            const eligible = [];
-            const mastered = [];
-
-            for (const key in examMap) {
-                const exam = examMap[key];
-
-                if (exam.isMastered) {
-                    mastered.push(exam);
-                    continue;
-                }
-
-                // Spaced Repetition
-                if (!exam.isFresh) {
-                    const nextReview = this.getNextReviewDays(exam.lastScore, exam.attempts);
-                    if (exam.daysSince < nextReview) continue;
-                }
-
-                // منع الجديدة في آخر 5 أيام (إلا إذا لم تُغطى)
-                if (exam.isFresh && daysRemaining !== null && daysRemaining <= 5) {
-                    if (!exam.covered) {
-                        // نسمح بواحد جديد غير مغطى
-                        const uncovered = eligible.filter(e => !e.covered).length;
-                        if (uncovered >= 1) continue;
-                    } else {
-                        continue;
-                    }
-                }
-
-                // منع التكرار المبكر
-                let minDays = 3;
-                if (daysRemaining !== null && daysRemaining < 10) minDays = 1;
-                else if (daysRemaining !== null && daysRemaining < 20) minDays = 2;
-                if (exam.daysSinceLastSelect < minDays && exam.selectedCount > 0) continue;
-
-                eligible.push(exam);
-            }
-
-            // تقسيم الفئات
-            const fresh = [], forgotten = [], weak = [], normal = [], uncovered = [];
-            for (const exam of eligible) {
-                if (!exam.covered) uncovered.push(exam);
-                else if (exam.isFresh) fresh.push(exam);
-                else if (exam.isForgotten) forgotten.push(exam);
-                else if (exam.isWeak) weak.push(exam);
-                else normal.push(exam);
-            }
-
-            // ترتيب حسب الأولوية
-            const sortPriority = (arr) => arr.sort((a, b) => {
-                const pa = this.calculatePriority(a, phase, daysRemaining, dataScore, momentum);
-                const pb = this.calculatePriority(b, phase, daysRemaining, dataScore, momentum);
-                return pb - pa;
-            });
-            sortPriority(fresh);
-            sortPriority(forgotten);
-            sortPriority(weak);
-            sortPriority(normal);
-            sortPriority(uncovered);
-            sortPriority(mastered);
-
-            // التوزيع مع التوازن
-            const selected = [];
-            const selectedKeys = new Set();
-            const sectionCounts = {};
-
-            const uniqueSections = new Set(eligible.map(e => e.sectionName));
-            const localMax = uniqueSections.size === 1 ? 6 : this.maxExamsPerSection;
-
-            const tryAdd = (exam) => {
-                const key = exam.key;
-                if (selectedKeys.has(key)) return false;
-                const secName = exam.sectionName;
-                if (!sectionCounts[secName]) sectionCounts[secName] = 0;
-                if (sectionCounts[secName] >= localMax) return false;
-                selectedKeys.add(key);
-                selected.push(exam);
-                sectionCounts[secName]++;
-                return true;
-            };
-
-            // نبدأ بالامتحانات غير المغطاة (الأولوية القصوى)
-            let pool = [...uncovered, ...fresh, ...forgotten, ...weak, ...normal];
-            let added = 0;
-            let round = 0;
-            const maxRounds = Math.ceil(dailyCount / pool.length) + 1;
-
-            while (added < dailyCount && round < maxRounds) {
-                let anyAdded = false;
-                for (const exam of pool) {
-                    if (added >= dailyCount) break;
-                    if (selectedKeys.has(exam.key)) continue;
-                    if (tryAdd(exam)) { anyAdded = true; added++; }
-                }
-                if (!anyAdded) break;
-                round++;
-            }
-
-            // إذا لم نكمل، نضيف من المتقنين
-            if (added < dailyCount) {
-                for (const exam of mastered) {
-                    if (added >= dailyCount) break;
-                    if (tryAdd(exam)) added++;
-                }
-            }
-
-            // أخيراً، أي امتحان متبقي
-            if (added < dailyCount) {
-                for (const exam of pool) {
-                    if (added >= dailyCount) break;
-                    if (!selectedKeys.has(exam.key)) {
-                        selectedKeys.add(exam.key);
-                        selected.push(exam);
-                        added++;
-                    }
-                }
-            }
-
-            // تحديث الخطة الحالية
-            // نضيف الامتحانات المختارة إلى الخطة بحالة pending
-            for (const exam of selected) {
-                this.addToPlan(exam.sectionName, exam.id, exam.priority);
-            }
-            this.savePlanState(this.planState);
-
-            // تجميع النتائج
+            // بناء الخطة من الطابور
+            const pendingItems = this.queue.filter(item => item.status === 'pending' || item.status === 'started');
             const grouped = {};
-            selected.forEach(exam => {
-                const secName = exam.sectionName;
-                if (!grouped[secName]) grouped[secName] = [];
-                grouped[secName].push(exam.id);
-            });
+            for (const item of pendingItems) {
+                if (!grouped[item.sectionName]) grouped[item.sectionName] = [];
+                grouped[item.sectionName].push(item.examId);
+            }
 
-            // Confidence Score
-            const confidence = this.calculateConfidence(dataScore, selected.length);
+            const confidence = this.calculateConfidence(dataScore, this.queue.length);
 
             // حالة الراحة
             if (daysRemaining !== null && daysRemaining <= 2) {
@@ -877,158 +838,34 @@
             return {
                 isRestPeriod: false,
                 grouped: grouped,
-                totalTests: selected.length,
+                totalTests: pendingItems.length,
                 daysRemaining: daysRemaining,
                 effectiveDays: effectiveDays,
-                phase: phase ? phase.name : 'متقدم',
-                totalRemainingReps: totalRemainingReps,
-                dailyCount: dailyCount,
-                isTimeInsufficient: (totalRemainingReps / effectiveDays) > 12 && daysRemaining < 10,
-                isFoundation: false,
+                phase: dataScore < 20 ? 'تأسيسي' : 'متقدم',
+                isFoundation: dataScore < 20,
                 dataScore: dataScore,
                 confidence: confidence,
                 momentum: momentum,
-                pendingCount: this.planState.pendingCount
+                pendingCount: pendingItems.length,
+                queue: this.queue
             };
         }
 
-        // ------------------- بناء خطة من العناصر المتبقية -------------------
+        // ====================== دوال مساعدة (External API) ======================
 
-        buildFromPendingPlan(allData, targetSectionId, daysRemaining, effectiveDays, phase, dataScore, momentum) {
-            // نأخذ العناصر المتبقية من الخطة السابقة
-            const pendingItems = Object.keys(this.planState.items).filter(k => 
-                this.planState.items[k].status === 'pending' || this.planState.items[k].status === 'started'
-            );
-
-            const selected = [];
-            const selectedKeys = new Set();
-
-            for (const key of pendingItems) {
-                const item = this.planState.items[key];
-                // نتأكد من أن القسم في النطاق المطلوب
-                if (targetSectionId && item.sectionName !== targetSectionId) continue;
-                selectedKeys.add(key);
-                selected.push({
-                    sectionName: item.sectionName,
-                    id: item.examId,
-                    key: key,
-                    priority: item.priority || 0,
-                    status: item.status
-                });
-            }
-
-            // إذا كان العدد المتبقي أقل من الحد الأدنى، نضيف امتحانات جديدة
-            const needed = Math.max(this.minDailyExams, selected.length);
-            if (selected.length < needed) {
-                // نضيف امتحانات جديدة من الأقسام المستهدفة
-                const targetSections = targetSectionId 
-                    ? this.sections.filter(s => s.id === targetSectionId)
-                    : this.sections;
-
-                for (const sec of targetSections) {
-                    if (selected.length >= needed) break;
-                    for (let i = 1; i <= sec.totalTests; i++) {
-                        const key = `${sec.id}_${i}`;
-                        if (!selectedKeys.has(key) && !this.planState.items[key]) {
-                            // تحليل الامتحان لتحديد الأولوية
-                            const exam = this.analyzeExam(sec.id, i, allData, dataScore);
-                            const priority = this.calculatePriority(exam, phase, daysRemaining, dataScore, momentum);
-                            selected.push({
-                                sectionName: sec.name,
-                                id: i,
-                                key: key,
-                                priority: priority,
-                                status: 'pending'
-                            });
-                            selectedKeys.add(key);
-                            this.addToPlan(sec.name, i, priority);
-                            if (selected.length >= needed) break;
-                        }
-                    }
-                }
-            }
-
-            // ترتيب حسب الأولوية
-            selected.sort((a, b) => b.priority - a.priority);
-
-            // تجميع النتائج
-            const grouped = {};
-            selected.forEach(item => {
-                if (!grouped[item.sectionName]) grouped[item.sectionName] = [];
-                grouped[item.sectionName].push(item.id);
-            });
-
-            const confidence = this.calculateConfidence(dataScore, selected.length);
-
-            return {
-                isRestPeriod: false,
-                grouped: grouped,
-                totalTests: selected.length,
-                daysRemaining: daysRemaining,
-                effectiveDays: effectiveDays,
-                phase: phase ? phase.name : 'متابعة الخطة السابقة',
-                totalRemainingReps: 0,
-                dailyCount: selected.length,
-                isTimeInsufficient: false,
-                isFoundation: false,
-                dataScore: dataScore,
-                confidence: confidence,
-                momentum: momentum,
-                pendingCount: this.planState.pendingCount,
-                isContinuation: true
-            };
+        // دالة لإكمال امتحان (يُستدعى من engine.js بعد التصحيح)
+        completeExamAPI(sectionName, examId) {
+            this.completeExam(sectionName, examId);
         }
-    // ------------------- دوال مساعدة -------------------
 
-    getExamDate() {
-        return localStorage.getItem(this.storageKeyDate) || null;
-    }
-
-    setExamDate(dateStr) {
-        localStorage.setItem(this.storageKeyDate, dateStr);
-    }
-
-    getDaysRemaining() {
-        const dateStr = this.getExamDate();
-        if (!dateStr) return null;
-        const now = new Date();
-        const exam = new Date(dateStr);
-        now.setHours(0, 0, 0, 0);
-        exam.setHours(0, 0, 0, 0);
-        const diff = Math.ceil((exam - now) / (1000 * 3600 * 24));
-        return diff > 0 ? diff : 0;
-    }
-
-    getEffectiveStudyDays() {
-        const days = this.getDaysRemaining();
-        if (days === null) return 30;
-        const effective = days - 2;
-        return effective > 0 ? effective : 1;
-    }
-
-    getDynamicMaxExams(daysRemaining, totalRemainingReps) {
-        if (daysRemaining === null || daysRemaining <= 0) return 25;
-        const effectiveDays = this.getEffectiveStudyDays();
-        const required = Math.ceil(totalRemainingReps / effectiveDays);
-        let max = Math.max(8, Math.min(30, required * 2));
-        if (daysRemaining < 5) max = Math.min(35, max + 5);
-        if (daysRemaining < 3) max = 40;
-        return Math.round(max);
-    }
-
-    getNextReviewDays(score, attempts) {
-        if (attempts === 0) return 1;
-        if (score >= 95) return 14;
-        if (score >= 85) return 7;
-        if (score >= 70) return 4;
-        if (score >= 55) return 2;
-        if (score >= 40) return 1;
-        return 0;
-      }
+        // دالة لبدء امتحان
+        startExamAPI(sectionName, examId) {
+            this.startExam(sectionName, examId);
+        }
     }
 
     // ================================================================
-    // 2. واجهة المستخدم (معدلة لعرض بيانات جديدة)
+    // 2. واجهة المستخدم (نفسها مع تعديلات طفيفة)
     // ================================================================
 
     const engine = new StudyPlannerEngine();
@@ -1114,14 +951,13 @@
             animation: slideUp 0.25s ease; direction: rtl;
         `;
 
-        // التحقق من وجود خطة غير مكتملة
-        const pendingCount = engine.planState.pendingCount;
+        const pendingCount = engine.queue.filter(item => item.status === 'pending' || item.status === 'started').length;
 
         let pendingMsg = '';
         if (pendingCount > 0) {
             pendingMsg = `
                 <div style="background: #1e293b; border-radius: 12px; padding: 10px 16px; margin-bottom: 16px; border-right: 3px solid #f59e0b;">
-                    <span style="color: #fbbf24; font-size: 0.9rem;">⏳ لديك ${pendingCount} امتحان(ات) غير مكتملة من الخطة السابقة</span>
+                    <span style="color: #fbbf24; font-size: 0.9rem;">⏳ لديك ${pendingCount} امتحان(ات) في قائمة الانتظار</span>
                 </div>
             `;
         }
@@ -1130,7 +966,7 @@
             <div style="text-align: center; margin-bottom: 24px;">
                 <div style="font-size: 2.5rem; margin-bottom: 4px;">🎯</div>
                 <h2 style="margin: 0; color: #38bdf8;">المدرب الذكي</h2>
-                <p style="margin: 4px 0 0 0; color: #94a3b8; font-size: 0.85rem;">اختر طريقة التخطيط</p>
+                <p style="margin: 4px 0 0 0; color: #94a3b8; font-size: 0.85rem;">خطة يومية ديناميكية مثل Anki</p>
             </div>
             ${pendingMsg}
             <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -1150,15 +986,6 @@
                     🤖 اختر لي خطة اليوم
                 </button>
             </div>
-            ${pendingCount > 0 ? `
-            <button id="btnContinuePlan" style="
-                width: 100%; margin-top: 12px; padding: 12px;
-                background: #f59e0b; border: none; border-radius: 12px;
-                color: #0a0e1a; font-size: 0.95rem; font-weight: 600; cursor: pointer;
-            " onmouseover="this.style.background='#d97706'" onmouseout="this.style.background='#f59e0b'">
-                📋 متابعة الخطة السابقة (${pendingCount} متبقية)
-            </button>
-            ` : ''}
             <button id="btnChangeDate" style="
                 width: 100%; margin-top: 16px; padding: 8px;
                 background: transparent; border: 1px solid #334155; border-radius: 12px;
@@ -1180,29 +1007,6 @@
             overlay.remove();
             runAnalysis(null);
         };
-
-        const continueBtn = document.getElementById('btnContinuePlan');
-        if (continueBtn) {
-            continueBtn.onclick = () => {
-                overlay.remove();
-                // بناء الخطة من العناصر المتبقية مباشرة
-                const allData = engine.gatherAllData();
-                const daysRemaining = engine.getDaysRemaining();
-                const effectiveDays = engine.getEffectiveStudyDays();
-                const dataScore = engine.calculateDataScore(allData);
-                const momentum = engine.calculateMomentum(allData);
-                let phase = null;
-                for (const p of engine.phases) {
-                    if (daysRemaining !== null && daysRemaining <= p.days) {
-                        phase = p;
-                        break;
-                    }
-                }
-                if (!phase && daysRemaining !== null) phase = engine.phases[0];
-                const plan = engine.buildFromPendingPlan(allData, null, daysRemaining, effectiveDays, phase, dataScore, momentum);
-                showPurePlan(plan);
-            };
-        }
 
         document.getElementById('btnChangeDate').onclick = () => {
             overlay.remove();
@@ -1341,8 +1145,8 @@
         const steps = [
             { text: "🔍 جاري تحليل بياناتك...", progress: "25%" },
             { text: "📊 حساب مستواك في كل قسم...", progress: "50%" },
-            { text: "🧠 بناء الخطة الذكية...", progress: "75%" },
-            { text: "✅ تم إنشاء خطة اليوم.", progress: "100%" }
+            { text: "🧠 بناء خطة اليوم الذكية...", progress: "75%" },
+            { text: "✅ تم إنشاء الخطة.", progress: "100%" }
         ];
 
         let stepIdx = 0;
@@ -1386,8 +1190,7 @@
                 </div>
             `;
         } else {
-            // عرض الإحصائيات الذكية
-            const statusLabel = plan.isFoundation ? '🟢 خطة تأسيسية' : plan.isContinuation ? '🟡 متابعة الخطة السابقة' : '🔵 خطة متقدمة';
+            const statusLabel = plan.isFoundation ? '🟢 خطة تأسيسية' : '🔵 خطة متقدمة (Queue)';
             const confidenceColor = plan.confidence > 80 ? '#4ade80' : plan.confidence > 50 ? '#fbbf24' : '#f87171';
 
             html = `
@@ -1406,7 +1209,7 @@
                     <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #94a3b8;">
                         <span>درجة البيانات: ${plan.dataScore || 0}%</span>
                         <span>الثقة: <span style="color: ${confidenceColor};">${plan.confidence || 0}%</span></span>
-                        ${plan.pendingCount !== undefined ? `<span>⏳ متبقية: ${plan.pendingCount}</span>` : ''}
+                        <span>⏳ في الطابور: ${plan.pendingCount || 0}</span>
                     </div>
                     <div class="confidence-bar">
                         <div class="confidence-fill" style="width: ${plan.confidence || 0}%;"></div>
@@ -1429,7 +1232,7 @@
             if (plan.isTimeInsufficient) {
                 html += `
                     <div style="background: #7f1d1d; border-radius: 12px; padding: 10px; margin-top: 12px; color: #fca5a5; font-size: 0.85rem; text-align: center;">
-                        ⚠️ الوقت المتبقي غير كافٍ لتحقيق 6 مراجعات لكل امتحان. حاول زيادة عدد الامتحانات اليومية.
+                        ⚠️ الوقت المتبقي غير كافٍ. حاول زيادة عدد الامتحانات اليومية.
                     </div>
                 `;
             }
@@ -1454,41 +1257,30 @@
         overlay.appendChild(card);
         document.body.appendChild(overlay);
 
-        const closeBtn = document.getElementById('closePlanBtn');
-        if (closeBtn) closeBtn.onclick = () => overlay.remove();
+        document.getElementById('closePlanBtn')?.addEventListener('click', () => overlay.remove());
 
-        const startBtn = document.getElementById('startReviewBtn');
-        if (startBtn) {
-            startBtn.onclick = () => {
-                overlay.remove();
-                // هنا يمكننا توجيه المستخدم إلى الامتحانات، مثلاً فتح القائمة مع تحديد الأقسام
-                const firstSection = Object.keys(plan.grouped)[0];
-                if (firstSection) {
-                    // العثور على القسم في teile
-                    const teil = window.teile?.find(t => t.name === firstSection);
-                    if (teil && typeof window.renderExamListForSkill === 'function') {
-                        window.renderExamListForSkill(teil.skill, teil.name);
-                        // تبديل الصفحات
-                        document.getElementById('home')?.classList.remove('active');
-                        document.getElementById('exam')?.classList.remove('active');
-                        document.getElementById('list')?.classList.add('active');
-                    } else {
-                        // العودة إلى القائمة
-                        if (typeof window.goList === 'function') window.goList();
-                    }
-                } else {
-                    if (typeof window.goList === 'function') window.goList();
+        document.getElementById('startReviewBtn')?.addEventListener('click', () => {
+            overlay.remove();
+            const firstSection = Object.keys(plan.grouped)[0];
+            if (firstSection) {
+                const teil = window.teile?.find(t => t.name === firstSection);
+                if (teil && typeof window.renderExamListForSkill === 'function') {
+                    window.renderExamListForSkill(teil.skill, teil.name);
+                    document.getElementById('home')?.classList.remove('active');
+                    document.getElementById('exam')?.classList.remove('active');
+                    document.getElementById('list')?.classList.add('active');
+                } else if (typeof window.goList === 'function') {
+                    window.goList();
                 }
-            };
-        }
+            } else if (typeof window.goList === 'function') {
+                window.goList();
+            }
+        });
 
-        const backBtn = document.getElementById('backToMenuBtn');
-        if (backBtn) {
-            backBtn.onclick = () => {
-                overlay.remove();
-                showMainMenu();
-            };
-        }
+        document.getElementById('backToMenuBtn')?.addEventListener('click', () => {
+            overlay.remove();
+            showMainMenu();
+        });
 
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) overlay.remove();
@@ -1514,14 +1306,12 @@
         }
     };
 
-    // دالة لإكمال امتحان (يُستدعى من engine.js بعد التصحيح)
     window.completeExamInPlan = function(sectionName, examId) {
-        engine.completeExam(sectionName, examId);
+        engine.completeExamAPI(sectionName, examId);
     };
 
-    // دالة لبدء امتحان (يُستدعى من engine.js عند فتح الامتحان)
     window.startExamInPlan = function(sectionName, examId) {
-        engine.startExam(sectionName, examId);
+        engine.startExamAPI(sectionName, examId);
     };
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -1529,7 +1319,7 @@
         if (btn) {
             btn.removeEventListener('click', window.openStudyPlanner);
             btn.addEventListener('click', window.openStudyPlanner);
-            console.log('✅ المدرب الذكي TELC B2 جاهز (الإصدار 9.4 - مع إدارة الخطة والذكاء المتكيف)');
+            console.log('✅ المدرب الذكي TELC B2 جاهز (الإصدار 9.5 - نظام Queue و memoryStrength)');
         } else {
             console.warn('⚠️ الزر studyPlannerBtn غير موجود.');
         }
