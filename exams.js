@@ -3031,17 +3031,18 @@ function checkTeil1(questions, answers) {
   if (resultDiv) {
     resultDiv.innerHTML = "النتيجة: " + finalScore + " / 25";
     resultDiv.style.display = "block";
-    
-    // ✅ زيادة العداد وتحديث الواجهة
-    const retryCount = incrementRetryCount(currentSkill, currentExamId);
-    
-    // ✅ تحديث العداد في أعلى الصفحة (فوراً)
-    if (typeof window.updateRetryCounter === 'function') {
-        window.updateRetryCounter();
-    }
   }
   
+  // ✅ 1. حفظ النتيجة أولاً (هذا يكتب exam_last_review_*)
   saveExamResult(currentSkill, currentExamId, parseFloat(finalScore));
+  
+  // ✅ 2. زيادة عدد الإعادات
+  const retryCount = incrementRetryCount(currentSkill, currentExamId);
+  
+  // ✅ 3. تحديث البطاقات فوراً (بعد تغيير localStorage)
+  if (typeof window.updateRetryCounter === 'function') {
+      window.updateRetryCounter();
+  }
   
   if (document.getElementById("list").classList.contains("active")) {
     renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
@@ -4058,12 +4059,15 @@ function updateRetryCounter() {
         reviewText = `منذ ${reviewDays} يوم`;
     }
 
+  
     // 🔹 تحديث بطاقة الإعادات (البطاقة الثانية)
     const retryBox = container.querySelectorAll('div')[1];
     if (retryBox) {
         retryBox.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+        retryBox.style.textAlign = 'right'; // ✅ محاذاة النص إلى اليمين
     }
 
+    // 🔹 تحديث بطاقة آخر مراجعة (البطاقة الأولى)
     // 🔹 تحديث بطاقة آخر مراجعة (البطاقة الأولى)
     const reviewBox = container.querySelectorAll('div')[0];
     if (reviewBox) {
@@ -4080,6 +4084,7 @@ function updateRetryCounter() {
             reviewColor = '#ef4444';
         }
         reviewBox.innerHTML = `آخر مراجعة: <strong style="color:${reviewColor};font-weight:700;">${reviewText}</strong>`;
+        reviewBox.style.textAlign = 'right'; // ✅ محاذاة النص إلى اليمين
     }
 }
 
