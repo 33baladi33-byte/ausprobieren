@@ -3844,11 +3844,7 @@ function showResetModal(skill, skillName) {
     });
 }
 console.log('✅ نظام Badge التعديلات (النسخة النهائية) تم تحميله');
-// ✅ تصدير متغيرات Lesen1 للاستخدام من engine.js
-window.matchingSelectedAnswers = matchingSelectedAnswers;
-window.matchingAvailableOptions = matchingAvailableOptions;
-window.currentMatchingExamData = currentMatchingExamData;
-window.renderMatchingQuestions = renderMatchingQuestions;
+
 // تصدير قواعد البيانات للملفات الأخرى
 window.examsDatabase = examsDatabase;
 window.teile = teile;
@@ -3860,3 +3856,21 @@ window.getLastAttemptDate = getLastAttemptDate;
 window.getAllScores = getAllScores;
 window.saveExamResult = saveExamResult;
 window.getExamResult = getExamResult;
+
+// تصدير متغيرات Lesen1 للاستخدام من engine.js (مع التحقق من وجودها)
+try {
+    if (typeof matchingSelectedAnswers !== 'undefined') {
+        window.matchingSelectedAnswers = matchingSelectedAnswers;
+    }
+    if (typeof matchingAvailableOptions !== 'undefined') {
+        window.matchingAvailableOptions = matchingAvailableOptions;
+    }
+    if (typeof currentMatchingExamData !== 'undefined') {
+        window.currentMatchingExamData = currentMatchingExamData;
+    }
+    if (typeof renderMatchingQuestions === 'function') {
+        window.renderMatchingQuestions = renderMatchingQuestions;
+    }
+} catch (e) {
+    console.warn('⚠️ بعض متغيرات Lesen1 غير معرفة بعد، سيتم تصديرها لاحقاً من engine.js');
+}
