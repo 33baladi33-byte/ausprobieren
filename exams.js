@@ -145,6 +145,10 @@ function saveExamResult(skill, examId, score) {
     localStorage.setItem(key, score.toString());
     // حفظ السجل والتاريخ أيضاً
     saveExamHistory(skill, examId, score);
+    // ✅ حفظ تاريخ آخر مراجعة في مفتاح مستقل
+    const lastReviewKey = `exam_last_review_${skill}_${examId}`;
+    const today = new Date().toISOString().slice(0, 10);
+    localStorage.setItem(lastReviewKey, today);
   } catch(e) {
     console.error("❌ خطأ في حفظ النتيجة:", e);
   }
@@ -242,8 +246,13 @@ function getExamHistory(skill, examId) {
         return [];
     }
 }
-
 function getLastAttemptDate(skill, examId) {
+    // ✅ قراءة من المفتاح المستقل أولاً (أسرع وأبسط)
+    const lastReviewKey = `exam_last_review_${skill}_${examId}`;
+    const lastReview = localStorage.getItem(lastReviewKey);
+    if (lastReview) return lastReview;
+    
+    // ❗ للتوافق مع البيانات القديمة: إذا لم يوجد المفتاح، نقرأ من history
     const history = getExamHistory(skill, examId);
     if (history.length === 0) return null;
     return history[history.length - 1].date;
@@ -253,10 +262,12 @@ function getAllScores(skill, examId) {
     const history = getExamHistory(skill, examId);
     return history.map(item => item.score);
 }
-
 function getLastReviewDays(skill, examId) {
-    const lastDate = getLastAttemptDate(skill, examId);
+    // ✅ قراءة من المفتاح المستقل مباشرة
+    const lastReviewKey = `exam_last_review_${skill}_${examId}`;
+    const lastDate = localStorage.getItem(lastReviewKey);
     if (!lastDate) return null;
+    
     const now = new Date();
     const last = new Date(lastDate);
     // ضبط الوقت لتجنب مشاكل التوقيت
@@ -3854,6 +3865,7 @@ function showResetModal(skill, skillName) {
         // حذف بيانات المهارة فقط
         const LEVELS_KEY = 'memory_levels';
         try {
+            // 1. حذف مستويات الذاكرة
             const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
             const prefix = `${skill}_exam`;
             const newData = {};
@@ -3863,7 +3875,15 @@ function showResetModal(skill, skillName) {
                 }
             }
             localStorage.setItem(LEVELS_KEY, JSON.stringify(newData));
-            console.log(`✅ تم إعادة تعيين تقدم ${skillName}`);
+            
+            // 2. حذف المفاتيح المستقلة لآخر مراجعة
+            const allKeys = Object.keys(localStorage);
+            const lastReviewKeys = allKeys.filter(k => k.startsWith(`exam_last_review_${skill}_`));
+            for (const key of lastReviewKeys) {
+                localStorage.removeItem(key);
+            }
+            
+            console.log(`✅ تم إعادة تعيين تقدم ${skillName} (بما في ذلك تواريخ المراجعة المستقلة)`);
             overlay.remove();
             // إعادة تحميل الصفحة لتحديث الواجهة
             location.reload();
