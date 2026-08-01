@@ -5133,9 +5133,9 @@ body.dark-mode .exam-info-item .material-symbols-outlined {
     background: linear-gradient(90deg, #161922 0%, #2D3138 50%, #161922 100%);
     border: 1px solid #D5E0EC;
     border-radius: 14px;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: #4F6F94;
+    color: #B0B8C9;
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
