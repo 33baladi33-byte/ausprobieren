@@ -648,11 +648,13 @@ body:has(#exam.active) .profile-icon {
 }
 
 /* في الصفحة الرئيسية: إخفاء أيقونة الملف الشخصي وزر Game (تتحكم بها JavaScript) */
-#home .profile-icon {
+#home .profile-icon,
+.home-page .profile-icon {
     display: none !important;
 }
 
-#home .study-planner-icon-btn {
+#home .study-planner-icon-btn,
+.home-page .study-planner-icon-btn {
     display: none !important;
 }
 
@@ -665,13 +667,13 @@ body:has(#exam.active) .profile-icon {
     border-radius: 12px !important;
 }
 /* تم دمجه مع التصميم الموحد أدناه */
-/* ===== التصميم الموحد للأزرار الوظيفية (⚙️، 🎮، 🔔، ⏰) - مصغرة ===== */
+/* ===== التصميم الموحد للأزرار الوظيفية (⚙️، 🎮، 🔔، ⏰) ===== */
 .settings-icon-btn,
 .study-planner-icon-btn,
 .notification-bell,
 .study-session-btn {
-    height: 32px; /* تم التصغير من 40px إلى 32px */
-    padding: 0 10px; /* تم التصغير من 14px إلى 10px */
+    height: 35px; /* زيادة طفيفة عن 32px لتكون متساوية لجميع الأزرار */
+    padding: 0 12px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
@@ -682,8 +684,8 @@ body:has(#exam.active) .profile-icon {
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    font-size: 15px; /* تم التصغير من 18px إلى 15px */
-    gap: 4px; /* تم التصغير من 6px إلى 4px */
+    font-size: 16px;
+    gap: 5px;
     font-family: inherit;
     flex-shrink: 0;
 }
@@ -5420,8 +5422,8 @@ body.dark-mode .planner-section-title {
 
 /* الصورة داخل الزر – ثابتة ولا تتحرك */
 .study-planner-icon-btn .planner-icon-img {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     object-fit: contain;
     display: block;
     pointer-events: none;
