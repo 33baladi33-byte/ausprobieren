@@ -859,12 +859,15 @@ body:has(#exam.active) .top-bar {
     color: white;
     transform: scale(1.02);
 }
-
 .whatsapp-float {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
     width: 45px;
     height: 45px;
     cursor: pointer;
-    display: inline-flex;
+    z-index: 999;
+    display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
@@ -5506,19 +5509,5 @@ body.dark-mode .planner-section-title {
 }
 
 
-/* ===== حاوية الأزرار السفلية ===== */
-#bottomFloatingBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 20px 30px;
-    background: transparent;
-    margin-top: 20px;
-    position: relative;
-    max-width: 1300px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    box-sizing: border-box;
-}
+/* تم إزالة الحاوية، كل زر يعود إلى موقعه الثابت */
+
