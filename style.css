@@ -1258,7 +1258,6 @@ body:has(#exam.active) .top-bar {
    Exam List & Teile Styles
    ======================================== */
 
-/* تصميم أزرار الأقسام (Teile) - شريط أفقي حديث */
 .teile-row {
     display: flex !important;
     flex-wrap: nowrap !important;
@@ -1269,6 +1268,7 @@ body:has(#exam.active) .top-bar {
     margin-bottom: 20px !important;
     scrollbar-width: thin !important;
     -webkit-overflow-scrolling: touch !important;
+    justify-content: flex-start !important; /* القيمة الافتراضية للهواتف */
 }
 
 .teile-row::-webkit-scrollbar {
@@ -1283,6 +1283,20 @@ body:has(#exam.active) .top-bar {
 .teile-row::-webkit-scrollbar-thumb {
     background: #38bdf8 !important;
     border-radius: 10px !important;
+}
+
+/* ✅ توسيط الأزرار على الشاشات الكبيرة (1080px فأكثر) */
+@media (min-width: 1080px) {
+    .teile-row {
+        justify-content: center !important;
+    }
+}
+
+/* ✅ الحفاظ على المحاذاة إلى اليسار على الشاشات الصغيرة */
+@media (max-width: 1079px) {
+    .teile-row {
+        justify-content: flex-start !important;
+    }
 }
 
 .teil-item {
