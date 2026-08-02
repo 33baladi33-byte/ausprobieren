@@ -1666,9 +1666,18 @@ body:has(#exam.active) .left-side .btn-login-top {
         font-size: 14px !important;
     }
     
-    .settings-icon-btn {
+    .settings-icon-btn,
+    .study-planner-icon-btn,
+    .notification-bell,
+    .study-session-btn {
+        height: 26px !important;
+        padding: 0 8px !important;
         font-size: 12px !important;
-        padding: 4px 8px !important;
+        gap: 3px !important;
+        border-radius: 10px !important;
+        min-width: auto !important;
+        width: auto !important;
+        flex-shrink: 0 !important;
     }
 @media (min-width: 769px) {
     /* توحيد جميع الأزرار الأربعة في الحاسوب */
