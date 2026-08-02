@@ -242,7 +242,7 @@ function updateUI(user, data) {
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
         if (profileIcon) profileIcon.style.display = 'none';
-        if (studyPlannerBtn) studyPlannerBtn.style.display = 'none'; // ✅ إخفاء Study Planner في الرئيسية للزوار
+        if (studyPlannerBtn) studyPlannerBtn.style.display = 'none'; // ✅ إخفاء Study Planner للزوار
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
