@@ -1326,28 +1326,29 @@ body:has(#exam.active) .top-bar {
     border-radius: 10px;
 }
 /* ===== زر الرئيسية والعودة إلى القائمة ===== */
-/* تصميم مطابق لأزرار الأقسام مع ألوان خاصة */
 .back-home-btn,
 .back-list-btn {
-    padding: 8px 24px;              /* مناسب للنص */
-    background: linear-gradient(135deg, #161922, #202534, #262D40);
-    border: 1px solid #D5E0EC;
-    border-radius: 14px;
+    display: block;                 /* ليأخذ العرض الكامل */
+    width: 100%;                   /* عرض كامل مثل البطاقات */
+    max-width: 100%;               /* لا يتجاوز عرض الحاوية */
+    padding: 10px 0;               /* ارتفاع مناسب (نفس أزرار الأقسام تقريباً) */
+    background: linear-gradient(135deg, #161922, #202534, #262D40); /* لون الشريط العلوي */
+    border: 1px solid #4a5568;      /* حد مطابق لأزرار الأقسام */
+    border-radius: 14px;           /* نفس نصف القطر */
     font-size: 0.85rem;
     font-weight: 600;
-    color: #B0B8C9;
+    color: #B0B8C9;                /* رمادي فاتح */
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
     font-family: inherit;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    display: inline-block;
-    margin-top: 20px;                 /* يحافظ على التباعد */
+    box-sizing: border-box;        /* padding يحسب ضمن العرض */
+    margin: 20px auto 0;           /* توسيط أفقي ومسافة من الأعلى */
     text-decoration: none;
-    border: 1px solid #4a5568;        /* بديل عن #D5E0EC لجعله أغمق قليلاً، يمكنك ضبطه */
 }
 
-/* Hover – سطوع وظل خفيف */
+/* Hover – سطوع وظل خفيف (بدون تغيير اللون إلى الأزرق) */
 .back-home-btn:hover,
 .back-list-btn:hover {
     filter: brightness(1.15);
@@ -1359,6 +1360,17 @@ body:has(#exam.active) .top-bar {
 .back-home-btn:active,
 .back-list-btn:active {
     transform: scale(0.98);
+}
+
+/* ===== تنسيقات الهواتف (لضمان العرض الكامل) ===== */
+@media (max-width: 768px) {
+    .back-home-btn,
+    .back-list-btn {
+        padding: 8px 0;             /* تصغير بسيط للارتفاع في الهواتف */
+        font-size: 0.7rem;
+        margin: 15px auto 0;
+        width: 100% !important;     /* التأكد من العرض الكامل */
+    }
 }
 
 .arrow-back-btn {
