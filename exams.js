@@ -3069,7 +3069,13 @@ document.addEventListener("DOMContentLoaded", function() {
     goList();
   };
   
-  if (backHomeBtn) backHomeBtn.onclick = function() { goHome(); };
+// ربط زر الرئيسية الثابت
+const fixedHomeBtn = document.getElementById('backHomeBtn');
+if (fixedHomeBtn) {
+    fixedHomeBtn.onclick = function() {
+        goHome();
+    };
+}
   if (backToListBtn) backToListBtn.onclick = function() { goList(); };
   
   if (backArrowFromExam) {
