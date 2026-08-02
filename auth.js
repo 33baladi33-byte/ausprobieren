@@ -218,6 +218,7 @@ async function createInitialUserDocument(user) {
     await db.collection('users').doc(user.uid).set(data);
     return data;
 }
+
 function updateUI(user, data) {
     const profileEmail = document.getElementById('profileEmail');
     const profileExpiry = document.getElementById('profileExpiry');
@@ -229,7 +230,7 @@ function updateUI(user, data) {
     const navSubscribeBtn = document.getElementById('navSubscribeBtn');
     const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
     const profileIcon = document.getElementById('profileIcon');
-    const studyPlannerBtn = document.getElementById('studyPlannerBtn'); // ✅ إضافة زر Study Planner
+    const studyPlannerBtn = document.getElementById('studyPlannerBtn');
 
     // حالة زائر غير مسجل
     if (!user) {
@@ -242,13 +243,16 @@ function updateUI(user, data) {
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
         if (profileIcon) profileIcon.style.display = 'none';
-        if (studyPlannerBtn) studyPlannerBtn.style.display = 'none'; // ✅ إخفاء Study Planner للزوار
+        if (studyPlannerBtn) studyPlannerBtn.style.display = 'none';
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
 
-        // ✅ تحديث الحالة العامة عند عدم وجود مستخدم
         _currentUserStatus = 'free';
+        
+        if (typeof window.toggleSessionButton === 'function') {
+            setTimeout(window.toggleSessionButton, 50);
+        }
         return;
     }
 
@@ -258,13 +262,11 @@ function updateUI(user, data) {
     if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
     if (navLoginBtn) navLoginBtn.style.display = 'none';
     if (profileIcon) profileIcon.style.display = 'flex';
-    if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex'; // ✅ إظهار Study Planner للمستخدم المسجل
+    if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex';
 
-    // حساب حالة الاشتراك مرة واحدة بدقة (الحساب الفعلي لـ isPremium)
     const isPremium = data && data.plan === 'premium' && 
                       (!data.premiumUntil || new Date(data.premiumUntil).getTime() > Date.now());
 
-    // ✅ تحديث الحالة العامة
     _currentUserStatus = isPremium ? 'premium' : 'free';
 
     if (isPremium) {
@@ -275,7 +277,6 @@ function updateUI(user, data) {
             profileExpiry.textContent = `📅 الصلاحية: حساب دائم`;
         }
         
-        // إخفاء خيارات الاشتراك تماماً من كامل الموقع للمشتركين
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'none';
         
@@ -285,7 +286,6 @@ function updateUI(user, data) {
         if (profileStatus) profileStatus.innerHTML = `<span class="status-free">📖 مجاني</span>`;
         if (profileExpiry) profileExpiry.textContent = '⏰ حساب مجاني / انتهت الصلاحية';
         
-        // إظهار خيارات الاشتراك للمستخدم المجاني
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
 
@@ -304,7 +304,6 @@ function updateUI(user, data) {
         }
     }
 
-    // ✅ بعد تحديث الحالة، قم بتحديث القائمة إذا كانت صفحة القائمة نشطة
     if (typeof window.renderInitialExamList === 'function') {
         const listPage = document.getElementById('list');
         if (listPage && listPage.classList.contains('active')) {
@@ -313,8 +312,11 @@ function updateUI(user, data) {
             }, 50);
         }
     }
+    
+    if (typeof window.toggleSessionButton === 'function') {
+        setTimeout(window.toggleSessionButton, 50);
+    }
 }
-
 // ============================================
 // دوال المصادقة (Login, Signup, Logout, Reset)
 // ============================================
