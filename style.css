@@ -396,23 +396,8 @@ body {
 .notification-container {
     position: relative;
 }
-
 .notification-bell {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    font-size: 18px;
-    padding: 8px 12px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #E5E7EB;
     position: relative;
-}
-
-.notification-bell:hover {
-    background: rgba(255,255,255,0.10);
-    border-color: rgba(255,255,255,0.15);
-    transform: scale(1.05);
 }
 .notification-badge {
     position: absolute;
@@ -616,23 +601,33 @@ body {
     border-color: rgba(255,255,255,0.25);
     color: #FFFFFF;
 }
+
+/* ===== زر الملف الشخصي (مطابق لشعار Zertiva) ===== */
 .profile-icon {
-    width: 40px;
-    height: 40px;
-    background: #1e293b;
-    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    background: transparent;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     color: #38bdf8;
-    font-size: 20px;
+    font-size: 22px;
+    border: 1px solid transparent;
+    flex-shrink: 0;
 }
 
 .profile-icon:hover {
-    background: #334155;
+    background: rgba(255, 255, 255, 0.05);
     transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+.profile-icon:active {
+    transform: scale(0.97);
 }
 /* إخفاء زر تسجيل الدخول فقط في صفحات الامتحانات */
 body:has(#list.active) .btn-login-top,
@@ -646,7 +641,7 @@ body:has(#exam.active) .subscribe-text-btn:not([style*="display: none"]) {
     display: inline-flex !important;
 }
 
-/* أيقونة الملف الشخصي تظهر في صفحات الامتحانات */
+/* أيقونة الملف الشخصي تظهر في صفحات الامتحانات (بنفس تصميم Logo) */
 body:has(#list.active) .profile-icon,
 body:has(#exam.active) .profile-icon {
     display: flex !important;
@@ -657,24 +652,71 @@ body:has(#exam.active) .profile-icon {
     display: none !important;
 }
 
-.settings-icon-btn {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    font-size: 18px;
-    padding: 6px 12px;
-    border-radius: 25px;
+/* إلغاء أي تأثير دائري سابق على هذه الأزرار */
+.profile-icon,
+.settings-icon-btn,
+.study-planner-icon-btn,
+.notification-bell,
+.study-session-btn {
+    border-radius: 12px !important;
+}
+/* تم دمجه مع التصميم الموحد أدناه */
+/* ===== التصميم الموحد للأزرار الوظيفية (⚙️، 🎮، 🔔، ⏰) ===== */
+.settings-icon-btn,
+.study-planner-icon-btn,
+.notification-bell,
+.study-session-btn {
+    height: 40px;
+    padding: 0 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
     color: #E5E7EB;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    font-size: 18px;
+    gap: 6px;
+    font-family: inherit;
+    flex-shrink: 0;
 }
 
-.settings-icon-btn:hover {
-    background: rgba(255,255,255,0.10);
-    border-color: rgba(255,255,255,0.15);
+.settings-icon-btn:hover,
+.study-planner-icon-btn:hover,
+.notification-bell:hover,
+.study-session-btn:hover {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.15);
     transform: scale(1.05);
+}
+
+.settings-icon-btn:active,
+.study-planner-icon-btn:active,
+.notification-bell:active,
+.study-session-btn:active {
+    transform: scale(0.97);
+}
+
+/* تنسيق خاص لزر الإشعارات (لأن به badge) */
+.notification-bell .notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #dc3545;
+    color: white;
+    font-size: 9px;
+    font-weight: bold;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 body:has(#list.active) .top-bar,
@@ -5346,30 +5388,25 @@ body.dark-mode .planner-welcome-title {
 body.dark-mode .planner-section-title {
     color: #e8ecf0;
 }
-/* ===== زر خطة اليوم الجديد (مطابق تماماً لزر الإعدادات) ===== */
+/* ===== زر خطة اليوم الجديد (مع Border Animation) ===== */
 .study-planner-icon-btn {
     position: relative;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 25px; /* نفس borderRadius */
-    padding: 6px 12px; /* نفس padding */
+    border: none;
+    background-clip: padding-box;
+    height: 40px;
+    padding: 0 14px;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
-    color: #E5E7EB;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: auto;
-    height: 40px; /* نفس الارتفاع */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    background-clip: padding-box;
-    border: none;
-    /* نضيف overflow: hidden لمنع الإطار من الخروج خارج حدود الزر */
-    overflow: hidden;
 }
 
-/* الصورة داخل الزر */
-.planner-icon-img {
+/* الصورة داخل الزر – ثابتة ولا تتحرك */
+.study-planner-icon-btn .planner-icon-img {
     width: 22px;
     height: 22px;
     object-fit: contain;
@@ -5380,17 +5417,17 @@ body.dark-mode .planner-section-title {
     transform: none;
 }
 
-/* ===== الإطار المتدرج الثابت (مرسوم داخل حدود الزر تماماً) ===== */
+/* ===== الإطار المتدرج الثابت (الحركة فقط في الألوان) ===== */
 .study-planner-icon-btn::before {
     content: '';
     position: absolute;
-    top: 0; /* نبدأ من داخل الزر */
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 25px; /* نفس borderRadius */
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 14px;
     z-index: -1;
-    padding: 2px; /* سمك الإطار 2px */
+    padding: 2px;
     background: linear-gradient(135deg, #7dd3fc, #60a5fa, #8b5cf6, #38bdf8, #7dd3fc);
     background-size: 300% 300%;
     animation: gradientMove 4s linear infinite;
@@ -5399,37 +5436,31 @@ body.dark-mode .planner-section-title {
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
-    /* نمنع الإطار من الخروج خارج حدود الزر */
-    box-sizing: border-box;
 }
 
-/* ===== Glow خفيف (داخل حدود الزر أيضاً) ===== */
+/* ===== Glow خفيف حول الإطار ===== */
 .study-planner-icon-btn::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 25px;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 16px;
     z-index: -2;
-    box-shadow: inset 0 0 6px rgba(56, 189, 248, 0.25); /* استخدام inset ليبقى داخل الزر */
+    box-shadow: 0 0 6px rgba(56, 189, 248, 0.2);
     opacity: 0.5;
     transition: opacity 0.3s ease, box-shadow 0.3s ease;
     pointer-events: none;
 }
 
-/* ===== Hover ===== */
-.study-planner-icon-btn:hover {
-    transform: scale(1.03);
-}
-
+/* Hover الخاص بالـ Glow */
 .study-planner-icon-btn:hover::after {
     opacity: 1;
-    box-shadow: inset 0 0 12px rgba(56, 189, 248, 0.4);
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
 }
 
-/* ===== أنيميشن التدرج ===== */
+/* أنيميشن التدرج اللوني */
 @keyframes gradientMove {
     0% { background-position: 0% 0%; }
     50% { background-position: 100% 100%; }
