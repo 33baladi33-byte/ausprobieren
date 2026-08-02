@@ -2284,38 +2284,38 @@ body:has(#exam.active) .left-side .btn-login-top {
     transform: none !important;
 }
 /* ============================================
-   زر 💎 لماذا؟ - مع بطاقة منبثقة أنيقة
+   أيقونة Info الجديدة (علاش غتنجح معانا؟)
    ============================================ */
-
-.why-premium-btn {
-    background: rgba(35, 52, 84, 0.85);
-    border: 1px solid rgba(110, 170, 255, 0.22);
-    border-radius: 999px;
-    height: 42px;
-    padding: 0 14px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #eef4ff;
-    cursor: pointer;
-    display: flex;
+.why-premium-icon-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 25px;
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
-    font-family: inherit;
-    margin-left: 10px;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #E5E7EB;
     position: relative;
+    padding: 0;
+    font-family: inherit;
 }
 
-.why-premium-btn:hover {
-    background: rgba(45, 65, 102, 0.95);
+.why-premium-icon-btn:hover {
+    background: rgba(255,255,255,0.10);
+    border-color: rgba(255,255,255,0.15);
+    transform: scale(1.05);
 }
 
-.why-premium-btn:active {
-    transform: scale(0.97);
+.why-premium-icon-btn .material-symbols-outlined {
+    font-size: 20px;
+    color: #E5E7EB;
 }
 
-/* البطاقة المنبثقة */
-.premium-info-card {
+/* البطاقة المنبثقة (نفس التصميم القديم) */
+.why-premium-icon-btn .premium-info-card {
     position: absolute;
     top: calc(100% + 8px);
     right: 0;
@@ -2332,10 +2332,11 @@ body:has(#exam.active) .left-side .btn-login-top {
     transition: all 0.22s ease;
     z-index: 1001;
     cursor: default;
+    text-align: right;
 }
 
 /* السهم الصغير */
-.premium-info-card::before {
+.why-premium-icon-btn .premium-info-card::before {
     content: '';
     position: absolute;
     top: -6px;
@@ -2349,49 +2350,46 @@ body:has(#exam.active) .left-side .btn-login-top {
     backdrop-filter: blur(10px);
 }
 
-/* أيقونة البطاقة */
-.premium-info-card .card-icon {
+.why-premium-icon-btn .premium-info-card .card-icon {
     font-size: 1rem;
     margin-left: 6px;
     color: #60a5fa;
 }
 
-/* نص البطاقة */
-.premium-info-card .card-text {
+.why-premium-icon-btn .premium-info-card .card-text {
     font-size: 13px;
     font-weight: 500;
     line-height: 1.7;
     color: #d7e1ee;
 }
 
-/* حالة الظهور */
-.why-premium-btn.active .premium-info-card {
+.why-premium-icon-btn.active .premium-info-card {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
 }
 
-/* إخفاء زر 💎 لماذا؟ في الصفحة الرئيسية فقط */
-.home .why-premium-btn {
+/* إخفاء الأيقونة في الصفحة الرئيسية وداخل الامتحان (يتم التحكم به عبر JS) */
+#home .why-premium-icon-btn,
+#exam .why-premium-icon-btn {
     display: none !important;
 }
 
 /* للهواتف */
 @media (max-width: 768px) {
-    .why-premium-btn {
-        height: 36px;
-        padding: 0 10px;
-        font-size: 11px;
-        margin-left: 6px;
+    .why-premium-icon-btn {
+        width: 32px;
+        height: 32px;
     }
-    
-    .premium-info-card {
+    .why-premium-icon-btn .material-symbols-outlined {
+        font-size: 18px;
+    }
+    .why-premium-icon-btn .premium-info-card {
         width: 290px;
         right: -10px;
         padding: 12px 14px;
     }
-    
-    .premium-info-card .card-text {
+    .why-premium-icon-btn .premium-info-card .card-text {
         font-size: 11px;
     }
 }
