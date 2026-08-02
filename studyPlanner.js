@@ -863,7 +863,9 @@
     // ============================================
     // 15. تصدير STATE للاستخدام العالمي
     // ============================================
-    window.STATE = STATE;
+      window.STATE = STATE;
+    window.renderCustomize = renderCustomize;
+    window.renderCustomPlan = renderCustomPlan;
 
     console.log('✅ studyPlanner.js (النسخة النهائية مع نظام النسب المخصصة) تم تحميله بنجاح');
     console.log('💡 استخدم window.generateStudyPlan(skill, examDate, dailyHours) لتوليد الخطة');
