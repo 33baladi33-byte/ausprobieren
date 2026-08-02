@@ -1533,22 +1533,7 @@ body.dark-mode .mobile-banner span {
   <div id="examsList" class="exams-container">
     <div class="welcome-message"></div>
   </div>
-
-  <!-- ===== صف الأزرار الثلاثة في نهاية القائمة ===== -->
-  <div class="footer-actions">
-    <!-- WhatsApp -->
-    <a href="https://wa.me/212687561491" target="_blank" class="footer-btn whatsapp-btn">
-      <img src="images/whatsapp.png" alt="WhatsApp" class="footer-btn-img">
-    </a>
-
-    <!-- الرئيسية -->
-    <button id="backHomeBtn" class="footer-btn home-btn">الرئيسية</button>
-
-    <!-- Ask AI -->
-    <button id="askAIFloatingBtn" class="footer-btn ai-btn">
-      <img src="images/stars.png" alt="Ask AI" class="footer-btn-img">
-    </button>
-  </div>
+  <button id="backHomeBtn" class="back-home-btn">الرئيسية</button>
 </div>
 
 <div id="exam" class="page">
@@ -1766,45 +1751,40 @@ body.dark-mode .mobile-banner span {
 
     
 // ============================================
-// ✅ ربط زر الرئيسية (الموجود في footer) وزر Ask AI
+// ✅ ربط زر الإعدادات (⚙️) وزر الشعار (🖼️) بأمان
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
 
-    // 1. زر الرئيسية (العودة للصفحة الرئيسية)
-    const homeBtn = document.getElementById('backHomeBtn');
-    if (homeBtn) {
-        homeBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (typeof goHome === 'function') {
-                goHome();
-            } else {
-                window.location.href = 'index.html';
-            }
+    // 1. زر الإعدادات (⚙️)
+    const settingsBtn = document.getElementById('settingsBtn');
+    const settingsModal = document.getElementById('settingsModal');
+    const closeSettingsModal = document.getElementById('closeSettingsModal');
+
+    if (settingsBtn && settingsModal) {
+        settingsBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            settingsModal.classList.add('active');
+            console.log('✅ تم فتح نافذة الإعدادات');
         });
-        console.log('✅ زر الرئيسية مربوط');
+        console.log('✅ زر الإعدادات (⚙️) مربوط');
     } else {
-        console.warn('⚠️ لم يتم العثور على زر الرئيسية');
+        console.warn('⚠️ لم يتم العثور على زر الإعدادات أو النافذة');
     }
 
-    // 2. زر Ask AI (فتح/إغلاق نافذة الدردشة)
-    const aiBtn = document.getElementById('askAIFloatingBtn');
-    if (aiBtn) {
-        aiBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            // استدعاء دالة toggleChat إذا كانت موجودة
-            if (typeof window.toggleChat === 'function') {
-                window.toggleChat();
-            } else {
-                // بديل: نبحث عن النافذة ونبدل class
-                const chat = document.getElementById('askAIChatWindow');
-                if (chat) chat.classList.toggle('active');
+    if (closeSettingsModal) {
+        closeSettingsModal.addEventListener('click', function() {
+            settingsModal.classList.remove('active');
+        });
+        console.log('✅ زر إغلاق الإعدادات مربوط');
+    }
+
+    if (settingsModal) {
+        settingsModal.addEventListener('click', function(e) {
+            if (e.target === settingsModal) {
+                settingsModal.classList.remove('active');
             }
         });
-        console.log('✅ زر Ask AI مربوط');
-    } else {
-        console.warn('⚠️ لم يتم العثور على زر Ask AI');
     }
-});
 
 // 2. زر الشعار (Logo) - للعودة للرئيسية
 const logoBtn = document.getElementById('logoHomeBtn');
@@ -3188,8 +3168,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </button>
     </div>
 </div>
-<!-- ===== زر الرئيسية الثابت (Fixed) ===== -->
-<button id="backHomeBtn" class="back-home-float">الرئيسية</button>
+
 <script>
 // ============================================
 // 🧠 نظام Ask AI المتطور (يدعم 6 مزودات + حد يومي + Prompt مختصر)
