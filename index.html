@@ -1766,40 +1766,45 @@ body.dark-mode .mobile-banner span {
 
     
 // ============================================
-// ✅ ربط زر الإعدادات (⚙️) وزر الشعار (🖼️) بأمان
+// ✅ ربط زر الرئيسية (الموجود في footer) وزر Ask AI
 // ============================================
 document.addEventListener('DOMContentLoaded', function() {
 
-    // 1. زر الإعدادات (⚙️)
-    const settingsBtn = document.getElementById('settingsBtn');
-    const settingsModal = document.getElementById('settingsModal');
-    const closeSettingsModal = document.getElementById('closeSettingsModal');
-
-    if (settingsBtn && settingsModal) {
-        settingsBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            settingsModal.classList.add('active');
-            console.log('✅ تم فتح نافذة الإعدادات');
-        });
-        console.log('✅ زر الإعدادات (⚙️) مربوط');
-    } else {
-        console.warn('⚠️ لم يتم العثور على زر الإعدادات أو النافذة');
-    }
-
-    if (closeSettingsModal) {
-        closeSettingsModal.addEventListener('click', function() {
-            settingsModal.classList.remove('active');
-        });
-        console.log('✅ زر إغلاق الإعدادات مربوط');
-    }
-
-    if (settingsModal) {
-        settingsModal.addEventListener('click', function(e) {
-            if (e.target === settingsModal) {
-                settingsModal.classList.remove('active');
+    // 1. زر الرئيسية (العودة للصفحة الرئيسية)
+    const homeBtn = document.getElementById('backHomeBtn');
+    if (homeBtn) {
+        homeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof goHome === 'function') {
+                goHome();
+            } else {
+                window.location.href = 'index.html';
             }
         });
+        console.log('✅ زر الرئيسية مربوط');
+    } else {
+        console.warn('⚠️ لم يتم العثور على زر الرئيسية');
     }
+
+    // 2. زر Ask AI (فتح/إغلاق نافذة الدردشة)
+    const aiBtn = document.getElementById('askAIFloatingBtn');
+    if (aiBtn) {
+        aiBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            // استدعاء دالة toggleChat إذا كانت موجودة
+            if (typeof window.toggleChat === 'function') {
+                window.toggleChat();
+            } else {
+                // بديل: نبحث عن النافذة ونبدل class
+                const chat = document.getElementById('askAIChatWindow');
+                if (chat) chat.classList.toggle('active');
+            }
+        });
+        console.log('✅ زر Ask AI مربوط');
+    } else {
+        console.warn('⚠️ لم يتم العثور على زر Ask AI');
+    }
+});
 
 // 2. زر الشعار (Logo) - للعودة للرئيسية
 const logoBtn = document.getElementById('logoHomeBtn');
