@@ -2921,7 +2921,8 @@ function goHome() {
   document.getElementById("list").classList.remove("active");
   document.getElementById("exam").classList.remove("active");
 
-  // ✅ إخفاء زر الرئيسية عند العودة إلى الصفحة الرئيسية
+  // ✅ إخفاء زر الرئيسية عند العودة إلى الصفحة الرئيسية (الـ CSS سيتولى الأمر)
+  // ولكن نتركه للتأكد
   const homeBtn = document.getElementById('backHomeBtn');
   if (homeBtn) homeBtn.style.display = 'none';
 }
@@ -2935,9 +2936,10 @@ function goList() {
   // ✅ استخدم الدالة الجديدة بدلاً من setTimeout القديم
   window.renderInitialExamList();
 
-  // ✅ إظهار زر الرئيسية عند الدخول إلى صفحة القائمة
+  // ✅ إظهار زر الرئيسية عند الدخول إلى صفحة القائمة (الـ CSS سيتولى الأمر)
+  // ولكن نتركه للتأكد
   const homeBtn = document.getElementById('backHomeBtn');
-  if (homeBtn) homeBtn.style.display = 'inline-block';
+  if (homeBtn) homeBtn.style.display = 'block';
 }
 // ============================================
 // ✅ دالة buildTeil1 المُعدّلة - تعتمد على ID ثابت
