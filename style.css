@@ -1257,18 +1257,19 @@ body:has(#exam.active) .top-bar {
 /* ========================================
    Exam List & Teile Styles
    ======================================== */
-
 .teile-row {
     display: flex !important;
     flex-wrap: nowrap !important;
     gap: 8px !important;
     overflow-x: auto !important;
     overflow-y: hidden !important;
+    padding: 0 !important;
     padding-bottom: 8px !important;
-    margin-bottom: 20px !important;
+    margin: 0 !important;
+    width: 100% !important;
     scrollbar-width: thin !important;
     -webkit-overflow-scrolling: touch !important;
-    justify-content: flex-start !important; /* القيمة الافتراضية للهواتف */
+    justify-content: flex-start !important;
 }
 
 .teile-row::-webkit-scrollbar {
@@ -1285,14 +1286,17 @@ body:has(#exam.active) .top-bar {
     border-radius: 10px !important;
 }
 
-/* ✅ توسيط الأزرار على الشاشات الكبيرة (1080px فأكثر) */
+/* ✅ تساوي المسافات على الشاشات الكبيرة (1080px فأكثر) */
 @media (min-width: 1080px) {
     .teile-row {
         justify-content: center !important;
+        padding: 0 !important;          /* إزالة أي padding جانبي */
+        margin: 0 !important;           /* إزالة أي margin جانبي */
+        width: 100% !important;         /* الحاوية تأخذ العرض الكامل */
     }
 }
 
-/* ✅ الحفاظ على المحاذاة إلى اليسار على الشاشات الصغيرة */
+/* ✅ المحاذاة إلى اليسار على الهواتف والشاشات الصغيرة */
 @media (max-width: 1079px) {
     .teile-row {
         justify-content: flex-start !important;
