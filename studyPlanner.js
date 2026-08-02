@@ -815,55 +815,9 @@
     }
 
     // ============================================
-    // 13. تعديل دالة renderSections لإضافة الزر الجديد
+    // 15. تصدير الدوال للاستخدام العالمي
     // ============================================
-    const originalRenderSections = renderSections;
-
-    renderSections = function() {
-        // استدعاء النسخة الأصلية
-        originalRenderSections();
-
-        // بعد عرض الأزرار، نضيف الزر الجديد
-        const container = document.getElementById('studyPlannerContainer');
-        if (!container) return;
-
-        const card = container.querySelector('.planner-card');
-        if (!card) return;
-
-        const grids = card.querySelectorAll('.planner-sections-grid');
-        if (grids.length === 0) return;
-
-        const lastGrid = grids[grids.length - 1];
-        const newBtn = document.createElement('button');
-        newBtn.className = 'planner-section-btn';
-        newBtn.style.cssText = 'width:100%; margin-top:12px; padding:10px 0; font-size:0.85rem; font-weight:600; text-align:center; border:1px solid #D5E0EC; border-radius:14px; background:linear-gradient(90deg, #161922 0%, #2D3138 50%, #161922 100%); color:#B0B8C9; box-shadow:0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.04); cursor:pointer; transition:all 0.25s cubic-bezier(0.2,0.9,0.4,1.1); font-family:inherit;';
-        newBtn.textContent = 'تطوير النظام الخاص بي';
-        newBtn.addEventListener('click', function() {
-            currentState = STATE.CUSTOMIZE;
-            renderCurrentState();
-        });
-
-        // إدراج الزر بعد آخر شبكة
-        lastGrid.parentNode.insertBefore(newBtn, lastGrid.nextSibling);
-    };
-
-    // ============================================
-    // 14. تعديل دالة renderCurrentState لإدارة الحالة الجديدة
-    // ============================================
-    const originalRenderCurrentState = renderCurrentState;
-
-    renderCurrentState = function() {
-        if (currentState === STATE.CUSTOMIZE) {
-            renderCustomize();
-        } else {
-            originalRenderCurrentState();
-        }
-    };
-
-    // ============================================
-    // 15. تصدير STATE للاستخدام العالمي
-    // ============================================
-      window.STATE = STATE;
+    window.STATE = STATE;
     window.renderCustomize = renderCustomize;
     window.renderCustomPlan = renderCustomPlan;
 
