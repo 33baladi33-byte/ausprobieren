@@ -1236,9 +1236,9 @@ body.dark-mode .mobile-banner span {
     📅 خطة اليوم
 </button>
        
-    <!-- 💎 علاش حنا؟ -->
-    <button id="whyPremiumBtn" class="why-premium-btn">
-        💎 علاش غتنجح معانا ؟
+      <!-- 💎 علاش حنا؟ (أيقونة Info) -->
+    <button id="whyPremiumIconBtn" class="why-premium-icon-btn" title="علاش غتنجح معانا؟">
+        <span class="material-symbols-outlined">info</span>
         <div class="premium-info-card">
             <span class="card-icon">✨</span>
             <span class="card-text">هذا <span style="color: #38bdf8;">الموقع</span> مصمم ليقدم أكبر قدر ممكن من الراحة والمساعدة للمستخدم، مع تجربة سهلة، سريعة، وبدون أي تعقيد. وليس مجرد <span style="color: #4ade80;">فوضى</span> جميلة <span style="color: #4ade80;">كالباقي</span>.</span>
@@ -2172,35 +2172,37 @@ if (showCardsBtn) {
         banner.classList.add('hide');
     }, 5000);
 })();
+
         // ============================================
-// زر 💎 لماذا؟ - بطاقة منبثقة أنيقة
+// زر 💎 لماذا؟ (أيقونة Info) - بطاقة منبثقة أنيقة
 // ============================================
-const whyPremiumBtn = document.getElementById('whyPremiumBtn');
-if (whyPremiumBtn) {
-    whyPremiumBtn.addEventListener('click', function(e) {
+const whyPremiumIconBtn = document.getElementById('whyPremiumIconBtn');
+if (whyPremiumIconBtn) {
+    whyPremiumIconBtn.addEventListener('click', function(e) {
         e.stopPropagation();
         this.classList.toggle('active');
     });
     
     // إغلاق البطاقة عند الضغط خارجها
     document.addEventListener('click', function(e) {
-        if (!whyPremiumBtn.contains(e.target)) {
-            whyPremiumBtn.classList.remove('active');
+        if (!whyPremiumIconBtn.contains(e.target)) {
+            whyPremiumIconBtn.classList.remove('active');
         }
     });
 }
+
 // ============================================
-// إخفاء زر 💎 لماذا؟ في الصفحة الرئيسية فقط
+// إظهار/إخفاء أيقونة Info (تظهر فقط في صفحة القائمة)
 // ============================================
 function toggleWhyPremiumBtn() {
-    const whyBtn = document.getElementById('whyPremiumBtn');
+    const whyBtn = document.getElementById('whyPremiumIconBtn');
     if (!whyBtn) return;
     
-    const homePage = document.getElementById('home');
-    if (homePage && homePage.classList.contains('active')) {
-        whyBtn.style.display = 'none';
+    const listPage = document.getElementById('list');
+    if (listPage && listPage.classList.contains('active')) {
+        whyBtn.style.display = 'inline-flex';
     } else {
-        whyBtn.style.display = 'flex';
+        whyBtn.style.display = 'none';
     }
 }
 
@@ -2210,13 +2212,9 @@ const observerPremium = new MutationObserver(function() {
     toggleWhyPremiumBtn();
 });
 
-const homePage2 = document.getElementById('home');
 const listPage2 = document.getElementById('list');
-const examPage2 = document.getElementById('exam');
 
-if (homePage2) observerPremium.observe(homePage2, { attributes: true, attributeFilter: ['class'] });
 if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeFilter: ['class'] });
-if (examPage2) observerPremium.observe(examPage2, { attributes: true, attributeFilter: ['class'] });
 // ============================================
 // وضع القراءة (Reading Mode) - 4 درجات
 // ============================================
