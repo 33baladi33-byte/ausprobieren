@@ -1329,7 +1329,7 @@ body:has(#exam.active) .top-bar {
 /* تصميم مطابق لأزرار الأقسام مع ألوان خاصة */
 .back-home-btn,
 .back-list-btn {
-    padding: 10px 20px;               /* مناسب للنص */
+    padding: 8px 24px;              /* مناسب للنص */
     background: linear-gradient(135deg, #161922, #202534, #262D40);
     border: 1px solid #D5E0EC;
     border-radius: 14px;
