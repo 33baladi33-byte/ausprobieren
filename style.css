@@ -1685,22 +1685,24 @@ body:has(#exam.active) .left-side .btn-login-top {
         width: auto !important;
         flex-shrink: 0 !important;
     }
-    
-    /* ✅ تجاوز أي أنماط من studySession.css لزر المؤقت في الحاسوب */
+}
+
+@media (max-width: 768px) {
+    /* تصغير الأزرار الموحدة في الهواتف */
+    .settings-icon-btn,
+    .study-planner-icon-btn,
+    .notification-bell,
     .study-session-btn {
-        height: 35px !important;
-        padding: 0 12px !important;
-        font-size: 16px !important;
-        gap: 5px !important;
-        border-radius: 12px !important;
+        height: 26px !important;
+        padding: 0 8px !important;
+        font-size: 12px !important;
+        gap: 3px !important;
+        border-radius: 10px !important;
         min-width: auto !important;
         width: auto !important;
         flex-shrink: 0 !important;
     }
 }
-
-/* تم دمجه مع التصميم الموحد في @media (max-width: 768px) */
-    
     /* أزرار الأقسام في الهاتف */
     .teile-row {
         gap: 6px !important;
