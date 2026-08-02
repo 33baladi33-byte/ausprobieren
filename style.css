@@ -5341,6 +5341,7 @@ body.dark-mode .planner-section-title {
 }
 
 /* ===== زر خطة اليوم الجديد (بجانب الإعدادات) ===== */
+/* ===== زر خطة اليوم الجديد (بجانب الإعدادات) ===== */
 .study-planner-icon-btn {
     position: relative;
     /* نفس خصائص زر الإعدادات */
@@ -5358,11 +5359,11 @@ body.dark-mode .planner-section-title {
     height: 40px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     background-clip: padding-box;
-    /* نمنع border من التداخل مع الإطار المتحرك */
+    /* إزالة border الافتراضي لمنع التداخل مع الإطار المتدرج */
     border: none;
 }
 
-/* الصورة داخل الزر – ثابتة ولا تتحرك */
+/* الصورة داخل الزر – ثابتة تماماً ولا تتأثر بالحركة */
 .planner-icon-img {
     width: 22px;
     height: 22px;
@@ -5370,9 +5371,12 @@ body.dark-mode .planner-section-title {
     display: block;
     pointer-events: none;
     border-radius: 4px;
+    /* نضمن عدم وجود أي حركة للصورة */
+    animation: none;
+    transform: none;
 }
 
-/* ===== الإطار الدائري المتحرك (باستخدام pseudo-element) ===== */
+/* ===== الإطار المتدرج الثابت (الحركة فقط في التدرج اللوني) ===== */
 .study-planner-icon-btn::before {
     content: '';
     position: absolute;
@@ -5381,10 +5385,12 @@ body.dark-mode .planner-section-title {
     right: -2px;
     bottom: -2px;
     border-radius: 27px;
-    background: conic-gradient(from 0deg, #7dd3fc, #60a5fa, #8b5cf6, #38bdf8, #7dd3fc);
     z-index: -1;
-    animation: rotateBorder 4s linear infinite;
     padding: 2px;
+    background: linear-gradient(135deg, #7dd3fc, #60a5fa, #8b5cf6, #38bdf8, #7dd3fc);
+    background-size: 300% 300%;
+    /* ✅ الحركة تكون فقط في مكان التدرج، وليس في العنصر نفسه */
+    animation: gradientMove 4s linear infinite;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -5392,7 +5398,7 @@ body.dark-mode .planner-section-title {
     pointer-events: none;
 }
 
-/* ===== Glow خفيف حول الإطار ===== */
+/* ===== Glow خفيف حول الإطار (ثابت ولا يتحرك) ===== */
 .study-planner-icon-btn::after {
     content: '';
     position: absolute;
@@ -5408,7 +5414,7 @@ body.dark-mode .planner-section-title {
     pointer-events: none;
 }
 
-/* ===== Hover – تكبير وزيادة الـ Glow ===== */
+/* ===== Hover – تكبير الزر وزيادة الـ Glow (الصورة والإطار يبقيان ثابتين) ===== */
 .study-planner-icon-btn:hover {
     transform: scale(1.03);
 }
@@ -5418,8 +5424,15 @@ body.dark-mode .planner-section-title {
     box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
 }
 
-/* ===== أنيميشن دوران الإطار ===== */
-@keyframes rotateBorder {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+/* ===== أنيميشن التدرج اللوني (الحركة في background-position فقط) ===== */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
 }
