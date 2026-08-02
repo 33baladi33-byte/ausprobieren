@@ -2283,6 +2283,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     color: #FFFFFF !important;
     transform: none !important;
 }
+
 /* ============================================
    أيقونة Info الجديدة (علاش غتنجح معانا؟)
    ============================================ */
@@ -2298,9 +2299,14 @@ body:has(#exam.active) .left-side .btn-login-top {
     cursor: pointer;
     transition: all 0.3s ease;
     color: #E5E7EB;
-    position: relative;
     padding: 0;
     font-family: inherit;
+    
+    /* ✅ الموضع المختار (كود 1) */
+    position: fixed !important;
+    top: 82px !important;
+    right: 30px !important;
+    z-index: 9999 !important;
 }
 
 .why-premium-icon-btn:hover {
@@ -2369,13 +2375,20 @@ body:has(#exam.active) .left-side .btn-login-top {
     transform: translateY(0) scale(1);
 }
 
-/* إخفاء الأيقونة في الصفحة الرئيسية وداخل الامتحان (يتم التحكم به عبر JS) */
+/* ✅ إخفاء الأيقونة في الصفحة الرئيسية وداخل الامتحان (يتم التحكم به عبر JS) */
 #home .why-premium-icon-btn,
 #exam .why-premium-icon-btn {
     display: none !important;
 }
 
-/* للهواتف */
+/* ✅ إخفاء الأيقونة تماماً في الهواتف (أقل من 1080px) */
+@media (max-width: 1079px) {
+    .why-premium-icon-btn {
+        display: none !important;
+    }
+}
+
+/* ✅ تنسيق الهواتف (يبقى للاحتياط لكنه لن يظهر بسبب الـ display:none أعلاه) */
 @media (max-width: 768px) {
     .why-premium-icon-btn {
         width: 32px;
@@ -2393,6 +2406,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         font-size: 11px;
     }
 }
+
 /* ============================================
    نافذة الاشتراك المنبثقة (Subscription Modal)
    ============================================ */
