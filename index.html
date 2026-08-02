@@ -2679,6 +2679,29 @@ function showPopup(title, content) {
         }
         savedSkill = localStorage.getItem('zertiva_selected_skill');
     }
+
+    // ============================================
+    // حساب أيام العمل المتبقية
+    // ============================================
+    function calculateWorkingDays(examDate) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const examDay = new Date(examDate);
+        examDay.setHours(0, 0, 0, 0);
+
+        const remainingDays = Math.ceil((examDay - today) / (1000 * 3600 * 24));
+
+        let workingDays = remainingDays - 2;
+        if (workingDays <= 0) {
+            workingDays = 0;
+        }
+
+        return {
+            remainingDays: Math.max(remainingDays, 0),
+            workingDays: Math.max(workingDays, 0)
+        };
+    }
+
        function renderCurrentState() {
         if (currentState === STATE.SETUP) renderSetup();
         else if (currentState === STATE.SECTIONS) renderSections();
@@ -3130,7 +3153,7 @@ function showPopup(title, content) {
 
         let currentTotal = Object.values(savedWeights).reduce((a, b) => a + b, 0);
 
-        let sectionsHTML = CUSTOM_SECTIONS.map(section => {
+             let sectionsHTML = CUSTOM_SECTIONS.map(section => {
             const currentValue = savedWeights[section.id] || 0;
             const remainingAfterCurrent = 100 - (currentTotal - currentValue);
             const available = [];
@@ -3139,10 +3162,10 @@ function showPopup(title, content) {
             }
 
             return `
-                <div class="custom-section-row" style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #eef2f6;">
-                    <span style="font-size:0.85rem; font-weight:500; color:#1e293b;">${section.label}</span>
-                    <select class="custom-weight-select" data-section="${section.id}" style="padding:4px 8px; border-radius:8px; border:1px solid #e2e8f0; font-size:0.8rem; background:#ffffff; color:#1e293b; min-width:80px; text-align:center; font-family:inherit;">
-                        ${available.map(v => `<option value="${v}" ${v === currentValue ? 'selected' : ''}>${v}%</option>`).join('')}
+                <div style="display:flex; flex-direction:column; align-items:center; gap:6px; padding:10px 6px; background:linear-gradient(90deg, #161922 0%, #2D3138 50%, #161922 100%); border:1px solid #D5E0EC; border-radius:14px; box-shadow:0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.04); transition:all 0.25s cubic-bezier(0.2,0.9,0.4,1.1);">
+                    <span style="font-size:0.85rem; font-weight:600; color:#B0B8C9; text-align:center;">${section.label}</span>
+                    <select class="custom-weight-select" data-section="${section.id}" style="width:100%; padding:6px 8px; border-radius:10px; border:1px solid #D5E0EC; background:#161922; color:#B0B8C9; font-size:0.8rem; font-weight:500; text-align:center; font-family:inherit; cursor:pointer; transition:all 0.2s ease;">
+                        ${available.map(v => `<option value="${v}" ${v === currentValue ? 'selected' : ''} style="background:#161922; color:#B0B8C9;">${v}%</option>`).join('')}
                     </select>
                 </div>
             `;
@@ -3169,7 +3192,7 @@ function showPopup(title, content) {
                     املأ نسب الأهمية لكل قسم
                 </div>
 
-                <div id="customWeightsContainer">
+                              <div id="customWeightsContainer" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-bottom:12px;">
                     ${sectionsHTML}
                 </div>
 
@@ -3341,7 +3364,7 @@ function showPopup(title, content) {
             return;
         }
 
-        const { workingDays } = calculateWorkingDays(new Date(savedDate));
+            const { workingDays } = window.calculateWorkingDays ? window.calculateWorkingDays(new Date(savedDate)) : calculateWorkingDays(new Date(savedDate));
         if (workingDays === 0) {
             container.innerHTML = `<div class="planner-card" style="text-align:center;padding:30px;color:#f59e0b;font-size:0.9rem;">⏰ أنت في فترة المراجعة النهائية (آخر يومين). راجع الامتحانات التي تشعر أنك بحاجة إليها.</div>`;
             return;
