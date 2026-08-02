@@ -4656,44 +4656,6 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 /* ============================================
-   زر المدرب الذكي (Study Planner)
-   ============================================ */
-
-#studyPlannerBtn {
-    background: rgba(56, 189, 248, 0.12);
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    font-size: 16px;
-    padding: 6px 14px;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    color: #E5E7EB;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: 500;
-}
-
-#studyPlannerBtn:hover {
-    background: rgba(56, 189, 248, 0.2);
-    border-color: rgba(56, 189, 248, 0.4);
-    transform: scale(1.04);
-}
-
-#studyPlannerBtn:active {
-    transform: scale(0.96);
-}
-
-/* للهواتف: تصغير الزر */
-@media (max-width: 768px) {
-    #studyPlannerBtn {
-        font-size: 12px;
-        padding: 4px 10px;
-        gap: 4px;
-    }
-}
-
-/* ============================================
    نافذة خطة اليوم (Study Planner Modal)
    ============================================ */
 
@@ -4759,7 +4721,6 @@ body.dark-mode #studyPlannerModal h3 {
         max-width: 95%;
     }
 }
-
 /* ============================================
    تحسينات إضافية لنافذة المدرب (اختيارية)
    ============================================ */
@@ -5377,4 +5338,88 @@ body.dark-mode .planner-welcome-title {
 
 body.dark-mode .planner-section-title {
     color: #e8ecf0;
+}
+
+/* ===== زر خطة اليوم الجديد (بجانب الإعدادات) ===== */
+.study-planner-icon-btn {
+    position: relative;
+    /* نفس خصائص زر الإعدادات */
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 25px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #E5E7EB;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 40px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    background-clip: padding-box;
+    /* نمنع border من التداخل مع الإطار المتحرك */
+    border: none;
+}
+
+/* الصورة داخل الزر – ثابتة ولا تتحرك */
+.planner-icon-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+    border-radius: 4px;
+}
+
+/* ===== الإطار الدائري المتحرك (باستخدام pseudo-element) ===== */
+.study-planner-icon-btn::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 27px;
+    background: conic-gradient(from 0deg, #7dd3fc, #60a5fa, #8b5cf6, #38bdf8, #7dd3fc);
+    z-index: -1;
+    animation: rotateBorder 4s linear infinite;
+    padding: 2px;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* ===== Glow خفيف حول الإطار ===== */
+.study-planner-icon-btn::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 29px;
+    z-index: -2;
+    box-shadow: 0 0 6px rgba(56, 189, 248, 0.25);
+    opacity: 0.5;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+    pointer-events: none;
+}
+
+/* ===== Hover – تكبير وزيادة الـ Glow ===== */
+.study-planner-icon-btn:hover {
+    transform: scale(1.03);
+}
+
+.study-planner-icon-btn:hover::after {
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+}
+
+/* ===== أنيميشن دوران الإطار ===== */
+@keyframes rotateBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
