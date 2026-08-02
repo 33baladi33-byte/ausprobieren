@@ -980,32 +980,46 @@ body.dark-mode .mobile-banner span {
     box-shadow: 0 4px 12px rgba(56,189,248,0.3);
 }
         /* ===== زر Ask AI العائم ===== */
+/* ===== زر Ask AI الجديد (مطابق لتصميم الواتساب) ===== */
 #askAIFloatingBtn {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-    color: white;
-    border: none;
-    border-radius: 50px;
-    padding: 14px 24px;
-    font-size: 16px;
-    font-weight: 600;
+    bottom: 25px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
     cursor: pointer;
-    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
     z-index: 999;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-family: inherit;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 12px;      /* نفس شكل زر الواتساب */
+    padding: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25); /* نفس الظل */
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
+
+/* نفس تأثير hover */
 #askAIFloatingBtn:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 30px rgba(56, 189, 248, 0.5);
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
+
+/* نفس تأثير الضغط */
 #askAIFloatingBtn:active {
     transform: scale(0.97);
+}
+
+/* تنسيق الصورة الداخلية (تشغل 70% من مساحة الزر مع الحفاظ على النسبة) */
+.ask-ai-img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    border-radius: 10px;      /* متناسق مع border-radius الزر */
+    display: block;
+    pointer-events: none;     /* يمنع تداخل أحداث النقر */
 }
 
 /* ===== نافذة الدردشة ===== */
@@ -1201,15 +1215,6 @@ body.dark-mode .mobile-banner span {
         bottom: 80px;
         height: 65vh;
         border-radius: 20px;
-    }
-    #askAIFloatingBtn {
-        bottom: 20px;
-        right: 20px;
-        padding: 12px 18px;
-        font-size: 14px;
-    }
-    #askAIFloatingBtn .btn-text {
-        display: none;
     }
 }
 </style>
