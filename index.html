@@ -1223,12 +1223,14 @@ body.dark-mode .mobile-banner span {
 <body class="home-page">
 <div class="top-bar">
 <div class="left-side">
-    <!-- الترتيب المرئي من اليمين إلى اليسار (بسبب RTL): 👤 ⚙️ [game] -->
+    <!-- بما أننا استخدمنا direction: ltr في CSS، الترتيب من اليسار إلى اليمين هو: -->
+    <!-- 👤 (profile)  ->  ⚙️ (settings)  ->  🎮 (game)  ->  (باقي الأزرار غير الظاهرة حالياً) -->
     <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
     <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
     <button id="studyPlannerBtn" class="study-planner-icon-btn" title="خطة اليوم الذكية">
         <img src="images/game.png" alt="خطة اليوم" class="planner-icon-img">
     </button>
+    <!-- الأزرار التالية ستظهر في أقصى اليسار (لأن direction ltr) ولن تؤثر على الترتيب المطلوب -->
     <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
     <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
 </div>
