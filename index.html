@@ -2679,11 +2679,11 @@ function showPopup(title, content) {
         }
         savedSkill = localStorage.getItem('zertiva_selected_skill');
     }
-    function renderCurrentState() {
+       function renderCurrentState() {
         if (currentState === STATE.SETUP) renderSetup();
         else if (currentState === STATE.SECTIONS) renderSections();
         else if (currentState === STATE.PLAN) renderPlan();
-        else if (currentState === STATE.CUSTOMIZE) renderCustomize();
+        else if (currentState === STATE.CUSTOMIZE) window.renderCustomize();
     }
 
     // ===== 1. صفحة الإعدادات =====
