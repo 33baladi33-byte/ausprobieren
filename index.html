@@ -1524,7 +1524,6 @@ body.dark-mode .mobile-banner span {
         </div>
     </section>
 </div>
-
 <div id="list" class="page">
   <div class="teile-header-section">
     <h3 id="teilHeaderTitle" style="display: none;">اختر القسم (Teil)</h3>
@@ -1533,7 +1532,6 @@ body.dark-mode .mobile-banner span {
   <div id="examsList" class="exams-container">
     <div class="welcome-message"></div>
   </div>
-  <button id="backHomeBtn" class="back-home-btn">الرئيسية</button>
 </div>
 
 <div id="exam" class="page">
@@ -1650,9 +1648,8 @@ body.dark-mode .mobile-banner span {
 </div>
 </div>
 
-<a href="https://wa.me/212687561491" target="_blank" id="whatsappFloat" class="whatsapp-float">
-    <img src="images/whatsapp.png" loading="lazy" alt="WhatsApp" class="whatsapp-img">
-</a>
+<!-- تم نقل زر واتساب إلى الحاوية السفلية -->
+    
 <div id="reviewsModal" class="reviews-modal">
     <div class="reviews-modal-content">
         <div class="reviews-modal-header">
@@ -3636,9 +3633,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 <!-- ===== زر Ask AI العائم ===== -->
-<button id="askAIFloatingBtn">
-    <img src="images/stars.png" alt="Ask AI" class="ask-ai-img">
-</button>
+<!-- تم نقل زر Ask AI إلى الحاوية السفلية -->
+
 <!-- ===== نافذة الدردشة ===== -->
 <div id="askAIChatWindow">
     <div id="askAIChatHeader">
@@ -3659,6 +3655,17 @@ document.addEventListener("DOMContentLoaded", function() {
             <span class="material-symbols-outlined" style="font-size: 22px;">send</span>
         </button>
     </div>
+</div>
+
+<!-- ===== الأزرار السفلية (واتساب - الرئيسية - Ask AI) ===== -->
+<div id="bottomFloatingBar">
+    <a href="https://wa.me/212687561491" target="_blank" id="whatsappFloat" class="whatsapp-float">
+        <img src="images/whatsapp.png" loading="lazy" alt="WhatsApp" class="whatsapp-img">
+    </a>
+    <button id="backHomeBtn" class="back-home-btn">الرئيسية</button>
+    <button id="askAIFloatingBtn">
+        <img src="images/stars.png" alt="Ask AI" class="ask-ai-img">
+    </button>
 </div>
 
 <script>
