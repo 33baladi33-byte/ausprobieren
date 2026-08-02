@@ -2136,6 +2136,10 @@ window.updateAskAIContext(skill, examId);
     document.getElementById("list").classList.remove("active");
     document.getElementById("exam").classList.add("active");
     document.getElementById("examTitle").innerHTML = currentExamData.title;
+    
+    // ✅ إظهار زر الرئيسية عند فتح الامتحان
+    const homeBtn = document.getElementById('backHomeBtn');
+    if (homeBtn) homeBtn.style.display = 'inline-block';
         // ✅ إضافة عداد الإعادات
  // ✅ إضافة عداد الإعادات فقط في المهارات المسموحة
 const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
@@ -2912,11 +2916,14 @@ function showTeil(teilNumber) {
     if (container) container.style.display = (idx + 1 === teilNumber) ? "block" : "none";
   });
 }
-
 function goHome() {
   document.getElementById("home").classList.add("active");
   document.getElementById("list").classList.remove("active");
   document.getElementById("exam").classList.remove("active");
+
+  // ✅ إخفاء زر الرئيسية عند العودة إلى الصفحة الرئيسية
+  const homeBtn = document.getElementById('backHomeBtn');
+  if (homeBtn) homeBtn.style.display = 'none';
 }
 function goList() {
   document.getElementById("home").classList.remove("active");
@@ -2927,6 +2934,10 @@ function goList() {
   
   // ✅ استخدم الدالة الجديدة بدلاً من setTimeout القديم
   window.renderInitialExamList();
+
+  // ✅ إظهار زر الرئيسية عند الدخول إلى صفحة القائمة
+  const homeBtn = document.getElementById('backHomeBtn');
+  if (homeBtn) homeBtn.style.display = 'inline-block';
 }
 // ============================================
 // ✅ دالة buildTeil1 المُعدّلة - تعتمد على ID ثابت
