@@ -3459,6 +3459,29 @@ function showPopup(title, content) {
 
         const formattedDate = savedDate ? savedDate.split('-').reverse().join(' / ') : '';
 
+                // دوال مساعدة لتنسيق الألوان (مطابقة للنظام الأساسي)
+        function getScoreColor(score) {
+            if (score === null || score === undefined) return '#94a3b8';
+            if (score === 25) return '#22c55e';
+            if (score >= 19) return '#eab308';
+            if (score >= 11) return '#f59e0b';
+            return '#ef4444';
+        }
+
+        function getReviewColor(days) {
+            if (days === null || days === undefined) return '#94a3b8';
+            if (days === 0) return '#22c55e';
+            if (days <= 3) return '#4ade80';
+            if (days <= 7) return '#eab308';
+            return '#ef4444';
+        }
+
+        function getReviewText(days) {
+            if (days === null || days === undefined) return 'لم يُراجع';
+            if (days === 0) return 'اليوم';
+            return `منذ ${days} يوم`;
+        }
+
         let groupsHTML = '';
         const sortedSkills = sectionKeys.filter(s => weights[s] > 0);
         sortedSkills.forEach(skill => {
@@ -3468,16 +3491,38 @@ function showPopup(title, content) {
             groupsHTML += `
                 <div style="margin-top:12px; margin-bottom:4px;">
                     <div style="font-size:0.85rem; font-weight:600; color:#2c3e66; padding:4px 0; border-bottom:1px solid #eef2f6;">${skillLabel}</div>
-                    ${exams.map(exam => `
-                        <div class="exam-card" data-exam-id="${exam.id}" data-skill="${exam.skill}" style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; background:#ffffff; border-radius:8px; border:1px solid #eef2f6; cursor:pointer; transition:all 0.15s ease; box-shadow:0 1px 3px rgba(0,0,0,0.02); margin-top:4px;">
-                            <span style="font-size:0.8rem; font-weight:500; color:#1e293b;">امتحان ${exam.id}</span>
-                            <div style="display:flex; align-items:center; gap:8px; font-size:0.65rem; color:#64748b;">
-                                <span>${exam.isNew ? 'جديد' : exam.score + '/25'}</span>
-                                <span>🔄 ${exam.retries}</span>
-                                <span>${exam.lastReviewDays !== null ? (exam.lastReviewDays === 0 ? 'اليوم' : `منذ ${exam.lastReviewDays} يوم`) : 'لم يُراجع'}</span>
+                    ${exams.map(exam => {
+                        const isNew = exam.isNew;
+                        const score = exam.score;
+                        const retries = exam.retries;
+                        const reviewDays = exam.lastReviewDays;
+                        const scoreDisplay = isNew ? '—' : `${score} / 25`;
+                        const reviewDisplay = getReviewText(reviewDays);
+                        const scoreColor = isNew ? '#94a3b8' : getScoreColor(score);
+                        const reviewColor = getReviewColor(reviewDays);
+
+                        return `
+                            <div class="exam-card" data-exam-id="${exam.id}" data-skill="${exam.skill}" style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#ffffff; border-radius:10px; border:1px solid #eef2f6; cursor:pointer; transition:all 0.15s ease; box-shadow:0 1px 3px rgba(0,0,0,0.02); margin-top:4px;">
+                                <span style="font-size:0.85rem; font-weight:500; color:#1e293b; white-space:nowrap;">
+                                    امتحان ${exam.id}
+                                </span>
+                                <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                                    <span style="display:flex; align-items:center; gap:4px; font-size:0.7rem; color:#64748b;">
+                                        <span class="material-symbols-outlined" style="font-size:16px; color:#94a3b8;">bar_chart</span>
+                                        <span style="color:${scoreColor};">${scoreDisplay}</span>
+                                    </span>
+                                    <span style="display:flex; align-items:center; gap:4px; font-size:0.7rem; color:#64748b;">
+                                        <span class="material-symbols-outlined" style="font-size:16px; color:#94a3b8;">repeat</span>
+                                        ${retries}
+                                    </span>
+                                    <span style="display:flex; align-items:center; gap:4px; font-size:0.7rem; color:#64748b;">
+                                        <span class="material-symbols-outlined" style="font-size:16px; color:#94a3b8;">calendar_month</span>
+                                        <span style="color:${reviewColor};">${reviewDisplay}</span>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    `).join('')}
+                        `;
+                    }).join('')}
                 </div>
             `;
         });
