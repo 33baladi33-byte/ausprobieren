@@ -1223,14 +1223,14 @@ body.dark-mode .mobile-banner span {
 <body class="home-page">
 <div class="top-bar">
 <div class="left-side">
-    <!-- سيظهر من اليمين إلى اليسار في الواجهة العربية: 👤 ⚙️ [game] -->
-    <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
-    <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
+    <!-- الترتيب المرئي من اليمين إلى اليسار (بسبب RTL): 👤 ⚙️ [game] -->
+    <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
+    <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
     <button id="studyPlannerBtn" class="study-planner-icon-btn" title="خطة اليوم الذكية">
         <img src="images/game.png" alt="خطة اليوم" class="planner-icon-img">
     </button>
-    <button id="settingsBtn" class="settings-icon-btn" title="إعدادات العرض">⚙️</button>
-    <div class="profile-icon" id="profileIcon" style="display: none;">👤</div>
+    <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
+    <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
 </div>
     
    <div class="right-side">
