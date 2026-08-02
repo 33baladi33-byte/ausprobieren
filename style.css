@@ -1325,16 +1325,25 @@ body:has(#exam.active) .top-bar {
     padding: 20px;
     border-radius: 10px;
 }
-/* ===== زر الرئيسية الثابت (مطابق لارتفاع WhatsApp و Ask AI) ===== */
-.back-home-float {
-    position: fixed;
-    bottom: 25px;                 /* نفس مسافة الزرين الآخرين */
-    left: 80px;                   /* 25 (WhatsApp) + 45 (عرضه) + 10 (فجوة) */
-    height: 45px;                 /* نفس ارتفاع WhatsApp و Ask AI */
-    padding: 0 20px;              /* عرض مناسب للنص */
+/* ===== صف الأزرار الثلاثة (Footer داخلي) ===== */
+.footer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;               /* مسافة متساوية بين الأزرار */
+    margin-top: 30px;        /* مسافة عن آخر امتحان */
+    padding: 15px 0 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.08); /* خط فاصل خفيف */
+    flex-wrap: wrap;         /* للهواتف: ينزلون لصفين إذا ضاقت الشاشة */
+}
+
+/* ===== التصميم الموحد لجميع الأزرار ===== */
+.footer-btn {
+    height: 45px;            /* نفس ارتفاع السابق */
+    padding: 0 20px;
     background: linear-gradient(135deg, #161922, #202534, #262D40);
     border: 1px solid #4a5568;
-    border-radius: 12px;          /* نفس شكل WhatsApp و Ask AI */
+    border-radius: 12px;
     font-size: 0.85rem;
     font-weight: 600;
     color: #B0B8C9;
@@ -1342,33 +1351,78 @@ body:has(#exam.active) .top-bar {
     transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
     font-family: inherit;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25); /* نفس ظل WhatsApp */
-    z-index: 999;                 /* نفس مستوى الزرين الآخرين */
-    display: flex;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    white-space: nowrap;          /* يمنع التفاف النص */
+    white-space: nowrap;
     box-sizing: border-box;
+    gap: 8px;
 }
 
-/* Hover – نفس تأثير WhatsApp مع زيادة سطوع */
-.back-home-float:hover {
+/* ===== زر WhatsApp ===== */
+.whatsapp-btn {
+    padding: 0 12px;
+}
+.whatsapp-btn .footer-btn-img {
+    height: 30px;
+    width: auto;
+    display: block;
+}
+
+/* ===== زر Ask AI ===== */
+.ai-btn {
+    padding: 0 12px;
+}
+.ai-btn .footer-btn-img {
+    height: 30px;
+    width: auto;
+    display: block;
+}
+
+/* ===== زر الرئيسية ===== */
+.home-btn {
+    padding: 0 24px;
+}
+
+/* ===== Hover مشترك ===== */
+.footer-btn:hover {
     filter: brightness(1.15);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
-    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
 }
 
-/* Pressed – تصغير بسيط مثل WhatsApp */
-.back-home-float:active {
+/* ===== Pressed مشترك ===== */
+.footer-btn:active {
     transform: scale(0.97);
 }
 
-/* ===== إخفاء الزر القديم في قائمة الامتحانات (حتى لا يتكرر) ===== */
-#list .back-home-btn {
+/* ===== إخفاء الزر القديم في القائمة (إن وجد) ===== */
+#list .back-home-btn:not(.footer-btn) {
     display: none !important;
 }
 
+/* ===== تنسيق الهواتف: تصغير المسافات ===== */
+@media (max-width: 768px) {
+    .footer-actions {
+        gap: 12px;
+        margin-top: 20px;
+        padding: 12px 0 8px 0;
+    }
+    .footer-btn {
+        height: 40px;
+        padding: 0 14px;
+        font-size: 0.75rem;
+    }
+    .home-btn {
+        padding: 0 16px;
+    }
+    .whatsapp-btn .footer-btn-img,
+    .ai-btn .footer-btn-img {
+        height: 24px;
+    }
+}
 .arrow-back-btn {
     background: none !important;
     border: none !important;
