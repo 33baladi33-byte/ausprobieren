@@ -352,11 +352,12 @@ body {
     z-index: 100;
     transition: all 0.3s ease;
 }
-
 .left-side {
     display: flex;
+    flex-direction: row; /* يمنع أي انعكاس */
     align-items: center;
     gap: 12px;
+    /* نلغي أي تأثير للـ RTL على الترتيب، بحيث أول عنصر في HTML يظهر أولاً */
     direction: ltr;
 }
 
