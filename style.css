@@ -646,8 +646,7 @@ body:has(#list.active) .profile-icon,
 body:has(#exam.active) .profile-icon {
     display: flex !important;
 }
-
-/* في الصفحة الرئيسية: إخفاء أيقونة الملف الشخصي وزر Game (تتحكم بها JavaScript) */
+/* في الصفحة الرئيسية: إخفاء أيقونة الملف الشخصي وزر Game */
 #home .profile-icon,
 .home-page .profile-icon {
     display: none !important;
@@ -658,6 +657,11 @@ body:has(#exam.active) .profile-icon {
     display: none !important;
 }
 
+/* في باقي الصفحات (القائمة والامتحان) يظهر زر Game طبيعياً */
+#list .study-planner-icon-btn,
+#exam .study-planner-icon-btn {
+    display: inline-flex !important;
+}
 /* إلغاء أي تأثير دائري سابق على هذه الأزرار */
 .profile-icon,
 .settings-icon-btn,
@@ -666,13 +670,13 @@ body:has(#exam.active) .profile-icon {
 .study-session-btn {
     border-radius: 12px !important;
 }
-/* تم دمجه مع التصميم الموحد أدناه */
+
 /* ===== التصميم الموحد للأزرار الوظيفية (⚙️، 🎮، 🔔، ⏰) ===== */
 .settings-icon-btn,
 .study-planner-icon-btn,
 .notification-bell,
 .study-session-btn {
-    height: 35px; /* زيادة طفيفة عن 32px لتكون متساوية لجميع الأزرار */
+    height: 35px; /* جميع الأزرار الأربعة بنفس الارتفاع */
     padding: 0 12px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -724,6 +728,7 @@ body:has(#exam.active) .profile-icon {
     padding: 0 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+
 body:has(#list.active) .top-bar,
 body:has(#exam.active) .top-bar {
     background: rgba(22, 25, 34, 0.95);
