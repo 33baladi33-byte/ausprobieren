@@ -290,12 +290,13 @@
         toggleSessionButton();
     }
     
-    // ====== التهيئة ======
-    function init() {
+      function init() {
         setTimeout(() => {
             bindEvents();
             setupObserver();
             updateTotalDisplay();
+            // تصدير الدالة للاستخدام العام من auth.js
+            window.toggleSessionButton = toggleSessionButton;
             console.log("✅ studySession.js جاهز - النسخة النهائية مع المجموع الكلي");
         }, 200);
     }
