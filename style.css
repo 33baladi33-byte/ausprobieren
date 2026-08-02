@@ -5510,7 +5510,7 @@ body.dark-mode .planner-section-title {
 
 /* ===== التحكم في إظهار/إخفاء وموضع زر الرئيسية ===== */
 #backHomeBtn {
-    display: none !important;
+    display: none;
 }
 
 #list #backHomeBtn,
