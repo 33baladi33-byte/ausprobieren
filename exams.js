@@ -1520,7 +1520,7 @@ async function renderExamListForSkill(skill, teilName) {
   
   const headerDiv = document.createElement("div");
   headerDiv.className = "teil-header";
-  headerDiv.innerHTML = `<strong>📚 ${teilName || getTeilNameBySkill(skill)}</strong>`;
+  headerDiv.innerHTML = `<strong> ${teilName || getTeilNameBySkill(skill)}</strong>`;
   container.appendChild(headerDiv);
 
   if (SKILL_CONFIG[skill]) {
