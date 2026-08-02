@@ -860,19 +860,11 @@ body:has(#exam.active) .top-bar {
     transform: scale(1.02);
 }
 
-/* ========================================
-   WhatsApp Button
-   ======================================== */
-
 .whatsapp-float {
-    position: fixed;
-    bottom: 25px;
-    left: 25px;
     width: 45px;
     height: 45px;
     cursor: pointer;
-    z-index: 999;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
@@ -5511,4 +5503,17 @@ body.dark-mode .planner-section-title {
     0% { background-position: 0% 0%; }
     50% { background-position: 100% 100%; }
     100% { background-position: 0% 0%; }
+}
+
+
+/* ===== حاوية الأزرار السفلية ===== */
+#bottomFloatingBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 0;
+    background: transparent;
+    margin-top: 20px;
+    position: relative;
 }
