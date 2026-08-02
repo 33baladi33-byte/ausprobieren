@@ -5507,14 +5507,14 @@ body.dark-mode .planner-section-title {
     50% { background-position: 100% 100%; }
     100% { background-position: 0% 0%; }
 }
-
 /* ===== التحكم في إظهار/إخفاء وموضع زر الرئيسية ===== */
 #backHomeBtn {
-    display: none;
+    display: none !important;
 }
 
-#list #backHomeBtn,
-#exam #backHomeBtn {
+/* ✅ إظهار الزر في صفحة القائمة أو الامتحان بغض النظر عن مكانه في DOM */
+body:has(#list.active) #backHomeBtn,
+body:has(#exam.active) #backHomeBtn {
     display: block !important;
     margin: 20px auto;
     text-align: center;
