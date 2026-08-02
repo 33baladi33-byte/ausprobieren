@@ -1358,11 +1358,15 @@ function renderTeileList() {
   if (!container) return;
   container.innerHTML = "";
   
+  // ✅ تحديد المحاذاة حسب حجم الشاشة
+  const isLargeScreen = window.innerWidth >= 1080;
+  const justifyContent = isLargeScreen ? 'center' : 'flex-start';
+  
   container.style.cssText = `
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: flex-start;
+    justify-content: ${justifyContent};
     align-items: center;
     margin-bottom: 30px;
   `;
