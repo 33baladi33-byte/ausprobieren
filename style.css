@@ -1325,34 +1325,40 @@ body:has(#exam.active) .top-bar {
     padding: 20px;
     border-radius: 10px;
 }
-
-.back-home-btn {
-    background: #38bdf8;
-    color: #0a0e1a;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 30px;
-    cursor: pointer;
-    margin-top: 30px;
-    font-weight: bold;
-}
-
-.back-home-btn:hover {
-    background: #0ea5e9;
-}
-
+/* ===== زر الرئيسية والعودة إلى القائمة ===== */
+/* تصميم مطابق لأزرار الأقسام مع ألوان خاصة */
+.back-home-btn,
 .back-list-btn {
-    background: #38bdf8;
-    color: #0a0e1a;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 30px;
+    padding: 10px 20px;               /* مناسب للنص */
+    background: linear-gradient(135deg, #161922, #202534, #262D40);
+    border: 1px solid #D5E0EC;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #B0B8C9;
     cursor: pointer;
-    font-weight: bold;
+    transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    text-align: center;
+    font-family: inherit;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    display: inline-block;
+    margin-top: 20px;                 /* يحافظ على التباعد */
+    text-decoration: none;
+    border: 1px solid #4a5568;        /* بديل عن #D5E0EC لجعله أغمق قليلاً، يمكنك ضبطه */
 }
 
+/* Hover – سطوع وظل خفيف */
+.back-home-btn:hover,
 .back-list-btn:hover {
-    background: #0ea5e9;
+    filter: brightness(1.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+}
+
+/* Pressed – تصغير بسيط */
+.back-home-btn:active,
+.back-list-btn:active {
+    transform: scale(0.98);
 }
 
 .arrow-back-btn {
