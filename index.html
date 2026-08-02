@@ -2579,7 +2579,7 @@ window.updateAskAIContext = function(skill, examId) {
         return;
     }
 
-    const STATE = { SETUP: 'setup', SECTIONS: 'sections', PLAN: 'plan' };
+       const STATE = { SETUP: 'setup', SECTIONS: 'sections', PLAN: 'plan', CUSTOMIZE: 'customize' };
     let currentState = STATE.SETUP;
     let savedSkill = localStorage.getItem('zertiva_selected_skill') || 'hoeren1';
     let savedDate = localStorage.getItem('zertiva_exam_date') || '';
@@ -2679,11 +2679,11 @@ function showPopup(title, content) {
         }
         savedSkill = localStorage.getItem('zertiva_selected_skill');
     }
-
     function renderCurrentState() {
         if (currentState === STATE.SETUP) renderSetup();
         else if (currentState === STATE.SECTIONS) renderSections();
         else if (currentState === STATE.PLAN) renderPlan();
+        else if (currentState === STATE.CUSTOMIZE) renderCustomize();
     }
 
     // ===== 1. صفحة الإعدادات =====
