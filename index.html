@@ -3196,11 +3196,11 @@ function showPopup(title, content) {
                     ${sectionsHTML}
                 </div>
 
-                <div style="text-align:center; margin-top:12px; font-size:0.75rem; color:#94a3b8;">
-                    المجموع: <span id="customTotalDisplay">${currentTotal}</span>%
-                    ${currentTotal === 100 ? ' ✅ مكتمل' : ''}
+                               <div style="text-align:center; margin-top:12px; font-size:0.75rem;">
+                    <span>المجموع: <span id="customTotalDisplay" style="font-weight:600;">${currentTotal}</span>%</span>
+                    <span id="customStatusText" style="font-weight:600; margin-right:8px; color: ${currentTotal === 100 ? '#22c55e' : '#f59e0b'};">${currentTotal === 100 ? 'مكتمل' : 'غير مكتمل'}</span>
+                    ${currentTotal !== 100 ? '<span style="color:#f59e0b; font-size:0.7rem; margin-right:8px;">(يجب أن يكون المجموع 100%)</span>' : ''}
                 </div>
-
                 <button id="customCheckBtn" class="planner-section-btn" style="width:100%; margin-top:14px; padding:10px 0; font-size:0.85rem; font-weight:600; text-align:center; border:1px solid #D5E0EC; border-radius:14px; background:linear-gradient(90deg, #161922 0%, #2D3138 50%, #161922 100%); color:#B0B8C9; box-shadow:0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.04); cursor:pointer; transition:all 0.25s cubic-bezier(0.2,0.9,0.4,1.1); font-family:inherit;">
                     فحص
                 </button>
@@ -3270,7 +3270,7 @@ function showPopup(title, content) {
             );
         });
 
-        // ربط تغيير النسب
+           // ربط تغيير النسب
         const selects = container.querySelectorAll('.custom-weight-select');
         selects.forEach(select => {
             select.addEventListener('change', function() {
@@ -3281,15 +3281,47 @@ function showPopup(title, content) {
                 updateCustomOptions(savedWeights);
                 document.getElementById('customTotalDisplay').textContent = currentTotal;
                 saveWeights(savedWeights);
+                
+                // ✅ تحديث حالة المكتمل/غير مكتمل
+                const statusText = document.getElementById('customStatusText');
+                if (statusText) {
+                    if (currentTotal === 100) {
+                        statusText.textContent = 'مكتمل';
+                        statusText.style.color = '#22c55e';
+                    } else {
+                        statusText.textContent = 'غير مكتمل';
+                        statusText.style.color = '#f59e0b';
+                    }
+                }
+                if (currentTotal === 100) {
+                    const msg = document.getElementById('customWarningMsg');
+                    if (msg) msg.remove();
+                }
             });
         });
 
-        // ربط زر "فحص"
+            // ربط زر "فحص"
         document.getElementById('customCheckBtn').addEventListener('click', function() {
             if (currentTotal !== 100) {
-                alert('⚠️ مجموع النسب يجب أن يكون 100% بالضبط.');
+                const statusText = document.getElementById('customStatusText');
+                if (statusText) {
+                    statusText.textContent = 'غير مكتمل';
+                    statusText.style.color = '#f59e0b';
+                }
+                let msg = document.getElementById('customWarningMsg');
+                if (!msg) {
+                    msg = document.createElement('div');
+                    msg.id = 'customWarningMsg';
+                    msg.style.cssText = 'text-align:center; margin-top:4px; font-size:0.7rem; color:#f59e0b;';
+                    const parent = document.querySelector('.planner-card > div:last-child');
+                    if (parent) parent.parentNode.insertBefore(msg, parent.nextSibling);
+                }
+                msg.textContent = '⚠️ يجب أن يكون المجموع 100% بالضبط.';
                 return;
             }
+            const oldMsg = document.getElementById('customWarningMsg');
+            if (oldMsg) oldMsg.remove();
+            
             showLoader(() => {
                 currentState = STATE.CUSTOMIZE;
                 renderCustomPlan(savedWeights);
@@ -3369,13 +3401,8 @@ function showPopup(title, content) {
             container.innerHTML = `<div class="planner-card" style="text-align:center;padding:30px;color:#f59e0b;font-size:0.9rem;">⏰ أنت في فترة المراجعة النهائية (آخر يومين). راجع الامتحانات التي تشعر أنك بحاجة إليها.</div>`;
             return;
         }
-
-        let dailyCount = Math.ceil(remainingCount / workingDays);
-        let minDaily = 4;
-        if (savedHours >= 2 && savedHours <= 3) minDaily = 8;
-        if (savedHours >= 4) minDaily = 12;
-        dailyCount = Math.max(dailyCount, minDaily);
-        dailyCount = Math.min(dailyCount, remainingCount);
+        // 🔥 عدد الامتحانات = 10 (100% = 10 امتحانات، كل 10% = 1)
+        const totalExams = 10;
 
         function calculatePriority(exam) {
             const scoreWeight = (exam.score !== null) ? exam.score : 0;
@@ -3402,23 +3429,24 @@ function showPopup(title, content) {
 
         const examGroups = {};
         const selectedExams = [];
+        let remainingToSelect = totalExams;
 
         sectionKeys.forEach(skill => {
             const weight = weights[skill];
             if (weight === 0) return;
-            const count = Math.round((weight / 100) * dailyCount);
+            const count = weight / 10; // 10% = 1 امتحان
             if (count === 0) return;
             const examsForSkill = sortedExams.filter(e => e.skill === skill);
             const taken = examsForSkill.slice(0, count);
             if (taken.length > 0) {
                 examGroups[skill] = taken;
                 selectedExams.push(...taken);
+                remainingToSelect -= taken.length;
             }
         });
 
-        if (selectedExams.length < dailyCount) {
-            const remaining = dailyCount - selectedExams.length;
-            const extra = sortedExams.filter(e => !selectedExams.includes(e)).slice(0, remaining);
+        if (remainingToSelect > 0) {
+            const extra = sortedExams.filter(e => !selectedExams.includes(e)).slice(0, remainingToSelect);
             if (extra.length > 0) {
                 const firstSkill = sectionKeys.find(k => weights[k] > 0);
                 if (firstSkill) {
@@ -3468,8 +3496,8 @@ function showPopup(title, content) {
                         لديك <span style="color:#2c3e66; font-weight:600;">${Math.max(remainingDays, 0)}</span> يوم
                     </div>
                 </div>
-                <div style="font-size:1.1rem; font-weight:500; text-align:center; margin:12px 0 16px 0; color:#1e293b;">
-                    خطتنا لهذا اليوم <strong>${dailyCount}</strong> امتحان${dailyCount > 1 ? 'ات' : ''}
+                               <div style="font-size:1.1rem; font-weight:500; text-align:center; margin:12px 0 16px 0; color:#1e293b;">
+                    خطتنا لهذا اليوم <strong>${selectedExams.length}</strong> امتحان${selectedExams.length > 1 ? 'ات' : ''}
                 </div>
                 <div class="exam-list" style="display:flex; flex-direction:column; gap:4px;">
                     ${groupsHTML}
