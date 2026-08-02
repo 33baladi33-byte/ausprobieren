@@ -5508,6 +5508,13 @@ body.dark-mode .planner-section-title {
     100% { background-position: 0% 0%; }
 }
 
+/* ===== إظهار زر الرئيسية فقط في صفحات القائمة والامتحان ===== */
+#list #backHomeBtn,
+#exam #backHomeBtn {
+    display: inline-block !important;
+}
 
-/* تم إزالة الحاوية، كل زر يعود إلى موقعه الثابت */
-
+/* ===== مسافة أسفل قائمة الامتحانات لتجنب التداخل ===== */
+#examsList {
+    padding-bottom: 80px !important;
+}
