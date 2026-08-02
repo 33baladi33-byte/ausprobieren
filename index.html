@@ -1648,9 +1648,12 @@ body.dark-mode .mobile-banner span {
 </div>
 </div>
 
-<!-- تم نقل زر واتساب إلى الحاوية السفلية -->
-    
+<a href="https://wa.me/212687561491" target="_blank" id="whatsappFloat" class="whatsapp-float">
+    <img src="images/whatsapp.png" loading="lazy" alt="WhatsApp" class="whatsapp-img">
+</a>
+
 <div id="reviewsModal" class="reviews-modal">
+    
     <div class="reviews-modal-content">
         <div class="reviews-modal-header">
             <h3>🏆 ثقة المستخدمين في المنصة</h3>
@@ -3633,7 +3636,9 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 <!-- ===== زر Ask AI العائم ===== -->
-<!-- تم نقل زر Ask AI إلى الحاوية السفلية -->
+<button id="askAIFloatingBtn">
+    <img src="images/stars.png" alt="Ask AI" class="ask-ai-img">
+</button>
 
 <!-- ===== نافذة الدردشة ===== -->
 <div id="askAIChatWindow">
@@ -3657,18 +3662,32 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 </div>
 
-<!-- ===== الأزرار السفلية (واتساب - الرئيسية - Ask AI) ===== -->
-<div id="bottomFloatingBar">
-    <a href="https://wa.me/212687561491" target="_blank" id="whatsappFloat" class="whatsapp-float" style="order: 1;">
-        <img src="images/whatsapp.png" loading="lazy" alt="WhatsApp" class="whatsapp-img">
-    </a>
-    <button id="backHomeBtn" class="back-home-btn" style="order: 2;">الرئيسية</button>
-    <button id="askAIFloatingBtn" style="order: 3;">
-        <img src="images/stars.png" alt="Ask AI" class="ask-ai-img">
-    </button>
-</div>
+    <!-- ===== زر الرئيسية (في المنتصف بين WhatsApp و Ask AI) ===== -->
+<button id="backHomeBtn" class="back-home-btn" style="
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    margin: 0;
+    padding: 8px 24px;
+    background: linear-gradient(135deg, #161922, #202534, #262D40);
+    border: 1px solid #4a5568;
+    border-radius: 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #B0B8C9;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    text-align: center;
+    font-family: inherit;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    display: inline-block;
+    text-decoration: none;
+">الرئيسية</button>
 
 <script>
+    
 // ============================================
 // 🧠 نظام Ask AI المتطور (يدعم 6 مزودات + حد يومي + Prompt مختصر)
 // ============================================
