@@ -648,24 +648,18 @@ body:has(#exam.active) .profile-icon {
 }
 
 /* في الصفحة الرئيسية: إخفاء أيقونة الملف الشخصي وزر Game */
-#home .profile-icon,
-.home-page .profile-icon {
+#home .profile-icon {
     display: none !important;
 }
 
-#home .study-planner-icon-btn,
-.home-page .study-planner-icon-btn {
+#home .study-planner-icon-btn {
     display: none !important;
 }
 
-/* إظهار زر Study Planner في جميع الصفحات ما عدا الصفحة الرئيسية */
-body:not(.home-page) .study-planner-icon-btn {
+/* في صفحات القائمة والامتحان: إظهار زر Study Planner */
+#list .study-planner-icon-btn,
+#exam .study-planner-icon-btn {
     display: inline-flex !important;
-}
-
-/* في الصفحة الرئيسية: إخفاء زر Study Planner */
-.home-page .study-planner-icon-btn {
-    display: none !important;
 }
 
 /* إلغاء أي تأثير دائري سابق على هذه الأزرار */
@@ -1677,7 +1671,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         padding: 4px 8px !important;
     }
 @media (min-width: 769px) {
-    /* توحيد جميع الأزرار الأربعة */
+    /* توحيد جميع الأزرار الأربعة في الحاسوب */
     .settings-icon-btn,
     .study-planner-icon-btn,
     .notification-bell,
@@ -1692,7 +1686,7 @@ body:has(#exam.active) .left-side .btn-login-top {
         flex-shrink: 0 !important;
     }
     
-    /* تأكيد خاص لزر المؤقت لتجاوز أي أنماط من studySession.css */
+    /* ✅ تجاوز أي أنماط من studySession.css لزر المؤقت في الحاسوب */
     .study-session-btn {
         height: 35px !important;
         padding: 0 12px !important;
@@ -1705,21 +1699,16 @@ body:has(#exam.active) .left-side .btn-login-top {
     }
 }
 
-/* ✅ في الحاسوب، جميع الأزرار الأربعة (⚙️، 🎮، 🔔، ⏰) متطابقة تماماً */
-@media (min-width: 769px) {
-    .settings-icon-btn,
-    .study-planner-icon-btn,
-    .notification-bell,
-    .study-session-btn {
-        height: 35px !important;
-        padding: 0 12px !important;
-        font-size: 16px !important;
-        gap: 5px !important;
-        border-radius: 12px !important;
-        min-width: auto !important;
-        width: auto !important;
-        flex-shrink: 0 !important;
-    }
+/* ✅ تجاوز أي أنماط من studySession.css لزر المؤقت في الهواتف */
+.study-session-btn {
+    height: 26px !important;
+    padding: 0 8px !important;
+    font-size: 12px !important;
+    gap: 3px !important;
+    border-radius: 10px !important;
+    min-width: auto !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
 }
     
     /* أزرار الأقسام في الهاتف */
