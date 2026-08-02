@@ -658,14 +658,13 @@ body:has(#exam.active) .profile-icon {
     display: none !important;
 }
 
-/* في باقي الصفحات (القائمة والامتحان) يظهر زر Game طبيعياً */
-#list .study-planner-icon-btn,
-#exam .study-planner-icon-btn {
+/* إظهار زر Study Planner في جميع الصفحات ما عدا الصفحة الرئيسية */
+body:not(.home-page) .study-planner-icon-btn {
     display: inline-flex !important;
 }
 
-/* ✅ تأكيد إخفاء زر Study Planner في الصفحة الرئيسية بأولوية أعلى */
-body:not(#list):not(#exam) .study-planner-icon-btn {
+/* في الصفحة الرئيسية: إخفاء زر Study Planner */
+.home-page .study-planner-icon-btn {
     display: none !important;
 }
 
@@ -1677,18 +1676,29 @@ body:has(#exam.active) .left-side .btn-login-top {
         font-size: 12px !important;
         padding: 4px 8px !important;
     }
-    
-@media (max-width: 768px) {
-    /* ===== تصغير الأزرار الموحدة في الهواتف (🎮، ⚙️، 🔔، ⏰) ===== */
+@media (min-width: 769px) {
+    /* توحيد جميع الأزرار الأربعة */
     .settings-icon-btn,
     .study-planner-icon-btn,
     .notification-bell,
     .study-session-btn {
-        height: 26px !important; /* تصغير إضافي للهواتف */
-        padding: 0 8px !important;
-        font-size: 12px !important;
-        gap: 3px !important;
-        border-radius: 10px !important;
+        height: 35px !important;
+        padding: 0 12px !important;
+        font-size: 16px !important;
+        gap: 5px !important;
+        border-radius: 12px !important;
+        min-width: auto !important;
+        width: auto !important;
+        flex-shrink: 0 !important;
+    }
+    
+    /* تأكيد خاص لزر المؤقت لتجاوز أي أنماط من studySession.css */
+    .study-session-btn {
+        height: 35px !important;
+        padding: 0 12px !important;
+        font-size: 16px !important;
+        gap: 5px !important;
+        border-radius: 12px !important;
         min-width: auto !important;
         width: auto !important;
         flex-shrink: 0 !important;
