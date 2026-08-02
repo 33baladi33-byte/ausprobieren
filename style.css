@@ -1325,35 +1325,36 @@ body:has(#exam.active) .top-bar {
     padding: 20px;
     border-radius: 10px;
 }
-/* ===== زر الرئيسية والعودة إلى القائمة ===== */
+/* ===== زر الرئيسية والعودة إلى القائمة (بحجم بطاقة الامتحان مع توسيع بسيط) ===== */
 .back-home-btn,
 .back-list-btn {
-    display: block;                 /* ليأخذ العرض الكامل */
-    width: 100%;                   /* عرض كامل مثل البطاقات */
-    max-width: 100%;               /* لا يتجاوز عرض الحاوية */
-    padding: 10px 0;               /* ارتفاع مناسب (نفس أزرار الأقسام تقريباً) */
+    display: block;                  /* يأخذ سطراً مستقلاً */
+    width: fit-content;              /* يتناسب مع المحتوى الداخلي */
+    min-width: 220px;               /* ~80% أوسع من الزر القديم (~120px) */
+    max-width: 90%;                 /* لا يتجاوز 90% من عرض الشاشة في الهواتف */
+    padding: 12px 40px;             /* ارتفاع مريح وعرض مناسب */
     background: linear-gradient(135deg, #161922, #202534, #262D40); /* لون الشريط العلوي */
-    border: 1px solid #4a5568;      /* حد مطابق لأزرار الأقسام */
-    border-radius: 14px;           /* نفس نصف القطر */
+    border: 1px solid #4a5568;
+    border-radius: 14px;            /* نفس أزرار الأقسام */
     font-size: 0.85rem;
     font-weight: 600;
-    color: #B0B8C9;                /* رمادي فاتح */
+    color: #B0B8C9;                 /* رمادي فاتح */
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     text-align: center;
     font-family: inherit;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    box-sizing: border-box;        /* padding يحسب ضمن العرض */
-    margin: 20px auto 0;           /* توسيط أفقي ومسافة من الأعلى */
+    box-sizing: border-box;
+    margin: 25px auto 0;            /* توسيط أفقي ومسافة من الأعلى */
     text-decoration: none;
 }
 
-/* Hover – سطوع وظل خفيف (بدون تغيير اللون إلى الأزرق) */
+/* Hover – سطوع وظل خفيف (بدون أزرق) */
 .back-home-btn:hover,
 .back-list-btn:hover {
     filter: brightness(1.15);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
 /* Pressed – تصغير بسيط */
@@ -1362,14 +1363,16 @@ body:has(#exam.active) .top-bar {
     transform: scale(0.98);
 }
 
-/* ===== تنسيقات الهواتف (لضمان العرض الكامل) ===== */
+/* ===== تنسيقات الهواتف: يأخذ عرضاً أكبر قليلاً ===== */
 @media (max-width: 768px) {
     .back-home-btn,
     .back-list-btn {
-        padding: 8px 0;             /* تصغير بسيط للارتفاع في الهواتف */
-        font-size: 0.7rem;
-        margin: 15px auto 0;
-        width: 100% !important;     /* التأكد من العرض الكامل */
+        min-width: 160px;           /* تصغير بسيط في الهواتف */
+        padding: 10px 20px;
+        font-size: 0.75rem;
+        margin: 20px auto 0;
+        width: auto;                /* يضمن عدم تمدده لعرض الصفحة */
+        max-width: 85%;
     }
 }
 
