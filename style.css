@@ -647,8 +647,12 @@ body:has(#exam.active) .profile-icon {
     display: flex !important;
 }
 
-/* في الصفحة الرئيسية: إخفاء أيقونة الملف الشخصي (تتحكم بها JavaScript) */
+/* في الصفحة الرئيسية: إخفاء أيقونة الملف الشخصي وزر Game (تتحكم بها JavaScript) */
 #home .profile-icon {
+    display: none !important;
+}
+
+#home .study-planner-icon-btn {
     display: none !important;
 }
 
@@ -661,13 +665,13 @@ body:has(#exam.active) .profile-icon {
     border-radius: 12px !important;
 }
 /* تم دمجه مع التصميم الموحد أدناه */
-/* ===== التصميم الموحد للأزرار الوظيفية (⚙️، 🎮، 🔔، ⏰) ===== */
+/* ===== التصميم الموحد للأزرار الوظيفية (⚙️، 🎮، 🔔، ⏰) - مصغرة ===== */
 .settings-icon-btn,
 .study-planner-icon-btn,
 .notification-bell,
 .study-session-btn {
-    height: 40px;
-    padding: 0 14px;
+    height: 32px; /* تم التصغير من 40px إلى 32px */
+    padding: 0 10px; /* تم التصغير من 14px إلى 10px */
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
@@ -678,8 +682,8 @@ body:has(#exam.active) .profile-icon {
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    font-size: 18px;
-    gap: 6px;
+    font-size: 15px; /* تم التصغير من 18px إلى 15px */
+    gap: 4px; /* تم التصغير من 6px إلى 4px */
     font-family: inherit;
     flex-shrink: 0;
 }
@@ -718,7 +722,6 @@ body:has(#exam.active) .profile-icon {
     padding: 0 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-
 body:has(#list.active) .top-bar,
 body:has(#exam.active) .top-bar {
     background: rgba(22, 25, 34, 0.95);
@@ -1613,10 +1616,6 @@ body:has(#exam.active) .left-side .btn-login-top {
     order: 4;
 }
 
-/* ========================================
-   تحسينات الهواتف
-   ======================================== */
-
 @media (max-width: 768px) {
     body, html {
         overflow-x: hidden;
@@ -1663,6 +1662,21 @@ body:has(#exam.active) .left-side .btn-login-top {
     .settings-icon-btn {
         font-size: 12px !important;
         padding: 4px 8px !important;
+    }
+    
+    /* ===== تصغير الأزرار الموحدة في الهواتف (🎮، ⚙️، 🔔، ⏰) ===== */
+    .settings-icon-btn,
+    .study-planner-icon-btn,
+    .notification-bell,
+    .study-session-btn {
+        height: 26px !important; /* تصغير إضافي للهواتف */
+        padding: 0 8px !important;
+        font-size: 12px !important;
+        gap: 3px !important;
+        border-radius: 10px !important;
+        min-width: auto !important;
+        width: auto !important;
+        flex-shrink: 0 !important;
     }
     
     /* أزرار الأقسام في الهاتف */
@@ -2080,7 +2094,6 @@ body:has(#exam.active) .left-side .btn-login-top {
         color: #3b82f6 !important;
     }
 }
-
 /* للشاشات الصغيرة جداً */
 @media (max-width: 480px) {
     .teile-row {
