@@ -1517,10 +1517,16 @@ body:has(#exam.active) .top-bar {
 
 .left-side {
     display: flex;
+    flex-direction: row; /* منع أي انعكاس */
     align-items: center;
     gap: 12px;
     direction: ltr;
 }
+
+/* فرض الترتيب المطلوب: 👤 ثم ⚙️ ثم 🎮 */
+.left-side .profile-icon { order: 1; }
+.left-side #settingsBtn { order: 2; }
+.left-side #studyPlannerBtn { order: 3; }
 
 /* ترتيب الأزرار من اليمين إلى اليسار في صفحات الامتحانات */
 body:has(#list.active) .left-side .profile-icon,
@@ -5342,14 +5348,12 @@ body.dark-mode .planner-section-title {
 }
 
 /* ===== زر خطة اليوم الجديد (بجانب الإعدادات) ===== */
-/* ===== زر خطة اليوم الجديد (بجانب الإعدادات) ===== */
 .study-planner-icon-btn {
     position: relative;
-    /* نفس خصائص زر الإعدادات */
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 25px;
-    padding: 6px 12px;
+    padding: 4px 10px; /* تصغير padding لتعويض الـ Border الخارجي */
     cursor: pointer;
     transition: all 0.3s ease;
     color: #E5E7EB;
@@ -5357,22 +5361,20 @@ body.dark-mode .planner-section-title {
     align-items: center;
     justify-content: center;
     width: auto;
-    height: 40px;
+    height: 36px; /* 36px + 2px (أعلى) + 2px (أسفل) = 40px (مطابق للإعدادات) */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     background-clip: padding-box;
-    /* إزالة border الافتراضي لمنع التداخل مع الإطار المتدرج */
     border: none;
 }
 
 /* الصورة داخل الزر – ثابتة تماماً ولا تتأثر بالحركة */
 .planner-icon-img {
-    width: 22px;
-    height: 22px;
+    width: 20px; /* تصغير الصورة لتناسب الارتفاع الجديد */
+    height: 20px;
     object-fit: contain;
     display: block;
     pointer-events: none;
     border-radius: 4px;
-    /* نضمن عدم وجود أي حركة للصورة */
     animation: none;
     transform: none;
 }
