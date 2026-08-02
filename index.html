@@ -3134,7 +3134,6 @@ function showPopup(title, content) {
     function saveWeights(weights) {
         localStorage.setItem('planner_weights', JSON.stringify(weights));
     }
-
     // دالة عرض واجهة النسب
     function renderCustomize() {
         const container = document.getElementById('studyPlannerContainer');
@@ -3196,7 +3195,6 @@ function showPopup(title, content) {
                                <div style="text-align:center; margin-top:12px; font-size:0.75rem;">
                     <span>المجموع: <span id="customTotalDisplay" style="font-weight:600;">${currentTotal}</span>%</span>
                     <span id="customStatusText" style="font-weight:600; margin-right:8px; color: ${currentTotal === 100 ? '#22c55e' : '#f59e0b'};">${currentTotal === 100 ? 'مكتمل' : 'غير مكتمل'}</span>
-                    ${currentTotal !== 100 ? '<span style="color:#f59e0b; font-size:0.7rem; margin-right:8px;">(يجب أن يكون المجموع 100%)</span>' : ''}
                 </div>
                 <button id="customCheckBtn" class="planner-section-btn" style="width:100%; margin-top:14px; padding:10px 0; font-size:0.85rem; font-weight:600; text-align:center; border:1px solid #D5E0EC; border-radius:14px; background:linear-gradient(90deg, #161922 0%, #2D3138 50%, #161922 100%); color:#B0B8C9; box-shadow:0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.04); cursor:pointer; transition:all 0.25s cubic-bezier(0.2,0.9,0.4,1.1); font-family:inherit;">
                     فحص
@@ -3267,7 +3265,7 @@ function showPopup(title, content) {
             );
         });
 
-           // ربط تغيير النسب
+           // ربط تغيير النسب - بدون رسالة إضافية
         const selects = container.querySelectorAll('.custom-weight-select');
         selects.forEach(select => {
             select.addEventListener('change', function() {
@@ -3279,7 +3277,7 @@ function showPopup(title, content) {
                 document.getElementById('customTotalDisplay').textContent = currentTotal;
                 saveWeights(savedWeights);
                 
-                // ✅ تحديث حالة المكتمل/غير مكتمل
+                // ✅ تحديث حالة المكتمل/غير مكتمل فقط (بدون رسالة إضافية)
                 const statusText = document.getElementById('customStatusText');
                 if (statusText) {
                     if (currentTotal === 100) {
@@ -3290,35 +3288,35 @@ function showPopup(title, content) {
                         statusText.style.color = '#f59e0b';
                     }
                 }
-                if (currentTotal === 100) {
-                    const msg = document.getElementById('customWarningMsg');
-                    if (msg) msg.remove();
-                }
+                // إزالة أي رسالة تحذيرية سابقة عند تغيير النسب (بدون فحص)
+                const msg = document.getElementById('customWarningMsg');
+                if (msg) msg.remove();
             });
         });
 
-            // ربط زر "فحص"
+            // ربط زر "فحص" - هنا فقط تظهر الرسالة الإضافية
         document.getElementById('customCheckBtn').addEventListener('click', function() {
+            // إزالة أي رسالة سابقة
+            const oldMsg = document.getElementById('customWarningMsg');
+            if (oldMsg) oldMsg.remove();
+
             if (currentTotal !== 100) {
                 const statusText = document.getElementById('customStatusText');
                 if (statusText) {
                     statusText.textContent = 'غير مكتمل';
                     statusText.style.color = '#f59e0b';
                 }
-                let msg = document.getElementById('customWarningMsg');
-                if (!msg) {
-                    msg = document.createElement('div');
-                    msg.id = 'customWarningMsg';
-                    msg.style.cssText = 'text-align:center; margin-top:4px; font-size:0.7rem; color:#f59e0b;';
-                    const parent = document.querySelector('.planner-card > div:last-child');
-                    if (parent) parent.parentNode.insertBefore(msg, parent.nextSibling);
-                }
+                // إضافة رسالة التحذير فقط هنا (بعد الفحص)
+                const msg = document.createElement('div');
+                msg.id = 'customWarningMsg';
+                msg.style.cssText = 'text-align:center; margin-top:4px; font-size:0.7rem; color:#f59e0b;';
                 msg.textContent = '⚠️ يجب أن يكون المجموع 100% بالضبط.';
+                const parent = document.querySelector('.planner-card > div:last-child');
+                if (parent) parent.parentNode.insertBefore(msg, parent.nextSibling);
                 return;
             }
-            const oldMsg = document.getElementById('customWarningMsg');
-            if (oldMsg) oldMsg.remove();
             
+            // إذا كان المجموع 100%، ننتقل للخطة الموزونة
             showLoader(() => {
                 currentState = STATE.CUSTOMIZE;
                 renderCustomPlan(savedWeights);
