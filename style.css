@@ -1681,17 +1681,7 @@ body:has(#exam.active) .left-side .btn-login-top {
     .settings-icon-btn,
     .study-planner-icon-btn,
     .notification-bell,
-    .study-session-btn {
-        height: 26px !important;
-        padding: 0 8px !important;
-        font-size: 12px !important;
-        gap: 3px !important;
-        border-radius: 10px !important;
-        min-width: auto !important;
-        width: auto !important;
-        flex-shrink: 0 !important;
-    }
-    
+   /* تم دمجه مع التصميم الموحد في @media (max-width: 768px) */
     /* أزرار الأقسام في الهاتف */
     .teile-row {
         gap: 6px !important;
