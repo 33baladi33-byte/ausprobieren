@@ -3022,23 +3022,41 @@ window.updateAskAIContext = function(skill, examId) {
     // ===== نظام التلوين الجديد (يُضاف إلى النطاق العام) =====
     const EXAM_COLOR = '#38BDF8';
 
-       window.applyExamColors = function() {
-        // استهداف div.item فقط (البطاقات الفعلية)
+         window.applyExamColors = function() {
+        const ids = window._selectedExamIds || [];
+        if (ids.length === 0) {
+            console.log('  ℹ️ لا توجد امتحانات محددة للتلوين');
+            return 0;
+        }
         const cards = document.querySelectorAll('div.item');
         let colored = 0;
         cards.forEach(card => {
             if (card.classList.contains('item')) {
-                // تطبيق التصميم المختار فقط
-                card.style.background = 'rgba(56, 189, 248, 0.08)';
-                card.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.06)';
-                card.style.border = '1px solid rgba(56, 189, 248, 0.14)';
-                card.style.position = 'relative';
-                card.style.transition = 'all 0.3s ease';
-                card.dataset.colored = 'true';
-                colored++;
+                // استخراج رقم الامتحان من النص
+                let examId = null;
+                const title = card.querySelector('.exam-title');
+                if (title) {
+                    const match = title.textContent.match(/^(\d+):/);
+                    if (match) examId = parseInt(match[1]);
+                }
+                // إذا لم نجد في العنوان، نبحث في النص ككل
+                if (!examId) {
+                    const match = card.textContent.match(/امتحان\s*(\d+)/);
+                    if (match) examId = parseInt(match[1]);
+                }
+                // إذا كان المعرف موجوداً وفي القائمة، نطبق التلوين
+                if (examId !== null && ids.includes(examId)) {
+                    card.style.background = 'rgba(56, 189, 248, 0.08)';
+                    card.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.06)';
+                    card.style.border = '1px solid rgba(56, 189, 248, 0.14)';
+                    card.style.position = 'relative';
+                    card.style.transition = 'all 0.3s ease';
+                    card.dataset.colored = 'true';
+                    colored++;
+                }
             }
         });
-        if (colored > 0) console.log(`  ✅ تم تلوين ${colored} بطاقة بالتصميم الجديد`);
+        if (colored > 0) console.log(`  ✅ تم تلوين ${colored} بطاقة من أصل ${ids.length} محددة`);
         return colored;
     };
 
@@ -3067,15 +3085,31 @@ window.updateAskAIContext = function(skill, examId) {
     };
 
     window.removeColorFromExam = function(examId) {
-        document.querySelectorAll('.exam-card, .planner-exam-item, .exam-item').forEach(card => {
-            const id = card.dataset.examId || card.textContent.match(/\d+/)?.[0];
-            if (id == examId) {
-                card.style.backgroundColor = '';
-                card.style.transition = '';
-                delete card.dataset.colored;
+        // استهداف البطاقات الفعلية (div.item) بنفس منطق استخراج المعرف في applyExamColors
+        document.querySelectorAll('div.item').forEach(card => {
+            if (card.classList.contains('item')) {
+                let id = null;
+                const title = card.querySelector('.exam-title');
+                if (title) {
+                    const match = title.textContent.match(/^(\d+):/);
+                    if (match) id = parseInt(match[1]);
+                }
+                if (!id) {
+                    const match = card.textContent.match(/امتحان\s*(\d+)/);
+                    if (match) id = parseInt(match[1]);
+                }
+                // إذا كان المعرف موجوداً ومطابقاً، نزيل كل التنسيقات المطبقة
+                if (id !== null && id == examId) {
+                    card.style.background = '';
+                    card.style.boxShadow = '';
+                    card.style.border = '';
+                    card.style.position = '';
+                    card.style.transition = '';
+                    delete card.dataset.colored;
+                }
             }
         });
-        console.log(`  ✅ تم إزالة لون امتحان ${examId}`);
+        console.log(`  ✅ تم إزالة تلوين امتحان ${examId}`);
     };
 
     // ===== دوال الـ Toggle =====
@@ -3114,7 +3148,6 @@ window.updateAskAIContext = function(skill, examId) {
             }
         });
     }
-
     function hookCheckButton(container) {
         // البحث عن زر "فحص" بالطريقة الصحيحة (بدون :contains)
         let checkBtn = null;
@@ -3133,13 +3166,13 @@ window.updateAskAIContext = function(skill, examId) {
         checkBtn.onclick = function(e) {
             const toggle = document.querySelector('.ios-toggle-checkbox');
             const isActive = toggle ? toggle.checked : false;
+            // مسح الألوان أولاً
+            if (typeof window.clearExamColors === 'function') window.clearExamColors();
+            // إذا كان التفعيل مفعلاً، نطبق التلوين (سيقرأ window._selectedExamIds)
             if (isActive) {
-                if (typeof window.clearExamColors === 'function') window.clearExamColors();
                 if (typeof window.applyExamColors === 'function') {
-                    setTimeout(window.applyExamColors, 100);
+                    setTimeout(window.applyExamColors, 150);
                 }
-            } else {
-                if (typeof window.clearExamColors === 'function') window.clearExamColors();
             }
             if (originalClick) originalClick.call(this, e);
         };
@@ -3176,6 +3209,16 @@ window.updateAskAIContext = function(skill, examId) {
             console.error('❌ خطأ في توليد الخطة:', error);
         }
     }
+
+
+
+
+
+
+
+
+
+
 
     // ===== دالة عرض الخطة النهائية =====
     function renderPlanResult(result) {
@@ -3281,11 +3324,21 @@ window.updateAskAIContext = function(skill, examId) {
             </div>
         `;
 
+        // ✅ تخزين معرفات الامتحانات المختارة للتلوين
+        window._selectedExamIds = result.selectedExams.map(e => e.id);
+        console.log(`  📌 تم تخزين ${window._selectedExamIds.length} معرف للتلوين`);
+
         // إضافة Toggle وربط زر الفحص
         const card = container.querySelector('.planner-card');
         if (card) {
             createToggleSwitch(card);
             hookCheckButton(card);
+        }
+
+        // ✅ تطبيق التلوين إذا كان الـ Toggle مفعلاً
+        const toggle = document.querySelector('.ios-toggle-checkbox');
+        if (toggle && toggle.checked && typeof window.applyExamColors === 'function') {
+            setTimeout(window.applyExamColors, 100);
         }
 
         document.querySelectorAll('.exam-card').forEach(card => {
@@ -3730,11 +3783,21 @@ window.updateAskAIContext = function(skill, examId) {
             </div>
         `;
 
+            // ✅ تخزين معرفات الامتحانات المختارة للتلوين
+        window._selectedExamIds = selectedExams.map(e => e.id);
+        console.log(`  📌 تم تخزين ${window._selectedExamIds.length} معرف للتلوين (Custom)`);
+
         // إضافة Toggle وربط زر الفحص
         const card = container.querySelector('.planner-card');
         if (card) {
             createToggleSwitch(card);
             hookCheckButton(card);
+        }
+
+        // ✅ تطبيق التلوين إذا كان الـ Toggle مفعلاً
+        const toggle = document.querySelector('.ios-toggle-checkbox');
+        if (toggle && toggle.checked && typeof window.applyExamColors === 'function') {
+            setTimeout(window.applyExamColors, 100);
         }
 
         document.querySelectorAll('.exam-card').forEach(card => {
