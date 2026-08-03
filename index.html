@@ -3055,13 +3055,12 @@ window.updateAskAIContext = function(skill, examId) {
                 }
                 // إذا كان المعرف موجوداً وفي القائمة، نطبق التلوين
                 if (examId !== null && ids.includes(examId)) {
-                    card.style.background = 'rgba(56, 189, 248, 0.08)';
-                    card.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.06)';
-                    card.style.border = '1px solid rgba(56, 189, 248, 0.14)';
-                    card.style.position = 'relative';
-                    card.style.transition = 'all 0.3s ease';
+                    // ✅ فقط نضبط data-colored، الأنماط ستأتي من الـ CSS
                     card.dataset.colored = 'true';
                     colored++;
+                } else {
+                    // ✅ إزالة التلوين عن البطاقات التي لم تعد في القائمة
+                    delete card.dataset.colored;
                 }
             }
         });
@@ -3070,31 +3069,14 @@ window.updateAskAIContext = function(skill, examId) {
     };
 
       window.clearExamColors = function() {
-        // إزالة التصميم من البطاقات التي تحمل علامة التلوين
+        // إزالة علامة التلوين من جميع البطاقات
         document.querySelectorAll('div.item[data-colored="true"]').forEach(card => {
-            card.style.background = '';
-            card.style.boxShadow = '';
-            card.style.border = '';
-            card.style.position = '';
-            card.style.transition = '';
             delete card.dataset.colored;
-        });
-        // تنظيف إضافي للبطاقات التي قد يكون لها تلوين يدوي سابق بدون data-colored
-        document.querySelectorAll('div.item').forEach(card => {
-            const bg = card.style.background || window.getComputedStyle(card).background;
-            if (bg && bg.includes('56, 189, 248')) {
-                card.style.background = '';
-                card.style.boxShadow = '';
-                card.style.border = '';
-                card.style.position = '';
-                card.style.transition = '';
-            }
         });
         console.log('  ✅ تم إزالة جميع الألوان والتصاميم');
     };
 
-    window.removeColorFromExam = function(examId) {
-        // استهداف البطاقات الفعلية (div.item) بنفس منطق استخراج المعرف في applyExamColors
+       window.removeColorFromExam = function(examId) {
         let removed = 0;
         document.querySelectorAll('div.item').forEach(card => {
             if (card.classList.contains('item')) {
@@ -3108,13 +3090,7 @@ window.updateAskAIContext = function(skill, examId) {
                     const match = card.textContent.match(/امتحان\s*(\d+)/);
                     if (match) id = parseInt(match[1]);
                 }
-                // إذا كان المعرف موجوداً ومطابقاً، نزيل كل التنسيقات المطبقة
-                if (id !== null && id == examId) {
-                    card.style.background = '';
-                    card.style.boxShadow = '';
-                    card.style.border = '';
-                    card.style.position = '';
-                    card.style.transition = '';
+                if (id !== null && id == examId && card.dataset.colored === 'true') {
                     delete card.dataset.colored;
                     removed++;
                 }
