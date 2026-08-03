@@ -171,6 +171,7 @@ function getResultColor(score) {
   if (score >= 15) return "#28a745";
   return "#adb5bd";
 }
+
 // ========== دالة عرض النتيجة بجانب عنوان الامتحان ==========
 function createResultBadge(score) {
   if (score === null) return null;
@@ -186,11 +187,11 @@ function createResultBadge(score) {
     padding: ${isMobile ? '2px 5px' : '3px 8px'};
     border-radius: 20px;
     color: white;
-    background-color: #A8ADB5;
+    background-color: ${getResultColor(score)};
+    margin-left: 8px;
     display: inline-block;
     min-width: ${isMobile ? '40px' : '55px'};
     text-align: center;
-    line-height: 1.4;
   `;
   return badge;
 }
@@ -1573,19 +1574,15 @@ async function renderExamListForSkill(skill, teilName) {
   for (let i = 0; i < mainExams.length; i++) {
     const exam = mainExams[i];
     const examNumber = exam.id;
+    // ✅ استخدم دالة isExamFree بدلاً من الشرط القديم
     const isFreeExam = isExamFree(skill, examNumber);
     
     const div = document.createElement("div");
     div.className = "item";
-    // نستخدم Flex عمودي داخل البطاقة
-    div.style.display = "flex";
-    div.style.flexDirection = "column";
-    div.style.gap = "6px";
-    div.style.padding = "12px 14px";
     
-    // السطر الأول: عنوان الامتحان
     const titleSpan = document.createElement("span");
     titleSpan.className = "exam-title";
+
     if (skill === "tips") {
       titleSpan.textContent = `${exam.title}`;
       titleSpan.style.textAlign = "center";
@@ -1594,234 +1591,212 @@ async function renderExamListForSkill(skill, teilName) {
     } else {
       titleSpan.textContent = `${exam.id}: ${exam.title}`;
     }
+    
     div.appendChild(titleSpan);
+    
+    displaySavedResult(targetSkill, exam.id, titleSpan, div);
 
 
-       // السطر الثاني: المعلومات (النتيجة، repeat، calendar_month، progress) – Flexbox مرن بالكامل
-    const infoRow = document.createElement("div");
-    infoRow.className = "exam-info-row";
-    infoRow.style.cssText = `
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px 8px;
-      margin-top: 4px;
-      max-width: 100%;
-    `;
-    div.appendChild(infoRow);
-
-    // دالة مساعدة لإنشاء badge موحد ومرن (بدون ارتفاع ثابت)
-    const createBadge = (content, bgColor, textColor, iconName = null) => {
-      const isMobile = window.innerWidth <= 768;
-      const fs = isMobile ? '8px' : '11px';
-      // padding عمودي 2px، أفقي 8-12px حسب الشاشة
-      const padY = isMobile ? '2px' : '2px';
-      const padX = isMobile ? '8px' : '12px';
-      const span = document.createElement('span');
-      span.style.cssText = `
-        font-size: ${fs};
-        font-weight: 600;
-        padding: ${padY} ${padX};
-        border-radius: 999px;
-        line-height: 1.4;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2px;
-        color: ${textColor || '#1e293b'};
-        background-color: ${bgColor || '#f1f5f9'};
-        border: 1px solid ${bgColor === '#EEF2F6' ? '#e2e8f0' : 'transparent'};
-        white-space: nowrap;
-        flex: 0 0 auto;
-        max-width: 100%;
-        min-height: 22px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      `;
-      if (iconName) {
-        span.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1;">${iconName}</span> ${content}`;
-      } else {
-        span.textContent = content;
-      }
-      return span;
-    };
-
-    // --- 1. عرض النتيجة (نستخدم createResultBadge ولكن نضبط مرونتها) ---
-    const savedScore = getExamResult(targetSkill, exam.id);
-    if (savedScore !== null) {
-      const badge = createResultBadge(savedScore);
-      if (badge) {
-        // إزالة أي margin-left ثابت قد يكون موجوداً
-        badge.style.marginLeft = '0';
-        // جعل الـ badge يتصرف مثل بقية الـ badges
-        badge.style.display = 'inline-flex';
-        badge.style.alignItems = 'center';
-        badge.style.justifyContent = 'center';
-        badge.style.flex = '0 0 auto';
-        badge.style.maxWidth = '100%';
-        badge.style.whiteSpace = 'nowrap';
-        badge.style.overflow = 'hidden';
-        badge.style.textOverflow = 'ellipsis';
-        badge.style.minHeight = '22px';
-        infoRow.appendChild(badge);
-      }
-    }
-
-    // --- 2. عرض عدد الإعادات (repeat) ---
+    // ✅ عرض عدد الإعادات بجانب عنوان الامتحان
     const retryCount = getRetryCount(targetSkill, exam.id);
     if (retryCount > 0) {
-      const retryBadge = createBadge(String(retryCount), '#EEF2F6', '#475569', 'repeat');
-      infoRow.appendChild(retryBadge);
+        const retrySpan = document.createElement('span');
+        retrySpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
+        retrySpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">repeat</span> ${retryCount}`;
+        titleSpan.appendChild(retrySpan);
     }
-
-    // --- 3. عرض تاريخ آخر مراجعة (calendar_month) ---
-    const forbiddenSkills = ['schreiben', 'mündlich1', 'mündlich2', 'mündlich3'];
-    if (!forbiddenSkills.includes(targetSkill)) {
-      const reviewDays = getLastReviewDays(targetSkill, exam.id);
-      if (reviewDays !== null) {
-        let textColor = '#94a3b8';
-        if (reviewDays <= 3) textColor = '#22c55e';
-        else if (reviewDays <= 5) textColor = '#f59e0b';
-        else textColor = '#ef4444';
-        const text = reviewDays === 0 ? 'اليوم' : `منذ ${reviewDays} يوم`;
-        const reviewBadge = createBadge(text, '#EEF2F6', textColor, 'calendar_month');
-        infoRow.appendChild(reviewBadge);
-      } else {
-        const reviewBadge = createBadge('لم يُراجع', '#EEF2F6', '#94a3b8', 'calendar_month');
-        infoRow.appendChild(reviewBadge);
-      }
+    // ✅ عرض تاريخ آخر مراجعة
+    // ✅ عرض تاريخ آخر مراجعة
+// ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
+const forbiddenSkills = ['schreiben', 'mündlich1', 'mündlich2', 'mündlich3'];
+if (!forbiddenSkills.includes(targetSkill)) {
+    const reviewDays = getLastReviewDays(targetSkill, exam.id);
+    if (reviewDays !== null) {
+        const reviewSpan = document.createElement('span');
+        // تحديد اللون حسب عدد الأيام
+        let reviewColor = '#64748b';
+        if (reviewDays <= 3) {
+            reviewColor = '#22c55e'; // أخضر - حديث
+        } else if (reviewDays <= 5) {
+            reviewColor = '#f59e0b'; // برتقالي - يحتاج مراجعة
+        } else {
+            reviewColor = '#ef4444'; // أحمر - متأخر
+        }
+        reviewSpan.style.cssText = `font-size:10px; color:${reviewColor}; margin-right:6px;`;
+        if (reviewDays === 0) {
+            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> اليوم`;
+        } else {
+            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> منذ ${reviewDays} يوم`;
+        }
+        titleSpan.appendChild(reviewSpan);
+    } else {
+        // لم يُصحح أبداً
+        const reviewSpan = document.createElement('span');
+        reviewSpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
+        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">calendar_month</span> لم يُراجع`;
+        titleSpan.appendChild(reviewSpan);
     }
-
-    // --- 4. شريط التقدم (progress) بنفس نمط الـ badges ---
+}
     const progress = getExamProgress(targetSkill, exam.id);
     if (progress > 0) {
-      const progressBadge = createBadge(`${progress}%`, '#EEF2F6', '#1565C0');
-      infoRow.appendChild(progressBadge);
+      const progressSpan = document.createElement('span');
+      progressSpan.className = 'exam-progress-mini';
+      progressSpan.style.cssText = `
+        font-size: 10px;
+        color: #1565C0;
+        margin-left: 8px;
+        font-weight: 500;
+        background: #f0f7ff;
+        padding: 2px 6px;
+        border-radius: 10px;
+      `;
+      progressSpan.textContent = `${progress}%`;
+      titleSpan.appendChild(progressSpan);
     }
-    // --- 5. أيقونات الجانب الأيمن (Premium / Badge التعديلات) ---
+    
+// التحقق من وجود تعديلات
+const hasVersions = exam.versions && exam.versions.length > 1;
+
+if (hasVersions) {
+  // ✅ حساب ما إذا كانت جميع النسخ مقفلة
+  let allVersionsLocked = true;
+  if (exam.versions && exam.versions.length > 1) {
+    for (let v of exam.versions) {
+      const isFree = isExamFree(skill, v.id);
+      if (isFree) {
+        allVersionsLocked = false;
+        break;
+      }
+    }
+    // إذا كان المستخدم Premium، فلا شيء مقفل
+    if (isPremium) {
+      allVersionsLocked = false;
+    }
+  }
+
+  if (allVersionsLocked) {
+    // 🔒 تصميم البطاقة المقفلة (نفس تصميم الامتحانات المقفلة)
+    div.style.backgroundColor = "rgba(255,255,255,0.75)";
+    div.style.border = "1px solid #e2e8f0";
+    div.style.opacity = "1";
+    div.style.transition = "all 0.25s ease";
+    div.style.cursor = "pointer";
+
+    // إضافة شارة Premium
     const rightSide = document.createElement("span");
     rightSide.className = "exam-right-icons";
-    rightSide.style.cssText = `
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-left: auto;
-    `;
-    
-    // التحقق من وجود تعديلات
-    const hasVersions = exam.versions && exam.versions.length > 1;
-    let allVersionsLocked = true;
-    if (hasVersions) {
-      for (let v of exam.versions) {
-        if (isExamFree(skill, v.id)) { allVersionsLocked = false; break; }
-      }
-      if (isPremium) allVersionsLocked = false;
-    }
-    
-    // إضافة badge التعديلات إذا وجدت أكثر من إصدار
-    if (hasVersions) {
-      const badge = document.createElement('span');
-      badge.className = 'custom-badge';
-      badge.style.cssText = `
-        display: inline-flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 2px !important;
-        background: linear-gradient(135deg, #334155, #1e293b) !important;
-        color: #f1f5f9 !important;
-        border-radius: 999px !important;
-        padding: 0 8px 0 4px !important;
-        height: 22px !important;
-        flex-shrink: 0 !important;
-        pointer-events: none !important;
-        user-select: none !important;
-        line-height: 1 !important;
-        border: 1px solid #475569 !important;
-      `;
-      badge.innerHTML = `
-        <span class="material-symbols-outlined" style="font-size:12px; line-height:1;">layers</span>
-        <span style="font-size:9px; font-weight:600;">${exam.versions.length}</span>
-      `;
-      rightSide.appendChild(badge);
-    }
-    
-    // إضافة شارة Premium إذا كان مقفلاً
-    const isLocked = (!isPremium && !isFreeExam) || (hasVersions && allVersionsLocked);
-    if (isLocked) {
-      const premiumSpan = document.createElement("span");
-      premiumSpan.className = "premium-badge";
-      premiumSpan.style.cssText = `
-        background: linear-gradient(135deg, #f59e0b, #d97706);
-        color: white;
-        font-size: 9px;
-        font-weight: 700;
-        padding: 2px 8px;
-        border-radius: 12px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        white-space: nowrap;
-      `;
-      premiumSpan.textContent = "Premium";
-      rightSide.appendChild(premiumSpan);
-    }
-    
-    if (rightSide.children.length > 0) {
-      div.appendChild(rightSide);
-    }
-    
-    // --- إعداد سلوك البطاقة ---
-    if (isLocked) {
+    const premiumSpan = document.createElement("span");
+    premiumSpan.className = "premium-badge";
+    premiumSpan.innerHTML = "Premium";
+    rightSide.appendChild(premiumSpan);
+    div.appendChild(rightSide);
+
+    // تغيير لون العنوان
+    titleSpan.style.color = "#6b7280";
+    titleSpan.style.transition = "color 0.25s ease";
+
+    // تأثيرات hover (مطابقة للبطاقات المقفلة)
+    div.onmouseenter = function() {
+      this.style.backgroundColor = "rgba(255,255,255,0.95)";
+      this.style.transform = "translateX(5px)";
+      this.style.borderColor = "#60a5fa";
+      titleSpan.style.color = "#4b5563";
+      if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
+    };
+    div.onmouseleave = function() {
+      this.style.backgroundColor = "rgba(255,255,255,0.75)";
+      this.style.transform = "translateX(0)";
+      this.style.borderColor = "#e2e8f0";
+      titleSpan.style.color = "#6b7280";
+      if (premiumSpan) premiumSpan.style.transform = "scale(1)";
+    };
+
+    // ✅ عند النقر، نفتح نافذة الإصدارات (وليس الاشتراك مباشرة)
+    div.onclick = function(e) {
+      e.stopPropagation();
+      showVersionsPopup(exam, targetSkill);
+    };
+  } else {
+    // 🟢 إذا كان هناك إصدار مجاني واحد على الأقل، تظهر البطاقة عادية
+    div.style.cursor = 'pointer';
+    div.onclick = function(e) {
+      e.stopPropagation();
+      showVersionsPopup(exam, targetSkill);
+    };
+  }
+} else if (!isPremium && !isFreeExam) {
+
+      // قفل Premium
       div.style.backgroundColor = "rgba(255,255,255,0.75)";
       div.style.border = "1px solid #e2e8f0";
+      div.style.opacity = "1";
+      div.style.transition = "all 0.25s ease";
       div.style.cursor = "pointer";
+      
+      const rightSide = document.createElement("span");
+      rightSide.className = "exam-right-icons";
+
+      const premiumSpan = document.createElement("span");
+      premiumSpan.className = "premium-badge";
+      premiumSpan.innerHTML = "Premium";
+      rightSide.appendChild(premiumSpan);
+      
+      div.appendChild(rightSide);
       titleSpan.style.color = "#6b7280";
+      titleSpan.style.transition = "color 0.25s ease";
       
       div.onmouseenter = function() {
         this.style.backgroundColor = "rgba(255,255,255,0.95)";
         this.style.transform = "translateX(5px)";
         this.style.borderColor = "#60a5fa";
         titleSpan.style.color = "#4b5563";
+        if (premiumSpan) premiumSpan.style.transform = "scale(1.02)";
       };
+
       div.onmouseleave = function() {
         this.style.backgroundColor = "rgba(255,255,255,0.75)";
         this.style.transform = "translateX(0)";
         this.style.borderColor = "#e2e8f0";
         titleSpan.style.color = "#6b7280";
+        if (premiumSpan) premiumSpan.style.transform = "scale(1)";
       };
-      div.onclick = function(e) {
-        e.stopPropagation();
-        if (hasVersions) {
-          showVersionsPopup(exam, targetSkill);
-        } else {
+      
+      div.onclick = (function(title, id) {
+        return function() {
           if (typeof window.showPremiumModal === 'function') {
-            window.showPremiumModal(exam.title + " (" + exam.id + ")");
+            window.showPremiumModal(title + " (" + id + ")");
           } else {
             window.location.href = 'subscribe.html';
           }
-        }
-      };
+        };
+      })(exam.title, exam.id);
+      
     } else if (exam.hasFile || (exam.versions && exam.versions.length > 0)) {
-      div.style.cursor = 'pointer';
-      div.onclick = function() {
-        const actualSkill = exam.skillPath || targetSkill;
-        let file = null;
-        const examObj = targetExams.find(e => e.id === exam.id);
-        if (examObj && examObj.versions && examObj.versions.length > 0) {
-          const version = examObj.versions.find(v => v.id === exam.id);
-          if (version) file = version.file;
-          else file = examObj.versions[0].file;
-        }
-        openExam(exam.id, exam.title, actualSkill, file);
-      };
+      // فتح الامتحان
+      div.onclick = (function(id, title, skillPath) {
+        return function() { 
+          const actualSkill = skillPath || targetSkill;
+          // نبحث عن ملف الإصدار الأساسي
+          let file = null;
+          const examObj = targetExams.find(e => e.id === id);
+          if (examObj && examObj.versions && examObj.versions.length > 0) {
+            // نأخذ الإصدار الذي يحمل نفس id
+            const version = examObj.versions.find(v => v.id === id);
+            if (version) file = version.file;
+            else file = examObj.versions[0].file;
+          }
+          openExam(id, title, actualSkill, file);
+        };
+      })(exam.id, exam.title, exam.skillPath || targetSkill);
+      
     } else {
       div.style.opacity = "0.6";
       div.style.backgroundColor = "#f8f9fa";
       div.onclick = () => alert(`⚠️ الامتحان رقم ${exam.id} سيتم إضافته قريباً.`);
     }
-    
     container.appendChild(div);
   }
-  
+
   createViewModeToggles();
   
   // ✅ الترتيب الطبيعي دائماً (بدون حفظ حالة)
