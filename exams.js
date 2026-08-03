@@ -1597,7 +1597,7 @@ async function renderExamListForSkill(skill, teilName) {
     div.appendChild(titleSpan);
 
 
-    // السطر الثاني: المعلومات (النتيجة، repeat، calendar_month، progress) – باستخدام Flexbox موحد
+       // السطر الثاني: المعلومات (النتيجة، repeat، calendar_month، progress) – Flexbox مرن بالكامل
     const infoRow = document.createElement("div");
     infoRow.className = "exam-info-row";
     infoRow.style.cssText = `
@@ -1606,23 +1606,24 @@ async function renderExamListForSkill(skill, teilName) {
       align-items: center;
       gap: 6px 8px;
       margin-top: 4px;
+      max-width: 100%;
     `;
     div.appendChild(infoRow);
 
-    // دالة مساعدة لإنشاء badge موحد (ارتفاع ثابت، خط متناسق، بدون قص)
+    // دالة مساعدة لإنشاء badge موحد ومرن (بدون ارتفاع ثابت)
     const createBadge = (content, bgColor, textColor, iconName = null) => {
       const isMobile = window.innerWidth <= 768;
       const fs = isMobile ? '8px' : '11px';
-      const pad = isMobile ? '2px 8px' : '2px 12px';
-      const minW = isMobile ? 'auto' : 'auto';
+      // padding عمودي 2px، أفقي 8-12px حسب الشاشة
+      const padY = isMobile ? '2px' : '2px';
+      const padX = isMobile ? '8px' : '12px';
       const span = document.createElement('span');
       span.style.cssText = `
         font-size: ${fs};
         font-weight: 600;
-        padding: ${pad};
+        padding: ${padY} ${padX};
         border-radius: 999px;
-        height: 22px;
-        line-height: 1.2;
+        line-height: 1.4;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -1633,6 +1634,9 @@ async function renderExamListForSkill(skill, teilName) {
         white-space: nowrap;
         flex: 0 0 auto;
         max-width: 100%;
+        min-height: 22px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       `;
       if (iconName) {
         span.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1;">${iconName}</span> ${content}`;
@@ -1642,11 +1646,25 @@ async function renderExamListForSkill(skill, teilName) {
       return span;
     };
 
-    // --- 1. عرض النتيجة ---
+    // --- 1. عرض النتيجة (نستخدم createResultBadge ولكن نضبط مرونتها) ---
     const savedScore = getExamResult(targetSkill, exam.id);
     if (savedScore !== null) {
-      const scoreBadge = createBadge(`${savedScore} / 25`, '#A8ADB5', 'white');
-      infoRow.appendChild(scoreBadge);
+      const badge = createResultBadge(savedScore);
+      if (badge) {
+        // إزالة أي margin-left ثابت قد يكون موجوداً
+        badge.style.marginLeft = '0';
+        // جعل الـ badge يتصرف مثل بقية الـ badges
+        badge.style.display = 'inline-flex';
+        badge.style.alignItems = 'center';
+        badge.style.justifyContent = 'center';
+        badge.style.flex = '0 0 auto';
+        badge.style.maxWidth = '100%';
+        badge.style.whiteSpace = 'nowrap';
+        badge.style.overflow = 'hidden';
+        badge.style.textOverflow = 'ellipsis';
+        badge.style.minHeight = '22px';
+        infoRow.appendChild(badge);
+      }
     }
 
     // --- 2. عرض عدد الإعادات (repeat) ---
@@ -1674,7 +1692,7 @@ async function renderExamListForSkill(skill, teilName) {
       }
     }
 
-    // --- 4. شريط التقدم (progress) ---
+    // --- 4. شريط التقدم (progress) بنفس نمط الـ badges ---
     const progress = getExamProgress(targetSkill, exam.id);
     if (progress > 0) {
       const progressBadge = createBadge(`${progress}%`, '#EEF2F6', '#1565C0');
