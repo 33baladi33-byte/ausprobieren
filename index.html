@@ -3083,34 +3083,39 @@ window.updateAskAIContext = function(skill, examId) {
         console.log('  ✅ تم إزالة جميع الألوان والتصاميم');
         // لا نمسح window._selectedExamIds هنا، لأننا نريد الاحتفاظ بها لإعادة التلوين لاحقاً
     };
-
          window.removeColorFromExam = function(examId) {
         // نحتاج إلى المهارة الحالية لبناء المفتاح الفريد
         const skill = window.currentSkill || '';
-        if (!skill) return;
+        if (!skill) {
+            console.warn('  ⚠️ لا توجد مهارة حالية');
+            return 0;
+        }
         const uniqueKey = `${skill}_exam${examId}`;
-        // إزالة هذا الامتحان من المصفوفة المخزنة
+        
+        // 1. إزالة هذا الامتحان من المصفوفة المخزنة
         if (window._selectedExamIds) {
             const index = window._selectedExamIds.indexOf(uniqueKey);
             if (index !== -1) {
                 window._selectedExamIds.splice(index, 1);
-                // حفظ المصفوفة المحدثة في localStorage
                 localStorage.setItem('plannerSelectedExamIds', JSON.stringify(window._selectedExamIds));
                 console.log(`  ✅ تم إزالة الامتحان ${uniqueKey} من قائمة التلوين`);
+            } else {
+                console.log(`  ℹ️ الامتحان ${uniqueKey} غير موجود في قائمة التلوين`);
+                return 0;
             }
         }
-        // إزالة علامة التلوين من البطاقة
+        
+        // 2. إزالة علامة التلوين من البطاقة
         let removed = 0;
         document.querySelectorAll('div.item').forEach(card => {
             if (card.classList.contains('item')) {
-                // التحقق من وجود data-skill و data-examId
+                // استخراج المفتاح الفريد من البطاقة
                 const cardSkill = card.dataset.skill || '';
                 const cardExamId = card.dataset.examId || null;
                 let key = '';
                 if (cardSkill && cardExamId) {
                     key = `${cardSkill}_exam${cardExamId}`;
                 } else {
-                    // محاولة استخراج الرقم والمهارة من النص
                     const title = card.querySelector('.exam-title');
                     let num = null;
                     if (title) {
@@ -3132,18 +3137,15 @@ window.updateAskAIContext = function(skill, examId) {
                 }
             }
         });
-        if (removed > 0) {
-            console.log(`  ✅ تم إزالة تلوين امتحان ${examId} (${uniqueKey})`);
-        } else {
-            console.log(`  ℹ️ لم يتم العثور على بطاقة ملونة للامتحان ${examId}`);
-        }
-        // إعادة تطبيق التلوين على البطاقات المتبقية (للتأكد من أن الألوان تبقى صحيحة)
+        
+        // 3. إعادة تطبيق التلوين على البطاقات المتبقية
         if (window._selectedExamIds && window._selectedExamIds.length > 0) {
-            setTimeout(window.applyExamColors, 50);
+            setTimeout(window.applyExamColors, 100);
         } else {
-            // إذا لم يتبقى أي امتحان، نزيل كل الألوان
             window.clearExamColors();
         }
+        
+        console.log(`  ✅ تم إزالة تلوين امتحان ${examId} (${uniqueKey})`);
         return removed;
     };
     function createToggleSwitch(containerElement) {
