@@ -1786,8 +1786,8 @@ if (hasVersions) {
     }
     container.appendChild(div);
   }
-  
-  createViewModeToggles();
+
+    createViewModeToggles();
   
   // ✅ الترتيب الطبيعي دائماً (بدون حفظ حالة)
   restoreOriginalOrder();
@@ -1807,6 +1807,13 @@ if (hasVersions) {
   saveOriginalOrder();
   
   setupLockedNextButton();
+  
+  // ✅ إعادة تطبيق التلوين بعد إعادة الرسم (إذا كان الـ Toggle مفعلاً)
+  if (localStorage.getItem('plannerToggleState') === 'true') {
+      if (typeof window.applyExamColors === 'function') {
+          setTimeout(window.applyExamColors, 50);
+      }
+  }
 }
 function showVersionsPopup(exam, skill) {
   const overlay = document.createElement('div');
