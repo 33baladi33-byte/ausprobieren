@@ -1520,12 +1520,6 @@ async function renderExamListForSkill(skill, teilName) {
   if (!container) return;
   container.innerHTML = "";
   
-  // ✅ متغيرات الحجم الموحدة (مطابقة لـ createResultBadge)
-  const isMobile = window.innerWidth <= 768;
-  const fs = isMobile ? '8px' : '11px';
-  const pad = isMobile ? '2px 5px' : '3px 8px';
-  const minW = isMobile ? '40px' : '55px';
-  
   if (skill === "mündlich1" || skill === "mündlich2" || skill === "mündlich3" || skill === "mündlich") {
     renderMündlichPartTabs();
   }
@@ -1603,88 +1597,45 @@ async function renderExamListForSkill(skill, teilName) {
     displaySavedResult(targetSkill, exam.id, titleSpan, div);
 
 
-    const retryCount = getRetryCount(targetSkill, exam.id);
+     const retryCount = getRetryCount(targetSkill, exam.id);
     if (retryCount > 0) {
         const retrySpan = document.createElement('span');
-        retrySpan.style.cssText = `
-            font-size: ${fs};
-            font-weight: bold;
-            padding: ${pad};
-            border-radius: 20px;
-            color: #475569;
-            background-color: #EEF2F6;
-            display: inline-block;
-            min-width: ${minW};
-            text-align: center;
-            line-height: 1.4;
-            margin-right: 4px;
-        `;
-        retrySpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">repeat</span> ${retryCount}`;
+        retrySpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
+        retrySpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">repeat</span> ${retryCount}`;
         titleSpan.appendChild(retrySpan);
     }
     // ✅ عرض تاريخ آخر مراجعة
     // ✅ عرض تاريخ آخر مراجعة
 // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
-    // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
+
+
     // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
 const forbiddenSkills = ['schreiben', 'mündlich1', 'mündlich2', 'mündlich3'];
 if (!forbiddenSkills.includes(targetSkill)) {
     const reviewDays = getLastReviewDays(targetSkill, exam.id);
     if (reviewDays !== null) {
-        let reviewColor = '#94a3b8';
-        if (reviewDays === 0) {
-            reviewColor = '#22c55e';
-        } else if (reviewDays <= 3) {
-            reviewColor = '#22c55e';
-        } else if (reviewDays <= 5) {
-            reviewColor = '#f59e0b';
-        } else {
-            reviewColor = '#ef4444';
-        }
-        
         const reviewSpan = document.createElement('span');
-        reviewSpan.style.cssText = `
-            font-size: ${fs};
-            font-weight: bold;
-            padding: ${pad};
-            border-radius: 20px;
-            color: ${reviewColor};
-            background-color: #EEF2F6;
-            display: inline-block;
-            min-width: ${minW};
-            text-align: center;
-            line-height: 1.4;
-            margin-right: 4px;
-        `;
-        
-        let text = '';
-        if (reviewDays === 0) {
-            text = 'اليوم';
-        } else if (reviewDays === 1) {
-            text = 'منذ يوم';
+        // تحديد اللون حسب عدد الأيام
+        let reviewColor = '#64748b';
+        if (reviewDays <= 3) {
+            reviewColor = '#22c55e'; // أخضر - حديث
+        } else if (reviewDays <= 5) {
+            reviewColor = '#f59e0b'; // برتقالي - يحتاج مراجعة
         } else {
-            text = `منذ ${reviewDays} يوم`;
+            reviewColor = '#ef4444'; // أحمر - متأخر
         }
-        
-        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">calendar_month</span> ${text}`;
+        reviewSpan.style.cssText = `font-size:10px; color:${reviewColor}; margin-right:6px;`;
+        if (reviewDays === 0) {
+            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> اليوم`;
+        } else {
+            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> منذ ${reviewDays} يوم`;
+        }
         titleSpan.appendChild(reviewSpan);
     } else {
-        // لم يُراجع أبداً
+        // لم يُصحح أبداً
         const reviewSpan = document.createElement('span');
-        reviewSpan.style.cssText = `
-            font-size: ${fs};
-            font-weight: bold;
-            padding: ${pad};
-            border-radius: 20px;
-            color: #94a3b8;
-            background-color: #EEF2F6;
-            display: inline-block;
-            min-width: ${minW};
-            text-align: center;
-            line-height: 1.4;
-            margin-right: 4px;
-        `;
-        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">calendar_month</span> لم يُراجع`;
+        reviewSpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
+        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">calendar_month</span> لم يُراجع`;
         titleSpan.appendChild(reviewSpan);
     }
 }
