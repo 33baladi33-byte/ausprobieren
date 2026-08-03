@@ -172,7 +172,6 @@ function getResultColor(score) {
   return "#adb5bd";
 }
 
-// ========== دالة عرض النتيجة بجانب عنوان الامتحان ==========
 function createResultBadge(score) {
   if (score === null) return null;
   
@@ -181,17 +180,22 @@ function createResultBadge(score) {
   badge.textContent = `${score} / 25`;
   
   const isMobile = window.innerWidth <= 768;
+  const fs = isMobile ? '8px' : '11px';
+  const pad = isMobile ? '2px 5px' : '3px 8px';
+  const minW = isMobile ? '40px' : '55px';
+
   badge.style.cssText = `
-    font-size: ${isMobile ? '8px' : '11px'};
+    font-size: ${fs};
     font-weight: bold;
-    padding: ${isMobile ? '2px 5px' : '3px 8px'};
+    padding: ${pad};
     border-radius: 20px;
     color: white;
     background-color: ${getResultColor(score)};
-    margin-left: 8px;
     display: inline-block;
-    min-width: ${isMobile ? '40px' : '55px'};
+    min-width: ${minW};
     text-align: center;
+    line-height: 1.4;
+    margin-left: 6px;
   `;
   return badge;
 }
@@ -1507,14 +1511,19 @@ function getFlattenedExamList(exams) {
     });
     return flattened;
 }
+
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
-  // ✅ تعيين المهارة الحالية في النطاق العام (للتلوين والاسترجاع)
   window.currentSkill = skill;
   
   const container = document.getElementById("examsList");
   if (!container) return;
   container.innerHTML = "";
+  
+  const isMobile = window.innerWidth <= 768;
+  const fs = isMobile ? '8px' : '11px';
+  const pad = isMobile ? '2px 5px' : '3px 8px';
+  const minW = isMobile ? '40px' : '55px';
   
   if (skill === "mündlich1" || skill === "mündlich2" || skill === "mündlich3" || skill === "mündlich") {
     renderMündlichPartTabs();
@@ -1532,7 +1541,6 @@ async function renderExamListForSkill(skill, teilName) {
   let targetSkill = skill;
   let targetExams = examsDatabase[skill] || [];
   
-  // معالجة Mündlich
   if (skill === "mündlich") {
     if (currentMündlichPart === 1) {
       targetSkill = "mündlich1";
@@ -1556,7 +1564,6 @@ async function renderExamListForSkill(skill, teilName) {
   const userStatus = await getUserStatusForExam();
   const isPremium = (userStatus === 'premium');
   
-  // إنشاء مجموعة من معرفات الإصدارات الفرعية لاستبعادها من العرض الرئيسي
   const versionIds = new Set();
   targetExams.forEach(exam => {
     if (exam.versions && exam.versions.length > 1) {
@@ -1568,13 +1575,11 @@ async function renderExamListForSkill(skill, teilName) {
     }
   });
   
-  // تصفية الامتحانات: نعرض فقط الامتحانات الأساسية (التي ليس معرفها ضمن versionIds)
   const mainExams = targetExams.filter(exam => !versionIds.has(exam.id));
   
   for (let i = 0; i < mainExams.length; i++) {
     const exam = mainExams[i];
     const examNumber = exam.id;
-    // ✅ استخدم دالة isExamFree بدلاً من الشرط القديم
     const isFreeExam = isExamFree(skill, examNumber);
     
     const div = document.createElement("div");
@@ -1597,43 +1602,87 @@ async function renderExamListForSkill(skill, teilName) {
     displaySavedResult(targetSkill, exam.id, titleSpan, div);
 
 
-    // ✅ عرض عدد الإعادات بجانب عنوان الامتحان
     const retryCount = getRetryCount(targetSkill, exam.id);
     if (retryCount > 0) {
         const retrySpan = document.createElement('span');
-        retrySpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
-        retrySpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">repeat</span> ${retryCount}`;
+        retrySpan.style.cssText = `
+            font-size: ${fs};
+            font-weight: bold;
+            padding: ${pad};
+            border-radius: 20px;
+            color: #475569;
+            background-color: #EEF2F6;
+            display: inline-block;
+            min-width: ${minW};
+            text-align: center;
+            line-height: 1.4;
+            margin-right: 4px;
+        `;
+        retrySpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">repeat</span> ${retryCount}`;
         titleSpan.appendChild(retrySpan);
     }
     // ✅ عرض تاريخ آخر مراجعة
     // ✅ عرض تاريخ آخر مراجعة
 // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
+    // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
 const forbiddenSkills = ['schreiben', 'mündlich1', 'mündlich2', 'mündlich3'];
 if (!forbiddenSkills.includes(targetSkill)) {
     const reviewDays = getLastReviewDays(targetSkill, exam.id);
     if (reviewDays !== null) {
-        const reviewSpan = document.createElement('span');
-        // تحديد اللون حسب عدد الأيام
-        let reviewColor = '#64748b';
-        if (reviewDays <= 3) {
-            reviewColor = '#22c55e'; // أخضر - حديث
-        } else if (reviewDays <= 5) {
-            reviewColor = '#f59e0b'; // برتقالي - يحتاج مراجعة
-        } else {
-            reviewColor = '#ef4444'; // أحمر - متأخر
-        }
-        reviewSpan.style.cssText = `font-size:10px; color:${reviewColor}; margin-right:6px;`;
+        let reviewColor = '#94a3b8';
         if (reviewDays === 0) {
-            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> اليوم`;
+            reviewColor = '#22c55e';
+        } else if (reviewDays <= 3) {
+            reviewColor = '#22c55e';
+        } else if (reviewDays <= 5) {
+            reviewColor = '#f59e0b';
         } else {
-            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> منذ ${reviewDays} يوم`;
+            reviewColor = '#ef4444';
         }
+        
+        const reviewSpan = document.createElement('span');
+        reviewSpan.style.cssText = `
+            font-size: ${fs};
+            font-weight: bold;
+            padding: ${pad};
+            border-radius: 20px;
+            color: ${reviewColor};
+            background-color: #EEF2F6;
+            display: inline-block;
+            min-width: ${minW};
+            text-align: center;
+            line-height: 1.4;
+            margin-right: 4px;
+        `;
+        
+        let text = '';
+        if (reviewDays === 0) {
+            text = 'اليوم';
+        } else if (reviewDays === 1) {
+            text = 'منذ يوم';
+        } else {
+            text = `منذ ${reviewDays} يوم`;
+        }
+        
+        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">calendar_month</span> ${text}`;
         titleSpan.appendChild(reviewSpan);
     } else {
-        // لم يُصحح أبداً
+        // لم يُراجع أبداً
         const reviewSpan = document.createElement('span');
-        reviewSpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
-        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">calendar_month</span> لم يُراجع`;
+        reviewSpan.style.cssText = `
+            font-size: ${fs};
+            font-weight: bold;
+            padding: ${pad};
+            border-radius: 20px;
+            color: #94a3b8;
+            background-color: #EEF2F6;
+            display: inline-block;
+            min-width: ${minW};
+            text-align: center;
+            line-height: 1.4;
+            margin-right: 4px;
+        `;
+        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">calendar_month</span> لم يُراجع`;
         titleSpan.appendChild(reviewSpan);
     }
 }
