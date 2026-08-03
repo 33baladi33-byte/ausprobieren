@@ -1507,10 +1507,9 @@ function getFlattenedExamList(exams) {
     });
     return flattened;
 }
-
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
-  // ✅ تعيين المهارة الحالية في النطاق العام (للتلوين)
+  // ✅ تعيين المهارة الحالية في النطاق العام (للتلوين والاسترجاع)
   window.currentSkill = skill;
   
   const container = document.getElementById("examsList");
