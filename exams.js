@@ -1597,43 +1597,88 @@ async function renderExamListForSkill(skill, teilName) {
     displaySavedResult(targetSkill, exam.id, titleSpan, div);
 
 
-    // ✅ عرض عدد الإعادات بجانب عنوان الامتحان
+     // ✅ عرض عدد الإعادات بجانب عنوان الامتحان
     const retryCount = getRetryCount(targetSkill, exam.id);
     if (retryCount > 0) {
         const retrySpan = document.createElement('span');
-        retrySpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
-        retrySpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">repeat</span> ${retryCount}`;
+        const isMobile = window.innerWidth <= 768;
+        const fs = isMobile ? '8px' : '11px';
+        const pad = isMobile ? '2px 5px' : '3px 8px';
+        const minW = isMobile ? '40px' : '55px';
+        retrySpan.style.cssText = `
+            font-size: ${fs};
+            font-weight: bold;
+            padding: ${pad};
+            border-radius: 20px;
+            color: #475569;
+            background-color: #EEF2F6;
+            display: inline-block;
+            min-width: ${minW};
+            text-align: center;
+            line-height: 1.4;
+            margin-left: 8px;
+        `;
+        retrySpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">repeat</span> ${retryCount}`;
         titleSpan.appendChild(retrySpan);
     }
     // ✅ عرض تاريخ آخر مراجعة
     // ✅ عرض تاريخ آخر مراجعة
-// ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
+    // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
 const forbiddenSkills = ['schreiben', 'mündlich1', 'mündlich2', 'mündlich3'];
 if (!forbiddenSkills.includes(targetSkill)) {
     const reviewDays = getLastReviewDays(targetSkill, exam.id);
     if (reviewDays !== null) {
         const reviewSpan = document.createElement('span');
-        // تحديد اللون حسب عدد الأيام
-        let reviewColor = '#64748b';
+        const isMobile = window.innerWidth <= 768;
+        const fs = isMobile ? '8px' : '11px';
+        const pad = isMobile ? '2px 5px' : '3px 8px';
+        const minW = isMobile ? '40px' : '55px';
+        // تحديد لون النص حسب عدد الأيام
+        let textColor = '#94a3b8';
         if (reviewDays <= 3) {
-            reviewColor = '#22c55e'; // أخضر - حديث
+            textColor = '#22c55e'; // أخضر - حديث
         } else if (reviewDays <= 5) {
-            reviewColor = '#f59e0b'; // برتقالي - يحتاج مراجعة
+            textColor = '#f59e0b'; // برتقالي - يحتاج مراجعة
         } else {
-            reviewColor = '#ef4444'; // أحمر - متأخر
+            textColor = '#ef4444'; // أحمر - متأخر
         }
-        reviewSpan.style.cssText = `font-size:10px; color:${reviewColor}; margin-right:6px;`;
-        if (reviewDays === 0) {
-            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> اليوم`;
-        } else {
-            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> منذ ${reviewDays} يوم`;
-        }
+        reviewSpan.style.cssText = `
+            font-size: ${fs};
+            font-weight: bold;
+            padding: ${pad};
+            border-radius: 20px;
+            color: ${textColor};
+            background-color: #EEF2F6;
+            display: inline-block;
+            min-width: ${minW};
+            text-align: center;
+            line-height: 1.4;
+            margin-left: 8px;
+        `;
+        const text = reviewDays === 0 ? 'اليوم' : `منذ ${reviewDays} يوم`;
+        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">calendar_month</span> ${text}`;
         titleSpan.appendChild(reviewSpan);
     } else {
         // لم يُصحح أبداً
         const reviewSpan = document.createElement('span');
-        reviewSpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
-        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">calendar_month</span> لم يُراجع`;
+        const isMobile = window.innerWidth <= 768;
+        const fs = isMobile ? '8px' : '11px';
+        const pad = isMobile ? '2px 5px' : '3px 8px';
+        const minW = isMobile ? '40px' : '55px';
+        reviewSpan.style.cssText = `
+            font-size: ${fs};
+            font-weight: bold;
+            padding: ${pad};
+            border-radius: 20px;
+            color: #94a3b8;
+            background-color: #EEF2F6;
+            display: inline-block;
+            min-width: ${minW};
+            text-align: center;
+            line-height: 1.4;
+            margin-left: 8px;
+        `;
+        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">calendar_month</span> لم يُراجع`;
         titleSpan.appendChild(reviewSpan);
     }
 }
