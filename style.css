@@ -5497,6 +5497,7 @@ body.dark-mode .planner-section-title {
     color: #e8ecf0;
 }
 /* ===== زر خطة اليوم الجديد (مع Border Animation) ===== */
+/* ===== زر خطة اليوم الجديد (مع Border Animation) ===== */
 .study-planner-icon-btn {
     position: relative;
     background: rgba(255, 255, 255, 0.05);
@@ -5511,6 +5512,15 @@ body.dark-mode .planner-section-title {
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    
+    /* ✅ التعديل الجديد: تصغير الزر إلى 85% */
+    transform: scale(0.85);
+    transform-origin: center center;
+}
+
+/* ✅ إضافة هذا الكود لتصحيح حجم الزر عند التمرير عليه (Hover) */
+.study-planner-icon-btn:hover {
+    transform: scale(0.884) !important; /* 0.85 * 1.04 (لأن الحجم الأصلي في Hover هو 1.04) */
 }
 
 /* الصورة داخل الزر – ثابتة ولا تتحرك */
