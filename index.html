@@ -3928,9 +3928,22 @@ window.updateAskAIContext = function(skill, examId) {
                 if (Array.isArray(ids) && ids.length > 0) {
                     window._selectedExamIds = ids;
                     console.log(`  🔄 تم استرجاع ${ids.length} معرف فريد للتلوين من localStorage`);
+                    
+                    // ✅ استخراج المهارة من أول معرف (مثال: hoeren1_exam40 → hoeren1)
+                    const firstId = ids[0];
+                    const skillMatch = firstId.match(/^([^_]+)_exam/);
+                    if (skillMatch && skillMatch[1]) {
+                        window.currentSkill = skillMatch[1];
+                        console.log(`  📌 تم تعيين currentSkill = ${window.currentSkill} من المعرفات المخزنة`);
+                    }
+                    
                     // إذا كان الـ Toggle مفعلاً، نطبق التلوين
                     if (savedToggle === 'true') {
-                        setTimeout(window.applyExamColors, 100);
+                        if (typeof window.applyExamColors === 'function') {
+                            // نمسح الألوان القديمة ثم نلون
+                            if (typeof window.clearExamColors === 'function') window.clearExamColors();
+                            setTimeout(window.applyExamColors, 100);
+                        }
                     }
                 }
             } catch (e) {
@@ -3942,7 +3955,6 @@ window.updateAskAIContext = function(skill, examId) {
 
     // استدعاء الاسترجاع بعد تحميل الصفحة
     setTimeout(restorePlannerState, 300);
-
     console.log('✅ Study Planner (مع التلوين الذكي) مرتبط بنجاح');
 })();
 // ============================================
