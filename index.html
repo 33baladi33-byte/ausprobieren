@@ -3022,38 +3022,48 @@ window.updateAskAIContext = function(skill, examId) {
     // ===== نظام التلوين الجديد (يُضاف إلى النطاق العام) =====
     const EXAM_COLOR = '#38BDF8';
 
-    window.applyExamColors = function() {
-        const cards = document.querySelectorAll('.exam-card, .planner-exam-item, .exam-item, [class*="exam"]');
+       window.applyExamColors = function() {
+        // استهداف div.item فقط (البطاقات الفعلية)
+        const cards = document.querySelectorAll('div.item');
         let colored = 0;
         cards.forEach(card => {
-            if (card.dataset.examId || card.textContent.includes('امتحان') || card.querySelector('.exam-title')) {
-                const bg = window.getComputedStyle(card).backgroundColor;
-                if (!bg.includes('56, 189, 248') && !bg.includes('#38BDF8')) {
-                    card.style.backgroundColor = EXAM_COLOR;
-                    card.style.transition = 'background-color 0.3s ease';
-                    card.dataset.colored = 'true';
-                    colored++;
-                }
+            if (card.classList.contains('item')) {
+                // تطبيق التصميم المختار فقط
+                card.style.background = 'rgba(56, 189, 248, 0.08)';
+                card.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.06)';
+                card.style.border = '1px solid rgba(56, 189, 248, 0.14)';
+                card.style.position = 'relative';
+                card.style.transition = 'all 0.3s ease';
+                card.dataset.colored = 'true';
+                colored++;
             }
         });
-        if (colored > 0) console.log(`  ✅ تم تلوين ${colored} بطاقة`);
+        if (colored > 0) console.log(`  ✅ تم تلوين ${colored} بطاقة بالتصميم الجديد`);
         return colored;
     };
 
-    window.clearExamColors = function() {
-        document.querySelectorAll('[data-colored="true"]').forEach(el => {
-            el.style.backgroundColor = '';
-            el.style.transition = '';
-            delete el.dataset.colored;
+      window.clearExamColors = function() {
+        // إزالة التصميم من البطاقات التي تحمل علامة التلوين
+        document.querySelectorAll('div.item[data-colored="true"]').forEach(card => {
+            card.style.background = '';
+            card.style.boxShadow = '';
+            card.style.border = '';
+            card.style.position = '';
+            card.style.transition = '';
+            delete card.dataset.colored;
         });
-        document.querySelectorAll('.exam-card, .planner-exam-item, .exam-item').forEach(card => {
-            const bg = window.getComputedStyle(card).backgroundColor;
-            if (bg.includes('56, 189, 248') || bg.includes('#38BDF8')) {
-                card.style.backgroundColor = '';
+        // تنظيف إضافي للبطاقات التي قد يكون لها تلوين يدوي سابق بدون data-colored
+        document.querySelectorAll('div.item').forEach(card => {
+            const bg = card.style.background || window.getComputedStyle(card).background;
+            if (bg && bg.includes('56, 189, 248')) {
+                card.style.background = '';
+                card.style.boxShadow = '';
+                card.style.border = '';
+                card.style.position = '';
                 card.style.transition = '';
             }
         });
-        console.log('  ✅ تم إزالة جميع الألوان');
+        console.log('  ✅ تم إزالة جميع الألوان والتصاميم');
     };
 
     window.removeColorFromExam = function(examId) {
