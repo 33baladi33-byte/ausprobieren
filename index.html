@@ -3148,24 +3148,31 @@ window.updateAskAIContext = function(skill, examId) {
         console.log(`  ✅ تم إزالة تلوين امتحان ${examId} (${uniqueKey})`);
         return removed;
     };
-    function createToggleSwitch(containerElement) {
+      function createToggleSwitch(containerElement) {
         if (containerElement.querySelector('.planner-toggle-wrapper')) return;
         const wrapper = document.createElement('div');
         wrapper.className = 'planner-toggle-wrapper';
+        wrapper.style.cssText = 'display: block; width: 100%; margin-top: 6px; text-align: right;';
         const uid = 'plannerToggle_' + Date.now();
         wrapper.innerHTML = `
-            <span style="font-size: 0.7rem; font-weight: 500; color: #94a3b8; letter-spacing: 0.3px;">تلوين الامتحانات</span>
-            <div class="ios-toggle-container">
+            <div class="ios-toggle-container" style="display: inline-block;">
                 <input type="checkbox" class="ios-toggle-checkbox" id="${uid}">
                 <label class="ios-toggle-label" for="${uid}">
                     <span class="ios-toggle-slider"></span>
                 </label>
             </div>
         `;
-        const target = containerElement.querySelector('.planner-remaining, .right-date, .planner-date');
+        // البحث عن العنصر الذي يحتوي على "لديك X يوم" (planner-remaining)
+        let target = containerElement.querySelector('.planner-remaining');
+        if (!target) {
+            // إذا لم يوجد، نبحث عن right-date أو planner-date (كحل احتياطي)
+            target = containerElement.querySelector('.right-date, .planner-date');
+        }
         if (target) {
+            // إدراج الـ wrapper بعد target مباشرة (أسفله)
             target.parentNode.insertBefore(wrapper, target.nextSibling);
         } else {
+            // إذا لم نجد أي عنصر، نضعه في نهاية الحاوية
             containerElement.appendChild(wrapper);
         }
         const checkbox = wrapper.querySelector('.ios-toggle-checkbox');
