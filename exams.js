@@ -3067,26 +3067,9 @@ function checkTeil1(questions, answers) {
       window.updateRetryCounter();
   }
   
-  // ✅ 4. إزالة تلوين هذا الامتحان إذا كان ملوناً (ربط مع النظام الجديد)
+  // ✅ 4. إزالة تلوين هذا الامتحان بعد التصحيح (باستخدام الدالة الموحدة)
   if (typeof window.removeColorFromExam === 'function') {
       window.removeColorFromExam(currentExamId);
-  }
-  
-  // ✅ 5. إزالة هذا الامتحان من قائمة التلوين المخزنة (إذا كان موجوداً)
-  if (window._selectedExamIds && window.currentSkill) {
-      const uniqueKey = `${window.currentSkill}_exam${currentExamId}`;
-      const idx = window._selectedExamIds.indexOf(uniqueKey);
-      if (idx !== -1) {
-          window._selectedExamIds.splice(idx, 1);
-          localStorage.setItem('plannerSelectedExamIds', JSON.stringify(window._selectedExamIds));
-          console.log(`  ✅ تم إزالة ${uniqueKey} من قائمة التلوين بعد التصحيح`);
-          // إعادة تطبيق التلوين على البطاقات المتبقية
-          if (window._selectedExamIds.length > 0) {
-              setTimeout(window.applyExamColors, 100);
-          } else {
-              window.clearExamColors();
-          }
-      }
   }
   
   if (document.getElementById("list").classList.contains("active")) {
