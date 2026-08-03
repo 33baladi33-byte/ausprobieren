@@ -1606,17 +1606,27 @@ async function renderExamListForSkill(skill, teilName) {
         titleSpan.appendChild(retrySpan);
     }
     // ✅ عرض تاريخ آخر مراجعة
+    // ✅ عرض تاريخ آخر مراجعة
 // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
 const forbiddenSkills = ['schreiben', 'mündlich1', 'mündlich2', 'mündlich3'];
 if (!forbiddenSkills.includes(targetSkill)) {
     const reviewDays = getLastReviewDays(targetSkill, exam.id);
     if (reviewDays !== null) {
         const reviewSpan = document.createElement('span');
-        reviewSpan.style.cssText = 'font-size:10px; color:#64748b; margin-right:6px;';
-        if (reviewDays === 0) {
-            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#64748b; margin-right:2px; vertical-align:middle;">calendar_month</span> اليوم`;
+        // تحديد اللون حسب عدد الأيام
+        let reviewColor = '#64748b';
+        if (reviewDays <= 3) {
+            reviewColor = '#22c55e'; // أخضر - حديث
+        } else if (reviewDays <= 5) {
+            reviewColor = '#f59e0b'; // برتقالي - يحتاج مراجعة
         } else {
-            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#64748b; margin-right:2px; vertical-align:middle;">calendar_month</span> منذ ${reviewDays} يوم`;
+            reviewColor = '#ef4444'; // أحمر - متأخر
+        }
+        reviewSpan.style.cssText = `font-size:10px; color:${reviewColor}; margin-right:6px;`;
+        if (reviewDays === 0) {
+            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> اليوم`;
+        } else {
+            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> منذ ${reviewDays} يوم`;
         }
         titleSpan.appendChild(reviewSpan);
     } else {
