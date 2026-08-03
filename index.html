@@ -1276,6 +1276,15 @@ body.dark-mode .mobile-banner span {
 .ios-toggle-container input:checked + .ios-toggle-label .ios-toggle-slider {
     left: calc(100% - 24px);
 }
+
+/* ===== ثبات التلوين - يمنع الـ Hover من إزالة اللون ===== */
+.item[data-colored="true"] {
+    background: rgba(56, 189, 248, 0.08) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06) !important;
+    border: 1px solid rgba(56, 189, 248, 0.14) !important;
+    position: relative !important;
+}
+
 </style>
     
 </head>
