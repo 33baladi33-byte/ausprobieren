@@ -3007,10 +3007,6 @@ function buildTeil1(questions) {
   resultDiv.style.display = "none";
   container.appendChild(resultDiv);
 }
-
-// ============================================
-// ✅ دالة checkTeil1 المُعدّلة - تعتمد على ID ثابت
-// ============================================
 function checkTeil1(questions, answers) {
   let score = 0;
   const total = questions.length;
@@ -3063,6 +3059,11 @@ function checkTeil1(questions, answers) {
   // ✅ 3. تحديث البطاقات فوراً (بعد تغيير localStorage)
   if (typeof window.updateRetryCounter === 'function') {
       window.updateRetryCounter();
+  }
+  
+  // ✅ 4. إزالة تلوين هذا الامتحان إذا كان ملوناً
+  if (typeof removeColorFromExam === 'function') {
+      removeColorFromExam(currentExamId);
   }
   
   if (document.getElementById("list").classList.contains("active")) {
