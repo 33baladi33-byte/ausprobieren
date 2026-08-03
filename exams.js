@@ -1508,11 +1508,10 @@ function getFlattenedExamList(exams) {
     return flattened;
 }
 
-// ============================================
-// ✅ دالة renderExamListForSkill المعدلة (مع القواعد الجديدة)
-// ============================================
 async function renderExamListForSkill(skill, teilName) {
   currentSkill = skill;
+  // ✅ تعيين المهارة الحالية في النطاق العام (للتلوين)
+  window.currentSkill = skill;
   
   const container = document.getElementById("examsList");
   if (!container) return;
@@ -1787,7 +1786,7 @@ if (hasVersions) {
     container.appendChild(div);
   }
 
-    createViewModeToggles();
+  createViewModeToggles();
   
   // ✅ الترتيب الطبيعي دائماً (بدون حفظ حالة)
   restoreOriginalOrder();
@@ -1815,6 +1814,7 @@ if (hasVersions) {
       }
   }
 }
+
 function showVersionsPopup(exam, skill) {
   const overlay = document.createElement('div');
   overlay.id = 'versionsPopupAuto';
