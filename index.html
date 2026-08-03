@@ -3148,11 +3148,22 @@ window.updateAskAIContext = function(skill, examId) {
         console.log(`  ✅ تم إزالة تلوين امتحان ${examId} (${uniqueKey})`);
         return removed;
     };
-      function createToggleSwitch(containerElement) {
+     function createToggleSwitch(containerElement) {
         if (containerElement.querySelector('.planner-toggle-wrapper')) return;
+        
+        // إنشاء الـ wrapper للـ Switch
         const wrapper = document.createElement('div');
         wrapper.className = 'planner-toggle-wrapper';
-        wrapper.style.cssText = 'display: block; width: 100%; margin-top: 6px; text-align: right;';
+        wrapper.style.cssText = `
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 4px 0 8px 0;
+            width: 100%;
+            border-bottom: 1px solid #eef2f6;
+            margin-top: 2px;
+        `;
+        
         const uid = 'plannerToggle_' + Date.now();
         wrapper.innerHTML = `
             <div class="ios-toggle-container" style="display: inline-block;">
@@ -3162,19 +3173,17 @@ window.updateAskAIContext = function(skill, examId) {
                 </label>
             </div>
         `;
-        // البحث عن العنصر الذي يحتوي على "لديك X يوم" (planner-remaining)
-        let target = containerElement.querySelector('.planner-remaining');
-        if (!target) {
-            // إذا لم يوجد، نبحث عن right-date أو planner-date (كحل احتياطي)
-            target = containerElement.querySelector('.right-date, .planner-date');
-        }
-        if (target) {
-            // إدراج الـ wrapper بعد target مباشرة (أسفله)
-            target.parentNode.insertBefore(wrapper, target.nextSibling);
+        
+        // البحث عن الـ header الذي يحتوي على "لديك X يوم"
+        const header = containerElement.querySelector('.planner-header');
+        if (header) {
+            // إدراج الـ wrapper بعد الـ header مباشرة (خارج الـ flex container)
+            header.parentNode.insertBefore(wrapper, header.nextSibling);
         } else {
-            // إذا لم نجد أي عنصر، نضعه في نهاية الحاوية
+            // احتياطي: نضعه في نهاية الحاوية
             containerElement.appendChild(wrapper);
         }
+        
         const checkbox = wrapper.querySelector('.ios-toggle-checkbox');
         // استعادة الحالة المحفوظة
         const savedState = localStorage.getItem('plannerToggleState');
@@ -3183,14 +3192,13 @@ window.updateAskAIContext = function(skill, examId) {
         } else if (savedState === 'false') {
             checkbox.checked = false;
         }
-        // ✅ ربط حدث التغيير – Live ON/OFF
+        
+        // ربط حدث التغيير – Live ON/OFF
         checkbox.addEventListener('change', function() {
             localStorage.setItem('plannerToggleState', this.checked ? 'true' : 'false');
             if (this.checked) {
-                // عند التفعيل: تطبيق التلوين إذا كانت هناك خطة حالية
                 if (window._selectedExamIds && window._selectedExamIds.length > 0) {
                     if (typeof window.applyExamColors === 'function') {
-                        // نمسح الألوان القديمة أولاً ثم نلون
                         if (typeof window.clearExamColors === 'function') window.clearExamColors();
                         setTimeout(window.applyExamColors, 100);
                     }
@@ -3198,13 +3206,13 @@ window.updateAskAIContext = function(skill, examId) {
                     console.log('ℹ️ لا توجد خطة حالية للتلوين');
                 }
             } else {
-                // عند إلغاء التفعيل: إزالة كل الألوان
                 if (typeof window.clearExamColors === 'function') {
                     window.clearExamColors();
                 }
             }
         });
-        // ✅ تطبيق فوري عند إنشاء الـ Toggle إذا كان مفعلاً وتوجد خطة
+        
+        // تطبيق فوري إذا كان مفعلاً
         if (checkbox.checked && window._selectedExamIds && window._selectedExamIds.length > 0) {
             if (typeof window.applyExamColors === 'function') {
                 setTimeout(window.applyExamColors, 100);
