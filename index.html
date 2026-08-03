@@ -3086,6 +3086,7 @@ window.updateAskAIContext = function(skill, examId) {
 
     window.removeColorFromExam = function(examId) {
         // استهداف البطاقات الفعلية (div.item) بنفس منطق استخراج المعرف في applyExamColors
+        let removed = 0;
         document.querySelectorAll('div.item').forEach(card => {
             if (card.classList.contains('item')) {
                 let id = null;
@@ -3106,13 +3107,17 @@ window.updateAskAIContext = function(skill, examId) {
                     card.style.position = '';
                     card.style.transition = '';
                     delete card.dataset.colored;
+                    removed++;
                 }
             }
         });
-        console.log(`  ✅ تم إزالة تلوين امتحان ${examId}`);
+        if (removed > 0) {
+            console.log(`  ✅ تم إزالة تلوين امتحان ${examId}`);
+        } else {
+            console.log(`  ℹ️ لم يتم العثور على بطاقة ملونة للامتحان ${examId}`);
+        }
+        return removed;
     };
-
-    // ===== دوال الـ Toggle =====
     function createToggleSwitch(containerElement) {
         if (containerElement.querySelector('.planner-toggle-wrapper')) return;
         const wrapper = document.createElement('div');
@@ -3141,26 +3146,56 @@ window.updateAskAIContext = function(skill, examId) {
         } else if (savedState === 'false') {
             checkbox.checked = false;
         }
+        // ✅ ربط حدث التغيير – Live ON/OFF
         checkbox.addEventListener('change', function() {
             localStorage.setItem('plannerToggleState', this.checked ? 'true' : 'false');
-            if (!this.checked && typeof window.clearExamColors === 'function') {
-                window.clearExamColors();
+            if (this.checked) {
+                // عند التفعيل: تطبيق التلوين إذا كانت هناك خطة حالية
+                if (window._selectedExamIds && window._selectedExamIds.length > 0) {
+                    if (typeof window.applyExamColors === 'function') {
+                        // نمسح الألوان القديمة أولاً ثم نلون
+                        if (typeof window.clearExamColors === 'function') window.clearExamColors();
+                        setTimeout(window.applyExamColors, 100);
+                    }
+                } else {
+                    console.log('ℹ️ لا توجد خطة حالية للتلوين');
+                }
+            } else {
+                // عند إلغاء التفعيل: إزالة كل الألوان
+                if (typeof window.clearExamColors === 'function') {
+                    window.clearExamColors();
+                }
             }
         });
+        // ✅ تطبيق فوري عند إنشاء الـ Toggle إذا كان مفعلاً وتوجد خطة
+        if (checkbox.checked && window._selectedExamIds && window._selectedExamIds.length > 0) {
+            if (typeof window.applyExamColors === 'function') {
+                setTimeout(window.applyExamColors, 100);
+            }
+        }
     }
-    function hookCheckButton(container) {
-        // البحث عن زر "فحص" بالطريقة الصحيحة (بدون :contains)
+
+        function hookCheckButton(container) {
+        // البحث عن زر "فحص" باستخدام محددات صحيحة فقط (بدون :contains)
         let checkBtn = null;
+        // نبحث في جميع الأزرار داخل الحاوية
         const allButtons = container.querySelectorAll('button, .planner-section-btn, [role="button"]');
         for (const btn of allButtons) {
             const text = btn.textContent.trim();
+            // نقارن النص أو المعرف
             if (text === 'فحص' || text === 'تحقق' || btn.id === 'customCheckBtn' || btn.id === 'plannerSetupBtn') {
                 checkBtn = btn;
                 break;
             }
         }
-        if (!checkBtn) return;
-        if (checkBtn.dataset.hooked) return;
+        if (!checkBtn) {
+            console.warn('⚠️ hookCheckButton: لم يتم العثور على زر "فحص"');
+            return;
+        }
+        if (checkBtn.dataset.hooked) {
+            console.log('🔗 زر "فحص" مربوط مسبقاً');
+            return;
+        }
         checkBtn.dataset.hooked = 'true';
         const originalClick = checkBtn.onclick;
         checkBtn.onclick = function(e) {
@@ -3168,14 +3203,16 @@ window.updateAskAIContext = function(skill, examId) {
             const isActive = toggle ? toggle.checked : false;
             // مسح الألوان أولاً
             if (typeof window.clearExamColors === 'function') window.clearExamColors();
-            // إذا كان التفعيل مفعلاً، نطبق التلوين (سيقرأ window._selectedExamIds)
+            // إذا كان التفعيل مفعلاً، نطبق التلوين
             if (isActive) {
                 if (typeof window.applyExamColors === 'function') {
                     setTimeout(window.applyExamColors, 150);
                 }
             }
+            // تنفيذ الوظيفة الأصلية للزر (إن وجدت)
             if (originalClick) originalClick.call(this, e);
         };
+        console.log('✅ زر "فحص" مربوط بنجاح');
     }
 
     // ===== 3. صفحة الخطة =====
@@ -3209,14 +3246,6 @@ window.updateAskAIContext = function(skill, examId) {
             console.error('❌ خطأ في توليد الخطة:', error);
         }
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -3335,10 +3364,15 @@ window.updateAskAIContext = function(skill, examId) {
             hookCheckButton(card);
         }
 
-        // ✅ تطبيق التلوين إذا كان الـ Toggle مفعلاً
+             // ✅ تطبيق التلوين إذا كان الـ Toggle مفعلاً (مع مسح الألوان أولاً)
         const toggle = document.querySelector('.ios-toggle-checkbox');
         if (toggle && toggle.checked && typeof window.applyExamColors === 'function') {
-            setTimeout(window.applyExamColors, 100);
+            // نمسح أي ألوان قديمة
+            if (typeof window.clearExamColors === 'function') window.clearExamColors();
+            setTimeout(window.applyExamColors, 150);
+        } else if (toggle && !toggle.checked && typeof window.clearExamColors === 'function') {
+            // إذا كان Toggle OFF نزيل الألوان
+            window.clearExamColors();
         }
 
         document.querySelectorAll('.exam-card').forEach(card => {
@@ -3794,12 +3828,14 @@ window.updateAskAIContext = function(skill, examId) {
             hookCheckButton(card);
         }
 
-        // ✅ تطبيق التلوين إذا كان الـ Toggle مفعلاً
+             // ✅ تطبيق التلوين إذا كان الـ Toggle مفعلاً (مع مسح الألوان أولاً)
         const toggle = document.querySelector('.ios-toggle-checkbox');
         if (toggle && toggle.checked && typeof window.applyExamColors === 'function') {
-            setTimeout(window.applyExamColors, 100);
+            if (typeof window.clearExamColors === 'function') window.clearExamColors();
+            setTimeout(window.applyExamColors, 150);
+        } else if (toggle && !toggle.checked && typeof window.clearExamColors === 'function') {
+            window.clearExamColors();
         }
-
         document.querySelectorAll('.exam-card').forEach(card => {
             card.addEventListener('click', function() {
                 const examId = parseInt(this.dataset.examId);
