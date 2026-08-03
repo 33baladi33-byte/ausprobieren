@@ -185,12 +185,13 @@ function createResultBadge(score) {
     font-size: ${isMobile ? '8px' : '11px'};
     font-weight: bold;
     padding: ${isMobile ? '2px 5px' : '3px 8px'};
-    border-radius: 20px;
+    border-radius: 999px;
     color: white;
     background-color: ${getResultColor(score)};
-    margin-left: 8px;
     display: inline-block;
     min-width: ${isMobile ? '40px' : '55px'};
+    height: 22px;
+    line-height: 1.4;
     text-align: center;
   `;
   return badge;
@@ -1596,111 +1597,104 @@ async function renderExamListForSkill(skill, teilName) {
       titleSpan.textContent = `${exam.id}: ${exam.title}`;
     }
     div.appendChild(titleSpan);
-    
-    // السطر الثاني: المعلومات (النتيجة، repeat، calendar_month، Memory Trainer)
+
+    // السطر الثاني: المعلومات (النتيجة، repeat، calendar_month، progress)
     const infoRow = document.createElement("div");
     infoRow.className = "exam-info-row";
-    infoRow.style.display = "flex";
-    infoRow.style.flexWrap = "wrap";
-    infoRow.style.alignItems = "center";
-    infoRow.style.gap = "6px 8px";
-    infoRow.style.marginTop = "2px";
+    infoRow.style.cssText = `
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(55px, max-content));
+      gap: 4px 6px;
+      align-items: center;
+      margin-top: 4px;
+    `;
     div.appendChild(infoRow);
     
-    // --- 1. عرض النتيجة ---
+    // دالة مساعدة لإنشاء badge متوحد الارتفاع
+    const createBadge = (content, bgColor, textColor, iconName) => {
+      const isMobile = window.innerWidth <= 768;
+      const fs = isMobile ? '8px' : '11px';
+      const pad = isMobile ? '2px 5px' : '3px 8px';
+      const minW = isMobile ? '40px' : '55px';
+      const span = document.createElement('span');
+      span.style.cssText = `
+        font-size: ${fs};
+        font-weight: bold;
+        padding: ${pad};
+        border-radius: 999px;
+        color: ${textColor || '#475569'};
+        background-color: ${bgColor || '#EEF2F6'};
+        display: inline-block;
+        min-width: ${minW};
+        height: 22px;
+        line-height: 1.4;
+        text-align: center;
+        white-space: nowrap;
+      `;
+      if (iconName) {
+        span.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">${iconName}</span> ${content}`;
+      } else {
+        span.textContent = content;
+      }
+      return span;
+    };
+    
+    // --- 1. عرض النتيجة (تم تعديل createResultBadge سابقاً) ---
     const savedScore = getExamResult(targetSkill, exam.id);
     if (savedScore !== null) {
       const badge = createResultBadge(savedScore);
-      if (badge) infoRow.appendChild(badge);
+      if (badge) {
+        // إزالة margin-left لأن الـ Grid يدير المسافات
+        badge.style.marginLeft = '0';
+        infoRow.appendChild(badge);
+      }
     }
     
     // --- 2. عرض عدد الإعادات (repeat) ---
     const retryCount = getRetryCount(targetSkill, exam.id);
     if (retryCount > 0) {
-      const isMobile = window.innerWidth <= 768;
-      const fs = isMobile ? '8px' : '11px';
-      const pad = isMobile ? '2px 5px' : '3px 8px';
-      const minW = isMobile ? '40px' : '55px';
-      const retrySpan = document.createElement('span');
-      retrySpan.style.cssText = `
-        font-size: ${fs};
-        font-weight: bold;
-        padding: ${pad};
-        border-radius: 20px;
-        color: #475569;
-        background-color: #EEF2F6;
-        display: inline-block;
-        min-width: ${minW};
-        text-align: center;
-        line-height: 1.4;
-      `;
-      retrySpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">repeat</span> ${retryCount}`;
-      infoRow.appendChild(retrySpan);
+      const span = createBadge(retryCount.toString(), '#EEF2F6', '#475569', 'repeat');
+      infoRow.appendChild(span);
     }
     
     // --- 3. عرض تاريخ آخر مراجعة (calendar_month) ---
     const forbiddenSkills = ['schreiben', 'mündlich1', 'mündlich2', 'mündlich3'];
     if (!forbiddenSkills.includes(targetSkill)) {
       const reviewDays = getLastReviewDays(targetSkill, exam.id);
-      const isMobile = window.innerWidth <= 768;
-      const fs = isMobile ? '8px' : '11px';
-      const pad = isMobile ? '2px 5px' : '3px 8px';
-      const minW = isMobile ? '40px' : '55px';
-      
       if (reviewDays !== null) {
         let textColor = '#94a3b8';
         if (reviewDays <= 3) textColor = '#22c55e';
         else if (reviewDays <= 5) textColor = '#f59e0b';
         else textColor = '#ef4444';
-        
-        const reviewSpan = document.createElement('span');
-        reviewSpan.style.cssText = `
-          font-size: ${fs};
-          font-weight: bold;
-          padding: ${pad};
-          border-radius: 20px;
-          color: ${textColor};
-          background-color: #EEF2F6;
-          display: inline-block;
-          min-width: ${minW};
-          text-align: center;
-          line-height: 1.4;
-        `;
         const text = reviewDays === 0 ? 'اليوم' : `منذ ${reviewDays} يوم`;
-        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">calendar_month</span> ${text}`;
-        infoRow.appendChild(reviewSpan);
+        const span = createBadge(text, '#EEF2F6', textColor, 'calendar_month');
+        infoRow.appendChild(span);
       } else {
-        const reviewSpan = document.createElement('span');
-        reviewSpan.style.cssText = `
-          font-size: ${fs};
-          font-weight: bold;
-          padding: ${pad};
-          border-radius: 20px;
-          color: #94a3b8;
-          background-color: #EEF2F6;
-          display: inline-block;
-          min-width: ${minW};
-          text-align: center;
-          line-height: 1.4;
-        `;
-        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:${fs}; line-height:1; vertical-align:middle; margin-right:2px;">calendar_month</span> لم يُراجع`;
-        infoRow.appendChild(reviewSpan);
+        const span = createBadge('لم يُراجع', '#EEF2F6', '#94a3b8', 'calendar_month');
+        infoRow.appendChild(span);
       }
     }
     
-    // --- 4. شريط التقدم (progress) ---
+    // --- 4. شريط التقدم (progress) - بنفس نمط الـ badges ---
     const progress = getExamProgress(targetSkill, exam.id);
     if (progress > 0) {
       const progressSpan = document.createElement('span');
-      progressSpan.className = 'exam-progress-mini';
+      const isMobile = window.innerWidth <= 768;
+      const fs = isMobile ? '8px' : '11px';
+      const pad = isMobile ? '2px 5px' : '3px 8px';
+      const minW = isMobile ? '40px' : '55px';
       progressSpan.style.cssText = `
-        font-size: 10px;
+        font-size: ${fs};
+        font-weight: bold;
+        padding: ${pad};
+        border-radius: 999px;
         color: #1565C0;
-        font-weight: 500;
-        background: #f0f7ff;
-        padding: 2px 6px;
-        border-radius: 10px;
+        background-color: #EEF2F6;
         display: inline-block;
+        min-width: ${minW};
+        height: 22px;
+        line-height: 1.4;
+        text-align: center;
       `;
       progressSpan.textContent = `${progress}%`;
       infoRow.appendChild(progressSpan);
