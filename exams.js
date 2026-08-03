@@ -1520,6 +1520,7 @@ async function renderExamListForSkill(skill, teilName) {
   if (!container) return;
   container.innerHTML = "";
   
+  // ✅ متغيرات الحجم الموحدة (مطابقة لـ createResultBadge)
   const isMobile = window.innerWidth <= 768;
   const fs = isMobile ? '8px' : '11px';
   const pad = isMobile ? '2px 5px' : '3px 8px';
@@ -1624,6 +1625,7 @@ async function renderExamListForSkill(skill, teilName) {
     // ✅ عرض تاريخ آخر مراجعة
     // ✅ عرض تاريخ آخر مراجعة
 // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
+    // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
     // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
 const forbiddenSkills = ['schreiben', 'mündlich1', 'mündlich2', 'mündlich3'];
 if (!forbiddenSkills.includes(targetSkill)) {
