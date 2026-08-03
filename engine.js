@@ -801,6 +801,14 @@ function checkSprach2Exam() {
   if (typeof window.updateDailyPlanSilent === 'function') {
       window.updateDailyPlanSilent();
   }
+
+  // ✅ إزالة التلوين بعد التصحيح
+  if (typeof window.removeColorFromExam === 'function') {
+      const examId = window.currentExamId;
+      if (examId) {
+          window.removeColorFromExam(examId);
+      }
+  }
 }
 
 // ============================================
@@ -1125,7 +1133,6 @@ function resetSprach1Exam() {
   
   console.log("✅ تم إعادة تعيين Sprachbausteine Teil 1");
 }
-
 function checkSprach1Exam() {
   const options = currentSprach1Data.options;
   let score = 0;
@@ -1209,6 +1216,14 @@ function checkSprach1Exam() {
   // ✅ تحديث خطة المدرب الذكي (تحديث الكاش)
   if (typeof window.updateDailyPlanSilent === 'function') {
       window.updateDailyPlanSilent();
+  }
+
+  // ✅ إزالة التلوين بعد التصحيح
+  if (typeof window.removeColorFromExam === 'function') {
+      const examId = window.currentExamId;
+      if (examId) {
+          window.removeColorFromExam(examId);
+      }
   }
 }
 // ============================================
@@ -1511,7 +1526,6 @@ resetBtn.onclick = function() {
     container.appendChild(resultDiv);
   }
 };
-
 function checkTrueFalseExam(container, questions, answers, correctNumbersContainer) {
     let questionsToCheck = questions;
     const skillId = container.id;
@@ -1677,32 +1691,37 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         resultDiv.style.backgroundColor = '#dc3545';
         resultDiv.style.color = 'white';
     }
-  // ✅ زيادة العداد وتحديث الواجهة
-    // ✅ استخدام saveExamResultGlobal (القراءة فقط) - **يجب أن يكون أولاً**
+
+    // ✅ زيادة العداد وتحديث الواجهة
     if (typeof window.saveExamResultGlobal === "function") {
         const skill = container.id || "hoeren";
         const examId = window.currentExamId || 1;
         window.saveExamResultGlobal(skill, examId, parseFloat(finalScore));
     }
     
-    // ✅ زيادة العداد وتحديث الواجهة (بعد حفظ البيانات)
     const retryCount = window.incrementRetryCount(currentSkill, window.currentExamId || 1);
-    
-    // ✅ تحديث البطاقات فوراً (بعد تغيير localStorage)
     if (typeof window.updateRetryCounter === 'function') {
         window.updateRetryCounter();
     }
-    
-    // ✅ تحديث خطة المدرب الذكي (تحديث الكاش)
     if (typeof window.updateDailyPlanSilent === 'function') {
         window.updateDailyPlanSilent();
     }
     
+    // ============================================
+    // ✅ **الإضافة الجديدة**: إزالة التلوين بعد التصحيح
+    // ============================================
+    if (typeof window.removeColorFromExam === 'function') {
+        const examId = window.currentExamId;
+        if (examId) {
+            window.removeColorFromExam(examId);
+        }
+    }
+
     setTimeout(() => {
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
-    
-}  // ✅ هذا القوس يغلق دالة checkTrueFalseExam
+}
+
 
 // ============================================
 // نظام Teil 1 (Lesen Teil 1 - Matching)
@@ -1941,8 +1960,15 @@ function checkMatchingExam() {
   if (typeof window.updateDailyPlanSilent === 'function') {
       window.updateDailyPlanSilent();
   }
-}
 
+  // ✅ إزالة التلوين بعد التصحيح
+  if (typeof window.removeColorFromExam === 'function') {
+      const examId = window.currentExamId;
+      if (examId) {
+          window.removeColorFromExam(examId);
+      }
+  }
+}
 // ============================================
 // نظام Teil 2 (Lesen Teil 2)
 // ============================================
@@ -2139,12 +2165,6 @@ function renderTeil2Exam() {
   container.appendChild(twoColumns);
 }
    
-
-
-
-
-
-
 function checkTeil2Exam() {
   const questions = currentTeil2Data.questions;
   let score = 0;
@@ -2237,8 +2257,15 @@ function checkTeil2Exam() {
   if (typeof window.updateDailyPlanSilent === 'function') {
       window.updateDailyPlanSilent();
   }
-}
 
+  // ✅ إزالة التلوين بعد التصحيح
+  if (typeof window.removeColorFromExam === 'function') {
+      const examId = window.currentExamId;
+      if (examId) {
+          window.removeColorFromExam(examId);
+      }
+  }
+}
 // ============================================
 // نظام Teil 3 (Lesen Teil 3) - مع الربط المباشر
 // ============================================
@@ -2820,7 +2847,6 @@ function renderTeil3Exam() {
   updateTeil3SelectOptions();
   updateTeil3RightSideColors();
 }
-
 function checkTeil3Exam() {
   const items = currentTeil3Data.items;
   let score = 0;
@@ -2924,8 +2950,15 @@ function checkTeil3Exam() {
   if (typeof window.updateDailyPlanSilent === 'function') {
       window.updateDailyPlanSilent();
   }
-}
 
+  // ✅ إزالة التلوين بعد التصحيح
+  if (typeof window.removeColorFromExam === 'function') {
+      const examId = window.currentExamId;
+      if (examId) {
+          window.removeColorFromExam(examId);
+      }
+  }
+}
 // ============================================
 // التعديلات الخاصة بالهواتف
 // ============================================
