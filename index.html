@@ -2623,6 +2623,7 @@ window.updateAskAIContext = function(skill, examId) {
     
     console.log("✅ زر 💡 طريقة الاشتراك الجديد جاهز");
 })();
+
 // ============================================
 // 🚀 Study Planner - التدفق الجديد (إعدادات ← اختيار قسم ← خطة)
 // ============================================
@@ -2636,7 +2637,7 @@ window.updateAskAIContext = function(skill, examId) {
         return;
     }
 
-       const STATE = { SETUP: 'setup', SECTIONS: 'sections', PLAN: 'plan', CUSTOMIZE: 'customize' };
+    const STATE = { SETUP: 'setup', SECTIONS: 'sections', PLAN: 'plan', CUSTOMIZE: 'customize' };
     let currentState = STATE.SETUP;
     let savedSkill = localStorage.getItem('zertiva_selected_skill') || 'hoeren1';
     let savedDate = localStorage.getItem('zertiva_exam_date') || '';
@@ -2644,70 +2645,72 @@ window.updateAskAIContext = function(skill, examId) {
 
     let loaderOverlay = null;
 
-   function showLoader(callback) {
-    if (!loaderOverlay) {
-        loaderOverlay = document.createElement('div');
-        loaderOverlay.className = 'planner-loader-overlay';
-        loaderOverlay.innerHTML = `<div class="planner-loader-spinner"></div>`;
-        document.body.appendChild(loaderOverlay);
-    }
-    loaderOverlay.classList.add('active');
-    setTimeout(() => {
-        loaderOverlay.classList.remove('active');
-        if (callback) callback();
-    }, 4000); // ← تم تغيير المدة إلى 4 ثوانٍ
-}
-function showPopup(title, content) {
-    const existing = document.querySelector('.planner-popup-overlay');
-    if (existing) existing.remove();
-
-    const overlay = document.createElement('div');
-    overlay.className = 'planner-popup-overlay';
-    overlay.innerHTML = `
-        <div class="planner-popup-card" style="
-            max-width: 380px;
-            width: 92%;
-            max-height: 38vh;
-            padding: 16px 20px 14px;
-            border-radius: 16px;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.04);
-            background: #ffffff;
-            border: 1px solid #edf1f7;
-            overflow-y: auto;
-            transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        ">
-            <div style="
-                font-size: 0.9rem;
-                font-weight: 500;
-                color: #2c3e66;
-                margin-bottom: 10px;
-                text-align: center;
-                letter-spacing: -0.1px;
-                font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            ">
-                ${title}
-            </div>
-            <div style="
-                font-size: 0.75rem;
-                line-height: 1.7;
-                color: #334155;
-                text-align: right;
-                font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            ">
-                ${content}
-            </div>
-        </div>
-    `;
-    document.body.appendChild(overlay);
-    setTimeout(() => overlay.classList.add('active'), 10);
-
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-            overlay.classList.remove('active');
-            setTimeout(() => overlay.remove(), 300);
+    function showLoader(callback) {
+        if (!loaderOverlay) {
+            loaderOverlay = document.createElement('div');
+            loaderOverlay.className = 'planner-loader-overlay';
+            loaderOverlay.innerHTML = `<div class="planner-loader-spinner"></div>`;
+            document.body.appendChild(loaderOverlay);
         }
-    });
-}
+        loaderOverlay.classList.add('active');
+        setTimeout(() => {
+            loaderOverlay.classList.remove('active');
+            if (callback) callback();
+        }, 4000);
+    }
+
+    function showPopup(title, content) {
+        const existing = document.querySelector('.planner-popup-overlay');
+        if (existing) existing.remove();
+
+        const overlay = document.createElement('div');
+        overlay.className = 'planner-popup-overlay';
+        overlay.innerHTML = `
+            <div class="planner-popup-card" style="
+                max-width: 380px;
+                width: 92%;
+                max-height: 38vh;
+                padding: 16px 20px 14px;
+                border-radius: 16px;
+                box-shadow: 0 6px 24px rgba(0,0,0,0.04);
+                background: #ffffff;
+                border: 1px solid #edf1f7;
+                overflow-y: auto;
+                transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            ">
+                <div style="
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    color: #2c3e66;
+                    margin-bottom: 10px;
+                    text-align: center;
+                    letter-spacing: -0.1px;
+                    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+                ">
+                    ${title}
+                </div>
+                <div style="
+                    font-size: 0.75rem;
+                    line-height: 1.7;
+                    color: #334155;
+                    text-align: right;
+                    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+                ">
+                    ${content}
+                </div>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+        setTimeout(() => overlay.classList.add('active'), 10);
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+                setTimeout(() => overlay.remove(), 300);
+            }
+        });
+    }
+
     function openPlanner() {
         modal.style.display = 'flex';
         if (savedDate && localStorage.getItem('zertiva_selected_skill')) {
@@ -2737,9 +2740,6 @@ function showPopup(title, content) {
         savedSkill = localStorage.getItem('zertiva_selected_skill');
     }
 
-    // ============================================
-    // حساب أيام العمل المتبقية
-    // ============================================
     function calculateWorkingDays(examDate) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -2759,12 +2759,13 @@ function showPopup(title, content) {
         };
     }
 
-       function renderCurrentState() {
+    function renderCurrentState() {
         if (currentState === STATE.SETUP) renderSetup();
         else if (currentState === STATE.SECTIONS) renderSections();
         else if (currentState === STATE.PLAN) renderPlan();
         else if (currentState === STATE.CUSTOMIZE) renderCustomize();
     }
+
     // ===== 1. صفحة الإعدادات =====
     function renderSetup() {
         const today = new Date().toISOString().slice(0, 10);
@@ -2804,7 +2805,7 @@ function showPopup(title, content) {
         });
     }
 
-        // ===== 2. صفحة اختيار القسم =====
+    // ===== 2. صفحة اختيار القسم =====
     function renderSections() {
         const sections = [
             'Hören 1', 'Hören 2', 'Hören 3',
@@ -2875,156 +2876,155 @@ function showPopup(title, content) {
         });
 
         document.getElementById('plannerSettingsBtn').addEventListener('click', function(e) {
-    e.stopPropagation();
-    const currentDate = savedDate || new Date().toISOString().slice(0, 10);
-    const currentHours = savedHours;
+            e.stopPropagation();
+            const currentDate = savedDate || new Date().toISOString().slice(0, 10);
+            const currentHours = savedHours;
 
-    const overlay = document.createElement('div');
-    overlay.className = 'planner-popup-overlay';
-    overlay.innerHTML = `
-        <div class="planner-popup-card" style="
-            max-width: 300px;
-            width: 90%;
-            padding: 16px 18px 18px;
-            border-radius: 16px;
-            box-shadow: 0 6px 24px rgba(0,0,0,0.04);
-            background: #ffffff;
-            border: 1px solid #edf1f7;
-        ">
-            <div class="planner-popup-title" style="
-                font-size: 0.9rem;
-                font-weight: 600;
-                color: #1e293b;
-                text-align: center;
-                margin-bottom: 14px;
-            ">
-                تعديل المعلومات الخاصة بي
-            </div>
-
-            <div style="margin-bottom: 10px;">
-                <label style="
-                    display: block;
-                    font-size: 0.7rem;
-                    font-weight: 600;
-                    color: #1e293b;
-                    margin-bottom: 3px;
-                    text-align: right;
-                ">
-                    تاريخ الامتحان
-                </label>
-                <input type="date" id="popupExamDate" value="${currentDate}" style="
-                    width: 100%;
-                    padding: 7px 10px;
-                    border: 1px solid #e2e8f0;
-                    border-radius: 8px;
-                    font-size: 0.8rem;
-                    color: #1e293b;
+            const overlay = document.createElement('div');
+            overlay.className = 'planner-popup-overlay';
+            overlay.innerHTML = `
+                <div class="planner-popup-card" style="
+                    max-width: 300px;
+                    width: 90%;
+                    padding: 16px 18px 18px;
+                    border-radius: 16px;
+                    box-shadow: 0 6px 24px rgba(0,0,0,0.04);
                     background: #ffffff;
-                    font-family: inherit;
-                    box-sizing: border-box;
-                    direction: rtl;
+                    border: 1px solid #edf1f7;
                 ">
-            </div>
+                    <div class="planner-popup-title" style="
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        color: #1e293b;
+                        text-align: center;
+                        margin-bottom: 14px;
+                    ">
+                        تعديل المعلومات الخاصة بي
+                    </div>
 
-            <div style="margin-bottom: 16px;">
-                <label style="
-                    display: block;
-                    font-size: 0.7rem;
-                    font-weight: 600;
-                    color: #1e293b;
-                    margin-bottom: 3px;
-                    text-align: right;
-                ">
-                    كم ساعة تراجع يومياً
-                </label>
-                <input type="number" id="popupDailyHours" value="${currentHours}" min="1" max="12" step="1" style="
-                    width: 100%;
-                    padding: 7px 10px;
-                    border: 1px solid #e2e8f0;
-                    border-radius: 8px;
-                    font-size: 0.8rem;
-                    color: #1e293b;
-                    background: #ffffff;
-                    font-family: inherit;
-                    box-sizing: border-box;
-                    direction: rtl;
-                ">
-            </div>
+                    <div style="margin-bottom: 10px;">
+                        <label style="
+                            display: block;
+                            font-size: 0.7rem;
+                            font-weight: 600;
+                            color: #1e293b;
+                            margin-bottom: 3px;
+                            text-align: right;
+                        ">
+                            تاريخ الامتحان
+                        </label>
+                        <input type="date" id="popupExamDate" value="${currentDate}" style="
+                            width: 100%;
+                            padding: 7px 10px;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 8px;
+                            font-size: 0.8rem;
+                            color: #1e293b;
+                            background: #ffffff;
+                            font-family: inherit;
+                            box-sizing: border-box;
+                            direction: rtl;
+                        ">
+                    </div>
 
-            <button id="popupSaveBtn" class="planner-section-btn" style="
-                width: 100%;
-                padding: 9px 0;
-                font-size: 0.85rem;
-                font-weight: 600;
-                text-align: center;
-                border: 1px solid #D5E0EC;
-                border-radius: 14px;
-                background: linear-gradient(90deg, #161922 0%, #2D3138 50%, #161922 100%);
-                color: #B0B8C9;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-                cursor: pointer;
-                transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-                font-family: inherit;
-            ">
-                فحص
-            </button>
-        </div>
-    `;
-    document.body.appendChild(overlay);
-    setTimeout(() => overlay.classList.add('active'), 10);
+                    <div style="margin-bottom: 16px;">
+                        <label style="
+                            display: block;
+                            font-size: 0.7rem;
+                            font-weight: 600;
+                            color: #1e293b;
+                            margin-bottom: 3px;
+                            text-align: right;
+                        ">
+                            كم ساعة تراجع يومياً
+                        </label>
+                        <input type="number" id="popupDailyHours" value="${currentHours}" min="1" max="12" step="1" style="
+                            width: 100%;
+                            padding: 7px 10px;
+                            border: 1px solid #e2e8f0;
+                            border-radius: 8px;
+                            font-size: 0.8rem;
+                            color: #1e293b;
+                            background: #ffffff;
+                            font-family: inherit;
+                            box-sizing: border-box;
+                            direction: rtl;
+                        ">
+                    </div>
 
-    overlay.querySelector('#popupSaveBtn').addEventListener('click', function() {
-        const date = document.getElementById('popupExamDate').value;
-        const hours = parseInt(document.getElementById('popupDailyHours').value) || 4;
-        if (!date) { alert('يرجى اختيار تاريخ.'); return; }
-        if (hours < 1 || hours > 12) { alert('عدد الساعات بين 1 و 12.'); return; }
-        showLoader(() => {
-            saveUserData(date, hours);
-            overlay.classList.remove('active');
-            setTimeout(() => overlay.remove(), 300);
-            renderCurrentState();
+                    <button id="popupSaveBtn" class="planner-section-btn" style="
+                        width: 100%;
+                        padding: 9px 0;
+                        font-size: 0.85rem;
+                        font-weight: 600;
+                        text-align: center;
+                        border: 1px solid #D5E0EC;
+                        border-radius: 14px;
+                        background: linear-gradient(90deg, #161922 0%, #2D3138 50%, #161922 100%);
+                        color: #B0B8C9;
+                        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+                        cursor: pointer;
+                        transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+                        font-family: inherit;
+                    ">
+                        فحص
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+            setTimeout(() => overlay.classList.add('active'), 10);
+
+            overlay.querySelector('#popupSaveBtn').addEventListener('click', function() {
+                const date = document.getElementById('popupExamDate').value;
+                const hours = parseInt(document.getElementById('popupDailyHours').value) || 4;
+                if (!date) { alert('يرجى اختيار تاريخ.'); return; }
+                if (hours < 1 || hours > 12) { alert('عدد الساعات بين 1 و 12.'); return; }
+                showLoader(() => {
+                    saveUserData(date, hours);
+                    overlay.classList.remove('active');
+                    setTimeout(() => overlay.remove(), 300);
+                    renderCurrentState();
+                });
+            });
+
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    setTimeout(() => overlay.remove(), 300);
+                }
+            });
         });
-    });
 
-    overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-            overlay.classList.remove('active');
-            setTimeout(() => overlay.remove(), 300);
-        }
-    });
-});
-     document.getElementById('plannerInfoBtn').addEventListener('click', function(e) {
-    e.stopPropagation();
-    showPopup(
-        'كيف يعمل المدرب الذكي؟',
-        `
-        <p style="margin: 0 0 10px 0; color: #475569; line-height: 1.7; font-size: 0.75rem; text-align: right;">
-            يعتمد النظام على خوارزمية دقيقة لتصميم خطتك اليومية بناءً على موعد امتحانك. يحسب النظام أولاً عدد الامتحانات المطلوب إنجازها اليوم لضمان وصولك إلى <strong style="color: #2c3e66; font-weight: 500;">6 مراجعات</strong> على الأقل لكل امتحان قبل يومين من الامتحان.
-        </p>
-        <p style="margin: 0 0 8px 0; color: #1e293b; font-weight: 500; font-size: 0.75rem; text-align: right;">
-            بعد تحديد العدد، يختار النظام تلقائياً الامتحانات الأكثر أولوية بناءً على 3 قواعد أساسية:
-        </p>
-        <div style="margin: 0 0 12px 0; font-size: 0.75rem; line-height: 1.8; color: #475569; text-align: right;">
-            <p style="margin: 0 0 2px 0;"><strong style="font-weight: 500; color: #2c3e66;">النتيجة:</strong> <span style="color: #64748b;">التركيز على الامتحانات ذات الدرجات المنخفضة</span></p>
-            <p style="margin: 0 0 2px 0;"><strong style="font-weight: 500; color: #2c3e66;">عدد المراجعات:</strong> <span style="color: #64748b;">إعطاء الأولوية للامتحانات التي لم تُراجع كثيراً</span></p>
-            <p style="margin: 0 0 2px 0;"><strong style="font-weight: 500; color: #2c3e66;">آخر مراجعة:</strong> <span style="color: #64748b;">ضمان عدم إهمال أي امتحان لفترة طويلة</span></p>
-        </div>
-        <p style="margin: 12px 0 0 0; color: #1e293b; font-weight: 400; text-align: center; font-size: 0.75rem; line-height: 1.5;">
-            اختر القسم الآن، ودع النظام يحدد لك المسار الأسرع والأضمن للنجاح.
-        </p>
-        `
-    );
-});
+        document.getElementById('plannerInfoBtn').addEventListener('click', function(e) {
+            e.stopPropagation();
+            showPopup(
+                'كيف يعمل المدرب الذكي؟',
+                `
+                <p style="margin: 0 0 10px 0; color: #475569; line-height: 1.7; font-size: 0.75rem; text-align: right;">
+                    يعتمد النظام على خوارزمية دقيقة لتصميم خطتك اليومية بناءً على موعد امتحانك. يحسب النظام أولاً عدد الامتحانات المطلوب إنجازها اليوم لضمان وصولك إلى <strong style="color: #2c3e66; font-weight: 500;">6 مراجعات</strong> على الأقل لكل امتحان قبل يومين من الامتحان.
+                </p>
+                <p style="margin: 0 0 8px 0; color: #1e293b; font-weight: 500; font-size: 0.75rem; text-align: right;">
+                    بعد تحديد العدد، يختار النظام تلقائياً الامتحانات الأكثر أولوية بناءً على 3 قواعد أساسية:
+                </p>
+                <div style="margin: 0 0 12px 0; font-size: 0.75rem; line-height: 1.8; color: #475569; text-align: right;">
+                    <p style="margin: 0 0 2px 0;"><strong style="font-weight: 500; color: #2c3e66;">النتيجة:</strong> <span style="color: #64748b;">التركيز على الامتحانات ذات الدرجات المنخفضة</span></p>
+                    <p style="margin: 0 0 2px 0;"><strong style="font-weight: 500; color: #2c3e66;">عدد المراجعات:</strong> <span style="color: #64748b;">إعطاء الأولوية للامتحانات التي لم تُراجع كثيراً</span></p>
+                    <p style="margin: 0 0 2px 0;"><strong style="font-weight: 500; color: #2c3e66;">آخر مراجعة:</strong> <span style="color: #64748b;">ضمان عدم إهمال أي امتحان لفترة طويلة</span></p>
+                </div>
+                <p style="margin: 12px 0 0 0; color: #1e293b; font-weight: 400; text-align: center; font-size: 0.75rem; line-height: 1.5;">
+                    اختر القسم الآن، ودع النظام يحدد لك المسار الأسرع والأضمن للنجاح.
+                </p>
+                `
+            );
+        });
     }
 
-    // ============================================
-    // نظام التلوين الجديد
-    // ============================================
+    // ===== نظام التلوين الجديد (يُضاف إلى النطاق العام) =====
     const EXAM_COLOR = '#38BDF8';
-    let toggleState = false;
 
-    function applyExamColors() {
+    window.applyExamColors = function() {
         const cards = document.querySelectorAll('.exam-card, .planner-exam-item, .exam-item, [class*="exam"]');
+        let colored = 0;
         cards.forEach(card => {
             if (card.dataset.examId || card.textContent.includes('امتحان') || card.querySelector('.exam-title')) {
                 const bg = window.getComputedStyle(card).backgroundColor;
@@ -3032,12 +3032,15 @@ function showPopup(title, content) {
                     card.style.backgroundColor = EXAM_COLOR;
                     card.style.transition = 'background-color 0.3s ease';
                     card.dataset.colored = 'true';
+                    colored++;
                 }
             }
         });
-    }
+        if (colored > 0) console.log(`  ✅ تم تلوين ${colored} بطاقة`);
+        return colored;
+    };
 
-    function clearExamColors() {
+    window.clearExamColors = function() {
         document.querySelectorAll('[data-colored="true"]').forEach(el => {
             el.style.backgroundColor = '';
             el.style.transition = '';
@@ -3050,9 +3053,10 @@ function showPopup(title, content) {
                 card.style.transition = '';
             }
         });
-    }
+        console.log('  ✅ تم إزالة جميع الألوان');
+    };
 
-    function removeColorFromExam(examId) {
+    window.removeColorFromExam = function(examId) {
         document.querySelectorAll('.exam-card, .planner-exam-item, .exam-item').forEach(card => {
             const id = card.dataset.examId || card.textContent.match(/\d+/)?.[0];
             if (id == examId) {
@@ -3061,8 +3065,10 @@ function showPopup(title, content) {
                 delete card.dataset.colored;
             }
         });
-    }
+        console.log(`  ✅ تم إزالة لون امتحان ${examId}`);
+    };
 
+    // ===== دوال الـ Toggle =====
     function createToggleSwitch(containerElement) {
         if (containerElement.querySelector('.planner-toggle-wrapper')) return;
         const wrapper = document.createElement('div');
@@ -3084,27 +3090,49 @@ function showPopup(title, content) {
             containerElement.appendChild(wrapper);
         }
         const checkbox = wrapper.querySelector('.ios-toggle-checkbox');
+        // استعادة الحالة المحفوظة
+        const savedState = localStorage.getItem('plannerToggleState');
+        if (savedState === 'true') {
+            checkbox.checked = true;
+        } else if (savedState === 'false') {
+            checkbox.checked = false;
+        }
         checkbox.addEventListener('change', function() {
-            toggleState = this.checked;
-            if (!toggleState) clearExamColors();
+            localStorage.setItem('plannerToggleState', this.checked ? 'true' : 'false');
+            if (!this.checked && typeof window.clearExamColors === 'function') {
+                window.clearExamColors();
+            }
         });
     }
 
-    function hookCheckButton(container, btnSelector) {
-        const checkBtn = container.querySelector(btnSelector);
-        if (checkBtn && !checkBtn.dataset.hooked) {
-            checkBtn.dataset.hooked = 'true';
-            const originalClick = checkBtn.onclick;
-            checkBtn.onclick = function(e) {
-                if (toggleState) {
-                    clearExamColors();
-                    setTimeout(applyExamColors, 100);
-                } else {
-                    clearExamColors();
-                }
-                if (originalClick) originalClick.call(this, e);
-            };
+    function hookCheckButton(container) {
+        // البحث عن زر "فحص" بالطريقة الصحيحة (بدون :contains)
+        let checkBtn = null;
+        const allButtons = container.querySelectorAll('button, .planner-section-btn, [role="button"]');
+        for (const btn of allButtons) {
+            const text = btn.textContent.trim();
+            if (text === 'فحص' || text === 'تحقق' || btn.id === 'customCheckBtn' || btn.id === 'plannerSetupBtn') {
+                checkBtn = btn;
+                break;
+            }
         }
+        if (!checkBtn) return;
+        if (checkBtn.dataset.hooked) return;
+        checkBtn.dataset.hooked = 'true';
+        const originalClick = checkBtn.onclick;
+        checkBtn.onclick = function(e) {
+            const toggle = document.querySelector('.ios-toggle-checkbox');
+            const isActive = toggle ? toggle.checked : false;
+            if (isActive) {
+                if (typeof window.clearExamColors === 'function') window.clearExamColors();
+                if (typeof window.applyExamColors === 'function') {
+                    setTimeout(window.applyExamColors, 100);
+                }
+            } else {
+                if (typeof window.clearExamColors === 'function') window.clearExamColors();
+            }
+            if (originalClick) originalClick.call(this, e);
+        };
     }
 
     // ===== 3. صفحة الخطة =====
@@ -3247,7 +3275,7 @@ function showPopup(title, content) {
         const card = container.querySelector('.planner-card');
         if (card) {
             createToggleSwitch(card);
-            hookCheckButton(card, '#customCheckBtn, #plannerSetupBtn, button:contains("فحص")');
+            hookCheckButton(card);
         }
 
         document.querySelectorAll('.exam-card').forEach(card => {
@@ -3264,11 +3292,11 @@ function showPopup(title, content) {
             });
         });
     }
+
     // ============================================
     // دوال النسب المخصصة (تطوير النظام الخاص بي)
     // ============================================
 
-    // قائمة الأقسام الثمانية
     const CUSTOM_SECTIONS = [
         { id: 'hoeren1', label: 'Hören 1' },
         { id: 'hoeren2', label: 'Hören 2' },
@@ -3280,7 +3308,6 @@ function showPopup(title, content) {
         { id: 'sprach2', label: 'Sprach 2' }
     ];
 
-    // تخزين النسب
     function getSavedWeights() {
         try {
             const data = localStorage.getItem('planner_weights');
@@ -3291,7 +3318,7 @@ function showPopup(title, content) {
     function saveWeights(weights) {
         localStorage.setItem('planner_weights', JSON.stringify(weights));
     }
-    // دالة عرض واجهة النسب
+
     function renderCustomize() {
         const container = document.getElementById('studyPlannerContainer');
         if (!container) return;
@@ -3306,7 +3333,7 @@ function showPopup(title, content) {
 
         let currentTotal = Object.values(savedWeights).reduce((a, b) => a + b, 0);
 
-             let sectionsHTML = CUSTOM_SECTIONS.map(section => {
+        let sectionsHTML = CUSTOM_SECTIONS.map(section => {
             const currentValue = savedWeights[section.id] || 0;
             const remainingAfterCurrent = 100 - (currentTotal - currentValue);
             const available = [];
@@ -3345,11 +3372,11 @@ function showPopup(title, content) {
                     املأ نسب الأهمية لكل قسم
                 </div>
 
-                              <div id="customWeightsContainer" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-bottom:12px;">
+                <div id="customWeightsContainer" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; margin-bottom:12px;">
                     ${sectionsHTML}
                 </div>
 
-                               <div style="text-align:center; margin-top:12px; font-size:0.75rem;">
+                <div style="text-align:center; margin-top:12px; font-size:0.75rem;">
                     <span>المجموع: <span id="customTotalDisplay" style="font-weight:600;">${currentTotal}</span>%</span>
                     <span id="customStatusText" style="font-weight:600; margin-right:8px; color: ${currentTotal === 100 ? '#22c55e' : '#f59e0b'};">${currentTotal === 100 ? 'مكتمل' : 'غير مكتمل'}</span>
                 </div>
@@ -3359,7 +3386,7 @@ function showPopup(title, content) {
             </div>
         `;
 
-        // ربط الأحداث داخل renderCustomize
+        // ربط الأحداث
         document.getElementById('plannerSettingsBtn').addEventListener('click', function(e) {
             e.stopPropagation();
             const currentDate = savedDate || new Date().toISOString().slice(0, 10);
@@ -3422,7 +3449,7 @@ function showPopup(title, content) {
             );
         });
 
-           // ربط تغيير النسب - بدون رسالة إضافية
+        // ربط تغيير النسب
         const selects = container.querySelectorAll('.custom-weight-select');
         selects.forEach(select => {
             select.addEventListener('change', function() {
@@ -3433,8 +3460,6 @@ function showPopup(title, content) {
                 updateCustomOptions(savedWeights);
                 document.getElementById('customTotalDisplay').textContent = currentTotal;
                 saveWeights(savedWeights);
-                
-                // ✅ تحديث حالة المكتمل/غير مكتمل فقط (بدون رسالة إضافية)
                 const statusText = document.getElementById('customStatusText');
                 if (statusText) {
                     if (currentTotal === 100) {
@@ -3445,15 +3470,12 @@ function showPopup(title, content) {
                         statusText.style.color = '#f59e0b';
                     }
                 }
-                // إزالة أي رسالة تحذيرية سابقة عند تغيير النسب (بدون فحص)
                 const msg = document.getElementById('customWarningMsg');
                 if (msg) msg.remove();
             });
         });
 
-            // ربط زر "فحص" - هنا فقط تظهر الرسالة الإضافية
         document.getElementById('customCheckBtn').addEventListener('click', function() {
-            // إزالة أي رسالة سابقة
             const oldMsg = document.getElementById('customWarningMsg');
             if (oldMsg) oldMsg.remove();
 
@@ -3463,7 +3485,6 @@ function showPopup(title, content) {
                     statusText.textContent = 'غير مكتمل';
                     statusText.style.color = '#f59e0b';
                 }
-                // إضافة رسالة التحذير فقط هنا (بعد الفحص)
                 const msg = document.createElement('div');
                 msg.id = 'customWarningMsg';
                 msg.style.cssText = 'text-align:center; margin-top:4px; font-size:0.7rem; color:#f59e0b;';
@@ -3472,15 +3493,13 @@ function showPopup(title, content) {
                 if (parent) parent.parentNode.insertBefore(msg, parent.nextSibling);
                 return;
             }
-            
-            // إذا كان المجموع 100%، ننتقل للخطة الموزونة
+
             showLoader(() => {
                 currentState = STATE.CUSTOMIZE;
                 renderCustomPlan(savedWeights);
             });
         });
 
-        // دالة مساعدة لتحديث خيارات كل قسم
         function updateCustomOptions(weights) {
             const total = Object.values(weights).reduce((a, b) => a + b, 0);
             const selects = document.querySelectorAll('.custom-weight-select');
@@ -3548,12 +3567,12 @@ function showPopup(title, content) {
             return;
         }
 
-            const { workingDays } = window.calculateWorkingDays ? window.calculateWorkingDays(new Date(savedDate)) : calculateWorkingDays(new Date(savedDate));
+        const { workingDays } = window.calculateWorkingDays ? window.calculateWorkingDays(new Date(savedDate)) : calculateWorkingDays(new Date(savedDate));
         if (workingDays === 0) {
             container.innerHTML = `<div class="planner-card" style="text-align:center;padding:30px;color:#f59e0b;font-size:0.9rem;">⏰ أنت في فترة المراجعة النهائية (آخر يومين). راجع الامتحانات التي تشعر أنك بحاجة إليها.</div>`;
             return;
         }
-        // 🔥 عدد الامتحانات = 10 (100% = 10 امتحانات، كل 10% = 1)
+
         const totalExams = 10;
 
         function calculatePriority(exam) {
@@ -3586,7 +3605,7 @@ function showPopup(title, content) {
         sectionKeys.forEach(skill => {
             const weight = weights[skill];
             if (weight === 0) return;
-            const count = weight / 10; // 10% = 1 امتحان
+            const count = weight / 10;
             if (count === 0) return;
             const examsForSkill = sortedExams.filter(e => e.skill === skill);
             const taken = examsForSkill.slice(0, count);
@@ -3611,7 +3630,6 @@ function showPopup(title, content) {
 
         const formattedDate = savedDate ? savedDate.split('-').reverse().join(' / ') : '';
 
-                // دوال مساعدة لتنسيق الألوان (مطابقة للنظام الأساسي)
         function getScoreColor(score) {
             if (score === null || score === undefined) return '#94a3b8';
             if (score === 25) return '#22c55e';
@@ -3693,7 +3711,7 @@ function showPopup(title, content) {
                         لديك <span style="color:#2c3e66; font-weight:600;">${Math.max(remainingDays, 0)}</span> يوم
                     </div>
                 </div>
-                               <div style="font-size:1.1rem; font-weight:500; text-align:center; margin:12px 0 16px 0; color:#1e293b;">
+                <div style="font-size:1.1rem; font-weight:500; text-align:center; margin:12px 0 16px 0; color:#1e293b;">
                     خطتنا لهذا اليوم <strong>${selectedExams.length}</strong> امتحان${selectedExams.length > 1 ? 'ات' : ''}
                 </div>
                 <div class="exam-list" style="display:flex; flex-direction:column; gap:4px;">
@@ -3706,7 +3724,7 @@ function showPopup(title, content) {
         const card = container.querySelector('.planner-card');
         if (card) {
             createToggleSwitch(card);
-            hookCheckButton(card, '#customCheckBtn');
+            hookCheckButton(card);
         }
 
         document.querySelectorAll('.exam-card').forEach(card => {
@@ -3725,7 +3743,7 @@ function showPopup(title, content) {
     }
 
     // ============================================
-    // ربط الأحداث (يبقى كما هو)
+    // ربط الأحداث
     // ============================================
     plannerBtn.addEventListener('click', function(e) {
         e.preventDefault();
@@ -3747,7 +3765,7 @@ function showPopup(title, content) {
         closeBtn.addEventListener('click', closePlanner);
     }
 
-    console.log('✅ Study Planner (التدفق الجديد) مرتبط بنجاح');
+    console.log('✅ Study Planner (مع التلوين الذكي) مرتبط بنجاح');
 })();
 // ============================================
 // نظام الاشتراك المنبثق (Subscription Modal) - تم إلغاؤه
