@@ -3007,6 +3007,7 @@ function buildTeil1(questions) {
   resultDiv.style.display = "none";
   container.appendChild(resultDiv);
 }
+
 function checkTeil1(questions, answers) {
   let score = 0;
   const total = questions.length;
@@ -3062,8 +3063,8 @@ function checkTeil1(questions, answers) {
   }
   
   // ✅ 4. إزالة تلوين هذا الامتحان إذا كان ملوناً
-  if (typeof removeColorFromExam === 'function') {
-      removeColorFromExam(currentExamId);
+  if (typeof window.removeColorFromExam === 'function') {
+      window.removeColorFromExam(currentExamId);
   }
   
   if (document.getElementById("list").classList.contains("active")) {
