@@ -676,22 +676,23 @@ body:has(#exam.active) .profile-icon {
 .study-planner-icon-btn,
 .notification-bell,
 .study-session-btn {
-    height: 35px; /* جميع الأزرار الأربعة بنفس الارتفاع */
+    height: 35px;
     padding: 0 12px;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     color: #E5E7EB;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     font-size: 16px;
     gap: 5px;
     font-family: inherit;
     flex-shrink: 0;
+    position: relative;
 }
 
 .settings-icon-btn:hover,
@@ -700,17 +701,49 @@ body:has(#exam.active) .profile-icon {
 .study-session-btn:hover {
     background: rgba(255, 255, 255, 0.10);
     border-color: rgba(255, 255, 255, 0.15);
-    transform: scale(1.05);
+    transform: scale(1.04);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
 }
 
 .settings-icon-btn:active,
 .study-planner-icon-btn:active,
 .notification-bell:active,
 .study-session-btn:active {
-    transform: scale(0.97);
+    transform: scale(0.95);
+    transition-duration: 0.05s;
 }
 
-/* تنسيق خاص لزر الإشعارات (لأن به badge) */
+/* ===== أيقونات الصور داخل الأزرار ===== */
+.icon-img {
+    width: 20px;
+    height: 20px;
+    display: block;
+    object-fit: contain;
+    pointer-events: none;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+}
+
+.settings-icon-btn:hover .icon-img,
+.study-session-btn:hover .icon-img {
+    opacity: 1;
+}
+
+/* ===== أيقونة الجرس (Uiverse) ===== */
+.notification-bell .bell-icon {
+    width: 18px;
+    height: 18px;
+    fill: rgba(255, 255, 255, 0.75);
+    display: block;
+    transition: fill 0.2s ease;
+}
+
+.notification-bell:hover .bell-icon {
+    fill: rgba(255, 255, 255, 0.95);
+    animation: bellRing 0.9s both;
+}
+
+/* ===== Badge الإشعارات ===== */
 .notification-bell .notification-badge {
     position: absolute;
     top: -4px;
@@ -727,7 +760,32 @@ body:has(#exam.active) .profile-icon {
     justify-content: center;
     padding: 0 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    z-index: 2;
 }
+
+/* ===== اهتزاز الجرس ===== */
+@keyframes bellRing {
+    0%, 100% {
+        transform-origin: top center;
+        transform: rotate(0deg);
+    }
+    15% {
+        transform: rotate(12deg);
+    }
+    30% {
+        transform: rotate(-10deg);
+    }
+    45% {
+        transform: rotate(6deg);
+    }
+    60% {
+        transform: rotate(-4deg);
+    }
+    75% {
+        transform: rotate(2deg);
+    }
+}
+
 
 body:has(#list.active) .top-bar,
 body:has(#exam.active) .top-bar {
@@ -1692,7 +1750,6 @@ body:has(#exam.active) .left-side .btn-login-top {
 }
 
 @media (max-width: 768px) {
-    /* تصغير الأزرار الموحدة في الهواتف */
     .settings-icon-btn,
     .study-planner-icon-btn,
     .notification-bell,
@@ -1705,6 +1762,16 @@ body:has(#exam.active) .left-side .btn-login-top {
         min-width: auto !important;
         width: auto !important;
         flex-shrink: 0 !important;
+    }
+    
+    .icon-img {
+        width: 16px !important;
+        height: 16px !important;
+    }
+    
+    .notification-bell .bell-icon {
+        width: 14px !important;
+        height: 14px !important;
     }
 }
     /* أزرار الأقسام في الهاتف */
