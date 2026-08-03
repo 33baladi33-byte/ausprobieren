@@ -3067,6 +3067,11 @@ function checkTeil1(questions, answers) {
       window.removeColorFromExam(currentExamId);
   }
   
+  // ✅ 4. إزالة تلوين هذا الامتحان إذا كان ملوناً
+  if (typeof window.removeColorFromExam === 'function') {
+      window.removeColorFromExam(currentExamId);
+  }
+  
   if (document.getElementById("list").classList.contains("active")) {
     renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
   }
