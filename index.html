@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+z<!DOCTYPE html>
 <html lang="ar">
 <head>
     <!-- Google tag (gtag.js) -->
@@ -3030,7 +3030,7 @@ window.updateAskAIContext = function(skill, examId) {
 
     // ===== نظام التلوين الجديد (يُضاف إلى النطاق العام) =====
     const EXAM_COLOR = '#38BDF8';
-                window.applyExamColors = function() {
+                 window.applyExamColors = function() {
         const uniqueIds = window._selectedExamIds || [];
         if (uniqueIds.length === 0) {
             console.log('  ℹ️ لا توجد امتحانات محددة للتلوين');
@@ -3040,37 +3040,33 @@ window.updateAskAIContext = function(skill, examId) {
         const idSet = new Set(uniqueIds);
         const cards = document.querySelectorAll('div.item');
         let colored = 0;
+        // نأخذ المهارة من window.currentSkill (يجب أن تكون محددة مسبقاً)
+        const skill = window.currentSkill || '';
+        if (!skill) {
+            console.warn('⚠️ window.currentSkill غير معرف، لا يمكن التلوين');
+            return 0;
+        }
         cards.forEach(card => {
             if (card.classList.contains('item')) {
-                // استخراج المهارة ورقم الامتحان من البطاقة (باستخدام السمات)
-                const skill = card.dataset.skill || currentSkill || '';
-                const examId = card.dataset.examId || null;
-                // إذا لم توجد السمات، نحاول استخراجها من النص
-                let uniqueKey = '';
-                if (skill && examId) {
-                    uniqueKey = `${skill}_exam${examId}`;
-                } else {
-                    // محاولة استخراج الرقم والمهارة من النص
-                    const title = card.querySelector('.exam-title');
-                    let num = null;
-                    if (title) {
-                        const match = title.textContent.match(/^(\d+):/);
-                        if (match) num = parseInt(match[1]);
-                    }
-                    if (!num) {
-                        const match = card.textContent.match(/امتحان\s*(\d+)/);
-                        if (match) num = parseInt(match[1]);
-                    }
-                    // المهارة الحالية (من السياق)
-                    const ctxSkill = window.currentSkill || '';
-                    if (num !== null && ctxSkill) {
-                        uniqueKey = `${ctxSkill}_exam${num}`;
-                    }
+                // استخراج رقم الامتحان من البطاقة
+                let num = null;
+                const title = card.querySelector('.exam-title');
+                if (title) {
+                    const match = title.textContent.match(/^(\d+):/);
+                    if (match) num = parseInt(match[1]);
                 }
-                // التحقق من وجود هذا المفتاح في القائمة
-                if (uniqueKey && idSet.has(uniqueKey)) {
-                    card.dataset.colored = 'true';
-                    colored++;
+                if (!num) {
+                    const match = card.textContent.match(/امتحان\s*(\d+)/);
+                    if (match) num = parseInt(match[1]);
+                }
+                if (num !== null) {
+                    const uniqueKey = `${skill}_exam${num}`;
+                    if (idSet.has(uniqueKey)) {
+                        card.dataset.colored = 'true';
+                        colored++;
+                    } else {
+                        delete card.dataset.colored;
+                    }
                 } else {
                     delete card.dataset.colored;
                 }
@@ -3281,8 +3277,16 @@ window.updateAskAIContext = function(skill, examId) {
 
 
 
-    // ===== دالة عرض الخطة النهائية =====
+
+
+
+
+    
     function renderPlanResult(result) {
+        // ✅ تعيين المهارة الحالية
+        window.currentSkill = savedSkill || 'hoeren1';
+        console.log(`  📌 تم تعيين currentSkill = ${window.currentSkill}`);
+
         if (result.isFinalReview) {
             container.innerHTML = `
                 <div class="planner-card" style="text-align:center;padding:30px;color:#f59e0b;font-size:0.9rem;">
@@ -3671,9 +3675,13 @@ window.updateAskAIContext = function(skill, examId) {
         const container = document.getElementById('studyPlannerContainer');
         if (!container) return;
 
+        // ✅ تعيين المهارة الحالية (سنستخدم المهارة الأولى من الأوزان غير الصفرية)
+        const activeSkill = Object.keys(weights).find(key => weights[key] > 0) || 'hoeren1';
+        window.currentSkill = activeSkill;
+        console.log(`  📌 تم تعيين currentSkill = ${window.currentSkill} (Custom)`);
+
         const allExams = [];
         const skillKeys = Object.keys(window.examsDatabase);
-
         skillKeys.forEach(skill => {
             const examIds = window.examsDatabase[skill].map(e => e.id).filter(id => id !== undefined);
             examIds.forEach(id => {
