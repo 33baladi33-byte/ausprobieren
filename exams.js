@@ -1595,12 +1595,14 @@ async function renderExamListForSkill(skill, teilName) {
     div.appendChild(titleSpan);
     
     displaySavedResult(targetSkill, exam.id, titleSpan, div);
+
+
     // ✅ عرض عدد الإعادات بجانب عنوان الامتحان
     const retryCount = getRetryCount(targetSkill, exam.id);
     if (retryCount > 0) {
         const retrySpan = document.createElement('span');
         retrySpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
-        retrySpan.textContent = `🔄 ${retryCount}`;
+        retrySpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">repeat</span> ${retryCount}`;
         titleSpan.appendChild(retrySpan);
     }
     // ✅ عرض تاريخ آخر مراجعة
@@ -1612,16 +1614,16 @@ if (!forbiddenSkills.includes(targetSkill)) {
         const reviewSpan = document.createElement('span');
         reviewSpan.style.cssText = 'font-size:10px; color:#64748b; margin-right:6px;';
         if (reviewDays === 0) {
-            reviewSpan.textContent = `📅 اليوم`;
+            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#64748b; margin-right:2px; vertical-align:middle;">calendar_month</span> اليوم`;
         } else {
-            reviewSpan.textContent = `📅 منذ ${reviewDays} يوم`;
+            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#64748b; margin-right:2px; vertical-align:middle;">calendar_month</span> منذ ${reviewDays} يوم`;
         }
         titleSpan.appendChild(reviewSpan);
     } else {
         // لم يُصحح أبداً
         const reviewSpan = document.createElement('span');
         reviewSpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
-        reviewSpan.textContent = `📅 لم يُراجع`;
+        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">calendar_month</span> لم يُراجع`;
         titleSpan.appendChild(reviewSpan);
     }
 }
