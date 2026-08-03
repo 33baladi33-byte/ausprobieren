@@ -3007,7 +3007,6 @@ function buildTeil1(questions) {
   resultDiv.style.display = "none";
   container.appendChild(resultDiv);
 }
-
 function checkTeil1(questions, answers) {
   let score = 0;
   const total = questions.length;
@@ -3062,12 +3061,7 @@ function checkTeil1(questions, answers) {
       window.updateRetryCounter();
   }
   
-  // ✅ 4. إزالة تلوين هذا الامتحان إذا كان ملوناً
-  if (typeof window.removeColorFromExam === 'function') {
-      window.removeColorFromExam(currentExamId);
-  }
-  
-  // ✅ 4. إزالة تلوين هذا الامتحان إذا كان ملوناً
+  // ✅ 4. إزالة تلوين هذا الامتحان إذا كان ملوناً (ربط مع النظام الجديد)
   if (typeof window.removeColorFromExam === 'function') {
       window.removeColorFromExam(currentExamId);
   }
@@ -3076,7 +3070,6 @@ function checkTeil1(questions, answers) {
     renderExamListForSkill(currentSkill, getTeilNameBySkill(currentSkill));
   }
 }
-
 window.saveExamResultGlobal = function(skill, examId, score) {
   saveExamResult(skill, examId, score);
   if (document.getElementById("list").classList.contains("active") && currentSkill === skill) {
