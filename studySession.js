@@ -1,14 +1,17 @@
 // ============================================
-// studySession.js - نظام جلسات المراجعة (متكامل مع الإحصائيات)
+// studySession.js - نظام جلسات المراجعة (مع Pause/Resume وصفحات داخلية)
 // ============================================
 
 (function() {
     "use strict";
     
+    // ====== المتغيرات العامة ======
     let activeSession = false;
     let sessionTimer = null;
     let remainingSeconds = 0;
     let totalSeconds = 0;
+    let isPaused = false;
+    let pausedTime = 0; // الوقت المنقضي عند الإيقاف المؤقت
     
     // ====== الثوابت الخاصة بالإحصائيات ======
     const STATS_KEY = 'stats_daily_data';
@@ -23,11 +26,11 @@
             timerMinutes: document.getElementById('timerMinutes'),
             timerSeconds: document.getElementById('timerSeconds'),
             cancelBtn: document.getElementById('cancelSessionBtn'),
+            pauseBtn: document.getElementById('pauseSessionBtn'),
             endOverlay: document.getElementById('sessionEndOverlay'),
             closeEndBtn: document.getElementById('closeEndOverlayBtn'),
             totalHoursValue: document.getElementById('totalHoursValue'),
-            // عناصر الإحصائيات الجديدة
-            goalDisplay: document.getElementById('statsGoalDisplay'),
+            // عناصر الإحصائيات
             goalRingText: document.getElementById('statsRingGoalText'),
             goalRingUnit: document.getElementById('statsRingGoalUnit'),
             ringFg: document.querySelector('.stats-ring-fg'),
@@ -36,14 +39,17 @@
             yesterdayUnit: document.getElementById('statsYesterdayUnit'),
             completedValue: document.getElementById('statsCompletedValue'),
             historyList: document.getElementById('statsHistoryList'),
+            // أزرار الصفحات الداخلية
             editGoalBtn: document.getElementById('statsEditGoalBtn'),
-            goalModal: document.getElementById('statsGoalModal'),
-            goalModalClose: document.getElementById('statsGoalModalClose'),
+            goalContent: document.getElementById('statsGoalContent'),
+            goalBackBtn: document.getElementById('statsGoalBackBtn'),
             goalSelect: document.getElementById('statsGoalSelect'),
             goalSaveBtn: document.getElementById('statsGoalSaveBtn'),
             historyBtn: document.getElementById('statsHistoryBtn'),
-            historyModal: document.getElementById('statsHistoryModal'),
-            historyModalClose: document.getElementById('statsHistoryModalClose')
+            historyContent: document.getElementById('statsHistoryContent'),
+            historyBackBtn: document.getElementById('statsHistoryBackBtn'),
+            // المحتوى الرئيسي
+            mainContent: document.querySelector('.session-modal-content > div:not(.stats-inner-page)')
         };
     }
     
@@ -136,12 +142,10 @@
         const circumference = 339.292;
         const offset = circumference * (1 - progress);
         
-        // تحديث الدائرة
         if (els.ringFg) {
             els.ringFg.style.strokeDashoffset = offset;
         }
         
-        // تحديث النص داخل الدائرة
         if (els.goalRingText) {
             const hours = Math.floor(goal / 60);
             const mins = goal % 60;
@@ -156,26 +160,10 @@
             els.goalRingText.textContent = display;
         }
         
-        // تحديث "هدف اليوم" في الأعلى
-        if (els.goalDisplay) {
-            const hours = Math.floor(goal / 60);
-            const mins = goal % 60;
-            let text = '';
-            if (hours > 0) {
-                text = hours + (hours === 1 ? ' ساعة' : ' ساعات');
-                if (mins > 0) text += ' ' + mins + ' دقيقة';
-            } else {
-                text = mins + ' دقيقة';
-            }
-            els.goalDisplay.textContent = text;
-        }
-        
-        // تحديث Streak
         if (els.streakNumber) {
             els.streakNumber.textContent = streak;
         }
         
-        // تحديث Yesterday
         if (els.yesterdayValue) {
             if (yesterdayMinutes === 0) {
                 els.yesterdayValue.textContent = '0';
@@ -199,7 +187,6 @@
             }
         }
         
-        // تحديث Completed (الوقت المنجز اليوم)
         if (els.completedValue) {
             const hours = Math.floor(todayMinutes / 60);
             const mins = todayMinutes % 60;
@@ -213,7 +200,6 @@
             els.completedValue.textContent = text || '0 دقيقة';
         }
         
-        // تحديث المجموع الكلي (من studySession)
         updateTotalDisplay();
     }
     
@@ -253,7 +239,7 @@
     
     // ====== دالة تُستدعى عند إضافة وقت دراسة ======
     function updateStatsAfterStudy(minutes) {
-        // تحديث السجل
+        if (minutes <= 0) return;
         const todayStr = getTodayString();
         const data = loadStats();
         const history = data.history || [];
@@ -268,14 +254,11 @@
         data.history = history;
         saveStats(data);
         
-        // تحديث الواجهة إذا كانت النافذة مفتوحة
         const modal = document.getElementById('studySessionModal');
         if (modal && modal.classList.contains('active')) {
             updateStatsUI();
         }
     }
-    
-    // ====== تصدير الدالة للاستخدام من studySession ======
     window.updateStatsAfterStudy = updateStatsAfterStudy;
     
     // ====== إدارة مجموع ساعات الدراسة (الكلي) ======
@@ -361,6 +344,26 @@
         }
     }
     
+    // ====== إدارة الصفحات الداخلية (Edit / History) ======
+    function showInnerPage(pageId) {
+        const els = getElements();
+        // إخفاء المحتوى الرئيسي
+        const mainContent = document.querySelector('.session-modal-content > div:not(.stats-inner-page)');
+        if (mainContent) mainContent.style.display = 'none';
+        // إخفاء جميع الصفحات الداخلية
+        document.querySelectorAll('.stats-inner-page').forEach(el => el.classList.remove('active'));
+        // إظهار الصفحة المطلوبة
+        const page = document.getElementById(pageId);
+        if (page) page.classList.add('active');
+    }
+    
+    function showMainContent() {
+        const els = getElements();
+        const mainContent = document.querySelector('.session-modal-content > div:not(.stats-inner-page)');
+        if (mainContent) mainContent.style.display = 'block';
+        document.querySelectorAll('.stats-inner-page').forEach(el => el.classList.remove('active'));
+    }
+    
     // ====== فتح وإغلاق النافذة ======
     function openModal() {
         const { modal } = getElements();
@@ -369,7 +372,8 @@
             showMessage("⚡ المراجعة شغالة");
             return;
         }
-        // تحديث الإحصائيات قبل الفتح
+        // التأكد من عرض المحتوى الرئيسي
+        showMainContent();
         updateStatsUI();
         modal.classList.add('active');
     }
@@ -377,6 +381,8 @@
     function closeModal() {
         const { modal } = getElements();
         if (modal) modal.classList.remove('active');
+        // إعادة تعيين الصفحات الداخلية
+        showMainContent();
     }
     
     // ====== تحديث العداد ======
@@ -395,9 +401,39 @@
     function startSession(minutes) {
         if (activeSession) return;
         
+        // استعادة حالة مؤقتة محفوظة (Resume)
+        const savedState = loadPauseState();
+        if (savedState && savedState.isPaused) {
+            // استئناف الجلسة
+            totalSeconds = savedState.totalSeconds;
+            remainingSeconds = savedState.remainingSeconds;
+            activeSession = true;
+            isPaused = false;
+            pausedTime = 0;
+            clearPauseState();
+            closeModal();
+            updateTimerDisplay();
+            const { timerBar } = getElements();
+            if (timerBar) timerBar.style.display = 'flex';
+            if (sessionTimer) clearInterval(sessionTimer);
+            sessionTimer = setInterval(() => {
+                if (remainingSeconds <= 0) {
+                    endSession();
+                } else {
+                    remainingSeconds--;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+            showMessage('▶️ استئناف الجلسة');
+            return;
+        }
+        
+        // بدء جلسة جديدة
         totalSeconds = minutes * 60;
         remainingSeconds = totalSeconds;
         activeSession = true;
+        isPaused = false;
+        pausedTime = 0;
         closeModal();
         updateTimerDisplay();
         
@@ -415,6 +451,60 @@
         }, 1000);
     }
     
+    // ====== إيقاف مؤقت (Pause) ======
+    function pauseSession() {
+        if (!activeSession || isPaused) return;
+        
+        // حساب الوقت المنقضي
+        const elapsedSeconds = totalSeconds - remainingSeconds;
+        const minutesSpent = Math.floor(elapsedSeconds / 60);
+        
+        if (minutesSpent > 0) {
+            // إضافة الوقت المنقضي إلى اليوم والمجموع الكلي
+            addTodayReviewedMinutes(minutesSpent);
+            addTotalStudyMinutes(minutesSpent);
+            updateStatsAfterStudy(minutesSpent);
+        }
+        
+        // حفظ حالة الإيقاف المؤقت
+        savePauseState({
+            totalSeconds: totalSeconds,
+            remainingSeconds: remainingSeconds,
+            isPaused: true
+        });
+        
+        // إيقاف المؤقت
+        if (sessionTimer) clearInterval(sessionTimer);
+        isPaused = true;
+        activeSession = false; // مؤقتاً
+        pausedTime = minutesSpent;
+        
+        const { timerBar } = getElements();
+        if (timerBar) timerBar.style.display = 'none';
+        
+        showMessage('⏸️ تم إيقاف الجلسة مؤقتاً');
+        updateTotalDisplay();
+    }
+    
+    // ====== حفظ واستعادة حالة الإيقاف المؤقت ======
+    function savePauseState(state) {
+        try {
+            localStorage.setItem('session_pause_state', JSON.stringify(state));
+        } catch (e) {}
+    }
+    
+    function loadPauseState() {
+        try {
+            const raw = localStorage.getItem('session_pause_state');
+            if (raw) return JSON.parse(raw);
+        } catch (e) {}
+        return null;
+    }
+    
+    function clearPauseState() {
+        localStorage.removeItem('session_pause_state');
+    }
+    
     // ====== إنهاء الجلسة (عند انتهاء الوقت) ======
     function endSession() {
         if (sessionTimer) clearInterval(sessionTimer);
@@ -425,12 +515,13 @@
         if (minutesSpent > 0) {
             addTodayReviewedMinutes(minutesSpent);
             addTotalStudyMinutes(minutesSpent);
-            // تحديث الإحصائيات
             updateStatsAfterStudy(minutesSpent);
         }
         
         playEndSound();
         activeSession = false;
+        isPaused = false;
+        clearPauseState();
         
         const { timerBar, endOverlay } = getElements();
         if (timerBar) timerBar.style.display = 'none';
@@ -457,60 +548,13 @@
         }
         
         activeSession = false;
+        isPaused = false;
+        clearPauseState();
         
         const { timerBar } = getElements();
         if (timerBar) timerBar.style.display = 'none';
         
         updateTotalDisplay();
-    }
-    
-    // ====== نوافذ تعديل الهدف والسجل ======
-    function openGoalModal() {
-        const els = getElements();
-        if (!els.goalModal) return;
-        const data = loadStats();
-        els.goalSelect.value = data.goal;
-        els.goalModal.classList.add('active');
-        els.goalModal.style.display = 'flex';
-    }
-    
-    function closeGoalModal() {
-        const els = getElements();
-        if (!els.goalModal) return;
-        els.goalModal.classList.remove('active');
-        setTimeout(() => {
-            els.goalModal.style.display = 'none';
-        }, 300);
-    }
-    
-    function saveGoal() {
-        const els = getElements();
-        if (!els.goalSelect) return;
-        const newGoal = parseInt(els.goalSelect.value);
-        if (isNaN(newGoal) || newGoal <= 0) return;
-        const data = loadStats();
-        data.goal = newGoal;
-        saveStats(data);
-        closeGoalModal();
-        updateStatsUI();
-        showMessage('✅ تم تحديث الهدف');
-    }
-    
-    function openHistoryModal() {
-        const els = getElements();
-        if (!els.historyModal) return;
-        updateHistoryUI();
-        els.historyModal.classList.add('active');
-        els.historyModal.style.display = 'flex';
-    }
-    
-    function closeHistoryModal() {
-        const els = getElements();
-        if (!els.historyModal) return;
-        els.historyModal.classList.remove('active');
-        setTimeout(() => {
-            els.historyModal.style.display = 'none';
-        }, 300);
     }
     
     // ====== ربط الأحداث ======
@@ -543,6 +587,12 @@
             els.cancelBtn.addEventListener('click', cancelSession);
         }
         
+        // زر Pause (سيتم إضافته في HTML)
+        const pauseBtn = document.getElementById('pauseSessionBtn');
+        if (pauseBtn) {
+            pauseBtn.addEventListener('click', pauseSession);
+        }
+        
         // إغلاق نافذة النهاية
         if (els.closeEndBtn) {
             els.closeEndBtn.addEventListener('click', function() {
@@ -550,41 +600,58 @@
             });
         }
         
-        // تعديل الهدف
+        // ====== الصفحات الداخلية ======
+        // Edit Goal
         if (els.editGoalBtn) {
-            els.editGoalBtn.addEventListener('click', openGoalModal);
+            els.editGoalBtn.addEventListener('click', function() {
+                if (activeSession) {
+                    showMessage('⚠️ أنهِ الجلسة أولاً');
+                    return;
+                }
+                const data = loadStats();
+                els.goalSelect.value = data.goal;
+                showInnerPage('statsGoalContent');
+            });
         }
-        if (els.goalModalClose) {
-            els.goalModalClose.addEventListener('click', closeGoalModal);
+        if (els.goalBackBtn) {
+            els.goalBackBtn.addEventListener('click', showMainContent);
         }
         if (els.goalSaveBtn) {
-            els.goalSaveBtn.addEventListener('click', saveGoal);
-        }
-        if (els.goalModal) {
-            els.goalModal.addEventListener('click', function(e) {
-                if (e.target === els.goalModal) closeGoalModal();
+            els.goalSaveBtn.addEventListener('click', function() {
+                const newGoal = parseInt(els.goalSelect.value);
+                if (isNaN(newGoal) || newGoal <= 0) return;
+                const data = loadStats();
+                data.goal = newGoal;
+                saveStats(data);
+                showMainContent();
+                updateStatsUI();
+                showMessage('✅ تم تحديث الهدف');
             });
         }
         
-        // السجل
+        // History
         if (els.historyBtn) {
-            els.historyBtn.addEventListener('click', openHistoryModal);
-        }
-        if (els.historyModalClose) {
-            els.historyModalClose.addEventListener('click', closeHistoryModal);
-        }
-        if (els.historyModal) {
-            els.historyModal.addEventListener('click', function(e) {
-                if (e.target === els.historyModal) closeHistoryModal();
+            els.historyBtn.addEventListener('click', function() {
+                updateHistoryUI();
+                showInnerPage('statsHistoryContent');
             });
+        }
+        if (els.historyBackBtn) {
+            els.historyBackBtn.addEventListener('click', showMainContent);
         }
         
         // إغلاق النوافذ بالـ ESC
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
-                if (els.modal && els.modal.classList.contains('active')) closeModal();
-                if (els.goalModal && els.goalModal.classList.contains('active')) closeGoalModal();
-                if (els.historyModal && els.historyModal.classList.contains('active')) closeHistoryModal();
+                if (els.modal && els.modal.classList.contains('active')) {
+                    // إذا كانت صفحة داخلية مفتوحة، نغلقها أولاً
+                    const innerActive = document.querySelector('.stats-inner-page.active');
+                    if (innerActive) {
+                        showMainContent();
+                    } else {
+                        closeModal();
+                    }
+                }
             }
         });
     }
@@ -606,7 +673,6 @@
     // ====== التهيئة ======
     function init() {
         setTimeout(() => {
-            // تهيئة البيانات إذا كانت فارغة
             const data = loadStats();
             if (!data.history || data.history.length === 0) {
                 saveStats(data);
@@ -614,9 +680,15 @@
             bindEvents();
             setupObserver();
             updateTotalDisplay();
-            // تصدير الدالة لاستخدامها خارجياً
             window.toggleSessionButton = toggleSessionButton;
-            console.log("✅ studySession.js جاهز - النسخة المتكاملة مع الإحصائيات");
+            
+            // التحقق من وجود حالة إيقاف مؤقت محفوظة عند التحميل
+            const savedState = loadPauseState();
+            if (savedState && savedState.isPaused) {
+                console.log('⏸️ توجد جلسة موقفة مؤقتاً. اضغط على أي زر مدة لاستئنافها.');
+            }
+            
+            console.log("✅ studySession.js جاهز - مع Pause/Resume وصفحات داخلية");
         }, 200);
     }
     
