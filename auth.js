@@ -1,6 +1,7 @@
 // ============================================
 // auth.js - النظام النهائي المعتمد للمصادقة (Zertiva Gold Standard)
 // (قراءة واحدة عند الـ Refresh - آمن 100% - حماية كاملة من الحسابات الناقصة)
+// مع ميزة "تقريري" (صفحة HTML منفصلة)
 // ============================================
 
 // عناصر DOM
@@ -56,6 +57,9 @@ window._isAuthenticating = false;
 
 // متغير يحمل الحالة الحالية (يتم تحديثه في updateUI)
 let _currentUserStatus = 'free';
+
+// مخبأ لبيانات المستخدم من Firestore (يتم تحديثه في updateUI)
+window._cachedUserData = null;
 
 /**
  * دالة عامة تعيد حالة المستخدم الحالية
@@ -220,6 +224,9 @@ async function createInitialUserDocument(user) {
 }
 
 function updateUI(user, data) {
+    // تحديث المخبأ للاستخدام في التقرير
+    window._cachedUserData = data || null;
+
     const profileEmail = document.getElementById('profileEmail');
     const profileEmailText = document.getElementById('profileEmailText');
     const profileExpiry = document.getElementById('profileExpiry');
@@ -611,4 +618,283 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// ============================================
+// 📄 ميزة "تقريري" (فتح صفحة تقرير HTML)
+// ============================================
+
+// الحصول على زر التحميل من DOM
+const downloadReportBtn = document.getElementById('downloadReportBtn');
+
+// ====== دوال مساعدة لقراءة البيانات من localStorage (بالمفاتيح الصحيحة) ======
+function getLocalData(key, defaultValue = 'غير متوفر') {
+    try {
+        const val = localStorage.getItem(key);
+        if (val === null || val === undefined) return defaultValue;
+        return val;
+    } catch {
+        return defaultValue;
+    }
+}
+
+function getLocalJSON(key, defaultValue = null) {
+    try {
+        const val = localStorage.getItem(key);
+        if (!val) return defaultValue;
+        return JSON.parse(val);
+    } catch {
+        return defaultValue;
+    }
+}
+
+function getTotalStudyMinutes() {
+    return parseInt(localStorage.getItem('total_study_minutes')) || 0;
+}
+
+function getTotalStudyHours() {
+    const minutes = getTotalStudyMinutes();
+    return (minutes / 60).toFixed(1);
+}
+
+function getExamDate() {
+    return getLocalData('zertiva_exam_date', 'غير متوفر');
+}
+
+function getDailyGoal() {
+    const data = getLocalJSON('stats_daily_data', { goal: 120 });
+    const goal = data.goal || 120;
+    const hours = Math.floor(goal / 60);
+    const mins = goal % 60;
+    if (hours > 0) {
+        return hours + (hours === 1 ? ' ساعة' : ' ساعات') + (mins > 0 ? ' ' + mins + ' دقيقة' : '');
+    }
+    return mins + ' دقيقة';
+}
+
+function getStreak() {
+    const data = getLocalJSON('stats_daily_data', {});
+    const goal = data.goal || 120;
+    if (goal <= 0) return 0;
+    let streak = 0;
+    let currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 1);
+    for (let i = 0; i < 365; i++) {
+        const dateStr = currentDate.toISOString().split('T')[0];
+        const key = `session_total_${dateStr}`;
+        const minutes = parseInt(localStorage.getItem(key)) || 0;
+        if (minutes >= goal) {
+            streak++;
+        } else {
+            break;
+        }
+        currentDate.setDate(currentDate.getDate() - 1);
+    }
+    return streak;
+}
+
+function getHistory() {
+    const data = getLocalJSON('stats_daily_data', { history: [] });
+    return data.history || [];
+}
+
+// ====== دوال قراءة نتائج الامتحانات بالمفاتيح الصحيحة (الفردية) ======
+function getExamResultsForSkill(skill) {
+    const prefix = `exam_result_${skill}_`;
+    const exams = {};
+    try {
+        const allKeys = Object.keys(localStorage);
+        const examKeys = allKeys.filter(k => k.startsWith(prefix));
+        examKeys.forEach(k => {
+            const examIdStr = k.substring(prefix.length);
+            const examId = parseInt(examIdStr, 10);
+            if (!isNaN(examId)) {
+                const score = parseFloat(localStorage.getItem(k));
+                if (!isNaN(score)) {
+                    const retriesKey = `exam_retry_${skill}_${examId}`;
+                    const retries = parseInt(localStorage.getItem(retriesKey)) || 0;
+                    const lastReviewKey = `exam_last_review_${skill}_${examId}`;
+                    const lastPlayed = localStorage.getItem(lastReviewKey) || null;
+                    // نحاول الحصول على اسم الامتحان من examsDatabase
+                    let examTitle = `امتحان ${examId}`;
+                    try {
+                        if (window.examsDatabase && window.examsDatabase[skill]) {
+                            const examObj = window.examsDatabase[skill].find(e => e.id === examId);
+                            if (examObj) examTitle = examObj.title;
+                        }
+                    } catch (e) {}
+                    exams[examId] = {
+                        score: score,
+                        retries: retries,
+                        lastPlayed: lastPlayed,
+                        title: examTitle
+                    };
+                }
+            }
+        });
+    } catch (e) {
+        console.warn('⚠️ فشل قراءة نتائج المهارة:', skill, e);
+    }
+    return exams;
+}
+
+function getAllExamData() {
+    const skills = ['hoeren1', 'hoeren2', 'hoeren3', 'lesen1', 'lesen2', 'lesen3', 'sprach1', 'sprach2'];
+    const result = {};
+    skills.forEach(skill => {
+        result[skill] = getExamResultsForSkill(skill);
+    });
+    return result;
+}
+
+// ====== جمع بيانات التقرير مع مصادر صحيحة ======
+function collectUserReportData() {
+    const user = auth.currentUser;
+    if (!user) throw new Error('المستخدم غير مسجل الدخول');
+
+    // 1. البيانات الأساسية من Auth
+    const email = user.email || 'غير متوفر';
+    const uid = user.uid || 'غير متوفر';
+    const creationTime = user.metadata?.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString('ar-EG') : 'غير متوفر';
+
+    // 2. الاسم: استخدم displayName إن وجد، وإلا استخدم firstname و lastname من البيانات المخزنة
+    let displayName = user.displayName || '';
+    let firstName = 'غير متوفر';
+    let lastName = 'غير متوفر';
+    let plan = 'مجاني';
+    let expiryDate = 'غير متوفر';
+
+    if (window._cachedUserData) {
+        firstName = window._cachedUserData.firstname || 'غير متوفر';
+        lastName = window._cachedUserData.lastname || 'غير متوفر';
+        plan = window._cachedUserData.plan === 'premium' ? 'Pro' : 'مجاني';
+        expiryDate = window._cachedUserData.premiumUntil || 'غير متوفر';
+    } else {
+        // محاولة قراءة من localStorage كاحتياطي
+        try {
+            const userData = getLocalJSON('zertiva_user_data', null);
+            if (userData) {
+                firstName = userData.firstname || 'غير متوفر';
+                lastName = userData.lastname || 'غير متوفر';
+                plan = userData.plan === 'premium' ? 'Pro' : 'مجاني';
+                expiryDate = userData.premiumUntil || 'غير متوفر';
+            }
+        } catch (e) { /* تجاهل */ }
+    }
+
+    // إذا كان displayName موجوداً، استخدمه كاسم كامل، وإلا اجمع firstName و lastName
+    let fullName = displayName;
+    if (!fullName || fullName.trim() === '') {
+        fullName = (firstName !== 'غير متوفر' ? firstName : '') + ' ' + (lastName !== 'غير متوفر' ? lastName : '');
+        fullName = fullName.trim() || 'غير متوفر';
+    }
+
+    // 3. بيانات الامتحان والإحصائيات
+    const examDate = getExamDate();
+    let remainingDays = 'غير متوفر';
+    if (examDate !== 'غير متوفر') {
+        try {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const exam = new Date(examDate);
+            exam.setHours(0, 0, 0, 0);
+            const diff = Math.ceil((exam - today) / (1000 * 60 * 60 * 24));
+            remainingDays = diff > 0 ? diff + ' يوم' : 'انتهى';
+        } catch (e) { /* تجاهل */ }
+    }
+
+    const totalHours = getTotalStudyHours();
+    const streak = getStreak();
+    const dailyGoal = getDailyGoal();
+    const history = getHistory().slice(-30);
+
+    // 4. نتائج الامتحانات
+    const examData = getAllExamData();
+
+    return {
+        fullName: fullName,
+        email: email,
+        uid: uid,
+        creationTime: creationTime,
+        plan: plan,
+        expiryDate: expiryDate,
+        examDate: examDate,
+        remainingDays: remainingDays,
+        totalHours: totalHours,
+        streak: streak,
+        dailyGoal: dailyGoal,
+        history: history,
+        examData: examData
+    };
+}
+
+// ====== دالة فتح صفحة التقرير ======
+function openReportPage() {
+    if (!auth.currentUser) {
+        alert('يرجى تسجيل الدخول أولاً');
+        return;
+    }
+
+    // تفعيل حالة التحميل على الزر
+    if (downloadReportBtn) {
+        downloadReportBtn.classList.add('loading');
+        downloadReportBtn.textContent = '⏳ جاري التحضير...';
+    }
+
+    // استخدام setTimeout لتجنب تجميد الواجهة
+    setTimeout(() => {
+        try {
+            // جمع البيانات
+            const data = collectUserReportData();
+
+            // حفظ البيانات في localStorage
+            localStorage.setItem('zertiva_report_data', JSON.stringify(data));
+
+            // فتح صفحة التقرير في نافذة جديدة
+            window.open('report.html', '_blank');
+
+        } catch (error) {
+            console.error('❌ خطأ في تحضير التقرير:', error);
+            alert('حدث خطأ أثناء تحضير التقرير. يرجى المحاولة مرة أخرى.');
+        } finally {
+            // إعادة الزر إلى حالته الطبيعية
+            if (downloadReportBtn) {
+                downloadReportBtn.classList.remove('loading');
+                downloadReportBtn.textContent = '📄 تقريري';
+            }
+        }
+    }, 50);
+}
+
+// ====== ربط زر التحميل ======
+if (downloadReportBtn) {
+    // نمنع التكرار
+    const newBtn = downloadReportBtn.cloneNode(true);
+    downloadReportBtn.parentNode.replaceChild(newBtn, downloadReportBtn);
+    const freshBtn = document.getElementById('downloadReportBtn');
+    freshBtn.textContent = '📄 تقريري';
+    freshBtn.addEventListener('click', openReportPage);
+
+    // في حالة عدم وجود مستخدم مسجل، نخفي الزر
+    if (!auth.currentUser) {
+        freshBtn.style.display = 'none';
+    }
+}
+
+// تحديث ظهور الزر عند تغيير حالة المصادقة
+auth.onAuthStateChanged(user => {
+    const btn = document.getElementById('downloadReportBtn');
+    if (btn) {
+        btn.style.display = user ? 'flex' : 'none';
+    }
+});
+
+// ====== تخزين بيانات المستخدم في ذاكرة مؤقتة ======
+const originalUpdateUI = updateUI;
+updateUI = function(user, data) {
+    if (data) {
+        window._cachedUserData = data;
+    }
+    originalUpdateUI(user, data);
+};
+
 console.log('🎉 تم اعتماد البنية النهائية لـ Zertiva بنسبة 100/100.');
