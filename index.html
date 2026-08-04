@@ -1972,34 +1972,6 @@ if (logoBtn) {
         console.warn('⚠️ لم يتم العثور على زر الشعار');
     }
 
-// 3. إظهار/إخفاء الملف الشخصي حسب الصفحة
-function toggleProfileVisibility() {
-    const profileIcon = document.getElementById('profileIcon');
-    if (!profileIcon) return;
-    const home = document.getElementById('home');
-    const list = document.getElementById('list');
-    const exam = document.getElementById('exam');
-    if (list && list.classList.contains('active')) {
-        profileIcon.style.display = 'flex';
-    } else if (exam && exam.classList.contains('active')) {
-        profileIcon.style.display = 'flex';
-    } else if (home && home.classList.contains('active')) {
-        profileIcon.style.display = 'none';
-    }
-}
-
-// مراقبة تغيير الصفحات لإظهار/إخفاء الملف الشخصي
-const homePage = document.getElementById('home');
-const listPage = document.getElementById('list');
-const examPage = document.getElementById('exam');
-const observer = new MutationObserver(function() {
-    toggleProfileVisibility();
-});
-if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
-if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
-if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
-toggleProfileVisibility();
-
 });
 
     const widgetSliderElem = document.getElementById('widgetSlider');
@@ -2239,26 +2211,20 @@ toggleProfileVisibility();
         if (e.key === 'ArrowLeft') prevImageModal();
     });
 
-const startBtn = document.getElementById('startBtn');
-if(startBtn) {
-    startBtn.addEventListener('click', function() {
-        // استخدام window.goList بدلاً من goList المباشر
-        if (typeof window.goList === 'function') {
-            window.goList();
-        } else {
-            console.warn('⚠️ window.goList غير متوفر، محاولة استخدام goList');
+    const startBtn = document.getElementById('startBtn');
+    if(startBtn) {
+        startBtn.addEventListener('click', function() {
             if (typeof goList === 'function') {
                 goList();
             }
-        }
-        setTimeout(() => {
-            const hoerenTeil1 = document.querySelector('.teile-row .item:first-child');
-            if(hoerenTeil1 && hoerenTeil1.click) {
-                hoerenTeil1.click();
-            }
-        }, 100);
-    });
-}
+            setTimeout(() => {
+                const hoerenTeil1 = document.querySelector('.teile-row .item:first-child');
+                if(hoerenTeil1 && hoerenTeil1.click) {
+                    hoerenTeil1.click();
+                }
+            }, 100);
+        });
+    }
     
     function fixMobileWidget() {
         const widget = document.getElementById('reviewsWidget');
@@ -2584,7 +2550,31 @@ if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeF
 <!-- مكتبات PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-<!-- تم نقل تحميل الخط العربي إلى auth.js لضمان تحميله عند الحاجة فقط -->
+<script>
+// ===== تحميل الخط العربي Noto Sans Arabic وتضمينه في jsPDF =====
+(function() {
+    const fontUrl = 'https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts/hinted/ttf/NotoSansArabic/NotoSansArabic-Regular.ttf';
+    fetch(fontUrl)
+        .then(res => {
+            if (!res.ok) throw new Error('فشل تحميل الخط');
+            return res.arrayBuffer();
+        })
+        .then(buffer => {
+            const base64 = btoa(
+                new Uint8Array(buffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
+            );
+            const { jsPDF } = window.jspdf;
+            jsPDF.API.addFileToVFS('NotoSansArabic-Regular.ttf', base64);
+            jsPDF.API.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
+            console.log('✅ تم تحميل الخط العربي NotoSansArabic بنجاح');
+            window._arabicFontLoaded = true;
+        })
+        .catch(err => {
+            console.error('❌ فشل تحميل الخط العربي:', err);
+            window._arabicFontLoaded = false;
+        });
+})();
+</script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyABp_TfYLzX76ddo0nE08R7T0N8UEGbjIc",
@@ -2629,32 +2619,6 @@ window.updateAskAIContext = function(skill, examId) {
 <script src="studyPlanner.js"></script>
     
 <script type="module" src="./auth.js"></script>
-<script>
-// تحديث زر التحميل عند تغير حالة المستخدم (لإظهاره للمستخدمين المسجلين)
-(function() {
-    const downloadBtn = document.getElementById('downloadReportBtn');
-    if (!downloadBtn) return;
-
-    // وظيفة تحديث ظهور الزر
-    function updateDownloadButton() {
-        if (window.auth && window.auth.currentUser) {
-            downloadBtn.style.display = 'flex';
-        } else {
-            downloadBtn.style.display = 'none';
-        }
-    }
-
-    // تحديث فوري
-    updateDownloadButton();
-
-    // الاستماع لتغير حالة المصادقة
-    if (window.auth) {
-        window.auth.onAuthStateChanged(() => {
-            updateDownloadButton();
-        });
-    }
-})();
-</script>
 <script type="module" src="./notifications.js"></script>
 <script type="module" src="./rapidGame.js"></script>
 <script type="module" src="./studySession.js"></script>
