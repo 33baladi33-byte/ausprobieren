@@ -1358,8 +1358,14 @@ body.dark-mode .mobile-banner span {
 
 <!-- ===== الملف الشخصي (التصميم القديم مع إضافة UID) ===== -->
 <div id="profileDropdown" class="profile-dropdown">
-    <div id="profileEmail" class="profile-email">👤 غير مسجل</div>
-    <div id="profileExpiry" class="profile-expiry"> حساب مجاني </div>
+ <div id="profileEmail" class="profile-email">
+    <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle; margin-left: 4px;">mark_email_read</span>
+    <span id="profileEmailText">غير مسجل</span>
+</div>
+   <div id="profileExpiry" class="profile-expiry">
+    <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; margin-left: 4px; color: #94a3b8;">calendar_month</span>
+    <span id="profileExpiryText">حساب مجاني</span>
+</div>
     <div id="profileStatus" class="profile-status"></div>
     
     <!-- ✅ سطر الـ UID -->
@@ -4788,7 +4794,7 @@ document.addEventListener("DOMContentLoaded", function() {
 })();
 
 // ============================================
-// ✅ (جديد) تحديث سطر الخطة اليومية في الملف الشخصي
+// ✅ (جديد) تحديث سطر الخطة اليومية في الملف الشخصي + تحويل الأرقام
 // ============================================
 function updateProfilePlannerStatus() {
     const textEl = document.getElementById('profilePlannerText');
@@ -4831,6 +4837,35 @@ window.addEventListener('storage', function(e) {
         updateProfilePlannerStatus();
     }
 });
+
+// ============================================
+// ✅ تحويل أرقام تاريخ الصلاحية إلى غربية
+// ============================================
+function toWesternNumerals(str) {
+    const arabicNumerals = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+    return str.replace(/[٠-٩]/g, function(d) {
+        return arabicNumerals.indexOf(d);
+    });
+}
+
+// استهداف عنصر تاريخ الصلاحية داخل الملف الشخصي فقط
+const expiryText = document.getElementById('profileExpiryText');
+if (expiryText) {
+    // مراقبة التغييرات على النص
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'characterData' || mutation.type === 'childList') {
+                const original = expiryText.textContent;
+                const converted = toWesternNumerals(original);
+                if (converted !== original) {
+                    expiryText.textContent = converted;
+                }
+            }
+        });
+    });
+
+    observer.observe(expiryText, { childList: true, characterData: true, subtree: true });
+}
 </script>
 </script>
 </body>
