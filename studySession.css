@@ -1,5 +1,5 @@
 /* ============================================
-   studySession.css - النسخة النهائية (بطاقة متكاملة)
+   studySession.css - النسخة النهائية (متكاملة)
    ============================================ */
 
 /* زر العداد */
@@ -44,7 +44,7 @@
 .session-modal-content {
     background: #f8f9fc;
     border-radius: 24px;
-    max-width: 480px;  /* أوسع قليلاً */
+    max-width: 480px;
     width: 94%;
     padding: 18px 20px 20px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
@@ -53,7 +53,23 @@
     position: relative;
 }
 
-/* ===== صف الأزرار العلوية (History ← → Edit) ===== */
+/* ===== الصفحات الرئيسية والداخلية ===== */
+.stats-main-page {
+    display: block;
+}
+
+.stats-inner-page {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    min-height: 260px;
+}
+
+.stats-inner-page.active {
+    display: flex;
+}
+
+/* ===== صف الأزرار العلوية ===== */
 .stats-header-actions {
     display: flex;
     justify-content: space-between;
@@ -82,7 +98,7 @@
 }
 
 .stats-icon-btn .material-symbols-outlined {
-    font-size: 24px; /* تكبير الأيقونات */
+    font-size: 24px;
 }
 
 .stats-icon-btn:hover {
@@ -141,7 +157,7 @@
 /* ===== الدائرة ===== */
 .stats-ring-wrapper {
     position: relative;
-    width: 120px;  /* أكبر قليلاً */
+    width: 120px;
     height: 120px;
     flex-shrink: 0;
 }
@@ -287,19 +303,7 @@
     margin-left: 4px;
 }
 
-/* ===== الصفحات الداخلية (Edit و History داخل نفس البطاقة) ===== */
-.stats-inner-page {
-    display: none;
-    flex-direction: column;
-    height: 100%;
-    min-height: 280px;
-    padding: 6px 0;
-}
-
-.stats-inner-page.active {
-    display: flex;
-}
-
+/* ===== الصفحات الداخلية (Edit و History) ===== */
 .stats-inner-header {
     display: flex;
     align-items: center;
@@ -421,7 +425,7 @@
     padding: 16px 0;
 }
 
-/* ===== Timer Bar مع زر Pause ===== */
+/* ===== Timer Bar مع Pause و Cancel ===== */
 .session-timer-bar {
     position: fixed;
     top: 85px;
