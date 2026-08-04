@@ -1,5 +1,5 @@
 // ============================================
-// studySession.js - نظام جلسات المراجعة (النسخة النهائية مع المجموع الكلي)
+// studySession.js - نظام جلسات المراجعة (النسخة النهائية مع المجموع الكلي + تكامل الإحصائيات)
 // ============================================
 
 (function() {
@@ -171,7 +171,7 @@
         }, 1000);
     }
     
-    // ====== إنهاء الجلسة ======
+    // ====== إنهاء الجلسة (عند انتهاء الوقت) ======
     function endSession() {
         if (sessionTimer) clearInterval(sessionTimer);
         
@@ -183,6 +183,11 @@
         if (minutesSpent > 0) {
             addTodayReviewedMinutes(minutesSpent);
             addTotalStudyMinutes(minutesSpent);
+            
+            // ✅ تحديث لوحة الإحصائيات (النظام الجديد)
+            if (typeof window.updateStatsAfterStudy === 'function') {
+                window.updateStatsAfterStudy(minutesSpent);
+            }
         }
         
         playEndSound();
@@ -200,7 +205,7 @@
         }, 4000);
     }
     
-    // ====== إلغاء الجلسة ======
+    // ====== إلغاء الجلسة (بواسطة المستخدم) ======
     function cancelSession() {
         if (sessionTimer) clearInterval(sessionTimer);
         
@@ -212,6 +217,11 @@
         if (minutesSpent > 0) {
             addTodayReviewedMinutes(minutesSpent);
             addTotalStudyMinutes(minutesSpent);
+            
+            // ✅ تحديث لوحة الإحصائيات (النظام الجديد)
+            if (typeof window.updateStatsAfterStudy === 'function') {
+                window.updateStatsAfterStudy(minutesSpent);
+            }
         }
         
         activeSession = false;
@@ -266,7 +276,7 @@
         }
     }
     
-     // ====== مراقبة تغيير الصفحات ======
+    // ====== مراقبة تغيير الصفحات ======
     function setupObserver() {
         const home = document.getElementById('home');
         const list = document.getElementById('list');
@@ -282,14 +292,14 @@
         toggleSessionButton();
     }
     
-      function init() {
+    function init() {
         setTimeout(() => {
             bindEvents();
             setupObserver();
             updateTotalDisplay();
             // تصدير الدالة للاستخدام العام من auth.js
             window.toggleSessionButton = toggleSessionButton;
-            console.log("✅ studySession.js جاهز - النسخة النهائية مع المجموع الكلي");
+            console.log("✅ studySession.js جاهز - النسخة النهائية مع المجموع الكلي وتكامل الإحصائيات");
         }, 200);
     }
     
