@@ -319,11 +319,6 @@ function updateUI(user, data) {
         setTimeout(window.toggleSessionButton, 50);
     }
 }
-    
-    if (typeof window.toggleSessionButton === 'function') {
-        setTimeout(window.toggleSessionButton, 50);
-    }
-}
 // ============================================
 // دوال المصادقة (Login, Signup, Logout, Reset)
 // ============================================
