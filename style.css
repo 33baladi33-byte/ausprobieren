@@ -584,68 +584,6 @@ body {
     transform: scale(1.02);
 }
 
-/* زر تسجيل الدخول - تصميم Uiverse معدل */
-.btn-login-top {
-    min-width: 100px;
-    position: relative;
-    cursor: pointer;
-    padding: 10px 18px;
-    border: 0;
-    border-radius: 7px;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-    background: radial-gradient(
-        ellipse at bottom,
-        rgba(71, 81, 92, 1) 0%,
-        rgba(11, 21, 30, 1) 45%
-    );
-    color: rgba(255, 255, 255, 0.7);
-    transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
-    font-weight: 500;
-    font-size: 0.85rem;
-    font-family: inherit;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-}
-
-.btn-login-top::before {
-    content: "";
-    width: 70%;
-    height: 1px;
-    position: absolute;
-    bottom: 0;
-    left: 15%;
-    background: rgb(255, 255, 255);
-    background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 1) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
-    opacity: 0.2;
-    transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
-}
-
-.btn-login-top:hover {
-    color: rgba(255, 255, 255, 1);
-    transform: scale(1.05) translateY(-2px);
-}
-
-.btn-login-top:hover::before {
-    opacity: 1;
-}
-
-/* للهواتف */
-@media (max-width: 768px) {
-    .btn-login-top {
-        min-width: 60px;
-        padding: 6px 12px;
-        font-size: 0.7rem;
-        height: 30px;
-        border-radius: 5px;
-    }
-}
 
 /* ===== زر الملف الشخصي - تصميم Apple Premium ===== */
 .profile-icon {
@@ -5683,44 +5621,91 @@ body:has(#exam.active) #backHomeBtn {
     border-color: rgba(255, 255, 255, 0.25) !important;
     transform: scale(1.05);
 }
-/* زر اشترك - تصميم Uiverse معدل */
-.subscribe-button-wrapper {
+/* ============================================
+   ZERT LOGIN BUTTON (Apple Style - Isolated)
+   ============================================ */
+.zert-login-btn {
+    position: relative;
+    cursor: pointer;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 15px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    background: radial-gradient(ellipse at bottom, rgba(71, 81, 92, 1) 0%, rgba(11, 21, 30, 1) 45%);
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
+    font-weight: 500;
+    font-size: 0.85rem;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100px;
+    min-width: 100px;
+}
+
+.zert-login-btn::before {
+    content: "";
+    width: 70%;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+    opacity: 0.2;
+    transition: all 1s cubic-bezier(0.15, 0.83, 0.66, 1);
+}
+
+.zert-login-btn:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: scale(1.05) translateY(-2px);
+}
+
+.zert-login-btn:hover::before {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .zert-login-btn {
+        min-width: 60px;
+        padding: 0 12px;
+        font-size: 0.7rem;
+        height: 30px;
+        width: auto;
+    }
+}
+
+/* ============================================
+   ZERT SUBSCRIBE BUTTON (Uiverse - FULLY NAMESPACED)
+   ============================================ */
+.zert-sub-wrapper {
     position: relative;
     margin: 0 0.5em;
     display: inline-flex;
     align-items: center;
 }
 
-/* إزالة أي أنماط سابقة لـ .subscribe-text-btn */
-.subscribe-text-btn {
-    /* نُبطل الأنماط القديمة ونعتمد على التصميم الجديد */
-    all: unset;
-}
-
-/* تعديل الهيكل الداخلي ليتناسب مع حجم الموقع */
-.button-container-subscribe {
+.zert-sub-container {
     position: relative;
     margin: 0;
 }
 
-.button-border-subscribe {
+.zert-sub-border {
     padding: 3px;
     inset: 0;
     background: rgba(0,0,0,0.3);
     border-radius: inherit;
-    clip-path: path(
-        "M 90 0 C 121 0 126 5 126 33 C 126 61 121 66 90 66 L 33 66 C 5 66 0 61 0 33 C 0 5 5 0 33 0 Z"
-    );
+    clip-path: path("M 90 0 C 121 0 126 5 126 33 C 126 61 121 66 90 66 L 33 66 C 5 66 0 61 0 33 C 0 5 5 0 33 0 Z");
 }
 
-.button-subscribe {
+.zert-sub-inner {
     justify-content: center;
     align-items: center;
     border: none;
     border-radius: 0.875em;
-    clip-path: path(
-        "M 90 0 C 115 0 120 5 120 30 C 120 55 115 60 90 60 L 30 60 C 5 60 0 55 0 30 C 0 5 5 0 30 0 Z"
-    );
+    clip-path: path("M 90 0 C 115 0 120 5 120 30 C 120 55 115 60 90 60 L 30 60 C 5 60 0 55 0 30 C 0 5 5 0 30 0 Z");
     width: 100px;
     height: 44px;
     background: #111215;
@@ -5736,8 +5721,7 @@ body:has(#exam.active) #backHomeBtn {
     line-height: 44px;
 }
 
-/* زر مخفي يتلقى النقرات */
-.real-button {
+.zert-sub-real-btn {
     position: absolute;
     width: 100px;
     height: 44px;
@@ -5750,22 +5734,15 @@ body:has(#exam.active) #backHomeBtn {
     padding: 0;
 }
 
-/* خلفية متحركة */
-.backdrop-subscribe {
+.zert-sub-backdrop {
     position: absolute;
     inset: -9900%;
-    background: radial-gradient(
-        circle at 50% 50%,
-        transparent 0%,
-        transparent 20%,
-        rgba(17,17,17,0.7) 50%
-    );
+    background: radial-gradient(circle at 50% 50%, transparent 0%, transparent 20%, rgba(17,17,17,0.7) 50%);
     background-size: 3px 3px;
     z-index: -1;
 }
 
-/* الدائرة المتحركة */
-.spin-subscribe {
+.zert-sub-spin {
     position: absolute;
     inset: 0;
     z-index: -2;
@@ -5774,87 +5751,80 @@ body:has(#exam.active) #backHomeBtn {
     transition: 0.3s;
 }
 
-.real-button:active ~ div .spin-subscribe {
+.zert-sub-real-btn:active ~ div .zert-sub-spin {
     opacity: 1;
 }
 
-.spin-blur-subscribe {
-    filter: blur(2em) url(#unopaq);
+.zert-sub-spin-blur {
+    filter: blur(2em) url(#zert-unopaq);
 }
 
-.spin-intense-subscribe {
+.zert-sub-spin-intense {
     inset: -0.125em;
-    filter: blur(0.25em) url(#unopaq2);
+    filter: blur(0.25em) url(#zert-unopaq2);
     border-radius: 0.75em;
 }
 
-.spin-inside-subscribe {
+.zert-sub-spin-inside {
     inset: -2px;
     border-radius: inherit;
-    filter: blur(2px) url(#unopaq3);
+    filter: blur(2px) url(#zert-unopaq3);
     z-index: 0;
 }
 
-.spin-subscribe::before {
+.zert-sub-spin::before {
     content: "";
     position: absolute;
     inset: -150%;
-    animation:
-        speen 8s cubic-bezier(0.56, 0.15, 0.28, 0.86) infinite,
-        woah 4s infinite;
+    animation: zert-speen 8s cubic-bezier(0.56, 0.15, 0.28, 0.86) infinite, zert-woah 4s infinite;
     animation-play-state: paused;
 }
 
-.real-button:hover ~ div .spin-subscribe::before {
+.zert-sub-real-btn:hover ~ div .zert-sub-spin::before {
     animation-play-state: running;
 }
 
-.spin-blur-subscribe::before {
+.zert-sub-spin-blur::before {
     background: linear-gradient(90deg, #f50 30%, transparent 50%, #05f 70%);
 }
 
-.spin-intense-subscribe::before {
+.zert-sub-spin-intense::before {
     background: linear-gradient(90deg, #f95 20%, transparent 45% 55%, #59f 80%);
 }
 
-.spin-inside-subscribe::before {
+.zert-sub-spin-inside::before {
     background: linear-gradient(90deg, #fc9 30%, transparent 45% 55%, #9cf 70%);
 }
 
-@keyframes speen {
+@keyframes zert-speen {
     0% { rotate: 10deg; }
     50% { rotate: 190deg; }
     to { rotate: 370deg; }
 }
 
-@keyframes woah {
+@keyframes zert-woah {
     0%, to { scale: 1; }
     50% { scale: 0.75; }
 }
 
-/* تعديلات للهواتف */
 @media (max-width: 768px) {
-    .button-subscribe {
+    .zert-sub-inner {
         width: 70px;
         height: 34px;
         font-size: 0.7rem;
         line-height: 34px;
     }
-    .real-button {
+    .zert-sub-real-btn {
         width: 70px;
         height: 34px;
     }
-    .button-border-subscribe {
-        clip-path: path(
-            "M 60 0 C 81 0 86 5 86 23 C 86 41 81 46 60 46 L 23 46 C 5 46 0 41 0 23 C 0 5 5 0 23 0 Z"
-        );
+    .zert-sub-border {
+        clip-path: path("M 60 0 C 81 0 86 5 86 23 C 86 41 81 46 60 46 L 23 46 C 5 46 0 41 0 23 C 0 5 5 0 23 0 Z");
     }
-    .button-subscribe {
-        clip-path: path(
-            "M 60 0 C 75 0 80 5 80 20 C 80 35 75 40 60 40 L 20 40 C 5 40 0 35 0 20 C 0 5 5 0 20 0 Z"
-        );
+    .zert-sub-inner {
+        clip-path: path("M 60 0 C 75 0 80 5 80 20 C 80 35 75 40 60 40 L 20 40 C 5 40 0 35 0 20 C 0 5 5 0 20 0 Z");
     }
-    .subscribe-button-wrapper {
+    .zert-sub-wrapper {
         margin: 0 0.3em;
     }
 }
