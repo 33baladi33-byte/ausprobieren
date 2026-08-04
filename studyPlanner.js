@@ -414,4 +414,7 @@ console.log('✅ studyPlanner.js (المحرك الأساسي) تم تحميله
 console.log('💡 استخدم window.generateStudyPlan(skill, examDate, dailyHours) لتوليد الخطة');
 console.log('💡 استخدم window.checkStudyPlannerDependencies() لفحص التبعيات');
 
+// ✅ تصدير دالة حساب الأيام لاستخدامها في الملف الشخصي (مصدر واحد للحقيقة)
+window.calculateWorkingDays = calculateWorkingDays;
+
 })();
