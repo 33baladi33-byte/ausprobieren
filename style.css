@@ -1619,9 +1619,8 @@ body:has(#exam.active) .top-bar {
    ======================================== */
 
 /* 1. الصفحة الرئيسية (Home) */
-/* نخفي أزرار الملف الشخصي والإعدادات وخطة اليوم في الرئيسية */
+/* نخفي أزرار الملف الشخصي وخطة اليوم في الرئيسية (زر الإعدادات سيتحكم به JS حسب حالة الاشتراك) */
 #home .profile-icon { display: none !important; }
-#home #settingsBtn { display: none !important; }
 #home #studyPlannerBtn { display: none !important; }
 
 /* نرتب زر الاشتراك وزر تسجيل الدخول في الرئيسية */
