@@ -4908,7 +4908,36 @@ if (expiryText) {
 
     observer.observe(expiryText, { childList: true, characterData: true, subtree: true });
 }
-</script>
+<!-- كود تفعيل أيقونة Info في الملف الشخصي -->
+<script>
+(function() {
+    function setupPlannerInfo() {
+        const infoIcon = document.getElementById('plannerInfoIcon');
+        const infoPopup = document.getElementById('plannerInfoPopup');
+
+        if (!infoIcon || !infoPopup) return;
+
+        infoIcon.addEventListener('click', function(e) {
+            e.stopPropagation();
+            infoPopup.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (infoPopup.classList.contains('active') && 
+                !infoIcon.contains(e.target) && 
+                !infoPopup.contains(e.target)) {
+                infoPopup.classList.remove('active');
+            }
+        });
+    }
+
+    // استدعاء الدالة عند تحميل الصفحة
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupPlannerInfo);
+    } else {
+        setupPlannerInfo();
+    }
+})();
 </script>
 </body>
 </html>
