@@ -1310,9 +1310,48 @@ body.dark-mode .mobile-banner span {
     <button id="studyPlannerBtn" class="study-planner-icon-btn" title="خطة اليوم الذكية">
         <img src="images/game.png" alt="خطة اليوم" class="planner-icon-img">
     </button>
-    <!-- الأزرار التالية ستظهر في أقصى اليسار (لأن direction ltr) ولن تؤثر على الترتيب المطلوب -->
-    <button id="navSubscribeBtn" class="subscribe-text-btn">اشترك</button>
-    <button id="navLoginBtn" class="btn-login-top">تسجيل الدخول</button>
+<!-- زر اشترك - تصميم Uiverse مع احتفاظ بـ id و class -->
+<svg style="position: absolute; width: 0; height: 0;">
+  <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq">
+    <feColorMatrix
+      values="1 0 0 0 0 
+            0 1 0 0 0 
+            0 0 1 0 0 
+            0 0 0 9 0"
+    ></feColorMatrix>
+  </filter>
+  <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq2">
+    <feColorMatrix
+      values="1 0 0 0 0 
+            0 1 0 0 0 
+            0 0 1 0 0 
+            0 0 0 3 0"
+    ></feColorMatrix>
+  </filter>
+  <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq3">
+    <feColorMatrix
+      values="1 0 0 0.2 0 
+            0 1 0 0.2 0 
+            0 0 1 0.2 0 
+            0 0 0 2 0"
+    ></feColorMatrix>
+  </filter>
+</svg>
+<div class="subscribe-button-wrapper">
+  <button class="real-button" id="navSubscribeBtn"></button>
+  <div class="backdrop-subscribe"></div>
+  <div class="button-container-subscribe">
+    <div class="spin spin-blur-subscribe"></div>
+    <div class="spin spin-intense-subscribe"></div>
+    <div class="backdrop-subscribe"></div>
+    <div class="button-border-subscribe">
+      <div class="spin spin-inside-subscribe"></div>
+      <div class="button-subscribe">اشترك</div>
+    </div>
+  </div>
+</div>
+<!-- زر تسجيل الدخول - تصميم Uiverse -->
+<button id="navLoginBtn" class="btn-login-top button-login">تسجيل الدخول</button>
 </div>
     
    <div class="right-side">
