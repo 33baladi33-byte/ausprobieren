@@ -5790,7 +5790,6 @@ body:has(#exam.active) #backHomeBtn {
         height: 18px;
     }
 }
-
 /* ============================================
    أيقونة Info الخاصة بالخطة اليومية داخل الملف الشخصي (النسخة النهائية)
    ============================================ */
@@ -5819,7 +5818,7 @@ body:has(#exam.active) #backHomeBtn {
     position: absolute;
     bottom: calc(100% + 10px);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(6px);
     background: #1a1f2e;
     border: 1px solid #2a3042;
     border-radius: 12px;
@@ -5839,7 +5838,6 @@ body:has(#exam.active) #backHomeBtn {
     visibility: hidden;
     pointer-events: none;
     transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
-    transform: translateX(-50%) translateY(6px);
 }
 
 /* المثلث الصغير تحت الـ Popup */
