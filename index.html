@@ -1405,21 +1405,10 @@ body.dark-mode .mobile-banner span {
         <span class="uid-value" id="profileUidValue">---</span>
     </div>
 
-       <!-- ✅ سطر الخطة اليومية (عرض فقط - بدون زر إعدادات) -->
+     <!-- ✅ سطر الخطة اليومية (عرض فقط - بدون زر إعدادات) -->
     <div id="profilePlannerRow" class="profile-uid" style="display: flex; align-items: center; padding: 6px 0; border-top: 1px solid #334155; gap: 6px;">
         <span class="material-symbols-outlined" style="font-size: 16px; color: #94a3b8;">schedule</span>
         <span id="profilePlannerText" style="color: #94a3b8; font-size: 12px;">لم يتم إعداد الخطة اليومية بعد.</span>
-        <!-- أيقونة Info الصغيرة -->
-        <span id="plannerInfoIcon" class="planner-info-icon" style="cursor: pointer; display: inline-flex; align-items: center; margin-left: 4px; color: #64748b; font-size: 18px;">
-            <span class="material-symbols-outlined" style="font-size: 18px;">info</span>
-        </span>
-        <!-- الـ Popup الصغير (مخفي افتراضيًا) -->
-        <div id="plannerInfoPopup" class="planner-info-popup" style="display: none;">
-            هذه ليست مدة اشتراكك،<br>
-            بل هي المدة المتبقية حتى تاريخ امتحانك.<br>
-            إذا أردت إضافة أو تعديل موعد الامتحان،<br>
-            اذهب إلى ميزة "الخطة اليومية".
-        </div>
     </div>
 
     <!-- زر تسجيل الخروج -->
@@ -4908,35 +4897,7 @@ if (expiryText) {
 
     observer.observe(expiryText, { childList: true, characterData: true, subtree: true });
 }
-<!-- كود تفعيل أيقونة Info في الملف الشخصي -->
-<script>
-(function() {
-    function setupPlannerInfo() {
-        const infoIcon = document.getElementById('plannerInfoIcon');
-        const infoPopup = document.getElementById('plannerInfoPopup');
-
-        if (!infoIcon || !infoPopup) return;
-
-        infoIcon.addEventListener('click', function(e) {
-            e.stopPropagation();
-            infoPopup.classList.toggle('active');
-        });
-
-        document.addEventListener('click', function(e) {
-            if (infoPopup.classList.contains('active') && 
-                !infoIcon.contains(e.target) && 
-                !infoPopup.contains(e.target)) {
-                infoPopup.classList.remove('active');
-            }
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setupPlannerInfo);
-    } else {
-        setupPlannerInfo();
-    }
-})();
+</script>
 </script>
 </body>
 </html>
