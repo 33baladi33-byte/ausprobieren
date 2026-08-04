@@ -233,8 +233,6 @@ function updateUI(user, data) {
     const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
     const profileIcon = document.getElementById('profileIcon');
     const studyPlannerBtn = document.getElementById('studyPlannerBtn');
-
-    // حالة زائر غير مسجل
     // حالة زائر غير مسجل
     if (!user) {
         if (profileEmailText) profileEmailText.textContent = 'غير مسجل';
@@ -245,7 +243,8 @@ function updateUI(user, data) {
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
-               if (profileIcon) profileIcon.style.display = 'none';
+        if (profileIcon) profileIcon.style.display = 'none';
+        // إظهار زر خطة اليوم للزوار
         if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex';
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
