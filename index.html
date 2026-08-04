@@ -1284,7 +1284,16 @@ body.dark-mode .mobile-banner span {
     border: 1px solid rgba(56, 189, 248, 0.14) !important;
     position: relative !important;
 }
-
+/* ✅ تنسيق سطر الخطة في الملف الشخصي */
+#profilePlannerRow .profile-planner-text-active {
+    color: #38bdf8 !important;
+    font-weight: 500;
+}
+#profilePlannerBtn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    transform: scale(1.05);
+}
 </style>
     
 </head>
@@ -1347,8 +1356,6 @@ body.dark-mode .mobile-banner span {
   </div>
 </div>
 
-
-
 <!-- ===== الملف الشخصي (التصميم القديم مع إضافة UID) ===== -->
 <div id="profileDropdown" class="profile-dropdown">
     <div id="profileEmail" class="profile-email">👤 غير مسجل</div>
@@ -1361,12 +1368,23 @@ body.dark-mode .mobile-banner span {
         <span class="uid-value" id="profileUidValue">---</span>
     </div>
 
+    <!-- ✅ سطر الخطة اليومية (إضافة جديدة) -->
+    <div id="profilePlannerRow" class="profile-uid" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-top: 1px solid #334155;">
+        <div id="profilePlannerStatus" style="display: flex; align-items: center; gap: 6px; color: #94a3b8; font-size: 12px;">
+            <span class="material-symbols-outlined" style="font-size: 16px; color: #94a3b8;">schedule</span>
+            <span id="profilePlannerText">لم يتم إعداد الخطة اليومية بعد.</span>
+        </div>
+        <!-- زر الإعدادات الصغير -->
+        <button id="profilePlannerBtn" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; color: #E5E7EB; padding: 0;">
+            <span class="material-symbols-outlined" style="font-size: 16px;">settings</span>
+        </button>
+    </div>
+
     <!-- زر تسجيل الخروج -->
     <button id="profileLogoutBtn" class="profile-logout" style="display: none;"> تسجيل لخروج</button>
     
     <!-- زر الترقية (يتم إضافته بواسطة JavaScript عند الحاجة) -->
 </div>
-
 </div>
 
 <!-- ===== نافذة تسجيل الدخول / إنشاء حساب / نسيت كلمة المرور (مودال موحد) ===== -->
@@ -4057,7 +4075,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <button id="backHomeBtn" class="back-home-btn">الرئيسية</button>
 
 <script>
-    
+
 // ============================================
 // 🧠 نظام Ask AI المتطور (يدعم 6 مزودات + حد يومي + Prompt مختصر)
 // ============================================
@@ -4768,6 +4786,52 @@ document.addEventListener("DOMContentLoaded", function() {
 
     console.log('✅ Ask AI جاهز (يدعم 6 مزودات + حد يومي 15 رسالة + Prompt مختصر)');
 })();
+
+// ============================================
+// ✅ (جديد) تحديث سطر الخطة اليومية في الملف الشخصي
+// ============================================
+function updateProfilePlannerStatus() {
+    const textEl = document.getElementById('profilePlannerText');
+    const statusRow = document.getElementById('profilePlannerRow');
+    if (!statusRow) return;
+
+    const examDateStr = localStorage.getItem('zertiva_exam_date');
+    if (examDateStr) {
+        const today = new Date(); today.setHours(0,0,0,0);
+        const examDay = new Date(examDateStr); examDay.setHours(0,0,0,0);
+        const diff = Math.ceil((examDay - today) / (1000 * 60 * 60 * 24));
+        const remaining = Math.max(diff, 0);
+        textEl.textContent = `لديك ${remaining} يوم${remaining > 1 ? 'اً' : ''}`;
+        textEl.className = 'profile-planner-text-active';
+    } else {
+        textEl.textContent = 'لم يتم إعداد الخطة اليومية بعد.';
+        textEl.className = '';
+    }
+}
+
+// ربط زر الإعدادات: يفتح نفس نافذة Study Planner
+document.getElementById('profilePlannerBtn')?.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (typeof window.openPlanner === 'function') {
+        window.openPlanner();
+        setTimeout(() => {
+            // الضغط على زر الإعدادات داخل Study Planner
+            const settingsBtn = document.querySelector('#studyPlannerModal .planner-top-bar .left-icons button .material-symbols-outlined[title="الإعدادات"]')?.closest('button');
+            if (settingsBtn) settingsBtn.click();
+        }, 150);
+    }
+});
+
+// تحديث النص عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', updateProfilePlannerStatus);
+
+// تحديث النص تلقائياً عند حفظ البيانات (من خلال localStorage)
+window.addEventListener('storage', function(e) {
+    if (e.key === 'zertiva_exam_date' || e.key === 'zertiva_daily_hours') {
+        updateProfilePlannerStatus();
+    }
+});
+</script>
 </script>
 </body>
 </html>
