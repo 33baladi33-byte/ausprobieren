@@ -1,5 +1,5 @@
 // ============================================
-// studySession.js - نظام جلسات المراجعة (مع Pause/Resume، Streak فوري)
+// studySession.js - نظام جلسات المراجعة (مع Pause/Resume، Streak فوري، و Drag & Drop للعداد)
 // ============================================
 
 (function() {
@@ -18,6 +18,7 @@
     const DEFAULT_GOAL = 120; // دقيقة
     const PAUSE_STATE_KEY = 'session_pause_state';
     const STREAK_ACHIEVED_KEY = 'streak_achieved_today';
+    const TIMER_POSITION_KEY = 'timerBarPosition';
     
     // ====== الحصول على العناصر ======
     function getElements() {
@@ -473,6 +474,152 @@
         localStorage.removeItem(PAUSE_STATE_KEY);
     }
     
+    // ============================================
+    // 🖱️ DRAG & DROP للعداد المصغر
+    // ============================================
+    function initDraggable() {
+        const { timerBar } = getElements();
+        if (!timerBar) return;
+        
+        // تطبيق الموضع المحفوظ إذا كان موجوداً
+        const savedPos = localStorage.getItem(TIMER_POSITION_KEY);
+        if (savedPos) {
+            try {
+                const pos = JSON.parse(savedPos);
+                applyPosition(pos.left, pos.top);
+            } catch (e) {}
+        } else {
+            // الموضع الافتراضي (أعلى اليمين)
+            const defaultTop = 85;
+            const defaultRight = 20;
+            const barWidth = timerBar.offsetWidth || 100; // تقريبي
+            const defaultLeft = window.innerWidth - defaultRight - barWidth;
+            applyPosition(defaultLeft, defaultTop);
+        }
+        
+        // متغيرات السحب
+        let isDragging = false;
+        let startX, startY, origLeft, origTop;
+        let dragTarget = null;
+        
+        // بدء السحب
+        const onPointerDown = function(e) {
+            // منع السحب إذا كان الضغط على زر
+            if (e.target.closest('button')) return;
+            
+            // تحديد الحدث (ماوس أو لمس)
+            const isTouch = e.type === 'touchstart';
+            const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+            const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+            
+            const rect = timerBar.getBoundingClientRect();
+            startX = clientX;
+            startY = clientY;
+            origLeft = parseFloat(timerBar.style.left) || 0;
+            origTop = parseFloat(timerBar.style.top) || 0;
+            
+            isDragging = true;
+            timerBar.style.cursor = 'grabbing';
+            timerBar.style.userSelect = 'none';
+            
+            // منع تحديد النص أثناء السحب
+            e.preventDefault();
+            
+            // إضافة مستمعي الحركة والرفع
+            if (isTouch) {
+                document.addEventListener('touchmove', onPointerMove, { passive: false });
+                document.addEventListener('touchend', onPointerUp, { passive: false });
+            } else {
+                document.addEventListener('mousemove', onPointerMove);
+                document.addEventListener('mouseup', onPointerUp);
+            }
+        };
+        
+        // حركة السحب
+        const onPointerMove = function(e) {
+            if (!isDragging) return;
+            
+            const isTouch = e.type === 'touchmove';
+            const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+            const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+            
+            const dx = clientX - startX;
+            const dy = clientY - startY;
+            
+            let newLeft = origLeft + dx;
+            let newTop = origTop + dy;
+            
+            // تقييد الإحداثيات
+            const constrained = constrainPosition(newLeft, newTop);
+            newLeft = constrained.left;
+            newTop = constrained.top;
+            
+            applyPosition(newLeft, newTop);
+            e.preventDefault();
+        };
+        
+        // إنهاء السحب
+        const onPointerUp = function(e) {
+            if (!isDragging) return;
+            isDragging = false;
+            timerBar.style.cursor = '';
+            timerBar.style.userSelect = '';
+            
+            // حفظ الموضع النهائي
+            const left = parseFloat(timerBar.style.left) || 0;
+            const top = parseFloat(timerBar.style.top) || 0;
+            localStorage.setItem(TIMER_POSITION_KEY, JSON.stringify({ left, top }));
+            
+            // إزالة المستمعات المؤقتة
+            document.removeEventListener('mousemove', onPointerMove);
+            document.removeEventListener('mouseup', onPointerUp);
+            document.removeEventListener('touchmove', onPointerMove);
+            document.removeEventListener('touchend', onPointerUp);
+        };
+        
+        // ربط مستمعات البدء
+        timerBar.addEventListener('mousedown', onPointerDown);
+        timerBar.addEventListener('touchstart', onPointerDown, { passive: false });
+        
+        // تحديث الموضع عند تغيير حجم الشاشة
+        const onResize = function() {
+            const left = parseFloat(timerBar.style.left) || 0;
+            const top = parseFloat(timerBar.style.top) || 0;
+            const constrained = constrainPosition(left, top);
+            if (constrained.left !== left || constrained.top !== top) {
+                applyPosition(constrained.left, constrained.top);
+                localStorage.setItem(TIMER_POSITION_KEY, JSON.stringify({ left: constrained.left, top: constrained.top }));
+            }
+        };
+        window.addEventListener('resize', onResize);
+        
+        // دالة تطبيق الموضع
+        function applyPosition(left, top) {
+            timerBar.style.left = left + 'px';
+            timerBar.style.top = top + 'px';
+            timerBar.style.right = 'auto'; // إلغاء right لإفساح المجال لـ left
+        }
+        
+        // دالة تقييد الموضع
+        function constrainPosition(left, top) {
+            const barWidth = timerBar.offsetWidth || 100;
+            const barHeight = timerBar.offsetHeight || 40;
+            const maxX = window.innerWidth - barWidth;
+            const maxY = window.innerHeight - barHeight;
+            return {
+                left: Math.max(0, Math.min(left, maxX)),
+                top: Math.max(0, Math.min(top, maxY))
+            };
+        }
+        
+        // تخزين المراجع للاستخدام لاحقاً (إذا احتجنا إزالة المستمعات)
+        timerBar._draggableCleanup = function() {
+            timerBar.removeEventListener('mousedown', onPointerDown);
+            timerBar.removeEventListener('touchstart', onPointerDown);
+            window.removeEventListener('resize', onResize);
+        };
+    }
+    
     // ====== بدء الجلسة ======
     function startSession(minutes) {
         if (activeSession) return;
@@ -490,7 +637,11 @@
             closeModal();
             updateTimerDisplay();
             const { timerBar, pauseBtn } = getElements();
-            if (timerBar) timerBar.style.display = 'flex';
+            if (timerBar) {
+                timerBar.style.display = 'flex';
+                // تهيئة السحب بعد ظهور البطاقة
+                requestAnimationFrame(() => initDraggable());
+            }
             if (pauseBtn) pauseBtn.textContent = '⏸';
             if (sessionTimer) clearInterval(sessionTimer);
             sessionTimer = setInterval(() => {
@@ -515,7 +666,11 @@
         updateTimerDisplay();
         
         const { timerBar, pauseBtn } = getElements();
-        if (timerBar) timerBar.style.display = 'flex';
+        if (timerBar) {
+            timerBar.style.display = 'flex';
+            // تهيئة السحب بعد ظهور البطاقة
+            requestAnimationFrame(() => initDraggable());
+        }
         if (pauseBtn) pauseBtn.textContent = '⏸';
         
         if (sessionTimer) clearInterval(sessionTimer);
@@ -797,14 +952,18 @@
                     totalSeconds = savedState.totalSeconds;
                     updateTimerDisplay();
                     const { timerBar, pauseBtn } = getElements();
-                    if (timerBar) timerBar.style.display = 'flex';
+                    if (timerBar) {
+                        timerBar.style.display = 'flex';
+                        // تهيئة السحب
+                        requestAnimationFrame(() => initDraggable());
+                    }
                     if (pauseBtn) pauseBtn.textContent = '▶';
                     isPaused = true;
                     activeSession = false;
                 }
             }
             
-            console.log("✅ studySession.js جاهز - مع Pause/Resume و Streak فوري");
+            console.log("✅ studySession.js جاهز - مع Pause/Resume و Streak فوري و Drag & Drop");
         }, 200);
     }
     
