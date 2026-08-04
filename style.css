@@ -5792,28 +5792,32 @@ body:has(#exam.active) #backHomeBtn {
 }
 
 /* ============================================
-   أيقونة Info الخاصة بالخطة اليومية داخل الملف الشخصي
+   أيقونة Info الخاصة بالخطة اليومية داخل الملف الشخصي (النسخة النهائية)
    ============================================ */
+
+/* العنصر الحاوي (الأب) يجب أن يكون relative لضبط الـ absolute بداخله */
+#profilePlannerRow {
+    position: relative !important;
+}
+
+/* أيقونة المعلومات */
 .planner-info-icon {
-    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: #64748b;
+    color: #94a3b8;
     transition: color 0.2s ease, transform 0.2s ease;
 }
 .planner-info-icon:hover {
     color: #38bdf8;
-    transform: scale(1.05);
-}
-.planner-info-icon:active {
-    transform: scale(0.95);
+    transform: scale(1.1);
 }
 
+/* الـ Popup (بدون display:none، نستخدم opacity و visibility) */
 .planner-info-popup {
     position: absolute;
-    bottom: calc(100% + 8px);
+    bottom: calc(100% + 10px);
     left: 50%;
     transform: translateX(-50%);
     background: #1a1f2e;
@@ -5828,10 +5832,17 @@ body:has(#exam.active) #backHomeBtn {
     line-height: 1.6;
     text-align: center;
     z-index: 9999;
-    animation: popupFadeIn 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     direction: rtl;
+    
+    /* تحكم سلس */
+    opacity: 0;
+    visibility: hidden;
     pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    transform: translateX(-50%) translateY(6px);
 }
+
+/* المثلث الصغير تحت الـ Popup */
 .planner-info-popup::after {
     content: '';
     position: absolute;
@@ -5843,18 +5854,21 @@ body:has(#exam.active) #backHomeBtn {
     border-color: #1a1f2e transparent transparent transparent;
 }
 
-@keyframes popupFadeIn {
-    from { opacity: 0; transform: translateX(-50%) translateY(6px); }
-    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+/* حالة الظهور (عند إضافة كلاس active) */
+.planner-info-popup.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
 }
 
-/* تعديل للهواتف: جعل الـ popup يظهر فوق الأيقونة مباشرة */
+/* تعديل للهواتف */
 @media (max-width: 768px) {
     .planner-info-popup {
         min-width: 160px;
         max-width: 220px;
         font-size: 11px;
         padding: 10px 14px;
-        bottom: calc(100% + 6px);
+        bottom: calc(100% + 8px);
     }
 }
