@@ -1381,10 +1381,7 @@ body.dark-mode .mobile-banner span {
 <button id="studySessionBtn" class="study-session-btn" title="جلسة مراجعة">
     <img src="images/clock.png" alt="Timer" class="icon-img">
 </button>
-<!-- 📊 لوحة الإحصائيات -->
-<button id="statsDashboardBtn" class="stats-dashboard-btn" title="لوحة الإحصائيات">
-    <span class="material-symbols-outlined">bar_chart</span>
-</button>
+
 <!-- Logo -->
 <div class="logo-icon" id="logoHomeBtn">
     <img src="images/logo.webp" loading="lazy" alt="Zertiva" class="logo-img">
@@ -4215,66 +4212,87 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- ===== زر الرئيسية (يظهر في أسفل صفحات القائمة والامتحان فقط) ===== -->
 <button id="backHomeBtn" class="back-home-btn">الرئيسية</button>
 
-<!-- ===== لوحة الإحصائيات (Stats Dashboard Card) ===== -->
-<div id="statsDashboardOverlay" class="stats-overlay" style="display:none;">
-    <div class="stats-card">
-        <!-- رأس البطاقة -->
-        <div class="stats-header">
-            <h3 class="stats-title">📊 إحصائيات اليوم</h3>
-            <button id="statsCloseBtn" class="stats-close-btn">✕</button>
-        </div>
-        <!-- المحتوى -->
-        <div class="stats-body">
-            <!-- الهدف اليومي (دائرة التقدم) -->
-            <div class="stats-goal-section">
-                <div class="stats-goal-ring-wrapper">
-                    <svg class="stats-progress-ring" viewBox="0 0 120 120">
-                        <circle class="stats-ring-bg" cx="60" cy="60" r="54" />
-                        <circle class="stats-ring-fg" cx="60" cy="60" r="54" />
-                    </svg>
-                    <div class="stats-goal-center">
-                        <span id="statsGoalDisplay" class="stats-goal-text">2h</span>
-                        <span class="stats-goal-label">الهدف</span>
-                    </div>
-                </div>
-                <button id="statsEditGoalBtn" class="stats-edit-goal-btn" title="تعديل الهدف">
+<!-- ===== نافذة جلسة المراجعة (البطاقة الجديدة المتكاملة) ===== -->
+<div id="studySessionModal" class="session-modal">
+    <div class="session-modal-content">
+
+        <!-- صف علوي: هدف اليوم + قلم + أيقونة السجل -->
+        <div class="stats-header-row">
+            <div class="stats-goal-label">
+                <span class="stats-goal-title">هدف اليوم</span>
+                <span class="stats-goal-value" id="statsGoalDisplay">2 ساعات</span>
+            </div>
+            <div class="stats-header-actions">
+                <button id="statsHistoryBtn" class="stats-icon-btn" title="سجل الأيام">
+                    <span class="material-symbols-outlined">history</span>
+                </button>
+                <button id="statsEditGoalBtn" class="stats-icon-btn" title="تعديل الهدف">
                     <span class="material-symbols-outlined">edit</span>
                 </button>
             </div>
+        </div>
 
-            <!-- Streak + Yesterday -->
-            <div class="stats-stats-row">
-                <div class="stats-streak-box">
-                    <span class="stats-streak-icon">🔥</span>
-                    <span id="statsStreakNumber" class="stats-streak-number">0</span>
-                    <span class="stats-streak-label">أيام</span>
-                    <span class="stats-streak-sub">متتالية</span>
-                </div>
-                <div class="stats-yesterday-box">
-                    <span class="stats-yesterday-icon">📅</span>
-                    <span class="stats-yesterday-label">أمس</span>
-                    <span id="statsYesterdayValue" class="stats-yesterday-value">0</span>
-                    <span id="statsYesterdayUnit" class="stats-yesterday-unit">دقيقة</span>
+        <!-- المنتصف: دائرة التقدم + إحصائيات جانبية -->
+        <div class="stats-middle-row">
+            <!-- يسار: Yesterday -->
+            <div class="stats-side-box stats-yesterday-box">
+                <span class="stats-side-label">أمس</span>
+                <span class="stats-side-value" id="statsYesterdayValue">0</span>
+                <span class="stats-side-unit" id="statsYesterdayUnit">دقيقة</span>
+            </div>
+
+            <!-- الدائرة -->
+            <div class="stats-ring-wrapper">
+                <svg class="stats-progress-ring" viewBox="0 0 120 120">
+                    <circle class="stats-ring-bg" cx="60" cy="60" r="54" />
+                    <circle class="stats-ring-fg" cx="60" cy="60" r="54" />
+                </svg>
+                <div class="stats-ring-center">
+                    <span class="stats-ring-goal-text" id="statsRingGoalText">2</span>
+                    <span class="stats-ring-goal-unit" id="statsRingGoalUnit">ساعات</span>
                 </div>
             </div>
 
-            <!-- زر التاريخ -->
-            <button id="statsHistoryBtn" class="stats-history-btn">
-                <span class="material-symbols-outlined">history</span>
-                سجل الأيام
-            </button>
+            <!-- يمين: Streak -->
+            <div class="stats-side-box stats-streak-box">
+                <span class="stats-side-label">🔥 نجحت في المهمة</span>
+                <span class="stats-side-value" id="statsStreakNumber">0</span>
+                <span class="stats-side-unit">يوم</span>
+            </div>
+        </div>
+
+        <!-- أسفل الدائرة: الوقت المنجز اليوم -->
+        <div class="stats-completed-row">
+            <span class="stats-completed-label">Completed:</span>
+            <span class="stats-completed-value" id="statsCompletedValue">0 دقيقة</span>
+        </div>
+
+        <!-- الأزرار (نفس الأزرار القديمة ولكن بتصميم جديد) -->
+        <div class="session-times-grid">
+            <button class="time-option" data-minutes="25">25 دقيقة</button>
+            <button class="time-option" data-minutes="45">45 دقيقة</button>
+            <button class="time-option" data-minutes="60">60 دقيقة</button>
+            <button class="time-option" data-minutes="90">90 دقيقة</button>
+            <button class="time-option" data-minutes="105">105 دقيقة</button>
+            <button class="time-option" data-minutes="120">120 دقيقة</button>
+        </div>
+
+        <!-- المجموع الكلي -->
+        <div class="session-total-hours">
+            <span class="label">مجموع ساعات الدراسة</span>
+            <span class="value" id="totalHoursValue">0.0 <span class="value-unit">ساعة</span></span>
         </div>
     </div>
 </div>
 
-<!-- ===== نافذة تعديل الهدف ===== -->
-<div id="statsGoalModal" class="stats-modal" style="display:none;">
-    <div class="stats-modal-content">
-        <div class="stats-modal-header">
-            <h4>تعديل الهدف اليومي</h4>
-            <button id="statsGoalModalClose" class="stats-modal-close">✕</button>
+<!-- ===== نافذة تعديل الهدف (popup صغير داخل البطاقة) ===== -->
+<div id="statsGoalModal" class="stats-popup-modal" style="display:none;">
+    <div class="stats-popup-content">
+        <div class="stats-popup-header">
+            <span>حدد هدفك اليومي</span>
+            <button id="statsGoalModalClose" class="stats-popup-close">✕</button>
         </div>
-        <div class="stats-modal-body">
+        <div class="stats-popup-body">
             <select id="statsGoalSelect" class="stats-goal-select">
                 <option value="30">30 دقيقة</option>
                 <option value="60">1 ساعة</option>
@@ -4289,21 +4307,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 <option value="420">7 ساعات</option>
                 <option value="480">8 ساعات</option>
             </select>
-            <button id="statsGoalSaveBtn" class="stats-goal-save-btn">حفظ</button>
+            <button id="statsGoalSaveBtn" class="stats-popup-save">حفظ</button>
         </div>
     </div>
 </div>
 
 <!-- ===== نافذة سجل الأيام ===== -->
-<div id="statsHistoryModal" class="stats-modal" style="display:none;">
-    <div class="stats-modal-content stats-history-content">
-        <div class="stats-modal-header">
-            <h4>📜 سجل الأيام السابقة</h4>
-            <button id="statsHistoryModalClose" class="stats-modal-close">✕</button>
+<div id="statsHistoryModal" class="stats-popup-modal" style="display:none;">
+    <div class="stats-popup-content stats-history-popup">
+        <div class="stats-popup-header">
+            <span>📜 سجل الأيام</span>
+            <button id="statsHistoryModalClose" class="stats-popup-close">✕</button>
         </div>
-        <div class="stats-modal-body">
+        <div class="stats-popup-body">
             <div id="statsHistoryList" class="stats-history-list">
-                <!-- سيتم ملؤها بواسطة JavaScript -->
+                <!-- ستُملأ بواسطة JavaScript -->
             </div>
         </div>
     </div>
