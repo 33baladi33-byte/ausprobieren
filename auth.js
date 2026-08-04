@@ -1151,7 +1151,6 @@ function generateReportPDF(data) {
     return doc;
 }
 
-// ====== دالة التحميل الرئيسية ======
 async function downloadReport() {
     if (!auth.currentUser) {
         alert('يرجى تسجيل الدخول أولاً');
@@ -1167,11 +1166,15 @@ async function downloadReport() {
     // استخدام setTimeout لتجنب تجميد الواجهة
     setTimeout(async () => {
         try {
-            // تحميل الخط العربي (إذا لم يتم تحميله مسبقاً)
+            // ✅ تحميل الخط العربي (مع تأخير صغير للتأكد من تحميل jsPDF)
             await loadArabicFontForPDF();
+            // تأكد من تحميل الخط فعلاً
+            console.log('🔤 محاولة تحميل الخط العربي...');
+            await new Promise(r => setTimeout(r, 300));
 
             // جمع البيانات
             const data = collectUserReportData();
+            console.log('📊 بيانات التقرير:', data);
 
             // إنشاء الـ PDF
             const doc = generateReportPDF(data);
