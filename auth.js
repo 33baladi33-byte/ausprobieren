@@ -610,35 +610,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-// ============================================
-// التفاعل مع أيقونة Info في الملف الشخصي (النسخة النهائية مع حل مشكلة النطاق)
-// ============================================
-function setupPlannerInfo() {
-    const infoIcon = document.getElementById('plannerInfoIcon');
-    const infoPopup = document.getElementById('plannerInfoPopup');
-
-    if (!infoIcon || !infoPopup) return;
-
-    // نستخدم كلاس 'active' للتحكم في الـ opacity والـ visibility
-    infoIcon.addEventListener('click', function(e) {
-        e.stopPropagation();
-        infoPopup.classList.toggle('active');
-    });
-
-    // إخفاء الـ popup عند الضغط خارج الأيقونة والـ popup
-    document.addEventListener('click', function(e) {
-        if (infoPopup.classList.contains('active') && 
-            !infoIcon.contains(e.target) && 
-            !infoPopup.contains(e.target)) {
-            infoPopup.classList.remove('active');
-        }
-    });
-}
-
-// ✅ إضافة الدالة إلى النطاق العام (حل مشكلة الكونسول)
-window.setupPlannerInfo = setupPlannerInfo;
-
-// استدعاء الدالة عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', setupPlannerInfo);
-
 console.log('🎉 تم اعتماد البنية النهائية لـ Zertiva بنسبة 100/100.');
