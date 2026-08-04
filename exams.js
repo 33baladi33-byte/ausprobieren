@@ -3756,47 +3756,192 @@ if (!window.currentExamData) {
     window.currentExamData = null;
 }
 // ============================================
-// ✅ تصدير الدوال والمتغيرات الأساسية للاستخدام العالمي
+// ✅ نظام Badge التعديلات - النسخة النهائية
 // ============================================
 
-// ===== دوال التنقل الرئيسية =====
-window.goList = goList;
-window.renderTeileList = renderTeileList;
-window.goBackToExamsList = goBackToExamsList;
-window.renderExamListForSkill = renderExamListForSkill;
-window.getTeilNameBySkill = getTeilNameBySkill;
-window.getActualFileName = getActualFileName;
-window.showTeil = showTeil;
-window.getFlattenedExamList = getFlattenedExamList;
-
-// ===== دوال عرض الامتحانات والتفاعل =====
-window.showVersionsPopup = showVersionsPopup;
-window.setupLockedNextButton = setupLockedNextButton;
+// ✅ تصدير الدوال للاستخدام العام
 window.addVersionBadgesFixed = addVersionBadgesFixed;
-window.applyExamListView = applyExamListView;
-window.saveOriginalOrder = saveOriginalOrder;
-window.restoreOriginalOrder = restoreOriginalOrder;
-window.applyLeaderboardOrder = applyLeaderboardOrder;
-window.createViewModeToggles = createViewModeToggles;
-
-// ===== دوال بناء الامتحانات والتصحيح =====
-window.buildTeil1 = buildTeil1;
-window.checkTeil1 = checkTeil1;
-window.saveExamResultGlobal = saveExamResultGlobal;
-
-// ===== دوال إعادة تعيين التقدم =====
-window.resetSkillProgress = resetSkillProgress;
-
-// ===== دوال عداد الإعادات وآخر مراجعة =====
-window.addRetryCounterToExam = addRetryCounterToExam;
-window.updateRetryCounter = updateRetryCounter;
-
-// ===== دوال العداد الأساسية =====
+// ✅ تصدير دوال العداد للاستخدام من ملفات أخرى (مثل engine.js)
 window.saveRetryCount = saveRetryCount;
 window.getRetryCount = getRetryCount;
 window.incrementRetryCount = incrementRetryCount;
+window.resetSkillProgress = resetSkillProgress;
+// ============================================
+// ✅ إعادة تعيين تقدم جزء معين فقط (Local Reset)
+// ============================================
 
-// ===== دوال سجل الامتحانات =====
+function resetSkillProgress(skill) {
+    if (!skill) {
+        console.warn('⚠️ resetSkillProgress: لم يتم تحديد المهارة');
+        return;
+    }
+
+    const skillName = getSkillDisplayName(skill);
+    showResetModal(skill, skillName);
+}
+
+function getSkillDisplayName(skill) {
+    const names = {
+        'hoeren1': 'Hören 1',
+        'hoeren2': 'Hören 2',
+        'hoeren3': 'Hören 3',
+        'lesen1': 'Lesen 1',
+        'lesen2': 'Lesen 2',
+        'lesen3': 'Lesen 3',
+        'sprach1': 'Sprachbausteine 1',
+        'sprach2': 'Sprachbausteine 2'
+    };
+    return names[skill] || skill;
+}
+
+function showResetModal(skill, skillName) {
+    // إزالة أي مودال قديم
+    const oldModal = document.getElementById('resetConfirmModal');
+    if (oldModal) oldModal.remove();
+
+    // إنشاء المودال
+    const overlay = document.createElement('div');
+    overlay.id = 'resetConfirmModal';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100000;
+        animation: fadeIn 0.2s ease;
+    `;
+
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        background: #1a1f2e;
+        border-radius: 20px;
+        padding: 28px 30px;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        border: 1px solid #2a3042;
+        animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        color: #e2e8f0;
+        text-align: center;
+    `;
+
+    modal.innerHTML = `
+        <div style="font-size: 32px; margin-bottom: 10px;">🔄</div>
+        <h3 style="margin: 0 0 6px 0; font-size: 18px; font-weight: 600; color: #f1f5f9;">إعادة تعيين مستوى التدريب</h3>
+        <p style="margin: 6px 0 16px 0; font-size: 14px; color: #94a3b8; line-height: 1.6;">
+            هل أنت متأكد أنك تريد إعادة تعيين تقدمك في<br>
+            <strong style="color: #38bdf8;">${skillName}</strong>؟
+        </p>
+        <p style="margin: 0 0 20px 0; font-size: 12px; color: #64748b;">
+            لن يتم حذف أي تقدم في باقي الأجزاء.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center;">
+            <button class="reset-modal-cancel" style="
+                padding: 10px 24px;
+                border: 1px solid #334155;
+                border-radius: 10px;
+                background: transparent;
+                color: #94a3b8;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                flex: 1;
+            "
+            onmouseover="this.style.background='#1e293b'; this.style.borderColor='#475569';"
+            onmouseout="this.style.background='transparent'; this.style.borderColor='#334155';"
+            >
+                إلغاء
+            </button>
+            <button class="reset-modal-confirm" style="
+                padding: 10px 24px;
+                border: none;
+                border-radius: 10px;
+                background: #dc2626;
+                color: white;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                flex: 1;
+            "
+            onmouseover="this.style.background='#b91c1c';"
+            onmouseout="this.style.background='#dc2626';"
+            >
+                إعادة التعيين
+            </button>
+        </div>
+    `;
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    // إغلاق عند النقر خارج المودال
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+
+    // إغلاق عند الضغط على Esc
+    document.addEventListener('keydown', function escHandler(e) {
+        if (e.key === 'Escape') {
+            overlay.remove();
+            document.removeEventListener('keydown', escHandler);
+        }
+    });
+
+    // زر الإلغاء
+    modal.querySelector('.reset-modal-cancel').addEventListener('click', () => {
+        overlay.remove();
+    });
+
+    // زر التأكيد
+    modal.querySelector('.reset-modal-confirm').addEventListener('click', () => {
+        // حذف بيانات المهارة فقط
+        const LEVELS_KEY = 'memory_levels';
+        try {
+            // 1. حذف مستويات الذاكرة
+            const data = JSON.parse(localStorage.getItem(LEVELS_KEY) || '{}');
+            const prefix = `${skill}_exam`;
+            const newData = {};
+            for (const key in data) {
+                if (!key.startsWith(prefix)) {
+                    newData[key] = data[key];
+                }
+            }
+            localStorage.setItem(LEVELS_KEY, JSON.stringify(newData));
+            
+            // 2. حذف المفاتيح المستقلة لآخر مراجعة
+            const allKeys = Object.keys(localStorage);
+            const lastReviewKeys = allKeys.filter(k => k.startsWith(`exam_last_review_${skill}_`));
+            for (const key of lastReviewKeys) {
+                localStorage.removeItem(key);
+            }
+            
+            console.log(`✅ تم إعادة تعيين تقدم ${skillName} (بما في ذلك تواريخ المراجعة المستقلة)`);
+            overlay.remove();
+            // إعادة تحميل الصفحة لتحديث الواجهة
+            location.reload();
+        } catch (e) {
+            console.error('❌ خطأ في إعادة التعيين:', e);
+            overlay.remove();
+        }
+    });
+}
+console.log('✅ نظام Badge التعديلات (النسخة النهائية) تم تحميله');
+
+// تصدير قواعد البيانات للملفات الأخرى
+window.examsDatabase = examsDatabase;
+window.teile = teile;
+
+// تصدير دوال سجل الامتحانات للمدرب الذكي
 window.saveExamHistory = saveExamHistory;
 window.getExamHistory = getExamHistory;
 window.getLastAttemptDate = getLastAttemptDate;
@@ -3805,11 +3950,191 @@ window.saveExamResult = saveExamResult;
 window.getExamResult = getExamResult;
 window.getLastReviewDays = getLastReviewDays;
 
-// ===== قواعد البيانات =====
-window.examsDatabase = examsDatabase;
-window.teile = teile;
+// ============================================
+// ✅ دوال بطاقة الإعادات وآخر مراجعة داخل الامتحان
+// ============================================
+function addRetryCounterToExam() {
+    // ❌ إخفاء العداد في Schreiben و Mündlich
+    const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
+    if (forbiddenSkills.includes(currentSkill)) {
+        const oldCounter = document.getElementById('retryCounterBox');
+        if (oldCounter) oldCounter.remove();
+        return;
+    }
 
-// ===== تصدير متغيرات Lesen1 للاستخدام من engine.js =====
+    // حذف القديم إن وجد
+    const oldCounter = document.getElementById('retryCounterBox');
+    if (oldCounter) oldCounter.remove();
+
+    // جلب البيانات
+    const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
+    const reviewDays = window.getLastReviewDays ? window.getLastReviewDays(currentSkill, currentExamId) : null;
+
+    let reviewText = '';
+    if (reviewDays === null) {
+        reviewText = 'لم يُراجع';
+    } else if (reviewDays === 0) {
+        reviewText = 'اليوم';
+    } else {
+        reviewText = `منذ ${reviewDays} يوم`;
+    }
+
+    // الحاوية الرئيسية (عمودية)
+    const container = document.createElement('div');
+    container.id = 'retryCounterBox';
+    container.style.cssText = `
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        background: transparent;
+        margin-right: 0;
+        margin-left: auto;
+        flex-shrink: 0;
+    `;
+
+    // ===== البطاقة الأولى: آخر مراجعة (في الأعلى) =====
+    const reviewBox = document.createElement('div');
+    let reviewColor = '#64748b';
+    if (reviewDays === null) {
+        reviewColor = '#94a3b8';
+    } else if (reviewDays === 0) {
+        reviewColor = '#22c55e';
+    } else if (reviewDays <= 3) {
+        reviewColor = '#22c55e';
+    } else if (reviewDays <= 7) {
+        reviewColor = '#eab308';
+    } else {
+        reviewColor = '#ef4444';
+    }
+    reviewBox.innerHTML = `آخر مراجعة: <strong style="color:${reviewColor};font-weight:700;">${reviewText}</strong>`;
+    reviewBox.style.cssText = `
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #1e293b;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        white-space: nowrap;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: right;
+    `;
+
+    // ===== البطاقة الثانية: الإعادات (في الأسفل) =====
+    const retryBox = document.createElement('div');
+    retryBox.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+    retryBox.style.cssText = `
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #1e293b;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        white-space: nowrap;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: right;
+    `;
+
+    container.appendChild(reviewBox);
+    container.appendChild(retryBox);
+
+    // إضافة إلى الواجهة
+    const interleavingRow = document.getElementById('interleavingRow');
+    if (interleavingRow) {
+        interleavingRow.style.display = 'flex';
+        interleavingRow.style.alignItems = 'center';
+        interleavingRow.style.justifyContent = 'space-between';
+        interleavingRow.style.flexWrap = 'wrap';
+        interleavingRow.style.gap = '10px';
+        interleavingRow.appendChild(container);
+    } else {
+        const btnContainer = document.querySelector('#exam .exam-controls, .exam-controls, .controls-row, [style*="gap: 10px"]');
+        if (btnContainer) {
+            btnContainer.style.display = 'flex';
+            btnContainer.style.alignItems = 'center';
+            btnContainer.style.justifyContent = 'space-between';
+            btnContainer.style.flexWrap = 'wrap';
+            btnContainer.appendChild(container);
+        } else {
+            const containerEl = document.querySelector('#exam, .exam-content, .exam-box, .page.active');
+            if (containerEl) {
+                const wrapper = document.createElement('div');
+                wrapper.style.cssText = 'display: flex; flex-direction: column; align-items: flex-end; margin: 0 0 15px 0;';
+                wrapper.appendChild(container);
+                containerEl.prepend(wrapper);
+            }
+        }
+    }
+}
+
+function updateRetryCounter() {
+    // ❌ إخفاء العداد في Schreiben و Mündlich
+    const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
+    if (forbiddenSkills.includes(currentSkill)) {
+        const oldCounter = document.getElementById('retryCounterBox');
+        if (oldCounter) oldCounter.remove();
+        return;
+    }
+
+    const container = document.getElementById('retryCounterBox');
+    if (!container) {
+        addRetryCounterToExam();
+        return;
+    }
+
+    // تحديث البيانات
+    const retryCount = window.getRetryCount ? window.getRetryCount(currentSkill, currentExamId) : 0;
+    const reviewDays = window.getLastReviewDays ? window.getLastReviewDays(currentSkill, currentExamId) : null;
+
+    let reviewText = '';
+    if (reviewDays === null) {
+        reviewText = 'لم يُراجع';
+    } else if (reviewDays === 0) {
+        reviewText = 'اليوم';
+    } else {
+        reviewText = `منذ ${reviewDays} يوم`;
+    }
+
+  
+    // 🔹 تحديث بطاقة الإعادات (البطاقة الثانية)
+    const retryBox = container.querySelectorAll('div')[1];
+    if (retryBox) {
+        retryBox.innerHTML = `عاودت هذا الامتحان <strong style="color:#2563eb;font-weight:700;">${retryCount}</strong> ${retryCount === 1 ? 'مرة' : 'مرات'}`;
+        retryBox.style.textAlign = 'right'; // ✅ محاذاة النص إلى اليمين
+    }
+
+    // 🔹 تحديث بطاقة آخر مراجعة (البطاقة الأولى)
+    // 🔹 تحديث بطاقة آخر مراجعة (البطاقة الأولى)
+    const reviewBox = container.querySelectorAll('div')[0];
+    if (reviewBox) {
+        let reviewColor = '#64748b';
+        if (reviewDays === null) {
+            reviewColor = '#94a3b8';
+        } else if (reviewDays === 0) {
+            reviewColor = '#22c55e';
+        } else if (reviewDays <= 3) {
+            reviewColor = '#22c55e';
+        } else if (reviewDays <= 7) {
+            reviewColor = '#eab308';
+        } else {
+            reviewColor = '#ef4444';
+        }
+        reviewBox.innerHTML = `آخر مراجعة: <strong style="color:${reviewColor};font-weight:700;">${reviewText}</strong>`;
+        reviewBox.style.textAlign = 'right'; // ✅ محاذاة النص إلى اليمين
+    }
+}
+
+// تصدير الدوال للاستخدام من openExam
+window.addRetryCounterToExam = addRetryCounterToExam;
+window.updateRetryCounter = updateRetryCounter;
+
+// تصدير متغيرات Lesen1 للاستخدام من engine.js (مع التحقق من وجودها)
 try {
     if (typeof matchingSelectedAnswers !== 'undefined') {
         window.matchingSelectedAnswers = matchingSelectedAnswers;
@@ -3824,10 +4149,6 @@ try {
         window.renderMatchingQuestions = renderMatchingQuestions;
     }
 } catch (e) {
+    // هذه المتغيرات ستُصدّر من engine.js لاحقاً
     console.log('ℹ️ متغيرات Lesen1 ستُصدّر من engine.js');
 }
-
-// ✅ تأكيد تصدير examsDatabase بعد كل شيء
-window.examsDatabase = examsDatabase;
-console.log('✅ examsDatabase مصدرة:', window.examsDatabase ? 'موجودة' : 'غير موجودة');
-console.log('✅ جميع دوال exams.js مصدرة للنطاق العام');
