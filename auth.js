@@ -1,6 +1,6 @@
 // ============================================
 // auth.js - النظام النهائي المعتمد للمصادقة (Zertiva Gold Standard)
-// مع ميزة تحميل معلوماتي (PDF Report) - النسخة المُصحَّحة بالكامل
+// مع ميزة تحميل معلوماتي (PDF Report) - النسخة الاحترافية الكاملة
 // ============================================
 
 // عناصر DOM
@@ -56,6 +56,9 @@ window._isAuthenticating = false;
 
 // متغير يحمل الحالة الحالية (يتم تحديثه في updateUI)
 let _currentUserStatus = 'free';
+
+// مخبأ لبيانات المستخدم من Firestore (يتم تحديثه في updateUI)
+window._cachedUserData = null;
 
 /**
  * دالة عامة تعيد حالة المستخدم الحالية
@@ -616,7 +619,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// 📄 ميزة "تحميل معلوماتي" (PDF Report) - النسخة المُصحَّحة بالكامل
+// 📄 ميزة "تحميل معلوماتي" (PDF Report) - النسخة الاحترافية
 // ============================================
 
 // الحصول على زر التحميل من DOM
@@ -624,9 +627,10 @@ const downloadReportBtn = document.getElementById('downloadReportBtn');
 
 // ====== تحميل الخط العربي (مرة واحدة) ======
 let _arabicFontLoaded = false;
+let _arabicFontBase64 = null;
 
 function loadArabicFontForPDF() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         if (_arabicFontLoaded) {
             resolve();
             return;
@@ -642,6 +646,7 @@ function loadArabicFontForPDF() {
                 const base64 = btoa(
                     new Uint8Array(buffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
                 );
+                _arabicFontBase64 = base64;
                 const { jsPDF } = window.jspdf;
                 jsPDF.API.addFileToVFS('NotoSansArabic-Regular.ttf', base64);
                 jsPDF.API.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
@@ -652,7 +657,7 @@ function loadArabicFontForPDF() {
             .catch(err => {
                 console.error('❌ فشل تحميل الخط العربي:', err);
                 // نستمر بدون خط عربي (سيعمل بالإنجليزية فقط)
-                resolve(); // لا نرفض الـ Promise، بل نكمل بدون الخط
+                resolve();
             });
     });
 }
@@ -730,7 +735,6 @@ function getHistory() {
 
 // ====== دوال قراءة نتائج الامتحانات بالمفاتيح الصحيحة (الفردية) ======
 function getExamResultsForSkill(skill) {
-    // نجمع كل المفاتيح التي تبدأ بـ exam_result_${skill}_
     const prefix = `exam_result_${skill}_`;
     const exams = {};
     try {
@@ -742,15 +746,23 @@ function getExamResultsForSkill(skill) {
             if (!isNaN(examId)) {
                 const score = parseFloat(localStorage.getItem(k));
                 if (!isNaN(score)) {
-                    // نبحث عن عدد المحاولات وآخر تاريخ من المفاتيح المناظرة
                     const retriesKey = `exam_retry_${skill}_${examId}`;
                     const retries = parseInt(localStorage.getItem(retriesKey)) || 0;
                     const lastReviewKey = `exam_last_review_${skill}_${examId}`;
                     const lastPlayed = localStorage.getItem(lastReviewKey) || null;
+                    // نحاول الحصول على اسم الامتحان من examsDatabase
+                    let examTitle = `امتحان ${examId}`;
+                    try {
+                        if (window.examsDatabase && window.examsDatabase[skill]) {
+                            const examObj = window.examsDatabase[skill].find(e => e.id === examId);
+                            if (examObj) examTitle = examObj.title;
+                        }
+                    } catch (e) {}
                     exams[examId] = {
                         score: score,
                         retries: retries,
-                        lastPlayed: lastPlayed
+                        lastPlayed: lastPlayed,
+                        title: examTitle
                     };
                 }
             }
@@ -851,7 +863,7 @@ function collectUserReportData() {
     };
 }
 
-// ====== إنشاء الـ PDF باستخدام خط عربي ======
+// ====== إنشاء الـ PDF الاحترافي باستخدام جداول وأقسام ======
 function generateReportPDF(data) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
@@ -883,10 +895,6 @@ function generateReportPDF(data) {
         writeArabic(text, x, yPos, fontSize, 'bold');
     }
 
-    function writeBoldEnglish(text, x = margin, yPos, fontSize = 11) {
-        writeEnglish(text, x, yPos, fontSize, 'bold');
-    }
-
     function writeSectionTitle(title, yPos) {
         writeBoldArabic(title, margin, yPos, 14);
         const lineY = yPos + 2;
@@ -899,8 +907,7 @@ function generateReportPDF(data) {
         if (!dateStr || dateStr === 'غير متوفر' || dateStr === 'N/A') return 'غير متوفر';
         try {
             const d = new Date(dateStr);
-            // نعيد التاريخ بالأرقام الغربية باستخدام en-US
-            return d.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            return d.toLocaleDateString('ar-EG', { year: 'numeric', month: '2-digit', day: '2-digit' });
         } catch {
             return dateStr;
         }
@@ -912,73 +919,97 @@ function generateReportPDF(data) {
         return val;
     }
 
-    const fullName = cleanValue(data.fullName);
-    const email = cleanValue(data.email);
-    const uid = cleanValue(data.uid);
-    const creationTime = cleanValue(data.creationTime);
-    const plan = cleanValue(data.plan);
-    const examDate = cleanValue(data.examDate);
-    const remainingDays = cleanValue(data.remainingDays);
-    const totalHours = cleanValue(data.totalHours);
-    const dailyGoal = cleanValue(data.dailyGoal);
-    const streak = cleanValue(data.streak);
-
-    // العنوان الرئيسي (عربي)
-    doc.setFontSize(18);
-    doc.setTextColor('#1a2a4a');
-    if (_arabicFontLoaded) {
-        doc.setFont('NotoSansArabic', 'bold');
-    } else {
-        doc.setFont('helvetica', 'bold');
+    // ====== رسم شعار النصي ======
+    function drawHeader() {
+        doc.setFontSize(22);
+        doc.setTextColor('#1a2a4a');
+        if (_arabicFontLoaded) {
+            doc.setFont('NotoSansArabic', 'bold');
+        } else {
+            doc.setFont('helvetica', 'bold');
+        }
+        doc.text('Zertiva B2', pageWidth / 2, y, { align: 'center' });
+        y += 6;
+        doc.setFontSize(11);
+        doc.setTextColor('#64748b');
+        if (_arabicFontLoaded) {
+            doc.setFont('NotoSansArabic', 'normal');
+        } else {
+            doc.setFont('helvetica', 'normal');
+        }
+        doc.text('تقرير الطالب', pageWidth / 2, y, { align: 'center' });
+        y += 10;
+        // خط فاصل أزرق
+        doc.setDrawColor(56, 189, 248);
+        doc.setLineWidth(0.8);
+        doc.line(margin, y, pageWidth - margin, y);
+        y += 6;
     }
-    doc.text('تقرير Zertiva B2', pageWidth / 2, y, { align: 'center' });
-    y += 10;
 
-    // ملخص سريع (عربي)
-    y = writeSectionTitle('ملخص التقدم', y);
-    writeArabic(`الخطة: ${plan}`, margin, y);
-    y += 6;
-    writeArabic(`المتبقي للامتحان: ${remainingDays}`, margin, y);
-    y += 6;
-    writeArabic(`مجموع ساعات الدراسة: ${totalHours} ساعة`, margin, y);
-    y += 6;
-    writeArabic(`الأيام المتتالية: ${streak} يوم`, margin, y);
-    y += 8;
+    // ====== رسم تذييل ======
+    function drawFooter() {
+        const footerY = doc.internal.pageSize.getHeight() - 8;
+        doc.setFontSize(8);
+        doc.setTextColor(150);
+        if (_arabicFontLoaded) {
+            doc.setFont('NotoSansArabic', 'normal');
+        } else {
+            doc.setFont('helvetica', 'normal');
+        }
+        doc.text('Generated by Zertiva B2 | https://zertivab2.online', pageWidth / 2, footerY, { align: 'center' });
+    }
+
+    // ====== صفحة الملخص ======
+    drawHeader();
 
     // معلومات الحساب
-    y = writeSectionTitle('الحساب', y);
-    writeArabic(`الاسم: ${fullName}`, margin, y);
-    y += 6;
-    writeArabic(`البريد الإلكتروني: ${email}`, margin, y);
-    y += 6;
-    writeArabic(`الخطة: ${plan}`, margin, y);
-    y += 6;
-    writeArabic(`تاريخ الإنشاء: ${creationTime}`, margin, y);
-    y += 6;
-    writeArabic(`معرف المستخدم: ${uid}`, margin, y);
-    y += 8;
+    y = writeSectionTitle('معلومات الحساب', y);
+    const accountData = [
+        ['الاسم', data.fullName],
+        ['البريد الإلكتروني', data.email],
+        ['نوع الحساب', data.plan],
+        ['تاريخ الإنشاء', data.creationTime],
+        ['معرف المستخدم', data.uid]
+    ];
+    accountData.forEach(row => {
+        writeArabic(row[0] + ': ', margin, y, 10, 'bold');
+        writeArabic(row[1], margin + 35, y, 10);
+        y += 7;
+    });
+    y += 4;
 
     // معلومات الامتحان
-    y = writeSectionTitle('الامتحان', y);
-    writeArabic(`تاريخ الامتحان: ${examDate}`, margin, y);
-    y += 6;
-    writeArabic(`المتبقي: ${remainingDays}`, margin, y);
-    y += 8;
+    y = writeSectionTitle('معلومات الامتحان', y);
+    const examInfo = [
+        ['تاريخ الامتحان', data.examDate],
+        ['المتبقي', data.remainingDays]
+    ];
+    examInfo.forEach(row => {
+        writeArabic(row[0] + ': ', margin, y, 10, 'bold');
+        writeArabic(row[1], margin + 35, y, 10);
+        y += 7;
+    });
+    y += 4;
 
     // إحصائيات الدراسة
-    y = writeSectionTitle('الدراسة', y);
-    writeArabic(`مجموع ساعات الدراسة: ${totalHours}`, margin, y);
-    y += 6;
-    writeArabic(`الهدف اليومي: ${dailyGoal}`, margin, y);
-    y += 6;
-    writeArabic(`الأيام المتتالية: ${streak} يوم`, margin, y);
-    y += 8;
+    y = writeSectionTitle('إحصائيات الدراسة', y);
+    const studyData = [
+        ['مجموع ساعات الدراسة', data.totalHours + ' ساعة'],
+        ['الهدف اليومي', data.dailyGoal],
+        ['الأيام المتتالية', data.streak + ' يوم']
+    ];
+    studyData.forEach(row => {
+        writeArabic(row[0] + ': ', margin, y, 10, 'bold');
+        writeArabic(row[1], margin + 50, y, 10);
+        y += 7;
+    });
+    y += 4;
 
-    // سجل الأيام (آخر 7 أيام) - الأسماء عربية، الأرقام إنجليزية
+    // آخر 7 أيام
     y = writeSectionTitle('النشاط الأخير', y);
     const recentHistory = data.history.slice(-7).reverse();
     if (recentHistory.length === 0) {
-        writeArabic('— لا توجد بيانات', margin, y);
+        writeArabic('— لا توجد بيانات', margin, y, 10);
         y += 6;
     } else {
         recentHistory.forEach(entry => {
@@ -992,14 +1023,15 @@ function generateReportPDF(data) {
             } else {
                 timeStr = mins + ' دقيقة';
             }
-            writeArabic(`${date} — ${timeStr}`, margin, y);
+            writeArabic(date + ' — ' + timeStr, margin + 5, y, 9);
             y += 5;
         });
     }
-    y += 4;
+    y += 6;
 
-    // نتائج الامتحانات
-    y = writeSectionTitle('تقدم الامتحانات', y);
+    drawFooter();
+
+    // ====== صفحات الامتحانات (لكل مهارة) ======
     const skills = [
         { id: 'hoeren1', label: 'Hören 1' },
         { id: 'hoeren2', label: 'Hören 2' },
@@ -1011,62 +1043,72 @@ function generateReportPDF(data) {
         { id: 'sprach2', label: 'Sprachbausteine 2' }
     ];
 
-    skills.forEach(skill => {
+    // استخدام autotable لإنشاء جدول لكل مهارة
+    const autoTable = window.jspdf.autoTable;
+
+    skills.forEach((skill, idx) => {
+        // إضافة صفحة جديدة بعد الصفحة الأولى
+        if (idx > 0 || y > 250) {
+            doc.addPage();
+            y = 20;
+            drawHeader();
+        }
+
+        writeBoldArabic(skill.label, margin, y, 14);
+        y += 4;
         const exams = data.examData[skill.id] || {};
         const examIds = Object.keys(exams);
+
         if (examIds.length === 0) {
-            writeBoldArabic(skill.label, margin, y, 11);
-            y += 5;
-            writeArabic('  لم يبدأ بعد', margin, y, 10);
-            y += 6;
-            return;
-        }
-
-        // أفضل نتيجة
-        let bestScore = null;
-        let totalRetries = 0;
-        let latestDate = null;
-        examIds.forEach(id => {
-            const exam = exams[id];
-            if (exam.score !== null && exam.score !== undefined) {
-                if (bestScore === null || exam.score > bestScore) {
-                    bestScore = exam.score;
-                }
-            }
-            totalRetries += exam.retries || 0;
-            if (exam.lastPlayed) {
-                const d = new Date(exam.lastPlayed);
-                if (!latestDate || d > new Date(latestDate)) {
-                    latestDate = exam.lastPlayed;
-                }
-            }
-        });
-
-        writeBoldArabic(skill.label, margin, y, 11);
-        y += 5;
-        if (bestScore !== null) {
-            writeArabic(`  أفضل نتيجة: ${bestScore} / 25`, margin, y, 10);
-            y += 5;
+            writeArabic('لم يبدأ بعد', margin + 5, y, 10);
+            y += 8;
         } else {
-            writeArabic('  أفضل نتيجة: —', margin, y, 10);
-            y += 5;
-        }
-        writeArabic(`  عدد المحاولات: ${totalRetries}`, margin, y, 10);
-        y += 5;
-        writeArabic(`  آخر لعب: ${latestDate ? formatDate(latestDate) : '—'}`, margin, y, 10);
-        y += 6;
-    });
+            // تحويل البيانات إلى صفوف للجدول
+            const rows = examIds.map(id => {
+                const exam = exams[id];
+                const score = exam.score !== null ? exam.score + ' / 25' : '—';
+                const retries = exam.retries || 0;
+                const lastPlayed = exam.lastPlayed ? formatDate(exam.lastPlayed) : '—';
+                const title = exam.title || 'امتحان ' + id;
+                return [title, score, retries, lastPlayed];
+            });
 
-    // تذييل (عربي)
-    const footerY = doc.internal.pageSize.getHeight() - 10;
-    doc.setFontSize(9);
-    doc.setTextColor(150);
-    if (_arabicFontLoaded) {
-        doc.setFont('NotoSansArabic', 'normal');
-    } else {
-        doc.setFont('helvetica', 'normal');
-    }
-    doc.text(`تم الإنشاء: ${new Date().toLocaleString('ar-EG')}`, pageWidth / 2, footerY, { align: 'center' });
+            // إنشاء جدول
+            autoTable(doc, {
+                startY: y,
+                head: [['الامتحان', 'النتيجة', 'الإعادة', 'آخر لعب']],
+                body: rows,
+                theme: 'striped',
+                headStyles: {
+                    fillColor: [44, 62, 102],
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold',
+                    halign: 'center'
+                },
+                styles: {
+                    fontSize: 8,
+                    cellPadding: 2,
+                    halign: 'right'
+                },
+                columnStyles: {
+                    0: { cellWidth: 70 },
+                    1: { cellWidth: 30, halign: 'center' },
+                    2: { cellWidth: 25, halign: 'center' },
+                    3: { cellWidth: 35, halign: 'center' }
+                },
+                margin: { left: margin, right: margin }
+            });
+
+            // تحديث y بعد الجدول
+            y = doc.lastAutoTable.finalY + 6;
+        }
+
+        // بعد كل مهارة، تأكد من وجود مساحة كافية للصفحة التالية
+        if (y > 260) {
+            // سنضيف صفحة جديدة في التكرار التالي
+        }
+        drawFooter();
+    });
 
     return doc;
 }
