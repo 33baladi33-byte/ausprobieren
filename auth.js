@@ -1,6 +1,6 @@
 // ============================================
 // auth.js - النظام النهائي المعتمد للمصادقة (Zertiva Gold Standard)
-// مع ميزة تحميل معلوماتي (PDF Report) - النسخة الاحترافية الكاملة
+// مع ميزة تحميل معلوماتي (PDF Report) - النسخة الاحترافية الكاملة (المصححة)
 // ============================================
 
 // عناصر DOM
@@ -619,7 +619,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// 📄 ميزة "تحميل معلوماتي" (PDF Report) - النسخة الاحترافية
+// 📄 ميزة "تحميل معلوماتي" (PDF Report) - النسخة الاحترافية (المصححة)
 // ============================================
 
 // الحصول على زر التحميل من DOM
@@ -647,11 +647,15 @@ function loadArabicFontForPDF() {
                     new Uint8Array(buffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
                 );
                 _arabicFontBase64 = base64;
-                const { jsPDF } = window.jspdf;
-                jsPDF.API.addFileToVFS('NotoSansArabic-Regular.ttf', base64);
-                jsPDF.API.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
-                _arabicFontLoaded = true;
-                console.log('✅ تم تحميل الخط العربي NotoSansArabic بنجاح');
+                if (window.jspdf && window.jspdf.jsPDF && window.jspdf.jsPDF.API) {
+                    const { jsPDF } = window.jspdf;
+                    jsPDF.API.addFileToVFS('NotoSansArabic-Regular.ttf', base64);
+                    jsPDF.API.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
+                    _arabicFontLoaded = true;
+                    console.log('✅ تم تحميل الخط العربي NotoSansArabic بنجاح');
+                } else {
+                    console.warn('⚠️ jsPDF.API غير متوفر، الخط العربي لن يُستخدم');
+                }
                 resolve();
             })
             .catch(err => {
@@ -871,6 +875,9 @@ function generateReportPDF(data) {
     const margin = 15;
     let y = 20;
 
+    // التحقق من وجود autoTable
+    const autoTable = typeof doc.autoTable === 'function' ? doc.autoTable : (window.jspdf && window.jspdf.autoTable ? window.jspdf.autoTable : null);
+
     // دالة للكتابة بالعربية (تستخدم الخط العربي)
     function writeArabic(text, x = margin, yPos, fontSize = 11, style = 'normal', color = '#333333') {
         if (_arabicFontLoaded) {
@@ -878,14 +885,6 @@ function generateReportPDF(data) {
         } else {
             doc.setFont('helvetica', style);
         }
-        doc.setFontSize(fontSize);
-        doc.setTextColor(color);
-        doc.text(text, x, yPos);
-    }
-
-    // دالة للكتابة بالإنجليزية (تستخدم helvetica)
-    function writeEnglish(text, x = margin, yPos, fontSize = 11, style = 'normal', color = '#333333') {
-        doc.setFont('helvetica', style);
         doc.setFontSize(fontSize);
         doc.setTextColor(color);
         doc.text(text, x, yPos);
@@ -1043,8 +1042,47 @@ function generateReportPDF(data) {
         { id: 'sprach2', label: 'Sprachbausteine 2' }
     ];
 
-    // استخدام autotable لإنشاء جدول لكل مهارة
-    const autoTable = window.jspdf.autoTable;
+    // إذا كانت autoTable غير موجودة، نكتب الجداول يدوياً (بديل)
+    function drawSimpleTable(rows, yStart) {
+        let yPos = yStart;
+        const colWidths = [70, 30, 25, 35];
+        const headers = ['الامتحان', 'النتيجة', 'الإعادة', 'آخر لعب'];
+        const headerBg = '#2c3e66';
+        const headerColor = '#ffffff';
+        // رسم رأس الجدول
+        let xPos = margin;
+        writeBoldArabic(headers[0], xPos, yPos, 9);
+        xPos += colWidths[0];
+        writeBoldArabic(headers[1], xPos, yPos, 9, 'center');
+        xPos += colWidths[1];
+        writeBoldArabic(headers[2], xPos, yPos, 9, 'center');
+        xPos += colWidths[2];
+        writeBoldArabic(headers[3], xPos, yPos, 9, 'center');
+        yPos += 5;
+
+        // خط فاصل
+        doc.setDrawColor(200);
+        doc.line(margin, yPos, pageWidth - margin, yPos);
+        yPos += 2;
+
+        // رسم الصفوف
+        rows.forEach(row => {
+            xPos = margin;
+            writeArabic(row[0], xPos, yPos, 8);
+            xPos += colWidths[0];
+            writeArabic(row[1], xPos, yPos, 8, 'center');
+            xPos += colWidths[1];
+            writeArabic(row[2], xPos, yPos, 8, 'center');
+            xPos += colWidths[2];
+            writeArabic(row[3], xPos, yPos, 8, 'center');
+            yPos += 5;
+            // خط فاصل خفيف
+            doc.setDrawColor(230);
+            doc.line(margin, yPos, pageWidth - margin, yPos);
+            yPos += 1;
+        });
+        return yPos + 4;
+    }
 
     skills.forEach((skill, idx) => {
         // إضافة صفحة جديدة بعد الصفحة الأولى
@@ -1073,34 +1111,37 @@ function generateReportPDF(data) {
                 return [title, score, retries, lastPlayed];
             });
 
-            // إنشاء جدول
-            autoTable(doc, {
-                startY: y,
-                head: [['الامتحان', 'النتيجة', 'الإعادة', 'آخر لعب']],
-                body: rows,
-                theme: 'striped',
-                headStyles: {
-                    fillColor: [44, 62, 102],
-                    textColor: [255, 255, 255],
-                    fontStyle: 'bold',
-                    halign: 'center'
-                },
-                styles: {
-                    fontSize: 8,
-                    cellPadding: 2,
-                    halign: 'right'
-                },
-                columnStyles: {
-                    0: { cellWidth: 70 },
-                    1: { cellWidth: 30, halign: 'center' },
-                    2: { cellWidth: 25, halign: 'center' },
-                    3: { cellWidth: 35, halign: 'center' }
-                },
-                margin: { left: margin, right: margin }
-            });
-
-            // تحديث y بعد الجدول
-            y = doc.lastAutoTable.finalY + 6;
+            // محاولة استخدام autoTable
+            if (autoTable) {
+                autoTable(doc, {
+                    startY: y,
+                    head: [['الامتحان', 'النتيجة', 'الإعادة', 'آخر لعب']],
+                    body: rows,
+                    theme: 'striped',
+                    headStyles: {
+                        fillColor: [44, 62, 102],
+                        textColor: [255, 255, 255],
+                        fontStyle: 'bold',
+                        halign: 'center'
+                    },
+                    styles: {
+                        fontSize: 8,
+                        cellPadding: 2,
+                        halign: 'right'
+                    },
+                    columnStyles: {
+                        0: { cellWidth: 70 },
+                        1: { cellWidth: 30, halign: 'center' },
+                        2: { cellWidth: 25, halign: 'center' },
+                        3: { cellWidth: 35, halign: 'center' }
+                    },
+                    margin: { left: margin, right: margin }
+                });
+                y = doc.lastAutoTable.finalY + 6;
+            } else {
+                // الطريقة البديلة: رسم يدوي
+                y = drawSimpleTable(rows, y);
+            }
         }
 
         // بعد كل مهارة، تأكد من وجود مساحة كافية للصفحة التالية
