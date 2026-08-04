@@ -797,38 +797,28 @@ function collectUserReportData() {
     };
 }
 
-// ====== إنشاء الـ PDF مع دعم العربية ======
+// ====== إنشاء الـ PDF باللغة الإنجليزية (بدون خط عربي) ======
 function generateReportPDF(data) {
-    // استخدام jsPDF مع دعم Unicode عبر إضافة خط عربي
-    // سنقوم بتحميل خط Noto Sans Arabic من CDN (لضمان ظهور العربي بشكل صحيح)
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
-
-    // إضافة خط عربي (Noto Sans Arabic)
-    // سنقوم بتحميله من CDN باستخدام واجهة jsPDF
-    // يجب تحميل الخط مرة واحدة فقط في بداية الملف، ولكننا سنفعل ذلك هنا للتبسيط
-    doc.addFileToVFS('NotoSansArabic-Regular.ttf', notoSansArabicBase64);
-    doc.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
-    doc.setFont('NotoSansArabic');
-
     const pageWidth = doc.internal.pageSize.getWidth();
     const margin = 15;
     let y = 20;
 
-    // دالة مساعدة للكتابة بالعربية
-    function writeArabicText(text, x = margin, yPos, fontSize = 11, style = 'normal', color = '#333333') {
+    // دالة مساعدة للكتابة (جميع النصوص بالإنجليزية)
+    function writeLine(text, x = margin, yPos, fontSize = 11, style = 'normal', color = '#333333') {
         doc.setFontSize(fontSize);
         doc.setTextColor(color);
-        doc.setFont('NotoSansArabic', style);
+        doc.setFont('helvetica', style);
         doc.text(text, x, yPos);
     }
 
-    function writeBoldArabic(text, x = margin, yPos, fontSize = 11) {
-        writeArabicText(text, x, yPos, fontSize, 'bold');
+    function writeBoldLine(text, x = margin, yPos, fontSize = 11) {
+        writeLine(text, x, yPos, fontSize, 'bold');
     }
 
     function writeSectionTitle(title, yPos) {
-        writeBoldArabic(title, margin, yPos, 14);
+        writeBoldLine(title, margin, yPos, 14);
         const lineY = yPos + 2;
         doc.setDrawColor(200, 200, 200);
         doc.line(margin, lineY, pageWidth - margin, lineY);
@@ -836,89 +826,107 @@ function generateReportPDF(data) {
     }
 
     function formatDate(dateStr) {
-        if (!dateStr || dateStr === 'غير متوفر') return dateStr;
+        if (!dateStr || dateStr === 'N/A' || dateStr === 'غير متوفر' || dateStr === 'N/A') return 'N/A';
         try {
             const d = new Date(dateStr);
-            return d.toLocaleDateString('ar-EG', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            return d.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
         } catch {
             return dateStr;
         }
     }
 
+    // تنظيف البيانات: تحويل القيم الفارغة إلى 'N/A'
+    function cleanValue(val) {
+        if (val === null || val === undefined || val === '') return 'N/A';
+        if (typeof val === 'string' && val.trim() === '') return 'N/A';
+        return val;
+    }
+
+    const firstName = cleanValue(data.firstName);
+    const lastName = cleanValue(data.lastName);
+    const email = cleanValue(data.email);
+    const uid = cleanValue(data.uid);
+    const creationTime = cleanValue(data.creationTime);
+    const plan = cleanValue(data.plan);
+    const examDate = cleanValue(data.examDate);
+    const remainingDays = cleanValue(data.remainingDays);
+    const totalHours = cleanValue(data.totalHours);
+    const dailyGoal = cleanValue(data.dailyGoal);
+    const streak = cleanValue(data.streak);
+
     // العنوان الرئيسي
     doc.setFontSize(18);
     doc.setTextColor('#1a2a4a');
-    doc.setFont('NotoSansArabic', 'bold');
-    doc.text('تقرير Zertiva B2', pageWidth / 2, y, { align: 'center' });
+    doc.setFont('helvetica', 'bold');
+    doc.text('Zertiva B2 Report', pageWidth / 2, y, { align: 'center' });
     y += 10;
 
     // ملخص سريع
-    y = writeSectionTitle('📊 ملخص التقدم', y);
-    writeArabicText(`الخطة: ${data.plan}`, margin, y);
+    y = writeSectionTitle('Progress Summary', y);
+    writeLine(`Plan: ${plan}`, margin, y);
     y += 6;
-    writeArabicText(`المتبقي للامتحان: ${data.remainingDays}`, margin, y);
+    writeLine(`Exam Remaining: ${remainingDays}`, margin, y);
     y += 6;
-    writeArabicText(`مجموع ساعات الدراسة: ${data.totalHours} ساعة`, margin, y);
+    writeLine(`Study: ${totalHours} hours`, margin, y);
     y += 6;
-    writeArabicText(`الأيام المتتالية: ${data.streak} يوم`, margin, y);
+    writeLine(`Current Streak: ${streak} days`, margin, y);
     y += 8;
 
     // معلومات الحساب
-    y = writeSectionTitle('👤 الحساب', y);
-    writeArabicText(`الاسم: ${data.firstName} ${data.lastName}`, margin, y);
+    y = writeSectionTitle('Account', y);
+    writeLine(`Name: ${firstName} ${lastName}`, margin, y);
     y += 6;
-    writeArabicText(`البريد الإلكتروني: ${data.email}`, margin, y);
+    writeLine(`Email: ${email}`, margin, y);
     y += 6;
-    writeArabicText(`الخطة: ${data.plan}`, margin, y);
+    writeLine(`Plan: ${plan}`, margin, y);
     y += 6;
-    writeArabicText(`تاريخ الإنشاء: ${data.creationTime}`, margin, y);
+    writeLine(`Created: ${creationTime}`, margin, y);
     y += 6;
-    writeArabicText(`معرف المستخدم: ${data.uid}`, margin, y);
+    writeLine(`UID: ${uid}`, margin, y);
     y += 8;
 
     // معلومات الامتحان
-    y = writeSectionTitle('📅 الامتحان', y);
-    writeArabicText(`تاريخ الامتحان: ${data.examDate}`, margin, y);
+    y = writeSectionTitle('Exam', y);
+    writeLine(`Exam Date: ${examDate}`, margin, y);
     y += 6;
-    writeArabicText(`المتبقي: ${data.remainingDays}`, margin, y);
+    writeLine(`Remaining: ${remainingDays}`, margin, y);
     y += 8;
 
     // إحصائيات الدراسة
-    y = writeSectionTitle('📊 الدراسة', y);
-    writeArabicText(`مجموع ساعات الدراسة: ${data.totalHours}`, margin, y);
+    y = writeSectionTitle('Study', y);
+    writeLine(`Total Hours: ${totalHours}`, margin, y);
     y += 6;
-    writeArabicText(`الهدف اليومي: ${data.dailyGoal}`, margin, y);
+    writeLine(`Daily Goal: ${dailyGoal}`, margin, y);
     y += 6;
-    writeArabicText(`الأيام المتتالية: ${data.streak} يوم`, margin, y);
+    writeLine(`Current Streak: ${streak} days`, margin, y);
     y += 8;
 
     // سجل الأيام (آخر 7 أيام)
-    y = writeSectionTitle('📜 النشاط الأخير', y);
+    y = writeSectionTitle('Recent Activity', y);
     const recentHistory = data.history.slice(-7).reverse();
     if (recentHistory.length === 0) {
-        writeArabicText('—', margin, y);
+        writeLine('— No data available', margin, y);
         y += 6;
     } else {
         recentHistory.forEach(entry => {
-            const date = entry.date || 'غير متوفر';
+            const date = cleanValue(entry.date);
             const minutes = entry.minutes || 0;
             const hours = Math.floor(minutes / 60);
             const mins = minutes % 60;
             let timeStr = '';
             if (hours > 0) {
-                timeStr = hours + (hours === 1 ? ' ساعة' : ' ساعات');
-                if (mins > 0) timeStr += ' ' + mins + ' دقيقة';
+                timeStr = hours + 'h' + (mins > 0 ? ' ' + mins + 'm' : '');
             } else {
-                timeStr = mins + ' دقيقة';
+                timeStr = mins + 'm';
             }
-            writeArabicText(`${date} — ${timeStr}`, margin, y);
+            writeLine(`${date} — ${timeStr}`, margin, y);
             y += 5;
         });
     }
     y += 4;
 
     // نتائج الامتحانات
-    y = writeSectionTitle('📈 تقدم الامتحانات', y);
+    y = writeSectionTitle('Exam Progress', y);
     const skills = [
         { id: 'hoeren1', label: 'Hören 1' },
         { id: 'hoeren2', label: 'Hören 2' },
@@ -934,9 +942,9 @@ function generateReportPDF(data) {
         const exams = data.examData[skill.id] || {};
         const examIds = Object.keys(exams);
         if (examIds.length === 0) {
-            writeBoldArabic(skill.label, margin, y, 11);
+            writeBoldLine(skill.label, margin, y, 11);
             y += 5;
-            writeArabicText('  لم يبدأ بعد', margin, y, 10);
+            writeLine('  Not started yet', margin, y, 10);
             y += 6;
             return;
         }
@@ -961,18 +969,18 @@ function generateReportPDF(data) {
             }
         });
 
-        writeBoldArabic(skill.label, margin, y, 11);
+        writeBoldLine(skill.label, margin, y, 11);
         y += 5;
         if (bestScore !== null) {
-            writeArabicText(`  أفضل نتيجة: ${bestScore} / 25`, margin, y, 10);
+            writeLine(`  Best Score: ${bestScore} / 25`, margin, y, 10);
             y += 5;
         } else {
-            writeArabicText('  أفضل نتيجة: —', margin, y, 10);
+            writeLine('  Best Score: —', margin, y, 10);
             y += 5;
         }
-        writeArabicText(`  عدد المحاولات: ${totalRetries}`, margin, y, 10);
+        writeLine(`  Total Attempts: ${totalRetries}`, margin, y, 10);
         y += 5;
-        writeArabicText(`  آخر لعب: ${latestDate ? formatDate(latestDate) : '—'}`, margin, y, 10);
+        writeLine(`  Last Played: ${latestDate ? formatDate(latestDate) : '—'}`, margin, y, 10);
         y += 6;
     });
 
@@ -980,7 +988,7 @@ function generateReportPDF(data) {
     const footerY = doc.internal.pageSize.getHeight() - 10;
     doc.setFontSize(9);
     doc.setTextColor(150);
-    doc.text(`تم الإنشاء: ${new Date().toLocaleString('ar-EG')}`, pageWidth / 2, footerY, { align: 'center' });
+    doc.text(`Generated: ${new Date().toLocaleString('en-US')}`, pageWidth / 2, footerY, { align: 'center' });
 
     return doc;
 }
@@ -988,14 +996,14 @@ function generateReportPDF(data) {
 // ====== دالة التحميل الرئيسية ======
 async function downloadReport() {
     if (!auth.currentUser) {
-        alert('يرجى تسجيل الدخول أولاً');
+        alert('Please login first');
         return;
     }
 
     // تفعيل حالة التحميل
     if (downloadReportBtn) {
         downloadReportBtn.classList.add('loading');
-        downloadReportBtn.textContent = '⏳ جار إنشاء التقرير...';
+        downloadReportBtn.textContent = '⏳ Generating report...';
     }
 
     // استخدام setTimeout لتجنب تجميد الواجهة
@@ -1018,7 +1026,7 @@ async function downloadReport() {
 
         } catch (error) {
             console.error('❌ خطأ في إنشاء التقرير:', error);
-            alert('حدث خطأ أثناء إنشاء التقرير. يرجى المحاولة مرة أخرى.');
+            alert('An error occurred while generating the report. Please try again.');
         } finally {
             // إعادة الزر إلى حالته الطبيعية
             if (downloadReportBtn) {
