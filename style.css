@@ -5473,8 +5473,6 @@ body.dark-mode .planner-welcome-title {
 body.dark-mode .planner-section-title {
     color: #e8ecf0;
 }
-/* ===== زر خطة اليوم الجديد (مع Border Animation) ===== */
-/* ===== زر خطة اليوم الجديد (مع Border Animation) ===== */
 .study-planner-icon-btn {
     position: relative;
     background: rgba(255, 255, 255, 0.05);
@@ -5562,6 +5560,864 @@ body.dark-mode .planner-section-title {
     100% { background-position: 0% 0%; }
 }
 
+/* ============================================
+   Stats Dashboard Button (📊)
+   ============================================ */
+.stats-dashboard-btn {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    height: 40px;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #E5E7EB;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transform: scale(0.85);
+    transform-origin: center center;
+}
+
+.stats-dashboard-btn:hover {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: scale(0.884) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+}
+
+.stats-dashboard-btn:active {
+    transform: scale(0.80) !important;
+    transition-duration: 0.05s;
+}
+
+.stats-dashboard-btn .material-symbols-outlined {
+    font-size: 22px;
+    color: #E5E7EB;
+    transition: color 0.3s ease;
+}
+
+.stats-dashboard-btn:hover .material-symbols-outlined {
+    color: #38bdf8;
+}
+
+/* ============================================
+   Stats Dashboard - Overlay & Card (Apple Style)
+   ============================================ */
+
+/* الخلفية */
+.stats-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 20000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.stats-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* البطاقة الرئيسية */
+.stats-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 32px;
+    padding: 28px 30px 30px 30px;
+    max-width: 420px;
+    width: 92%;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform: scale(0.92) translateY(10px);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+    opacity: 0;
+    direction: rtl;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.stats-overlay.active .stats-card {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* الرأس */
+.stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    margin-bottom: 20px;
+}
+
+.stats-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+    letter-spacing: -0.3px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.stats-close-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 22px;
+    cursor: pointer;
+    padding: 4px;
+    transition: all 0.2s ease;
+    line-height: 1;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stats-close-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #1e293b;
+}
+
+/* الجسم */
+.stats-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* قسم الهدف مع الدائرة */
+.stats-goal-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 10px 0 6px 0;
+}
+
+.stats-goal-ring-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+}
+
+.stats-progress-ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.stats-ring-bg {
+    fill: none;
+    stroke: #f1f5f9;
+    stroke-width: 8;
+}
+
+.stats-ring-fg {
+    fill: none;
+    stroke: #38bdf8;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 339.292;
+    stroke-dashoffset: 339.292;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), stroke 0.5s ease;
+}
+
+.stats-goal-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.stats-goal-text {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1e293b;
+    display: block;
+    line-height: 1.2;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.stats-goal-label {
+    font-size: 0.65rem;
+    color: #94a3b8;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-top: 2px;
+}
+
+.stats-edit-goal-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+}
+
+.stats-edit-goal-btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #38bdf8;
+}
+
+.stats-edit-goal-btn .material-symbols-outlined {
+    font-size: 20px;
+}
+
+/* صف Streak + Yesterday */
+.stats-stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.stats-streak-box,
+.stats-yesterday-box {
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 16px;
+    padding: 14px 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.stats-streak-box:hover,
+.stats-yesterday-box:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+.stats-streak-icon {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.stats-streak-number {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1e293b;
+    display: block;
+    line-height: 1.2;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.stats-streak-label {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.stats-streak-sub {
+    font-size: 0.55rem;
+    color: #94a3b8;
+    display: block;
+    margin-top: 1px;
+}
+
+.stats-yesterday-icon {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.stats-yesterday-label {
+    font-size: 0.65rem;
+    color: #94a3b8;
+    font-weight: 500;
+    display: block;
+}
+
+.stats-yesterday-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1e293b;
+    display: inline-block;
+    line-height: 1.2;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.stats-yesterday-unit {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 4px;
+}
+
+/* زر التاريخ */
+.stats-history-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: none;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 40px;
+    padding: 10px 18px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    width: 100%;
+}
+
+.stats-history-btn:hover {
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.12);
+    color: #1e293b;
+}
+
+.stats-history-btn .material-symbols-outlined {
+    font-size: 18px;
+    color: #94a3b8;
+}
+
+.stats-history-btn:hover .material-symbols-outlined {
+    color: #38bdf8;
+}
+
+/* ============================================
+   Stats Modals (Goal Edit + History)
+   ============================================ */
+
+.stats-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 20001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.stats-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.stats-modal-content {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 24px 26px 26px 26px;
+    max-width: 360px;
+    width: 92%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform: scale(0.92) translateY(10px);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    opacity: 0;
+    direction: rtl;
+}
+
+.stats-modal.active .stats-modal-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.stats-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    margin-bottom: 18px;
+}
+
+.stats-modal-header h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.stats-modal-close {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+    transition: all 0.2s ease;
+    line-height: 1;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stats-modal-close:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #1e293b;
+}
+
+.stats-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Goal Select */
+.stats-goal-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: #1e293b;
+    background: rgba(0, 0, 0, 0.02);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: auto;
+}
+
+.stats-goal-select:hover {
+    border-color: rgba(0, 0, 0, 0.16);
+}
+
+.stats-goal-select:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+}
+
+.stats-goal-save-btn {
+    padding: 10px 20px;
+    background: #38bdf8;
+    border: none;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #0a0e1a;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    width: 100%;
+}
+
+.stats-goal-save-btn:hover {
+    background: #0ea5e9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(56, 189, 248, 0.3);
+}
+
+.stats-goal-save-btn:active {
+    transform: scale(0.98);
+}
+
+/* History List */
+.stats-history-content {
+    max-width: 400px;
+}
+
+.stats-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.stats-history-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.stats-history-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+}
+
+.stats-history-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.stats-history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: all 0.2s ease;
+}
+
+.stats-history-item:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.stats-history-date {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.stats-history-time {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #1e293b;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.stats-history-unit {
+    font-size: 0.65rem;
+    color: #94a3b8;
+    font-weight: 500;
+    margin-right: 4px;
+}
+
+.stats-history-empty {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    padding: 24px 0;
+}
+
+/* ===== Goal Complete Effect ===== */
+.stats-goal-complete .stats-ring-fg {
+    stroke: #22c55e !important;
+    filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.3));
+    transition: stroke 0.5s ease, filter 0.5s ease;
+}
+
+.stats-goal-complete .stats-goal-text::after {
+    content: ' ✓';
+    color: #22c55e;
+    font-size: 1.2rem;
+}
+
+/* ============================================
+   Stats Dashboard - Dark Mode
+   ============================================ */
+body.dark-mode .stats-card {
+    background: rgba(20, 22, 36, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .stats-title {
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-close-btn {
+    color: #64748b;
+}
+
+body.dark-mode .stats-close-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-header {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode .stats-goal-text {
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-ring-bg {
+    stroke: #2a2a3a;
+}
+
+body.dark-mode .stats-streak-box,
+body.dark-mode .stats-yesterday-box {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode .stats-streak-box:hover,
+body.dark-mode .stats-yesterday-box:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.10);
+}
+
+body.dark-mode .stats-streak-number {
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-yesterday-value {
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-history-btn {
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+}
+
+body.dark-mode .stats-history-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-modal-content {
+    background: rgba(20, 22, 36, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .stats-modal-header h4 {
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-modal-header {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode .stats-modal-close {
+    color: #64748b;
+}
+
+body.dark-mode .stats-modal-close:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-goal-select {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-goal-select:hover {
+    border-color: rgba(255, 255, 255, 0.16);
+}
+
+body.dark-mode .stats-goal-select option {
+    background: #141624;
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-history-item {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode .stats-history-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .stats-history-date {
+    color: #64748b;
+}
+
+body.dark-mode .stats-history-time {
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-history-empty {
+    color: #64748b;
+}
+
+body.dark-mode .stats-goal-complete .stats-ring-fg {
+    stroke: #22c55e !important;
+    filter: drop-shadow(0 0 12px rgba(34, 197, 94, 0.2));
+}
+
+/* ============================================
+   Stats Dashboard - Responsive
+   ============================================ */
+@media (max-width: 768px) {
+    .stats-card {
+        padding: 22px 18px 24px 18px;
+        border-radius: 24px;
+        max-width: 95%;
+    }
+    
+    .stats-goal-ring-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .stats-ring-bg,
+    .stats-ring-fg {
+        stroke-width: 7;
+    }
+    
+    .stats-goal-text {
+        font-size: 1.2rem;
+    }
+    
+    .stats-goal-label {
+        font-size: 0.6rem;
+    }
+    
+    .stats-stats-row {
+        gap: 8px;
+    }
+    
+    .stats-streak-box,
+    .stats-yesterday-box {
+        padding: 10px 12px;
+        border-radius: 12px;
+    }
+    
+    .stats-streak-number {
+        font-size: 1.3rem;
+    }
+    
+    .stats-yesterday-value {
+        font-size: 1.2rem;
+    }
+    
+    .stats-modal-content {
+        padding: 20px 18px 22px 18px;
+        border-radius: 20px;
+    }
+    
+    .stats-history-item {
+        padding: 8px 12px;
+    }
+    
+    .stats-history-date {
+        font-size: 0.7rem;
+    }
+    
+    .stats-history-time {
+        font-size: 0.7rem;
+    }
+    
+    .stats-edit-goal-btn {
+        width: 30px;
+        height: 30px;
+        top: -4px;
+        right: -4px;
+    }
+    
+    .stats-edit-goal-btn .material-symbols-outlined {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-card {
+        padding: 18px 14px 20px 14px;
+        border-radius: 20px;
+    }
+    
+    .stats-goal-ring-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .stats-ring-bg,
+    .stats-ring-fg {
+        stroke-width: 6;
+    }
+    
+    .stats-goal-text {
+        font-size: 1rem;
+    }
+    
+    .stats-title {
+        font-size: 0.95rem;
+    }
+    
+    .stats-stats-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+    }
+    
+    .stats-streak-box,
+    .stats-yesterday-box {
+        padding: 8px 8px;
+        border-radius: 10px;
+    }
+    
+    .stats-streak-number {
+        font-size: 1.1rem;
+    }
+    
+    .stats-yesterday-value {
+        font-size: 1rem;
+    }
+    
+    .stats-streak-label {
+        font-size: 0.6rem;
+    }
+    
+    .stats-yesterday-label {
+        font-size: 0.55rem;
+    }
+    
+    .stats-streak-sub {
+        font-size: 0.5rem;
+    }
+    
+    .stats-yesterday-unit {
+        font-size: 0.55rem;
+    }
+    
+    .stats-history-btn {
+        font-size: 0.7rem;
+        padding: 8px 14px;
+    }
+    
+    .stats-modal-content {
+        padding: 16px 14px 18px 14px;
+        border-radius: 18px;
+        max-width: 98%;
+    }
+    
+    .stats-goal-select {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+    }
+    
+    .stats-goal-save-btn {
+        font-size: 0.8rem;
+        padding: 8px 16px;
+    }
+}
 /* ===== التحكم في إظهار/إخفاء وموضع زر الرئيسية ===== */
 #backHomeBtn {
     display: none !important;
