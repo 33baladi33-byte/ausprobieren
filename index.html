@@ -2770,6 +2770,10 @@ window.updateAskAIContext = function(skill, examId) {
             localStorage.setItem('zertiva_selected_skill', 'hoeren1');
         }
         savedSkill = localStorage.getItem('zertiva_selected_skill');
+        // تحديث الملف الشخصي بعد حفظ البيانات مباشرة (نفس المصدر)
+        if (typeof updateProfilePlannerStatus === 'function') {
+            setTimeout(updateProfilePlannerStatus, 50);
+        }
     }
 
     function calculateWorkingDays(examDate) {
