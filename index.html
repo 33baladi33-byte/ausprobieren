@@ -4104,110 +4104,134 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="studySessionModal" class="session-modal">
     <div class="session-modal-content">
 
-        <!-- صف الأزرار العلوية (History ← → Edit) -->
-        <div class="stats-header-actions">
-            <button id="statsHistoryBtn" class="stats-icon-btn" title="سجل الأيام">
-                <span class="material-symbols-outlined">history</span>
-            </button>
-            <div class="stats-header-spacer"></div>
-            <button id="statsEditGoalBtn" class="stats-icon-btn" title="تعديل الهدف">
-                <span class="material-symbols-outlined">edit</span>
-            </button>
-        </div>
-
-        <!-- المنتصف: دائرة التقدم + إحصائيات جانبية -->
-        <div class="stats-middle-row">
-            <!-- يسار: Yesterday -->
-            <div class="stats-side-box stats-yesterday-box">
-                <span class="stats-side-label">أمس</span>
-                <span class="stats-side-value" id="statsYesterdayValue">0</span>
-                <span class="stats-side-unit" id="statsYesterdayUnit">دقيقة</span>
+        <!-- الصفحة الرئيسية (تظهر افتراضياً) -->
+        <div id="statsMainContent" class="stats-main-page">
+            <!-- صف الأزرار العلوية (History ← → Edit) -->
+            <div class="stats-header-actions">
+                <button id="statsHistoryBtn" class="stats-icon-btn" title="سجل الأيام">
+                    <span class="material-symbols-outlined">history</span>
+                </button>
+                <div class="stats-header-spacer"></div>
+                <button id="statsEditGoalBtn" class="stats-icon-btn" title="تعديل الهدف">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
             </div>
 
-            <!-- الدائرة (تحتوي الآن على "هدف اليوم" + القيمة) -->
-            <div class="stats-ring-wrapper">
-                <svg class="stats-progress-ring" viewBox="0 0 120 120">
-                    <circle class="stats-ring-bg" cx="60" cy="60" r="54" />
-                    <circle class="stats-ring-fg" cx="60" cy="60" r="54" />
-                </svg>
-                <div class="stats-ring-center">
-                    <span class="stats-ring-goal-label">هدف اليوم</span>
-                    <span class="stats-ring-goal-text" id="statsRingGoalText">2</span>
-                    <span class="stats-ring-goal-unit" id="statsRingGoalUnit">ساعات</span>
+            <!-- المنتصف: دائرة التقدم + إحصائيات جانبية -->
+            <div class="stats-middle-row">
+                <!-- يسار: Yesterday -->
+                <div class="stats-side-box stats-yesterday-box">
+                    <span class="stats-side-label">أمس</span>
+                    <span class="stats-side-value" id="statsYesterdayValue">0</span>
+                    <span class="stats-side-unit" id="statsYesterdayUnit">دقيقة</span>
+                </div>
+
+                <!-- الدائرة -->
+                <div class="stats-ring-wrapper">
+                    <svg class="stats-progress-ring" viewBox="0 0 120 120">
+                        <circle class="stats-ring-bg" cx="60" cy="60" r="54" />
+                        <circle class="stats-ring-fg" cx="60" cy="60" r="54" />
+                    </svg>
+                    <div class="stats-ring-center">
+                        <span class="stats-ring-goal-label">هدف اليوم</span>
+                        <span class="stats-ring-goal-text" id="statsRingGoalText">2</span>
+                        <span class="stats-ring-goal-unit" id="statsRingGoalUnit">ساعات</span>
+                    </div>
+                </div>
+
+                <!-- يمين: Streak (بدون رمز نار) -->
+                <div class="stats-side-box stats-streak-box">
+                    <span class="stats-side-label">نجحت في المهمة</span>
+                    <span class="stats-side-value" id="statsStreakNumber">0</span>
+                    <span class="stats-side-unit">يوم</span>
                 </div>
             </div>
 
-            <!-- يمين: Streak (بدون رمز نار) -->
-            <div class="stats-side-box stats-streak-box">
-                <span class="stats-side-label">نجحت في المهمة</span>
-                <span class="stats-side-value" id="statsStreakNumber">0</span>
-                <span class="stats-side-unit">يوم</span>
+            <!-- أسفل الدائرة: الوقت المنجز اليوم -->
+            <div class="stats-completed-row">
+                <span class="stats-completed-label">Completed:</span>
+                <span class="stats-completed-value" id="statsCompletedValue">0 دقيقة</span>
+            </div>
+
+            <!-- الأزرار (نفس الأزرار القديمة) -->
+            <div class="session-times-grid">
+                <button class="time-option" data-minutes="25">25 دقيقة</button>
+                <button class="time-option" data-minutes="45">45 دقيقة</button>
+                <button class="time-option" data-minutes="60">60 دقيقة</button>
+                <button class="time-option" data-minutes="90">90 دقيقة</button>
+                <button class="time-option" data-minutes="105">105 دقيقة</button>
+                <button class="time-option" data-minutes="120">120 دقيقة</button>
+            </div>
+
+            <!-- المجموع الكلي -->
+            <div class="session-total-hours">
+                <span class="label">مجموع ساعات الدراسة</span>
+                <span class="value" id="totalHoursValue">0.0 <span class="value-unit">ساعة</span></span>
             </div>
         </div>
 
-        <!-- أسفل الدائرة: الوقت المنجز اليوم -->
-        <div class="stats-completed-row">
-            <span class="stats-completed-label">Completed:</span>
-            <span class="stats-completed-value" id="statsCompletedValue">0 دقيقة</span>
+        <!-- ===== صفحة تعديل الهدف (داخل نفس البطاقة) ===== -->
+        <div id="statsGoalContent" class="stats-inner-page" style="display:none;">
+            <div class="stats-inner-header">
+                <button id="statsGoalBackBtn" class="stats-back-btn" title="رجوع">
+                    <span class="material-symbols-outlined">keyboard_return</span>
+                </button>
+                <span class="stats-inner-title">حدد هدفك اليومي</span>
+            </div>
+            <div class="stats-inner-body">
+                <select id="statsGoalSelect" class="stats-goal-select">
+                    <option value="30">30 دقيقة</option>
+                    <option value="60">1 ساعة</option>
+                    <option value="90">1 ساعة 30 دقيقة</option>
+                    <option value="120" selected>2 ساعات</option>
+                    <option value="150">2 ساعات 30 دقيقة</option>
+                    <option value="180">3 ساعات</option>
+                    <option value="210">3 ساعات 30 دقيقة</option>
+                    <option value="240">4 ساعات</option>
+                    <option value="300">5 ساعات</option>
+                    <option value="360">6 ساعات</option>
+                    <option value="420">7 ساعات</option>
+                    <option value="480">8 ساعات</option>
+                </select>
+                <button id="statsGoalSaveBtn" class="stats-inner-save">حفظ</button>
+            </div>
         </div>
 
-        <!-- الأزرار (نفس الأزرار القديمة) -->
-        <div class="session-times-grid">
-            <button class="time-option" data-minutes="25">25 دقيقة</button>
-            <button class="time-option" data-minutes="45">45 دقيقة</button>
-            <button class="time-option" data-minutes="60">60 دقيقة</button>
-            <button class="time-option" data-minutes="90">90 دقيقة</button>
-            <button class="time-option" data-minutes="105">105 دقيقة</button>
-            <button class="time-option" data-minutes="120">120 دقيقة</button>
+        <!-- ===== صفحة سجل الأيام (داخل نفس البطاقة) ===== -->
+        <div id="statsHistoryContent" class="stats-inner-page" style="display:none;">
+            <div class="stats-inner-header">
+                <button id="statsHistoryBackBtn" class="stats-back-btn" title="رجوع">
+                    <span class="material-symbols-outlined">keyboard_return</span>
+                </button>
+                <span class="stats-inner-title">📜 سجل الأيام</span>
+            </div>
+            <div class="stats-inner-body">
+                <div id="statsHistoryList" class="stats-history-list">
+                    <!-- ستُملأ بواسطة JavaScript -->
+                </div>
+            </div>
         </div>
 
-        <!-- المجموع الكلي -->
-        <div class="session-total-hours">
-            <span class="label">مجموع ساعات الدراسة</span>
-            <span class="value" id="totalHoursValue">0.0 <span class="value-unit">ساعة</span></span>
-        </div>
     </div>
 </div>
 
-<!-- ===== محتوى "تعديل الهدف" (يتم عرضه داخل نفس البطاقة) ===== -->
-<div id="statsGoalContent" class="stats-inner-page" style="display:none;">
-    <div class="stats-inner-header">
-        <button id="statsGoalBackBtn" class="stats-back-btn" title="رجوع">
-            <span class="material-symbols-outlined">keyboard_return</span>
-        </button>
-        <span class="stats-inner-title">حدد هدفك اليومي</span>
+<!-- عداد صغير أعلى اليمين مع زر Pause (بدون تغيير) -->
+<div id="sessionTimerBar" class="session-timer-bar" style="display: none;">
+    <div class="timer-display">
+        <span id="timerMinutes">00</span>:<span id="timerSeconds">00</span>
     </div>
-    <div class="stats-inner-body">
-        <select id="statsGoalSelect" class="stats-goal-select">
-            <option value="30">30 دقيقة</option>
-            <option value="60">1 ساعة</option>
-            <option value="90">1 ساعة 30 دقيقة</option>
-            <option value="120" selected>2 ساعات</option>
-            <option value="150">2 ساعات 30 دقيقة</option>
-            <option value="180">3 ساعات</option>
-            <option value="210">3 ساعات 30 دقيقة</option>
-            <option value="240">4 ساعات</option>
-            <option value="300">5 ساعات</option>
-            <option value="360">6 ساعات</option>
-            <option value="420">7 ساعات</option>
-            <option value="480">8 ساعات</option>
-        </select>
-        <button id="statsGoalSaveBtn" class="stats-inner-save">حفظ</button>
-    </div>
+    <button id="pauseSessionBtn" class="timer-control-btn pause-btn" title="إيقاف مؤقت">⏸</button>
+    <button id="cancelSessionBtn" class="timer-control-btn" title="إنهاء">✕</button>
 </div>
 
-<!-- ===== محتوى "سجل الأيام" (يتم عرضه داخل نفس البطاقة) ===== -->
-<div id="statsHistoryContent" class="stats-inner-page" style="display:none;">
-    <div class="stats-inner-header">
-        <button id="statsHistoryBackBtn" class="stats-back-btn" title="رجوع">
-            <span class="material-symbols-outlined">keyboard_return</span>
-        </button>
-        <span class="stats-inner-title">📜 سجل الأيام</span>
-    </div>
-    <div class="stats-inner-body">
-        <div id="statsHistoryList" class="stats-history-list">
-            <!-- ستُملأ بواسطة JavaScript -->
-        </div>
+<!-- نافذة نهاية الجلسة (لم تتغير) -->
+<div id="sessionEndOverlay" class="session-end-overlay" style="display: none;">
+    <div class="session-end-card">
+        <div class="session-end-icon">🎉</div>
+        <div class="session-end-title">أحسنت 🇩🇪</div>
+        <div class="session-end-sub">مراجعة موفقة ✨</div>
+        <div class="session-end-message">خذ راحة صغيرة ☕</div>
+        <button id="closeEndOverlayBtn" class="end-overlay-btn">حسناً</button>
     </div>
 </div>
 
