@@ -647,15 +647,12 @@ function loadArabicFontForPDF() {
                     new Uint8Array(buffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
                 );
                 _arabicFontBase64 = base64;
-                if (window.jspdf && window.jspdf.jsPDF && window.jspdf.jsPDF.API) {
-                    const { jsPDF } = window.jspdf;
-                    jsPDF.API.addFileToVFS('NotoSansArabic-Regular.ttf', base64);
-                    jsPDF.API.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
-                    _arabicFontLoaded = true;
-                    console.log('✅ تم تحميل الخط العربي NotoSansArabic بنجاح');
-                } else {
-                    console.warn('⚠️ jsPDF.API غير متوفر، الخط العربي لن يُستخدم');
-                }
+                const { jsPDF } = window.jspdf;
+                // ✅ الطريقة الصحيحة لتحميل الخط بدون vFS
+                jsPDF.API.addFileToVFS('NotoSansArabic-Regular.ttf', base64);
+                jsPDF.API.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
+                _arabicFontLoaded = true;
+                console.log('✅ تم تحميل الخط العربي NotoSansArabic بنجاح');
                 resolve();
             })
             .catch(err => {
