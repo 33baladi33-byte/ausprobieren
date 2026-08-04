@@ -1422,6 +1422,11 @@ body.dark-mode .mobile-banner span {
     <!-- زر تسجيل الخروج -->
     <button id="profileLogoutBtn" class="profile-logout" style="display: none;"> تسجيل لخروج</button>
     
+    <!-- زر تحميل معلوماتي (PDF) -->
+    <button id="downloadReportBtn" class="profile-report-btn">
+        📄 تحميل معلوماتي
+    </button>
+    
     <!-- زر الترقية (يتم إضافته بواسطة JavaScript عند الحاجة) -->
 </div>
 </div>
@@ -2506,6 +2511,9 @@ if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeF
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+<!-- مكتبات PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyABp_TfYLzX76ddo0nE08R7T0N8UEGbjIc",
