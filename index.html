@@ -1404,11 +1404,17 @@ body.dark-mode .mobile-banner span {
         <span class="uid-label">ID:</span>
         <span class="uid-value" id="profileUidValue">---</span>
     </div>
-
-     <!-- ✅ سطر الخطة اليومية (عرض فقط - بدون زر إعدادات) -->
-    <div id="profilePlannerRow" class="profile-uid" style="display: flex; align-items: center; padding: 6px 0; border-top: 1px solid #334155; gap: 6px;">
+    <!-- ✅ سطر الخطة اليومية (عرض فقط - بدون زر إعدادات) -->
+    <div id="profilePlannerRow" class="profile-uid" style="display: flex; align-items: center; padding: 6px 0; border-top: 1px solid #334155; gap: 6px; position: relative;">
         <span class="material-symbols-outlined" style="font-size: 16px; color: #94a3b8;">schedule</span>
         <span id="profilePlannerText" style="color: #94a3b8; font-size: 12px;">لم يتم إعداد الخطة اليومية بعد.</span>
+        <span id="plannerInfoIcon" class="material-symbols-outlined planner-info-icon">info</span>
+        <div id="plannerTooltip" class="planner-tooltip">
+            هذه ليست مدة اشتراكك،<br>
+            بل هي المدة المتبقية حتى تاريخ امتحانك.<br>
+            إذا أردت إضافة أو تعديل موعد الامتحان،<br>
+            اذهب إلى ميزة "الخطة اليومية".
+        </div>
     </div>
 
     <!-- زر تسجيل الخروج -->
@@ -4851,7 +4857,6 @@ function updateProfilePlannerStatus() {
     }
 }
 
-
 // تحديث النص عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', updateProfilePlannerStatus);
 
@@ -4866,6 +4871,25 @@ window.addEventListener('storage', function(e) {
 document.addEventListener('click', function(e) {
     if (e.target.matches('#studyPlannerModal .planner-popup-overlay .planner-popup-card button.planner-section-btn') && e.target.textContent.trim() === 'فحص') {
         setTimeout(updateProfilePlannerStatus, 200);
+    }
+});
+
+// أيقونة info في الملف الشخصي - مستقلة تماماً
+document.addEventListener('DOMContentLoaded', function() {
+    const infoIcon = document.getElementById('plannerInfoIcon');
+    const tooltip = document.getElementById('plannerTooltip');
+
+    if (infoIcon && tooltip) {
+        infoIcon.addEventListener('click', function(e) {
+            e.stopPropagation();
+            tooltip.classList.toggle('visible');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!infoIcon.contains(e.target) && !tooltip.contains(e.target)) {
+                tooltip.classList.remove('visible');
+            }
+        });
     }
 });
 
