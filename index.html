@@ -1310,48 +1310,34 @@ body.dark-mode .mobile-banner span {
     <button id="studyPlannerBtn" class="study-planner-icon-btn" title="خطة اليوم الذكية">
         <img src="images/game.png" alt="خطة اليوم" class="planner-icon-img">
     </button>
-<!-- زر اشترك - تصميم Uiverse مع احتفاظ بـ id و class -->
+<!-- زر اشترك المعزول تماماً (Namespace Zert) -->
 <svg style="position: absolute; width: 0; height: 0;">
-  <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq">
-    <feColorMatrix
-      values="1 0 0 0 0 
-            0 1 0 0 0 
-            0 0 1 0 0 
-            0 0 0 9 0"
-    ></feColorMatrix>
+  <filter width="300%" x="-100%" height="300%" y="-100%" id="zert-unopaq">
+    <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 9 0"></feColorMatrix>
   </filter>
-  <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq2">
-    <feColorMatrix
-      values="1 0 0 0 0 
-            0 1 0 0 0 
-            0 0 1 0 0 
-            0 0 0 3 0"
-    ></feColorMatrix>
+  <filter width="300%" x="-100%" height="300%" y="-100%" id="zert-unopaq2">
+    <feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 3 0"></feColorMatrix>
   </filter>
-  <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq3">
-    <feColorMatrix
-      values="1 0 0 0.2 0 
-            0 1 0 0.2 0 
-            0 0 1 0.2 0 
-            0 0 0 2 0"
-    ></feColorMatrix>
+  <filter width="300%" x="-100%" height="300%" y="-100%" id="zert-unopaq3">
+    <feColorMatrix values="1 0 0 0.2 0 0 1 0 0.2 0 0 0 1 0.2 0 0 0 0 2 0"></feColorMatrix>
   </filter>
 </svg>
-<div class="subscribe-button-wrapper">
-  <button class="real-button" id="navSubscribeBtn"></button>
-  <div class="backdrop-subscribe"></div>
-  <div class="button-container-subscribe">
-    <div class="spin spin-blur-subscribe"></div>
-    <div class="spin spin-intense-subscribe"></div>
-    <div class="backdrop-subscribe"></div>
-    <div class="button-border-subscribe">
-      <div class="spin spin-inside-subscribe"></div>
-      <div class="button-subscribe">اشترك</div>
+
+<div class="zert-sub-wrapper">
+  <button class="zert-sub-real-btn" id="navSubscribeBtn"></button>
+  <div class="zert-sub-backdrop"></div>
+  <div class="zert-sub-container">
+    <div class="zert-sub-spin zert-sub-spin-blur"></div>
+    <div class="zert-sub-spin zert-sub-spin-intense"></div>
+    <div class="zert-sub-backdrop"></div>
+    <div class="zert-sub-border">
+      <div class="zert-sub-spin zert-sub-spin-inside"></div>
+      <div class="zert-sub-inner">اشترك</div>
     </div>
   </div>
 </div>
-<!-- زر تسجيل الدخول - تصميم Uiverse -->
-<button id="navLoginBtn" class="btn-login-top button-login">تسجيل الدخول</button>
+<!-- زر تسجيل الدخول المعزول تماماً (Apple Style Namespace) -->
+<button id="navLoginBtn" class="zert-login-btn">تسجيل الدخول</button>
 </div>
     
    <div class="right-side">
