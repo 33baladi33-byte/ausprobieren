@@ -406,12 +406,15 @@
         return allOk;
     };
     // ============================================
-    // تصدير الدوال الأساسية فقط
-    // ============================================
-    // (لا حاجة لتصدير أي شيء إضافي لأن دوال النسب ستُدار من index.html)
+// تصدير الدوال الأساسية فقط
+// ============================================
+// (لا حاجة لتصدير أي شيء إضافي لأن دوال النسب ستُدار من index.html)
 
-    console.log('✅ studyPlanner.js (المحرك الأساسي) تم تحميله بنجاح');
-    console.log('💡 استخدم window.generateStudyPlan(skill, examDate, dailyHours) لتوليد الخطة');
-    console.log('💡 استخدم window.checkStudyPlannerDependencies() لفحص التبعيات');
+console.log('✅ studyPlanner.js (المحرك الأساسي) تم تحميله بنجاح');
+console.log('💡 استخدم window.generateStudyPlan(skill, examDate, dailyHours) لتوليد الخطة');
+console.log('💡 استخدم window.checkStudyPlannerDependencies() لفحص التبعيات');
+
+// ✅ جعل دالة فتح الخطة متاحة للاستخدام الخارجي
+window.openPlanner = openPlanner;
 
 })();
