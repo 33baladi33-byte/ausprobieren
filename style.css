@@ -5622,9 +5622,19 @@ body:has(#exam.active) #backHomeBtn {
 #examsList {
     padding-bottom: 5px !important;
 }
-
 /* ===== إزالة أي هوامش من آخر عنصر في القائمة ===== */
 #examsList .item:last-child {
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
+}
+
+/* ✅ تنسيق سطر الخطة في الملف الشخصي */
+#profilePlannerRow .profile-planner-text-active {
+    color: #38bdf8 !important;
+    font-weight: 500;
+}
+#profilePlannerBtn:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    transform: scale(1.05);
 }
