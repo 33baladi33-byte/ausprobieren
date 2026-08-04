@@ -233,8 +233,8 @@ function updateUI(user, data) {
     const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
     const profileIcon = document.getElementById('profileIcon');
     const studyPlannerBtn = document.getElementById('studyPlannerBtn');
+    const settingsBtn = document.getElementById('settingsBtn');
 
-    // حالة زائر غير مسجل
     // حالة زائر غير مسجل
     if (!user) {
         if (profileEmailText) profileEmailText.textContent = 'غير مسجل';
@@ -245,9 +245,10 @@ function updateUI(user, data) {
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
-               if (profileIcon) profileIcon.style.display = 'none';
+        if (profileIcon) profileIcon.style.display = 'none';
         if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex';
-        
+        if (settingsBtn) settingsBtn.style.display = 'none';
+
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
 
@@ -282,6 +283,7 @@ function updateUI(user, data) {
         
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'none';
+        if (settingsBtn) settingsBtn.style.display = 'inline-flex';
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
@@ -291,6 +293,7 @@ function updateUI(user, data) {
         
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
+        if (settingsBtn) settingsBtn.style.display = 'none';
 
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (!oldBtn && profileDropdown) {
