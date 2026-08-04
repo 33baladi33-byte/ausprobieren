@@ -235,6 +235,7 @@ function updateUI(user, data) {
     const studyPlannerBtn = document.getElementById('studyPlannerBtn');
 
     // حالة زائر غير مسجل
+    // حالة زائر غير مسجل
     if (!user) {
         if (profileEmailText) profileEmailText.textContent = 'غير مسجل';
         if (profileExpiryText) profileExpiryText.textContent = 'الوصول محدود لبعض الامتحانات';
@@ -245,7 +246,8 @@ function updateUI(user, data) {
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
         if (profileIcon) profileIcon.style.display = 'none';
-        if (studyPlannerBtn) studyPlannerBtn.style.display = 'none';
+        // إظهار زر خطة اليوم للزوار أيضاً
+        if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex';
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
