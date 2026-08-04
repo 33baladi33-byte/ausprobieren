@@ -2483,22 +2483,6 @@ const db = firebase.firestore();
 window.auth = auth;
 window.db = db;
 console.log("✅ Firebase initialized");
-
-// ✅ (إضافة جديدة) تحديث أيقونة الملف الشخصي ديناميكياً
-window.auth.onAuthStateChanged(user => {
-    const profileIcon = document.getElementById('profileIcon');
-    if (profileIcon) {
-        if (user) {
-            // مسجل الدخول
-            profileIcon.src = 'images/profile2.png';
-            console.log("🔄 تم تبديل الأيقونة إلى profile2.png (مسجل)");
-        } else {
-            // غير مسجل
-            profileIcon.src = 'images/profile.png';
-            console.log("🔄 تم تبديل الأيقونة إلى profile.png (غير مسجل)");
-        }
-    }
-});
     // ============================================
 // 🧠 السياق الذكي لـ Ask AI (نسخة مبسطة)
 // ============================================
