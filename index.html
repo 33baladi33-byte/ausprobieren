@@ -4838,6 +4838,13 @@ window.addEventListener('storage', function(e) {
     }
 });
 
+// ✅ تحديث النص فوراً عند الضغط على زر "فحص" في النافذة المنبثقة
+document.addEventListener('click', function(e) {
+    if (e.target.matches('#studyPlannerModal .planner-popup-overlay .planner-popup-card button.planner-section-btn') && e.target.textContent.trim() === 'فحص') {
+        setTimeout(updateProfilePlannerStatus, 200);
+    }
+});
+
 // ============================================
 // ✅ تحويل أرقام تاريخ الصلاحية إلى غربية
 // ============================================
