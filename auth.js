@@ -1,6 +1,6 @@
 // ============================================
 // auth.js - النظام النهائي المعتمد للمصادقة (Zertiva Gold Standard)
-// (قراءة واحدة عند الـ Refresh - آمن 100% - حماية كاملة من الحسابات الناقصة)
+// مع ميزة تحميل معلوماتي (PDF Report) - النسخة المُصحَّحة بالكامل
 // ============================================
 
 // عناصر DOM
@@ -48,7 +48,7 @@ const settingsModal = document.getElementById('settingsModal');
 const closeSettingsModal = document.getElementById('closeSettingsModal');
 
 // راية الحماية لمنع الـ Race Condition أثناء الدخول أو الإنشاء العمدي
-window._isAuthenticating = false; 
+window._isAuthenticating = false;
 
 // ============================================
 // ✅ الحالة العامة للمستخدم (Single Source of Truth)
@@ -177,7 +177,7 @@ async function checkSessionAndInitialize() {
                 console.log('⏰ انتهت مدة الصلاحية. تحويل الخطة إلى مجانية...');
                 userData.plan = 'free';
                 userData.premiumUntil = null;
-                
+
                 await docRef.update({
                     plan: 'free',
                     premiumUntil: null,
@@ -206,9 +206,9 @@ async function createInitialUserDocument(user) {
         lastname: '',
         plan: 'free',
         premiumUntil: null,
-        session: { 
-            deviceId: deviceId, 
-            loginAt: firebase.firestore.FieldValue.serverTimestamp() 
+        session: {
+            deviceId: deviceId,
+            loginAt: firebase.firestore.FieldValue.serverTimestamp()
         },
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
@@ -220,6 +220,9 @@ async function createInitialUserDocument(user) {
 }
 
 function updateUI(user, data) {
+    // تحديث المخبأ للاستخدام في التقرير
+    window._cachedUserData = data || null;
+
     const profileEmail = document.getElementById('profileEmail');
     const profileEmailText = document.getElementById('profileEmailText');
     const profileExpiry = document.getElementById('profileExpiry');
@@ -258,7 +261,7 @@ function updateUI(user, data) {
         if (oldBtn) oldBtn.remove();
 
         _currentUserStatus = 'free';
-        
+
         if (typeof window.toggleSessionButton === 'function') {
             setTimeout(window.toggleSessionButton, 50);
         }
@@ -274,7 +277,7 @@ function updateUI(user, data) {
     // إخفاء زر الخطة اليومية في الصفحة الرئيسية، وإظهاره في باقي الصفحات
     if (studyPlannerBtn) studyPlannerBtn.style.display = isHomePage ? 'none' : 'inline-flex';
 
-    const isPremium = data && data.plan === 'premium' && 
+    const isPremium = data && data.plan === 'premium' &&
                       (!data.premiumUntil || new Date(data.premiumUntil).getTime() > Date.now());
 
     _currentUserStatus = isPremium ? 'premium' : 'free';
@@ -286,18 +289,18 @@ function updateUI(user, data) {
         } else if (profileExpiryText) {
             profileExpiryText.textContent = `الصلاحية: حساب دائم`;
         }
-        
+
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'none';
         if (settingsBtn) settingsBtn.style.display = 'inline-flex';
-        
+
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
-   
+
     } else {
         if (profileStatus) profileStatus.innerHTML = `<span class="status-free"><span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; margin-left: 4px;">credit_card_off</span> مجاني</span>`;
         if (profileExpiryText) profileExpiryText.textContent = 'حساب مجاني / انتهت الصلاحية';
-        
+
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
         if (settingsBtn) settingsBtn.style.display = 'none';
@@ -325,7 +328,7 @@ function updateUI(user, data) {
             }, 50);
         }
     }
-    
+
     if (typeof window.toggleSessionButton === 'function') {
         setTimeout(window.toggleSessionButton, 50);
     }
@@ -347,7 +350,7 @@ async function handleLogin() {
     authLoginBtn.innerHTML = '<span class="loading-spinner"></span>';
     authLoginBtn.style.opacity = '0.7';
 
-    window._isAuthenticating = true; 
+    window._isAuthenticating = true;
 
     try {
         const userCredential = await auth.signInWithEmailAndPassword(email, password);
@@ -355,7 +358,7 @@ async function handleLogin() {
         const deviceId = getDeviceId();
 
         const userRef = db.collection('users').doc(user.uid);
-        
+
         await userRef.set({
             session: {
                 deviceId: deviceId,
@@ -367,7 +370,7 @@ async function handleLogin() {
         }, { merge: true });
 
         const finalSnap = await userRef.get();
-        
+
         closeAuthModalFunc();
         showToast('✅ تم تسجيل الدخول بنجاح. مرحباً بك!', 'success');
         updateUI(user, finalSnap.data());
@@ -448,7 +451,7 @@ async function handleSignup() {
 async function handleLogout(clearLocalDevice = true) {
     try {
         const user = auth.currentUser;
-        
+
         if (clearLocalDevice) {
             if (user) {
                 await db.collection('users').doc(user.uid).set({
@@ -458,14 +461,14 @@ async function handleLogout(clearLocalDevice = true) {
             }
             localStorage.removeItem('zertiva_deviceId');
         }
-        
+
         await auth.signOut();
         if (profileDropdown) profileDropdown.classList.remove('show');
         showToast('👋 تم تسجيل الخروج بنجاح.', 'success');
         updateUI(null, null);
     } catch (error) {
         console.error('Logout Error:', error);
-        await auth.signOut(); 
+        await auth.signOut();
     }
 }
 
@@ -530,7 +533,7 @@ function showToast(message, type = 'info') {
 // ============================================
 auth.onAuthStateChanged(async user => {
     await checkSessionAndInitialize();
-    
+
     // ✅ بعد تحديث حالة المستخدم، استدعِ عرض القائمة الأولية (مرة واحدة فقط)
     if (typeof window.renderInitialExamList === 'function') {
         setTimeout(() => {
@@ -575,7 +578,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     if (closeSettingsModal) closeSettingsModal.addEventListener('click', () => settingsModal.classList.remove('active'));
-    
+
     document.addEventListener('click', (e) => {
         if (profileDropdown && !profileDropdown.contains(e.target) && e.target !== profileIcon) {
             profileDropdown.classList.remove('show');
@@ -613,11 +616,46 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// 📄 ميزة "تحميل معلوماتي" (PDF Report) - النسخة المصححة
+// 📄 ميزة "تحميل معلوماتي" (PDF Report) - النسخة المُصحَّحة بالكامل
 // ============================================
 
 // الحصول على زر التحميل من DOM
 const downloadReportBtn = document.getElementById('downloadReportBtn');
+
+// ====== تحميل الخط العربي (مرة واحدة) ======
+let _arabicFontLoaded = false;
+
+function loadArabicFontForPDF() {
+    return new Promise((resolve, reject) => {
+        if (_arabicFontLoaded) {
+            resolve();
+            return;
+        }
+        // تحميل خط Noto Sans Arabic من CDN
+        const fontUrl = 'https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts/hinted/ttf/NotoSansArabic/NotoSansArabic-Regular.ttf';
+        fetch(fontUrl)
+            .then(res => {
+                if (!res.ok) throw new Error('فشل تحميل الخط');
+                return res.arrayBuffer();
+            })
+            .then(buffer => {
+                const base64 = btoa(
+                    new Uint8Array(buffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
+                );
+                const { jsPDF } = window.jspdf;
+                jsPDF.API.addFileToVFS('NotoSansArabic-Regular.ttf', base64);
+                jsPDF.API.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
+                _arabicFontLoaded = true;
+                console.log('✅ تم تحميل الخط العربي NotoSansArabic بنجاح');
+                resolve();
+            })
+            .catch(err => {
+                console.error('❌ فشل تحميل الخط العربي:', err);
+                // نستمر بدون خط عربي (سيعمل بالإنجليزية فقط)
+                resolve(); // لا نرفض الـ Promise، بل نكمل بدون الخط
+            });
+    });
+}
 
 // ====== دوال مساعدة لقراءة البيانات من localStorage (بالمفاتيح الصحيحة) ======
 function getLocalData(key, defaultValue = 'غير متوفر') {
@@ -690,25 +728,36 @@ function getHistory() {
     return data.history || [];
 }
 
-// ====== دوال قراءة نتائج الامتحانات بالمفاتيح الصحيحة ======
-// مفاتيح التخزين الحقيقية المستخدمة في المشروع (تم استنتاجها من ملف engine.js)
+// ====== دوال قراءة نتائج الامتحانات بالمفاتيح الصحيحة (الفردية) ======
 function getExamResultsForSkill(skill) {
-    const key = `exam_results_${skill}`;
-    const results = getLocalJSON(key, {});
-    const retriesKey = `exam_retries_${skill}`;
-    const retries = getLocalJSON(retriesKey, {});
-    const lastPlayedKey = `exam_last_played_${skill}`;
-    const lastPlayed = getLocalJSON(lastPlayedKey, {});
-    
+    // نجمع كل المفاتيح التي تبدأ بـ exam_result_${skill}_
+    const prefix = `exam_result_${skill}_`;
     const exams = {};
-    const allIds = new Set([...Object.keys(results), ...Object.keys(retries), ...Object.keys(lastPlayed)]);
-    allIds.forEach(id => {
-        exams[id] = {
-            score: results[id] !== undefined ? results[id] : null,
-            retries: retries[id] || 0,
-            lastPlayed: lastPlayed[id] || null
-        };
-    });
+    try {
+        const allKeys = Object.keys(localStorage);
+        const examKeys = allKeys.filter(k => k.startsWith(prefix));
+        examKeys.forEach(k => {
+            const examIdStr = k.substring(prefix.length);
+            const examId = parseInt(examIdStr, 10);
+            if (!isNaN(examId)) {
+                const score = parseFloat(localStorage.getItem(k));
+                if (!isNaN(score)) {
+                    // نبحث عن عدد المحاولات وآخر تاريخ من المفاتيح المناظرة
+                    const retriesKey = `exam_retry_${skill}_${examId}`;
+                    const retries = parseInt(localStorage.getItem(retriesKey)) || 0;
+                    const lastReviewKey = `exam_last_review_${skill}_${examId}`;
+                    const lastPlayed = localStorage.getItem(lastReviewKey) || null;
+                    exams[examId] = {
+                        score: score,
+                        retries: retries,
+                        lastPlayed: lastPlayed
+                    };
+                }
+            }
+        });
+    } catch (e) {
+        console.warn('⚠️ فشل قراءة نتائج المهارة:', skill, e);
+    }
     return exams;
 }
 
@@ -730,22 +779,21 @@ function collectUserReportData() {
     const email = user.email || 'غير متوفر';
     const uid = user.uid || 'غير متوفر';
     const creationTime = user.metadata?.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString('ar-EG') : 'غير متوفر';
-    
-    // 2. الاسم من Firestore (نقرأه من cached user data)
+
+    // 2. الاسم: استخدم displayName إن وجد، وإلا استخدم firstname و lastname من البيانات المخزنة
+    let displayName = user.displayName || '';
     let firstName = 'غير متوفر';
     let lastName = 'غير متوفر';
     let plan = 'مجاني';
     let expiryDate = 'غير متوفر';
 
-    // نحاول الحصول على البيانات المخزنة من Firestore عبر user data
-    // يتم جلبها في updateUI وتخزينها مؤقتاً في متغير window._cachedUserData
     if (window._cachedUserData) {
         firstName = window._cachedUserData.firstname || 'غير متوفر';
         lastName = window._cachedUserData.lastname || 'غير متوفر';
         plan = window._cachedUserData.plan === 'premium' ? 'Pro' : 'مجاني';
         expiryDate = window._cachedUserData.premiumUntil || 'غير متوفر';
     } else {
-        // محاولة قراءة من localStorage كاحتياطي (إن وجدت)
+        // محاولة قراءة من localStorage كاحتياطي
         try {
             const userData = getLocalJSON('zertiva_user_data', null);
             if (userData) {
@@ -755,6 +803,13 @@ function collectUserReportData() {
                 expiryDate = userData.premiumUntil || 'غير متوفر';
             }
         } catch (e) { /* تجاهل */ }
+    }
+
+    // إذا كان displayName موجوداً، استخدمه كاسم كامل، وإلا اجمع firstName و lastName
+    let fullName = displayName;
+    if (!fullName || fullName.trim() === '') {
+        fullName = (firstName !== 'غير متوفر' ? firstName : '') + ' ' + (lastName !== 'غير متوفر' ? lastName : '');
+        fullName = fullName.trim() || 'غير متوفر';
     }
 
     // 3. بيانات الامتحان والإحصائيات
@@ -780,24 +835,23 @@ function collectUserReportData() {
     const examData = getAllExamData();
 
     return {
-        firstName,
-        lastName,
-        email,
-        uid,
-        creationTime,
-        plan,
-        expiryDate,
-        examDate,
-        remainingDays,
-        totalHours,
-        streak,
-        dailyGoal,
-        history,
-        examData
+        fullName: fullName,
+        email: email,
+        uid: uid,
+        creationTime: creationTime,
+        plan: plan,
+        expiryDate: expiryDate,
+        examDate: examDate,
+        remainingDays: remainingDays,
+        totalHours: totalHours,
+        streak: streak,
+        dailyGoal: dailyGoal,
+        history: history,
+        examData: examData
     };
 }
 
-// ====== إنشاء الـ PDF باللغة الإنجليزية (بدون خط عربي) ======
+// ====== إنشاء الـ PDF باستخدام خط عربي ======
 function generateReportPDF(data) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
@@ -805,20 +859,36 @@ function generateReportPDF(data) {
     const margin = 15;
     let y = 20;
 
-    // دالة مساعدة للكتابة (جميع النصوص بالإنجليزية)
-    function writeLine(text, x = margin, yPos, fontSize = 11, style = 'normal', color = '#333333') {
+    // دالة للكتابة بالعربية (تستخدم الخط العربي)
+    function writeArabic(text, x = margin, yPos, fontSize = 11, style = 'normal', color = '#333333') {
+        if (_arabicFontLoaded) {
+            doc.setFont('NotoSansArabic', style);
+        } else {
+            doc.setFont('helvetica', style);
+        }
         doc.setFontSize(fontSize);
         doc.setTextColor(color);
-        doc.setFont('helvetica', style);
         doc.text(text, x, yPos);
     }
 
-    function writeBoldLine(text, x = margin, yPos, fontSize = 11) {
-        writeLine(text, x, yPos, fontSize, 'bold');
+    // دالة للكتابة بالإنجليزية (تستخدم helvetica)
+    function writeEnglish(text, x = margin, yPos, fontSize = 11, style = 'normal', color = '#333333') {
+        doc.setFont('helvetica', style);
+        doc.setFontSize(fontSize);
+        doc.setTextColor(color);
+        doc.text(text, x, yPos);
+    }
+
+    function writeBoldArabic(text, x = margin, yPos, fontSize = 11) {
+        writeArabic(text, x, yPos, fontSize, 'bold');
+    }
+
+    function writeBoldEnglish(text, x = margin, yPos, fontSize = 11) {
+        writeEnglish(text, x, yPos, fontSize, 'bold');
     }
 
     function writeSectionTitle(title, yPos) {
-        writeBoldLine(title, margin, yPos, 14);
+        writeBoldArabic(title, margin, yPos, 14);
         const lineY = yPos + 2;
         doc.setDrawColor(200, 200, 200);
         doc.line(margin, lineY, pageWidth - margin, lineY);
@@ -826,24 +896,23 @@ function generateReportPDF(data) {
     }
 
     function formatDate(dateStr) {
-        if (!dateStr || dateStr === 'N/A' || dateStr === 'غير متوفر' || dateStr === 'N/A') return 'N/A';
+        if (!dateStr || dateStr === 'غير متوفر' || dateStr === 'N/A') return 'غير متوفر';
         try {
             const d = new Date(dateStr);
+            // نعيد التاريخ بالأرقام الغربية باستخدام en-US
             return d.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
         } catch {
             return dateStr;
         }
     }
 
-    // تنظيف البيانات: تحويل القيم الفارغة إلى 'N/A'
     function cleanValue(val) {
-        if (val === null || val === undefined || val === '') return 'N/A';
-        if (typeof val === 'string' && val.trim() === '') return 'N/A';
+        if (val === null || val === undefined || val === '') return 'غير متوفر';
+        if (typeof val === 'string' && val.trim() === '') return 'غير متوفر';
         return val;
     }
 
-    const firstName = cleanValue(data.firstName);
-    const lastName = cleanValue(data.lastName);
+    const fullName = cleanValue(data.fullName);
     const email = cleanValue(data.email);
     const uid = cleanValue(data.uid);
     const creationTime = cleanValue(data.creationTime);
@@ -854,58 +923,62 @@ function generateReportPDF(data) {
     const dailyGoal = cleanValue(data.dailyGoal);
     const streak = cleanValue(data.streak);
 
-    // العنوان الرئيسي
+    // العنوان الرئيسي (عربي)
     doc.setFontSize(18);
     doc.setTextColor('#1a2a4a');
-    doc.setFont('helvetica', 'bold');
-    doc.text('Zertiva B2 Report', pageWidth / 2, y, { align: 'center' });
+    if (_arabicFontLoaded) {
+        doc.setFont('NotoSansArabic', 'bold');
+    } else {
+        doc.setFont('helvetica', 'bold');
+    }
+    doc.text('تقرير Zertiva B2', pageWidth / 2, y, { align: 'center' });
     y += 10;
 
-    // ملخص سريع
-    y = writeSectionTitle('Progress Summary', y);
-    writeLine(`Plan: ${plan}`, margin, y);
+    // ملخص سريع (عربي)
+    y = writeSectionTitle('ملخص التقدم', y);
+    writeArabic(`الخطة: ${plan}`, margin, y);
     y += 6;
-    writeLine(`Exam Remaining: ${remainingDays}`, margin, y);
+    writeArabic(`المتبقي للامتحان: ${remainingDays}`, margin, y);
     y += 6;
-    writeLine(`Study: ${totalHours} hours`, margin, y);
+    writeArabic(`مجموع ساعات الدراسة: ${totalHours} ساعة`, margin, y);
     y += 6;
-    writeLine(`Current Streak: ${streak} days`, margin, y);
+    writeArabic(`الأيام المتتالية: ${streak} يوم`, margin, y);
     y += 8;
 
     // معلومات الحساب
-    y = writeSectionTitle('Account', y);
-    writeLine(`Name: ${firstName} ${lastName}`, margin, y);
+    y = writeSectionTitle('الحساب', y);
+    writeArabic(`الاسم: ${fullName}`, margin, y);
     y += 6;
-    writeLine(`Email: ${email}`, margin, y);
+    writeArabic(`البريد الإلكتروني: ${email}`, margin, y);
     y += 6;
-    writeLine(`Plan: ${plan}`, margin, y);
+    writeArabic(`الخطة: ${plan}`, margin, y);
     y += 6;
-    writeLine(`Created: ${creationTime}`, margin, y);
+    writeArabic(`تاريخ الإنشاء: ${creationTime}`, margin, y);
     y += 6;
-    writeLine(`UID: ${uid}`, margin, y);
+    writeArabic(`معرف المستخدم: ${uid}`, margin, y);
     y += 8;
 
     // معلومات الامتحان
-    y = writeSectionTitle('Exam', y);
-    writeLine(`Exam Date: ${examDate}`, margin, y);
+    y = writeSectionTitle('الامتحان', y);
+    writeArabic(`تاريخ الامتحان: ${examDate}`, margin, y);
     y += 6;
-    writeLine(`Remaining: ${remainingDays}`, margin, y);
+    writeArabic(`المتبقي: ${remainingDays}`, margin, y);
     y += 8;
 
     // إحصائيات الدراسة
-    y = writeSectionTitle('Study', y);
-    writeLine(`Total Hours: ${totalHours}`, margin, y);
+    y = writeSectionTitle('الدراسة', y);
+    writeArabic(`مجموع ساعات الدراسة: ${totalHours}`, margin, y);
     y += 6;
-    writeLine(`Daily Goal: ${dailyGoal}`, margin, y);
+    writeArabic(`الهدف اليومي: ${dailyGoal}`, margin, y);
     y += 6;
-    writeLine(`Current Streak: ${streak} days`, margin, y);
+    writeArabic(`الأيام المتتالية: ${streak} يوم`, margin, y);
     y += 8;
 
-    // سجل الأيام (آخر 7 أيام)
-    y = writeSectionTitle('Recent Activity', y);
+    // سجل الأيام (آخر 7 أيام) - الأسماء عربية، الأرقام إنجليزية
+    y = writeSectionTitle('النشاط الأخير', y);
     const recentHistory = data.history.slice(-7).reverse();
     if (recentHistory.length === 0) {
-        writeLine('— No data available', margin, y);
+        writeArabic('— لا توجد بيانات', margin, y);
         y += 6;
     } else {
         recentHistory.forEach(entry => {
@@ -915,18 +988,18 @@ function generateReportPDF(data) {
             const mins = minutes % 60;
             let timeStr = '';
             if (hours > 0) {
-                timeStr = hours + 'h' + (mins > 0 ? ' ' + mins + 'm' : '');
+                timeStr = hours + ' ساعة' + (mins > 0 ? ' و ' + mins + ' دقيقة' : '');
             } else {
-                timeStr = mins + 'm';
+                timeStr = mins + ' دقيقة';
             }
-            writeLine(`${date} — ${timeStr}`, margin, y);
+            writeArabic(`${date} — ${timeStr}`, margin, y);
             y += 5;
         });
     }
     y += 4;
 
     // نتائج الامتحانات
-    y = writeSectionTitle('Exam Progress', y);
+    y = writeSectionTitle('تقدم الامتحانات', y);
     const skills = [
         { id: 'hoeren1', label: 'Hören 1' },
         { id: 'hoeren2', label: 'Hören 2' },
@@ -942,9 +1015,9 @@ function generateReportPDF(data) {
         const exams = data.examData[skill.id] || {};
         const examIds = Object.keys(exams);
         if (examIds.length === 0) {
-            writeBoldLine(skill.label, margin, y, 11);
+            writeBoldArabic(skill.label, margin, y, 11);
             y += 5;
-            writeLine('  Not started yet', margin, y, 10);
+            writeArabic('  لم يبدأ بعد', margin, y, 10);
             y += 6;
             return;
         }
@@ -969,26 +1042,31 @@ function generateReportPDF(data) {
             }
         });
 
-        writeBoldLine(skill.label, margin, y, 11);
+        writeBoldArabic(skill.label, margin, y, 11);
         y += 5;
         if (bestScore !== null) {
-            writeLine(`  Best Score: ${bestScore} / 25`, margin, y, 10);
+            writeArabic(`  أفضل نتيجة: ${bestScore} / 25`, margin, y, 10);
             y += 5;
         } else {
-            writeLine('  Best Score: —', margin, y, 10);
+            writeArabic('  أفضل نتيجة: —', margin, y, 10);
             y += 5;
         }
-        writeLine(`  Total Attempts: ${totalRetries}`, margin, y, 10);
+        writeArabic(`  عدد المحاولات: ${totalRetries}`, margin, y, 10);
         y += 5;
-        writeLine(`  Last Played: ${latestDate ? formatDate(latestDate) : '—'}`, margin, y, 10);
+        writeArabic(`  آخر لعب: ${latestDate ? formatDate(latestDate) : '—'}`, margin, y, 10);
         y += 6;
     });
 
-    // تذييل
+    // تذييل (عربي)
     const footerY = doc.internal.pageSize.getHeight() - 10;
     doc.setFontSize(9);
     doc.setTextColor(150);
-    doc.text(`Generated: ${new Date().toLocaleString('en-US')}`, pageWidth / 2, footerY, { align: 'center' });
+    if (_arabicFontLoaded) {
+        doc.setFont('NotoSansArabic', 'normal');
+    } else {
+        doc.setFont('helvetica', 'normal');
+    }
+    doc.text(`تم الإنشاء: ${new Date().toLocaleString('ar-EG')}`, pageWidth / 2, footerY, { align: 'center' });
 
     return doc;
 }
@@ -996,19 +1074,22 @@ function generateReportPDF(data) {
 // ====== دالة التحميل الرئيسية ======
 async function downloadReport() {
     if (!auth.currentUser) {
-        alert('Please login first');
+        alert('يرجى تسجيل الدخول أولاً');
         return;
     }
 
     // تفعيل حالة التحميل
     if (downloadReportBtn) {
         downloadReportBtn.classList.add('loading');
-        downloadReportBtn.textContent = '⏳ Generating report...';
+        downloadReportBtn.textContent = '⏳ جاري إنشاء التقرير...';
     }
 
     // استخدام setTimeout لتجنب تجميد الواجهة
     setTimeout(async () => {
         try {
+            // تحميل الخط العربي (إذا لم يتم تحميله مسبقاً)
+            await loadArabicFontForPDF();
+
             // جمع البيانات
             const data = collectUserReportData();
 
@@ -1016,17 +1097,16 @@ async function downloadReport() {
             const doc = generateReportPDF(data);
 
             // إنشاء اسم الملف
-            const firstName = data.firstName || 'User';
-            const lastName = data.lastName || '';
+            const namePart = data.fullName.replace(/\s+/g, '_').substring(0, 30) || 'User';
             const dateStr = new Date().toISOString().slice(0, 10);
-            const fileName = `Zertiva_B2_Report_${firstName}_${lastName}_${dateStr}.pdf`.replace(/\s+/g, '_');
+            const fileName = `Zertiva_B2_Report_${namePart}_${dateStr}.pdf`;
 
             // تحميل الملف
             doc.save(fileName);
 
         } catch (error) {
             console.error('❌ خطأ في إنشاء التقرير:', error);
-            alert('An error occurred while generating the report. Please try again.');
+            alert('حدث خطأ أثناء إنشاء التقرير. يرجى المحاولة مرة أخرى.');
         } finally {
             // إعادة الزر إلى حالته الطبيعية
             if (downloadReportBtn) {
@@ -1039,22 +1119,27 @@ async function downloadReport() {
 
 // ====== ربط زر التحميل ======
 if (downloadReportBtn) {
-    downloadReportBtn.addEventListener('click', downloadReport);
+    // نمنع التكرار
+    const newBtn = downloadReportBtn.cloneNode(true);
+    downloadReportBtn.parentNode.replaceChild(newBtn, downloadReportBtn);
+    const freshBtn = document.getElementById('downloadReportBtn');
+    freshBtn.addEventListener('click', downloadReport);
+
     // في حالة عدم وجود مستخدم مسجل، نخفي الزر
     if (!auth.currentUser) {
-        downloadReportBtn.style.display = 'none';
+        freshBtn.style.display = 'none';
     }
 }
 
 // تحديث ظهور الزر عند تغيير حالة المصادقة
 auth.onAuthStateChanged(user => {
-    if (downloadReportBtn) {
-        downloadReportBtn.style.display = user ? 'flex' : 'none';
+    const btn = document.getElementById('downloadReportBtn');
+    if (btn) {
+        btn.style.display = user ? 'flex' : 'none';
     }
 });
 
-// ====== تخزين بيانات المستخدم في ذاكرة مؤقتة لتسهيل الوصول إليها في التقرير ======
-// يتم تحديثها في updateUI، ولكن نضيف هنا استماعاً للتحديثات
+// ====== تخزين بيانات المستخدم في ذاكرة مؤقتة ======
 const originalUpdateUI = updateUI;
 updateUI = function(user, data) {
     if (data) {
