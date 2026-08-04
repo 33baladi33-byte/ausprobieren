@@ -610,9 +610,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
 // ============================================
-// التفاعل مع أيقونة Info في الملف الشخصي (النسخة النهائية)
+// التفاعل مع أيقونة Info في الملف الشخصي (النسخة النهائية مع حل مشكلة النطاق)
 // ============================================
 function setupPlannerInfo() {
     const infoIcon = document.getElementById('plannerInfoIcon');
@@ -635,6 +634,9 @@ function setupPlannerInfo() {
         }
     });
 }
+
+// ✅ إضافة الدالة إلى النطاق العام (حل مشكلة الكونسول)
+window.setupPlannerInfo = setupPlannerInfo;
 
 // استدعاء الدالة عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', setupPlannerInfo);
