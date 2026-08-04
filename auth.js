@@ -245,8 +245,7 @@ function updateUI(user, data) {
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
-        if (profileIcon) profileIcon.style.display = 'none';
-        // إظهار زر خطة اليوم للزوار أيضاً
+               if (profileIcon) profileIcon.style.display = 'none';
         if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex';
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
