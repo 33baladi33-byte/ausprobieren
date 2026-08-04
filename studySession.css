@@ -1,5 +1,5 @@
 /* ============================================
-   studySession.css - جلسة مراجعة (النسخة النهائية)
+   studySession.css - النسخة النهائية (بطاقة متكاملة)
    ============================================ */
 
 /* زر العداد - مثل زر الإشعارات */
@@ -15,7 +15,6 @@
     transition: all 0.25s ease;
 }
 
-/* تأثير hover */
 .study-session-btn:hover {
     background: rgba(56, 189, 248, 0.18);
     border-color: #38bdf8;
@@ -23,7 +22,7 @@
     box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
 }
 
-/* ====== نافذة الجلسة الجديدة (بدون عناوين ونصوص تحفيزية) ====== */
+/* ====== نافذة الجلسة الجديدة ====== */
 .session-modal {
     display: none;
     position: fixed;
@@ -42,31 +41,213 @@
     display: flex;
 }
 
-/* البطاقة الرئيسية - تصميم بسيط */
 .session-modal-content {
     background: #f8f9fc;
-    border-radius: 20px;
-    max-width: 400px;
-    width: 90%;
-    padding: 32px 28px 28px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    border-radius: 24px;
+    max-width: 420px;
+    width: 94%;
+    padding: 24px 22px 22px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(0, 0, 0, 0.04);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    position: relative;
 }
 
-/* ====== أزرار المدة ====== */
+/* ===== صف علوي ===== */
+.stats-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.stats-goal-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.stats-goal-title {
+    font-weight: 500;
+}
+
+.stats-goal-value {
+    font-weight: 600;
+    color: #1e293b;
+    background: rgba(0,0,0,0.03);
+    padding: 0 8px;
+    border-radius: 12px;
+}
+
+.stats-header-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.stats-icon-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.stats-icon-btn:hover {
+    background: rgba(0,0,0,0.05);
+    color: #1e293b;
+}
+
+.stats-icon-btn .material-symbols-outlined {
+    font-size: 18px;
+}
+
+/* ===== صف المنتصف ===== */
+.stats-middle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 6px 0 14px 0;
+}
+
+.stats-side-box {
+    text-align: center;
+    flex: 1;
+    padding: 8px 4px;
+}
+
+.stats-side-label {
+    display: block;
+    font-size: 0.6rem;
+    color: #94a3b8;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.stats-side-value {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.2;
+}
+
+.stats-side-unit {
+    display: block;
+    font-size: 0.6rem;
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.stats-yesterday-box .stats-side-value {
+    color: #1e293b;
+}
+
+.stats-streak-box .stats-side-value {
+    color: #38bdf8;
+}
+
+/* ===== الدائرة ===== */
+.stats-ring-wrapper {
+    position: relative;
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+}
+
+.stats-progress-ring {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.stats-ring-bg {
+    fill: none;
+    stroke: #e9edf4;
+    stroke-width: 7;
+}
+
+.stats-ring-fg {
+    fill: none;
+    stroke: #38bdf8;
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-dasharray: 339.292;
+    stroke-dashoffset: 339.292;
+    transition: stroke-dashoffset 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stats-ring-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.stats-ring-goal-text {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.1;
+}
+
+.stats-ring-goal-unit {
+    display: block;
+    font-size: 0.55rem;
+    color: #94a3b8;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+/* ===== صف Completed ===== */
+.stats-completed-row {
+    text-align: center;
+    padding: 8px 0 14px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    margin-bottom: 16px;
+}
+
+.stats-completed-label {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.stats-completed-value {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-left: 4px;
+}
+
+/* ===== أزرار المدة ===== */
 .session-times-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 24px;
+    gap: 6px;
+    margin-bottom: 16px;
 }
 
 .time-option {
     background: #ffffff;
     border: 1px solid #e8ecf0;
     border-radius: 12px;
-    padding: 12px 6px;
-    font-size: 0.85rem;
+    padding: 10px 4px;
+    font-size: 0.8rem;
     font-weight: 500;
     color: #334155;
     cursor: pointer;
@@ -82,41 +263,183 @@
 }
 
 .time-option:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
 }
 
-/* ====== مجموع ساعات الدراسة ====== */
+/* ===== مجموع ساعات الدراسة ===== */
 .session-total-hours {
     text-align: center;
-    padding-top: 20px;
+    padding-top: 12px;
     border-top: 1px solid #e8ecf0;
 }
 
 .session-total-hours .label {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: #94a3b8;
     font-weight: 500;
     letter-spacing: 0.3px;
     text-transform: uppercase;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .session-total-hours .value {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: #1e293b;
     font-family: 'SF Mono', 'Monaco', monospace;
 }
 
 .session-total-hours .value-unit {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     font-weight: 400;
     color: #64748b;
     margin-left: 4px;
 }
 
-/* ====== العداد الصغير (التايمر) ====== */
+/* ===== Popups صغيرة (تعديل الهدف + السجل) ===== */
+.stats-popup-modal {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(2px);
+    border-radius: 24px;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.stats-popup-modal.active {
+    display: flex;
+}
+
+.stats-popup-content {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px 22px;
+    max-width: 280px;
+    width: 85%;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.stats-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.stats-popup-close {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+}
+
+.stats-popup-close:hover {
+    color: #1e293b;
+}
+
+.stats-popup-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stats-goal-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #e8ecf0;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #1e293b;
+    background: #ffffff;
+    font-family: inherit;
+}
+
+.stats-goal-select:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 2px rgba(56,189,248,0.15);
+}
+
+.stats-popup-save {
+    background: #2c3e66;
+    border: none;
+    border-radius: 30px;
+    padding: 8px 16px;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.stats-popup-save:hover {
+    background: #1a2a4a;
+}
+
+/* سجل الأيام */
+.stats-history-popup {
+    max-width: 320px;
+}
+
+.stats-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.stats-history-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.stats-history-list::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.stats-history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.02);
+    font-size: 0.75rem;
+    color: #1e293b;
+}
+
+.stats-history-item .date {
+    color: #94a3b8;
+}
+
+.stats-history-item .time {
+    font-weight: 500;
+}
+
+.stats-history-empty {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.8rem;
+    padding: 16px 0;
+}
+
+/* ===== Timer Bar (لا يتغير) ===== */
 .session-timer-bar {
     position: fixed;
     top: 85px;
@@ -163,7 +486,7 @@
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* ====== نافذة النهاية ====== */
+/* ===== نافذة النهاية ===== */
 .session-end-overlay {
     position: fixed;
     top: 0;
@@ -218,10 +541,65 @@
     background: #1a2a4a;
 }
 
-/* ====== الوضع الليلي ====== */
+/* ===== الوضع الليلي ===== */
 body.dark-mode .session-modal-content {
     background: #14141e;
     border-color: rgba(255, 255, 255, 0.04);
+}
+
+body.dark-mode .stats-header-row {
+    border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode .stats-goal-title {
+    color: #94a3b8;
+}
+
+body.dark-mode .stats-goal-value {
+    color: #e8ecf0;
+    background: rgba(255,255,255,0.05);
+}
+
+body.dark-mode .stats-icon-btn {
+    color: #64748b;
+}
+
+body.dark-mode .stats-icon-btn:hover {
+    background: rgba(255,255,255,0.08);
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-side-value {
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-side-label,
+body.dark-mode .stats-side-unit {
+    color: #64748b;
+}
+
+body.dark-mode .stats-ring-bg {
+    stroke: #2a2a3a;
+}
+
+body.dark-mode .stats-ring-goal-text {
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-ring-goal-unit {
+    color: #64748b;
+}
+
+body.dark-mode .stats-completed-row {
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode .stats-completed-label {
+    color: #64748b;
+}
+
+body.dark-mode .stats-completed-value {
+    color: #e8ecf0;
 }
 
 body.dark-mode .time-option {
@@ -239,16 +617,52 @@ body.dark-mode .session-total-hours {
     border-top-color: #2a2a3a;
 }
 
-body.dark-mode .session-total-hours .label {
-    color: #64748b;
-}
-
 body.dark-mode .session-total-hours .value {
     color: #e8ecf0;
 }
 
 body.dark-mode .session-total-hours .value-unit {
     color: #94a3b8;
+}
+
+body.dark-mode .stats-popup-content {
+    background: #1a1a2e;
+    border-color: #2a2a3a;
+}
+
+body.dark-mode .stats-popup-header {
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-popup-close {
+    color: #64748b;
+}
+
+body.dark-mode .stats-popup-close:hover {
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-goal-select {
+    background: #1e1e2e;
+    border-color: #2a2a3a;
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-goal-select option {
+    background: #1e1e2e;
+}
+
+body.dark-mode .stats-history-item {
+    background: rgba(255,255,255,0.03);
+    color: #e8ecf0;
+}
+
+body.dark-mode .stats-history-item .date {
+    color: #64748b;
+}
+
+body.dark-mode .stats-history-empty {
+    color: #64748b;
 }
 
 body.dark-mode .session-end-card {
@@ -269,7 +683,7 @@ body.dark-mode .session-timer-bar {
     border-color: rgba(255, 255, 255, 0.06);
 }
 
-/* ====== الهواتف ====== */
+/* ===== الهواتف ===== */
 @media (max-width: 768px) {
     .study-session-btn {
         width: 34px;
@@ -278,40 +692,107 @@ body.dark-mode .session-timer-bar {
     }
 
     .session-modal-content {
-        padding: 24px 16px 20px;
+        padding: 16px 14px 18px;
+        border-radius: 20px;
+    }
+
+    .stats-header-row {
+        margin-bottom: 12px;
+    }
+
+    .stats-goal-label {
+        font-size: 0.75rem;
+    }
+
+    .stats-goal-value {
+        font-size: 0.8rem;
+    }
+
+    .stats-icon-btn {
+        width: 24px;
+        height: 24px;
+    }
+    .stats-icon-btn .material-symbols-outlined {
+        font-size: 16px;
+    }
+
+    .stats-middle-row {
+        gap: 4px;
+    }
+
+    .stats-ring-wrapper {
+        width: 85px;
+        height: 85px;
+    }
+
+    .stats-ring-bg,
+    .stats-ring-fg {
+        stroke-width: 6;
+    }
+
+    .stats-ring-goal-text {
+        font-size: 1rem;
+    }
+    .stats-ring-goal-unit {
+        font-size: 0.5rem;
+    }
+
+    .stats-side-value {
+        font-size: 1.1rem;
+    }
+    .stats-side-label {
+        font-size: 0.5rem;
+    }
+    .stats-side-unit {
+        font-size: 0.5rem;
+    }
+
+    .stats-completed-row {
+        padding: 6px 0 10px;
+        margin-bottom: 12px;
+    }
+    .stats-completed-label {
+        font-size: 0.65rem;
+    }
+    .stats-completed-value {
+        font-size: 0.75rem;
     }
 
     .session-times-grid {
-        gap: 6px;
+        gap: 4px;
+        margin-bottom: 12px;
     }
-
     .time-option {
-        padding: 10px 4px;
-        font-size: 0.75rem;
+        padding: 8px 2px;
+        font-size: 0.7rem;
         border-radius: 10px;
     }
 
     .session-total-hours .value {
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
 
-    .session-timer-bar {
-        top: 60px;
-        right: 10px;
-        padding: 2px 8px 2px 12px;
+    .stats-popup-content {
+        max-width: 240px;
+        padding: 16px 18px;
+    }
+    .stats-popup-header {
+        font-size: 0.8rem;
+    }
+    .stats-goal-select {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+    .stats-popup-save {
+        font-size: 0.75rem;
+        padding: 6px 14px;
     }
 
-    .timer-display {
-        font-size: 0.6rem;
+    .stats-history-popup {
+        max-width: 260px;
     }
-
-    .cancel-session-btn {
-        width: 16px;
-        height: 16px;
-        font-size: 9px;
-    }
-
-    .session-end-card {
-        padding: 24px 20px;
+    .stats-history-item {
+        font-size: 0.65rem;
+        padding: 4px 8px;
     }
 }
