@@ -244,8 +244,14 @@ function updateUI(user, data) {
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
         if (profileIcon) profileIcon.style.display = 'none';
-        // إظهار زر خطة اليوم للزوار
-        if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex';
+        // ✅ إظهار زر خطة اليوم للزوار مع !important لتجاوز أي CSS
+        if (studyPlannerBtn) {
+            studyPlannerBtn.style.setProperty('display', 'inline-flex', 'important');
+            // تأخير بسيط لضمان عدم تداخل أي دالة أخرى (مثل toggleSessionButton)
+            setTimeout(() => {
+                studyPlannerBtn.style.setProperty('display', 'inline-flex', 'important');
+            }, 100);
+        }
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
