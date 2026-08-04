@@ -3827,4 +3827,7 @@ try {
     console.log('ℹ️ متغيرات Lesen1 ستُصدّر من engine.js');
 }
 
+// ✅ تأكيد تصدير examsDatabase بعد كل شيء
+window.examsDatabase = examsDatabase;
+console.log('✅ examsDatabase مصدرة:', window.examsDatabase ? 'موجودة' : 'غير موجودة');
 console.log('✅ جميع دوال exams.js مصدرة للنطاق العام');
