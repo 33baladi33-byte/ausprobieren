@@ -99,27 +99,19 @@
     
     function toggleSessionButton() {
         const { btn, timerBar } = getElements();
-        const plannerBtn = document.getElementById('studyPlannerBtn');
         if (!btn) return;
         const home = document.getElementById('home');
         const list = document.getElementById('list');
         const exam = document.getElementById('exam');
         
-        // التحقق من حالة تسجيل الدخول
-        const isLoggedIn = (window.auth && window.auth.currentUser) ? true : false;
-        
         if (home && home.classList.contains('active')) {
             btn.style.display = 'none';
             if (timerBar) timerBar.style.display = 'none';
-            if (plannerBtn) plannerBtn.style.display = 'none';
         } else if ((list && list.classList.contains('active')) || (exam && exam.classList.contains('active'))) {
             btn.style.display = 'flex';
-            if (plannerBtn) {
-                plannerBtn.style.display = (isLoggedIn) ? 'inline-flex' : 'none';
-            }
+            // ✅ لم نلمس studyPlannerBtn - نتركه يعتمد على CSS فقط
         } else {
             btn.style.display = 'none';
-            if (plannerBtn) plannerBtn.style.display = 'none';
         }
     }
     
