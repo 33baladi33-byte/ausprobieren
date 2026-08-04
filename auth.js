@@ -235,6 +235,10 @@ function updateUI(user, data) {
     const studyPlannerBtn = document.getElementById('studyPlannerBtn');
     const settingsBtn = document.getElementById('settingsBtn');
 
+    // تحديد ما إذا كنا في الصفحة الرئيسية
+    const homePage = document.getElementById('home');
+    const isHomePage = homePage && homePage.classList.contains('active');
+
     // حالة زائر غير مسجل
     if (!user) {
         if (profileEmailText) profileEmailText.textContent = 'غير مسجل';
@@ -246,7 +250,8 @@ function updateUI(user, data) {
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
         if (profileIcon) profileIcon.style.display = 'none';
-        if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex';
+        // إخفاء زر الخطة اليومية في الصفحة الرئيسية، وإظهاره في باقي الصفحات
+        if (studyPlannerBtn) studyPlannerBtn.style.display = isHomePage ? 'none' : 'inline-flex';
         if (settingsBtn) settingsBtn.style.display = 'none';
 
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
@@ -266,7 +271,8 @@ function updateUI(user, data) {
     if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
     if (navLoginBtn) navLoginBtn.style.display = 'none';
     if (profileIcon) profileIcon.style.display = 'flex';
-    if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex';
+    // إخفاء زر الخطة اليومية في الصفحة الرئيسية، وإظهاره في باقي الصفحات
+    if (studyPlannerBtn) studyPlannerBtn.style.display = isHomePage ? 'none' : 'inline-flex';
 
     const isPremium = data && data.plan === 'premium' && 
                       (!data.premiumUntil || new Date(data.premiumUntil).getTime() > Date.now());
