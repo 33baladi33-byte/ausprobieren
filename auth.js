@@ -293,8 +293,9 @@ function updateUI(user, data) {
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
+   
     } else {
-        if (profileStatus) profileStatus.innerHTML = `<span class="status-free">📖 مجاني</span>`;
+        if (profileStatus) profileStatus.innerHTML = `<span class="status-free"><span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle; margin-left: 4px;">credit_card_off</span> مجاني</span>`;
         if (profileExpiryText) profileExpiryText.textContent = 'حساب مجاني / انتهت الصلاحية';
         
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
