@@ -1,5 +1,5 @@
 // ============================================
-// studySession.js - نظام جلسات المراجعة (مع Pause/Resume وصفحات داخلية)
+// studySession.js - نظام جلسات المراجعة (مع Pause/Resume، Streak فوري)
 // ============================================
 
 (function() {
@@ -11,11 +11,13 @@
     let remainingSeconds = 0;
     let totalSeconds = 0;
     let isPaused = false;
-    let pausedTime = 0; // الوقت المنقضي عند الإيقاف المؤقت
+    let pausedMinutes = 0; // الوقت المنقضي عند الإيقاف المؤقت
     
     // ====== الثوابت الخاصة بالإحصائيات ======
     const STATS_KEY = 'stats_daily_data';
     const DEFAULT_GOAL = 120; // دقيقة
+    const PAUSE_STATE_KEY = 'session_pause_state';
+    const STREAK_ACHIEVED_KEY = 'streak_achieved_today';
     
     // ====== الحصول على العناصر ======
     function getElements() {
@@ -48,8 +50,7 @@
             historyBtn: document.getElementById('statsHistoryBtn'),
             historyContent: document.getElementById('statsHistoryContent'),
             historyBackBtn: document.getElementById('statsHistoryBackBtn'),
-            // المحتوى الرئيسي
-            mainContent: document.querySelector('.session-modal-content > div:not(.stats-inner-page)')
+            mainContent: document.getElementById('statsMainContent')
         };
     }
     
@@ -104,11 +105,22 @@
         return getStudyMinutesForDate(getYesterdayString());
     }
     
-    // ====== حساب التقدم ======
-    function calculateProgress(todayMinutes, goalMinutes) {
-        if (goalMinutes <= 0) return 0;
-        const ratio = todayMinutes / goalMinutes;
-        return Math.min(ratio, 1);
+    // ====== التحقق من اليوم الجديد وإعادة ضبط Streak ======
+    function checkNewDay() {
+        const today = getTodayString();
+        const lastDate = localStorage.getItem('stats_last_date');
+        if (lastDate !== today) {
+            // اليوم الجديد: إعادة ضبط Streak إذا لم يتحقق الهدف أمس
+            const data = loadStats();
+            const goal = data.goal;
+            const yesterdayMinutes = getStudyMinutesForDate(lastDate || today);
+            // إذا كان الأمس غير محقق، نضبط Streak إلى 0 (يتم حسابه تلقائياً لاحقاً)
+            // لكننا لا نحذف Streak نهائياً، بل نعيد حسابه من جديد
+            localStorage.setItem('stats_last_date', today);
+            // إزالة علامة تحقيق الهدف اليوم
+            localStorage.removeItem(STREAK_ACHIEVED_KEY);
+            // سيتم إعادة حساب Streak عند التحديث
+        }
     }
     
     // ====== حساب Streak ======
@@ -116,7 +128,7 @@
         if (goal <= 0) return 0;
         let streak = 0;
         let currentDate = new Date();
-        currentDate.setDate(currentDate.getDate() - 1);
+        currentDate.setDate(currentDate.getDate() - 1); // نبدأ من الأمس
         for (let i = 0; i < 365; i++) {
             const dateStr = currentDate.toISOString().split('T')[0];
             const minutes = getStudyMinutesForDate(dateStr);
@@ -130,8 +142,34 @@
         return streak;
     }
     
+    // ====== تحديث Streak فوراً عند تحقيق الهدف ======
+    function updateStreakIfGoalMet() {
+        const data = loadStats();
+        const goal = data.goal;
+        const todayMinutes = getTodayMinutes();
+        const today = getTodayString();
+        const achievedKey = `${STREAK_ACHIEVED_KEY}_${today}`;
+        
+        // إذا تم تحقيق الهدف ولم نسجل ذلك اليوم
+        if (todayMinutes >= goal && !localStorage.getItem(achievedKey)) {
+            // سجل أننا حققنا الهدف اليوم
+            localStorage.setItem(achievedKey, 'true');
+            // تحديث Streak (سيتم حسابه في refreshAll)
+            refreshAll();
+            // عرض تأثير بسيط
+            showMessage('🎯 تم تحقيق الهدف اليومي!');
+        }
+    }
+    
+    // ====== حساب التقدم ======
+    function calculateProgress(todayMinutes, goalMinutes) {
+        if (goalMinutes <= 0) return 0;
+        const ratio = todayMinutes / goalMinutes;
+        return Math.min(ratio, 1);
+    }
+    
     // ====== تحديث واجهة الإحصائيات ======
-    function updateStatsUI() {
+    function refreshAll() {
         const els = getElements();
         const data = loadStats();
         const goal = data.goal;
@@ -142,10 +180,12 @@
         const circumference = 339.292;
         const offset = circumference * (1 - progress);
         
+        // تحديث الدائرة
         if (els.ringFg) {
             els.ringFg.style.strokeDashoffset = offset;
         }
         
+        // تحديث النص داخل الدائرة
         if (els.goalRingText) {
             const hours = Math.floor(goal / 60);
             const mins = goal % 60;
@@ -160,10 +200,12 @@
             els.goalRingText.textContent = display;
         }
         
+        // تحديث Streak
         if (els.streakNumber) {
             els.streakNumber.textContent = streak;
         }
         
+        // تحديث Yesterday
         if (els.yesterdayValue) {
             if (yesterdayMinutes === 0) {
                 els.yesterdayValue.textContent = '0';
@@ -187,6 +229,7 @@
             }
         }
         
+        // تحديث Completed
         if (els.completedValue) {
             const hours = Math.floor(todayMinutes / 60);
             const mins = todayMinutes % 60;
@@ -200,7 +243,11 @@
             els.completedValue.textContent = text || '0 دقيقة';
         }
         
+        // تحديث المجموع الكلي
         updateTotalDisplay();
+        
+        // التحقق من تحقيق الهدف لتحديث Streak فوراً
+        updateStreakIfGoalMet();
     }
     
     // ====== تحديث السجل ======
@@ -254,10 +301,13 @@
         data.history = history;
         saveStats(data);
         
+        // تحديث الواجهة إذا كانت النافذة مفتوحة
         const modal = document.getElementById('studySessionModal');
         if (modal && modal.classList.contains('active')) {
-            updateStatsUI();
+            refreshAll();
         }
+        // تحديث Streak فوراً
+        updateStreakIfGoalMet();
     }
     window.updateStatsAfterStudy = updateStatsAfterStudy;
     
@@ -304,7 +354,7 @@
         }
     }
     
-    // ====== إدارة وقت المراجعة اليومي (للجلسات) ======
+    // ====== إدارة وقت المراجعة اليومي ======
     function getTodayKey() {
         return `session_total_${new Date().toISOString().split('T')[0]}`;
     }
@@ -344,24 +394,30 @@
         }
     }
     
-    // ====== إدارة الصفحات الداخلية (Edit / History) ======
-    function showInnerPage(pageId) {
-        const els = getElements();
-        // إخفاء المحتوى الرئيسي
-        const mainContent = document.querySelector('.session-modal-content > div:not(.stats-inner-page)');
-        if (mainContent) mainContent.style.display = 'none';
-        // إخفاء جميع الصفحات الداخلية
-        document.querySelectorAll('.stats-inner-page').forEach(el => el.classList.remove('active'));
-        // إظهار الصفحة المطلوبة
-        const page = document.getElementById(pageId);
-        if (page) page.classList.add('active');
-    }
-    
+    // ====== إدارة الصفحات الداخلية ======
     function showMainContent() {
         const els = getElements();
-        const mainContent = document.querySelector('.session-modal-content > div:not(.stats-inner-page)');
-        if (mainContent) mainContent.style.display = 'block';
-        document.querySelectorAll('.stats-inner-page').forEach(el => el.classList.remove('active'));
+        if (els.mainContent) els.mainContent.style.display = 'block';
+        if (els.goalContent) els.goalContent.style.display = 'none';
+        if (els.historyContent) els.historyContent.style.display = 'none';
+    }
+    
+    function showGoalContent() {
+        const els = getElements();
+        if (els.mainContent) els.mainContent.style.display = 'none';
+        if (els.goalContent) els.goalContent.style.display = 'flex';
+        if (els.historyContent) els.historyContent.style.display = 'none';
+        // تعيين القيمة الحالية في الـ select
+        const data = loadStats();
+        els.goalSelect.value = data.goal;
+    }
+    
+    function showHistoryContent() {
+        const els = getElements();
+        if (els.mainContent) els.mainContent.style.display = 'none';
+        if (els.goalContent) els.goalContent.style.display = 'none';
+        if (els.historyContent) els.historyContent.style.display = 'flex';
+        updateHistoryUI();
     }
     
     // ====== فتح وإغلاق النافذة ======
@@ -372,16 +428,17 @@
             showMessage("⚡ المراجعة شغالة");
             return;
         }
-        // التأكد من عرض المحتوى الرئيسي
+        // التحقق من اليوم الجديد
+        checkNewDay();
+        // عرض المحتوى الرئيسي
         showMainContent();
-        updateStatsUI();
+        refreshAll();
         modal.classList.add('active');
     }
     
     function closeModal() {
         const { modal } = getElements();
         if (modal) modal.classList.remove('active');
-        // إعادة تعيين الصفحات الداخلية
         showMainContent();
     }
     
@@ -397,11 +454,30 @@
         }
     }
     
+    // ====== حفظ واستعادة حالة الإيقاف المؤقت ======
+    function savePauseState(state) {
+        try {
+            localStorage.setItem(PAUSE_STATE_KEY, JSON.stringify(state));
+        } catch (e) {}
+    }
+    
+    function loadPauseState() {
+        try {
+            const raw = localStorage.getItem(PAUSE_STATE_KEY);
+            if (raw) return JSON.parse(raw);
+        } catch (e) {}
+        return null;
+    }
+    
+    function clearPauseState() {
+        localStorage.removeItem(PAUSE_STATE_KEY);
+    }
+    
     // ====== بدء الجلسة ======
     function startSession(minutes) {
         if (activeSession) return;
         
-        // استعادة حالة مؤقتة محفوظة (Resume)
+        // التحقق من وجود حالة موقفة
         const savedState = loadPauseState();
         if (savedState && savedState.isPaused) {
             // استئناف الجلسة
@@ -409,12 +485,13 @@
             remainingSeconds = savedState.remainingSeconds;
             activeSession = true;
             isPaused = false;
-            pausedTime = 0;
+            pausedMinutes = 0;
             clearPauseState();
             closeModal();
             updateTimerDisplay();
-            const { timerBar } = getElements();
+            const { timerBar, pauseBtn } = getElements();
             if (timerBar) timerBar.style.display = 'flex';
+            if (pauseBtn) pauseBtn.textContent = '⏸';
             if (sessionTimer) clearInterval(sessionTimer);
             sessionTimer = setInterval(() => {
                 if (remainingSeconds <= 0) {
@@ -433,12 +510,13 @@
         remainingSeconds = totalSeconds;
         activeSession = true;
         isPaused = false;
-        pausedTime = 0;
+        pausedMinutes = 0;
         closeModal();
         updateTimerDisplay();
         
-        const { timerBar } = getElements();
+        const { timerBar, pauseBtn } = getElements();
         if (timerBar) timerBar.style.display = 'flex';
+        if (pauseBtn) pauseBtn.textContent = '⏸';
         
         if (sessionTimer) clearInterval(sessionTimer);
         sessionTimer = setInterval(() => {
@@ -477,32 +555,51 @@
         if (sessionTimer) clearInterval(sessionTimer);
         isPaused = true;
         activeSession = false; // مؤقتاً
-        pausedTime = minutesSpent;
         
-        const { timerBar } = getElements();
-        if (timerBar) timerBar.style.display = 'none';
+        // تغيير زر Pause إلى Resume
+        const { pauseBtn } = getElements();
+        if (pauseBtn) pauseBtn.textContent = '▶';
         
+        // نترك العداد ظاهراً (لا نخفيه)
+        // تحديث الإحصائيات
+        refreshAll();
         showMessage('⏸️ تم إيقاف الجلسة مؤقتاً');
-        updateTotalDisplay();
     }
     
-    // ====== حفظ واستعادة حالة الإيقاف المؤقت ======
-    function savePauseState(state) {
-        try {
-            localStorage.setItem('session_pause_state', JSON.stringify(state));
-        } catch (e) {}
+    // ====== استئناف (Resume) - يتم استدعاؤه من زر Pause مرة أخرى ======
+    function resumeSession() {
+        const savedState = loadPauseState();
+        if (!savedState || !savedState.isPaused) return;
+        
+        // استئناف الجلسة
+        totalSeconds = savedState.totalSeconds;
+        remainingSeconds = savedState.remainingSeconds;
+        activeSession = true;
+        isPaused = false;
+        clearPauseState();
+        
+        const { pauseBtn } = getElements();
+        if (pauseBtn) pauseBtn.textContent = '⏸';
+        
+        if (sessionTimer) clearInterval(sessionTimer);
+        sessionTimer = setInterval(() => {
+            if (remainingSeconds <= 0) {
+                endSession();
+            } else {
+                remainingSeconds--;
+                updateTimerDisplay();
+            }
+        }, 1000);
+        showMessage('▶️ استئناف الجلسة');
     }
     
-    function loadPauseState() {
-        try {
-            const raw = localStorage.getItem('session_pause_state');
-            if (raw) return JSON.parse(raw);
-        } catch (e) {}
-        return null;
-    }
-    
-    function clearPauseState() {
-        localStorage.removeItem('session_pause_state');
+    // ====== تبديل Pause/Resume ======
+    function togglePause() {
+        if (isPaused) {
+            resumeSession();
+        } else {
+            pauseSession();
+        }
     }
     
     // ====== إنهاء الجلسة (عند انتهاء الوقت) ======
@@ -523,11 +620,13 @@
         isPaused = false;
         clearPauseState();
         
-        const { timerBar, endOverlay } = getElements();
+        const { timerBar, endOverlay, pauseBtn } = getElements();
         if (timerBar) timerBar.style.display = 'none';
+        if (pauseBtn) pauseBtn.textContent = '⏸';
         if (endOverlay) endOverlay.style.display = 'flex';
         
         updateTotalDisplay();
+        refreshAll();
         
         setTimeout(() => {
             if (endOverlay) endOverlay.style.display = 'none';
@@ -551,10 +650,12 @@
         isPaused = false;
         clearPauseState();
         
-        const { timerBar } = getElements();
+        const { timerBar, pauseBtn } = getElements();
         if (timerBar) timerBar.style.display = 'none';
+        if (pauseBtn) pauseBtn.textContent = '⏸';
         
         updateTotalDisplay();
+        refreshAll();
     }
     
     // ====== ربط الأحداث ======
@@ -567,8 +668,6 @@
         }
         
         // إغلاق النافذة الرئيسية
-        const closeBtn = document.querySelector('.close-session-modal');
-        if (closeBtn) closeBtn.addEventListener('click', closeModal);
         if (els.modal) {
             els.modal.addEventListener('click', function(e) {
                 if (e.target === els.modal) closeModal();
@@ -587,10 +686,9 @@
             els.cancelBtn.addEventListener('click', cancelSession);
         }
         
-        // زر Pause (سيتم إضافته في HTML)
-        const pauseBtn = document.getElementById('pauseSessionBtn');
-        if (pauseBtn) {
-            pauseBtn.addEventListener('click', pauseSession);
+        // زر Pause/Resume
+        if (els.pauseBtn) {
+            els.pauseBtn.addEventListener('click', togglePause);
         }
         
         // إغلاق نافذة النهاية
@@ -608,9 +706,7 @@
                     showMessage('⚠️ أنهِ الجلسة أولاً');
                     return;
                 }
-                const data = loadStats();
-                els.goalSelect.value = data.goal;
-                showInnerPage('statsGoalContent');
+                showGoalContent();
             });
         }
         if (els.goalBackBtn) {
@@ -624,7 +720,7 @@
                 data.goal = newGoal;
                 saveStats(data);
                 showMainContent();
-                updateStatsUI();
+                refreshAll();
                 showMessage('✅ تم تحديث الهدف');
             });
         }
@@ -632,8 +728,11 @@
         // History
         if (els.historyBtn) {
             els.historyBtn.addEventListener('click', function() {
-                updateHistoryUI();
-                showInnerPage('statsHistoryContent');
+                if (activeSession) {
+                    showMessage('⚠️ أنهِ الجلسة أولاً');
+                    return;
+                }
+                showHistoryContent();
             });
         }
         if (els.historyBackBtn) {
@@ -645,8 +744,9 @@
             if (e.key === 'Escape') {
                 if (els.modal && els.modal.classList.contains('active')) {
                     // إذا كانت صفحة داخلية مفتوحة، نغلقها أولاً
-                    const innerActive = document.querySelector('.stats-inner-page.active');
-                    if (innerActive) {
+                    if (els.goalContent && els.goalContent.style.display === 'flex') {
+                        showMainContent();
+                    } else if (els.historyContent && els.historyContent.style.display === 'flex') {
                         showMainContent();
                     } else {
                         closeModal();
@@ -673,22 +773,38 @@
     // ====== التهيئة ======
     function init() {
         setTimeout(() => {
+            // التأكد من وجود بيانات
             const data = loadStats();
             if (!data.history || data.history.length === 0) {
                 saveStats(data);
             }
+            // التحقق من اليوم الجديد
+            checkNewDay();
             bindEvents();
             setupObserver();
             updateTotalDisplay();
+            // تصدير الدوال
             window.toggleSessionButton = toggleSessionButton;
+            window.refreshStats = refreshAll;
             
-            // التحقق من وجود حالة إيقاف مؤقت محفوظة عند التحميل
+            // التحقق من وجود حالة إيقاف مؤقت عند التحميل
             const savedState = loadPauseState();
             if (savedState && savedState.isPaused) {
-                console.log('⏸️ توجد جلسة موقفة مؤقتاً. اضغط على أي زر مدة لاستئنافها.');
+                console.log('⏸️ توجد جلسة موقفة مؤقتاً. اضغط على زر Pause لاستئنافها.');
+                // تحديث العداد إذا كان ظاهراً
+                if (savedState.remainingSeconds) {
+                    remainingSeconds = savedState.remainingSeconds;
+                    totalSeconds = savedState.totalSeconds;
+                    updateTimerDisplay();
+                    const { timerBar, pauseBtn } = getElements();
+                    if (timerBar) timerBar.style.display = 'flex';
+                    if (pauseBtn) pauseBtn.textContent = '▶';
+                    isPaused = true;
+                    activeSession = false;
+                }
             }
             
-            console.log("✅ studySession.js جاهز - مع Pause/Resume وصفحات داخلية");
+            console.log("✅ studySession.js جاهز - مع Pause/Resume و Streak فوري");
         }, 200);
     }
     
