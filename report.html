@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقرير Zertiva B2</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        /* ============================================
+           أنماط صفحة التقرير
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Cairo', sans-serif;
+            background: #f1f4f8;
+            color: #1e293b;
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+
+        .report-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+            padding: 40px 45px 35px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        /* ===== رأس التقرير ===== */
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #eef2f6;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .report-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .report-logo img {
+            height: 44px;
+            width: auto;
+        }
+
+        .report-logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a2a4a;
+            letter-spacing: -0.3px;
+        }
+
+        .report-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .report-actions button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border: none;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+
+        .btn-print {
+            background: #2c3e66;
+            color: white;
+        }
+
+        .btn-print:hover {
+            background: #1a2a4a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(44, 62, 102, 0.25);
+        }
+
+        .btn-close {
+            background: #f1f4f8;
+            color: #64748b;
+        }
+
+        .btn-close:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        /* ===== أقسام التقرير ===== */
+        .report-section {
+            margin-bottom: 32px;
+        }
+
+        .report-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 14px;
+            padding-right: 12px;
+            border-right: 3px solid #38bdf8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .report-section-title .material-symbols-outlined {
+            font-size: 20px;
+            color: #38bdf8;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .report-card {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 14px 18px;
+            border: 1px solid #eef2f6;
+            transition: all 0.2s ease;
+        }
+
+        .report-card:hover {
+            background: #f1f4f8;
+            border-color: #dce2ec;
+        }
+
+        .report-card .label {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .report-card .value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .report-card .value.small {
+            font-size: 0.85rem;
+        }
+
+        /* ===== Progress Bars ===== */
+        .progress-bar-wrapper {
+            margin-top: 4px;
+        }
+
+        .progress-bar-track {
+            width: 100%;
+            height: 6px;
+            background: #e9edf4;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #38bdf8, #0ea5e9);
+            transition: width 0.6s ease;
+            width: 0%;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        /* ===== الجداول ===== */
+        .report-table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1px solid #eef2f6;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            min-width: 500px;
+        }
+
+        .report-table th {
+            background: #f1f4f8;
+            color: #475569;
+            font-weight: 600;
+            padding: 10px 12px;
+            text-align: right;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .report-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #eef2f6;
+            color: #1e293b;
+        }
+
+        .report-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .report-table .score-good {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .report-table .score-medium {
+            color: #eab308;
+            font-weight: 600;
+        }
+
+        .report-table .score-low {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .report-table .score-none {
+            color: #94a3b8;
+        }
+
+        /* ===== Streak Badge ===== */
+        .streak-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fef9e7;
+            color: #b45309;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border: 1px solid #fde68a;
+        }
+
+        .streak-badge .fire {
+            font-size: 1rem;
+        }
+
+        /* ===== تذييل ===== */
+        .report-footer {
+            margin-top: 30px;
+            padding-top: 18px;
+            border-top: 1px solid #eef2f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .report-footer a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        /* ===== وضع الطباعة ===== */
+        @media print {
+            body {
+                background: white;
+                padding: 15px;
+            }
+            .report-container {
+                box-shadow: none;
+                border: none;
+                padding: 20px 25px;
+                border-radius: 0;
+            }
+            .report-actions {
+                display: none !important;
+            }
+            .report-card {
+                break-inside: avoid;
+            }
+            .report-table-wrapper {
+                break-inside: auto;
+            }
+            .report-footer {
+                position: fixed;
+                bottom: 15px;
+                left: 0;
+                right: 0;
+                padding: 10px 25px;
+                background: white;
+                border-top: 1px solid #eef2f6;
+            }
+        }
+
+        /* ===== الهواتف ===== */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px 8px;
+            }
+            .report-container {
+                padding: 18px 14px;
+                border-radius: 20px;
+            }
+            .report-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .report-actions {
+                width: 100%;
+                flex-direction: column;
+            }
+            .report-actions button {
+                width: 100%;
+                justify-content: center;
+            }
+            .report-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .report-card {
+                padding: 10px 12px;
+            }
+            .report-table {
+                font-size: 0.7rem;
+                min-width: 360px;
+            }
+            .report-table th,
+            .report-table td {
+                padding: 6px 8px;
+            }
+            .report-logo-text {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .report-grid {
+                grid-template-columns: 1fr;
+            }
+            .report-container {
+                padding: 14px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="report-container" id="reportContainer">
+        <!-- الرأس -->
+        <div class="report-header">
+            <div class="report-logo">
+                <span class="report-logo-text">📘 Zertiva B2</span>
+            </div>
+            <div class="report-actions">
+                <button class="btn-print" onclick="window.print()">
+                    <span class="material-symbols-outlined" style="font-size:18px;">print</span>
+                    طباعة / حفظ PDF
+                </button>
+                <button class="btn-close" onclick="window.close()">
+                    <span class="material-symbols-outlined" style="font-size:18px;">close</span>
+                    إغلاق
+                </button>
+            </div>
+        </div>
+
+        <!-- المحتوى سيتم تعبئته بواسطة JavaScript -->
+        <div id="reportContent">
+            <div style="text-align:center; padding:40px; color:#94a3b8;">
+                ⏳ جاري تحميل التقرير...
+            </div>
+        </div>
+
+        <!-- التذييل -->
+        <div class="report-footer">
+            <span>Zertiva B2 — تقرير الطالب</span>
+            <span>
+                <a href="https://zertivab2.online" target="_blank">zertivab2.online</a>
+                &nbsp;•&nbsp;
+                <span id="reportDate"></span>
+            </span>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // تحميل البيانات وعرض التقرير
+        // ============================================
+
+        (function() {
+            const content = document.getElementById('reportContent');
+            const dateSpan = document.getElementById('reportDate');
+
+            // عرض تاريخ اليوم
+            dateSpan.textContent = new Date().toLocaleDateString('ar-EG', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+
+            // قراءة البيانات من localStorage
+            let reportData = null;
+            try {
+                const raw = localStorage.getItem('zertiva_report_data');
+                if (raw) {
+                    reportData = JSON.parse(raw);
+                }
+            } catch (e) {
+                console.error('❌ فشل قراءة بيانات التقرير:', e);
+            }
+
+            if (!reportData) {
+                content.innerHTML = `
+                    <div style="text-align:center; padding:50px 20px; color:#94a3b8;">
+                        <div style="font-size:48px; margin-bottom:16px;">📭</div>
+                        <h3 style="color:#1e293b; margin-bottom:8px;">لا توجد بيانات</h3>
+                        <p style="font-size:0.9rem;">يرجى العودة إلى الموقع الرئيسي وتحميل معلوماتك من الملف الشخصي.</p>
+                        <button onclick="window.close()" style="margin-top:20px; padding:10px 28px; background:#2c3e66; color:white; border:none; border-radius:40px; font-size:0.85rem; font-weight:600; cursor:pointer;">
+                            إغلاق
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            // ====== عرض التقرير ======
+            function clean(val) {
+                if (val === null || val === undefined || val === '') return 'غير متوفر';
+                if (typeof val === 'string' && val.trim() === '') return 'غير متوفر';
+                return val;
+            }
+
+            function formatDate(dateStr) {
+                if (!dateStr || dateStr === 'غير متوفر') return 'غير متوفر';
+                try {
+                    const d = new Date(dateStr);
+                    return d.toLocaleDateString('ar-EG', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                } catch {
+                    return dateStr;
+                }
+            }
+
+            function getScoreClass(score) {
+                if (score === null || score === undefined) return 'score-none';
+                if (score >= 20) return 'score-good';
+                if (score >= 15) return 'score-medium';
+                return 'score-low';
+            }
+
+            function getScoreDisplay(score) {
+                if (score === null || score === undefined) return '—';
+                return score + ' / 25';
+            }
+
+            const d = reportData;
+            const fullName = clean(d.fullName);
+            const email = clean(d.email);
+            const plan = clean(d.plan);
+            const creationTime = clean(d.creationTime);
+            const uid = clean(d.uid);
+            const examDate = clean(d.examDate);
+            const remainingDays = clean(d.remainingDays);
+            const totalHours = clean(d.totalHours);
+            const dailyGoal = clean(d.dailyGoal);
+            const streak = clean(d.streak);
+            const history = d.history || [];
+
+            // بناء HTML
+            let html = '';
+
+            // ====== ملخص ======
+            html += `
+                <div class="report-section">
+                    <div class="report-section-title">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        ملخص التقدم
+                    </div>
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <span class="label">الخطة</span>
+                            <span class="value">${plan}</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="label">المتبقي للامتحان</span>
+                            <span class="value">${remainingDays}</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="label">ساعات الدراسة</span>
+                            <span class="value">${totalHours} ساعة</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="label">الأيام المتتالية</span>
+                            <span class="value">
+                                <span class="streak-badge">
+                                    <span class="fire">🔥</span>
+                                    ${streak} يوم
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // ====== معلومات الحساب ======
+            html += `
+                <div class="report-section">
+                    <div class="report-section-title">
+                        <span class="material-symbols-outlined">person</span>
+                        معلومات الحساب
+                    </div>
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <span class="label">الاسم</span>
+                            <span class="value">${fullName}</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="label">البريد الإلكتروني</span>
+                            <span class="value small">${email}</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="label">نوع الحساب</span>
+                            <span class="value">${plan}</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="label">تاريخ الإنشاء</span>
+                            <span class="value small">${creationTime}</span>
+                        </div>
+                        <div class="report-card" style="grid-column: span 2;">
+                            <span class="label">معرف المستخدم</span>
+                            <span class="value small" style="font-family:monospace; font-size:0.7rem; word-break:break-all;">${uid}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // ====== الامتحان ======
+            html += `
+                <div class="report-section">
+                    <div class="report-section-title">
+                        <span class="material-symbols-outlined">calendar_month</span>
+                        معلومات الامتحان
+                    </div>
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <span class="label">تاريخ الامتحان</span>
+                            <span class="value small">${examDate}</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="label">المتبقي</span>
+                            <span class="value">${remainingDays}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // ====== الدراسة ======
+            html += `
+                <div class="report-section">
+                    <div class="report-section-title">
+                        <span class="material-symbols-outlined">analytics</span>
+                        الدراسة
+                    </div>
+                    <div class="report-grid">
+                        <div class="report-card">
+                            <span class="label">مجموع ساعات الدراسة</span>
+                            <span class="value">${totalHours} ساعة</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="label">الهدف اليومي</span>
+                            <span class="value">${dailyGoal}</span>
+                        </div>
+                        <div class="report-card">
+                            <span class="label">الأيام المتتالية</span>
+                            <span class="value">
+                                <span class="streak-badge">
+                                    <span class="fire">🔥</span>
+                                    ${streak} يوم
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // ====== النشاط الأخير ======
+            html += `
+                <div class="report-section">
+                    <div class="report-section-title">
+                        <span class="material-symbols-outlined">history</span>
+                        النشاط الأخير
+                    </div>
+                    ${history.length === 0 ? `
+                        <div style="color:#94a3b8; font-size:0.85rem; padding:8px 0;">لا توجد بيانات</div>
+                    ` : `
+                        <div class="report-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
+                            ${history.slice(-7).reverse().map(entry => {
+                                const date = clean(entry.date);
+                                const minutes = entry.minutes || 0;
+                                const hours = Math.floor(minutes / 60);
+                                const mins = minutes % 60;
+                                let timeStr = '';
+                                if (hours > 0) {
+                                    timeStr = hours + ' ساعة' + (mins > 0 ? ' و ' + mins + ' دقيقة' : '');
+                                } else {
+                                    timeStr = mins + ' دقيقة';
+                                }
+                                return `
+                                    <div class="report-card">
+                                        <span class="label">${date}</span>
+                                        <span class="value small">${timeStr}</span>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    `}
+                </div>
+            `;
+
+            // ====== نتائج الامتحانات (جداول لكل مهارة) ======
+            const skills = [
+                { id: 'hoeren1', label: 'Hören 1' },
+                { id: 'hoeren2', label: 'Hören 2' },
+                { id: 'hoeren3', label: 'Hören 3' },
+                { id: 'lesen1', label: 'Lesen 1' },
+                { id: 'lesen2', label: 'Lesen 2' },
+                { id: 'lesen3', label: 'Lesen 3' },
+                { id: 'sprach1', label: 'Sprachbausteine 1' },
+                { id: 'sprach2', label: 'Sprachbausteine 2' }
+            ];
+
+            const examData = d.examData || {};
+
+            html += `
+                <div class="report-section">
+                    <div class="report-section-title">
+                        <span class="material-symbols-outlined">assignment</span>
+                        تقدم الامتحانات
+                    </div>
+            `;
+
+            skills.forEach(skill => {
+                const exams = examData[skill.id] || {};
+                const examIds = Object.keys(exams);
+
+                html += `
+                    <div style="margin-bottom:18px;">
+                        <div style="font-weight:600; font-size:0.9rem; color:#2c3e66; margin-bottom:6px;">${skill.label}</div>
+                        <div class="report-table-wrapper">
+                            <table class="report-table">
+                                <thead>
+                                    <tr>
+                                        <th>الامتحان</th>
+                                        <th>النتيجة</th>
+                                        <th>الإعادة</th>
+                                        <th>آخر لعب</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+
+                if (examIds.length === 0) {
+                    html += `
+                        <tr>
+                            <td colspan="4" style="color:#94a3b8; text-align:center;">لم يبدأ بعد</td>
+                        </tr>
+                    `;
+                } else {
+                    examIds.forEach(id => {
+                        const exam = exams[id];
+                        const title = exam.title || 'امتحان ' + id;
+                        const score = exam.score !== null ? exam.score : null;
+                        const retries = exam.retries || 0;
+                        const lastPlayed = exam.lastPlayed ? formatDate(exam.lastPlayed) : '—';
+                        const scoreDisplay = getScoreDisplay(score);
+                        const scoreClass = getScoreClass(score);
+
+                        html += `
+                            <tr>
+                                <td>${title}</td>
+                                <td class="${scoreClass}">${scoreDisplay}</td>
+                                <td>${retries}</td>
+                                <td>${lastPlayed}</td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                html += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+
+            // ====== عرض المحتوى ======
+            content.innerHTML = html;
+
+            // ====== إزالة البيانات من localStorage بعد العرض (اختياري) ======
+            // localStorage.removeItem('zertiva_report_data');
+
+        })();
+    </script>
+
+</body>
+</html>
