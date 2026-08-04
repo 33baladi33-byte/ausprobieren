@@ -249,6 +249,9 @@ function updateUI(user, data) {
         if (oldBtn) oldBtn.remove();
 
         _currentUserStatus = 'free';
+        
+        // ✅ ضمان ظهور زر Study Planner (بعد أي كود آخر)
+        setTimeout(ensureStudyPlannerVisible, 10);
         return;
     }
 
@@ -307,6 +310,9 @@ function updateUI(user, data) {
             }, 50);
         }
     }
+    
+    // ✅ ضمان ظهور زر Study Planner (بعد أي كود آخر)
+    setTimeout(ensureStudyPlannerVisible, 10);
 }
 // ============================================
 // دوال المصادقة (Login, Signup, Logout, Reset)
@@ -589,5 +595,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+// ✅ دالة مساعدة لضمان ظهور زر Study Planner
+function ensureStudyPlannerVisible() {
+    const btn = document.getElementById('studyPlannerBtn');
+    if (!btn) return;
+    // نضبط display مع !important لتجاوز أي كود آخر
+    btn.style.setProperty('display', 'inline-flex', 'important');
+    btn.style.setProperty('visibility', 'visible', 'important');
+    btn.style.setProperty('opacity', '1', 'important');
+}
 
 console.log('🎉 تم اعتماد البنية النهائية لـ Zertiva بنسبة 100/100.');
