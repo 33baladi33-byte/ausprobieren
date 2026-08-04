@@ -1615,64 +1615,46 @@ body:has(#exam.active) .top-bar {
 }
 
 /* ========================================
-   ترتيب الأزرار في الجهة اليسرى
+   ترتيب الأزرار وهيكلة شريط (Left Side) حسب الصفحة
    ======================================== */
 
-.left-side {
-    display: flex;
-    flex-direction: row; /* منع أي انعكاس */
-    align-items: center;
-    gap: 12px;
-    direction: ltr;
-}
+/* 1. الصفحة الرئيسية (Home) */
+/* نخفي أزرار الملف الشخصي والإعدادات وخطة اليوم في الرئيسية */
+#home .profile-icon { display: none !important; }
+#home #settingsBtn { display: none !important; }
+#home #studyPlannerBtn { display: none !important; }
 
-/* فرض الترتيب المطلوب: 👤 ثم ⚙️ ثم 🎮 */
-.left-side .profile-icon { order: 1; }
-.left-side #settingsBtn { order: 2; }
-.left-side #studyPlannerBtn { order: 3; }
+/* نرتب زر الاشتراك وزر تسجيل الدخول في الرئيسية */
+#home .left-side #navSubscribeBtn { order: 1 !important; }
+#home .left-side #navLoginBtn { order: 2 !important; }
 
-/* ترتيب الأزرار من اليمين إلى اليسار في صفحات الامتحانات */
-body:has(#list.active) .left-side .profile-icon,
-body:has(#exam.active) .left-side .profile-icon {
-    order: 1;  /* 👤 أقصى اليمين */
-}
+/* 2. صفحة القائمة والامتحان (List & Exam) */
+/* نخفي زر تسجيل الدخول في القائمة والامتحان */
+body:has(#list.active) #navLoginBtn { display: none !important; }
+body:has(#exam.active) #navLoginBtn { display: none !important; }
 
-body:has(#list.active) .left-side .settings-icon-btn,
-body:has(#exam.active) .left-side .settings-icon-btn {
-    order: 2;  /* ⚙️ ثاني من اليمين */
-}
+/* نظهر أزرار الملف الشخصي والإعدادات وخطة اليوم وترتيبهم */
+body:has(#list.active) .profile-icon { display: flex !important; }
+body:has(#exam.active) .profile-icon { display: flex !important; }
 
-body:has(#list.active) .left-side .subscribe-text-btn,
-body:has(#exam.active) .left-side .subscribe-text-btn {
-    order: 3;  /* اشترك ثالث من اليمين */
-}
+body:has(#list.active) #settingsBtn { display: inline-flex !important; }
+body:has(#exam.active) #settingsBtn { display: inline-flex !important; }
 
-body:has(#list.active) .left-side .btn-login-top,
-body:has(#exam.active) .left-side .btn-login-top {
-    display: none !important;  /* إخفاء زر تسجيل الدخول في صفحات الامتحانات */
-}
+body:has(#list.active) #studyPlannerBtn { display: inline-flex !important; }
+body:has(#exam.active) #studyPlannerBtn { display: inline-flex !important; }
 
-/* ===== الصفحة الرئيسية فقط ===== */
+/* ترتيب البداية: (أقصى اليسار) -> 1-Profile -> 2-Settings -> 3-Planner -> 4-Subscribe */
+body:has(#list.active) .left-side .profile-icon { order: 1 !important; }
+body:has(#exam.active) .left-side .profile-icon { order: 1 !important; }
 
-.home-page .left-side .profile-icon {
-    display: none !important;  /* إخفاء أيقونة الملف الشخصي في الرئيسية */
-}
+body:has(#list.active) .left-side #settingsBtn { order: 2 !important; }
+body:has(#exam.active) .left-side #settingsBtn { order: 2 !important; }
 
-.home-page .left-side .subscribe-text-btn {
-    order: 1;
-}
+body:has(#list.active) .left-side #studyPlannerBtn { order: 3 !important; }
+body:has(#exam.active) .left-side #studyPlannerBtn { order: 3 !important; }
 
-.home-page .left-side .btn-login-top {
-    order: 2;
-}
-
-.home-page .left-side .settings-icon-btn {
-    order: 3;
-}
-
-.home-page .left-side .profile-icon {
-    order: 4;
-}
+body:has(#list.active) .left-side #navSubscribeBtn { order: 4 !important; }
+body:has(#exam.active) .left-side #navSubscribeBtn { order: 4 !important; }
 
 @media (max-width: 768px) {
     body, html {
@@ -5621,7 +5603,6 @@ body:has(#exam.active) #backHomeBtn {
     border-color: rgba(255, 255, 255, 0.25) !important;
     transform: scale(1.05);
 }
-
 
 /* ============================================
    LOGIN UNIVERS BUTTON (Uiverse Skin - Fully Scoped)
