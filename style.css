@@ -368,8 +368,8 @@ body {
 }
 
 .logo-icon {
-    width: 45px;
-    height: 45px;
+    width: 40px;   /* ✅ تم التغيير إلى 40px */
+    height: 40px;  /* ✅ تم التغيير إلى 40px */
     background: transparent;
     display: flex;
     align-items: center;
@@ -604,8 +604,8 @@ body {
 
 /* ===== زر الملف الشخصي - تصميم Apple Premium ===== */
 .profile-icon {
-    width: 45px;
-    height: 45px;
+    width: 40px;   /* ✅ تم التغيير إلى 40px */
+    height: 40px;  /* ✅ تم التغيير إلى 40px */
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
