@@ -221,7 +221,9 @@ async function createInitialUserDocument(user) {
 
 function updateUI(user, data) {
     const profileEmail = document.getElementById('profileEmail');
+    const profileEmailText = document.getElementById('profileEmailText');
     const profileExpiry = document.getElementById('profileExpiry');
+    const profileExpiryText = document.getElementById('profileExpiryText');
     const profileStatus = document.getElementById('profileStatus');
     const profileUidValue = document.getElementById('profileUidValue');
     const profileLogoutBtn = document.getElementById('profileLogoutBtn');
@@ -234,8 +236,8 @@ function updateUI(user, data) {
 
     // حالة زائر غير مسجل
     if (!user) {
-        if (profileEmail) profileEmail.innerHTML = '👤 غير مسجل';
-        if (profileExpiry) profileExpiry.textContent = 'الوصول محدود لبعض الامتحانات';
+        if (profileEmailText) profileEmailText.textContent = 'غير مسجل';
+        if (profileExpiryText) profileExpiryText.textContent = 'الوصول محدود لبعض الامتحانات';
         if (profileStatus) profileStatus.innerHTML = '';
         if (profileUidValue) profileUidValue.textContent = '---';
         if (profileLogoutBtn) profileLogoutBtn.style.display = 'none';
@@ -257,7 +259,7 @@ function updateUI(user, data) {
     }
 
     // حالة مستخدم مسجل
-    if (profileEmail) profileEmail.innerHTML = `📧 ${user.email}`;
+    if (profileEmailText) profileEmailText.textContent = user.email;
     if (profileUidValue) profileUidValue.textContent = user.uid;
     if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
     if (navLoginBtn) navLoginBtn.style.display = 'none';
@@ -271,10 +273,10 @@ function updateUI(user, data) {
 
     if (isPremium) {
         if (profileStatus) profileStatus.innerHTML = `<span class="status-premium">✅ مشترك (Pro)</span>`;
-        if (profileExpiry && data.premiumUntil) {
-            profileExpiry.textContent = `📅 الصلاحية: حتى ${new Date(data.premiumUntil).toLocaleDateString('ar-EG')}`;
-        } else if (profileExpiry) {
-            profileExpiry.textContent = `📅 الصلاحية: حساب دائم`;
+        if (profileExpiryText && data.premiumUntil) {
+            profileExpiryText.textContent = `الصلاحية: حتى ${new Date(data.premiumUntil).toLocaleDateString('ar-EG')}`;
+        } else if (profileExpiryText) {
+            profileExpiryText.textContent = `الصلاحية: حساب دائم`;
         }
         
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'none';
@@ -284,7 +286,7 @@ function updateUI(user, data) {
         if (oldBtn) oldBtn.remove();
     } else {
         if (profileStatus) profileStatus.innerHTML = `<span class="status-free">📖 مجاني</span>`;
-        if (profileExpiry) profileExpiry.textContent = '⏰ حساب مجاني / انتهت الصلاحية';
+        if (profileExpiryText) profileExpiryText.textContent = 'حساب مجاني / انتهت الصلاحية';
         
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
@@ -312,6 +314,11 @@ function updateUI(user, data) {
             }, 50);
         }
     }
+    
+    if (typeof window.toggleSessionButton === 'function') {
+        setTimeout(window.toggleSessionButton, 50);
+    }
+}
     
     if (typeof window.toggleSessionButton === 'function') {
         setTimeout(window.toggleSessionButton, 50);
@@ -394,6 +401,7 @@ async function handleSignup() {
         createdUser = userCredential.user;
         const deviceId = getDeviceId();
 
+        // ✅ إضافة firstname و lastname بشكل صحيح
         const userData = {
             email: email,
             username: username,
