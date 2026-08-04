@@ -414,7 +414,4 @@ console.log('✅ studyPlanner.js (المحرك الأساسي) تم تحميله
 console.log('💡 استخدم window.generateStudyPlan(skill, examDate, dailyHours) لتوليد الخطة');
 console.log('💡 استخدم window.checkStudyPlannerDependencies() لفحص التبعيات');
 
-// ✅ جعل دالة فتح الخطة متاحة للاستخدام الخارجي (تأكيد التصريح)
-window.openPlanner = openPlanner;
-
 })();
