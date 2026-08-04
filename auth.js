@@ -232,7 +232,6 @@ function updateUI(user, data) {
     const navSubscribeBtn = document.getElementById('navSubscribeBtn');
     const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
     const profileIcon = document.getElementById('profileIcon');
-    // ✅ تم إزالة studyPlannerBtn - الاعتماد على CSS فقط
 
     // حالة زائر غير مسجل
     if (!user) {
@@ -245,16 +244,11 @@ function updateUI(user, data) {
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
         if (profileIcon) profileIcon.style.display = 'none';
-        // لا نعدل Study Planner هنا، CSS يتحكم به
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
 
         _currentUserStatus = 'free';
-        
-        if (typeof window.toggleSessionButton === 'function') {
-            setTimeout(window.toggleSessionButton, 50);
-        }
         return;
     }
 
@@ -264,7 +258,6 @@ function updateUI(user, data) {
     if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
     if (navLoginBtn) navLoginBtn.style.display = 'none';
     if (profileIcon) profileIcon.style.display = 'flex';
-    // لا نعدل Study Planner هنا، CSS يتحكم به
 
     const isPremium = data && data.plan === 'premium' && 
                       (!data.premiumUntil || new Date(data.premiumUntil).getTime() > Date.now());
@@ -313,10 +306,6 @@ function updateUI(user, data) {
                 window.renderInitialExamList();
             }, 50);
         }
-    }
-    
-    if (typeof window.toggleSessionButton === 'function') {
-        setTimeout(window.toggleSessionButton, 50);
     }
 }
 // ============================================
