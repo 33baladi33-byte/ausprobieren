@@ -2551,28 +2551,55 @@ if (listPage2) observerPremium.observe(listPage2, { attributes: true, attributeF
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <script>
-// ===== تحميل الخط العربي Noto Sans Arabic وتضمينه في jsPDF =====
+// ===== تحميل الخط العربي Noto Sans Arabic وتضمينه في jsPDF (مع الانتظار حتى تحميل المكتبة) =====
 (function() {
-    const fontUrl = 'https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts/hinted/ttf/NotoSansArabic/NotoSansArabic-Regular.ttf';
-    fetch(fontUrl)
-        .then(res => {
-            if (!res.ok) throw new Error('فشل تحميل الخط');
-            return res.arrayBuffer();
-        })
-        .then(buffer => {
-            const base64 = btoa(
-                new Uint8Array(buffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
-            );
-            const { jsPDF } = window.jspdf;
-            jsPDF.API.addFileToVFS('NotoSansArabic-Regular.ttf', base64);
-            jsPDF.API.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
-            console.log('✅ تم تحميل الخط العربي NotoSansArabic بنجاح');
-            window._arabicFontLoaded = true;
-        })
-        .catch(err => {
-            console.error('❌ فشل تحميل الخط العربي:', err);
-            window._arabicFontLoaded = false;
-        });
+    function loadArabicFont() {
+        const fontUrl = 'https://cdn.jsdelivr.net/gh/googlefonts/noto-fonts/hinted/ttf/NotoSansArabic/NotoSansArabic-Regular.ttf';
+        fetch(fontUrl)
+            .then(res => {
+                if (!res.ok) throw new Error('فشل تحميل الخط');
+                return res.arrayBuffer();
+            })
+            .then(buffer => {
+                const base64 = btoa(
+                    new Uint8Array(buffer).reduce((data, byte) => data + String.fromCharCode(byte), '')
+                );
+                if (window.jspdf && window.jspdf.jsPDF) {
+                    const { jsPDF } = window.jspdf;
+                    jsPDF.API.addFileToVFS('NotoSansArabic-Regular.ttf', base64);
+                    jsPDF.API.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
+                    console.log('✅ تم تحميل الخط العربي NotoSansArabic بنجاح');
+                    window._arabicFontLoaded = true;
+                } else {
+                    console.warn('⚠️ jsPDF غير متوفر بعد، إعادة المحاولة خلال 200ms');
+                    setTimeout(loadArabicFont, 200);
+                }
+            })
+            .catch(err => {
+                console.error('❌ فشل تحميل الخط العربي:', err);
+                window._arabicFontLoaded = false;
+            });
+    }
+
+    // إذا كانت jsPDF متوفرة بالفعل، حمل الخط فوراً
+    if (window.jspdf && window.jspdf.jsPDF) {
+        loadArabicFont();
+    } else {
+        // انتظر حتى يتم تحميل jsPDF
+        let attempts = 0;
+        const maxAttempts = 20;
+        const interval = setInterval(() => {
+            attempts++;
+            if (window.jspdf && window.jspdf.jsPDF) {
+                clearInterval(interval);
+                loadArabicFont();
+            } else if (attempts >= maxAttempts) {
+                clearInterval(interval);
+                console.warn('⚠️ jsPDF لم يتم تحميله بعد المهلة، سيتم تخطي الخط العربي');
+                window._arabicFontLoaded = false;
+            }
+        }, 100);
+    }
 })();
 </script>
 <script>
@@ -2619,6 +2646,32 @@ window.updateAskAIContext = function(skill, examId) {
 <script src="studyPlanner.js"></script>
     
 <script type="module" src="./auth.js"></script>
+<script>
+// تحديث زر التحميل عند تغير حالة المستخدم (لإظهاره للمستخدمين المسجلين)
+(function() {
+    const downloadBtn = document.getElementById('downloadReportBtn');
+    if (!downloadBtn) return;
+
+    // وظيفة تحديث ظهور الزر
+    function updateDownloadButton() {
+        if (window.auth && window.auth.currentUser) {
+            downloadBtn.style.display = 'flex';
+        } else {
+            downloadBtn.style.display = 'none';
+        }
+    }
+
+    // تحديث فوري
+    updateDownloadButton();
+
+    // الاستماع لتغير حالة المصادقة
+    if (window.auth) {
+        window.auth.onAuthStateChanged(() => {
+            updateDownloadButton();
+        });
+    }
+})();
+</script>
 <script type="module" src="./notifications.js"></script>
 <script type="module" src="./rapidGame.js"></script>
 <script type="module" src="./studySession.js"></script>
