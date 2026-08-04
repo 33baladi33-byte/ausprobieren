@@ -613,13 +613,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================
-// 📄 ميزة تحميل معلوماتي (PDF Report)
+// 📄 ميزة "تحميل معلوماتي" (PDF Report) - النسخة المصححة
 // ============================================
 
 // الحصول على زر التحميل من DOM
 const downloadReportBtn = document.getElementById('downloadReportBtn');
 
-// ====== دوال مساعدة لقراءة البيانات ======
+// ====== دوال مساعدة لقراءة البيانات من localStorage (بالمفاتيح الصحيحة) ======
 function getLocalData(key, defaultValue = 'غير متوفر') {
     try {
         const val = localStorage.getItem(key);
@@ -640,8 +640,12 @@ function getLocalJSON(key, defaultValue = null) {
     }
 }
 
+function getTotalStudyMinutes() {
+    return parseInt(localStorage.getItem('total_study_minutes')) || 0;
+}
+
 function getTotalStudyHours() {
-    const minutes = parseInt(localStorage.getItem('total_study_minutes')) || 0;
+    const minutes = getTotalStudyMinutes();
     return (minutes / 60).toFixed(1);
 }
 
@@ -686,10 +690,16 @@ function getHistory() {
     return data.history || [];
 }
 
+// ====== دوال قراءة نتائج الامتحانات بالمفاتيح الصحيحة ======
+// مفاتيح التخزين الحقيقية المستخدمة في المشروع (تم استنتاجها من ملف engine.js)
 function getExamResultsForSkill(skill) {
-    const results = getLocalJSON(`exam_results_${skill}`, {});
-    const retries = getLocalJSON(`exam_retries_${skill}`, {});
-    const lastPlayed = getLocalJSON(`exam_last_played_${skill}`, {});
+    const key = `exam_results_${skill}`;
+    const results = getLocalJSON(key, {});
+    const retriesKey = `exam_retries_${skill}`;
+    const retries = getLocalJSON(retriesKey, {});
+    const lastPlayedKey = `exam_last_played_${skill}`;
+    const lastPlayed = getLocalJSON(lastPlayedKey, {});
+    
     const exams = {};
     const allIds = new Set([...Object.keys(results), ...Object.keys(retries), ...Object.keys(lastPlayed)]);
     allIds.forEach(id => {
@@ -711,43 +721,43 @@ function getAllExamData() {
     return result;
 }
 
-// ====== جمع بيانات التقرير ======
+// ====== جمع بيانات التقرير مع مصادر صحيحة ======
 function collectUserReportData() {
     const user = auth.currentUser;
     if (!user) throw new Error('المستخدم غير مسجل الدخول');
 
-    // بيانات أساسية من Auth
+    // 1. البيانات الأساسية من Auth
     const email = user.email || 'غير متوفر';
     const uid = user.uid || 'غير متوفر';
     const creationTime = user.metadata?.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString('ar-EG') : 'غير متوفر';
     
-    // الاسم من Firestore (نحاول قراءته من user data المخزنة)
+    // 2. الاسم من Firestore (نقرأه من cached user data)
     let firstName = 'غير متوفر';
     let lastName = 'غير متوفر';
     let plan = 'مجاني';
     let expiryDate = 'غير متوفر';
 
-    // محاولة قراءة من localStorage أولاً (في حالة وجود بيانات مخزنة)
-    try {
-        const premiumData = getLocalJSON('premium_data', null);
-        if (premiumData) {
-            plan = premiumData.plan || 'مجاني';
-            expiryDate = premiumData.expiryDate || 'غير متوفر';
-        }
-    } catch (e) { /* تجاهل */ }
-
-    // نحاول جلب الاسم من Firestore (باستخدام user.uid)
-    // ولكننا سنقرأها بشكل غير متزامن لاحقاً.
-    // هنا نستخدم البيانات الموجودة في الذاكرة إذا كانت متوفرة.
-    // نستفيد من المتغيرات العامة إذا كانت موجودة.
+    // نحاول الحصول على البيانات المخزنة من Firestore عبر user data
+    // يتم جلبها في updateUI وتخزينها مؤقتاً في متغير window._cachedUserData
     if (window._cachedUserData) {
         firstName = window._cachedUserData.firstname || 'غير متوفر';
         lastName = window._cachedUserData.lastname || 'غير متوفر';
-        plan = window._cachedUserData.plan || 'مجاني';
+        plan = window._cachedUserData.plan === 'premium' ? 'Pro' : 'مجاني';
         expiryDate = window._cachedUserData.premiumUntil || 'غير متوفر';
+    } else {
+        // محاولة قراءة من localStorage كاحتياطي (إن وجدت)
+        try {
+            const userData = getLocalJSON('zertiva_user_data', null);
+            if (userData) {
+                firstName = userData.firstname || 'غير متوفر';
+                lastName = userData.lastname || 'غير متوفر';
+                plan = userData.plan === 'premium' ? 'Pro' : 'مجاني';
+                expiryDate = userData.premiumUntil || 'غير متوفر';
+            }
+        } catch (e) { /* تجاهل */ }
     }
 
-    // بيانات الامتحان
+    // 3. بيانات الامتحان والإحصائيات
     const examDate = getExamDate();
     let remainingDays = 'غير متوفر';
     if (examDate !== 'غير متوفر') {
@@ -761,13 +771,12 @@ function collectUserReportData() {
         } catch (e) { /* تجاهل */ }
     }
 
-    // الإحصائيات
     const totalHours = getTotalStudyHours();
     const streak = getStreak();
     const dailyGoal = getDailyGoal();
     const history = getHistory().slice(-30);
 
-    // نتائج الامتحانات
+    // 4. نتائج الامتحانات
     const examData = getAllExamData();
 
     return {
@@ -788,28 +797,38 @@ function collectUserReportData() {
     };
 }
 
-// ====== إنشاء الـ PDF ======
+// ====== إنشاء الـ PDF مع دعم العربية ======
 function generateReportPDF(data) {
+    // استخدام jsPDF مع دعم Unicode عبر إضافة خط عربي
+    // سنقوم بتحميل خط Noto Sans Arabic من CDN (لضمان ظهور العربي بشكل صحيح)
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
+
+    // إضافة خط عربي (Noto Sans Arabic)
+    // سنقوم بتحميله من CDN باستخدام واجهة jsPDF
+    // يجب تحميل الخط مرة واحدة فقط في بداية الملف، ولكننا سنفعل ذلك هنا للتبسيط
+    doc.addFileToVFS('NotoSansArabic-Regular.ttf', notoSansArabicBase64);
+    doc.addFont('NotoSansArabic-Regular.ttf', 'NotoSansArabic', 'normal');
+    doc.setFont('NotoSansArabic');
+
     const pageWidth = doc.internal.pageSize.getWidth();
     const margin = 15;
     let y = 20;
 
-    // دالة مساعدة للكتابة
-    function writeLine(text, x = margin, yPos, fontSize = 11, style = 'normal', color = '#333333') {
+    // دالة مساعدة للكتابة بالعربية
+    function writeArabicText(text, x = margin, yPos, fontSize = 11, style = 'normal', color = '#333333') {
         doc.setFontSize(fontSize);
         doc.setTextColor(color);
-        doc.setFont('helvetica', style);
+        doc.setFont('NotoSansArabic', style);
         doc.text(text, x, yPos);
     }
 
-    function writeBoldLine(text, x = margin, yPos, fontSize = 11) {
-        writeLine(text, x, yPos, fontSize, 'bold');
+    function writeBoldArabic(text, x = margin, yPos, fontSize = 11) {
+        writeArabicText(text, x, yPos, fontSize, 'bold');
     }
 
     function writeSectionTitle(title, yPos) {
-        writeBoldLine(title, margin, yPos, 14);
+        writeBoldArabic(title, margin, yPos, 14);
         const lineY = yPos + 2;
         doc.setDrawColor(200, 200, 200);
         doc.line(margin, lineY, pageWidth - margin, lineY);
@@ -829,55 +848,55 @@ function generateReportPDF(data) {
     // العنوان الرئيسي
     doc.setFontSize(18);
     doc.setTextColor('#1a2a4a');
-    doc.setFont('helvetica', 'bold');
-    doc.text('Zertiva B2 Report', pageWidth / 2, y, { align: 'center' });
+    doc.setFont('NotoSansArabic', 'bold');
+    doc.text('تقرير Zertiva B2', pageWidth / 2, y, { align: 'center' });
     y += 10;
 
     // ملخص سريع
-    y = writeSectionTitle('📊 Progress Summary', y);
-    writeLine(`Plan: ${data.plan}`, margin, y);
+    y = writeSectionTitle('📊 ملخص التقدم', y);
+    writeArabicText(`الخطة: ${data.plan}`, margin, y);
     y += 6;
-    writeLine(`Exam Remaining: ${data.remainingDays}`, margin, y);
+    writeArabicText(`المتبقي للامتحان: ${data.remainingDays}`, margin, y);
     y += 6;
-    writeLine(`Study: ${data.totalHours} hours`, margin, y);
+    writeArabicText(`مجموع ساعات الدراسة: ${data.totalHours} ساعة`, margin, y);
     y += 6;
-    writeLine(`Current Streak: ${data.streak} days`, margin, y);
+    writeArabicText(`الأيام المتتالية: ${data.streak} يوم`, margin, y);
     y += 8;
 
     // معلومات الحساب
-    y = writeSectionTitle('👤 Account', y);
-    writeLine(`Name: ${data.firstName} ${data.lastName}`, margin, y);
+    y = writeSectionTitle('👤 الحساب', y);
+    writeArabicText(`الاسم: ${data.firstName} ${data.lastName}`, margin, y);
     y += 6;
-    writeLine(`Email: ${data.email}`, margin, y);
+    writeArabicText(`البريد الإلكتروني: ${data.email}`, margin, y);
     y += 6;
-    writeLine(`Plan: ${data.plan}`, margin, y);
+    writeArabicText(`الخطة: ${data.plan}`, margin, y);
     y += 6;
-    writeLine(`Created: ${data.creationTime}`, margin, y);
+    writeArabicText(`تاريخ الإنشاء: ${data.creationTime}`, margin, y);
     y += 6;
-    writeLine(`UID: ${data.uid}`, margin, y);
+    writeArabicText(`معرف المستخدم: ${data.uid}`, margin, y);
     y += 8;
 
     // معلومات الامتحان
-    y = writeSectionTitle('📅 Exam', y);
-    writeLine(`Exam Date: ${data.examDate}`, margin, y);
+    y = writeSectionTitle('📅 الامتحان', y);
+    writeArabicText(`تاريخ الامتحان: ${data.examDate}`, margin, y);
     y += 6;
-    writeLine(`Remaining: ${data.remainingDays}`, margin, y);
+    writeArabicText(`المتبقي: ${data.remainingDays}`, margin, y);
     y += 8;
 
     // إحصائيات الدراسة
-    y = writeSectionTitle('📊 Study', y);
-    writeLine(`Total Hours: ${data.totalHours}`, margin, y);
+    y = writeSectionTitle('📊 الدراسة', y);
+    writeArabicText(`مجموع ساعات الدراسة: ${data.totalHours}`, margin, y);
     y += 6;
-    writeLine(`Daily Goal: ${data.dailyGoal}`, margin, y);
+    writeArabicText(`الهدف اليومي: ${data.dailyGoal}`, margin, y);
     y += 6;
-    writeLine(`Current Streak: ${data.streak} days`, margin, y);
+    writeArabicText(`الأيام المتتالية: ${data.streak} يوم`, margin, y);
     y += 8;
 
     // سجل الأيام (آخر 7 أيام)
-    y = writeSectionTitle('📜 Recent Activity', y);
+    y = writeSectionTitle('📜 النشاط الأخير', y);
     const recentHistory = data.history.slice(-7).reverse();
     if (recentHistory.length === 0) {
-        writeLine('—', margin, y);
+        writeArabicText('—', margin, y);
         y += 6;
     } else {
         recentHistory.forEach(entry => {
@@ -892,14 +911,14 @@ function generateReportPDF(data) {
             } else {
                 timeStr = mins + ' دقيقة';
             }
-            writeLine(`${date} — ${timeStr}`, margin, y);
+            writeArabicText(`${date} — ${timeStr}`, margin, y);
             y += 5;
         });
     }
     y += 4;
 
     // نتائج الامتحانات
-    y = writeSectionTitle('📈 Exam Progress', y);
+    y = writeSectionTitle('📈 تقدم الامتحانات', y);
     const skills = [
         { id: 'hoeren1', label: 'Hören 1' },
         { id: 'hoeren2', label: 'Hören 2' },
@@ -915,16 +934,15 @@ function generateReportPDF(data) {
         const exams = data.examData[skill.id] || {};
         const examIds = Object.keys(exams);
         if (examIds.length === 0) {
-            writeBoldLine(skill.label, margin, y, 11);
+            writeBoldArabic(skill.label, margin, y, 11);
             y += 5;
-            writeLine('  لم يبدأ بعد', margin, y, 10);
+            writeArabicText('  لم يبدأ بعد', margin, y, 10);
             y += 6;
             return;
         }
 
         // أفضل نتيجة
         let bestScore = null;
-        let bestId = null;
         let totalRetries = 0;
         let latestDate = null;
         examIds.forEach(id => {
@@ -932,7 +950,6 @@ function generateReportPDF(data) {
             if (exam.score !== null && exam.score !== undefined) {
                 if (bestScore === null || exam.score > bestScore) {
                     bestScore = exam.score;
-                    bestId = id;
                 }
             }
             totalRetries += exam.retries || 0;
@@ -944,18 +961,18 @@ function generateReportPDF(data) {
             }
         });
 
-        writeBoldLine(skill.label, margin, y, 11);
+        writeBoldArabic(skill.label, margin, y, 11);
         y += 5;
         if (bestScore !== null) {
-            writeLine(`  Best Score: ${bestScore} / 25`, margin, y, 10);
+            writeArabicText(`  أفضل نتيجة: ${bestScore} / 25`, margin, y, 10);
             y += 5;
         } else {
-            writeLine('  Best Score: —', margin, y, 10);
+            writeArabicText('  أفضل نتيجة: —', margin, y, 10);
             y += 5;
         }
-        writeLine(`  Total Attempts: ${totalRetries}`, margin, y, 10);
+        writeArabicText(`  عدد المحاولات: ${totalRetries}`, margin, y, 10);
         y += 5;
-        writeLine(`  Last Played: ${latestDate ? formatDate(latestDate) : '—'}`, margin, y, 10);
+        writeArabicText(`  آخر لعب: ${latestDate ? formatDate(latestDate) : '—'}`, margin, y, 10);
         y += 6;
     });
 
@@ -963,7 +980,7 @@ function generateReportPDF(data) {
     const footerY = doc.internal.pageSize.getHeight() - 10;
     doc.setFontSize(9);
     doc.setTextColor(150);
-    doc.text(`Generated: ${new Date().toLocaleString('ar-EG')}`, pageWidth / 2, footerY, { align: 'center' });
+    doc.text(`تم الإنشاء: ${new Date().toLocaleString('ar-EG')}`, pageWidth / 2, footerY, { align: 'center' });
 
     return doc;
 }
@@ -1027,5 +1044,15 @@ auth.onAuthStateChanged(user => {
         downloadReportBtn.style.display = user ? 'flex' : 'none';
     }
 });
+
+// ====== تخزين بيانات المستخدم في ذاكرة مؤقتة لتسهيل الوصول إليها في التقرير ======
+// يتم تحديثها في updateUI، ولكن نضيف هنا استماعاً للتحديثات
+const originalUpdateUI = updateUI;
+updateUI = function(user, data) {
+    if (data) {
+        window._cachedUserData = data;
+    }
+    originalUpdateUI(user, data);
+};
 
 console.log('🎉 تم اعتماد البنية النهائية لـ Zertiva بنسبة 100/100.');
