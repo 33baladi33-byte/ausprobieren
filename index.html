@@ -1374,16 +1374,10 @@ body.dark-mode .mobile-banner span {
         <span class="uid-value" id="profileUidValue">---</span>
     </div>
 
-    <!-- ✅ سطر الخطة اليومية (إضافة جديدة) -->
-    <div id="profilePlannerRow" class="profile-uid" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-top: 1px solid #334155;">
-        <div id="profilePlannerStatus" style="display: flex; align-items: center; gap: 6px; color: #94a3b8; font-size: 12px;">
-            <span class="material-symbols-outlined" style="font-size: 16px; color: #94a3b8;">schedule</span>
-            <span id="profilePlannerText">لم يتم إعداد الخطة اليومية بعد.</span>
-        </div>
-        <!-- زر الإعدادات الصغير -->
-        <button id="profilePlannerBtn" style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s; color: #E5E7EB; padding: 0;">
-            <span class="material-symbols-outlined" style="font-size: 16px;">settings</span>
-        </button>
+     <!-- ✅ سطر الخطة اليومية (عرض فقط - بدون زر إعدادات) -->
+    <div id="profilePlannerRow" class="profile-uid" style="display: flex; align-items: center; padding: 6px 0; border-top: 1px solid #334155; gap: 6px;">
+        <span class="material-symbols-outlined" style="font-size: 16px; color: #94a3b8;">schedule</span>
+        <span id="profilePlannerText" style="color: #94a3b8; font-size: 12px;">لم يتم إعداد الخطة اليومية بعد.</span>
     </div>
 
     <!-- زر تسجيل الخروج -->
@@ -4815,18 +4809,7 @@ function updateProfilePlannerStatus() {
     }
 }
 
-// ربط زر الإعدادات: يفتح نافذة تعديل المعلومات يدوياً (بناءً على الطريقة الناجحة)
-document.getElementById('profilePlannerBtn')?.addEventListener('click', function(e) {
-    e.stopPropagation();
-
-    // إزالة أي نافذة سابقة إذا كانت موجودة
-    const existingOverlay = document.querySelector('.planner-popup-overlay');
-    if (existingOverlay) {
-        existingOverlay.classList.remove('active');
-        setTimeout(() => existingOverlay.remove(), 300);
-        return;
-    }
-
+// تم إزالة زر الإعدادات من الملف الشخصي. لا يوجد أي كود هنا الآن.
     // دالة إنشاء النافذة (مستنسخة من Study Planner)
     function createSettingsPopup() {
         const currentDate = localStorage.getItem('zertiva_exam_date') || new Date().toISOString().slice(0, 10);
