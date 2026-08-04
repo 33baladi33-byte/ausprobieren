@@ -4815,17 +4815,77 @@ function updateProfilePlannerStatus() {
     }
 }
 
-// ربط زر الإعدادات: يفتح نفس نافذة Study Planner
+// ربط زر الإعدادات: يفتح نافذة تعديل المعلومات يدوياً (بناءً على الطريقة الناجحة)
 document.getElementById('profilePlannerBtn')?.addEventListener('click', function(e) {
     e.stopPropagation();
-    if (typeof window.openPlanner === 'function') {
-        window.openPlanner();
-        setTimeout(() => {
-            // الضغط على زر الإعدادات داخل Study Planner
-            const settingsBtn = document.querySelector('#studyPlannerModal .planner-top-bar .left-icons button .material-symbols-outlined[title="الإعدادات"]')?.closest('button');
-            if (settingsBtn) settingsBtn.click();
-        }, 150);
+
+    // إزالة أي نافذة سابقة إذا كانت موجودة
+    const existingOverlay = document.querySelector('.planner-popup-overlay');
+    if (existingOverlay) {
+        existingOverlay.classList.remove('active');
+        setTimeout(() => existingOverlay.remove(), 300);
+        return;
     }
+
+    // دالة إنشاء النافذة (مستنسخة من Study Planner)
+    function createSettingsPopup() {
+        const currentDate = localStorage.getItem('zertiva_exam_date') || new Date().toISOString().slice(0, 10);
+        const currentHours = parseInt(localStorage.getItem('zertiva_daily_hours')) || 4;
+
+        const overlay = document.createElement('div');
+        overlay.className = 'planner-popup-overlay';
+        overlay.innerHTML = `
+            <div class="planner-popup-card" style="
+                max-width: 300px; width: 90%; padding: 16px 18px 18px; border-radius: 16px;
+                box-shadow: 0 6px 24px rgba(0,0,0,0.04); background: #ffffff; border: 1px solid #edf1f7;
+            ">
+                <div class="planner-popup-title" style="font-size:0.9rem; font-weight:600; color:#1e293b; text-align:center; margin-bottom:14px;">تعديل المعلومات الخاصة بي</div>
+                <div style="margin-bottom:10px;">
+                    <label style="display:block; font-size:0.7rem; font-weight:600; color:#1e293b; margin-bottom:3px; text-align:right;">تاريخ الامتحان</label>
+                    <input type="date" id="popupExamDate" value="${currentDate}" style="width:100%; padding:7px 10px; border:1px solid #e2e8f0; border-radius:8px; font-size:0.8rem; color:#1e293b; background:#ffffff; font-family:inherit; box-sizing:border-box; direction:rtl;">
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label style="display:block; font-size:0.7rem; font-weight:600; color:#1e293b; margin-bottom:3px; text-align:right;">كم ساعة تراجع يومياً</label>
+                    <input type="number" id="popupDailyHours" value="${currentHours}" min="1" max="12" step="1" style="width:100%; padding:7px 10px; border:1px solid #e2e8f0; border-radius:8px; font-size:0.8rem; color:#1e293b; background:#ffffff; font-family:inherit; box-sizing:border-box; direction:rtl;">
+                </div>
+                <button id="popupSaveBtn" class="planner-section-btn" style="
+                    width:100%; padding:9px 0; font-size:0.85rem; font-weight:600; text-align:center; 
+                    border:1px solid #D5E0EC; border-radius:14px; 
+                    background:linear-gradient(90deg, #161922 0%, #2D3138 50%, #161922 100%); color:#B0B8C9; 
+                    box-shadow:0 2px 6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.04); 
+                    cursor:pointer; transition:all 0.25s cubic-bezier(0.2,0.9,0.4,1.1); font-family:inherit;
+                ">فحص</button>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+        setTimeout(() => overlay.classList.add('active'), 10);
+
+        // ربط زر "فحص" للحفظ وتحديث النص فوراً
+        overlay.querySelector('#popupSaveBtn').addEventListener('click', function() {
+            const date = document.getElementById('popupExamDate').value;
+            const hours = parseInt(document.getElementById('popupDailyHours').value) || 4;
+            if (!date) { alert('يرجى اختيار تاريخ.'); return; }
+            if (hours < 1 || hours > 12) { alert('عدد الساعات بين 1 و 12.'); return; }
+            
+            localStorage.setItem('zertiva_exam_date', date);
+            localStorage.setItem('zertiva_daily_hours', String(hours));
+            if (!localStorage.getItem('zertiva_selected_skill')) localStorage.setItem('zertiva_selected_skill', 'hoeren1');
+            
+            overlay.classList.remove('active');
+            setTimeout(() => overlay.remove(), 300);
+            // تحديث النص في الملف الشخصي فوراً
+            updateProfilePlannerStatus();
+        });
+
+        // إغلاق عند الضغط خارج البطاقة
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+                setTimeout(() => overlay.remove(), 300);
+            }
+        });
+    }
+    createSettingsPopup();
 });
 
 // تحديث النص عند تحميل الصفحة
