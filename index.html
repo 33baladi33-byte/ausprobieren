@@ -1972,6 +1972,34 @@ if (logoBtn) {
         console.warn('⚠️ لم يتم العثور على زر الشعار');
     }
 
+// 3. إظهار/إخفاء الملف الشخصي حسب الصفحة
+function toggleProfileVisibility() {
+    const profileIcon = document.getElementById('profileIcon');
+    if (!profileIcon) return;
+    const home = document.getElementById('home');
+    const list = document.getElementById('list');
+    const exam = document.getElementById('exam');
+    if (list && list.classList.contains('active')) {
+        profileIcon.style.display = 'flex';
+    } else if (exam && exam.classList.contains('active')) {
+        profileIcon.style.display = 'flex';
+    } else if (home && home.classList.contains('active')) {
+        profileIcon.style.display = 'none';
+    }
+}
+
+// مراقبة تغيير الصفحات لإظهار/إخفاء الملف الشخصي
+const homePage = document.getElementById('home');
+const listPage = document.getElementById('list');
+const examPage = document.getElementById('exam');
+const observer = new MutationObserver(function() {
+    toggleProfileVisibility();
+});
+if (homePage) observer.observe(homePage, { attributes: true, attributeFilter: ['class'] });
+if (listPage) observer.observe(listPage, { attributes: true, attributeFilter: ['class'] });
+if (examPage) observer.observe(examPage, { attributes: true, attributeFilter: ['class'] });
+toggleProfileVisibility();
+
 });
 
     const widgetSliderElem = document.getElementById('widgetSlider');
@@ -2211,20 +2239,26 @@ if (logoBtn) {
         if (e.key === 'ArrowLeft') prevImageModal();
     });
 
-    const startBtn = document.getElementById('startBtn');
-    if(startBtn) {
-        startBtn.addEventListener('click', function() {
+const startBtn = document.getElementById('startBtn');
+if(startBtn) {
+    startBtn.addEventListener('click', function() {
+        // استخدام window.goList بدلاً من goList المباشر
+        if (typeof window.goList === 'function') {
+            window.goList();
+        } else {
+            console.warn('⚠️ window.goList غير متوفر، محاولة استخدام goList');
             if (typeof goList === 'function') {
                 goList();
             }
-            setTimeout(() => {
-                const hoerenTeil1 = document.querySelector('.teile-row .item:first-child');
-                if(hoerenTeil1 && hoerenTeil1.click) {
-                    hoerenTeil1.click();
-                }
-            }, 100);
-        });
-    }
+        }
+        setTimeout(() => {
+            const hoerenTeil1 = document.querySelector('.teile-row .item:first-child');
+            if(hoerenTeil1 && hoerenTeil1.click) {
+                hoerenTeil1.click();
+            }
+        }, 100);
+    });
+}
     
     function fixMobileWidget() {
         const widget = document.getElementById('reviewsWidget');
