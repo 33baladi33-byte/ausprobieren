@@ -5774,7 +5774,6 @@ body:has(#exam.active) #backHomeBtn {
     50% { opacity: 0.5; transform: scale(1.2) rotate(0deg); }
     100% { opacity: 1; transform: scale(1) rotate(0deg); }
 }
-
 @media (max-width: 768px) {
     .subscribe-uiverse-btn {
         padding: 8px 14px;
@@ -5789,5 +5788,73 @@ body:has(#exam.active) #backHomeBtn {
     .subscribe-uiverse-icon {
         width: 18px;
         height: 18px;
+    }
+}
+
+/* ============================================
+   أيقونة Info الخاصة بالخطة اليومية داخل الملف الشخصي
+   ============================================ */
+.planner-info-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #64748b;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.planner-info-icon:hover {
+    color: #38bdf8;
+    transform: scale(1.05);
+}
+.planner-info-icon:active {
+    transform: scale(0.95);
+}
+
+.planner-info-popup {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1f2e;
+    border: 1px solid #2a3042;
+    border-radius: 12px;
+    padding: 12px 16px;
+    min-width: 220px;
+    max-width: 280px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    color: #e2e8f0;
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: center;
+    z-index: 9999;
+    animation: popupFadeIn 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    direction: rtl;
+    pointer-events: none;
+}
+.planner-info-popup::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #1a1f2e transparent transparent transparent;
+}
+
+@keyframes popupFadeIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(6px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* تعديل للهواتف: جعل الـ popup يظهر فوق الأيقونة مباشرة */
+@media (max-width: 768px) {
+    .planner-info-popup {
+        min-width: 160px;
+        max-width: 220px;
+        font-size: 11px;
+        padding: 10px 14px;
+        bottom: calc(100% + 6px);
     }
 }
