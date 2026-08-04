@@ -232,7 +232,9 @@ function updateUI(user, data) {
     const navSubscribeBtn = document.getElementById('navSubscribeBtn');
     const featuresSubscribeBtn = document.getElementById('featuresSubscribeBtn');
     const profileIcon = document.getElementById('profileIcon');
+    const studyPlannerBtn = document.getElementById('studyPlannerBtn');
 
+    // حالة زائر غير مسجل
     // حالة زائر غير مسجل
     if (!user) {
         if (profileEmailText) profileEmailText.textContent = 'غير مسجل';
@@ -243,15 +245,17 @@ function updateUI(user, data) {
         if (navLoginBtn) navLoginBtn.style.display = 'inline-block';
         if (navSubscribeBtn) navSubscribeBtn.style.display = 'inline-flex';
         if (featuresSubscribeBtn) featuresSubscribeBtn.style.display = 'inline-flex';
-        if (profileIcon) profileIcon.style.display = 'none';
+               if (profileIcon) profileIcon.style.display = 'none';
+        if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex';
         
         const oldBtn = document.getElementById('dropdownUpgradeBtn');
         if (oldBtn) oldBtn.remove();
 
         _currentUserStatus = 'free';
         
-        // ✅ ضمان ظهور زر Study Planner (بعد أي كود آخر)
-        setTimeout(ensureStudyPlannerVisible, 10);
+        if (typeof window.toggleSessionButton === 'function') {
+            setTimeout(window.toggleSessionButton, 50);
+        }
         return;
     }
 
@@ -261,6 +265,7 @@ function updateUI(user, data) {
     if (profileLogoutBtn) profileLogoutBtn.style.display = 'block';
     if (navLoginBtn) navLoginBtn.style.display = 'none';
     if (profileIcon) profileIcon.style.display = 'flex';
+    if (studyPlannerBtn) studyPlannerBtn.style.display = 'inline-flex';
 
     const isPremium = data && data.plan === 'premium' && 
                       (!data.premiumUntil || new Date(data.premiumUntil).getTime() > Date.now());
@@ -311,8 +316,9 @@ function updateUI(user, data) {
         }
     }
     
-    // ✅ ضمان ظهور زر Study Planner (بعد أي كود آخر)
-    setTimeout(ensureStudyPlannerVisible, 10);
+    if (typeof window.toggleSessionButton === 'function') {
+        setTimeout(window.toggleSessionButton, 50);
+    }
 }
 // ============================================
 // دوال المصادقة (Login, Signup, Logout, Reset)
@@ -595,14 +601,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-// ✅ دالة مساعدة لضمان ظهور زر Study Planner
-function ensureStudyPlannerVisible() {
-    const btn = document.getElementById('studyPlannerBtn');
-    if (!btn) return;
-    // نضبط display مع !important لتجاوز أي كود آخر
-    btn.style.setProperty('display', 'inline-flex', 'important');
-    btn.style.setProperty('visibility', 'visible', 'important');
-    btn.style.setProperty('opacity', '1', 'important');
-}
 
-console.log('🎉 تم اعتماد البنية النهائية لـ Zertiva بنسبة 100/100.');
+console.log('🎉 تم اعتماد البنية النهائية لـ Zertiva بنسبة 100/100.');  
