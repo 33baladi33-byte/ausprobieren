@@ -662,7 +662,7 @@ body:has(#exam.active) .profile-icon {
     display: flex !important;
 }
 
-/* في الصفحة الرئيسية: إخفاء أيقونة الملف الشخصي وزر Game */
+/* في الصفحة الرئيسية: إخفاء أيقونة الملف الشخصي وزر Study Planner */
 #home .profile-icon {
     display: none !important;
 }
@@ -671,7 +671,7 @@ body:has(#exam.active) .profile-icon {
     display: none !important;
 }
 
-/* في صفحات القائمة والامتحان: إظهار زر Study Planner */
+/* في صفحات القائمة والامتحان: إظهار زر Study Planner (نفس سلوك زر الملف الشخصي) */
 #list .study-planner-icon-btn,
 #exam .study-planner-icon-btn {
     display: inline-flex !important;
