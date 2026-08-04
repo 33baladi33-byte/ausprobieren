@@ -611,4 +611,421 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// ============================================
+// 📄 ميزة تحميل معلوماتي (PDF Report)
+// ============================================
+
+// الحصول على زر التحميل من DOM
+const downloadReportBtn = document.getElementById('downloadReportBtn');
+
+// ====== دوال مساعدة لقراءة البيانات ======
+function getLocalData(key, defaultValue = 'غير متوفر') {
+    try {
+        const val = localStorage.getItem(key);
+        if (val === null || val === undefined) return defaultValue;
+        return val;
+    } catch {
+        return defaultValue;
+    }
+}
+
+function getLocalJSON(key, defaultValue = null) {
+    try {
+        const val = localStorage.getItem(key);
+        if (!val) return defaultValue;
+        return JSON.parse(val);
+    } catch {
+        return defaultValue;
+    }
+}
+
+function getTotalStudyHours() {
+    const minutes = parseInt(localStorage.getItem('total_study_minutes')) || 0;
+    return (minutes / 60).toFixed(1);
+}
+
+function getExamDate() {
+    return getLocalData('zertiva_exam_date', 'غير متوفر');
+}
+
+function getDailyGoal() {
+    const data = getLocalJSON('stats_daily_data', { goal: 120 });
+    const goal = data.goal || 120;
+    const hours = Math.floor(goal / 60);
+    const mins = goal % 60;
+    if (hours > 0) {
+        return hours + (hours === 1 ? ' ساعة' : ' ساعات') + (mins > 0 ? ' ' + mins + ' دقيقة' : '');
+    }
+    return mins + ' دقيقة';
+}
+
+function getStreak() {
+    const data = getLocalJSON('stats_daily_data', {});
+    const goal = data.goal || 120;
+    if (goal <= 0) return 0;
+    let streak = 0;
+    let currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() - 1);
+    for (let i = 0; i < 365; i++) {
+        const dateStr = currentDate.toISOString().split('T')[0];
+        const key = `session_total_${dateStr}`;
+        const minutes = parseInt(localStorage.getItem(key)) || 0;
+        if (minutes >= goal) {
+            streak++;
+        } else {
+            break;
+        }
+        currentDate.setDate(currentDate.getDate() - 1);
+    }
+    return streak;
+}
+
+function getHistory() {
+    const data = getLocalJSON('stats_daily_data', { history: [] });
+    return data.history || [];
+}
+
+function getExamResultsForSkill(skill) {
+    const results = getLocalJSON(`exam_results_${skill}`, {});
+    const retries = getLocalJSON(`exam_retries_${skill}`, {});
+    const lastPlayed = getLocalJSON(`exam_last_played_${skill}`, {});
+    const exams = {};
+    const allIds = new Set([...Object.keys(results), ...Object.keys(retries), ...Object.keys(lastPlayed)]);
+    allIds.forEach(id => {
+        exams[id] = {
+            score: results[id] !== undefined ? results[id] : null,
+            retries: retries[id] || 0,
+            lastPlayed: lastPlayed[id] || null
+        };
+    });
+    return exams;
+}
+
+function getAllExamData() {
+    const skills = ['hoeren1', 'hoeren2', 'hoeren3', 'lesen1', 'lesen2', 'lesen3', 'sprach1', 'sprach2'];
+    const result = {};
+    skills.forEach(skill => {
+        result[skill] = getExamResultsForSkill(skill);
+    });
+    return result;
+}
+
+// ====== جمع بيانات التقرير ======
+function collectUserReportData() {
+    const user = auth.currentUser;
+    if (!user) throw new Error('المستخدم غير مسجل الدخول');
+
+    // بيانات أساسية من Auth
+    const email = user.email || 'غير متوفر';
+    const uid = user.uid || 'غير متوفر';
+    const creationTime = user.metadata?.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString('ar-EG') : 'غير متوفر';
+    
+    // الاسم من Firestore (نحاول قراءته من user data المخزنة)
+    let firstName = 'غير متوفر';
+    let lastName = 'غير متوفر';
+    let plan = 'مجاني';
+    let expiryDate = 'غير متوفر';
+
+    // محاولة قراءة من localStorage أولاً (في حالة وجود بيانات مخزنة)
+    try {
+        const premiumData = getLocalJSON('premium_data', null);
+        if (premiumData) {
+            plan = premiumData.plan || 'مجاني';
+            expiryDate = premiumData.expiryDate || 'غير متوفر';
+        }
+    } catch (e) { /* تجاهل */ }
+
+    // نحاول جلب الاسم من Firestore (باستخدام user.uid)
+    // ولكننا سنقرأها بشكل غير متزامن لاحقاً.
+    // هنا نستخدم البيانات الموجودة في الذاكرة إذا كانت متوفرة.
+    // نستفيد من المتغيرات العامة إذا كانت موجودة.
+    if (window._cachedUserData) {
+        firstName = window._cachedUserData.firstname || 'غير متوفر';
+        lastName = window._cachedUserData.lastname || 'غير متوفر';
+        plan = window._cachedUserData.plan || 'مجاني';
+        expiryDate = window._cachedUserData.premiumUntil || 'غير متوفر';
+    }
+
+    // بيانات الامتحان
+    const examDate = getExamDate();
+    let remainingDays = 'غير متوفر';
+    if (examDate !== 'غير متوفر') {
+        try {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const exam = new Date(examDate);
+            exam.setHours(0, 0, 0, 0);
+            const diff = Math.ceil((exam - today) / (1000 * 60 * 60 * 24));
+            remainingDays = diff > 0 ? diff + ' يوم' : 'انتهى';
+        } catch (e) { /* تجاهل */ }
+    }
+
+    // الإحصائيات
+    const totalHours = getTotalStudyHours();
+    const streak = getStreak();
+    const dailyGoal = getDailyGoal();
+    const history = getHistory().slice(-30);
+
+    // نتائج الامتحانات
+    const examData = getAllExamData();
+
+    return {
+        firstName,
+        lastName,
+        email,
+        uid,
+        creationTime,
+        plan,
+        expiryDate,
+        examDate,
+        remainingDays,
+        totalHours,
+        streak,
+        dailyGoal,
+        history,
+        examData
+    };
+}
+
+// ====== إنشاء الـ PDF ======
+function generateReportPDF(data) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 15;
+    let y = 20;
+
+    // دالة مساعدة للكتابة
+    function writeLine(text, x = margin, yPos, fontSize = 11, style = 'normal', color = '#333333') {
+        doc.setFontSize(fontSize);
+        doc.setTextColor(color);
+        doc.setFont('helvetica', style);
+        doc.text(text, x, yPos);
+    }
+
+    function writeBoldLine(text, x = margin, yPos, fontSize = 11) {
+        writeLine(text, x, yPos, fontSize, 'bold');
+    }
+
+    function writeSectionTitle(title, yPos) {
+        writeBoldLine(title, margin, yPos, 14);
+        const lineY = yPos + 2;
+        doc.setDrawColor(200, 200, 200);
+        doc.line(margin, lineY, pageWidth - margin, lineY);
+        return yPos + 6;
+    }
+
+    function formatDate(dateStr) {
+        if (!dateStr || dateStr === 'غير متوفر') return dateStr;
+        try {
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('ar-EG', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        } catch {
+            return dateStr;
+        }
+    }
+
+    // العنوان الرئيسي
+    doc.setFontSize(18);
+    doc.setTextColor('#1a2a4a');
+    doc.setFont('helvetica', 'bold');
+    doc.text('Zertiva B2 Report', pageWidth / 2, y, { align: 'center' });
+    y += 10;
+
+    // ملخص سريع
+    y = writeSectionTitle('📊 Progress Summary', y);
+    writeLine(`Plan: ${data.plan}`, margin, y);
+    y += 6;
+    writeLine(`Exam Remaining: ${data.remainingDays}`, margin, y);
+    y += 6;
+    writeLine(`Study: ${data.totalHours} hours`, margin, y);
+    y += 6;
+    writeLine(`Current Streak: ${data.streak} days`, margin, y);
+    y += 8;
+
+    // معلومات الحساب
+    y = writeSectionTitle('👤 Account', y);
+    writeLine(`Name: ${data.firstName} ${data.lastName}`, margin, y);
+    y += 6;
+    writeLine(`Email: ${data.email}`, margin, y);
+    y += 6;
+    writeLine(`Plan: ${data.plan}`, margin, y);
+    y += 6;
+    writeLine(`Created: ${data.creationTime}`, margin, y);
+    y += 6;
+    writeLine(`UID: ${data.uid}`, margin, y);
+    y += 8;
+
+    // معلومات الامتحان
+    y = writeSectionTitle('📅 Exam', y);
+    writeLine(`Exam Date: ${data.examDate}`, margin, y);
+    y += 6;
+    writeLine(`Remaining: ${data.remainingDays}`, margin, y);
+    y += 8;
+
+    // إحصائيات الدراسة
+    y = writeSectionTitle('📊 Study', y);
+    writeLine(`Total Hours: ${data.totalHours}`, margin, y);
+    y += 6;
+    writeLine(`Daily Goal: ${data.dailyGoal}`, margin, y);
+    y += 6;
+    writeLine(`Current Streak: ${data.streak} days`, margin, y);
+    y += 8;
+
+    // سجل الأيام (آخر 7 أيام)
+    y = writeSectionTitle('📜 Recent Activity', y);
+    const recentHistory = data.history.slice(-7).reverse();
+    if (recentHistory.length === 0) {
+        writeLine('—', margin, y);
+        y += 6;
+    } else {
+        recentHistory.forEach(entry => {
+            const date = entry.date || 'غير متوفر';
+            const minutes = entry.minutes || 0;
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            let timeStr = '';
+            if (hours > 0) {
+                timeStr = hours + (hours === 1 ? ' ساعة' : ' ساعات');
+                if (mins > 0) timeStr += ' ' + mins + ' دقيقة';
+            } else {
+                timeStr = mins + ' دقيقة';
+            }
+            writeLine(`${date} — ${timeStr}`, margin, y);
+            y += 5;
+        });
+    }
+    y += 4;
+
+    // نتائج الامتحانات
+    y = writeSectionTitle('📈 Exam Progress', y);
+    const skills = [
+        { id: 'hoeren1', label: 'Hören 1' },
+        { id: 'hoeren2', label: 'Hören 2' },
+        { id: 'hoeren3', label: 'Hören 3' },
+        { id: 'lesen1', label: 'Lesen 1' },
+        { id: 'lesen2', label: 'Lesen 2' },
+        { id: 'lesen3', label: 'Lesen 3' },
+        { id: 'sprach1', label: 'Sprachbausteine 1' },
+        { id: 'sprach2', label: 'Sprachbausteine 2' }
+    ];
+
+    skills.forEach(skill => {
+        const exams = data.examData[skill.id] || {};
+        const examIds = Object.keys(exams);
+        if (examIds.length === 0) {
+            writeBoldLine(skill.label, margin, y, 11);
+            y += 5;
+            writeLine('  لم يبدأ بعد', margin, y, 10);
+            y += 6;
+            return;
+        }
+
+        // أفضل نتيجة
+        let bestScore = null;
+        let bestId = null;
+        let totalRetries = 0;
+        let latestDate = null;
+        examIds.forEach(id => {
+            const exam = exams[id];
+            if (exam.score !== null && exam.score !== undefined) {
+                if (bestScore === null || exam.score > bestScore) {
+                    bestScore = exam.score;
+                    bestId = id;
+                }
+            }
+            totalRetries += exam.retries || 0;
+            if (exam.lastPlayed) {
+                const d = new Date(exam.lastPlayed);
+                if (!latestDate || d > new Date(latestDate)) {
+                    latestDate = exam.lastPlayed;
+                }
+            }
+        });
+
+        writeBoldLine(skill.label, margin, y, 11);
+        y += 5;
+        if (bestScore !== null) {
+            writeLine(`  Best Score: ${bestScore} / 25`, margin, y, 10);
+            y += 5;
+        } else {
+            writeLine('  Best Score: —', margin, y, 10);
+            y += 5;
+        }
+        writeLine(`  Total Attempts: ${totalRetries}`, margin, y, 10);
+        y += 5;
+        writeLine(`  Last Played: ${latestDate ? formatDate(latestDate) : '—'}`, margin, y, 10);
+        y += 6;
+    });
+
+    // تذييل
+    const footerY = doc.internal.pageSize.getHeight() - 10;
+    doc.setFontSize(9);
+    doc.setTextColor(150);
+    doc.text(`Generated: ${new Date().toLocaleString('ar-EG')}`, pageWidth / 2, footerY, { align: 'center' });
+
+    return doc;
+}
+
+// ====== دالة التحميل الرئيسية ======
+async function downloadReport() {
+    if (!auth.currentUser) {
+        alert('يرجى تسجيل الدخول أولاً');
+        return;
+    }
+
+    // تفعيل حالة التحميل
+    if (downloadReportBtn) {
+        downloadReportBtn.classList.add('loading');
+        downloadReportBtn.textContent = '⏳ جار إنشاء التقرير...';
+    }
+
+    // استخدام setTimeout لتجنب تجميد الواجهة
+    setTimeout(async () => {
+        try {
+            // جمع البيانات
+            const data = collectUserReportData();
+
+            // إنشاء الـ PDF
+            const doc = generateReportPDF(data);
+
+            // إنشاء اسم الملف
+            const firstName = data.firstName || 'User';
+            const lastName = data.lastName || '';
+            const dateStr = new Date().toISOString().slice(0, 10);
+            const fileName = `Zertiva_B2_Report_${firstName}_${lastName}_${dateStr}.pdf`.replace(/\s+/g, '_');
+
+            // تحميل الملف
+            doc.save(fileName);
+
+        } catch (error) {
+            console.error('❌ خطأ في إنشاء التقرير:', error);
+            alert('حدث خطأ أثناء إنشاء التقرير. يرجى المحاولة مرة أخرى.');
+        } finally {
+            // إعادة الزر إلى حالته الطبيعية
+            if (downloadReportBtn) {
+                downloadReportBtn.classList.remove('loading');
+                downloadReportBtn.textContent = '📄 تحميل معلوماتي';
+            }
+        }
+    }, 50);
+}
+
+// ====== ربط زر التحميل ======
+if (downloadReportBtn) {
+    downloadReportBtn.addEventListener('click', downloadReport);
+    // في حالة عدم وجود مستخدم مسجل، نخفي الزر
+    if (!auth.currentUser) {
+        downloadReportBtn.style.display = 'none';
+    }
+}
+
+// تحديث ظهور الزر عند تغيير حالة المصادقة
+auth.onAuthStateChanged(user => {
+    if (downloadReportBtn) {
+        downloadReportBtn.style.display = user ? 'flex' : 'none';
+    }
+});
+
 console.log('🎉 تم اعتماد البنية النهائية لـ Zertiva بنسبة 100/100.');
