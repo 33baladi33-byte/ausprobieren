@@ -269,6 +269,12 @@ function updateUI(user, data) {
         if (typeof window.toggleSessionButton === 'function') {
             setTimeout(window.toggleSessionButton, 50);
         }
+        
+        // زر تقريري يظهر دائماً حتى بدون تسجيل
+        const reportBtn = document.getElementById('downloadReportBtn');
+        if (reportBtn) {
+            reportBtn.style.display = 'flex';
+        }
         return;
     }
 
@@ -746,49 +752,53 @@ function getAllExamData() {
     return result;
 }
 
-// ====== جمع بيانات التقرير مع مصادر صحيحة ======
 function collectUserReportData() {
     const user = auth.currentUser;
-    if (!user) throw new Error('المستخدم غير مسجل الدخول');
+    const isLoggedIn = !!user;
 
-    // 1. البيانات الأساسية من Auth
-    const email = user.email || 'غير متوفر';
-    const uid = user.uid || 'غير متوفر';
-   const creationTime = user.metadata?.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString('en-GB') : 'غير متوفر';
+    // 1. البيانات الأساسية من Auth (إن وجدت)
+    const email = isLoggedIn ? (user.email || 'غير متوفر') : 'غير متوفر';
+    const uid = isLoggedIn ? (user.uid || 'غير متوفر') : 'غير متوفر';
+    
+    let creationTime = 'غير متوفر';
+    if (isLoggedIn && user.metadata?.creationTime) {
+        try {
+            creationTime = new Date(user.metadata.creationTime).toLocaleDateString('en-GB');
+        } catch (e) { creationTime = 'غير متوفر'; }
+    }
 
-    // 2. الاسم: استخدم displayName إن وجد، وإلا استخدم firstname و lastname من البيانات المخزنة
-    let displayName = user.displayName || '';
+    // 2. الاسم من البيانات المخزنة أو من Auth
+    let fullName = 'غير متوفر';
     let firstName = 'غير متوفر';
     let lastName = 'غير متوفر';
     let plan = 'مجاني';
     let expiryDate = 'غير متوفر';
 
-    if (window._cachedUserData) {
-        firstName = window._cachedUserData.firstname || 'غير متوفر';
-        lastName = window._cachedUserData.lastname || 'غير متوفر';
-        plan = window._cachedUserData.plan === 'premium' ? 'Pro' : 'مجاني';
-        expiryDate = window._cachedUserData.premiumUntil || 'غير متوفر';
-    } else {
-        // محاولة قراءة من localStorage كاحتياطي
-        try {
-            const userData = getLocalJSON('zertiva_user_data', null);
-            if (userData) {
-                firstName = userData.firstname || 'غير متوفر';
-                lastName = userData.lastname || 'غير متوفر';
-                plan = userData.plan === 'premium' ? 'Pro' : 'مجاني';
-                expiryDate = userData.premiumUntil || 'غير متوفر';
-            }
-        } catch (e) { /* تجاهل */ }
+    if (isLoggedIn) {
+        // محاولة الحصول على البيانات من الكاش
+        if (window._cachedUserData) {
+            firstName = window._cachedUserData.firstname || 'غير متوفر';
+            lastName = window._cachedUserData.lastname || 'غير متوفر';
+            plan = window._cachedUserData.plan === 'premium' ? 'Pro' : 'مجاني';
+            expiryDate = window._cachedUserData.premiumUntil || 'غير متوفر';
+        } else {
+            // محاولة القراءة من localStorage كاحتياطي
+            try {
+                const userData = getLocalJSON('zertiva_user_data', null);
+                if (userData) {
+                    firstName = userData.firstname || 'غير متوفر';
+                    lastName = userData.lastname || 'غير متوفر';
+                    plan = userData.plan === 'premium' ? 'Pro' : 'مجاني';
+                    expiryDate = userData.premiumUntil || 'غير متوفر';
+                }
+            } catch (e) { /* تجاهل */ }
+        }
+
+        const displayName = user.displayName || '';
+        fullName = displayName.trim() || (firstName + ' ' + lastName).trim() || 'غير متوفر';
     }
 
-    // إذا كان displayName موجوداً، استخدمه كاسم كامل، وإلا اجمع firstName و lastName
-    let fullName = displayName;
-    if (!fullName || fullName.trim() === '') {
-        fullName = (firstName !== 'غير متوفر' ? firstName : '') + ' ' + (lastName !== 'غير متوفر' ? lastName : '');
-        fullName = fullName.trim() || 'غير متوفر';
-    }
-
-    // 3. بيانات الامتحان والإحصائيات
+    // 3. بيانات الامتحان والإحصائيات (تعتمد فقط على localStorage)
     const examDate = getExamDate();
     let remainingDays = 'غير متوفر';
     if (examDate !== 'غير متوفر') {
@@ -807,7 +817,7 @@ function collectUserReportData() {
     const dailyGoal = getDailyGoal();
     const history = getHistory().slice(-30);
 
-    // 4. نتائج الامتحانات
+    // 4. نتائج الامتحانات (من localStorage)
     const examData = getAllExamData();
 
     return {
@@ -826,45 +836,33 @@ function collectUserReportData() {
         examData: examData
     };
 }
-
-// ====== دالة فتح صفحة التقرير ======
 function openReportPage() {
-    if (!auth.currentUser) {
-        alert('يرجى تسجيل الدخول أولاً');
-        return;
-    }
-
     // تفعيل حالة التحميل على الزر
-    if (downloadReportBtn) {
-        downloadReportBtn.classList.add('loading');
-        downloadReportBtn.textContent = '⏳ جاري التحضير...';
+    const btn = document.getElementById('downloadReportBtn');
+    if (btn) {
+        btn.classList.add('loading');
+        btn.textContent = '⏳ جاري التحضير...';
     }
 
-    // استخدام setTimeout لتجنب تجميد الواجهة
     setTimeout(() => {
         try {
-            // جمع البيانات
+            // جمع البيانات (حتى لو لم يكن هناك مستخدم)
             const data = collectUserReportData();
-
             // حفظ البيانات في localStorage
             localStorage.setItem('zertiva_report_data', JSON.stringify(data));
-
-            // فتح صفحة التقرير في نافذة جديدة
+            // فتح صفحة التقرير
             window.open('report.html', '_blank');
-
         } catch (error) {
             console.error('❌ خطأ في تحضير التقرير:', error);
             alert('حدث خطأ أثناء تحضير التقرير. يرجى المحاولة مرة أخرى.');
         } finally {
-            // إعادة الزر إلى حالته الطبيعية
-            if (downloadReportBtn) {
-                downloadReportBtn.classList.remove('loading');
-                downloadReportBtn.textContent = '📄 تقريري';
+            if (btn) {
+                btn.classList.remove('loading');
+                btn.textContent = '📄 تقريري';
             }
         }
     }, 50);
 }
-
 // ====== ربط زر التحميل ======
 if (downloadReportBtn) {
     // نمنع التكرار
@@ -874,19 +872,11 @@ if (downloadReportBtn) {
     freshBtn.textContent = '📄 تقريري';
     freshBtn.addEventListener('click', openReportPage);
 
-    // في حالة عدم وجود مستخدم مسجل، نخفي الزر
-    if (!auth.currentUser) {
-        freshBtn.style.display = 'none';
-    }
+    // الزر يظهر دائماً (تم إزالة شرط إخفائه)
+    freshBtn.style.display = 'flex';
 }
 
-// تحديث ظهور الزر عند تغيير حالة المصادقة
-auth.onAuthStateChanged(user => {
-    const btn = document.getElementById('downloadReportBtn');
-    if (btn) {
-        btn.style.display = user ? 'flex' : 'none';
-    }
-});
+// تم إزالة مراقبة auth.onAuthStateChanged التي كانت تخفي الزر
 
 // ====== تخزين بيانات المستخدم في ذاكرة مؤقتة ======
 const originalUpdateUI = updateUI;
