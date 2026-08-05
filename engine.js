@@ -5545,4 +5545,3 @@ function addSentencePuzzleIcons(container, questions) {
 // نبحث عن resetBtn.onclick ونضيف الكود التالي:
 
 console.log('✅ تم ربط SentenceReorder مع engine.js (مع دعم Reset)');
-  انضر هنا
