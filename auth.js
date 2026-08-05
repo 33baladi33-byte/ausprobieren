@@ -754,7 +754,7 @@ function collectUserReportData() {
     // 1. البيانات الأساسية من Auth
     const email = user.email || 'غير متوفر';
     const uid = user.uid || 'غير متوفر';
-    const creationTime = user.metadata?.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString('ar-EG') : 'غير متوفر';
+   const creationTime = user.metadata?.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString('en-GB') : 'غير متوفر';
 
     // 2. الاسم: استخدم displayName إن وجد، وإلا استخدم firstname و lastname من البيانات المخزنة
     let displayName = user.displayName || '';
