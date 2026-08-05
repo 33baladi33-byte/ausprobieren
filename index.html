@@ -4904,12 +4904,17 @@ document.addEventListener("DOMContentLoaded", function() {
         if (loading) loading.remove();
     }
 
-    // ============================================
-    // 💬 دالة إرسال الرسالة (المعدلة بالكامل)
-    // ============================================
     async function sendMessage() {
         const text = userInput.value.trim();
         if (!text || isLoading) return;
+
+        // 🔒 0. التحقق من حالة المستخدم (Premium فقط)
+        const userStatus = window.getUserStatusGlobal ? window.getUserStatusGlobal() : 'free';
+        if (userStatus !== 'premium') {
+            // فتح صفحة الاشتراك ومنع الإرسال
+            window.location.href = 'subscribe.html';
+            return;
+        }
 
         // ⏳ 1. التحقق من الحد اليومي (قبل أي شيء)
         const canProceed = await checkAndIncrementUsage();
