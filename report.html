@@ -419,6 +419,34 @@
             color: #94a3b8;
         }
 
+        /* ===== ألوان عدد مرات الإعادة ===== */
+        .retry-red {
+            color: #dc2626;
+            font-weight: 600;
+        }
+        .retry-orange {
+            color: #ea580c;
+            font-weight: 600;
+        }
+        .retry-green {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        /* ===== ألوان "آخر مراجعة" ===== */
+        .review-green {
+            color: #16a34a;
+        }
+        .review-orange {
+            color: #ea580c;
+        }
+        .review-red {
+            color: #dc2626;
+        }
+        .review-gray {
+            color: #94a3b8;
+        }
+
         /* ===== Section Divider (فاصل الأقسام) ===== */
         .exam-section-divider {
             grid-column: 1 / -1;
@@ -729,7 +757,7 @@
         </div>
     </div>
 
-    <!-- ===== EXAMS GRID (مع فواصل الأقسام) ===== -->
+    <!-- ===== EXAMS GRID ===== -->
     <div class="section-card">
         <div class="section-header">
             <span class="material-symbols-outlined">assignment</span>
@@ -816,28 +844,51 @@
         }
 
         // ============================================================
-        //  4.  دالة النص النسبي للتاريخ (مثل "اليوم"، "قبل يومين")
+        //  4.  دالة النص النسبي للتاريخ مع اللون المناسب
         // ============================================================
-        function getRelativeDate(dateStr) {
-            if (!dateStr || dateStr === '—' || dateStr === 'غير متوفر') return '—';
+        function getRelativeDateWithColor(dateStr) {
+            if (!dateStr || dateStr === '—' || dateStr === 'غير متوفر') {
+                return { text: 'ليس بعد', colorClass: 'review-gray' };
+            }
             try {
                 const date = new Date(dateStr);
                 const now = new Date();
-                const diff = Math.floor((now - date) / (1000 * 60 * 60 * 24)); // الفرق بالأيام
+                const diff = Math.floor((now - date) / (1000 * 60 * 60 * 24));
 
-                if (diff === 0) return 'اليوم';
-                if (diff === 1) return 'قبل يوم';
-                if (diff === 2) return 'قبل يومين';
-                if (diff >= 3 && diff <= 10) return `قبل ${diff} أيام`;
-                return `قبل ${diff} يوماً`;
+                let text, colorClass;
+                if (diff === 0) { text = 'اليوم'; colorClass = 'review-green'; }
+                else if (diff === 1) { text = 'قبل يوم'; colorClass = 'review-green'; }
+                else if (diff === 2) { text = 'قبل يومين'; colorClass = 'review-green'; }
+                else if (diff === 3) { text = 'قبل 3 أيام'; colorClass = 'review-green'; }
+                else if (diff >= 4 && diff <= 6) { text = `قبل ${diff} أيام`; colorClass = 'review-orange'; }
+                else if (diff >= 7) { text = `قبل ${diff} يوماً`; colorClass = 'review-red'; }
+                else { text = dateStr; colorClass = 'review-gray'; }
+
+                return { text, colorClass };
+            } catch {
+                return { text: dateStr, colorClass: 'review-gray' };
+            }
+        }
+
+        // ============================================================
+        //  5.  دالة تنسيق التاريخ بالأرقام الغربية
+        // ============================================================
+        function formatDateEn(dateStr) {
+            if (!dateStr || dateStr === '—' || dateStr === 'غير متوفر') return '—';
+            try {
+                const d = new Date(dateStr);
+                return d.toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                });
             } catch {
                 return dateStr;
             }
         }
 
         // ============================================================
-        //  5.  بناء خريطة للامتحانات من ملف exams.js
-        //     (نفترض أن المتغير العمومي `EXAMS` موجود)
+        //  6.  بناء خريطة للامتحانات من ملف exams.js
         // ============================================================
         const examsMap = {};
         if (typeof window.EXAMS !== 'undefined' && Array.isArray(window.EXAMS)) {
@@ -850,21 +901,18 @@
         }
 
         function getExamTitle(skillId, examId) {
-            // محاولة جلب الاسم من الخريطة
             if (examsMap[examId]) {
                 return examId + ': ' + examsMap[examId];
             }
-            // وإلا استخدم الاسم المخزن في localStorage (إن وجد)
             const examData = (d.examData && d.examData[skillId] && d.examData[skillId][examId]) || {};
             if (examData.title && examData.title !== 'امتحان ' + examId) {
                 return examId + ': ' + examData.title;
             }
-            // أخيراً، استخدم "امتحان X" كحل أخير
             return 'امتحان ' + examId;
         }
 
         // ============================================================
-        //  6.  الإحصائيات
+        //  7.  الإحصائيات
         // ============================================================
         document.getElementById('statHours').textContent = clean(d.totalHours);
         document.getElementById('statStreak').textContent = clean(d.streak);
@@ -872,13 +920,14 @@
         document.getElementById('statGoal').textContent = clean(d.dailyGoal);
 
         // ============================================================
-        //  7.  الحساب
+        //  8.  الحساب (مع تنسيق التواريخ)
         // ============================================================
         document.getElementById('accName').textContent = clean(d.fullName);
         document.getElementById('accEmail').textContent = clean(d.email);
-        document.getElementById('accCreated').textContent = clean(d.creationTime);
+        document.getElementById('accCreated').textContent = formatDateEn(d.creationTime);
         document.getElementById('accUid').textContent = clean(d.uid);
-        document.getElementById('accExamDate').textContent = clean(d.examDate);
+        document.getElementById('accExamDate').textContent = formatDateEn(d.examDate);
+
         const badge = document.getElementById('accountBadge');
         if (d.plan === 'Pro' || d.plan === 'premium') {
             badge.textContent = '⭐ Pro';
@@ -891,7 +940,7 @@
         }
 
         // ============================================================
-        //  8.  المهارات (لم تتغير)
+        //  9.  المهارات (مع تنسيق التواريخ)
         // ============================================================
         const skills = [
             { id: 'hoeren1', label: 'Hören 1' },
@@ -952,6 +1001,7 @@
 
             const progress = bestScore !== null ? Math.round((bestScore / 25) * 100) : 0;
             const scoreDisplay = bestScore !== null ? bestScore + ' / 25' : '—';
+            const latestRelative = latestDate ? getRelativeDateWithColor(latestDate) : { text: '—', colorClass: 'review-gray' };
 
             skillsGrid.innerHTML += `
                 <div class="skill-card">
@@ -962,7 +1012,7 @@
                     <div class="skill-progress"><div class="fill" style="width:${progress}%;"></div></div>
                     <div class="skill-meta">
                         <span><span class="material-symbols-outlined">repeat</span> ${totalRetries}</span>
-                        <span>${latestDate ? getRelativeDate(latestDate) : '—'}</span>
+                        <span class="${latestRelative.colorClass}">${latestRelative.text}</span>
                     </div>
                 </div>
             `;
@@ -971,12 +1021,11 @@
         document.getElementById('examCount').textContent = totalExams + ' امتحان';
 
         // ============================================================
-        //  9.  شبكة الامتحانات مع الترتيب والفصول
+        //  10. شبكة الامتحانات مع الترتيب والفصول
         // ============================================================
         const examsGrid = document.getElementById('examsGrid');
         const allExams = [];
 
-        // تجميع كل الامتحانات مع بياناتها
         skills.forEach(skill => {
             const exams = examData[skill.id] || {};
             const examIds = Object.keys(exams);
@@ -993,13 +1042,11 @@
             });
         });
 
-        // ترتيب الامتحانات حسب القسم (حسب ترتيب skills أعلاه) وداخل كل قسم حسب id
         const skillOrder = skills.map(s => s.id);
         allExams.sort((a, b) => {
             const idxA = skillOrder.indexOf(a.skillId);
             const idxB = skillOrder.indexOf(b.skillId);
             if (idxA !== idxB) return idxA - idxB;
-            // نفس القسم → ترتيب تصاعدي حسب id
             return parseInt(a.examId) - parseInt(b.examId);
         });
 
@@ -1012,7 +1059,6 @@
             let html = '';
 
             allExams.forEach(exam => {
-                // إذا تغير القسم → أضف فاصل
                 if (exam.skillId !== currentSkillId) {
                     currentSkillId = exam.skillId;
                     const skillLabel = skills.find(s => s.id === currentSkillId)?.label || currentSkillId;
@@ -1028,9 +1074,16 @@
                                    (exam.score >= 20 ? 'score-good' :
                                    (exam.score >= 15 ? 'score-medium' : 'score-low'));
                 const scoreDisplay = (exam.score !== null && exam.score !== undefined) ? exam.score + ' / 25' : '—';
-                const relativeDate = getRelativeDate(exam.lastPlayed);
 
-                // الحصول على العنوان الحقيقي للامتحان (مع الرقم)
+                // لون "آخر مراجعة"
+                const review = exam.lastPlayed ? getRelativeDateWithColor(exam.lastPlayed) : { text: 'ليس بعد', colorClass: 'review-gray' };
+
+                // لون عدد مرات الإعادة
+                let retryClass = 'retry-green';
+                if (exam.retries <= 3) retryClass = 'retry-red';
+                else if (exam.retries <= 7) retryClass = 'retry-orange';
+                // else أخضر
+
                 const title = getExamTitle(exam.skillId, exam.examId);
 
                 html += `
@@ -1043,11 +1096,11 @@
                             <span class="exam-score ${scoreClass}">${scoreDisplay}</span>
                             <span style="font-size:0.75rem; color:#94a3b8;">
                                 <span class="material-symbols-outlined" style="font-size:16px; vertical-align:middle;">repeat</span>
-                                ${exam.retries}
+                                <span class="${retryClass}">${exam.retries}</span>
                             </span>
                         </div>
                         <div class="exam-meta">
-                            <span>آخر مراجعة: ${relativeDate}</span>
+                            <span>آخر مراجعة: <span class="${review.colorClass}">${review.text}</span></span>
                         </div>
                     </div>
                 `;
@@ -1057,7 +1110,7 @@
         }
 
         // ============================================================
-        //  10. النشاط الأخير (لم يتغير)
+        //  11. النشاط الأخير (مع تنسيق التواريخ)
         // ============================================================
         const timelineContainer = document.getElementById('timelineContainer');
         const history = d.history || [];
@@ -1069,7 +1122,7 @@
         } else {
             const recent = history.slice(-7).reverse();
             recent.forEach(entry => {
-                const date = clean(entry.date);
+                const date = formatDateEn(entry.date);
                 const minutes = entry.minutes || 0;
                 const hours = Math.floor(minutes / 60);
                 const mins = minutes % 60;
@@ -1091,7 +1144,7 @@
             });
         }
 
-        console.log('✅ تقرير Zertiva B2 تم تحديثه بنجاح (أسماء حقيقية + تواريخ نسبية + ترتيب ثابت)');
+        console.log('✅ تقرير Zertiva B2 محدث (تواريخ إنجليزية + ألوان للمراجعة والإعادة)');
     })();
 </script>
 
