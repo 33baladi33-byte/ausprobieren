@@ -12,6 +12,7 @@
     let totalSeconds = 0;
     let isPaused = false;
     let pausedMinutes = 0; // الوقت المنقضي عند الإيقاف المؤقت
+    let lastSavedMinute = 0; // آخر دقيقة مكتملة تم حفظها
     
     // ====== الثوابت الخاصة بالإحصائيات ======
     const STATS_KEY = 'stats_daily_data';
@@ -329,6 +330,25 @@
         updateStreakIfGoalMet();
     }
     window.updateStatsAfterStudy = updateStatsAfterStudy;
+
+    // ====== حفظ الدقائق المكتملة تدريجياً أثناء الجلسة ======
+    function saveElapsedMinutes() {
+        if (!activeSession || isPaused) return;
+        const elapsedSeconds = totalSeconds - remainingSeconds;
+        const elapsedMinutes = Math.floor(elapsedSeconds / 60);
+        // حفظ كل دقيقة جديدة (أكبر من آخر دقيقة محفوظة)
+        const newMinutes = elapsedMinutes - lastSavedMinute;
+        if (newMinutes > 0) {
+            // إضافة الدقائق الجديدة إلى اليوم والمجموع الكلي
+            addTodayReviewedMinutes(newMinutes);
+            addTotalStudyMinutes(newMinutes);
+            updateStatsAfterStudy(newMinutes);
+            // تحديث lastSavedMinute
+            lastSavedMinute = elapsedMinutes;
+            // تحديث الواجهة إذا كانت النافذة مفتوحة
+            refreshAll();
+        }
+    }
     
     // ====== إدارة مجموع ساعات الدراسة (الكلي) ======
     function getTotalStudyMinutes() {
@@ -651,6 +671,9 @@
             activeSession = true;
             isPaused = false;
             pausedMinutes = 0;
+            // حساب الدقائق المنقضية بالفعل لضبط lastSavedMinute
+            const elapsedSeconds = totalSeconds - remainingSeconds;
+            lastSavedMinute = Math.floor(elapsedSeconds / 60);
             clearPauseState();
             closeModal();
             updateTimerDisplay();
@@ -668,6 +691,8 @@
                 } else {
                     remainingSeconds--;
                     updateTimerDisplay();
+                    // حفظ الدقائق المكتملة كل ثانية
+                    saveElapsedMinutes();
                 }
             }, 1000);
             showMessage('▶️ استئناف الجلسة');
@@ -680,6 +705,7 @@
         activeSession = true;
         isPaused = false;
         pausedMinutes = 0;
+        lastSavedMinute = 0; // إعادة ضبط
         closeModal();
         updateTimerDisplay();
         
@@ -698,6 +724,8 @@
             } else {
                 remainingSeconds--;
                 updateTimerDisplay();
+                // حفظ الدقائق المكتملة كل ثانية
+                saveElapsedMinutes();
             }
         }, 1000);
     }
@@ -706,16 +734,12 @@
     function pauseSession() {
         if (!activeSession || isPaused) return;
         
-        // حساب الوقت المنقضي
-        const elapsedSeconds = totalSeconds - remainingSeconds;
-        const minutesSpent = Math.floor(elapsedSeconds / 60);
+        // حفظ أي دقائق متبقية قبل الإيقاف
+        saveElapsedMinutes();
         
-        if (minutesSpent > 0) {
-            // إضافة الوقت المنقضي إلى اليوم والمجموع الكلي
-            addTodayReviewedMinutes(minutesSpent);
-            addTotalStudyMinutes(minutesSpent);
-            updateStatsAfterStudy(minutesSpent);
-        }
+        // نضبط lastSavedMinute على إجمالي الدقائق المنقضية لمنع التكرار
+        const elapsedSeconds = totalSeconds - remainingSeconds;
+        lastSavedMinute = Math.floor(elapsedSeconds / 60);
         
         // حفظ حالة الإيقاف المؤقت
         savePauseState({
@@ -761,6 +785,8 @@
             } else {
                 remainingSeconds--;
                 updateTimerDisplay();
+                // حفظ الدقائق المكتملة كل ثانية
+                saveElapsedMinutes();
             }
         }, 1000);
         showMessage('▶️ استئناف الجلسة');
@@ -779,14 +805,11 @@
     function endSession() {
         if (sessionTimer) clearInterval(sessionTimer);
         
-        const elapsedSeconds = totalSeconds - remainingSeconds;
-        const minutesSpent = Math.floor(elapsedSeconds / 60);
+        // حفظ أي دقائق متبقية
+        saveElapsedMinutes();
         
-        if (minutesSpent > 0) {
-            addTodayReviewedMinutes(minutesSpent);
-            addTotalStudyMinutes(minutesSpent);
-            updateStatsAfterStudy(minutesSpent);
-        }
+        // إعادة تعيين lastSavedMinute
+        lastSavedMinute = 0;
         
         playEndSound();
         activeSession = false;
@@ -810,14 +833,11 @@
     function cancelSession() {
         if (sessionTimer) clearInterval(sessionTimer);
         
-        const elapsedSeconds = totalSeconds - remainingSeconds;
-        const minutesSpent = Math.floor(elapsedSeconds / 60);
+        // حفظ أي دقائق متبقية
+        saveElapsedMinutes();
         
-        if (minutesSpent > 0) {
-            addTodayReviewedMinutes(minutesSpent);
-            addTotalStudyMinutes(minutesSpent);
-            updateStatsAfterStudy(minutesSpent);
-        }
+        // إعادة تعيين lastSavedMinute
+        lastSavedMinute = 0;
         
         activeSession = false;
         isPaused = false;
@@ -986,4 +1006,4 @@
     }
     
     init();
-})();          
+})();
