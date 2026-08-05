@@ -2157,9 +2157,7 @@ window.updateAskAIContext(skill, examId);
     document.getElementById("exam").classList.add("active");
     document.getElementById("examTitle").innerHTML = currentExamData.title;
     
-    // ✅ إظهار زر الرئيسية عند فتح الامتحان
-    const homeBtn = document.getElementById('backHomeBtn');
-    if (homeBtn) homeBtn.style.display = 'inline-block';
+     // تم إزالة زر الرئيسية من صفحة الامتحان
         // ✅ إضافة عداد الإعادات
  // ✅ إضافة عداد الإعادات فقط في المهارات المسموحة
 const forbiddenSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
