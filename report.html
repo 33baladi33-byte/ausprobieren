@@ -24,7 +24,6 @@
             direction: rtl;
         }
 
-        /* ===== Container ===== */
         .report-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -137,7 +136,7 @@
             transform: translateY(-2px);
         }
 
-        /* ===== Grid Layout ===== */
+        /* ===== Grid Layout for Stats ===== */
         .report-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -182,30 +181,6 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-top: 2px;
-        }
-
-        .stat-card .stat-trend {
-            font-size: 0.65rem;
-            font-weight: 600;
-            margin-top: 4px;
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 20px;
-        }
-
-        .stat-trend.good {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .stat-trend.medium {
-            background: #fef9e7;
-            color: #92400e;
-        }
-
-        .stat-trend.bad {
-            background: #fee2e2;
-            color: #991b1b;
         }
 
         /* ===== Section Cards ===== */
@@ -287,7 +262,7 @@
             word-break: break-all;
         }
 
-        /* ===== Progress Cards for Skills ===== */
+        /* ===== Skills Grid ===== */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -362,93 +337,81 @@
             color: #94a3b8;
         }
 
-        /* ===== Table ===== */
-        .table-wrapper {
-            overflow-x: auto;
+        /* ===== Exams Grid (NEW) ===== */
+        .exams-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .exam-card {
+            background: #f8fafc;
             border-radius: 14px;
+            padding: 14px 16px;
             border: 1px solid #eef2f6;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .report-table {
-            width: 100%;
-            border-collapse: collapse;
+        .exam-card:hover {
+            background: #f1f4f8;
+            border-color: #dce2ec;
+        }
+
+        .exam-card .exam-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 0.8rem;
-            min-width: 500px;
         }
 
-        .report-table th {
-            background: #f8fafc;
-            color: #475569;
+        .exam-card .exam-skill {
             font-weight: 600;
-            padding: 10px 14px;
-            text-align: right;
-            border-bottom: 2px solid #e2e8f0;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-        }
-
-        .report-table td {
-            padding: 8px 14px;
-            border-bottom: 1px solid #eef2f6;
             color: #1a1a2e;
-            transition: background 0.2s ease;
+            font-size: 0.85rem;
         }
 
-        .report-table tr:hover td {
-            background: #f8fafc;
+        .exam-card .exam-title {
+            color: #475569;
+            font-weight: 400;
         }
 
-        .report-table tr:last-child td {
-            border-bottom: none;
+        .exam-card .exam-score {
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .exam-card .exam-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 2px;
+        }
+
+        .exam-card .exam-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .exam-card .exam-meta .material-symbols-outlined {
+            font-size: 16px;
+            color: #94a3b8;
         }
 
         .score-good {
             color: #16a34a;
-            font-weight: 600;
         }
-
         .score-medium {
             color: #ca8a04;
-            font-weight: 600;
         }
-
         .score-low {
             color: #dc2626;
-            font-weight: 600;
         }
-
         .score-none {
-            color: #94a3b8;
-        }
-
-        .status-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            font-weight: 600;
-        }
-
-        .status-chip.good {
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .status-chip.medium {
-            background: #fef9e7;
-            color: #92400e;
-        }
-
-        .status-chip.low {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .status-chip.none {
-            background: #f1f4f8;
             color: #94a3b8;
         }
 
@@ -556,11 +519,11 @@
             .stat-card:hover {
                 transform: none !important;
             }
-            .skill-card:hover {
+            .exam-card:hover {
                 background: #f8fafc !important;
             }
-            .report-table tr:hover td {
-                background: transparent !important;
+            .skill-card:hover {
+                background: #f8fafc !important;
             }
             .timeline-item:hover {
                 background: #f8fafc !important;
@@ -613,13 +576,12 @@
             .skills-grid {
                 grid-template-columns: 1fr 1fr;
             }
-            .report-table {
-                font-size: 0.7rem;
-                min-width: 360px;
+            .exams-grid {
+                grid-template-columns: 1fr;  /* عمود واحد على الهاتف */
+                gap: 10px;
             }
-            .report-table th,
-            .report-table td {
-                padding: 6px 10px;
+            .exam-card {
+                padding: 12px 14px;
             }
             .timeline-item {
                 padding: 6px 10px;
@@ -744,28 +706,15 @@
         </div>
     </div>
 
-    <!-- ===== EXAMS TABLE ===== -->
+    <!-- ===== EXAMS GRID (NEW) ===== -->
     <div class="section-card">
         <div class="section-header">
             <span class="material-symbols-outlined">assignment</span>
             <h3>نتائج الامتحانات</h3>
             <span class="badge" id="examCount">0 امتحان</span>
         </div>
-        <div class="table-wrapper">
-            <table class="report-table">
-                <thead>
-                    <tr>
-                        <th>القسم</th>
-                        <th>الامتحان</th>
-                        <th>النتيجة</th>
-                        <th>الإعادة</th>
-                        <th>آخر لعب</th>
-                    </tr>
-                </thead>
-                <tbody id="examTableBody">
-                    <!-- سيتم تعبئتها بواسطة JS -->
-                </tbody>
-            </table>
+        <div class="exams-grid" id="examsGrid">
+            <!-- سيتم تعبئتها بواسطة JS -->
         </div>
     </div>
 
@@ -799,9 +748,9 @@
     // ============================================
 
     (function() {
-        // عرض التاريخ
+        // عرض التاريخ (بالأرقام الغربية)
         const now = new Date();
-        const dateStr = now.toLocaleDateString('ar-EG', {
+        const dateStr = now.toLocaleDateString('en-GB', {
             year: 'numeric',
             month: '2-digit',
             day: '2-digit'
@@ -843,11 +792,16 @@
             return val;
         }
 
+        // تنسيق التاريخ بالأرقام الغربية (بدون أرقام عربية)
         function formatDate(dateStr) {
             if (!dateStr || dateStr === '—' || dateStr === 'غير متوفر') return '—';
             try {
                 const d = new Date(dateStr);
-                return d.toLocaleDateString('ar-EG', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                return d.toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit'
+                });
             } catch {
                 return dateStr;
             }
@@ -862,14 +816,8 @@
 
         function getScoreDisplay(score) {
             if (score === null || score === undefined) return '—';
+            // تأكد من أنها أرقام غربية (هي كذلك بالفعل)
             return score + ' / 25';
-        }
-
-        function getStatusChip(score) {
-            if (score === null || score === undefined) return `<span class="status-chip none">—</span>`;
-            if (score >= 20) return `<span class="status-chip good">ممتاز</span>`;
-            if (score >= 15) return `<span class="status-chip medium">جيد</span>`;
-            return `<span class="status-chip low">يحتاج مراجعة</span>`;
         }
 
         // ====== 1. الإحصائيات ======
@@ -973,8 +921,8 @@
 
         document.getElementById('examCount').textContent = totalExams + ' امتحان';
 
-        // ====== 4. جدول الامتحانات ======
-        const tableBody = document.getElementById('examTableBody');
+        // ====== 4. شبكة الامتحانات (NEW) ======
+        const examsGrid = document.getElementById('examsGrid');
         const allExams = [];
 
         skills.forEach(skill => {
@@ -1002,26 +950,32 @@
         });
 
         if (allExams.length === 0) {
-            tableBody.innerHTML = `
-                <tr>
-                    <td colspan="5" style="text-align:center; color:#94a3b8; padding:20px;">لا توجد نتائج محفوظة</td>
-                </tr>
+            examsGrid.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; color:#94a3b8; padding:20px;">لا توجد نتائج محفوظة</div>
             `;
         } else {
             allExams.forEach(exam => {
                 const scoreClass = getScoreClass(exam.score);
                 const scoreDisplay = getScoreDisplay(exam.score);
-                const statusChip = getStatusChip(exam.score);
                 const lastPlayed = exam.lastPlayed ? formatDate(exam.lastPlayed) : '—';
 
-                tableBody.innerHTML += `
-                    <tr>
-                        <td><strong>${exam.skill}</strong></td>
-                        <td>${exam.title}</td>
-                        <td class="${scoreClass}">${scoreDisplay}</td>
-                        <td>${exam.retries}</td>
-                        <td>${lastPlayed}</td>
-                    </tr>
+                examsGrid.innerHTML += `
+                    <div class="exam-card">
+                        <div class="exam-row">
+                            <span class="exam-skill">${exam.skill}</span>
+                            <span class="exam-title">${exam.title}</span>
+                        </div>
+                        <div class="exam-row">
+                            <span class="exam-score ${scoreClass}">${scoreDisplay}</span>
+                            <span style="font-size:0.75rem; color:#94a3b8;">
+                                <span class="material-symbols-outlined" style="font-size:16px; vertical-align:middle;">repeat</span>
+                                ${exam.retries}
+                            </span>
+                        </div>
+                        <div class="exam-meta">
+                            <span>آخر لعب: ${lastPlayed}</span>
+                        </div>
+                    </div>
                 `;
             });
         }
@@ -1059,10 +1013,7 @@
             });
         }
 
-        // ====== إزالة البيانات من localStorage بعد العرض (اختياري) ======
-        // localStorage.removeItem('zertiva_report_data');
-
-        console.log('✅ تقرير Zertiva B2 تم تحميله بنجاح');
+        console.log('✅ تقرير Zertiva B2 تم تحميله بنجاح (شبكة 2 أعمدة)');
     })();
 </script>
 
