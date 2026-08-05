@@ -870,21 +870,36 @@
             }
         }
 
-        // ============================================================
-        //  5.  دالة تنسيق التاريخ بالأرقام الغربية
+         // ============================================================
+        //  5.  دالة تنسيق التاريخ بالأرقام الغربية (مُحسَّنة)
         // ============================================================
         function formatDateEn(dateStr) {
             if (!dateStr || dateStr === '—' || dateStr === 'غير متوفر') return '—';
-            try {
-                const d = new Date(dateStr);
-                return d.toLocaleDateString('en-GB', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit'
-                });
-            } catch {
+
+            let date = new Date(dateStr);
+
+            // إذا كان التاريخ غير صالح، حاول التحويل من رقم (مثل ميلي ثانية)
+            if (isNaN(date.getTime()) && !isNaN(Number(dateStr))) {
+                date = new Date(Number(dateStr));
+            }
+
+            // محاولة إضافية باستخدام Date.parse
+            if (isNaN(date.getTime())) {
+                const parsed = Date.parse(dateStr);
+                if (!isNaN(parsed)) {
+                    date = new Date(parsed);
+                }
+            }
+
+            // إذا ما زال غير صالح، نعيد النص الأصلي (لن يحدث مع بيانات Firebase الصحيحة)
+            if (isNaN(date.getTime())) {
                 return dateStr;
             }
+
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
         }
 
         // ============================================================
