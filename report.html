@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تقرير Zertiva B2</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
-        /* ============================================
-           أنماط صفحة التقرير
-           ============================================ */
+        /* ===== Reset & Base ===== */
         * {
             margin: 0;
             padding: 0;
@@ -17,57 +16,90 @@
         }
 
         body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Cairo', sans-serif;
-            background: #f1f4f8;
-            color: #1e293b;
-            padding: 30px 20px;
+            font-family: 'Cairo', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f5f7fa;
+            color: #1a1a2e;
+            padding: 32px 24px;
             min-height: 100vh;
+            direction: rtl;
         }
 
+        /* ===== Container ===== */
         .report-container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: #ffffff;
-            border-radius: 28px;
-            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
-            padding: 40px 45px 35px;
-            border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
-        /* ===== رأس التقرير ===== */
-        .report-header {
+        /* ===== Hero ===== */
+        .report-hero {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 18px;
-            border-bottom: 1px solid #eef2f6;
+            padding: 24px 32px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.04);
             margin-bottom: 28px;
             flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .report-hero-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .report-hero-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #1a2a4a, #2c3e66);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .report-hero-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            letter-spacing: -0.3px;
+        }
+
+        .report-hero-title span {
+            color: #2c3e66;
+        }
+
+        .report-hero-sub {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        .report-hero-right {
+            display: flex;
+            align-items: center;
             gap: 12px;
         }
 
-        .report-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .report-logo img {
-            height: 44px;
-            width: auto;
-        }
-
-        .report-logo-text {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #1a2a4a;
-            letter-spacing: -0.3px;
+        .report-hero-date {
+            font-size: 0.8rem;
+            color: #64748b;
+            background: #f1f4f8;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 500;
         }
 
         .report-actions {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
         .report-actions button {
@@ -77,7 +109,7 @@
             padding: 10px 22px;
             border: none;
             border-radius: 40px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.25s ease;
@@ -85,14 +117,14 @@
         }
 
         .btn-print {
-            background: #2c3e66;
+            background: #1a2a4a;
             color: white;
         }
 
         .btn-print:hover {
-            background: #1a2a4a;
+            background: #2c3e66;
             transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(44, 62, 102, 0.25);
+            box-shadow: 0 8px 24px rgba(26, 42, 74, 0.2);
         }
 
         .btn-close {
@@ -105,101 +137,235 @@
             transform: translateY(-2px);
         }
 
-        /* ===== أقسام التقرير ===== */
-        .report-section {
-            margin-bottom: 32px;
+        /* ===== Grid Layout ===== */
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
         }
 
-        .report-section-title {
-            font-size: 1rem;
+        /* ===== Cards ===== */
+        .stat-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 18px 20px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 20px;
+            color: #2c3e66;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .stat-card .stat-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .stat-card .stat-trend {
+            font-size: 0.65rem;
             font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 14px;
-            padding-right: 12px;
-            border-right: 3px solid #38bdf8;
+            margin-top: 4px;
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        .stat-trend.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .stat-trend.medium {
+            background: #fef9e7;
+            color: #92400e;
+        }
+
+        .stat-trend.bad {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* ===== Section Cards ===== */
+        .section-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 28px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .section-card:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f1f4f8;
         }
 
-        .report-section-title .material-symbols-outlined {
-            font-size: 20px;
-            color: #38bdf8;
+        .section-header .material-symbols-outlined {
+            font-size: 22px;
+            color: #2c3e66;
         }
 
-        .report-grid {
+        .section-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            letter-spacing: -0.2px;
+        }
+
+        .section-header .badge {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: #94a3b8;
+            background: #f1f4f8;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin-right: auto;
+        }
+
+        /* ===== Account Info ===== */
+        .account-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .account-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .account-item .label {
+            font-size: 0.65rem;
+            color: #94a3b8;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .account-item .value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1a1a2e;
+        }
+
+        .account-item .value.mono {
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-size: 0.75rem;
+            word-break: break-all;
+        }
+
+        /* ===== Progress Cards for Skills ===== */
+        .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 12px;
         }
 
-        .report-card {
+        .skill-card {
             background: #f8fafc;
             border-radius: 14px;
-            padding: 14px 18px;
+            padding: 14px 16px;
             border: 1px solid #eef2f6;
             transition: all 0.2s ease;
         }
 
-        .report-card:hover {
+        .skill-card:hover {
             background: #f1f4f8;
             border-color: #dce2ec;
         }
 
-        .report-card .label {
-            font-size: 0.7rem;
-            color: #94a3b8;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            display: block;
-            margin-bottom: 2px;
+        .skill-card .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
         }
 
-        .report-card .value {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #1e293b;
-        }
-
-        .report-card .value.small {
+        .skill-card .skill-name {
             font-size: 0.85rem;
+            font-weight: 600;
+            color: #1a1a2e;
         }
 
-        /* ===== Progress Bars ===== */
-        .progress-bar-wrapper {
-            margin-top: 4px;
+        .skill-card .skill-score {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #2c3e66;
         }
 
-        .progress-bar-track {
+        .skill-card .skill-progress {
             width: 100%;
-            height: 6px;
+            height: 4px;
             background: #e9edf4;
             border-radius: 10px;
             overflow: hidden;
-            border: 1px solid #e2e8f0;
+            margin: 6px 0 4px 0;
         }
 
-        .progress-bar-fill {
+        .skill-card .skill-progress .fill {
             height: 100%;
             border-radius: 10px;
-            background: linear-gradient(90deg, #38bdf8, #0ea5e9);
-            transition: width 0.6s ease;
+            background: linear-gradient(90deg, #2c3e66, #38bdf8);
+            transition: width 0.8s ease;
             width: 0%;
         }
 
-        .progress-label {
+        .skill-card .skill-meta {
             display: flex;
             justify-content: space-between;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #94a3b8;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
-        /* ===== الجداول ===== */
-        .report-table-wrapper {
+        .skill-card .skill-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .skill-card .skill-meta .material-symbols-outlined {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        /* ===== Table ===== */
+        .table-wrapper {
             overflow-x: auto;
-            border-radius: 12px;
+            border-radius: 14px;
             border: 1px solid #eef2f6;
         }
 
@@ -211,10 +377,10 @@
         }
 
         .report-table th {
-            background: #f1f4f8;
+            background: #f8fafc;
             color: #475569;
             font-weight: 600;
-            padding: 10px 12px;
+            padding: 10px 14px;
             text-align: right;
             border-bottom: 2px solid #e2e8f0;
             font-size: 0.7rem;
@@ -223,56 +389,120 @@
         }
 
         .report-table td {
-            padding: 8px 12px;
+            padding: 8px 14px;
             border-bottom: 1px solid #eef2f6;
-            color: #1e293b;
+            color: #1a1a2e;
+            transition: background 0.2s ease;
+        }
+
+        .report-table tr:hover td {
+            background: #f8fafc;
         }
 
         .report-table tr:last-child td {
             border-bottom: none;
         }
 
-        .report-table .score-good {
-            color: #22c55e;
+        .score-good {
+            color: #16a34a;
             font-weight: 600;
         }
 
-        .report-table .score-medium {
-            color: #eab308;
+        .score-medium {
+            color: #ca8a04;
             font-weight: 600;
         }
 
-        .report-table .score-low {
-            color: #ef4444;
+        .score-low {
+            color: #dc2626;
             font-weight: 600;
         }
 
-        .report-table .score-none {
+        .score-none {
             color: #94a3b8;
         }
 
-        /* ===== Streak Badge ===== */
-        .streak-badge {
+        .status-chip {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: #fef9e7;
-            color: #b45309;
-            padding: 4px 12px;
-            border-radius: 40px;
+            gap: 4px;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.65rem;
             font-weight: 600;
+        }
+
+        .status-chip.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-chip.medium {
+            background: #fef9e7;
+            color: #92400e;
+        }
+
+        .status-chip.low {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-chip.none {
+            background: #f1f4f8;
+            color: #94a3b8;
+        }
+
+        /* ===== Timeline ===== */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: #f8fafc;
+            transition: background 0.2s ease;
+        }
+
+        .timeline-item:hover {
+            background: #f1f4f8;
+        }
+
+        .timeline-item .timeline-date {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            font-weight: 500;
+            min-width: 80px;
+        }
+
+        .timeline-item .timeline-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #2c3e66;
+            flex-shrink: 0;
+        }
+
+        .timeline-item .timeline-content {
+            flex: 1;
             font-size: 0.8rem;
-            border: 1px solid #fde68a;
+            color: #1a1a2e;
         }
 
-        .streak-badge .fire {
-            font-size: 1rem;
+        .timeline-item .timeline-value {
+            font-weight: 600;
+            color: #2c3e66;
         }
 
-        /* ===== تذييل ===== */
+        /* ===== Footer ===== */
         .report-footer {
-            margin-top: 30px;
-            padding-top: 18px;
+            margin-top: 28px;
+            padding-top: 16px;
             border-top: 1px solid #eef2f6;
             display: flex;
             justify-content: space-between;
@@ -284,69 +514,104 @@
         }
 
         .report-footer a {
-            color: #38bdf8;
+            color: #2c3e66;
             text-decoration: none;
         }
 
-        /* ===== وضع الطباعة ===== */
+        .report-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== Print ===== */
         @media print {
             body {
                 background: white;
-                padding: 15px;
+                padding: 16px;
             }
-            .report-container {
+            .report-hero {
                 box-shadow: none;
-                border: none;
-                padding: 20px 25px;
-                border-radius: 0;
+                border: 1px solid #eef2f6;
+            }
+            .stat-card {
+                box-shadow: none;
+                border: 1px solid #eef2f6;
+            }
+            .section-card {
+                box-shadow: none;
+                border: 1px solid #eef2f6;
+                break-inside: avoid;
             }
             .report-actions {
                 display: none !important;
             }
-            .report-card {
-                break-inside: avoid;
-            }
-            .report-table-wrapper {
-                break-inside: auto;
-            }
             .report-footer {
                 position: fixed;
-                bottom: 15px;
+                bottom: 12px;
                 left: 0;
                 right: 0;
-                padding: 10px 25px;
+                padding: 8px 24px;
                 background: white;
                 border-top: 1px solid #eef2f6;
             }
+            .stat-card:hover {
+                transform: none !important;
+            }
+            .skill-card:hover {
+                background: #f8fafc !important;
+            }
+            .report-table tr:hover td {
+                background: transparent !important;
+            }
+            .timeline-item:hover {
+                background: #f8fafc !important;
+            }
         }
 
-        /* ===== الهواتف ===== */
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .report-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             body {
-                padding: 12px 8px;
+                padding: 16px 12px;
             }
-            .report-container {
-                padding: 18px 14px;
-                border-radius: 20px;
-            }
-            .report-header {
+            .report-hero {
+                padding: 16px 18px;
                 flex-direction: column;
                 align-items: flex-start;
             }
+            .report-hero-right {
+                width: 100%;
+                flex-wrap: wrap;
+            }
             .report-actions {
                 width: 100%;
-                flex-direction: column;
             }
             .report-actions button {
-                width: 100%;
+                flex: 1;
                 justify-content: center;
             }
             .report-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 8px;
+                gap: 10px;
             }
-            .report-card {
-                padding: 10px 12px;
+            .stat-card {
+                padding: 14px 14px;
+            }
+            .stat-card .stat-value {
+                font-size: 1.2rem;
+            }
+            .section-card {
+                padding: 16px 16px;
+            }
+            .account-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
             }
             .report-table {
                 font-size: 0.7rem;
@@ -354,10 +619,15 @@
             }
             .report-table th,
             .report-table td {
-                padding: 6px 8px;
+                padding: 6px 10px;
             }
-            .report-logo-text {
-                font-size: 1rem;
+            .timeline-item {
+                padding: 6px 10px;
+                gap: 10px;
+            }
+            .timeline-item .timeline-date {
+                min-width: 60px;
+                font-size: 0.65rem;
             }
         }
 
@@ -365,371 +635,436 @@
             .report-grid {
                 grid-template-columns: 1fr;
             }
-            .report-container {
-                padding: 14px 10px;
+            .account-grid {
+                grid-template-columns: 1fr;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .report-hero-title {
+                font-size: 1rem;
+            }
+            .stat-card .stat-value {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="report-container" id="reportContainer">
-        <!-- الرأس -->
-        <div class="report-header">
-            <div class="report-logo">
-                <span class="report-logo-text">📘 Zertiva B2</span>
+<div class="report-container" id="reportContainer">
+
+    <!-- ===== HERO ===== -->
+    <div class="report-hero">
+        <div class="report-hero-left">
+            <div class="report-hero-icon">Z</div>
+            <div>
+                <div class="report-hero-title">تقرير <span>Zertiva</span> B2</div>
+                <div class="report-hero-sub">ملخص تقدمك في التحضير لامتحان B2</div>
             </div>
+        </div>
+        <div class="report-hero-right">
+            <span class="report-hero-date" id="reportDate"></span>
             <div class="report-actions">
                 <button class="btn-print" onclick="window.print()">
                     <span class="material-symbols-outlined" style="font-size:18px;">print</span>
-                    طباعة / حفظ PDF
+                    طباعة / PDF
                 </button>
                 <button class="btn-close" onclick="window.close()">
                     <span class="material-symbols-outlined" style="font-size:18px;">close</span>
-                    إغلاق
                 </button>
             </div>
         </div>
+    </div>
 
-        <!-- المحتوى سيتم تعبئته بواسطة JavaScript -->
-        <div id="reportContent">
-            <div style="text-align:center; padding:40px; color:#94a3b8;">
-                ⏳ جاري تحميل التقرير...
-            </div>
+    <!-- ===== STATS GRID ===== -->
+    <div class="report-grid" id="statsGrid">
+        <div class="stat-card">
+            <span class="stat-icon material-symbols-outlined">schedule</span>
+            <div class="stat-value" id="statHours">0</div>
+            <div class="stat-label">ساعات الدراسة</div>
         </div>
-
-        <!-- التذييل -->
-        <div class="report-footer">
-            <span>Zertiva B2 — تقرير الطالب</span>
-            <span>
-                <a href="https://zertivab2.online" target="_blank">zertivab2.online</a>
-                &nbsp;•&nbsp;
-                <span id="reportDate"></span>
-            </span>
+        <div class="stat-card">
+            <span class="stat-icon material-symbols-outlined">local_fire_department</span>
+            <div class="stat-value" id="statStreak">0</div>
+            <div class="stat-label">أيام متتالية</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon material-symbols-outlined">flag</span>
+            <div class="stat-value" id="statRemaining">—</div>
+            <div class="stat-label">المتبقي للامتحان</div>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon material-symbols-outlined">target</span>
+            <div class="stat-value" id="statGoal">—</div>
+            <div class="stat-label">الهدف اليومي</div>
         </div>
     </div>
 
-    <script>
-        // ============================================
-        // تحميل البيانات وعرض التقرير
-        // ============================================
+    <!-- ===== ACCOUNT SECTION ===== -->
+    <div class="section-card">
+        <div class="section-header">
+            <span class="material-symbols-outlined">person</span>
+            <h3>معلومات الحساب</h3>
+            <span class="badge" id="accountBadge">مجاني</span>
+        </div>
+        <div class="account-grid" id="accountGrid">
+            <div class="account-item">
+                <span class="label">الاسم</span>
+                <span class="value" id="accName">—</span>
+            </div>
+            <div class="account-item">
+                <span class="label">البريد الإلكتروني</span>
+                <span class="value" id="accEmail">—</span>
+            </div>
+            <div class="account-item">
+                <span class="label">تاريخ الإنشاء</span>
+                <span class="value" id="accCreated">—</span>
+            </div>
+            <div class="account-item">
+                <span class="label">معرف المستخدم</span>
+                <span class="value mono" id="accUid">—</span>
+            </div>
+            <div class="account-item" style="grid-column: span 2;">
+                <span class="label">تاريخ الامتحان</span>
+                <span class="value" id="accExamDate">—</span>
+            </div>
+        </div>
+    </div>
 
-        (function() {
-            const content = document.getElementById('reportContent');
-            const dateSpan = document.getElementById('reportDate');
+    <!-- ===== SKILLS PROGRESS ===== -->
+    <div class="section-card">
+        <div class="section-header">
+            <span class="material-symbols-outlined">analytics</span>
+            <h3>تقدم المهارات</h3>
+            <span class="badge">8 أقسام</span>
+        </div>
+        <div class="skills-grid" id="skillsGrid">
+            <!-- سيتم تعبئتها بواسطة JS -->
+        </div>
+    </div>
 
-            // عرض تاريخ اليوم
-            dateSpan.textContent = new Date().toLocaleDateString('ar-EG', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit'
-            });
+    <!-- ===== EXAMS TABLE ===== -->
+    <div class="section-card">
+        <div class="section-header">
+            <span class="material-symbols-outlined">assignment</span>
+            <h3>نتائج الامتحانات</h3>
+            <span class="badge" id="examCount">0 امتحان</span>
+        </div>
+        <div class="table-wrapper">
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>القسم</th>
+                        <th>الامتحان</th>
+                        <th>النتيجة</th>
+                        <th>الإعادة</th>
+                        <th>آخر لعب</th>
+                    </tr>
+                </thead>
+                <tbody id="examTableBody">
+                    <!-- سيتم تعبئتها بواسطة JS -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-            // قراءة البيانات من localStorage
-            let reportData = null;
-            try {
-                const raw = localStorage.getItem('zertiva_report_data');
-                if (raw) {
-                    reportData = JSON.parse(raw);
-                }
-            } catch (e) {
-                console.error('❌ فشل قراءة بيانات التقرير:', e);
+    <!-- ===== ACTIVITY TIMELINE ===== -->
+    <div class="section-card">
+        <div class="section-header">
+            <span class="material-symbols-outlined">history</span>
+            <h3>النشاط الأخير</h3>
+            <span class="badge">آخر 7 أيام</span>
+        </div>
+        <div class="timeline" id="timelineContainer">
+            <!-- سيتم تعبئتها بواسطة JS -->
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <div class="report-footer">
+        <span>© Zertiva B2 — تقرير الطالب</span>
+        <span>
+            <a href="https://zertivab2.online" target="_blank">zertivab2.online</a>
+            &nbsp;•&nbsp;
+            <span id="footerDate"></span>
+        </span>
+    </div>
+
+</div>
+
+<script>
+    // ============================================
+    // تحميل البيانات وعرض التقرير
+    // ============================================
+
+    (function() {
+        // عرض التاريخ
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('ar-EG', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
+        document.getElementById('reportDate').textContent = dateStr;
+        document.getElementById('footerDate').textContent = dateStr;
+
+        // قراءة البيانات من localStorage
+        let reportData = null;
+        try {
+            const raw = localStorage.getItem('zertiva_report_data');
+            if (raw) {
+                reportData = JSON.parse(raw);
             }
+        } catch (e) {
+            console.error('❌ فشل قراءة بيانات التقرير:', e);
+        }
 
-            if (!reportData) {
-                content.innerHTML = `
-                    <div style="text-align:center; padding:50px 20px; color:#94a3b8;">
-                        <div style="font-size:48px; margin-bottom:16px;">📭</div>
-                        <h3 style="color:#1e293b; margin-bottom:8px;">لا توجد بيانات</h3>
-                        <p style="font-size:0.9rem;">يرجى العودة إلى الموقع الرئيسي وتحميل معلوماتك من الملف الشخصي.</p>
-                        <button onclick="window.close()" style="margin-top:20px; padding:10px 28px; background:#2c3e66; color:white; border:none; border-radius:40px; font-size:0.85rem; font-weight:600; cursor:pointer;">
-                            إغلاق
-                        </button>
+        if (!reportData) {
+            document.querySelector('.report-container').innerHTML = `
+                <div style="text-align:center; padding:60px 20px; background:#ffffff; border-radius:20px; border:1px solid #eef2f6;">
+                    <div style="font-size:48px; margin-bottom:16px;">📭</div>
+                    <h3 style="color:#1a1a2e; margin-bottom:8px;">لا توجد بيانات</h3>
+                    <p style="color:#94a3b8; font-size:0.9rem;">يرجى العودة إلى الموقع الرئيسي وتحميل معلوماتك من الملف الشخصي.</p>
+                    <button onclick="window.close()" style="margin-top:20px; padding:10px 28px; background:#1a2a4a; color:white; border:none; border-radius:40px; font-size:0.85rem; font-weight:600; cursor:pointer;">
+                        إغلاق
+                    </button>
+                </div>
+            `;
+            return;
+        }
+
+        const d = reportData;
+
+        // ====== دوال مساعدة ======
+        function clean(val) {
+            if (val === null || val === undefined || val === '') return '—';
+            if (typeof val === 'string' && val.trim() === '') return '—';
+            return val;
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr || dateStr === '—' || dateStr === 'غير متوفر') return '—';
+            try {
+                const d = new Date(dateStr);
+                return d.toLocaleDateString('ar-EG', { year: 'numeric', month: '2-digit', day: '2-digit' });
+            } catch {
+                return dateStr;
+            }
+        }
+
+        function getScoreClass(score) {
+            if (score === null || score === undefined) return 'score-none';
+            if (score >= 20) return 'score-good';
+            if (score >= 15) return 'score-medium';
+            return 'score-low';
+        }
+
+        function getScoreDisplay(score) {
+            if (score === null || score === undefined) return '—';
+            return score + ' / 25';
+        }
+
+        function getStatusChip(score) {
+            if (score === null || score === undefined) return `<span class="status-chip none">—</span>`;
+            if (score >= 20) return `<span class="status-chip good">ممتاز</span>`;
+            if (score >= 15) return `<span class="status-chip medium">جيد</span>`;
+            return `<span class="status-chip low">يحتاج مراجعة</span>`;
+        }
+
+        // ====== 1. الإحصائيات ======
+        document.getElementById('statHours').textContent = clean(d.totalHours);
+        document.getElementById('statStreak').textContent = clean(d.streak);
+        document.getElementById('statRemaining').textContent = clean(d.remainingDays);
+        document.getElementById('statGoal').textContent = clean(d.dailyGoal);
+
+        // ====== 2. الحساب ======
+        document.getElementById('accName').textContent = clean(d.fullName);
+        document.getElementById('accEmail').textContent = clean(d.email);
+        document.getElementById('accCreated').textContent = clean(d.creationTime);
+        document.getElementById('accUid').textContent = clean(d.uid);
+        document.getElementById('accExamDate').textContent = clean(d.examDate);
+        const badge = document.getElementById('accountBadge');
+        if (d.plan === 'Pro' || d.plan === 'premium') {
+            badge.textContent = '⭐ Pro';
+            badge.style.background = '#dcfce7';
+            badge.style.color = '#166534';
+        } else {
+            badge.textContent = 'مجاني';
+            badge.style.background = '#f1f4f8';
+            badge.style.color = '#94a3b8';
+        }
+
+        // ====== 3. المهارات ======
+        const skills = [
+            { id: 'hoeren1', label: 'Hören 1' },
+            { id: 'hoeren2', label: 'Hören 2' },
+            { id: 'hoeren3', label: 'Hören 3' },
+            { id: 'lesen1', label: 'Lesen 1' },
+            { id: 'lesen2', label: 'Lesen 2' },
+            { id: 'lesen3', label: 'Lesen 3' },
+            { id: 'sprach1', label: 'Sprach 1' },
+            { id: 'sprach2', label: 'Sprach 2' }
+        ];
+
+        const examData = d.examData || {};
+        const skillsGrid = document.getElementById('skillsGrid');
+        let totalExams = 0;
+
+        skills.forEach(skill => {
+            const exams = examData[skill.id] || {};
+            const examIds = Object.keys(exams);
+
+            if (examIds.length === 0) {
+                skillsGrid.innerHTML += `
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <span class="skill-name">${skill.label}</span>
+                            <span class="skill-score" style="color:#94a3b8;">—</span>
+                        </div>
+                        <div class="skill-progress"><div class="fill" style="width:0%;"></div></div>
+                        <div class="skill-meta">
+                            <span>0 امتحان</span>
+                            <span>لم يبدأ</span>
+                        </div>
                     </div>
                 `;
                 return;
             }
 
-            // ====== عرض التقرير ======
-            function clean(val) {
-                if (val === null || val === undefined || val === '') return 'غير متوفر';
-                if (typeof val === 'string' && val.trim() === '') return 'غير متوفر';
-                return val;
-            }
+            let bestScore = null;
+            let totalRetries = 0;
+            let latestDate = null;
 
-            function formatDate(dateStr) {
-                if (!dateStr || dateStr === 'غير متوفر') return 'غير متوفر';
-                try {
-                    const d = new Date(dateStr);
-                    return d.toLocaleDateString('ar-EG', { year: 'numeric', month: '2-digit', day: '2-digit' });
-                } catch {
-                    return dateStr;
+            examIds.forEach(id => {
+                const exam = exams[id];
+                if (exam.score !== null && exam.score !== undefined) {
+                    if (bestScore === null || exam.score > bestScore) {
+                        bestScore = exam.score;
+                    }
                 }
-            }
+                totalRetries += exam.retries || 0;
+                if (exam.lastPlayed) {
+                    const d = new Date(exam.lastPlayed);
+                    if (!latestDate || d > new Date(latestDate)) {
+                        latestDate = exam.lastPlayed;
+                    }
+                }
+                totalExams++;
+            });
 
-            function getScoreClass(score) {
-                if (score === null || score === undefined) return 'score-none';
-                if (score >= 20) return 'score-good';
-                if (score >= 15) return 'score-medium';
-                return 'score-low';
-            }
+            const progress = bestScore !== null ? Math.round((bestScore / 25) * 100) : 0;
+            const scoreDisplay = bestScore !== null ? bestScore + ' / 25' : '—';
 
-            function getScoreDisplay(score) {
-                if (score === null || score === undefined) return '—';
-                return score + ' / 25';
-            }
-
-            const d = reportData;
-            const fullName = clean(d.fullName);
-            const email = clean(d.email);
-            const plan = clean(d.plan);
-            const creationTime = clean(d.creationTime);
-            const uid = clean(d.uid);
-            const examDate = clean(d.examDate);
-            const remainingDays = clean(d.remainingDays);
-            const totalHours = clean(d.totalHours);
-            const dailyGoal = clean(d.dailyGoal);
-            const streak = clean(d.streak);
-            const history = d.history || [];
-
-            // بناء HTML
-            let html = '';
-
-            // ====== ملخص ======
-            html += `
-                <div class="report-section">
-                    <div class="report-section-title">
-                        <span class="material-symbols-outlined">dashboard</span>
-                        ملخص التقدم
+            skillsGrid.innerHTML += `
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <span class="skill-name">${skill.label}</span>
+                        <span class="skill-score">${scoreDisplay}</span>
                     </div>
-                    <div class="report-grid">
-                        <div class="report-card">
-                            <span class="label">الخطة</span>
-                            <span class="value">${plan}</span>
-                        </div>
-                        <div class="report-card">
-                            <span class="label">المتبقي للامتحان</span>
-                            <span class="value">${remainingDays}</span>
-                        </div>
-                        <div class="report-card">
-                            <span class="label">ساعات الدراسة</span>
-                            <span class="value">${totalHours} ساعة</span>
-                        </div>
-                        <div class="report-card">
-                            <span class="label">الأيام المتتالية</span>
-                            <span class="value">
-                                <span class="streak-badge">
-                                    <span class="fire">🔥</span>
-                                    ${streak} يوم
-                                </span>
-                            </span>
-                        </div>
+                    <div class="skill-progress"><div class="fill" style="width:${progress}%;"></div></div>
+                    <div class="skill-meta">
+                        <span><span class="material-symbols-outlined">repeat</span> ${totalRetries}</span>
+                        <span>${latestDate ? formatDate(latestDate) : '—'}</span>
                     </div>
                 </div>
             `;
+        });
 
-            // ====== معلومات الحساب ======
-            html += `
-                <div class="report-section">
-                    <div class="report-section-title">
-                        <span class="material-symbols-outlined">person</span>
-                        معلومات الحساب
-                    </div>
-                    <div class="report-grid">
-                        <div class="report-card">
-                            <span class="label">الاسم</span>
-                            <span class="value">${fullName}</span>
-                        </div>
-                        <div class="report-card">
-                            <span class="label">البريد الإلكتروني</span>
-                            <span class="value small">${email}</span>
-                        </div>
-                        <div class="report-card">
-                            <span class="label">نوع الحساب</span>
-                            <span class="value">${plan}</span>
-                        </div>
-                        <div class="report-card">
-                            <span class="label">تاريخ الإنشاء</span>
-                            <span class="value small">${creationTime}</span>
-                        </div>
-                        <div class="report-card" style="grid-column: span 2;">
-                            <span class="label">معرف المستخدم</span>
-                            <span class="value small" style="font-family:monospace; font-size:0.7rem; word-break:break-all;">${uid}</span>
-                        </div>
-                    </div>
-                </div>
+        document.getElementById('examCount').textContent = totalExams + ' امتحان';
+
+        // ====== 4. جدول الامتحانات ======
+        const tableBody = document.getElementById('examTableBody');
+        const allExams = [];
+
+        skills.forEach(skill => {
+            const exams = examData[skill.id] || {};
+            const examIds = Object.keys(exams);
+            examIds.forEach(id => {
+                const exam = exams[id];
+                allExams.push({
+                    skill: skill.label,
+                    id: id,
+                    title: exam.title || 'امتحان ' + id,
+                    score: exam.score !== null ? exam.score : null,
+                    retries: exam.retries || 0,
+                    lastPlayed: exam.lastPlayed || null
+                });
+            });
+        });
+
+        // ترتيب حسب آخر لعب (الأحدث أولاً)
+        allExams.sort((a, b) => {
+            if (!a.lastPlayed && !b.lastPlayed) return 0;
+            if (!a.lastPlayed) return 1;
+            if (!b.lastPlayed) return -1;
+            return new Date(b.lastPlayed) - new Date(a.lastPlayed);
+        });
+
+        if (allExams.length === 0) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align:center; color:#94a3b8; padding:20px;">لا توجد نتائج محفوظة</td>
+                </tr>
             `;
+        } else {
+            allExams.forEach(exam => {
+                const scoreClass = getScoreClass(exam.score);
+                const scoreDisplay = getScoreDisplay(exam.score);
+                const statusChip = getStatusChip(exam.score);
+                const lastPlayed = exam.lastPlayed ? formatDate(exam.lastPlayed) : '—';
 
-            // ====== الامتحان ======
-            html += `
-                <div class="report-section">
-                    <div class="report-section-title">
-                        <span class="material-symbols-outlined">calendar_month</span>
-                        معلومات الامتحان
-                    </div>
-                    <div class="report-grid">
-                        <div class="report-card">
-                            <span class="label">تاريخ الامتحان</span>
-                            <span class="value small">${examDate}</span>
-                        </div>
-                        <div class="report-card">
-                            <span class="label">المتبقي</span>
-                            <span class="value">${remainingDays}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // ====== الدراسة ======
-            html += `
-                <div class="report-section">
-                    <div class="report-section-title">
-                        <span class="material-symbols-outlined">analytics</span>
-                        الدراسة
-                    </div>
-                    <div class="report-grid">
-                        <div class="report-card">
-                            <span class="label">مجموع ساعات الدراسة</span>
-                            <span class="value">${totalHours} ساعة</span>
-                        </div>
-                        <div class="report-card">
-                            <span class="label">الهدف اليومي</span>
-                            <span class="value">${dailyGoal}</span>
-                        </div>
-                        <div class="report-card">
-                            <span class="label">الأيام المتتالية</span>
-                            <span class="value">
-                                <span class="streak-badge">
-                                    <span class="fire">🔥</span>
-                                    ${streak} يوم
-                                </span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // ====== النشاط الأخير ======
-            html += `
-                <div class="report-section">
-                    <div class="report-section-title">
-                        <span class="material-symbols-outlined">history</span>
-                        النشاط الأخير
-                    </div>
-                    ${history.length === 0 ? `
-                        <div style="color:#94a3b8; font-size:0.85rem; padding:8px 0;">لا توجد بيانات</div>
-                    ` : `
-                        <div class="report-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
-                            ${history.slice(-7).reverse().map(entry => {
-                                const date = clean(entry.date);
-                                const minutes = entry.minutes || 0;
-                                const hours = Math.floor(minutes / 60);
-                                const mins = minutes % 60;
-                                let timeStr = '';
-                                if (hours > 0) {
-                                    timeStr = hours + ' ساعة' + (mins > 0 ? ' و ' + mins + ' دقيقة' : '');
-                                } else {
-                                    timeStr = mins + ' دقيقة';
-                                }
-                                return `
-                                    <div class="report-card">
-                                        <span class="label">${date}</span>
-                                        <span class="value small">${timeStr}</span>
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    `}
-                </div>
-            `;
-
-            // ====== نتائج الامتحانات (جداول لكل مهارة) ======
-            const skills = [
-                { id: 'hoeren1', label: 'Hören 1' },
-                { id: 'hoeren2', label: 'Hören 2' },
-                { id: 'hoeren3', label: 'Hören 3' },
-                { id: 'lesen1', label: 'Lesen 1' },
-                { id: 'lesen2', label: 'Lesen 2' },
-                { id: 'lesen3', label: 'Lesen 3' },
-                { id: 'sprach1', label: 'Sprachbausteine 1' },
-                { id: 'sprach2', label: 'Sprachbausteine 2' }
-            ];
-
-            const examData = d.examData || {};
-
-            html += `
-                <div class="report-section">
-                    <div class="report-section-title">
-                        <span class="material-symbols-outlined">assignment</span>
-                        تقدم الامتحانات
-                    </div>
-            `;
-
-            skills.forEach(skill => {
-                const exams = examData[skill.id] || {};
-                const examIds = Object.keys(exams);
-
-                html += `
-                    <div style="margin-bottom:18px;">
-                        <div style="font-weight:600; font-size:0.9rem; color:#2c3e66; margin-bottom:6px;">${skill.label}</div>
-                        <div class="report-table-wrapper">
-                            <table class="report-table">
-                                <thead>
-                                    <tr>
-                                        <th>الامتحان</th>
-                                        <th>النتيجة</th>
-                                        <th>الإعادة</th>
-                                        <th>آخر لعب</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                tableBody.innerHTML += `
+                    <tr>
+                        <td><strong>${exam.skill}</strong></td>
+                        <td>${exam.title}</td>
+                        <td class="${scoreClass}">${scoreDisplay}</td>
+                        <td>${exam.retries}</td>
+                        <td>${lastPlayed}</td>
+                    </tr>
                 `;
+            });
+        }
 
-                if (examIds.length === 0) {
-                    html += `
-                        <tr>
-                            <td colspan="4" style="color:#94a3b8; text-align:center;">لم يبدأ بعد</td>
-                        </tr>
-                    `;
+        // ====== 5. النشاط الأخير ======
+        const timelineContainer = document.getElementById('timelineContainer');
+        const history = d.history || [];
+
+        if (history.length === 0) {
+            timelineContainer.innerHTML = `
+                <div style="text-align:center; color:#94a3b8; padding:16px 0;">لا توجد أنشطة مسجلة</div>
+            `;
+        } else {
+            const recent = history.slice(-7).reverse();
+            recent.forEach(entry => {
+                const date = clean(entry.date);
+                const minutes = entry.minutes || 0;
+                const hours = Math.floor(minutes / 60);
+                const mins = minutes % 60;
+                let timeStr = '';
+                if (hours > 0) {
+                    timeStr = hours + ' ساعة' + (mins > 0 ? ' و ' + mins + ' دقيقة' : '');
                 } else {
-                    examIds.forEach(id => {
-                        const exam = exams[id];
-                        const title = exam.title || 'امتحان ' + id;
-                        const score = exam.score !== null ? exam.score : null;
-                        const retries = exam.retries || 0;
-                        const lastPlayed = exam.lastPlayed ? formatDate(exam.lastPlayed) : '—';
-                        const scoreDisplay = getScoreDisplay(score);
-                        const scoreClass = getScoreClass(score);
-
-                        html += `
-                            <tr>
-                                <td>${title}</td>
-                                <td class="${scoreClass}">${scoreDisplay}</td>
-                                <td>${retries}</td>
-                                <td>${lastPlayed}</td>
-                            </tr>
-                        `;
-                    });
+                    timeStr = mins + ' دقيقة';
                 }
 
-                html += `
-                                </tbody>
-                            </table>
-                        </div>
+                timelineContainer.innerHTML += `
+                    <div class="timeline-item">
+                        <span class="timeline-date">${date}</span>
+                        <span class="timeline-dot"></span>
+                        <span class="timeline-content">دراسة</span>
+                        <span class="timeline-value">${timeStr}</span>
                     </div>
                 `;
             });
+        }
 
-            html += `</div>`;
+        // ====== إزالة البيانات من localStorage بعد العرض (اختياري) ======
+        // localStorage.removeItem('zertiva_report_data');
 
-            // ====== عرض المحتوى ======
-            content.innerHTML = html;
-
-            // ====== إزالة البيانات من localStorage بعد العرض (اختياري) ======
-            // localStorage.removeItem('zertiva_report_data');
-
-        })();
-    </script>
+        console.log('✅ تقرير Zertiva B2 تم تحميله بنجاح');
+    })();
+</script>
 
 </body>
 </html>
