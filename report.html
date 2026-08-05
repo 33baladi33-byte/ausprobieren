@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تقرير Zertiva B2</title>
+    <!-- خطوط Google -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap">
+    <!-- أيقونات Material Symbols -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- تحميل ملف exams.js (يجب أن يكون في نفس المسار) -->
+    <script src="exams.js"></script>
     <style>
         /* ===== Reset & Base ===== */
         * {
@@ -337,7 +341,7 @@
             color: #94a3b8;
         }
 
-        /* ===== Exams Grid (NEW) ===== */
+        /* ===== Exams Grid ===== */
         .exams-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -413,6 +417,25 @@
         }
         .score-none {
             color: #94a3b8;
+        }
+
+        /* ===== Section Divider (فاصل الأقسام) ===== */
+        .exam-section-divider {
+            grid-column: 1 / -1;
+            margin: 6px 0 4px 0;
+            padding: 6px 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #2c3e66;
+            background: #f1f4f8;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .exam-section-divider .material-symbols-outlined {
+            font-size: 18px;
         }
 
         /* ===== Timeline ===== */
@@ -577,7 +600,7 @@
                 grid-template-columns: 1fr 1fr;
             }
             .exams-grid {
-                grid-template-columns: 1fr;  /* عمود واحد على الهاتف */
+                grid-template-columns: 1fr;
                 gap: 10px;
             }
             .exam-card {
@@ -706,7 +729,7 @@
         </div>
     </div>
 
-    <!-- ===== EXAMS GRID (NEW) ===== -->
+    <!-- ===== EXAMS GRID (مع فواصل الأقسام) ===== -->
     <div class="section-card">
         <div class="section-header">
             <span class="material-symbols-outlined">assignment</span>
@@ -743,12 +766,10 @@
 </div>
 
 <script>
-    // ============================================
-    // تحميل البيانات وعرض التقرير
-    // ============================================
-
     (function() {
-        // عرض التاريخ (بالأرقام الغربية)
+        // ============================================================
+        //  1.  عرض التاريخ (بالأرقام الغربية)
+        // ============================================================
         const now = new Date();
         const dateStr = now.toLocaleDateString('en-GB', {
             year: 'numeric',
@@ -758,13 +779,13 @@
         document.getElementById('reportDate').textContent = dateStr;
         document.getElementById('footerDate').textContent = dateStr;
 
-        // قراءة البيانات من localStorage
+        // ============================================================
+        //  2.  قراءة بيانات التقرير من localStorage
+        // ============================================================
         let reportData = null;
         try {
             const raw = localStorage.getItem('zertiva_report_data');
-            if (raw) {
-                reportData = JSON.parse(raw);
-            }
+            if (raw) reportData = JSON.parse(raw);
         } catch (e) {
             console.error('❌ فشل قراءة بيانات التقرير:', e);
         }
@@ -785,48 +806,74 @@
 
         const d = reportData;
 
-        // ====== دوال مساعدة ======
+        // ============================================================
+        //  3.  دوال مساعدة عامة
+        // ============================================================
         function clean(val) {
             if (val === null || val === undefined || val === '') return '—';
             if (typeof val === 'string' && val.trim() === '') return '—';
             return val;
         }
 
-        // تنسيق التاريخ بالأرقام الغربية (بدون أرقام عربية)
-        function formatDate(dateStr) {
+        // ============================================================
+        //  4.  دالة النص النسبي للتاريخ (مثل "اليوم"، "قبل يومين")
+        // ============================================================
+        function getRelativeDate(dateStr) {
             if (!dateStr || dateStr === '—' || dateStr === 'غير متوفر') return '—';
             try {
-                const d = new Date(dateStr);
-                return d.toLocaleDateString('en-GB', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit'
-                });
+                const date = new Date(dateStr);
+                const now = new Date();
+                const diff = Math.floor((now - date) / (1000 * 60 * 60 * 24)); // الفرق بالأيام
+
+                if (diff === 0) return 'اليوم';
+                if (diff === 1) return 'قبل يوم';
+                if (diff === 2) return 'قبل يومين';
+                if (diff >= 3 && diff <= 10) return `قبل ${diff} أيام`;
+                return `قبل ${diff} يوماً`;
             } catch {
                 return dateStr;
             }
         }
 
-        function getScoreClass(score) {
-            if (score === null || score === undefined) return 'score-none';
-            if (score >= 20) return 'score-good';
-            if (score >= 15) return 'score-medium';
-            return 'score-low';
+        // ============================================================
+        //  5.  بناء خريطة للامتحانات من ملف exams.js
+        //     (نفترض أن المتغير العمومي `EXAMS` موجود)
+        // ============================================================
+        const examsMap = {};
+        if (typeof window.EXAMS !== 'undefined' && Array.isArray(window.EXAMS)) {
+            window.EXAMS.forEach(ex => {
+                examsMap[ex.id] = ex.title || 'امتحان ' + ex.id;
+            });
+            console.log('✅ تم تحميل ' + Object.keys(examsMap).length + ' امتحان من exams.js');
+        } else {
+            console.warn('⚠️ لم يتم العثور على window.EXAMS، سيتم استخدام الأسماء المخزنة.');
         }
 
-        function getScoreDisplay(score) {
-            if (score === null || score === undefined) return '—';
-            // تأكد من أنها أرقام غربية (هي كذلك بالفعل)
-            return score + ' / 25';
+        function getExamTitle(skillId, examId) {
+            // محاولة جلب الاسم من الخريطة
+            if (examsMap[examId]) {
+                return examId + ': ' + examsMap[examId];
+            }
+            // وإلا استخدم الاسم المخزن في localStorage (إن وجد)
+            const examData = (d.examData && d.examData[skillId] && d.examData[skillId][examId]) || {};
+            if (examData.title && examData.title !== 'امتحان ' + examId) {
+                return examId + ': ' + examData.title;
+            }
+            // أخيراً، استخدم "امتحان X" كحل أخير
+            return 'امتحان ' + examId;
         }
 
-        // ====== 1. الإحصائيات ======
+        // ============================================================
+        //  6.  الإحصائيات
+        // ============================================================
         document.getElementById('statHours').textContent = clean(d.totalHours);
         document.getElementById('statStreak').textContent = clean(d.streak);
         document.getElementById('statRemaining').textContent = clean(d.remainingDays);
         document.getElementById('statGoal').textContent = clean(d.dailyGoal);
 
-        // ====== 2. الحساب ======
+        // ============================================================
+        //  7.  الحساب
+        // ============================================================
         document.getElementById('accName').textContent = clean(d.fullName);
         document.getElementById('accEmail').textContent = clean(d.email);
         document.getElementById('accCreated').textContent = clean(d.creationTime);
@@ -843,7 +890,9 @@
             badge.style.color = '#94a3b8';
         }
 
-        // ====== 3. المهارات ======
+        // ============================================================
+        //  8.  المهارات (لم تتغير)
+        // ============================================================
         const skills = [
             { id: 'hoeren1', label: 'Hören 1' },
             { id: 'hoeren2', label: 'Hören 2' },
@@ -851,8 +900,8 @@
             { id: 'lesen1', label: 'Lesen 1' },
             { id: 'lesen2', label: 'Lesen 2' },
             { id: 'lesen3', label: 'Lesen 3' },
-            { id: 'sprach1', label: 'Sprach 1' },
-            { id: 'sprach2', label: 'Sprach 2' }
+            { id: 'sprach1', label: 'Sprachbausteine 1' },
+            { id: 'sprach2', label: 'Sprachbausteine 2' }
         ];
 
         const examData = d.examData || {};
@@ -913,7 +962,7 @@
                     <div class="skill-progress"><div class="fill" style="width:${progress}%;"></div></div>
                     <div class="skill-meta">
                         <span><span class="material-symbols-outlined">repeat</span> ${totalRetries}</span>
-                        <span>${latestDate ? formatDate(latestDate) : '—'}</span>
+                        <span>${latestDate ? getRelativeDate(latestDate) : '—'}</span>
                     </div>
                 </div>
             `;
@@ -921,19 +970,22 @@
 
         document.getElementById('examCount').textContent = totalExams + ' امتحان';
 
-        // ====== 4. شبكة الامتحانات (NEW) ======
+        // ============================================================
+        //  9.  شبكة الامتحانات مع الترتيب والفصول
+        // ============================================================
         const examsGrid = document.getElementById('examsGrid');
         const allExams = [];
 
+        // تجميع كل الامتحانات مع بياناتها
         skills.forEach(skill => {
             const exams = examData[skill.id] || {};
             const examIds = Object.keys(exams);
             examIds.forEach(id => {
                 const exam = exams[id];
                 allExams.push({
-                    skill: skill.label,
-                    id: id,
-                    title: exam.title || 'امتحان ' + id,
+                    skillId: skill.id,
+                    skillLabel: skill.label,
+                    examId: id,
                     score: exam.score !== null ? exam.score : null,
                     retries: exam.retries || 0,
                     lastPlayed: exam.lastPlayed || null
@@ -941,12 +993,14 @@
             });
         });
 
-        // ترتيب حسب آخر لعب (الأحدث أولاً)
+        // ترتيب الامتحانات حسب القسم (حسب ترتيب skills أعلاه) وداخل كل قسم حسب id
+        const skillOrder = skills.map(s => s.id);
         allExams.sort((a, b) => {
-            if (!a.lastPlayed && !b.lastPlayed) return 0;
-            if (!a.lastPlayed) return 1;
-            if (!b.lastPlayed) return -1;
-            return new Date(b.lastPlayed) - new Date(a.lastPlayed);
+            const idxA = skillOrder.indexOf(a.skillId);
+            const idxB = skillOrder.indexOf(b.skillId);
+            if (idxA !== idxB) return idxA - idxB;
+            // نفس القسم → ترتيب تصاعدي حسب id
+            return parseInt(a.examId) - parseInt(b.examId);
         });
 
         if (allExams.length === 0) {
@@ -954,16 +1008,36 @@
                 <div style="grid-column:1/-1; text-align:center; color:#94a3b8; padding:20px;">لا توجد نتائج محفوظة</div>
             `;
         } else {
-            allExams.forEach(exam => {
-                const scoreClass = getScoreClass(exam.score);
-                const scoreDisplay = getScoreDisplay(exam.score);
-                const lastPlayed = exam.lastPlayed ? formatDate(exam.lastPlayed) : '—';
+            let currentSkillId = null;
+            let html = '';
 
-                examsGrid.innerHTML += `
+            allExams.forEach(exam => {
+                // إذا تغير القسم → أضف فاصل
+                if (exam.skillId !== currentSkillId) {
+                    currentSkillId = exam.skillId;
+                    const skillLabel = skills.find(s => s.id === currentSkillId)?.label || currentSkillId;
+                    html += `
+                        <div class="exam-section-divider">
+                            <span class="material-symbols-outlined">folder</span>
+                            ${skillLabel}
+                        </div>
+                    `;
+                }
+
+                const scoreClass = (exam.score === null || exam.score === undefined) ? 'score-none' :
+                                   (exam.score >= 20 ? 'score-good' :
+                                   (exam.score >= 15 ? 'score-medium' : 'score-low'));
+                const scoreDisplay = (exam.score !== null && exam.score !== undefined) ? exam.score + ' / 25' : '—';
+                const relativeDate = getRelativeDate(exam.lastPlayed);
+
+                // الحصول على العنوان الحقيقي للامتحان (مع الرقم)
+                const title = getExamTitle(exam.skillId, exam.examId);
+
+                html += `
                     <div class="exam-card">
                         <div class="exam-row">
-                            <span class="exam-skill">${exam.skill}</span>
-                            <span class="exam-title">${exam.title}</span>
+                            <span class="exam-skill">${exam.skillLabel}</span>
+                            <span class="exam-title">${title}</span>
                         </div>
                         <div class="exam-row">
                             <span class="exam-score ${scoreClass}">${scoreDisplay}</span>
@@ -973,14 +1047,18 @@
                             </span>
                         </div>
                         <div class="exam-meta">
-                            <span>آخر لعب: ${lastPlayed}</span>
+                            <span>آخر مراجعة: ${relativeDate}</span>
                         </div>
                     </div>
                 `;
             });
+
+            examsGrid.innerHTML = html;
         }
 
-        // ====== 5. النشاط الأخير ======
+        // ============================================================
+        //  10. النشاط الأخير (لم يتغير)
+        // ============================================================
         const timelineContainer = document.getElementById('timelineContainer');
         const history = d.history || [];
 
@@ -1013,7 +1091,7 @@
             });
         }
 
-        console.log('✅ تقرير Zertiva B2 تم تحميله بنجاح (شبكة 2 أعمدة)');
+        console.log('✅ تقرير Zertiva B2 تم تحديثه بنجاح (أسماء حقيقية + تواريخ نسبية + ترتيب ثابت)');
     })();
 </script>
 
