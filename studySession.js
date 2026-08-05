@@ -120,21 +120,26 @@
         }
     }
     
-    // ====== حساب Streak (يعتمد على completed المخزن في history) ======
+      // ====== حساب Streak (يعتمد على completed المخزن في history، ولا يستخدم الهدف الحالي أبداً) ======
     function calculateStreak() {
         const data = loadStats();
         const history = data.history || [];
         // ننشئ map لتاريخ كل يوم ومعرفة إذا كان مكتملاً
         const completedMap = {};
         history.forEach(entry => {
-            // إذا كان entry يحتوي على completed، استخدمه، وإلا احسبه من minutes والهدف المخزن (إن وجد)
+            // إذا كان entry يحتوي على completed، استخدمه مباشرة
             if (entry.completed !== undefined) {
                 completedMap[entry.date] = entry.completed;
             } else {
-                // للأيام القديمة التي ليس بها completed، نحسبها باستخدام goal المخزن في ذلك اليوم (إن وجد)
-                const goalAtDay = entry.goal || data.goal;
-                const minutes = entry.minutes || 0;
-                completedMap[entry.date] = minutes >= goalAtDay;
+                // للأيام القديمة التي ليس بها completed، نحسبها باستخدام goal المخزن في ذلك اليوم
+                // إذا لم يكن entry.goal موجوداً، نعتبر اليوم غير مكتمل (لنؤثر على الـ Streak)
+                if (entry.goal !== undefined && entry.goal !== null) {
+                    const minutes = entry.minutes || 0;
+                    completedMap[entry.date] = minutes >= entry.goal;
+                } else {
+                    // لا توجد معلومات كافية، نعتبر اليوم غير مكتمل
+                    completedMap[entry.date] = false;
+                }
             }
         });
 
