@@ -858,7 +858,7 @@ function openReportPage() {
         } finally {
             if (btn) {
                 btn.classList.remove('loading');
-                btn.textContent = '📄 تقريري';
+                btn.textContent = 'إحصائياتي';
             }
         }
     }, 50);
@@ -869,7 +869,7 @@ if (downloadReportBtn) {
     const newBtn = downloadReportBtn.cloneNode(true);
     downloadReportBtn.parentNode.replaceChild(newBtn, downloadReportBtn);
     const freshBtn = document.getElementById('downloadReportBtn');
-    freshBtn.textContent = '📄 تقريري';
+    freshBtn.textContent = 'إحصائياتي';
     freshBtn.addEventListener('click', openReportPage);
 
     // الزر يظهر دائماً (تم إزالة شرط إخفائه)
