@@ -106,50 +106,43 @@
         return getStudyMinutesForDate(getYesterdayString());
     }
     
-     // ====== التحقق من اليوم الجديد ======
+  
+    // ====== التحقق من اليوم الجديد (بدون إعادة حساب Streak) ======
     function checkNewDay() {
         const today = getTodayString();
         const lastDate = localStorage.getItem('stats_last_date');
         if (lastDate !== today) {
-            // اليوم الجديد: فقط نحدث التاريخ ونزيل علامة تحقيق الهدف لليوم السابق
             localStorage.setItem('stats_last_date', today);
-            // إزالة علامة تحقيق الهدف لليوم الجديد (إن وجدت)
+            // نزيل علامة تحقيق الهدف لليوم الحالي فقط
             const achievedKey = `${STREAK_ACHIEVED_KEY}_${today}`;
             localStorage.removeItem(achievedKey);
-            // لا نعيد حساب Streak هنا، سيتم حسابه من completed المخزن في history
+            // لا نعيد حساب Streak هنا
         }
     }
     
-      // ====== حساب Streak (يعتمد على completed المخزن في history، ولا يستخدم الهدف الحالي أبداً) ======
+    // ====== حساب Streak (يعتمد على completed المخزن في history ولا يستخدم الهدف الحالي) ======
     function calculateStreak() {
         const data = loadStats();
         const history = data.history || [];
-        // ننشئ map لتاريخ كل يوم ومعرفة إذا كان مكتملاً
+        // بناء خريطة completed لكل يوم من history
         const completedMap = {};
         history.forEach(entry => {
-            // إذا كان entry يحتوي على completed، استخدمه مباشرة
+            // إذا كان completed موجوداً، استخدمه
             if (entry.completed !== undefined) {
                 completedMap[entry.date] = entry.completed;
             } else {
-                // للأيام القديمة التي ليس بها completed، نحسبها باستخدام goal المخزن في ذلك اليوم
-                // إذا لم يكن entry.goal موجوداً، نعتبر اليوم غير مكتمل (لنؤثر على الـ Streak)
-                if (entry.goal !== undefined && entry.goal !== null) {
-                    const minutes = entry.minutes || 0;
-                    completedMap[entry.date] = minutes >= entry.goal;
-                } else {
-                    // لا توجد معلومات كافية، نعتبر اليوم غير مكتمل
-                    completedMap[entry.date] = false;
-                }
+                // للأيام القديمة: نحسب completed من minutes و goal المخزنين
+                const goalAtDay = entry.goal || data.goal;
+                const minutes = entry.minutes || 0;
+                completedMap[entry.date] = minutes >= goalAtDay;
             }
         });
 
-        // نحسب الـ Streak من الأمس فصاعداً
         let streak = 0;
         let currentDate = new Date();
         currentDate.setDate(currentDate.getDate() - 1); // نبدأ من الأمس
         for (let i = 0; i < 365; i++) {
             const dateStr = currentDate.toISOString().split('T')[0];
-            // إذا كان اليوم مكتملاً حسب الخريطة، نزيد الـ Streak
             if (completedMap[dateStr] === true) {
                 streak++;
             } else {
@@ -176,6 +169,7 @@
             }
         }
     }
+    
     // ====== حساب التقدم ======
     function calculateProgress(todayMinutes, goalMinutes) {
         if (goalMinutes <= 0) return 0;
@@ -191,7 +185,7 @@
         const todayMinutes = getTodayMinutes();
         const yesterdayMinutes = getYesterdayMinutes();
         const progress = calculateProgress(todayMinutes, goal);
-             const streak = calculateStreak(); // لا نحتاج goal
+             const streak = calculateStreak();
         const circumference = 339.292;
         const offset = circumference * (1 - progress);
         
@@ -299,7 +293,7 @@
         els.historyList.innerHTML = html;
     }
     
-    // ====== دالة تُستدعى عند إضافة وقت دراسة (مع تخزين completed) ======
+     // ====== دالة تُستدعى عند إضافة وقت دراسة (مع تخزين goal و completed لكل يوم) ======
     function updateStatsAfterStudy(minutes) {
         if (minutes <= 0) return;
         const todayStr = getTodayString();
@@ -307,18 +301,16 @@
         const history = data.history || [];
         const existingIndex = history.findIndex(item => item.date === todayStr);
         const todayMinutes = getTodayMinutes();
-        const currentGoal = data.goal; // الهدف الحالي
+        const currentGoal = data.goal;
 
-        // حساب completed بناءً على الهدف الحالي
+        // حساب completed بناءً على الهدف الحالي لهذا اليوم
         const completed = todayMinutes >= currentGoal;
 
         if (existingIndex !== -1) {
-            // تحديث الإدخال الحالي مع حفظ completed و goal
             history[existingIndex].minutes = todayMinutes;
             history[existingIndex].completed = completed;
-            history[existingIndex].goal = currentGoal; // نخزن الهدف المستخدم
+            history[existingIndex].goal = currentGoal;
         } else {
-            // إضافة إدخال جديد مع completed و goal
             history.push({
                 date: todayStr,
                 minutes: todayMinutes,
@@ -330,13 +322,10 @@
         data.history = history;
         saveStats(data);
         
-        // تحديث الواجهة إذا كانت النافذة مفتوحة
         const modal = document.getElementById('studySessionModal');
         if (modal && modal.classList.contains('active')) {
             refreshAll();
         }
-        // تحديث Streak فوراً (يمكن إزالة هذه الدالة لأن Streak سيتم حسابه من completed)
-        // ولكننا نحتفظ بها لتحديث فوري
         updateStreakIfGoalMet();
     }
     window.updateStatsAfterStudy = updateStatsAfterStudy;
@@ -997,4 +986,4 @@
     }
     
     init();
-})();
+})();          
