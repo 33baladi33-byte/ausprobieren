@@ -76,7 +76,11 @@ function openAuthModal(form = 'login') {
     showForm(form);
     if (authModal) authModal.classList.add('active');
 }
-// تم إزالة الكود الزائد الذي كان مكرراً هنا
+
+function closeAuthModalFunc() {
+    if (authModal) authModal.classList.remove('active');
+    clearErrors();
+}
 
 function showForm(form) {
     if (!loginForm || !signupForm || !resetForm) return;
