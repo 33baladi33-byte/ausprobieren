@@ -76,11 +76,19 @@ function openAuthModal(form = 'login') {
     showForm(form);
     if (authModal) authModal.classList.add('active');
 }
-
-function closeAuthModalFunc() {
-    if (authModal) authModal.classList.remove('active');
-    clearErrors();
-}
+        closeAuthModalFunc();
+        showToast('✅ تم تسجيل الدخول بنجاح. مرحباً بك!', 'success');
+        updateUI(user, finalSnap.data());
+        
+        // ربط OneSignal بمستخدم مسجل
+        if (typeof OneSignal !== 'undefined' && OneSignal.User) {
+            try {
+                await OneSignal.User.login(user.uid);
+                console.log('✅ OneSignal: تم ربط المستخدم');
+            } catch(e) {
+                console.warn('⚠️ OneSignal: فشل ربط المستخدم', e);
+            }
+        }
 
 function showForm(form) {
     if (!loginForm || !signupForm || !resetForm) return;
@@ -191,6 +199,25 @@ async function checkSessionAndInitialize() {
             }
         }
 
+        // 2.5) فحص انتهاء صلاحية Study Plan (نفس المنطق)
+        if (userData.studyPlan === true && userData.studyPlanUntil) {
+            const now = Date.now();
+            const expiry = new Date(userData.studyPlanUntil).getTime();
+
+            if (now > expiry) {
+                console.log('⏰ انتهت صلاحية الخطة اليومية. إلغاء التفعيل...');
+                userData.studyPlan = false;
+                userData.studyPlanUntil = null;
+                
+                await docRef.update({
+                    studyPlan: false,
+                    studyPlanUntil: null,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showToast('⏰ انتهت صلاحية الخطة اليومية، تم إلغاء التفعيل.', 'info');
+            }
+        }
+
         // 3) تحديث الواجهة مباشرة بالبيانات الجاهزة
         updateUI(user, userData);
 
@@ -200,7 +227,6 @@ async function checkSessionAndInitialize() {
     }
 }
 
-// دالة مساعدة لإنشاء مستند للمستخدم في الحالات الاستثنائية
 async function createInitialUserDocument(user) {
     const deviceId = getDeviceId();
     const data = {
@@ -210,6 +236,8 @@ async function createInitialUserDocument(user) {
         lastname: '',
         plan: 'free',
         premiumUntil: null,
+        studyPlan: false,
+        studyPlanUntil: null,
         session: { 
             deviceId: deviceId, 
             loginAt: firebase.firestore.FieldValue.serverTimestamp() 
@@ -226,6 +254,10 @@ async function createInitialUserDocument(user) {
 function updateUI(user, data) {
     // تحديث المخبأ للاستخدام في التقرير
     window._cachedUserData = data || null;
+    
+    // ✅ إضافة متغير studyPlan للحفاظ على الحالة
+    window.userStudyPlan = data && data.studyPlan === true;
+    window.userStudyPlanUntil = data && data.studyPlanUntil || null;
 
     const profileEmail = document.getElementById('profileEmail');
     const profileEmailText = document.getElementById('profileEmailText');
@@ -248,6 +280,10 @@ function updateUI(user, data) {
 
     // حالة زائر غير مسجل
     if (!user) {
+        // ✅ إعادة تعيين studyPlan عند تسجيل الخروج
+        window.userStudyPlan = false;
+        window.userStudyPlanUntil = null;
+        
         if (profileEmailText) profileEmailText.textContent = 'غير مسجل';
         if (profileExpiryText) profileExpiryText.textContent = 'الوصول محدود لبعض الامتحانات';
         if (profileStatus) profileStatus.innerHTML = '';
@@ -342,6 +378,11 @@ function updateUI(user, data) {
     if (typeof window.toggleSessionButton === 'function') {
         setTimeout(window.toggleSessionButton, 50);
     }
+    
+    // ✅ تطبيق قفل الخطة اليومية إذا كان متاحاً
+    if (typeof window.applyStudyPlanLock === 'function') {
+        setTimeout(window.applyStudyPlanLock, 100);
+    }
 }
 // ============================================
 // دوال المصادقة (Login, Signup, Logout, Reset)
@@ -420,14 +461,15 @@ async function handleSignup() {
         createdUser = userCredential.user;
         const deviceId = getDeviceId();
 
-        // ✅ إضافة firstname و lastname بشكل صحيح
-        const userData = {
+          const userData = {
             email: email,
             username: username,
             firstname: firstname,
             lastname: lastname,
             plan: 'free',
             premiumUntil: null,
+            studyPlan: false,
+            studyPlanUntil: null,
             session: {
                 deviceId: deviceId,
                 loginAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -678,24 +720,22 @@ function getDailyGoal() {
 }
 
 function getStreak() {
-    const data = getLocalJSON('stats_daily_data', {});
-    const goal = data.goal || 120;
-    if (goal <= 0) return 0;
-    let streak = 0;
-    let currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() - 1);
-    for (let i = 0; i < 365; i++) {
-        const dateStr = currentDate.toISOString().split('T')[0];
-        const key = `session_total_${dateStr}`;
-        const minutes = parseInt(localStorage.getItem(key)) || 0;
-        if (minutes >= goal) {
-            streak++;
+    // إجمالي الأيام الناجحة (يعتمد على completed المخزن في history)
+    const data = getLocalJSON('stats_daily_data', { history: [] });
+    const history = data.history || [];
+    let totalSuccessful = 0;
+    history.forEach(entry => {
+        // إذا كان completed موجوداً، استخدمه مباشرة
+        if (entry.completed !== undefined) {
+            if (entry.completed === true) totalSuccessful++;
         } else {
-            break;
+            // للأيام القديمة (قبل إضافة completed): نحسبها من goal و minutes المخزنين
+            const goalAtDay = entry.goal || data.goal || 120;
+            const minutes = entry.minutes || 0;
+            if (minutes >= goalAtDay) totalSuccessful++;
         }
-        currentDate.setDate(currentDate.getDate() - 1);
-    }
-    return streak;
+    });
+    return totalSuccessful;
 }
 
 function getHistory() {
