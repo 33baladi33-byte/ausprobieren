@@ -1596,75 +1596,78 @@ async function renderExamListForSkill(skill, teilName) {
     
     displaySavedResult(targetSkill, exam.id, titleSpan, div);
 
-        // إنشاء حاوية المعلومات
-        const chipsContainer = document.createElement('div');
-        chipsContainer.className = 'exam-info-chips';
+                // إنشاء حاوية المعلومات - فقط للأقسام المسموحة (ليس Mündlich و Schreiben)
+                const forbiddenChipsSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
+                if (!forbiddenChipsSkills.includes(targetSkill)) {
+                    const chipsContainer = document.createElement('div');
+                    chipsContainer.className = 'exam-info-chips';
 
-        // دوال مساعدة لتحديد لون المؤشرات
-        function getScoreColor(score) {
-            if (score === null || score < 0) return 'gray';
-            if (score <= 9) return 'gray';
-            if (score <= 20) return 'orange';
-            return 'green';
-        }
+                    // دوال مساعدة لتحديد لون المؤشرات
+                    function getScoreColor(score) {
+                        if (score === null || score < 0) return 'gray';
+                        if (score <= 9) return 'gray';
+                        if (score <= 20) return 'orange';
+                        return 'green';
+                    }
 
-        function getRetryColor(count) {
-            if (count <= 6) return 'gray';
-            if (count <= 14) return 'orange';
-            return 'green';
-        }
+                    function getRetryColor(count) {
+                        if (count <= 6) return 'gray';
+                        if (count <= 14) return 'orange';
+                        return 'green';
+                    }
 
-        function getDaysColor(days) {
-            if (days === null) return 'gray';
-            if (days <= 3) return 'green';
-            if (days <= 5) return 'orange';
-            return 'gray';
-        }
+                    function getDaysColor(days) {
+                        if (days === null) return 'gray';
+                        if (days <= 3) return 'green';
+                        if (days <= 5) return 'orange';
+                        return 'gray';
+                    }
 
-        function getMemoryColor(progress) {
-            if (progress < 40) return 'gray';
-            if (progress < 80) return 'orange';
-            return 'green';
-        }
+                    function getMemoryColor(progress) {
+                        if (progress < 40) return 'gray';
+                        if (progress < 80) return 'orange';
+                        return 'green';
+                    }
 
-        // Chip النتيجة
-        const scoreChip = document.createElement('span');
-        const score = getExamResult(targetSkill, exam.id);
-        const scoreColor = getScoreColor(score);
-        scoreChip.className = `exam-chip score chip-${scoreColor}`;
-        scoreChip.innerHTML = `<span class="material-symbols-outlined">bar_chart</span> ${score !== null ? score+'/25' : '—'}`;
-        chipsContainer.appendChild(scoreChip);
+                    // Chip النتيجة
+                    const scoreChip = document.createElement('span');
+                    const score = getExamResult(targetSkill, exam.id);
+                    const scoreColor = getScoreColor(score);
+                    scoreChip.className = `exam-chip score chip-${scoreColor}`;
+                    scoreChip.innerHTML = `<span class="material-symbols-outlined">bar_chart</span> ${score !== null ? score+'/25' : '—'}`;
+                    chipsContainer.appendChild(scoreChip);
 
-        // Chip الإعادات
-        const retryChip = document.createElement('span');
-        const retryCount = getRetryCount(targetSkill, exam.id);
-        const retryColor = getRetryColor(retryCount);
-        retryChip.className = `exam-chip attempts chip-${retryColor}`;
-        retryChip.innerHTML = `<span class="material-symbols-outlined">repeat</span> ${retryCount}`;
-        chipsContainer.appendChild(retryChip);
+                    // Chip الإعادات
+                    const retryChip = document.createElement('span');
+                    const retryCount = getRetryCount(targetSkill, exam.id);
+                    const retryColor = getRetryColor(retryCount);
+                    retryChip.className = `exam-chip attempts chip-${retryColor}`;
+                    retryChip.innerHTML = `<span class="material-symbols-outlined">repeat</span> ${retryCount}`;
+                    chipsContainer.appendChild(retryChip);
 
-        // Chip الأيام
-        const daysChip = document.createElement('span');
-        const reviewDays = getLastReviewDays(targetSkill, exam.id);
-        const daysColor = getDaysColor(reviewDays);
-        daysChip.className = `exam-chip days chip-${daysColor}`;
-        if (reviewDays !== null) {
-            daysChip.innerHTML = `<span class="material-symbols-outlined">calendar_month</span> ${reviewDays === 0 ? 'اليوم' : `منذ ${reviewDays} يوم`}`;
-        } else {
-            daysChip.innerHTML = `<span class="material-symbols-outlined">calendar_month</span> —`;
-        }
-        chipsContainer.appendChild(daysChip);
+                    // Chip الأيام
+                    const daysChip = document.createElement('span');
+                    const reviewDays = getLastReviewDays(targetSkill, exam.id);
+                    const daysColor = getDaysColor(reviewDays);
+                    daysChip.className = `exam-chip days chip-${daysColor}`;
+                    if (reviewDays !== null) {
+                        daysChip.innerHTML = `<span class="material-symbols-outlined">calendar_month</span> ${reviewDays === 0 ? 'اليوم' : `منذ ${reviewDays} يوم`}`;
+                    } else {
+                        daysChip.innerHTML = `<span class="material-symbols-outlined">calendar_month</span> —`;
+                    }
+                    chipsContainer.appendChild(daysChip);
 
-        // Chip Memory
-        const memoryChip = document.createElement('span');
-        const memoryProgress = getExamProgress(targetSkill, exam.id);
-        const memoryColor = getMemoryColor(memoryProgress);
-        memoryChip.className = `exam-chip memory chip-${memoryColor}`;
-        memoryChip.innerHTML = `<span class="material-symbols-outlined">auto_awesome</span> ${memoryProgress}%`;
-        chipsContainer.appendChild(memoryChip);
+                    // Chip Memory
+                    const memoryChip = document.createElement('span');
+                    const memoryProgress = getExamProgress(targetSkill, exam.id);
+                    const memoryColor = getMemoryColor(memoryProgress);
+                    memoryChip.className = `exam-chip memory chip-${memoryColor}`;
+                    memoryChip.innerHTML = `<span class="material-symbols-outlined">auto_awesome</span> ${memoryProgress}%`;
+                    chipsContainer.appendChild(memoryChip);
 
-// إضافة المعلومات إلى البطاقة
-div.appendChild(chipsContainer);
+                    // إضافة المعلومات إلى البطاقة
+                    div.appendChild(chipsContainer);
+                }
 // التحقق من وجود تعديلات
 const hasVersions = exam.versions && exam.versions.length > 1;
 
