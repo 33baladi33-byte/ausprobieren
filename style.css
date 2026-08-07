@@ -4771,9 +4771,6 @@ body:has(#exam.active) .left-side #navSubscribeBtn { order: 4 !important; }
 .zertiva-center-toast {
     display: none !important;
 }
-/* ============================================
-   تصميم معلومات البطاقة (النتيجة، الإعادات، الأيام، Memory)
-   ============================================ */
 .exam-info-chips {
     display: flex;
     flex-wrap: wrap;
@@ -4798,17 +4795,54 @@ body:has(#exam.active) .left-side #navSubscribeBtn { order: 4 !important; }
     color: #94a3b8 !important;
 }
 
-.exam-chip.score { color: #1565C0; font-weight: 500; }
-.exam-chip.score .material-symbols-outlined { color: #1565C0 !important; }
+/* ألوان المؤشرات حسب القيمة */
+.chip-gray { color: #94a3b8; }
+.chip-gray .material-symbols-outlined { color: #94a3b8 !important; }
 
-.exam-chip.attempts { color: #6A1B9A; font-weight: 500; }
-.exam-chip.attempts .material-symbols-outlined { color: #6A1B9A !important; }
+.chip-orange { color: #f59e0b; }
+.chip-orange .material-symbols-outlined { color: #f59e0b !important; }
 
-.exam-chip.days { color: #C62828; font-weight: 500; }
-.exam-chip.days .material-symbols-outlined { color: #C62828 !important; }
+.chip-green { color: #22c55e; }
+.chip-green .material-symbols-outlined { color: #22c55e !important; }
 
-.exam-chip.memory { color: #2E7D32; font-weight: 500; }
-.exam-chip.memory .material-symbols-outlined { color: #2E7D32 !important; }
+/* تصغير حجم المؤشرات في قائمة الامتحانات فقط */
+#examsList .exam-chip {
+    font-size: 8px;
+    gap: 2px;
+}
+#examsList .exam-chip .material-symbols-outlined {
+    font-size: 12px !important;
+}
+
+/* للهواتف حتى عرض 350 بكسل */
+@media (max-width: 768px) {
+    #examsList .exam-chip {
+        font-size: 7px;
+        gap: 1px;
+    }
+    #examsList .exam-chip .material-symbols-outlined {
+        font-size: 10px !important;
+    }
+}
+@media (max-width: 480px) {
+    #examsList .exam-chip {
+        font-size: 6px;
+        gap: 1px;
+    }
+    #examsList .exam-chip .material-symbols-outlined {
+        font-size: 9px !important;
+    }
+}
+/* ضمان أصغر حجم للشاشات الضيقة جداً */
+@media (max-width: 350px) {
+    #examsList .exam-chip {
+        font-size: 5.5px;
+        gap: 0px;
+    }
+    #examsList .exam-chip .material-symbols-outlined {
+        font-size: 8px !important;
+    }
+}
 
 @media (max-width: 768px) {
     .exam-chip {
