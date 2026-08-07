@@ -191,6 +191,25 @@ async function checkSessionAndInitialize() {
             }
         }
 
+        // 2.5) فحص انتهاء صلاحية Study Plan (نفس المنطق)
+        if (userData.studyPlan === true && userData.studyPlanUntil) {
+            const now = Date.now();
+            const expiry = new Date(userData.studyPlanUntil).getTime();
+
+            if (now > expiry) {
+                console.log('⏰ انتهت صلاحية الخطة اليومية. إلغاء التفعيل...');
+                userData.studyPlan = false;
+                userData.studyPlanUntil = null;
+                
+                await docRef.update({
+                    studyPlan: false,
+                    studyPlanUntil: null,
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showToast('⏰ انتهت صلاحية الخطة اليومية، تم إلغاء التفعيل.', 'info');
+            }
+        }
+
         // 3) تحديث الواجهة مباشرة بالبيانات الجاهزة
         updateUI(user, userData);
 
