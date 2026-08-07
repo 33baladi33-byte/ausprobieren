@@ -46,7 +46,7 @@
         `;
         document.head.appendChild(style);
     }
-       // دالة قفل الأزرار التنفيذية داخل الخطة فقط (بدون لمس أدوات التحكم إلا زر "فحص")
+    // دالة قفل الأزرار التنفيذية داخل الخطة فقط
     function lockStudyPlanButtons() {
         // إذا كان لديه حق الوصول، لا نفعل شيئاً
         if (hasStudyPlanAccess()) return;
@@ -55,13 +55,16 @@
         const container = document.getElementById('studyPlannerContainer');
         if (!container) return;
 
-        // --- 1. قفل أزرار الأقسام (Hören 1, ...) ---
-        container.querySelectorAll('.planner-section-btn[data-skill]').forEach(btn => {
+        // ===== 1. قفل أزرار الأقسام (planner-section-btn) - مع استثناء أدوات التحكم =====
+        container.querySelectorAll('.planner-section-btn').forEach(btn => {
+            // 🟢 استثناء: إذا كان الزر داخل أدوات التحكم، لا نغلقه
+            const isInCustomize = btn.closest('#customWeightsContainer') || btn.closest('.planner-card')?.querySelector('#customWeightsContainer');
+            if (isInCustomize) return;
+            
             if (btn.dataset.studyPlanLocked) return;
             btn.dataset.studyPlanLocked = 'true';
             btn.classList.add('study-plan-locked');
 
-            // حفظ المرجع الأصلي (لن نستخدمه)
             const originalClick = btn.onclick;
             btn.onclick = function(e) {
                 e.preventDefault();
@@ -71,27 +74,16 @@
             };
         });
 
-        // --- 2. قفل زر "فحص" في صفحة الإعدادات (plannerSetupBtn) ---
-        const setupBtn = container.querySelector('#plannerSetupBtn');
-        if (setupBtn && !setupBtn.dataset.studyPlanLocked) {
-            setupBtn.dataset.studyPlanLocked = 'true';
-            setupBtn.classList.add('study-plan-locked');
-            const originalClick = setupBtn.onclick;
-            setupBtn.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                openWhatsAppSubscribe();
-                return false;
-            };
-        }
-
-        // --- 3. قفل أي زر يحمل class "planner-check-btn" (باستثناء ما هو داخل أدوات التحكم) ---
-        container.querySelectorAll('.planner-check-btn').forEach(btn => {
-            // استثناء: إذا كان داخل أدوات التحكم، نتركه (لأننا سنقفل customCheckBtn فقط)
-            if (btn.closest('#customWeightsContainer')) return;
+        // ===== 2. قفل زر "فحص" داخل الخطة (باستثناء أدوات التحكم) =====
+        container.querySelectorAll('.planner-check-btn, #plannerSetupBtn, .planner-check-btn, .planner-section-btn[data-skill]').forEach(btn => {
+            // 🟢 استثناء: إذا كان الزر داخل أدوات التحكم، لا نغلقه (سنقفل فقط customCheckBtn لاحقاً)
+            const isInCustomize = btn.closest('#customWeightsContainer') || btn.closest('.planner-card')?.querySelector('#customWeightsContainer');
+            if (isInCustomize) return;
+            
             if (btn.dataset.studyPlanLocked) return;
             btn.dataset.studyPlanLocked = 'true';
             btn.classList.add('study-plan-locked');
+
             const originalClick = btn.onclick;
             btn.onclick = function(e) {
                 e.preventDefault();
@@ -101,39 +93,7 @@
             };
         });
 
-        // --- 4. قفل بطاقات الامتحانات (exam-card) داخل الخطة ---
-        container.querySelectorAll('.exam-card').forEach(card => {
-            if (card.dataset.studyPlanLocked) return;
-            card.dataset.studyPlanLocked = 'true';
-            card.classList.add('study-plan-locked');
-            const originalClick = card.onclick;
-            card.onclick = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                openWhatsAppSubscribe();
-                return false;
-            };
-        });
-
-        // --- 5. قفل أي زر تنفيذي آخر داخل الخطة (باستثناء أزرار الإعدادات والمعلومات، وزر "أدوات التحكم") ---
-        container.querySelectorAll('.planner-card button, .planner-card .exam-card').forEach(el => {
-            if (el.dataset.studyPlanLocked) return;
-            // استثناء الأزرار غير التنفيذية
-            const isNonExec = el.id === 'plannerSettingsBtn' || el.id === 'plannerInfoBtn' || el.id === 'customSystemBtn';
-            if (isNonExec) return;
-            // استثناء كل شيء داخل أدوات التحكم (لأننا سنقفل customCheckBtn فقط)
-            if (el.closest('#customWeightsContainer')) return;
-            el.dataset.studyPlanLocked = 'true';
-            el.classList.add('study-plan-locked');
-            el.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                openWhatsAppSubscribe();
-                return false;
-            });
-        });
-
-        // --- 6. قفل زر "فحص" داخل أدوات التحكم (customCheckBtn) فقط ---
+        // ===== 3. قفل زر "فحص" داخل أدوات التحكم (customCheckBtn) فقط =====
         const customCheckBtn = container.querySelector('#customCheckBtn');
         if (customCheckBtn && !customCheckBtn.dataset.studyPlanLocked) {
             customCheckBtn.dataset.studyPlanLocked = 'true';
@@ -147,16 +107,42 @@
             };
         }
 
-        // --- 7. التأكد من أن زر "أدوات التحكم" (customSystemBtn) غير مقفل ---
-        const systemBtn = container.querySelector('#customSystemBtn');
-        if (systemBtn) {
-            systemBtn.classList.remove('study-plan-locked');
-            delete systemBtn.dataset.studyPlanLocked;
-            // نعيد تعيين onclick إلى الوظيفة الأصلية (إذا كانت موجودة) ولكننا لا نستطيع استعادتها
-            // لذا نتركها كما هي (لن نتدخل فيها)
-        }
+        // ===== 4. قفل بطاقات الامتحانات داخل الخطة (exam-card) =====
+        container.querySelectorAll('.exam-card').forEach(card => {
+            if (card.dataset.studyPlanLocked) return;
+            card.dataset.studyPlanLocked = 'true';
+            card.classList.add('study-plan-locked');
 
-        // --- 8. حماية إضافية: منع أي click على العناصر المقفلة من تنفيذ أي كود آخر ---
+            const originalClick = card.onclick;
+            card.onclick = function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openWhatsAppSubscribe();
+                return false;
+            };
+        });
+
+        // ===== 5. قفل أي زر تنفيذي داخل الخطة (باستثناء أزرار الإعدادات والمعلومات) =====
+        container.querySelectorAll('.planner-card button, .planner-card .exam-card').forEach(el => {
+            if (el.dataset.studyPlanLocked) return;
+            const isNonExec = el.id === 'plannerSettingsBtn' || el.id === 'plannerInfoBtn';
+            if (isNonExec) return;
+            
+            // 🟢 استثناء: إذا كان العنصر داخل أدوات التحكم، نتركه يعمل
+            const isInCustomize = el.closest('#customWeightsContainer') || el.closest('.planner-card')?.querySelector('#customWeightsContainer');
+            if (isInCustomize) return;
+            
+            el.dataset.studyPlanLocked = 'true';
+            el.classList.add('study-plan-locked');
+            el.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openWhatsAppSubscribe();
+                return false;
+            });
+        });
+
+        // ===== 6. حماية إضافية: منع أي click على العناصر المقفلة من تنفيذ أي كود آخر =====
         container.querySelectorAll('.study-plan-locked').forEach(el => {
             if (el.dataset.studyPlanLockedCapture) return;
             el.dataset.studyPlanLockedCapture = 'true';
@@ -167,7 +153,7 @@
                 return false;
             }, true);
         });
-    }   
+    }
      function applyStudyPlanLock() {
         // تحديث المتغيرات العامة للتأكد من صلاحية التاريخ
         if (window.userStudyPlanUntil) {
