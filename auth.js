@@ -526,7 +526,7 @@ async function handleReset() {
     }
 
     const message = `السلام عليكم،\nنسيت كلمة المرور وبغيت نبدلها.\nالبريد الإلكتروني: ${email}`;
-    const waUrl = `https://wa.me/212687561491?text=${encodeURIComponent(message)}`;
+    const waUrl = `https://wa.me/212665881925?text=${encodeURIComponent(message)}`;
     window.open(waUrl, '_blank');
     closeAuthModalFunc();
     showToast('📱 تم فتح واتساب. أرسل رسالتك وسنقوم بمساعدتك.', 'info');
