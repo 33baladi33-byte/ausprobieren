@@ -1944,7 +1944,7 @@ body:has(#exam.active) .left-side #navSubscribeBtn { order: 4 !important; }
         flex-shrink: 0 !important;
     }
     
-    /* زر التصحيح - نفس تصميم الحاسوب مع حجم مناسب للهاتف */
+    /* زر التصحيح */
     .check-btn {
         padding: 10px 20px !important;
         font-size: 0.8rem !important;
@@ -1959,14 +1959,6 @@ body:has(#exam.active) .left-side #navSubscribeBtn { order: 4 !important; }
         cursor: pointer !important;
         transition: all 0.2s ease !important;
         box-shadow: 0 2px 8px rgba(56, 189, 248, 0.2) !important;
-        font-family: inherit !important;
-        letter-spacing: 0.3px !important;
-    }
-    
-    .check-btn:hover {
-        background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
-        box-shadow: 0 4px 16px rgba(56, 189, 248, 0.35) !important;
-        transform: translateY(-2px) !important;
     }
     
     .check-btn:active {
@@ -4621,8 +4613,7 @@ body:has(#exam.active) .left-side #navSubscribeBtn { order: 4 !important; }
         border-radius: 12px;
     }
 }
-
-/* ============================================ 
+/* ============================================
    Toast Notifications - نظام حديث (أعلى الشاشة)
    ============================================ */
 
@@ -4770,91 +4761,6 @@ body:has(#exam.active) .left-side #navSubscribeBtn { order: 4 !important; }
 
 .zertiva-center-toast {
     display: none !important;
-}
-.exam-info-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 10px;
-    margin-top: 4px;
-    margin-bottom: 2px;
-    align-items: center;
-}
-
-.exam-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    font-size: 10px;
-    font-weight: 400;
-    color: #64748b;
-    line-height: 1.5;
-}
-
-.exam-chip .material-symbols-outlined {
-    font-size: 14px !important;
-    color: #94a3b8 !important;
-}
-
-/* ألوان المؤشرات حسب القيمة */
-.chip-gray { color: #94a3b8; }
-.chip-gray .material-symbols-outlined { color: #94a3b8 !important; }
-
-.chip-orange { color: #f59e0b; }
-.chip-orange .material-symbols-outlined { color: #f59e0b !important; }
-
-.chip-green { color: #22c55e; }
-.chip-green .material-symbols-outlined { color: #22c55e !important; }
-
-/* تصغير حجم المؤشرات في قائمة الامتحانات فقط */
-#examsList .exam-chip {
-    font-size: 8px;
-    gap: 2px;
-}
-#examsList .exam-chip .material-symbols-outlined {
-    font-size: 12px !important;
-}
-
-/* للهواتف حتى عرض 350 بكسل */
-@media (max-width: 768px) {
-    #examsList .exam-chip {
-        font-size: 7px;
-        gap: 1px;
-    }
-    #examsList .exam-chip .material-symbols-outlined {
-        font-size: 10px !important;
-    }
-}
-@media (max-width: 480px) {
-    #examsList .exam-chip {
-        font-size: 6px;
-        gap: 1px;
-    }
-    #examsList .exam-chip .material-symbols-outlined {
-        font-size: 9px !important;
-    }
-}
-/* ضمان أصغر حجم للشاشات الضيقة جداً */
-@media (max-width: 350px) {
-    #examsList .exam-chip {
-        font-size: 5.5px;
-        gap: 0px;
-    }
-    #examsList .exam-chip .material-symbols-outlined {
-        font-size: 8px !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .exam-chip {
-        font-size: 9px;
-        gap: 2px;
-    }
-    .exam-chip .material-symbols-outlined {
-        font-size: 12px !important;
-    }
-    .exam-info-chips {
-        gap: 4px 8px;
-    }
 }
 /* ========================================
    MEMORY TRAINER V3 - تحسينات السرعة V2

@@ -1596,78 +1596,98 @@ async function renderExamListForSkill(skill, teilName) {
     
     displaySavedResult(targetSkill, exam.id, titleSpan, div);
 
-                // إنشاء حاوية المعلومات - فقط للأقسام المسموحة (ليس Mündlich و Schreiben)
-                const forbiddenChipsSkills = ['schreiben', 'mündlich', 'mündlich1', 'mündlich2', 'mündlich3'];
-                if (!forbiddenChipsSkills.includes(targetSkill)) {
-                    const chipsContainer = document.createElement('div');
-                    chipsContainer.className = 'exam-info-chips';
 
-                    // دوال مساعدة لتحديد لون المؤشرات
-                    function getScoreColor(score) {
-                        if (score === null || score < 0) return 'gray';
-                        if (score <= 9) return 'gray';
-                        if (score <= 20) return 'orange';
-                        return 'green';
-                    }
+// إنشاء حاوية Chips
+const chipsContainer = document.createElement('div');
+chipsContainer.className = 'exam-info-chips';
+chipsContainer.style.cssText = 'display: flex; flex-wrap: wrap; gap: 4px 6px; margin-top: 4px;';
 
-                    function getRetryColor(count) {
-                        if (count <= 6) return 'gray';
-                        if (count <= 14) return 'orange';
-                        return 'green';
-                    }
+// Chip النتيجة
+const scoreChip = document.createElement('span');
+scoreChip.className = 'exam-chip score';
+const score = getExamResult(targetSkill, exam.id);
+scoreChip.textContent = score !== null ? `🏆 ${score}/25` : '🏆 —';
+chipsContainer.appendChild(scoreChip);
 
-                    function getDaysColor(days) {
-                        if (days === null) return 'gray';
-                        if (days <= 3) return 'green';
-                        if (days <= 5) return 'orange';
-                        return 'gray';
-                    }
+// Chip الإعادات
+const retryChip = document.createElement('span');
+retryChip.className = 'exam-chip attempts';
+const retryCount = getRetryCount(targetSkill, exam.id);
+retryChip.textContent = `🔄 ${retryCount}`;
+chipsContainer.appendChild(retryChip);
 
-                    function getMemoryColor(progress) {
-                        if (progress < 40) return 'gray';
-                        if (progress < 80) return 'orange';
-                        return 'green';
-                    }
+// Chip الأيام
+const daysChip = document.createElement('span');
+daysChip.className = 'exam-chip days';
+const reviewDays = getLastReviewDays(targetSkill, exam.id);
+if (reviewDays !== null) {
+    daysChip.textContent = reviewDays === 0 ? '📅 اليوم' : `📅 منذ ${reviewDays} يوم`;
+} else {
+    daysChip.textContent = '📅 —';
+}
+chipsContainer.appendChild(daysChip);
 
-                    // Chip النتيجة
-                    const scoreChip = document.createElement('span');
-                    const score = getExamResult(targetSkill, exam.id);
-                    const scoreColor = getScoreColor(score);
-                    scoreChip.className = `exam-chip score chip-${scoreColor}`;
-                    scoreChip.innerHTML = `<span class="material-symbols-outlined">bar_chart</span> ${score !== null ? score+'/25' : '—'}`;
-                    chipsContainer.appendChild(scoreChip);
+// Chip Memory
+const memoryChip = document.createElement('span');
+memoryChip.className = 'exam-chip memory';
+const progress = getExamProgress(targetSkill, exam.id);
+memoryChip.textContent = `🧠 ${progress}%`;
+chipsContainer.appendChild(memoryChip);
 
-                    // Chip الإعادات
-                    const retryChip = document.createElement('span');
-                    const retryCount = getRetryCount(targetSkill, exam.id);
-                    const retryColor = getRetryColor(retryCount);
-                    retryChip.className = `exam-chip attempts chip-${retryColor}`;
-                    retryChip.innerHTML = `<span class="material-symbols-outlined">repeat</span> ${retryCount}`;
-                    chipsContainer.appendChild(retryChip);
+// إضافة الـ Chips إلى البطاقة
+div.appendChild(chipsContainer);
+    // ✅ عرض تاريخ آخر مراجعة
+    // ✅ عرض تاريخ آخر مراجعة
+// ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
 
-                    // Chip الأيام
-                    const daysChip = document.createElement('span');
-                    const reviewDays = getLastReviewDays(targetSkill, exam.id);
-                    const daysColor = getDaysColor(reviewDays);
-                    daysChip.className = `exam-chip days chip-${daysColor}`;
-                    if (reviewDays !== null) {
-                        daysChip.innerHTML = `<span class="material-symbols-outlined">calendar_month</span> ${reviewDays === 0 ? 'اليوم' : `منذ ${reviewDays} يوم`}`;
-                    } else {
-                        daysChip.innerHTML = `<span class="material-symbols-outlined">calendar_month</span> —`;
-                    }
-                    chipsContainer.appendChild(daysChip);
 
-                    // Chip Memory
-                    const memoryChip = document.createElement('span');
-                    const memoryProgress = getExamProgress(targetSkill, exam.id);
-                    const memoryColor = getMemoryColor(memoryProgress);
-                    memoryChip.className = `exam-chip memory chip-${memoryColor}`;
-                    memoryChip.innerHTML = `<span class="material-symbols-outlined">auto_awesome</span> ${memoryProgress}%`;
-                    chipsContainer.appendChild(memoryChip);
-
-                    // إضافة المعلومات إلى البطاقة
-                    div.appendChild(chipsContainer);
-                }
+    // ✅ عرض تاريخ آخر مراجعة (مع استثناء Schreiben و Mündlich)
+const forbiddenSkills = ['schreiben', 'mündlich1', 'mündlich2', 'mündlich3'];
+if (!forbiddenSkills.includes(targetSkill)) {
+    const reviewDays = getLastReviewDays(targetSkill, exam.id);
+    if (reviewDays !== null) {
+        const reviewSpan = document.createElement('span');
+        // تحديد اللون حسب عدد الأيام
+        let reviewColor = '#64748b';
+        if (reviewDays <= 3) {
+            reviewColor = '#22c55e'; // أخضر - حديث
+        } else if (reviewDays <= 5) {
+            reviewColor = '#f59e0b'; // برتقالي - يحتاج مراجعة
+        } else {
+            reviewColor = '#ef4444'; // أحمر - متأخر
+        }
+        reviewSpan.style.cssText = `font-size:10px; color:${reviewColor}; margin-right:6px;`;
+        if (reviewDays === 0) {
+            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> اليوم`;
+        } else {
+            reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:${reviewColor}; margin-right:2px; vertical-align:middle;">calendar_month</span> منذ ${reviewDays} يوم`;
+        }
+        titleSpan.appendChild(reviewSpan);
+    } else {
+        // لم يُصحح أبداً
+        const reviewSpan = document.createElement('span');
+        reviewSpan.style.cssText = 'font-size:10px; color:#94a3b8; margin-right:6px;';
+        reviewSpan.innerHTML = `<span class="material-symbols-outlined" style="font-size:10px; color:#94a3b8; margin-right:2px; vertical-align:middle;">calendar_month</span> لم يُراجع`;
+        titleSpan.appendChild(reviewSpan);
+    }
+}
+    const progress = getExamProgress(targetSkill, exam.id);
+    if (progress > 0) {
+      const progressSpan = document.createElement('span');
+      progressSpan.className = 'exam-progress-mini';
+      progressSpan.style.cssText = `
+        font-size: 10px;
+        color: #1565C0;
+        margin-left: 8px;
+        font-weight: 500;
+        background: #f0f7ff;
+        padding: 2px 6px;
+        border-radius: 10px;
+      `;
+      progressSpan.textContent = `${progress}%`;
+      titleSpan.appendChild(progressSpan);
+    }
+    
 // التحقق من وجود تعديلات
 const hasVersions = exam.versions && exam.versions.length > 1;
 
@@ -1863,7 +1883,7 @@ function showVersionsPopup(exam, skill) {
     background: #1a1f2e;
     border-radius: 20px;
     padding: 28px 24px;
-    max-width: 380px;
+    max-width: 340px;
     width: 90%;
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     border: 1px solid #2a3042;
@@ -1872,39 +1892,53 @@ function showVersionsPopup(exam, skill) {
     text-align: center;
   `;
   
+  // الحصول على حالة المستخدم للتحقق من Premium
   getUserStatusForExam().then(userStatus => {
     const isPremium = (userStatus === 'premium');
 
-    let versionsHtml = exam.versions.map((v, i) => {
-      const savedScore = getExamResult(skill, v.id);
-      const retryCount = getRetryCount(skill, v.id);
-      const reviewDays = getLastReviewDays(skill, v.id);
-      const progress = getExamProgress(skill, v.id);
-      
-      // نفس المعلومات بنفس تصميم القاعدة (أيقونات Material)
-      let chipsHtml = `
-        <span class="exam-chip score"><span class="material-symbols-outlined">bar_chart</span> ${savedScore !== null ? savedScore+'/25' : '—'}</span>
-        <span class="exam-chip attempts"><span class="material-symbols-outlined">repeat</span> ${retryCount}</span>
-        <span class="exam-chip days"><span class="material-symbols-outlined">calendar_month</span> ${reviewDays !== null ? (reviewDays === 0 ? 'اليوم' : `منذ ${reviewDays} يوم`) : '—'}</span>
-        <span class="exam-chip memory"><span class="material-symbols-outlined">auto_awesome</span> ${progress}%</span>
-      `;
-      
-      return `
-        <div style="background: #0f1421; border-radius: 12px; padding: 10px 14px; margin-bottom: 8px; border-left: 3px solid #4a6fa5; text-align: right; cursor: pointer; transition: background 0.2s ease;" 
-             onclick="closeVersionsPopupAndOpen('${skill}', ${v.id}, '${v.file}', '${v.title}')">
-          <div style="font-size: 13px; font-weight: 500; color: #e2e8f0; margin-bottom: 4px;">${v.title}</div>
-          <div class="exam-info-chips" style="display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 4px; justify-content: flex-start;">
-            ${chipsHtml}
-          </div>
-        </div>
-      `;
-    }).join('');
+let versionsHtml = exam.versions.map((v, i) => {
+  const savedScore = getExamResult(skill, v.id);
+  const retryCount = getRetryCount(skill, v.id);
+  const reviewDays = getLastReviewDays(skill, v.id);
+  const progress = getExamProgress(skill, v.id);
+  
+  let scoreHtml = '';
+  if (savedScore !== null) {
+    const color = getResultColor(savedScore);
+    scoreHtml = `<span style="font-size:11px; color:${color}; font-weight:bold; margin-left:8px;">${savedScore} / 25</span>`;
+  }
+  
+  let retryHtml = `<span style="font-size:10px; color:#94a3b8; margin-left:6px;">🔄 ${retryCount}</span>`;
+  
+  let reviewHtml = '';
+  if (reviewDays !== null) {
+    const color = reviewDays <= 3 ? '#22c55e' : reviewDays <= 7 ? '#eab308' : '#ef4444';
+    reviewHtml = `<span style="font-size:10px; color:${color}; margin-left:6px;">📅 منذ ${reviewDays} يوم</span>`;
+  } else {
+    reviewHtml = `<span style="font-size:10px; color:#94a3b8; margin-left:6px;">📅 لم يُراجع</span>`;
+  }
+  
+  let progressHtml = '';
+  if (progress > 0) {
+    progressHtml = `<span style="font-size:10px; color:#1565C0; margin-left:6px;">🧠 ${progress}%</span>`;
+  }
+  
+  // البطاقة المعدلة مع المعلومات الأربع
+  return `
+    <div style="...">
+      <span style="...">${v.title}</span>
+      ${scoreHtml}
+      ${retryHtml}
+      ${reviewHtml}
+      ${progressHtml}
+    </div>
+  `;
+}).join('');
     
     modal.innerHTML = `
       <h4 style="margin:0 0 16px 0; font-size:16px; font-weight:600; color:#a8b5d9;">📋 هذا الامتحان له ${exam.versions.length} تعديلات</h4>
       <div style="border-top:1px solid #2a3042; margin-bottom:14px;"></div>
       ${versionsHtml}
-      <button onclick="this.closest('#versionsPopupAuto').remove()" style="margin-top:14px; background: #334155; border: none; padding: 8px 24px; border-radius: 30px; color: #e2e8f0; cursor: pointer; font-weight: 500; width:100%;">إغلاق</button>
     `;
     
     overlay.appendChild(modal);
@@ -1924,12 +1958,6 @@ function showVersionsPopup(exam, skill) {
     }
   });
 }
-// دالة مساعدة لفتح الإصدار من داخل النافذة المنبثقة
-window.closeVersionsPopupAndOpen = function(skill, id, file, title) {
-  const popup = document.getElementById('versionsPopupAuto');
-  if (popup) popup.remove();
-  window.openExam(id, title, skill, file);
-};
 
 // ============================================
 // ✅ دالة setupLockedNextButton المعدلة - تدعم الإصدارات والقواعد الجديدة
@@ -2449,6 +2477,7 @@ function applyExamListView(mode) {
     });
 
     const fixedHeight = Math.min(Math.max(maxHeight, 50), 60);
+
     exams.forEach(item => {
         grid.appendChild(item);
 
@@ -2538,36 +2567,6 @@ function applyExamListView(mode) {
 
         const badge = item.querySelector(".exam-result-badge");
         if (badge) badge.style.fontSize = "8px";
-
-        // ✅ تصغير دائرة عدد التعديلات في وضع grid_view
-        const versionBadge = item.querySelector('.custom-badge');
-        if (versionBadge) {
-            versionBadge.style.cssText = `
-                display: inline-flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                gap: 1px !important;
-                background: linear-gradient(135deg, #334155, #1e293b) !important;
-                color: #f1f5f9 !important;
-                border-radius: 999px !important;
-                padding: 0 4px 0 2px !important;
-                height: 14px !important;
-                flex-shrink: 0 !important;
-                pointer-events: none !important;
-                user-select: none !important;
-                line-height: 1 !important;
-                border: 1px solid #475569 !important;
-                font-size: 8px !important;
-            `;
-            const icon = versionBadge.querySelector('.material-symbols-outlined');
-            if (icon) {
-                icon.style.cssText = 'font-size: 8px !important; line-height: 1 !important;';
-            }
-            const numSpan = versionBadge.querySelector('span:last-child');
-            if (numSpan) {
-                numSpan.style.cssText = 'font-size: 7px !important; font-weight: 600 !important; line-height: 1 !important;';
-            }
-        }
     });
 
     console.log("🟦 Grid View");
