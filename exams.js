@@ -2449,7 +2449,6 @@ function applyExamListView(mode) {
     });
 
     const fixedHeight = Math.min(Math.max(maxHeight, 50), 60);
-
     exams.forEach(item => {
         grid.appendChild(item);
 
@@ -2539,6 +2538,36 @@ function applyExamListView(mode) {
 
         const badge = item.querySelector(".exam-result-badge");
         if (badge) badge.style.fontSize = "8px";
+
+        // ✅ تصغير دائرة عدد التعديلات في وضع grid_view
+        const versionBadge = item.querySelector('.custom-badge');
+        if (versionBadge) {
+            versionBadge.style.cssText = `
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                gap: 1px !important;
+                background: linear-gradient(135deg, #334155, #1e293b) !important;
+                color: #f1f5f9 !important;
+                border-radius: 999px !important;
+                padding: 0 4px 0 2px !important;
+                height: 14px !important;
+                flex-shrink: 0 !important;
+                pointer-events: none !important;
+                user-select: none !important;
+                line-height: 1 !important;
+                border: 1px solid #475569 !important;
+                font-size: 8px !important;
+            `;
+            const icon = versionBadge.querySelector('.material-symbols-outlined');
+            if (icon) {
+                icon.style.cssText = 'font-size: 8px !important; line-height: 1 !important;';
+            }
+            const numSpan = versionBadge.querySelector('span:last-child');
+            if (numSpan) {
+                numSpan.style.cssText = 'font-size: 7px !important; font-weight: 600 !important; line-height: 1 !important;';
+            }
+        }
     });
 
     console.log("🟦 Grid View");
