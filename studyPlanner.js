@@ -85,26 +85,27 @@
     // 3. جمع بيانات الامتحانات من localStorage
     // ============================================
 
-    function collectExamData(skill, examIds) {
-        const exams = [];
+function collectExamData(skill, examIds) {
+    const exams = [];
 
-        for (const id of examIds) {
-            // قراءة البيانات عبر الدوال العمومية (موجودة في exams.js)
-            const score = window.getExamResult ? window.getExamResult(skill, id) : null;
-            const retries = window.getRetryCount ? window.getRetryCount(skill, id) : 0;
-            const lastReviewDays = window.getLastReviewDays ? window.getLastReviewDays(skill, id) : null;
+    for (const id of examIds) {
+        const score = window.getExamResult ? window.getExamResult(skill, id) : null;
+        const retries = window.getRetryCount ? window.getRetryCount(skill, id) : 0;
+        const lastReviewDays = window.getLastReviewDays ? window.getLastReviewDays(skill, id) : null;
+        const time = window.getExamTime ? window.getExamTime(skill, id) : null;
 
-            exams.push({
-                id: id,
-                score: score, // null = لم يحل أبداً
-                retries: retries,
-                lastReviewDays: lastReviewDays, // null = لم يراجع أبداً
-                isNew: (score === null)
-            });
-        }
-
-        return exams;
+        exams.push({
+            id: id,
+            score: score,
+            retries: retries,
+            lastReviewDays: lastReviewDays,
+            time: time,
+            isNew: (score === null)
+        });
     }
+
+    return exams;
+}
 
     // ============================================
     // 4. حساب أيام العمل المتبقية
@@ -160,28 +161,44 @@
     // 6. حساب الأولوية (Priority) لكل امتحان
     // ============================================
 
-    function calculatePriority(exam) {
-        // الأولوية تعتمد على ثلاثة عوامل، كلما كان الرقم أصغر = الأولوية أعلى
+ function calculatePriority(exam) {
+    // 1. وزن النتيجة (العامل الأقوى)
+    const scoreWeight = (exam.score !== null) ? exam.score : 0;
 
-        // 1. النتيجة (0 = الأسوأ، أو جديد)
-        //    null = لم يحل أبداً → نعتبره 0 (أسوأ درجة)
-        const scoreWeight = (exam.score !== null) ? exam.score : 0;
+    // 2. وزن عدد الإعادات (العامل الثاني)
+    const retryWeight = exam.retries;
 
-        // 2. عدد الإعادات (الأقل = الأسوأ = الأولوية الأعلى)
-        const retryWeight = exam.retries;
-
-        // 3. آخر مراجعة (الأقدم = الأسوأ = الأولوية الأعلى)
-        //    null = لم يراجع أبداً → نعتبره 0 (أقدم من أي تاريخ)
-        const reviewWeight = (exam.lastReviewDays !== null) ? exam.lastReviewDays : 0;
-
-        // معادلة الأولوية: 
-        // - النتيجة لها الوزن الأكبر (×10000) لأنها العامل الأهم
-        // - ثم الإعادات (×100)
-        // - ثم آخر مراجعة (×1)
-        const priority = (scoreWeight * 10000) + (retryWeight * 100) + reviewWeight;
-
-        return priority;
+    // 3. وزن آخر مراجعة (مع أولوية خاصة للأيام 1-4، وحماية للأيام >=5)
+    let reviewBoost = 0;
+    if (exam.lastReviewDays === null || exam.lastReviewDays === 0) {
+        reviewBoost = 0; // اليوم أو لم يراجع أبداً → أولوية عالية جداً
+    } else if (exam.lastReviewDays === 1) {
+        reviewBoost = 5; // أمس → أولوية عالية
+    } else if (exam.lastReviewDays === 2) {
+        reviewBoost = 15; // قبل يومين → أولوية متوسطة
+    } else if (exam.lastReviewDays === 3) {
+        reviewBoost = 30; // قبل 3 أيام → أولوية موجودة
+    } else if (exam.lastReviewDays === 4) {
+        reviewBoost = 50; // قبل 4 أيام → أولوية منخفضة نسبياً
+    } else {
+        // 5 أيام فأكثر → نرفع الأولوية بشكل كبير (قيمة سالبة)
+        reviewBoost = -100;
     }
+
+    // 4. وزن وقت الحل (عامل ضعيف جداً)
+    let timeWeight = 0;
+    if (exam.time !== null && exam.time > 0) {
+        const seconds = Math.floor(exam.time / 1000);
+        // أقصى وزن 10 نقاط (ضعيف جداً مقارنة بـ 10000)
+        timeWeight = Math.min(Math.floor(seconds / 10), 10);
+    }
+    // إذا كان الوقت null أو 0، يبقى timeWeight = 0 (يُتجاهل)
+
+    // 5. حساب الأولوية النهائية (القيمة الأقل = أولوية أعلى)
+    const priority = (scoreWeight * 10000) + (retryWeight * 100) + reviewBoost + timeWeight;
+
+    return priority;
+}
 
     // ============================================
     // 7. ترتيب الامتحانات حسب الأولوية
@@ -210,17 +227,12 @@
     // ============================================
     // 8. اختيار امتحانات اليوم
     // ============================================
-
-    function selectTodayExams(sortedExams, dailyCount) {
-        // استبعاد المكتملين (retries >= 6) أولاً
-        const notCompleted = sortedExams.filter(exam => exam.retries < 6);
-
-        // اختيار أول dailyCount
-        const selected = notCompleted.slice(0, dailyCount);
-
-        return selected;
-    }
-
+function selectTodayExams(sortedExams, dailyCount) {
+    // تغيير الحد من 6 إلى 10
+    const notCompleted = sortedExams.filter(exam => exam.retries < 10);
+    const selected = notCompleted.slice(0, dailyCount);
+    return selected;
+}
     // ============================================
     // 9. طباعة تقرير Debug مفصل
     // ============================================

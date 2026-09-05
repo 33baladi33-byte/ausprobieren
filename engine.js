@@ -54,6 +54,239 @@ let lesen3OriginalNodes = null;
 let lesen3ShuffledNodes = null;
 let lesen3OrderSaved = false;
 
+// ============================================
+// نظام مؤقت الحل (Timer)
+// ============================================
+
+const examTimer = {
+    startTime: null,
+    isRunning: false,
+    skill: null,
+    examId: null,
+    intervalId: null,
+    lastElapsed: 0,
+    
+    start(skill, examId) {
+        if (this.isRunning) return;
+        this.startTime = Date.now();
+        this.isRunning = true;
+        this.skill = skill;
+        this.examId = examId;
+        this.lastElapsed = 0;
+        const btn = document.getElementById('playTimerBtn');
+        if (btn) {
+            btn.querySelector('.material-symbols-outlined').textContent = 'pause';
+            btn.title = 'إيقاف مؤقت';
+        }
+        if (this.intervalId) clearInterval(this.intervalId);
+        this.intervalId = setInterval(() => {
+            if (this.isRunning) {
+                const elapsed = Date.now() - this.startTime + this.lastElapsed;
+                const seconds = Math.floor(elapsed / 1000);
+                const minutes = (seconds / 60).toFixed(2);
+                updateTimerDisplay(minutes + ' دقيقة');
+            }
+        }, 1000);
+        console.log(`⏱️ بدأ التوقيت للامتحان ${skill} - ${examId}`);
+    },
+    
+    stop() {
+        if (!this.isRunning) return null;
+        const elapsed = Date.now() - this.startTime + this.lastElapsed;
+        this.isRunning = false;
+        this.lastElapsed = elapsed;
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
+        const skill = this.skill;
+        const examId = this.examId;
+        const btn = document.getElementById('playTimerBtn');
+        if (btn) {
+            btn.querySelector('.material-symbols-outlined').textContent = 'play_arrow';
+            btn.title = 'استئناف التوقيت';
+        }
+               const seconds = Math.floor(elapsed / 1000);
+        const minutes = (seconds / 60).toFixed(2);
+        updateTimerDisplay(minutes + ' دقيقة');
+        console.log(`⏱️ توقف التوقيت للامتحان ${skill} - ${examId}، المدة: ${elapsed}ms`);
+        return elapsed;
+    },
+    
+    resume() {
+        if (this.isRunning) return;
+        if (this.skill === null || this.examId === null) return;
+        this.startTime = Date.now();
+        this.isRunning = true;
+        const btn = document.getElementById('playTimerBtn');
+        if (btn) {
+            btn.querySelector('.material-symbols-outlined').textContent = 'pause';
+            btn.title = 'إيقاف مؤقت';
+        }
+        if (this.intervalId) clearInterval(this.intervalId);
+        this.intervalId = setInterval(() => {
+            if (this.isRunning) {
+                const elapsed = Date.now() - this.startTime + this.lastElapsed;
+                const seconds = Math.floor(elapsed / 1000);
+                const minutes = (seconds / 60).toFixed(2);
+                updateTimerDisplay(minutes + ' دقيقة');
+            }
+        }, 1000);
+        console.log(`⏱️ استئناف التوقيت للامتحان ${this.skill} - ${this.examId}`);
+    },
+    
+    finalize() {
+        if (!this.isRunning && this.lastElapsed === 0) {
+            return null;
+        }
+        let elapsed = this.lastElapsed;
+        if (this.isRunning) {
+            elapsed = Date.now() - this.startTime + this.lastElapsed;
+            this.isRunning = false;
+            if (this.intervalId) {
+                clearInterval(this.intervalId);
+                this.intervalId = null;
+            }
+        }
+        const skill = this.skill;
+        const examId = this.examId;
+        this.startTime = null;
+        this.isRunning = false;
+        this.skill = null;
+        this.examId = null;
+        this.lastElapsed = 0;
+        const btn = document.getElementById('playTimerBtn');
+        if (btn) {
+            btn.querySelector('.material-symbols-outlined').textContent = 'play_arrow';
+            btn.title = 'بدء توقيت الحل';
+        }
+        const seconds = Math.floor(elapsed / 1000);
+        const minutes = (seconds / 60).toFixed(2);
+        updateTimerDisplay(minutes + ' دقيقة');
+        console.log(`⏱️ تم حفظ وقت الامتحان ${skill} - ${examId}، المدة: ${elapsed}ms`);
+        return elapsed;
+    },
+    
+    reset() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = null;
+        }
+        this.startTime = null;
+        this.isRunning = false;
+        this.skill = null;
+        this.examId = null;
+        this.lastElapsed = 0;
+        const btn = document.getElementById('playTimerBtn');
+        if (btn) {
+            btn.querySelector('.material-symbols-outlined').textContent = 'play_arrow';
+            btn.title = 'بدء توقيت الحل';
+        }
+        updateTimerDisplay('لم يُسجل');
+    }
+};
+
+function updateTimerDisplay(text) {
+    const container = document.getElementById('retryCounterBox');
+    if (!container) return;
+    const timeBox = container.querySelectorAll('div')[2];
+    if (timeBox) {
+        timeBox.innerHTML = `أجبت على الامتحان في: <strong style="font-weight:700;">${text}</strong>`;
+    }
+}
+
+// دوال حفظ واسترجاع وقت الامتحان
+function saveExamTime(skill, examId, timeMs) {
+    if (!skill || !examId) return;
+    try {
+        const key = `exam_time_${skill}_${examId}`;
+        localStorage.setItem(key, String(timeMs));
+        if (typeof window.updateRetryCounter === 'function') {
+            window.updateRetryCounter();
+        }
+        const listPage = document.getElementById('list');
+        if (listPage && listPage.classList.contains('active')) {
+            updateExamTimeInList(skill, examId, timeMs);
+        }
+    } catch(e) {
+        console.error("❌ خطأ في حفظ وقت الامتحان:", e);
+    }
+}
+
+function getExamTime(skill, examId) {
+    try {
+        const key = `exam_time_${skill}_${examId}`;
+        const val = localStorage.getItem(key);
+        return val ? parseInt(val, 10) : null;
+    } catch(e) {
+        console.error("❌ خطأ في استرجاع وقت الامتحان:", e);
+        return null;
+    }
+}
+
+function formatTime(ms) {
+    if (ms === null || ms === undefined) return '—';
+    const seconds = Math.floor(ms / 1000);
+    if (seconds < 60) {
+        return `${seconds} ثانية`;
+    } else {
+        const minutes = (seconds / 60).toFixed(2);
+        return `${minutes} دقيقة`;
+    }
+}
+
+function getTimeColor(ms) {
+    if (ms === null || ms === undefined) return 'gray';
+    const seconds = ms / 1000;
+    if (seconds < 60) return 'green';
+    if (seconds < 120) return 'orange';
+    return 'red';
+}
+
+function updateExamTimeInList(skill, examId, timeMs) {
+    const listContainer = document.getElementById('examsList');
+    if (!listContainer) return;
+    const cards = listContainer.querySelectorAll('.item');
+    for (let card of cards) {
+        const titleSpan = card.querySelector('.exam-title');
+        if (!titleSpan) continue;
+        const match = titleSpan.textContent.match(/^(\d+):/);
+        if (!match) continue;
+        const id = parseInt(match[1]);
+        if (id === examId) {
+            const chips = card.querySelectorAll('.exam-chip');
+            for (let chip of chips) {
+                if (chip.querySelector('.material-symbols-outlined')?.textContent === 'timer') {
+                    const timeStr = formatTime(timeMs);
+                    const color = getTimeColor(timeMs);
+                    chip.className = `exam-chip score chip-${color}`;
+                    chip.innerHTML = `<span class="material-symbols-outlined">timer</span> ${timeStr}`;
+                    break;
+                }
+            }
+            break;
+        }
+    }
+}
+
+// تصدير الدوال للاستخدام العالمي
+window.examTimer = examTimer;
+window.saveExamTime = saveExamTime;
+window.getExamTime = getExamTime;
+window.formatTime = formatTime;
+window.getTimeColor = getTimeColor;
+window.updateExamTimeInList = updateExamTimeInList;
+
+document.addEventListener('beforeunload', function() {
+    if (examTimer.isRunning) {
+        examTimer.reset();
+    }
+});
+document.addEventListener('pagehide', function() {
+    if (examTimer.isRunning) {
+        examTimer.reset();
+    }
+});
 window.loadExamFromFile = async function(skill, examId) {
   try {
     const response = await fetch(`data/${skill}/exam${examId}.json`);
@@ -809,6 +1042,20 @@ function checkSprach2Exam() {
           window.removeColorFromExam(examId);
       }
   }
+
+  // ============================================
+  // ✅ حساب وقت الحل وحفظه
+  // ============================================
+  if (examTimer.isRunning) {
+      const elapsed = examTimer.stop();
+      if (elapsed !== null) {
+          const skill = window.currentSkill || '';
+          const examId = window.currentExamId || 1;
+          if (skill && examId) {
+              saveExamTime(skill, examId, elapsed);
+          }
+      }
+  }
 }
 
 // ============================================
@@ -1223,6 +1470,18 @@ function checkSprach1Exam() {
       const examId = window.currentExamId;
       if (examId) {
           window.removeColorFromExam(examId);
+      }
+  }
+
+  // ============================================
+  // ✅ حساب وقت الحل وحفظه (باستخدام finalize)
+  // ============================================
+  const elapsed = examTimer.finalize();
+  if (elapsed !== null) {
+      const skill = window.currentSkill || '';
+      const examId = window.currentExamId || 1;
+      if (skill && examId) {
+          saveExamTime(skill, examId, elapsed);
       }
   }
 }
@@ -1717,6 +1976,20 @@ function checkTrueFalseExam(container, questions, answers, correctNumbersContain
         }
     }
 
+    // ============================================
+    // ✅ حساب وقت الحل وحفظه
+    // ============================================
+    if (examTimer.isRunning) {
+        const elapsed = examTimer.stop();
+        if (elapsed !== null) {
+            const skill = container.id || window.currentSkill || '';
+            const examId = window.currentExamId || 1;
+            if (skill && examId) {
+                saveExamTime(skill, examId, elapsed);
+            }
+        }
+    }
+
     setTimeout(() => {
         resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }, 100);
@@ -1909,15 +2182,28 @@ function checkMatchingExam() {
           selectElem.style.border = "2px solid #e67e22";
           selectElem.style.color = "#155724";
           
-          selectElem.value = correctAnswer;
+          // 1. نتحقق من أن الإجابة الصحيحة موجودة في الخيارات
+          let optionExists = false;
           for (let j = 0; j < selectElem.options.length; j++) {
             if (selectElem.options[j].value === correctAnswer) {
-              const originalText = selectElem.options[j].textContent;
-              const cleanText = originalText.replace(/^✅\s*/, '');
+              optionExists = true;
+              const cleanText = selectElem.options[j].textContent.replace(/^✅\s*/, '');
               selectElem.options[j].textContent = `✅ ${cleanText}`;
               selectElem.options[j].selected = true;
               break;
             }
+          }
+          
+          // 2. إذا لم تكن موجودة، نعرض الإجابة الصحيحة في رسالة منفصلة
+          if (!optionExists) {
+            let msg = card.querySelector('.correct-answer-message');
+            if (!msg) {
+              msg = document.createElement('div');
+              msg.className = 'correct-answer-message';
+              msg.style.cssText = 'margin-top: 6px; font-size: 12px; color: #28a745;';
+              card.appendChild(msg);
+            }
+            msg.innerHTML = `✅ الإجابة الصحيحة: ${correctAnswer}`;
           }
         }
       }
@@ -1966,6 +2252,20 @@ function checkMatchingExam() {
       const examId = window.currentExamId;
       if (examId) {
           window.removeColorFromExam(examId);
+      }
+  }
+
+  // ============================================
+  // ✅ حساب وقت الحل وحفظه
+  // ============================================
+  if (examTimer.isRunning) {
+      const elapsed = examTimer.stop();
+      if (elapsed !== null) {
+          const skill = window.currentSkill || '';
+          const examId = window.currentExamId || 1;
+          if (skill && examId) {
+              saveExamTime(skill, examId, elapsed);
+          }
       }
   }
 }
@@ -2263,6 +2563,20 @@ function checkTeil2Exam() {
       const examId = window.currentExamId;
       if (examId) {
           window.removeColorFromExam(examId);
+      }
+  }
+
+  // ============================================
+  // ✅ حساب وقت الحل وحفظه
+  // ============================================
+  if (examTimer.isRunning) {
+      const elapsed = examTimer.stop();
+      if (elapsed !== null) {
+          const skill = window.currentSkill || '';
+          const examId = window.currentExamId || 1;
+          if (skill && examId) {
+              saveExamTime(skill, examId, elapsed);
+          }
       }
   }
 }
@@ -2895,19 +3209,33 @@ function checkTeil3Exam() {
           selectElem.style.border = "2px solid #e67e22";
           selectElem.style.color = "#155724";
           
-          selectElem.value = correctValue;
-          
+          // 1. نتحقق من أن الإجابة الصحيحة موجودة في الخيارات
+          let optionExists = false;
           for (let j = 0; j < selectElem.options.length; j++) {
             const optValue = selectElem.options[j].value;
             if (optValue === correctValue || 
                 (correctValue === "none" && optValue === "none") ||
                 (correctValue !== null && correctValue !== undefined && parseInt(optValue) === correctValue)) {
+              optionExists = true;
               const originalText = selectElem.options[j].textContent;
               const cleanText = originalText.replace(/^✅\s*/, '');
               selectElem.options[j].textContent = `✅ ${cleanText}`;
               selectElem.options[j].selected = true;
               break;
             }
+          }
+          
+          // 2. إذا لم تكن موجودة، نعرض الإجابة الصحيحة في رسالة منفصلة
+          if (!optionExists) {
+            let msg = card.querySelector('.correct-answer-message');
+            if (!msg) {
+              msg = document.createElement('div');
+              msg.className = 'correct-answer-message';
+              msg.style.cssText = 'margin-top: 6px; font-size: 12px; color: #28a745;';
+              card.appendChild(msg);
+            }
+            let correctDisplay = correctText || (correctValue === "none" ? "✧ بدون عنوان ✧" : correctValue);
+            msg.innerHTML = `✅ الإجابة الصحيحة: ${correctDisplay}`;
           }
         }
       }
@@ -2956,6 +3284,20 @@ function checkTeil3Exam() {
       const examId = window.currentExamId;
       if (examId) {
           window.removeColorFromExam(examId);
+      }
+  }
+
+  // ============================================
+  // ✅ حساب وقت الحل وحفظه
+  // ============================================
+  if (examTimer.isRunning) {
+      const elapsed = examTimer.stop();
+      if (elapsed !== null) {
+          const skill = window.currentSkill || '';
+          const examId = window.currentExamId || 1;
+          if (skill && examId) {
+              saveExamTime(skill, examId, elapsed);
+          }
       }
   }
 }
@@ -5138,23 +5480,81 @@ function isCorrectionVisible() {
     const resultDiv = document.querySelector('.result-box:not([style*="display: none"])');
     return resultDiv && resultDiv.style.display !== 'none';
 }
-
 function triggerCorrection() {
-    const checkBtn = document.querySelector('.check-btn');
-    if (checkBtn) {
+    // البحث داخل صفحة الامتحان الحالية فقط لتجنب العثور على أزرار قديمة من أجزاء أخرى
+    const examContainer = document.getElementById('exam');
+    if (!examContainer) {
+        // إذا لم نجد حاوية الامتحان، نبحث في الصفحة كاملة (حماية)
+        const checkBtn = document.querySelector('.check-btn');
+        if (checkBtn) {
+            checkBtn.click();
+            return true;
+        }
+        const allBtns = document.querySelectorAll('button');
+        for (let btn of allBtns) {
+            const text = btn.textContent.trim();
+            if (text === 'تصحيح' || text === 'Prüfen' || text === '✅ تصحيح' || text === '📝 Prüfen') {
+                btn.click();
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // البحث عن جميع أزرار التصحيح داخل حاوية الامتحان
+    const allCheckBtns = examContainer.querySelectorAll('.check-btn');
+    
+    // البحث عن زر مرئي (التحقق من أن الزر والحاوية الأصلية مرئية)
+    for (const checkBtn of allCheckBtns) {
+        // التحقق من رؤية الزر نفسه
+        const btnStyle = window.getComputedStyle(checkBtn);
+        if (btnStyle.display === 'none' || btnStyle.visibility === 'hidden' || checkBtn.offsetParent === null) {
+            continue; // الزر مخفي، تخطيه
+        }
+        
+        // التحقق من أن الحاوية التي تحتوي الزر ليست مخفية
+        let parent = checkBtn.parentElement;
+        let hiddenParent = false;
+        while (parent && parent !== examContainer) {
+            const parentStyle = window.getComputedStyle(parent);
+            if (parentStyle.display === 'none' || parentStyle.visibility === 'hidden') {
+                hiddenParent = true;
+                break;
+            }
+            parent = parent.parentElement;
+        }
+        
+        if (hiddenParent) {
+            continue; // الحاوية الأصلية مخفية، تخطي هذا الزر
+        }
+        
+        // وجدنا زراً مرئياً في حاوية مرئية
+        console.log('✅ [Enter] تم العثور على زر تصحيح مرئي، سيتم النقر عليه');
         checkBtn.click();
         return true;
     }
-    const allBtns = document.querySelectorAll('button');
+    
+    // إذا لم نجد بالكلاس، نبحث بالأزرار التي تحمل النص المطلوب داخل الحاوية (مع التحقق من الرؤية)
+    const allBtns = examContainer.querySelectorAll('button');
     for (let btn of allBtns) {
         const text = btn.textContent.trim();
+        const btnStyle = window.getComputedStyle(btn);
+        if (btnStyle.display === 'none' || btnStyle.visibility === 'hidden' || btn.offsetParent === null) {
+            continue;
+        }
         if (text === 'تصحيح' || text === 'Prüfen' || text === '✅ تصحيح' || text === '📝 Prüfen') {
+            console.log('✅ [Enter] تم العثور على زر تصحيح (نص) مرئي، سيتم النقر عليه');
             btn.click();
             return true;
         }
     }
+    
+    console.warn('❌ [Enter] لم يتم العثور على أي زر تصحيح مرئي في #exam');
     return false;
 }
+
+
+
 
 function triggerNextExam() {
     const nextBtn = document.getElementById('nextExamBtn');
@@ -5285,14 +5685,10 @@ document.addEventListener('keydown', function(e) {
         return;
     }
 
-    // Enter: تصحيح أو التالي
+      // Enter: تصحيح فقط
     if (key === 'Enter') {
         e.preventDefault();
-        if (isCorrectionVisible()) {
-            triggerNextExam();
-        } else {
-            triggerCorrection();
-        }
+        triggerCorrection();
         return;
     }
 
@@ -5545,3 +5941,5 @@ function addSentencePuzzleIcons(container, questions) {
 // نبحث عن resetBtn.onclick ونضيف الكود التالي:
 
 console.log('✅ تم ربط SentenceReorder مع engine.js (مع دعم Reset)');
+
+export {};
