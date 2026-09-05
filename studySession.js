@@ -365,22 +365,46 @@
         }
     }
     
-    // ====== تشغيل صوت نهاية الجلسة ======
+    // ====== تشغيل صوت نهاية الجلسة مع تكرار تلقائي ======
     let endSound = null;
+    let isEndSoundPlaying = false;
+    let endSoundLoopHandler = null;
+
     function playEndSound() {
+        if (isEndSoundPlaying) return; // منع تشغيل نسختين
         try {
-            if (endSound) {
-                endSound.pause();
-                endSound.currentTime = 0;
-            }
             endSound = new Audio('sounds/end-sound.mp3');
             endSound.volume = 0.25;
-            endSound.play().catch(e => console.log("⚠️ الصوت لم يتم تشغيله"));
+            endSound.loop = false;
+
+            // حدث التكرار التلقائي
+            endSoundLoopHandler = function() {
+                if (isEndSoundPlaying) {
+                    this.currentTime = 0;
+                    this.play().catch(e => console.warn('⚠️ فشل إعادة تشغيل الرنين:', e));
+                }
+            };
+            endSound.addEventListener('ended', endSoundLoopHandler);
+
+            endSound.play().catch(e => console.warn('⚠️ فشل تشغيل الرنين:', e));
+            isEndSoundPlaying = true;
         } catch(e) {
             console.log("❌ خطأ في تشغيل الصوت:", e);
         }
     }
-    
+
+    function stopEndSound() {
+        if (endSound) {
+            endSound.pause();
+            endSound.currentTime = 0;
+            if (endSoundLoopHandler) {
+                endSound.removeEventListener('ended', endSoundLoopHandler);
+                endSoundLoopHandler = null;
+            }
+            endSound = null;
+        }
+        isEndSoundPlaying = false;
+    }
     // ====== إدارة وقت المراجعة اليومي ======
     function getTodayKey() {
         return `session_total_${new Date().toISOString().split('T')[0]}`;
@@ -788,7 +812,6 @@
             pauseSession();
         }
     }
-    
     // ====== إنهاء الجلسة (عند انتهاء الوقت) ======
     function endSession() {
         if (sessionTimer) clearInterval(sessionTimer);
@@ -812,9 +835,8 @@
         updateTotalDisplay();
         refreshAll();
         
-        setTimeout(() => {
-            if (endOverlay) endOverlay.style.display = 'none';
-        }, 4000);
+        // لا نغلق النافذة تلقائياً، المستخدم يضغط "حسناً" لإيقاف الصوت وإغلاقها
+        // تم إزالة الـ setTimeout الذي كان يغلقها بعد 4 ثوانٍ
     }
     
     // ====== إلغاء الجلسة (بواسطة المستخدم) ======
@@ -827,6 +849,7 @@
         // إعادة تعيين lastSavedMinute
         lastSavedMinute = 0;
         
+        stopEndSound(); // إيقاف الصوت إذا كان يعمل
         activeSession = false;
         isPaused = false;
         clearPauseState();
@@ -872,9 +895,10 @@
             els.pauseBtn.addEventListener('click', togglePause);
         }
         
-        // إغلاق نافذة النهاية
+           // إغلاق نافذة النهاية
         if (els.closeEndBtn) {
             els.closeEndBtn.addEventListener('click', function() {
+                stopEndSound(); // إيقاف الصوت فوراً
                 if (els.endOverlay) els.endOverlay.style.display = 'none';
             });
         }
@@ -1017,3 +1041,5 @@
     
     init();
 })();
+
+export {};
